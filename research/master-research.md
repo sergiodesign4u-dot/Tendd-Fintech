@@ -11,7 +11,7 @@
 This document synthesizes all research phases into one reference: product model, competitive landscape, trust benchmark, and UX pattern rationale. It is the foundation for wireframe and design decisions.
 
 ### The Problem
-The average consumer now manages 12 active subscriptions spending over $273/month on recurring services (source: [resubs.app/resources/best-subscription-tracker-apps](https://resubs.app/resources/best-subscription-tracker-apps)). Most people have forgotten at least one. They feel a vague background anxiety about money "leaking out," but they avoid finance apps because those apps feel stressful, judgmental, or overwhelming.
+The average consumer now manages 12 active subscriptions spending over $273/month on recurring services (source: [resubs.app/resources/best-subscription-tracker-apps](https://resubs.app/resources/best-subscription-tracker-apps)). Many users are paying for subscriptions they have forgotten about or no longer use [? see H3 hypothesis - requires user research to quantify]. They feel a vague background anxiety about money "leaking out," but they avoid finance apps because those apps feel stressful, judgmental, or overwhelming.
 
 ### Our Approach
 Build a mobile-first web app that reduces financial anxiety through calm, clear visibility of recurring spend. Not a budgeting app. Not a financial management suite. One job: show users what they pay for, simply and without judgment.
