@@ -1,7 +1,7 @@
 # Master Research Synthesis - Tendd
 
-**Single source of truth. Uses validated v2 product model. All facts cited.**
-**Version:** Post Phase 4.5 (June 2026)
+**Single source of truth. Uses v_refresh product model. All facts cited.**
+**Version:** v_refresh (June 2026 re-run) - competitive analysis, product model, and AARRR updated
 
 ---
 
@@ -28,29 +28,32 @@ Build a mobile-first web app that reduces financial anxiety through calm, clear 
 
 5. **The EU market is underserved** at the calm, simple end of the subscription tracker category. Emma has EU coverage but is complex and feature-heavy. Bobby is simple but iOS-only and manual.
 
+6. **NEW (v_refresh): The privacy-first user is a real, reachable segment - not an edge case.** ReSubs has built a product with 18K+ users and 461 preset subscriptions requiring zero bank connection. Source: [resubs.app](https://resubs.app/). This validates a second activation path (no bank required) as a market expansion move, not just a fallback. The two segments (bank-willing vs. privacy-first) are now both explicitly addressed in the product model and onboarding design.
+
 ### Approach Note
 All competitor data was gathered from public pre-login pages via web search and Playwright. Scores and observations reflect public product surfaces only. Anything [? behind login] was not accessible.
 
 ---
 
-## 2. Product Model (v2 - Validated)
+## 2. Product Model (v_refresh - Current)
 
 ### Segments
 
 | Segment | Profile | JTBD | Priority | Research Status |
 |---------|---------|------|----------|----------------|
-| A: Anxious Millennial | 26-36, financially anxious, subscription-heavy, avoids finance apps | "When I suspect I'm paying for things I forgot about, I want to see all my recurring charges in one calm view, so that I feel in control without becoming a finance person." | Primary | CONFIRMED - Rocket Money's user base and Monzo's design principles validate this profile. Trust barrier is larger than assumed. |
-| B: Frugal 30-Something | 30-42, financially aware, wants to optimize and cut | "When I'm trying to reduce monthly spend, I want to see which subscriptions I actually use vs. don't, so that I can free up money quickly." | Secondary | CONFIRMED with note: higher acquisition potential than assumed because intent is explicit (they are searching for the product). |
-| C: Shared-Finances Couple | 28-40, two-income household, combined subscriptions | "When my partner and I want to understand household spend, I want a shared view of all our subscriptions, so that we stop paying for duplicates." | Later stage | CONFIRMED as later stage. Emma and Monarch added shared modes in 2025 - validates need but also confirms product complexity. |
+| A1: Anxious Millennial (bank-willing) | 26-36, financially anxious, subscription-heavy, trusts brand enough to connect bank | "When I suspect I'm paying for things I forgot about, I want to see all my recurring charges in one calm view, so I feel in control without becoming a finance person." | Primary | CONFIRMED. Rocket Money and Monzo design principles validate this profile. Trust barrier is larger than assumed. |
+| A2: Anxious Millennial (privacy-first) | 26-36, same anxiety profile, but unwilling to connect bank due to privacy concerns or distrust | "When I want to understand my subscription spend, I want to track them myself without giving any app access to my bank, so I feel in control AND secure." | Primary (equal weight, v_refresh) | NEW. Validated by ReSubs 18K+ users with no bank connection required. Source: [resubs.app](https://resubs.app/) |
+| B: Frugal 30-Something | 30-42, financially aware, wants to optimize and cut | "When I'm trying to reduce monthly spend, I want to see which subscriptions I actually use vs. don't, so I can free up money quickly." | Secondary | CONFIRMED with note: higher acquisition potential than assumed because intent is explicit. |
+| C: Shared-Finances Couple | 28-40, two-income household, combined subscriptions | "When my partner and I want to understand household spend, I want a shared view of all our subscriptions, so we stop paying for duplicates." | Later stage | CONFIRMED as later stage. Emma and Monarch added shared modes - validates need but confirms product complexity. |
 
-### AIDA (Segment A - Primary)
+### AIDA (Segments A1 + A2 - Primary)
 
 | Stage | Channel | Message | Mechanic |
 |-------|---------|---------|---------|
-| Attention | TikTok, Reddit r/personalfinance, Instagram Reels | "Found out I was paying for 6 subscriptions I forgot about" | UGC-style subscription list reveal, no jargon |
-| Interest | Landing page | "See all your subscriptions in one calm view - no stress, no jargon" | Product preview with real logos, progressive trust before asking for anything |
-| Desire | Onboarding first session | Guided reveal: "Here's your monthly total. Here's what's in it. Here are 2 you might want to look at." | One number, one insight, zero judgment |
-| Action | Post-reveal upgrade trigger | "Find your full history and cancel easily - try Pro" | Trigger at moment of discovering a forgotten subscription |
+| Attention | TikTok, Reddit r/personalfinance, Instagram Reels, "no bank" SEO content | "Found out I was paying for 6 subscriptions I forgot about" / "Track subscriptions without giving your bank details" | UGC-style subscription list reveal, no jargon; privacy-first content angle validated by ReSubs. Source: [resubs.app/resources](https://resubs.app/resources) |
+| Interest | Landing page | "See all your subscriptions in one calm view - no stress, no jargon" | Product preview with real logos, progressive trust. Dual CTA above fold: "Connect bank" + "Start without connecting." |
+| Desire | Onboarding first session | Guided reveal: "Here's your monthly total. Here's what's in it. Here are 2 you might want to look at." | Both paths converge on same aha moment (populated subscription list). Path A: auto-detect via bank. Path B: AI import or manual entry using preset library (benchmark: ReSubs 461 presets). |
+| Action | Post-reveal upgrade trigger | "Find your full history and cancel easily - try Pro" | Trigger at moment of discovering a forgotten subscription or at paywall for cancel guide access. |
 
 ---
 
@@ -77,10 +80,10 @@ RETENTION
         |
         v
 REVENUE
-  Trigger: Finding forgotten subscription OR hitting free tier limit
-  Model: Freemium, Tendd Pro ~$4-6/mo [? hypothesis]
+  Trigger: Finding forgotten subscription OR hitting free tier limit OR wanting cancel guide
+  Model: Freemium, Tendd Pro ~$6-10/mo [? hypothesis - raised from $4-6. Evidence: PocketGuard $12.99/mo, YNAB $14.99/mo]
   Key metric: Free-to-paid conversion within 90 days
-  MVP target: 5-8% [? hypothesis]
+  MVP target: 6-10% [? hypothesis - raised from 5-8%]
         |
         v
 REFERRAL
@@ -96,46 +99,58 @@ REFERRAL
 | Acquisition | New signups/week | 100/week at 3 months | [? hypothesis] |
 | Activation | % who see subscription list in session 1 | 35-40% within 24h | [? hypothesis] |
 | Retention | 30-day active rate | 30% free / 60% paid | [? hypothesis] |
-| Revenue | Free-to-paid conversion, 90 days | 5-8% | [? hypothesis - Monarch's no-free-tier model suggests WTP may be higher] |
+| Revenue | Free-to-paid conversion, 90 days | 6-10% | [? hypothesis - raised. PocketGuard $12.99/mo (1M+ users), YNAB $14.99/mo validate higher WTP than originally assumed] |
 | Referral | % signups from referrals | 15-20% at 6 months | [? hypothesis] |
 
 ### MVP Product Decisions (one per stage)
 
-1. **Acquisition:** Build a shareable "subscription snapshot" card (total + count) before building a formal referral program.
-2. **Activation:** Design the entire onboarding around the Guided Reveal pattern - one job, one screen, maximum one step before showing value.
-3. **Retention:** Ship the weekly email digest on day 1.
-4. **Revenue:** The upgrade trigger lives immediately after the "forgotten subscription discovery" moment.
-5. **Referral:** The snapshot card is the referral mechanic. No formal program in MVP.
+1. **Acquisition:** Build a shareable "subscription snapshot" card (total + count, no bank data) before building a formal referral program. Landing page must show dual CTA above the fold.
+2. **Activation:** Build two explicit onboarding paths with equal visual weight: bank-connected (fast, auto) and privacy-first (manual + AI import, using preset library). Both converge on the same Guided Reveal aha moment.
+3. **Retention:** Ship the weekly email digest on day 1. Build home-screen widget (PWA) early. Launch with 10 cancel guides for top services.
+4. **Revenue:** The upgrade trigger lives at the "forgotten subscription discovery" moment AND at the cancel guide paywall. Price hypothesis revised to $7.99/mo or $69/yr.
+5. **Referral:** Privacy-safe snapshot card (no bank data shown). Trigger share prompt after the cancel moment, not at onboarding.
 
 ---
 
 ## 4. Competitive Landscape
 
-### Competitor Matrix
+**v_refresh: Expanded to 15 competitors in 3 groups. Full detail in research/competitive-analysis.md.**
 
-| Product | Audience | Product Foundation | Key Mechanisms | Trust Signals | Monetization |
-|---------|---------|-------------------|---------------|--------------|-------------|
-| Rocket Money | Broad US, 10M+ members | All-in-one: subscriptions, budgeting, credit, net worth | Plaid auto-detect, cancellation concierge, bill negotiation | 10M+ members, $2.5B savings claim, FDIC banking | Free + $7-14/mo (user-chosen) + 35-60% bill savings |
-| Emma | UK/EU millennials, 2M+ | Full money app: subscriptions, budgeting, investing, payments | FCA open banking, subscription detection, collaborative budgets | FCA regulated, Forbes/FT logos, 2M+ users | Free + £4.99-14.99/mo (3 tiers) |
-| Hiatus | US expense-reducers | Subscription + bill negotiation + light budget | Auto-detect, flat-fee bill negotiation, rate comparison | 2,000+ 5-star reviews, phone support | Free + $9.99/mo or $35.99/yr |
-| Bobby | iOS privacy-conscious | Manual subscription tracker only | Manual entry, reminders, calendar view | 4.7 App Store (8K reviews), no bank access | Free + one-time IAP |
-| YNAB | Committed budgeters | Zero-based budgeting system | Rules-based allocation, goal tracking, workshops | $6K avg yr 1 savings, 4.8 App Store, strong community | No free tier. $14.99/mo or $109/yr |
+### Competitor Groups
 
-Sources: [rocketmoney.com](https://www.rocketmoney.com/), [emma-app.com](https://emma-app.com/), [hiatusapp.com](https://hiatusapp.com/), [bobbyapp.co](https://bobbyapp.co/), [ynab.com](https://www.ynab.com/)
+| Group | Purpose | Key Players |
+|-------|---------|------------|
+| HARD (direct) | Same job-to-be-done, head-to-head competition | Rocket Money, Emma, ReSubs, Bobby, Hiatus |
+| SOFT (adjacent) | Solve a related problem; users may compare or switch | YNAB, Monarch Money, Copilot Money, PocketGuard, Simplifi |
+| ASPIRATIONAL (design benchmark) | Not direct competitors; best-in-class for trust, calm, clarity | Revolut, Monzo, Apple Card, N26, Nubank |
 
-### 3 Common Patterns
+Sources: research/competitive-analysis.md v_refresh.
 
-**P1: Bank connection as primary activation path.** All auto-detection competitors use bank linking as step 1. This is the fastest route to value but also the biggest trust barrier for the anxious user. Source: Phase 3 competitive-analysis.md.
+### Key Competitor Matrix (HARD group)
 
-**P2: Feature accumulation crowds out the core.** Every subscription tracker that gained scale expanded into full personal finance. The original calm, simple subscription view is buried under feature depth. Source: Phase 3 competitive-analysis.md.
+| Product | Audience | Platform | Unique angle | Pricing |
+|---------|---------|---------|-------------|--------|
+| Rocket Money | Broad US, 10M+ members | iOS + Android + Web | Cancellation concierge, bill negotiation | Free + $7-14/mo |
+| Emma | UK/EU millennials, 2M+ | iOS + Android | FCA open banking, EU coverage | Free + £4.99-14.99/mo |
+| ReSubs | Privacy-conscious, 18K+ users | iOS + Android | No bank connection, 461 presets, cancel guides | $0.99-4.49/mo or lifetime |
+| Bobby | iOS privacy-conscious | iOS only | Calendar/widget view, manual entry | Free + one-time IAP |
+| Hiatus | US expense-reducers | iOS + Android | Bill negotiation, rate comparison | Free + $9.99/mo |
 
-**P3: Freemium with aggressive upsell.** All products push upgrade prompts. Emma is specifically noted for this problem: "constant prompts disrupt an otherwise smooth experience." Source: [orbitmoney.io/compare/emma-app-review](https://orbitmoney.io/compare/emma-app-review).
+Sources: [rocketmoney.com](https://www.rocketmoney.com/), [emma-app.com](https://emma-app.com/), [resubs.app](https://resubs.app/), [bobbyapp.co](https://bobbyapp.co/), [hiatusapp.com](https://hiatusapp.com/)
 
-### 3 Key Differences
+### 3 Common Patterns (v_refresh)
 
-**D1: Auto-detection vs. manual entry.** Rocket Money/Emma/Hiatus auto-detect via bank. Bobby requires manual entry. These are fundamentally different trust models - neither fully solves the anxious user's bank-connection barrier.
+**P1: Bank connection as primary activation path.** All auto-detection competitors use bank linking as step 1. This is the fastest route to value but also the biggest trust barrier for the anxious user. Source: competitive-analysis.md P1.
 
-**D2: Focused vs. all-in-one scope.** Bobby and YNAB have strong niche identities. The all-in-one products have higher churn risk and lower per-feature satisfaction.
+**P2: Feature accumulation crowds out the core.** Every subscription tracker that gained scale expanded into full personal finance. The calm, simple subscription view is buried under feature depth. Source: competitive-analysis.md P2.
+
+**P3: Privacy vs. convenience binary - no middle path offered.** Competitors force a binary choice: full bank access (Rocket Money/Emma/Hiatus) or fully manual (Bobby/ReSubs). No competitor offers a thoughtful middle path (e.g., AI screenshot import, email parsing, or partial connect). Source: competitive-analysis.md P3 (new in v_refresh).
+
+### 3 Key Differences (v_refresh)
+
+**D1: Revenue model shapes product incentives and culture.** Rocket Money earns from bill negotiation percentages. Emma earns from tiered subscriptions. ReSubs earns from lifetime purchases and IAP. These different models explain different product priorities - Rocket Money needs billable negotiations; ReSubs has no churn incentive to keep you subscribed. Source: competitive-analysis.md D1.
+
+**D2: Focused vs. all-in-one scope.** Bobby and ReSubs have strong niche identities and high user satisfaction. The all-in-one products have higher churn risk and lower per-feature satisfaction.
 
 **D3: Data sharing transparency.** Monarch Money explicitly states "we do not sell your data" (source: [thepennyhoarder.com/budgeting/monarch-money-review/](https://www.thepennyhoarder.com/budgeting/monarch-money-review/)). No competitor makes data use a front-page trust signal.
 
@@ -143,11 +158,12 @@ Sources: [rocketmoney.com](https://www.rocketmoney.com/), [emma-app.com](https:/
 
 | Gap | Source citation | Our response |
 |-----|----------------|-------------|
-| Calm as a first-class design principle - nobody has made it a commitment | Phase 3, competitive-analysis.md pattern P1/P2 | Core design principle #1 in CLAUDE.md |
-| Plain language as a brand pillar - all competitors use some jargon | Phase 4, benchmark-trust.md Monzo observation | Active voice + real merchant names in every string |
-| Progressive trust-building before bank connection | Phase 3 gap analysis + Phase 4 benchmark C8 (pre-bank value) | Guided Reveal onboarding shows value before asking for bank access |
-| The cancel moment as a designed positive emotional experience | Phase 3 gap analysis #4 | Cancel discovery = "win" moment; upgrade trigger |
-| EU-native calm subscription tracker (simple, not full-finance) | Phase 3 - Emma is EU but complex; Bobby is simple but iOS-only | Cross-platform web-first, EU open banking support |
+| Calm as a first-class design principle | competitive-analysis.md P1/P2 | Core design principle #1 in CLAUDE.md |
+| Plain language as a brand pillar | benchmark-trust.md Monzo observation | Active voice + real merchant names in every string |
+| Progressive trust-building before bank connection | competitive-analysis.md gap + benchmark C8 | Guided Reveal onboarding shows value before asking for bank access |
+| The cancel moment as a designed positive emotional experience | competitive-analysis.md gap G4 | Cancel discovery = "win" moment; upgrade trigger; cancel guides as Pro feature |
+| EU-native calm subscription tracker (simple, not full-finance) | competitive-analysis.md gap G5 | Cross-platform web-first, EU open banking support |
+| Middle path between full bank connect and fully manual | competitive-analysis.md P3 + gap G6 (new v_refresh) | AI screenshot import / email parsing as path B; equal UX weight to bank connect path |
 
 ---
 
@@ -237,6 +253,6 @@ Requires too much cognitive load for the anxious scan-first user. The product mu
 | What % of our users will connect a bank account vs. use manual entry? | This is the core activation design decision | MVP A/B test: bank connection in step 1 vs. demo-first then bank connection |
 | What is the right free tier limit (subscriptions count, features, or time)? | Free tier generosity drives WTP and word of mouth | User research: interview 10 free users about what would make them upgrade |
 | Does the "Guided Reveal" onboarding work for users with only 2-3 subscriptions? | If the reveal is underwhelming for small users, the pattern fails for low-subscription users | Prototype test with users who have <5 subscriptions |
-| Is $4.99/mo or $6.99/mo the right price point for Tendd Pro? | Pricing affects conversion rate, LTV, and positioning | Pricing page A/B test after launch; Van Westendorp price sensitivity survey in user research |
+| Is $6.99/mo, $7.99/mo, or $9.99/mo the right price point for Tendd Pro? | Pricing hypothesis revised up. PocketGuard charges $12.99/mo (1M+ users), YNAB $14.99/mo. Original $4.99 may be leaving money on the table. | Pricing page A/B test after launch; Van Westendorp price sensitivity survey in user research |
 | What EU open banking provider has the best reliability and coverage for our markets? | TrueLayer vs. Nordigen (GoCardless) vs. Powens have different coverage/reliability | Technical evaluation: build a proof-of-concept against both and measure real coverage |
 | How long does it take for a new user to see their first subscription via bank sync? | If sync takes >60 seconds, the Guided Reveal pattern fails at activation | Technical benchmark during early development |
