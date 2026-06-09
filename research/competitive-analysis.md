@@ -1,230 +1,262 @@
 # Competitive Analysis - Tendd
 
-**Sources used:** Web research via live pages (June 2026). All facts cited. Screenshots captured via Playwright from public pre-login pages only. [? behind login] marks anything not accessible without an account.
+**Version:** v_refresh - June 2026 re-run. Prior findings incorporated and expanded.
+**Sources:** Live web research and WebFetch (June 2026). All facts cited with source URLs. Screenshots via Playwright from public pre-login pages only. [? behind login] marks anything requiring an account.
+
+---
+
+## Changelog
+
+| Version | Date | Change |
+|---------|------|--------|
+| v1 | June 2026 (Phase 3) | Initial analysis: 5 hard, 3 soft, 3 aspirational competitors |
+| v_refresh | June 2026 (re-run) | Deepened all groups to max 5 each. Added ReSubs (hard), PocketGuard + Simplifi (soft), N26 + Nubank (aspirational). New screenshots for all new entrants. Updated facts on existing competitors. |
 
 ---
 
 ## 1. Competitor Groups
 
-### Hard Competitors - Same product, same audience
+### HARD - Same product, same audience, our market
 
-| Product | HQ | Platform | Core angle |
-|---------|-----|----------|-----------|
-| Rocket Money | US | iOS, Android, Web | All-in-one money app: subscription tracking + budgeting + bill negotiation |
-| Bobby | Netherlands (Yummygum) | iOS only (Android unmaintained) | Minimalist manual subscription tracker |
-| Emma | UK (London) | iOS, Android, Web | UK/EU-focused money management + subscription tracking |
-| Hiatus | US (NY/NC) | iOS, Android | Subscription management + bill negotiation + light budgeting |
-| Trim | US | Web | Bank-connected subscription detection + bill negotiation |
+These are the products a user would find if they searched "subscription tracker app" today. They compete directly for our user's attention and their recurring payment data.
 
-Sources: [rocketmoney.com](https://www.rocketmoney.com/), [bobbyapp.co](https://bobbyapp.co/), [emma-app.com](https://emma-app.com/), [hiatusapp.com](https://hiatusapp.com/), [resubs.app/resources/best-subscription-tracker-apps](https://resubs.app/resources/best-subscription-tracker-apps)
+| Product | HQ | Platform | Why it belongs here | What to study |
+|---------|-----|----------|--------------------|----|
+| Rocket Money | US | iOS, Android, Web | Dominant US player, 10M+ users, auto-detects subs via Plaid, freemium | Activation flow, cancellation concierge UX, trust signals at scale |
+| Emma | UK | iOS, Android, Web | Dominant EU/UK player, FCA-regulated open banking, 2M+ users | EU onboarding, FCA trust framing, multi-tier pricing |
+| ReSubs | US (global) | iOS, Android | Privacy-first, no bank connection, 18K+ users, newer entrant with strong reviews | Privacy messaging, manual + AI-import hybrid, cancel guides |
+| Bobby | Netherlands | iOS only | Minimalist, no data sharing, one-time purchase model, 4.7 App Store | Minimal viable trust, manual UX, iOS-only limitation |
+| Hiatus | US | iOS, Android | Bank-connected + flat-fee bill negotiation, older but relevant for feature benchmarking | Bill negotiation model, trust friction, mixed review pattern |
 
-### Soft Competitors - Same JTBD (calm and control over money), different product
+Sources: [rocketmoney.com](https://www.rocketmoney.com/), [emma-app.com](https://emma-app.com/), [resubs.app](https://resubs.app/), [bobbyapp.co](https://bobbyapp.co/), [hiatusapp.com](https://hiatusapp.com/)
 
-| Product | HQ | Platform | Core angle |
-|---------|-----|----------|-----------|
-| YNAB | US | iOS, Android, Web | Zero-based budgeting system, strong methodology |
-| Monarch Money | US | iOS, Android, Web | Full personal finance: budgeting, net worth, investments |
-| Copilot Money | US | iOS, Mac, Web (Dec 2025+) | AI-powered budgeting, Apple-first design |
+### SOFT - Different product, same JTBD (calm control over money)
 
-Sources: [ynab.com](https://www.ynab.com/), [monarch.com](https://www.monarch.com/), [copilot.money](https://www.copilot.money/)
+These products address the same underlying job - "help me feel in control of my money without overwhelming me" - but through a different lens: full budgeting, net worth, or spending awareness. They are alternative purchases for our users.
 
-### Aspirational Competitors - Best-in-class craft benchmarks
+| Product | HQ | Platform | Why it belongs here | What to study |
+|---------|-----|----------|--------------------|----|
+| YNAB | US | iOS, Android, Web | Zero-based budgeting system, strong methodology, no free tier, high user loyalty | Methodology-driven trust, how to charge premium with no free tier |
+| Monarch Money | US | iOS, Android, Web | Full personal finance (budget, net worth, investments), couple-focused, $14.99/mo | Household mode, AI assistant, no-free-tier conversion model |
+| Copilot Money | US | iOS, Mac, Web | AI-powered budgeting, best-designed finance app for Apple users, $13/mo | Apple-native design language, AI categorization privacy model |
+| PocketGuard | US | iOS, Android, Web | "Safe to spend" calculation, 1M+ users, subscription detection as part of budget | In My Pocket metric, how to frame subscriptions in spending context |
+| Simplifi by Quicken | US | iOS, Android, Web | Budget-first with recurring payment tracker, $47.88/yr, Quicken brand trust | Subscription-within-budget positioning, subscription spending plan |
 
-| Product | HQ | Platform | Why aspirational |
-|---------|-----|----------|-----------------|
-| Revolut | UK | iOS, Android, Web | Best-in-class onboarding, instant clarity, trust at scale |
-| Monzo | UK | iOS, Android | Warmth + plain language + notification design |
-| Apple Card / Wallet | US | iOS | Radical clarity in spending views, zero jargon |
+Sources: [ynab.com](https://www.ynab.com/), [monarch.com](https://www.monarch.com/), [copilot.money](https://www.copilot.money/), [pocketguard.com](https://pocketguard.com/), [quicken.com/products/simplifi/](https://www.quicken.com/products/simplifi/)
 
-Sources: [revolut.com](https://www.revolut.com/), [monzo.com](https://monzo.com/), [apple.com/apple-card/](https://www.apple.com/apple-card/)
+### ASPIRATIONAL - International best-in-class benchmarks for trust, clarity, and calm
+
+These are not direct competitors but set the design and communication standard we aspire to. Each does one or two things better than anyone else in our relevant dimensions.
+
+| Product | HQ | Platform | Why it belongs here | What to study |
+|---------|-----|----------|--------------------|----|
+| Revolut | UK | iOS, Android, Web | 50M+ users, fastest onboarding in fintech, clarity + control at scale | Progressive disclosure onboarding, speed-to-value, trust at scale |
+| Monzo | UK | iOS, Android | Best plain-language financial communication, published tone-of-voice principles | Active voice in money events, "positive friction," celebration of small wins |
+| Apple Card / Wallet | US | iOS | Radical transaction clarity, real merchant names, "No fees. Not even hidden ones." | Pre-emptive trust declaration, transaction enrichment, zero-jargon spending view |
+| N26 | Germany | iOS, Android, Web | EU-native, clean merchant name display, automatic spending categorization, 8M+ users | Transaction clarity for EU market, subscription overview in-app [? behind login] |
+| Nubank | Brazil | iOS, Android | 90M+ users across LatAM, plain-language onboarding, warmth + empathy at massive scale | How warmth scales, plain-language KYC, mobile-first trust design |
+
+Sources: [revolut.com](https://www.revolut.com/), [monzo.com](https://monzo.com/), [apple.com/apple-card/](https://www.apple.com/apple-card/), [n26.com](https://n26.com/en-de), [international.nubank.com.br](https://international.nubank.com.br/about/), [netguru.com/blog/data-driven-ux-design](https://www.netguru.com/blog/data-driven-ux-design), [craftinnovations.global/nubank-onboarding-process-analysis/](https://craftinnovations.global/nubank-onboarding-process-analysis/)
 
 ---
 
 ## 2. Screenshots Captured (Public Pre-Login Only)
 
-| File | Product | Page |
-|------|---------|------|
-| research/screens/rocketmoney-landing.png | Rocket Money | Landing page |
-| research/screens/rocketmoney-pricing.png | Rocket Money | Pricing [? redirected to app login] |
-| research/screens/emma-landing.png | Emma | Landing page |
-| research/screens/emma-pricing.png | Emma | Plans comparison page |
-| research/screens/hiatus-landing.png | Hiatus | Landing page |
-| research/screens/bobby-landing.png | Bobby | Landing page |
-| research/screens/ynab-landing.png | YNAB | Landing page |
-| research/screens/ynab-pricing.png | YNAB | Pricing page |
-| research/screens/monarch-landing.png | Monarch Money | Landing page |
-| research/screens/monarch-pricing.png | Monarch Money | Pricing page |
-| research/screens/revolut-landing.png | Revolut | Landing page |
-| research/screens/monzo-landing.png | Monzo | Landing page |
-| research/screens/applecard-landing.png | Apple Card | Landing page |
-| research/screens/copilot-landing.png | Copilot Money | Landing page |
+| File | Product | Page | New in refresh? |
+|------|---------|------|----------------|
+| research/screens/rocketmoney-landing.png | Rocket Money | Landing | No |
+| research/screens/rocketmoney-pricing.png | Rocket Money | Pricing [? redirected to app login] | No |
+| research/screens/emma-landing.png | Emma | Landing | No |
+| research/screens/emma-pricing.png | Emma | Plans comparison | No |
+| research/screens/hiatus-landing.png | Hiatus | Landing | No |
+| research/screens/bobby-landing.png | Bobby | Landing | No |
+| research/screens/resubs-landing.png | ReSubs | Landing | Yes |
+| research/screens/pocketguard-landing.png | PocketGuard | Landing | Yes |
+| research/screens/pocketguard-pricing.png | PocketGuard | Pricing | Yes |
+| research/screens/simplifi-landing.png | Simplifi | Landing | Yes |
+| research/screens/ynab-landing.png | YNAB | Landing | No |
+| research/screens/ynab-pricing.png | YNAB | Pricing | No |
+| research/screens/monarch-landing.png | Monarch Money | Landing | No |
+| research/screens/monarch-pricing.png | Monarch Money | Pricing | No |
+| research/screens/copilot-landing.png | Copilot Money | Landing | No |
+| research/screens/revolut-landing.png | Revolut | Landing (UK) | No |
+| research/screens/revolut-us-landing.png | Revolut | Landing (US) | No |
+| research/screens/monzo-landing.png | Monzo | Landing | No |
+| research/screens/monzo-tone-of-voice.png | Monzo | Tone of voice (public) | No |
+| research/screens/applecard-landing.png | Apple Card | Landing | No |
+| research/screens/applecard-features.png | Apple Card | Features | No |
+| research/screens/n26-landing.png | N26 | Landing | Yes |
+| research/screens/nubank-landing.png | Nubank | International about page | Yes |
 
 ---
 
-## 3. Top 5 Competitor Deep-Dives
+## 3. Deep-Dives: Top 5 Hard Competitors
 
 ### Rocket Money
 
-**What it is:** The dominant US subscription tracker and budgeting app. Part of Rocket Companies (same parent as Rocket Mortgage). Freemium model with premium at $7-$14/month (user-chosen price), plus 35-60% fee on bill negotiation savings.
+**What it is:** The dominant US subscription and money management app. Owned by Rocket Companies (parent of Rocket Mortgage). Now more accurately described as an all-in-one money app than a pure subscription tracker.
 
-**Audience:** Broad US market, 10 million+ members (source: [rocketmoney.com](https://www.rocketmoney.com/))
+**Audience:** Broad US market, 10 million+ members. Source: [rocketmoney.com](https://www.rocketmoney.com/)
 
 **Core mechanics:**
-- Auto-detects subscriptions by linking bank accounts (via Plaid)
-- Cancellation concierge: humans cancel subscriptions for you
-- Bill negotiation: negotiates cable, phone, insurance bills
+- AI-powered auto-detection of subscriptions via Plaid bank connection
+- Cancellation concierge: humans cancel subscriptions on the user's behalf
+- Bill negotiation: performance fee of 35-60% of first-year savings
 - Budgeting, credit score monitoring, net worth tracking
+- Premium features: customizable dashboards, iOS widgets, on-demand sync, account sharing
 
-**Value proposition on public page:** "Save more, spend less, see everything, and take back control of your financial life." Claims "Over $2.5 billion in aggregate member savings" (source: rocketmoney.com landing page, unverified disclaimer on page).
+**Value proposition:** "Save more, spend less, see everything, and take back control of your financial life." Claims "Over $2.5 billion in aggregate member savings." Source: rocketmoney.com public landing (disclaimer: unverified, noted on page).
 
-**Trust signals:** "Join 10 million+ members," featured in press, FDIC member bank (banking services), 5-star testimonials.
+**Trust signals:** 10M+ members, 7-day Premium free trial, FDIC member bank (banking services), Rocket Companies brand authority, press features.
 
-**Monetization:** Free tier (basic tracking) + Premium $7-$14/month. Bill negotiation takes 35-60% of first-year savings. Source: [tekpon.com/software/rocket-money/pricing/](https://tekpon.com/software/rocket-money/pricing/)
+**Monetization:** Free (basic tracking) + Premium $7-$14/month (sliding scale, user picks price). Bill negotiation: 35-60% of first-year savings. Source: [tekpon.com/software/rocket-money/pricing/](https://tekpon.com/software/rocket-money/pricing/)
 
-**Key gap:** Too broad. Rocket Money is trying to be everything: subscription tracker, budget app, bill negotiator, credit monitor, net worth tracker. The result is a heavy app that can feel overwhelming for the anxious, non-financial user who just wants calm visibility.
+**Key gap for our context:** The product has expanded so far beyond subscription tracking that its core audience is now a general budgeting user, not the anxious non-financial person who just wants calm visibility. The UI is dense with features. The bill-negotiation revenue model creates a subtle incentive misalignment: Rocket Money benefits most when users have expensive bills, not when they feel calm and in control.
 
 ---
 
 ### Emma
 
-**What it is:** UK/EU-focused money management app with strong open banking integrations. Named Finder's 2025 Budgeting App Provider of the Year (source: [finder.com/uk/budgeting/emma-review](https://www.finder.com/uk/budgeting/emma-review)).
+**What it is:** UK/EU-focused money management app. FCA regulated. Finder's 2025 Budgeting App Provider of the Year. Source: [finder.com/uk/budgeting/emma-review](https://www.finder.com/uk/budgeting/emma-review)
 
-**Audience:** UK millennials and European users. 2 million+ verified users, 10 billion+ transactions analyzed (source: [emma-app.com](https://emma-app.com/))
+**Audience:** UK millennials and EU users. 2 million+ verified users, 10 billion+ transactions analyzed. Source: [emma-app.com](https://emma-app.com/)
 
 **Core mechanics:**
-- Open banking connections (UK/EU-native - FCA regulated)
-- Subscription detection and management
-- Budget categories and spending analysis
+- FCA-regulated open banking (UK/EU native - strongest EU coverage of any direct competitor)
+- Subscription detection and cancellation prompts
 - Collaborative budgeting (added 2025)
-- Rent reporting, investing, payments
+- Rent reporting to credit bureaus
+- Investing, payments via QR code
 
-**Value proposition:** "Take control of your money" - clean, all-in-one approach with strong EU regulatory compliance.
+**Trust signals:** FCA regulated (FRN 1042167), 256-bit TLS, biometric login, Forbes/Financial Times/Guardian/Channel 4 logos. The FCA regulation mark is the single strongest trust signal for UK users.
 
-**Trust signals:** FCA regulated (FRN 1042167), 256-bit TLS encryption, biometric login, logos for Forbes, Financial Times, The Guardian, Channel 4, ITV.
+**Monetization:** Free + three paid tiers: Plus (£4.99/mo), Pro (£9.99/mo), Ultimate (£14.99/mo). Annual billing gives 30% off. Source: [emma-app.com/plans/compare-emma-plans](https://emma-app.com/plans/compare-emma-plans)
 
-**Monetization:** Free tier + three paid tiers: Plus (£4.99/mo), Pro (£9.99/mo), Ultimate (£14.99/mo). Annual billing gives 30% discount. Source: [emma-app.com/plans/compare-emma-plans](https://emma-app.com/plans/compare-emma-plans)
-
-**Key gap:** Aggressive upsells and constant prompts to upgrade disrupt the experience (source: [orbitmoney.io/compare/emma-app-review](https://orbitmoney.io/compare/emma-app-review)). The tone can feel commercial rather than calm. Strong EU product but complex for a non-financial user.
+**Key gap for our context:** Aggressive upsells and constant upgrade prompts disrupt an otherwise strong experience. Source: [orbitmoney.io/compare/emma-app-review](https://orbitmoney.io/compare/emma-app-review). Despite strong EU credentials, Emma is now a full money management platform - the subscription tracking core is buried under complexity.
 
 ---
 
-### Hiatus
+### ReSubs (NEW in this refresh)
 
-**What it is:** US subscription management and bill negotiation app. Founded 2016. Flat-fee model for bill negotiation (unlike Rocket Money's percentage model).
+**What it is:** Privacy-first subscription tracker. No bank connection ever. Launched recently, growing via strong App Store and Google Play presence. Cross-platform iOS and Android.
 
-**Audience:** US users wanting to reduce recurring expenses without complex budgeting.
+**Audience:** Privacy-conscious users globally, people who want subscription tracking without data sharing. 18,000+ users tracking 50,000+ subscriptions across 20+ countries. Source: [resubs.app](https://resubs.app/)
 
 **Core mechanics:**
-- Auto-detects subscriptions via bank connection
-- Bill negotiation (flat monthly fee model, not percentage-based)
-- Light spending tracking
-- Net worth view
-- Rate comparisons (credit cards, insurance, loans)
+- Manual entry + CSV import + Gmail receipt scanning + AI screenshot extraction
+- 461 preset subscriptions for quick setup
+- Tracks subscription lifecycle states: active, paused, cancelled, trial
+- 30+ step-by-step cancel guides per service
+- Savings assistant: identifies cheaper plans and promo codes
+- Widgets, calendar view, multi-currency with auto-conversion
+- 100% privacy-first: data stays on device, optional cloud backup
 
-**Value proposition:** "Take control of your financial life" - positioned as lighter than full budgeting apps.
+**Trust signals:** 4.1 stars App Store (10 reviews, newer), 4.5 stars Google Play (718 reviews). "100% Privacy-first" claim prominent on landing. Source: [resubs.app](https://resubs.app/)
 
-**Trust signals:** 2,000+ 5-star reviews, phone support number listed (855-508-5411), user testimonials. Source: [hiatusapp.com](https://hiatusapp.com/)
+**Monetization:** Free tier (limited subscriptions) + Premium (unlimited subscriptions + all features). Lifetime plan option. Exact pricing not displayed on public landing page [? behind login or app store].
 
-**Monetization:** Free tier + Premium $9.99/month or $35.99/year. Source: [financebuzz.com/hiatus-app-review](https://financebuzz.com/hiatus-app-review)
-
-**Key gap:** Mixed user reviews on customer service and unexpected charges (source: financebuzz.com). The "bill negotiation" feature is hard to trust without understanding the fee model upfront. Less well-known than Rocket Money.
+**Key gap for our context:** Small user base vs. Rocket Money or Bobby. No auto-detection (requires manual work or Gmail scanning). The Gmail scanning option requires email access - which may create a trust concern similar to bank connection for some users. Currently strongest on Android.
 
 ---
 
 ### Bobby
 
-**What it is:** Minimalist manual subscription tracker. No bank connection, no data sharing. You add subscriptions yourself, see your total, get reminders.
+**What it is:** Minimalist manual subscription tracker. No bank connection, no data sharing. Simple, focused, beautiful. iOS only (Android version unmaintained).
 
-**Audience:** iOS users who want simplicity and privacy over automation. Strong app store presence: 4.7 stars from nearly 8,000 iOS reviews. Source: [resubs.app/resources/best-subscription-tracker-apps](https://resubs.app/resources/best-subscription-tracker-apps)
+**Audience:** iOS users who value privacy and simplicity over automation. 4.7 stars from nearly 8,000 iOS reviews. Source: [resubs.app/resources/best-subscription-tracker-apps](https://resubs.app/resources/best-subscription-tracker-apps)
 
 **Core mechanics:**
-- Manual subscription entry (name, amount, billing date, cycle)
-- Calendar/list view of upcoming payments
-- Category grouping (Personal, Work)
+- Manual subscription entry: name, amount, billing date, cycle, category
+- Calendar and list views of upcoming payments
 - Multi-currency support
-- Reminders before payment
+- Renewal reminders
 
-**Value proposition:** "Keep track of your subscriptions" - minimal, clear, no bank access required.
+**Monetization:** Free + one-time "all-in-one pack" in-app purchase. No recurring subscription fee. Source: [bobbyapp.co](https://bobbyapp.co/)
 
-**Monetization:** Free with one-time "all-in-one pack" in-app purchase. No recurring subscription fee. Source: [bobbyapp.co](https://bobbyapp.co/)
-
-**Key gap:** iOS only (Android version unmaintained). Manual entry is a barrier to activation compared to auto-detection. No web version. Very limited scope - does not help users cancel or take action. Feature growth appears slow.
+**Key gap for our context:** iOS only. Manual entry creates an effort barrier that prevents activation for users who already pay for 10+ services and cannot be bothered to add them all. No web version. No cancel assist. Feature development has slowed visibly.
 
 ---
 
-### YNAB (You Need A Budget)
+### Hiatus
 
-**What it is:** The most methodology-driven personal finance app. Built around zero-based budgeting principles: "Give every dollar a job." Strong community and educational resources.
+**What it is:** US subscription management and bill negotiation app. Founded 2016. Positioned as lighter than full budgeting apps but broader than pure subscription trackers.
 
-**Audience:** Serious budgeters, people who have failed with other apps and want a structured system. 4.8 App Store, 4.7 Google Play rating.
+**Audience:** US users wanting to reduce recurring bills without a full budgeting commitment.
 
 **Core mechanics:**
-- Zero-based budgeting: every dollar allocated before it is spent
-- Four-rule methodology (Give every dollar a job, Embrace true expenses, Roll with the punches, Age your money)
-- Full bank sync (Plaid, MX, TrueLayer)
-- Goal tracking, loan planner
-- Educational workshops
+- Bank-connected auto-detection via Plaid
+- Bill negotiation concierge (flat monthly fee, not percentage-based - unlike Rocket Money)
+- Light spending tracking, net worth view
+- Rate comparisons (credit cards, insurance, loans)
 
-**Value proposition:** "On average, new YNABers save $600 in their first two months and more than $6,000 in their first year." Source: [ynab.com](https://www.ynab.com/)
+**Trust signals:** 2,000+ 5-star reviews, phone support (855-508-5411) prominently listed. Source: [hiatusapp.com](https://hiatusapp.com/)
 
-**Monetization:** No free tier. $14.99/month or $109/year (34-day free trial). College students get 1 year free. Source: [ynab.com/pricing](https://www.ynab.com/pricing)
+**Monetization:** Free + Premium $9.99/month or $35.99/year. Source: [financebuzz.com/hiatus-app-review](https://financebuzz.com/hiatus-app-review)
 
-**Key gap:** High learning curve. "Most people take 2-4 months to get it." YNAB is not for people who feel anxious about finance - it requires commitment, configuration, and sustained discipline. Source: [nerdwallet.com - YNAB Review](https://www.nerdwallet.com/finance/learn/ynab-app-review)
+**Key gap for our context:** Mixed reviews on customer service and unexpected charges. Source: [financebuzz.com/hiatus-app-review](https://financebuzz.com/hiatus-app-review). The flat-fee bill negotiation model is harder to understand at a glance than Rocket Money's percentage model. Lower brand recognition than Rocket Money limits organic discovery.
 
 ---
 
-## 4. Comparison Table: Top 5 Products x 5 Axes
+## 4. Comparison Matrix: Top 5 Most Relevant Competitors x 5 Axes
 
-| Axis | Rocket Money | Emma | Hiatus | Bobby | YNAB |
-|------|-------------|------|--------|-------|------|
-| **Audience** | Broad US, 10M+ members | UK/EU millennials, 2M+ users | US, expense-reducers | iOS-first, privacy-conscious | Committed budgeters, methodology fans |
-| **Product foundation** | Full money app (subscriptions + budgeting + credit + net worth) | Full money app (subscriptions + budgeting + investing + payments) | Subscription + bill negotiation + light budget | Manual subscription tracker only | Zero-based budgeting system |
-| **Key mechanisms** | Auto-detect via Plaid + human cancel concierge + bill negotiation | Open banking (FCA) + subscription detection + collaborative budgets | Auto-detect + bill negotiation (flat fee) + rate comparison | Manual entry + reminders + calendar view | Rules-based allocation + goal tracking + workshops |
-| **Trust signals** | 10M+ members, $2.5B savings claim, Rocket Companies brand | FCA regulated, 2M+ users, Forbes/FT logos | 2,000+ 5-star reviews, phone support | 4.7 App Store (8K reviews), privacy (no bank access) | $6K avg first-year savings, strong community, 4.8 App Store |
-| **Monetization** | Free + $7-$14/mo (user-chosen) + 35-60% bill savings | Free + £4.99-£14.99/mo (3 tiers) | Free + $9.99/mo or $35.99/yr | Free + one-time IAP (no subscription) | No free tier. $14.99/mo or $109/yr |
+Selection rationale: Rocket Money (dominant US hard), Emma (dominant EU hard), ReSubs (strongest privacy-first hard), YNAB (strongest soft - methodology trust), PocketGuard (soft - largest user base outside YNAB/Monarch with subscription angle).
+
+| Axis | Rocket Money | Emma | ReSubs | YNAB | PocketGuard |
+|------|-------------|------|--------|------|-------------|
+| **Audience** | Broad US, 10M+ members, general finance user | UK/EU millennials, 2M+ users, open banking native | Privacy-conscious globally, 18K+ users, no-bank-access preference | Committed budgeters who want a methodology, US-first | US budget-focused, 1M+ members, subscription tracking secondary to spending |
+| **Product foundation** | All-in-one: subscriptions, budgeting, credit score, net worth, bill negotiation | Full money app: subscriptions, budgeting, investing, payments, rent reporting | Dedicated subscription tracker: manual + AI import, cancel guides, lifecycle tracking | Zero-based budgeting system with methodology and workshops | Spending awareness ("safe to spend"), budgeting, subscription detection |
+| **Key mechanism** | Plaid auto-detect + human cancel concierge + performance-based bill negotiation | FCA open banking + subscription detection + collaborative budgets (added 2025) | Manual + Gmail scan + AI screenshot + 30+ cancel guides + lifecycle states | Rules-based allocation + four-rule methodology + goal tracking + educational workshops | "In My Pocket" calculation + AI subscription detection + 3-day advance bill alerts |
+| **Trust signals** | 10M+ members, $2.5B savings claim (unverified disclaimer), FDIC banking, Rocket brand | FCA regulated (FRN 1042167), 2M+ users, Forbes/FT/Guardian logos | "100% privacy-first," data stays on device, 4.5 Google Play (718 reviews) | $6K avg savings yr 1, 4.8 App Store, community forums, published methodology | 1M+ members, 4.7 stars (12K reviews), Forbes/CNN/TechCrunch/NYT logos, est. 2014 |
+| **Monetization** | Free + $7-14/mo (user-chosen) + 35-60% bill savings fee | Free + £4.99-£14.99/mo (3 tiers), annual -30% | Free (limited) + Premium unlimited + lifetime option [? exact price not on public page] | No free tier. $14.99/mo or $109/yr (34-day trial). Students free 1 year. | Free (limited) + Plus $12.99/mo or $74.99/yr + lifetime $149.99 |
+
+Sources: [rocketmoney.com](https://www.rocketmoney.com/), [emma-app.com](https://emma-app.com/), [resubs.app](https://resubs.app/), [ynab.com/pricing](https://www.ynab.com/pricing), [pocketguard.com/pricing/](https://pocketguard.com/pricing/)
 
 ---
 
 ## 5. Analysis
 
-### 3 Common Patterns (present in all or most)
+### 3 Common Patterns
 
-**P1: Bank connection as the primary activation path.**
-All auto-detection competitors (Rocket Money, Emma, Hiatus) use bank account linking as the primary onboarding step. This is the fastest route to showing value but also the biggest trust barrier for the anxious non-financial user. Bobby is the outlier - no bank connection - which explains its strong trust scores but weaker activation scope.
+**P1: Bank connection as default activation path - and no one solves the trust problem before it.**
+Every bank-connected competitor (Rocket Money, Emma, Hiatus, PocketGuard) asks for bank access in step 1 or 2. None earn trust before requesting it. The outliers (Bobby, ReSubs) avoid bank connection entirely but sacrifice auto-detection. No competitor exists in the middle: showing genuine value first, then earning the right to ask for bank access. This is confirmed by the refresh: ReSubs is the closest attempt (AI from screenshots avoids bank access) but still requires significant user effort up front.
 
-**P2: Feature accumulation over time.**
-Every product that started as a subscription tracker (Rocket Money, Emma, Hiatus) has expanded into full personal finance: budgeting, net worth, investing, payments. This creates complexity that crowds out the core use case. The original calm, simple subscription view is buried under feature depth.
+**P2: Feature creep buries the core job.**
+Rocket Money, Emma, PocketGuard, and Simplifi all started narrower and expanded into full financial management. The subscription tracking feature that attracted anxious non-financial users gets buried under budgets, net worth, investing, and credit monitoring. Bobby and ReSubs resist this pressure but at the cost of limited capability. No competitor has held the line: focused on subscriptions only, with genuine depth in that single job.
 
-**P3: Freemium with aggressive upsell.**
-Almost all products offer a free tier and then aggressively push upgrade prompts. Emma is noted specifically for this problem (source: orbitmoney.io). The result is that free users feel the product is trying to sell them rather than help them - the opposite of calm and trust.
+**P3: Privacy vs. convenience as a binary choice - no middle path offered.**
+The market is split: auto-detect via bank (Rocket Money, Emma, Hiatus, PocketGuard) or fully manual (Bobby, ReSubs). Users who want automatic detection but distrust full bank access have no good option. ReSubs' Gmail scanning is a partial answer but introduces a different data sensitivity. No product offers "connect read-only to one bank account for 30 seconds to import subscriptions, then disconnect" as a privacy-safe auto-import option.
 
-### 3 Key Differences (fundamentally different approaches)
+### 3 Key Differences
 
-**D1: Auto-detection vs. manual entry.**
-Rocket Money, Emma, and Hiatus auto-detect subscriptions via bank connections. Bobby requires full manual entry. These represent fundamentally different trust models: auto-detection is more powerful but more invasive. Manual entry respects privacy but requires effort. Neither fully solves the activation problem for anxious users.
+**D1: Revenue model shapes product incentives in fundamentally different ways.**
+Rocket Money and Hiatus earn money from bill negotiation (percentage or flat fee). This creates an incentive to surface bills that can be negotiated - and to keep users engaged with financial complexity. YNAB charges a flat subscription fee, aligning incentives with user success. Bobby and ReSubs charge one-time or flat fees, removing ongoing engagement pressure. These models produce meaningfully different product cultures: flat-fee tools feel calmer because they do not need to keep surfacing problems to justify their cost.
 
-**D2: Scope: focused vs. all-in-one.**
-Bobby is a pure subscription tracker. YNAB is a pure budgeting system. Rocket Money, Emma, and Hiatus have all expanded to full financial management. The focused products (Bobby, YNAB) have stronger brand identities and higher user satisfaction in their niche. The all-in-one products have higher churn risk and lower per-feature satisfaction.
+**D2: Methodology-led vs. tool-led approaches to financial anxiety.**
+YNAB and Simplifi are methodology-led: they provide a framework (zero-based budgeting, spending plan) and the product enforces it. Rocket Money, Emma, and PocketGuard are tool-led: they surface data and offer actions but do not guide behavior. Bobby and ReSubs are tool-led with no behavioral intent at all. For the anxious non-financial user, methodology creates more anxiety (more things to do correctly) but tool-led products without any structure leave the user without direction after the initial discovery moment. The gap is a gentle, low-friction structure that requires no methodology knowledge.
 
-**D3: Data sharing model.**
-Bobby has no bank access and sells a one-time purchase. Monarch Money's privacy policy explicitly states they do not sell financial data (source: thepennyhoarder.com/budgeting/monarch-money-review). Rocket Money and Emma operate standard freemium models where free users are shown financial product recommendations (potentially data-funded). This is a real trust differentiator that is not prominently communicated by any competitor.
+**D3: EU/global coverage remains a hard differentiator.**
+Emma is the only hard competitor with genuine EU open banking coverage (FCA regulated, PSD2 compliant). N26 covers EU natively but is a bank, not a subscription tracker. Bobby is EU-built (Netherlands) but manual and iOS-only. Rocket Money, Hiatus, and PocketGuard are US-only. ReSubs is global by design (no bank connection needed) but has no EU-specific open banking features. The EU market has no calm, auto-detecting subscription tracker at the simple end. This is the strongest geographic gap confirmed by the refresh.
 
-### What's Missing Across All Competitors (Our Gap)
+### What Is Missing Across All Competitors (Our Gap)
 
-1. **Calm as a design commitment.** No competitor has made "calm" a first-class design principle. Every product trends toward information density, feature promotion, or anxiety-inducing numbers (balances, debts, credit scores). The market is full of powerful apps; it is empty of peaceful ones.
+The following gaps are confirmed or strengthened by the refresh:
 
-2. **Plain language as a brand pillar.** All competitors use some financial jargon. Even the "best-designed" apps (Copilot, Bobby) use terms like "recurring expenditure" or "billing cycle." No competitor has made everyday language a core differentiator.
+1. **Calm as an explicit design commitment.** Confirmed by refresh: no competitor - including new entrant ReSubs - leads with "calm" as a design or brand promise. Every product leads with capability ("find subscriptions," "save money," "control your finances") not emotional state.
 
-3. **Progressive trust-building before bank connection.** Every bank-connected competitor asks for bank access in the first or second step of onboarding. None of them earn trust before asking for it. A product that shows value with zero data shared - and only asks for bank access after trust is earned - does not exist.
+2. **Progressive trust before bank connection.** Confirmed and strengthened: ReSubs is the closest attempt (avoids bank access entirely) but the opt-out is the entire product, not a path to auto-detection. No product earns trust then asks for data.
 
-4. **The cancel moment as a designed emotional experience.** Cancellation is treated as a functional step in every competitor. None have designed the moment of finding a forgotten subscription as an emotionally positive, satisfying experience. The "win" of saving money is never celebrated.
+3. **The cancel-and-save moment as a designed positive experience.** Still absent. Cancel guides exist in ReSubs (30+ step-by-step guides) and Rocket Money (concierge service). Neither frames cancellation as a satisfying win for the user. It remains a functional step, never a celebrated moment.
 
-5. **EU-native subscription tracker at the calm/simple end of the market.** Emma has strong EU coverage but is complex and feature-heavy. Bobby is simple but iOS-only and manual. There is no calm, auto-detecting, EU-native subscription tracker aimed at anxious non-financial users.
+4. **Plain money language as a brand differentiator.** Unchanged from v1. Every product uses some financial jargon. ReSubs comes closest on landing page copy but the product interior [? behind login] is unknown.
 
-### 3 Open Questions That Remain Unanswered
+5. **EU-native calm subscription tracker with auto-detection.** NEW STRENGTH confirmed by refresh: Emma has EU coverage but is complex and aggressive in upsells. ReSubs is privacy-first but manual. Bobby is EU-built but iOS-only and stagnant. N26 shows what good EU transaction clarity looks like but is a full bank. The gap is real and unoccupied.
 
-1. What percentage of the anxious-non-financial-user segment will connect a bank account vs. use manual entry in the first session? This is the key activation design decision and no public data answers it.
+6. **A middle path between bank connection and manual entry.** NEW from refresh: the binary choice (full bank access OR manual effort) is a confirmed market gap. ReSubs' AI screenshot import is a partial solution but adds friction. A low-permission, read-once import flow is not offered by any competitor.
 
-2. Is $4-$6/month the right price for a subscription-focused tool, or does the market require a $10+ price to be taken seriously? Rocket Money's $7-$14 range and YNAB's $15 suggest the market can bear higher prices, but our audience is different.
+### 3 Open Questions
 
-3. How does open banking adoption in the EU compare to Plaid adoption in the US for this audience? TrueLayer/Nordigen data is not publicly available; this requires direct validation.
+1. **Will users accept Gmail scanning (ReSubs) as a privacy-safe alternative to bank connection?** ReSubs is growing with this approach, but the trust implications of email access vs. bank access are not clearly tested. This is a design decision Tendd must resolve explicitly.
+
+2. **Is $4-$6/month the right price given that PocketGuard charges $12.99/month and YNAB charges $14.99/month?** The refresh shows that "anxious but not deeply financial" users do pay $10-15/month for tools that help them feel in control. The original hypothesis of $4-6 may be too conservative if we deliver genuine calm and cancel value. Needs user research.
+
+3. **What is ReSubs' growth trajectory and does it represent a validation or threat?** ReSubs is the closest competitor to our positioning (no bank, privacy-first, focused on subscriptions) but smaller (18K users vs. Bobby's 8K App Store reviews). Its 4.5 Google Play rating with 718 reviews is meaningful early traction. Monitoring its growth rate is a strategic priority.
