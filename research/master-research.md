@@ -1,14 +1,14 @@
 # Master Research Synthesis - Tendd
 
-**Single source of truth. Uses v_refresh product model. All facts cited.**
-**Version:** v_refresh (June 2026 re-run) - competitive analysis, product model, and AARRR updated
+**Single source of truth. Uses the v_refresh Strategy (research/strategy.md). All facts cited.**
+**Version:** v_refresh (June 11, 2026 re-run) - competitive analysis verified live, Product Model migrated to Strategy (AIDA retired, business model and riskiest assumption added), AARRR updated
 
 ---
 
 ## 1. Introduction
 
 ### Purpose
-This document synthesizes all research phases into one reference: product model, competitive landscape, trust benchmark, and UX pattern rationale. It is the foundation for wireframe and design decisions.
+This document synthesizes all research phases into one reference: strategy, competitive landscape, trust benchmark, and UX pattern rationale. It is the foundation for wireframe and design decisions.
 
 ### The Problem
 The average consumer now manages 12 active subscriptions spending over $273/month on recurring services (source: [resubs.app/resources/best-subscription-tracker-apps](https://resubs.app/resources/best-subscription-tracker-apps)). Many users are paying for subscriptions they have forgotten about or no longer use [? see H3 hypothesis - requires user research to quantify]. They feel a vague background anxiety about money "leaking out," but they avoid finance apps because those apps feel stressful, judgmental, or overwhelming.
@@ -28,14 +28,16 @@ Build a mobile-first web app that reduces financial anxiety through calm, clear 
 
 5. **The EU market is underserved** at the calm, simple end of the subscription tracker category. Emma has EU coverage but is complex and feature-heavy. Bobby is simple but iOS-only and manual.
 
-6. **NEW (v_refresh): The privacy-first user is a real, reachable segment - not an edge case.** ReSubs has built a product with 18K+ users and 461 preset subscriptions requiring zero bank connection. Source: [resubs.app](https://resubs.app/). This validates a second activation path (no bank required) as a market expansion move, not just a fallback. The two segments (bank-willing vs. privacy-first) are now both explicitly addressed in the product model and onboarding design.
+6. **NEW (v_refresh): The privacy-first user is a real, reachable segment - not an edge case.** ReSubs has built a product with 18K+ users and 461 preset subscriptions requiring zero bank connection. Source: [resubs.app](https://resubs.app/). This validates a second activation path (no bank required) as a market expansion move, not just a fallback. The two segments (bank-willing vs. privacy-first) are now both explicitly addressed in the strategy and onboarding design.
 
 ### Approach Note
 All competitor data was gathered from public pre-login pages via web search and Playwright. Scores and observations reflect public product surfaces only. Anything [? behind login] was not accessible.
 
 ---
 
-## 2. Product Model (v_refresh - Current)
+## 2. Strategy (v_refresh - Current)
+
+Full detail in [research/strategy.md](./strategy.md). This section replaces the former "Product Model" section. AIDA is retired: AARRR (section 3) is the single funnel, and the AIDA messaging hooks now live inside its Acquisition and Activation stages.
 
 ### Segments
 
@@ -46,14 +48,15 @@ All competitor data was gathered from public pre-login pages via web search and 
 | B: Frugal 30-Something | 30-42, financially aware, wants to optimize and cut | "When I'm trying to reduce monthly spend, I want to see which subscriptions I actually use vs. don't, so I can free up money quickly." | Secondary | CONFIRMED with note: higher acquisition potential than assumed because intent is explicit. |
 | C: Shared-Finances Couple | 28-40, two-income household, combined subscriptions | "When my partner and I want to understand household spend, I want a shared view of all our subscriptions, so we stop paying for duplicates." | Later stage | CONFIRMED as later stage. Emma and Monarch added shared modes - validates need but confirms product complexity. |
 
-### AIDA (Segments A1 + A2 - Primary)
+### Business Model
 
-| Stage | Channel | Message | Mechanic |
-|-------|---------|---------|---------|
-| Attention | TikTok, Reddit r/personalfinance, Instagram Reels, "no bank" SEO content | "Found out I was paying for 6 subscriptions I forgot about" / "Track subscriptions without giving your bank details" | UGC-style subscription list reveal, no jargon; privacy-first content angle validated by ReSubs. Source: [resubs.app/resources](https://resubs.app/resources) |
-| Interest | Landing page | "See all your subscriptions in one calm view - no stress, no jargon" | Product preview with real logos, progressive trust. Dual CTA above fold: "Connect bank" + "Start without connecting." |
-| Desire | Onboarding first session | Guided reveal: "Here's your monthly total. Here's what's in it. Here are 2 you might want to look at." | Both paths converge on same aha moment (populated subscription list). Path A: auto-detect via bank. Path B: AI import or manual entry using preset library (benchmark: ReSubs 461 presets). |
-| Action | Post-reveal upgrade trigger | "Find your full history and cancel easily - try Pro" | Trigger at moment of discovering a forgotten subscription or at paywall for cancel guide access. |
+Freemium SaaS (Tendd Pro). The user gets a calm, complete view of recurring spend plus alerts and cancellation help; the recovered money (target $15-30/month saved) is 2-4x the subscription price. Free tier: up to 10 tracked subscriptions, full quality, limited by quantity - it must deliver the aha moment and build trust. Paid: $7.99/mo or $69/yr [? hypothesis], with a lifetime option to test (validated by ReSubs and Bobby one-time purchase models). Pricing hypothesis CHANGED upward from $4-6/mo: verified live June 11, PocketGuard charges $12.99/mo (1M+ members) and YNAB $14.99/mo with no free tier. We deliberately avoid bill-negotiation revenue (Rocket Money takes 35-60% of first-year savings) because it profits from users having expensive problems; flat SaaS aligns revenue with the user feeling calm and staying. Sources: [pocketguard.com/pricing/](https://pocketguard.com/pricing/), [ynab.com/pricing](https://www.ynab.com/pricing), [resubs.app](https://resubs.app/)
+
+### Riskiest Assumption
+
+> People who feel money anxiety and avoid finance apps will actually look - that seeing their full recurring spend in a calm frame reduces their anxiety and feels like relief, rather than triggering the same avoidance that keeps them out of every other finance app.
+
+This is a risk to value, not feasibility. Competitor growth (Rocket Money 10M+, ReSubs 18K+) proves only that already-motivated users adopt trackers; it says nothing about avoiders. If false, there is no activation, no retention, and no business. Smallest test: a clickable "calm reveal" prototype shown to 5-8 people screened for financial-avoidance behavior, measuring completion, post-reveal emotional state, and pull to try it on their own data. Full trace in [research/strategy.md](./strategy.md) section 5.
 
 ---
 
@@ -132,7 +135,7 @@ Sources: research/competitive-analysis.md v_refresh.
 |---------|---------|---------|-------------|--------|
 | Rocket Money | Broad US, 10M+ members | iOS + Android + Web | Cancellation concierge, bill negotiation | Free + $7-14/mo |
 | Emma | UK/EU millennials, 2M+ | iOS + Android | FCA open banking, EU coverage | Free + £4.99-14.99/mo |
-| ReSubs | Privacy-conscious, 18K+ users | iOS + Android | No bank connection, 461 presets, cancel guides | $0.99-4.49/mo or lifetime |
+| ReSubs | Privacy-conscious, 18K+ users | iOS + Android | No bank connection, 461 presets, cancel guides | Free + Premium, lifetime option [? exact price not on public page] |
 | Bobby | iOS privacy-conscious | iOS only | Calendar/widget view, manual entry | Free + one-time IAP |
 | Hiatus | US expense-reducers | iOS + Android | Bill negotiation, rate comparison | Free + $9.99/mo |
 
@@ -232,7 +235,9 @@ Requires too much cognitive load for the anxious scan-first user. The product mu
 | EU subscription tracker at the simple end of market | Phase 3 - Emma has EU but is complex; Bobby is simple but iOS-only | High |
 | Data use transparency is not front-page for any direct competitor | Phase 3 D3 (data sharing model) | Medium |
 
-### 6 Hypotheses (If / Then / Because)
+### 7 Hypotheses (If / Then / Because)
+
+**H0 - THE RISKIEST ASSUMPTION (matches research/strategy.md section 5 - test this first): If** we show financially avoidant users their full recurring spend in one calm, judgment-free frame, **then** they will complete the reveal, report relief rather than stress, and want to see their own real data, **because** the anxiety comes from uncertainty about what is leaking out, not from the numbers themselves - and calm visibility converts avoidance into a feeling of control. If this is false, no other hypothesis matters: there is no activation, no retention, and no business. No competitor evidence exists either way [?], which is exactly why it is first in the testing queue.
 
 **H1: If** we show users their subscription list before asking for bank connection (demo mode or sample data), **then** bank connection rate will be higher than competitors' first-step bank request, **because** users who see the value first have a concrete reason to share their data.
 

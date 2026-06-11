@@ -9,11 +9,11 @@ Tendd is a mobile-first web app that helps people who are not into finance see a
 | Phase | Document | Status |
 |-------|----------|--------|
 | Brief | [CLAUDE.md](./CLAUDE.md) | Done |
-| Product Model v1 | [research/product-model.md](./research/product-model.md) | Done |
+| Strategy (formerly Product Model) | [research/strategy.md](./research/strategy.md) | Done |
+| Product Model v1-v2 (deprecated, kept for history) | [research/product-model.md](./research/product-model.md) | Superseded by Strategy |
 | AARRR Model | [research/aarrr.md](./research/aarrr.md) | Done |
 | Competitive Analysis | [research/competitive-analysis.md](./research/competitive-analysis.md) | Done |
 | Benchmark: Trust and Clarity | [research/benchmark-trust.md](./research/benchmark-trust.md) | Done |
-| Product Model v2 (validated) | [research/product-model.md](./research/product-model.md) | Done |
 | UX Patterns | [research/ux-patterns.md](./research/ux-patterns.md) | Done |
 | Master Research Synthesis | [research/master-research.md](./research/master-research.md) | Done |
 | Quality Gate | [research/quality-check.md](./research/quality-check.md) | Done |
@@ -29,7 +29,7 @@ Tendd is a mobile-first web app that helps people who are not into finance see a
 ## Key Documents
 
 - [Product Brief (CLAUDE.md)](./CLAUDE.md) - JTBD, audience, MVP scope, business model, design principles
-- [Product Model](./research/product-model.md) - Segments, AIDA, AARRR mapping
+- [Strategy](./research/strategy.md) - Objectives, segments, JTBD, business model, riskiest assumption (replaces the old Product Model; AIDA retired, AARRR is the single funnel)
 - [AARRR Model](./research/aarrr.md) - Funnel, metrics, product decisions
 - [Competitive Analysis](./research/competitive-analysis.md) - Competitor matrix, gaps
 - [Benchmark: Trust](./research/benchmark-trust.md) - Best-in-class trust mechanisms
