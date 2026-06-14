@@ -44,63 +44,180 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Navigation */
-    nav {
+    /* Sidebar - mobile base (hidden off-screen) */
+    .sidebar {
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(248, 247, 244, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      height: 56px;
+      bottom: 0;
+      width: 220px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      z-index: 200;
+      transform: translateX(-100%);
+      transition: transform 0.22s ease;
+      overflow-y: auto;
+      padding-bottom: 32px;
+    }
+
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 150;
+    }
+
+    .sidebar-overlay.open { display: block; }
+
+    .sidebar-header {
       display: flex;
       align-items: center;
-      padding: 0 32px;
-      gap: 8px;
+      justify-content: space-between;
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid var(--border-light);
     }
 
     .nav-brand {
       font-weight: 600;
-      font-size: 15px;
+      font-size: 13.5px;
       color: var(--text);
       letter-spacing: -0.01em;
-      margin-right: 16px;
     }
 
-    .nav-links {
+    .sidebar-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      line-height: 1;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: var(--radius-sm);
+    }
+
+    .sidebar-close:hover { color: var(--text); background: var(--border-light); }
+
+    .nav-toggle {
+      position: fixed;
+      top: 14px;
+      left: 16px;
+      z-index: 100;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      width: 36px;
+      height: 36px;
       display: flex;
-      gap: 2px;
-      overflow-x: auto;
-      scrollbar-width: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      color: var(--text);
+      font-size: 15px;
     }
 
-    .nav-links::-webkit-scrollbar { display: none; }
+    .sidebar-nav { padding: 12px 10px 0; }
 
-    .nav-links a {
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 10px 8px 5px;
+    }
+
+    .nav-section-label.active {
+      color: var(--accent);
+    }
+
+    .nav-link {
+      display: block;
       text-decoration: none;
       color: var(--text-secondary);
       font-size: 13px;
-      padding: 4px 10px;
+      padding: 6px 10px;
       border-radius: var(--radius-sm);
-      white-space: nowrap;
+      margin-bottom: 1px;
       transition: all 0.15s;
     }
 
-    .nav-links a:hover {
+    .nav-link:hover {
       color: var(--text);
-      background: var(--border);
+      background: var(--border-light);
+      text-decoration: none;
+    }
+
+    .nav-divider {
+      border: none;
+      border-top: 1px solid var(--border-light);
+      margin: 10px 8px;
+    }
+
+    .nav-coming-soon-item {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 6px 10px;
+      margin-bottom: 1px;
+    }
+
+    .nav-coming-soon-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      background: var(--border-light);
+      color: var(--text-muted);
+      padding: 1px 5px;
+      border-radius: 4px;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+
+    .nav-next-block {
+      margin: 14px 8px 0;
+      padding: 10px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+    }
+
+    .nav-next-label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .nav-next-items {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Desktop: sidebar always visible */
+    @media (min-width: 840px) {
+      .sidebar { transform: translateX(0); }
+      .sidebar-close { display: none; }
+      .sidebar-overlay { display: none !important; }
+      .nav-toggle { display: none; }
     }
 
     /* Main layout */
     main {
-      padding-top: 56px;
-      max-width: 960px;
+      max-width: 900px;
       margin: 0 auto;
-      padding-left: 24px;
-      padding-right: 24px;
-      padding-bottom: 80px;
+      padding: 72px 24px 80px;
+    }
+
+    @media (min-width: 840px) {
+      body { padding-left: 220px; }
+      main { padding-top: 40px; }
     }
 
     /* Sections */
@@ -691,7 +808,6 @@
 
     /* Responsive */
     @media (max-width: 640px) {
-      nav { padding: 0 16px; }
       main { padding-left: 16px; padding-right: 16px; }
       h1 { font-size: 26px; }
     }
@@ -699,19 +815,38 @@
 </head>
 <body>
 
-<nav>
-  <span class="nav-brand">Tendd Research</span>
-  <div class="nav-links">
-    <a href="#intro">Overview</a>
-    <a href="#canvas">Canvas</a>
-    <a href="#strategy">Strategy</a>
-    <a href="#aarrr">AARRR</a>
-    <a href="#competitors">Competitors</a>
-    <a href="#benchmark">Benchmark</a>
-    <a href="#patterns">UX Patterns</a>
-    <a href="#conclusions">Conclusions</a>
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd Research</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
   </div>
-</nav>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label active">Research Sprint</div>
+    <a href="#intro" class="nav-link">Overview</a>
+    <a href="#canvas" class="nav-link">Canvas</a>
+    <a href="#strategy" class="nav-link">Strategy</a>
+    <a href="#aarrr" class="nav-link">AARRR</a>
+    <a href="#competitors" class="nav-link">Competitors</a>
+    <a href="#benchmark" class="nav-link">Benchmark</a>
+    <a href="#patterns" class="nav-link">UX Patterns</a>
+    <a href="#conclusions" class="nav-link">Conclusions</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">People &amp; JTBD</div>
+    <span class="nav-coming-soon-item">Personas <span class="nav-coming-soon-badge">coming soon</span></span>
+    <span class="nav-coming-soon-item">JTBD <span class="nav-coming-soon-badge">coming soon</span></span>
+
+    <div class="nav-next-block">
+      <span class="nav-next-label">Next</span>
+      <span class="nav-next-items">Wireframes, Concept</span>
+    </div>
+  </nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <main>
 
@@ -1496,6 +1631,35 @@
   </div>
 
 </main>
+
+<script>
+  (function() {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    var toggle = document.getElementById('navToggle');
+    var close = document.getElementById('sidebarClose');
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      overlay.classList.add('open');
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    }
+
+    toggle.addEventListener('click', openSidebar);
+    close.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    sidebar.querySelectorAll('.nav-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        if (window.innerWidth < 840) closeSidebar();
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
