@@ -105,12 +105,12 @@ REFERRAL
 | Revenue | Free-to-paid conversion, 90 days | 6-10% | [? hypothesis - raised. PocketGuard $12.99/mo (1M+ users), YNAB $14.99/mo validate higher WTP than originally assumed] |
 | Referral | % signups from referrals | 15-20% at 6 months | [? hypothesis] |
 
-### MVP Product Decisions (one per stage)
+### MVP Product Decisions (one per stage) - Updated with Founder Decisions June 14, 2026
 
 1. **Acquisition:** Build a shareable "subscription snapshot" card (total + count, no bank data) before building a formal referral program. Landing page must show dual CTA above the fold.
-2. **Activation:** Build two explicit onboarding paths with equal visual weight: bank-connected (fast, auto) and privacy-first (manual + AI import, using preset library). Both converge on the same Guided Reveal aha moment.
-3. **Retention:** Ship the weekly email digest on day 1. Build home-screen widget (PWA) early. Launch with 10 cancel guides for top services.
-4. **Revenue:** The upgrade trigger lives at the "forgotten subscription discovery" moment AND at the cancel guide paywall. Price hypothesis revised to $7.99/mo or $69/yr.
+2. **Activation (UPDATED - D1, D2 CLOSED):** Build two explicit onboarding paths with equal visual weight: bank-connected (fast, auto) and privacy-first (manual + preset library, 400+ services - Gmail scan deferred to v2). Both converge on the same Guided Reveal. The Guided Reveal sequence is gradual: subscription count first, then categories with logos, then total. The total is shown alongside an action on the same screen - never as a standalone shock. The design intention: calm agency, not dramatic reveal.
+3. **Retention:** Ship the weekly email digest on day 1. Build home-screen widget (PWA) early. Basic cancel instruction ships with free tier. Full step-by-step cancel guides are a Pro feature.
+4. **Revenue (UPDATED - D3, D4 CLOSED):** The paywall is NOT at the cancel moment. Basic cancel instruction (link + steps) is free. The upgrade trigger lives at the "history and trends" and "advanced/predictive alerts" moments. Price: $7.99/mo or $69/yr. Lifetime option at price TBD alongside. The cancel-guide paywall hypothesis is retired.
 5. **Referral:** Privacy-safe snapshot card (no bank data shown). Trigger share prompt after the cancel moment, not at onboarding.
 
 ---

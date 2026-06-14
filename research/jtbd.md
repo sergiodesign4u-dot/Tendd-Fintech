@@ -153,10 +153,10 @@ Rows are jobs. Columns are personas. Score 1-3 (3 = most important for this pers
 |-----|---------------|-----------------|-------------------|-------------------|-------------|
 | J-MAIN: See all recurring charges calmly | 3 | 3 | 2 (she wants this but is more action-oriented) | Guided Reveal onboarding + calm subscription list view | Rocket Money (but buried under feature depth). Emma (same). ReSubs (no auto-detect). Bobby (manual only, iOS). None fully close calm + auto-detect. |
 | J1: Activate without anxiety / trust job | 3 | 3 | 1 (she will connect bank fast) | Demo mode + dual onboarding paths + trust statements before bank request | Apple Card (4/5 benchmark C8). No subscription tracker closes this fully. |
-| J2: Identify and cancel unused subs | 2 (wants this but it is secondary to the reveal) | 2 | 3 | Cancel guides + direct cancel links (Pro feature); cancel-win moment | ReSubs (30+ guides). Rocket Money (concierge but percentage fee). Hiatus. |
+| J2: Identify and cancel unused subs | 2 (wants this but it is secondary to the reveal) | 2 | 3 | Basic cancel instruction (free, always). Full guides + direct cancel links (Pro). Cancel-win moment is free. UPDATED by D3 founder decision June 14, 2026. | ReSubs (30+ guides). Rocket Money (concierge but percentage fee). Hiatus. |
 | J3: Understand what a charge is | 3 (P2 pain, she avoids looking because of cryptic codes) | 2 | 2 | Real merchant names + logos + categories at card level | Apple Card (best, not a tracker). Rocket Money uses Plaid enrichment [? behind login to confirm]. |
 | J4: Stay ahead of surprises / alerts | 2 | 2 | 3 (she specifically wants to catch price changes) | Price-change alert + payment failure alert + weekly email digest | Rocket Money, Emma, PocketGuard all offer alerts [? behind login]. None make notification design a trust signal. |
-| J5: Track without sharing bank data | 1 (she will connect bank eventually but wants this path available) | 3 | 1 | Privacy-first path: manual + AI screenshot import + email scan | ReSubs (best, no bank required). Bobby (manual, iOS only). No middle path exists anywhere. |
+| J5: Track without sharing bank data | 1 (she will connect bank eventually but wants this path available) | 3 | 1 | Privacy-first path: manual + 400+ preset library at launch. Gmail scan and AI screenshot import deferred to v2 pending user testing. CLOSED by D2 founder decision June 14, 2026. | ReSubs (best, no bank required). Bobby (manual, iOS only). No middle path exists anywhere. |
 | E1: Feel competent, not judged | 3 | 2 | 1 (less anxious, more pragmatic) | Judgment-free visual design + plain language throughout | Monzo (closest in tone, not a subscription tracker). No subscription tracker has made this a design pillar. |
 | E2: The small win / pride moment | 2 | 2 | 3 | Cancel-win moment with specific $ saved; share card | No competitor has designed this moment. Gap confirmed. |
 | E3: Feel safe and in control of data | 2 | 3 | 1 | One-tap data deletion + plain-language data explanation on first screen | Monarch Money mentions data non-sale (master-research.md D3). No subscription tracker makes this front-page. |
@@ -216,21 +216,14 @@ ReSubs confirms the segment exists and is willing to pay. No product offers priv
 
 In priority order:
 
-**DANGER 1 (Highest priority - NARROWED): Does calm, GRADUAL visibility convert financial avoiders?**
-- Updated: The question is no longer "does calm design reduce anxiety?" (Cornell research gives indirect positive evidence). The more precise question is whether the Guided Reveal - specifically the gradual, progressive version - works for people who actively avoid checking finances.
-- What changed: Post-persona research confirms (a) 44% of US adults actively avoid financial accounts (Discover survey), (b) engagement with controllable finances produces relief, not more anxiety (Cornell), and (c) gradual exposure is the clinical mechanism, not single-reveal (exposure therapy literature). The "single total first" version of the Guided Reveal may be replaced by "count first, then categories, then total."
-- Decision it affects: the exact sequence of the Guided Reveal onboarding. This is a wireframe-level decision.
-- Smallest test: a prototype with the gradual sequence (count first, then categories with logos, then total as a reveal moment), shown to 5-8 people screened for financial-avoidance behavior. Pass signal: majority complete the reveal and report relief. (strategy.md section 5 full spec still applies.)
+**DANGER 1 - CLOSED by founder decision D1 (June 14, 2026)**
+Decision: Gradual reveal with total paired with action on the same screen. Sequence: count first, then categories with logos, then total + next step on one screen. The total is never a standalone dramatic reveal - it is always accompanied by what the user can do about it. This design converts exposure from shock to agency. The prototype test (strategy.md section 5) must use this gradual-with-action sequence, not a total-first reveal.
 
-**DANGER 2 (High priority - PARTIALLY RESOLVED): What drives Emma's avoidance?**
-- What changed: Post-persona research (June 2026) found clinical confirmation that avoidance is driven by TWO mechanisms: (1) financial information as a "scarcity cue" that triggers negative emotions about self-image, and (2) fear of spiraling into complexity (The Financial Brand). The self-image mechanism means framing matters: "what you have signed up for" (neutral, control) vs. "what you spent" (judgment). The complexity-fear mechanism means one-thing-at-a-time design is clinically justified, not just a UX preference.
-- Decision it affects: the copywriting and framing throughout onboarding. This is a design and content decision, not a build/no-build decision.
-- This danger is de-escalated from blocking to "resolved at the design level, test in prototype."
+**DANGER 2 - CLOSED AT DESIGN LEVEL, VALIDATE IN PROTOTYPE**
+Research confirmed avoidance is driven by (a) self-image threat from financial information and (b) fear of complexity spiraling. Both are addressed by: judgment-free language ("what you have signed up for" not "what you spent"), one-thing-at-a-time progressive disclosure, and total always paired with a concrete action. This is a design and copywriting decision, fully expressible in wireframes. It remains for the prototype test to confirm that the design handles it effectively.
 
-**DANGER 3 (Medium priority - ESCALATED): Is Gmail scan actually trusted by privacy-first users?**
-- What changed: Post-persona research found NO direct evidence that email access is trusted more than bank access. Manual entry is confirmed as most trusted. Gmail scan is an untested assumption.
-- Decision it affects: the design of Ravi's activation path. If Gmail scan is not trusted, the only reliable privacy-first path is manual entry with a strong preset library. This affects build priority: presets are needed for launch; Gmail scan can be shipped later after validation.
-- Where to answer: primary user research (cannot be answered by web research). Ask 5 privacy-conscious users to react to descriptions of three import methods (manual, Gmail scan, screenshot). Capture their reasoning. Do not build Gmail scan as a launch-day feature.
+**DANGER 3 - CLOSED by founder decision D2 (June 14, 2026)**
+Decision: Launch with manual + 400+ presets. Gmail scan is v2, after user testing. The question of whether Gmail scan is trusted more than bank access remains unanswered by web research and is moved to primary user research for the v2 decision. Not a wireframe or MVP blocker.
 
 ---
 

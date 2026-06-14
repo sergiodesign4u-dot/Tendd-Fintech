@@ -230,8 +230,8 @@ P4: Hidden cancel complexity. Services he wants to cancel (gym, a streaming serv
 What earns his trust:
 - Explicit "no bank connection required" messaging, visible before he has to click anything. (O19; competitive-analysis.md P3.)
 - Data-on-device storage with optional cloud backup. "Your data stays on your phone" is a strong signal. (ReSubs messaging - O8.)
-- Manual entry as the primary path, with preset library to reduce effort. Post-persona research (June 2026) confirms manual entry is the most trusted method for privacy-conscious users - "the most private system is one where your financial data never leaves your device" (budgetvault.app/blog/budget-app-without-bank-sync). Presets (ReSubs model: 461 services) reduce manual entry friction to a manageable level.
-- AI screenshot import or Gmail import as an optional second path if he wants faster setup. [? hypothesis - whether he trusts email access more than bank access has no direct research evidence. Requires primary user testing. Do not build Gmail scan as a primary path until tested.]
+- Manual entry as the primary path, with preset library to reduce effort. Post-persona research (June 2026) confirms manual entry is the most trusted method for privacy-conscious users - "the most private system is one where your financial data never leaves your device" (budgetvault.app/blog/budget-app-without-bank-sync). Presets (ReSubs model: 461 services) reduce manual entry friction to a manageable level. CLOSED by founder decision D2 (June 14, 2026): launch with manual + 400+ presets; Gmail scan is v2 only after user testing.
+- AI screenshot import or Gmail import as a future v2 path after user testing confirms trust level. CLOSED by founder decision D2 (June 14, 2026) - not a launch feature.
 - Transparent explanation of exactly what each import method accesses. A single sentence per method: "Gmail scan reads only emails with the word 'subscription' or 'receipt.' We cannot read your other emails."
 - No account required to try the product. Let him explore manually first.
 
@@ -289,7 +289,7 @@ P3: Feature overload in existing tools. She tried Rocket Money briefly and felt 
 What earns her trust:
 - Fast time-to-value: she can see her subscriptions in under 2 minutes of connecting her bank. Every extra step before the list appears is friction that increases her chance of abandoning.
 - Clear ROI framing: "You're paying $247/month before anything else" or "You're subscribed to 14 services." The number and count together give her an instant decision signal.
-- Specific cancel help: not a generic "we can help you cancel" but "here is the direct link to cancel this specific service" or "here are the 3 steps to cancel this one."
+- Specific cancel help: not a generic "we can help you cancel" but "here is the direct link to cancel this specific service" or "here are the 3 steps to cancel this one." UPDATED: basic cancel instruction (link + step description) is free in all tiers by founder decision D3 (June 14, 2026). Full step-by-step guides and direct cancel links are Pro. The relief moment is not paywalled.
 - Concrete social proof: "CNET tester found six forgotten subscriptions totaling $437.81 in 15 minutes" is exactly the kind of testimonial that speaks to her. (O from CNET via aol.com/rocket-money-review.)
 
 What scares her off:

@@ -99,15 +99,17 @@ The amplifier of the product thinking, not the headline. The model only works if
 - The user gives: attention, subscription data (via bank connection OR private import/manual entry - their choice), and eventually $7.99/month.
 - The user gets: a calm, complete view of recurring spend; alerts that catch price changes and failures before they hurt; concrete cancellation help; the recovered money itself (target $15-30/month saved, which is 2-4x the subscription price).
 
-**Free vs paid split:**
-- Free: up to 2 bank connections or unlimited manual entry, up to 10 tracked subscriptions, the full calm list view with monthly total, basic alerts. The free tier is genuinely useful, limited by quantity, never by quality - it must deliver the aha moment and build trust.
-- Paid (Tendd Pro): unlimited connections and subscriptions, history and trends, cancel guides and direct cancel links, advanced alerts (trial ending, duplicate, unusual charge), household view, export.
+**Free vs paid split (LOCKED - founder decision, June 14, 2026):**
+- Free: full visibility (unlimited tracked subscriptions), full calm list view with monthly total, basic price-change and payment-failure alerts, basic cancel instruction (the "how do I cancel this?" moment stays free - it is a trust moment, not an upsell moment). The free tier is limited by depth and history, never by the core relief experience.
+- Paid (Tendd Pro): history and trends (3-month, 6-month, yearly view), advanced and predictive alerts (trial ending soon, unusual charge, duplicate subscription), multi-account household view, export. Cancel depth (direct cancel links, step-by-step guides, cancel confirmation tracking) is a Pro feature but basic instruction is always free.
 
-**Pricing hypothesis [? hypothesis]:** $7.99/month or $69/year, with a lifetime option to test. Positioning: "Pays for itself with the first subscription you cancel."
+**Rationale for this split (D3, founder decision):** Locking cancel guides behind a hard paywall would break the trust promise. The relief moment - "I know what I'm paying for and I can cancel this" - must be accessible to every free user. Monetization lives in the tools that serve the habit (history, trends, advanced alerts) rather than at the most emotionally vulnerable moment in the product.
 
-**Evidence status: CHANGED (price raised) and EXTENDED (lifetime option added).**
-- CHANGED: the original $4-6/mo hypothesis was too conservative. Verified live June 11: PocketGuard $12.99/mo (1M+ members), YNAB $14.99/mo with no free tier at all, Emma £4.99-£14.99/mo across three paid tiers. The market price band for "feel in control of money" tools is $5-15/mo. Sources: [pocketguard.com/pricing/](https://pocketguard.com/pricing/), [ynab.com/pricing](https://www.ynab.com/pricing), [emma-app.com/plans/compare-emma-plans](https://emma-app.com/plans/compare-emma-plans)
-- EXTENDED: ReSubs and Bobby both monetize with one-time purchases, which resolves the irony of a subscription to manage subscriptions. A lifetime tier (price [?], needs modeling) may convert buyers who resist recurring fees. Sources: [resubs.app](https://resubs.app/), [bobbyapp.co](https://bobbyapp.co/)
+**Pricing (LOCKED - D4, founder decision, June 14, 2026):** $7.99/month or $69/year. Lifetime option offered alongside at a price to be modeled [? hypothesis: $99-139 one-time]. Positioning: "Pays for itself with the first subscription you cancel." The lifetime option addresses the subscription irony directly for users who specifically distrust recurring fees (validated by ReSubs and Bobby one-time purchase models).
+
+**Evidence status: CONFIRMED and EXTENDED.**
+- Price confirmed: PocketGuard $12.99/mo (1M+ members), YNAB $14.99/mo with no free tier at all, Emma £4.99-£14.99/mo. The market price band for "feel in control of money" tools is $5-15/mo. $7.99 positions Tendd as calm and affordable vs. the full-finance suites. Sources: [pocketguard.com/pricing/](https://pocketguard.com/pricing/), [ynab.com/pricing](https://www.ynab.com/pricing), [emma-app.com/plans/compare-emma-plans](https://emma-app.com/plans/compare-emma-plans)
+- Lifetime option: ReSubs and Bobby both monetize with one-time purchases, resolving the irony of a subscription to manage subscriptions. Sources: [resubs.app](https://resubs.app/), [bobbyapp.co](https://bobbyapp.co/)
 - Incentive note: we deliberately avoid bill-negotiation revenue (Rocket Money: 35-60% of first-year savings). That model profits from users having expensive problems; flat SaaS aligns our revenue with the user feeling calm and staying. Source: research/competitive-analysis.md D1.
 
 ---
@@ -128,3 +130,55 @@ Diverge-converge trace. Candidates considered:
 **What the competitor evidence says:** CANNOT CONFIRM. No competitor targets this segment with this promise, so the refresh found no evidence either way. This is exactly why it must be tested first, on real users, before build.
 
 **Smallest test [? to run in user testing phase]:** a clickable "calm reveal" prototype with sample data, shown to 5-8 people screened for financial-avoidance behavior (they self-report not checking statements and feeling dread about money). Measure: (1) do they complete the reveal or disengage, (2) self-reported emotional state after seeing the total (relief vs. spike of stress), (3) do they ask to try it on their own subscriptions. Pass signal: a majority report relief and ask for the real thing.
+
+---
+
+## 6. Founder Decisions (June 14, 2026)
+
+These decisions were made by the founder after reviewing the research outputs from the People & JTBD phase. They close open [?] items and override prior hypotheses where noted. Questions that fall outside product scope (legal, regulatory, compliance) are marked deferred.
+
+---
+
+**D1 - CLOSED: Guided Reveal sequence is gradual, with total paired with action**
+
+Decision: Gradual reveal (count first, then categories with logos, then total). The total is NOT presented as a dramatic culmination - it is shown on the same screen as an action or next step, so the user immediately has agency. "You're subscribed to 14 services for $247/month. Here are 2 you might want to look at." The exposure serves calm, not shock.
+
+Rationale: Clinical exposure therapy literature supports gradual disclosure for anxiety reduction (Anxiety Canada). PMC/NCBI research confirms financial information triggers "threat to positive self-image" - presenting the total alone without an action leaves the user with the number and no escape; pairing it with a concrete action gives the brain something to do, converting the number from a verdict into a starting point. This is the key design principle for the onboarding sequence.
+
+Effect on prototype test: the test prototype (riskiest assumption test) must use the gradual sequence with paired action, not a total-first reveal.
+
+---
+
+**D2 - CLOSED: Privacy-first activation path at launch is manual + presets only**
+
+Decision: Launch with manual entry + preset library (target: 400+ preset services). Gmail scan and AI screenshot import are v2 features, shipped only after user testing confirms they are trusted more than bank connection by privacy-first users.
+
+Rationale: Post-persona research found no evidence that email access is trusted more than bank access. Manual entry is confirmed as the most trusted method. Building Gmail scan before this trust question is answered risks blocking adoption of the entire privacy path. Presets (ReSubs model) reduce manual effort to manageable levels.
+
+Implication: preset library quality is a launch requirement, not a nice-to-have. It must cover the 400+ most common subscription services with logo and billing frequency pre-filled.
+
+---
+
+**D3 - CLOSED: Feature gate redesigned around trust, not cancel guides**
+
+Decision: The paywall is NOT at the cancel moment. Free includes: full subscription visibility (no count limit), basic price-change and payment-failure alerts, basic cancel instruction (link + step description). Paid includes: history and trends, advanced/predictive alerts (trial ending, duplicate, unusual), multi-account view, export, full step-by-step cancel guides and direct cancel links.
+
+Rationale: The cancel moment is the most emotionally powerful moment in the product and a trust moment. Blocking it with a paywall breaks the trust promise ("Tendd helps you feel in control") before it is established. The upgrade path lives in the tools that serve the ongoing habit (history, trends, advanced alerts), not at the moment of highest user anxiety. This follows Bobby's and ReSubs' models: full core value free, depth paid.
+
+Previous assumption in this file (cancel guides = paid) is superseded by this decision.
+
+---
+
+**D4 - CLOSED: Pricing is $7.99/month or $69/year, with lifetime option**
+
+Decision: $7.99/mo, $69/yr. Lifetime option offered alongside at a price TBD [? hypothesis: $99-139]. Positioning: "Pays for itself with the first subscription you cancel."
+
+Rationale: Confirmed by competitive analysis (PocketGuard $12.99, YNAB $14.99). $7.99 is calm and affordable relative to the market without signaling low quality. Lifetime option reduces the subscription irony for privacy-first users who distrust recurring fees.
+
+---
+
+**D5 - CLOSED (build decision) / DEFERRED (EU regulatory compliance)**
+
+Build decision CLOSED: US-first launch with Plaid. TrueLayer is the designated EU open banking provider - it is designed into the architecture from the start but built only after Plaid integration is stable.
+
+Regulatory question DEFERRED: EU PSD2 compliance, FCA registration, GDPR data residency for EU users. These are legal and compliance questions that require a lawyer and an EU regulatory review, not a product design decision. They are not blockers for wireframes or US MVP build. They become blockers before EU launch. Deferred with a one-line note: EU open banking requires PSD2 compliance review before TrueLayer integration goes live.
