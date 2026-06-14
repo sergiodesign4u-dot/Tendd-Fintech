@@ -109,7 +109,7 @@ Source: [adapty.io/blog/9-subscription-trends-dominating-2025](https://adapty.io
 
 - [?] What % of users who start sign-up abandon at the bank connection step vs. proceed? (No competitor has published this data publicly; we need to measure it ourselves.)
 - [?] What is the minimum number of subscriptions in the first reveal that creates the "aha moment"? (Hypothesis from ux-patterns.md: 3-5. Not confirmed by data.)
-- [?] Does the financially avoidant user (O22) complete the Guided Reveal when shown calm, judgment-free design - or does seeing the total trigger the same avoidance they bring to other finance apps? This is the riskiest assumption (strategy.md section 5). No competitor evidence exists either way.
+- [?] Does the financially avoidant user (O22) complete the Guided Reveal when shown calm, judgment-free design - or does seeing the total trigger the same avoidance they bring to other finance apps? This is the riskiest assumption (strategy.md section 5). Post-persona research (June 2026) found indirect supporting evidence: Cornell research shows people anticipate financial conversations will increase anxiety but find the opposite (news.cornell.edu/node/331238). 44% of US adults avoid checking financial accounts (Discover survey, stocktitan.net). Still requires prototype testing with avoidant users specifically. Remains [?] but with positive indirect evidence.
 - [?] What % of users prefer manual entry vs. bank connection when both are offered with equal visual weight? (ReSubs' bank-free model proves the segment exists. But we do not know what % would choose each path in a product that offers both.)
 - [?] What specific fears do European users have about open banking that differ from US Plaid fears? (O16-O20 are US-centric data.)
 - [?] What is the typical subscription count for Segment A users (26-36 age range) in Europe vs. the US?
@@ -153,7 +153,7 @@ Source: master-research.md J4; behavior pattern BP3 (O24)
 
 **Pains**
 
-P1: Vague background dread. She knows money is "leaking out" somewhere but the act of looking feels worse than the ignorance. She avoids her bank statement precisely because she fears what she'll find. (O22, and this is the riskiest assumption in the product - strategy.md H0.)
+P1: Vague background dread. She knows money is "leaking out" somewhere but the act of looking feels worse than the ignorance. She avoids her bank statement precisely because she fears what she'll find. Research (June 2026) clarifies the mechanism: avoidance is driven by two separate triggers. First, financial information acts as an "emotional trigger" - the information threatens her self-image as someone who is reasonably responsible with money (PMC/NCBI, pmc.ncbi.nlm.nih.gov/articles/PMC11522046). Second, fear of spiraling - she fears engaging will lead her "into a complex, overwhelming situation," down "a rabbit hole or into a spiral of despair" (The Financial Brand, thefinancialbrand.com). Both triggers are design-addressable: judgment-free framing counters the first; one-thing-at-a-time progressive disclosure counters the second. (This is still the riskiest assumption - strategy.md H0.)
 
 P2: Cryptic transaction names. When she does look, she sees "SPOTIFYAB STOCKHOLM" and "DCSF MEDIA GROUP" and cannot decode half the charges. This makes looking feel futile and stressful. (O23; master-research.md mechanism M3 addresses this.)
 
@@ -230,7 +230,8 @@ P4: Hidden cancel complexity. Services he wants to cancel (gym, a streaming serv
 What earns his trust:
 - Explicit "no bank connection required" messaging, visible before he has to click anything. (O19; competitive-analysis.md P3.)
 - Data-on-device storage with optional cloud backup. "Your data stays on your phone" is a strong signal. (ReSubs messaging - O8.)
-- AI screenshot import or Gmail import as a way to automate without bank credentials. He will grant Gmail read access more willingly than bank credentials if the scope is explained clearly. [? hypothesis - needs validation. The Gmail-scan trust gap is unclear.]
+- Manual entry as the primary path, with preset library to reduce effort. Post-persona research (June 2026) confirms manual entry is the most trusted method for privacy-conscious users - "the most private system is one where your financial data never leaves your device" (budgetvault.app/blog/budget-app-without-bank-sync). Presets (ReSubs model: 461 services) reduce manual entry friction to a manageable level.
+- AI screenshot import or Gmail import as an optional second path if he wants faster setup. [? hypothesis - whether he trusts email access more than bank access has no direct research evidence. Requires primary user testing. Do not build Gmail scan as a primary path until tested.]
 - Transparent explanation of exactly what each import method accesses. A single sentence per method: "Gmail scan reads only emails with the word 'subscription' or 'receipt.' We cannot read your other emails."
 - No account required to try the product. Let him explore manually first.
 

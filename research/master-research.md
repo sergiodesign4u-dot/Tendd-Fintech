@@ -261,3 +261,53 @@ Requires too much cognitive load for the anxious scan-first user. The product mu
 | Is $6.99/mo, $7.99/mo, or $9.99/mo the right price point for Tendd Pro? | Pricing hypothesis revised up. PocketGuard charges $12.99/mo (1M+ users), YNAB $14.99/mo. Original $4.99 may be leaving money on the table. | Pricing page A/B test after launch; Van Westendorp price sensitivity survey in user research |
 | What EU open banking provider has the best reliability and coverage for our markets? | TrueLayer vs. Nordigen (GoCardless) vs. Powens have different coverage/reliability | Technical evaluation: build a proof-of-concept against both and measure real coverage |
 | How long does it take for a new user to see their first subscription via bank sync? | If sync takes >60 seconds, the Guided Reveal pattern fails at activation | Technical benchmark during early development |
+
+---
+
+## Post-persona research, June 2026
+
+Added after personas.md and jtbd.md were drafted. Purpose: close or narrow the three highest-risk gaps identified in the jtbd.md critique section. Sources searched: peer-reviewed research, clinical literature on financial avoidance, UX studies, privacy preference surveys, and Reddit forum data.
+
+### Q1 Research: Does calm design reduce anxiety for financial avoiders?
+
+**Finding: Partially confirmed. The relief comes from the act of engaging, not just from design softness. Gradual exposure is the key mechanism.**
+
+A 2024 Discover Financial survey found 44% of US adults avoid checking a financial account because of stress or fear. 37% have "literally shielded their eyes from their own bank account." This confirms the avoidance segment is large and real. Source: [stocktitan.net/news/DFS/discover-survey-anxiety-and-avoidance-are-driving-the-financial-19am08lzmguv.html](https://www.stocktitan.net/news/DFS/discover-survey-anxiety-and-avoidance-are-driving-the-financial-19am08lzmguv.html)
+
+Cornell University research found a striking result that directly addresses H0 (the riskiest assumption): "People anticipate that talking about money will increase their anxiety. They found the opposite to be true." More specifically: "the more people talk about their personal finances, the better they feel" and "Putting financial concerns into words helps organize one's thoughts and shifts the mindset from confusion to clarity." The key condition: talking about something within your financial control reduces anxiety more than talking about something outside your control. Subscription spend IS within the user's control. Source: [news.cornell.edu/node/331238](https://news.cornell.edu/node/331238)
+
+UX research on calm interfaces confirms design can reduce anxiety, with "explicit state narration" reducing uncertainty by 20-30% in A/B tests. Source: [medium.com/design-bootcamp/calm-interfaces-for-high-speed-finance-ec9e8412cebc](https://medium.com/design-bootcamp/calm-interfaces-for-high-speed-finance-ec9e8412cebc)
+
+**Implication for the Guided Reveal pattern:** The relief is real but it comes from engagement, not from calming design alone. Calm design reduces the activation barrier (gets the user to engage), but the emotional payoff comes from the engagement itself. This means the Guided Reveal must be engaging enough to get the user to LOOK, not just visually calm enough to not scare them. These are related but distinct design goals.
+
+**NEW DESIGN IMPLICATION: Gradual exposure outperforms a single reveal.** Clinical exposure therapy research confirms that gradual exposure to feared stimuli reduces avoidance more effectively than full exposure at once. Source: [anxietycanada.com/sites/default/files/FacingFears_Exposure.pdf](https://www.anxietycanada.com/sites/default/files/FacingFears_Exposure.pdf). Applied to the Guided Reveal: showing the subscription count before the total, then categories before individual items, then the total as the culminating moment, may reduce the anxiety spike better than opening with a single full total. This is a meaningful design refinement to the Guided Reveal pattern.
+
+**Status of H0 (riskiest assumption):** Cornell research provides indirect evidence that engaging with controllable financial information produces relief rather than more anxiety. But the research subjects are not specifically screened for financial-avoidance behavior. H0 remains a hypothesis, but the indirect evidence is now supportive rather than neutral. User prototype testing with avoidant users is still the correct first test.
+
+---
+
+### Q2 Research: Is avoidance driven by fear of the number, or by the act of engaging?
+
+**Finding: Both, but the primary trigger is emotional, not numerical. Gradual disclosure directly counters both mechanisms.**
+
+A peer-reviewed 2024 study (PMC/NCBI) found that "when people experience financial scarcity, financial information might function as a scarcity cue and trigger negative emotions." Additionally: "people tend to neglect information if it has the potential to threaten a positive self-image." This is the emotional-trigger mechanism. The avoidance is not about the number per se - it is about what the number might say about the person. Source: [pmc.ncbi.nlm.nih.gov/articles/PMC11522046](https://pmc.ncbi.nlm.nih.gov/articles/PMC11522046/)
+
+The Financial Brand (2024) found a secondary driver: financial institutions identified a specific consumer fear that engaging with financial tools "will lead them into a complex, overwhelming situation, fearing they'll go down a rabbit hole or into a spiral of despair." This is the complexity-fear mechanism, separate from the number-fear mechanism. Source: [thefinancialbrand.com/news/financial-education/financial-avoidance-the-fears-and-habits-holding-your-customers-back-189384](https://thefinancialbrand.com/news/financial-education/financial-avoidance-the-fears-and-habits-holding-your-customers-back-189384)
+
+**Implication for product design:** Emma's avoidance has two distinct roots. The emotional-trigger mechanism requires judgment-free framing (the information is not a verdict on her as a person). The complexity-fear mechanism requires one thing at a time with no branching or decisions. Both are already in the design principles (CLAUDE.md) but now have clinical backing.
+
+**NEW: The "self-image threat" finding changes how we frame subscriptions.** Do not present the subscription total as "how much you are spending." Present it as "what you have signed up for" or "what is scheduled to go out." The framing of control vs. exposure makes a real psychological difference.
+
+---
+
+### Q3 Research: Which import method do privacy-first users trust most?
+
+**Finding: Manual entry is most trusted. Bank connection distrusted. Email access: no direct evidence found. Screenshot upload: no evidence found.**
+
+BudgetVault 2026 analysis confirms manual entry is "by far the most trusted" option: "The most private system is one where your financial data never leaves your device in the first place." It also found that 60% of the 20 most popular budgeting apps share at least some user data with third parties, and that Plaid "allegedly collected more financial data than was reasonably necessary." Source: [budgetvault.app/blog/budget-app-without-bank-sync](https://budgetvault.app/blog/budget-app-without-bank-sync)
+
+No direct evidence was found comparing email scan vs. bank connection vs. screenshot upload in terms of user trust preference. This remains a gap that requires primary research.
+
+**Implication for Ravi's persona:** The assumption that Ravi would grant Gmail access more readily than bank access is still a hypothesis. Evidence shows he prefers manual entry above both. The Gmail scan path needs explicit user testing before it is built as a primary privacy-first activation route. The risk: if Gmail scan triggers similar distrust to bank connection, the only valid privacy path for Ravi is manual entry with good preset support (ReSubs' 461 presets are the benchmark).
+
+**Status of Danger 3:** Still open [?]. Not closed by this research. Moved to "requires primary user research" rather than "requires web research." The product should design the manual path first and test Gmail scan as a secondary option with a clearly explained, revocable consent flow.

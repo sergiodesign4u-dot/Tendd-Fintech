@@ -203,44 +203,44 @@ ReSubs confirms the segment exists and is willing to pay. No product offers priv
 | ReSubs 18K+ users on no-bank model | Cited, source: resubs.app | Confirmed |
 | Bobby 4.7/5 from 8,000+ iOS reviews | Cited, source: 19pine.ai citing App Store | Confirmed |
 | Cancel-and-save moment is most emotionally powerful | Confirmed from research + multiple user quotes | Confirmed |
-| Calm visibility reduces anxiety rather than triggering more avoidance | This is the riskiest assumption (strategy.md H0) | [?] Hypothesis - no competitor evidence either way |
-| Emma's avoidance is driven by shame about incompetence (E1) | Hypothesis - consistent with ux-patterns.md BP1 + Monzo research, but not directly confirmed by user interview | [?] Hypothesis |
-| The Guided Reveal produces relief rather than a second wave of avoidance | Same as riskiest assumption above | [?] Hypothesis |
-| Users share their subscription total with friends (S1) | Hypothesis - consistent with Spotify Wrapped analogy and Rocket Money testimonials | [?] Hypothesis |
-| Ravi would grant Gmail access more willingly than bank access | Hypothesis - not tested | [?] Hypothesis |
-| J4 notifications build trust if designed like Monzo's active-voice principle | Hypothesis - consistent with Monzo benchmark (master-research.md M1) but not tested for this product | [?] Hypothesis |
+| Calm visibility reduces anxiety rather than triggering more avoidance | This is the riskiest assumption (strategy.md H0) | PARTIALLY SUPPORTED. Cornell research (news.cornell.edu/node/331238) found people anticipate financial talk will increase anxiety but the opposite is true. Relief comes from engaging, not just from calm design. Still requires prototype test with avoiders. |
+| Emma's avoidance is driven by shame about incompetence (E1) | Updated by post-persona research (June 2026) | CONFIRMED AND REFINED. PMC/NCBI research confirms avoidance is triggered by "threat to positive self-image" (pmc.ncbi.nlm.nih.gov/articles/PMC11522046). The framing "what you signed up for" is less threatening than "what you spent." |
+| The Guided Reveal produces relief rather than a second wave of avoidance | Was same as riskiest assumption | DESIGN REFINED. Post-persona research confirmed gradual exposure (clinical exposure therapy model) outperforms a single full reveal for anxiety reduction. The Guided Reveal must be progressive: count before total, categories before individual items. This is a meaningful design change. Source: anxietycanada.com/sites/default/files/FacingFears_Exposure.pdf |
+| Users share their subscription total with friends (S1) | Hypothesis - consistent with Spotify Wrapped analogy and Rocket Money testimonials | [?] Remains hypothesis. No direct evidence of share rates found. |
+| Ravi would grant Gmail access more readily than bank access | Hypothesis - not tested | REMAINS [?] - ESCALATED. Post-persona research found NO direct evidence for email access vs. bank access preference. Manual entry is confirmed as most trusted (budgetvault.app). Gmail scan must be user-tested before it is built as a primary path. |
+| J4 notifications build trust if designed like Monzo's active-voice principle | Hypothesis - consistent with Monzo benchmark (master-research.md M1) but not tested for this product | [?] Remains hypothesis. No new evidence. |
 
 ---
 
-### 6B. Danger List (Hypotheses That Affect Design or Product Decisions)
+### 6B. Danger List (Updated After Re-Research, June 2026)
 
 In priority order:
 
-**DANGER 1 (Highest priority): Does calm visibility actually work for financial avoiders?**
-- Hypothesis: seeing their full subscription spend in a calm frame reduces Emma's anxiety and produces relief, not a second wave of avoidance.
-- Decision it affects: the entire product design and the Guided Reveal pattern. If false, the product needs a fundamentally different onboarding: gradual exposure rather than a single reveal, or a way to let users self-pace the discovery.
-- Where to look: qualitative user research with people who self-identify as financial avoiders. The smallest test: a clickable Figma prototype with sample data, shown to 5-8 people screened for financial-avoidance behavior. Ask them to complete the reveal and measure emotional state after. (strategy.md section 5 has the full test spec.)
+**DANGER 1 (Highest priority - NARROWED): Does calm, GRADUAL visibility convert financial avoiders?**
+- Updated: The question is no longer "does calm design reduce anxiety?" (Cornell research gives indirect positive evidence). The more precise question is whether the Guided Reveal - specifically the gradual, progressive version - works for people who actively avoid checking finances.
+- What changed: Post-persona research confirms (a) 44% of US adults actively avoid financial accounts (Discover survey), (b) engagement with controllable finances produces relief, not more anxiety (Cornell), and (c) gradual exposure is the clinical mechanism, not single-reveal (exposure therapy literature). The "single total first" version of the Guided Reveal may be replaced by "count first, then categories, then total."
+- Decision it affects: the exact sequence of the Guided Reveal onboarding. This is a wireframe-level decision.
+- Smallest test: a prototype with the gradual sequence (count first, then categories with logos, then total as a reveal moment), shown to 5-8 people screened for financial-avoidance behavior. Pass signal: majority complete the reveal and report relief. (strategy.md section 5 full spec still applies.)
 
-**DANGER 2 (High priority): What is the trigger for the avoidance loop - the number, the act of looking, or both?**
-- Hypothesis: Emma avoids looking because she fears the total, but once she sees it in a calm frame she feels relief.
-- Alternative: the act of engaging with financial information itself (not the number) triggers avoidance, regardless of framing. If true, no design can convert her without first addressing the psychological pattern at a deeper level.
-- Decision it affects: whether Tendd can serve Emma at all, or whether the real primary persona is Claudia (the motivated cutter, who does not have avoidance behavior).
-- Where to look: academic literature on financial avoidance behavior (Barclays "Financial Wellbeing" reports, UK Money and Mental Health Policy Institute research). Reddit threads in r/personalfinance where users describe why they avoid looking. Specific search: "I know I should check my bank" site:reddit.com.
+**DANGER 2 (High priority - PARTIALLY RESOLVED): What drives Emma's avoidance?**
+- What changed: Post-persona research (June 2026) found clinical confirmation that avoidance is driven by TWO mechanisms: (1) financial information as a "scarcity cue" that triggers negative emotions about self-image, and (2) fear of spiraling into complexity (The Financial Brand). The self-image mechanism means framing matters: "what you have signed up for" (neutral, control) vs. "what you spent" (judgment). The complexity-fear mechanism means one-thing-at-a-time design is clinically justified, not just a UX preference.
+- Decision it affects: the copywriting and framing throughout onboarding. This is a design and content decision, not a build/no-build decision.
+- This danger is de-escalated from blocking to "resolved at the design level, test in prototype."
 
-**DANGER 3 (Medium priority): Would Ravi grant Gmail access more readily than bank access?**
-- Hypothesis: Ravi's trust in the privacy path depends on which import method feels least invasive. Gmail scan is positioned as the middle path but it requires email access, which may feel just as invasive as bank access to some users.
-- Decision it affects: the design of the privacy-first activation path. If Gmail scan triggers the same resistance as bank connection, the only valid privacy path is manual entry, which means the effort barrier may be too high for activation.
-- Where to look: ReSubs user reviews that specifically mention their Gmail scan experience. Reddit privacy communities (r/privacy) posts about finance app data access. The specific fear to look for: "I don't want any app reading my email."
+**DANGER 3 (Medium priority - ESCALATED): Is Gmail scan actually trusted by privacy-first users?**
+- What changed: Post-persona research found NO direct evidence that email access is trusted more than bank access. Manual entry is confirmed as most trusted. Gmail scan is an untested assumption.
+- Decision it affects: the design of Ravi's activation path. If Gmail scan is not trusted, the only reliable privacy-first path is manual entry with a strong preset library. This affects build priority: presets are needed for launch; Gmail scan can be shipped later after validation.
+- Where to answer: primary user research (cannot be answered by web research). Ask 5 privacy-conscious users to react to descriptions of three import methods (manual, Gmail scan, screenshot). Capture their reasoning. Do not build Gmail scan as a launch-day feature.
 
 ---
 
-### 6C. Three Targeted Questions to Close the Most Important Gaps
+### 6C. Three Targeted Questions for User Research (Updated)
 
-**Q1 (Closes Danger 1):** When a financially anxious person sees their full subscription list for the first time in a judgment-free, calm design - do they report relief or increased anxiety?
-Answer method: prototype test with 5-8 people screened for financial-avoidance behavior. Measure: (a) completion of the reveal, (b) self-reported emotional state immediately after, (c) spontaneous desire to see their own real data.
+**Q1 (Closes Danger 1):** Does a gradual Guided Reveal (count first, then categories, then total) produce relief for financially avoidant users - and does it outperform a single-total-first reveal?
+Answer method: A/B prototype test with 5-8 people screened for financial-avoidance behavior. Version A: shows total first, then subscription list. Version B: shows count, then categories with logos, then total as climax. Measure: completion rate, emotional state after, desire to see their own data.
 
-**Q2 (Closes Danger 2):** Is Emma's avoidance driven by fear of the total (the number), or by the act of engaging with financial information at all?
-Answer method: in user interviews, show two stimuli: (a) a reveal of their own estimated subscription count without a total, then (b) the full total revealed. Observe whether the number itself or the engagement act triggers discomfort. This informs whether a "gradual reveal" (count first, total later) outperforms a single reveal moment.
+**Q2 (Closes Danger 2 - partially resolved, confirm in test):** Does framing subscriptions as "what you have signed up for" reduce anxiety more than "what you spent" - and does the word "committed" (PocketGuard model) feel controlling or clarifying?
+Answer method: in the prototype test (same sessions as Q1), vary the headline copy and observe reactions. This is a low-cost test layered on top of Q1.
 
-**Q3 (Closes Danger 3):** For privacy-first users, which import method feels most trustworthy - AI screenshot upload, Gmail scan, or fully manual entry - and why?
-Answer method: ask 5 users who self-identify as privacy-conscious to rank the three methods after reading a plain-language description of what each one accesses. Capture the language they use to explain their ranking.
+**Q3 (Closes Danger 3):** For privacy-conscious users, does Gmail scan feel more or less invasive than bank connection - and would they use it at all given a fully manual alternative with presets?
+Answer method: 5 users who self-identify as privacy-conscious. Present three import options with plain-language descriptions (no marketing language). Ask them to react. Capture specific fears. Determine whether Gmail scan is a path worth building at launch or better shipped as v2 after manual-first is validated.
