@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tendd - Jobs to Be Done</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --border-light: #f0ede6;
+      --text: #2a2724;
+      --text-secondary: #6b6560;
+      --text-muted: #9b958e;
+      --accent: #5c7a6e;
+      --accent-light: #eef4f1;
+      --accent-mid: #d0e4dc;
+      --yellow-light: #fdf8ed;
+      --yellow-mid: #f5e9c4;
+      --red-light: #fdf2f0;
+      --red-mid: #f2cfc8;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --radius: 8px;
+      --radius-sm: 4px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Sidebar ─────────────────────────────────── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 220px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      z-index: 200;
+      transform: translateX(-100%);
+      transition: transform 0.22s ease;
+      overflow-y: auto;
+      padding-bottom: 32px;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 150;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+
+    .sidebar-close {
+      background: none; border: none; font-size: 18px; line-height: 1;
+      color: var(--text-muted); cursor: pointer; padding: 4px 6px;
+      border-radius: var(--radius-sm);
+    }
+    .sidebar-close:hover { color: var(--text); background: var(--border-light); }
+
+    .nav-toggle {
+      position: fixed; top: 14px; left: 16px; z-index: 100;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px;
+    }
+
+    .sidebar-nav { padding: 12px 10px 0; }
+
+    .nav-section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); padding: 10px 8px 5px;
+    }
+    .nav-section-label.active { color: var(--accent); }
+
+    .nav-link {
+      display: block; text-decoration: none; color: var(--text-secondary);
+      font-size: 13px; padding: 6px 10px; border-radius: var(--radius-sm);
+      margin-bottom: 1px; transition: all 0.15s;
+    }
+    .nav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-link.active { color: var(--accent); background: var(--accent-light); font-weight: 500; }
+
+    .nav-page-active {
+      display: block; font-size: 13px; font-weight: 600; color: var(--accent);
+      padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light);
+      margin-bottom: 1px;
+    }
+
+    .nav-sub-link {
+      display: block; text-decoration: none; color: var(--text-muted);
+      font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm);
+      margin-bottom: 1px; transition: all 0.15s;
+    }
+    .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-sub-link.active { color: var(--accent); font-weight: 500; }
+
+    .nav-divider { border: none; border-top: 1px solid var(--border-light); margin: 10px 8px; }
+
+    .nav-next-block {
+      margin: 14px 8px 0; padding: 10px; border-radius: var(--radius-sm);
+      background: var(--bg); border: 1px solid var(--border-light);
+    }
+    .nav-next-label {
+      display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px;
+    }
+    .nav-next-items { font-size: 12px; color: var(--text-muted); }
+
+    @media (min-width: 840px) {
+      .sidebar { transform: translateX(0); }
+      .sidebar-close { display: none; }
+      .sidebar-overlay { display: none !important; }
+      .nav-toggle { display: none; }
+    }
+
+    /* ── Main layout ─────────────────────────────── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 72px 24px 80px;
+    }
+    @media (min-width: 840px) {
+      body { padding-left: 220px; }
+      main { padding-top: 40px; }
+    }
+    @media (max-width: 640px) {
+      main { padding-left: 16px; padding-right: 16px; }
+      h1 { font-size: 26px !important; }
+    }
+
+    /* ── Type ────────────────────────────────────── */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+    }
+    h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; color: var(--text); }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px; }
+    h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    p { margin-bottom: 12px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    cite { font-size: 11.5px; color: var(--text-muted); font-style: normal; }
+    cite a { color: var(--text-muted); }
+    cite a:hover { color: var(--accent); }
+    ul { list-style: none; }
+
+    /* ── Hero ────────────────────────────────────── */
+    .hero {
+      padding: 64px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-meta { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; padding: 4px 10px;
+      border-radius: 100px; background: var(--accent-light);
+      color: var(--accent); border: 1px solid var(--accent-mid);
+    }
+    .hero-tagline {
+      font-size: 18px; color: var(--text-secondary);
+      margin-top: 12px; max-width: 640px; line-height: 1.5;
+    }
+
+    /* ── Sections ────────────────────────────────── */
+    .section { padding: 64px 0 0; }
+    .section-sub { padding: 36px 0 0; }
+
+    /* ── Main job callout ────────────────────────── */
+    .main-job-card {
+      background: var(--accent-light); border: 1.5px solid var(--accent-mid);
+      border-radius: var(--radius); padding: 28px 32px; margin-top: 24px;
+    }
+    .main-job-card .job-statement {
+      font-size: 19px; font-style: italic; line-height: 1.55;
+      color: var(--text); font-weight: 400; margin-bottom: 20px;
+    }
+    .main-job-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .job-id {
+      font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+      background: var(--accent); color: white; letter-spacing: 0.04em;
+    }
+    .job-id.secondary { background: var(--accent-mid); color: var(--accent); }
+    .job-id.emotional { background: var(--yellow-mid); color: #7a5c10; }
+    .job-id.hyp { background: var(--border); color: var(--text-muted); }
+
+    .evidence-list {
+      display: flex; flex-direction: column; gap: 6px; margin-top: 12px;
+    }
+    .evidence-item {
+      font-size: 13px; color: var(--text-secondary); line-height: 1.5;
+      padding: 8px 12px; background: rgba(255,255,255,0.6);
+      border-radius: var(--radius-sm); border-left: 2px solid var(--accent-mid);
+    }
+
+    /* ── Job cards (J1-J5, E1-E3, S1) ───────────── */
+    .job-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px 26px;
+      margin-top: 16px; box-shadow: var(--shadow);
+    }
+    .job-card-head { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 14px; }
+    .job-card-title { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.35; }
+    .job-card-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+    .job-stmt-block {
+      font-size: 14px; font-style: italic; color: var(--text-secondary);
+      line-height: 1.65; border-left: 3px solid var(--accent-mid);
+      padding: 12px 16px; background: var(--bg);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-bottom: 16px;
+    }
+
+    .detail-row { margin-bottom: 10px; }
+    .detail-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;
+    }
+    .detail-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+    /* ── Hypotheses ──────────────────────────────── */
+    .hyp-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px; margin-top: 16px;
+    }
+    .hyp-card-head { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; }
+    .hyp-stmt {
+      font-size: 14px; font-style: italic; color: var(--text-muted);
+      line-height: 1.6; margin-bottom: 12px;
+    }
+    .hyp-verdict {
+      font-size: 13px; color: var(--text-secondary); line-height: 1.5;
+      background: var(--yellow-light); border: 1px solid var(--yellow-mid);
+      border-radius: var(--radius-sm); padding: 10px 14px;
+    }
+
+    /* ── Claim badges ────────────────────────────── */
+    .hyp-badge {
+      display: inline-flex; align-items: center; font-size: 10px;
+      font-weight: 700; padding: 2px 6px; border-radius: 4px;
+      background: var(--yellow-light); color: #8a6e20; border: 1px solid var(--yellow-mid);
+      margin-left: 5px; vertical-align: middle; letter-spacing: 0.02em;
+    }
+    .decision-badge {
+      display: inline-flex; align-items: center; font-size: 10px;
+      font-weight: 700; padding: 2px 6px; border-radius: 4px;
+      background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid);
+      margin-left: 5px; vertical-align: middle;
+    }
+    .confirmed-badge {
+      display: inline-flex; align-items: center; font-size: 10px;
+      font-weight: 700; padding: 2px 6px; border-radius: 4px;
+      background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid);
+      vertical-align: middle;
+    }
+    .closed-badge {
+      display: inline-flex; align-items: center; font-size: 10px;
+      font-weight: 700; padding: 2px 6px; border-radius: 4px;
+      background: var(--border); color: var(--text-muted); border: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .updated-note {
+      font-size: 12.5px; color: var(--text-secondary);
+      background: var(--yellow-light); border: 1px solid var(--yellow-mid);
+      border-radius: var(--radius-sm); padding: 10px 14px;
+      margin-top: 12px; line-height: 1.5;
+    }
+
+    /* ── JTBD Matrix table ───────────────────────── */
+    .table-wrap {
+      overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 24px;
+    }
+    table {
+      width: 100%; border-collapse: collapse; font-size: 13px; min-width: 680px;
+    }
+    th {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted);
+      background: var(--bg); padding: 10px 14px;
+      border-bottom: 2px solid var(--border); text-align: left;
+    }
+    td {
+      padding: 12px 14px; border-bottom: 1px solid var(--border-light);
+      vertical-align: top; color: var(--text-secondary); line-height: 1.45;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg); }
+
+    .job-col { font-weight: 500; color: var(--text); }
+
+    .score {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    .score-3 { background: var(--accent); color: white; }
+    .score-2 { background: var(--accent-mid); color: var(--accent); }
+    .score-1 { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+
+    .score-cell { white-space: nowrap; }
+
+    /* ── Conclusions ─────────────────────────────── */
+    .conclusion-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px; margin-top: 16px;
+      box-shadow: var(--shadow);
+    }
+    .conclusion-card.primary-card { border-color: var(--accent-mid); background: var(--accent-light); }
+    .conclusion-num {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+    }
+    .conclusion-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .conclusion-body { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ── Cut list ────────────────────────────────── */
+    .cut-item {
+      border-left: 3px solid var(--red-mid); padding: 10px 14px;
+      background: var(--red-light); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-bottom: 8px; font-size: 13.5px; color: var(--text); line-height: 1.5;
+    }
+    .cut-item:last-child { margin-bottom: 0; }
+    .cut-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase; color: #8a2020; margin-bottom: 3px;
+    }
+
+    /* ── Critique ────────────────────────────────── */
+    .claim-table-wrap { overflow-x: auto; margin-top: 16px; }
+    .claim-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 500px; }
+    .claim-table th {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted);
+      background: var(--bg); padding: 8px 12px;
+      border-bottom: 2px solid var(--border); text-align: left;
+    }
+    .claim-table td {
+      padding: 10px 12px; border-bottom: 1px solid var(--border-light);
+      vertical-align: top; color: var(--text-secondary); line-height: 1.45;
+    }
+
+    .danger-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 22px; margin-bottom: 12px;
+      box-shadow: var(--shadow);
+    }
+    .danger-item.closed { border-left: 3px solid var(--accent); }
+    .danger-status {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .danger-status.closed { color: var(--accent); }
+    .danger-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .danger-body { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+    .q-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 22px; margin-bottom: 12px;
+      box-shadow: var(--shadow);
+    }
+    .q-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .q-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .q-method { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+    /* ── Footer ──────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border); margin-top: 80px;
+      padding: 32px 0; text-align: center;
+    }
+    .footer p { font-size: 13px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd Research</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Research Sprint</div>
+    <a href="research.html#intro" class="nav-link">Overview</a>
+    <a href="research.html#canvas" class="nav-link">Canvas</a>
+    <a href="research.html#strategy" class="nav-link">Strategy</a>
+    <a href="research.html#aarrr" class="nav-link">AARRR</a>
+    <a href="research.html#competitors" class="nav-link">Competitors</a>
+    <a href="research.html#benchmark" class="nav-link">Benchmark</a>
+    <a href="research.html#patterns" class="nav-link">UX Patterns</a>
+    <a href="research.html#conclusions" class="nav-link">Conclusions</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label active">People &amp; JTBD</div>
+    <a href="personas.html" class="nav-link">Personas</a>
+    <span class="nav-page-active">JTBD</span>
+    <a href="#main-job" class="nav-sub-link" data-section="main-job">Main Job</a>
+    <a href="#related-jobs" class="nav-sub-link" data-section="related-jobs">Related Jobs</a>
+    <a href="#emotional-jobs" class="nav-sub-link" data-section="emotional-jobs">Emotional Jobs</a>
+    <a href="#hypotheses" class="nav-sub-link" data-section="hypotheses">Hypotheses</a>
+    <a href="#matrix" class="nav-sub-link" data-section="matrix">Matrix</a>
+    <a href="#critique" class="nav-sub-link" data-section="critique">Critique</a>
+
+    <div class="nav-next-block">
+      <span class="nav-next-label">Next</span>
+      <span class="nav-next-items">Wireframes, Concept</span>
+    </div>
+  </nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero" id="intro">
+    <div class="hero-meta">
+      <span class="badge">People &amp; JTBD</span>
+      <span class="badge">June 2026</span>
+      <span class="badge">10 Jobs Mapped</span>
+    </div>
+    <h1>Jobs to Be Done</h1>
+    <p class="hero-tagline">One main job. Five related jobs. Three emotional jobs. One social job. Two hypotheses ruled out. All critiqued and sourced.</p>
+  </section>
+
+  <!-- ─── Main Job ───────────────────────────────── -->
+  <section class="section" id="main-job">
+    <div class="section-label">The reason the product exists</div>
+    <h2>Main Job</h2>
+
+    <div class="main-job-card">
+      <div class="main-job-meta">
+        <span class="job-id">J-MAIN</span>
+        <span class="badge" style="font-size:11px">Fused J1 + J2 from strategy.md</span>
+      </div>
+      <div class="job-statement">
+        "When I suspect I am paying for things I forgot about or never use, I want to see all my recurring charges clearly in one calm view, so that I feel in control of my money without needing to become a finance person."
+      </div>
+
+      <div class="evidence-list">
+        <div class="evidence-item">
+          <strong>42%</strong> of consumers forgot they were being charged for a subscription they no longer used. <cite>C+R Research 2022, <a href="https://www.huffpost.com/entry/subscription-creep-personal-finance_l_67e2b566e4b02337954b55cc" target="_blank">huffpost.com</a></cite>
+        </div>
+        <div class="evidence-item">
+          Consumers underestimate subscription spend by <strong>$133/month</strong> on average. <cite>C+R Research 2022, <a href="https://www.huffpost.com/entry/subscription-creep-personal-finance_l_67e2b566e4b02337954b55cc" target="_blank">huffpost.com</a></cite>
+        </div>
+        <div class="evidence-item">
+          "The mental relief of knowing I'm not bleeding cash to forgotten subscriptions was priceless." <cite>Rocket Money user, <a href="https://productivewithchris.com/app-reviews/rocket-money-review-2025/" target="_blank">productivewithchris.com</a></cite>
+        </div>
+        <div class="evidence-item">
+          No competitor has designed the first subscription view as a calm emotional experience. Every competitor leads with a dashboard, budget, or bank connection request. <cite>competitive-analysis.md P1, P2</cite>
+        </div>
+      </div>
+
+      <div class="updated-note" style="margin-top:16px">
+        <strong>Design updated June 2026 (D1):</strong> The reveal sequence is gradual, not a single total reveal. Count appears first, then categories with logos, then the total - shown paired with a concrete action on the same screen. The total is not a dramatic culmination. It is always accompanied by what the user can do about it. This converts the exposure from potential shock to calm agency. Clinical exposure therapy research supports this: gradual disclosure outperforms sudden full disclosure for anxiety reduction. <cite>Source: <a href="https://anxietycanada.com/sites/default/files/FacingFears_Exposure.pdf" target="_blank">anxietycanada.com</a></cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Related Jobs ───────────────────────────── -->
+  <section class="section" id="related-jobs">
+    <div class="section-label">Before, during, and after the main job</div>
+    <h2>Related Jobs</h2>
+
+    <!-- J1 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <span class="job-id">J1</span>
+        <div>
+          <div class="job-card-title">Activate without anxiety - the trust job</div>
+          <div class="job-card-sub">Personas: Emma (primary), Ravi (stronger version)</div>
+        </div>
+      </div>
+      <div class="job-stmt-block">
+        "When I land on a new app that asks for my financial data, I want to see what the product can do for me before I decide whether to trust it with my bank account, so that I only share my data when I have a clear reason to."
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Evidence</div>
+        <div class="detail-text">Every bank-connected competitor asks for bank access in step 1 (competitive-analysis.md P1). 68% of users uncomfortable with apps' access to financial data. <cite>Banking Dive, <a href="https://www.bankingdive.com/news/consumers-uncomfortable-with-apps-level-of-access-to-data/567914/" target="_blank">bankingdive.com</a></cite>. 4 in 5 users did not know apps store bank usernames and passwords.</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Product consequence</div>
+        <div class="detail-text">Two explicit activation paths (bank-connected and privacy-first) must both converge on the same aha moment. The trust job must be resolved in onboarding before the main job becomes accessible. Apple Card partially closes this job (benchmark C8 = 4/5 - shows value before commitment). No subscription tracker closes it fully.</div>
+      </div>
+    </div>
+
+    <!-- J2 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <span class="job-id">J2</span>
+        <div>
+          <div class="job-card-title">Identify and cancel unused subscriptions - the cut job</div>
+          <div class="job-card-sub">Personas: Claudia (primary), Emma and Ravi (secondary)</div>
+        </div>
+      </div>
+      <div class="job-stmt-block">
+        "When I am looking to reduce my monthly spend, I want to quickly identify which subscriptions I actually use vs. which ones I keep forgetting to cancel, so I can free up money without a complicated process."
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Evidence</div>
+        <div class="detail-text">40.3% of subscribers cancelled at least one subscription in 2024. <cite><a href="https://adapty.io/blog/9-subscription-trends-dominating-2025/" target="_blank">adapty.io</a></cite>. 48% forgot to cancel a free trial. The cancel-and-save moment is the most emotionally powerful moment in the product. "After it saved me $400 in 15 minutes, I'd say it is." <cite>Rocket Money user, <a href="https://finance.yahoo.com/news/rocket-money-save-much-subscriptions-170009989.html" target="_blank">finance.yahoo.com</a></cite></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Product consequence</div>
+        <div class="detail-text">Basic cancel instruction (link + step description) is free in all tiers - the relief moment must not be gated. Full guides, direct cancel links, and cancel confirmation tracking are Pro. Upgrade trigger lives here. <span class="decision-badge">D3 closed</span></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Competitors</div>
+        <div class="detail-text">Rocket Money (concierge, but human-mediated and percentage-fee). ReSubs (30+ step-by-step cancel guides, no bank required). Hiatus. Neither offers the designed emotional moment of "you found money and it was easy to keep it."</div>
+      </div>
+    </div>
+
+    <!-- J3 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <span class="job-id">J3</span>
+        <div>
+          <div class="job-card-title">Understand what a charge actually is - the clarity job</div>
+          <div class="job-card-sub">Personas: Emma (primary - P2 pain), Claudia (secondary)</div>
+        </div>
+      </div>
+      <div class="job-stmt-block">
+        "When I see an unfamiliar charge on my statement, I want to know immediately what it is, which subscription it belongs to, and whether I authorized it, so that I can decide to keep it or act on it without having to investigate."
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Evidence</div>
+        <div class="detail-text">Apple Card mechanism M3 (master-research.md) - real merchant names and logos replace cryptic bank codes. N26's EU merchant cleanup validates this as table stakes. <cite><a href="https://support.apple.com/en-us/102329" target="_blank">support.apple.com</a>, <a href="https://n26.com/en-it/blog/new-in-n26-more-clarity" target="_blank">n26.com</a></cite></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Product consequence</div>
+        <div class="detail-text">Transaction enrichment - real names, logos, categories - is required at the subscription card level. Emma cannot feel relief if half the list says "SPOTIFYAB STOCKHOLM" or "DCSF MEDIA GROUP." This is activation-level quality, not a nice-to-have. Apple Card is best in class. Rocket Money uses Plaid enrichment. No subscription tracker has made this a front-page differentiator.</div>
+      </div>
+    </div>
+
+    <!-- J4 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <span class="job-id">J4</span>
+        <div>
+          <div class="job-card-title">Stay ahead of financial surprises - the alert job</div>
+          <div class="job-card-sub">Personas: Emma (primary), Claudia (secondary)</div>
+        </div>
+      </div>
+      <div class="job-stmt-block">
+        "When a subscription price changes, a payment fails, or a trial is about to convert, I want to be notified immediately in plain language, so I am never caught off guard by an unexpected charge."
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Evidence</div>
+        <div class="detail-text">ux-patterns.md BP3: users act when notified, not when reminded to review. Monzo principle M1 (master-research.md): active voice in financial notifications ("we couldn't process your payment" not "payment declined"). Surprise charges trigger Emma's avoidance loop; being warned first converts the experience from threat to control.</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Product consequence</div>
+        <div class="detail-text">Price-change and payment-failure alerts are retention architecture, not features. The weekly digest and push notifications are the return engine (ux-patterns.md BP4). No competitor has made notification design itself a trust-building experience. <span class="hyp-badge">? hypothesis: Monzo-style active-voice alerts build trust more than standard push</span></div>
+      </div>
+    </div>
+
+    <!-- J5 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <span class="job-id">J5</span>
+        <div>
+          <div class="job-card-title">Track subscriptions without sharing bank data - the privacy job</div>
+          <div class="job-card-sub">Personas: Ravi (primary), Emma (secondary - before trust is established)</div>
+        </div>
+      </div>
+      <div class="job-stmt-block">
+        "When I want to understand my subscription spend, I want to track all my recurring charges without giving any app access to my bank account, so I feel in control of my money and secure at the same time."
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Evidence</div>
+        <div class="detail-text">ReSubs built 18,000+ users and 4.5 stars on Google Play entirely on a no-bank-connection model. <cite><a href="https://resubs.app" target="_blank">resubs.app</a></cite>. 68% of users uncomfortable with app access to bank data. The privacy-or-convenience binary is a confirmed market gap (competitive-analysis.md P3).</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Product consequence</div>
+        <div class="detail-text">Launch with manual entry + 400+ preset library. Gmail scan and AI screenshot import are deferred to v2, after user testing confirms they are trusted. The privacy path is a primary path, equal in visual weight to bank connection - not a fallback. <span class="decision-badge">D2 closed</span></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Competitors</div>
+        <div class="detail-text">ReSubs (best in class, no bank required). Bobby (manual, iOS only). No competitor offers privacy AND automation in one product.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Emotional & Social Jobs ────────────────── -->
+  <section class="section" id="emotional-jobs">
+    <div class="section-label">Under and alongside the functional jobs</div>
+    <h2>Emotional &amp; Social Jobs</h2>
+
+    <!-- E1 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <span class="job-id emotional">E1</span>
+        <div>
+          <div class="job-card-title">Feel financially competent without being a finance person</div>
+          <div class="job-card-sub">Persona: Emma (primary)</div>
+        </div>
+      </div>
+      <div class="job-stmt-block">
+        "When I use a money app, I want to feel like a capable adult who is on top of their finances, not like a person being judged for their spending choices, so that I keep using it and don't feel worse about myself."
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Evidence</div>
+        <div class="detail-text">Avoidance behavior is partly about shame - looking at the real number feels like evidence of incompetence (personas.md P1, ux-patterns.md BP1). PMC/NCBI research confirms financial information triggers "threat to positive self-image." <cite><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11522046/" target="_blank">pmc.ncbi.nlm.nih.gov</a></cite>. "The app helped me get organized and being prepared for monthly expenses helped alleviate some anxiety." <cite>Bobby user, <a href="https://justuseapp.com/en/app/1452618732/bobby-budget-subscription-manager/review" target="_blank">justuseapp.com</a></cite></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Product consequence</div>
+        <div class="detail-text">Every screen must be judgment-free. No red. No language implying failure. The subscription list is presented as discovery, not audit. "What you have signed up for" is less threatening than "what you spent." Framing is a copywriting and design constraint, not a marketing choice.</div>
+      </div>
+    </div>
+
+    <!-- E2 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <span class="job-id emotional">E2</span>
+        <div>
+          <div class="job-card-title">Experience the small win - the pride moment</div>
+          <div class="job-card-sub">Personas: Emma (after activation), Claudia (at cancellation)</div>
+        </div>
+      </div>
+      <div class="job-stmt-block">
+        "When I find a forgotten subscription or save money by cancelling, I want to feel the satisfaction of that moment, so that I associate the product with positive emotions and tell people about it."
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Evidence</div>
+        <div class="detail-text">"Getting rid of those felt like a little pay raise." <cite><a href="https://checkthat.ai/subscriptions/rocket-money-review" target="_blank">checkthat.ai</a></cite>. "I was shocked when I entered all my subscriptions and saw the yearly total." <cite>19pine.ai user, <a href="https://www.19pine.ai/blog/best-management-and-subscription-trackers" target="_blank">19pine.ai</a></cite>. The cancel-and-save moment is identified as the most shareable moment in the product (master-research.md key conclusion 3).</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Product consequence</div>
+        <div class="detail-text">The cancel-win moment must be designed explicitly - not a generic success state but a moment with specific numbers: "You just freed up $14.99/month - that's $179.88/year." This is also where the share prompt lives. No competitor has designed this moment. The gap is confirmed.</div>
+      </div>
+    </div>
+
+    <!-- E3 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <span class="job-id emotional">E3</span>
+        <div>
+          <div class="job-card-title">Feel safe sharing data - the trust maintenance job</div>
+          <div class="job-card-sub">Personas: Ravi (primary - ongoing), Emma (secondary)</div>
+        </div>
+      </div>
+      <div class="job-stmt-block">
+        "When I am using an app that holds my financial patterns, I want to know at any moment what it knows about me and be able to remove it completely, so that I never feel trapped or surveilled."
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Evidence</div>
+        <div class="detail-text">Over half of consumers prefer built-in app settings to manage data permissions. <cite>Banking Dive, <a href="https://www.bankingdive.com/news/consumers-uncomfortable-with-apps-level-of-access-to-data/567914/" target="_blank">bankingdive.com</a></cite>. 4 in 5 users did not know apps store their bank credentials. Monarch Money makes "we do not sell your data" a front-page trust signal - no subscription tracker does this prominently.</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Product consequence</div>
+        <div class="detail-text">Data deletion must be one tap. Data use must be explained in plain language on the first screen. These are not legal checkbox features - they are the trust infrastructure for both Emma and Ravi.</div>
+      </div>
+    </div>
+
+    <!-- S1 -->
+    <div class="job-card">
+      <div class="job-card-head">
+        <span class="job-id" style="background:var(--yellow-mid);color:#7a5c10">S1</span>
+        <div>
+          <div class="job-card-title">Share the discovery - the social job <span class="hyp-badge">?</span></div>
+          <div class="job-card-sub">Personas: Emma (after activation), Claudia (after a cancel win)</div>
+        </div>
+      </div>
+      <div class="job-stmt-block">
+        "When I discover how much I'm spending on subscriptions, I want to share the number or the list with a friend, so that I feel connected to the experience and others can benefit from it too."
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Evidence</div>
+        <div class="detail-text">Rocket Money's top testimonials all reference telling friends. Consistent with Spotify Wrapped-style share hypothesis (master-research.md H2). The specific format - subscription count + total spend, no bank data visible - is the privacy-safe shareable card.</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Status</div>
+        <div class="detail-text">This is a hypothesis about virality. Real share rates are unknown. The product must design for shareability but cannot count on it. <span class="hyp-badge">? hypothesis - no direct share-rate evidence found</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Hypotheses ──────────────────────────────── -->
+  <section class="section" id="hypotheses">
+    <div class="section-label">Jobs without sufficient evidence - ruled out</div>
+    <h2>Hypotheses</h2>
+
+    <div class="hyp-card">
+      <div class="hyp-card-head">
+        <span class="job-id hyp">JH1</span>
+        <div>
+          <div class="job-card-title">Tracking shared household subscriptions <span class="hyp-badge">?</span></div>
+          <div class="job-card-sub">Out of scope</div>
+        </div>
+      </div>
+      <div class="hyp-stmt">
+        "When my partner and I want to understand our combined subscription spend, I want a shared view, so we stop paying for duplicates."
+      </div>
+      <div class="hyp-verdict">
+        <strong>Why out of scope:</strong> Validated as a real need - Emma and Monarch both added shared modes. But confirmed as too complex for MVP. Every implementation (Monarch household mode, Emma collaborative budgeting 2025) requires heavy product complexity. More importantly, no interview data confirms that anxious millennials feel this job acutely before they have solved their own individual subscription visibility. The product must serve J-MAIN for one person before adding a second. <cite>Sources: <a href="https://www.monarch.com/" target="_blank">monarch.com</a>, <a href="https://emma-app.com/" target="_blank">emma-app.com</a></cite>
+      </div>
+    </div>
+
+    <div class="hyp-card">
+      <div class="hyp-card-head">
+        <span class="job-id hyp">JH2</span>
+        <div>
+          <div class="job-card-title">AI conversation about subscriptions <span class="hyp-badge">?</span></div>
+          <div class="job-card-sub">Not a fit for Segment A</div>
+        </div>
+      </div>
+      <div class="hyp-stmt">
+        "When I want to understand my spending patterns, I want to ask questions in plain language, so I can get answers without learning the app's interface."
+      </div>
+      <div class="hyp-verdict">
+        <strong>Why ruled out:</strong> Monarch Money added an AI assistant. Copilot Money uses AI categorization. But ux-patterns.md explicitly rules this pattern out for our segment: conversational AI creates uncertainty for the anxious user rather than reducing it. The open-ended nature of a chat interface adds cognitive load - the opposite of Tendd's differentiator. This is a feature-push from the competitive landscape, not a pull from our users. No user evidence supports this desire in Segment A.
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Matrix ──────────────────────────────────── -->
+  <section class="section" id="matrix">
+    <div class="section-label">Who cares about what, and what closes it</div>
+    <h2>JTBD Matrix</h2>
+    <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:0">Score 1-3 = importance to this persona (3 = most important). Persona scores reflect how much this job shapes whether they use and stay in the product.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="min-width:160px">Job</th>
+            <th style="min-width:80px">Emma</th>
+            <th style="min-width:80px">Ravi</th>
+            <th style="min-width:80px">Claudia</th>
+            <th style="min-width:180px">Function in Tendd</th>
+            <th style="min-width:180px">Competitors</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="job-col"><span class="job-id" style="font-size:10px">J-MAIN</span> See all recurring charges calmly</td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td>Guided Reveal onboarding (gradual, total paired with action) + calm subscription list view</td>
+            <td>Rocket Money (buried under feature depth). Emma app (same). ReSubs (no auto-detect). Bobby (manual, iOS). None fully close calm + auto-detect.</td>
+          </tr>
+          <tr>
+            <td class="job-col"><span class="job-id" style="font-size:10px">J1</span> Activate without anxiety</td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td class="score-cell"><span class="score score-1">1</span></td>
+            <td>Demo mode + dual onboarding paths + trust statements before bank request</td>
+            <td>Apple Card (4/5 benchmark). No subscription tracker closes this fully.</td>
+          </tr>
+          <tr>
+            <td class="job-col"><span class="job-id" style="font-size:10px">J2</span> Identify and cancel unused subs</td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td>Basic cancel instruction free (all tiers). Full guides + direct links (Pro). Cancel-win moment always free. <span class="decision-badge">D3</span></td>
+            <td>ReSubs (30+ guides). Rocket Money (concierge, % fee). Hiatus.</td>
+          </tr>
+          <tr>
+            <td class="job-col"><span class="job-id" style="font-size:10px">J3</span> Understand what a charge is</td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td>Real merchant names + logos + categories at subscription card level</td>
+            <td>Apple Card (best in class). Rocket Money via Plaid enrichment. No subscription tracker has made this a brand differentiator.</td>
+          </tr>
+          <tr>
+            <td class="job-col"><span class="job-id" style="font-size:10px">J4</span> Stay ahead of surprises</td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td>Price-change alert + payment failure alert + weekly digest email</td>
+            <td>Rocket Money, Emma, PocketGuard all offer alerts. None make notification design a trust signal.</td>
+          </tr>
+          <tr>
+            <td class="job-col"><span class="job-id" style="font-size:10px">J5</span> Track without sharing bank data</td>
+            <td class="score-cell"><span class="score score-1">1</span></td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td class="score-cell"><span class="score score-1">1</span></td>
+            <td>Manual + 400+ preset library at launch. Gmail scan deferred to v2. <span class="decision-badge">D2</span></td>
+            <td>ReSubs (best, no bank required). Bobby (manual, iOS only). No middle path exists anywhere.</td>
+          </tr>
+          <tr>
+            <td class="job-col"><span class="job-id emotional" style="font-size:10px">E1</span> Feel competent, not judged</td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td class="score-cell"><span class="score score-1">1</span></td>
+            <td>Judgment-free visual design + plain language throughout</td>
+            <td>Monzo (closest in tone, not a subscription tracker). No subscription tracker has made this a design pillar.</td>
+          </tr>
+          <tr>
+            <td class="job-col"><span class="job-id emotional" style="font-size:10px">E2</span> The small win / pride moment</td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td>Cancel-win moment with specific $ saved + year total + share card</td>
+            <td>No competitor has designed this moment. Gap confirmed.</td>
+          </tr>
+          <tr>
+            <td class="job-col"><span class="job-id emotional" style="font-size:10px">E3</span> Feel safe and in control of data</td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td class="score-cell"><span class="score score-3">3</span></td>
+            <td class="score-cell"><span class="score score-1">1</span></td>
+            <td>One-tap data deletion + plain-language data explanation on first screen</td>
+            <td>Monarch Money mentions data non-sale. No subscription tracker makes this front-page.</td>
+          </tr>
+          <tr>
+            <td class="job-col"><span class="job-id" style="background:var(--yellow-mid);color:#7a5c10;font-size:10px">S1</span> Share the discovery <span class="hyp-badge">?</span></td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td class="score-cell"><span class="score score-1">1</span></td>
+            <td class="score-cell"><span class="score score-2">2</span></td>
+            <td>Privacy-safe snapshot card (count + total, no bank data visible)</td>
+            <td>No competitor has built this as a deliberate feature.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Conclusions -->
+    <div class="section-sub">
+      <div class="section-label">What the matrix tells us</div>
+      <h3>3 MVP Core Jobs</h3>
+      <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:16px">Jobs that are (a) important for Emma, the primary persona, AND (b) not closed by the market.</p>
+
+      <div class="conclusion-card primary-card">
+        <div class="conclusion-num">MVP Core Job 1</div>
+        <div class="conclusion-title">J-MAIN + J1: See all recurring charges calmly + trust before bank</div>
+        <div class="conclusion-body">No competitor combines calm design, automatic detection, AND trust-building before bank connection. This is the clearest gap. The Guided Reveal onboarding with gradual disclosure and paired action is the product-level response.</div>
+      </div>
+
+      <div class="conclusion-card primary-card">
+        <div class="conclusion-num">MVP Core Job 2</div>
+        <div class="conclusion-title">J3: Understand what a charge actually is</div>
+        <div class="conclusion-body">Real merchant names and logos are table stakes that no subscription tracker has made a brand differentiator. Emma cannot feel relief if half the list says "AMZN MKTP US*AB12CD." This is activation-level quality - it must work on day one.</div>
+      </div>
+
+      <div class="conclusion-card primary-card">
+        <div class="conclusion-num">MVP Core Job 3</div>
+        <div class="conclusion-title">J5: Privacy path to the same aha moment</div>
+        <div class="conclusion-body">ReSubs confirms this segment exists and is willing to pay. No product offers privacy AND automation together. Building the privacy-first path with equal visual weight to bank connection closes a gap every bank-connected competitor ignores.</div>
+      </div>
+    </div>
+
+    <!-- Cut list -->
+    <div class="section-sub">
+      <h3>Candidate-for-Cut Functions</h3>
+      <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:16px">These close no MVP core job and should be cut.</p>
+
+      <div class="cut-item">
+        <div class="cut-label">Cut</div>
+        <strong>AI conversation interface (JH2)</strong> - Closes no confirmed job for our personas. Adds cognitive load, the opposite of our differentiator.
+      </div>
+      <div class="cut-item">
+        <div class="cut-label">Cut</div>
+        <strong>Budget envelopes and spending goals</strong> - Addresses Segment B and C needs but not Segment A. Introduces complexity and judgment - the opposite of calm visibility.
+      </div>
+      <div class="cut-item">
+        <div class="cut-label">Cut</div>
+        <strong>Credit score monitoring</strong> - No job in our personas requires it. Signals "this is a full finance app" - actively hurts trust with Emma.
+      </div>
+      <div class="cut-item">
+        <div class="cut-label">Cut</div>
+        <strong>Investment tracking</strong> - Out of scope (CLAUDE.md). No persona job maps to it.
+      </div>
+      <div class="cut-item">
+        <div class="cut-label">Cut from business model</div>
+        <strong>Bill negotiation on percentage fee</strong> - Closes J2 but misaligns incentives. Profits from users having expensive problems; flat SaaS aligns our revenue with the user feeling calm and staying.
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Critique ────────────────────────────────── -->
+  <section class="section" id="critique">
+    <div class="section-label">Audit, dangers, and open questions</div>
+    <h2>Critique</h2>
+
+    <!-- Claim audit -->
+    <h3 style="margin-bottom:12px">Claim Audit</h3>
+    <div class="claim-table-wrap">
+      <table class="claim-table">
+        <thead>
+          <tr>
+            <th style="min-width:200px">Claim</th>
+            <th style="min-width:100px">Source type</th>
+            <th style="min-width:120px">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>42% of consumers forgot a subscription they were still paying for</td>
+            <td>Cited research (C+R Research 2022, <a href="https://www.huffpost.com/entry/subscription-creep-personal-finance_l_67e2b566e4b02337954b55cc" target="_blank">huffpost.com</a>)</td>
+            <td><span class="confirmed-badge">Confirmed</span></td>
+          </tr>
+          <tr>
+            <td>Consumers underestimate subscription spend by $133/month</td>
+            <td>Cited research (C+R Research 2022)</td>
+            <td><span class="confirmed-badge">Confirmed</span></td>
+          </tr>
+          <tr>
+            <td>68% of users uncomfortable with app financial data access</td>
+            <td>Cited research (Banking Dive 2024, <a href="https://www.bankingdive.com/news/consumers-uncomfortable-with-apps-level-of-access-to-data/567914/" target="_blank">bankingdive.com</a>)</td>
+            <td><span class="confirmed-badge">Confirmed</span></td>
+          </tr>
+          <tr>
+            <td>4 in 5 users unaware apps store bank credentials</td>
+            <td>Cited research (Banking Dive 2024)</td>
+            <td><span class="confirmed-badge">Confirmed</span></td>
+          </tr>
+          <tr>
+            <td>58% of millennials experience financial anxiety 3+ days/week</td>
+            <td>Cited research (Motley Fool 2024, <a href="https://www.fool.com/money/research/2024-financial-stress-anxiety-and-mental-health-survey" target="_blank">fool.com</a>)</td>
+            <td><span class="confirmed-badge">Confirmed</span></td>
+          </tr>
+          <tr>
+            <td>ReSubs 18K+ users on no-bank model</td>
+            <td>Cited (<a href="https://resubs.app" target="_blank">resubs.app</a>)</td>
+            <td><span class="confirmed-badge">Confirmed</span></td>
+          </tr>
+          <tr>
+            <td>Cancel-and-save moment is the most emotionally powerful moment</td>
+            <td>Confirmed by research + multiple user quotes</td>
+            <td><span class="confirmed-badge">Confirmed</span></td>
+          </tr>
+          <tr>
+            <td>Calm visibility reduces anxiety rather than triggering more avoidance (H0 - riskiest assumption)</td>
+            <td>Partially supported: Cornell research found people anticipate anxiety but the opposite is true. <cite><a href="https://news.cornell.edu/node/331238" target="_blank">news.cornell.edu</a></cite></td>
+            <td><span class="hyp-badge">? Partial - prototype test required</span></td>
+          </tr>
+          <tr>
+            <td>Emma's avoidance is driven by self-image threat (E1)</td>
+            <td>Updated by post-persona research (PMC/NCBI 2024, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11522046/" target="_blank">pmc.ncbi.nlm.nih.gov</a>)</td>
+            <td><span class="confirmed-badge">Confirmed and refined</span></td>
+          </tr>
+          <tr>
+            <td>The Guided Reveal produces relief rather than a second wave of avoidance</td>
+            <td>Design refined: gradual exposure (clinical exposure therapy) outperforms single reveal. <cite><a href="https://anxietycanada.com/sites/default/files/FacingFears_Exposure.pdf" target="_blank">anxietycanada.com</a></cite></td>
+            <td><span class="hyp-badge">? Confirm in prototype</span></td>
+          </tr>
+          <tr>
+            <td>Users share their subscription total with friends (S1)</td>
+            <td>Hypothesis consistent with Spotify Wrapped analogy and Rocket Money testimonials</td>
+            <td><span class="hyp-badge">? Hypothesis</span></td>
+          </tr>
+          <tr>
+            <td>Ravi would grant Gmail access more readily than bank access</td>
+            <td>Post-persona research: no direct evidence found. Manual entry confirmed as most trusted. <cite><a href="https://budgetvault.app/blog/budget-app-without-bank-sync" target="_blank">budgetvault.app</a></cite></td>
+            <td><span class="hyp-badge">? Remains open - primary research needed</span></td>
+          </tr>
+          <tr>
+            <td>Monzo-style active-voice notifications build trust more than standard push</td>
+            <td>Hypothesis consistent with Monzo benchmark (master-research.md M1). Not tested for this product.</td>
+            <td><span class="hyp-badge">? Hypothesis</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Danger list -->
+    <h3 style="margin-top:36px;margin-bottom:12px">Danger List - All Closed</h3>
+
+    <div class="danger-item closed">
+      <div class="danger-status closed">CLOSED - Founder Decision D1, June 14 2026</div>
+      <div class="danger-title">Danger 1: The reveal produces anxiety spike, not relief</div>
+      <div class="danger-body">Decision: gradual reveal with total paired with action on the same screen. Count first, then categories with logos, then total + next step. The total is never a standalone dramatic reveal. It is always accompanied by what the user can do about it. Converts exposure from shock to agency. Prototype test must use this sequence.</div>
+    </div>
+
+    <div class="danger-item closed">
+      <div class="danger-status closed">CLOSED AT DESIGN LEVEL - Validate in prototype</div>
+      <div class="danger-title">Danger 2: Financial framing triggers avoidance even in the product</div>
+      <div class="danger-body">Research confirmed avoidance is driven by (a) self-image threat from financial information and (b) fear of complexity spiraling. Both are addressed by: judgment-free language ("what you have signed up for" not "what you spent"), one-thing-at-a-time progressive disclosure, and total always paired with a concrete action. This is a design and copywriting decision. Prototype test confirms whether the handling is effective.</div>
+    </div>
+
+    <div class="danger-item closed">
+      <div class="danger-status closed">CLOSED - Founder Decision D2, June 14 2026</div>
+      <div class="danger-title">Danger 3: Gmail scan trust assumption is wrong</div>
+      <div class="danger-body">Decision: launch with manual + 400+ presets. Gmail scan is v2, after user testing. The question of whether Gmail scan is trusted more than bank access remains unanswered by web research and is moved to primary user research for the v2 decision. Not a wireframe or MVP blocker.</div>
+    </div>
+
+    <!-- User research questions -->
+    <h3 style="margin-top:36px;margin-bottom:12px">Three Questions for User Research</h3>
+
+    <div class="q-card">
+      <div class="q-label">Q1 - Closes Danger 1</div>
+      <div class="q-title">Does a gradual Guided Reveal produce relief for financially avoidant users?</div>
+      <div class="q-method"><strong>Answer method:</strong> A/B prototype test with 5-8 people screened for financial-avoidance behavior. Version A: total first, then subscription list. Version B: count, then categories with logos, then total paired with action. Measure: completion rate, emotional state after, desire to see their own data. Pass signal: majority report relief and ask for the real thing.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Q2 - Closes Danger 2 (partially resolved, confirm in prototype)</div>
+      <div class="q-title">Does framing subscriptions as "what you have signed up for" reduce anxiety more than "what you spent"?</div>
+      <div class="q-method"><strong>Answer method:</strong> In the same prototype sessions as Q1, vary the headline copy and observe reactions. This is a low-cost test layered on top of Q1. Also test whether "committed" (PocketGuard model) feels controlling or clarifying to Segment A users.</div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-label">Q3 - Closes Danger 3</div>
+      <div class="q-title">For privacy-conscious users, does Gmail scan feel more or less invasive than bank connection?</div>
+      <div class="q-method"><strong>Answer method:</strong> 5 users who self-identify as privacy-conscious. Present three import options with plain-language descriptions (no marketing language). Ask them to react. Capture specific fears. Determine whether Gmail scan is a path worth building at launch or better shipped as v2 after manual-first is validated.</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Tendd Product Research - People &amp; JTBD Phase - June 2026. All facts cited. Hypotheses marked <span class="hyp-badge">?</span></p>
+    <p style="margin-top:4px">
+      <a href="research.html">Research Sprint</a> -
+      <a href="personas.html">Personas</a> -
+      <a href="research/jtbd.md">Source: jtbd.md</a>
+    </p>
+  </div>
+
+</main>
+
+<script>
+  (function() {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    var toggle = document.getElementById('navToggle');
+    var close = document.getElementById('sidebarClose');
+
+    function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('open'); }
+    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+
+    toggle.addEventListener('click', openSidebar);
+    close.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    sidebar.querySelectorAll('.nav-sub-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        if (window.innerWidth < 840) closeSidebar();
+      });
+    });
+
+    // IntersectionObserver for active sub-link tracking
+    var subLinks = document.querySelectorAll('.nav-sub-link[data-section]');
+    var sections = document.querySelectorAll('section[id]');
+
+    if ('IntersectionObserver' in window && sections.length) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            subLinks.forEach(function(l) { l.classList.remove('active'); });
+            var active = document.querySelector('.nav-sub-link[data-section="' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-15% 0px -75% 0px' });
+
+      sections.forEach(function(s) { observer.observe(s); });
+    }
+  })();
+</script>
+
+</body>
+</html>

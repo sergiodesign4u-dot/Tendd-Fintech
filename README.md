@@ -18,6 +18,8 @@ Tendd is a mobile-first web app that helps people who are not into finance see a
 | Master Research Synthesis | [research/master-research.md](./research/master-research.md) | Done |
 | Quality Gate | [research/quality-check.md](./research/quality-check.md) | Done |
 | Research HTML | [research.html](./research.html) - [Live](https://sergiodesign4u-dot.github.io/tendd-research/research.html) | Done |
+| Personas | [personas.html](./personas.html) - [Live](https://sergiodesign4u-dot.github.io/tendd-research/personas.html) | Done |
+| JTBD | [jtbd.html](./jtbd.html) - [Live](https://sergiodesign4u-dot.github.io/tendd-research/jtbd.html) | Done |
 | Wireframes | wireframes/ | Pending |
 | Concept | concept/ | Pending |
 | Design System | design-system/ | Pending |
@@ -37,6 +39,8 @@ Tendd is a mobile-first web app that helps people who are not into finance see a
 - [Master Research Synthesis](./research/master-research.md) - Single source of truth
 - [Quality Check](./research/quality-check.md) - Self-review before HTML
 - [Research HTML](./research.html) - Live research summary page
+- [Personas](./personas.html) - 3 personas with observations, [?] badges, and trust triggers
+- [JTBD](./jtbd.html) - Job hierarchy, matrix, hypotheses, and critique
 
 ---
 
@@ -47,6 +51,8 @@ Tendd is a mobile-first web app that helps people who are not into finance see a
 - CLAUDE.md               Product brief and principles
 - README.md               This file
 - research.html           Live research summary page
+- personas.html           Personas (People & JTBD phase)
+- jtbd.html               Jobs to Be Done (People & JTBD phase)
 - research/               Research documents and evidence
   - screens/              Competitor and benchmark screenshots
 - wireframes/             UX wireframes
