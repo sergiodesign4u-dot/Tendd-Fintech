@@ -242,3 +242,64 @@ Notes on structure:
 - **No screen for E1 by itself.** E1 (feel competent, not judged) is a tone
   requirement met by Home, Guided Reveal, and Cancel Win rather than a
   standalone screen. The coverage matrix records where it is served.
+
+---
+
+## Navigation
+
+Mobile-first. The global navigation is a bottom tab bar (thumb reach on a
+phone), scaling to a left rail on desktop. It is deliberately small so the
+product stays calm (design principle: one thing at a time).
+
+### 1. Global navigation (4 items)
+
+Each item is an entry point into one main job cluster, chosen because a
+distinct job lives behind it, not because a category is conventional.
+
+| Tab | Opens | Job cluster behind it | Why it earns a global slot |
+|-----|-------|----------------------|----------------------------|
+| **Home** | Home / Subscription List | J-MAIN (see all recurring charges calmly) + E1 | The reason the product exists. It must be reachable in zero taps, so it is the default tab. |
+| **Alerts** | Alerts / Activity | J4 (stay ahead of surprises) | This is also the return engine. Research BP4: without an external hook this segment does not come back, so the surprise surface is promoted to a permanent home. |
+| **Save** | Cancel hub (Cancel Guide + cancel candidates + wins) | J2 (cut) + E2 (the win) | The emotional peak and the upgrade trigger live here. It is Claudia's primary job and Emma's secondary one, so it gets a calm, dedicated door instead of being buried in a menu. |
+| **You** | Settings / Profile (into Data and Privacy, Connections, Plan) | E3 (feel safe, control data) + J1 (trust) | Trust is ongoing, not just onboarding. Ravi needs one-tap data deletion and connection control to always be findable. |
+
+History and Trends does NOT get a global tab: it is Pro-gated (D3), and a
+mostly-locked tab would irritate free users and break the calm promise. It
+is reached contextually from Home. Upgrade is not a tab either: it appears
+at the gate, in context, not as a standing invitation to pay.
+
+### 2. Depth to the main job
+
+**Main job (stated explicitly):** J-MAIN, "see all recurring charges clearly
+in one calm view." For Emma (primary persona) it is delivered by the Guided
+Reveal in the first session and by Home / Subscription List in every session
+after.
+
+First session (activation), counting taps from the first screen:
+
+```
+Welcome  --tap 1-->  Activation Path Choice  --tap 2-->  Connect Bank  --tap 3-->  Guided Reveal (sees the list)
+```
+
+That is **3 taps** to the main job. The bank authorization and sync happen
+inside the Connect Bank step and then the reveal plays automatically, so no
+extra tap is added. 3 is at the ceiling, not over it.
+
+Every session after the first: the app opens on **Home**, so the main job is
+at **0 to 1 tap**. The steady state is where Emma lives, and it is effectively
+zero depth.
+
+No restructure needed: both the first-session path (3) and the steady-state
+path (0 to 1) are within the three-tap limit.
+
+### 3. Global, contextual, and deep
+
+| Visibility | Meaning | Screens |
+|-----------|---------|---------|
+| **Global** (always visible) | The 4 tab bar destinations | Home / Subscription List, Alerts / Activity, Save (Cancel hub), You (Settings / Profile) |
+| **Contextual** (appears inside a flow) | Reached by acting on something, not from the tab bar | Guided Reveal, Subscription Detail, Add Subscription, Cancel Guide, Cancel Win Moment, Share Snapshot, History and Trends, Upgrade / Tendd Pro |
+| **Deep** (rare, one-time or infrequent actions) | Two or more levels in, or seen once | Welcome, Activation Path Choice, Connect Bank (onboarding chain), Connections / Accounts, Data and Privacy, plan and billing management inside Settings, export inside History and Trends |
+
+Onboarding (Welcome, Path Choice, Connect Bank, Add Subscription, Guided
+Reveal) shows no tab bar; it is a one-time linear chain that ends by handing
+the user to Home with the tab bar switched on.
