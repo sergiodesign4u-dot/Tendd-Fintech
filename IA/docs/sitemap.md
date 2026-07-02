@@ -420,3 +420,113 @@ five missing-state gaps, all of which are state and copy problems on existing
 screens rather than missing screens. They are handed to Prompt 2 as
 requirements. The one structural watch item is that first-session depth to
 the main job is exactly at the three-tap limit and must not grow.
+
+---
+---
+
+# Prompt 2: Detailed Architecture
+
+The sections below add the detail layer on top of the locked Prompt 1
+skeleton (Entities, Screens, Navigation, Traceability, Critique above). The
+skeleton is not changed here: no screens added, removed, or reordered, no
+navigation change, no flow redraw. Where Prompt 2 found something that looks
+wrong in the skeleton, it is recorded under "Flags from Prompt 2" (in the
+Page Cards section) and left for Wireframes, not silently fixed.
+
+Every content block below traces to an entity (Prompt 1 Entities), a job
+(research/docs/jtbd.md), or a locked decision (research/docs/strategy.md
+Section 6). Genuine unknowns are marked [?] as real signals for Wireframes.
+
+---
+
+## Global Components
+
+Elements that repeat across more than one screen. Documented once here; the
+page cards reference them by name and do not redescribe them. This is the
+product (the Tendd app), not the documentation site.
+
+### GC1. App Header
+
+- **Blocks (in order):** back or menu control; screen title; one contextual
+  action slot (for example add, share, or edit).
+- **Desktop vs mobile:** content is identical. On mobile it is a top bar; on
+  desktop it merges into the top of the left rail (see GC2). This is a
+  structural delta, listed in Breakpoint Deltas.
+- **Cross-cutting states:** signed-in (full header), onboarding (title and
+  progress only, no tab bar, see GC2), and no-account-yet [? Ravi wants to
+  try with no account, personas.md; the exact auth model is unresolved].
+- **Traces to:** Navigation section (global chrome); auth-state axis from
+  personas.md (Ravi, no account required to try).
+
+### GC2. Global Tab Bar (primary navigation)
+
+- **Blocks (in order):** Home, Alerts, Save, You. Each is one job cluster
+  (see Navigation section).
+- **Desktop vs mobile:** mobile is a bottom tab bar (thumb reach); desktop is
+  a left rail with the same four destinations. Same content, different
+  structure. Listed in Breakpoint Deltas.
+- **Cross-cutting states:** visible in steady state; hidden across the whole
+  onboarding chain (Welcome, Activation Path Choice, Connect Bank, Add
+  Subscription, Guided Reveal), which is a linear flow.
+- **Traces to:** Navigation section (the 4 tabs and their job clusters).
+
+### GC3. Recurring Summary Strip
+
+- **Blocks (in order):** subscription count; monthly total (the largest
+  number on screen); optional short context line ("what you have signed up
+  for", not "what you spent").
+- **Desktop vs mobile:** identical content.
+- **Cross-cutting states:** populated; loading (numbers resolving); empty
+  (zero subscriptions, shows an invite, not a zero).
+- **Traces to:** J-MAIN; design principle "the most important number is the
+  biggest thing on screen" (CLAUDE.md); D1 (total is paired with meaning, not
+  shown as a bare shock); framing from master-research self-image finding.
+  Aggregates the Subscription entity.
+
+### GC4. Subscription List Item
+
+- **Blocks (in order):** merchant logo; real merchant name; amount and
+  frequency; next billing date; status tag (active, trial, paused,
+  cancelled).
+- **Desktop vs mobile:** same blocks; mobile stacks, desktop may show them in
+  one row. Layout only, not a structural delta.
+- **Cross-cutting states:** normal; unrecognized (enrichment failed, name
+  still cryptic, invites naming, see Subscription Detail); cancelled (muted).
+- **Traces to:** the Subscription entity; J-MAIN; J3 (real name and logo,
+  master-research M3).
+
+### GC5. Alert Item
+
+- **Blocks (in order):** alert type; plain-language, active-voice message
+  ("we could not take this payment", not "payment declined"); related
+  subscription; one suggested next action.
+- **Desktop vs mobile:** identical content. Appears inline as a banner on
+  Home and as a row in Alerts / Activity.
+- **Cross-cutting states:** free type (price change, payment failed); Pro type
+  (trial ending, unusual, duplicate), which renders with a Pro gate for free
+  users.
+- **Traces to:** the Alert entity; J4; master-research M1 (active voice);
+  D3 (free vs Pro alert split).
+
+### GC6. Data Source and Trust Indicator
+
+- **Blocks (in order):** current source (bank connection, or private/manual);
+  read-only and "cannot move money" reassurance; link to the full "what we
+  read" explanation (Data and Privacy).
+- **Desktop vs mobile:** identical content.
+- **Cross-cutting states:** bank-connected; private/manual; needs-reauth
+  (error).
+- **Traces to:** the Account entity and User and data controls entity; J1,
+  E3; master-research M2 (name the fear); D2 (bank vs manual); D5 (Plaid).
+
+### GC7. Pro Gate and Plan Chip
+
+- **Blocks (in order):** current plan indicator (Free or Pro); at a gated
+  feature, a short "what unlocks" line and an upgrade action into Upgrade /
+  Tendd Pro.
+- **Desktop vs mobile:** identical content.
+- **Cross-cutting states:** free (shows upgrade affordance at gates); Pro
+  (shows Pro badge, no gate).
+- **Traces to:** the Plan entity; D3 (the free vs paid split); D4 (pricing).
+  This is the surface that carries the one decision-justified screen
+  (Upgrade / Tendd Pro) into context.
