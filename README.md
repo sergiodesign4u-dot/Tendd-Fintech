@@ -50,15 +50,19 @@ Tendd is a mobile-first web app that helps people who are not into finance see a
 The product structure (entities, screens, navigation, and user flows) lives
 in the IA phase:
 
-- [IA/docs/sitemap.md](./IA/docs/sitemap.md) - entities, screens tagged with
-  jobs, navigation model, coverage matrix (jobs against screens), and critique
+- [IA/docs/sitemap.md](./IA/docs/sitemap.md) - the single source of truth for
+  structure and detail: entities, screens tagged with jobs, navigation,
+  coverage matrix, critique (Prompt 1), plus global components, a page card
+  per screen (ordered content blocks and states), and breakpoint deltas
+  (Prompt 2)
 - [IA/docs/flows.md](./IA/docs/flows.md) - user flows in Mermaid for the main
   job and three related jobs, with decision points, states, and dead ends
 - [IA/ia.html](./IA/ia.html) - the living page combining both, with live
-  diagrams
+  diagrams, the global components, and the page cards
 
-This is structure only. Per-screen content, shared components, and
-state-by-state detail come in the next IA prompt.
+The page cards and global components give Wireframes an ordered content
+structure and real states per screen, with no product decision left to
+invent. Visual design, spacing, and interaction detail come in Wireframes.
 
 ---
 
