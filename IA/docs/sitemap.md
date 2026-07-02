@@ -303,3 +303,63 @@ path (0 to 1) are within the three-tap limit.
 Onboarding (Welcome, Path Choice, Connect Bank, Add Subscription, Guided
 Reveal) shows no tab bar; it is a one-time linear chain that ends by handing
 the user to Home with the tab bar switched on.
+
+---
+
+## Traceability
+
+Coverage matrix. Rows are every job from research/docs/jtbd.md (main,
+related, and emotional/social). Columns are every screen from the Screens
+section. A checkmark means the screen genuinely participates in closing that
+job. A gate that only unlocks a job does not count as closing it.
+
+Column key:
+Wel = Welcome / Value Intro, Pth = Activation Path Choice, Bnk = Connect
+Bank, Add = Add Subscription, Rev = Guided Reveal, Hom = Home / Subscription
+List, Det = Subscription Detail, Alr = Alerts / Activity, Gde = Cancel Guide,
+Win = Cancel Win Moment, Shr = Share Snapshot, His = History and Trends,
+Upg = Upgrade / Tendd Pro, Con = Connections / Accounts, Prv = Data and
+Privacy, Set = Settings / Profile.
+
+| Job | Wel | Pth | Bnk | Add | Rev | Hom | Det | Alr | Gde | Win | Shr | His | Upg | Con | Prv | Set |
+|-----|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| J-MAIN see all charges calmly |  |  |  |  | ✓ | ✓ |  |  |  |  |  | ✓ |  |  |  |  |
+| J1 activate without anxiety | ✓ | ✓ | ✓ |  |  |  |  |  |  |  |  |  |  | ✓ | ✓ |  |
+| J2 identify and cancel unused |  |  |  |  |  | ✓ | ✓ |  | ✓ | ✓ |  | ✓ |  |  |  |  |
+| J3 understand what a charge is |  |  |  |  | ✓ | ✓ | ✓ |  |  |  |  |  |  |  |  |  |
+| J4 stay ahead of surprises |  |  |  |  |  |  | ✓ | ✓ |  |  |  |  |  |  |  |  |
+| J5 track without sharing bank |  | ✓ |  | ✓ |  |  |  |  |  |  |  |  |  | ✓ |  |  |
+| E1 feel competent, not judged | ✓ |  |  |  | ✓ | ✓ |  |  |  | ✓ |  |  |  |  |  |  |
+| E2 the small win |  |  |  |  |  |  |  |  |  | ✓ | ✓ |  |  |  |  |  |
+| E3 feel safe, control data |  |  |  |  |  |  |  |  |  |  |  |  |  | ✓ | ✓ | ✓ |
+| S1 share the discovery |  |  |  |  |  |  |  |  |  | ✓ | ✓ |  |  |  |  |  |
+
+### Orphan screens (columns with no checkmark)
+
+- **Upgrade / Tendd Pro.** No job in jtbd.md closes on this screen. It exists
+  because of business decisions D3 (the free vs paid split) and D4 (pricing),
+  not because a user job needs it. A paywall gates jobs, it does not close
+  them, so it earns no checkmark.
+  - **Resolution: retain, justified by decision, and attach rather than
+    promote.** It is kept because D3 and D4 require a place to convert, but it
+    is implemented as a contextual gate reached from the Pro-gated surfaces
+    (History and Trends, advanced alerts in Alerts / Activity, the full guide
+    in Cancel Guide), not as a global navigation destination. This is already
+    how the Navigation section classifies it. It is the one screen that
+    traces to a decision instead of a job, and that is recorded here openly
+    rather than hidden with a stretched checkmark.
+
+No other screen is orphaned. Every other column has at least one checkmark.
+
+### Orphan jobs (rows with no checkmark)
+
+None. All ten jobs (J-MAIN, J1 to J5, E1 to E3, S1) are served by at least
+one screen. The jobs deliberately excluded from MVP (JH1 household, JH2 AI
+assistant) are not rows here, because they are not MVP jobs.
+
+### Outcome
+
+Zero orphan jobs. One orphan screen (Upgrade / Tendd Pro), which is retained
+by design as a decision-justified gate rather than removed, since removing it
+would break the business model. Every MVP job has a home, and every screen
+except the deliberate paywall gate closes at least one job.
