@@ -530,3 +530,244 @@ product (the Tendd app), not the documentation site.
 - **Traces to:** the Plan entity; D3 (the free vs paid split); D4 (pricing).
   This is the surface that carries the one decision-justified screen
   (Upgrade / Tendd Pro) into context.
+
+---
+
+## Page Cards
+
+One card per locked screen, in sitemap tree order. Each block is tagged
+primary (P) or secondary (S). States are cross-checked against
+IA/docs/flows.md and the Critique. Global components are referenced by their
+GC number and not redescribed.
+
+### Flags from Prompt 2
+
+Issues in the Prompt 1 skeleton found while writing these cards. Recorded,
+not fixed here, per the locked-skeleton rule.
+
+- **FLAG 1: the "Save" tab has no dedicated landing screen.** Navigation maps
+  the Save tab to a "Cancel hub (Cancel Guide plus cancel candidates plus
+  wins)", but the 16-screen list has no single screen by that name. The
+  nearest surfaces are Home (which carries the "N you might not use" cancel
+  candidates) and Cancel Guide (per subscription). For Wireframes: either the
+  Save tab lands on Home filtered to cancel candidates, or a Save/Review
+  landing screen is added in a later structural pass. Not resolved here
+  because the screen list is locked. Cards below treat the Save tab as
+  landing on the Home cancel-candidates view.
+- **FLAG 2 (minor): Connect Bank and Add Subscription are reused outside
+  onboarding.** Both are listed under the onboarding chain, but Connections /
+  Accounts needs to reopen them to add a source later. This matches the
+  existing "Add Subscription is reused" note in the Screens section and is not
+  a defect, just made explicit for Wireframes.
+
+---
+
+### 1. Welcome / Value Intro
+
+- **Jobs:** J1 (show value before asking for data).
+- **Entities:** none stored yet; may show sample Subscription data.
+- **Global components:** GC1 (onboarding variant, no GC2).
+- **Content structure:**
+  1. (P) Product value line, calm and plain ("See what you are paying for, calmly.") - J1, CLAUDE.md tone.
+  2. (P) Sample calm preview: a demo count and total with sample subscriptions, shown before any ask - J1, master-research H1.
+  3. (P) Primary CTA into Activation Path Choice ("Show me how it works").
+  4. (S) Trust reassurance line ("No bank connection needed to start.") linking to Data and Privacy - D2, master-research M2.
+  5. (S) Returning-user sign in [? auth model unresolved, personas.md Ravi no-account-to-try].
+- **States:** default; returning-user variant (skip to Home). No data-dependent empty or error state.
+
+### 2. Activation Path Choice
+
+- **Jobs:** J1, J5. Decision D2.
+- **Entities:** Account (the source type being chosen).
+- **Global components:** GC1 (onboarding variant).
+- **Content structure:**
+  1. (P) Prompt ("How do you want to start?").
+  2. (P) Option A, Connect your bank: fast, automatic, "read-only, we cannot move money" - J1, D5, master-research M2.
+  3. (P) Option B, Add them yourself: private, no bank, "pick from 400+ services" - J5, D2. Equal visual weight to Option A is required by D2.
+  4. (S) Reassurance that both paths reach the same calm view - master-research Activation.
+  5. (S) Link to what each option accesses (Data and Privacy) - E3.
+- **States:** default only. No loading, empty, or error (it is a choice). D2 equal-weight requirement carried as a wireframe constraint.
+
+### 3. Connect Bank
+
+- **Jobs:** J1. Decisions D5, D2 (fallback).
+- **Entities:** Account.
+- **Global components:** GC1 (onboarding variant), GC6.
+- **Content structure:**
+  1. (P) Title ("Connect your bank").
+  2. (P) Trust statement: exactly what we read, read-only, cannot move money, powered by Plaid - J1, master-research M2, personas.md P3.
+  3. (P) Bank picker and Plaid Link launch - D5.
+  4. (P) Persistent fallback action "Add them yourself instead", always visible including on the error state - Critique dead-end fix for Flow A.
+  5. (S) Region note: US first; EU [? deferred, D5].
+- **States:** default; loading ("syncing your bank", Flow A); error ("could not connect", with retry and the manual fallback, Flow A); success (into Guided Reveal).
+
+### 4. Add Subscription (manual + presets)
+
+- **Jobs:** J5. Decision D2.
+- **Entities:** Subscription, Preset.
+- **Global components:** GC1 (onboarding variant when in onboarding; GC1 plus GC2 when reused in-app).
+- **Content structure:**
+  1. (P) Title ("Add a subscription").
+  2. (P) Preset search field over the 400+ library - D2.
+  3. (P) Preset results, each showing logo, name, and a prefilled typical price - Preset entity.
+  4. (P) Subscription form prefilled from the preset (name, amount, frequency, next date, category), editable - Subscription entity.
+  5. (P) Add action and "Add another" loop - Flow B.
+  6. (S) "Cannot find it? Add it manually" custom entry - Flow B (not-in-presets branch).
+  7. (S) Running count of what has been added, and progress is saved, so a half-done list is not lost - Critique dead-end fix for Flow B.
+- **States:** default; loading (preset library, Flow B); error (presets unavailable, falls back to manual custom entry, Flow B); empty (no search match, offer custom entry); partial-progress-saved (Critique fix); success (added).
+
+### 5. Guided Reveal
+
+- **Jobs:** J-MAIN. Decision D1.
+- **Entities:** Subscription (aggregate), Charge (next dates).
+- **Global components:** GC3, GC4.
+- **Content structure (order is the D1 gradual sequence, do not reorder):**
+  1. (P) Count reveal first ("You are subscribed to 14 things.") - D1.
+  2. (P) Categories with logos next, grouped and recognizable - D1, J3.
+  3. (P) Monthly total last, on the same screen as an action, never as a standalone shock ("that is $247 a month, here are 2 to look at") - D1.
+  4. (P) The paired action itself (review the flagged few, or see the full list) - D1.
+  5. (S) Judgment-free tone line, framed as "what you have signed up for" - E1, master-research self-image finding.
+- **States:** default (populated); empty ("nothing to reveal yet", Flow B); loading (assembling the reveal); low-count [? the minimum number of subscriptions that still creates the aha is an open research question, personas.md open list and master-research open questions; Wireframes needs a fallback for 1 to 2 subscriptions].
+
+### 6. Home / Subscription List
+
+- **Jobs:** J-MAIN, E1. (Also the Save tab cancel-candidates view, see Flag 1.)
+- **Entities:** Subscription, Charge (next date), Alert (banner).
+- **Global components:** GC1, GC2, GC3, GC4, GC5 (banner), GC6, GC7.
+- **Content structure:**
+  1. (P) Recurring Summary Strip: count and monthly total - GC3, J-MAIN.
+  2. (S) Active alert banner if any, plain language - GC5, J4.
+  3. (P) Subscription list grouped by category, each a Subscription List Item - GC4, J-MAIN, J3.
+  4. (S) "N you might not use" cancel-candidates nudge (this is also the Save tab view) - D1 paired action carried into steady state, J2 entry, Flag 1.
+  5. (S) Add subscription action, reusing Add Subscription - J5.
+  6. (S) Link into History and Trends, Pro-gated - GC7, D3.
+- **States:** success (populated); empty (zero or all cancelled, a calm invite to add or connect, not a bare zero); loading (refreshing sync); sync-error (shows the last known list with a gentle note). Empty, loading, and sync-error are Critique fixes.
+
+### 7. Subscription Detail
+
+- **Jobs:** J3, J4. (Also J2 entry.)
+- **Entities:** Subscription, Charge, Alert, Cancellation (entry point).
+- **Global components:** GC1 (back), GC6, GC7.
+- **Content structure:**
+  1. (P) Subscription header: real name, logo, amount, frequency - J3, GC4 detail.
+  2. (P) Next payment amount and date - Charge, J3/J4.
+  3. (S) Category and source (bank or manual) - GC6.
+  4. (S) Alerts on this subscription (price change, payment failed) - GC5, J4.
+  5. (S) Price history entry, Pro-gated, into History and Trends - GC7, D3.
+  6. (P) Cancel action into Cancel Guide - J2.
+  7. (P, conditional) Failed-payment next-step card ("update your card with the merchant", or "no action needed, it retries on DATE") - Critique dead-end fix for Flow D.
+- **States:** success; unrecognized-charge (enrichment failed, invites naming or categorizing, Critique fix, protects J3); price-change (shows old vs new price); payment-failure (shows the next-step card); loading; error (could not load the detail).
+
+### 8. Alerts / Activity
+
+- **Jobs:** J4.
+- **Entities:** Alert, Charge, Subscription.
+- **Global components:** GC1, GC2, GC5, GC7.
+- **Content structure:**
+  1. (P) Title ("Alerts").
+  2. (P) Alert list, each an Alert Item with type, plain-language message, related subscription, and one next action - GC5, J4, master-research M1.
+  3. (S) Advanced alert types (trial ending, unusual, duplicate) shown Pro-gated for free users - GC7, D3.
+- **States:** success (has alerts); empty ("all clear", a calm healthy state, Flow D); loading; error ("could not load alerts", with retry, Flow D).
+
+### 9. Cancel Guide
+
+- **Jobs:** J2. Decision D3.
+- **Entities:** Cancellation, Subscription.
+- **Global components:** GC1, GC7.
+- **Content structure:**
+  1. (P) The subscription being cancelled (name, logo).
+  2. (P) Basic instruction, always free: a direct link and a step description - D3 (the relief moment is never paywalled).
+  3. (S) Full step-by-step guide and direct cancel link, Pro, gated for free users - GC7, D3.
+  4. (P) "Mark as cancelled" confirmation into Cancel Win Moment - J2, E2.
+  5. (S) "Could not cancel?" help path with alternative steps or retry - Critique dead-end fix for Flow C.
+- **States:** success (guide shown); no-guide-yet (generic steps plus a request-a-guide action, Critique fix); could-not-cancel (help path, Flow C error, Critique fix); Pro-locked (full guide gated); loading.
+
+### 10. Cancel Win Moment
+
+- **Jobs:** E2. (Also S1 entry, J2 completion.)
+- **Entities:** Cancellation (money saved), Snapshot (seed).
+- **Global components:** GC1 (light).
+- **Content structure:**
+  1. (P) Win statement with specific numbers ("You just freed up $14.99 a month, that is $179.88 a year") - E2, jtbd.md E2.
+  2. (S) Running cumulative total saved - E2.
+  3. (P) Share action into Share Snapshot - S1.
+  4. (S) Continue back to Home.
+- **States:** default success only. This screen is reached only on a confirmed cancellation (Flow C), so it has no empty or error state of its own.
+
+### 11. Share Snapshot
+
+- **Jobs:** S1. (Also E2.)
+- **Entities:** Snapshot.
+- **Global components:** GC1 (light).
+- **Content structure:**
+  1. (P) Snapshot card preview: subscription count and monthly total, optional recent win, and deliberately no bank data - S1, privacy-safe by design.
+  2. (P) Share action into the system share sheet.
+  3. (S) Privacy note ("No account numbers or bank data are shared") - E3, S1.
+  4. (S) Choose what the card shows [? optional, not required for MVP].
+- **States:** default; loading (generating the card, Critique fix); error (render or share failed, Critique fix). Note: whether sharing spreads is a hypothesis [? master-research H2], but the card itself is a real object.
+
+### 12. History and Trends
+
+- **Jobs:** J-MAIN over time. Decision D3.
+- **Entities:** Charge, Subscription, Plan.
+- **Global components:** GC1, GC3, GC7.
+- **Content structure:**
+  1. (P) Time-range selector (3, 6, 12 month) - D3.
+  2. (P) Spend-over-time chart placeholder - Charge history.
+  3. (S) Per-category or per-subscription trend list.
+  4. (S) Export action, Pro - D3.
+  5. (P) Pro-lock overlay for free users into Upgrade - GC7, D3.
+- **States:** success (paid, enough history); Pro-locked (free user, D3); empty ("still gathering your history", a paid user under 3 months, Critique fix, distinct from the Pro lock); loading; error.
+
+### 13. Upgrade / Tendd Pro
+
+- **Jobs:** none. Decision-justified screen (D3, D4). See the Traceability orphan note; not a defect.
+- **Entities:** Plan.
+- **Global components:** GC1, GC7 (context).
+- **Content structure:**
+  1. (P) What Pro unlocks: history and trends, advanced alerts, full cancel guides, multi-account, export - D3.
+  2. (P) Pricing: $7.99 a month or $69 a year; lifetime option [? price TBD $99 to $139, D4].
+  3. (P) Upgrade action.
+  4. (S) Positioning line ("Pays for itself with the first subscription you cancel") - D4.
+  5. (S) Contextual reason showing which gate the user came from - GC7.
+- **States:** default; loading (processing payment); error (payment failed); success (upgraded, returns to the gated feature).
+
+### 14. Connections / Accounts
+
+- **Jobs:** J1, J5. Decision D5.
+- **Entities:** Account, Subscription.
+- **Global components:** GC1, GC2 (under You), GC6.
+- **Content structure:**
+  1. (P) Connected sources list, each an Account (bank name or "manual", status, last sync, count detected) - Account entity.
+  2. (P) Add a connection or add a manual source, reusing Connect Bank or Add Subscription - Flag 2. Free allows up to 2 bank connections [? assumption from CLAUDE.md]; Pro unlimited.
+  3. (S) Reauth action for a needs-reauth source - Account error state.
+  4. (S) Remove a connection - E3.
+  5. (S) Provider note (Plaid US, TrueLayer EU [? deferred, D5]).
+- **States:** success (has sources); empty (none yet, invite to connect or add); needs-reauth (Account error); loading (syncing); error (sync failed).
+
+### 15. Data and Privacy
+
+- **Jobs:** E3, J1.
+- **Entities:** User and data controls, Account.
+- **Global components:** GC1, GC6.
+- **Content structure:**
+  1. (P) Plain-language data-access explanation: exactly what we read, read-only, cannot move money, we do not sell your data - E3, jtbd.md E3, master-research M2.
+  2. (P) One-tap data deletion - E3, personas.md Ravi.
+  3. (S) What each source accesses, one sentence per method (bank vs manual) - D2, personas.md Ravi.
+  4. (S) Permission management, built-in settings - E3, personas.md O20.
+  5. (S) Data export or download [? overlaps the Pro export in History and Trends, resolve ownership in Wireframes].
+- **States:** default; deletion-confirmation (destructive confirm step). No standard empty or error state.
+
+### 16. Settings / Profile
+
+- **Jobs:** E3.
+- **Entities:** User and data controls, Plan.
+- **Global components:** GC1, GC2 (You).
+- **Content structure:**
+  1. (P) Account basics, minimal identity [? no-account-to-try model unresolved, personas.md Ravi].
+  2. (P) Plan status and manage, linking to Upgrade or billing - Plan, D4.
+  3. (P) Notification preferences (which alerts, the weekly email digest) - J4, retention BP4.
+  4. (S) Link to Data and Privacy - E3.
+  5. (S) Link to Connections / Accounts.
+  6. (S) Sign out and help.
+- **States:** default; logged-out variant [? tied to the no-account-to-try question]; loading (preferences). No error state required by a flow.
