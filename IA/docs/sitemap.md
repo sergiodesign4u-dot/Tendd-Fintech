@@ -771,3 +771,34 @@ not fixed here, per the locked-skeleton rule.
   5. (S) Link to Connections / Accounts.
   6. (S) Sign out and help.
 - **States:** default; logged-out variant [? tied to the no-account-to-try question]; loading (preferences). No error state required by a flow.
+
+---
+
+## Breakpoint Deltas
+
+Structural differences between mobile and desktop only, meaning the content
+structure reorganizes, not just spacing or sizing. Tendd is mobile-first
+responsive web scaling to desktop (CLAUDE.md), so most screens have no
+structural delta, and that is expected. Only the genuine reorganizations are
+listed, so Wireframes does not discover them mid-build. Breakpoints
+themselves are set in Wireframes.
+
+| Where | Structural change | Breakpoint |
+|-------|-------------------|-----------|
+| GC2 Global Tab Bar (all steady-state screens) | Bottom tab bar on mobile becomes a left rail on desktop. Same four destinations, different placement. | To be set in Wireframes |
+| GC1 App Header (all steady-state screens) | Top bar on mobile merges into the top of the left rail on desktop. Tied to the GC2 change. | To be set in Wireframes |
+| Home / Subscription List plus Subscription Detail | On mobile these are two separate screens (tap a row to open detail). On desktop they may become a two-pane master-detail view (list on the left, detail on the right) rather than a full navigation. | To be set in Wireframes |
+| History and Trends | On mobile the chart sits above the trend list. On desktop the trend list may sit beside the chart. A reflow from stacked to side-by-side, not just resizing. | To be set in Wireframes |
+| Overlay screens: Add Subscription, Cancel Guide, Upgrade / Tendd Pro, Share Snapshot | Full screen on mobile. On desktop each is a candidate to render as a centered modal or side sheet over the current screen instead of a full page. | To be set in Wireframes |
+
+All other screens (Welcome, Activation Path Choice, Connect Bank, Guided
+Reveal, Alerts / Activity, Cancel Win Moment, Connections / Accounts, Data
+and Privacy, Settings / Profile) have no structural delta. They change only
+in spacing and sizing between mobile and desktop, which belongs to Wireframes
+and Concept, not here.
+
+One constraint to carry forward: the Guided Reveal must stay gradual (count,
+then categories, then total with an action, per D1) at every breakpoint. Do
+not collapse it into a single all-at-once view on desktop where the extra
+space would otherwise tempt it. This is a content-order rule, not a
+structural delta.
