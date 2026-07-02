@@ -175,3 +175,70 @@ tier is unlimited on subscription count and gated only on history, trends,
 advanced alerts, cancel depth, and export. This is a product-decision
 conflict, not a missing research fact, so it is recorded here rather than
 appended to master-research.md.
+
+---
+
+## Screens
+
+Derived from the entities above and from what each person is trying to do,
+not from any competitor's structure. Every screen names the job it serves in
+parentheses. A screen with no job would be tagged [ORPHAN]; there are none
+here (verified against the coverage matrix in the Traceability section).
+
+Persona need is marked per screen:
+- **[E]** Emma, the primary persona (anxious, bank-willing). Her core path
+  is marked **[PRIMARY PATH]**.
+- **[R]** Ravi, secondary (privacy-first, manual path).
+- **[C]** Claudia, secondary (motivated cutter, cancels fast).
+
+Empty, error, and loading are states of a screen, not screens, so they do
+not appear here. They appear in the flows (IA/docs/flows.md) and the
+critique.
+
+```
+Onboarding and Activation  (one-time chain, then never seen again)
+- Welcome / Value Intro                 (J1: show value before asking for data)   [E][R][C]
+- Activation Path Choice                (J1 + J5: two paths, equal weight, D2)     [E][R]
+  - Connect Bank                        (J1 bank path; D5 Plaid US first)          [E][C]
+  - Add Subscription (manual + presets) (J5 privacy path; D2 400+ presets)         [R]  (also reused in-app by all)
+- Guided Reveal                         (J-MAIN: the aha moment; gradual, D1)      [E] [PRIMARY PATH]
+
+Core  (the steady-state product)
+- Home / Subscription List              (J-MAIN + E1: calm list, count, total)     [E][R][C] [PRIMARY PATH]
+  - Subscription Detail                 (J3 decode a charge + J4 its alerts)       [E][R][C]
+
+Stay Ahead
+- Alerts / Activity                     (J4: price change, payment failed)         [E][C]
+
+Cut and Celebrate
+- Cancel Guide                          (J2: identify and cancel; basic free, D3)  [C][R][E]
+  - Cancel Win Moment                   (E2: the small win, money saved)           [C][E]
+    - Share Snapshot                    (S1: privacy-safe share card)              [E][C]
+
+Depth  (Pro, gated by D3)
+- History and Trends                    (J-MAIN over time; Pro gate, D3)           [E][C]
+- Upgrade / Tendd Pro                   (D3 split + D4 price: the paywall)          [E][R][C]
+
+Account and Trust
+- Connections / Accounts                (J1 + J5: manage sources, reauth; D5)      [E][R]
+- Data and Privacy                      (E3: plain-language data use, delete)      [R][E]
+- Settings / Profile                    (E3: plan, notification preferences)       [E][R][C]
+```
+
+Notes on structure:
+
+- **Add Subscription is reused.** It is the privacy path in onboarding (Ravi)
+  and the in-app "+" for anyone adding a subscription by hand later. Same
+  screen, two entry points. It is not duplicated.
+- **Guided Reveal is one screen, not three.** D1 makes it gradual (count,
+  then categories with logos, then total paired with an action). Those are
+  sequential steps of one reveal experience, not separate screens and not
+  states. The flow in IA/docs/flows.md shows the internal sequence.
+- **Emma's primary path is short:** Welcome, Path Choice, Connect Bank,
+  Guided Reveal, then Home. In every session after the first, she lands
+  straight on Home. Depth is measured in the Navigation section.
+- **Cancel depth nests under the cut job.** Cancel Guide leads to the Cancel
+  Win Moment, which offers Share Snapshot. This chain is where E2 and S1 live.
+- **No screen for E1 by itself.** E1 (feel competent, not judged) is a tone
+  requirement met by Home, Guided Reveal, and Cancel Win rather than a
+  standalone screen. The coverage matrix records where it is served.
