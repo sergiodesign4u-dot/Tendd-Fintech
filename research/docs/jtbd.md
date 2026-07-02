@@ -1,6 +1,6 @@
 # JTBD - Tendd
 
-**Built on:** research/personas.md, research/master-research.md (v_refresh), research/strategy.md, research/ux-patterns.md.
+**Built on:** research/docs/personas.md, research/docs/master-research.md (v_refresh), research/docs/strategy.md, research/docs/ux-patterns.md.
 **Status:** Draft - critique and open [?] items in Part 4.
 
 ---

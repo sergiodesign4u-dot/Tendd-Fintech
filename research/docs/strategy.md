@@ -1,7 +1,7 @@
 # Strategy - Tendd
 
 **Version:** v_refresh (June 11, 2026 re-run)
-**Status:** Current. This file replaces research/product-model.md as the strategy source of truth.
+**Status:** Current. This file replaces research/docs/product-model.md as the strategy source of truth.
 
 ---
 
@@ -12,7 +12,7 @@
 | v1 (as Product Model) | Phase 1 | Pre-research hypotheses |
 | v2 (as Product Model) | Phase 4.5 | Validated against competitive analysis and trust benchmark |
 | v_refresh (as Product Model) | June 9, 2026 | Privacy-first path added, pricing raised, J6 added |
-| v_refresh (as Strategy, this file) | June 11, 2026 | Migrated Product Model to Strategy structure. AIDA retired: AARRR (research/aarrr.md) is the single funnel; AIDA messaging hooks folded into AARRR Acquisition and Activation stages. Added Business Model as an explicit section. Added Riskiest Assumption. The old file research/product-model.md is kept in place unchanged for history, with a deprecation note. |
+| v_refresh (as Strategy, this file) | June 11, 2026 | Migrated Product Model to Strategy structure. AIDA retired: AARRR (research/docs/aarrr.md) is the single funnel; AIDA messaging hooks folded into AARRR Acquisition and Activation stages. Added Business Model as an explicit section. Added Riskiest Assumption. The old file research/docs/product-model.md is kept in place unchanged for history, with a deprecation note. |
 
 Each section below states whether the Step 1 competitor evidence CONFIRMED, CHALLENGED, or CHANGED it, with sources.
 
@@ -44,7 +44,7 @@ Three segments. Diverge-converge note: a fourth candidate segment (students mana
 | Motivation | "I know what's going out, and I'm okay." Calm, not optimization. |
 | Pain | Vague background dread of money leaking out; statement charges they cannot decode; fear that looking will make it worse. |
 | JTBD | "When I suspect I'm paying for things I forgot about or never use, I want to see all my recurring charges clearly in one calm view, so that I feel in control of my money without needing to become a finance person." |
-| Priority + reason | Primary. This is the unserved center of the market: every scaled competitor (Rocket Money, Emma, PocketGuard) has drifted toward the general finance user and buried the calm subscription view under feature depth. Source: research/competitive-analysis.md P2. |
+| Priority + reason | Primary. This is the unserved center of the market: every scaled competitor (Rocket Money, Emma, PocketGuard) has drifted toward the general finance user and buried the calm subscription view under feature depth. Source: research/docs/competitive-analysis.md P2. |
 
 **Evidence status: CONFIRMED, with the A2 privacy-first variant upgraded to equal weight.** ReSubs built an 18,000+ user product entirely on the no-bank path (4.5 stars, 718 Google Play reviews), proving A2 is a reachable segment and not an edge case. Source: [resubs.app](https://resubs.app/)
 
@@ -81,7 +81,7 @@ Three segments. Diverge-converge note: a fourth candidate segment (students mana
 | JTBD | Priority | Evidence status (Step 1 refresh) |
 |------|----------|----------------------------------|
 | J1: See all subscriptions in one calm view | Primary | CONFIRMED. Every hard competitor leads with this job. |
-| J2: Feel calm and in control | Primary (fused with J1) | CONFIRMED. Calm remains unclaimed as a brand position by any competitor, including new entrant ReSubs. Source: research/competitive-analysis.md gap G1. |
+| J2: Feel calm and in control | Primary (fused with J1) | CONFIRMED. Calm remains unclaimed as a brand position by any competitor, including new entrant ReSubs. Source: research/docs/competitive-analysis.md gap G1. |
 | J3: Find and cancel unused subscriptions | Secondary | CONFIRMED, sharpened: ReSubs' 30+ step-by-step cancel guides validate guides as a concrete paid feature. Source: [resubs.app](https://resubs.app/) |
 | J4: Be alerted to price changes and failures | Secondary | CONFIRMED. No new evidence to change. |
 | J5: Understand what a charge actually is | Activation feature | CONFIRMED. Apple Card's merchant-name clarity and N26's EU merchant cleanup validate this as table stakes for trust. Sources: [support.apple.com/en-us/102329](https://support.apple.com/en-us/102329), [n26.com/en-it/blog/new-in-n26-more-clarity](https://n26.com/en-it/blog/new-in-n26-more-clarity) |
@@ -110,7 +110,7 @@ The amplifier of the product thinking, not the headline. The model only works if
 **Evidence status: CONFIRMED and EXTENDED.**
 - Price confirmed: PocketGuard $12.99/mo (1M+ members), YNAB $14.99/mo with no free tier at all, Emma £4.99-£14.99/mo. The market price band for "feel in control of money" tools is $5-15/mo. $7.99 positions Tendd as calm and affordable vs. the full-finance suites. Sources: [pocketguard.com/pricing/](https://pocketguard.com/pricing/), [ynab.com/pricing](https://www.ynab.com/pricing), [emma-app.com/plans/compare-emma-plans](https://emma-app.com/plans/compare-emma-plans)
 - Lifetime option: ReSubs and Bobby both monetize with one-time purchases, resolving the irony of a subscription to manage subscriptions. Sources: [resubs.app](https://resubs.app/), [bobbyapp.co](https://bobbyapp.co/)
-- Incentive note: we deliberately avoid bill-negotiation revenue (Rocket Money: 35-60% of first-year savings). That model profits from users having expensive problems; flat SaaS aligns our revenue with the user feeling calm and staying. Source: research/competitive-analysis.md D1.
+- Incentive note: we deliberately avoid bill-negotiation revenue (Rocket Money: 35-60% of first-year savings). That model profits from users having expensive problems; flat SaaS aligns our revenue with the user feeling calm and staying. Source: research/docs/competitive-analysis.md D1.
 
 ---
 

@@ -4,11 +4,11 @@
 
 | Phase | Output | Status |
 |-------|--------|--------|
-| Research Sprint | research.html, research/*.md | Done (June 2026) |
-| People & JTBD | personas.html, jtbd.html, research/personas.md, research/jtbd.md | Done (June 2026) |
+| Research Sprint | research/research.html, research/docs/*.md | Done (June 2026) |
+| People & JTBD | research/personas.html, research/jtbd.html, research/docs/personas.md, research/docs/jtbd.md | Done (June 2026) |
 | Design Sprint | Wireframes, concept | Pending |
 
-Founder decisions locked June 14 2026: D1 (gradual reveal with paired action), D2 (manual + presets at launch), D3 (paywall at history/trends/advanced alerts, NOT at cancel moment), D4 ($7.99/mo or $69/yr), D5 (US/Plaid first, EU deferred). See research/strategy.md Section 6.
+Founder decisions locked June 14 2026: D1 (gradual reveal with paired action), D2 (manual + presets at launch), D3 (paywall at history/trends/advanced alerts, NOT at cancel moment), D4 ($7.99/mo or $69/yr), D5 (US/Plaid first, EU deferred). See research/docs/strategy.md Section 6.
 
 ---
 

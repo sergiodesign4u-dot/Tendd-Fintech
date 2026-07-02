@@ -1,6 +1,6 @@
 # Master Research Synthesis - Tendd
 
-**Single source of truth. Uses the v_refresh Strategy (research/strategy.md). All facts cited.**
+**Single source of truth. Uses the v_refresh Strategy (research/docs/strategy.md). All facts cited.**
 **Version:** v_refresh (June 11, 2026 re-run) - competitive analysis verified live, Product Model migrated to Strategy (AIDA retired, business model and riskiest assumption added), AARRR updated
 
 ---
@@ -37,7 +37,7 @@ All competitor data was gathered from public pre-login pages via web search and 
 
 ## 2. Strategy (v_refresh - Current)
 
-Full detail in [research/strategy.md](./strategy.md). This section replaces the former "Product Model" section. AIDA is retired: AARRR (section 3) is the single funnel, and the AIDA messaging hooks now live inside its Acquisition and Activation stages.
+Full detail in [research/docs/strategy.md](./strategy.md). This section replaces the former "Product Model" section. AIDA is retired: AARRR (section 3) is the single funnel, and the AIDA messaging hooks now live inside its Acquisition and Activation stages.
 
 ### Segments
 
@@ -56,7 +56,7 @@ Freemium SaaS (Tendd Pro). The user gets a calm, complete view of recurring spen
 
 > People who feel money anxiety and avoid finance apps will actually look - that seeing their full recurring spend in a calm frame reduces their anxiety and feels like relief, rather than triggering the same avoidance that keeps them out of every other finance app.
 
-This is a risk to value, not feasibility. Competitor growth (Rocket Money 10M+, ReSubs 18K+) proves only that already-motivated users adopt trackers; it says nothing about avoiders. If false, there is no activation, no retention, and no business. Smallest test: a clickable "calm reveal" prototype shown to 5-8 people screened for financial-avoidance behavior, measuring completion, post-reveal emotional state, and pull to try it on their own data. Full trace in [research/strategy.md](./strategy.md) section 5.
+This is a risk to value, not feasibility. Competitor growth (Rocket Money 10M+, ReSubs 18K+) proves only that already-motivated users adopt trackers; it says nothing about avoiders. If false, there is no activation, no retention, and no business. Smallest test: a clickable "calm reveal" prototype shown to 5-8 people screened for financial-avoidance behavior, measuring completion, post-reveal emotional state, and pull to try it on their own data. Full trace in [research/docs/strategy.md](./strategy.md) section 5.
 
 ---
 
@@ -117,7 +117,7 @@ REFERRAL
 
 ## 4. Competitive Landscape
 
-**v_refresh: Expanded to 15 competitors in 3 groups. Full detail in research/competitive-analysis.md.**
+**v_refresh: Expanded to 15 competitors in 3 groups. Full detail in research/docs/competitive-analysis.md.**
 
 ### Competitor Groups
 
@@ -127,7 +127,7 @@ REFERRAL
 | SOFT (adjacent) | Solve a related problem; users may compare or switch | YNAB, Monarch Money, Copilot Money, PocketGuard, Simplifi |
 | ASPIRATIONAL (design benchmark) | Not direct competitors; best-in-class for trust, calm, clarity | Revolut, Monzo, Apple Card, N26, Nubank |
 
-Sources: research/competitive-analysis.md v_refresh.
+Sources: research/docs/competitive-analysis.md v_refresh.
 
 ### Key Competitor Matrix (HARD group)
 
@@ -182,7 +182,7 @@ Sources: [rocketmoney.com](https://www.rocketmoney.com/), [emma-app.com](https:/
 | Copilot Money | 4 | 3 | 4 | 3 | 3 | 4 | 3 | 2 | 26 |
 | YNAB | 3 | 4 | 3 | 2 | 4 | 3 | 4 | 2 | 25 |
 
-Source: research/benchmark-trust.md. Scores from public pages only; [? behind login] for app interiors.
+Source: research/docs/benchmark-trust.md. Scores from public pages only; [? behind login] for app interiors.
 
 ### Top 3 Mechanisms to Carry to MVP
 
@@ -206,19 +206,19 @@ Requires too much configuration and discipline for the anxious non-financial use
 
 **3 Reasons:**
 
-1. **Solves the avoidance problem (BP1).** The Guided Reveal gives the anxious user one thing to do: "let me show you." No choices, no empty dashboard, no configuration. Source: research/ux-patterns.md behavioral pattern BP1.
+1. **Solves the avoidance problem (BP1).** The Guided Reveal gives the anxious user one thing to do: "let me show you." No choices, no empty dashboard, no configuration. Source: research/docs/ux-patterns.md behavioral pattern BP1.
 
-2. **Fills the competitive gap.** No competitor has designed the first subscription view as an emotional experience. The Guided Reveal is directly analogous to Spotify Wrapped - a reveal of personal data as a satisfying moment. Source: research/competitive-analysis.md gap #4, Phase 5 ux-patterns.md.
+2. **Fills the competitive gap.** No competitor has designed the first subscription view as an emotional experience. The Guided Reveal is directly analogous to Spotify Wrapped - a reveal of personal data as a satisfying moment. Source: research/docs/competitive-analysis.md gap #4, Phase 5 ux-patterns.md.
 
-3. **Creates the natural upgrade trigger.** The Guided Reveal ends at the moment of highest motivation - after seeing the subscription list, the user is ready to act. The upgrade to paid lives here. Source: research/aarrr.md Revenue stage MVP decision.
+3. **Creates the natural upgrade trigger.** The Guided Reveal ends at the moment of highest motivation - after seeing the subscription list, the user is ready to act. The upgrade to paid lives here. Source: research/docs/aarrr.md Revenue stage MVP decision.
 
 ### Alternative Under Condition X
 
-If bank connection adoption is below 20% in the first 3 months: switch primary path to Pattern B (Manual Calendar) + Pattern C (Guided Reveal) overlay. Source: research/ux-patterns.md pattern selection.
+If bank connection adoption is below 20% in the first 3 months: switch primary path to Pattern B (Manual Calendar) + Pattern C (Guided Reveal) overlay. Source: research/docs/ux-patterns.md pattern selection.
 
 ### Pattern That Does NOT Fit: Conversational / AI-Assisted
 
-Requires too much cognitive load for the anxious scan-first user. The product must be glanceable (3 seconds to "how much am I paying, what's new"). A conversation takes 10-30 seconds minimum. Opposite of our calm clarity differentiator. Source: research/ux-patterns.md.
+Requires too much cognitive load for the anxious scan-first user. The product must be glanceable (3 seconds to "how much am I paying, what's new"). A conversation takes 10-30 seconds minimum. Opposite of our calm clarity differentiator. Source: research/docs/ux-patterns.md.
 
 ---
 
@@ -237,7 +237,7 @@ Requires too much cognitive load for the anxious scan-first user. The product mu
 
 ### 7 Hypotheses (If / Then / Because)
 
-**H0 - THE RISKIEST ASSUMPTION (matches research/strategy.md section 5 - test this first): If** we show financially avoidant users their full recurring spend in one calm, judgment-free frame, **then** they will complete the reveal, report relief rather than stress, and want to see their own real data, **because** the anxiety comes from uncertainty about what is leaking out, not from the numbers themselves - and calm visibility converts avoidance into a feeling of control. If this is false, no other hypothesis matters: there is no activation, no retention, and no business. No competitor evidence exists either way [?], which is exactly why it is first in the testing queue.
+**H0 - THE RISKIEST ASSUMPTION (matches research/docs/strategy.md section 5 - test this first): If** we show financially avoidant users their full recurring spend in one calm, judgment-free frame, **then** they will complete the reveal, report relief rather than stress, and want to see their own real data, **because** the anxiety comes from uncertainty about what is leaking out, not from the numbers themselves - and calm visibility converts avoidance into a feeling of control. If this is false, no other hypothesis matters: there is no activation, no retention, and no business. No competitor evidence exists either way [?], which is exactly why it is first in the testing queue.
 
 **H1: If** we show users their subscription list before asking for bank connection (demo mode or sample data), **then** bank connection rate will be higher than competitors' first-step bank request, **because** users who see the value first have a concrete reason to share their data.
 

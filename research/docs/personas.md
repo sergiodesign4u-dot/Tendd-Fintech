@@ -1,6 +1,6 @@
 # Personas - Tendd
 
-**Built on:** research/master-research.md (v_refresh, June 2026), research/strategy.md, research/ux-patterns.md, research/competitive-analysis.md, and post-sprint targeted web research (June 2026).
+**Built on:** research/docs/master-research.md (v_refresh, June 2026), research/docs/strategy.md, research/docs/ux-patterns.md, research/docs/competitive-analysis.md, and post-sprint targeted web research (June 2026).
 **Status:** Draft - open [?] items flagged for user research.
 
 ---
@@ -82,23 +82,23 @@ Source: [19pine.ai/blog/best-management-and-subscription-trackers](https://www.1
 Source: Banking Dive: [bankingdive.com](https://www.bankingdive.com/news/consumers-uncomfortable-with-apps-level-of-access-to-data/567914/)
 
 **O21: Every bank-connected competitor (Rocket Money, Emma, Hiatus, PocketGuard) asks for bank access in step 1 or 2 of onboarding - before earning any trust. This is the single biggest UX gap across the category.**
-Source: research/competitive-analysis.md P1
+Source: research/docs/competitive-analysis.md P1
 
 ---
 
 ### 1D. How They Choose and Where They Drop Off
 
 **O22: The primary behavior pattern is financial avoidance and reluctant engagement. The anxious user does not open finance apps proactively. They engage only when anxiety exceeds avoidance - a trigger event such as a surprise charge or renewal notification.**
-Source: research/ux-patterns.md BP1, citing [econsultancy.com/prudent-ux-for-banking-monzo-designs-positive-friction](https://econsultancy.com/prudent-ux-for-banking-monzo-designs-positive-friction/)
+Source: research/docs/ux-patterns.md BP1, citing [econsultancy.com/prudent-ux-for-banking-monzo-designs-positive-friction](https://econsultancy.com/prudent-ux-for-banking-monzo-designs-positive-friction/)
 
 **O23: Users scan and recognize familiar brands (Spotify, Netflix) but are uncomfortable doing math or reading charts. They pattern-match, they do not analyze.**
-Source: research/ux-patterns.md BP2
+Source: research/docs/ux-patterns.md BP2
 
 **O24: Users take action when surprised, not when reminded to review. A forgotten subscription discovered is experienced as a positive moment ("look what we found") rather than a loss.**
-Source: research/ux-patterns.md BP3
+Source: research/docs/ux-patterns.md BP3
 
 **O25: Without an external hook (notification, email digest), users do not return to finance apps after the first session. There is no inherent weekly review habit for this segment.**
-Source: research/ux-patterns.md BP4
+Source: research/docs/ux-patterns.md BP4
 
 **O26: In 2024, 40.3% of subscribers had cancelled a subscription - most commonly video streaming (54.5%) and music streaming (22.9%). This shows willingness to act once aware.**
 Source: [adapty.io/blog/9-subscription-trends-dominating-2025](https://adapty.io/blog/9-subscription-trends-dominating-2025/)
@@ -159,7 +159,7 @@ P2: Cryptic transaction names. When she does look, she sees "SPOTIFYAB STOCKHOLM
 
 P3: The bank connection demand. If a new app asks for her banking credentials in step 1, she closes it. She has tried twice and both times got to the "connect your bank" screen and thought "I don't know these people yet." (O16, O17, O18, O21.)
 
-P4: No calm space to just see subscriptions. Every app she has tried (even briefly) has felt overwhelming - too many numbers, too many graphs, too much emphasis on what she is doing wrong. (research/ux-patterns.md BP1, competitive-analysis.md P2.)
+P4: No calm space to just see subscriptions. Every app she has tried (even briefly) has felt overwhelming - too many numbers, too many graphs, too much emphasis on what she is doing wrong. (research/docs/ux-patterns.md BP1, competitive-analysis.md P2.)
 
 ---
 
@@ -169,12 +169,12 @@ What earns her trust (fast):
 - Showing value before asking for bank access. Even a demo with sample data that looks like her life would help. (master-research.md H1; benchmark-trust.md C8.)
 - Explicit plain-language explanation of what the product reads and why. "We read only recurring charge patterns. We cannot move money. Here is exactly what we access." (master-research.md M2; O20.)
 - Real merchant names and logos (not bank codes) in any preview of the product. Recognizing Spotify and Netflix immediately signals "this understands me." (O23; master-research.md M3.)
-- A calm, non-urgent visual environment. If anything is red or uses words like "warning" or "overspending," she closes it. (research/ux-patterns.md BP1; CLAUDE.md design principle 1.)
+- A calm, non-urgent visual environment. If anything is red or uses words like "warning" or "overspending," she closes it. (research/docs/ux-patterns.md BP1; CLAUDE.md design principle 1.)
 - Testimonials from people who sound like her - "I found two subscriptions I forgot about and cancelled them" - not power-user optimization stories. (O7, O15.)
 
 What scares her off:
 - Bank connection as step 1 (O21, O18, O19)
-- Financial jargon or complexity on first screen (research/ux-patterns.md BP1)
+- Financial jargon or complexity on first screen (research/docs/ux-patterns.md BP1)
 - Any suggestion she is doing something wrong with money
 - Graphs or percentage comparisons without context
 
@@ -215,9 +215,9 @@ Source: master-research.md J3; competitive-analysis.md (ReSubs 30+ cancel guides
 
 **Pains**
 
-P1: The manual entry trap. Adding 14+ subscriptions by hand is the single largest friction point for Ravi. He has started twice and stopped when he ran out of patience. He knows the result would be worth it. He cannot get there without automation. (O8, O9; research/ux-patterns.md - the manual entry effort barrier.)
+P1: The manual entry trap. Adding 14+ subscriptions by hand is the single largest friction point for Ravi. He has started twice and stopped when he ran out of patience. He knows the result would be worth it. He cannot get there without automation. (O8, O9; research/docs/ux-patterns.md - the manual entry effort barrier.)
 
-P2: Privacy-or-nothing binary. The market offers full bank access (Rocket Money, Emma) or full manual (Bobby). He is caught in the middle: he wants automation but will not pay with bank credentials. ReSubs' Gmail scan option introduces a different data concern (email access). (research/competitive-analysis.md P3.)
+P2: Privacy-or-nothing binary. The market offers full bank access (Rocket Money, Emma) or full manual (Bobby). He is caught in the middle: he wants automation but will not pay with bank credentials. ReSubs' Gmail scan option introduces a different data concern (email access). (research/docs/competitive-analysis.md P3.)
 
 P3: Incomplete picture. Because manual entry is hard and he has not finished it, his current self-knowledge is "somewhere around $200/month on subscriptions, but probably more." This incomplete picture is its own low-grade anxiety.
 

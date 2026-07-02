@@ -1,6 +1,6 @@
 # Product Model
 
-> **DEPRECATED (June 11, 2026).** This file is kept for history only. The current strategy source of truth is [research/strategy.md](./strategy.md), which migrates objectives, segments, JTBD and the business model into the Strategy structure and adds the riskiest assumption. AIDA is retired: AARRR ([research/aarrr.md](./aarrr.md)) is the single funnel, and the useful AIDA messaging hooks were folded into its Acquisition and Activation stages.
+> **DEPRECATED (June 11, 2026).** This file is kept for history only. The current strategy source of truth is [research/docs/strategy.md](./strategy.md), which migrates objectives, segments, JTBD and the business model into the Strategy structure and adds the riskiest assumption. AIDA is retired: AARRR ([research/docs/aarrr.md](./aarrr.md)) is the single funnel, and the useful AIDA messaging hooks were folded into its Acquisition and Activation stages.
 
 ---
 

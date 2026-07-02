@@ -70,11 +70,11 @@ Confirmed that product-model.md v2 is used (not v1) in all downstream documents.
 
 | Document | Uses v2? | Notes |
 |----------|---------|-------|
-| research/aarrr.md | Partial - written before v2 | AARRR was written as v1. Reviewed: the core content (Guided Reveal as activation, email digest, upgrade trigger on cancel discovery) is consistent with v2 conclusions. The "v1 - initial model" header at the top of aarrr.md is a status label, not a problem. No content conflicts with v2. |
-| research/competitive-analysis.md | Yes - written pre-v2 but content is the research basis for v2 | No conflict. This document is the source of truth for competitor data used in v2. |
-| research/benchmark-trust.md | Yes - written during v2 process | Directly references benchmark criteria consistent with v2 trust focus. |
-| research/ux-patterns.md | Yes - explicitly cites v2 product model | References BP1 (avoidance), v2 audience analysis, benchmark mechanisms. |
-| research/master-research.md | Yes - explicitly states "Uses validated v2 product model" | All segments, JTBD, and AIDA tables reflect v2 validated content. |
+| research/docs/aarrr.md | Partial - written before v2 | AARRR was written as v1. Reviewed: the core content (Guided Reveal as activation, email digest, upgrade trigger on cancel discovery) is consistent with v2 conclusions. The "v1 - initial model" header at the top of aarrr.md is a status label, not a problem. No content conflicts with v2. |
+| research/docs/competitive-analysis.md | Yes - written pre-v2 but content is the research basis for v2 | No conflict. This document is the source of truth for competitor data used in v2. |
+| research/docs/benchmark-trust.md | Yes - written during v2 process | Directly references benchmark criteria consistent with v2 trust focus. |
+| research/docs/ux-patterns.md | Yes - explicitly cites v2 product model | References BP1 (avoidance), v2 audience analysis, benchmark mechanisms. |
+| research/docs/master-research.md | Yes - explicitly states "Uses validated v2 product model" | All segments, JTBD, and AIDA tables reflect v2 validated content. |
 
 **Finding:** No downstream conflicts with v2 product model.
 

@@ -205,7 +205,7 @@ Selection rationale (diverge then converge): all 15 competitors were candidates 
 Discarded and why:
 - Bobby and Hiatus (hard): Bobby's development has visibly stalled and it is iOS-only; Hiatus overlaps almost fully with Rocket Money's model at smaller scale. Neither adds a distinct axis the chosen five do not cover.
 - Monarch, Copilot, Simplifi (soft): all three are premium full-finance suites for committed users; YNAB already represents the methodology-led premium pole, and their audiences overlap least with our anxious non-financial user.
-- All five aspirational products: they are benchmarks for trust and clarity, not purchase alternatives, so they inform the trust benchmark (research/benchmark-trust.md) rather than this head-to-head matrix.
+- All five aspirational products: they are benchmarks for trust and clarity, not purchase alternatives, so they inform the trust benchmark (research/docs/benchmark-trust.md) rather than this head-to-head matrix.
 
 | Axis | Rocket Money | Emma | ReSubs | YNAB | PocketGuard |
 |------|-------------|------|--------|------|-------------|
