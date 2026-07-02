@@ -6,9 +6,32 @@
 |-------|--------|--------|
 | Research Sprint | research/research.html, research/docs/*.md | Done (June 2026) |
 | People & JTBD | research/personas.html, research/jtbd.html, research/docs/personas.md, research/docs/jtbd.md | Done (June 2026) |
-| Design Sprint | Wireframes, concept | Pending |
+| Concept Architecture (IA) | IA/ia.html, IA/docs/sitemap.md, IA/docs/flows.md | Done (July 2026) |
+| Design Sprint | Wireframes | Pending |
 
 Founder decisions locked June 14 2026: D1 (gradual reveal with paired action), D2 (manual + presets at launch), D3 (paywall at history/trends/advanced alerts, NOT at cancel moment), D4 ($7.99/mo or $69/yr), D5 (US/Plaid first, EU deferred). See research/docs/strategy.md Section 6.
+
+---
+
+## Concept Architecture (Phase IA)
+
+Structure locked July 2026. Full detail in IA/docs/sitemap.md and IA/docs/flows.md; living page at IA/ia.html. This is structure only, not screen content.
+
+**Top-level sitemap (16 screens, 6 clusters):**
+- Onboarding and Activation: Welcome / Value Intro, Activation Path Choice, Connect Bank, Add Subscription, Guided Reveal
+- Core: Home / Subscription List, Subscription Detail
+- Stay Ahead: Alerts / Activity
+- Cut and Celebrate: Cancel Guide, Cancel Win Moment, Share Snapshot
+- Depth (Pro): History and Trends, Upgrade / Tendd Pro
+- Account and Trust: Connections / Accounts, Data and Privacy, Settings / Profile
+
+**Global navigation (4 tabs):** Home (J-MAIN), Alerts (J4), Save (J2 + E2), You (E3 + J1).
+
+**Main flow (J-MAIN, Emma, bank path):** Welcome -> Activation Path Choice -> Connect Bank -> Guided Reveal (gradual: count, then categories with logos, then total paired with an action, per D1) -> Home. The privacy path swaps Connect Bank for Add Subscription (manual + presets, per D2).
+
+**Tap depth to the main job:** 3 taps in the first session (at the ceiling, not over), 0 to 1 tap in every session after (the app opens on Home).
+
+**Coverage:** zero orphan jobs; one intentional orphan screen (Upgrade / Tendd Pro), retained as a decision-justified gate (D3, D4).
 
 ---
 

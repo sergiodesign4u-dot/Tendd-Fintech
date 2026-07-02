@@ -20,8 +20,8 @@ Tendd is a mobile-first web app that helps people who are not into finance see a
 | Research HTML | [research.html](./research/research.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/research/research.html) | Done |
 | Personas | [personas.html](./research/personas.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/research/personas.html) | Done |
 | JTBD | [jtbd.html](./research/jtbd.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/research/jtbd.html) | Done |
+| Concept Architecture (IA) | [ia.html](./IA/ia.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/IA/ia.html) | Done |
 | Wireframes | wireframes/ | Pending |
-| Concept | concept/ | Pending |
 | Design System | design-system/ | Pending |
 | Components | components/ | Pending |
 | Handoff | handoff/ | Pending |
@@ -41,6 +41,24 @@ Tendd is a mobile-first web app that helps people who are not into finance see a
 - [Research HTML](./research/research.html) - Live research summary page
 - [Personas](./research/personas.html) - 3 personas with observations, [?] badges, and trust triggers
 - [JTBD](./research/jtbd.html) - Job hierarchy, matrix, hypotheses, and critique
+- [Concept Architecture (IA)](./IA/ia.html) - Entities, sitemap, navigation, flows, coverage matrix, critique
+
+---
+
+## Structure
+
+The product structure (entities, screens, navigation, and user flows) lives
+in the IA phase:
+
+- [IA/docs/sitemap.md](./IA/docs/sitemap.md) - entities, screens tagged with
+  jobs, navigation model, coverage matrix (jobs against screens), and critique
+- [IA/docs/flows.md](./IA/docs/flows.md) - user flows in Mermaid for the main
+  job and three related jobs, with decision points, states, and dead ends
+- [IA/ia.html](./IA/ia.html) - the living page combining both, with live
+  diagrams
+
+This is structure only. Per-screen content, shared components, and
+state-by-state detail come in the next IA prompt.
 
 ---
 

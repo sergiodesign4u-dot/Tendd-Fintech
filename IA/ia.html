@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tendd - Concept Architecture (IA)</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --border-light: #f0ede6;
+      --text: #2a2724;
+      --text-secondary: #6b6560;
+      --text-muted: #9b958e;
+      --accent: #5c7a6e;
+      --accent-light: #eef4f1;
+      --accent-mid: #d0e4dc;
+      --yellow-light: #fdf8ed;
+      --yellow-mid: #f5e9c4;
+      --red-light: #fdf2f0;
+      --red-mid: #f2cfc8;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --radius: 8px;
+      --radius-sm: 4px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 220px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      z-index: 200;
+      transform: translateX(-100%);
+      transition: transform 0.22s ease;
+      overflow-y: auto;
+      padding-bottom: 32px;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 150;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    .sidebar-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+
+    .sidebar-close {
+      background: none; border: none; font-size: 18px; line-height: 1;
+      color: var(--text-muted); cursor: pointer; padding: 4px 6px;
+      border-radius: var(--radius-sm);
+    }
+    .sidebar-close:hover { color: var(--text); background: var(--border-light); }
+
+    .nav-toggle {
+      position: fixed; top: 14px; left: 16px; z-index: 100;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px;
+    }
+
+    .sidebar-nav { padding: 12px 10px 0; }
+
+    .nav-section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); padding: 10px 8px 5px;
+    }
+    .nav-section-label.active { color: var(--accent); }
+
+    .nav-link {
+      display: block; text-decoration: none; color: var(--text-secondary);
+      font-size: 13px; padding: 6px 10px; border-radius: var(--radius-sm);
+      margin-bottom: 1px; transition: all 0.15s;
+    }
+    .nav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-link.active { color: var(--accent); background: var(--accent-light); font-weight: 500; }
+
+    .nav-page-active {
+      display: block; font-size: 13px; font-weight: 600; color: var(--accent);
+      padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light);
+      margin-bottom: 1px;
+    }
+
+    .nav-sub-link {
+      display: block; text-decoration: none; color: var(--text-muted);
+      font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm);
+      margin-bottom: 1px; transition: all 0.15s;
+    }
+    .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-sub-link.active { color: var(--accent); font-weight: 500; }
+
+    .nav-divider { border: none; border-top: 1px solid var(--border-light); margin: 10px 8px; }
+
+    .nav-next-block {
+      margin: 14px 8px 0; padding: 10px; border-radius: var(--radius-sm);
+      background: var(--bg); border: 1px solid var(--border-light);
+    }
+    .nav-next-label {
+      display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px;
+    }
+    .nav-next-items { font-size: 12px; color: var(--text-muted); }
+
+    @media (min-width: 840px) {
+      .sidebar { transform: translateX(0); }
+      .sidebar-close { display: none; }
+      .sidebar-overlay { display: none !important; }
+      .nav-toggle { display: none; }
+    }
+
+    /* Layout */
+    main { max-width: 900px; margin: 0 auto; padding: 72px 24px 80px; }
+    @media (min-width: 840px) {
+      body { padding-left: 220px; }
+      main { padding-top: 40px; }
+    }
+    @media (max-width: 640px) {
+      main { padding-left: 16px; padding-right: 16px; }
+      h1 { font-size: 26px !important; }
+    }
+
+    /* Type */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+    }
+    h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; color: var(--text); }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px; }
+    h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 10px; margin-top: 6px; }
+    p { margin-bottom: 12px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    cite { font-size: 11.5px; color: var(--text-muted); font-style: normal; }
+
+    /* Hero */
+    .hero { padding: 64px 0 40px; border-bottom: 1px solid var(--border); }
+    .hero-meta { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; padding: 4px 10px;
+      border-radius: 100px; background: var(--accent-light);
+      color: var(--accent); border: 1px solid var(--accent-mid);
+    }
+    .hero-tagline { font-size: 18px; color: var(--text-secondary); margin-top: 12px; max-width: 660px; line-height: 1.5; }
+
+    .section { padding: 56px 0 0; }
+
+    .lead { font-size: 15px; color: var(--text-secondary); max-width: 680px; }
+
+    /* Callout */
+    .callout {
+      background: var(--accent-light); border: 1px solid var(--accent-mid);
+      border-radius: var(--radius); padding: 16px 20px; margin-top: 16px;
+    }
+    .callout p { color: var(--text); margin-bottom: 6px; }
+    .callout p:last-child { margin-bottom: 0; }
+    .callout .big { font-size: 26px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+
+    /* Tags */
+    .tag {
+      display: inline-block; font-size: 10.5px; font-weight: 600;
+      padding: 1px 6px; border-radius: 4px; margin-left: 4px;
+      background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid);
+      vertical-align: middle; letter-spacing: 0.01em;
+    }
+    .tag.q { background: var(--yellow-light); color: #8a6e20; border-color: var(--yellow-mid); }
+
+    /* Entity cards */
+    .ent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 20px; }
+    .ent-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px 17px; }
+    .ent-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .ent-card p { font-size: 12.5px; color: var(--text-secondary); margin-bottom: 5px; line-height: 1.5; }
+    .ent-card .ent-job { font-size: 11.5px; color: var(--accent); font-weight: 600; }
+
+    /* Tree */
+    .tree {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px; margin-top: 18px;
+      font-family: var(--mono); font-size: 12.5px; line-height: 1.85;
+      color: var(--text); overflow-x: auto; white-space: pre;
+    }
+    .tree .job { color: var(--accent); }
+    .tree .prim { color: #8a6e20; font-weight: 700; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; margin-top: 18px; border: 1px solid var(--border); border-radius: var(--radius); }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; background: var(--surface); }
+    th, td { border-bottom: 1px solid var(--border-light); border-right: 1px solid var(--border-light); padding: 8px 11px; text-align: left; vertical-align: top; }
+    th { background: var(--accent-light); color: var(--accent); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; position: sticky; top: 0; }
+    tr:last-child td { border-bottom: none; }
+    td:last-child, th:last-child { border-right: none; }
+
+    table.matrix th, table.matrix td { text-align: center; padding: 7px 6px; font-size: 12px; }
+    table.matrix td.job { text-align: left; font-weight: 600; color: var(--text); white-space: nowrap; }
+    table.matrix td.check { color: var(--accent); font-weight: 700; }
+    table.matrix th.orphan, table.matrix td.orphan { background: var(--red-light); }
+    table.matrix th.orphan { color: #8a2020; }
+
+    /* Flow cards */
+    .flow-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-top: 20px; box-shadow: var(--shadow); }
+    .flow-card h3 { margin-top: 0; }
+    .flow-card .flow-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+    .mermaid { text-align: center; overflow-x: auto; margin: 8px 0 6px; }
+    .flow-notes { font-size: 12.5px; color: var(--text-secondary); margin-top: 10px; }
+    .flow-notes strong { color: var(--text); }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 12px; color: var(--text-secondary); }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .swatch { width: 13px; height: 13px; border-radius: 3px; border: 1px solid; display: inline-block; }
+    .swatch.state { background: #fff7e6; border-color: #d9a441; }
+    .swatch.success { background: #e9f5ee; border-color: #3f9c68; }
+    .swatch.dead { background: #fdeaea; border-color: #c96a6a; }
+    .swatch.screen { background: #fff; border-color: var(--text-muted); }
+
+    /* Footer */
+    .footer { border-top: 1px solid var(--border); margin-top: 72px; padding: 32px 0; text-align: center; }
+    .footer p { font-size: 13px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd Research</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Research Sprint</div>
+    <a href="../research/research.html#intro" class="nav-link">Overview</a>
+    <a href="../research/research.html#canvas" class="nav-link">Canvas</a>
+    <a href="../research/research.html#strategy" class="nav-link">Strategy</a>
+    <a href="../research/research.html#aarrr" class="nav-link">AARRR</a>
+    <a href="../research/research.html#competitors" class="nav-link">Competitors</a>
+    <a href="../research/research.html#benchmark" class="nav-link">Benchmark</a>
+    <a href="../research/research.html#patterns" class="nav-link">UX Patterns</a>
+    <a href="../research/research.html#conclusions" class="nav-link">Conclusions</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">People &amp; JTBD</div>
+    <a href="../research/personas.html" class="nav-link">Personas</a>
+    <a href="../research/jtbd.html" class="nav-link">JTBD</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label active">Concept (IA)</div>
+    <span class="nav-page-active">Concept Architecture</span>
+    <a href="#entities" class="nav-sub-link" data-section="entities">Entities</a>
+    <a href="#sitemap" class="nav-sub-link" data-section="sitemap">Sitemap</a>
+    <a href="#navigation" class="nav-sub-link" data-section="navigation">Navigation</a>
+    <a href="#flows" class="nav-sub-link" data-section="flows">Flows</a>
+    <a href="#coverage" class="nav-sub-link" data-section="coverage">Coverage</a>
+    <a href="#critique" class="nav-sub-link" data-section="critique">Critique</a>
+
+    <div class="nav-next-block">
+      <span class="nav-next-label">Next</span>
+      <span class="nav-next-items">Wireframes</span>
+    </div>
+  </nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main>
+
+  <section class="hero" id="top">
+    <div class="hero-meta">
+      <span class="badge">Phase IA</span>
+      <span class="badge">Concept Architecture</span>
+      <span class="badge">Structure only</span>
+    </div>
+    <h1>Concept Architecture</h1>
+    <p class="hero-tagline">The skeleton of Tendd: what entities exist, what screens exist, what job each one serves, and how a person moves between them. Structure only, not screen content.</p>
+    <div class="callout">
+      <p>This is the output of Phase IA, Prompt 1. It builds on the People &amp; JTBD phase and comes before Wireframes. Every entity and screen traces to a job in <a href="../research/jtbd.html">JTBD</a> or a locked decision in Strategy Section 6 (D1 to D5). Full source: <a href="docs/sitemap.md">docs/sitemap.md</a> and <a href="docs/flows.md">docs/flows.md</a>.</p>
+    </div>
+  </section>
+
+  <!-- ENTITIES -->
+  <section class="section" id="entities">
+    <div class="section-label">Step 1</div>
+    <h2>Entities</h2>
+    <p class="lead">The core objects a person deals with to close their jobs. Screens display entities; entities grow out of jobs, not out of a competitor's menu. Nine core entities, plus objects held under question.</p>
+    <div class="ent-grid">
+      <div class="ent-card"><h4>1. Subscription</h4><p>Name, real merchant name and logo, amount, frequency, next date, category, status, source, linked account. The central object.</p><p class="ent-job">J-MAIN, J3</p></div>
+      <div class="ent-card"><h4>2. Account (source)</h4><p>Bank connection via Plaid, or a manual private source. Status, last sync, count detected.</p><p class="ent-job">J1, J5, D5</p></div>
+      <div class="ent-card"><h4>3. Preset</h4><p>Service template (name, logo, typical price, frequency) so manual entry is low effort. 400+ at launch.</p><p class="ent-job">J5, D2</p></div>
+      <div class="ent-card"><h4>4. Alert</h4><p>Price change and payment failed are free; trial ending, unusual, duplicate are Pro. Plain-language, active voice.</p><p class="ent-job">J4</p></div>
+      <div class="ent-card"><h4>5. Charge</h4><p>A billing instance: date, amount, subscription, status. Full timeline is Pro history.</p><p class="ent-job">J4, D3</p></div>
+      <div class="ent-card"><h4>6. Cancellation</h4><p>Method (basic free, full guide Pro), progress status, money saved. The relief moment stays free.</p><p class="ent-job">J2, E2</p></div>
+      <div class="ent-card"><h4>7. Snapshot</h4><p>Shareable card: count, monthly total, optional win, no bank data. Virality is a hypothesis.<span class="tag q">?</span></p><p class="ent-job">S1, E2</p></div>
+      <div class="ent-card"><h4>8. User &amp; data controls</h4><p>Minimal identity, path, plan, notification preferences, data-access explanation, one-tap deletion.</p><p class="ent-job">E3, J1</p></div>
+      <div class="ent-card"><h4>9. Plan (Tendd Pro)</h4><p>Tier (Free / Pro monthly / yearly / lifetime), price $7.99 or $69, status. A business rule.</p><p class="ent-job">D3, D4</p></div>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:var(--text-secondary)"><strong>Under question</strong> (no entity, no screen): household / shared view <span class="tag q">JH1</span>, Gmail scan and screenshot import <span class="tag q">v2</span>, AI assistant <span class="tag q">JH2</span>, budgets, credit score, investments, bill negotiation (all explicitly cut). A scope note: this concept follows locked decision D3 (free tier is unlimited on subscription count) over the older CLAUDE.md "up to 10" line.</p>
+  </section>
+
+  <!-- SITEMAP -->
+  <section class="section" id="sitemap">
+    <div class="section-label">Step 2</div>
+    <h2>Sitemap</h2>
+    <p class="lead">Sixteen screens across six clusters, derived from the entities and from what each person is trying to do. Every screen names the job it serves. <span class="prim" style="color:#8a6e20;font-weight:700">Amber</span> marks Emma's primary path. Empty, error, and loading are states, shown in the flows, not screens.</p>
+    <div class="tree">Onboarding and Activation  <span class="job">(one-time chain)</span>
+- Welcome / Value Intro                 <span class="job">(J1: value before asking)</span>
+- Activation Path Choice                <span class="job">(J1 + J5: two equal paths, D2)</span>
+  - Connect Bank                        <span class="job">(J1 bank path; D5 Plaid)</span>
+  - Add Subscription (manual + presets) <span class="job">(J5 privacy path; D2)</span>
+- Guided Reveal                         <span class="job">(J-MAIN: the aha, gradual, D1)</span>  <span class="prim">[PRIMARY PATH]</span>
+
+Core
+- Home / Subscription List              <span class="job">(J-MAIN + E1: calm list)</span>  <span class="prim">[PRIMARY PATH]</span>
+  - Subscription Detail                 <span class="job">(J3 decode + J4 alerts)</span>
+
+Stay Ahead
+- Alerts / Activity                     <span class="job">(J4: price change, payment failed)</span>
+
+Cut and Celebrate
+- Cancel Guide                          <span class="job">(J2: basic free, D3)</span>
+  - Cancel Win Moment                   <span class="job">(E2: the small win)</span>
+    - Share Snapshot                    <span class="job">(S1: privacy-safe card)</span>
+
+Depth  (Pro, gated by D3)
+- History and Trends                    <span class="job">(J-MAIN over time)</span>
+- Upgrade / Tendd Pro                   <span class="job">(D3 split + D4 price)</span>
+
+Account and Trust
+- Connections / Accounts                <span class="job">(J1 + J5: manage sources, D5)</span>
+- Data and Privacy                      <span class="job">(E3: data use, delete)</span>
+- Settings / Profile                    <span class="job">(E3: plan, preferences)</span></div>
+  </section>
+
+  <!-- NAVIGATION -->
+  <section class="section" id="navigation">
+    <div class="section-label">Step 3</div>
+    <h2>Navigation</h2>
+    <p class="lead">A four-item bottom tab bar (thumb reach on a phone), deliberately small so the product stays calm. Each tab is an entry into one job cluster.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tab</th><th>Opens</th><th>Job cluster</th><th>Why it earns a global slot</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Home</strong></td><td>Subscription List</td><td>J-MAIN + E1</td><td>The reason the product exists. Reachable in zero taps, so it is the default.</td></tr>
+          <tr><td><strong>Alerts</strong></td><td>Alerts / Activity</td><td>J4</td><td>Also the return engine. Without an external hook this segment does not come back (BP4).</td></tr>
+          <tr><td><strong>Save</strong></td><td>Cancel hub</td><td>J2 + E2</td><td>The emotional peak and upgrade trigger. Claudia's primary job gets a calm door.</td></tr>
+          <tr><td><strong>You</strong></td><td>Settings / Profile</td><td>E3 + J1</td><td>Trust is ongoing. Ravi needs one-tap data control always findable.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:18px">
+      <p><strong>Depth to the main job (J-MAIN, see all recurring charges calmly):</strong></p>
+      <p><span class="big">3 taps</span> in the first session: Welcome, Path Choice, Connect Bank, then Guided Reveal. At the ceiling, not over it.</p>
+      <p><span class="big">0 to 1 tap</span> in every session after: the app opens on Home. The steady state is effectively zero depth.</p>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:var(--text-secondary)">History and Trends does not get a tab (it is Pro-gated, and a mostly-locked tab would break calm). Upgrade is not a tab either; it appears at the gate, in context.</p>
+  </section>
+
+  <!-- FLOWS -->
+  <section class="section" id="flows">
+    <div class="section-label">Step 4</div>
+    <h2>Flows</h2>
+    <p class="lead">How the personas actually move, with decision points, states, and honest dead ends, not just the happy path. Rectangles are screens matching the sitemap; diamonds are decisions; stadium nodes are states and outcomes.</p>
+    <div class="legend">
+      <span><i class="swatch screen"></i> Screen</span>
+      <span><i class="swatch state"></i> Loading / empty / error state</span>
+      <span><i class="swatch success"></i> Success end</span>
+      <span><i class="swatch dead"></i> Dead end (a defect, see Critique)</span>
+    </div>
+
+    <div class="flow-card">
+      <h3>Flow A. J-MAIN: see all recurring charges calmly (Emma, bank path)</h3>
+      <p class="flow-sub">The main job, first session, bank-connected path.</p>
+      <pre class="mermaid">
+flowchart TD
+  classDef state fill:#fff7e6,stroke:#d9a441,color:#5c4813;
+  classDef success fill:#e9f5ee,stroke:#3f9c68,color:#1e4d33;
+  classDef dead fill:#fdeaea,stroke:#c96a6a,color:#6b2b2b;
+
+  Welcome["Welcome / Value Intro"] --> PathQ{"Bank or privacy path?"}
+  PathQ -->|Privacy| AddSub["Add Subscription"]
+  PathQ -->|Bank| ConnectBank["Connect Bank"]
+  ConnectBank --> SyncLoad(["Loading: syncing your bank"])
+  SyncLoad --> ConnOK{"Connection succeeded?"}
+  ConnOK -->|no| ConnErr(["Error: could not connect"])
+  ConnErr --> RetryQ{"Try again?"}
+  RetryQ -->|yes| ConnectBank
+  RetryQ -->|no| FallbackQ{"Use the manual path instead?"}
+  FallbackQ -->|yes| AddSub
+  FallbackQ -->|no| StuckExit(["Dead end: leaves without any list"])
+  ConnOK -->|yes| FoundQ{"Any recurring charges found?"}
+  FoundQ -->|no| NoneEmpty(["Empty: no recurring charges found"])
+  NoneEmpty --> AddSub
+  FoundQ -->|yes| Reveal["Guided Reveal"]
+  AddSub --> Reveal
+  Reveal --> Home["Home / Subscription List"]
+  Home --> Success(["Success: sees all charges calmly"])
+
+  class SyncLoad,ConnErr,NoneEmpty state
+  class Success success
+  class StuckExit dead
+      </pre>
+      <p class="flow-notes"><strong>Dead end:</strong> leaves without any list if both retry and the manual fallback are declined. The Guided Reveal is one node; internally it is gradual per D1 (count, categories with logos, then total paired with an action).</p>
+    </div>
+
+    <div class="flow-card">
+      <h3>Flow B. J5: track without sharing bank data (Ravi, manual + presets)</h3>
+      <p class="flow-sub">The privacy path. The manual-entry trap is the risk it must survive.</p>
+      <pre class="mermaid">
+flowchart TD
+  classDef state fill:#fff7e6,stroke:#d9a441,color:#5c4813;
+  classDef success fill:#e9f5ee,stroke:#3f9c68,color:#1e4d33;
+  classDef dead fill:#fdeaea,stroke:#c96a6a,color:#6b2b2b;
+
+  Welcome2["Welcome / Value Intro"] --> PathQ2{"Bank or privacy path?"}
+  PathQ2 -->|Bank| BankRef(["Bank path: see Flow A"])
+  PathQ2 -->|Privacy| AddSub2["Add Subscription"]
+  AddSub2 --> PresetLoad(["Loading: preset library"])
+  PresetLoad --> PresetOK{"Preset library loaded?"}
+  PresetOK -->|no| LibErr(["Error: presets unavailable"])
+  LibErr --> ManualCustom(["Step: add a custom subscription by hand"])
+  PresetOK -->|yes| SearchQ{"Service in the presets?"}
+  SearchQ -->|yes| AddFromPreset(["Step: add from a preset, prefilled"])
+  SearchQ -->|no| ManualCustom
+  AddFromPreset --> MoreQ{"Add another?"}
+  ManualCustom --> MoreQ
+  MoreQ -->|yes| AddSub2
+  MoreQ -->|no| EnoughQ{"Anything added yet?"}
+  EnoughQ -->|no| EmptyReveal(["Empty: nothing to reveal yet"])
+  EmptyReveal --> AbandonRisk(["Dead end: abandons half-done, manual entry trap"])
+  EnoughQ -->|yes| Reveal2["Guided Reveal"]
+  Reveal2 --> Home2["Home / Subscription List"]
+  Home2 --> Success2(["Success: private list, no bank"])
+
+  class PresetLoad,LibErr,EmptyReveal state
+  class Success2 success
+  class AbandonRisk dead
+      </pre>
+      <p class="flow-notes"><strong>Dead end:</strong> abandons half-done. Ravi has twice abandoned manual entry in the research; if nothing pulls him back he leaves with a partial list.</p>
+    </div>
+
+    <div class="flow-card">
+      <h3>Flow C. J2 + E2: find, cancel, and feel the win (Claudia)</h3>
+      <p class="flow-sub">Basic cancel instruction is free (D3); the full guide and direct link are Pro. The external dark pattern is the risk.</p>
+      <pre class="mermaid">
+flowchart TD
+  classDef state fill:#fff7e6,stroke:#d9a441,color:#5c4813;
+  classDef success fill:#e9f5ee,stroke:#3f9c68,color:#1e4d33;
+  classDef dead fill:#fdeaea,stroke:#c96a6a,color:#6b2b2b;
+
+  Home3["Home / Subscription List"] --> Detail3["Subscription Detail"]
+  Detail3 --> CancelQ{"Cancel this one?"}
+  CancelQ -->|no| Home3
+  CancelQ -->|yes| Guide["Cancel Guide"]
+  Guide --> DepthQ{"Free basic steps or Pro full guide?"}
+  DepthQ -->|"Basic, free"| BasicSteps(["Step: basic instruction, link plus steps"])
+  DepthQ -->|"Wants full guide"| Upgrade3["Upgrade / Tendd Pro"]
+  Upgrade3 --> PayQ{"Upgrade now?"}
+  PayQ -->|no| BasicSteps
+  PayQ -->|yes| FullGuide(["Step: full guide plus direct link"])
+  BasicSteps --> DoneQ{"Managed to cancel?"}
+  FullGuide --> DoneQ
+  DoneQ -->|yes| Win["Cancel Win Moment"]
+  DoneQ -->|"no, blocked by retention flow"| BlockedErr(["Error: stuck in the service dark pattern"])
+  BlockedErr --> HelpQ{"In-app help offered?"}
+  HelpQ -->|no| StuckCancel(["Dead end: gives up, no in-app next step"])
+  HelpQ -->|yes| Guide
+  Win --> ShareQ{"Share the win?"}
+  ShareQ -->|yes| Share["Share Snapshot"]
+  ShareQ -->|no| Success3(["Success: saved money, calm"])
+  Share --> Success3
+
+  class BlockedErr state
+  class Success3 success
+  class StuckCancel dead
+      </pre>
+      <p class="flow-notes"><strong>Dead end:</strong> gives up with no in-app next step if a blocked cancellation is not caught. Declining the upgrade always returns the free basic instruction, so the relief moment is never paywalled.</p>
+    </div>
+
+    <div class="flow-card">
+      <h3>Flow D. J4: stay ahead of a surprise (alert to action)</h3>
+      <p class="flow-sub">Entry is a notification (the return hook). Price change and payment-failed alerts are free; trial-ending and unusual are Pro.</p>
+      <pre class="mermaid">
+flowchart TD
+  classDef state fill:#fff7e6,stroke:#d9a441,color:#5c4813;
+  classDef success fill:#e9f5ee,stroke:#3f9c68,color:#1e4d33;
+  classDef dead fill:#fdeaea,stroke:#c96a6a,color:#6b2b2b;
+
+  Notif(["Event: notification, price change or payment failed"]) --> Alerts["Alerts / Activity"]
+  Alerts --> AnyQ{"Any alerts to show?"}
+  AnyQ -->|"load failed"| AlertErr(["Error: could not load alerts"])
+  AlertErr --> RetryA{"Retry?"}
+  RetryA -->|yes| Alerts
+  RetryA -->|no| HomeA["Home / Subscription List"]
+  AnyQ -->|no| AllClear(["Empty: all clear"])
+  AllClear --> HomeA
+  AnyQ -->|yes| TypeQ{"Alert type?"}
+  TypeQ -->|"Trial ending or unusual, Pro"| UpgradeA["Upgrade / Tendd Pro"]
+  TypeQ -->|"Price change or payment failed, free"| DetailA["Subscription Detail"]
+  UpgradeA --> HomeA
+  DetailA --> NeedQ{"Price change or payment failure?"}
+  NeedQ -->|"price change"| ActQ{"Keep or cancel?"}
+  ActQ -->|keep| SuccessA(["Success: caught it early, nothing to do"])
+  ActQ -->|cancel| GuideA["Cancel Guide"]
+  NeedQ -->|"payment failure"| FixQ{"Is the fix inside the app?"}
+  FixQ -->|"yes"| SuccessA
+  FixQ -->|"no, at the bank or merchant"| NoNext(["Dead end: no in-app next step for a failed payment"])
+
+  class AlertErr,AllClear state
+  class SuccessA success
+  class NoNext dead
+      </pre>
+      <p class="flow-notes"><strong>Dead end:</strong> no in-app next step for a failed payment when the fix lives at the bank or merchant and the app stops at "informed".</p>
+    </div>
+  </section>
+
+  <!-- COVERAGE -->
+  <section class="section" id="coverage">
+    <div class="section-label">Step 5</div>
+    <h2>Coverage matrix</h2>
+    <p class="lead">Jobs against screens. A checkmark means the screen genuinely helps close that job. A gate that only unlocks a job does not count. The orphan column is highlighted.</p>
+    <div class="table-wrap">
+      <table class="matrix">
+        <thead><tr>
+          <th style="text-align:left">Job</th>
+          <th>Wel</th><th>Pth</th><th>Bnk</th><th>Add</th><th>Rev</th><th>Hom</th><th>Det</th><th>Alr</th><th>Gde</th><th>Win</th><th>Shr</th><th>His</th><th class="orphan">Upg</th><th>Con</th><th>Prv</th><th>Set</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="job">J-MAIN see charges calmly</td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="orphan"></td><td></td><td></td><td></td></tr>
+          <tr><td class="job">J1 activate without anxiety</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="orphan"></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td></tr>
+          <tr><td class="job">J2 identify and cancel unused</td><td></td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td class="check">&#10003;</td><td class="orphan"></td><td></td><td></td><td></td></tr>
+          <tr><td class="job">J3 understand a charge</td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td></td><td></td><td></td><td></td><td class="orphan"></td><td></td><td></td><td></td></tr>
+          <tr><td class="job">J4 stay ahead of surprises</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td></td><td></td><td></td><td class="orphan"></td><td></td><td></td><td></td></tr>
+          <tr><td class="job">J5 track without sharing bank</td><td></td><td class="check">&#10003;</td><td></td><td class="check">&#10003;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="orphan"></td><td class="check">&#10003;</td><td></td><td></td></tr>
+          <tr><td class="job">E1 feel competent, not judged</td><td class="check">&#10003;</td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td></td><td></td><td class="check">&#10003;</td><td></td><td></td><td class="orphan"></td><td></td><td></td><td></td></tr>
+          <tr><td class="job">E2 the small win</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td class="orphan"></td><td></td><td></td><td></td></tr>
+          <tr><td class="job">E3 feel safe, control data</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="orphan"></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
+          <tr><td class="job">S1 share the discovery</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td class="orphan"></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)"><strong>Outcome: zero orphan jobs, one orphan screen.</strong> Every job has a home. The only column with no checkmark is <strong>Upgrade / Tendd Pro</strong>, which traces to decisions D3 and D4, not to a job. It is retained by design as a contextual gate over the Pro surfaces, not removed. Key: Wel Welcome, Pth Path Choice, Bnk Connect Bank, Add Add Subscription, Rev Guided Reveal, Hom Home, Det Subscription Detail, Alr Alerts, Gde Cancel Guide, Win Cancel Win, Shr Share Snapshot, His History and Trends, Upg Upgrade, Con Connections, Prv Data and Privacy, Set Settings.</p>
+  </section>
+
+  <!-- CRITIQUE -->
+  <section class="section" id="critique">
+    <div class="section-label">Step 6</div>
+    <h2>Critique</h2>
+    <p class="lead">Four defect classes, most dangerous first. Fixes are proposals for Prompt 2, not applied here. All dead-end and missing-state fixes are states and copy on existing screens, so the 16-screen inventory does not change.</p>
+
+    <h3 style="margin-top:24px">1. Dead ends</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Where</th><th>Defect</th><th>Proposed fix</th></tr></thead>
+        <tbody>
+          <tr><td>Connect Bank (Flow A)</td><td>Declining both retry and manual fallback leaves the user with no list.</td><td>Keep an "add them yourself" action persistent on the error state; never an error with only a dead exit.</td></tr>
+          <tr><td>Add Subscription (Flow B)</td><td>Ravi abandons manual entry half-done and leaves with a partial list.</td><td>Persist partial progress, run the reveal on a partial list, and re-hook with the return notification.</td></tr>
+          <tr><td>Cancel Guide (Flow C)</td><td>A blocked external cancellation leaves the user stuck with no next step.</td><td>Add a "could not cancel" state with alternative steps or a mark-to-retry, so there is always an in-app move.</td></tr>
+          <tr><td>Subscription Detail (Flow D)</td><td>A failed-payment alert ends at "informed" when the fix is at the bank or merchant.</td><td>Add a plain-language next-step card ("update your card" or "no action needed, retries on DATE").</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:24px">2. Missing states</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Where</th><th>Defect</th><th>Proposed fix</th></tr></thead>
+        <tbody>
+          <tr><td>Home / Subscription List</td><td>Empty, loading, and sync-error states are not yet specified.</td><td>Define a calm empty state, a non-alarming loading state, and a sync-error state that keeps the last known list.</td></tr>
+          <tr><td>Subscription Detail</td><td>No state for when enrichment fails and the name stays cryptic. This threatens J3.</td><td>Define an "unrecognized charge" state that invites naming or categorizing it.</td></tr>
+          <tr><td>History and Trends</td><td>A paid user with under 3 months of history has no defined empty state.</td><td>Define a "still gathering your history" state, distinct from the Pro upsell.</td></tr>
+          <tr><td>Cancel Guide</td><td>No state for a service that has no guide yet.</td><td>Define a "no guide yet" state with generic steps and a request-a-guide action.</td></tr>
+          <tr><td>Share Snapshot</td><td>Card generation and share failure are not specified.</td><td>Define a loading state while the card renders and an error state if the share fails.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:24px">3. Excess depth</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary)">No violation. First-session J-MAIN sits at exactly 3 taps, at the ceiling. Watch item: do not add any onboarding step, or the main job moves to 4 taps. Steady-state J-MAIN is 0 to 1 tap. J4 from a notification is about 2 taps; J2 for Claudia is 2 taps to the guide.</p>
+
+    <h3 style="margin-top:24px">4. Orphans</h3>
+    <p style="font-size:13.5px;color:var(--text-secondary)">One orphan screen: Upgrade / Tendd Pro, retained as a contextual gate justified by D3 and D4. No orphan jobs. Every job in JTBD is served by at least one screen.</p>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Tendd - Concept Architecture (Phase IA, Prompt 1). Structure only: no per-screen content, no component spec, no state-by-state detail. That is Prompt 2.</p>
+    <p style="margin-top:4px">
+      <a href="../research/research.html">Research Sprint</a> -
+      <a href="../research/personas.html">Personas</a> -
+      <a href="../research/jtbd.html">JTBD</a> -
+      <a href="docs/sitemap.md">Source: sitemap.md</a> -
+      <a href="docs/flows.md">Source: flows.md</a>
+    </p>
+  </div>
+
+</main>
+
+<script>
+  (function() {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    var toggle = document.getElementById('navToggle');
+    var close = document.getElementById('sidebarClose');
+    function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('open'); }
+    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+    toggle.addEventListener('click', openSidebar);
+    close.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+    sidebar.querySelectorAll('.nav-sub-link').forEach(function(link) {
+      link.addEventListener('click', function() { if (window.innerWidth < 840) closeSidebar(); });
+    });
+  })();
+</script>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'loose',
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
+    themeVariables: {
+      primaryColor: '#eef4f1',
+      primaryBorderColor: '#5c7a6e',
+      primaryTextColor: '#2a2724',
+      lineColor: '#9b958e',
+      secondaryColor: '#f8f7f4',
+      tertiaryColor: '#ffffff',
+      fontSize: '13px'
+    },
+    flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true }
+  });
+</script>
+
+</body>
+</html>
