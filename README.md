@@ -17,9 +17,9 @@ Tendd is a mobile-first web app that helps people who are not into finance see a
 | UX Patterns | [research/ux-patterns.md](./research/ux-patterns.md) | Done |
 | Master Research Synthesis | [research/master-research.md](./research/master-research.md) | Done |
 | Quality Gate | [research/quality-check.md](./research/quality-check.md) | Done |
-| Research HTML | [research.html](./research.html) - [Live](https://sergiodesign4u-dot.github.io/tendd-research/research.html) | Done |
-| Personas | [personas.html](./personas.html) - [Live](https://sergiodesign4u-dot.github.io/tendd-research/personas.html) | Done |
-| JTBD | [jtbd.html](./jtbd.html) - [Live](https://sergiodesign4u-dot.github.io/tendd-research/jtbd.html) | Done |
+| Research HTML | [research.html](./research.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/research.html) | Done |
+| Personas | [personas.html](./personas.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/personas.html) | Done |
+| JTBD | [jtbd.html](./jtbd.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/jtbd.html) | Done |
 | Wireframes | wireframes/ | Pending |
 | Concept | concept/ | Pending |
 | Design System | design-system/ | Pending |
@@ -73,6 +73,6 @@ Competitor and benchmark screenshots are stored in [research/screens/](./researc
 
 ## Live Research Page
 
-Live URL: https://sergiodesign4u-dot.github.io/tendd-research/research.html
+Live URL: https://sergiodesign4u-dot.github.io/Tendd-Fintech/research.html
 
 View the full research summary: [research.html](./research.html)
