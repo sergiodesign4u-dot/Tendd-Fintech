@@ -363,3 +363,60 @@ Zero orphan jobs. One orphan screen (Upgrade / Tendd Pro), which is retained
 by design as a decision-justified gate rather than removed, since removing it
 would break the business model. Every MVP job has a home, and every screen
 except the deliberate paywall gate closes at least one job.
+
+---
+
+## Critique
+
+A strict pass over the Screens, Navigation, and IA/docs/flows.md across four
+defect classes. Defects are listed first, most dangerous class first (dead
+ends, then missing states, then excess depth, then orphans). The proposed
+fixes are proposals, not applied here: this is structure only, so they become
+requirements for Prompt 2 (per-screen content and states). All four fixes for
+dead ends and missing states resolve to states and copy on existing screens,
+so the 16-screen inventory does not change.
+
+### 1. Dead ends (most dangerous)
+
+| Where | What (defect) | Proposed fix (for Prompt 2) |
+|-------|---------------|------------------------------|
+| Flow A, Connect Bank | If the user declines both retry and the manual fallback after a connection error, they leave with no list at all. | Make the manual path the always-available floor: the connection-error state keeps a persistent "Add them yourself instead" action, so there is never a version of the error with only a dead exit. |
+| Flow B, Add Subscription | Ravi abandons manual entry half-done (the manual-entry trap) and leaves with a partial, low-value list. | Save partial progress and re-hook: persist what was added, let the reveal run on a partial list ("here is what you have so far"), and use the return notification (BP4) to pull him back to finish. |
+| Flow C, Cancel Guide | A blocked external cancellation (retention dark pattern) leaves the user stuck with no in-app next step. | Add a "could not cancel" state to Cancel Guide with a next step (alternative steps, escalation tips, or mark-to-retry) so the person always has a move inside the app. |
+| Flow D, Subscription Detail | A failed-payment alert whose fix lives at the bank or merchant ends at "informed" with nothing to do. | Add a plain-language next-step card ("update your card with the merchant" or "no action needed, it will retry on DATE") so the alert never terminates without a next step. |
+
+### 2. Missing states (also dangerous)
+
+| Where | What (defect) | Proposed fix (for Prompt 2) |
+|-------|---------------|------------------------------|
+| Home / Subscription List | Only the populated happy path is defined. Empty (zero or all cancelled), loading (refreshing sync), and sync-error are not yet specified. | Define three states: a calm empty state that invites adding or connecting, a non-alarming loading state, and a sync-error state that still shows the last known list. |
+| Subscription Detail | No state for when enrichment fails and the merchant name stays cryptic. This directly threatens J3 (understand what a charge is). | Define an "unrecognized charge" state with a plain-language prompt to name or categorize it, so a failed logo or name lookup does not re-create the exact pain J3 exists to remove. |
+| History and Trends | Only the Pro-locked state is implied. A paid user with too little history yet (under 3 months) has no defined empty state. | Define a "still gathering your history" empty state distinct from the Pro upsell, so early paid users are not shown a blank chart. |
+| Cancel Guide | No state for a service that has no guide yet. | Define a "no guide for this one yet" state with the generic basic instruction and a request-a-guide action. |
+| Share Snapshot | Generating the card and a share failure are not specified. | Define a loading state while the card renders and an error state if the share sheet or image fails. |
+
+### 3. Excess depth
+
+| Where | What | Proposed fix |
+|-------|------|--------------|
+| Flow A, first-session J-MAIN | The main job sits at exactly 3 taps in the first session (Welcome, Path Choice, Connect Bank, Guided Reveal). This is at the ceiling, not over it, so it is not a violation. | Watch item, not a defect: do not add any step to the onboarding chain. Any new interstitial would push the main job to 4 taps and break the limit. Guard this in wireframes. |
+
+No frequent job for the primary persona exceeds three taps. Steady-state
+J-MAIN is 0 to 1 tap (opens on Home). J4 from a notification is about 2 taps.
+J2 for Claudia is 2 taps to the guide.
+
+### 4. Orphans (cross-checked against the coverage matrix)
+
+| Where | What | Proposed fix |
+|-------|------|--------------|
+| Upgrade / Tendd Pro | Orphan screen: no job closes on it. It traces to decisions D3 and D4, not to a job. | Retain as a contextual gate over the Pro surfaces (History and Trends, advanced alerts, full cancel guide), not a navigation destination. Already reflected in Navigation and Traceability. |
+| Jobs | No orphan jobs. Every job in jtbd.md is served by at least one screen. | None needed. |
+
+### Summary of the critique
+
+The structure has no orphan jobs and one intentional orphan screen (the
+paywall gate). The real work it surfaces is at the edges: four dead ends and
+five missing-state gaps, all of which are state and copy problems on existing
+screens rather than missing screens. They are handed to Prompt 2 as
+requirements. The one structural watch item is that first-session depth to
+the main job is exactly at the three-tap limit and must not grow.
