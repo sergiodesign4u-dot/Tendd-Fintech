@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connections / Accounts (needs-reauth) - Tendd Wireframe</title>
+<link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+<div class="layout">
+<div id="wftree"></div>
+<div class="stage">
+
+<div class="wf-meta">
+  <h1>Connections / Accounts</h1>
+  <div class="tags">Cluster: Account and Trust &middot; Job: J1 + J5 + E3 &middot; State: error / needs-reauth (a connection expired) &middot; Never a dead end: a Reconnect action plus the working source stays usable</div>
+</div>
+<nav class="wf-states" aria-label="States of this screen">
+  <span class="lbl">This screen:</span>
+  <a href="connections.html">success</a>
+  <a href="connections-empty.html">empty</a>
+  <span class="cur">error</span>
+  <span class="lbl">&middot; <a href="index.html">overview</a></span>
+</nav>
+
+<!-- ============ THE MOBILE SCREEN ============ -->
+<main class="phone" aria-label="Connections screen, needs-reauth state, mobile layout">
+
+  <header class="appbar">
+    <span class="wordmark">Tendd</span>
+    <span class="right">Hi, Emma</span>
+  </header>
+
+  <div class="screen">
+
+    <!-- Quiet reauth notice, the recovery is here (the way out) -->
+    <section class="zone" aria-label="Reconnect notice">
+      <span class="zlabel">Needs-reauth notice - quiet, non-alarming, with a recovery</span>
+      <div class="alert-banner" role="status" aria-live="polite">
+        <p>Chase needs to reconnect. Banks ask for this now and then to keep your connection secure. Your last update is still shown below.</p>
+        <div class="act-row" style="margin-top:8px">
+          <a class="btn primary" href="connect-bank.html">Reconnect Chase</a>
+        </div>
+      </div>
+      <p class="zaction">Main action: <b>reconnect</b> (re-runs the secure bank sign-in, Connect Bank in-app). Nothing is lost while it is disconnected.</p>
+    </section>
+
+    <!-- BLOCK 1 (P): Title -->
+    <section class="zone" aria-label="Your sources">
+      <span class="zlabel">Title</span>
+      <h2 style="margin:0 0 4px;font-size:18px">Your sources</h2>
+      <p class="trust" style="margin:0;font-size:11px;color:var(--faint)">Read-only. Tendd cannot move your money. <a href="data-privacy.html" style="color:var(--soft)">What we read &rarr;</a></p>
+    </section>
+
+    <!-- BLOCK 2 (P): Sources list, one row needs reauth, the other is fine -->
+    <section class="zone" aria-label="Connected sources">
+      <span class="zlabel">GC6 Data source and trust indicators - one source needs reconnecting</span>
+      <ul class="list">
+
+        <li>
+          <article aria-label="Chase, bank connection, needs to reconnect, 8 subscriptions">
+            <div class="detail-head" style="margin-bottom:8px">
+              <span class="logo">[logo]</span>
+              <span>
+                <span class="name">Chase &middot;&middot;&middot;&middot;1234</span>
+                <span class="amt" style="display:block">Bank connection via Plaid</span>
+              </span>
+              <span class="tag trial" style="margin-left:auto">Reconnect needed</span>
+            </div>
+            <div class="kv"><span class="k">Last synced</span><span class="v">Yesterday, 8:02 AM</span></div>
+            <div class="kv"><span class="k">Tracking from here</span><span class="v">8 subscriptions</span></div>
+            <div class="act-row" style="margin-top:10px">
+              <a class="btn primary" href="connect-bank.html">Reconnect</a>
+              <a class="btn" href="connections-empty.html">Remove</a>
+            </div>
+          </article>
+        </li>
+
+        <li>
+          <article aria-label="Added by you, private manual source, connected, 3 subscriptions">
+            <div class="detail-head" style="margin-bottom:8px">
+              <span class="logo">[logo]</span>
+              <span>
+                <span class="name">Added by you</span>
+                <span class="amt" style="display:block">Private, entered by hand</span>
+              </span>
+              <span class="tag" style="margin-left:auto">Private</span>
+            </div>
+            <div class="kv"><span class="k">Tracking here</span><span class="v">3 subscriptions</span></div>
+            <div class="kv"><span class="k">Access</span><span class="v">Only what you type</span></div>
+          </article>
+        </li>
+
+      </ul>
+      <p class="zaction">Main action: <b>reconnect Chase</b>. The manual source is unaffected and stays fully usable, so this is not a dead end.</p>
+    </section>
+
+  </div>
+
+  <nav class="tabbar" aria-label="Global navigation">
+    <a href="home.html"><span class="ic"></span>Home</a>
+    <a href="alerts.html"><span class="ic"></span>Alerts</a>
+    <a href="home-empty.html"><span class="ic"></span>Save</a>
+    <a class="cur" href="settings.html" aria-current="page"><span class="ic"></span>You</a>
+  </nav>
+
+</main>
+
+<p class="wf-note">Desktop reflow (structure note, values set in Design): the quiet notice sits above the single settings-style sources column; the bottom tab bar becomes a left rail. No structural delta. See _conventions.md.</p>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Subscription (success) - Tendd Wireframe</title>
+<link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+<div class="layout">
+<div id="wftree"></div>
+<div class="stage">
+
+<div class="wf-meta">
+  <h1>Add Subscription</h1>
+  <div class="tags">Cluster: Onboarding and Activation &middot; Job: J5 (track without sharing bank data) &middot; Flow B, tap 2 (private path) &middot; D2 manual + 400+ presets &middot; No tab bar</div>
+</div>
+<nav class="wf-states" aria-label="States of this screen">
+  <span class="lbl">This screen:</span>
+  <span class="cur">success (base)</span>
+  <a href="add-subscription-empty.html">empty</a>
+  <a href="add-subscription-loading.html">loading</a>
+  <a href="add-subscription-error.html">error</a>
+  <span class="lbl">&middot; <a href="index.html">overview</a></span>
+</nav>
+
+<main class="phone onboarding" aria-label="Add subscription screen, mobile layout">
+
+  <header class="appbar">
+    <a class="back" href="path-choice.html">&lsaquo; Back</a>
+    <span class="wordmark">Tendd</span>
+    <span class="stepdot">Step 2 of 3</span>
+  </header>
+
+  <div class="screen">
+
+    <!-- BLOCK 1: title -->
+    <section class="zone" aria-label="Add a subscription">
+      <span class="zlabel">Title</span>
+      <h2 class="hero-h">Add a subscription</h2>
+      <p class="hero-sub">Pick from 400+ services, or add your own. Nothing leaves your control.</p>
+    </section>
+
+    <!-- BLOCK 2: preset search field -->
+    <section class="zone" aria-label="Find a service">
+      <span class="zlabel">Preset search - searches the 400+ service library (D2)</span>
+      <form class="field" role="search" onsubmit="return false">
+        <label for="preset-search">Find a service</label>
+        <input id="preset-search" type="search" placeholder="Search 400+ services" value="net">
+      </form>
+    </section>
+
+    <!-- BLOCK 3: preset results -->
+    <section class="zone" aria-label="Matching services">
+      <span class="zlabel">Preset results - each has a logo, name, and a typical price to prefill</span>
+      <ul class="list">
+        <li>
+          <button type="button" class="row" aria-label="Netflix, typical price $17.99 a month, selected and prefilled below">
+            <span class="logo">[logo]</span>
+            <span class="body">
+              <span class="name">Netflix</span>
+              <span class="meta">Typically $17.99 / month</span>
+              <span class="when">Streaming</span>
+            </span>
+            <span class="tag">Chosen</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="row" aria-label="Netflix Basic, typical price $6.99 a month, tap to prefill">
+            <span class="logo">[logo]</span>
+            <span class="body">
+              <span class="name">Netflix Basic with ads</span>
+              <span class="meta">Typically $6.99 / month</span>
+              <span class="when">Streaming</span>
+            </span>
+            <span class="tag">Use</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="row" aria-label="The New York Times, typical price $17.00 a month, tap to prefill">
+            <span class="logo">[logo]</span>
+            <span class="body">
+              <span class="name">The New York Times</span>
+              <span class="meta">Typically $17.00 / month</span>
+              <span class="when">News</span>
+            </span>
+            <span class="tag">Use</span>
+          </button>
+        </li>
+      </ul>
+      <!-- BLOCK 6: custom fallback below results -->
+      <p class="zaction" style="margin-top:10px">Can't find it? <b><a href="add-subscription-empty.html">Add it manually</a></b> and fill the details yourself.</p>
+    </section>
+
+    <!-- BLOCK 4: prefilled, editable form -->
+    <section class="zone" aria-label="Subscription details">
+      <span class="zlabel">Subscription form - prefilled from the chosen preset, every field editable</span>
+      <form onsubmit="return false">
+        <div class="field">
+          <label for="sub-name">Name</label>
+          <input id="sub-name" type="text" value="Netflix">
+        </div>
+        <div class="field">
+          <label for="sub-amount">Amount</label>
+          <input id="sub-amount" type="text" value="$17.99">
+        </div>
+        <div class="field">
+          <label for="sub-freq">Billing frequency</label>
+          <select id="sub-freq">
+            <option>Monthly</option>
+            <option>Every 4 weeks</option>
+            <option>Quarterly</option>
+            <option>Yearly</option>
+            <option>Custom</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sub-next">Next payment date</label>
+          <input id="sub-next" type="text" value="Aug 3, 2026">
+        </div>
+        <div class="field">
+          <label for="sub-cat">Category</label>
+          <select id="sub-cat">
+            <option>Streaming</option>
+            <option>Music</option>
+            <option>Fitness</option>
+            <option>Software</option>
+            <option>News</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <!-- BLOCK 5: primary action pair -->
+        <div class="act-row">
+          <button type="submit" class="btn primary">Add subscription</button>
+          <button type="button" class="btn">Add another</button>
+        </div>
+        <p class="zaction">Main action: <b>add subscription</b>, then <b>add another</b> loops back to an empty form (Flow B). Both keep you on this screen; your list is saved as you go.</p>
+      </form>
+    </section>
+
+    <!-- BLOCK 7 + 8: running progress and finish -->
+    <section class="zone" aria-label="Your progress">
+      <span class="zlabel">Running progress + finish (anti-abandon, Critique fix)</span>
+      <div class="callout">
+        <span class="k">Saved as you go</span>
+        3 added so far. Your list is saved, so you can stop and come back any time.
+      </div>
+      <div class="act-row">
+        <a class="btn primary" href="guided-reveal.html">See my list</a>
+      </div>
+      <p class="zaction">Finish action: <b>See my list</b> continues to the Guided Reveal once at least one is added.</p>
+    </section>
+
+  </div>
+
+</main>
+
+<p class="wf-note">No global tab bar (linear onboarding chain). This same screen is reused in-app later as the "+ Add subscription" action, where it gains the global tab bar. Desktop: same single centered column, just wider. See onboarding.md screen 1.4.</p>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script src="nav.js"></script>
+</body>
+</html>

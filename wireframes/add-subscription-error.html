@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Subscription (error) - Tendd Wireframe</title>
+<link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+<div class="layout">
+<div id="wftree"></div>
+<div class="stage">
+
+<div class="wf-meta">
+  <h1>Add Subscription</h1>
+  <div class="tags">Cluster: Onboarding and Activation &middot; Job: J5 &middot; State: error (preset library unavailable) &middot; Critique dead-end fix: manual custom entry stays open</div>
+</div>
+<nav class="wf-states" aria-label="States of this screen">
+  <span class="lbl">This screen:</span>
+  <a href="add-subscription.html">success</a>
+  <a href="add-subscription-empty.html">empty</a>
+  <a href="add-subscription-loading.html">loading</a>
+  <span class="cur">error</span>
+  <span class="lbl">&middot; <a href="index.html">overview</a></span>
+</nav>
+
+<main class="phone onboarding" aria-label="Add subscription error, mobile layout">
+
+  <header class="appbar">
+    <a class="back" href="path-choice.html">&lsaquo; Back</a>
+    <span class="wordmark">Tendd</span>
+    <span class="stepdot">Step 2 of 3</span>
+  </header>
+
+  <div class="screen">
+
+    <!-- BLOCK 1: title -->
+    <section class="zone" aria-label="Add a subscription">
+      <span class="zlabel">Title</span>
+      <h2 class="hero-h">Add a subscription</h2>
+    </section>
+
+    <!-- Preset-error notice, with the recovery (the way out) -->
+    <section class="zone" aria-label="Service list unavailable">
+      <span class="zlabel">Preset-error notice - active voice (M1), manual entry is the fallback, no dead end</span>
+      <div class="callout" role="status" aria-live="polite">
+        <span class="k">We could not load the service list</span>
+        You can still add subscriptions by hand below, and the search will come back on its own.
+      </div>
+      <div class="act-row">
+        <a class="btn" href="add-subscription-loading.html">Try the list again</a>
+      </div>
+    </section>
+
+    <!-- BLOCK 4: manual custom-entry form (the fallback, always available) -->
+    <section class="zone" aria-label="Add by hand">
+      <span class="zlabel">Manual custom entry - the fallback path, add a subscription by hand</span>
+      <form onsubmit="return false">
+        <div class="field">
+          <label for="sub-name">Name</label>
+          <input id="sub-name" type="text" placeholder="For example, Spotify Premium">
+        </div>
+        <div class="field">
+          <label for="sub-amount">Amount</label>
+          <input id="sub-amount" type="text" placeholder="$0.00">
+        </div>
+        <div class="field">
+          <label for="sub-freq">Billing frequency</label>
+          <select id="sub-freq">
+            <option>Monthly</option>
+            <option>Every 4 weeks</option>
+            <option>Quarterly</option>
+            <option>Yearly</option>
+            <option>Custom</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sub-next">Next payment date</label>
+          <input id="sub-next" type="text" placeholder="For example, Aug 3, 2026">
+        </div>
+        <div class="field">
+          <label for="sub-cat">Category</label>
+          <select id="sub-cat">
+            <option>Streaming</option>
+            <option>Music</option>
+            <option>Fitness</option>
+            <option>Software</option>
+            <option>News</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="act-row">
+          <button type="submit" class="btn primary">Add subscription</button>
+          <button type="button" class="btn">Add another</button>
+        </div>
+        <p class="zaction">Main action: <b>add subscription by hand</b>. The manual form is the recovery, so a failed preset load is never a dead end (Critique fix, Flow B).</p>
+      </form>
+    </section>
+
+    <!-- Finish, once at least one is added -->
+    <section class="zone" aria-label="Your progress">
+      <span class="zlabel">Finish - once at least one is added by hand</span>
+      <div class="act-row">
+        <a class="btn primary" href="guided-reveal.html">See my list</a>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<p class="wf-note">No global tab bar (linear onboarding chain). The error keeps a full manual form so the private path continues without the preset library. Desktop: same single centered column, just wider. See onboarding.md screen 1.4.</p>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script src="nav.js"></script>
+</body>
+</html>

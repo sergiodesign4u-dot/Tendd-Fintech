@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Subscription (empty) - Tendd Wireframe</title>
+<link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+<div class="layout">
+<div id="wftree"></div>
+<div class="stage">
+
+<div class="wf-meta">
+  <h1>Add Subscription</h1>
+  <div class="tags">Cluster: Onboarding and Activation &middot; Job: J5 &middot; State: empty (search returns no preset match) &middot; Critique dead-end fix: add it manually, never a bare "no results"</div>
+</div>
+<nav class="wf-states" aria-label="States of this screen">
+  <span class="lbl">This screen:</span>
+  <a href="add-subscription.html">success</a>
+  <span class="cur">empty</span>
+  <a href="add-subscription-loading.html">loading</a>
+  <a href="add-subscription-error.html">error</a>
+  <span class="lbl">&middot; <a href="index.html">overview</a></span>
+</nav>
+
+<main class="phone onboarding" aria-label="Add subscription empty search, mobile layout">
+
+  <header class="appbar">
+    <a class="back" href="path-choice.html">&lsaquo; Back</a>
+    <span class="wordmark">Tendd</span>
+    <span class="stepdot">Step 2 of 3</span>
+  </header>
+
+  <div class="screen">
+
+    <!-- BLOCK 1: title -->
+    <section class="zone" aria-label="Add a subscription">
+      <span class="zlabel">Title</span>
+      <h2 class="hero-h">Add a subscription</h2>
+    </section>
+
+    <!-- BLOCK 2: search field, keeps the term that found nothing -->
+    <section class="zone" aria-label="Find a service">
+      <span class="zlabel">Preset search - the term that returned no match</span>
+      <form class="field" role="search" onsubmit="return false">
+        <label for="preset-search">Find a service</label>
+        <input id="preset-search" type="search" placeholder="Search 400+ services" value="Cerebro Cloud">
+      </form>
+    </section>
+
+    <!-- BLOCK 3 empty: no preset match, offer to add by hand (the way out) -->
+    <section class="zone" aria-label="No matching service">
+      <span class="zlabel">Empty search result - no dead end, add it by hand</span>
+      <div class="msg" role="status" aria-live="polite">
+        <h2>No match for "Cerebro Cloud"</h2>
+        <p>Not every service is in our list yet. You can add it by hand below, and it will sit alongside the rest.</p>
+      </div>
+    </section>
+
+    <!-- BLOCK 4: manual custom-entry form, prefilled with the searched name -->
+    <section class="zone" aria-label="Add it by hand">
+      <span class="zlabel">Manual custom entry - name prefilled from the search, everything editable</span>
+      <form onsubmit="return false">
+        <div class="field">
+          <label for="sub-name">Name</label>
+          <input id="sub-name" type="text" value="Cerebro Cloud">
+        </div>
+        <div class="field">
+          <label for="sub-amount">Amount</label>
+          <input id="sub-amount" type="text" placeholder="$0.00">
+        </div>
+        <div class="field">
+          <label for="sub-freq">Billing frequency</label>
+          <select id="sub-freq">
+            <option>Monthly</option>
+            <option>Every 4 weeks</option>
+            <option>Quarterly</option>
+            <option>Yearly</option>
+            <option>Custom</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sub-next">Next payment date</label>
+          <input id="sub-next" type="text" placeholder="For example, Aug 3, 2026">
+        </div>
+        <div class="field">
+          <label for="sub-cat">Category</label>
+          <select id="sub-cat">
+            <option>Software</option>
+            <option>Streaming</option>
+            <option>Music</option>
+            <option>Fitness</option>
+            <option>News</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="act-row">
+          <button type="submit" class="btn primary">Add it manually</button>
+          <a class="btn" href="add-subscription.html">Search again</a>
+        </div>
+        <p class="zaction">Main action: <b>add it manually</b>. The add-by-hand form is always here, so a search with no match is never a dead end (Critique fix, Flow B).</p>
+      </form>
+    </section>
+
+    <!-- Finish, once at least one is added -->
+    <section class="zone" aria-label="Your progress">
+      <span class="zlabel">Finish - once at least one is added</span>
+      <div class="act-row">
+        <a class="btn primary" href="guided-reveal.html">See my list</a>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<p class="wf-note">No global tab bar (linear onboarding chain). The empty search never strands the person: the manual form is prefilled with what they typed. Desktop: same single centered column, just wider. See onboarding.md screen 1.4.</p>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script src="nav.js"></script>
+</body>
+</html>
