@@ -15,7 +15,7 @@ Founder decisions locked June 14 2026: D1 (gradual reveal with paired action), D
 
 ## Concept Architecture (Phase IA)
 
-Structure locked July 2026. Full detail in IA/docs/sitemap.md and IA/docs/flows.md; living page at IA/ia.html. This is structure only, not screen content.
+Structure locked July 2026. The full information architecture exists: the skeleton in IA/docs/sitemap.md and IA/docs/flows.md, plus a page-level library (one page per cluster with real copy drafts, content blocks, and states) in IA/docs/pages/. Living site at IA/ia.html. Next phase is Wireframes.
 
 **Top-level sitemap (16 screens, 6 clusters):**
 - Onboarding and Activation: Welcome / Value Intro, Activation Path Choice, Connect Bank, Add Subscription, Guided Reveal

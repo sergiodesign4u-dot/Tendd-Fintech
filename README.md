@@ -57,11 +57,16 @@ in the IA phase:
   (Prompt 2)
 - [IA/docs/flows.md](./IA/docs/flows.md) - user flows in Mermaid for the main
   job and three related jobs, with decision points, states, and dead ends
-- [IA/ia.html](./IA/ia.html) - the living page combining both, with live
-  diagrams, the global components, and the page cards
+- [IA/docs/pages/](./IA/docs/pages/) - the page-level library: one markdown
+  file per cluster (onboarding, core, alerts, cancel, pro, account) plus
+  navigation, system, and seo, each with real copy drafts, block order,
+  states, accessibility, and mobile notes
+- [IA/ia.html](./IA/ia.html) - the living site: overview, site graph, and a
+  card per cluster linking to its own rendered page (IA/onboarding.html,
+  IA/core.html, and so on)
 
-The page cards and global components give Wireframes an ordered content
-structure and real states per screen, with no product decision left to
+The page-level library gives Wireframes an ordered content structure, real
+copy drafts, and real states per screen, with no product decision left to
 invent. Visual design, spacing, and interaction detail come in Wireframes.
 
 ---
