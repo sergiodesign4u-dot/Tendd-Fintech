@@ -1,6 +1,6 @@
 # Tendd - Product Research
 
-Tendd is a mobile-first web app that helps people who are not into finance see and control their recurring payments and subscriptions, turning money anxiety into calm, everyday clarity.
+Tendd is a mobile-first, desktop-responsive web app that helps people who are not into finance see and control their recurring payments and subscriptions, turning money anxiety into calm, everyday clarity.
 
 ---
 

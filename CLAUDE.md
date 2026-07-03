@@ -44,7 +44,7 @@ Structure locked July 2026. The full information architecture exists: the skelet
 
 **Core differentiator:** Tendd is NOT a budgeting app. It is a calm, low-friction visibility and control layer for recurring spend - built specifically for people who feel anxious about money and avoid finance apps because they feel overwhelming or judgmental.
 
-**Platform:** Mobile-first responsive web. Native app is a later-stage decision and is out of scope for this phase.
+**Platform:** Mobile-first responsive web, scaling to desktop. Desktop responsive is in scope: every screen is designed for phone first and reflows to desktop (bottom tab bar becomes a left rail, list-and-detail becomes a two-pane view). A native app is a later-stage decision and is out of scope for this phase.
 
 ---
 
