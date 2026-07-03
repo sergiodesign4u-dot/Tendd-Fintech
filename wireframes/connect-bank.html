@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect Bank (success) - Tendd Wireframe</title>
+<link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+<div class="layout">
+<div id="wftree"></div>
+<div class="stage">
+
+<div class="wf-meta">
+  <h1>Connect Bank</h1>
+  <div class="tags">Cluster: Onboarding &middot; Job: J1 (bank path) &middot; Flow A, tap 2 &middot; D5 Plaid US first &middot; GC6 trust indicator &middot; No tab bar</div>
+</div>
+<nav class="wf-states" aria-label="States of this screen">
+  <span class="lbl">This screen:</span>
+  <span class="cur">success (base)</span>
+  <a href="connect-bank-empty.html">empty</a>
+  <a href="connect-bank-loading.html">loading</a>
+  <a href="connect-bank-error.html">error</a>
+  <span class="lbl">&middot; <a href="index.html">overview</a></span>
+</nav>
+
+<main class="phone onboarding" aria-label="Connect bank screen, mobile layout">
+
+  <header class="appbar">
+    <a class="back" href="path-choice.html">&lsaquo; Back</a>
+    <span class="wordmark">Tendd</span>
+    <span class="stepdot">Step 2 of 3</span>
+  </header>
+
+  <div class="screen">
+
+    <!-- BLOCK 1: title -->
+    <section class="zone" aria-label="Connect your bank">
+      <span class="zlabel">Title</span>
+      <h2 class="hero-h">Connect your bank</h2>
+    </section>
+
+    <!-- BLOCK 2: trust statement (GC6 content) -->
+    <section class="zone" aria-label="What we do with your data">
+      <span class="zlabel">GC6 Data source and trust indicator (master-research M2, persona P3)</span>
+      <div class="callout">
+        <span class="k">Here is exactly what we do</span>
+        We read your recurring charges, read-only. We can never move your money. Powered by Plaid.
+      </div>
+    </section>
+
+    <!-- BLOCK 3 + 4: primary action and the persistent fallback -->
+    <section class="zone plain" aria-label="Continue">
+      <span class="zlabel">Primary action + persistent manual fallback (Critique dead-end fix)</span>
+      <div class="act-row">
+        <a class="btn primary" href="connect-bank-loading.html">Choose your bank</a>
+        <a class="btn" href="add-subscription.html">Add them yourself instead</a>
+      </div>
+      <p class="zaction">Main action: <b>choose your bank</b> (launches Plaid Link). The manual fallback is always present, here and on the error state, so the bank path is never a dead end.</p>
+    </section>
+
+    <!-- BLOCK 5: region note -->
+    <p class="hero-sub" style="text-align:center">Available for US banks today. More regions soon.</p>
+
+  </div>
+
+</main>
+
+<p class="wf-note">No global tab bar (linear chain). Choosing a bank launches Plaid Link (its own focus trap), then returns to the loading state. EU via TrueLayer is deferred (D5). Desktop: same single column. See onboarding.md.</p>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script src="nav.js"></script>
+</body>
+</html>

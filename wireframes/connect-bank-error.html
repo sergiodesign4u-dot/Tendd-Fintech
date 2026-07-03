@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect Bank (error) - Tendd Wireframe</title>
+<link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+<div class="layout">
+<div id="wftree"></div>
+<div class="stage">
+
+<div class="wf-meta">
+  <h1>Connect Bank</h1>
+  <div class="tags">Cluster: Onboarding &middot; State: connection error (dialog) &middot; Flow A &middot; Critique dead-end fix: the manual fallback persists here</div>
+</div>
+<nav class="wf-states" aria-label="States of this screen">
+  <span class="lbl">This screen:</span>
+  <a href="connect-bank.html">success</a>
+  <a href="connect-bank-empty.html">empty</a>
+  <a href="connect-bank-loading.html">loading</a>
+  <span class="cur">error</span>
+  <span class="lbl">&middot; <a href="index.html">overview</a></span>
+</nav>
+
+<main class="phone onboarding" aria-label="Connect bank error, mobile layout">
+
+  <header class="appbar">
+    <span class="wordmark">Tendd</span>
+    <span class="stepdot">Step 2 of 3</span>
+  </header>
+
+  <div class="screen">
+
+    <section class="zone" aria-label="Could not connect">
+      <span class="zlabel">Connection error dialog - active voice (M1), two ways out, no dead end</span>
+      <div class="callout" role="alertdialog" aria-live="assertive">
+        <span class="k">We could not connect to your bank</span>
+        This is usually temporary. You can try again, or add your subscriptions yourself and connect later.
+      </div>
+      <div class="act-row">
+        <a class="btn primary" href="connect-bank-loading.html">Try again</a>
+        <a class="btn" href="add-subscription.html">Add them yourself instead</a>
+      </div>
+      <p class="zaction">Main action: <b>try again</b> or <b>add them yourself</b>. The manual fallback is present on the error state itself, so declining the retry is never a dead end (Critique fix, Flow A).</p>
+    </section>
+
+  </div>
+
+</main>
+
+<p class="wf-note">No global tab bar. The error is a modal: focus is trapped inside, and Escape maps to the safe choice ("Add them yourself instead"), never a silent dismiss that strands the person. Desktop: centered dialog over the step. See onboarding.md.</p>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script src="nav.js"></script>
+</body>
+</html>

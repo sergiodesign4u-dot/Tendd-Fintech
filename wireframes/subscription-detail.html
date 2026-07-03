@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subscription Detail (success) - Tendd Wireframe</title>
+<link rel="stylesheet" href="wireframe.css">
+</head>
+<body>
+<div class="layout">
+<div id="wftree"></div>
+<div class="stage">
+
+<div class="wf-meta">
+  <h1>Subscription Detail</h1>
+  <div class="tags">Cluster: Core &middot; Job: J3 (decode a charge) + J4 (its alerts) &middot; Flow C/D &middot; Opened by tapping a row on Home</div>
+</div>
+<nav class="wf-states" aria-label="States of this screen">
+  <span class="lbl">This screen:</span>
+  <span class="cur">success (base)</span>
+  <a href="subscription-detail-empty.html">empty</a>
+  <a href="subscription-detail-loading.html">loading</a>
+  <a href="subscription-detail-error.html">error</a>
+  <span class="lbl">&middot; <a href="index.html">overview</a></span>
+</nav>
+
+<main class="phone" aria-label="Subscription detail screen, mobile layout">
+
+  <header class="appbar">
+    <a class="back" href="home.html">&lsaquo; Home</a>
+    <span class="wordmark">Tendd</span>
+    <span class="right">&nbsp;</span>
+  </header>
+
+  <div class="screen">
+
+    <!-- BLOCK 1: header, logo + real name + amount (J3) -->
+    <section class="zone" aria-label="Subscription">
+      <span class="zlabel">Header (J3: real name and logo, not a cryptic descriptor)</span>
+      <div class="detail-head">
+        <span class="logo">[logo]</span>
+        <span>
+          <span class="name">Netflix</span><br>
+          <span class="amt">$17.99 / month</span>
+        </span>
+      </div>
+    </section>
+
+    <!-- BLOCK 2 + 3: next payment, category and source -->
+    <section class="zone" aria-label="Billing and source">
+      <span class="zlabel">Next payment + category and source (GC6 inline)</span>
+      <div class="kv"><span class="k">Next payment</span><span class="v">$17.99 on Aug 3</span></div>
+      <div class="kv"><span class="k">Category</span><span class="v">Streaming</span></div>
+      <div class="kv"><span class="k">Source</span><span class="v">From Chase ...1234, read-only</span></div>
+      <div class="kv"><span class="k">Status</span><span class="v">Active</span></div>
+    </section>
+
+    <!-- BLOCK 4: alerts scoped to this subscription (J4) -->
+    <section class="zone" aria-label="Alerts on this subscription">
+      <span class="zlabel">Alerts on this one (GC5, J4)</span>
+      <div class="alert-banner">
+        <p>The price went up by $2.50 on Jul 28, now $17.99 a month.</p>
+      </div>
+      <p class="zaction">Ties to the Home alert banner. A price change can hand off to Cancel (Flow D).</p>
+    </section>
+
+    <!-- BLOCK 5: price history, GC7-gated -->
+    <section class="zone plain" aria-label="History">
+      <span class="zlabel">Price and payment history (D3, GC7-gated for free)</span>
+      <a class="btn" href="history-trends.html">See price and payment history <span class="locklabel">Pro</span></a>
+    </section>
+
+    <!-- BLOCK 6: cancel action (J2) -->
+    <section class="zone" aria-label="Cancel">
+      <span class="zlabel">Cancel action (J2, calm not destructive) - a real confirming step follows</span>
+      <div class="act-row">
+        <a class="btn primary" href="cancel-guide.html">Cancel this subscription</a>
+      </div>
+      <p class="zaction">Main action: <b>cancel this subscription</b> (into the Cancel Guide). Basic steps are free; the full guide is Pro (D3). Never a one-tap destructive action.</p>
+    </section>
+
+  </div>
+
+  <nav class="tabbar" aria-label="Global navigation">
+    <a class="cur" href="home.html" aria-current="page"><span class="ic"></span>Home</a>
+    <a href="alerts.html"><span class="ic"></span>Alerts</a>
+    <a href="home-empty.html"><span class="ic"></span>Save</a>
+    <a href="settings.html"><span class="ic"></span>You</a>
+  </nav>
+
+</main>
+
+<p class="wf-note">Desktop reflow (structure note): this becomes the right pane of the two-pane master-detail view with the Home list on the left; no full navigation between them. A conditional payment-failure next-step card appears at the top only in the payment-failure state (Flow D, Critique fix). See core.md.</p>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script src="nav.js"></script>
+</body>
+</html>

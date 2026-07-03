@@ -117,15 +117,20 @@ Everything else is real copy.
 - The product's own chrome is wireframed inside `main`, not confused with the
   tree. Per sitemap.md navigation: the app has a global bar with four
   destinations, Home, Alerts, Save, You. Draw it as a labelled zone.
-- Mobile first, desktop responsive (the product is mobile-first web scaling to
-  desktop). Wireframe the mobile structure as the primary layout. Where the IA
-  library defines a desktop reflow, note it as a labelled structural note, not
-  a second pixel layout:
-  - the global bar is a bottom tab bar on mobile and a left rail on desktop;
-  - Home and Subscription Detail are two screens on mobile and a two-pane
-    master-detail on desktop;
-  - Cancel Guide, Share Snapshot, and Upgrade may be modals on desktop.
-  Exact breakpoint values are a Design decision, not set here.
+- Mobile first, desktop responsive, and the wireframe reflows for real (the
+  product is mobile-first web scaling to desktop). Author the mobile structure
+  first; the same page then reflows to desktop through the shared CSS, so
+  widening the browser shows the wide-screen layout, it is not only a note.
+  The shared reflow (in wireframe.css, driven by a container query on the
+  stage) implements the main IA delta:
+  - the global bar is a bottom tab bar on mobile and becomes a left rail on
+    desktop, and the content column widens;
+  - onboarding has no structural delta: it stays a single centered column,
+    just wider, with no rail.
+  Deeper deltas are noted per screen and can be layered in later: Home and
+  Subscription Detail as a two-pane master-detail on desktop; Cancel Guide,
+  Share Snapshot, and Upgrade as modals on desktop. Exact breakpoint values
+  are a Design decision, not set here.
 - No footer inside the app (locked in IA navigation.md). Tendd is an app, not
   a marketing site. Do not add a link or legal footer to app screens. A `footer`
   element is only used if a specific screen genuinely has one (none at MVP).

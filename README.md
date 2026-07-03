@@ -21,7 +21,7 @@ Tendd is a mobile-first, desktop-responsive web app that helps people who are no
 | Personas | [personas.html](./research/personas.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/research/personas.html) | Done |
 | JTBD | [jtbd.html](./research/jtbd.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/research/jtbd.html) | Done |
 | Concept Architecture (IA) | [ia.html](./IA/ia.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/IA/ia.html) | Done |
-| Wireframes | wireframes/ | Pending |
+| Wireframes | [wireframes/index.html](./wireframes/index.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/wireframes/index.html) | In progress |
 | Design System | design-system/ | Pending |
 | Components | components/ | Pending |
 | Handoff | handoff/ | Pending |
@@ -42,6 +42,7 @@ Tendd is a mobile-first, desktop-responsive web app that helps people who are no
 - [Personas](./research/personas.html) - 3 personas with observations, [?] badges, and trust triggers
 - [JTBD](./research/jtbd.html) - Job hierarchy, matrix, hypotheses, and critique
 - [Concept Architecture (IA)](./IA/ia.html) - Entities, sitemap, navigation, flows, coverage matrix, critique
+- [Wireframes](./wireframes/index.html) - Grey, semantic, mobile-first responsive wireframes with real copy and all four states per screen; a flow-by-flow overview is the entry point
 
 ---
 
