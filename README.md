@@ -21,7 +21,7 @@ Tendd is a mobile-first, desktop-responsive web app that helps people who are no
 | Personas | [personas.html](./research/personas.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/research/personas.html) | Done |
 | JTBD | [jtbd.html](./research/jtbd.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/research/jtbd.html) | Done |
 | Concept Architecture (IA) | [ia.html](./IA/ia.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/IA/ia.html) | Done |
-| Wireframes | [wireframes/index.html](./wireframes/index.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/wireframes/index.html) | In progress |
+| Wireframes | [wireframes/index.html](./wireframes/index.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/wireframes/index.html) | Done (July 2026) |
 | Design System | design-system/ | Pending |
 | Components | components/ | Pending |
 | Handoff | handoff/ | Pending |
