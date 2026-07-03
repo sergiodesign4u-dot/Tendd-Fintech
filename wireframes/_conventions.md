@@ -43,7 +43,8 @@ Design phase.
   Zones are `section` with an `h2` label. Repeated items (a subscription row,
   an alert row) are `article` or `li`.
 - Landmarks are present and correct so the structure is navigable: one
-  `header`, one `nav` (the wireframe tree, see Step 4), one `main` per page.
+  `header`, one `main` per page, and the product's own `nav` (the global tab
+  bar). No reviewer-only `nav` sits in a frame (see the shell rule below).
 
 ## 3. Real content, no lorem ipsum
 
@@ -110,13 +111,16 @@ Everything else is real copy.
 
 ## 6. Navigation and shell (shared on every page)
 
-- Left wireframe tree (built in Step 4): a grey `nav` panel on the left of
-  every page, identical everywhere, listing section, then screen, then that
-  screen's states, with the current page marked. Structure comes from
-  _screens.md and sitemap.md; nothing invented.
-- The product's own chrome is wireframed inside `main`, not confused with the
-  tree. Per sitemap.md navigation: the app has a global bar with four
-  destinations, Home, Alerts, Save, You. Draw it as a labelled zone.
+- Clean frames, no reviewer chrome. Each page is only the product screen: no
+  left wireframe tree, no meta/annotation bar (cluster, job, flow), no "this
+  screen: states" strip, and no per-page desktop-reflow note. Those were
+  removed so a frame reads as the real screen, not an annotated diagram. The
+  single place that lists every page and every state is the overview,
+  `wireframes/index.html`, grouped by flow. You navigate between frames from
+  there and through the product's own in-screen links.
+- The product's own chrome is the only navigation inside a frame. Per
+  sitemap.md the app has a global bar with four destinations, Home, Alerts,
+  Save, You; onboarding screens show no bar.
 - Mobile first, desktop responsive, and the wireframe reflows for real (the
   product is mobile-first web scaling to desktop). Author the mobile structure
   first; the same page then reflows to desktop through the shared CSS, so
@@ -127,7 +131,7 @@ Everything else is real copy.
     desktop, and the content column widens;
   - onboarding has no structural delta: it stays a single centered column,
     just wider, with no rail.
-  Deeper deltas are noted per screen and can be layered in later: Home and
+  Deeper deltas are deferred to Design and can be layered in later: Home and
   Subscription Detail as a two-pane master-detail on desktop; Cancel Guide,
   Share Snapshot, and Upgrade as modals on desktop. Exact breakpoint values
   are a Design decision, not set here.

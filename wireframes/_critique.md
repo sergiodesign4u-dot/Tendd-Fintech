@@ -110,3 +110,28 @@ stray color/font/shadow/img, no em dashes, shell intact on every page, and the
 example dataset is arithmetically consistent across Home, Guided Reveal,
 save-focus, alerts, cancel, share, and history. Known-open [?] items remain
 (auth target for "Sign in", lifetime price) and are annotated, not invented.
+
+---
+
+## Declutter pass (post-audit, July 2026)
+
+Founder feedback: the frames carried too much reviewer scaffolding and the
+desktop layout was not actually reflowing well. Applied across all 41 frames:
+
+- Removed the reviewer chrome from every frame: the left wireframe tree, the
+  meta/annotation bar (cluster, job, flow, tap depth), the "this screen:
+  states / overview" strip, and the per-page desktop-reflow note. nav.js
+  (which rendered the tree) is deleted; nothing references it now. Each frame
+  is now only the product screen.
+- The overview (index.html) is unchanged and remains the single place that
+  lists every page and state, grouped by flow. Navigation between frames is via
+  the overview plus the product's own in-screen links.
+- Desktop responsive made real. With the 250px tree gone, the stage is
+  full-width, so the container query on `.stage` fires and the wide-screen
+  layout shows: bottom tab bar becomes a left rail, the app shell centers at
+  960px, and the content column widens with a capped reading measure.
+  Onboarding stays a single centered column. Verified live at 390px and 1200px
+  on Home (app) and Welcome (onboarding).
+- Kept at wireframe fidelity: zone borders and zone labels remain (they are the
+  structure being communicated, not reviewer chrome). Greyscale, semantic HTML,
+  real copy, and the four-states-as-pages rule are all unchanged.

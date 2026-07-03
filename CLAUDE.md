@@ -57,11 +57,13 @@ by subagents against the same contract and reviewed for consistency.
   the screen-by-state table (which of the four states each screen produces).
 - wireframes/_critique.md: the Step 9 review and the one fix applied.
 
-**Shell:** each page shares wireframe.css (the greyscale system) and nav.js
-(the left wireframe tree, identical on every page, auto-marking the current
-page). The product's own chrome is a four-tab bar (Home, Alerts, Save, You)
-that becomes a left rail on desktop via a container query; onboarding shows no
-tab bar.
+**Shell:** each page shares wireframe.css (the greyscale system) and is now a
+clean frame, only the product screen, with no reviewer chrome (a July 2026 pass
+removed the left wireframe tree, the meta/annotation bar, the per-page state
+strip, the desktop-reflow note, and nav.js). The single place that lists every
+page and state is the overview, wireframes/index.html. The product's own chrome
+is a four-tab bar (Home, Alerts, Save, You) that becomes a left rail on desktop
+via a container query on the stage; onboarding shows no tab bar.
 
 **States and dead ends:** every empty and error page has a real exit (verified
 against flows.md). The IA critique's dead-end and missing-state fixes are all
@@ -71,8 +73,8 @@ sync-error last-known list, the unrecognized-charge naming prompt, and the
 still-gathering-history empty state.
 
 **Not here (deferred to Design):** color, typography, iconography, real logos,
-motion, exact spacing, and the deeper desktop reflows noted per screen
-(Home/Detail two-pane, Cancel/Share/Upgrade modals).
+motion, exact spacing, and the deeper desktop reflows (Home/Detail two-pane,
+Cancel/Share/Upgrade modals).
 
 ---
 

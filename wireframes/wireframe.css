@@ -28,60 +28,11 @@ body {
   line-height: 1.45;
 }
 
-/* ---- Layout: left wireframe tree + stage ---- */
-.layout { display: flex; align-items: flex-start; }
-.stage { flex: 1; min-width: 0; padding-bottom: 40px; container-type: inline-size; }
-
-/* Wireframe navigation tree (shared, built by nav.js) */
-details.wftree {
-  flex: none; width: 250px; align-self: stretch;
-  border-right: 1px solid var(--line); background: var(--panel2);
-  position: sticky; top: 0; max-height: 100vh; overflow: auto;
-  font-size: 12px;
-}
-details.wftree > summary {
-  padding: 12px 14px; font-weight: 700; cursor: pointer;
-  border-bottom: 1px solid var(--line2); list-style: none; color: var(--mid);
-}
-details.wftree > summary::-webkit-details-marker { display: none; }
-details.wftree > summary::before { content: "\2261  "; color: var(--faint); }
-.wftree-body { padding: 8px 10px 16px; }
-.wftree .cluster { margin: 12px 4px 4px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--faint); font-weight: 600; }
-.wftree ul { list-style: none; margin: 0; padding: 0; }
-.wftree a { display: block; padding: 3px 8px; color: var(--mid); text-decoration: none; border-left: 2px solid transparent; }
-.wftree a:hover { background: var(--panel); }
-.wftree .wf-screen > a { font-weight: 600; }
-.wftree .states a { padding-left: 20px; font-size: 11px; color: var(--soft); }
-.wftree a.wf-overview-link { font-weight: 600; margin-bottom: 4px; color: var(--soft); }
-.wftree a.current { border-left-color: var(--ink); background: var(--frame); font-weight: 700; color: var(--ink); }
-
-@media (max-width: 819px) {
-  .layout { display: block; }
-  details.wftree { width: auto; position: static; max-height: none; border-right: 0; border-bottom: 1px solid var(--line); }
-}
-
-/* ---- Annotation bar above the screen (not part of the product) ---- */
-.wf-meta {
-  max-width: 780px; margin: 20px auto 0; padding: 12px 16px;
-  border: 1px solid var(--line); background: var(--frame);
-  font-size: 12px; color: var(--mid);
-}
-.wf-meta h1 { margin: 0 0 4px; font-size: 15px; }
-.wf-meta .tags { color: var(--soft); }
-.wf-states {
-  max-width: 780px; margin: 8px auto 0; padding: 8px 16px;
-  border: 1px solid var(--line2); background: var(--panel2);
-  font-size: 12px; color: var(--soft);
-  display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline;
-}
-.wf-states a { color: var(--mid); text-decoration: none; border-bottom: 1px dotted var(--faint); }
-.wf-states a:hover { color: var(--ink); }
-.wf-states .cur { font-weight: 700; color: var(--ink); border-bottom: 0; }
-.wf-states .lbl { text-transform: uppercase; letter-spacing: 0.06em; font-size: 10px; color: var(--faint); }
-.wf-note {
-  max-width: 780px; margin: 8px auto 24px; padding: 8px 16px;
-  font-size: 11px; color: var(--faint); font-style: italic;
-}
+/* ---- Layout: the screen sits on a plain stage ----
+   No reviewer chrome. The .stage is the container-query context that drives
+   the desktop reflow at the bottom of this file, independent of viewport width. */
+.layout { display: block; }
+.stage { padding: 28px 16px 56px; container-type: inline-size; }
 
 /* ---- The mobile screen frame (mobile-first is the primary layout) ---- */
 .phone {
@@ -217,7 +168,7 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .msg p { font-size: 13px; color: var(--soft); margin: 0 0 16px; }
 
 @media (max-width: 460px) {
-  .wf-meta, .wf-states, .wf-note { margin-left: 8px; margin-right: 8px; }
+  .stage { padding: 14px 8px 40px; }
   .phone { border-left: 0; border-right: 0; }
 }
 
@@ -231,29 +182,33 @@ ul.list { list-style: none; margin: 0; padding: 0; }
    ============================================================ */
 @container (min-width: 760px) {
   .phone:not(.onboarding) {
-    max-width: 900px;
+    max-width: 960px;
     display: grid;
-    grid-template-columns: 190px 1fr;
+    grid-template-columns: 212px 1fr;
     grid-template-rows: auto 1fr;
-    min-height: 640px;
+    min-height: 660px;
   }
-  .phone:not(.onboarding) > .appbar { grid-column: 1 / 3; grid-row: 1; }
+  .phone:not(.onboarding) > .appbar { grid-column: 1 / 3; grid-row: 1; padding: 14px 22px; }
+  /* Content column: widened, but the reading measure is capped so wide cards
+     do not sprawl. Mobile-first single column, just more air. */
   .phone:not(.onboarding) > .screen {
-    grid-column: 2; grid-row: 2; padding: 20px 22px 28px;
+    grid-column: 2; grid-row: 2; padding: 24px 28px 32px;
   }
+  .phone:not(.onboarding) > .screen > .zone,
+  .phone:not(.onboarding) > .screen > section { max-width: 620px; }
   /* GC2: bottom tab bar -> left rail */
   .phone:not(.onboarding) > .tabbar {
     position: static; grid-column: 1; grid-row: 2;
     flex-direction: column; border-top: 0; border-right: 1px solid var(--line);
-    align-content: start;
+    align-content: start; background: var(--panel2); padding: 8px 0;
   }
   .phone:not(.onboarding) > .tabbar a {
-    flex: none; text-align: left; padding: 11px 16px; border-top: 0;
-    border-left: 3px solid transparent; display: flex; align-items: center; gap: 8px;
+    flex: none; text-align: left; padding: 11px 18px; border-top: 0;
+    border-left: 3px solid transparent; display: flex; align-items: center; gap: 10px;
   }
   .phone:not(.onboarding) > .tabbar a .ic { margin: 0; }
-  .phone:not(.onboarding) > .tabbar a.cur { border-top: 0; border-left-color: var(--ink); }
+  .phone:not(.onboarding) > .tabbar a.cur { border-top: 0; border-left-color: var(--ink); background: var(--frame); }
 
-  /* Onboarding: same single column, just more room */
+  /* Onboarding: same single centered column, just more room (one thing at a time) */
   .phone.onboarding { max-width: 560px; }
 }
