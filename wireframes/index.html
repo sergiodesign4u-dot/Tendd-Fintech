@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tendd Wireframes - Overview</title>
+<style>
+  :root {
+    --ink: #1c1c1c;
+    --mid: #555;
+    --soft: #777;
+    --line: #cfcfcf;
+    --line2: #e2e2e2;
+    --panel: #f4f4f4;
+    --panel2: #fafafa;
+    --box: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: #ededed;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 24px 20px 64px; }
+
+  header.top {
+    border: 1px solid var(--line);
+    background: var(--box);
+    padding: 22px 22px 20px;
+  }
+  header.top h1 { margin: 0 0 6px; font-size: 24px; letter-spacing: -0.01em; }
+  header.top p.tag { margin: 0 0 16px; color: var(--mid); max-width: 60ch; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+  .meta span {
+    border: 1px solid var(--line);
+    background: var(--panel2);
+    color: var(--mid);
+    font-size: 12px;
+    padding: 4px 9px;
+  }
+
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    margin: 16px 0 0; padding-top: 14px;
+    border-top: 1px solid var(--line2);
+    font-size: 12px; color: var(--soft);
+  }
+  .legend b { color: var(--mid); font-weight: 600; }
+
+  h2.section {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--soft); margin: 34px 0 12px; font-weight: 600;
+  }
+
+  .flow {
+    border: 1px solid var(--line);
+    background: var(--box);
+    margin: 0 0 14px;
+  }
+  .flow > .flow-head {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line2);
+    background: var(--panel);
+  }
+  .flow-head h3 { margin: 0 0 4px; font-size: 16px; }
+  .flow-head .who { color: var(--soft); font-size: 12px; }
+  .flow-head p { margin: 8px 0 0; color: var(--mid); font-size: 13px; }
+  .flow-head.primary { border-left: 4px solid var(--soft); }
+
+  ol.screens, ul.screens { list-style: none; margin: 0; padding: 8px 0; }
+  ol.screens > li, ul.screens > li {
+    padding: 10px 18px;
+    border-bottom: 1px solid var(--line2);
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px;
+  }
+  ol.screens > li:last-child, ul.screens > li:last-child { border-bottom: 0; }
+  .step {
+    font-size: 11px; color: var(--soft);
+    border: 1px solid var(--line); background: var(--panel2);
+    padding: 1px 6px; min-width: 46px; text-align: center;
+  }
+  .screen-name { font-weight: 600; }
+  .job { color: var(--soft); font-size: 12px; }
+  .states { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+
+  a.pg {
+    font-size: 12px; text-decoration: none;
+    border: 1px solid var(--line); padding: 2px 8px;
+    color: var(--mid); background: var(--box);
+  }
+  a.pg:hover { border-color: var(--soft); color: var(--ink); }
+  a.pg.base { font-weight: 600; }
+  a.pg.planned { border-style: dashed; color: var(--soft); }
+  a.pg.planned::after { content: " \00b7 planned"; font-size: 10px; color: #999; }
+  a.pg.done::after { content: " \2713"; }
+
+  .reuse { color: #999; font-size: 11px; font-style: italic; }
+
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); background: var(--box); }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 13px; }
+  caption { text-align: left; padding: 12px 14px; color: var(--mid); font-size: 12px; border-bottom: 1px solid var(--line2); }
+  th, td { border-bottom: 1px solid var(--line2); padding: 8px 12px; text-align: left; }
+  thead th { background: var(--panel); color: var(--mid); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; position: sticky; top: 0; }
+  td.state { text-align: center; }
+  td.na { color: #bbb; text-align: center; }
+  tbody tr:hover { background: var(--panel2); }
+  .num { color: #aaa; font-variant-numeric: tabular-nums; }
+
+  footer.foot { margin-top: 30px; color: var(--soft); font-size: 12px; border-top: 1px solid var(--line2); padding-top: 14px; }
+  footer.foot a { color: var(--mid); }
+
+  @media (max-width: 620px) {
+    .states { margin-left: 0; width: 100%; }
+    ol.screens > li, ul.screens > li { gap: 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>Tendd Wireframes</h1>
+    <p class="tag">Overview of the wireframe set. Structure, not look: grey, semantic, real copy. A screen is done only when every state it produces has its own page (empty, error, loading, success).</p>
+    <div class="meta">
+      <span>Phase: Wireframes</span>
+      <span>6 clusters</span>
+      <span>16 screens</span>
+      <span>40 pages</span>
+      <span>4 flows</span>
+      <span id="progress">Built: 0 of 40 pages</span>
+    </div>
+    <div class="legend">
+      <span><b>base</b> = success / default page</span>
+      <span><b>empty</b> no data, with a way out</span>
+      <span><b>error</b> a failure, with recovery</span>
+      <span><b>loading</b> calm placeholder</span>
+      <span><b>planned</b> not built yet</span>
+    </div>
+  </header>
+
+  <!-- ============ FLOWS ============ -->
+  <h2 class="section">Flows and their screens</h2>
+
+  <!-- Flow A -->
+  <section class="flow">
+    <div class="flow-head primary">
+      <h3>Flow A - See all recurring charges calmly</h3>
+      <div class="who">J-MAIN &middot; Emma (bank path) &middot; PRIMARY, build first</div>
+      <p>First session, bank-connected. Welcome to the calm list. This flow sets the pattern the rest clone.</p>
+    </div>
+    <ol class="screens">
+      <li>
+        <span class="step">tap 0</span>
+        <span class="screen-name">Welcome / Value Intro</span>
+        <span class="job">J1 show value before asking for data</span>
+        <span class="states"><a class="pg base planned" href="welcome.html">base</a></span>
+      </li>
+      <li>
+        <span class="step">tap 1</span>
+        <span class="screen-name">Activation Path Choice</span>
+        <span class="job">J1 + J5 two paths, equal weight (D2)</span>
+        <span class="states"><a class="pg base planned" href="path-choice.html">base</a></span>
+      </li>
+      <li>
+        <span class="step">tap 2</span>
+        <span class="screen-name">Connect Bank</span>
+        <span class="job">J1 bank path (D5 Plaid US first)</span>
+        <span class="states">
+          <a class="pg base planned" href="connect-bank.html">base</a>
+          <a class="pg planned" href="connect-bank-empty.html">empty</a>
+          <a class="pg planned" href="connect-bank-error.html">error</a>
+          <a class="pg planned" href="connect-bank-loading.html">loading</a>
+        </span>
+      </li>
+      <li>
+        <span class="step">tap 3</span>
+        <span class="screen-name">Guided Reveal</span>
+        <span class="job">J-MAIN the aha, gradual (D1)</span>
+        <span class="states">
+          <a class="pg base planned" href="guided-reveal.html">base</a>
+          <a class="pg planned" href="guided-reveal-empty.html">empty</a>
+        </span>
+      </li>
+      <li>
+        <span class="step">end</span>
+        <span class="screen-name">Home / Subscription List</span>
+        <span class="job">J-MAIN + E1 calm list, count, total &middot; reference screen</span>
+        <span class="states">
+          <a class="pg base planned" href="home.html">base</a>
+          <a class="pg planned" href="home-empty.html">empty</a>
+          <a class="pg planned" href="home-error.html">error</a>
+          <a class="pg planned" href="home-loading.html">loading</a>
+        </span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Flow B -->
+  <section class="flow">
+    <div class="flow-head">
+      <h3>Flow B - Track without sharing bank data</h3>
+      <div class="who">J5 &middot; Ravi (manual + presets)</div>
+      <p>The privacy path. Shares Welcome, Path Choice, Guided Reveal, and Home with Flow A; the distinct screen is Add Subscription (400+ presets, D2).</p>
+    </div>
+    <ul class="screens">
+      <li>
+        <span class="step">reuse</span>
+        <span class="screen-name">Welcome / Value Intro</span>
+        <span class="reuse">shared with Flow A</span>
+      </li>
+      <li>
+        <span class="step">reuse</span>
+        <span class="screen-name">Activation Path Choice</span>
+        <span class="reuse">shared with Flow A, picks Privacy</span>
+      </li>
+      <li>
+        <span class="step">main</span>
+        <span class="screen-name">Add Subscription</span>
+        <span class="job">J5 privacy path (D2, 400+ presets)</span>
+        <span class="states">
+          <a class="pg base planned" href="add-subscription.html">base</a>
+          <a class="pg planned" href="add-subscription-empty.html">empty</a>
+          <a class="pg planned" href="add-subscription-error.html">error</a>
+          <a class="pg planned" href="add-subscription-loading.html">loading</a>
+        </span>
+      </li>
+      <li>
+        <span class="step">reuse</span>
+        <span class="screen-name">Guided Reveal</span>
+        <span class="reuse">shared with Flow A, empty state matters more here</span>
+      </li>
+      <li>
+        <span class="step">reuse</span>
+        <span class="screen-name">Home / Subscription List</span>
+        <span class="reuse">shared with Flow A, private list, no bank</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Flow C -->
+  <section class="flow">
+    <div class="flow-head">
+      <h3>Flow C - Find, cancel, and feel the win</h3>
+      <div class="who">J2 + E2 &middot; Claudia</div>
+      <p>The cut job and the pride moment. Basic cancel is free; the full guide is Pro (D3). Cancel is never walled at the relief moment.</p>
+    </div>
+    <ol class="screens">
+      <li>
+        <span class="step">start</span>
+        <span class="screen-name">Home / Subscription List</span>
+        <span class="reuse">shared with Flow A</span>
+      </li>
+      <li>
+        <span class="step">tap</span>
+        <span class="screen-name">Subscription Detail</span>
+        <span class="job">J3 decode a charge + J4 its alerts</span>
+        <span class="states">
+          <a class="pg base planned" href="subscription-detail.html">base</a>
+          <a class="pg planned" href="subscription-detail-empty.html">empty</a>
+          <a class="pg planned" href="subscription-detail-error.html">error</a>
+          <a class="pg planned" href="subscription-detail-loading.html">loading</a>
+        </span>
+      </li>
+      <li>
+        <span class="step">cancel</span>
+        <span class="screen-name">Cancel Guide</span>
+        <span class="job">J2 identify and cancel; basic free (D3)</span>
+        <span class="states">
+          <a class="pg base planned" href="cancel-guide.html">base</a>
+          <a class="pg planned" href="cancel-guide-empty.html">empty</a>
+          <a class="pg planned" href="cancel-guide-error.html">error</a>
+        </span>
+      </li>
+      <li>
+        <span class="step">gate</span>
+        <span class="screen-name">Upgrade / Tendd Pro</span>
+        <span class="job">D3 split + D4 price (the gate) &middot; orphan by design</span>
+        <span class="states"><a class="pg base planned" href="upgrade.html">base</a></span>
+      </li>
+      <li>
+        <span class="step">win</span>
+        <span class="screen-name">Cancel Win Moment</span>
+        <span class="job">E2 the small win, money saved &middot; success-only</span>
+        <span class="states"><a class="pg base planned" href="cancel-win.html">base</a></span>
+      </li>
+      <li>
+        <span class="step">share</span>
+        <span class="screen-name">Share Snapshot</span>
+        <span class="job">S1 privacy-safe share card</span>
+        <span class="states">
+          <a class="pg base planned" href="share-snapshot.html">base</a>
+          <a class="pg planned" href="share-snapshot-error.html">error</a>
+          <a class="pg planned" href="share-snapshot-loading.html">loading</a>
+        </span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Flow D -->
+  <section class="flow">
+    <div class="flow-head">
+      <h3>Flow D - Stay ahead of a surprise</h3>
+      <div class="who">J4 &middot; alert to action</div>
+      <p>Entry is a notification (the return hook). Price change and payment failed are free; trial ending and unusual are Pro (D3).</p>
+    </div>
+    <ol class="screens">
+      <li>
+        <span class="step">open</span>
+        <span class="screen-name">Alerts / Activity</span>
+        <span class="job">J4 price change, payment failed</span>
+        <span class="states">
+          <a class="pg base planned" href="alerts.html">base</a>
+          <a class="pg planned" href="alerts-empty.html">empty</a>
+          <a class="pg planned" href="alerts-error.html">error</a>
+          <a class="pg planned" href="alerts-loading.html">loading</a>
+        </span>
+      </li>
+      <li>
+        <span class="step">tap</span>
+        <span class="screen-name">Subscription Detail</span>
+        <span class="reuse">shared with Flow C, "caught it early"</span>
+      </li>
+      <li>
+        <span class="step">gate</span>
+        <span class="screen-name">Upgrade / Tendd Pro</span>
+        <span class="reuse">shared with Flow C, a Pro alert type hits the gate</span>
+      </li>
+      <li>
+        <span class="step">handoff</span>
+        <span class="screen-name">Cancel Guide</span>
+        <span class="reuse">shared with Flow C, a price change may hand off to cancel</span>
+      </li>
+      <li>
+        <span class="step">fallback</span>
+        <span class="screen-name">Home / Subscription List</span>
+        <span class="reuse">shared with Flow A</span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Beyond -->
+  <section class="flow">
+    <div class="flow-head">
+      <h3>Beyond the four core flows - steady-state and account</h3>
+      <div class="who">Reached globally (You tab) or contextually (a Pro gate)</div>
+      <p>In the sitemap but not part of one linear persona flow. Built in Step 8.</p>
+    </div>
+    <ul class="screens">
+      <li>
+        <span class="step">Pro</span>
+        <span class="screen-name">History and Trends</span>
+        <span class="job">J-MAIN over time; Pro gate (D3)</span>
+        <span class="states">
+          <a class="pg base planned" href="history-trends.html">base</a>
+          <a class="pg planned" href="history-trends-empty.html">empty</a>
+          <a class="pg planned" href="history-trends-loading.html">loading</a>
+        </span>
+      </li>
+      <li>
+        <span class="step">You</span>
+        <span class="screen-name">Connections / Accounts</span>
+        <span class="job">J1 + J5 manage sources, reauth (D5)</span>
+        <span class="states">
+          <a class="pg base planned" href="connections.html">base</a>
+          <a class="pg planned" href="connections-empty.html">empty</a>
+          <a class="pg planned" href="connections-error.html">error</a>
+        </span>
+      </li>
+      <li>
+        <span class="step">You</span>
+        <span class="screen-name">Data and Privacy</span>
+        <span class="job">E3 plain-language data use, delete</span>
+        <span class="states"><a class="pg base planned" href="data-privacy.html">base</a></span>
+      </li>
+      <li>
+        <span class="step">You</span>
+        <span class="screen-name">Settings / Profile</span>
+        <span class="job">E3 plan, notification preferences</span>
+        <span class="states"><a class="pg base planned" href="settings.html">base</a></span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============ ALL PAGES ============ -->
+  <h2 class="section">All pages and states (40)</h2>
+  <div class="tablewrap">
+    <table>
+      <caption>Rows are the 16 screens. A link is a page to build; a dash means the scenario does not produce that state. Success is the base page.</caption>
+      <thead>
+        <tr>
+          <th class="num">#</th>
+          <th>Screen</th>
+          <th>empty</th>
+          <th>error</th>
+          <th>loading</th>
+          <th>success (base)</th>
+          <th>Build</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td><td>Welcome / Value Intro</td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
+          <td class="state"><a class="pg planned" href="welcome.html">welcome</a></td>
+          <td>main</td>
+        </tr>
+        <tr>
+          <td class="num">2</td><td>Activation Path Choice</td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
+          <td class="state"><a class="pg planned" href="path-choice.html">path-choice</a></td>
+          <td>main</td>
+        </tr>
+        <tr>
+          <td class="num">3</td><td>Connect Bank</td>
+          <td class="state"><a class="pg planned" href="connect-bank-empty.html">empty</a></td>
+          <td class="state"><a class="pg planned" href="connect-bank-error.html">error</a></td>
+          <td class="state"><a class="pg planned" href="connect-bank-loading.html">loading</a></td>
+          <td class="state"><a class="pg planned" href="connect-bank.html">connect-bank</a></td>
+          <td>main</td>
+        </tr>
+        <tr>
+          <td class="num">4</td><td>Add Subscription</td>
+          <td class="state"><a class="pg planned" href="add-subscription-empty.html">empty</a></td>
+          <td class="state"><a class="pg planned" href="add-subscription-error.html">error</a></td>
+          <td class="state"><a class="pg planned" href="add-subscription-loading.html">loading</a></td>
+          <td class="state"><a class="pg planned" href="add-subscription.html">add-subscription</a></td>
+          <td>step 8</td>
+        </tr>
+        <tr>
+          <td class="num">5</td><td>Guided Reveal</td>
+          <td class="state"><a class="pg planned" href="guided-reveal-empty.html">empty</a></td>
+          <td class="na">-</td><td class="na">-</td>
+          <td class="state"><a class="pg planned" href="guided-reveal.html">guided-reveal</a></td>
+          <td>main</td>
+        </tr>
+        <tr>
+          <td class="num">6</td><td>Home / Subscription List</td>
+          <td class="state"><a class="pg planned" href="home-empty.html">empty</a></td>
+          <td class="state"><a class="pg planned" href="home-error.html">error</a></td>
+          <td class="state"><a class="pg planned" href="home-loading.html">loading</a></td>
+          <td class="state"><a class="pg planned" href="home.html">home</a></td>
+          <td>main (reference)</td>
+        </tr>
+        <tr>
+          <td class="num">7</td><td>Subscription Detail</td>
+          <td class="state"><a class="pg planned" href="subscription-detail-empty.html">empty</a></td>
+          <td class="state"><a class="pg planned" href="subscription-detail-error.html">error</a></td>
+          <td class="state"><a class="pg planned" href="subscription-detail-loading.html">loading</a></td>
+          <td class="state"><a class="pg planned" href="subscription-detail.html">subscription-detail</a></td>
+          <td>main</td>
+        </tr>
+        <tr>
+          <td class="num">8</td><td>Alerts / Activity</td>
+          <td class="state"><a class="pg planned" href="alerts-empty.html">empty</a></td>
+          <td class="state"><a class="pg planned" href="alerts-error.html">error</a></td>
+          <td class="state"><a class="pg planned" href="alerts-loading.html">loading</a></td>
+          <td class="state"><a class="pg planned" href="alerts.html">alerts</a></td>
+          <td>step 8</td>
+        </tr>
+        <tr>
+          <td class="num">9</td><td>Cancel Guide</td>
+          <td class="state"><a class="pg planned" href="cancel-guide-empty.html">empty</a></td>
+          <td class="state"><a class="pg planned" href="cancel-guide-error.html">error</a></td>
+          <td class="na">-</td>
+          <td class="state"><a class="pg planned" href="cancel-guide.html">cancel-guide</a></td>
+          <td>step 8</td>
+        </tr>
+        <tr>
+          <td class="num">10</td><td>Cancel Win Moment</td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
+          <td class="state"><a class="pg planned" href="cancel-win.html">cancel-win</a></td>
+          <td>step 8</td>
+        </tr>
+        <tr>
+          <td class="num">11</td><td>Share Snapshot</td>
+          <td class="na">-</td>
+          <td class="state"><a class="pg planned" href="share-snapshot-error.html">error</a></td>
+          <td class="state"><a class="pg planned" href="share-snapshot-loading.html">loading</a></td>
+          <td class="state"><a class="pg planned" href="share-snapshot.html">share-snapshot</a></td>
+          <td>step 8</td>
+        </tr>
+        <tr>
+          <td class="num">12</td><td>History and Trends</td>
+          <td class="state"><a class="pg planned" href="history-trends-empty.html">empty</a></td>
+          <td class="na">-</td>
+          <td class="state"><a class="pg planned" href="history-trends-loading.html">loading</a></td>
+          <td class="state"><a class="pg planned" href="history-trends.html">history-trends</a></td>
+          <td>step 8</td>
+        </tr>
+        <tr>
+          <td class="num">13</td><td>Upgrade / Tendd Pro</td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
+          <td class="state"><a class="pg planned" href="upgrade.html">upgrade</a></td>
+          <td>step 8</td>
+        </tr>
+        <tr>
+          <td class="num">14</td><td>Connections / Accounts</td>
+          <td class="state"><a class="pg planned" href="connections-empty.html">empty</a></td>
+          <td class="state"><a class="pg planned" href="connections-error.html">error</a></td>
+          <td class="na">-</td>
+          <td class="state"><a class="pg planned" href="connections.html">connections</a></td>
+          <td>step 8</td>
+        </tr>
+        <tr>
+          <td class="num">15</td><td>Data and Privacy</td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
+          <td class="state"><a class="pg planned" href="data-privacy.html">data-privacy</a></td>
+          <td>step 8</td>
+        </tr>
+        <tr>
+          <td class="num">16</td><td>Settings / Profile</td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
+          <td class="state"><a class="pg planned" href="settings.html">settings</a></td>
+          <td>step 8</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="foot">
+    Source of truth: <a href="_screens.md">_screens.md</a> (screens and states) and <a href="_conventions.md">_conventions.md</a> (rules). Structure from <a href="../IA/docs/sitemap.md">sitemap.md</a> and <a href="../IA/docs/flows.md">flows.md</a>. Grey, semantic, real copy: this overview updates as each page is built.
+  </footer>
+
+</div>
+</body>
+</html>
