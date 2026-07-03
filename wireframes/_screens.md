@@ -142,7 +142,14 @@ the base filename; state pages append `-empty`, `-error`, `-loading`.
 
 ### Page count
 
-40 pages total (one base page per screen plus one page per extra state).
+41 pages total (one base page per screen plus one page per extra state, plus
+the Home save-focus state added in the Step 9 audit fixes).
+
+Home has a fifth state beyond the four standard ones: **save-focus**
+(home-savefocus.html). It is the Save tab destination and the target of the
+"Review these 2" and cancel-candidates actions (FLAG 1 in core.md: a
+parameterized state of Home, not a new screen). It pins the cancel candidates
+open and swaps the summary context line to potential savings.
 
 - Main flow build set (Steps 3 to 7): Welcome (1), Activation Path Choice (1),
   Connect Bank (4), Guided Reveal (2), Home (4), Subscription Detail (4) = 16

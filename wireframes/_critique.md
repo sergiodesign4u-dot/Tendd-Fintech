@@ -47,3 +47,66 @@ The wireframe set is complete and consistent: 16 screens, 40 pages, all four
 states covered where the scenario produces them, no dead ends, greyscale and
 semantic, with real Tendd copy and a live desktop reflow. One real defect was
 found and fixed; the rest of the audit was clean. Ready for the Design phase.
+
+---
+
+## Deep audit (Step 9 follow-up, four independent reviewers)
+
+A second, deeper pass ran four independent reviewers (onboarding+core,
+alerts+cancel, pro+account, cross-cutting) plus a visual review. The system
+layer was confirmed clean (shell, naming, nav tree, state coverage, chrome,
+greyscale, responsive reflow, links, no em dashes). The issues were in content,
+flow, and data consistency. All of the following were fixed.
+
+### High
+- **settings.html** advertised Free as "up to 10 subscriptions", contradicting
+  the locked D3 (Free is unlimited on count, gated only by depth/history).
+  Fixed: "Unlimited subscriptions. Up to 2 bank connections. History, trends
+  and advanced alerts are Pro."
+
+### Medium
+- **Save tab / "Review these 2" / cancel-candidates nudge** all pointed at
+  home-empty.html (the zero-state), because the FLAG 1 save-focus state had no
+  wireframe. Fixed: added **home-savefocus.html** (candidates pinned open,
+  summary swaps to potential savings) and retargeted the Save tab (all app
+  pages), the reveal CTA, and the nudge to it. This is the 41st page; nav.js,
+  _screens.md, and index.html were updated.
+- **Canonical example dataset** locked to remove number drift. Home now shows
+  all 14 subscriptions grouped 4/4/2/2/2 (matching the Guided Reveal), summing
+  to the displayed monthly total **$192.90**. Propagated to Guided Reveal,
+  home-error, History and Trends. Cancel candidates (Peloton App, The New York
+  Times, save $29.99) are now visible rows. share-snapshot fixed to the
+  post-cancel figures (13 subscriptions, $174.91, freed up $17.99), removing
+  the Netflix double-count. Alerts reconciled to the dataset (Netflix next Aug
+  3; payment-failed on Amazon Prime not the Peloton trial; trial-ending on
+  Peloton).
+- **data-privacy.html** delete-everything control moved to position 3, directly
+  under the data explanation (one-tap reachable, per account.md), instead of
+  last. Export copy now separates the free full download from the Pro CSV.
+- **connections.html** dropped the invented Data-and-privacy zone (the title
+  already links it) and removed "Reconnect" from the healthy source (it belongs
+  to needs-reauth). Source counts reconciled to 14 (11 bank + 3 manual).
+- **cancel-guide-error.html** re-weighted so the free next step ("I cancelled
+  it") is the primary action and the Pro guide is secondary; D3 keeps the
+  could-not-cancel moment a trust moment, not an upsell.
+- **share-snapshot.html** card dropped its inline custom type scale
+  (font-size:34px, weight, tracking) in favour of the shared .count/.total
+  classes.
+
+### Low
+- Error states unified to a calm `role="status" aria-live="polite"` (was a mix
+  of alertdialog+assertive and alert).
+- upgrade.html pay button now states the amount ("Start Tendd Pro - $69 a
+  year"); a lifetime option is noted as deferred [?] (D4).
+- history-trends.html time-range control is now real buttons with aria-pressed
+  (was anchors cosplaying as tabs).
+- home cancel-candidates nudge dropped the misleading aria-expanded (it
+  navigates rather than expanding in place).
+- cancel-win.html wf-states label standardized to "success (base)".
+
+### Verified after fixes
+42 html files (41 screens + index), zero broken links, zero dead ends, no
+stray color/font/shadow/img, no em dashes, shell intact on every page, and the
+example dataset is arithmetically consistent across Home, Guided Reveal,
+save-focus, alerts, cancel, share, and history. Known-open [?] items remain
+(auth target for "Sign in", lifetime price) and are annotated, not invented.

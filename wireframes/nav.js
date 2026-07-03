@@ -15,7 +15,7 @@
       { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['empty'] }
     ]},
     { section: 'Core', screens: [
-      { name: 'Home / Subscription List', base: 'home.html', states: ['empty', 'error', 'loading'] },
+      { name: 'Home / Subscription List', base: 'home.html', states: ['savefocus', 'empty', 'error', 'loading'] },
       { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['empty', 'error', 'loading'] }
     ]},
     { section: 'Stay Ahead', screens: [

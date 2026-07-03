@@ -44,7 +44,8 @@ and every state (empty, error, loading, success) as its own page. Living entry
 point at wireframes/index.html (a flow-by-flow overview and a 40-page build
 dashboard). Next phase is the Design system (color, type, components).
 
-**Scale:** 16 screens, 40 pages. The main flow (Flow A, Emma) was built first
+**Scale:** 16 screens, 41 pages (40 plus a Home save-focus state added in the
+audit). The main flow (Flow A, Emma) was built first
 by hand as the reference (Home is the pattern), then the rest were rolled out
 by subagents against the same contract and reviewed for consistency.
 
