@@ -135,3 +135,26 @@ desktop layout was not actually reflowing well. Applied across all 41 frames:
 - Kept at wireframe fidelity: zone borders and zone labels remain (they are the
   structure being communicated, not reviewer chrome). Greyscale, semantic HTML,
   real copy, and the four-states-as-pages rule are all unchanged.
+
+## Welcome rebuilt as the public landing (founder decision, July 2026)
+
+Founder feedback: on desktop the Welcome screen was too narrow (capped at 560px
+as an onboarding step) and too thin on content for a page that sells the
+product. Decision (of three options offered): make it a full-width marketing
+landing rather than a minimal onboarding step.
+
+- welcome.html is now a full-width landing wireframe: top nav (wordmark, section
+  links, Sign in, Get started), a two-column hero (value copy + a calm app
+  preview using the canonical 14 subs / $192.90 dataset), three benefit cards
+  (one per core job: J1 see all, J2 calm not judged, J4 no surprises), a
+  three-step "How Tendd works", a trust and security block (read-only, Plaid,
+  delete anytime, never sell), a three-quote social-proof band in the persona
+  voices (Emma, Ravi, Claudia), a final CTA, and a marketing footer.
+- Still a wireframe: greyscale, semantic HTML, real calm copy, no color or type
+  decisions. New landing classes (`.landing`, `.lp-*`) added to wireframe.css,
+  mobile-first with a >=760px breakpoint (hero and card grids go multi-column).
+- It is the only page that uses full width and the only one with a footer (it
+  is a marketing page, not an app screen). All CTAs lead into the onboarding
+  chain at path-choice.html; Sign in goes to settings.html. Footer links to
+  unbuilt marketing pages are `#` stubs; Privacy and Data and privacy point to
+  data-privacy.html. Verified at 390px and 1280px.

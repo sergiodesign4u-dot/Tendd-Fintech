@@ -65,6 +65,14 @@ page and state is the overview, wireframes/index.html. The product's own chrome
 is a four-tab bar (Home, Alerts, Save, You) that becomes a left rail on desktop
 via a container query on the stage; onboarding shows no tab bar.
 
+**Welcome is the public landing (July 2026 founder decision).** Welcome / Value
+Intro was rebuilt from a narrow onboarding step into a full-width marketing
+landing wireframe (top nav, two-column hero with a calm app preview, benefit
+cards, how-it-works, trust and security, social proof, final CTA, footer).
+Still greyscale/semantic/real-copy; it is the only full-width page and the only
+one with a footer. Its CTAs lead into the onboarding chain at Path Choice. New
+landing classes (.landing, .lp-*) live in wireframe.css.
+
 **States and dead ends:** every empty and error page has a real exit (verified
 against flows.md). The IA critique's dead-end and missing-state fixes are all
 realized here as state pages: the bank-error manual fallback, the

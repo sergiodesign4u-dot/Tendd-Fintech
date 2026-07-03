@@ -121,6 +121,12 @@ Everything else is real copy.
 - The product's own chrome is the only navigation inside a frame. Per
   sitemap.md the app has a global bar with four destinations, Home, Alerts,
   Save, You; onboarding screens show no bar.
+- Welcome / Value Intro is the exception to the app shell. It is the public
+  landing (the web front door): a full-width marketing wireframe with its own
+  top nav and a footer, still greyscale and structure only, built with the
+  landing classes (`.landing`, `.lp-*`) in wireframe.css. Its CTAs lead into
+  the onboarding chain at Path Choice. It is the one page that uses full width
+  rather than the centered phone frame.
 - Mobile first, desktop responsive, and the wireframe reflows for real (the
   product is mobile-first web scaling to desktop). Author the mobile structure
   first; the same page then reflows to desktop through the shared CSS, so
@@ -136,11 +142,11 @@ Everything else is real copy.
   Share Snapshot, and Upgrade as modals on desktop. Exact breakpoint values
   are a Design decision, not set here.
 - No footer inside the app (locked in IA navigation.md). Tendd is an app, not
-  a marketing site. Do not add a link or legal footer to app screens. A `footer`
-  element is only used if a specific screen genuinely has one (none at MVP).
-- Onboarding shows no global bar (Welcome, Path Choice, Connect Bank, Add
-  Subscription, Guided Reveal are a one-time linear chain). Mark its absence
-  so it does not read as a gap.
+  a marketing site. Do not add a link or legal footer to app screens. The sole
+  footer in the set is on the Welcome landing, which is a marketing page.
+- Onboarding shows no global bar (Path Choice, Connect Bank, Add Subscription,
+  Guided Reveal are a one-time linear chain). Mark its absence so it does not
+  read as a gap. Welcome sits before this chain as the public landing.
 
 ## 7. Deferred to the Design phase (not here)
 
