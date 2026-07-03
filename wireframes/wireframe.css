@@ -28,11 +28,41 @@ body {
   line-height: 1.45;
 }
 
-/* ---- Layout: the screen sits on a plain stage ----
-   No reviewer chrome. The .stage is the container-query context that drives
-   the desktop reflow at the bottom of this file, independent of viewport width. */
-.layout { display: block; }
-.stage { padding: 28px 16px 56px; container-type: inline-size; }
+/* ---- Layout: review side menu (tree) + stage ----
+   The .stage is the container-query context that drives the desktop reflow at
+   the bottom of this file, independent of viewport width. */
+.layout { display: flex; align-items: flex-start; }
+.stage { flex: 1; min-width: 0; padding: 28px 16px 56px; container-type: inline-size; }
+/* The landing wants an edge-to-edge stage (its sections are full-bleed). */
+.stage.stage-flush { padding: 0; }
+
+/* Wireframe navigation tree (the review side menu, built by nav.js) */
+details.wftree {
+  flex: none; width: 250px; align-self: stretch;
+  border-right: 1px solid var(--line); background: var(--panel2);
+  position: sticky; top: 0; max-height: 100vh; overflow: auto;
+  font-size: 12px;
+}
+details.wftree > summary {
+  padding: 12px 14px; font-weight: 700; cursor: pointer;
+  border-bottom: 1px solid var(--line2); list-style: none; color: var(--mid);
+}
+details.wftree > summary::-webkit-details-marker { display: none; }
+details.wftree > summary::before { content: "\2261  "; color: var(--faint); }
+.wftree-body { padding: 8px 10px 16px; }
+.wftree .cluster { margin: 12px 4px 4px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--faint); font-weight: 600; }
+.wftree ul { list-style: none; margin: 0; padding: 0; }
+.wftree a { display: block; padding: 3px 8px; color: var(--mid); text-decoration: none; border-left: 2px solid transparent; }
+.wftree a:hover { background: var(--panel); }
+.wftree .wf-screen > a { font-weight: 600; }
+.wftree .states a { padding-left: 20px; font-size: 11px; color: var(--soft); }
+.wftree a.wf-overview-link { font-weight: 600; margin-bottom: 4px; color: var(--soft); }
+.wftree a.current { border-left-color: var(--ink); background: var(--frame); font-weight: 700; color: var(--ink); }
+
+@media (max-width: 819px) {
+  .layout { display: block; }
+  details.wftree { width: auto; position: static; max-height: none; border-right: 0; border-bottom: 1px solid var(--line); }
+}
 
 /* ---- The mobile screen frame (mobile-first is the primary layout) ---- */
 .phone {
@@ -176,26 +206,27 @@ ul.list { list-style: none; margin: 0; padding: 0; }
    Desktop reflow (mobile-first: this is the wide-screen layer).
    Triggered by the STAGE width via a container query, so the screen
    reflows on its own space regardless of the wireframe tree.
-   The main IA delta: the bottom tab bar (GC2) becomes a left rail and
-   the content column widens. Onboarding has no delta: it stays a single
-   centered column, just wider.
+   The IA delta: the bottom tab bar (GC2) becomes a left rail and the app fills
+   the available width (full width, per founder request). Home and Subscription
+   Detail add a second pane at >=1040 (see the two-pane block below).
+   Onboarding has no delta: it stays a single centered column, just wider.
    ============================================================ */
+
+/* The two-pane extra panels only exist on wide desktop; hidden everywhere else. */
+.detailpane, .masterpane { display: none; }
+
 @container (min-width: 760px) {
   .phone:not(.onboarding) {
-    max-width: 960px;
+    max-width: none; width: 100%;
     display: grid;
-    grid-template-columns: 212px 1fr;
+    grid-template-columns: 212px minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     min-height: 660px;
   }
-  .phone:not(.onboarding) > .appbar { grid-column: 1 / 3; grid-row: 1; padding: 14px 22px; }
-  /* Content column: widened, but the reading measure is capped so wide cards
-     do not sprawl. Mobile-first single column, just more air. */
+  .phone:not(.onboarding) > .appbar { grid-column: 1 / -1; grid-row: 1; padding: 14px 24px; }
   .phone:not(.onboarding) > .screen {
-    grid-column: 2; grid-row: 2; padding: 24px 28px 32px;
+    grid-column: 2; grid-row: 2; padding: 24px 30px 32px;
   }
-  .phone:not(.onboarding) > .screen > .zone,
-  .phone:not(.onboarding) > .screen > section { max-width: 620px; }
   /* GC2: bottom tab bar -> left rail */
   .phone:not(.onboarding) > .tabbar {
     position: static; grid-column: 1; grid-row: 2;
@@ -212,6 +243,36 @@ ul.list { list-style: none; margin: 0; padding: 0; }
   /* Onboarding: same single centered column, just more room (one thing at a time) */
   .phone.onboarding { max-width: 560px; }
 }
+
+/* Two-pane master-detail on wide desktop (>=1040 of stage width).
+   Home: list stays as the master (col 2), a selected-item detail opens on the
+   right (col 3) instead of navigating away. Subscription Detail: the list
+   returns as a master on the left (col 2), the detail sits on the right (col 3). */
+@container (min-width: 1040px) {
+  .phone.tp-home {
+    grid-template-columns: 212px minmax(320px, 0.95fr) minmax(340px, 1.15fr);
+  }
+  .phone.tp-home > .detailpane {
+    display: block; grid-column: 3; grid-row: 2;
+    border-left: 1px solid var(--line); padding: 24px 30px 32px; overflow: auto;
+  }
+  .phone.tp-detail {
+    grid-template-columns: 212px minmax(300px, 0.9fr) minmax(340px, 1.1fr);
+  }
+  .phone.tp-detail > .masterpane {
+    display: block; grid-column: 2; grid-row: 2;
+    border-right: 1px solid var(--line); padding: 18px 18px 28px; overflow: auto;
+  }
+  .phone.tp-detail > .screen { grid-column: 3; }
+}
+
+/* Panels: shared look. A small label marks them as the desktop second pane. */
+.pane-note {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--faint); margin: 0 0 12px; font-weight: 600;
+}
+.masterpane .mp-title { font-size: 12px; color: var(--soft); margin: 0 0 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+.masterpane .row.cur { border-left-color: var(--ink); background: var(--panel2); }
 
 /* ============================================================
    Landing page (Welcome / Value Intro as the public front door).

@@ -158,3 +158,26 @@ landing rather than a minimal onboarding step.
   chain at path-choice.html; Sign in goes to settings.html. Footer links to
   unbuilt marketing pages are `#` stubs; Privacy and Data and privacy point to
   data-privacy.html. Verified at 390px and 1280px.
+
+## Side menu restored + full-width + two-pane (founder decision, July 2026)
+
+Founder asked to bring back the side menu (the wireframe tree) and to let the
+app screens use the full width like the landing, with a real two-pane where it
+helps. Chosen option: tree back + full-width content + two-pane for Home and
+Subscription Detail.
+
+- The review side menu (nav.js tree) is restored on all 41 pages, including the
+  landing (which sits in an edge-to-edge `.stage-flush` beside it). It collapses
+  to a top "Wireframe map" bar below 820px. Only the annotation bar, the state
+  strip, and the reflow note stay removed.
+- App screens now fill the available width on desktop (the 960px cap and the
+  620px zone cap are gone). The bottom tab bar still becomes a left rail.
+- Home and Subscription Detail are a genuine two-pane master-detail at stage
+  width >= 1040. Home: the list is the master, a selected-item detail pane
+  (Netflix, mirroring the Subscription Detail blocks) opens on the right instead
+  of navigating away. Subscription Detail: the grouped list returns as a master
+  on the left with the current row marked, the detail sits on the right. Both
+  panes are hidden on mobile and mid-desktop, so the phone experience is
+  unchanged (a row still opens subscription-detail.html).
+- Verified live at 1440px (Home two-pane, Detail two-pane, Settings full-width,
+  landing with tree) and 390px (tree collapsed, single column, panes hidden).

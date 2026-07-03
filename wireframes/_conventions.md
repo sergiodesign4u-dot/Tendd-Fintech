@@ -111,14 +111,17 @@ Everything else is real copy.
 
 ## 6. Navigation and shell (shared on every page)
 
-- Clean frames, no reviewer chrome. Each page is only the product screen: no
-  left wireframe tree, no meta/annotation bar (cluster, job, flow), no "this
-  screen: states" strip, and no per-page desktop-reflow note. Those were
-  removed so a frame reads as the real screen, not an annotated diagram. The
-  single place that lists every page and every state is the overview,
-  `wireframes/index.html`, grouped by flow. You navigate between frames from
-  there and through the product's own in-screen links.
-- The product's own chrome is the only navigation inside a frame. Per
+- Review side menu (the wireframe tree, built by nav.js): a grey `details`
+  panel on the left of every page, identical everywhere, listing section, then
+  screen, then that screen's states, with the current page marked. It is the
+  reviewer's navigation across the set; on narrow screens it collapses to a
+  "Wireframe map" bar at the top. Structure mirrors _screens.md and sitemap.md.
+- What stays removed (the July 2026 declutter): the meta/annotation bar
+  (cluster, job, flow, tap depth), the "this screen: states" strip, and the
+  per-page desktop-reflow note. A frame is the product screen plus the review
+  tree, nothing else pasted on top. The overview, `wireframes/index.html`, is
+  still the single flow-grouped index of every page and state.
+- The product's own chrome is the only navigation inside the frame itself. Per
   sitemap.md the app has a global bar with four destinations, Home, Alerts,
   Save, You; onboarding screens show no bar.
 - Welcome / Value Intro is the exception to the app shell. It is the public
@@ -132,15 +135,17 @@ Everything else is real copy.
   first; the same page then reflows to desktop through the shared CSS, so
   widening the browser shows the wide-screen layout, it is not only a note.
   The shared reflow (in wireframe.css, driven by a container query on the
-  stage) implements the main IA delta:
+  stage) implements the IA delta:
   - the global bar is a bottom tab bar on mobile and becomes a left rail on
-    desktop, and the content column widens;
+    desktop, and the content fills the available width (full width, per the
+    July 2026 founder decision), not a narrow centered card;
+  - Home and Subscription Detail become a real two-pane master-detail on wide
+    desktop (stage >= 1040): the list is the master and a selected-item detail
+    (Home) or the returning list (Detail) sits in the second pane;
   - onboarding has no structural delta: it stays a single centered column,
     just wider, with no rail.
-  Deeper deltas are deferred to Design and can be layered in later: Home and
-  Subscription Detail as a two-pane master-detail on desktop; Cancel Guide,
-  Share Snapshot, and Upgrade as modals on desktop. Exact breakpoint values
-  are a Design decision, not set here.
+  Still deferred to Design: Cancel Guide, Share Snapshot, and Upgrade as modals
+  on desktop. Exact breakpoint values beyond these are a Design decision.
 - No footer inside the app (locked in IA navigation.md). Tendd is an app, not
   a marketing site. Do not add a link or legal footer to app screens. The sole
   footer in the set is on the Welcome landing, which is a marketing page.

@@ -57,13 +57,23 @@ by subagents against the same contract and reviewed for consistency.
   the screen-by-state table (which of the four states each screen produces).
 - wireframes/_critique.md: the Step 9 review and the one fix applied.
 
-**Shell:** each page shares wireframe.css (the greyscale system) and is now a
-clean frame, only the product screen, with no reviewer chrome (a July 2026 pass
-removed the left wireframe tree, the meta/annotation bar, the per-page state
-strip, the desktop-reflow note, and nav.js). The single place that lists every
-page and state is the overview, wireframes/index.html. The product's own chrome
-is a four-tab bar (Home, Alerts, Save, You) that becomes a left rail on desktop
-via a container query on the stage; onboarding shows no tab bar.
+**Shell:** each page shares wireframe.css (the greyscale system) and nav.js
+(the left review side menu / wireframe tree, restored July 2026, identical on
+every page and auto-marking the current one; it collapses to a top bar on
+mobile). The July 2026 declutter still stands for the annotations: the
+meta/annotation bar, the per-page state strip, and the desktop-reflow note are
+gone, so a frame is the product screen plus the review tree, nothing pasted on
+top. The overview, wireframes/index.html, is the single flow-grouped index of
+every page and state. The product's own chrome is a four-tab bar (Home, Alerts,
+Save, You) that becomes a left rail on desktop via a container query on the
+stage; onboarding shows no tab bar.
+
+**Full-width desktop and two-pane (July 2026 founder decision).** On desktop
+app screens fill the available width (not a centered 960px card). Home and
+Subscription Detail become a real two-pane master-detail at stage width >= 1040:
+Home keeps the list as master with a selected-item detail pane on the right;
+Subscription Detail brings the list back as a master on the left. Mobile is
+unchanged (single-column phone frame; the second pane is hidden).
 
 **Welcome is the public landing (July 2026 founder decision).** Welcome / Value
 Intro was rebuilt from a narrow onboarding step into a full-width marketing
