@@ -12,7 +12,7 @@
 
 - **Public and indexable today:** onboarding 1.1 Welcome / Value Intro only. It is reachable before sign-in.
 - **Not indexable:** everything from Activation Path Choice (1.2) and Guided Reveal (1.5) onward. These are behind the activation flow and are transactional or private. Each cluster file says so in its own SEO section.
-- **Future, out of this repo:** a dedicated public marketing or landing site may be built later, outside this app repo. The templates and keyword model below are written so that surface can reuse them, but it is not built here.
+- **Now in this repo (updated 2026-07-04):** the public marketing landing is built in-repo as the Welcome / Value Intro page (`wireframes/welcome.html`), replacing the earlier plan for a separate out-of-repo site. It is the single public, indexable surface (full-width hero, benefits, how-it-works, trust and security, social proof, footer) and it reuses the templates and keyword model below. A separate standalone marketing domain may still come later, but the front door now exists here.
 
 This scope is not forced onto private screens. Do not add schema, titles, or keywords to authenticated app screens.
 
@@ -63,13 +63,13 @@ Priority order for the public Welcome page: own the differentiator and privacy t
 
 ## Templates
 
-**Welcome (1.1), public:**
+**Welcome (1.1) landing, public (updated 2026-07-04 to the full landing):**
 - Title (under ~60 chars): "Tendd - See and control your subscriptions, calmly" [? draft copy]
 - Meta description (under ~155 chars): "See every subscription and recurring charge in one calm view. No bank connection needed to start. Built for people who find money apps stressful." [? draft copy]
-- H1: "See what you are paying for. Calmly." (matches the on-screen headline)
-- H2 candidates: "No bank connection needed to start.", "Find the subscriptions you forgot about."
+- H1: "See what you are paying for. Calmly." (matches the on-screen hero headline)
+- Section H2s now map to the landing's real sections, one differentiator each: "Calm control of your recurring money" (benefits, J1/J2/J4), "How Tendd works" (three steps), "Trusted with your money" (no-bank, read-only, cancel help). These realize the "one H2 per differentiator" template below.
 
-**Future public marketing page (out of repo), template:**
+**Standalone marketing domain (still out of repo), template (kept for a future separate site):**
 - Title: "<Primary keyword> | Tendd" (for example "Subscription tracker without bank connection | Tendd")
 - Description: one calm sentence with the primary keyword and the trust hook.
 - H1: the keyword phrased in Tendd's plain, calm voice.
@@ -110,6 +110,7 @@ The only public surface (Welcome) has no structural mobile/desktop delta (onboar
 
 ## Locked (draft, 2026-07-03) / Open
 
+- **Updated and locked 2026-07-04:** the public marketing landing is built in-repo as Welcome (1.1) / `wireframes/welcome.html`, not deferred to an out-of-repo site. Public scope is still exactly this one surface; the templates and structured-data model apply to it.
 - **Locked (draft, 2026-07-03):**
   - Public scope is Welcome (1.1) only; everything else is explicitly private.
   - Calm, trust-first, plain-language writing principles for public copy.
@@ -119,4 +120,4 @@ The only public surface (Welcome) has no structural mobile/desktop delta (onboar
 - **Still [?] (operational or data, not IA):**
   - Real search volumes and keyword difficulty. Resolving input: a keyword tool (Ahrefs, Semrush, or similar).
   - Concrete Core Web Vitals targets. Resolving input: real field data once the public surface is live.
-  - Whether and when a public marketing site is built outside this app repo.
+  - Whether and when a separate standalone marketing domain is built outside this app repo (the in-repo Welcome landing now covers the public front door).

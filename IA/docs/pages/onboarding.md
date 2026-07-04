@@ -4,7 +4,7 @@
 - **Type:** Flow (the chain), Pages (Welcome, Path Choice, Connect Bank, Add Subscription, Guided Reveal), Dialogs (connection error, preset error), States (loading, empty, error, partial-saved).
 - **Canonical visual:** `IA/onboarding.html`. This markdown is the source of truth, the HTML is the reviewable render.
 - **Job:** Closes J1 (activate without anxiety, the trust job) and opens J-MAIN (see all recurring charges calmly). Primary persona Emma on the bank path (1.3), Ravi on the private path (1.4). Claudia moves through it fast on the bank path.
-- **Related:** exits to node 2 Core (Home, 2.6). Trust content reuses GC6 Data Source and Trust Indicator (specified in account.md, node 6). Reveal reuses GC3 Recurring Summary Strip and GC4 Subscription List Item (specified in core.md, node 2). Global chrome is deliberately absent here (GC2 tab bar is hidden across the whole chain, see navigation.md).
+- **Related:** exits to node 2 Core (Home, 2.6). Trust content reuses GC6 Data Source and Trust Indicator (specified in account.md, node 6). Reveal reuses GC3 Recurring Summary Strip and GC4 Subscription List Item (specified in core.md, node 2). Global app chrome (GC2 tab bar) is deliberately absent across the chain; the Welcome landing (1.1) is the exception with its own marketing top nav and footer (see the 1.1 update), and the activation chain proper (1.2 to 1.5) has no tab bar.
 
 ---
 
@@ -27,18 +27,19 @@ Chain order matches IA/docs/flows.md Flow A (bank) and Flow B (private):
 1.1 Welcome  ->  1.2 Activation Path Choice  ->  [ 1.3 Connect Bank  OR  1.4 Add Subscription ]  ->  1.5 Guided Reveal  ->  (exit) 2.6 Home
 ```
 
-### 1.1 Welcome / Value Intro  (Page, Prompt 1 screen 1)
+### 1.1 Welcome / Value Intro  (Public marketing landing, the front door)
 
-Serves J1 (value before the ask). Uses GC1 App Header in its minimal onboarding variant (brand only, no back, no tab bar).
+**Updated 2026-07-04 (locked).** Welcome is now the public, full-width marketing landing page, not a minimal in-app onboarding screen. It is the front door a first-time visitor lands on before the activation chain; its CTAs enter the chain at Path Choice (1.2). This pulls the "future public marketing page" that seo.md anticipated (out of repo) into this repo, onto the Welcome node. It is the only page with a marketing top nav and a footer (see navigation.md update), and the only full-width page; it stays greyscale, plain, and calm at wireframe fidelity. Serves J1 (value before the ask).
 
-Block order, top to bottom:
-1. (P) Brand mark, "Tendd". [? draft copy]
-2. (P) Headline: "See what you are paying for. Calmly." [? draft copy]
-3. (P) Subhead: "Tendd shows every subscription and recurring charge in one calm view. No judgment, no spreadsheets." [? draft copy]
-4. (P) Sample calm preview: a non-interactive demo of GC3 (count and total) over 3 to 4 sample GC4 rows with real-looking logos, shown before any ask. Traces master-research H1 (show value before bank).
-5. (P) Primary CTA button: "Show me how it works" -> 1.2. [? draft copy]
-6. (S) Trust line under the CTA: "No bank connection needed to start." Links to Data and Privacy (6.15). Traces D2, master-research M2.
-7. (S) Returning-user affordance: "Already using Tendd? Sign in." [? the sign-in / no-account-to-try auth model is unresolved, see Open].
+Block order, top to bottom (full-width, reflows to a single column on mobile):
+1. (P) Top nav: brand "Tendd", section links (How it works, Trust and security, Pricing), "Sign in", and primary "Get started free" -> 1.2. [? draft copy]
+2. (P) Hero: headline "See what you are paying for. Calmly.", subhead "Tendd shows every subscription and recurring charge in one calm view. No spreadsheets, no judgment, no surprises.", primary CTA "Get started free" -> 1.2, secondary "See how it works", and a trust microline "No bank connection needed to start. Read-only, we can never move your money." Beside it a non-interactive sample of GC3 (count and total) over sample GC4 rows, labelled "Example, not your data". Traces master-research H1 (show value before bank). [? draft copy]
+3. (P) Benefits: three cards, one per core job (J1 everything in one place, J2 calm not judged, J4 no surprises).
+4. (P) How it works: three steps (connect or add, see it calmly, cancel and save).
+5. (P) Trust and security: read-only, Plaid, delete anytime, never sell. Links to Data and Privacy (6.15). Traces D2, master-research M2.
+6. (S) Social proof: three short persona-voice quotes (Emma, Ravi, Claudia).
+7. (P) Final CTA: "Get started free" -> 1.2, plus "Already using Tendd? Sign in." [? the sign-in / no-account-to-try auth model is unresolved, see Open].
+8. (S) Footer: product, company, and legal columns. This is a marketing footer and the only footer in the set (navigation.md update).
 
 ### 1.2 Activation Path Choice  (Page, screen 2)
 
@@ -144,12 +145,13 @@ Full keyword model, templates, and checklist: see `IA/docs/pages/seo.md`.
 
 ## Mobile (Tendd is mobile-first responsive web scaling to desktop)
 
-Cross-checked against Breakpoint Deltas in sitemap.md. This cluster has NO structural delta: the whole chain is single-column, full-screen, one action at a time on every breakpoint. On desktop it is the same single column centered with more surrounding space, not a reflow. The one carried constraint: the Guided Reveal (1.5) must stay gradual (count, then categories, then total with action) at every breakpoint, and must not collapse into a single all-at-once view where desktop space would tempt it. This is a content-order rule, not a structural delta.
+Cross-checked against Breakpoint Deltas in sitemap.md. Exception (updated 2026-07-04): the Welcome landing (1.1) is now a full-width marketing page that reflows from a single mobile column to a multi-column desktop layout (two-column hero, three-column benefit and step grids, footer). The rest of the chain (1.2 to 1.5) has NO structural delta: it is single-column, full-screen, one action at a time on every breakpoint. On desktop those screens stay the same single column centered with more surrounding space, not a reflow. The one carried constraint: the Guided Reveal (1.5) must stay gradual (count, then categories, then total with action) at every breakpoint, and must not collapse into a single all-at-once view where desktop space would tempt it. This is a content-order rule, not a structural delta.
 
 ---
 
 ## Locked (draft, 2026-07-03) / Open
 
+- **Updated and locked 2026-07-04:** Welcome (1.1) is the public marketing landing / front door: full-width, greyscale, with a marketing top nav and a footer, sample preview, benefits, how-it-works, trust, and social proof. Its CTAs enter the activation chain at Path Choice (1.2), which is where the tab-bar-less chain proper begins. This supersedes the earlier "minimal onboarding header, brand only, no nav" definition of 1.1. The five-node chain and its order are unchanged; Welcome now sits in front of it as the public surface (see seo.md update).
 - **Locked (draft, 2026-07-03):**
   - Chain order and the five nodes, matching Prompt 1 and Flows A and B.
   - Equal-weight, no-preselect Path Choice (D2).

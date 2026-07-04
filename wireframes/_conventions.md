@@ -137,9 +137,9 @@ Everything else is real copy.
   The shared reflow (in wireframe.css, driven by a container query on the
   stage) implements the IA delta:
   - the global bar is a bottom tab bar on mobile and becomes a left rail on
-    desktop; single-column app screens use the full desktop layout but cap the
-    content to a comfortable measure (820px, left-aligned) so rows do not
-    stretch on large monitors, rather than a narrow centered card;
+    desktop, with the header (GC1) folded into the top of that rail (per
+    navigation.md); single-column app screens sit in a centered, comfortable
+    measure (max 820px) so rows do not stretch on large monitors;
   - Home and Subscription Detail become a real two-pane master-detail on wide
     desktop (stage >= 1040): the list is the master and a selected-item detail
     (Home) or the returning list (Detail) sits in the second pane;

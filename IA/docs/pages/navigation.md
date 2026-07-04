@@ -14,7 +14,7 @@
 - **The whole onboarding chain hides both the header actions and the tab bar.** Traces the onboarding "no tab bar" note. Reason: onboarding is linear, the person has no app to navigate yet.
 - **The header carries at most one contextual action.** Reason: one thing at a time; a crowded header reads as a finance-power-tool, the opposite of Tendd's position.
 - **On desktop the bottom tab bar becomes a left rail and the header folds into the top of that rail.** Carried from Breakpoint Deltas. Reason: a bottom bar is a phone pattern; on a wide screen a persistent left rail is calmer and matches the research pages' own layout.
-- **Tendd has no footer.** It is a mobile-first app, not a marketing site. There is no legal or link footer on any app screen. This is stated explicitly so its absence is not read as a gap. Any future public marketing page (outside this app repo) would have its own footer, specified with the SEO engine, not here.
+- **No footer on app screens; the Welcome landing is the one exception (updated 2026-07-04).** Steady-state app screens carry no legal or link footer (Tendd is an app, not a marketing site), stated explicitly so its absence is not read as a gap. The exception is the Welcome / Value Intro landing (1.1): now the public marketing front door in this repo, it carries a marketing footer (product, company, legal columns). That is the sole footer in the set. See onboarding.md 1.1 and seo.md.
 
 ---
 
@@ -23,7 +23,7 @@
 ### GC1 - App Header
 
 Block order (left to right on mobile top bar): (1) back or menu control, (2) screen title, (3) one contextual action slot (for example "+", "Share", "Edit"). Variants:
-- **Onboarding variant:** brand mark only, no back, no action, no tab bar. Used across node 1.
+- **Onboarding variant:** brand mark only, no back, no action, no tab bar. Used across the activation chain (1.2 to 1.5). The Welcome landing (1.1) is the exception (updated 2026-07-04): it uses its own full-width marketing top nav with section links, Sign in, and a Get started CTA, plus a footer, not this minimal header.
 - **Signed-in variant:** back or title plus one action.
 - **No-account-yet variant:** same, but the You area surfaces "Create an account to save your list" [? auth model, see account.md].
 
@@ -86,8 +86,8 @@ This is the source of the main breakpoint delta for the whole product: GC2 is a 
   - Four tabs (Home, Alerts, Save, You), no red counts, quiet new-dot only.
   - Tab bar hidden across onboarding.
   - Header carries at most one contextual action.
-  - Bottom bar becomes a left rail on desktop; header folds into it.
-  - No footer anywhere in the app (stated, not omitted).
+  - Bottom bar becomes a left rail on desktop; header folds into the top of it (realized in Wireframes, 2026-07-04).
+  - No footer on app screens; the Welcome landing (1.1) is the one exception (marketing footer), added 2026-07-04.
   - The tab set is constant across personas and plans; only gating changes.
 - **Still [?] (operational or data, not IA):**
   - The no-account-yet header/You treatment depends on the auth model (shared with onboarding and account).

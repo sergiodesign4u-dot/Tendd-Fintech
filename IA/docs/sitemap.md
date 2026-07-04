@@ -300,9 +300,12 @@ path (0 to 1) are within the three-tap limit.
 | **Contextual** (appears inside a flow) | Reached by acting on something, not from the tab bar | Guided Reveal, Subscription Detail, Add Subscription, Cancel Guide, Cancel Win Moment, Share Snapshot, History and Trends, Upgrade / Tendd Pro |
 | **Deep** (rare, one-time or infrequent actions) | Two or more levels in, or seen once | Welcome, Activation Path Choice, Connect Bank (onboarding chain), Connections / Accounts, Data and Privacy, plan and billing management inside Settings, export inside History and Trends |
 
-Onboarding (Welcome, Path Choice, Connect Bank, Add Subscription, Guided
+The activation chain (Path Choice, Connect Bank, Add Subscription, Guided
 Reveal) shows no tab bar; it is a one-time linear chain that ends by handing
-the user to Home with the tab bar switched on.
+the user to Home with the tab bar switched on. Welcome / Value Intro (updated
+2026-07-04) sits in front of the chain as the public marketing landing (its own
+full-width top nav and footer, not the app tab bar); its "Get started" CTA is
+tap 1 into Path Choice, so the 3-tap count above is unchanged.
 
 ---
 
@@ -473,8 +476,10 @@ navigation.md.
 - Upgrade is a context-only gate that shows its origin; never a nav item (pro.md).
 - Active-voice alert copy; quiet new-dot, no red counts (alerts.md, navigation.md).
 - One-tap, single-confirm, delete-everything data deletion (account.md).
-- No footer anywhere in the app (navigation.md).
+- No footer on app screens; the Welcome landing (1.1) is the one exception, a marketing footer (navigation.md, onboarding.md, updated 2026-07-04).
 - No full-app maintenance page at MVP; sync issues are per-source (system.md).
+- Welcome / Value Intro is the public marketing landing / front door in-repo (full-width, own nav + footer); its CTAs enter the chain at Path Choice (onboarding.md, seo.md, updated 2026-07-04).
+- Desktop: bottom tab bar becomes a left rail with the header folded into its top; Home and Subscription Detail are a two-pane master-detail (navigation.md, core.md, realized in Wireframes 2026-07-04).
 
 ## Open items [?] (operational or data, not IA)
 

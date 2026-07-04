@@ -206,9 +206,10 @@ ul.list { list-style: none; margin: 0; padding: 0; }
    Desktop reflow (mobile-first: this is the wide-screen layer).
    Triggered by the STAGE width via a container query, so the screen
    reflows on its own space regardless of the wireframe tree.
-   The IA delta: the bottom tab bar (GC2) becomes a left rail and the app fills
-   the available width (full width, per founder request). Home and Subscription
-   Detail add a second pane at >=1040 (see the two-pane block below).
+   The IA delta (navigation.md, core.md): the bottom tab bar (GC2) becomes a
+   left rail and GC1 (the header) folds into the top of that rail. Single-column
+   app screens sit in a centered comfortable measure. Home and Subscription
+   Detail become a two-pane master-detail at >=1040 (see the block below).
    Onboarding has no delta: it stays a single centered column, just wider.
    ============================================================ */
 
@@ -223,15 +224,25 @@ ul.list { list-style: none; margin: 0; padding: 0; }
     grid-template-rows: auto 1fr;
     min-height: 660px;
   }
-  .phone:not(.onboarding) > .appbar { grid-column: 1 / -1; grid-row: 1; padding: 14px 24px; }
-  .phone:not(.onboarding) > .screen {
-    grid-column: 2; grid-row: 2; padding: 24px 30px 32px;
-    /* Comfortable reading measure, left-aligned in the wide column, so a
-       single-column app screen does not stretch on large monitors. The
-       two-pane grids (Home/Detail) keep narrower tracks, so this never bites. */
-    max-width: 820px;
+  /* GC1 folds into the TOP of the left rail on desktop (IA navigation.md). */
+  .phone:not(.onboarding) > .appbar {
+    grid-column: 1; grid-row: 1;
+    flex-direction: column; align-items: flex-start; gap: 3px;
+    background: var(--panel2); border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line); padding: 16px 18px;
   }
-  /* GC2: bottom tab bar -> left rail */
+  /* Content fills the height beside the rail (the header no longer spans the top). */
+  .phone:not(.onboarding) > .screen {
+    grid-column: 2; grid-row: 1 / -1; padding: 24px 30px 32px;
+  }
+  /* Single-column app screens: a comfortable measure, centered in the wide
+     column (IA: centered with more surrounding space), so a list does not
+     stretch on large monitors. Two-pane screens keep their master filling
+     its narrower track. */
+  .phone:not(.onboarding):not(.tp-home):not(.tp-detail) > .screen {
+    width: min(100%, 820px); justify-self: center;
+  }
+  /* GC2: bottom tab bar -> left rail, sitting under the folded header */
   .phone:not(.onboarding) > .tabbar {
     position: static; grid-column: 1; grid-row: 2;
     flex-direction: column; border-top: 0; border-right: 1px solid var(--line);
@@ -251,23 +262,24 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 /* Two-pane master-detail on wide desktop (>=1040 of stage width).
    Home: list stays as the master (col 2), a selected-item detail opens on the
    right (col 3) instead of navigating away. Subscription Detail: the list
-   returns as a master on the left (col 2), the detail sits on the right (col 3). */
+   returns as a master on the left (col 2), the detail sits on the right (col 3).
+   Both panes span the full height beside the rail (header is folded into it). */
 @container (min-width: 1040px) {
   .phone.tp-home {
     grid-template-columns: 212px minmax(320px, 0.95fr) minmax(340px, 1.15fr);
   }
   .phone.tp-home > .detailpane {
-    display: block; grid-column: 3; grid-row: 2;
+    display: block; grid-column: 3; grid-row: 1 / -1;
     border-left: 1px solid var(--line); padding: 24px 30px 32px; overflow: auto;
   }
   .phone.tp-detail {
     grid-template-columns: 212px minmax(300px, 0.9fr) minmax(340px, 1.1fr);
   }
   .phone.tp-detail > .masterpane {
-    display: block; grid-column: 2; grid-row: 2;
+    display: block; grid-column: 2; grid-row: 1 / -1;
     border-right: 1px solid var(--line); padding: 18px 18px 28px; overflow: auto;
   }
-  .phone.tp-detail > .screen { grid-column: 3; }
+  .phone.tp-detail > .screen { grid-column: 3; grid-row: 1 / -1; }
 }
 
 /* Panels: shared look. A small label marks them as the desktop second pane. */

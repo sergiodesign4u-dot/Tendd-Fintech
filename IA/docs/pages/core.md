@@ -104,7 +104,7 @@ Cross-checked against Breakpoint Deltas. This cluster has one real structural de
   - GC3 and GC4 specified here as the canonical source, referenced elsewhere.
   - Home groups by category by default; the summary strip is the biggest element.
   - Subscription Detail states include unrecognized-charge, price-change, and payment-failure, each with a concrete next step.
-  - Home and Detail become a two-pane view on desktop.
+  - Home and Detail become a two-pane view on desktop. Realized in Wireframes 2026-07-04: at desktop width >= 1040 Home keeps the list as master with a selected-item detail pane on the right, and Subscription Detail brings the list back as a master on the left; the header folds into the top of the left rail.
   - First-draft copy for every visible string.
 - **Still [?] (operational or data, not IA):**
   - How cancel candidates are chosen (usage signals, dormancy, duplicate detection). This is a detection/data question, not IA. Resolving input: the recurring-charge and usage model in build.

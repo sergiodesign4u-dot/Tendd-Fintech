@@ -68,12 +68,16 @@ every page and state. The product's own chrome is a four-tab bar (Home, Alerts,
 Save, You) that becomes a left rail on desktop via a container query on the
 stage; onboarding shows no tab bar.
 
-**Full-width desktop and two-pane (July 2026 founder decision).** On desktop
-app screens fill the available width (not a centered 960px card). Home and
-Subscription Detail become a real two-pane master-detail at stage width >= 1040:
-Home keeps the list as master with a selected-item detail pane on the right;
-Subscription Detail brings the list back as a master on the left. Mobile is
-unchanged (single-column phone frame; the second pane is hidden).
+**Full-width desktop, header-in-rail, and two-pane (July 2026 founder decision,
+locked against IA 2026-07-04).** On desktop the tab bar becomes a left rail and
+the header (GC1) folds into the top of that rail (per navigation.md).
+Single-column app screens sit in a centered, comfortable measure (max 820px).
+Home and Subscription Detail become a real two-pane master-detail at stage width
+>= 1040: Home keeps the list as master with a selected-item detail pane on the
+right; Subscription Detail brings the list back as a master on the left. Mobile
+is unchanged (single-column phone frame; the second pane is hidden). The IA docs
+(onboarding.md, navigation.md, seo.md, sitemap.md, core.md) were updated to lock
+Welcome-as-landing, the footer exception, and this desktop model.
 
 **Welcome is the public landing (July 2026 founder decision).** Welcome / Value
 Intro was rebuilt from a narrow onboarding step into a full-width marketing
