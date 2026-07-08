@@ -22,6 +22,9 @@ Tendd is a mobile-first, desktop-responsive web app that helps people who are no
 | JTBD | [jtbd.html](./research/jtbd.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/research/jtbd.html) | Done |
 | Concept Architecture (IA) | [ia.html](./IA/ia.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/IA/ia.html) | Done |
 | Wireframes | [wireframes/index.html](./wireframes/index.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/wireframes/index.html) | Done (July 2026) |
+| Voice (Product Voice) | [Voices/voices.html](./Voices/voices.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/Voices/voices.html) | Done (July 2026) |
+| Voice document | [Voices/docs/voice.md](./Voices/docs/voice.md) - [voice.html](./Voices/voice.html) | Done |
+| Microcopy inventory | [Voices/docs/microcopy.md](./Voices/docs/microcopy.md) - [microcopy.html](./Voices/microcopy.html) | Done |
 | Design System | design-system/ | Pending |
 | Components | components/ | Pending |
 | Handoff | handoff/ | Pending |
@@ -43,6 +46,30 @@ Tendd is a mobile-first, desktop-responsive web app that helps people who are no
 - [JTBD](./research/jtbd.html) - Job hierarchy, matrix, hypotheses, and critique
 - [Concept Architecture (IA)](./IA/ia.html) - Entities, sitemap, navigation, flows, coverage matrix, critique
 - [Wireframes](./wireframes/index.html) - Grey, semantic, mobile-first responsive wireframes with real copy and all four states per screen; a flow-by-flow overview is the entry point
+- [Voice](./Voices/voices.html) - The product voice as rules: principles, dictionary, forbidden list, and microcopy rules, plus the full was/became line inventory
+
+---
+
+## Voice
+
+The product's voice lives in the [Voices/](./Voices/) phase: how Tendd talks, as
+rules not a mood, so any line can be written the same way by a person or by Claude.
+
+- [Voices/docs/voice.md](./Voices/docs/voice.md) - the binding document, four
+  sections: Principles (5, each sourced from research), Dictionary (one concept one
+  word, plus address and contraction rules), Forbidden (14 banned patterns with
+  fixes), and Microcopy (rules by element type and by state tone).
+- [Voices/docs/microcopy.md](./Voices/docs/microcopy.md) - the line inventory of
+  all 41 wireframe pages and the was/became record of every line the voice changed.
+- [Voices/voices.html](./Voices/voices.html) - the living entry point, with
+  [voice.html](./Voices/voice.html) and [microcopy.html](./Voices/microcopy.html)
+  rendering the two documents. The Voices tree is wired into the review sidebar of
+  every research and IA page.
+
+The voice was applied to every wireframe: Home set the sample, the rest were rolled
+out by subagents, and an adversarial four-reviewer pass caught the last misses.
+Alerts, Cancel Guide, Upgrade, and Settings were already fully in voice. Wireframe
+structure was untouched; only the text changed. Next phase is the Design System.
 
 ---
 
@@ -85,6 +112,11 @@ invent. Visual design, spacing, and interaction detail come in Wireframes.
   - docs/                 Research markdown documents
   - screens/              Competitor and benchmark screenshots
 - wireframes/             UX wireframes
+- Voices/                 Product voice (voice.md, microcopy.md, HTML renders)
+  - voices.html           Voice phase entry point
+  - voice.html            Voice document render
+  - microcopy.html        Microcopy inventory render
+  - docs/                 voice.md and microcopy.md
 - concept/                Visual concept and moodboard
 - tokens/                 Design tokens (color, spacing, type)
 - components/             UI component library

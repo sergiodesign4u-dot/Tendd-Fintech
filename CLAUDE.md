@@ -8,6 +8,7 @@
 | People & JTBD | research/personas.html, research/jtbd.html, research/docs/personas.md, research/docs/jtbd.md | Done (June 2026) |
 | Concept Architecture (IA) | IA/ia.html, IA/docs/sitemap.md, IA/docs/flows.md | Done (July 2026) |
 | Wireframes | wireframes/index.html, wireframes/*.html, wireframes/_screens.md, wireframes/_conventions.md, wireframes/_critique.md | Done (July 2026) |
+| Voice (Product Voice) | Voices/voices.html, Voices/voice.html, Voices/microcopy.html, Voices/docs/voice.md, Voices/docs/microcopy.md | Done (July 2026) |
 | Design Sprint | Design system, visual design | Pending |
 
 Founder decisions locked June 14 2026: D1 (gradual reveal with paired action), D2 (manual + presets at launch), D3 (paywall at history/trends/advanced alerts, NOT at cancel moment), D4 ($7.99/mo or $69/yr), D5 (US/Plaid first, EU deferred). See research/docs/strategy.md Section 6.
@@ -100,6 +101,48 @@ Cancel/Share/Upgrade modals).
 
 ---
 
+
+## Voice (Phase)
+
+Built July 2026. The product's voice, as rules not a mood: how Tendd talks, so any
+line can be written the same way by a person or by Claude. And the tone is set by
+state, an error does not joke, an empty state leads to an action, a success does
+not celebrate. Living entry point at Voices/voices.html; the binding document is
+Voices/docs/voice.md; the line inventory and was/became record is
+Voices/docs/microcopy.md. The Voices tree is wired into the review sidebar of every
+research and IA page. Next phase is the Design System.
+
+**voice.md, four sections:**
+- Principles (5, each sourced from a research line): (1) lead with calm and being
+  in control, not capability; (2) say who did the thing, in plain words; (3) frame
+  money as what you signed up for, never judgment; (4) earn trust by naming the
+  fear and answering with specifics; (5) mark the small win with a number and a
+  next step, then stop. These trace to the five design principles below.
+- Dictionary (one concept, one word): subscription (never "thing"), service (a
+  catalog preset), source and connection, "Connect your bank", "Add them yourself"
+  (method) and "Add a subscription" (affordance), "Back to your subscriptions",
+  "Try again", the read-only line "Read-only. Tendd cannot move your money.",
+  "through Plaid", "monthly total". Plus address (second person, no first-person
+  "my" in labels) and contraction rules (warm by default, spelled out in money and
+  data negations).
+- Forbidden (14 patterns, each with a fix): no "successfully", praise interjections
+  ("Nice."), performative emotion prompts, exclamations, emoji, hype/motivational
+  tone, jargon and exposure framing ("expenditure", "spent", "wasted"), alarm
+  framing, vague reassurance ("bank-level security"), passive voice with no actor,
+  and gerund-plus-ellipsis loaders.
+- Microcopy: rules by element type (button, heading, field, alert line, trust line,
+  status tag, Pro gate) and by state tone (empty, error, loading, success,
+  dangerous action).
+
+**Applied to all 41 wireframe pages (structure untouched, only text).** Home set
+the sample (already in-voice, two normalizations). The rest were rolled out by
+subagents, one per screen, all writing to voice.md; then an adversarial
+four-reviewer pass caught the last voice misses (a non-canonical loader, three
+"spend"/"spending" exposure frames). Alerts, Cancel Guide, Upgrade, and Settings
+were already fully in voice. microcopy.md carries the was/became record for every
+changed line, so no product line ships outside the table.
+
+---
 
 ## Product Overview
 

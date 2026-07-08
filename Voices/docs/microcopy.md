@@ -23,6 +23,142 @@ Not listed, on purpose: the reviewer wireframe tree (nav.js), and deferred
 asset placeholders (`[logo]`, `[chart]`, `[preview image]`), which stand for a
 missing asset, not missing copy.
 
+## Rewrite log (was / became)
+
+The running record of every product line changed in Steps 5 to 7, screen by
+screen. Step 5 does the sample (the Home set); Steps 6 and 7 add the rest. Lines
+not listed for a rewritten screen were checked against voice.md and already
+conform.
+
+### Home set (Step 5 sample, done)
+
+All five Home pages (home, home-empty, home-error, home-loading, home-savefocus)
+were checked line by line against voice.md. Home was the hand-built reference for
+the whole wireframe set, so it already embodies the voice: only two lines needed
+normalizing. Structure and markup were not touched, only text.
+
+| Screen | Zone | Was | Became | Rule |
+|--------|------|-----|--------|------|
+| home | add-action | + Add subscription | Add a subscription | Dictionary D1: one label for the add-one affordance, matching home-empty; drops the decorative "+". |
+| home-savefocus | summary-strip | ... by cutting 2 you might not use. | ... by cutting 2 you might not be using. | Consistency: the recurring cancel-candidates phrase is "you might not be using" (home base, guided-reveal). |
+
+Verified already-conformant on the Home set (no change needed), the anchors the
+rollout must preserve:
+- Trust line "Read-only. Tendd cannot move your money." (Dictionary D7), on every populated Home page.
+- "You're paying for 14 subscriptions" and "a month, for what you have signed up for" (Principle 3 framing).
+- Loader "Getting your subscriptions. This usually takes a moment." (Dictionary D10 pattern).
+- Error "We could not refresh just now. Showing your last update from today, 9:14 AM." plus "Try again" (Dictionary D4; error keeps the last known list).
+- "Connect your bank" and "Add a subscription" on home-empty (Dictionary D2, D1).
+- Alert banner "Netflix went up by $2.50, now $17.99 a month." (Principle 2, active voice, names the actor).
+
+### Step 6: rollout to the remaining 15 screens (done)
+
+Every non-Home screen was rewritten by one subagent per screen, all writing to
+voice.md, then reconciled here. 37 lines changed across 11 screens; 4 screens
+(Alerts, Cancel Guide, Upgrade, Settings) were already fully in voice. Structure,
+markup, reviewer annotations, aria-labels, user content, and data fixtures were
+not touched (only visible product copy).
+
+| Screen | Zone | Was | Became | Rule |
+|--------|------|-----|--------|------|
+| welcome | hero | Read-only, we can never move your money. | Read-only, we cannot move your money. | D7 (firm verb "cannot" in a "we" sentence) |
+| welcome | how-it-works | ... by hand from 400+ presets. | ... by hand from 400+ services. | D5/D6 (catalog term is "service") |
+| welcome | trust | ... but can never move, spend, or touch your money. | ... but cannot move, spend, or touch your money. | D7 |
+| path-choice | path-option | Fast and automatic. Read-only, we can never move your money. | Fast and automatic. Read-only, we cannot move your money. | D7 |
+| connect-bank | trust-note | We read your recurring charges, read-only. We can never move your money. Powered by Plaid. | We read your recurring charges, read-only, through Plaid. We cannot move your money. | D7 + D8 ("through Plaid", not "Powered by") |
+| connect-bank | primary-action | Choose your bank | Connect your bank | D2 |
+| connect-bank | primary-action | Add them yourself instead | Add them yourself | D1 (drop "instead") |
+| connect-bank-error | primary-action | Add them yourself instead | Add them yourself | D1 |
+| add-subscription | custom-fallback | Add it manually | Add it by hand | D1 (avoid "manually") |
+| add-subscription | primary-action | See my list | See your subscriptions | D3 (second person) |
+| add-subscription-empty | primary-action | Add it manually | Add it by hand | D1 |
+| add-subscription-empty | primary-action | See my list | See your subscriptions | D3 |
+| add-subscription-error | primary-action | Try the list again | Try again | D4 |
+| add-subscription-error | primary-action | See my list | See your subscriptions | D3 |
+| add-subscription-loading | state-message | Loading services... | Getting the list of services. This usually takes a moment. | D10 (loader pattern) |
+| guided-reveal | reveal-step | You are subscribed to 14 things. | You're paying for 14 subscriptions. | D5 ("subscriptions", not "things"); matches Home summary |
+| guided-reveal | primary-action | See my full list | See your subscriptions | D3 |
+| subscription-detail-error | state-message | Back to Home | Back to your subscriptions | D3 |
+| cancel-win | win-summary | Nice. You just cancelled Netflix and freed up $17.99 a month. | You just cancelled Netflix and freed up $17.99 a month. | D12 / Principle 5 (drop praise interjection) |
+| cancel-win | share | Feeling good about it? You can share a simple card. No bank details, ever. | You can share a simple card. No bank details, ever. | D12 (drop performative emotion prompt) |
+| cancel-win | continue | Done, back to my list | Back to your subscriptions | D3 |
+| share-snapshot | continue | Done, back to my list | Back to your subscriptions | D3 |
+| share-snapshot-error | secondary-action | Done, back to my list | Back to your subscriptions | D3 |
+| share-snapshot-loading | heading | Creating your card... | Making your card | D10 (no gerund-plus-ellipsis; matches its message line) |
+| history-trends | header | How your recurring spend has moved over time. | How your monthly total has moved over time. | D9 (prefer "total" over "spend") |
+| history-trends-empty | state-message | Back to Home | Back to your subscriptions | D3 |
+| connections | connection-row | Bank connection via Plaid | Bank connection through Plaid | D8 |
+| connections-error | connection-row | Bank connection via Plaid | Bank connection through Plaid | D8 |
+| connections | connection-row | Read-only, cannot move money | Read-only, cannot move your money | D7 (keep "your") |
+| connections | connection-row | Add another by hand | Add a subscription | D1 (canonical add-one affordance) |
+| connections | add-source | Connect a bank | Connect your bank | D2 |
+| connections | add-source | Add manually | Add them yourself | D1 (manual method) |
+| connections-empty | empty-invite | Connect a bank | Connect your bank | D2 |
+| connections-empty | empty-invite | Add manually | Add them yourself | D1 |
+| connections-empty | empty-invite | Connect a bank to find your subscriptions... | Connect your bank to find your subscriptions... | D2 (same-screen prose consistency) |
+| data-privacy | privacy-section | We can never move your money. | We cannot move your money. | D7 |
+| data-privacy | privacy-section | Read-only transaction history via Plaid | Read-only transaction history through Plaid | D8 |
+
+Fully conformant, no change (verified line by line): Alerts (and states), Cancel
+Guide (and states), Upgrade, Settings. Their in-voice anchors: the alert lines
+name the actor in active voice ("A payment to Amazon Prime did not go through"),
+Cancel Guide keeps the reversible-action framing ("you can always resubscribe
+later") and the non-judgmental "it is not your fault", Upgrade keeps the single
+dismissible Pro gate with "Maybe later", Settings keeps its plain notification
+copy.
+
+### Cross-screen consistency (checked after the rollout)
+
+The canonical labels now read identically everywhere they appear: "Back to your
+subscriptions" (7 pages), "See your subscriptions" (4), "Connect your bank" (5),
+"Add them yourself" (6), "through Plaid" (6), and the read-only line "cannot ...
+your money" on every trust surface.
+
+The manual-add family carries three distinct labels on purpose, one per action:
+"Add them yourself" (the method, paired against Connect your bank), "Add a
+subscription" (the affordance to add one, on Home, empty states, and Connections),
+and "Add it by hand" (the in-page toggle on Add Subscription that reveals the
+custom-entry fields when a preset is not found). These are three different
+actions, so they keep three labels; none uses the banned word "manually".
+
+### Finalization fixes (accessibility and reviewer notes)
+
+Three references outside the visible copy still named retired labels; they were
+synced so nothing points at a string that no longer exists:
+- share-snapshot-loading: aria-label "Creating your card" to "Making your card" (matches the visible heading).
+- alerts-error: the reviewer zaction note "Back to Home" to "Back to your subscriptions".
+- add-subscription: the reviewer zaction note "See my list" to "See your subscriptions".
+
+### Step 7: verify and fix (done)
+
+Four adversarial reviewers re-checked all 41 pages against voice.md. They found
+four real voice misses (fixed below), two consistency judgments (resolved with no
+change), and coverage gaps (now recorded). Screens and this log were fixed
+together.
+
+| Screen | Zone | Was | Became | Rule |
+|--------|------|-----|--------|------|
+| connect-bank-loading | state-message | This takes a few seconds. We are reading your recurring charges, read-only. | We are reading your recurring charges, read-only. This usually takes a moment. | D10 (single loader pattern, canonical closer) |
+| history-trends-empty | state-message | ... the shape of your spending will be here. | ... the shape of your monthly total will be here. | D9 / Principle 3 (no spending/exposure frame) |
+| history-trends | chart summary | your monthly recurring total went from $172.90 in May ... | your monthly total went from $172.90 in May ... | D9 (canonical "monthly total"; matches the header) |
+| data-privacy | export | Exporting your spend history as a CSV ... | Exporting your history as a CSV ... | D9 / Principle 3 (drop "spend") |
+| cancel-guide-empty | detail-head (data fix) | $4.25 / month, you can always resubscribe later | $17.00 / month, you can always resubscribe later | Data fixture: The New York Times is $17.00/month in the canonical dataset. |
+
+Consistency judgments (resolved, no change):
+- subscription-detail base/empty/loading appbar "back to Home" chevron: kept. It is the back-nav chevron to the parent (the Home tab keeps its nav label per D3), uniform across all four detail states; the error state's "Back to your subscriptions" is the separate content-recovery button. Two patterns by design, not a drift.
+- subscription-detail-empty "We could not identify this": kept. Active voice with the actor, and the next sentence names the object ("match it to a service").
+
+Coverage additions (lines on screen but missing from the Step 1 inventory, now recorded so nothing ships outside this file):
+- cancel-guide-empty detail-head: "Cancel The New York Times" (heading) and "$17.00 / month, you can always resubscribe later" (body).
+- cancel-guide-error detail-head: "Cancel Netflix" (heading) and "$17.99 / month, still active for now" (body). The "still active for now" amount variant is authored copy specific to the error state.
+- connections "Added by you" source card: the "Added" field value "Kept up to date by you".
+
+Reviewer-note syncs (outside visible copy, aligned to current labels):
+- add-subscription-empty zaction: "add it manually" to "add it by hand".
+- connect-bank zaction: "choose your bank" to "Connect your bank".
+
+---
+
 ## Canonical subscription dataset (product fixtures, not authored copy)
 
 The 14-subscription sample that repeats across Home, its states, and the

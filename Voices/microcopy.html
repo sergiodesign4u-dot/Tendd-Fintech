@@ -203,6 +203,119 @@
     <div class="callout">This inventory is <strong>Step 1</strong> output. By phase end it gains "was" and "became" columns; nothing here is rewritten yet. It is what the Voice rules are measured against, not the rewrite itself.</div>
   </section>
 
+  <section id="rewritelog">
+    <h2>Rewrite log (was / became)</h2>
+    <p class="section-intro">The running record of every product line changed in Steps 5 to 7, screen by screen. Step 5 does the sample (the Home set); Steps 6 and 7 add the rest. Lines not listed for a rewritten screen were checked against voice.md and already conform.</p>
+    <div class="callout">The voice was applied to all <strong>41 pages</strong>. Home set the sample, the rest rolled out by subagents, and an adversarial four-reviewer pass caught the last misses. <strong>Alerts, Cancel Guide, Upgrade, and Settings</strong> were already fully in voice.</div>
+
+    <h3>Home set (Step 5 sample, done)</h3>
+    <p>All five Home pages (home, home-empty, home-error, home-loading, home-savefocus) were checked line by line against voice.md. Home was the hand-built reference for the whole wireframe set, so it already embodies the voice: only two lines needed normalizing. Structure and markup were not touched, only text.</p>
+    <div class="twrap">
+      <table class="vtable">
+        <thead><tr><th>Screen</th><th>Zone</th><th>Was</th><th>Became</th><th>Rule</th></tr></thead>
+        <tbody>
+          <tr><td>home</td><td>add-action</td><td class="kill">+ Add subscription</td><td class="term">Add a subscription</td><td>Dictionary D1: one label for the add-one affordance, matching home-empty; drops the decorative "+".</td></tr>
+          <tr><td>home-savefocus</td><td>summary-strip</td><td class="kill">... by cutting 2 you might not use.</td><td class="term">... by cutting 2 you might not be using.</td><td>Consistency: the recurring cancel-candidates phrase is "you might not be using" (home base, guided-reveal).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Verified already-conformant on the Home set (no change needed), the anchors the rollout must preserve:</p>
+    <ul>
+      <li>Trust line "Read-only. Tendd cannot move your money." (Dictionary D7), on every populated Home page.</li>
+      <li>"You're paying for 14 subscriptions" and "a month, for what you have signed up for" (Principle 3 framing).</li>
+      <li>Loader "Getting your subscriptions. This usually takes a moment." (Dictionary D10 pattern).</li>
+      <li>Error "We could not refresh just now. Showing your last update from today, 9:14 AM." plus "Try again" (Dictionary D4; error keeps the last known list).</li>
+      <li>"Connect your bank" and "Add a subscription" on home-empty (Dictionary D2, D1).</li>
+      <li>Alert banner "Netflix went up by $2.50, now $17.99 a month." (Principle 2, active voice, names the actor).</li>
+    </ul>
+
+    <h3>Step 6: rollout to the remaining 15 screens (done)</h3>
+    <p>Every non-Home screen was rewritten by one subagent per screen, all writing to voice.md, then reconciled here. 37 lines changed across 11 screens; 4 screens (Alerts, Cancel Guide, Upgrade, Settings) were already fully in voice. Structure, markup, reviewer annotations, aria-labels, user content, and data fixtures were not touched (only visible product copy).</p>
+    <div class="twrap">
+      <table class="vtable">
+        <thead><tr><th>Screen</th><th>Zone</th><th>Was</th><th>Became</th><th>Rule</th></tr></thead>
+        <tbody>
+          <tr><td>welcome</td><td>hero</td><td class="kill">Read-only, we can never move your money.</td><td class="term">Read-only, we cannot move your money.</td><td>D7 (firm verb "cannot" in a "we" sentence)</td></tr>
+          <tr><td>welcome</td><td>how-it-works</td><td class="kill">... by hand from 400+ presets.</td><td class="term">... by hand from 400+ services.</td><td>D5/D6 (catalog term is "service")</td></tr>
+          <tr><td>welcome</td><td>trust</td><td class="kill">... but can never move, spend, or touch your money.</td><td class="term">... but cannot move, spend, or touch your money.</td><td>D7</td></tr>
+          <tr><td>path-choice</td><td>path-option</td><td class="kill">Fast and automatic. Read-only, we can never move your money.</td><td class="term">Fast and automatic. Read-only, we cannot move your money.</td><td>D7</td></tr>
+          <tr><td>connect-bank</td><td>trust-note</td><td class="kill">We read your recurring charges, read-only. We can never move your money. Powered by Plaid.</td><td class="term">We read your recurring charges, read-only, through Plaid. We cannot move your money.</td><td>D7 + D8 ("through Plaid", not "Powered by")</td></tr>
+          <tr><td>connect-bank</td><td>primary-action</td><td class="kill">Choose your bank</td><td class="term">Connect your bank</td><td>D2</td></tr>
+          <tr><td>connect-bank</td><td>primary-action</td><td class="kill">Add them yourself instead</td><td class="term">Add them yourself</td><td>D1 (drop "instead")</td></tr>
+          <tr><td>connect-bank-error</td><td>primary-action</td><td class="kill">Add them yourself instead</td><td class="term">Add them yourself</td><td>D1</td></tr>
+          <tr><td>add-subscription</td><td>custom-fallback</td><td class="kill">Add it manually</td><td class="term">Add it by hand</td><td>D1 (avoid "manually")</td></tr>
+          <tr><td>add-subscription</td><td>primary-action</td><td class="kill">See my list</td><td class="term">See your subscriptions</td><td>D3 (second person)</td></tr>
+          <tr><td>add-subscription-empty</td><td>primary-action</td><td class="kill">Add it manually</td><td class="term">Add it by hand</td><td>D1</td></tr>
+          <tr><td>add-subscription-empty</td><td>primary-action</td><td class="kill">See my list</td><td class="term">See your subscriptions</td><td>D3</td></tr>
+          <tr><td>add-subscription-error</td><td>primary-action</td><td class="kill">Try the list again</td><td class="term">Try again</td><td>D4</td></tr>
+          <tr><td>add-subscription-error</td><td>primary-action</td><td class="kill">See my list</td><td class="term">See your subscriptions</td><td>D3</td></tr>
+          <tr><td>add-subscription-loading</td><td>state-message</td><td class="kill">Loading services...</td><td class="term">Getting the list of services. This usually takes a moment.</td><td>D10 (loader pattern)</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td class="kill">You are subscribed to 14 things.</td><td class="term">You're paying for 14 subscriptions.</td><td>D5 ("subscriptions", not "things"); matches Home summary</td></tr>
+          <tr><td>guided-reveal</td><td>primary-action</td><td class="kill">See my full list</td><td class="term">See your subscriptions</td><td>D3</td></tr>
+          <tr><td>subscription-detail-error</td><td>state-message</td><td class="kill">Back to Home</td><td class="term">Back to your subscriptions</td><td>D3</td></tr>
+          <tr><td>cancel-win</td><td>win-summary</td><td class="kill">Nice. You just cancelled Netflix and freed up $17.99 a month.</td><td class="term">You just cancelled Netflix and freed up $17.99 a month.</td><td>D12 / Principle 5 (drop praise interjection)</td></tr>
+          <tr><td>cancel-win</td><td>share</td><td class="kill">Feeling good about it? You can share a simple card. No bank details, ever.</td><td class="term">You can share a simple card. No bank details, ever.</td><td>D12 (drop performative emotion prompt)</td></tr>
+          <tr><td>cancel-win</td><td>continue</td><td class="kill">Done, back to my list</td><td class="term">Back to your subscriptions</td><td>D3</td></tr>
+          <tr><td>share-snapshot</td><td>continue</td><td class="kill">Done, back to my list</td><td class="term">Back to your subscriptions</td><td>D3</td></tr>
+          <tr><td>share-snapshot-error</td><td>secondary-action</td><td class="kill">Done, back to my list</td><td class="term">Back to your subscriptions</td><td>D3</td></tr>
+          <tr><td>share-snapshot-loading</td><td>heading</td><td class="kill">Creating your card...</td><td class="term">Making your card</td><td>D10 (no gerund-plus-ellipsis; matches its message line)</td></tr>
+          <tr><td>history-trends</td><td>header</td><td class="kill">How your recurring spend has moved over time.</td><td class="term">How your monthly total has moved over time.</td><td>D9 (prefer "total" over "spend")</td></tr>
+          <tr><td>history-trends-empty</td><td>state-message</td><td class="kill">Back to Home</td><td class="term">Back to your subscriptions</td><td>D3</td></tr>
+          <tr><td>connections</td><td>connection-row</td><td class="kill">Bank connection via Plaid</td><td class="term">Bank connection through Plaid</td><td>D8</td></tr>
+          <tr><td>connections-error</td><td>connection-row</td><td class="kill">Bank connection via Plaid</td><td class="term">Bank connection through Plaid</td><td>D8</td></tr>
+          <tr><td>connections</td><td>connection-row</td><td class="kill">Read-only, cannot move money</td><td class="term">Read-only, cannot move your money</td><td>D7 (keep "your")</td></tr>
+          <tr><td>connections</td><td>connection-row</td><td class="kill">Add another by hand</td><td class="term">Add a subscription</td><td>D1 (canonical add-one affordance)</td></tr>
+          <tr><td>connections</td><td>add-source</td><td class="kill">Connect a bank</td><td class="term">Connect your bank</td><td>D2</td></tr>
+          <tr><td>connections</td><td>add-source</td><td class="kill">Add manually</td><td class="term">Add them yourself</td><td>D1 (manual method)</td></tr>
+          <tr><td>connections-empty</td><td>empty-invite</td><td class="kill">Connect a bank</td><td class="term">Connect your bank</td><td>D2</td></tr>
+          <tr><td>connections-empty</td><td>empty-invite</td><td class="kill">Add manually</td><td class="term">Add them yourself</td><td>D1</td></tr>
+          <tr><td>connections-empty</td><td>empty-invite</td><td class="kill">Connect a bank to find your subscriptions...</td><td class="term">Connect your bank to find your subscriptions...</td><td>D2 (same-screen prose consistency)</td></tr>
+          <tr><td>data-privacy</td><td>privacy-section</td><td class="kill">We can never move your money.</td><td class="term">We cannot move your money.</td><td>D7</td></tr>
+          <tr><td>data-privacy</td><td>privacy-section</td><td class="kill">Read-only transaction history via Plaid</td><td class="term">Read-only transaction history through Plaid</td><td>D8</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Fully conformant, no change (verified line by line): Alerts (and states), Cancel Guide (and states), Upgrade, Settings. Their in-voice anchors: the alert lines name the actor in active voice ("A payment to Amazon Prime did not go through"), Cancel Guide keeps the reversible-action framing ("you can always resubscribe later") and the non-judgmental "it is not your fault", Upgrade keeps the single dismissible Pro gate with "Maybe later", Settings keeps its plain notification copy.</p>
+    <p><strong>Cross-screen consistency (checked after the rollout).</strong> The canonical labels now read identically everywhere they appear: "Back to your subscriptions" (7 pages), "See your subscriptions" (4), "Connect your bank" (5), "Add them yourself" (6), "through Plaid" (6), and the read-only line "cannot ... your money" on every trust surface. The manual-add family carries three distinct labels on purpose, one per action: "Add them yourself" (the method, paired against Connect your bank), "Add a subscription" (the affordance to add one, on Home, empty states, and Connections), and "Add it by hand" (the in-page toggle on Add Subscription that reveals the custom-entry fields when a preset is not found). These are three different actions, so they keep three labels; none uses the banned word "manually".</p>
+    <p><strong>Finalization fixes (accessibility and reviewer notes).</strong> Three references outside the visible copy still named retired labels; they were synced so nothing points at a string that no longer exists:</p>
+    <ul>
+      <li>share-snapshot-loading: aria-label "Creating your card" to "Making your card" (matches the visible heading).</li>
+      <li>alerts-error: the reviewer zaction note "Back to Home" to "Back to your subscriptions".</li>
+      <li>add-subscription: the reviewer zaction note "See my list" to "See your subscriptions".</li>
+    </ul>
+
+    <h3>Step 7: verify and fix (done)</h3>
+    <p>Four adversarial reviewers re-checked all 41 pages against voice.md. They found four real voice misses (fixed below), two consistency judgments (resolved with no change), and coverage gaps (now recorded). Screens and this log were fixed together.</p>
+    <div class="twrap">
+      <table class="vtable">
+        <thead><tr><th>Screen</th><th>Zone</th><th>Was</th><th>Became</th><th>Rule</th></tr></thead>
+        <tbody>
+          <tr><td>connect-bank-loading</td><td>state-message</td><td class="kill">This takes a few seconds. We are reading your recurring charges, read-only.</td><td class="term">We are reading your recurring charges, read-only. This usually takes a moment.</td><td>D10 (single loader pattern, canonical closer)</td></tr>
+          <tr><td>history-trends-empty</td><td>state-message</td><td class="kill">... the shape of your spending will be here.</td><td class="term">... the shape of your monthly total will be here.</td><td>D9 / Principle 3 (no spending/exposure frame)</td></tr>
+          <tr><td>history-trends</td><td>chart summary</td><td class="kill">your monthly recurring total went from $172.90 in May ...</td><td class="term">your monthly total went from $172.90 in May ...</td><td>D9 (canonical "monthly total"; matches the header)</td></tr>
+          <tr><td>data-privacy</td><td>export</td><td class="kill">Exporting your spend history as a CSV ...</td><td class="term">Exporting your history as a CSV ...</td><td>D9 / Principle 3 (drop "spend")</td></tr>
+          <tr><td>cancel-guide-empty</td><td>detail-head (data fix)</td><td class="kill">$4.25 / month, you can always resubscribe later</td><td class="term">$17.00 / month, you can always resubscribe later</td><td>Data fixture: The New York Times is $17.00/month in the canonical dataset.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Consistency judgments (resolved, no change):</p>
+    <ul>
+      <li>subscription-detail base/empty/loading appbar "back to Home" chevron: kept. It is the back-nav chevron to the parent (the Home tab keeps its nav label per D3), uniform across all four detail states; the error state's "Back to your subscriptions" is the separate content-recovery button. Two patterns by design, not a drift.</li>
+      <li>subscription-detail-empty "We could not identify this": kept. Active voice with the actor, and the next sentence names the object ("match it to a service").</li>
+    </ul>
+    <p>Coverage additions (lines on screen but missing from the Step 1 inventory, now recorded so nothing ships outside this file):</p>
+    <ul>
+      <li>cancel-guide-empty detail-head: "Cancel The New York Times" (heading) and "$17.00 / month, you can always resubscribe later" (body).</li>
+      <li>cancel-guide-error detail-head: "Cancel Netflix" (heading) and "$17.99 / month, still active for now" (body). The "still active for now" amount variant is authored copy specific to the error state.</li>
+      <li>connections "Added by you" source card: the "Added" field value "Kept up to date by you".</li>
+    </ul>
+    <p>Reviewer-note syncs (outside visible copy, aligned to current labels):</p>
+    <ul>
+      <li>add-subscription-empty zaction: "add it manually" to "add it by hand".</li>
+      <li>connect-bank zaction: "choose your bank" to "Connect your bank".</li>
+    </ul>
+  </section>
+
   <section id="dataset">
     <h2>Canonical subscription dataset</h2>
     <p class="section-intro">The 14-subscription sample repeats across Home, its states, and the Subscription Detail master pane. This is <strong>product data, not authored copy</strong>, and is not rewritten. It is listed once here and referenced elsewhere as "the canonical list". Total: <code>$192.90 / month</code>.</p>
