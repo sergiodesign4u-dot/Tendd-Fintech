@@ -13,7 +13,7 @@
 - **FLAG 2 resolved: Connections / Accounts (6.14) re-enters onboarding's Connect Bank and Add Subscription through one "Add a source" action, not by duplicating those screens.** Concretely, "Add a source" opens a small chooser (6.14.1) with two options, "Connect a bank" and "Add manually", mirroring the onboarding Path Choice logic. "Connect a bank" reopens 1.3 Connect Bank in its in-app variant (with the tab bar context, returning to 6.14 on success). "Add manually" reopens 1.4 Add Subscription the same way. No new screen is created; the locked screens are reused with an in-app entry point. Recorded as the resolution of FLAG 2.
 - **Data deletion is one clearly labeled action reachable in two taps from the You tab, with a single confirm, and it deletes everything.** Traces E3 (one-tap deletion, personas.md Ravi) and O20 (people want built-in controls). Reason: a person must never feel trapped; hiding deletion deep or splitting it into partial toggles reads as reluctance.
 - **The data-access explanation uses the "name the fear" pattern: it states plainly what a person is afraid of, then denies it with specifics.** Traces master-research M2. Reason: vague "bank-level security" language is exactly what scares Ravi (personas.md); specifics earn trust.
-- **The free connection cap is presented as "up to 2 bank connections on Free" carried from CLAUDE.md, but flagged, because D3 did not restate it.** [? the free connection cap is unresolved between CLAUDE.md (2) and D3 (silent). Resolving input: a product decision.] Reason: do not silently invent a number, but give Wireframes a concrete default to render.
+- **There is no connection cap on Free: Free allows unlimited bank connections, matching the unlimited subscription count.** Resolved by product decision (July 2026): a connection cap is really a visibility cap, and capping the number of banks would truncate the core "see everything" relief; Pro's value is depth (history, trends, advanced alerts, cancel, shared, export), per D3. This supersedes the older CLAUDE.md "up to 2 bank accounts" line, which was removed.
 - **[? draft copy] all copy below is a specific first draft.**
 
 ---
@@ -27,7 +27,7 @@ Uses GC1, GC2, GC6. Entities Account, Subscription.
 Block order:
 1. (P) Title: "Your sources." [? draft copy]
 2. (P) Sources list: each source is a GC6 Data Source and Trust Indicator row showing the bank name or "Added by you", connection status, last sync time, and count of subscriptions from it. Traces the Account entity.
-3. (P) Add a source: "Add a source" -> the chooser 6.14.1. Free allows up to 2 bank connections [? cap]; Pro unlimited (GC7). FLAG 2 resolution.
+3. (P) Add a source: "Add a source" -> the chooser 6.14.1. Free allows unlimited bank connections (no cap); Pro's value is depth, not connection count. FLAG 2 resolution.
 4. (S) Per-source actions: "Reconnect" (needs-reauth), "Remove". Traces E3.
 5. (S) Provider note: "US banks connect through Plaid. More regions soon." [? EU via TrueLayer deferred, D5.]
 
@@ -113,8 +113,7 @@ Cross-checked against Breakpoint Deltas. No structural delta: all three screens 
   - One-tap-reachable, single-confirm, delete-everything data deletion.
   - Name-the-fear data-access explanation (M2).
   - GC6 specified here as canonical.
-  - Free connection cap rendered as 2, flagged pending a product decision.
+  - Free bank connections are uncapped (product decision, July 2026); Pro is depth, not connection count.
 - **Still [?] (operational or data, not IA):**
-  - The free connection cap (CLAUDE.md 2 vs D3 silent). Resolving input: a product decision.
   - The no-account-to-try auth model (shared with onboarding 1.1). Resolving input: a product decision on lazy vs up-front account creation.
   - Whether data export lives here or in Pro (5.12). Resolving input: a product call on export ownership.

@@ -62,7 +62,9 @@ flow, and data consistency. All of the following were fixed.
 - **settings.html** advertised Free as "up to 10 subscriptions", contradicting
   the locked D3 (Free is unlimited on count, gated only by depth/history).
   Fixed: "Unlimited subscriptions. Up to 2 bank connections. History, trends
-  and advanced alerts are Pro."
+  and advanced alerts are Pro." (The connection clause was later dropped by a
+  July 2026 product decision - Free is uncapped on connections; settings.html
+  now reads "Unlimited subscriptions and bank connections." See account.md.)
 
 ### Medium
 - **Save tab / "Review these 2" / cancel-candidates nudge** all pointed at

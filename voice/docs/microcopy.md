@@ -588,7 +588,6 @@ list". Total: `$192.90 / month`.
 | connections | add-source | Add manually | heading |
 | connections | add-source | Type them in yourself from a list of 400+ services. No bank needed. | body |
 | connections | add-source | Choose this → | link |
-| connections | add-source | You can connect up to 2 banks on Free. Tendd Pro is unlimited. | body |
 | connections | provider-note | US banks connect through Plaid. More regions soon. | body |
 | connections-empty | state-message | No sources connected yet | heading |
 | connections-empty | state-message | Connect a bank to find your subscriptions automatically, or add them yourself by hand. You can change this later. | state-message |
@@ -630,7 +629,7 @@ list". Total: `$192.90 / month`.
 | settings | account | Name / Email | field-label |
 | settings | account | Emma Carter / emma@example.com | body (USER) |
 | settings | plan-card | Tendd Free | body |
-| settings | plan-card | Unlimited subscriptions. Up to 2 bank connections. History, trends and advanced alerts are Pro. | body |
+| settings | plan-card | Unlimited subscriptions and bank connections. History, trends and advanced alerts are Pro. | body |
 | settings | plan-card | Free / Pro | status |
 | settings | plan-card | Manage plan | link |
 | settings | notifications | Choose what Tendd tells you about. All in plain language, never alarming. | body |

@@ -4,7 +4,7 @@
 
 **Scope note:** Same focus as cjm-as-is.md (Emma x J-MAIN), bank path. The To-Be path is designed inside Tendd and must stay consistent with the already-locked structure: ia/docs/flows.md Flow A, the wireframes, and founder decisions D1-D5 (CLAUDE.md).
 
-**Status:** To-Be path, tracing, reconciliation, backlog, and critique complete (Steps 7-9). HTML artifact comes in Step 10; living-docs update in Step 11.
+**Status:** Complete. To-Be path, tracing, reconciliation, backlog, and critique (Steps 7-9), HTML artifact (Step 10), and living-docs update (Step 11) all done and shipped.
 
 ---
 
@@ -76,8 +76,8 @@ This refines the existing MVP core (strategy.md section 4, jtbd.md Part 5 and th
 - The reveal sequence is pinned to gradual plus paired-action (B5, per D1).
 
 **Orphan / stale in the OLD core (conflicts with locked decisions, needs update):**
-- CLAUDE.md free tier lists "up to 10 tracked subscriptions" and "connect up to 2 bank accounts." These CONFLICT with locked D3 (free = full visibility, unlimited tracked subscriptions; limited by depth and history, never by the core relief). They also break Emma's To-Be directly: a 10-item cap or a 2-account cap truncates the reveal, so she cannot see all her charges and cannot feel relief. **Action: update CLAUDE.md MVP Feature Scope in Step 11 to remove the count and account caps and align to D3.** Not a new decision, an alignment to an already-locked one.
-- aarrr.md carries the same stale "10-subscription free limit" (Revenue) and "AI import from screenshot/Gmail" at launch (Activation, which conflicts with D2: manual plus presets only, Gmail/AI is v2). Out of scope to fix in this CJM; flagged here for a later aarrr.md cleanup.
+- CLAUDE.md free tier used to list "up to 10 tracked subscriptions" and "connect up to 2 bank accounts." These CONFLICTED with locked D3 (free = full visibility, unlimited tracked subscriptions; limited by depth and history, never by the core relief). They also broke Emma's To-Be directly: a 10-item cap or a 2-account cap truncates the reveal, so she cannot see all her charges and cannot feel relief. **Resolved in Step 11 (commit 0dac829): the count and account caps were removed from CLAUDE.md and the free tier aligned to D3.** Not a new decision, an alignment to an already-locked one.
+- aarrr.md carried the same stale "10-subscription free limit" (Revenue) and "AI import from screenshot/Gmail" at launch (Activation, which conflicts with D2: manual plus presets only, Gmail/AI is v2). Cleaned up after the CJM: aarrr.md now reflects the uncapped free tier (D3), $7.99/$69 pricing (D4), and manual+presets at launch with AI/Gmail deferred to v2 (D2). research.html, master-research.md, and the connections wireframe (plus the voice inventory) were aligned in the same pass.
 
 **One consistent backlog:** B1-B7 (MVP for the J-MAIN reveal path) plus L1-L6 (LATER for this path), every item traced to a parent, cross-checked against the old core, with the stale caps flagged for alignment. No parallel second list.
 
@@ -87,9 +87,9 @@ This refines the existing MVP core (strategy.md section 4, jtbd.md Part 5 and th
 
 **Parent audit:** no true orphans. Every backlog item has a parent (an As-Is barrier or a job). Three caveats, all already LATER: L2 (cancel guides) serves J2, Claudia's cut job, not Emma x J-MAIN, so it is off this focus but valid in the product backlog; L4 (share) hangs on S1, a [? hypothesis] job (virality unproven); L5 (household) hangs on JH1, a [? hypothesis] job explicitly deferred (strategy.md Segment C). Nothing is cut.
 
-**Accretion, not fork:** the backlog is one list that refines the existing core (jtbd.md Part 5, strategy.md D3, aarrr.md), not a parallel second list. The one divergence is that the old CLAUDE.md free-tier caps ("up to 10 tracked subscriptions", "connect up to 2 bank accounts") contradict locked D3; the backlog surfaces this rather than duplicating it. No contradiction with strategy.md or jtbd.md.
+**Accretion, not fork:** the backlog is one list that refines the existing core (jtbd.md Part 5, strategy.md D3, aarrr.md), not a parallel second list. The one divergence was that the old CLAUDE.md free-tier caps ("up to 10 tracked subscriptions", "connect up to 2 bank accounts") contradicted locked D3; the backlog surfaced it rather than duplicating it, and it was resolved in Step 11. No contradiction with strategy.md or jtbd.md.
 
-**Consistency with the locked structure:** every MVP item (B1-B7) is covered by a wireframe plus a flow plus a decision, and none contradicts the locked structure. The only conflict is the stale CLAUDE.md caps versus D3, which is an alignment (D3 already decided this), not a new decision. Action: update CLAUDE.md MVP Feature Scope in Step 11 to drop the caps.
+**Consistency with the locked structure:** every MVP item (B1-B7) is covered by a wireframe plus a flow plus a decision, and none contradicts the locked structure. The only conflict was the stale CLAUDE.md caps versus D3, which is an alignment (D3 already decided this), not a new decision. Resolved in Step 11 (commit 0dac829): the caps were dropped from CLAUDE.md.
 
 **MVP consistency:** B1 to B6 sit inside the activation and reveal scope that the riskiest assumption H0 covers, and each breaks the To-Be path if removed (B3, the read-only trust line, is the softest: it strengthens trust more than it strictly breaks the path). B7 (the return hook) is the one boundary item: it is marked MVP, but it is a retention bet beyond H0, and removing it does not break the first-session reveal, only the durable "feel in control." It stays MVP (justified by D3 and As-Is growth zone 5), but it is explicitly a separate bet from the H0 reveal test, not part of it.
 
@@ -98,4 +98,4 @@ This refines the existing MVP core (strategy.md section 4, jtbd.md Part 5 and th
 2. Enrichment feasibility (B4). The reveal's quality depends on the enrichment pipeline covering the user's real charges with recognizable names and logos. If coverage is thin, the reveal shows cryptic codes anyway and B5 fails. Partly checkable from evidence (Rocket Money uses Plaid enrichment; Apple Card is the clarity benchmark), partly a build-time risk. Not the value risk that H0 is, but the second-biggest MVP risk.
 3. B7 scoping. Whether the return hook is MVP or LATER for the J-MAIN focus is a scoping call; the retention hypotheses it rests on are [?] in aarrr.md. Kept MVP for now, flagged for revisit.
 
-**Edits applied this step:** none cut (no orphans). B7 annotated as a retention bet beyond H0. The CLAUDE.md caps alignment is deferred to Step 11 (living-docs update), since it edits CLAUDE.md, not this file.
+**Edits applied this step:** none cut (no orphans). B7 annotated as a retention bet beyond H0. The CLAUDE.md caps alignment was done in Step 11 (living-docs update, commit 0dac829), since it edits CLAUDE.md, not this file.

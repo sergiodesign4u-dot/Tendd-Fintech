@@ -51,7 +51,7 @@ All targets are hypotheses. Mark as [? hypothesis]. Unknown = [?].
 
 **Channels and mechanics:**
 - Onboarding path A (bank-connected): connect Plaid/TrueLayer, auto-import subscriptions, see list immediately
-- Onboarding path B (privacy-first): AI import from screenshot/Gmail OR manual entry - leads to same aha moment via a longer but trust-first route. NEW: ReSubs' 461 preset subscriptions for quick setup is the benchmark for how fast manual can be. Source: [resubs.app](https://resubs.app/)
+- Onboarding path B (privacy-first): manual entry with presets - leads to same aha moment via a longer but trust-first route. At launch this is manual + presets only (per D2); AI import from a screenshot or Gmail is deferred to v2. ReSubs' 461 preset subscriptions is the benchmark for how fast presets-based manual entry can be. Source: [resubs.app](https://resubs.app/)
 - "Aha moment" trigger: the first time the user sees a populated subscription list with a monthly total
 - Reveal messaging (folded in from retired AIDA): Segment A gets the calm guided reveal - "Here's your monthly total. Here's what's in it. Here are 2 you might want to look at." Segment B gets the commitment framing borrowed from PocketGuard's validated "In My Pocket" approach - "You're committing $247/month before anything else." Source: [pocketguard.com](https://pocketguard.com/)
 - Progressive disclosure: both paths defer all configuration, profile setup, and feature explanations until after the aha moment
@@ -65,7 +65,7 @@ All targets are hypotheses. Mark as [? hypothesis]. Unknown = [?].
 
 **What's unknown:**
 - What % of users choose bank connection vs. privacy-first path when both are offered equally [?]
-- Whether AI screenshot import (ReSubs-style) reduces effort enough to match bank-connected activation quality [?]
+- Whether AI screenshot/Gmail import (ReSubs-style) reduces effort enough to match bank-connected activation quality - a v2 question, since launch is manual + presets only (D2) [?]
 - Optimal number of subscriptions seen to trigger the aha moment (3? 5? 10?) [?]
 
 **Primary metric:** % of new users who see a populated subscription list (3+ subscriptions with total) within their first session, via either path
@@ -107,10 +107,10 @@ All targets are hypotheses. Mark as [? hypothesis]. Unknown = [?].
 ## Revenue
 
 **Channels and mechanics:**
-- Freemium conversion: free users hit the 10-subscription limit or want a premium feature
+- Freemium conversion: free users want a premium feature - depth (history and trends, advanced alerts) or cancel support. There is no subscription cap on the free tier (per D3: free is full, uncapped visibility; the paywall is at depth, never at basic visibility).
 - Upgrade triggers: paywall encountered at high-motivation moments (forgotten subscription found, price increase detected)
-- Pricing v_refresh: $6 to $10/month or $50 to $80/year [? hypothesis - revised UP from original $4-6/mo]. Evidence: PocketGuard charges $12.99/mo (1M+ users), YNAB charges $14.99/mo (paid-only, 500K+ users), ReSubs has a lifetime option alongside monthly. The market tolerates higher prices than the original hypothesis assumed. Source: [pocketguard.com/pricing](https://pocketguard.com/pricing), [ynab.com/pricing](https://ynab.com/pricing)
-- Annual discount: 2 months free (standard SaaS incentive, unchanged)
+- Pricing: locked at $7.99/month or $69/year (D4). This sits inside the researched $6-10/mo, $50-80/yr band. Evidence: PocketGuard charges $12.99/mo (1M+ users), YNAB charges $14.99/mo (paid-only, 500K+ users), ReSubs has a lifetime option alongside monthly - the market tolerates prices at or above this point. Source: [pocketguard.com/pricing](https://pocketguard.com/pricing), [ynab.com/pricing](https://ynab.com/pricing)
+- Annual discount: $69/year vs $95.88 at the monthly rate - about 28% off, roughly 3 months free (D4)
 - NEW: Lifetime plan option. ReSubs' one-time purchase model reduces churn anxiety for users who dislike subscriptions about subscriptions (ironic but validated). Source: [resubs.app](https://resubs.app/)
 - NEW: Cancel guides as a paid-tier feature. Step-by-step cancel instructions for specific services (Netflix, Adobe, gym memberships) are a concrete, tangible premium feature. ReSubs offers 30+ such guides. Source: [resubs.app](https://resubs.app/)
 
@@ -122,13 +122,13 @@ All targets are hypotheses. Mark as [? hypothesis]. Unknown = [?].
 
 **What's unknown:**
 - Actual willingness to pay for this audience (requires user research) [?]
-- Whether the 10-subscription free limit is the right trigger or whether cancel guides access is more motivating [?]
+- Which upgrade trigger converts best - depth (history and trends, advanced alerts) or cancel-support access - given there is no subscription cap to hit (D3) [?]
 - Whether offering a lifetime plan cannibalizes monthly revenue or expands the buyer pool [?]
 
 **Primary metric:** Free-to-paid conversion rate
 **Target:** 6 to 10% of active free users within 90 days [? hypothesis - revised UP from 5-8% to reflect higher price confidence]
 
-**v_refresh MVP product decision:** The free tier must feel genuinely useful (not crippled). Limit by quantity (subscriptions), not quality. REVISED: launch at $7.99/month or $69/year (hypothesis) rather than $4.99 - competitor data suggests room for a higher price if the product delivers clear value. Include cancel guides (top 10 services) as a Pro-only feature to give the upgrade a concrete, immediately useful benefit.
+**MVP product decision (locked):** The free tier must feel genuinely useful (not crippled): full, uncapped visibility of all recurring charges, with the paywall at depth - history and trends, advanced alerts - not at the number of subscriptions (D3). Launch at $7.99/month or $69/year (D4). Include cancel guides (top 10 services) as a Pro feature to give the upgrade a concrete, immediately useful benefit.
 
 ---
 

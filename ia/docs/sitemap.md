@@ -60,8 +60,9 @@ competitor's menu.
 - **Connects to:** Subscription (subscriptions belong to a source), User
   (a user has one or more sources).
 - **Note:** the privacy path is a manual source, not a bank connection
-  (D2). Free allows up to 2 bank connections [? assumption carried from
-  CLAUDE.md free tier, not restated in D3]; Pro allows unlimited.
+  (D2). Free allows unlimited bank connections (no cap); Pro's value is
+  depth, not connection count (product decision, July 2026; D3 gates on
+  history, trends, and advanced alerts, never on the core visibility).
 
 ### 3. Preset (service template)
 
@@ -164,17 +165,18 @@ this MVP concept.
   bill negotiation** - explicitly cut in jtbd.md Part 5 and CLAUDE.md out of
   scope. No entities.
 
-### Note on a scope conflict surfaced while building this inventory
+### Note on a scope conflict surfaced while building this inventory (resolved)
 
-CLAUDE.md free tier says "up to 10 tracked subscriptions", but locked
-decision D3 (strategy.md, June 14 2026) says free includes full visibility
-with unlimited tracked subscriptions, limited by depth and history and never
-by the core relief experience. strategy.md is the current source of truth
-and D3 is the later locked decision, so this concept follows D3: the free
-tier is unlimited on subscription count and gated only on history, trends,
-advanced alerts, cancel depth, and export. This is a product-decision
-conflict, not a missing research fact, so it is recorded here rather than
-appended to master-research.md.
+While building this inventory, CLAUDE.md's free tier still said "up to 10
+tracked subscriptions" (and "connect up to 2 bank accounts"), which conflicted
+with locked decision D3 (strategy.md, June 14 2026): free includes full
+visibility with unlimited tracked subscriptions and connections, limited by
+depth and history and never by the core relief experience. This concept
+followed D3: the free tier is unlimited on subscription and connection count
+and gated only on history, trends, advanced alerts, cancel depth, and export.
+The conflict was resolved in the CJM Step 11 living-docs update (commit
+0dac829): the caps were removed from CLAUDE.md and the free tier aligned to D3,
+so the brief and this concept now agree.
 
 ---
 
@@ -472,7 +474,7 @@ navigation.md.
 - Equal-weight, no-preselect Path Choice; persistent manual fallback on the bank path (onboarding.md).
 - Guided Reveal stays one screen, three steps, total never alone (onboarding.md).
 - Cancel is free-first, never walled; could-not-cancel has an in-app next step (cancel.md).
-- Free is gated by depth and history, never by subscription count (pro.md, D3).
+- Free is gated by depth and history, never by subscription count or connection count (pro.md, D3).
 - Upgrade is a context-only gate that shows its origin; never a nav item (pro.md).
 - Active-voice alert copy; quiet new-dot, no red counts (alerts.md, navigation.md).
 - One-tap, single-confirm, delete-everything data deletion (account.md).
@@ -490,7 +492,6 @@ Gathered from every page-level file's Open section:
 - Cancellation verification via the next billing cycle (cancel.md).
 - Cancel-guide content coverage, the no-guide-yet long tail (cancel.md).
 - Lifetime price, $99 to $139 (pro.md, D4).
-- Free bank-connection cap: CLAUDE.md says 2, D3 is silent (account.md, pro.md).
 - Whether data export lives in Data and Privacy or in Pro (account.md, pro.md).
 - Consent banner, pending the PostHog cookie decision and the deferred EU review (system.md).
 - Real SEO search volumes and Core Web Vitals targets (seo.md).

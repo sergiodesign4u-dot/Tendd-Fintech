@@ -238,8 +238,10 @@ changed line, so no product line ships outside the table.
 
 Free is the full visibility layer, not a capped teaser: the paywall is at depth
 (history, trends, advanced alerts), never at basic visibility (per D3). There is
-no subscription cap and no bank-account cap - a capped list would break Emma's
-reveal and contradict the locked decision.
+no subscription cap and no bank-connection cap - a cap is really a visibility
+cap, and it would break Emma's reveal. The subscription-count cap follows D3
+directly; the bank-connection cap was resolved to "none" by a July 2026 product
+decision, since D3 was silent on connection count (see ia/docs/pages/account.md).
 
 - Value before bank: the value is visible before any bank connection is required - the Welcome landing shows a calm preview, and the privacy path adds subscriptions manually with presets (per D2)
 - Connect a bank read-only through Plaid, or add subscriptions yourself
@@ -253,7 +255,9 @@ Whether this calm view actually lands for an avoider is the riskiest assumption
 assume it. `[?]`
 
 ### Paid Tier (SaaS subscription - Tendd Pro)
-- Unlimited bank connections and subscriptions
+
+Pro is depth, not a visibility unlock: the full list, all bank connections, and the monthly total are free and uncapped (D3). Pro adds:
+
 - Full history and trends (3-month, 6-month, yearly view)
 - Cancel support: direct cancellation links + step-by-step guides
 - Advanced alerts: trial ending soon, unusual charge, duplicate subscription
@@ -276,7 +280,7 @@ assume it. `[?]`
 
 **Free tier:** Enough to feel the core value - seeing your subscriptions clearly. Designed to build trust before asking for payment.
 
-**Paid tier:** Tendd Pro, priced at approximately $4 to $6 per month (hypothesis - to be validated). Value proposition: "Pay less per month than most of the subscriptions you'll cancel."
+**Paid tier:** Tendd Pro, priced at $7.99/month or $69/year (locked, D4 - competitor data supported a higher point than the original $4-6/mo hypothesis). Value proposition: "Pay less per month than most of the subscriptions you'll cancel."
 
 **Assumption:** The free tier drives organic discovery and trust-building. Conversion to paid is triggered by wanting depth - history and trends, advanced alerts, and cancel support - per D3, not by hitting a visibility cap.
 
