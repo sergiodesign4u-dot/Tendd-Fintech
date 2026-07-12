@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tendd - Personas</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --border-light: #f0ede6;
+      --text: #2a2724;
+      --text-secondary: #6b6560;
+      --text-muted: #9b958e;
+      --accent: #5c7a6e;
+      --accent-light: #eef4f1;
+      --accent-mid: #d0e4dc;
+      --yellow-light: #fdf8ed;
+      --yellow-mid: #f5e9c4;
+      --red-light: #fdf2f0;
+      --red-mid: #f2cfc8;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --radius: 8px;
+      --radius-sm: 4px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Sidebar ─────────────────────────────────── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 220px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      z-index: 200;
+      transform: translateX(-100%);
+      transition: transform 0.22s ease;
+      overflow-y: auto;
+      padding-bottom: 32px;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 150;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+
+    .sidebar-close {
+      background: none; border: none; font-size: 18px; line-height: 1;
+      color: var(--text-muted); cursor: pointer; padding: 4px 6px;
+      border-radius: var(--radius-sm);
+    }
+    .sidebar-close:hover { color: var(--text); background: var(--border-light); }
+
+    .nav-toggle {
+      position: fixed; top: 14px; left: 16px; z-index: 100;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px;
+    }
+
+    .sidebar-nav { padding: 12px 10px 0; }
+
+    .nav-section-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); padding: 10px 8px 5px;
+    }
+    .nav-section-label.active { color: var(--accent); }
+
+    .nav-link {
+      display: block; text-decoration: none; color: var(--text-secondary);
+      font-size: 13px; padding: 6px 10px; border-radius: var(--radius-sm);
+      margin-bottom: 1px; transition: all 0.15s;
+    }
+    .nav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-link.active { color: var(--accent); background: var(--accent-light); font-weight: 500; }
+
+    .nav-page-active {
+      display: block; font-size: 13px; font-weight: 600; color: var(--accent);
+      padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light);
+      margin-bottom: 1px;
+    }
+
+    .nav-sub-link {
+      display: block; text-decoration: none; color: var(--text-muted);
+      font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm);
+      margin-bottom: 1px; transition: all 0.15s;
+    }
+    .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-sub-link.active { color: var(--accent); font-weight: 500; }
+
+    .nav-divider { border: none; border-top: 1px solid var(--border-light); margin: 10px 8px; }
+
+    .nav-next-block {
+      margin: 14px 8px 0; padding: 10px; border-radius: var(--radius-sm);
+      background: var(--bg); border: 1px solid var(--border-light);
+    }
+    .nav-next-label {
+      display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px;
+    }
+    .nav-next-items { font-size: 12px; color: var(--text-muted); }
+
+    @media (min-width: 840px) {
+      .sidebar { transform: translateX(0); }
+      .sidebar-close { display: none; }
+      .sidebar-overlay { display: none !important; }
+      .nav-toggle { display: none; }
+    }
+
+    /* ── Main layout ─────────────────────────────── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 72px 24px 80px;
+    }
+    @media (min-width: 840px) {
+      body { padding-left: 220px; }
+      main { padding-top: 40px; }
+    }
+    @media (max-width: 640px) {
+      main { padding-left: 16px; padding-right: 16px; }
+      h1 { font-size: 26px !important; }
+    }
+
+    /* ── Type ────────────────────────────────────── */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+    }
+    h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; color: var(--text); }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px; }
+    h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    p { margin-bottom: 12px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    cite { font-size: 11.5px; color: var(--text-muted); font-style: normal; }
+    cite a { color: var(--text-muted); }
+    cite a:hover { color: var(--accent); }
+
+    /* ── Hero ────────────────────────────────────── */
+    .hero {
+      padding: 64px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-meta { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; padding: 4px 10px;
+      border-radius: 100px; background: var(--accent-light);
+      color: var(--accent); border: 1px solid var(--accent-mid);
+    }
+    .hero-tagline {
+      font-size: 18px; color: var(--text-secondary);
+      margin-top: 12px; max-width: 640px; line-height: 1.5;
+    }
+
+    /* ── Observation stats ───────────────────────── */
+    .obs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .obs-stat {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 18px;
+    }
+    .obs-stat-number {
+      font-size: 28px; font-weight: 700; color: var(--accent);
+      letter-spacing: -0.02em; line-height: 1; margin-bottom: 5px;
+    }
+    .obs-stat-label { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+    .obs-stat-source { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+
+    .obs-insight {
+      background: var(--accent-light); border: 1px solid var(--accent-mid);
+      border-radius: var(--radius); padding: 18px 22px; margin-top: 16px;
+    }
+    .obs-insight p { font-size: 14px; color: var(--text); margin-bottom: 0; line-height: 1.6; }
+
+    /* ── Sections ────────────────────────────────── */
+    .section { padding: 64px 0 0; }
+
+    /* ── Persona card ────────────────────────────── */
+    .persona-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); margin-top: 24px;
+      box-shadow: var(--shadow-md); overflow: hidden;
+    }
+    .persona-card.primary { border-color: var(--accent-mid); }
+
+    .persona-card-head {
+      padding: 22px 26px 18px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .persona-card.primary .persona-card-head { background: var(--accent-light); }
+
+    .persona-tag {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      padding: 2px 8px; border-radius: 4px; margin-bottom: 10px;
+    }
+    .tag-primary { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+    .tag-secondary { background: var(--yellow-light); color: #8a6e20; border: 1px solid var(--yellow-mid); }
+
+    .persona-name {
+      font-size: 24px; font-weight: 700; letter-spacing: -0.02em;
+      color: var(--text); margin-bottom: 3px;
+    }
+    .persona-role { font-size: 14px; color: var(--text-secondary); }
+
+    .persona-body { padding: 24px 26px; }
+
+    .persona-row { margin-bottom: 26px; }
+    .persona-row:last-child { margin-bottom: 0; }
+
+    .persona-row-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;
+    }
+
+    .job-stmt {
+      font-size: 14px; font-style: italic; color: var(--text-secondary);
+      line-height: 1.6; border-left: 3px solid var(--accent-mid);
+      padding: 10px 14px; background: var(--bg);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-bottom: 8px;
+    }
+    .job-stmt:last-child { margin-bottom: 0; }
+    .job-stmt .job-source { display: block; font-style: normal; font-size: 11.5px; color: var(--text-muted); margin-top: 5px; }
+
+    .pain-item {
+      border-left: 3px solid var(--border);
+      padding: 11px 14px; margin-bottom: 8px; background: var(--bg);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .pain-item:last-child { margin-bottom: 0; }
+    .pain-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;
+    }
+    .pain-text { font-size: 13.5px; color: var(--text); line-height: 1.55; }
+
+    .trust-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    @media (max-width: 600px) { .trust-grid { grid-template-columns: 1fr; } }
+
+    .trust-col-head {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 10px; padding: 4px 0;
+    }
+    .trust-col-head.yes { color: var(--accent); }
+    .trust-col-head.no { color: #8a2020; }
+
+    .trust-item {
+      font-size: 13px; color: var(--text-secondary); line-height: 1.5;
+      padding: 7px 0; border-bottom: 1px solid var(--border-light);
+    }
+    .trust-item:last-child { border-bottom: none; }
+
+    .quote-block {
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px; background: var(--accent-light);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .quote-block blockquote {
+      font-size: 15px; font-style: italic; line-height: 1.6;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .quote-source { font-size: 12px; color: var(--text-secondary); }
+
+    /* ── Claim badges ────────────────────────────── */
+    .hyp-badge {
+      display: inline-flex; align-items: center; font-size: 10px;
+      font-weight: 700; padding: 2px 6px; border-radius: 4px;
+      background: var(--yellow-light); color: #8a6e20; border: 1px solid var(--yellow-mid);
+      margin-left: 5px; vertical-align: middle; letter-spacing: 0.02em;
+    }
+    .decision-badge {
+      display: inline-flex; align-items: center; font-size: 10px;
+      font-weight: 700; padding: 2px 6px; border-radius: 4px;
+      background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid);
+      margin-left: 5px; vertical-align: middle;
+    }
+
+    .updated-note {
+      font-size: 12.5px; color: var(--text-secondary);
+      background: var(--yellow-light); border: 1px solid var(--yellow-mid);
+      border-radius: var(--radius-sm); padding: 10px 14px;
+      margin-top: 10px; line-height: 1.5;
+    }
+
+    /* ── Footer ──────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border); margin-top: 80px;
+      padding: 32px 0; text-align: center;
+    }
+    .footer p { font-size: 13px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd Research</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Foundation Research</div>
+    <a href="../research/research.html#intro" class="nav-link">Overview</a>
+    <a href="../research/research.html#canvas" class="nav-link">Canvas</a>
+    <a href="../research/research.html#strategy" class="nav-link">Strategy</a>
+    <a href="../research/research.html#aarrr" class="nav-link">AARRR</a>
+    <a href="../research/research.html#competitors" class="nav-link">Competitors</a>
+    <a href="../research/research.html#benchmark" class="nav-link">Benchmark</a>
+    <a href="../research/research.html#patterns" class="nav-link">UX Patterns</a>
+    <a href="../research/research.html#conclusions" class="nav-link">Conclusions</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label active">User Research</div>
+    <span class="nav-page-active">Personas</span>
+    <a href="#observations" class="nav-sub-link" data-section="observations">Observations</a>
+    <a href="#emma" class="nav-sub-link" data-section="emma">Emma</a>
+    <a href="#ravi" class="nav-sub-link" data-section="ravi">Ravi</a>
+    <a href="#claudia" class="nav-sub-link" data-section="claudia">Claudia</a>
+    <a href="jtbd.html" class="nav-link">JTBD</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Information Architecture</div>
+    <a href="../ia/ia.html" class="nav-link">Overview</a>
+    <a href="../ia/navigation.html" class="nav-link">Global Navigation</a>
+    <a href="../ia/onboarding.html" class="nav-link">1 Onboarding</a>
+    <a href="../ia/core.html" class="nav-link">2 Core</a>
+    <a href="../ia/alerts.html" class="nav-link">3 Stay Ahead</a>
+    <a href="../ia/cancel.html" class="nav-link">4 Cut &amp; Celebrate</a>
+    <a href="../ia/pro.html" class="nav-link">5 Depth (Pro)</a>
+    <a href="../ia/account.html" class="nav-link">6 Account &amp; Trust</a>
+    <a href="../ia/system.html" class="nav-link">9 System</a>
+    <a href="../ia/seo.html" class="nav-link">SEO</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Wireframes</div>
+    <a href="../wireframes/index.html" class="nav-link">Overview</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Voice</div>
+    <a href="../voice/voices.html" class="nav-link">Overview</a>
+    <a href="../voice/voice.html" class="nav-link">Voice</a>
+    <a href="../voice/microcopy.html" class="nav-link">Microcopy</a>
+
+    <div class="nav-next-block">
+      <span class="nav-next-label">Next</span>
+      <span class="nav-next-items">Concept &middot; UI + Visual &middot; Tokens + Components &middot; Design System &middot; Responsive &middot; Animation &middot; Handoff</span>
+    </div>
+  </nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main>
+
+  <!-- Observations / Hero -->
+  <section class="hero" id="observations">
+    <div class="hero-meta">
+      <span class="badge">User Research</span>
+      <span class="badge">June 2026</span>
+      <span class="badge">3 Personas</span>
+    </div>
+    <h1>Personas</h1>
+    <p class="hero-tagline">Three personas built from research. One primary. Two secondary. Every claim is cited or marked hypothesis.</p>
+
+    <div class="obs-grid">
+      <div class="obs-stat">
+        <div class="obs-stat-number">42%</div>
+        <div class="obs-stat-label">of consumers forgot they were still being charged for a subscription they no longer used</div>
+        <div class="obs-stat-source"><cite>C+R Research 2022, via <a href="https://www.huffpost.com/entry/subscription-creep-personal-finance_l_67e2b566e4b02337954b55cc" target="_blank">huffpost.com</a></cite></div>
+      </div>
+      <div class="obs-stat">
+        <div class="obs-stat-number">$133</div>
+        <div class="obs-stat-label">average monthly amount consumers underestimate their subscription spend</div>
+        <div class="obs-stat-source"><cite>C+R Research 2022, via <a href="https://www.huffpost.com/entry/subscription-creep-personal-finance_l_67e2b566e4b02337954b55cc" target="_blank">huffpost.com</a></cite></div>
+      </div>
+      <div class="obs-stat">
+        <div class="obs-stat-number">58%</div>
+        <div class="obs-stat-label">of millennials experience financial anxiety at least three days per week</div>
+        <div class="obs-stat-source"><cite>Motley Fool 2024, <a href="https://www.fool.com/money/research/2024-financial-stress-anxiety-and-mental-health-survey" target="_blank">fool.com</a></cite></div>
+      </div>
+      <div class="obs-stat">
+        <div class="obs-stat-number">68%</div>
+        <div class="obs-stat-label">of users are uncomfortable with apps' level of access to their financial data</div>
+        <div class="obs-stat-source"><cite>Banking Dive, <a href="https://www.bankingdive.com/news/consumers-uncomfortable-with-apps-level-of-access-to-data/567914/" target="_blank">bankingdive.com</a></cite></div>
+      </div>
+    </div>
+
+    <div class="obs-insight">
+      <p><strong>Key behavior pattern:</strong> The primary user actively avoids thinking about money in detail. They engage only when anxiety exceeds avoidance - a trigger event like a surprise charge or a renewal notification. The first session must convert avoidance into a moment of control. Post-persona research (June 2026) found clinical backing for this: people <em>anticipate</em> that engaging with their finances will increase anxiety, but studies show the opposite is true when done in a controlled, calm context. <cite>Source: Cornell University research, <a href="https://news.cornell.edu/node/331238" target="_blank">news.cornell.edu</a></cite></p>
+    </div>
+  </section>
+
+  <!-- ─── Emma ─────────────────────────────────────── -->
+  <section class="section" id="emma">
+    <div class="section-label">Primary Persona</div>
+    <h2>The Anxious Non-Looker</h2>
+
+    <div class="persona-card primary">
+      <div class="persona-card-head">
+        <span class="persona-tag tag-primary">Primary</span>
+        <div class="persona-name">Emma, 29</div>
+        <div class="persona-role">The Anxious Non-Looker</div>
+      </div>
+      <div class="persona-body">
+
+        <div class="persona-row">
+          <div class="persona-row-label">Context</div>
+          <p>Emma works in marketing at a mid-size company in Berlin, London, or Chicago - this persona exists across markets. She earns a reasonable salary and considers herself reasonably responsible with money. She pays rent on time and has a small savings account.</p>
+          <p>She has subscriptions to Spotify, Netflix, an Adobe plan from a freelance project two years ago, a gym she visits irregularly, a meal-kit service she paused and forgot to cancel, a news site she clicked "annual plan" on during a sale, and two or three others she cannot immediately name. When she gets a notification about a charge, she mentally notes it and closes it without investigating.</p>
+          <p>Her relationship with money: "I probably spend more than I should on things I'm not using, but I don't want to know the exact number because it'll stress me out."</p>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Jobs</div>
+          <div class="job-stmt">
+            When I suspect I'm paying for things I forgot about or never use, I want to see all my recurring charges clearly in one calm view, so that I feel in control of my money without needing to become a finance person.
+            <span class="job-source"><cite>strategy.md Segment A JTBD, confirmed by C+R Research data (O2, O3) and user testimonials (O7)</cite></span>
+          </div>
+          <div class="job-stmt">
+            When a subscription renews or a price changes, I want to know in plain language what happened, so I am never caught off guard by a charge on my statement.
+            <span class="job-source"><cite>master-research.md J4, ux-patterns.md BP3 (action on surprise)</cite></span>
+          </div>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Pains</div>
+
+          <div class="pain-item">
+            <div class="pain-label">P1 - Vague background dread</div>
+            <div class="pain-text">She knows money is leaking out somewhere but the act of looking feels worse than the ignorance. She avoids her bank statement precisely because she fears what she'll find.</div>
+            <div class="updated-note">
+              <strong>Updated in re-research (June 2026):</strong> Clinical research confirms two distinct triggers drive this avoidance. First, financial information acts as a "scarcity cue" that threatens her self-image as someone reasonably responsible with money - the information itself is the trigger, not the number. Second, fear of spiraling: "engaging will lead me into a complex, overwhelming situation." Both are design-addressable: judgment-free framing counters the first; one-thing-at-a-time progressive disclosure counters the second. <cite>Sources: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11522046/" target="_blank">PMC/NCBI 2024</a>, <a href="https://thefinancialbrand.com/news/financial-education/financial-avoidance-the-fears-and-habits-holding-your-customers-back-189384" target="_blank">The Financial Brand</a></cite>
+            </div>
+          </div>
+
+          <div class="pain-item">
+            <div class="pain-label">P2 - Cryptic transaction names</div>
+            <div class="pain-text">When she does look, she sees "SPOTIFYAB STOCKHOLM" and "DCSF MEDIA GROUP" and cannot decode half the charges. This makes looking feel futile and stressful, not clarifying.</div>
+          </div>
+
+          <div class="pain-item">
+            <div class="pain-label">P3 - Bank connection as step 1</div>
+            <div class="pain-text">If a new app asks for her banking credentials in step 1, she closes it. She has tried twice and both times got to the "connect your bank" screen and thought: "I don't know these people yet." Four in five users were unaware apps store bank usernames and passwords. <cite>Source: <a href="https://www.bankingdive.com/news/consumers-uncomfortable-with-apps-level-of-access-to-data/567914/" target="_blank">bankingdive.com</a></cite></div>
+          </div>
+
+          <div class="pain-item">
+            <div class="pain-label">P4 - No calm space to just see subscriptions</div>
+            <div class="pain-text">Every app she has tried feels overwhelming: too many numbers, too many graphs, too much emphasis on what she is doing wrong. The calm, focused subscription view does not exist. <cite>Source: competitive-analysis.md P2 (feature creep buries the core)</cite></div>
+          </div>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Trust Triggers</div>
+          <div class="trust-grid">
+            <div>
+              <div class="trust-col-head yes">What earns trust</div>
+              <div class="trust-item">Showing value before asking for bank access - even a demo with sample data that looks like her life</div>
+              <div class="trust-item">Explicit plain-language explanation of what the product reads and why: "We read only recurring charge patterns. We cannot move money."</div>
+              <div class="trust-item">Real merchant names and logos in any preview - recognizing Spotify and Netflix immediately signals "this understands me"</div>
+              <div class="trust-item">Calm, non-urgent visual environment - nothing red, no words like "warning" or "overspending"</div>
+              <div class="trust-item">Testimonials from people who sound like her: "I found two subscriptions I forgot about and cancelled them"</div>
+            </div>
+            <div>
+              <div class="trust-col-head no">What scares her off</div>
+              <div class="trust-item">Bank connection as step 1 - before any value is shown</div>
+              <div class="trust-item">Financial jargon or complexity on the first screen</div>
+              <div class="trust-item">Any suggestion she is doing something wrong with money</div>
+              <div class="trust-item">Graphs or percentage comparisons without plain-language context</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Mood Quote</div>
+          <div class="quote-block">
+            <blockquote>"The mental relief of knowing I'm not bleeding cash to forgotten subscriptions was priceless."</blockquote>
+            <div class="quote-source">Rocket Money user. <cite>Source: <a href="https://productivewithchris.com/app-reviews/rocket-money-review-2025/" target="_blank">productivewithchris.com</a></cite></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Ravi ──────────────────────────────────────── -->
+  <section class="section" id="ravi">
+    <div class="section-label">Secondary Persona</div>
+    <h2>The Privacy-First Non-Looker</h2>
+
+    <div class="persona-card">
+      <div class="persona-card-head">
+        <span class="persona-tag tag-secondary">Secondary</span>
+        <div class="persona-name">Ravi, 31</div>
+        <div class="persona-role">The Privacy-First Non-Looker</div>
+      </div>
+      <div class="persona-body">
+
+        <div class="persona-row">
+          <div class="persona-row-label">Context</div>
+          <p>Ravi works in software or adjacent fields and is technically literate. He read an article about a data broker selling financial behavior data eighteen months ago and has been cautious about finance apps ever since. He uses a VPN and reads privacy policies when he cares enough.</p>
+          <p>He has the same subscription problem Emma has - more money going out than he realizes - but his barrier is not anxiety about the number. It is a principled refusal to route his bank credentials through any third party he does not personally trust. He tried Bobby (which he likes) but manual entry for 14+ subscriptions led him to abandon it twice after adding only half. He has not found an app that offers privacy AND automation. <cite>Source: ReSubs 18K+ users on no-bank model validates this segment, <a href="https://resubs.app" target="_blank">resubs.app</a></cite></p>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Jobs</div>
+          <div class="job-stmt">
+            When I want to understand my subscription spend, I want to track all my recurring charges without giving any app access to my bank account, so I feel in control of my money and secure at the same time.
+            <span class="job-source"><cite>strategy.md Segment A2 JTBD, J6. Validated by ReSubs 18K+ users, <a href="https://resubs.app" target="_blank">resubs.app</a></cite></span>
+          </div>
+          <div class="job-stmt">
+            When I need to cancel something, I want a step-by-step process that tells me exactly what to click, so I don't spend 30 minutes trying to find the cancel button.
+            <span class="job-source"><cite>master-research.md J3, competitive-analysis.md (ReSubs 30+ cancel guides)</cite></span>
+          </div>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Pains</div>
+
+          <div class="pain-item">
+            <div class="pain-label">P1 - The manual entry trap</div>
+            <div class="pain-text">Adding 14+ subscriptions by hand is the single largest friction point. He has started twice and stopped when he ran out of patience. He knows the result would be worth it. He cannot get there without more automated help. <cite>Source: Bobby and ReSubs both show this friction; competitive-analysis.md P3</cite></div>
+          </div>
+
+          <div class="pain-item">
+            <div class="pain-label">P2 - Privacy-or-nothing binary</div>
+            <div class="pain-text">The market offers full bank access (Rocket Money, Emma) or fully manual (Bobby). He wants automation without bank credentials. ReSubs' Gmail scan option introduces a different data concern. No product exists in the middle. <cite>Source: competitive-analysis.md P3</cite></div>
+          </div>
+
+          <div class="pain-item">
+            <div class="pain-label">P3 - Incomplete picture as low-grade anxiety</div>
+            <div class="pain-text">Because manual entry is hard and he has not finished it, his current self-knowledge is "somewhere around $200/month on subscriptions, but probably more." This incompleteness creates its own background stress.</div>
+          </div>
+
+          <div class="pain-item">
+            <div class="pain-label">P4 - Hidden cancel complexity</div>
+            <div class="pain-text">Services he wants to cancel (gym, a streaming service) all have deliberately obscured cancellation flows. He has opened a tab to cancel and closed it frustrated. <cite>Source: competitive-analysis.md gap G4</cite></div>
+          </div>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Trust Triggers</div>
+          <div class="trust-grid">
+            <div>
+              <div class="trust-col-head yes">What earns trust</div>
+              <div class="trust-item">Explicit "no bank connection required" messaging, visible before he has to click anything</div>
+              <div class="trust-item">Data-on-device storage with optional cloud backup. "Your data stays on your phone" is a strong signal. <span class="decision-badge">D2 closed</span></div>
+              <div class="trust-item">Manual entry with 400+ preset library at launch - reduces effort to a manageable level (founder decision D2, June 2026)</div>
+              <div class="trust-item">Transparent per-method data description: one sentence per import method explaining exactly what it accesses</div>
+              <div class="trust-item">No account required to try the product - let him start manually first</div>
+            </div>
+            <div>
+              <div class="trust-col-head no">What scares him off</div>
+              <div class="trust-item">Any mention of Plaid - he knows what it accesses</div>
+              <div class="trust-item">Vague language like "bank-level security" without specifics</div>
+              <div class="trust-item">Required email registration before any value is shown</div>
+              <div class="trust-item">Data appearing to leave his device without explicit consent</div>
+            </div>
+          </div>
+          <div class="updated-note" style="margin-top:14px">
+            <strong>Note on Gmail scan:</strong> It was hypothesized that Ravi would grant Gmail access more readily than bank access. Post-persona research found no direct evidence for this. Manual entry is confirmed as the most trusted method for privacy-first users. Gmail scan is deferred to v2, pending primary user testing. <span class="decision-badge">D2 closed</span> <cite>Source: <a href="https://budgetvault.app/blog/budget-app-without-bank-sync" target="_blank">budgetvault.app</a></cite>
+          </div>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Mood Quote</div>
+          <div class="quote-block">
+            <blockquote>"Haven't signed up yet. Not comfortable giving banking info to an app."</blockquote>
+            <div class="quote-source">User expressing hesitation about bank-connected trackers. <cite>Source: <a href="https://www.19pine.ai/blog/best-management-and-subscription-trackers" target="_blank">19pine.ai</a></cite></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Claudia ───────────────────────────────────── -->
+  <section class="section" id="claudia">
+    <div class="section-label">Secondary Persona</div>
+    <h2>The Motivated Cutter</h2>
+
+    <div class="persona-card">
+      <div class="persona-card-head">
+        <span class="persona-tag tag-secondary">Secondary</span>
+        <div class="persona-name">Claudia, 36</div>
+        <div class="persona-role">The Motivated Cutter</div>
+      </div>
+      <div class="persona-body">
+
+        <div class="persona-row">
+          <div class="persona-row-label">Context</div>
+          <p>Claudia is 36 and recently started counting her money more carefully. She is not financially anxious in the way Emma is - she is financially aware and slightly annoyed. She has two streaming services she barely uses, a project management tool from a brief freelance period, a cloud storage plan that upgraded itself, and a fitness app she replaced with a gym membership six months ago but somehow kept paying for.</p>
+          <p>She searched "subscription tracker app" on a Saturday morning after getting a renewal email for something she had forgotten about completely. She wants to find what she is paying for, decide what to cut, and be done in under 20 minutes. She is willing to connect her bank if it gets her to the result faster. <cite>Source: strategy.md Segment B, PocketGuard's 1M+ members validate this "what am I committed to" framing, <a href="https://pocketguard.com" target="_blank">pocketguard.com</a></cite></p>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Jobs</div>
+          <div class="job-stmt">
+            When I am looking to reduce my monthly spend, I want to quickly identify which subscriptions I actually use vs. which ones I keep forgetting to cancel, so I can free up money without a complicated process.
+            <span class="job-source"><cite>strategy.md Segment B JTBD. 40.3% of subscribers cancelled at least one subscription in 2024, <a href="https://adapty.io/blog/9-subscription-trends-dominating-2025/" target="_blank">adapty.io</a></cite></span>
+          </div>
+          <div class="job-stmt">
+            When I have decided to cancel something, I want a direct link or step-by-step guide so I can do it immediately while I am still motivated.
+            <span class="job-source"><cite>master-research.md J3. Basic cancel instruction is free (founder decision D3, June 2026). Full guides are Pro.</cite></span>
+          </div>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Pains</div>
+
+          <div class="pain-item">
+            <div class="pain-label">P1 - Statement tedium</div>
+            <div class="pain-text">She knows the answer is in her bank statements somewhere. Scrolling through three months of transactions to find recurring charges is what made her look for an app instead. Consumers underestimate subscription spend by $133/month on average. <cite>Source: C+R Research 2022</cite></div>
+          </div>
+
+          <div class="pain-item">
+            <div class="pain-label">P2 - Cancellation dark patterns</div>
+            <div class="pain-text">Every service she wants to cancel requires navigating to a buried settings page, clicking through a retention flow, and sometimes calling a phone number. She has started cancellations and given up. <cite>Source: competitive-analysis.md gap G4</cite></div>
+          </div>
+
+          <div class="pain-item">
+            <div class="pain-label">P3 - Feature overload in existing tools</div>
+            <div class="pain-text">She tried Rocket Money briefly and felt it wanted her to do too much: budgets, credit scores, net worth. She just wants the subscription list. <cite>Source: competitive-analysis.md P2 (feature creep buries the core job)</cite></div>
+          </div>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Trust Triggers</div>
+          <div class="trust-grid">
+            <div>
+              <div class="trust-col-head yes">What earns trust</div>
+              <div class="trust-item">Fast time-to-value: subscriptions visible in under 2 minutes of connecting her bank. Every extra step is drop-off risk.</div>
+              <div class="trust-item">Clear ROI framing: "You're paying $247/month before anything else" - the number and count together give her an instant decision signal.</div>
+              <div class="trust-item">Specific cancel help: a link and basic steps for the service she wants to cancel - free in all tiers. <span class="decision-badge">D3 closed</span></div>
+              <div class="trust-item">Concrete social proof with numbers: "Found 6 forgotten subscriptions totaling $437 in 15 minutes." <cite>CNET tester, via <a href="https://www.aol.com/rocket-money-review-2025-cnets-150000066.html" target="_blank">aol.com</a></cite></div>
+            </div>
+            <div>
+              <div class="trust-col-head no">What scares her off</div>
+              <div class="trust-item">Anything that adds steps to the cancellation process</div>
+              <div class="trust-item">Percentage-based fees for help ("we take 40% of what you save" - the Rocket Money model)</div>
+              <div class="trust-item">Having to wait for a human concierge when she wants to cancel now</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="persona-row">
+          <div class="persona-row-label">Mood Quote</div>
+          <div class="quote-block">
+            <blockquote>"After it saved me $400 in 15 minutes, I'd say it is."</blockquote>
+            <div class="quote-source">Rocket Money user, responding to "Is Rocket Money worth it?" <cite>Source: <a href="https://finance.yahoo.com/news/rocket-money-save-much-subscriptions-170009989.html" target="_blank">finance.yahoo.com</a></cite></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Tendd Product Research - People &amp; JTBD Phase - June 2026. All facts cited. Hypotheses marked <span class="hyp-badge">?</span></p>
+    <p style="margin-top:4px">
+      <a href="../research/research.html">Foundation Research</a> -
+      <a href="jtbd.html">Jobs to Be Done</a> -
+      <a href="docs/personas.md">Source: personas.md</a>
+    </p>
+  </div>
+
+</main>
+
+<script>
+  (function() {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    var toggle = document.getElementById('navToggle');
+    var close = document.getElementById('sidebarClose');
+
+    function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('open'); }
+    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+
+    toggle.addEventListener('click', openSidebar);
+    close.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    sidebar.querySelectorAll('.nav-sub-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        if (window.innerWidth < 840) closeSidebar();
+      });
+    });
+
+    // IntersectionObserver for active sub-link tracking
+    var subLinks = document.querySelectorAll('.nav-sub-link[data-section]');
+    var sections = document.querySelectorAll('section[id]');
+
+    if ('IntersectionObserver' in window && sections.length) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            subLinks.forEach(function(l) { l.classList.remove('active'); });
+            var active = document.querySelector('.nav-sub-link[data-section="' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-15% 0px -75% 0px' });
+
+      sections.forEach(function(s) { observer.observe(s); });
+    }
+  })();
+</script>
+
+</body>
+</html>

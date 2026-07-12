@@ -5,9 +5,9 @@ every step that follows: which screens exist, what job each closes, where it
 sits in a flow, and which of the four states (empty / error / loading /
 success) are real for it. Steps 3 to 8 build against this table.
 
-Source of truth: IA/docs/sitemap.md (screen names, jobs, navigation),
-IA/docs/flows.md (flows, decisions, states, dead ends), and
-research/docs/jtbd.md (jobs). Screen names below are copied exactly from
+Source of truth: ia/docs/sitemap.md (screen names, jobs, navigation),
+ia/docs/flows.md (flows, decisions, states, dead ends), and
+user-research/docs/jtbd.md (jobs). Screen names below are copied exactly from
 sitemap.md. No screen is invented here.
 
 ## How to read the four states
@@ -169,5 +169,5 @@ open and swaps the summary context line to potential savings.
   distinct from the Pro upsell.
 - Share Snapshot has a generating (loading) state and a share-failed error.
 
-These are the four-state and dead-end fixes from IA/docs/sitemap.md Critique.
+These are the four-state and dead-end fixes from ia/docs/sitemap.md Critique.
 Every one resolves to a state page here, not a new screen.

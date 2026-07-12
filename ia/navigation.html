@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tendd IA - Global Navigation</title><style>
+:root{--bg:#f8f7f4;--surface:#fff;--border:#e8e4dc;--border-light:#f0ede6;--text:#2a2724;--text-secondary:#6b6560;--text-muted:#9b958e;--accent:#5c7a6e;--accent-light:#eef4f1;--accent-mid:#d0e4dc;--yellow-light:#fdf8ed;--yellow-mid:#f5e9c4;--red-light:#fdf2f0;--red-mid:#f2cfc8;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--radius:8px;--radius-sm:4px;--shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:var(--surface);border-right:1px solid var(--border);z-index:200;transform:translateX(-100%);transition:transform .22s ease;overflow-y:auto;padding-bottom:32px}
+.sidebar.open{transform:translateX(0)}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:150}
+.sidebar-overlay.open{display:block}
+.sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:18px 16px 14px;border-bottom:1px solid var(--border-light)}
+.nav-brand{font-weight:600;font-size:13.5px;color:var(--text);letter-spacing:-.01em}
+.sidebar-close{background:none;border:none;font-size:18px;line-height:1;color:var(--text-muted);cursor:pointer;padding:4px 6px;border-radius:var(--radius-sm)}
+.nav-toggle{position:fixed;top:14px;left:16px;z-index:100;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow);color:var(--text);font-size:15px}
+.sidebar-nav{padding:12px 10px 0}
+.nav-section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:10px 8px 5px}
+.nav-section-label.active{color:var(--accent)}
+.nav-link{display:block;text-decoration:none;color:var(--text-secondary);font-size:13px;padding:6px 10px;border-radius:var(--radius-sm);margin-bottom:1px;transition:all .15s}
+.nav-link:hover{color:var(--text);background:var(--border-light)}
+.nav-link.active{color:var(--accent);background:var(--accent-light);font-weight:500}
+.nav-divider{border:none;border-top:1px solid var(--border-light);margin:10px 8px}
+.nav-next-block{margin:14px 8px 0;padding:10px;border-radius:var(--radius-sm);background:var(--bg);border:1px solid var(--border-light)}
+.nav-next-label{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px}
+.nav-next-items{font-size:12px;color:var(--text-muted)}
+@media(min-width:840px){.sidebar{transform:translateX(0)}.sidebar-close{display:none}.sidebar-overlay{display:none!important}.nav-toggle{display:none}}
+main{max-width:900px;margin:0 auto;padding:72px 24px 80px}
+@media(min-width:840px){body{padding-left:220px}main{padding-top:40px}}
+@media(max-width:640px){main{padding-left:16px;padding-right:16px}h1{font-size:26px!important}}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h1{font-size:34px;font-weight:700;letter-spacing:-.03em;line-height:1.15}
+h2{font-size:21px;font-weight:600;letter-spacing:-.02em;margin-bottom:14px}
+h3{font-size:15px;font-weight:600;margin:14px 0 8px}
+p{margin-bottom:12px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.hero{padding:56px 0 32px;border-bottom:1px solid var(--border)}
+.hero-meta{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;font-size:12px;font-weight:500;padding:4px 10px;border-radius:100px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent-mid)}
+.hero-tagline{font-size:17px;color:var(--text-secondary);margin-top:12px;max-width:680px;line-height:1.5}
+.metaline{font-size:13px;color:var(--text-secondary);margin-top:12px}
+.metaline b{color:var(--text)}
+.section{padding:40px 0 0}
+.lead{font-size:14px;color:var(--text-secondary);max-width:700px}
+ul.dec{list-style:none;padding:0;margin:12px 0 0}
+ul.dec li{font-size:13.5px;color:var(--text-secondary);padding:7px 0 7px 16px;border-bottom:1px solid var(--border-light);position:relative}
+ul.dec li:before{content:"";position:absolute;left:0;top:14px;width:5px;height:5px;border-radius:50%;background:var(--accent-mid)}
+ul.dec li b{color:var(--text)}
+.node{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:15px 18px;margin-top:14px}
+.node h3{margin-top:0;color:var(--text)}
+.node .tp{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:6px}
+ol.blocks{margin:0;padding-left:16px}
+ol.blocks li{font-size:13px;color:var(--text-secondary);margin-bottom:3px;line-height:1.45}
+.pill{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 5px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.pill.p{background:var(--accent-light);color:var(--accent);border:1px solid var(--accent-mid)}
+.pill.s{background:var(--bg);color:var(--text-muted);border:1px solid var(--border)}
+.table-wrap{overflow-x:auto;margin-top:14px;border:1px solid var(--border);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;font-size:12.5px;background:var(--surface)}
+th,td{border-bottom:1px solid var(--border-light);border-right:1px solid var(--border-light);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent-light);color:var(--accent);font-size:10px;text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+tr:last-child td{border-bottom:none}
+td:last-child,th:last-child{border-right:none}
+.mock-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin-top:14px}
+.mock{border:1px solid #333;border-radius:6px;background:#fff;overflow:hidden}
+.mock-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#222;background:#f0f0f0;border-bottom:1px solid #333;padding:6px 10px}
+.mock-body{padding:14px 15px;font-size:13px;color:#111}
+.mock-body .mt{font-weight:700;font-size:15px;margin-bottom:5px}
+.mock-body .mnum{font-weight:700;font-size:24px;letter-spacing:-.02em;margin:2px 0 6px}
+.mock-body .mmuted{color:#666;font-size:12px}
+.mock-body .row{border-bottom:1px dashed #ccc;padding:6px 0;display:flex;justify-content:space-between;gap:8px}
+.mock-body .row:last-child{border-bottom:none}
+.mbtn{display:inline-block;border:1px solid #333;border-radius:5px;padding:5px 11px;font-size:12px;margin:8px 6px 0 0;background:#fff;color:#111}
+.mbtn.solid{background:#222;color:#fff}
+.callout{background:var(--accent-light);border:1px solid var(--accent-mid);border-radius:var(--radius);padding:14px 18px;margin-top:14px;font-size:13.5px}
+.callout.flag{background:var(--yellow-light);border-color:var(--yellow-mid)}
+.small{font-size:12.5px;color:var(--text-secondary)}
+.q{background:var(--yellow-light);border:1px solid var(--yellow-mid);color:#8a6e20;font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px}
+.footer{border-top:1px solid var(--border);margin-top:56px;padding:28px 0;text-align:center}
+.footer p{font-size:12.5px;color:var(--text-muted)}
+</style></head><body>
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header"><span class="nav-brand">Tendd Research</span><button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Foundation Research</div>
+    <a href="../research/research.html" class="nav-link">Foundation Research</a>
+    <div class="nav-section-label">User Research</div>
+    <a href="../user-research/personas.html" class="nav-link">Personas</a>
+    <a href="../user-research/jtbd.html" class="nav-link">JTBD</a>
+    <hr class="nav-divider">
+    <div class="nav-section-label active">Information Architecture</div>
+    <a href="ia.html" class="nav-link">Overview</a>
+    <a href="navigation.html" class="nav-link active">Global Navigation</a>
+    <a href="onboarding.html" class="nav-link">1 Onboarding</a>
+    <a href="core.html" class="nav-link">2 Core</a>
+    <a href="alerts.html" class="nav-link">3 Stay Ahead</a>
+    <a href="cancel.html" class="nav-link">4 Cut & Celebrate</a>
+    <a href="pro.html" class="nav-link">5 Depth (Pro)</a>
+    <a href="account.html" class="nav-link">6 Account & Trust</a>
+    <a href="system.html" class="nav-link">9 System</a>
+    <a href="seo.html" class="nav-link">SEO</a>
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Wireframes</div>
+    <a href="../wireframes/index.html" class="nav-link">Overview</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Voice</div>
+    <a href="../voice/voices.html" class="nav-link">Overview</a>
+    <a href="../voice/voice.html" class="nav-link">Voice</a>
+    <a href="../voice/microcopy.html" class="nav-link">Microcopy</a>
+
+    <div class="nav-next-block">
+      <span class="nav-next-label">Next</span>
+      <span class="nav-next-items">Concept &middot; UI + Visual &middot; Tokens + Components &middot; Design System &middot; Responsive &middot; Animation &middot; Handoff</span>
+    </div>
+  </nav>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main>
+<section class="hero">
+  <div class="hero-meta"><span class="badge">Node 0</span><span class="badge">Phase IA</span><span class="badge">Page-level</span></div>
+  <h1>Global Navigation and Chrome</h1>
+  <p class="hero-tagline">GC1 App Header and GC2 Global Tab Bar: the frame around every steady-state screen.</p>
+  <p class="metaline"><b>Job:</b> Carries every job cluster into reach (4 tabs = 4 clusters).</p>
+  <p class="metaline"><b>Type:</b> Section, Section, State matrix</p>
+</section>
+<section class="section"><div class="section-label">Step 2</div><h2>Global chrome</h2><p class="lead">GC1 App Header and GC2 Global Tab Bar frame every steady-state screen. GC3 to GC7 are reusable Sections specified in their cluster pages, not here.</p></section><section class="section"><div class="section-label">Decisions</div><h2>Recommendations</h2><ul class="dec"><li>Four tabs, no more, and <b>no red badge counts</b>; a quiet new-dot only.</li><li>The whole onboarding chain <b>hides</b> both header actions and the tab bar.</li><li>The header carries <b>at most one</b> contextual action.</li><li>On desktop the bottom tab bar becomes a <b>left rail</b>; the header folds into its top.</li><li>Tendd has <b>no footer</b>: it is an app, not a marketing site.</li></ul></section><section class="section"><div class="section-label">Blocks</div><h2>GC1 and GC2</h2><div class="node"><div class="tp">Section</div><h3>GC1 App Header</h3><ol class="blocks"><li><span class="pill p">P</span>Back or menu control</li><li><span class="pill p">P</span>Screen title</li><li><span class="pill s">S</span>One contextual action slot</li></ol></div><div class="node"><div class="tp">Section</div><h3>GC2 Global Tab Bar</h3><ol class="blocks"><li><span class="pill p">P</span>Home &rarr; 2.6</li><li><span class="pill p">P</span>Alerts &rarr; 3.8</li><li><span class="pill p">P</span>Save &rarr; Home save-focus</li><li><span class="pill p">P</span>You &rarr; 6.16</li></ol></div></section><section class="section"><div class="section-label">State matrix</div><h2>Persona x plan</h2><div class="table-wrap"><table><thead><tr><th>Element</th><th>Emma (bank)</th><th>Ravi (privacy)</th><th>Claudia</th><th>Free</th><th>Pro</th></tr></thead><tbody><tr><td>App Header</td><td>Source reads "from [Bank]"</td><td>Source reads "Added by you"; may show "Create an account to save"</td><td>Standard</td><td>Chip "Free"</td><td>Chip "Pro"</td></tr><tr><td>Tab Bar</td><td>4 tabs; lives on Home, Save</td><td>4 tabs; lives on Home, You</td><td>4 tabs; lives on Save, Alerts</td><td>4 identical tabs; History gated</td><td>4 identical tabs; gates unlocked</td></tr></tbody></table></div><p class="small">The tab set never changes by persona or plan; only what is gated behind a tab changes (D3).</p></section><section class="section"><div class="section-label">Variants</div><h2>Mockups</h2><div class="mock-grid"><div class="mock"><div class="mock-label">GC2 mobile bottom bar</div><div class="mock-body"><div class="row"><span>Home</span><span>Alerts &bull;</span><span>Save</span><span>You</span></div><p class="mmuted">Bottom tab bar, thumb reach, quiet dot on Alerts.</p></div></div><div class="mock"><div class="mock-label">GC2 desktop left rail</div><div class="mock-body"><p class="mt">Home</p><p>Alerts &bull;</p><p>Save</p><p>You</p><p class="mmuted">Same four destinations as a left rail on desktop.</p></div></div><div class="mock"><div class="mock-label">GC1 onboarding variant</div><div class="mock-body"><div class="mt">Tendd</div><p class="mmuted">Brand only. No back, no action, no tab bar.</p></div></div></div></section><section class="section"><div class="section-label">Cross-cutting</div><h2>SEO, Accessibility, Mobile</h2><p class="small"><b>SEO.</b> Chrome is not a content surface. noindex, not applicable.</p><p class="small"><b>Accessibility.</b> Tab bar is a navigation landmark; current tab has aria-current; labels are text, not icon-only; 44px targets.</p><p class="small"><b>Mobile.</b> The bottom-bar-to-left-rail change is the product's main breakpoint delta and cascades to every steady-state screen.</p></section><section class="section"><div class="section-label">Status</div><h2>Locked (draft, 2026-07-03) / Open</h2><p class="small"><b>Locked.</b> Four tabs, no red counts, hidden in onboarding, left rail on desktop, no footer.</p><p class="small"><b>Still [?].</b> The no-account header/You treatment depends on the auth model.</p></section>
+<div class="footer"><p>Tendd - Full Information Architecture (Phase IA). Source of truth: <a href="docs/pages/navigation.md">docs/pages/navigation.md</a>. Structure and detail only, no visual design.</p>
+<p style="margin-top:4px"><a href="ia.html">IA overview</a> - <a href="../research/research.html">Research</a> - <a href="docs/sitemap.md">Sitemap index</a></p></div>
+</main>
+<script>(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open')}function cl(){s.classList.remove('open');o.classList.remove('open')}t.addEventListener('click',op);c.addEventListener('click',cl);o.addEventListener('click',cl);})();</script>
+</body></html>

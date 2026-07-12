@@ -5,7 +5,7 @@ Steps 3 to 9 of this phase, and later phases that read wireframes, rely on
 this document. Read it before building or reviewing any screen.
 
 Sources this obeys: wireframes/_screens.md (the screen and state inventory),
-IA/docs/sitemap.md (screen names, navigation, entities), IA/docs/flows.md
+ia/docs/sitemap.md (screen names, navigation, entities), ia/docs/flows.md
 (flows and states), and the five design principles in CLAUDE.md.
 
 A wireframe is structure, not look. It answers "what is on the screen, in
@@ -166,6 +166,6 @@ real copy, and the four states.
 - Every wireframe traces to a screen in _screens.md and a place in a flow in
   flows.md. No screen that is not on the map.
 - No new zones beyond what sitemap.md and the IA page-level library
-  (IA/docs/pages/) define for that screen. If a zone seems missing, it is a
+  (ia/docs/pages/) define for that screen. If a zone seems missing, it is a
   question for the map, not an invention in the wireframe.
 - English only in all files. No em dashes anywhere.

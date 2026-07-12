@@ -4,20 +4,27 @@
 
 | Phase | Output | Status |
 |-------|--------|--------|
-| Research Sprint | research/research.html, research/docs/*.md | Done (June 2026) |
-| People & JTBD | research/personas.html, research/jtbd.html, research/docs/personas.md, research/docs/jtbd.md | Done (June 2026) |
-| Concept Architecture (IA) | IA/ia.html, IA/docs/sitemap.md, IA/docs/flows.md | Done (July 2026) |
+| Foundation Research | research/research.html, research/docs/*.md | Done (June 2026) |
+| User Research (Personas + JTBD) | user-research/personas.html, user-research/jtbd.html, user-research/docs/personas.md, user-research/docs/jtbd.md | Done (June 2026) |
+| CJM (As-Is + To-Be) | folded into User Research and the Information Architecture flows (flows.md); no separate deliverable | Not run as a separate phase |
+| Information Architecture | ia/ia.html, ia/docs/sitemap.md, ia/docs/flows.md | Done (July 2026) |
 | Wireframes | wireframes/index.html, wireframes/*.html, wireframes/_screens.md, wireframes/_conventions.md, wireframes/_critique.md | Done (July 2026) |
-| Voice (Product Voice) | Voices/voices.html, Voices/voice.html, Voices/microcopy.html, Voices/docs/voice.md, Voices/docs/microcopy.md | Done (July 2026) |
-| Design Sprint | Design system, visual design | Pending |
+| Voice | voice/voices.html, voice/voice.html, voice/microcopy.html, voice/docs/voice.md, voice/docs/microcopy.md | Done (July 2026) |
+| Concept | concept/ | Pending (next) |
+| UI + Visual | ui-visual/ | Pending |
+| Tokens + Components | tokens-components/ | Pending |
+| Design System | design-system/ | Pending |
+| Responsive | responsive/ | Pending |
+| Animation | animation/ | Pending |
+| Handoff | handoff/ | Pending |
 
 Founder decisions locked June 14 2026: D1 (gradual reveal with paired action), D2 (manual + presets at launch), D3 (paywall at history/trends/advanced alerts, NOT at cancel moment), D4 ($7.99/mo or $69/yr), D5 (US/Plaid first, EU deferred). See research/docs/strategy.md Section 6.
 
 ---
 
-## Concept Architecture (Phase IA)
+## Information Architecture (Phase)
 
-Structure locked July 2026. The full information architecture exists: the skeleton in IA/docs/sitemap.md and IA/docs/flows.md, plus a page-level library (one page per cluster with real copy drafts, content blocks, and states) in IA/docs/pages/. Living site at IA/ia.html. Next phase is Wireframes.
+Structure locked July 2026. The full information architecture exists: the skeleton in ia/docs/sitemap.md and ia/docs/flows.md, plus a page-level library (one page per cluster with real copy drafts, content blocks, and states) in ia/docs/pages/. Living site at ia/ia.html. Next phase is Wireframes. (This is the ia/ folder; the later Concept phase is a separate, visual concept step.)
 
 **Top-level sitemap (16 screens, 6 clusters):**
 - Onboarding and Activation: Welcome / Value Intro, Activation Path Choice, Connect Bank, Add Subscription, Guided Reveal
@@ -107,10 +114,12 @@ Cancel/Share/Upgrade modals).
 Built July 2026. The product's voice, as rules not a mood: how Tendd talks, so any
 line can be written the same way by a person or by Claude. And the tone is set by
 state, an error does not joke, an empty state leads to an action, a success does
-not celebrate. Living entry point at Voices/voices.html; the binding document is
-Voices/docs/voice.md; the line inventory and was/became record is
-Voices/docs/microcopy.md. The Voices tree is wired into the review sidebar of every
-research and IA page. Next phase is the Design System.
+not celebrate. Living entry point at voice/voices.html; the binding document is
+voice/docs/voice.md; the line inventory and was/became record is
+voice/docs/microcopy.md. The Voice tree is wired into the review sidebar of every
+research and IA page. Next phase is Concept, the first of the Design track:
+Concept, UI + Visual, Tokens + Components, Design System, Responsive, Animation,
+Handoff.
 
 **voice.md, four sections:**
 - Principles (5, each sourced from a research line): (1) lead with calm and being

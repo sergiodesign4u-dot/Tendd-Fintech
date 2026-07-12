@@ -1,7 +1,7 @@
 # Wireframe Critique and Final Check (Step 9)
 
 Phase: Wireframes, Step 9. A strict pass over all 40 wireframe pages against
-wireframes/_conventions.md, IA/docs/sitemap.md, and IA/docs/flows.md. Defects
+wireframes/_conventions.md, ia/docs/sitemap.md, and ia/docs/flows.md. Defects
 first as a table, then the fixes applied. Structure only; no visual design.
 
 ## What was checked

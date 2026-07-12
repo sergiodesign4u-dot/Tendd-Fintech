@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tendd IA - SEO</title><style>
+:root{--bg:#f8f7f4;--surface:#fff;--border:#e8e4dc;--border-light:#f0ede6;--text:#2a2724;--text-secondary:#6b6560;--text-muted:#9b958e;--accent:#5c7a6e;--accent-light:#eef4f1;--accent-mid:#d0e4dc;--yellow-light:#fdf8ed;--yellow-mid:#f5e9c4;--red-light:#fdf2f0;--red-mid:#f2cfc8;--font:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--radius:8px;--radius-sm:4px;--shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:var(--surface);border-right:1px solid var(--border);z-index:200;transform:translateX(-100%);transition:transform .22s ease;overflow-y:auto;padding-bottom:32px}
+.sidebar.open{transform:translateX(0)}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:150}
+.sidebar-overlay.open{display:block}
+.sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:18px 16px 14px;border-bottom:1px solid var(--border-light)}
+.nav-brand{font-weight:600;font-size:13.5px;color:var(--text);letter-spacing:-.01em}
+.sidebar-close{background:none;border:none;font-size:18px;line-height:1;color:var(--text-muted);cursor:pointer;padding:4px 6px;border-radius:var(--radius-sm)}
+.nav-toggle{position:fixed;top:14px;left:16px;z-index:100;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow);color:var(--text);font-size:15px}
+.sidebar-nav{padding:12px 10px 0}
+.nav-section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:10px 8px 5px}
+.nav-section-label.active{color:var(--accent)}
+.nav-link{display:block;text-decoration:none;color:var(--text-secondary);font-size:13px;padding:6px 10px;border-radius:var(--radius-sm);margin-bottom:1px;transition:all .15s}
+.nav-link:hover{color:var(--text);background:var(--border-light)}
+.nav-link.active{color:var(--accent);background:var(--accent-light);font-weight:500}
+.nav-divider{border:none;border-top:1px solid var(--border-light);margin:10px 8px}
+.nav-next-block{margin:14px 8px 0;padding:10px;border-radius:var(--radius-sm);background:var(--bg);border:1px solid var(--border-light)}
+.nav-next-label{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px}
+.nav-next-items{font-size:12px;color:var(--text-muted)}
+@media(min-width:840px){.sidebar{transform:translateX(0)}.sidebar-close{display:none}.sidebar-overlay{display:none!important}.nav-toggle{display:none}}
+main{max-width:900px;margin:0 auto;padding:72px 24px 80px}
+@media(min-width:840px){body{padding-left:220px}main{padding-top:40px}}
+@media(max-width:640px){main{padding-left:16px;padding-right:16px}h1{font-size:26px!important}}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+h1{font-size:34px;font-weight:700;letter-spacing:-.03em;line-height:1.15}
+h2{font-size:21px;font-weight:600;letter-spacing:-.02em;margin-bottom:14px}
+h3{font-size:15px;font-weight:600;margin:14px 0 8px}
+p{margin-bottom:12px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.hero{padding:56px 0 32px;border-bottom:1px solid var(--border)}
+.hero-meta{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;font-size:12px;font-weight:500;padding:4px 10px;border-radius:100px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent-mid)}
+.hero-tagline{font-size:17px;color:var(--text-secondary);margin-top:12px;max-width:680px;line-height:1.5}
+.metaline{font-size:13px;color:var(--text-secondary);margin-top:12px}
+.metaline b{color:var(--text)}
+.section{padding:40px 0 0}
+.lead{font-size:14px;color:var(--text-secondary);max-width:700px}
+ul.dec{list-style:none;padding:0;margin:12px 0 0}
+ul.dec li{font-size:13.5px;color:var(--text-secondary);padding:7px 0 7px 16px;border-bottom:1px solid var(--border-light);position:relative}
+ul.dec li:before{content:"";position:absolute;left:0;top:14px;width:5px;height:5px;border-radius:50%;background:var(--accent-mid)}
+ul.dec li b{color:var(--text)}
+.node{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:15px 18px;margin-top:14px}
+.node h3{margin-top:0;color:var(--text)}
+.node .tp{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;font-weight:700;margin-bottom:6px}
+ol.blocks{margin:0;padding-left:16px}
+ol.blocks li{font-size:13px;color:var(--text-secondary);margin-bottom:3px;line-height:1.45}
+.pill{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 5px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.pill.p{background:var(--accent-light);color:var(--accent);border:1px solid var(--accent-mid)}
+.pill.s{background:var(--bg);color:var(--text-muted);border:1px solid var(--border)}
+.table-wrap{overflow-x:auto;margin-top:14px;border:1px solid var(--border);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;font-size:12.5px;background:var(--surface)}
+th,td{border-bottom:1px solid var(--border-light);border-right:1px solid var(--border-light);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent-light);color:var(--accent);font-size:10px;text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+tr:last-child td{border-bottom:none}
+td:last-child,th:last-child{border-right:none}
+.mock-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin-top:14px}
+.mock{border:1px solid #333;border-radius:6px;background:#fff;overflow:hidden}
+.mock-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#222;background:#f0f0f0;border-bottom:1px solid #333;padding:6px 10px}
+.mock-body{padding:14px 15px;font-size:13px;color:#111}
+.mock-body .mt{font-weight:700;font-size:15px;margin-bottom:5px}
+.mock-body .mnum{font-weight:700;font-size:24px;letter-spacing:-.02em;margin:2px 0 6px}
+.mock-body .mmuted{color:#666;font-size:12px}
+.mock-body .row{border-bottom:1px dashed #ccc;padding:6px 0;display:flex;justify-content:space-between;gap:8px}
+.mock-body .row:last-child{border-bottom:none}
+.mbtn{display:inline-block;border:1px solid #333;border-radius:5px;padding:5px 11px;font-size:12px;margin:8px 6px 0 0;background:#fff;color:#111}
+.mbtn.solid{background:#222;color:#fff}
+.callout{background:var(--accent-light);border:1px solid var(--accent-mid);border-radius:var(--radius);padding:14px 18px;margin-top:14px;font-size:13.5px}
+.callout.flag{background:var(--yellow-light);border-color:var(--yellow-mid)}
+.small{font-size:12.5px;color:var(--text-secondary)}
+.q{background:var(--yellow-light);border:1px solid var(--yellow-mid);color:#8a6e20;font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px}
+.footer{border-top:1px solid var(--border);margin-top:56px;padding:28px 0;text-align:center}
+.footer p{font-size:12.5px;color:var(--text-muted)}
+</style></head><body>
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header"><span class="nav-brand">Tendd Research</span><button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Foundation Research</div>
+    <a href="../research/research.html" class="nav-link">Foundation Research</a>
+    <div class="nav-section-label">User Research</div>
+    <a href="../user-research/personas.html" class="nav-link">Personas</a>
+    <a href="../user-research/jtbd.html" class="nav-link">JTBD</a>
+    <hr class="nav-divider">
+    <div class="nav-section-label active">Information Architecture</div>
+    <a href="ia.html" class="nav-link">Overview</a>
+    <a href="navigation.html" class="nav-link">Global Navigation</a>
+    <a href="onboarding.html" class="nav-link">1 Onboarding</a>
+    <a href="core.html" class="nav-link">2 Core</a>
+    <a href="alerts.html" class="nav-link">3 Stay Ahead</a>
+    <a href="cancel.html" class="nav-link">4 Cut & Celebrate</a>
+    <a href="pro.html" class="nav-link">5 Depth (Pro)</a>
+    <a href="account.html" class="nav-link">6 Account & Trust</a>
+    <a href="system.html" class="nav-link">9 System</a>
+    <a href="seo.html" class="nav-link active">SEO</a>
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Wireframes</div>
+    <a href="../wireframes/index.html" class="nav-link">Overview</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Voice</div>
+    <a href="../voice/voices.html" class="nav-link">Overview</a>
+    <a href="../voice/voice.html" class="nav-link">Voice</a>
+    <a href="../voice/microcopy.html" class="nav-link">Microcopy</a>
+
+    <div class="nav-next-block">
+      <span class="nav-next-label">Next</span>
+      <span class="nav-next-items">Concept &middot; UI + Visual &middot; Tokens + Components &middot; Design System &middot; Responsive &middot; Animation &middot; Handoff</span>
+    </div>
+  </nav>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<main>
+<section class="hero">
+  <div class="hero-meta"><span class="badge">Node 8</span><span class="badge">Phase IA</span><span class="badge">Page-level</span></div>
+  <h1>SEO Engine</h1>
+  <p class="hero-tagline">The search strategy for Tendd's one public surface, the Welcome screen.</p>
+  <p class="metaline"><b>Job:</b> Supports J1 at the acquisition edge (found before trusted). Feeds AARRR Acquisition.</p>
+  <p class="metaline"><b>Type:</b> Section</p>
+</section>
+<section class="section"><div class="section-label">Step 5</div><h2>SEO engine</h2><p class="lead">The search strategy for Tendd's one public surface, the Welcome screen. Deliberately small, because Tendd is mostly an authenticated app.</p></section><div class="callout"><b>Scope.</b> Public and indexable today: Welcome (1.1) only. Everything from Path Choice (1.2) and Guided Reveal (1.5) onward is private. A future public marketing site, outside this app repo, could reuse this engine.</div><section class="section"><div class="section-label">Decisions</div><h2>Writing principles</h2><ul class="dec"><li><b>Calm over clever.</b> No "STOP wasting money" fear copy; the promise is relief.</li><li><b>Trust up front.</b> Lead with "no bank connection needed to start".</li><li><b>Name the person, not the power user.</b> Avoid budget, net worth, spreadsheet.</li><li>Own the <b>uncontested differentiator and privacy terms first</b>, compete on commercial intent second, head terms are the long game.</li></ul></section><section class="section"><div class="section-label">Keyword model</div><h2>Grounded in research, volumes [?]</h2><div class="table-wrap"><table><thead><tr><th>Tier</th><th>Terms</th><th>Vol / KD</th></tr></thead><tbody><tr><td>Head</td><td>subscription tracker, subscription manager, track subscriptions, cancel subscriptions</td><td><span class="q">?</span></td></tr><tr><td>Commercial</td><td>best subscription tracker app, app to track subscriptions, subscription tracker without bank connection</td><td><span class="q">?</span></td></tr><tr><td>Long-tail informational</td><td>how to find forgotten subscriptions, how much am I spending on subscriptions, how to cancel [service], how to see all my subscriptions in one place</td><td><span class="q">?</span></td></tr><tr><td>Differentiator</td><td>calm subscription tracker, subscription anxiety, track subscriptions without linking bank</td><td><span class="q">?</span></td></tr></tbody></table></div></section><section class="section"><div class="section-label">Templates</div><h2>Welcome and future marketing</h2><div class="mock-grid"><div class="mock"><div class="mock-label">Welcome title + description</div><div class="mock-body"><div class="mt">Tendd - See and control your subscriptions, calmly</div><p class="mmuted">See every subscription and recurring charge in one calm view. No bank connection needed to start. Built for people who find money apps stressful.</p></div></div><div class="mock"><div class="mock-label">Welcome H1 / H2</div><div class="mock-body"><div class="mt">H1: See what you are paying for. Calmly.</div><p class="mmuted">H2: No bank connection needed to start. / Find the subscriptions you forgot about.</p></div></div></div></section><section class="section"><div class="section-label">Structured data and technical</div><h2></h2><p class="small"><b>Schema.</b> Organization and WebSite on the public Welcome or a future marketing site. No in-app Product schema (the Upgrade screen is private and transactional).</p><p class="small"><b>Technical.</b> Self-canonical public Welcome; app routes never canonicalized to marketing; noindex behind the activation flow; a real 404 for unknown server routes; mobile-first by construction; budget LCP (the preview image), CLS (reserve its space), INP; volumes and CWV targets marked [?].</p></section><section class="section"><div class="section-label">Cross-cutting</div><h2>SEO, Accessibility, Mobile</h2><p class="small"><b>SEO.</b> This IS the SEO page; Welcome (1.1) is the one public node, everything else in the library is explicitly private.</p><p class="small"><b>Accessibility.</b> SEO rules reinforce accessibility (real text headings, descriptive titles). The public Welcome follows onboarding accessibility.</p><p class="small"><b>Mobile.</b> The one public surface (Welcome) has no structural mobile/desktop delta.</p></section><section class="section"><div class="section-label">Status</div><h2>Locked (draft, 2026-07-03) / Open</h2><p class="small"><b>Locked.</b> Public scope is Welcome only; calm trust-first principles; a research-grounded keyword model; Organization and WebSite schema only.</p><p class="small"><b>Still [?].</b> Real search volumes and Core Web Vitals targets; whether and when a public marketing site is built.</p></section>
+<div class="footer"><p>Tendd - Full Information Architecture (Phase IA). Source of truth: <a href="docs/pages/seo.md">docs/pages/seo.md</a>. Structure and detail only, no visual design.</p>
+<p style="margin-top:4px"><a href="ia.html">IA overview</a> - <a href="../research/research.html">Research</a> - <a href="docs/sitemap.md">Sitemap index</a></p></div>
+</main>
+<script>(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open')}function cl(){s.classList.remove('open');o.classList.remove('open')}t.addEventListener('click',op);c.addEventListener('click',cl);o.addEventListener('click',cl);})();</script>
+</body></html>
