@@ -253,7 +253,7 @@ The last section, and with it voice.md is complete: from here every line of the
 product is written and checked against this file. These are the rules by element
 type and by state tone. Each rule carries one real Tendd example, and each obeys
 the Principles, Dictionary, and Forbidden sections above. Sourced against the
-screen and state inventory in wireframes/_screens.md.
+screen and state inventory in wireframes/docs/screens.md.
 
 ### By element type
 

@@ -4,7 +4,7 @@ Phase: Wireframes, Step 2. These are the rules every Tendd wireframe follows.
 Steps 3 to 9 of this phase, and later phases that read wireframes, rely on
 this document. Read it before building or reviewing any screen.
 
-Sources this obeys: wireframes/_screens.md (the screen and state inventory),
+Sources this obeys: wireframes/docs/screens.md (the screen and state inventory),
 ia/docs/sitemap.md (screen names, navigation, entities), ia/docs/flows.md
 (flows and states), and the five design principles in CLAUDE.md.
 
@@ -84,11 +84,13 @@ Everything else is real copy.
 - One page per extra state: `wireframes/<screen>-<state>.html` where state is
   `empty`, `error`, or `loading`. Example set for Home:
   `home.html`, `home-empty.html`, `home-error.html`, `home-loading.html`.
-- Filenames are fixed by wireframes/_screens.md (the File column). Do not
+- Filenames are fixed by wireframes/docs/screens.md (the File column). Do not
   invent a filename that is not in that table, and do not create a state page
   the table marks `-`.
-- Support files keep the leading underscore: `_screens.md`, `_conventions.md`,
-  `_critique.md`. The overview lives at `wireframes/index.html`.
+- The inventory docs live in `wireframes/docs/` with no leading underscore:
+  `docs/screens.md`, `docs/conventions.md`, `docs/critique.md`. The shared shell
+  files keep a leading underscore at the wireframes root: `_nav.js`, `_wf.css`.
+  The overview lives at `wireframes/index.html`.
 
 ## 5. States: one page each, never a toggle
 
@@ -107,15 +109,15 @@ Everything else is real copy.
 - No dead ends. Every empty and every error page has at least one main action
   that leads somewhere real in flows.md. This is checked in Step 9.
 - Build only the states marked `check` for that screen in
-  wireframes/_screens.md. Do not add states the scenario does not produce.
+  wireframes/docs/screens.md. Do not add states the scenario does not produce.
 
 ## 6. Navigation and shell (shared on every page)
 
-- Review side menu (the wireframe tree, built by nav.js): a grey `details`
+- Review side menu (the wireframe tree, built by _nav.js): a grey `details`
   panel on the left of every page, identical everywhere, listing section, then
   screen, then that screen's states, with the current page marked. It is the
   reviewer's navigation across the set; on narrow screens it collapses to a
-  "Wireframe map" bar at the top. Structure mirrors _screens.md and sitemap.md.
+  "Wireframe map" bar at the top. Structure mirrors screens.md and sitemap.md.
 - What stays removed (the July 2026 declutter): the meta/annotation bar
   (cluster, job, flow, tap depth), the "this screen: states" strip, and the
   per-page desktop-reflow note. A frame is the product screen plus the review
@@ -127,14 +129,14 @@ Everything else is real copy.
 - Welcome / Value Intro is the exception to the app shell. It is the public
   landing (the web front door): a full-width marketing wireframe with its own
   top nav and a footer, still greyscale and structure only, built with the
-  landing classes (`.landing`, `.lp-*`) in wireframe.css. Its CTAs lead into
+  landing classes (`.landing`, `.lp-*`) in _wf.css. Its CTAs lead into
   the onboarding chain at Path Choice. It is the one page that uses full width
   rather than the centered phone frame.
 - Mobile first, desktop responsive, and the wireframe reflows for real (the
   product is mobile-first web scaling to desktop). Author the mobile structure
   first; the same page then reflows to desktop through the shared CSS, so
   widening the browser shows the wide-screen layout, it is not only a note.
-  The shared reflow (in wireframe.css, driven by a container query on the
+  The shared reflow (in _wf.css, driven by a container query on the
   stage) implements the IA delta:
   - the global bar is a bottom tab bar on mobile and becomes a left rail on
     desktop, with the header (GC1) folded into the top of that rail (per
@@ -163,7 +165,7 @@ real copy, and the four states.
 
 ## 8. Scope discipline
 
-- Every wireframe traces to a screen in _screens.md and a place in a flow in
+- Every wireframe traces to a screen in screens.md and a place in a flow in
   flows.md. No screen that is not on the map.
 - No new zones beyond what sitemap.md and the IA page-level library
   (ia/docs/pages/) define for that screen. If a zone seems missing, it is a

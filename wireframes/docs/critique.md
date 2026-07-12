@@ -1,7 +1,7 @@
 # Wireframe Critique and Final Check (Step 9)
 
 Phase: Wireframes, Step 9. A strict pass over all 40 wireframe pages against
-wireframes/_conventions.md, ia/docs/sitemap.md, and ia/docs/flows.md. Defects
+wireframes/docs/conventions.md, ia/docs/sitemap.md, and ia/docs/flows.md. Defects
 first as a table, then the fixes applied. Structure only; no visual design.
 
 ## What was checked
@@ -9,11 +9,11 @@ first as a table, then the fixes applied. Structure only; no visual design.
 Every page in wireframes/ (40 screens plus index) across these defect classes:
 - Stray look: color, hex, shadow, font-family, icon fonts, real logos, images.
 - Placeholder text: lorem ipsum or filler instead of real Tendd copy.
-- Missing states: each screen's state pages vs the marks in _screens.md.
+- Missing states: each screen's state pages vs the marks in screens.md.
 - Dead ends: an empty or error page with no visible exit.
 - Zone without a main action.
 - Screen not on the map (sitemap.md / flows.md).
-- Shell drift: layout, wireframe tree, wf-meta, wf-states, css and nav.js.
+- Shell drift: layout, wireframe tree, wf-meta, wf-states, css and _nav.js.
 - Chrome: onboarding has no tab bar; app screens have the right current tab.
 - Broken links; em dashes.
 
@@ -32,10 +32,10 @@ desktop reflow check.
 
 ## Cross-cutting checks (all passed)
 
-- 41 files present (40 screens + index); filenames match the _screens.md File column.
+- 41 files present (40 screens + index); filenames match the screens.md File column.
 - Zero broken links; every link target is one of the 40 valid pages.
 - Zero dead ends; every empty and every error page has a real exit, cross-checked with flows.md (bank error keeps the manual fallback, could-not-cancel has an in-app next step, failed-payment has a next-step card, sync-error keeps the last known list).
-- State coverage matches _screens.md exactly (no missing state, no invented state).
+- State coverage matches screens.md exactly (no missing state, no invented state).
 - Greyscale only: no hex color, no shadow, no icon font, no real logo, no `<img>`. One color leak that grep cannot see, native radios and checkboxes rendering in the OS blue, was fixed at the CSS level with a grey `accent-color`.
 - No em dashes. One `<h1>` per page. Correct onboarding (no tab bar) vs app (correct current tab) chrome.
 - Desktop responsive: every screen reflows through the shared container-query CSS (bottom tab bar becomes a left rail, content widens; onboarding stays a centered column). Verified live on Home, Welcome, and Upgrade.
@@ -71,8 +71,8 @@ flow, and data consistency. All of the following were fixed.
   home-empty.html (the zero-state), because the FLAG 1 save-focus state had no
   wireframe. Fixed: added **home-savefocus.html** (candidates pinned open,
   summary swaps to potential savings) and retargeted the Save tab (all app
-  pages), the reveal CTA, and the nudge to it. This is the 41st page; nav.js,
-  _screens.md, and index.html were updated.
+  pages), the reveal CTA, and the nudge to it. This is the 41st page; _nav.js,
+  screens.md, and index.html were updated.
 - **Canonical example dataset** locked to remove number drift. Home now shows
   all 14 subscriptions grouped 4/4/2/2/2 (matching the Guided Reveal), summing
   to the displayed monthly total **$192.90**. Propagated to Guided Reveal,
@@ -122,7 +122,7 @@ desktop layout was not actually reflowing well. Applied across all 41 frames:
 
 - Removed the reviewer chrome from every frame: the left wireframe tree, the
   meta/annotation bar (cluster, job, flow, tap depth), the "this screen:
-  states / overview" strip, and the per-page desktop-reflow note. nav.js
+  states / overview" strip, and the per-page desktop-reflow note. _nav.js
   (which rendered the tree) is deleted; nothing references it now. Each frame
   is now only the product screen.
 - The overview (index.html) is unchanged and remains the single place that
@@ -153,7 +153,7 @@ landing rather than a minimal onboarding step.
   delete anytime, never sell), a three-quote social-proof band in the persona
   voices (Emma, Ravi, Claudia), a final CTA, and a marketing footer.
 - Still a wireframe: greyscale, semantic HTML, real calm copy, no color or type
-  decisions. New landing classes (`.landing`, `.lp-*`) added to wireframe.css,
+  decisions. New landing classes (`.landing`, `.lp-*`) added to _wf.css,
   mobile-first with a >=760px breakpoint (hero and card grids go multi-column).
 - It is the only page that uses full width and the only one with a footer (it
   is a marketing page, not an app screen). All CTAs lead into the onboarding
@@ -168,7 +168,7 @@ app screens use the full width like the landing, with a real two-pane where it
 helps. Chosen option: tree back + full-width content + two-pane for Home and
 Subscription Detail.
 
-- The review side menu (nav.js tree) is restored on all 41 pages, including the
+- The review side menu (_nav.js tree) is restored on all 41 pages, including the
   landing (which sits in an edge-to-edge `.stage-flush` beside it). It collapses
   to a top "Wireframe map" bar below 820px. Only the annotation bar, the state
   strip, and the reflow note stay removed.

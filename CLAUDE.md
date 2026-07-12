@@ -8,7 +8,7 @@
 | User Research (Personas + JTBD) | user-research/personas.html, user-research/jtbd.html, user-research/docs/personas.md, user-research/docs/jtbd.md | Done (June 2026) |
 | CJM (As-Is + To-Be) | user-research/cjm-as-is.html, user-research/cjm-to-be.html, user-research/docs/cjm-as-is.md, user-research/docs/cjm-to-be.md | Done (July 2026) |
 | Information Architecture | ia/ia.html, ia/docs/sitemap.md, ia/docs/flows.md | Done (July 2026) |
-| Wireframes | wireframes/index.html, wireframes/*.html, wireframes/_screens.md, wireframes/_conventions.md, wireframes/_critique.md | Done (July 2026) |
+| Wireframes | wireframes/index.html, wireframes/*.html, wireframes/docs/screens.md, wireframes/docs/conventions.md, wireframes/docs/critique.md | Done (July 2026) |
 | Voice | voice/voices.html, voice/voice.html, voice/microcopy.html, voice/docs/voice.md, voice/docs/microcopy.md | Done (July 2026) |
 | Concept | concept/ | Pending (next) |
 | UI + Visual | ui-visual/ | Pending |
@@ -85,14 +85,14 @@ by hand as the reference (Home is the pattern), then the rest were rolled out
 by subagents against the same contract and reviewed for consistency.
 
 **Contract and sources:**
-- wireframes/_conventions.md: the binding rules (greyscale, semantic HTML,
+- wireframes/docs/conventions.md: the binding rules (greyscale, semantic HTML,
   real copy, file naming, one page per state, shared shell, no footer,
   mobile-first with a real desktop reflow).
-- wireframes/_screens.md: the screen and state inventory, grouped by flow, with
+- wireframes/docs/screens.md: the screen and state inventory, grouped by flow, with
   the screen-by-state table (which of the four states each screen produces).
-- wireframes/_critique.md: the Step 9 review and the one fix applied.
+- wireframes/docs/critique.md: the Step 9 review and the one fix applied.
 
-**Shell:** each page shares wireframe.css (the greyscale system) and nav.js
+**Shell:** each page shares _wf.css (the greyscale system) and _nav.js
 (the left review side menu / wireframe tree, restored July 2026, identical on
 every page and auto-marking the current one; it collapses to a top bar on
 mobile). The July 2026 declutter still stands for the annotations: the
@@ -120,7 +120,7 @@ landing wireframe (top nav, two-column hero with a calm app preview, benefit
 cards, how-it-works, trust and security, social proof, final CTA, footer).
 Still greyscale/semantic/real-copy; it is the only full-width page and the only
 one with a footer. Its CTAs lead into the onboarding chain at Path Choice. New
-landing classes (.landing, .lp-*) live in wireframe.css.
+landing classes (.landing, .lp-*) live in _wf.css.
 
 **States and dead ends:** every empty and error page has a real exit (verified
 against flows.md). The IA critique's dead-end and missing-state fixes are all

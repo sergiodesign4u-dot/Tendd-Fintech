@@ -3,7 +3,7 @@
    Renders section -> screen -> states, marks the current page, and is
    collapsed on narrow screens. No external libraries.
 
-   Structure mirrors wireframes/_screens.md. When a page is added, add it here. */
+   Structure mirrors wireframes/docs/screens.md. When a page is added, add it here. */
 
 (function () {
   var TREE = [
