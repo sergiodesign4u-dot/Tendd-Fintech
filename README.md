@@ -20,6 +20,7 @@ Tendd is a mobile-first, desktop-responsive web app that helps people who are no
 | Research HTML | [research.html](./research/research.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/research/research.html) | Done |
 | Personas | [personas.html](./user-research/personas.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/user-research/personas.html) | Done |
 | JTBD | [jtbd.html](./user-research/jtbd.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/user-research/jtbd.html) | Done |
+| CJM (As-Is + To-Be) | [cjm-as-is.html](./user-research/cjm-as-is.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/user-research/cjm-as-is.html) / [cjm-to-be.html](./user-research/cjm-to-be.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/user-research/cjm-to-be.html) | Done (July 2026) |
 | Information Architecture | [ia.html](./ia/ia.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/ia/ia.html) | Done |
 | Wireframes | [wireframes/index.html](./wireframes/index.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/wireframes/index.html) | Done (July 2026) |
 | Voice | [voice/voices.html](./voice/voices.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/voice/voices.html) | Done (July 2026) |

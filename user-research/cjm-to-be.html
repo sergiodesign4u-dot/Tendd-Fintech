@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tendd - CJM To-Be</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --border-light: #f0ede6;
+      --text: #2a2724;
+      --text-secondary: #6b6560;
+      --text-muted: #9b958e;
+      --accent: #5c7a6e;
+      --accent-light: #eef4f1;
+      --accent-mid: #d0e4dc;
+      --yellow-light: #fdf8ed;
+      --yellow-mid: #f5e9c4;
+      --red-light: #fdf2f0;
+      --red-mid: #f2cfc8;
+      --red-line: #b04a4a;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --radius: 8px;
+      --radius-sm: 4px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+    /* Sidebar */
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: var(--surface); border-right: 1px solid var(--border); z-index: 200; transform: translateX(-100%); transition: transform 0.22s ease; overflow-y: auto; padding-bottom: 32px; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 150; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 14px; border-bottom: 1px solid var(--border-light); }
+    .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+    .sidebar-close { background: none; border: none; font-size: 18px; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--radius-sm); }
+    .sidebar-close:hover { color: var(--text); background: var(--border-light); }
+    .nav-toggle { position: fixed; top: 14px; left: 16px; z-index: 100; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px; }
+    .sidebar-nav { padding: 12px 10px 0; }
+    .nav-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 10px 8px 5px; }
+    .nav-section-label.active { color: var(--accent); }
+    .nav-link { display: block; text-decoration: none; color: var(--text-secondary); font-size: 13px; padding: 6px 10px; border-radius: var(--radius-sm); margin-bottom: 1px; transition: all 0.15s; }
+    .nav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-link.active { color: var(--accent); background: var(--accent-light); font-weight: 500; }
+    .nav-page-active { display: block; font-size: 13px; font-weight: 600; color: var(--accent); padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light); margin-bottom: 1px; }
+    .nav-sub-link { display: block; text-decoration: none; color: var(--text-muted); font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm); margin-bottom: 1px; transition: all 0.15s; }
+    .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-sub-link.active { color: var(--accent); font-weight: 500; }
+    .nav-divider { border: none; border-top: 1px solid var(--border-light); margin: 10px 8px; }
+    .nav-next-block { margin: 14px 8px 0; padding: 10px; border-radius: var(--radius-sm); background: var(--bg); border: 1px solid var(--border-light); }
+    .nav-next-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
+    .nav-next-items { font-size: 12px; color: var(--text-muted); }
+    @media (min-width: 840px) { .sidebar { transform: translateX(0); } .sidebar-close { display: none; } .sidebar-overlay { display: none !important; } .nav-toggle { display: none; } }
+
+    /* Layout */
+    main { max-width: 900px; margin: 0 auto; padding: 72px 24px 80px; }
+    @media (min-width: 840px) { body { padding-left: 220px; } main { padding-top: 40px; } }
+    @media (max-width: 640px) { main { padding-left: 16px; padding-right: 16px; } h1 { font-size: 26px !important; } }
+
+    /* Type */
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; color: var(--text); }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px; }
+    h3 { font-size: 15px; font-weight: 700; color: var(--text); margin: 18px 0 8px; }
+    p { margin-bottom: 12px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    cite { font-size: 11.5px; color: var(--text-muted); font-style: normal; }
+    cite a { color: var(--text-muted); }
+    cite a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero { padding: 64px 0 40px; border-bottom: 1px solid var(--border); }
+    .hero-meta { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 100px; background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+    .hero-tagline { font-size: 18px; color: var(--text-secondary); margin-top: 12px; max-width: 660px; line-height: 1.5; }
+
+    .section { padding: 60px 0 0; }
+
+    /* Focus card */
+    .focus-card { background: var(--surface); border: 1px solid var(--accent-mid); border-radius: var(--radius); box-shadow: var(--shadow-md); margin-top: 22px; overflow: hidden; }
+    .focus-head { padding: 20px 24px 16px; background: var(--accent-light); border-bottom: 1px solid var(--border-light); }
+    .focus-name { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+    .focus-role { font-size: 14px; color: var(--text-secondary); margin-top: 2px; }
+    .focus-body { padding: 20px 24px; }
+    .job-stmt { font-size: 14px; font-style: italic; color: var(--text-secondary); line-height: 1.6; border-left: 3px solid var(--accent-mid); padding: 10px 14px; background: var(--bg); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+    .job-stmt .job-source { display: block; font-style: normal; font-size: 11.5px; color: var(--text-muted); margin-top: 6px; }
+    .scope-note { font-size: 12.5px; color: var(--text-secondary); margin-top: 14px; line-height: 1.55; }
+
+    /* Journey */
+    .journey { display: grid; grid-template-columns: repeat(6, 1fr); gap: 9px; margin-top: 22px; }
+    @media (max-width: 900px) { .journey { grid-auto-flow: column; grid-auto-columns: 78%; grid-template-columns: none; overflow-x: auto; padding-bottom: 8px; } }
+    .phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 14px; display: flex; flex-direction: column; gap: 7px; }
+    .phase-card.win { border-color: var(--accent-mid); background: var(--accent-light); }
+    .phase-num { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+    .phase-name { font-size: 13.5px; font-weight: 600; color: var(--text); line-height: 1.25; }
+    .phase-field { font-size: 11.5px; color: var(--text-secondary); line-height: 1.45; }
+    .phase-field b { color: var(--text); font-weight: 600; }
+    .emo-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; align-self: flex-start; }
+    .emo-pos { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+    .emo-neu { background: var(--yellow-light); color: #8a6e20; border: 1px solid var(--yellow-mid); }
+    .cover-tag { font-size: 10px; color: var(--accent); background: var(--surface); border: 1px solid var(--accent-mid); border-radius: 4px; padding: 2px 6px; align-self: flex-start; }
+
+    /* Curve */
+    .curve-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 18px 14px; margin-top: 20px; overflow-x: auto; }
+    .curve-wrap svg { display: block; width: 100%; min-width: 560px; height: auto; }
+    .curve-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; font-size: 12px; color: var(--text-secondary); }
+    .lg-line { display: inline-block; width: 22px; height: 0; vertical-align: middle; margin-right: 6px; }
+    .lg-solid { border-top: 3px solid var(--red-line); opacity: 0.5; }
+    .lg-dash { border-top: 3px dashed var(--accent); }
+
+    .callout { background: var(--accent-light); border: 1px solid var(--accent-mid); border-radius: var(--radius); padding: 16px 20px; margin-top: 18px; }
+    .callout.warn { background: var(--yellow-light); border-color: var(--yellow-mid); }
+    .callout p { font-size: 13.5px; color: var(--text); margin-bottom: 0; line-height: 1.6; }
+
+    /* Table */
+    .cjm-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 12.5px; }
+    .cjm-table th, .cjm-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+    .cjm-table th { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 700; }
+    .cjm-table tr.mvp td { background: var(--accent-light); }
+    .cjm-table code { font-size: 11px; color: var(--text-secondary); }
+    .pri { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+    .pri-mvp { background: var(--accent-mid); color: #1e4d33; }
+    .pri-later { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+    .table-scroll { overflow-x: auto; }
+    @media (max-width: 720px) { .cjm-table { min-width: 640px; } }
+
+    .check-grid { margin-top: 16px; }
+    .check-item { border-left: 3px solid var(--accent); background: var(--surface); border: 1px solid var(--border); border-left-width: 3px; border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 16px; margin-top: 8px; font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+    .check-item.warn { border-left-color: var(--red-line); }
+    .check-item b { color: var(--text); }
+
+    .q-item { font-size: 13px; color: var(--text-secondary); line-height: 1.55; padding: 8px 0; border-bottom: 1px solid var(--border-light); }
+    .q-item:last-child { border-bottom: none; }
+    .q-num { font-weight: 700; color: var(--red-line); margin-right: 6px; }
+
+    .qmark { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 4px; background: var(--yellow-light); color: #8a6e20; border: 1px solid var(--yellow-mid); }
+
+    .footer { border-top: 1px solid var(--border); margin-top: 72px; padding: 32px 0; text-align: center; }
+    .footer p { font-size: 13px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd Research</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Foundation Research</div>
+    <a href="../research/research.html#intro" class="nav-link">Overview</a>
+    <a href="../research/research.html#canvas" class="nav-link">Canvas</a>
+    <a href="../research/research.html#strategy" class="nav-link">Strategy</a>
+    <a href="../research/research.html#aarrr" class="nav-link">AARRR</a>
+    <a href="../research/research.html#competitors" class="nav-link">Competitors</a>
+    <a href="../research/research.html#benchmark" class="nav-link">Benchmark</a>
+    <a href="../research/research.html#patterns" class="nav-link">UX Patterns</a>
+    <a href="../research/research.html#conclusions" class="nav-link">Conclusions</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label active">User Research</div>
+    <a href="personas.html" class="nav-link">Personas</a>
+    <a href="jtbd.html" class="nav-link">JTBD</a>
+    <a href="cjm-as-is.html" class="nav-link">CJM As-Is</a>
+    <span class="nav-page-active">CJM To-Be</span>
+    <a href="#focus" class="nav-sub-link" data-section="focus">Focus</a>
+    <a href="#journey" class="nav-sub-link" data-section="journey">To-Be journey</a>
+    <a href="#curve" class="nav-sub-link" data-section="curve">Projected curve</a>
+    <a href="#backlog" class="nav-sub-link" data-section="backlog">Backlog and MVP</a>
+    <a href="#risks" class="nav-sub-link" data-section="risks">Risks and reconciliation</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Information Architecture</div>
+    <a href="../ia/ia.html" class="nav-link">Overview</a>
+    <a href="../ia/navigation.html" class="nav-link">Global Navigation</a>
+    <a href="../ia/onboarding.html" class="nav-link">1 Onboarding</a>
+    <a href="../ia/core.html" class="nav-link">2 Core</a>
+    <a href="../ia/alerts.html" class="nav-link">3 Stay Ahead</a>
+    <a href="../ia/cancel.html" class="nav-link">4 Cut &amp; Celebrate</a>
+    <a href="../ia/pro.html" class="nav-link">5 Depth (Pro)</a>
+    <a href="../ia/account.html" class="nav-link">6 Account &amp; Trust</a>
+    <a href="../ia/system.html" class="nav-link">9 System</a>
+    <a href="../ia/seo.html" class="nav-link">SEO</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Wireframes</div>
+    <a href="../wireframes/index.html" class="nav-link">Overview</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Voice</div>
+    <a href="../voice/voices.html" class="nav-link">Overview</a>
+    <a href="../voice/voice.html" class="nav-link">Voice</a>
+    <a href="../voice/microcopy.html" class="nav-link">Microcopy</a>
+
+    <div class="nav-next-block">
+      <span class="nav-next-label">Next</span>
+      <span class="nav-next-items">Concept &middot; UI + Visual &middot; Tokens + Components &middot; Design System &middot; Responsive &middot; Animation &middot; Handoff</span>
+    </div>
+  </nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main>
+
+  <!-- Focus / Hero -->
+  <section class="hero" id="focus">
+    <div class="hero-meta">
+      <span class="badge">User Research</span>
+      <span class="badge">CJM To-Be</span>
+      <span class="badge">Traced to As-Is</span>
+    </div>
+    <h1>Customer Journey: To-Be</h1>
+    <p class="hero-tagline">Emma's ideal path to the same job, inside Tendd. Each step traces to a concrete As-Is barrier and is reconciled with the already-locked structure. Target emotions are projected design goals, not measured.</p>
+
+    <div class="focus-card">
+      <div class="focus-head">
+        <div class="focus-name">Emma, 29 &middot; The Anxious Non-Looker</div>
+        <div class="focus-role">Primary persona &times; J-MAIN &middot; bank path</div>
+      </div>
+      <div class="focus-body">
+        <div class="job-stmt">
+          When I suspect I am paying for things I forgot about or never use, I want to see all my recurring charges clearly in one calm view, so that I feel in control of my money without needing to become a finance person.
+          <span class="job-source"><cite>personas.md Persona 1; jtbd.md Part 1</cite></span>
+        </div>
+        <p class="scope-note"><strong>The key result of this map:</strong> every To-Be step is covered by the already-locked structure (flows.md Flow A, the wireframes, D1 to D5); none contradicts it. The CJM validates that the built structure already covers Emma's As-Is pains, rather than surfacing a gap.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- To-Be journey -->
+  <section class="section" id="journey">
+    <div class="section-label">The ideal path</div>
+    <h2>To-Be journey</h2>
+    <p>The same trigger still brings Emma here; the difference starts at arrival. Where As-Is met her with a bank wall and lost her, To-Be shows value first, then inverts the friction pit into a gradual, paired-with-action reveal.</p>
+
+    <div class="journey">
+      <div class="phase-card">
+        <div class="phase-num">Step 1</div>
+        <div class="phase-name">Arrive without a bank demand</div>
+        <span class="emo-badge emo-neu">Cautious curiosity</span>
+        <div class="phase-field"><b>Closes:</b> the bank wall (zone 1) and the calm gap (zone 3).</div>
+        <div class="phase-field"><b>Needs:</b> a calm sample-list preview plus a plain-language trust statement.</div>
+        <span class="cover-tag">welcome.html &middot; Flow A</span>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Step 2</div>
+        <div class="phase-name">Choose a path, equal footing</div>
+        <span class="emo-badge emo-pos">In control</span>
+        <div class="phase-field"><b>Closes:</b> the forced bank demand (P3).</div>
+        <div class="phase-field"><b>Needs:</b> dual paths, equal weight, none preselected.</div>
+        <span class="cover-tag">path-choice.html &middot; D2</span>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Step 3</div>
+        <div class="phase-name">Connect with a read-only promise</div>
+        <span class="emo-badge emo-pos">Reassured</span>
+        <div class="phase-field"><b>Closes:</b> fear of what apps access (P3, O16/O17).</div>
+        <div class="phase-field"><b>Needs:</b> plain-language data explanation and the read-only trust line.</div>
+        <span class="cover-tag">connect-bank.html &middot; voice.md</span>
+      </div>
+      <div class="phase-card win">
+        <div class="phase-num">Step 4 &middot; H0 crux</div>
+        <div class="phase-name">The Guided Reveal</div>
+        <span class="emo-badge emo-pos">Relief + agency <span class="qmark">? H0</span></span>
+        <div class="phase-field"><b>Closes:</b> cryptic (zone 2), overwhelm (zone 3), all-or-nothing shock (zone 4).</div>
+        <div class="phase-field"><b>Needs:</b> enrichment, gradual count to categories to total, total paired with an action.</div>
+        <span class="cover-tag">guided-reveal.html &middot; D1</span>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Step 5</div>
+        <div class="phase-name">Land on the calm list</div>
+        <span class="emo-badge emo-pos">Calm control</span>
+        <div class="phase-field"><b>Closes:</b> cryptic on the card (P2), overwhelm (P4), the incompletion.</div>
+        <div class="phase-field"><b>Needs:</b> calm list plus total; Detail with a plain-language "what is this charge".</div>
+        <span class="cover-tag">home.html &middot; subscription-detail.html</span>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Step 6</div>
+        <div class="phase-name">A gentle return hook</div>
+        <span class="emo-badge emo-pos">Sustained calm</span>
+        <div class="phase-field"><b>Closes:</b> no return hook (zone 5).</div>
+        <div class="phase-field"><b>Needs:</b> basic price-change and payment-failure alerts, free, active voice.</div>
+        <span class="cover-tag">alerts.html &middot; Flow D &middot; D3</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projected curve -->
+  <section class="section" id="curve">
+    <div class="section-label">Contrast</div>
+    <h2>Projected curve</h2>
+    <p>The To-Be curve is the projected inversion of the As-Is pit: it rises from cautious curiosity to relief and sustained calm. It is a designed target, not a measurement, so it is drawn dashed. The reveal peak is gated by the riskiest assumption H0.</p>
+
+    <div class="curve-wrap">
+      <svg viewBox="0 0 620 250" role="img" aria-label="To-Be projected curve rising above neutral, overlaid on the faded As-Is curve">
+        <line x1="40" y1="120" x2="600" y2="120" stroke="#9b958e" stroke-dasharray="4 4" opacity="0.5"/>
+        <text x="44" y="112" font-size="10" fill="#9b958e">calmer</text>
+        <text x="44" y="214" font-size="10" fill="#9b958e">distress</text>
+        <!-- As-Is, faded for contrast -->
+        <polyline points="60,168 160,184 260,168 360,200 460,168" fill="none" stroke="#b04a4a" stroke-width="2" opacity="0.3"/>
+        <circle cx="360" cy="200" r="5" fill="#b04a4a" opacity="0.3"/>
+        <!-- To-Be projected, dashed -->
+        <polyline points="60,136 160,104 260,104 360,72 460,72 560,88" fill="none" stroke="#5c7a6e" stroke-width="2.5" stroke-dasharray="7 5"/>
+        <circle cx="60" cy="136" r="5" fill="#5c7a6e"/>
+        <circle cx="160" cy="104" r="5" fill="#5c7a6e"/>
+        <circle cx="260" cy="104" r="5" fill="#5c7a6e"/>
+        <circle cx="360" cy="72" r="7" fill="none" stroke="#5c7a6e" stroke-width="2.5" stroke-dasharray="3 3"/>
+        <text x="360" y="60" font-size="9.5" fill="#5c7a6e" text-anchor="middle" font-weight="700">H0-gated</text>
+        <circle cx="460" cy="72" r="5" fill="#5c7a6e"/>
+        <circle cx="560" cy="88" r="5" fill="#5c7a6e"/>
+        <text x="360" y="222" font-size="9.5" fill="#b04a4a" text-anchor="middle" opacity="0.6">As-Is pit</text>
+        <!-- x labels -->
+        <text x="60" y="242" font-size="10" fill="#6b6560" text-anchor="middle">1 Arrive</text>
+        <text x="160" y="242" font-size="10" fill="#6b6560" text-anchor="middle">2 Choose</text>
+        <text x="260" y="242" font-size="10" fill="#6b6560" text-anchor="middle">3 Connect</text>
+        <text x="360" y="242" font-size="10" fill="#6b6560" text-anchor="middle" font-weight="700">4 Reveal</text>
+        <text x="460" y="242" font-size="10" fill="#6b6560" text-anchor="middle">5 List</text>
+        <text x="560" y="242" font-size="10" fill="#6b6560" text-anchor="middle">6 Return</text>
+      </svg>
+      <div class="curve-legend">
+        <span><span class="lg-line lg-dash"></span>To-Be, projected target</span>
+        <span><span class="lg-line lg-solid"></span>As-Is, for contrast</span>
+        <span>reveal peak is gated by H0 (untested with avoiders)</span>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <p><strong>The one thing not confirmed.</strong> Step 4's target emotion (relief and agency) is the projected payoff that the riskiest assumption H0 gates. It is designed to D1 but not validated with actual avoiders. The clickable-prototype test with 5 to 8 screened avoiders is the close (strategy.md section 5).</p>
+    </div>
+  </section>
+
+  <!-- Backlog and MVP -->
+  <section class="section" id="backlog">
+    <div class="section-label">The working list</div>
+    <h2>Backlog and MVP</h2>
+    <p>This refines the existing MVP core (strategy.md D3, jtbd.md Part 5, CLAUDE.md), not a second parallel list. Priority is relative to this path: MVP means the reveal path breaks without it; LATER means the path works without it.</p>
+
+    <div class="table-scroll">
+      <table class="cjm-table">
+        <thead>
+          <tr><th>#</th><th>Feature</th><th>Priority</th><th>Parent (barrier / job)</th><th>Success (AARRR)</th><th>Covered by</th></tr>
+        </thead>
+        <tbody>
+          <tr class="mvp"><td>B1</td><td>Value-before-bank onboarding (calm preview + trust statement)</td><td><span class="pri pri-mvp">MVP</span></td><td>zone 1, zone 3 / J1</td><td>Activation</td><td>welcome, path-choice</td></tr>
+          <tr class="mvp"><td>B2</td><td>Dual activation paths, equal weight</td><td><span class="pri pri-mvp">MVP</span></td><td>P3 / J1, J5</td><td>Activation (path split)</td><td>path-choice; D2</td></tr>
+          <tr class="mvp"><td>B3</td><td>Plain-language data explanation + read-only line</td><td><span class="pri pri-mvp">MVP</span></td><td>P3, O16/O17 / J1, E3</td><td>Activation</td><td>connect-bank; voice.md</td></tr>
+          <tr class="mvp"><td>B4</td><td>Transaction enrichment (real names, logos, categories)</td><td><span class="pri pri-mvp">MVP</span></td><td>zone 2 / J3</td><td>Activation (the aha)</td><td>display covered; pipeline is new</td></tr>
+          <tr class="mvp"><td>B5</td><td>Guided Reveal: gradual, total paired with an action</td><td><span class="pri pri-mvp">MVP</span></td><td>zone 4, zone 3 / J-MAIN</td><td>Activation 35-40%; H0 here</td><td>guided-reveal; D1</td></tr>
+          <tr class="mvp"><td>B6</td><td>Calm list + monthly total; Detail "what is this charge"</td><td><span class="pri pri-mvp">MVP</span></td><td>P2, P4 / J-MAIN, J3</td><td>Activation + Retention</td><td>home, subscription-detail</td></tr>
+          <tr class="mvp"><td>B7</td><td>Basic alerts (price change, payment failed), free</td><td><span class="pri pri-mvp">MVP</span></td><td>zone 5 / J4</td><td>Retention 30/60%</td><td>alerts; Flow D; D3</td></tr>
+          <tr><td>L1</td><td>Weekly email digest and home-screen widget</td><td><span class="pri pri-later">LATER</span></td><td>J4 / retention</td><td>Retention</td><td>retention layer</td></tr>
+          <tr><td>L2</td><td>Full cancel guides + direct links (Pro)</td><td><span class="pri pri-later">LATER</span></td><td>J2 (Claudia)</td><td>Revenue</td><td>cancel-guide; D3</td></tr>
+          <tr><td>L3</td><td>History and trends; advanced alerts (Pro)</td><td><span class="pri pri-later">LATER</span></td><td>J4 depth</td><td>Revenue 6-10%</td><td>history-trends, upgrade; D3</td></tr>
+          <tr><td>L4</td><td>Privacy-safe share snapshot</td><td><span class="pri pri-later">LATER</span></td><td>S1 <span class="qmark">?</span></td><td>Referral 15-20%</td><td>share-snapshot</td></tr>
+          <tr><td>L5</td><td>Household / shared view</td><td><span class="pri pri-later">LATER</span></td><td>JH1 <span class="qmark">?</span></td><td>-</td><td>deferred (Segment C)</td></tr>
+          <tr><td>L6</td><td>Full privacy build: manual + 400+ presets</td><td><span class="pri pri-later">Ravi</span></td><td>J5 (Ravi)</td><td>Activation (privacy)</td><td>add-subscription; Flow B; D2</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="check-grid">
+      <div class="check-item"><b>Confirmed by the To-Be map:</b> jtbd MVP Core Jobs 1 to 3 (reveal + trust, real names, privacy path), strategy.md D3 free scope, and aarrr.md "Activation is everything" (B5 carries the primary activation metric).</div>
+      <div class="check-item"><b>Refined:</b> value-before-bank preview made an explicit MVP item (B1); enrichment split into the covered display versus the new backend pipeline (B4); the reveal pinned to gradual plus paired-action (B5, per D1).</div>
+      <div class="check-item warn"><b>Stale in the old core, needs alignment:</b> CLAUDE.md free tier lists "up to 10 tracked subscriptions" and "connect up to 2 bank accounts". These contradict locked D3 (free = full, unlimited visibility) and break Emma's reveal directly: a cap truncates the list, so she cannot see all her charges and cannot feel relief. Action: update CLAUDE.md MVP Feature Scope in Step 11 to drop the caps. Not a new decision, an alignment to an already-locked one.</div>
+    </div>
+  </section>
+
+  <!-- Risks and reconciliation -->
+  <section class="section" id="risks">
+    <div class="section-label">Audit</div>
+    <h2>Risks and reconciliation</h2>
+
+    <div class="callout">
+      <p><strong>Reconciliation (the load-bearing result):</strong> every To-Be step is covered by the locked structure (Flow A, the wireframes, D1 to D5), and no step contradicts it. The CJM is the emotional cross-check that confirms the built IA and wireframes already cover Emma's As-Is pains.</p>
+    </div>
+
+    <h3>Three most dangerous questions</h3>
+    <div class="q-item"><span class="q-num">1</span> <b>H0, not closeable by desk research.</b> The whole MVP core (the B4 + B5 + B6 reveal) delivers a moment whose emotional payoff is unproven with actual avoiders. The clickable-prototype test with 5 to 8 screened avoiders is the gate (strategy.md section 5). The single most consequential open item.</div>
+    <div class="q-item"><span class="q-num">2</span> <b>Enrichment feasibility (B4).</b> The reveal's quality depends on the enrichment pipeline covering the user's real charges with recognizable names and logos. If coverage is thin, the reveal shows cryptic codes anyway and B5 fails. Partly checkable (Rocket Money uses Plaid enrichment), partly a build-time risk.</div>
+    <div class="q-item"><span class="q-num">3</span> <b>B7 scoping.</b> Whether the return hook is MVP or LATER for the J-MAIN focus is a scoping call; it is a retention bet beyond H0, and the retention hypotheses it rests on are <span class="qmark">?</span> in aarrr.md. Kept MVP for now, flagged for revisit.</div>
+
+    <h3>Boundary note</h3>
+    <p style="font-size:13px;color:var(--text-secondary)">The To-Be starts at "Arrive". What brings an avoider to Welcome is the same surprise-charge trigger from As-Is, which the product cannot create; it can only be ready when it happens. How an avoider is acquired is an AARRR Acquisition question outside the in-product journey.</p>
+  </section>
+
+  <div class="footer">
+    <p>Tendd Product Research &middot; User Research &middot; CJM To-Be. Target emotions are projected, not measured. <span class="qmark">?</span> marks a hypothesis.</p>
+    <p style="margin-top:4px">
+      <a href="cjm-as-is.html">CJM As-Is</a> &middot;
+      <a href="personas.html">Personas</a> &middot;
+      <a href="jtbd.html">JTBD</a> &middot;
+      <a href="docs/cjm-to-be.md">Source: cjm-to-be.md</a>
+    </p>
+  </div>
+
+</main>
+
+<script>
+  (function() {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    var toggle = document.getElementById('navToggle');
+    var close = document.getElementById('sidebarClose');
+    function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('open'); }
+    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+    toggle.addEventListener('click', openSidebar);
+    close.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+    sidebar.querySelectorAll('.nav-sub-link').forEach(function(link) {
+      link.addEventListener('click', function() { if (window.innerWidth < 840) closeSidebar(); });
+    });
+    var subLinks = document.querySelectorAll('.nav-sub-link[data-section]');
+    var sections = document.querySelectorAll('section[id]');
+    if ('IntersectionObserver' in window && sections.length) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            subLinks.forEach(function(l) { l.classList.remove('active'); });
+            var active = document.querySelector('.nav-sub-link[data-section="' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-15% 0px -75% 0px' });
+      sections.forEach(function(s) { observer.observe(s); });
+    }
+  })();
+</script>
+
+</body>
+</html>

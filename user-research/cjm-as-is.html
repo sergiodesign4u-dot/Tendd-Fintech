@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tendd - CJM As-Is</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --border-light: #f0ede6;
+      --text: #2a2724;
+      --text-secondary: #6b6560;
+      --text-muted: #9b958e;
+      --accent: #5c7a6e;
+      --accent-light: #eef4f1;
+      --accent-mid: #d0e4dc;
+      --yellow-light: #fdf8ed;
+      --yellow-mid: #f5e9c4;
+      --red-light: #fdf2f0;
+      --red-mid: #f2cfc8;
+      --red-line: #b04a4a;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --radius: 8px;
+      --radius-sm: 4px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+    /* Sidebar */
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: var(--surface); border-right: 1px solid var(--border); z-index: 200; transform: translateX(-100%); transition: transform 0.22s ease; overflow-y: auto; padding-bottom: 32px; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 150; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 14px; border-bottom: 1px solid var(--border-light); }
+    .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+    .sidebar-close { background: none; border: none; font-size: 18px; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--radius-sm); }
+    .sidebar-close:hover { color: var(--text); background: var(--border-light); }
+    .nav-toggle { position: fixed; top: 14px; left: 16px; z-index: 100; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px; }
+    .sidebar-nav { padding: 12px 10px 0; }
+    .nav-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 10px 8px 5px; }
+    .nav-section-label.active { color: var(--accent); }
+    .nav-link { display: block; text-decoration: none; color: var(--text-secondary); font-size: 13px; padding: 6px 10px; border-radius: var(--radius-sm); margin-bottom: 1px; transition: all 0.15s; }
+    .nav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-link.active { color: var(--accent); background: var(--accent-light); font-weight: 500; }
+    .nav-page-active { display: block; font-size: 13px; font-weight: 600; color: var(--accent); padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light); margin-bottom: 1px; }
+    .nav-sub-link { display: block; text-decoration: none; color: var(--text-muted); font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm); margin-bottom: 1px; transition: all 0.15s; }
+    .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-sub-link.active { color: var(--accent); font-weight: 500; }
+    .nav-divider { border: none; border-top: 1px solid var(--border-light); margin: 10px 8px; }
+    .nav-next-block { margin: 14px 8px 0; padding: 10px; border-radius: var(--radius-sm); background: var(--bg); border: 1px solid var(--border-light); }
+    .nav-next-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
+    .nav-next-items { font-size: 12px; color: var(--text-muted); }
+    @media (min-width: 840px) { .sidebar { transform: translateX(0); } .sidebar-close { display: none; } .sidebar-overlay { display: none !important; } .nav-toggle { display: none; } }
+
+    /* Layout */
+    main { max-width: 900px; margin: 0 auto; padding: 72px 24px 80px; }
+    @media (min-width: 840px) { body { padding-left: 220px; } main { padding-top: 40px; } }
+    @media (max-width: 640px) { main { padding-left: 16px; padding-right: 16px; } h1 { font-size: 26px !important; } }
+
+    /* Type */
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; color: var(--text); }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px; }
+    h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    p { margin-bottom: 12px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    cite { font-size: 11.5px; color: var(--text-muted); font-style: normal; }
+    cite a { color: var(--text-muted); }
+    cite a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero { padding: 64px 0 40px; border-bottom: 1px solid var(--border); }
+    .hero-meta { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 100px; background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+    .hero-tagline { font-size: 18px; color: var(--text-secondary); margin-top: 12px; max-width: 660px; line-height: 1.5; }
+
+    .section { padding: 60px 0 0; }
+
+    /* Focus card */
+    .focus-card { background: var(--surface); border: 1px solid var(--accent-mid); border-radius: var(--radius); box-shadow: var(--shadow-md); margin-top: 22px; overflow: hidden; }
+    .focus-head { padding: 20px 24px 16px; background: var(--accent-light); border-bottom: 1px solid var(--border-light); }
+    .focus-name { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+    .focus-role { font-size: 14px; color: var(--text-secondary); margin-top: 2px; }
+    .focus-body { padding: 20px 24px; }
+    .job-stmt { font-size: 14px; font-style: italic; color: var(--text-secondary); line-height: 1.6; border-left: 3px solid var(--accent-mid); padding: 10px 14px; background: var(--bg); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+    .job-stmt .job-source { display: block; font-style: normal; font-size: 11.5px; color: var(--text-muted); margin-top: 6px; }
+    .scope-note { font-size: 12.5px; color: var(--text-secondary); margin-top: 14px; line-height: 1.55; }
+
+    /* Journey */
+    .journey { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 22px; }
+    @media (max-width: 820px) { .journey { grid-auto-flow: column; grid-auto-columns: 80%; grid-template-columns: none; overflow-x: auto; padding-bottom: 8px; } }
+    .journey.tobe { grid-template-columns: repeat(6, 1fr); }
+    @media (max-width: 820px) { .journey.tobe { grid-template-columns: none; } }
+    .phase-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 14px; display: flex; flex-direction: column; gap: 7px; }
+    .phase-card.pit { border-color: var(--red-mid); background: var(--red-light); }
+    .phase-card.win { border-color: var(--accent-mid); background: var(--accent-light); }
+    .phase-num { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+    .phase-name { font-size: 13.5px; font-weight: 600; color: var(--text); line-height: 1.25; }
+    .phase-field { font-size: 11.5px; color: var(--text-secondary); line-height: 1.45; }
+    .phase-field b { color: var(--text); font-weight: 600; }
+    .emo-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 100px; align-self: flex-start; }
+    .emo-neg { background: var(--red-light); color: #8a2020; border: 1px solid var(--red-mid); }
+    .emo-pos { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+    .emo-neu { background: var(--yellow-light); color: #8a6e20; border: 1px solid var(--yellow-mid); }
+
+    /* Curve */
+    .curve-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 18px 14px; margin-top: 20px; overflow-x: auto; }
+    .curve-wrap svg { display: block; width: 100%; min-width: 560px; height: auto; }
+    .curve-legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; font-size: 12px; color: var(--text-secondary); }
+    .lg-line { display: inline-block; width: 22px; height: 0; vertical-align: middle; margin-right: 6px; }
+    .lg-solid { border-top: 3px solid var(--red-line); }
+    .lg-dash { border-top: 3px dashed var(--accent); }
+    .lg-dot { display:inline-block; width:11px; height:11px; border-radius:50%; border:2px dashed var(--red-line); vertical-align:middle; margin-right:6px; }
+
+    .callout { background: var(--red-light); border: 1px solid var(--red-mid); border-radius: var(--radius); padding: 16px 20px; margin-top: 18px; }
+    .callout.accent { background: var(--accent-light); border-color: var(--accent-mid); }
+    .callout p { font-size: 13.5px; color: var(--text); margin-bottom: 0; line-height: 1.6; }
+
+    .quotes { margin-top: 20px; display: grid; gap: 10px; }
+    .quote-block { border-left: 3px solid var(--accent); padding: 12px 16px; background: var(--accent-light); border-radius: 0 var(--radius) var(--radius) 0; }
+    .quote-block blockquote { font-size: 14px; font-style: italic; line-height: 1.55; color: var(--text); margin-bottom: 6px; }
+    .quote-source { font-size: 11.5px; color: var(--text-secondary); }
+
+    /* Zones */
+    .zone-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 16px; margin-top: 10px; }
+    .zone-card.pit { border-left-color: var(--red-line); }
+    .zone-rank { font-size: 10px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+    .zone-title { font-size: 14px; font-weight: 600; color: var(--text); margin: 3px 0 5px; }
+    .zone-body { font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; }
+    .strength { display:inline-block; font-size:10px; font-weight:700; padding:1px 6px; border-radius:4px; margin-left:6px; }
+    .st-pattern { background: var(--accent-light); color: var(--accent); border:1px solid var(--accent-mid); }
+    .st-signal { background: var(--yellow-light); color:#8a6e20; border:1px solid var(--yellow-mid); }
+    .qmark { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 4px; background: var(--yellow-light); color: #8a6e20; border: 1px solid var(--yellow-mid); }
+
+    .footer { border-top: 1px solid var(--border); margin-top: 72px; padding: 32px 0; text-align: center; }
+    .footer p { font-size: 13px; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd Research</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Foundation Research</div>
+    <a href="../research/research.html#intro" class="nav-link">Overview</a>
+    <a href="../research/research.html#canvas" class="nav-link">Canvas</a>
+    <a href="../research/research.html#strategy" class="nav-link">Strategy</a>
+    <a href="../research/research.html#aarrr" class="nav-link">AARRR</a>
+    <a href="../research/research.html#competitors" class="nav-link">Competitors</a>
+    <a href="../research/research.html#benchmark" class="nav-link">Benchmark</a>
+    <a href="../research/research.html#patterns" class="nav-link">UX Patterns</a>
+    <a href="../research/research.html#conclusions" class="nav-link">Conclusions</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label active">User Research</div>
+    <a href="personas.html" class="nav-link">Personas</a>
+    <a href="jtbd.html" class="nav-link">JTBD</a>
+    <span class="nav-page-active">CJM As-Is</span>
+    <a href="#focus" class="nav-sub-link" data-section="focus">Focus</a>
+    <a href="#journey" class="nav-sub-link" data-section="journey">As-Is journey</a>
+    <a href="#curve" class="nav-sub-link" data-section="curve">Emotional curve</a>
+    <a href="#zones" class="nav-sub-link" data-section="zones">Growth zones</a>
+    <a href="cjm-to-be.html" class="nav-link">CJM To-Be</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Information Architecture</div>
+    <a href="../ia/ia.html" class="nav-link">Overview</a>
+    <a href="../ia/navigation.html" class="nav-link">Global Navigation</a>
+    <a href="../ia/onboarding.html" class="nav-link">1 Onboarding</a>
+    <a href="../ia/core.html" class="nav-link">2 Core</a>
+    <a href="../ia/alerts.html" class="nav-link">3 Stay Ahead</a>
+    <a href="../ia/cancel.html" class="nav-link">4 Cut &amp; Celebrate</a>
+    <a href="../ia/pro.html" class="nav-link">5 Depth (Pro)</a>
+    <a href="../ia/account.html" class="nav-link">6 Account &amp; Trust</a>
+    <a href="../ia/system.html" class="nav-link">9 System</a>
+    <a href="../ia/seo.html" class="nav-link">SEO</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Wireframes</div>
+    <a href="../wireframes/index.html" class="nav-link">Overview</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label">Voice</div>
+    <a href="../voice/voices.html" class="nav-link">Overview</a>
+    <a href="../voice/voice.html" class="nav-link">Voice</a>
+    <a href="../voice/microcopy.html" class="nav-link">Microcopy</a>
+
+    <div class="nav-next-block">
+      <span class="nav-next-label">Next</span>
+      <span class="nav-next-items">Concept &middot; UI + Visual &middot; Tokens + Components &middot; Design System &middot; Responsive &middot; Animation &middot; Handoff</span>
+    </div>
+  </nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main>
+
+  <!-- Focus / Hero -->
+  <section class="hero" id="focus">
+    <div class="hero-meta">
+      <span class="badge">User Research</span>
+      <span class="badge">CJM As-Is</span>
+      <span class="badge">LITE mining</span>
+    </div>
+    <h1>Customer Journey: As-Is</h1>
+    <p class="hero-tagline">How Emma does her main job today, without Tendd. Because she is an avoider, this journey mostly does not complete: it is a cycle of avoidance broken by a trigger, a reluctant half-attempt, friction, and retreat. Every emotion stands on a source or is marked <span class="qmark">?</span></p>
+
+    <div class="focus-card">
+      <div class="focus-head">
+        <div class="focus-name">Emma, 29 &middot; The Anxious Non-Looker</div>
+        <div class="focus-role">Primary persona &times; J-MAIN</div>
+      </div>
+      <div class="focus-body">
+        <div class="job-stmt">
+          When I suspect I am paying for things I forgot about or never use, I want to see all my recurring charges clearly in one calm view, so that I feel in control of my money without needing to become a finance person.
+          <span class="job-source"><cite>personas.md Persona 1; jtbd.md Part 1 (fused J1 + J2)</cite></span>
+        </div>
+        <p class="scope-note"><strong>One focus only.</strong> Ravi (the privacy-first path, jtbd.md J5, flows.md Flow B) diverges fundamentally and deserves his own CJM card. Claudia (the cut-and-win journey, flows.md Flow C) is a variation on entry but a separate candidate card. This map is Emma on the bank path.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- As-Is journey -->
+  <section class="section" id="journey">
+    <div class="section-label">The path today</div>
+    <h2>As-Is journey</h2>
+    <p>Phases are derived from Emma's real path (personas.md, jtbd.md), not a generic Awareness-to-Retention funnel. The emotional low is Phase 4, reached only if she gets past the trigger without retreating first.</p>
+
+    <div class="journey">
+      <div class="phase-card">
+        <div class="phase-num">Phase 1</div>
+        <div class="phase-name">Baseline avoidance</div>
+        <span class="emo-badge emo-neg">Negative &middot; 3</span>
+        <div class="phase-field"><b>Thinks:</b> "I probably spend more than I should, but I don't want to know."</div>
+        <div class="phase-field"><b>Does:</b> pays on time; does not open the banking app (about 3 months); notes a charge alert and closes it.</div>
+        <div class="phase-field"><b>Where:</b> phone notifications; banking app, unopened.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Phase 2</div>
+        <div class="phase-name">Trigger</div>
+        <span class="emo-badge emo-neg">Negative spike &middot; 4</span>
+        <div class="phase-field"><b>Thinks:</b> "What was that charge? I should really look."</div>
+        <div class="phase-field"><b>Does:</b> a surprise charge or renewal email she cannot ignore lands.</div>
+        <div class="phase-field"><b>Where:</b> renewal email; bank push; card statement.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Phase 3</div>
+        <div class="phase-name">Attempt to look</div>
+        <span class="emo-badge emo-neg">Negative &middot; 3</span>
+        <div class="phase-field"><b>Thinks:</b> "OK, let me just see. Where do I even start?"</div>
+        <div class="phase-field"><b>Does:</b> opens the statement or a tracker app; starts scrolling.</div>
+        <div class="phase-field"><b>Where:</b> banking app; a competitor tracker.</div>
+      </div>
+      <div class="phase-card pit">
+        <div class="phase-num">Phase 4 &middot; the pit</div>
+        <div class="phase-name">Hits friction</div>
+        <span class="emo-badge emo-neg">Negative &middot; 5</span>
+        <div class="phase-field"><b>Thinks:</b> "What is 'SPOTIFYAB STOCKHOLM'? Why do they want my bank login already?"</div>
+        <div class="phase-field"><b>Does:</b> meets cryptic codes, a connect-your-bank wall, or an overwhelming dashboard.</div>
+        <div class="phase-field"><b>Where:</b> statement codes; tracker bank wall; dense dashboard.</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Phase 5</div>
+        <div class="phase-name">Retreat</div>
+        <span class="emo-badge emo-neg">Negative &middot; 3</span>
+        <div class="phase-field"><b>Thinks:</b> "I'll deal with it later. I don't know these people yet."</div>
+        <div class="phase-field"><b>Does:</b> closes without a complete picture; keeps the incomplete model; the dread persists.</div>
+        <div class="phase-field"><b>Where:</b> app closed; back to ambient avoidance.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emotional curve -->
+  <section class="section" id="curve">
+    <div class="section-label">Synthesis</div>
+    <h2>Emotional curve</h2>
+    <p>The whole curve sits below neutral: there is no positive point in Emma's current path. Pattern-backed points render larger; single-source signals render smaller. The relief endpoint is drawn as undefined (dashed), not interpolated, because avoiders do not reliably reach it today.</p>
+
+    <div class="curve-wrap">
+      <svg viewBox="0 0 620 250" role="img" aria-label="As-Is emotional curve, all points below neutral, deepest at Phase 4">
+        <line x1="40" y1="120" x2="600" y2="120" stroke="#9b958e" stroke-dasharray="4 4" opacity="0.5"/>
+        <text x="44" y="112" font-size="10" fill="#9b958e">calmer</text>
+        <text x="44" y="214" font-size="10" fill="#9b958e">distress</text>
+        <!-- As-Is line -->
+        <polyline points="60,168 160,184 260,168 360,200 460,168" fill="none" stroke="#b04a4a" stroke-width="2.5"/>
+        <!-- dotted lead to the [?] relief endpoint -->
+        <polyline points="460,168 560,88" fill="none" stroke="#b04a4a" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.55"/>
+        <circle cx="60" cy="168" r="6" fill="#b04a4a"/>
+        <circle cx="160" cy="184" r="6" fill="#b04a4a"/>
+        <circle cx="260" cy="168" r="4" fill="#b04a4a" opacity="0.7"/>
+        <circle cx="360" cy="200" r="7.5" fill="#b04a4a"/>
+        <circle cx="460" cy="168" r="4" fill="#b04a4a" opacity="0.7"/>
+        <circle cx="560" cy="88" r="6.5" fill="none" stroke="#b04a4a" stroke-width="2" stroke-dasharray="3 3"/>
+        <text x="560" y="92" font-size="11" fill="#b04a4a" text-anchor="middle" font-weight="700">?</text>
+        <text x="360" y="224" font-size="9.5" fill="#b04a4a" text-anchor="middle" font-weight="700">deepest</text>
+        <!-- x labels -->
+        <text x="60" y="242" font-size="10" fill="#6b6560" text-anchor="middle">1 Avoid</text>
+        <text x="160" y="242" font-size="10" fill="#6b6560" text-anchor="middle">2 Trigger</text>
+        <text x="260" y="242" font-size="10" fill="#6b6560" text-anchor="middle">3 Attempt</text>
+        <text x="360" y="242" font-size="10" fill="#6b6560" text-anchor="middle" font-weight="700">4 Friction</text>
+        <text x="460" y="242" font-size="10" fill="#6b6560" text-anchor="middle">5 Retreat</text>
+        <text x="560" y="242" font-size="10" fill="#9b958e" text-anchor="middle">relief?</text>
+      </svg>
+      <div class="curve-legend">
+        <span><span class="lg-line lg-solid"></span>As-Is, sourced</span>
+        <span><span class="lg-dot"></span>relief endpoint, undefined (H0)</span>
+        <span>larger point = pattern &middot; smaller = single signal</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Where the riskiest assumption (H0) is sharpest: the Phase 4 to Phase 5 transition.</strong> Today, hitting the friction pit confirms the avoider's prior belief that "looking makes it worse", so she retreats and the dread persists. Every session that ends at retreat is evidence for the avoidance loop, not against it. Whether a calm product can carry her to the relief endpoint is untested with avoiders (strategy.md section 5).</p>
+    </div>
+
+    <div class="quotes">
+      <div class="quote-block">
+        <blockquote>People avoid looking because they "assume that what they find will confirm the worst about themselves"; shame thoughts include "I am irresponsible" and "I should have figured this out by now."</blockquote>
+        <div class="quote-source">Financial-avoidance psychology, verified in re-research. <cite>Source: <a href="https://maggiebakerphd.com/why-do-i-avoid-looking-at-my-bank-account-the-psychology-behind-financial-avoidance/" target="_blank">maggiebakerphd.com</a></cite></div>
+      </div>
+      <div class="quote-block">
+        <blockquote>App-store charges "will likely be listed as a payment to either Apple or Google, so it's harder to see what you're paying for."</blockquote>
+        <div class="quote-source">On why the manual look feels futile. <cite>Source: <a href="https://www.engadget.com/apps/how-to-find-and-cancel-your-unused-subscriptions-130036314.html" target="_blank">engadget.com</a>, <a href="https://www.consumerreports.org/consumer-awareness/how-to-find-and-cancel-unwanted-online-subscriptions-a3454561625/" target="_blank">consumerreports.org</a></cite></div>
+      </div>
+      <div class="quote-block">
+        <blockquote>"Haven't signed up yet. Not comfortable giving banking info to an app."</blockquote>
+        <div class="quote-source">On the bank wall at first contact. <cite>Source: <a href="https://www.19pine.ai/blog/best-management-and-subscription-trackers" target="_blank">19pine.ai</a></cite></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Growth zones -->
+  <section class="section" id="zones">
+    <div class="section-label">Where we win</div>
+    <h2>Growth zones</h2>
+    <p>Five places where today's experience hurts most, prioritized by pattern strength. Zones 1 to 4 cluster at the Phase 4 pit, which is coherent: the deepest point is where the biggest opportunities concentrate. The solution for each is designed in the To-Be map, not here.</p>
+
+    <div class="zone-card">
+      <div class="zone-rank">Zone 1</div>
+      <div class="zone-title">The bank-connection wall at first contact <span class="strength st-pattern">pattern</span></div>
+      <div class="zone-body">Every bank-connected competitor asks for bank access in step 1 to 2, before earning any trust. Named the single biggest UX gap in the category. No competitor shows value before the bank ask. <cite>O21; competitive-analysis.md P1; jtbd.md J1.</cite></div>
+    </div>
+    <div class="zone-card">
+      <div class="zone-rank">Zone 2</div>
+      <div class="zone-title">Cryptic charges she cannot decode <span class="strength st-pattern">pattern</span></div>
+      <div class="zone-body">Looking is futile today because half the charges are unreadable bank codes, and app-store charges hide behind Apple or Google. Real merchant names and logos are table stakes no subscription tracker has made a differentiator. <cite>O23; jtbd.md J3; master-research.md M3.</cite></div>
+    </div>
+    <div class="zone-card">
+      <div class="zone-rank">Zone 3</div>
+      <div class="zone-title">No calm, judgment-free space to just see subscriptions <span class="strength st-pattern">pattern</span></div>
+      <div class="zone-body">Every app felt overwhelming: too many numbers and graphs, and an implicit "here is what you are doing wrong." Calm is unclaimed as a position by any competitor, including ReSubs. <cite>BP1; competitive-analysis.md P2 and gap G1.</cite></div>
+    </div>
+    <div class="zone-card pit">
+      <div class="zone-rank">Zone 4 &middot; the H0 crux</div>
+      <div class="zone-title">The reveal is all-or-nothing shock, which confirms avoidance <span class="strength st-pattern">pattern</span></div>
+      <div class="zone-body">All-or-nothing looking spikes anxiety; there is no gentle on-ramp today. No competitor designs the first view as a calm emotional experience. This is the riskiest-assumption battleground and the highest-value zone; the design response belongs in the To-Be map. <cite>LITE psych search; jtbd.md 6A DANGER 1; strategy.md section 5.</cite></div>
+    </div>
+    <div class="zone-card">
+      <div class="zone-rank">Zone 5</div>
+      <div class="zone-title">No return hook; the job never repeats <span class="strength st-signal">signal to pattern</span></div>
+      <div class="zone-body">Without an external hook, avoiders do not come back, so even a partial win decays. Retention-adjacent and secondary to the reveal for this focus. <cite>O25 / BP4; jtbd.md J4.</cite></div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <p>Tendd Product Research &middot; User Research &middot; CJM As-Is. Every emotion cited or marked <span class="qmark">?</span></p>
+    <p style="margin-top:4px">
+      <a href="cjm-to-be.html">CJM To-Be</a> &middot;
+      <a href="personas.html">Personas</a> &middot;
+      <a href="jtbd.html">JTBD</a> &middot;
+      <a href="docs/cjm-as-is.md">Source: cjm-as-is.md</a>
+    </p>
+  </div>
+
+</main>
+
+<script>
+  (function() {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    var toggle = document.getElementById('navToggle');
+    var close = document.getElementById('sidebarClose');
+    function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('open'); }
+    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+    toggle.addEventListener('click', openSidebar);
+    close.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+    sidebar.querySelectorAll('.nav-sub-link').forEach(function(link) {
+      link.addEventListener('click', function() { if (window.innerWidth < 840) closeSidebar(); });
+    });
+    var subLinks = document.querySelectorAll('.nav-sub-link[data-section]');
+    var sections = document.querySelectorAll('section[id]');
+    if ('IntersectionObserver' in window && sections.length) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            subLinks.forEach(function(l) { l.classList.remove('active'); });
+            var active = document.querySelector('.nav-sub-link[data-section="' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-15% 0px -75% 0px' });
+      sections.forEach(function(s) { observer.observe(s); });
+    }
+  })();
+</script>
+
+</body>
+</html>
