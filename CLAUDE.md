@@ -6,7 +6,7 @@
 |-------|--------|--------|
 | Foundation Research | research/research.html, research/docs/*.md | Done (June 2026) |
 | User Research (Personas + JTBD) | user-research/personas.html, user-research/jtbd.html, user-research/docs/personas.md, user-research/docs/jtbd.md | Done (June 2026) |
-| CJM (As-Is + To-Be) | folded into User Research and the Information Architecture flows (flows.md); no separate deliverable | Not run as a separate phase |
+| CJM (As-Is + To-Be) | user-research/cjm-as-is.html, user-research/cjm-to-be.html, user-research/docs/cjm-as-is.md, user-research/docs/cjm-to-be.md | Done (July 2026) |
 | Information Architecture | ia/ia.html, ia/docs/sitemap.md, ia/docs/flows.md | Done (July 2026) |
 | Wireframes | wireframes/index.html, wireframes/*.html, wireframes/_screens.md, wireframes/_conventions.md, wireframes/_critique.md | Done (July 2026) |
 | Voice | voice/voices.html, voice/voice.html, voice/microcopy.html, voice/docs/voice.md, voice/docs/microcopy.md | Done (July 2026) |
@@ -19,6 +19,33 @@
 | Handoff | handoff/ | Pending |
 
 Founder decisions locked June 14 2026: D1 (gradual reveal with paired action), D2 (manual + presets at launch), D3 (paywall at history/trends/advanced alerts, NOT at cancel moment), D4 ($7.99/mo or $69/yr), D5 (US/Plaid first, EU deferred). See research/docs/strategy.md Section 6.
+
+---
+
+## CJM (As-Is + To-Be) (Phase)
+
+Built July 2026. A Customer Journey Map for the primary persona and job, Emma
+(The Anxious Non-Looker) x J-MAIN, drawn honestly: As-Is as an avoidance cycle,
+To-Be as the inversion the locked structure already delivers. It was a LITE
+mining pass on one persona-job, not all six. User Research now has four pages
+(Personas, JTBD, CJM As-Is, CJM To-Be); the CJM tree is wired into the review
+sidebar of every research and IA page. This was the last User-Research-track
+deliverable; next is Concept.
+
+- **As-Is** (user-research/docs/cjm-as-is.md, user-research/cjm-as-is.html): the
+  journey in five phases (baseline avoidance -> trigger -> attempt -> friction
+  pit -> retreat). Every emotion carries a research source or a `[?]`. The
+  deepest pit is Phase 4 (cryptic statement codes + the bank-connection wall +
+  overwhelm). The relief endpoint is a carried `[?]` = the riskiest assumption
+  H0 (whether an avoider actually looks and feels calmer), provable only in a
+  prototype (strategy.md Section 5).
+- **To-Be** (user-research/docs/cjm-to-be.md, user-research/cjm-to-be.html): the
+  journey (arrive without a bank demand -> choose path -> connect read-only ->
+  Guided Reveal -> calm list -> return hook) inverts the Phase 4 pit with the
+  gradual reveal (D1). Every To-Be step is covered by the already-locked
+  structure (flows.md Flow A + wireframes + D1-D5) and none contradicts it, so
+  the CJM validates the built product rather than surfacing a gap. Backlog:
+  B1-B7 (MVP) and L1-L6 (later).
 
 ---
 
@@ -207,13 +234,23 @@ changed line, so no product line ships outside the table.
 
 ## MVP Feature Scope
 
-### Free Tier (explore and assess value)
-- Connect up to 2 bank accounts or manually add subscriptions
+### Free Tier (the whole calm view - explore and assess value)
+
+Free is the full visibility layer, not a capped teaser: the paywall is at depth
+(history, trends, advanced alerts), never at basic visibility (per D3). There is
+no subscription cap and no bank-account cap - a capped list would break Emma's
+reveal and contradict the locked decision.
+
+- Value before bank: the value is visible before any bank connection is required - the Welcome landing shows a calm preview, and the privacy path adds subscriptions manually with presets (per D2)
+- Connect a bank read-only through Plaid, or add subscriptions yourself
 - See all recurring charges in a clean, categorized list
 - Basic subscription details: name, amount, next billing date, category
 - Simple monthly total view
-- Up to 10 tracked subscriptions
 - Basic alerts: price change detected, payment failed
+
+Whether this calm view actually lands for an avoider is the riskiest assumption
+(H0); it is provable only in a prototype, so the MVP is built to test it, not to
+assume it. `[?]`
 
 ### Paid Tier (SaaS subscription - Tendd Pro)
 - Unlimited bank connections and subscriptions
@@ -241,7 +278,7 @@ changed line, so no product line ships outside the table.
 
 **Paid tier:** Tendd Pro, priced at approximately $4 to $6 per month (hypothesis - to be validated). Value proposition: "Pay less per month than most of the subscriptions you'll cancel."
 
-**Assumption:** The free tier drives organic discovery and trust-building. Conversion to paid is triggered by hitting the subscription limit or wanting cancel support features.
+**Assumption:** The free tier drives organic discovery and trust-building. Conversion to paid is triggered by wanting depth - history and trends, advanced alerts, and cancel support - per D3, not by hitting a visibility cap.
 
 **Secondary revenue (later stage):** Affiliate commissions on subscription cancellation recommendations. Not in MVP.
 

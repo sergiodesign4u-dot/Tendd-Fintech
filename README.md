@@ -49,6 +49,7 @@ Tendd is a mobile-first, desktop-responsive web app that helps people who are no
 - [Research HTML](./research/research.html) - Live research summary page
 - [Personas](./user-research/personas.html) - 3 personas with observations, [?] badges, and trust triggers
 - [JTBD](./user-research/jtbd.html) - Job hierarchy, matrix, hypotheses, and critique
+- [CJM: As-Is + To-Be](./user-research/cjm-as-is.html) - the Emma x J-MAIN journey drawn honestly: As-Is bottoms out at Phase 4 (cryptic statement codes + the bank-connection wall + overwhelm); To-Be inverts that pit with a gradual reveal, gated by the riskiest assumption H0. See also [cjm-to-be.html](./user-research/cjm-to-be.html)
 - [Information Architecture](./ia/ia.html) - Entities, sitemap, navigation, flows, coverage matrix, critique
 - [Wireframes](./wireframes/index.html) - Grey, semantic, mobile-first responsive wireframes with real copy and all four states per screen; a flow-by-flow overview is the entry point
 - [Voice](./voice/voices.html) - The product voice as rules: principles, dictionary, forbidden list, and microcopy rules, plus the full was/became line inventory
