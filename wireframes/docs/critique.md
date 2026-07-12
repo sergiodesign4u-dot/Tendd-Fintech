@@ -183,3 +183,12 @@ Subscription Detail.
   unchanged (a row still opens subscription-detail.html).
 - Verified live at 1440px (Home two-pane, Detail two-pane, Settings full-width,
   landing with tree) and 390px (tree collapsed, single column, panes hidden).
+
+## Post-hoc reconciliation (July 12 2026)
+
+- **Upgrade annual-savings copy vs D4.** upgrade.html said the yearly plan was
+  "two months cheaper than paying monthly", but D4 ($7.99/mo, $69/yr) makes the
+  annual save $95.88 - $69 = $26.88, about 3.4 months, not two. Reworded to "it
+  saves about $27 a year versus paying monthly" in upgrade.html and the two
+  voice inventory mirrors (voice/docs/microcopy.md, voice/microcopy.html).
+  Caught while adapting the Voice prompt to the current repo.

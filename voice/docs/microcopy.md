@@ -555,7 +555,7 @@ list". Total: `$192.90 / month`.
 | upgrade | feature-list | Full cancel guides (Step by step, one-tap links) | body |
 | upgrade | feature-list | Export (Your history as a spreadsheet) | body |
 | upgrade | price | $69 a year | heading |
-| upgrade | price | That is $5.75 a month. Our calmest option, and two months cheaper than paying monthly. | body |
+| upgrade | price | That is $5.75 a month. Our calmest option, and it saves about $27 a year versus paying monthly. | body |
 | upgrade | price | Best value | status |
 | upgrade | price | $7.99 a month | heading |
 | upgrade | price | Month to month. Cancel any time, no lock-in. | body |
