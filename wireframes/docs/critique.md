@@ -192,3 +192,60 @@ Subscription Detail.
   saves about $27 a year versus paying monthly" in upgrade.html and the two
   voice inventory mirrors (voice/docs/microcopy.md, voice/microcopy.html).
   Caught while adapting the Voice prompt to the current repo.
+
+## Full-page dashboard shell (founder decision, July 14 2026)
+
+Founder feedback: the landing (welcome.html) reads as a real full-width desktop
+page, but every app screen still read as a phone card framed in a grey field,
+and the bottom tab bar sat at the very bottom of a tall scrolling card rather
+than behaving like app chrome. The critique, verified live at 1440px:
+
+- Phone-frame-in-a-box: each app screen is a bordered `.phone` card floating in
+  the grey `--page` stage; on desktop it reads as a phone mockup on a page, not
+  a product. The landing has no such frame.
+- Wasted width: Home two-pane put the list in a ~340px ribbon with a short
+  detail and a large empty void bottom-right; single-column screens capped at
+  820px and hugged the rail, leaving a wide empty field.
+- The bottom tab bar was not chrome: `position: absolute; bottom: 0` inside a
+  720px-min card, so on a long list it was stranded far below, not fixed.
+- The desktop rail was a thin stub in a tall empty column.
+
+Decision (of the options offered): turn the app shell into a real full-page
+dashboard, like the landing, still at wireframe fidelity (greyscale, structure,
+real copy). Onboarding and the landing are untouched.
+
+Implementation (all in _wf.css, behind a new `.dash` class so the change is
+opt-in per page):
+
+- The old framed-phone desktop rules are fenced with `:not(.dash)`, so every
+  non-dash page renders exactly as before.
+- `.dash` desktop (stage >= 760): the stage goes edge-to-edge (`.stage-app`
+  removes the gutter), the phone loses its border and fills the viewport height,
+  the header folds into the top of a persistent full-height left sidebar, and
+  the tab bar becomes that sidebar's vertical nav. The content area owns the
+  width and scrolls independently of the sidebar.
+- Two-pane (stage >= 1040): the detail pane (Home) and the master + detail
+  (Subscription Detail) span full height beside the list, so a wide screen has
+  no outside void.
+- Single-column app screens: a comfortable measure (max 940px), left-aligned in
+  the full-bleed content area, not a centered floating card.
+- Mobile (<= 460): the bottom tab bar becomes `position: fixed`, real viewport
+  chrome, instead of resting at the bottom of the card.
+
+Scope and verification: `.dash` + `.stage-app` applied to all 29 app pages
+(base screens and their empty/error/loading states, including the two-pane Home
+and Subscription Detail). Excluded and unchanged: onboarding (Welcome landing,
+Path Choice, Connect Bank, Add Subscription, Guided Reveal) and index.html.
+Verified live across a two-pane page, a single-column page, a state page, and
+mobile: full-height sidebar, content owns the width, empty-state exits intact,
+mobile bar fixed. Cross-checked all 42 pages: 0 broken links, 0 em dashes;
+onboarding, landing, and index not modified.
+
+Known trait: on a very wide screen a two-pane detail pane shows whitespace below
+a short detail. This is normal master-detail behaviour (a reading pane taller
+than its content) and was left as is.
+
+This revises the earlier "Side menu restored + full-width + two-pane" desktop
+model: the review side menu, the two-pane structure, and mobile are all kept;
+what changed is that on desktop the app is now edge-to-edge dashboard chrome
+rather than a framed phone widened in place.

@@ -217,7 +217,7 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .detailpane, .masterpane { display: none; }
 
 @container (min-width: 760px) {
-  .phone:not(.onboarding) {
+  .phone:not(.onboarding):not(.dash) {
     max-width: none; width: 100%;
     display: grid;
     grid-template-columns: 212px minmax(0, 1fr);
@@ -225,35 +225,35 @@ ul.list { list-style: none; margin: 0; padding: 0; }
     min-height: 660px;
   }
   /* GC1 folds into the TOP of the left rail on desktop (IA navigation.md). */
-  .phone:not(.onboarding) > .appbar {
+  .phone:not(.onboarding):not(.dash) > .appbar {
     grid-column: 1; grid-row: 1;
     flex-direction: column; align-items: flex-start; gap: 3px;
     background: var(--panel2); border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line); padding: 16px 18px;
   }
   /* Content fills the height beside the rail (the header no longer spans the top). */
-  .phone:not(.onboarding) > .screen {
+  .phone:not(.onboarding):not(.dash) > .screen {
     grid-column: 2; grid-row: 1 / -1; padding: 24px 30px 32px;
   }
   /* Single-column app screens: a comfortable measure, centered in the wide
      column (IA: centered with more surrounding space), so a list does not
      stretch on large monitors. Two-pane screens keep their master filling
      its narrower track. */
-  .phone:not(.onboarding):not(.tp-home):not(.tp-detail) > .screen {
+  .phone:not(.onboarding):not(.dash):not(.tp-home):not(.tp-detail) > .screen {
     width: min(100%, 820px); justify-self: center;
   }
   /* GC2: bottom tab bar -> left rail, sitting under the folded header */
-  .phone:not(.onboarding) > .tabbar {
+  .phone:not(.onboarding):not(.dash) > .tabbar {
     position: static; grid-column: 1; grid-row: 2;
     flex-direction: column; border-top: 0; border-right: 1px solid var(--line);
     align-content: start; background: var(--panel2); padding: 8px 0;
   }
-  .phone:not(.onboarding) > .tabbar a {
+  .phone:not(.onboarding):not(.dash) > .tabbar a {
     flex: none; text-align: left; padding: 11px 18px; border-top: 0;
     border-left: 3px solid transparent; display: flex; align-items: center; gap: 10px;
   }
-  .phone:not(.onboarding) > .tabbar a .ic { margin: 0; }
-  .phone:not(.onboarding) > .tabbar a.cur { border-top: 0; border-left-color: var(--ink); background: var(--frame); }
+  .phone:not(.onboarding):not(.dash) > .tabbar a .ic { margin: 0; }
+  .phone:not(.onboarding):not(.dash) > .tabbar a.cur { border-top: 0; border-left-color: var(--ink); background: var(--frame); }
 
   /* Onboarding: same single centered column, just more room (one thing at a time) */
   .phone.onboarding { max-width: 560px; }
@@ -265,21 +265,21 @@ ul.list { list-style: none; margin: 0; padding: 0; }
    returns as a master on the left (col 2), the detail sits on the right (col 3).
    Both panes span the full height beside the rail (header is folded into it). */
 @container (min-width: 1040px) {
-  .phone.tp-home {
+  .phone.tp-home:not(.dash) {
     grid-template-columns: 212px minmax(320px, 0.95fr) minmax(340px, 1.15fr);
   }
-  .phone.tp-home > .detailpane {
+  .phone.tp-home:not(.dash) > .detailpane {
     display: block; grid-column: 3; grid-row: 1 / -1;
     border-left: 1px solid var(--line); padding: 24px 30px 32px; overflow: auto;
   }
-  .phone.tp-detail {
+  .phone.tp-detail:not(.dash) {
     grid-template-columns: 212px minmax(300px, 0.9fr) minmax(340px, 1.1fr);
   }
-  .phone.tp-detail > .masterpane {
+  .phone.tp-detail:not(.dash) > .masterpane {
     display: block; grid-column: 2; grid-row: 1 / -1;
     border-right: 1px solid var(--line); padding: 18px 18px 28px; overflow: auto;
   }
-  .phone.tp-detail > .screen { grid-column: 3; grid-row: 1 / -1; }
+  .phone.tp-detail:not(.dash) > .screen { grid-column: 3; grid-row: 1 / -1; }
 }
 
 /* Panels: shared look. A small label marks them as the desktop second pane. */
@@ -289,6 +289,81 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 }
 .masterpane .mp-title { font-size: 12px; color: var(--soft); margin: 0 0 8px; text-transform: uppercase; letter-spacing: 0.05em; }
 .masterpane .row.cur { border-left-color: var(--ink); background: var(--panel2); }
+
+/* ============================================================
+   Full-page dashboard shell (app screens marked .dash).
+   Replaces the framed-phone desktop model: on desktop the app goes edge
+   to edge like the landing, with a persistent full-height sidebar (brand
+   + nav) and a content area that owns the width and scrolls on its own,
+   so the wide screen has no floating card and no empty void. Still
+   greyscale, structure only. Mobile keeps the phone frame, but its tab
+   bar becomes viewport-fixed chrome instead of resting at the card bottom.
+   ============================================================ */
+
+/* Edge-to-edge: no grey stage gutter around a dash app. */
+.stage.stage-app { padding: 0; }
+
+@container (min-width: 760px) {
+  .phone.dash {
+    max-width: none; width: 100%; height: 100vh; border: 0;
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    background: var(--frame);
+  }
+  /* GC1 brand block sits at the top of the sidebar. */
+  .phone.dash > .appbar {
+    grid-column: 1; grid-row: 1;
+    flex-direction: column; align-items: flex-start; gap: 4px;
+    border-right: 1px solid var(--line); border-bottom: 1px solid var(--line2);
+    padding: 18px 20px;
+  }
+  /* GC2 tab bar becomes the full-height sidebar nav under the brand. */
+  .phone.dash > .tabbar {
+    position: static; grid-column: 1; grid-row: 2;
+    flex-direction: column; border-top: 0; border-right: 1px solid var(--line);
+    align-content: start; background: var(--panel2); padding: 10px 0; overflow: auto;
+  }
+  .phone.dash > .tabbar a {
+    flex: none; text-align: left; padding: 12px 20px; border-top: 0;
+    border-left: 3px solid transparent; display: flex; align-items: center; gap: 10px;
+  }
+  .phone.dash > .tabbar a .ic { margin: 0; }
+  .phone.dash > .tabbar a.cur { border-top: 0; border-left-color: var(--ink); background: var(--frame); }
+  /* Content owns the width and scrolls independently of the sidebar. */
+  .phone.dash > .screen {
+    grid-column: 2; grid-row: 1 / -1; overflow: auto; padding: 26px 34px 40px;
+  }
+  /* Single-column app screens: a comfortable reading measure, left-aligned
+     inside the full-bleed content area (not a centered floating card). */
+  .phone.dash:not(.tp-home):not(.tp-detail) > .screen > * { max-width: 940px; }
+}
+
+/* Two-pane master-detail: the detail fills the full height beside the
+   list, so a wide screen has no empty void. */
+@container (min-width: 1040px) {
+  .phone.dash.tp-home {
+    grid-template-columns: 240px minmax(360px, 1.05fr) minmax(360px, 1fr);
+  }
+  .phone.dash.tp-home > .detailpane {
+    display: block; grid-column: 3; grid-row: 1 / -1;
+    border-left: 1px solid var(--line); padding: 26px 30px 40px; overflow: auto;
+  }
+  .phone.dash.tp-detail {
+    grid-template-columns: 240px minmax(320px, 0.9fr) minmax(360px, 1.1fr);
+  }
+  .phone.dash.tp-detail > .masterpane {
+    display: block; grid-column: 2; grid-row: 1 / -1;
+    border-right: 1px solid var(--line); padding: 20px 20px 32px; overflow: auto;
+  }
+  .phone.dash.tp-detail > .screen { grid-column: 3; grid-row: 1 / -1; }
+}
+
+/* Mobile: the bottom tab bar becomes real chrome fixed to the viewport,
+   instead of resting at the bottom of a tall scrolling card. */
+@media (max-width: 460px) {
+  .phone.dash .tabbar { position: fixed; }
+}
 
 /* ============================================================
    Landing page (Welcome / Value Intro as the public front door).

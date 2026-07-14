@@ -114,6 +114,27 @@ is unchanged (single-column phone frame; the second pane is hidden). The IA docs
 (onboarding.md, navigation.md, seo.md, sitemap.md, core.md) were updated to lock
 Welcome-as-landing, the footer exception, and this desktop model.
 
+**Full-page dashboard shell (July 14 2026 founder decision, revises the desktop
+model above).** Founder feedback: the landing reads as a real full-width desktop
+page, but every app screen still read as a phone card framed in a grey field,
+and the bottom tab bar sat at the very bottom of a tall scrolling card instead of
+behaving like app chrome. Decision: on desktop the app screens become a real
+full-page dashboard, like the landing, still at wireframe fidelity (greyscale,
+structure, real copy). App screens are marked `.dash` (plus `stage-app` on the
+stage): the stage goes edge-to-edge (no grey gutter, no card border), the header
+folds into the top of a persistent full-height left sidebar with the tab bar as
+its vertical nav, and the content area owns the width and scrolls independently
+of the sidebar. The two-pane detail (Home, Subscription Detail) now spans full
+height beside the list, so a wide screen has no outside void. On mobile the tab
+bar becomes `position: fixed` (real viewport chrome). Applied to all 29 app pages
+(base + empty/error/loading states); onboarding (Welcome landing, Path Choice,
+Connect Bank, Add Subscription, Guided Reveal) and index are excluded and
+unchanged. It all lives in wireframes/_wf.css behind `.dash`; the old
+framed-phone desktop rules are fenced with `:not(.dash)` so nothing else moved.
+Verified across two-pane, single-column, state, and mobile; 0 broken links, 0 em
+dashes. Known trait: a two-pane detail pane shows whitespace below a short
+detail (normal master-detail).
+
 **Welcome is the public landing (July 2026 founder decision).** Welcome / Value
 Intro was rebuilt from a narrow onboarding step into a full-width marketing
 landing wireframe (top nav, two-column hero with a calm app preview, benefit
