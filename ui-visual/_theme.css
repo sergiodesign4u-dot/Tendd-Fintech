@@ -1,0 +1,248 @@
+/* Tendd ui-visual - Petrol & Paper color layer.
+   The color COPY of the wireframe Home + Subscription Detail. Same class names
+   and structure as wireframes/_wf.css, restyled to the chosen concept language
+   (concept/concept.html). wireframes/ stays grey; this owns only the visual layer.
+   The roadmap sidebar chrome (sage/cream) is the review nav, separate from the
+   product palette, matching the phase site (research/voice pages). */
+
+:root {
+  /* product palette (Petrol & Paper, from concept.md) */
+  --ink: #141b1d;
+  --mid: #384349;
+  --soft: #5a686c;
+  --faint: #7c898d;
+  --line: #e4e9ea;
+  --line2: #eef2f3;
+  --panel: #eef3f4;
+  --panel2: #f4f7f8;
+  --skel: #e2e9ea;
+  --page: #eef3f4;
+  --frame: #ffffff;
+  --accent: #1c6a76;
+  --accent-strong: #175a64;
+  --accent-tint: #e7edee;
+  --amber: #9a6a12;
+  --amber-tint: #f6efe0;
+  --success: #2e6b52;
+  --tag-bg: #e9eeef;
+  --tag-ink: #4f5e62;
+  --trial-bg: #dfeef0;
+  --trial-ink: #185862;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 3px rgba(10,30,35,0.05), 0 8px 24px -12px rgba(10,30,35,0.12);
+  /* review chrome (sage/cream, from the phase site) */
+  --c-bg: #f8f7f4; --c-surface: #ffffff; --c-border: #e8e4dc; --c-border-light: #f0ede6;
+  --c-text: #2a2724; --c-text-secondary: #6b6560; --c-text-muted: #9b958e;
+  --c-accent: #5c7a6e; --c-accent-light: #eef4f1; --c-radius-sm: 4px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--ink);
+  background: var(--page);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hide the wireframe review annotations: the color copy is the product, not the
+   annotated wireframe. The DOM stays identical (structural parity); only display
+   is a visual-layer decision. */
+.zlabel, .zaction, .pane-note, .gc-tag { display: none !important; }
+
+/* ---------- Review roadmap sidebar (sage/cream chrome) ---------- */
+.sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: var(--c-surface); border-right: 1px solid var(--c-border); z-index: 200; transform: translateX(-100%); transition: transform 0.22s ease; overflow-y: auto; padding-bottom: 32px; }
+.sidebar.open { transform: translateX(0); }
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 150; }
+.sidebar-overlay.open { display: block; }
+.sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 14px; border-bottom: 1px solid var(--c-border-light); }
+.nav-brand { font-weight: 600; font-size: 13.5px; color: var(--c-text); letter-spacing: -0.01em; }
+.sidebar-close { background: none; border: none; font-size: 18px; line-height: 1; color: var(--c-text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--c-radius-sm); }
+.nav-toggle { position: fixed; top: 14px; left: 16px; z-index: 100; background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--c-radius-sm); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.06); color: var(--c-text); font-size: 15px; }
+.sidebar-nav { padding: 12px 10px 0; }
+.nav-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-text-muted); padding: 10px 8px 5px; }
+.nav-section-label.active { color: var(--c-accent); }
+.sidebar-nav .nav-link { display: block; text-decoration: none; color: var(--c-text-secondary); font-size: 13px; padding: 6px 10px; border-radius: var(--c-radius-sm); margin-bottom: 1px; transition: background 0.15s, color 0.15s; }
+.sidebar-nav .nav-link:hover { color: var(--c-text); background: var(--c-border-light); }
+.sidebar-nav .nav-link.nav-group { font-weight: 600; color: var(--c-text); }
+.nav-page-active { display: block; font-size: 13px; font-weight: 600; color: var(--c-accent); padding: 6px 10px; border-radius: var(--c-radius-sm); background: var(--c-accent-light); margin-bottom: 1px; }
+.nav-divider { border: none; border-top: 1px solid var(--c-border-light); margin: 10px 8px; }
+.nav-next-block { margin: 14px 8px 0; padding: 10px; border-radius: var(--c-radius-sm); background: var(--c-bg); border: 1px solid var(--c-border-light); }
+.nav-next-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-text-muted); margin-bottom: 3px; }
+.nav-next-items { font-size: 12px; color: var(--c-text-muted); }
+@media (min-width: 840px) { .sidebar { transform: translateX(0); } .sidebar-close { display: none; } .sidebar-overlay { display: none !important; } .nav-toggle { display: none; } body { padding-left: 220px; } }
+
+/* ---------- Layout + stage ---------- */
+.layout { display: block; }
+.stage { padding: 28px 16px 56px; container-type: inline-size; }
+.stage.stage-app { padding: 0; }
+
+/* ---------- Mobile phone frame ---------- */
+.phone {
+  max-width: 420px; margin: 0 auto; min-height: 720px;
+  background: var(--frame); border: 1px solid var(--line); border-radius: 22px;
+  display: flex; flex-direction: column; position: relative; overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+/* GC1 app header */
+.appbar { border-bottom: 1px solid var(--line2); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; background: var(--frame); }
+.appbar .wordmark { font-weight: 800; letter-spacing: -0.01em; font-size: 17px; color: var(--ink); }
+.appbar .right { font-size: 13px; color: var(--soft); }
+
+/* screen body */
+.screen { flex: 1; padding: 16px 16px 96px; }
+
+/* zone: a plain region (no wireframe border in color) */
+.zone { margin: 0 0 18px; }
+.zone.summary { margin-bottom: 20px; }
+
+/* GC3 summary */
+.summary .count { font-size: 14px; color: var(--soft); margin: 0 0 4px; }
+.summary .count strong, .summary .count b { color: var(--ink); font-weight: 700; }
+.summary .total { font-size: 46px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin: 0; color: var(--ink); }
+.summary .context { font-size: 13px; color: var(--soft); margin: 8px 0 0; }
+.summary .context strong { color: var(--accent); font-weight: 700; }
+.summary .trust { font-size: 12px; color: var(--soft); margin: 12px 0 0; padding-left: 20px; position: relative; }
+.summary .trust::before {
+  content: ""; position: absolute; left: 0; top: 1px; width: 15px; height: 15px;
+  background-color: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* alert banner (GC5): calm amber, not red */
+.alert-banner { background: var(--amber-tint); border-radius: 12px; padding: 12px 14px; }
+.alert-banner p { margin: 0; font-size: 13px; color: var(--ink); }
+.alert-banner .go { font-size: 12px; color: var(--amber); font-weight: 600; margin-top: 4px; display: inline-block; }
+
+/* category group + rows */
+.group-title { font-size: 12px; color: var(--soft); font-weight: 700; margin: 20px 0 8px; }
+ul.list { list-style: none; margin: 0; padding: 0; }
+.row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 12px; margin: 0; background: var(--frame);
+  text-decoration: none; color: inherit; min-height: 44px; border-radius: var(--radius-sm);
+}
+li + li .row { border-top: 1px solid var(--line2); border-radius: 0; }
+ul.list li:first-child .row { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+ul.list li:last-child .row { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+ul.list { background: var(--frame); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+a.row:hover { background: var(--panel2); }
+.logo { flex: none; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--panel); }
+.logo svg { display: block; }
+.row .body { flex: 1; min-width: 0; }
+.row .name { display: block; font-weight: 600; font-size: 14.5px; color: var(--ink); }
+.row .meta { display: block; font-size: 12.5px; color: var(--soft); margin-top: 1px; }
+.row .when { display: block; font-size: 11.5px; color: var(--faint); margin-top: 1px; }
+.tag { flex: none; font-size: 10.5px; font-weight: 600; border-radius: 6px; padding: 3px 9px; color: var(--tag-ink); background: var(--tag-bg); text-transform: none; letter-spacing: 0; }
+.tag.trial { background: var(--trial-bg); color: var(--trial-ink); }
+.tag.cancelled { background: var(--panel); color: var(--faint); }
+
+/* skeleton (loading) */
+.skel { background: var(--skel); border-radius: 6px; display: inline-block; height: 12px; animation: pulse 1.4s ease-in-out infinite; }
+.skel.lg { height: 34px; }
+.skel.block { display: block; }
+.phone.dash .logo:empty { background: var(--skel); }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+@media (prefers-reduced-motion: reduce) { .skel { animation: none; } }
+
+/* secondary actions + buttons */
+.act-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.btn { display: inline-block; border: 1px solid var(--line); background: var(--frame); border-radius: var(--radius-sm); padding: 10px 16px; font-size: 13.5px; font-weight: 600; color: var(--ink); text-decoration: none; cursor: pointer; }
+.btn:hover { border-color: #cdd7d9; background: var(--panel2); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+.locklabel { font-size: 10px; font-weight: 700; border-radius: 5px; background: var(--accent-tint); padding: 1px 6px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; margin-left: 6px; }
+
+/* nudge (collapsible) */
+.nudge { display: flex; align-items: center; justify-content: space-between; background: var(--frame); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; text-decoration: none; color: inherit; }
+.nudge:hover { background: var(--panel2); }
+.nudge strong { color: var(--ink); }
+.nudge .chev { color: var(--accent); font-size: 13px; font-weight: 600; }
+
+/* GC2 tab bar (bottom on mobile) */
+.tabbar { position: absolute; left: 0; right: 0; bottom: 0; display: flex; border-top: 1px solid var(--line2); background: var(--frame); }
+.tabbar a { flex: 1; text-align: center; padding: 9px 4px 11px; font-size: 11px; color: var(--soft); text-decoration: none; border-top: 2px solid transparent; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.tabbar a .ic { display: block; width: 22px; height: 22px; color: var(--soft); }
+.tabbar a .ic svg { width: 22px; height: 22px; display: block; }
+.tabbar a.cur { color: var(--accent); font-weight: 700; }
+.tabbar a.cur .ic { color: var(--accent); }
+
+/* detail pane (desktop second column) + key/value */
+.kv { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line2); font-size: 13px; }
+.kv:last-child { border-bottom: 0; }
+.kv .k { color: var(--soft); }
+.kv .v { color: var(--ink); text-align: right; font-weight: 500; }
+.detail-head { display: flex; align-items: center; gap: 12px; }
+.detail-head .name { font-size: 18px; font-weight: 700; }
+.detail-head .amt { font-size: 13px; color: var(--soft); }
+.callout { background: var(--panel); border-radius: var(--radius-sm); padding: 12px 14px; margin: 0 0 12px; font-size: 13px; color: var(--mid); }
+
+/* empty / error message block */
+.msg { text-align: center; padding: 44px 18px; }
+.msg h2 { font-size: 18px; margin: 0 0 8px; color: var(--ink); }
+.msg p { font-size: 13.5px; color: var(--soft); margin: 0 auto 18px; max-width: 34ch; }
+
+@media (max-width: 460px) {
+  .stage { padding: 14px 8px 40px; }
+}
+/* clear the fixed review toggle (top-left) so it never covers the app wordmark */
+@media (max-width: 839px) {
+  .phone .appbar { padding-left: 58px; }
+}
+
+/* ============================================================
+   Full-page dashboard shell on desktop (app screens marked .dash).
+   Ported from _wf.css, recolored. The tab bar becomes a full-height
+   product sidebar (petrol/white), the content owns the width.
+   ============================================================ */
+.detailpane, .masterpane { display: none; }
+
+@container (min-width: 760px) {
+  .phone.dash {
+    max-width: none; width: 100%; height: 100vh; border: 0; border-radius: 0;
+    display: grid; grid-template-columns: 240px minmax(0, 1fr); grid-template-rows: auto 1fr;
+    background: var(--frame); box-shadow: none;
+  }
+  .phone.dash > .appbar {
+    grid-column: 1; grid-row: 1; flex-direction: column; align-items: flex-start; gap: 4px;
+    border-right: 1px solid var(--line); border-bottom: 1px solid var(--line2); padding: 20px 22px;
+  }
+  .phone.dash > .tabbar {
+    position: static; grid-column: 1; grid-row: 2; flex-direction: column; border-top: 0;
+    border-right: 1px solid var(--line); align-content: start; background: var(--panel2); padding: 12px 0; overflow: auto;
+  }
+  .phone.dash > .tabbar a {
+    flex: none; text-align: left; padding: 11px 22px; border-top: 0; flex-direction: row;
+    border-left: 3px solid transparent; align-items: center; gap: 12px; font-size: 13.5px;
+  }
+  .phone.dash > .tabbar a.cur { border-top: 0; border-left-color: var(--accent); background: var(--frame); }
+  .phone.dash > .screen { grid-column: 2; grid-row: 1 / -1; overflow: auto; padding: 28px 36px 44px; }
+  .phone.dash:not(.tp-home):not(.tp-detail) > .screen > * { max-width: 940px; }
+}
+
+@container (min-width: 1040px) {
+  .phone.dash.tp-home { grid-template-columns: 240px minmax(360px, 1.05fr) minmax(360px, 1fr); }
+  .phone.dash.tp-home > .detailpane {
+    display: block; grid-column: 3; grid-row: 1 / -1; border-left: 1px solid var(--line);
+    padding: 28px 32px 44px; overflow: auto; background: var(--panel2);
+  }
+  .phone.dash.tp-detail { grid-template-columns: 240px minmax(320px, 0.9fr) minmax(360px, 1.1fr); }
+  .phone.dash.tp-detail > .masterpane {
+    display: block; grid-column: 2; grid-row: 1 / -1; border-right: 1px solid var(--line);
+    padding: 20px 20px 32px; overflow: auto;
+  }
+  .phone.dash.tp-detail > .screen { grid-column: 3; grid-row: 1 / -1; }
+}
+.masterpane .mp-title { font-size: 12px; color: var(--soft); margin: 0 0 8px; font-weight: 700; }
+.masterpane .row.cur { background: var(--accent-tint); }
+
+/* Mobile: tab bar becomes fixed viewport chrome */
+@media (max-width: 460px) {
+  .phone.dash .tabbar { position: fixed; border-radius: 0; }
+  .phone.dash { border-radius: 0; }
+}
