@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept: Three Directions - Tendd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --page: #eceded;
+    --card: #ffffff;
+    --pink-ink: #1b1c1e;
+    --pink-muted: #5f6266;
+    --line: #e2e3e4;
+    --z-ui: 1;
+    /* artifact-site chrome (the phase-site sidebar), separate from the product palette */
+    --bg: #f8f7f4; --surface: #ffffff; --border: #e8e4dc; --border-light: #f0ede6;
+    --text: #2a2724; --text-secondary: #6b6560; --text-muted: #9b958e;
+    --accent: #5c7a6e; --accent-light: #eef4f1; --accent-mid: #d0e4dc;
+    --radius-sm: 4px; --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--page);
+    color: var(--pink-ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Roadmap sidebar (phase-site chrome) ---------- */
+  .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: var(--surface); border-right: 1px solid var(--border); z-index: 200; transform: translateX(-100%); transition: transform 0.22s ease; overflow-y: auto; padding-bottom: 32px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 150; }
+  .sidebar-overlay.open { display: block; }
+  .sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 14px; border-bottom: 1px solid var(--border-light); }
+  .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+  .sidebar-close { background: none; border: none; font-size: 18px; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--radius-sm); }
+  .nav-toggle { position: fixed; top: 14px; left: 16px; z-index: 100; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px; }
+  .sidebar-nav { padding: 12px 10px 0; }
+  .nav-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 10px 8px 5px; }
+  .nav-section-label.active { color: var(--accent); }
+  .nav-link { display: block; text-decoration: none; color: var(--text-secondary); font-size: 13px; padding: 6px 10px; border-radius: var(--radius-sm); margin-bottom: 1px; transition: all 0.15s; }
+  .nav-link:hover { color: var(--text); background: var(--border-light); }
+  .nav-link.nav-group { font-weight: 600; color: var(--text); }
+  .nav-page-active { display: block; font-size: 13px; font-weight: 600; color: var(--accent); padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light); margin-bottom: 1px; }
+  .nav-sub-link { display: block; text-decoration: none; color: var(--text-muted); font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm); margin-bottom: 1px; transition: all 0.15s; }
+  .nav-sub-link:hover { color: var(--text); background: var(--border-light); }
+  .nav-sub-link.active { color: var(--accent); font-weight: 500; }
+  .nav-divider { border: none; border-top: 1px solid var(--border-light); margin: 10px 8px; }
+  .nav-next-block { margin: 14px 8px 0; padding: 10px; border-radius: var(--radius-sm); background: var(--bg); border: 1px solid var(--border-light); }
+  .nav-next-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
+  .nav-next-items { font-size: 12px; color: var(--text-muted); }
+  @media (min-width: 840px) { .sidebar { transform: translateX(0); } .sidebar-close { display: none; } .sidebar-overlay { display: none !important; } .nav-toggle { display: none; } body { padding-left: 220px; } }
+  @media (max-width: 839px) { .wrap { padding-top: 62px; } }
+
+  /* ---------- Page shell ---------- */
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 40px 24px 72px; }
+  .masthead { max-width: 760px; margin: 0 auto 40px; text-align: center; }
+  .kolo { font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: var(--pink-muted); }
+  .masthead h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; letter-spacing: -0.03em; margin: 10px 0 14px; text-wrap: balance; }
+  .masthead p { font-size: 16px; color: #3c3e41; }
+  .masthead p + p { margin-top: 10px; font-size: 14.5px; }
+  .guards {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    margin: 22px auto 0; max-width: 760px;
+  }
+  .guard {
+    font-size: 12.5px; font-weight: 500; color: #6a4a12;
+    background: #fbf1dd; border: 1px solid #f1e0bd;
+    padding: 5px 11px; border-radius: 999px;
+  }
+  .guard b { font-weight: 700; }
+
+  /* ---------- Directions grid ---------- */
+  .grid {
+    display: grid; gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    align-items: start;
+  }
+  .dir {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .dir-head { padding: 22px 22px 18px; border-bottom: 1px solid var(--d-line, #eee); }
+  .dir-num { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.55; }
+  .dir-name { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; margin: 4px 0 6px; }
+  .dir-mood { font-size: 14px; color: #52555a; font-style: italic; }
+  .attrs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .attr { font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 6px; }
+
+  /* ---------- Spec blocks ---------- */
+  .spec { padding: 18px 22px; border-bottom: 1px solid #f0f0f0; }
+  .spec:last-child { border-bottom: 0; }
+  .spec-label { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #8a8d92; margin-bottom: 12px; }
+
+  .sw-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .sw { text-align: left; }
+  .sw i { display: block; height: 44px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); }
+  .sw span { display: block; font-size: 9.5px; margin-top: 5px; color: #6a6d71; font-weight: 500; }
+  .sw code { display: block; font-size: 9px; color: #9a9da1; font-family: 'Inter', monospace; }
+
+  .type-note { font-size: 13px; color: #52555a; margin-bottom: 10px; }
+  .type-note b { color: var(--pink-ink); font-weight: 700; }
+
+  /* ---------- Live mock (the product language, alive) ---------- */
+  .mock { padding: 20px; background: var(--d-bg); }
+  .mock-inner { background: var(--d-card); border-radius: var(--d-radius); box-shadow: var(--d-shadow); overflow: hidden; }
+  .m-summary { padding: 22px 20px 18px; }
+  .m-count { font-size: 14px; color: var(--d-muted); font-family: var(--d-ui); }
+  .m-count b { color: var(--d-ink); font-weight: 700; }
+  .m-total { font-family: var(--d-display); font-weight: var(--d-total-weight); font-size: 52px; line-height: 1; letter-spacing: -0.03em; color: var(--d-ink); margin: 6px 0 4px; }
+  .m-ctx { font-size: 13px; color: var(--d-muted); font-family: var(--d-ui); }
+  .m-trust { font-size: 12px; color: var(--d-muted); font-family: var(--d-ui); margin-top: 12px; display: flex; align-items: center; gap: 6px; }
+  .m-trust svg { width: 14px; height: 14px; flex: none; color: var(--d-accent); }
+
+  .m-alert { margin: 0 20px 16px; background: var(--d-alert-bg); border-radius: 12px; padding: 12px 14px; }
+  .m-alert p { font-size: 13px; color: var(--d-ink); font-family: var(--d-ui); }
+  .m-alert a { font-size: 12.5px; font-weight: 600; color: var(--d-accent); text-decoration: none; font-family: var(--d-ui); display: inline-block; margin-top: 4px; }
+
+  .m-group { font-size: 12px; font-weight: 700; color: var(--d-muted); font-family: var(--d-ui); padding: 4px 20px 8px; letter-spacing: 0.01em; }
+  .m-row { display: flex; align-items: center; gap: 12px; padding: 11px 20px; }
+  .m-row + .m-row { border-top: 1px solid var(--d-hair); }
+  .m-logo { width: 40px; height: 40px; border-radius: 10px; flex: none; display: grid; place-items: center; overflow: hidden; }
+  .m-body { flex: 1; min-width: 0; font-family: var(--d-ui); }
+  .m-name { display: block; font-size: 14.5px; font-weight: 600; color: var(--d-ink); }
+  .m-meta { display: block; font-size: 12.5px; color: var(--d-muted); margin-top: 2px; }
+  .m-chip { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; font-family: var(--d-ui); white-space: nowrap; }
+  .m-tag { font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 6px; font-family: var(--d-ui); white-space: nowrap; }
+  .m-tag.active { background: var(--d-tag-bg); color: var(--d-tag-ink); }
+  .m-tag.trial { background: var(--d-trial-bg); color: var(--d-trial-ink); }
+
+  .m-actions { padding: 16px 20px 20px; display: flex; gap: 10px; }
+  .btn { font-family: var(--d-ui); font-size: 13.5px; font-weight: 600; border-radius: var(--d-btn-radius); padding: 11px 16px; border: 1px solid transparent; cursor: pointer; text-align: center; }
+  .btn.primary { background: var(--d-btn-bg); color: var(--d-btn-ink); }
+  .btn.ghost { background: transparent; color: var(--d-ink); border-color: var(--d-hair); }
+
+  .m-tabbar { display: flex; border-top: 1px solid var(--d-hair); background: var(--d-tabbar); }
+  .m-tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 10px 0; font-size: 10.5px; font-family: var(--d-ui); font-weight: 500; color: var(--d-muted); }
+  .m-tab svg { width: 22px; height: 22px; }
+  .m-tab.cur { color: var(--d-accent); font-weight: 700; }
+
+  .form-note { font-size: 12.5px; color: #6a6d71; line-height: 1.6; }
+  .form-note b { color: #3c3e41; }
+
+  /* ================= DIRECTION 1 - Ink & Marigold ================= */
+  .dir1 { --d-line: #f0e7d5; }
+  .dir1 .dir-num { color: #b07d1e; }
+  .dir1 .attr { background: #fbf1dd; color: #7a5410; }
+  .dir1 {
+    --d-bg: #f4f2ee; --d-card: #ffffff; --d-ink: #211d15; --d-muted: #6f695c;
+    --d-accent: #b8791a; --d-hair: #f0ede6; --d-radius: 18px;
+    --d-shadow: 0 1px 3px rgba(40,30,10,0.05), 0 8px 24px -12px rgba(40,30,10,0.10);
+    --d-ui: 'Hanken Grotesk', sans-serif; --d-display: 'Hanken Grotesk', sans-serif; --d-total-weight: 800;
+    --d-alert-bg: #f6f1e7; --d-tag-bg: #eeeae1; --d-tag-ink: #6f695c;
+    --d-trial-bg: #f7ebd4; --d-trial-ink: #8a5e12;
+    --d-btn-bg: #d99a2b; --d-btn-ink: #241d0e; --d-btn-radius: 999px; --d-tabbar: #ffffff;
+  }
+
+  /* ================= DIRECTION 2 - Petrol & Paper ================= */
+  .dir2 { --d-line: #dceaec; }
+  .dir2 .dir-num { color: #1f6b78; }
+  .dir2 .attr { background: #e5f1f2; color: #1a5560; }
+  .dir2 {
+    --d-bg: #eef3f4; --d-card: #ffffff; --d-ink: #141b1d; --d-muted: #5a686c;
+    --d-accent: #1c6a76; --d-hair: #eef2f3; --d-radius: 14px;
+    --d-shadow: 0 1px 3px rgba(10,30,35,0.05), 0 8px 24px -12px rgba(10,30,35,0.12);
+    --d-ui: 'Inter', sans-serif; --d-display: 'Inter', sans-serif; --d-total-weight: 800;
+    --d-alert-bg: #eef4f5; --d-tag-bg: #e9eeef; --d-tag-ink: #5a686c;
+    --d-trial-bg: #dfeef0; --d-trial-ink: #185862;
+    --d-btn-bg: #1c6a76; --d-btn-ink: #ffffff; --d-btn-radius: 10px; --d-tabbar: #ffffff;
+  }
+
+  /* ================= DIRECTION 3 - Plum & Fog ================= */
+  .dir3 { --d-line: #ece2ef; }
+  .dir3 .dir-num { color: #7c3d67; }
+  .dir3 .attr { background: #f3e9f2; color: #6a2f58; }
+  .dir3 {
+    --d-bg: #f2eff4; --d-card: #ffffff; --d-ink: #1e1720; --d-muted: #6a5f6e;
+    --d-accent: #7c3d67; --d-hair: #f1ecf2; --d-radius: 16px;
+    --d-shadow: 0 1px 3px rgba(30,10,30,0.05), 0 8px 24px -12px rgba(30,10,30,0.12);
+    --d-ui: 'Instrument Sans', sans-serif; --d-display: 'Instrument Serif', serif; --d-total-weight: 400;
+    --d-alert-bg: #f4eff5; --d-tag-bg: #efeaf0; --d-tag-ink: #6a5f6e;
+    --d-trial-bg: #f2e6f0; --d-trial-ink: #6f2e5c;
+    --d-btn-bg: #7c3d67; --d-btn-ink: #ffffff; --d-btn-radius: 12px; --d-tabbar: #ffffff;
+  }
+
+  /* category chips: soft, low-saturation, per category (T5, toned from Copilot) */
+  .chip-stream { background: #eef1f6; color: #4a5570; }
+  .chip-music  { background: #edf3ee; color: #3f5c47; }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 28px 14px 56px; }
+    .sw-row { grid-template-columns: repeat(5, 1fr); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .dir { transition: box-shadow 200ms cubic-bezier(0.22,1,0.36,1); }
+    .dir:hover { box-shadow: 0 2px 6px rgba(0,0,0,0.04), 0 20px 40px -24px rgba(0,0,0,0.22); }
+  }
+</style>
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd Concept</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html" class="nav-link nav-group">Foundation Research</a>
+    <a href="../user-research/personas.html" class="nav-link nav-group">User Research</a>
+    <a href="../ia/ia.html" class="nav-link nav-group">Information Architecture</a>
+    <a href="../wireframes/index.html" class="nav-link nav-group">Wireframes</a>
+    <a href="../voice/voices.html" class="nav-link nav-group">Voice</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label active">Concept</div>
+    <span class="nav-page-active">Directions</span>
+    <a href="#d1" class="nav-sub-link" data-section="d1">1. Ink &amp; Marigold</a>
+    <a href="#d2" class="nav-sub-link" data-section="d2">2. Petrol &amp; Paper</a>
+    <a href="#d3" class="nav-sub-link" data-section="d3">3. Plum &amp; Fog</a>
+    <a href="concept.html" class="nav-link">Concept</a>
+
+    <div class="nav-next-block">
+      <span class="nav-next-label">Next</span>
+      <span class="nav-next-items">UI + Visual &middot; Tokens + Components &middot; Design System &middot; Responsive &middot; Animation &middot; Handoff</span>
+    </div>
+  </nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="kolo">Tendd / Concept / Step 3</div>
+    <h1>Three directions for one calm language</h1>
+    <p>Each is a different answer to the same brief: a calm, judgment-free view of recurring money for someone who avoids finance apps. Same subscription card, three visual languages. Look at all three, then name the one to build into the stand.</p>
+    <p>The base mechanism is Monzo (flat calm surface, one reserved accent, a quiet status badge, plain-language rows), minus its coral. The clarity row is Apple Wallet. The category chip is Copilot, on a light canvas.</p>
+    <div class="guards">
+      <span class="guard"><b>Rejected before shown:</b></span>
+      <span class="guard">red as an accent</span>
+      <span class="guard">dark finance canvas</span>
+      <span class="guard">mint / sage / beige "calm" reflex</span>
+      <span class="guard">rounded-everything + blobs</span>
+      <span class="guard">AI-slop (gradient text, glass, eyebrows)</span>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <!-- ============ DIRECTION 1 ============ -->
+    <section class="dir dir1" id="d1" aria-label="Direction 1, Ink and Marigold">
+      <div class="dir-head">
+        <div class="dir-num">Direction 1</div>
+        <div class="dir-name">Ink &amp; Marigold</div>
+        <div class="dir-mood">A calm desk in warm afternoon light. Warm, human, unhurried.</div>
+        <div class="attrs">
+          <span class="attr">A5 warm restraint</span>
+          <span class="attr">A1 calm</span>
+          <span class="attr">A3 one big number</span>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-label">Palette</div>
+        <div class="sw-row">
+          <div class="sw"><i style="background:#ffffff"></i><span>bg</span><code>#ffffff</code></div>
+          <div class="sw"><i style="background:#f4f2ee"></i><span>surface</span><code>#f4f2ee</code></div>
+          <div class="sw"><i style="background:#211d15"></i><span>ink</span><code>#211d15</code></div>
+          <div class="sw"><i style="background:#d99a2b"></i><span>accent</span><code>#d99a2b</code></div>
+          <div class="sw"><i style="background:#6f695c"></i><span>muted</span><code>#6f695c</code></div>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-label">Type</div>
+        <p class="type-note"><b>Hanken Grotesk</b>, one warm humanist family. Weight carries the hierarchy, no display face. The total is 800, everything else 400 to 600.</p>
+      </div>
+
+      <div class="mock" aria-label="Live language, Direction 1">
+        <div class="mock-inner">
+          <div class="m-summary">
+            <p class="m-count">You're paying for <b>14 subscriptions</b></p>
+            <p class="m-total">$192.90</p>
+            <p class="m-ctx">a month, for what you have signed up for</p>
+            <p class="m-trust">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+              Read-only. Tendd cannot move your money.
+            </p>
+          </div>
+          <div class="m-alert">
+            <p>Netflix went up by $2.50, now $17.99 a month.</p>
+            <a href="#">See what changed &rarr;</a>
+          </div>
+          <div class="m-group">Streaming</div>
+          <div class="m-row">
+            <span class="m-logo" style="background:#e50914">
+              <svg width="20" height="24" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 1h4.2l7.6 15.5V1H18v22h-4.2L6.2 7.5V23H2z" fill="#fff"/></svg>
+            </span>
+            <span class="m-body"><span class="m-name">Netflix</span><span class="m-meta">$17.99 / month &middot; Next Aug 3</span></span>
+            <span class="m-chip chip-stream">Streaming</span>
+            <span class="m-tag active">Active</span>
+          </div>
+          <div class="m-group">Music</div>
+          <div class="m-row">
+            <span class="m-logo" style="background:#1db954">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1db954"/><path d="M6 9.5c4-1.2 8.4-.8 12 1.4M6.8 13c3.2-1 6.8-.6 9.6 1.1M7.4 16.2c2.5-.8 5.2-.5 7.4.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round" fill="none"/></svg>
+            </span>
+            <span class="m-body"><span class="m-name">Spotify Premium</span><span class="m-meta">$11.99 / month &middot; Next Aug 7</span></span>
+            <span class="m-chip chip-music">Music</span>
+            <span class="m-tag trial">Trial</span>
+          </div>
+          <div class="m-actions">
+            <button class="btn primary">Add a subscription</button>
+            <button class="btn ghost">See trends</button>
+          </div>
+          <nav class="m-tabbar" aria-label="tabs">
+            <span class="m-tab cur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg>Home</span>
+            <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0112 0c0 6 2 7 2 7H4s2-1 2-7z"/><path d="M10 20a2 2 0 004 0"/></svg>Alerts</span>
+            <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v11H3z"/><path d="M16 12h2"/><path d="M3 8l3-4h12l3 4"/></svg>Save</span>
+            <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg>You</span>
+          </nav>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-label">Form &amp; notes</div>
+        <p class="form-note"><b>Card radius 18px, pill buttons.</b> The accent (marigold) is spent only on the primary action, the active tab, and the trust glyph. The button is amber with ink text for warmth at full contrast. The total is ink, the biggest thing on screen. Status "Active" is a quiet gray badge, never red.</p>
+      </div>
+    </section>
+
+    <!-- ============ DIRECTION 2 ============ -->
+    <section class="dir dir2" id="d2" aria-label="Direction 2, Petrol and Paper">
+      <div class="dir-head">
+        <div class="dir-num">Direction 2</div>
+        <div class="dir-name">Petrol &amp; Paper</div>
+        <div class="dir-mood">A quiet, well-lit office at dawn. Precise, trustworthy, unfussy.</div>
+        <div class="attrs">
+          <span class="attr">A2 trust shown</span>
+          <span class="attr">A1 calm</span>
+          <span class="attr">A3 one big number</span>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-label">Palette</div>
+        <div class="sw-row">
+          <div class="sw"><i style="background:#ffffff"></i><span>bg</span><code>#ffffff</code></div>
+          <div class="sw"><i style="background:#eef3f4"></i><span>surface</span><code>#eef3f4</code></div>
+          <div class="sw"><i style="background:#141b1d"></i><span>ink</span><code>#141b1d</code></div>
+          <div class="sw"><i style="background:#1c6a76"></i><span>accent</span><code>#1c6a76</code></div>
+          <div class="sw"><i style="background:#5a686c"></i><span>muted</span><code>#5a686c</code></div>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-label">Type</div>
+        <p class="type-note"><b>Inter</b>, one neutral grotesk. Reads clean and institutional, the way a trustworthy tool disappears into the task. Tight rem scale, no fluid headings.</p>
+      </div>
+
+      <div class="mock" aria-label="Live language, Direction 2">
+        <div class="mock-inner">
+          <div class="m-summary">
+            <p class="m-count">You're paying for <b>14 subscriptions</b></p>
+            <p class="m-total">$192.90</p>
+            <p class="m-ctx">a month, for what you have signed up for</p>
+            <p class="m-trust">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+              Read-only. Tendd cannot move your money.
+            </p>
+          </div>
+          <div class="m-alert">
+            <p>Netflix went up by $2.50, now $17.99 a month.</p>
+            <a href="#">See what changed &rarr;</a>
+          </div>
+          <div class="m-group">Streaming</div>
+          <div class="m-row">
+            <span class="m-logo" style="background:#e50914">
+              <svg width="20" height="24" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 1h4.2l7.6 15.5V1H18v22h-4.2L6.2 7.5V23H2z" fill="#fff"/></svg>
+            </span>
+            <span class="m-body"><span class="m-name">Netflix</span><span class="m-meta">$17.99 / month &middot; Next Aug 3</span></span>
+            <span class="m-chip chip-stream">Streaming</span>
+            <span class="m-tag active">Active</span>
+          </div>
+          <div class="m-group">Music</div>
+          <div class="m-row">
+            <span class="m-logo" style="background:#1db954">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1db954"/><path d="M6 9.5c4-1.2 8.4-.8 12 1.4M6.8 13c3.2-1 6.8-.6 9.6 1.1M7.4 16.2c2.5-.8 5.2-.5 7.4.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round" fill="none"/></svg>
+            </span>
+            <span class="m-body"><span class="m-name">Spotify Premium</span><span class="m-meta">$11.99 / month &middot; Next Aug 7</span></span>
+            <span class="m-chip chip-music">Music</span>
+            <span class="m-tag trial">Trial</span>
+          </div>
+          <div class="m-actions">
+            <button class="btn primary">Add a subscription</button>
+            <button class="btn ghost">See trends</button>
+          </div>
+          <nav class="m-tabbar" aria-label="tabs">
+            <span class="m-tab cur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg>Home</span>
+            <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0112 0c0 6 2 7 2 7H4s2-1 2-7z"/><path d="M10 20a2 2 0 004 0"/></svg>Alerts</span>
+            <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v11H3z"/><path d="M16 12h2"/><path d="M3 8l3-4h12l3 4"/></svg>Save</span>
+            <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg>You</span>
+          </nav>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-label">Form &amp; notes</div>
+        <p class="form-note"><b>Card radius 14px, 10px buttons.</b> Crisper corners than D1 read as precise, not playful. Deep petrol is dark enough to be a filled button with white text at full contrast, and to sit as a text link on the alert. The trust line and its shield lead with the accent, so trust is the first colored thing, not the last.</p>
+      </div>
+    </section>
+
+    <!-- ============ DIRECTION 3 ============ -->
+    <section class="dir dir3" id="d3" aria-label="Direction 3, Plum and Fog">
+      <div class="dir-head">
+        <div class="dir-num">Direction 3</div>
+        <div class="dir-name">Plum &amp; Fog</div>
+        <div class="dir-mood">Soft morning fog, a single considered object. Premium, gentle, distinctive.</div>
+        <div class="attrs">
+          <span class="attr">A4 recognition</span>
+          <span class="attr">A1 calm</span>
+          <span class="attr">A3 one big number</span>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-label">Palette</div>
+        <div class="sw-row">
+          <div class="sw"><i style="background:#ffffff"></i><span>bg</span><code>#ffffff</code></div>
+          <div class="sw"><i style="background:#f2eff4"></i><span>surface</span><code>#f2eff4</code></div>
+          <div class="sw"><i style="background:#1e1720"></i><span>ink</span><code>#1e1720</code></div>
+          <div class="sw"><i style="background:#7c3d67"></i><span>accent</span><code>#7c3d67</code></div>
+          <div class="sw"><i style="background:#6a5f6e"></i><span>muted</span><code>#6a5f6e</code></div>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-label">Type</div>
+        <p class="type-note"><b>Instrument Sans</b> for the UI, <b>Instrument Serif</b> for the total only. The serif number is the one editorial, premium moment, the reveal made to feel considered rather than clinical.</p>
+      </div>
+
+      <div class="mock" aria-label="Live language, Direction 3">
+        <div class="mock-inner">
+          <div class="m-summary">
+            <p class="m-count">You're paying for <b>14 subscriptions</b></p>
+            <p class="m-total">$192.90</p>
+            <p class="m-ctx">a month, for what you have signed up for</p>
+            <p class="m-trust">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+              Read-only. Tendd cannot move your money.
+            </p>
+          </div>
+          <div class="m-alert">
+            <p>Netflix went up by $2.50, now $17.99 a month.</p>
+            <a href="#">See what changed &rarr;</a>
+          </div>
+          <div class="m-group">Streaming</div>
+          <div class="m-row">
+            <span class="m-logo" style="background:#e50914">
+              <svg width="20" height="24" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 1h4.2l7.6 15.5V1H18v22h-4.2L6.2 7.5V23H2z" fill="#fff"/></svg>
+            </span>
+            <span class="m-body"><span class="m-name">Netflix</span><span class="m-meta">$17.99 / month &middot; Next Aug 3</span></span>
+            <span class="m-chip chip-stream">Streaming</span>
+            <span class="m-tag active">Active</span>
+          </div>
+          <div class="m-group">Music</div>
+          <div class="m-row">
+            <span class="m-logo" style="background:#1db954">
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1db954"/><path d="M6 9.5c4-1.2 8.4-.8 12 1.4M6.8 13c3.2-1 6.8-.6 9.6 1.1M7.4 16.2c2.5-.8 5.2-.5 7.4.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round" fill="none"/></svg>
+            </span>
+            <span class="m-body"><span class="m-name">Spotify Premium</span><span class="m-meta">$11.99 / month &middot; Next Aug 7</span></span>
+            <span class="m-chip chip-music">Music</span>
+            <span class="m-tag trial">Trial</span>
+          </div>
+          <div class="m-actions">
+            <button class="btn primary">Add a subscription</button>
+            <button class="btn ghost">See trends</button>
+          </div>
+          <nav class="m-tabbar" aria-label="tabs">
+            <span class="m-tab cur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg>Home</span>
+            <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0112 0c0 6 2 7 2 7H4s2-1 2-7z"/><path d="M10 20a2 2 0 004 0"/></svg>Alerts</span>
+            <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v11H3z"/><path d="M16 12h2"/><path d="M3 8l3-4h12l3 4"/></svg>Save</span>
+            <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg>You</span>
+          </nav>
+        </div>
+      </div>
+
+      <div class="spec">
+        <div class="spec-label">Form &amp; notes</div>
+        <p class="form-note"><b>Card radius 16px, 12px buttons.</b> Plum is a non-red brand hue that reads premium and calm, not alarm. The serif total is the emotional beat; the rest stays quiet sans. This is the direction where the category chip does the most work, so recognition (A4) leads.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <p style="max-width:760px;margin:34px auto 0;text-align:center;font-size:14px;color:#52555a">
+    All three keep the same structure, copy, and states as the grey Home wireframe. The choice is the language, not the layout. Direction 2, Petrol &amp; Paper, was chosen and built into <a href="concept.html">concept.html</a>, the full stand.
+  </p>
+
+</div>
+
+<script>
+  (function () {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    var toggle = document.getElementById('navToggle');
+    var close = document.getElementById('sidebarClose');
+    function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('open'); }
+    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+    if (toggle) toggle.addEventListener('click', openSidebar);
+    if (close) close.addEventListener('click', closeSidebar);
+    if (overlay) overlay.addEventListener('click', closeSidebar);
+    sidebar.querySelectorAll('.nav-sub-link').forEach(function (link) {
+      link.addEventListener('click', function () { if (window.innerWidth < 840) closeSidebar(); });
+    });
+    var subLinks = document.querySelectorAll('.nav-sub-link[data-section]');
+    var sections = document.querySelectorAll('section[id]');
+    if ('IntersectionObserver' in window && sections.length) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            subLinks.forEach(function (l) { l.classList.remove('active'); });
+            var active = document.querySelector('.nav-sub-link[data-section="' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-15% 0px -75% 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    }
+  })();
+</script>
+
+</body>
+</html>

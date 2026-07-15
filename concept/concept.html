@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tendd Concept - The Language Stand</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ============ Artifact-site chrome (matches the phase site) ============ */
+    :root {
+      --bg: #f8f7f4; --surface: #ffffff; --border: #e8e4dc; --border-light: #f0ede6;
+      --text: #2a2724; --text-secondary: #6b6560; --text-muted: #9b958e;
+      --accent: #5c7a6e; --accent-light: #eef4f1; --accent-mid: #d0e4dc;
+      --green-text: #2e7d5e; --red-text: #a1462f;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --mono: 'SF Mono', 'Fira Code', monospace;
+      --radius: 8px; --radius-sm: 4px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+    .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: var(--surface); border-right: 1px solid var(--border); z-index: 200; transform: translateX(-100%); transition: transform 0.22s ease; overflow-y: auto; padding-bottom: 32px; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 150; }
+    .sidebar-overlay.open { display: block; }
+    .sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 14px; border-bottom: 1px solid var(--border-light); }
+    .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+    .sidebar-close { background: none; border: none; font-size: 18px; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--radius-sm); }
+    .nav-toggle { position: fixed; top: 14px; left: 16px; z-index: 100; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px; }
+    .sidebar-nav { padding: 12px 10px 0; }
+    .nav-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 10px 8px 5px; }
+    .nav-section-label.active { color: var(--accent); }
+    .nav-link { display: block; text-decoration: none; color: var(--text-secondary); font-size: 13px; padding: 6px 10px; border-radius: var(--radius-sm); margin-bottom: 1px; transition: all 0.15s; }
+    .nav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-link.current { color: var(--accent); background: var(--accent-light); font-weight: 600; }
+    .nav-link.nav-group { font-weight: 600; color: var(--text); }
+    .nav-page-active { display: block; font-size: 13px; font-weight: 600; color: var(--accent); padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light); margin-bottom: 1px; }
+    .nav-sub-link { display: block; text-decoration: none; color: var(--text-muted); font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm); margin-bottom: 1px; transition: all 0.15s; }
+    .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-sub-link.active { color: var(--accent); font-weight: 500; }
+    .nav-divider { border: none; border-top: 1px solid var(--border-light); margin: 10px 8px; }
+    .nav-next-block { margin: 14px 8px 0; padding: 10px; border-radius: var(--radius-sm); background: var(--bg); border: 1px solid var(--border-light); }
+    .nav-next-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
+    .nav-next-items { font-size: 12px; color: var(--text-muted); }
+    @media (min-width: 840px) { .sidebar { transform: translateX(0); } .sidebar-close { display: none; } .sidebar-overlay { display: none !important; } .nav-toggle { display: none; } }
+
+    main { max-width: 900px; margin: 0 auto; padding: 72px 24px 80px; }
+    @media (min-width: 840px) { body { padding-left: 220px; } main { padding-top: 40px; } }
+
+    .hero { padding-bottom: 26px; border-bottom: 1px solid var(--border); margin-bottom: 30px; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .badge { font-size: 11px; font-weight: 600; letter-spacing: 0.02em; background: var(--surface); border: 1px solid var(--border); color: var(--text-secondary); padding: 3px 9px; border-radius: 20px; }
+    .badge.accent { background: var(--accent-light); border-color: var(--accent-mid); color: var(--accent); }
+    h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 12px; }
+    .hero-tagline { font-size: 16px; color: var(--text-secondary); max-width: 640px; }
+
+    section { margin-bottom: 42px; scroll-margin-top: 24px; }
+    h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 6px; padding-top: 6px; }
+    .section-intro { color: var(--text-secondary); margin-bottom: 18px; max-width: 680px; }
+    h3 { font-size: 15.5px; font-weight: 650; margin-bottom: 6px; }
+    p { margin-bottom: 10px; }
+    strong { font-weight: 650; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font-family: var(--mono); font-size: 12.5px; background: var(--border-light); padding: 1px 5px; border-radius: 3px; color: var(--text); }
+
+    .callout { background: var(--accent-light); border: 1px solid var(--accent-mid); border-radius: var(--radius); padding: 14px 18px; font-size: 13.5px; color: var(--text-secondary); margin-top: 4px; }
+    .callout strong { color: var(--text); }
+
+    .vtable { width: 100%; border-collapse: collapse; margin: 10px 0 4px; font-size: 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .vtable th { text-align: left; font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); padding: 9px 12px; border-bottom: 1px solid var(--border); background: var(--bg); }
+    .vtable td { padding: 9px 12px; border-bottom: 1px solid var(--border-light); vertical-align: top; color: var(--text-secondary); }
+    .vtable tr:last-child td { border-bottom: none; }
+    .vtable td.ok { color: var(--green-text); font-weight: 600; white-space: nowrap; }
+    .twrap { overflow-x: auto; }
+    footer { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--text-muted); }
+    footer a { color: var(--text-secondary); }
+
+    /* swatches */
+    .swgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 6px; }
+    .swatch { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+    .swatch .chip { height: 60px; }
+    .swatch .meta { padding: 9px 11px; }
+    .swatch .nm { font-size: 13px; font-weight: 650; color: var(--text); }
+    .swatch .hx { font-family: var(--mono); font-size: 11.5px; color: var(--text-muted); }
+    .swatch .at { font-size: 11.5px; color: var(--text-secondary); margin-top: 3px; }
+
+    /* type specimen */
+    .type-spec { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; }
+    .type-spec > div { padding: 9px 0; border-bottom: 1px solid var(--border-light); font-family: 'Inter', sans-serif; color: #141b1d; }
+    .type-spec > div:last-child { border-bottom: none; }
+    .type-spec .lbl2 { font-family: var(--mono); font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 2px; letter-spacing: 0; }
+
+    /* form / spacing tokens */
+    .tok { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+    .tok .t { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 15px; }
+    .tok .t .k { font-size: 12px; color: var(--text-muted); }
+    .tok .t .v { font-family: var(--mono); font-size: 13px; color: var(--text); margin-top: 2px; }
+    .radii { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+    .radii i { display: grid; place-items: center; width: 74px; height: 74px; background: #eef3f4; border: 1px solid #dce6e7; color: #1c6a76; font-size: 11px; font-family: var(--mono); }
+
+    /* logos */
+    .logo-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 6px 0 14px; }
+    .logo-tile { width: 46px; height: 46px; border-radius: 11px; display: grid; place-items: center; overflow: hidden; }
+    .logo-mono { width: 46px; height: 46px; border-radius: 11px; display: grid; place-items: center; background: #eef3f4; color: #1c6a76; font-weight: 700; font-family: 'Inter', sans-serif; font-size: 17px; border: 1px solid #dce6e7; }
+    .brandlist { font-size: 13px; color: var(--text-secondary); }
+
+    /* icons */
+    .icon-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+    .icon-cell { width: 66px; text-align: center; }
+    .icon-cell .ib { width: 46px; height: 46px; margin: 0 auto; border-radius: 11px; background: var(--surface); border: 1px solid var(--border); display: grid; place-items: center; color: #1c6a76; }
+    .icon-cell .ib svg { width: 24px; height: 24px; }
+    .icon-cell span { display: block; font-size: 10.5px; color: var(--text-muted); margin-top: 4px; }
+
+    /* ============ Product language demos (Petrol & Paper, Inter) ============ */
+    .pl {
+      --p-bg: #ffffff; --p-surface: #eef3f4; --p-ink: #141b1d; --p-muted: #5a686c;
+      --p-accent: #1c6a76; --p-hair: #eef2f3;
+      font-family: 'Inter', sans-serif;
+    }
+    .alive { background: #e7edee; border: 1px solid #dbe5e6; border-radius: 18px; padding: 22px; margin-top: 4px; }
+    .device { max-width: 360px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 1px 3px rgba(10,30,35,0.05), 0 18px 40px -20px rgba(10,30,35,0.22); overflow: hidden; }
+    .pl .m-summary { padding: 22px 20px 16px; }
+    .pl .m-count { font-size: 14px; color: var(--p-muted); }
+    .pl .m-count b { color: var(--p-ink); font-weight: 700; }
+    .pl .m-total { font-size: 46px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: var(--p-ink); margin: 7px 0 4px; }
+    .pl .m-ctx { font-size: 13px; color: var(--p-muted); }
+    .pl .m-trust { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--p-muted); margin-top: 12px; }
+    .pl .m-trust svg { width: 14px; height: 14px; color: var(--p-accent); flex: none; }
+    .pl .m-alert { margin: 0 20px 14px; background: #f6efe0; border-radius: 12px; padding: 11px 13px; }
+    .pl .m-alert p { font-size: 13px; color: var(--p-ink); margin: 0; }
+    .pl .m-alert a { font-size: 12.5px; font-weight: 600; color: #9a6a12; display: inline-block; margin-top: 3px; }
+    .pl .m-group { font-size: 12px; font-weight: 700; color: var(--p-muted); padding: 4px 20px 8px; }
+    .pl .m-row { display: flex; align-items: center; gap: 12px; padding: 11px 20px; }
+    .pl .m-row + .m-row { border-top: 1px solid var(--p-hair); }
+    .pl .m-logo { width: 40px; height: 40px; border-radius: 10px; flex: none; display: grid; place-items: center; overflow: hidden; }
+    .pl .m-body { flex: 1; min-width: 0; }
+    .pl .m-name { display: block; font-size: 14.5px; font-weight: 600; color: var(--p-ink); }
+    .pl .m-meta { display: block; font-size: 12.5px; color: var(--p-muted); margin-top: 2px; }
+    .pl .m-chip { font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+    .pl .chip-stream { background: #e7ecf4; color: #43506e; }
+    .pl .chip-music { background: #e6f0e9; color: #3a5744; }
+    .pl .chip-soft { background: #ece9f2; color: #514a6b; }
+    .pl .m-tag { font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 6px; white-space: nowrap; }
+    .pl .m-tag.active { background: #e9eeef; color: #4f5e62; }
+    .pl .m-tag.trial { background: #dfeef0; color: #185862; }
+    .pl .m-actions { padding: 15px 20px 18px; display: flex; gap: 10px; }
+    .pl .btn { font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600; border-radius: 10px; padding: 11px 16px; border: 1px solid transparent; cursor: pointer; text-align: center; }
+    .pl .btn.primary { background: var(--p-accent); color: #fff; }
+    .pl .btn.primary:hover { background: #175a64; }
+    .pl .btn.ghost { background: transparent; color: var(--p-ink); border-color: #dbe3e4; }
+    .pl .m-tabbar { display: flex; border-top: 1px solid var(--p-hair); }
+    .pl .m-tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0; font-size: 10.5px; font-weight: 500; color: var(--p-muted); }
+    .pl .m-tab svg { width: 22px; height: 22px; }
+    .pl .m-tab.cur { color: var(--p-accent); font-weight: 700; }
+
+    /* component gallery */
+    .comp { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 14px; }
+    .comp h3 { margin-bottom: 4px; }
+    .comp .cdesc { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; }
+    .btnbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .pl .btn.primary[disabled] { background: #a9c2c6; cursor: not-allowed; }
+    .field { max-width: 320px; }
+    .field label { display: block; font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 600; color: #141b1d; margin-bottom: 5px; }
+    .field input { width: 100%; font-family: 'Inter', sans-serif; font-size: 14px; color: #141b1d; padding: 10px 12px; border: 1px solid #d4dde0; border-radius: 10px; background: #fff; }
+    .field input:focus { outline: none; border-color: #1c6a76; box-shadow: 0 0 0 3px rgba(28,106,118,0.15); }
+    .field .help { font-size: 12px; color: #5a686c; margin-top: 5px; }
+  </style>
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd Concept</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="../research/research.html" class="nav-link nav-group">Foundation Research</a>
+    <a href="../user-research/personas.html" class="nav-link nav-group">User Research</a>
+    <a href="../ia/ia.html" class="nav-link nav-group">Information Architecture</a>
+    <a href="../wireframes/index.html" class="nav-link nav-group">Wireframes</a>
+    <a href="../voice/voices.html" class="nav-link nav-group">Voice</a>
+
+    <hr class="nav-divider">
+
+    <div class="nav-section-label active">Concept</div>
+    <a href="directions.html" class="nav-link">Directions</a>
+    <span class="nav-page-active">Concept</span>
+    <a href="#palette" class="nav-sub-link" data-section="palette">Palette</a>
+    <a href="#type" class="nav-sub-link" data-section="type">Typography</a>
+    <a href="#form" class="nav-sub-link" data-section="form">Form</a>
+    <a href="#logos" class="nav-sub-link" data-section="logos">Logos</a>
+    <a href="#icons" class="nav-sub-link" data-section="icons">Icons</a>
+    <a href="#components" class="nav-sub-link" data-section="components">Components</a>
+
+    <div class="nav-next-block">
+      <span class="nav-next-label">Next</span>
+      <span class="nav-next-items">UI + Visual &middot; Tokens + Components &middot; Design System &middot; Responsive &middot; Animation &middot; Handoff</span>
+    </div>
+  </nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main>
+
+  <section class="hero" id="top">
+    <div class="hero-meta">
+      <span class="badge accent">Concept</span>
+      <span class="badge">July 2026</span>
+      <span class="badge">Phase 6</span>
+      <span class="badge">Petrol &amp; Paper</span>
+    </div>
+    <h1>The Tendd language, on one stand</h1>
+    <p class="hero-tagline">The chosen direction is Petrol &amp; Paper: precise, trustworthy, unfussy. A calm light canvas, one deep petrol accent spent only where it earns attention, and real brand logos so a charge is recognized, not decoded. Every token below carries the attribute it traces to. The base mechanism is Monzo, minus its coral; the clarity row is Apple Wallet; the category chip is Copilot, on light.</p>
+    <div class="callout" style="margin-top:16px"><strong>Why this one.</strong> For a user whose activation gate is trust, the direction that leads with A2, trust shown not claimed, is the most on-thesis. Deep petrol reads institutional and calm, never alarm. The two other directions, Ink &amp; Marigold and Plum &amp; Fog, stay on record in <a href="docs/concept.md">concept.md</a> and in <a href="directions.html">Directions</a>.</p>
+  </section>
+
+  <!-- The language alive -->
+  <section id="alive-showcase" aria-label="The language alive">
+    <h2>The language, alive</h2>
+    <p class="section-intro">Before the specification, the product speaking in this language. Same structure, copy, and states as the grey Home wireframe, now in Petrol &amp; Paper. This is what Step 5 will apply to the real screen.</p>
+    <div class="alive pl">
+      <div class="device">
+        <div class="m-summary">
+          <p class="m-count">You're paying for <b>14 subscriptions</b></p>
+          <p class="m-total">$192.90</p>
+          <p class="m-ctx">a month, for what you have signed up for</p>
+          <p class="m-trust">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+            Read-only. Tendd cannot move your money.
+          </p>
+        </div>
+        <div class="m-alert">
+          <p>Netflix went up by $2.50, now $17.99 a month.</p>
+          <a href="#">See what changed &rarr;</a>
+        </div>
+        <div class="m-group">Streaming (4)</div>
+        <div class="m-row">
+          <span class="m-logo" style="background:#e50914"><svg width="20" height="24" viewBox="0 0 20 24" aria-hidden="true"><path d="M2 1h4.2l7.6 15.5V1H18v22h-4.2L6.2 7.5V23H2z" fill="#fff"/></svg></span>
+          <span class="m-body"><span class="m-name">Netflix</span><span class="m-meta">$17.99 / month &middot; Next Aug 3</span></span>
+          <span class="m-chip chip-stream">Streaming</span>
+          <span class="m-tag active">Active</span>
+        </div>
+        <div class="m-row">
+          <span class="m-logo" style="background:#0063e5"><svg width="30" height="16" viewBox="0 0 30 16" aria-hidden="true"><text x="15" y="12" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#fff">D+</text></svg></span>
+          <span class="m-body"><span class="m-name">Disney+</span><span class="m-meta">$13.99 / month &middot; Next Aug 12</span></span>
+          <span class="m-chip chip-stream">Streaming</span>
+          <span class="m-tag active">Active</span>
+        </div>
+        <div class="m-group">Music (2)</div>
+        <div class="m-row">
+          <span class="m-logo" style="background:#1db954"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1db954"/><path d="M6 9.5c4-1.2 8.4-.8 12 1.4M6.8 13c3.2-1 6.8-.6 9.6 1.1M7.4 16.2c2.5-.8 5.2-.5 7.4.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round" fill="none"/></svg></span>
+          <span class="m-body"><span class="m-name">Spotify Premium</span><span class="m-meta">$11.99 / month &middot; Next Aug 7</span></span>
+          <span class="m-chip chip-music">Music</span>
+          <span class="m-tag active">Active</span>
+        </div>
+        <div class="m-actions">
+          <button class="btn primary">Add a subscription</button>
+          <button class="btn ghost">See trends</button>
+        </div>
+        <nav class="m-tabbar" aria-label="tabs">
+          <span class="m-tab cur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg>Home</span>
+          <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0112 0c0 6 2 7 2 7H4s2-1 2-7z"/><path d="M10 20a2 2 0 004 0"/></svg>Alerts</span>
+          <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v11H3z"/><path d="M16 12h2"/><path d="M3 8l3-4h12l3 4"/></svg>Save</span>
+          <span class="m-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg>You</span>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <section id="palette">
+    <h2>Palette</h2>
+    <p class="section-intro">Restrained: a true-white canvas, a cool whisper surface, near-black ink, and one deep petrol accent. Each color carries the attribute it serves. The accent is spent only on the primary action, the current selection, and the trust line, never as decoration.</p>
+    <div class="swgrid">
+      <div class="swatch"><div class="chip" style="background:#ffffff;border-bottom:1px solid #eee"></div><div class="meta"><div class="nm">bg</div><div class="hx">#ffffff</div><div class="at">A1 calm. True white, not beige.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#eef3f4"></div><div class="meta"><div class="nm">surface</div><div class="hx">#eef3f4</div><div class="at">A1. Cards, panels, a whisper cool.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#141b1d"></div><div class="meta"><div class="nm">ink</div><div class="hx">#141b1d</div><div class="at">A3. The biggest thing is ink.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#5a686c"></div><div class="meta"><div class="nm">muted</div><div class="hx">#5a686c</div><div class="at">Secondary text and meta.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#1c6a76"></div><div class="meta"><div class="nm">accent, petrol</div><div class="hx">#1c6a76</div><div class="at">A2 trust. Action, selection, trust line.</div></div></div>
+    </div>
+    <h3 style="margin-top:22px">Semantic, kept calm</h3>
+    <p class="section-intro">No alarm-red. Tone is set by state, per voice.md: an error is honest not loud, a price change informs without shouting, a win is quiet.</p>
+    <div class="swgrid">
+      <div class="swatch"><div class="chip" style="background:#2e6b52"></div><div class="meta"><div class="nm">success</div><div class="hx">#2e6b52</div><div class="at">A muted green. The small win, marked once.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#9a6a12"></div><div class="meta"><div class="nm">attention</div><div class="hx">#9a6a12</div><div class="at">Warm amber, not red. Price change, trial ending.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#9c4a34"></div><div class="meta"><div class="nm">error</div><div class="hx">#9c4a34</div><div class="at">Desaturated clay. Payment failed. Never alarm-red.</div></div></div>
+      <div class="swatch"><div class="chip" style="background:#e9eeef"></div><div class="meta"><div class="nm">status, neutral</div><div class="hx">#e9eeef</div><div class="at">A1. Quiet gray badge for "Active".</div></div></div>
+    </div>
+
+    <h3 style="margin-top:22px">Contrast (WCAG AA)</h3>
+    <div class="twrap">
+    <table class="vtable">
+      <thead><tr><th>Foreground</th><th>Background</th><th>Ratio</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>ink #141b1d</td><td>bg #ffffff</td><td>17.2 : 1</td><td class="ok">AAA</td></tr>
+        <tr><td>muted #5a686c</td><td>bg #ffffff</td><td>5.8 : 1</td><td class="ok">AA</td></tr>
+        <tr><td>muted #5a686c</td><td>surface #eef3f4</td><td>5.2 : 1</td><td class="ok">AA</td></tr>
+        <tr><td>petrol #1c6a76</td><td>bg #ffffff</td><td>6.2 : 1</td><td class="ok">AA</td></tr>
+        <tr><td>white #ffffff</td><td>petrol #1c6a76 (button)</td><td>6.2 : 1</td><td class="ok">AA</td></tr>
+        <tr><td>amber #9a6a12</td><td>amber tint #f6efe0</td><td>5.0 : 1</td><td class="ok">AA</td></tr>
+        <tr><td>status #4f5e62</td><td>gray tint #e9eeef</td><td>5.1 : 1</td><td class="ok">AA</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section id="type">
+    <h2>Typography</h2>
+    <p class="section-intro">One family, Inter. A product UI does not need a display pairing; weight and size carry the hierarchy, and a neutral grotesk disappears into the task. The total is the one moment given real size, per A3.</p>
+    <div class="type-spec">
+      <div><span class="lbl2">total / 46px / 800 / -0.03em</span><span style="font-size:46px;font-weight:800;letter-spacing:-0.03em;line-height:1">$192.90</span></div>
+      <div><span class="lbl2">h1 / 28px / 700</span><span style="font-size:28px;font-weight:700;letter-spacing:-0.02em">See what you're paying for</span></div>
+      <div><span class="lbl2">h2 / 20px / 700</span><span style="font-size:20px;font-weight:700">Streaming</span></div>
+      <div><span class="lbl2">h3 / 16px / 600</span><span style="font-size:16px;font-weight:600">Netflix</span></div>
+      <div><span class="lbl2">body / 15px / 400</span><span style="font-size:15px">a month, for what you have signed up for</span></div>
+      <div><span class="lbl2">meta / 13px / 400 / muted</span><span style="font-size:13px;color:#5a686c">$17.99 / month &middot; Next Aug 3</span></div>
+      <div><span class="lbl2">micro / 11px / 600 / tag</span><span style="font-size:11px;font-weight:600;color:#4f5e62">ACTIVE</span></div>
+    </div>
+  </section>
+
+  <section id="form">
+    <h2>Form</h2>
+    <p class="section-intro">Crisper corners than the warm direction, so the product reads precise rather than playful. One soft shadow only. A steady spacing scale.</p>
+    <div class="radii">
+      <i style="border-radius:14px">14px<br>card</i>
+      <i style="border-radius:10px">10px<br>control</i>
+      <i style="border-radius:6px">6px<br>badge</i>
+      <i style="border-radius:999px">999px<br>chip</i>
+    </div>
+    <div class="tok" style="margin-top:14px">
+      <div class="t"><div class="k">card radius</div><div class="v">14px</div></div>
+      <div class="t"><div class="k">control radius</div><div class="v">10px</div></div>
+      <div class="t"><div class="k">shadow</div><div class="v">0 8px 24px -12px rgba(10,30,35,.12)</div></div>
+      <div class="t"><div class="k">hairline</div><div class="v">1px #eef2f3</div></div>
+      <div class="t"><div class="k">spacing scale</div><div class="v">4 / 8 / 12 / 16 / 20 / 24 / 32</div></div>
+      <div class="t"><div class="k">row padding</div><div class="v">11px 20px</div></div>
+    </div>
+  </section>
+
+  <section id="logos">
+    <h2>Logos</h2>
+    <p class="section-intro">The content layer is real brand logos, inline SVG, not stock photos. This is Mechanism 3, the transaction clarity layer: a real logo plus a real name answers "what am I paying for?" directly, so a charge is recognized (A4), not decoded. Where a brand mark is unavailable, a clean monogram tile in the same style stands in, never a grey placeholder.</p>
+    <div class="logo-row pl">
+      <span class="logo-tile" style="background:#e50914"><svg width="20" height="24" viewBox="0 0 20 24"><path d="M2 1h4.2l7.6 15.5V1H18v22h-4.2L6.2 7.5V23H2z" fill="#fff"/></svg></span>
+      <span class="logo-tile" style="background:#1db954"><svg width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1db954"/><path d="M6 9.5c4-1.2 8.4-.8 12 1.4M6.8 13c3.2-1 6.8-.6 9.6 1.1M7.4 16.2c2.5-.8 5.2-.5 7.4.8" stroke="#fff" stroke-width="1.7" stroke-linecap="round" fill="none"/></svg></span>
+      <span class="logo-tile" style="background:#0063e5"><svg width="34" height="18" viewBox="0 0 34 18"><text x="17" y="13" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#fff">D+</text></svg></span>
+      <span class="logo-tile" style="background:#000000"><svg width="34" height="18" viewBox="0 0 34 18"><text x="17" y="13" text-anchor="middle" font-family="Georgia,serif" font-size="12" font-weight="700" fill="#fff">N</text></svg></span>
+      <span class="logo-tile" style="background:#fa0f00"><svg width="34" height="18" viewBox="0 0 34 18"><text x="17" y="13" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="800" fill="#fff">A</text></svg></span>
+      <span class="logo-mono">Pe</span>
+    </div>
+    <p class="brandlist"><strong>Brand set to ship (Step 5), inline SVG:</strong> Netflix, Disney+, Amazon Prime, Hulu, Adobe Creative Cloud, ChatGPT, iCloud+, Notion, Spotify, Apple Music, Peloton, Strava, The New York Times, The Economist. The monogram tile (for example "Pe" for Peloton) is the fallback when no brand mark exists, in the same petrol-on-surface style.</p>
+  </section>
+
+  <section id="icons">
+    <h2>Icons</h2>
+    <p class="section-intro">Solar, linear weight, inline SVG (not a CDN script), one consistent 24px rounded stroke. Coverage: the four tab-bar tabs, the trust shield, and the small utility set for metadata, actions, and states.</p>
+    <div class="icon-row">
+      <div class="icon-cell"><span class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></span><span>Home</span></div>
+      <div class="icon-cell"><span class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0112 0c0 6 2 7 2 7H4s2-1 2-7z"/><path d="M10 20a2 2 0 004 0"/></svg></span><span>Alerts</span></div>
+      <div class="icon-cell"><span class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v11H3z"/><path d="M16 12h2"/><path d="M3 8l3-4h12l3 4"/></svg></span><span>Save</span></div>
+      <div class="icon-cell"><span class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg></span><span>You</span></div>
+      <div class="icon-cell"><span class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span><span>Trust</span></div>
+      <div class="icon-cell"><span class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span><span>Add</span></div>
+      <div class="icon-cell"><span class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span><span>Chevron</span></div>
+      <div class="icon-cell"><span class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span>Go</span></div>
+    </div>
+  </section>
+
+  <section id="components">
+    <h2>Components</h2>
+    <p class="section-intro">Three live components carry most of the product. Each is shown in the language, with the states a product needs. The same subscription card here is the one on Home and inside Subscription Detail, so the same card reads as the same product across screens.</p>
+
+    <div class="comp pl">
+      <h3>1. Primary action</h3>
+      <p class="cdesc">Petrol fill, white text, 10px radius. The accent is spent here. Secondary is a quiet ghost. Disabled drops to a desaturated petrol, still clearly the same control.</p>
+      <div class="btnbar">
+        <button class="btn primary">Add a subscription</button>
+        <button class="btn primary" style="background:#175a64">Hover</button>
+        <button class="btn primary" style="box-shadow:0 0 0 3px rgba(28,106,118,0.3)">Focus</button>
+        <button class="btn primary" disabled>Disabled</button>
+        <button class="btn ghost">See trends</button>
+      </div>
+    </div>
+
+    <div class="comp pl">
+      <h3>2. Subscription card (the row)</h3>
+      <p class="cdesc">The most reused component: real logo, real name, amount, next date, a soft category chip (A4), and a quiet status tag. Active is neutral gray; a trial is a calm petrol tint, never red.</p>
+      <div style="background:#fff;border:1px solid #e6ebec;border-radius:14px;overflow:hidden;max-width:420px">
+        <div class="m-row">
+          <span class="m-logo" style="background:#e50914"><svg width="20" height="24" viewBox="0 0 20 24"><path d="M2 1h4.2l7.6 15.5V1H18v22h-4.2L6.2 7.5V23H2z" fill="#fff"/></svg></span>
+          <span class="m-body"><span class="m-name">Netflix</span><span class="m-meta">$17.99 / month &middot; Next Aug 3</span></span>
+          <span class="m-chip chip-stream">Streaming</span>
+          <span class="m-tag active">Active</span>
+        </div>
+        <div class="m-row">
+          <span class="m-logo logo-mono" style="border-radius:10px;width:40px;height:40px;font-size:15px">Pe</span>
+          <span class="m-body"><span class="m-name">Peloton App</span><span class="m-meta">$12.99 / month &middot; Trial ends Aug 18</span></span>
+          <span class="m-chip chip-soft">Fitness</span>
+          <span class="m-tag trial">Trial</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="comp">
+      <h3>3. Form field</h3>
+      <p class="cdesc">Used in Add a subscription. Petrol focus ring, calm helper text, no red validation shouting. Label above, helper below.</p>
+      <div class="field pl">
+        <label for="subname">Subscription name</label>
+        <input id="subname" type="text" value="Spotify Premium">
+        <p class="help">We'll match it to a logo and category for you.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Tendd Concept - July 2026 - Phase 6. The language is Petrol &amp; Paper.</p>
+    <p style="margin-top:4px">Sources: <a href="docs/references.md">references.md</a> - <a href="docs/concept.md">concept.md</a>. See the three directions on <a href="directions.html">Directions</a>. Next: Step 5 colors Home in ui-visual/.</p>
+  </footer>
+
+</main>
+
+<script>
+  (function () {
+    var sidebar = document.getElementById('sidebar');
+    var overlay = document.getElementById('sidebarOverlay');
+    var toggle = document.getElementById('navToggle');
+    var close = document.getElementById('sidebarClose');
+    function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('open'); }
+    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+    if (toggle) toggle.addEventListener('click', openSidebar);
+    if (close) close.addEventListener('click', closeSidebar);
+    if (overlay) overlay.addEventListener('click', closeSidebar);
+    sidebar.querySelectorAll('.nav-sub-link').forEach(function (link) {
+      link.addEventListener('click', function () { if (window.innerWidth < 840) closeSidebar(); });
+    });
+    var subLinks = document.querySelectorAll('.nav-sub-link[data-section]');
+    var sections = document.querySelectorAll('section[id]');
+    if ('IntersectionObserver' in window && sections.length) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            subLinks.forEach(function (l) { l.classList.remove('active'); });
+            var active = document.querySelector('.nav-sub-link[data-section="' + entry.target.id + '"]');
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-15% 0px -75% 0px' });
+      sections.forEach(function (s) { observer.observe(s); });
+    }
+  })();
+</script>
+
+</body>
+</html>
