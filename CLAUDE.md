@@ -10,8 +10,8 @@
 | Information Architecture | ia/ia.html, ia/docs/sitemap.md, ia/docs/flows.md | Done (July 2026) |
 | Wireframes | wireframes/index.html, wireframes/*.html, wireframes/docs/screens.md, wireframes/docs/conventions.md, wireframes/docs/critique.md | Done (July 2026) |
 | Voice | voice/voices.html, voice/voice.html, voice/microcopy.html, voice/docs/voice.md, voice/docs/microcopy.md | Done (July 2026) |
-| Concept | concept/ | Pending (next) |
-| UI + Visual | ui-visual/ | Pending |
+| Concept | concept/concept.html, concept/directions.html, concept/docs/references.md, concept/docs/concept.md, ui-visual/ (Home + Subscription Detail in color) | Done (July 2026) |
+| UI + Visual | ui-visual/ | Pending (next) |
 | Tokens + Components | tokens-components/ | Pending |
 | Design System | design-system/ | Pending |
 | Responsive | responsive/ | Pending |
@@ -198,6 +198,62 @@ four-reviewer pass caught the last voice misses (a non-canonical loader, three
 "spend"/"spending" exposure frames). Alerts, Cancel Guide, Upgrade, and Settings
 were already fully in voice. microcopy.md carries the was/became record for every
 changed line, so no product line ships outside the table.
+
+---
+
+## Concept (Phase)
+
+Built July 2026, the first Design-track deliverable. Concept is where the visual
+language was found and proven: not a mood, but named taste plus attribute pairs
+that every downstream color, type, and form decision must trace back to. A
+decision with no pair in concept.md is an invention, not a decision. Next phase
+is UI + Visual (the full system across all screens, with ui-visual/docs/design.md
+generated then via /impeccable document, never a root DESIGN.md).
+
+**The chosen language, Petrol & Paper (founder-locked, D-Concept):** a true-white
+canvas (not beige), one neutral grotesk (Inter), deep petrol accent (#1c6a76)
+spent only on the primary action, the current selection, and the trust line. Ink
+near-black is the biggest thing on screen; status is a quiet gray badge, never
+red; semantic tones are calm (success muted green, a price change warm amber, a
+genuine error desaturated clay, never alarm-red). It leads attribute A2 (trust
+shown, not claimed), the safest bet for a user whose activation gate is trust.
+Two other directions (Ink & Marigold, Plum & Fog) were built live and are kept on
+record, not chosen.
+
+**Sources and method (built under the impeccable skill, product register):**
+- concept/docs/references.md: the visual language traced to real products via
+  Refero, Monzo as the benchmark base but minus its Hot Coral, one technique each
+  from Apple Wallet (transaction clarity) and Copilot (category color on light,
+  not its dark canvas). Rejects: red accent, dark canvas, the mint/sage/beige
+  "calm fintech" reflex, stock photos.
+- concept/docs/concept.md: the founder's named taste (liked and anti-references),
+  five attribute pairs (A1 calm-not-alarming, A2 trust-shown, A3 one-big-number,
+  A4 recognition-not-codes, A5 warm-restraint), each sourced to a research line,
+  and the three directions with the locked choice and its token table.
+- concept/directions.html: three contrasting directions live, each Restrained,
+  each on a light canvas, none using red or a reflex palette.
+- concept/concept.html: the Petrol & Paper stand, palette (each color carries its
+  attribute), Inter type scale, form, real inline-SVG brand logos, Solar icons,
+  three live components, and a WCAG AA contrast table (all pass).
+
+**Applied to the two anchor screens as color COPIES in ui-visual/ (wireframes/
+stays grey and untouched).** Home (home.html + empty/error/loading/savefocus) and
+Subscription Detail (subscription-detail.html + empty/error/loading) were copied
+from the wireframes and recolored through one shared layer, ui-visual/_theme.css:
+_wf.css swapped for the petrol theme + Inter, [logo] placeholders replaced with
+real inline-SVG brand tiles, tab glyphs with Solar icons, and a roadmap review
+sidebar injected (the wireframe wftree is left to the wireframes). Structural
+parity is exact: each colored page differs from its grey original only by
+styling, same copy, same markup, same state set. Home and Subscription Detail
+share the identical subscription card, so it reads as one product on both. Every
+text-on-surface pair clears WCAG AA (verified: no lighter-than-muted text tier;
+the genuine-error clay tone is scoped to real failures only, the empty state
+stays neutral). Zero em dashes; self-contained inline CSS/JS, no underscore
+assets.
+
+**Not here (deferred to UI + Visual and later Design-track phases):** the full
+color pass across all 16 screens, ui-visual/docs/design.md, tokens and
+components, the design system, responsive, animation, and handoff.
 
 ---
 

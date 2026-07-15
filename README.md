@@ -26,8 +26,9 @@ Tendd is a mobile-first, desktop-responsive web app that helps people who are no
 | Voice | [voice/voices.html](./voice/voices.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/voice/voices.html) | Done (July 2026) |
 | Voice document | [voice/docs/voice.md](./voice/docs/voice.md) - [voice.html](./voice/voice.html) | Done |
 | Microcopy inventory | [voice/docs/microcopy.md](./voice/docs/microcopy.md) - [microcopy.html](./voice/microcopy.html) | Done |
-| Concept | concept/ | Pending (next) |
-| UI + Visual | ui-visual/ | Pending |
+| Concept | [concept/concept.html](./concept/concept.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/concept/concept.html) / [directions.html](./concept/directions.html) | Done (July 2026) |
+| Concept in color (ui-visual) | [ui-visual/home.html](./ui-visual/home.html) - [Live](https://sergiodesign4u-dot.github.io/Tendd-Fintech/ui-visual/home.html) / [subscription-detail.html](./ui-visual/subscription-detail.html) | Done (July 2026) |
+| UI + Visual | ui-visual/ | Pending (next) |
 | Tokens + Components | tokens-components/ | Pending |
 | Design System | design-system/ | Pending |
 | Responsive | responsive/ | Pending |
@@ -53,6 +54,7 @@ Tendd is a mobile-first, desktop-responsive web app that helps people who are no
 - [Information Architecture](./ia/ia.html) - Entities, sitemap, navigation, flows, coverage matrix, critique
 - [Wireframes](./wireframes/index.html) - Grey, semantic, mobile-first responsive wireframes with real copy and all four states per screen; a flow-by-flow overview is the entry point
 - [Voice](./voice/voices.html) - The product voice as rules: principles, dictionary, forbidden list, and microcopy rules, plus the full was/became line inventory
+- [Concept](./concept/concept.html) - The visual language as named taste plus attribute pairs (every color, type, and form decision traces to one), the chosen Petrol & Paper direction, and Home + Subscription Detail colored in ui-visual/ as the two anchor screens (wireframes stay grey)
 
 ---
 
@@ -75,9 +77,47 @@ rules not a mood, so any line can be written the same way by a person or by Clau
 The voice was applied to every wireframe: Home set the sample, the rest were rolled
 out by subagents, and an adversarial four-reviewer pass caught the last misses.
 Alerts, Cancel Guide, Upgrade, and Settings were already fully in voice. Wireframe
-structure was untouched; only the text changed. Next phase is Concept, the
-first of the Design track: Concept, UI + Visual, Tokens + Components, Design
-System, Responsive, Animation, Handoff.
+structure was untouched; only the text changed. Concept, the first of the Design
+track, is done (see below); the track continues with UI + Visual, Tokens +
+Components, Design System, Responsive, Animation, and Handoff.
+
+---
+
+## Concept
+
+The [concept/](./concept/) phase found the product's visual language and proved it
+on two anchor screens. Concept is named taste plus attribute pairs, not a mood:
+every downstream color, type, and form decision must trace to a line in
+concept.md, or it is an invention.
+
+- [concept/docs/references.md](./concept/docs/references.md) - the language traced
+  to real products via Refero: Monzo as the benchmark base minus its Hot Coral,
+  one technique each from Apple Wallet (transaction clarity) and Copilot (category
+  color on light). Rejects the red accent, the dark canvas, the mint/sage/beige
+  "calm fintech" reflex, and stock photos.
+- [concept/docs/concept.md](./concept/docs/concept.md) - the founder's named taste,
+  five attribute pairs (calm-not-alarming, trust-shown, one-big-number,
+  recognition-not-codes, warm-restraint), each sourced to research, and the three
+  directions with the locked choice and its token table.
+- [concept/directions.html](./concept/directions.html) - three contrasting
+  directions live; [concept/concept.html](./concept/concept.html) - the chosen
+  Petrol & Paper stand: palette, type, form, real brand logos, Solar icons, live
+  components, and a WCAG AA contrast table.
+
+**Petrol & Paper (the locked direction):** a true-white canvas, one grotesk
+(Inter), a deep petrol accent spent only on the primary action, the selection, and
+the trust line. Status is a quiet gray badge, never red; a price change is calm
+amber, a genuine error is desaturated clay, never alarm-red. It leads the
+trust-shown attribute, the safest bet for a user whose activation gate is trust.
+
+**In color (ui-visual/):** Home and Subscription Detail (with their empty, error,
+and loading states) were copied from the grey wireframes and recolored through one
+shared layer, [ui-visual/_theme.css](./ui-visual/_theme.css): real brand logos,
+Solar icons, and a review sidebar, with the wireframes left grey and untouched.
+Each colored page differs from its grey original only by styling; the two screens
+share the identical subscription card, so it reads as one product. Every
+text-on-surface pair clears WCAG AA. The full color pass across all 16 screens,
+plus ui-visual/docs/design.md, is the next phase, UI + Visual.
 
 ---
 
@@ -130,8 +170,14 @@ invent. Visual design, spacing, and interaction detail come in Wireframes.
   - voice.html            Voice document render
   - microcopy.html        Microcopy inventory render
   - docs/                 voice.md and microcopy.md
-- concept/                Concept phase (visual concept and moodboard)
+- concept/                Concept phase (references, taste + attributes, directions, the Petrol & Paper stand)
+  - concept.html          The chosen Petrol & Paper stand
+  - directions.html       Three contrasting directions
+  - docs/                 references.md and concept.md
 - ui-visual/              UI and visual design
+  - home*.html            Home + states, colored (Petrol & Paper)
+  - subscription-detail*.html  Subscription Detail + states, colored
+  - _theme.css            The shared color layer over the grey wireframes
 - tokens-components/      Design tokens and UI component library
 - design-system/          Design system documentation
 - responsive/             Responsive design
