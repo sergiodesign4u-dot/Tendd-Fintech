@@ -119,6 +119,17 @@ share the identical subscription card, so it reads as one product. Every
 text-on-surface pair clears WCAG AA. The full color pass across all 16 screens,
 plus ui-visual/docs/design.md, is the next phase, UI + Visual.
 
+**Draft design doc and brand plate.** The approved brand seeds a root
+[DESIGN-artifacts.md](./DESIGN-artifacts.md), the draft design doc: identity,
+palette with roles, typography, icon language, and UI tone, each tagged with an
+attribute, plus a Sources section. It is design source material, not the product
+system; the product system is generated from it at Etap 07 into
+ui-visual/docs/design.md (there is no root DESIGN.md). A dense brand toolkit plate
+for the locked direction is kept as a visual record at
+[concept/assets/brand-plate-petrol-paper.png](./concept/assets/brand-plate-petrol-paper.png)
+(rendered at 4k with Google Nano Banana 2, stored at 2400px); the brand was chosen
+from the live directions, so the plate documents that choice rather than making it.
+
 ---
 
 ## Structure
@@ -170,9 +181,11 @@ invent. Visual design, spacing, and interaction detail come in Wireframes.
   - voice.html            Voice document render
   - microcopy.html        Microcopy inventory render
   - docs/                 voice.md and microcopy.md
+- DESIGN-artifacts.md     Draft design doc (root): brand identity, palette, type, icon language, UI tone + Sources (Etap 06)
 - concept/                Concept phase (references, taste + attributes, directions, the Petrol & Paper stand)
   - concept.html          The chosen Petrol & Paper stand
   - directions.html       Three contrasting directions
+  - assets/               Brand toolkit plate (brand-plate-petrol-paper.png)
   - docs/                 references.md and concept.md
 - ui-visual/              UI and visual design
   - home*.html            Home + states, colored (Petrol & Paper)

@@ -100,4 +100,47 @@ The other two directions stay on record above and can be returned to. They are n
 
 Type: Inter, one family. Total 44px/800, headings 20 to 28, body 15, tight scale. Form: card radius 14px, control radius 10px, badge 6px, one soft shadow. Accent is spent only on the primary action, the current selection, and the trust line, never as decoration. Status "Active" is a quiet gray badge, never red. Semantic tones are calm: success is a muted green (#2e6b52), a price change is a warm amber (#8a5c0c text on a #f6efe0 wash, not red), a genuine error is a desaturated clay (#9a5842, on a #f3e9e5 wash), never alarm-red (per voice.md). The clay tone is scoped to genuine failures only, the sync-error banner and the could-not-load screen; the price-change alert keeps the amber wash so the two read apart. Secondary and meta text, including the next-payment date line, is the one muted #5a686c (no lighter third tier, so every text-on-surface pair clears WCAG AA).
 
-*Next (Step 4 continued): the full stand is built in concept/concept.html and the Concept roadmap sidebar is wired. Step 5 colors Home in ui-visual/.*
+---
+
+## Brand
+
+The brand feeling was found through the three live directions above, not through a
+generated plate-first fork; the founder locked Petrol & Paper from the live HTML
+(2026-07-15). As a visual record of that locked language, one dense brand toolkit
+plate was generated for Petrol & Paper only (rendered at 4k with Google Nano
+Banana 2, stored at 2400px) and saved at
+`concept/assets/brand-plate-petrol-paper.png`. It documents the chosen brand as
+a single brand-guidelines board (identity, palette, type specimen, icon set,
+applications in product context, UI components); it is a record, not a fresh
+decision, so the authoritative token values stay in this file, in `concept.html`,
+and in the root `DESIGN-artifacts.md`. No three-divergent-plates round was run,
+because the brand was already locked before this step; the alternates (Ink &
+Marigold, Plum & Fog) are the record of the divergence, above.
+
+The approved brand seeds the root `DESIGN-artifacts.md` (draft design doc, Etap
+06): identity, palette with roles, typography, icon language, and UI tone, each
+tagged with an attribute or taste line. The product design system is generated from
+it at Etap 07 into `ui-visual/docs/design.md` (no root `DESIGN.md`, by founder
+decision).
+
+## Layout
+
+Chosen composition: **Direction 2, Petrol & Paper**, the same direction that
+locked the brand. Its layout is the calm, list-first master-detail proven on the
+two anchor screens: a single reserved accent, the monthly total as the one big
+number (A3), quiet gray status badges (A1, T2), real brand-logo rows with a soft
+category chip (A4, T4, T5), and the read-only trust line as a first-class element
+(A2, T3). Density is comfortable and generous (T1), not a dashboard grid. The other
+two directions' compositions (Ink & Marigold pill-and-warmth, Plum & Fog editorial
+serif reveal) stay on record above.
+
+The chosen layout is realized in `concept/concept.html` (the language stand) and
+carried onto the two colored anchor screens in `ui-visual/` (Home and Subscription
+Detail), which share the identical subscription card so both read as one product.
+
+---
+
+*Concept (Etap 06) is complete. The language is recorded here, stood up in
+`concept/concept.html`, seeded into the root `DESIGN-artifacts.md`, and applied to
+two anchor screens in `ui-visual/`. Next phase: UI + Visual (Etap 07), the full
+color pass across all 16 screens plus `ui-visual/docs/design.md`.*

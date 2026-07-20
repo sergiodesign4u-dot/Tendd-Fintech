@@ -10,7 +10,7 @@
 | Information Architecture | ia/ia.html, ia/docs/sitemap.md, ia/docs/flows.md | Done (July 2026) |
 | Wireframes | wireframes/index.html, wireframes/*.html, wireframes/docs/screens.md, wireframes/docs/conventions.md, wireframes/docs/critique.md | Done (July 2026) |
 | Voice | voice/voices.html, voice/voice.html, voice/microcopy.html, voice/docs/voice.md, voice/docs/microcopy.md | Done (July 2026) |
-| Concept | concept/concept.html, concept/directions.html, concept/docs/references.md, concept/docs/concept.md, ui-visual/ (Home + Subscription Detail in color) | Done (July 2026) |
+| Concept | DESIGN-artifacts.md (root draft), concept/concept.html, concept/directions.html, concept/docs/references.md, concept/docs/concept.md, concept/assets/brand-plate-petrol-paper.png, ui-visual/ (Home + Subscription Detail in color) | Done (July 2026) |
 | UI + Visual | ui-visual/ | Pending (next) |
 | Tokens + Components | tokens-components/ | Pending |
 | Design System | design-system/ | Pending |
@@ -209,6 +209,20 @@ that every downstream color, type, and form decision must trace back to. A
 decision with no pair in concept.md is an invention, not a decision. Next phase
 is UI + Visual (the full system across all screens, with ui-visual/docs/design.md
 generated then via /impeccable document, never a root DESIGN.md).
+
+**Design-doc chain (course-aligned, July 2026).** The approved brand seeds a root
+DESIGN-artifacts.md, the DRAFT design doc entered here at Concept: identity,
+palette with roles, typography, icon language, and UI tone, each tagged with an
+attribute or taste line, plus a Sources section. It is design source material, not
+the product system. The product system is still generated at Etap 07 into
+ui-visual/docs/design.md (per the 2026-07-15 founder decision), so the chain is
+DESIGN-artifacts.md (draft, root) -> ui-visual/docs/design.md (product); there is
+no root DESIGN.md at any point. A dense brand toolkit plate for the locked
+direction (Google Nano Banana 2) is kept as a visual record at
+concept/assets/brand-plate-petrol-paper.png; the brand was chosen from the live
+HTML directions, so the plate documents that choice rather than making it (no
+three-divergent-plates round was run; rendered at 4k, stored at 2400px).
+concept.md carries the Brand and Layout choices explicitly.
 
 **The chosen language, Petrol & Paper (founder-locked, D-Concept):** a true-white
 canvas (not beige), one neutral grotesk (Inter), deep petrol accent (#1c6a76)
