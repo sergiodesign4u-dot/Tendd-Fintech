@@ -75,6 +75,15 @@
       }
       html += '</ul>';
     }
+    // Bridge out of the grey prototype to the Design track (Concept, in colour).
+    // The wireframes stay grey; these links jump to the coloured concept pages.
+    html += '<div class="wf-track-out">';
+    html += '<p class="cluster">Design track</p><ul>';
+    html += '<li class="wf-screen"><a href="../concept/concept.html">Concept (in colour)</a></li>';
+    html += '<li class="wf-screen"><a href="../concept/directions.html">Directions</a></li>';
+    html += '<li class="wf-screen"><a href="../ui-visual/home.html">Home in colour</a></li>';
+    html += '<li class="wf-screen"><a href="../ui-visual/subscription-detail.html">Subscription Detail in colour</a></li>';
+    html += '</ul></div>';
     html += '</div>';
     return html;
   }
