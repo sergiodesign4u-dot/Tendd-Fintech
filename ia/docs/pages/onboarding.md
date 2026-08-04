@@ -2,7 +2,7 @@
 
 - **Node:** 1 Onboarding and Activation. The one-time linear chain that takes a first-time person from "what is this" to their first calm view of their recurring spend, by either the bank path or the private path. It is one artifact because it is a single uninterrupted flow with no tab bar, one entrance and one exit (Home).
 - **Type:** Flow (the chain), Pages (Welcome, Path Choice, Connect Bank, Add Subscription, Guided Reveal), Dialogs (connection error, preset error), States (loading, empty, error, partial-saved).
-- **Canonical visual:** `ia/onboarding.html`. This markdown is the source of truth, the HTML is the reviewable render.
+- **Superseded 2026-08-05.** Nodes 1.1 to 1.5 are specified one per file in `../nodes/`, rendered as their own pages. The page `ia/onboarding.html` was retired; this file stays as the base-layer record.
 - **Job:** Closes J1 (activate without anxiety, the trust job) and opens J-MAIN (see all recurring charges calmly). Primary persona Emma on the bank path (1.3), Ravi on the private path (1.4). Claudia moves through it fast on the bank path.
 - **Related:** exits to node 2 Core (Home, 2.6). Trust content reuses GC6 Data Source and Trust Indicator (specified in account.md, node 6). Reveal reuses GC3 Recurring Summary Strip and GC4 Subscription List Item (specified in core.md, node 2). Global app chrome (GC2 tab bar) is deliberately absent across the chain; the Welcome landing (1.1) is the exception with its own marketing top nav and footer (see the 1.1 update), and the activation chain proper (1.2 to 1.5) has no tab bar.
 

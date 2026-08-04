@@ -2,7 +2,7 @@
 
 - **Node:** 0 Global chrome. The two elements that frame every steady-state screen: GC1 App Header and GC2 Global Tab Bar. They are true global chrome (present on every non-onboarding screen), so they get their own file rather than living inside one cluster. The reusable Sections GC3 to GC7 are NOT here; each is specified in the cluster where it belongs (GC3 and GC4 in core.md, GC5 in alerts.md, GC6 in account.md, GC7 in pro.md) and referenced by name elsewhere.
 - **Type:** Section (App Header), Section (Global Tab Bar), State matrix.
-- **Canonical visual:** `ia/navigation.html`.
+- **Superseded 2026-08-05.** GC1 and GC2 are specified in `../nodes/globals.md`, rendered at `ia/globals.html`. The page `ia/navigation.html` was retired with the other cluster renders; this file stays as the base-layer record it was written as.
 - **Job:** navigation chrome serves no single job; it carries every job cluster into reach. The four tabs map to job clusters (Home to J-MAIN, Alerts to J4, Save to J2 plus E2, You to E3 plus J1), per the Navigation section of sitemap.md.
 - **Related:** every page in the library sits inside this chrome except the onboarding chain (node 1), where both are hidden. Reuses nothing; is reused by everything.
 

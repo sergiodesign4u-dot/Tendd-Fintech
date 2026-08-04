@@ -2,7 +2,7 @@
 
 - **Node:** 4 Cut and Celebrate. The three-step arc from deciding to cancel, to doing it, to feeling the win and optionally sharing it. This is the most emotionally powerful moment in the product and the natural upgrade trigger. One artifact because Cancel Guide, Cancel Win Moment, and Share Snapshot are a single sequence a person moves through in one sitting.
 - **Type:** Pages (Cancel Guide, Cancel Win Moment, Share Snapshot), Dialogs (could-not-cancel help), States (success, no-guide-yet, could-not-cancel, Pro-locked, loading, generating, share-error).
-- **Canonical visual:** `ia/cancel.html`.
+- **Superseded 2026-08-05.** Nodes 4.9 to 4.11 are specified one per file in `../nodes/`. The page `ia/cancel.html` was retired; this file stays as the base-layer record.
 - **Job:** J2 (identify and cancel unused subscriptions) on Cancel Guide, E2 (the small win) on Cancel Win Moment, S1 (share the discovery) on Share Snapshot. Primary persona Claudia (her whole session aims here); Emma and Ravi arrive from a specific subscription.
 - **Related:** entered from 2.7 Subscription Detail (Cancel action) or the 2.6 save-focus view; the full guide and direct link are gated by GC7 into 5.13 Upgrade; the win seeds the Snapshot entity. Reuses GC1, GC7 (pro.md).
 
@@ -40,7 +40,7 @@ Block order:
 2. (P) Basic instruction, always free: "Here is how to cancel Netflix. 1. Go to your account page. 2. Select Cancel Membership. 3. Confirm." plus a button "Open netflix.com/account". Traces D3.
 3. (S) Pro depth, below the free steps: "Tendd Pro: step-by-step with screenshots and a one-tap cancel link." -> GC7 -> 5.13. Gated for free. Traces D3.
 4. (P) Confirmation action: "I cancelled it" -> 4.10. Traces J2, E2.
-5. (S) Help path: "Couldn't cancel?" -> the could-not-cancel dialog (4.9.1). Critique fix.
+5. (S) Help path: "Couldn't cancel?" -> the could-not-cancel dialog (4.9.2, corrected 2026-08-04). Critique fix.
 
 Sub-node 4.9.1 Could-not-cancel (Dialog): "Cancelling can be deliberately hard. Try these: [alternative steps]. Or keep this open and come back." Actions: "Show other steps", "Remind me later". Never a terminal dead end.
 
@@ -92,7 +92,7 @@ Private, behind auth and transactional. `noindex`, no schema, not a content surf
 ## Accessibility
 
 - Cancel Guide steps are a real ordered list; the "Open account page" link and "I cancelled it" button are distinct, keyboard-reachable controls with clear names.
-- The could-not-cancel dialog (4.9.1) is a modal with a focus trap; Escape maps to "Remind me later" (safe, non-terminal), never a silent dismiss.
+- The could-not-cancel dialog (4.9.2, corrected 2026-08-04) is a modal with a focus trap; Escape maps to "Remind me later" (safe, non-terminal), never a silent dismiss.
 - The win moment announces its number via `aria-live` so a screen reader gets the emotional payload ("You freed up $15.99 a month").
 - Share Snapshot: the card preview has a text alternative that states exactly what the card contains, so a person knows what they are about to share; the privacy note is associated with the share button.
 - Tap targets at least 44 by 44 px. No color-only signal for the win (uses text and number, not just a green flash), which also keeps the calm, no-alarm tone.

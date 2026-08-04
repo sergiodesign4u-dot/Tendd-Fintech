@@ -2,7 +2,7 @@
 
 - **Node:** 5 Depth (Pro-gated). The two surfaces that carry the paid tier: History and Trends (the main Pro-value depth of J-MAIN over time) and Upgrade / Tendd Pro (the conversion screen). One artifact because they are the gate and the thing behind the gate, always seen together.
 - **Type:** Pages (History and Trends, Upgrade / Tendd Pro), Section (GC7 Pro Gate and Plan Chip is specified here), States (success, Pro-locked, empty, loading, error, processing).
-- **Canonical visual:** `ia/pro.html`.
+- **Superseded 2026-08-05.** Nodes 5.12 and 5.13 are specified in `../nodes/`, GC7 in `../nodes/globals.md`. The page `ia/pro.html` was retired; this file stays as the base-layer record.
 - **Job:** History and Trends serves J-MAIN over time. Upgrade / Tendd Pro serves no user job; it is decision-justified by D3 (the free vs paid split) and D4 (pricing), and is the one screen in the whole IA that traces to a decision rather than a job (see the Traceability orphan note). Primary persona Emma for trends, Claudia converts fastest.
 - **Related:** every Pro gate across the app (5.12 lock, advanced alerts in 3.8, full guide in 4.9) routes here via GC7. Reuses GC1, GC3 (core.md). GC7 is specified here. Connecting more banks is not a gate: Free is uncapped on connections.
 

@@ -2,7 +2,7 @@
 
 - **Node:** 2 Core. The steady-state product: the calm list a person returns to, and the detail behind any one subscription. This is where J-MAIN lives after onboarding, and where the Save tab lands (FLAG 1). One artifact because Home and Subscription Detail are a list-and-detail pair that share the same data and, on desktop, the same view.
 - **Type:** Pages (Home, Subscription Detail), Sections (GC3 Recurring Summary Strip and GC4 Subscription List Item are specified here and reused elsewhere), States (success, empty, loading, sync-error, save-focus, unrecognized-charge, price-change, payment-failure).
-- **Canonical visual:** `ia/core.html`.
+- **Superseded 2026-08-05.** Nodes 2.6 and 2.7 are specified in `../nodes/`, GC3 and GC4 in `../nodes/globals.md`. The page `ia/core.html` was retired; this file stays as the base-layer record.
 - **Job:** J-MAIN (see all recurring charges calmly) and E1 (feel competent, not judged) on Home; J3 (understand what a charge is) and J4 (its alerts) on Detail. Primary persona Emma; Claudia uses the save-focus view of Home heavily.
 - **Related:** entered from 1.5 Guided Reveal; the "+" reopens 1.4 Add Subscription; a subscription's Cancel action goes to 4.9 Cancel Guide; the history link goes to 5.12 History and Trends behind GC7. Reuses GC1 and GC2 (navigation.md), GC5 (alerts.md), GC6 (account.md), GC7 (pro.md).
 

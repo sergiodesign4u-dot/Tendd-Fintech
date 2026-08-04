@@ -2,7 +2,7 @@
 
 - **Node:** 3 Stay Ahead. One surface, Alerts / Activity, where price changes, failed payments, and (for Pro) predictive alerts are collected in plain language. It is one artifact because it is a single feed with one item type. This is also the product's return engine: without an external hook this segment does not come back (research BP4).
 - **Type:** Page (Alerts / Activity), Section (GC5 Alert Item is specified here), States (success, empty, loading, error).
-- **Canonical visual:** `ia/alerts.html`.
+- **Superseded 2026-08-05.** Node 3.8 is specified in `../nodes/3-8-alerts.md`, GC5 in `../nodes/globals.md`. The page `ia/alerts.html` was retired; this file stays as the base-layer record.
 - **Job:** J4 (stay ahead of financial surprises). Primary persona Emma (surprises trigger her avoidance loop, being warned first converts threat into control); Claudia uses it to catch price changes deliberately.
 - **Related:** an alert taps through to 2.7 Subscription Detail; a price-change alert can hand off to 4.9 Cancel Guide; Pro alert types hit the GC7 gate into 5.13 Upgrade. Reuses GC1, GC2 (navigation.md), GC7 (pro.md). GC5 is specified here.
 

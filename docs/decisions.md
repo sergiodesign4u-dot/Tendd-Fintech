@@ -7,6 +7,29 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-05 - The scaffolding comes down: nine cluster pages retired
+
+The detail layer of the IA was nine cluster pages, each holding several screens plus its own
+copy of the global elements and its own accessibility section. It is now one page per node
+(16 screens), one page for the seven global elements, and one accessibility contract. Seven
+cluster renders and the pre-upgrade `ia/ia.html` were deleted; `system.html` and `seo.html`
+stayed, because they still own nodes 9.1 to 9.5 and node 8. The temporary registry row "IA
+(pre-upgrade)" was removed with them, which closes the note recorded on 2026-07-12 below.
+
+Why the markdown stayed while the html went: the md files are the base-layer record they were
+written as, and every node page names the section of them it supersedes. The html renders were
+duplicates with no owner left, and a duplicate with no owner is the thing that drifts.
+
+Rejected: deleting the markdown too. It carries the reasoning behind decisions that the node
+pages state as conclusions, and git history is not a visible place.
+
+What the consolidation surfaced, which is the argument for having done it: GC7 was carrying
+two opposite rules for the same lock (a real preview frame in pro.md, a blurred item in
+alerts.md) because they lived in two files; the accessibility rule for modals was written
+three different ways across three files; one dialog was cited by a node number that belonged
+to a different state; and five states named in a spec had no number at all. None of these are
+visible while the material is spread across nine files.
+
 ## 2026-08-04 - Two answers the block bank asked for: the share block and the export
 
 Building the block bank (`ia/docs/blocks.md`) surfaced one contradiction and one gap that

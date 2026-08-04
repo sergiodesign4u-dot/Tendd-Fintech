@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tendd IA - Accessibility</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --border-light: #f0ede6;
+      --text: #2a2724;
+      --text-secondary: #6b6560;
+      --text-muted: #9b958e;
+      --accent: #5c7a6e;
+      --accent-light: #eef4f1;
+      --accent-mid: #d0e4dc;
+      --yellow-light: #fdf8ed;
+      --yellow-mid: #f5e9c4;
+      --red-light: #fdf2f0;
+      --red-mid: #f2cfc8;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --radius: 8px;
+      --radius-sm: 4px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 220px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      z-index: 200;
+      transform: translateX(-100%);
+      transition: transform 0.22s ease;
+      overflow-y: auto;
+      padding-bottom: 32px;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 150;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    .sidebar-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+
+    .sidebar-close {
+      background: none; border: none; font-size: 18px; line-height: 1;
+      color: var(--text-muted); cursor: pointer; padding: 4px 6px;
+      border-radius: var(--radius-sm);
+    }
+    .sidebar-close:hover { color: var(--text); background: var(--border-light); }
+
+    .nav-toggle {
+      position: fixed; top: 14px; left: 16px; z-index: 100;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px;
+    }
+
+    .nav-page-active {
+      display: block; font-size: 13px; font-weight: 600; color: var(--accent);
+      padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light);
+      margin-bottom: 1px;
+    }
+
+    .nav-sub-link {
+      display: block; text-decoration: none; color: var(--text-muted);
+      font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm);
+      margin-bottom: 1px; transition: all 0.15s;
+    }
+    .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-sub-link.active { color: var(--accent); font-weight: 500; }
+
+    @media (min-width: 840px) {
+      .sidebar { transform: translateX(0); }
+      .sidebar-close { display: none; }
+      .sidebar-overlay { display: none !important; }
+      .nav-toggle { display: none; }
+    }
+
+    /* Layout */
+    main { max-width: 900px; margin: 0 auto; padding: 72px 24px 80px; }
+    @media (min-width: 840px) {
+      body { padding-left: 220px; }
+      main { padding-top: 40px; }
+    }
+    @media (max-width: 640px) {
+      main { padding-left: 16px; padding-right: 16px; }
+      h1 { font-size: 26px !important; }
+    }
+
+    /* Type */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+    }
+    h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; color: var(--text); }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px; }
+    h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 10px; margin-top: 6px; }
+    p { margin-bottom: 12px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    cite { font-size: 11.5px; color: var(--text-muted); font-style: normal; }
+
+    /* Hero */
+    .hero { padding: 64px 0 40px; border-bottom: 1px solid var(--border); }
+    .hero-meta { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; padding: 4px 10px;
+      border-radius: 100px; background: var(--accent-light);
+      color: var(--accent); border: 1px solid var(--accent-mid);
+    }
+    .hero-tagline { font-size: 18px; color: var(--text-secondary); margin-top: 12px; max-width: 660px; line-height: 1.5; }
+
+    .section { padding: 56px 0 0; }
+
+    .lead { font-size: 15px; color: var(--text-secondary); max-width: 680px; }
+
+    /* Callout */
+    .callout {
+      background: var(--accent-light); border: 1px solid var(--accent-mid);
+      border-radius: var(--radius); padding: 16px 20px; margin-top: 16px;
+    }
+    .callout p { color: var(--text); margin-bottom: 6px; }
+    .callout p:last-child { margin-bottom: 0; }
+    .callout .big { font-size: 26px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+
+    /* Tags */
+    .tag {
+      display: inline-block; font-size: 10.5px; font-weight: 600;
+      padding: 1px 6px; border-radius: 4px; margin-left: 4px;
+      background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid);
+      vertical-align: middle; letter-spacing: 0.01em;
+    }
+    .tag.q { background: var(--yellow-light); color: #8a6e20; border-color: var(--yellow-mid); }
+    .tag.skip { background: var(--red-light); color: #8a2020; border-color: var(--red-mid); }
+    .tag.later { background: var(--bg); color: var(--text-muted); border-color: var(--border); }
+
+    /* Block bank */
+    td .tag { margin-left: 0; }
+    table.bank td:nth-child(2) { font-weight: 600; color: var(--text); }
+    table.bank td { font-size: 12.5px; }
+    .order-list { counter-reset: b; list-style: none; margin-top: 18px; }
+    .order-list li {
+      counter-increment: b; position: relative; padding: 9px 0 9px 40px;
+      border-bottom: 1px solid var(--border-light); font-size: 13.5px;
+    }
+    .order-list li:last-child { border-bottom: none; }
+    .order-list li::before {
+      content: counter(b); position: absolute; left: 0; top: 8px;
+      width: 24px; height: 24px; border-radius: 50%; background: var(--accent-light);
+      color: var(--accent); border: 1px solid var(--accent-mid);
+      font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    }
+    .order-list li b { color: var(--text); }
+    .src-list { list-style: none; margin-top: 14px; }
+    .src-list li { padding: 5px 0 5px 16px; position: relative; font-size: 13px; color: var(--text-secondary); }
+    .src-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-mid); }
+    .src-list li b { color: var(--text); font-weight: 600; }
+
+    /* Entity cards */
+    .ent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 20px; }
+    .ent-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px 17px; }
+    .ent-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .ent-card p { font-size: 12.5px; color: var(--text-secondary); margin-bottom: 5px; line-height: 1.5; }
+    .ent-card .ent-job { font-size: 11.5px; color: var(--accent); font-weight: 600; }
+
+    /* Tree */
+    .tree {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px; margin-top: 18px;
+      font-family: var(--mono); font-size: 12.5px; line-height: 1.85;
+      color: var(--text); overflow-x: auto; white-space: pre;
+    }
+    .tree .job { color: var(--accent); }
+    .tree .prim { color: #8a6e20; font-weight: 700; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; margin-top: 18px; border: 1px solid var(--border); border-radius: var(--radius); }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; background: var(--surface); }
+    th, td { border-bottom: 1px solid var(--border-light); border-right: 1px solid var(--border-light); padding: 8px 11px; text-align: left; vertical-align: top; }
+    th { background: var(--accent-light); color: var(--accent); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; position: sticky; top: 0; }
+    tr:last-child td { border-bottom: none; }
+    td:last-child, th:last-child { border-right: none; }
+
+    table.matrix th, table.matrix td { text-align: center; padding: 7px 6px; font-size: 12px; }
+    table.matrix td.job { text-align: left; font-weight: 600; color: var(--text); white-space: nowrap; }
+    table.matrix td.check { color: var(--accent); font-weight: 700; }
+    table.matrix th.orphan, table.matrix td.orphan { background: var(--red-light); }
+    table.matrix th.orphan { color: #8a2020; }
+
+    /* Flow cards */
+    .flow-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-top: 20px; box-shadow: var(--shadow); }
+    .flow-card h3 { margin-top: 0; }
+    .flow-card .flow-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+    .mermaid { text-align: center; overflow-x: auto; margin: 8px 0 6px; }
+    .flow-notes { font-size: 12.5px; color: var(--text-secondary); margin-top: 10px; }
+    .flow-notes strong { color: var(--text); }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 12px; color: var(--text-secondary); }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .swatch { width: 13px; height: 13px; border-radius: 3px; border: 1px solid; display: inline-block; }
+    .swatch.state { background: #fff7e6; border-color: #d9a441; }
+    .swatch.success { background: #e9f5ee; border-color: #3f9c68; }
+    .swatch.dead { background: #fdeaea; border-color: #c96a6a; }
+    .swatch.screen { background: #fff; border-color: var(--text-muted); }
+
+    /* Footer */
+    .footer { border-top: 1px solid var(--border); margin-top: 72px; padding: 32px 0; text-align: center; }
+    .footer p { font-size: 13px; color: var(--text-muted); }
+
+    /* Prompt 2 additions */
+    .flag-callout { background: var(--yellow-light); border: 1px solid var(--yellow-mid); border-radius: var(--radius); padding: 14px 18px; margin-top: 16px; }
+    .flag-callout h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: #8a6e20; margin-bottom: 6px; }
+    .flag-callout p { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+    .flag-callout p:last-child { margin-bottom: 0; }
+    .gc-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-top: 14px; }
+    .gc-card h4 { font-size: 14px; color: var(--text); margin-bottom: 6px; }
+    .gc-card .gc-meta { font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.55; }
+    .blocklist { list-style: none; margin: 4px 0 0; padding: 0; }
+    .blocklist li { font-size: 13px; color: var(--text-secondary); padding: 2px 0; }
+    .pill { display: inline-block; font-size: 9.5px; font-weight: 700; padding: 1px 5px; border-radius: 3px; margin-right: 6px; vertical-align: middle; letter-spacing: 0.03em; }
+    .pill.p { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+    .pill.s { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+    .pc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 14px; margin-top: 18px; }
+    .pc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px 17px; }
+    .pc h4 { font-size: 14px; color: var(--text); margin-bottom: 3px; }
+    .pc .pc-job { font-size: 11.5px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+    .pc .pc-label { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin: 10px 0 4px; }
+    .pc ol { margin: 0; padding-left: 16px; }
+    .pc ol li { font-size: 12.5px; color: var(--text-secondary); margin-bottom: 2px; line-height: 1.45; }
+    .states { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+    .state-badge { font-size: 10.5px; padding: 2px 7px; border-radius: 100px; background: var(--bg); border: 1px solid var(--border); color: var(--text-secondary); }
+    .state-badge.err { background: var(--red-light); border-color: var(--red-mid); color: #8a2020; }
+    .state-badge.q { background: var(--yellow-light); border-color: var(--yellow-mid); color: #8a6e20; }
+    .pc-delta { font-size: 11.5px; color: #8a6e20; background: var(--yellow-light); border: 1px solid var(--yellow-mid); border-radius: var(--radius-sm); padding: 6px 9px; margin-top: 8px; line-height: 1.45; }
+
+    tr.scope td { border-top: 2px solid var(--border); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-secondary); text-align: center; }
+    tr.scope td.job { text-align: left; letter-spacing: 0.06em; }
+
+    .ia-group { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin: 26px 0 10px; font-weight: 700; }
+    .ia-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ia-chip { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px 6px 10px; text-decoration: none; color: var(--text); background: var(--surface); font-size: 13px; transition: border-color .15s, background .15s; }
+    .ia-chip:hover { border-color: var(--accent); background: var(--border-light); }
+    .ia-chip.is-active { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+    .ia-chip-node { font-variant-numeric: tabular-nums; color: var(--text-muted); font-size: 12px; min-width: 26px; }
+    .ia-chip-type { font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); border-left: 1px solid var(--border); padding-left: 8px; }
+    .ia-chip-scope { font-size: 10px; letter-spacing: 0.05em; font-weight: 700; color: var(--accent); }
+    .ia-chip-scope.later { color: var(--text-muted); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 18px; }
+    .pill-row span { border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 12px; color: var(--text-secondary); }
+
+    .node-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+    .node-meta span { border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 12px; color: var(--text-secondary); background: var(--surface); }
+    .node-meta span.on { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+    .kv { margin-top: 16px; }
+    .kv div { display: flex; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--border-light); font-size: 13.5px; }
+    .kv div:last-child { border-bottom: none; }
+    .kv b { min-width: 120px; color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
+    .seo-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-top: 16px; }
+    .seo-block h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin: 0 0 10px; }
+    .seo-block + .seo-block { margin-top: 12px; }
+    .seo-block code { font-family: var(--mono); font-size: 12.5px; background: var(--bg); border: 1px solid var(--border-light); border-radius: 3px; padding: 1px 5px; }
+    .seo-block ul { margin: 8px 0 0 18px; font-size: 13.5px; }
+    .seo-block li { margin-bottom: 5px; }
+    ol.tpl { margin: 16px 0 0 20px; font-size: 13.5px; }
+    ol.tpl li { margin-bottom: 7px; }
+    ol.tpl b { color: var(--text); }
+    .callout.flag { background: var(--yellow-light); border-color: var(--yellow-mid); }
+  </style>
+<link rel="stylesheet" href="../_nav.css">
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main>
+
+  <section class="hero" id="top">
+    <div class="hero-meta">
+      <span class="badge">Information Architecture</span>
+      <span class="badge">Cross-cutting</span>
+      <span class="badge">Detail layer</span>
+    </div>
+    <h1>Accessibility</h1>
+    <p class="hero-tagline">One contract for the whole product. It used to be nine, and the repetition had already started to drift.</p>
+    <div class="node-meta">
+      <span class="on">Cross-cutting</span><span>6 rules</span><span>25 nodes</span>
+      <span>4 modals</span><span>no conformance claim</span>
+    </div>
+    <div class="callout">
+      <p>Source: <a href="docs/accessibility.md">docs/accessibility.md</a>. Every cluster file used to carry its own Accessibility section, and eight of the nine ended with the same line about tap targets. <b>A rule restated nine times drifts in nine directions</b>, and by the end of the IA stage it already had: the same modal rule written three different ways, and one dialog cited by the wrong node number. Same structure as <a href="seo.html">the SEO engine</a>: one model, stated once, inherited by every screen.</p>
+    </div>
+  </section>
+
+  <section class="section" id="rules">
+    <div class="section-label">Everywhere, without exception</div>
+    <h2>Six rules</h2>
+    <ol class="tpl">
+      <li><b>Tap targets at least 44 by 44 px</b>, and the whole row is the target, not the logo inside it. Traces the mobile-first boundary and design principle 2.</li><li><b>No icon without a label</b>, every tab, every header action, every inline alert action carries visible text; the icon is decorative. This is the one rule that also serves the audience directly: an anxious person who cannot tell what a control does does not press it.</li><li><b>Focus moves with the person</b>, on a transition it lands on the new screen's H1 or its first control, never staying behind on a button that no longer exists.</li><li><b><code>aria-live</code> is always polite, never assertive</b>, an assertive interruption is the attention grab this product exists to avoid (design principle 1). A new alert, a sync result, a toast and the win number are all announced once, politely.</li><li><b>Nothing is signalled by colour alone</b>, status is a word before it is a shade: "Cancelled" is a tag, not a grey. This is D-Concept read from the other side, and it is why the win moment carries a number and a sentence rather than a green flash.</li><li><b>Every number that is drawn is also written</b>, the monthly total has an accessible label, the chart carries a text summary above it, and the reveal states its count in text. <b>The chart is never the only way to get the number</b> (node 5.12).</li>
+    </ol>
+  </section>
+
+  <section class="section" id="nodes">
+    <div class="section-label">Beyond the six</div>
+    <h2>What each node adds</h2>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Node</th><th>What it adds</th></tr>
+        <tr><td>GC1 App Header</td><td>The back control has an accessible name that says where back goes ("back to your list"), and the single action slot is named by function ("add subscription")</td></tr><tr><td>GC2 Global Tab Bar</td><td>A <code>navigation</code> landmark with four links, the current one carrying <code>aria-current="page"</code>. The new-dot on Alerts is exposed as "new alerts", not left decorative. On desktop the left rail is the same landmark, and focus order runs rail, then main</td></tr><tr><td>GC3 Summary Strip</td><td>A labelled region; the monthly total is labelled ("monthly total, $247") so the biggest visual thing is also the clearest thing to a screen reader</td></tr><tr><td>GC4 List Item</td><td>One accessible name per row, carrying the whole row: "Netflix, $15.99 monthly, next 12 August, active". A person listening should not have to open the row to hear it</td></tr><tr><td>GC5 Alert Item</td><td>One accessible name combining type, subscription and message ("price change, Netflix, went up to $15.99"). The inline action is a real button, distinct from tapping the item body</td></tr><tr><td>GC6 Source and Trust</td><td>Source, status and count in one accessible name ("Chase, connected, 8 subscriptions"); reconnect and remove are two distinct labelled buttons, never one ambiguous control</td></tr><tr><td>GC7 Pro Gate</td><td>The gate never traps: the preview frame is readable and the upgrade action is one labelled button with a way out. Gated Pro items expose their status as "Tendd Pro feature". Nothing is obscured visually, so there is no gap between what is seen and what is read out</td></tr><tr><td>1.1 Welcome</td><td>The only public node: real text headings, never an image of text. The SEO rules and the accessibility rules agree here rather than competing</td></tr><tr><td>1.2 Path Choice</td><td>The two doors are a labelled pair, each accessible name carrying its support line ("connect your bank, fast and automatic, read-only"), so the choice is understandable without sight</td></tr><tr><td>1.3 Connect Bank</td><td>Plaid Link manages its own focus trap, and it is not ours to fix. On return, focus goes to the status region so "syncing" and the outcome are announced</td></tr><tr><td>1.4 Add Subscription</td><td>The catalogue is searchable by keyboard, and every failure state ends at the manual form, which is a real labelled form</td></tr><tr><td>1.5 Guided Reveal</td><td>Each step advance moves focus and is announced. The count, the categories and the total are text, not an image</td></tr><tr><td>2.6 Home</td><td>The banner uses <code>role="status"</code> so it is announced without stealing focus. Save focus announces itself on entry ("showing subscriptions you might not use")</td></tr><tr><td>2.7 Subscription Detail</td><td>Focus lands on the merchant name. Cancel is a real button with a confirming step, never a one-tap destructive action. The unrecognized-charge and payment-failure prompts sit in a live region</td></tr><tr><td>3.8 Alerts</td><td>A list, one item per event. A new alert is announced once, politely</td></tr><tr><td>4.9 Cancel Guide</td><td>The steps are a real ordered list; "open the account page" and "I cancelled it" are two distinct, clearly named controls, because confusing them is the failure that costs the person the cancellation</td></tr><tr><td>4.10 Cancel Win</td><td>The number is announced, so the emotional payload reaches a person who is listening: "you freed up $15.99 a month"</td></tr><tr><td>4.11 Share Snapshot</td><td>The card preview has a text alternative stating exactly what the card contains, and the privacy note is associated with the share button. A person must know what they are about to publish</td></tr><tr><td>5.12 History and Trends</td><td>The range selector is a labelled segmented control with the current range announced. The chart's text summary is rule 6 in its most load-bearing form</td></tr><tr><td>5.13 Upgrade</td><td>The plans are a labelled radio group; the selected plan and its price are announced, and the pay button states the amount it will charge</td></tr><tr><td>6.14 Connections</td><td>Reconnect and remove are distinct labelled buttons on every source row</td></tr><tr><td>6.15 Data and Privacy</td><td>The data-access explanation is plain text, never an image, so a screen reader reads exactly what Tendd accesses. The toggles are real labelled switches with state announced</td></tr><tr><td>6.16 Settings</td><td>The notification switches are real switches, labelled, with state announced</td></tr><tr><td>9.1, 9.2 Not found, server error</td><td>The heading is the focus target on load, with the way back reachable by keyboard. The server-error template does not depend on app JavaScript, so it is operable when the app itself is not</td></tr><tr><td>9.5 Toasts</td><td><code>role="status"</code>, polite. An undo inside a toast is reachable for the toast's lifetime, and the dismiss timing is long enough to reach it, or pauses on focus</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="modals">
+    <div class="section-label">One rule, four places</div>
+    <h2>The four modals</h2>
+    <p class="lead">Node 1.3.1 (connection error), node 4.9.2 (could not cancel), node 6.14.3 (add a source) and node 6.15.1 (delete everything).</p>
+    <ol class="tpl">
+      <li>Focus is trapped inside while it is open.</li>
+      <li><b>Escape maps to the safe door</b>, never to a silent dismiss: "add them yourself instead" at 1.3.1, "remind me later" at 4.9.2, "keep my data" at 6.15.1.</li>
+      <li>The consequence is in the text, not in the colour, and the destructive button says what it does. "Delete everything", never "OK".</li>
+    </ol>
+    <div class="callout flag"><p><b>Corrected 2026-08-04.</b> cancel.md cited the could-not-cancel dialog as 4.9.1, a number the sitemap gives to the no-guide state. It is 4.9.2. The mistake is exactly the drift this page exists to stop.</p></div>
+  </section>
+
+  <section class="section" id="limits">
+    <div class="section-label">Honest limits</div>
+    <h2>What is not claimed</h2>
+    <div class="callout"><p><b>No conformance claim.</b> Nothing here has been tested with a screen reader, at any level, and saying "WCAG AA" without an audit would be the same kind of unearned reassurance that <a href="structure.html#blocks">the block bank</a> refused for "bank-level security" on node 6.15. These are requirements for the build; the audit belongs to a later stage with a real interface in front of it.</p></div>
+    <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)"><b>Not covered yet</b>, each named so its absence is a schedule and not an oversight: contrast ratios, which need the colour values (locked at Concept, applied at UI and Visual); motion and reduced-motion preferences (Animation); and text scaling at 200 per cent (Responsive).</p>
+    <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)"><b>Locked:</b> the six rules, the per-node additions, the one modal rule. <b>Open:</b> the three items above, each with the stage that closes it.</p>
+  </section>
+
+</main>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'loose',
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
+    themeVariables: {
+      primaryColor: '#eef4f1',
+      primaryBorderColor: '#5c7a6e',
+      primaryTextColor: '#2a2724',
+      lineColor: '#9b958e',
+      secondaryColor: '#f8f7f4',
+      tertiaryColor: '#ffffff',
+      fontSize: '13px'
+    },
+    flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true }
+  });
+</script>
+
+<script>
+  window.NAV_BASE = '../';
+  window.NAV_ACTIVE = 'ia/structure.html';
+  window.NAV_ACTIVE_LABEL = 'Accessibility';
+  window.NAV_SECTIONS = [
+    { id:'rules', label:'Six rules' },
+    { id:'nodes', label:'Per node' },
+    { id:'modals', label:'The four modals' },
+    { id:'limits', label:'What is not claimed' },
+  ];
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 - **Node:** 6 Account and Trust. Where a person manages their sources, controls their data, and holds their plan. Trust is ongoing, not just an onboarding moment, so this cluster is the always-findable home for "what does Tendd know about me and how do I change or remove it". One artifact because Connections, Data and Privacy, and Settings are the three faces of the same account-and-trust relationship, reached from the You tab.
 - **Type:** Pages (Connections / Accounts, Data and Privacy, Settings / Profile), Dialogs (add-a-source chooser, delete-data confirmation, reauth), Section (GC6 Data Source and Trust Indicator is specified here), States (success, empty, needs-reauth, loading, error, deletion-confirmation).
-- **Canonical visual:** `ia/account.html`.
+- **Superseded 2026-08-05.** Nodes 6.14 to 6.16 are specified in `../nodes/`, GC6 in `../nodes/globals.md`. The page `ia/account.html` was retired; this file stays as the base-layer record.
 - **Job:** E3 (feel safe and in control of data) across all three; J1 (trust) and J5 (the manual source) on Connections. Primary persona Ravi (data control is his defining ongoing job); Emma needs to know it is possible even if she never uses it.
 - **Related:** the You tab (GC2) lands here on Settings; Connections re-enters 1.3 Connect Bank and 1.4 Add Subscription (FLAG 2); plan management routes to 5.13 Upgrade; data explanation is linked from 1.1, 1.2, 1.3. Reuses GC1, GC2 (navigation.md), GC7 (pro.md). GC6 is specified here.
 

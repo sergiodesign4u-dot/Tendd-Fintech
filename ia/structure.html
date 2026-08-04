@@ -682,6 +682,29 @@
     <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)">What this is for: the composition of a screen is no longer invented at wireframe time. Node specifications take their block list from here, and a block that is not in the bank and traces to nothing does not get added silently.</p>
   </section>
 
+  <section class="section" id="upgrade">
+    <div class="section-label">Was to became</div>
+    <h2>The upgrade, and the critique it closed</h2>
+    <p class="lead">The detail layer used to be nine cluster pages: one file per cluster, each holding several screens, its own copy of the global elements and its own accessibility section. It is now one page per node, one page for the seven global elements and one accessibility contract. This section is the record of where everything went, so a retired page is a decision rather than a gap.</p>
+    <div class="table-wrap" style="margin-top:18px">
+      <table>
+        <tr><th>Retired page</th><th>What it held</th><th>Where it is now</th></tr>
+        <tr><td><code>navigation.html</code></td><td>GC1, GC2, the persona x plan state matrix, the desktop rail delta, the no-footer note</td><td>GC1 and GC2 on <a href="globals.html">the global elements page</a>; the rail delta is stated once there and inherited by every screen</td></tr><tr><td><code>onboarding.html</code></td><td>Nodes 1.1 to 1.5, five screens in one file</td><td>Five node pages, one per screen</td></tr><tr><td><code>core.html</code></td><td>Nodes 2.6 and 2.7, plus GC3 and GC4</td><td>Two node pages; GC3 and GC4 on <a href="globals.html">globals</a></td></tr><tr><td><code>alerts.html</code></td><td>Node 3.8, plus GC5</td><td>One node page; GC5 on <a href="globals.html">globals</a></td></tr><tr><td><code>cancel.html</code></td><td>Nodes 4.9 to 4.11</td><td>Three node pages</td></tr><tr><td><code>pro.html</code></td><td>Nodes 5.12 and 5.13, plus GC7</td><td>Two node pages; GC7 on <a href="globals.html">globals</a></td></tr><tr><td><code>account.html</code></td><td>Nodes 6.14 to 6.16, plus GC6</td><td>Three node pages; GC6 on <a href="globals.html">globals</a></td></tr><tr><td><code>ia.html</code></td><td>Entities, sitemap, navigation, flows, the coverage matrix, the critique, the site graph, the page-level library</td><td>Entities and coverage on <a href="concept-map.html">the concept map</a>, flows on <a href="flows.html">flows</a>, the site graph and the node map on <a href="sitemap.html">the sitemap</a>, the library here as node pages, and the critique closed below</td></tr>
+      </table>
+    </div>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)">The markdown files stay where they were, as the base-layer record they were written as: every node page names the section of them it supersedes. <b>Two pages were not retired</b>, because they still own their nodes: <a href="system.html">system.html</a> (9.1 to 9.5) and <a href="seo.html">seo.html</a> (node 8). The nine accessibility sections became <a href="accessibility.html">one contract</a>, which is where the drift between them is described.</p>
+
+    <h3 style="margin-top:32px">The IA critique, closed</h3>
+    <p style="margin-top:6px;font-size:13.5px;color:var(--text-secondary)">Eleven findings across four defect classes, raised at the IA stage as proposals rather than fixes. All eleven are now specified. They are shown closed, with where each one landed, rather than as a list of open defects.</p>
+    <div class="table-wrap" style="margin-top:14px">
+      <table>
+        <tr><th>Class</th><th>What was found</th><th>Where it is closed</th></tr>
+        <tr><td>Dead end</td><td>Connect Bank: declining both retry and the manual fallback left the person with no list</td><td>Node 1.3.1 keeps "add them yourself" on the error state, and 1.3.4 catches the fourth Plaid outcome the map did not have</td></tr><tr><td>Dead end</td><td>Add Subscription: a person abandons manual entry half-done</td><td>Closed by structure: node 1.4 saves one subscription at a time, so an abandoned session leaves a real partial list rather than lost work, and node 1.5 runs the reveal on it</td></tr><tr><td>Dead end</td><td>Cancel Guide: a blocked cancellation left the person stuck</td><td>Node 4.9.2, the not-your-fault dialog, which exists because of the merchant's retention screen</td></tr><tr><td>Dead end</td><td>Subscription Detail: a failed-payment alert ended at informed</td><td>Node 2.7.3 states what usually happens next</td></tr><tr><td>Missing state</td><td>Home had no empty, loading or sync-error state</td><td>Nodes 2.6.1, 2.6.2 and 2.6.3, the last keeping the figures visible and dated</td></tr><tr><td>Missing state</td><td>Subscription Detail had no state for a name that stays cryptic</td><td>Node 2.7.1, and the decoder line, which is the block this screen exists for</td></tr><tr><td>Missing state</td><td>History had no empty state for a paid person with under three months</td><td>Node 5.12.1, and its page says in so many words that it is not the lock</td></tr><tr><td>Missing state</td><td>Cancel Guide had no state for a service with no guide</td><td>Node 4.9.1</td></tr><tr><td>Missing state</td><td>Share Snapshot had no loading or failure state</td><td>Nodes 4.11.1 and 4.11.2</td></tr><tr><td>Excess depth</td><td>No violation, but first-session J-MAIN sits at exactly three taps, at the ceiling</td><td>Carried as a watch item: no onboarding step may be added, or the main job moves to four taps</td></tr><tr><td>Orphan</td><td>One orphan screen, Upgrade / Tendd Pro</td><td>Retained by design and <a href="5-13-upgrade.html">specified as an orphan</a>: it traces to D3 and D4 rather than to a job, and its page says so</td></tr>
+      </table>
+    </div>
+    <div class="callout"><p><b>The one that is still open is not a defect but a ceiling.</b> First-session J-MAIN is three taps and the budget is three. Any new onboarding step spends a tap the product does not have, and that is the check to run against every future addition to nodes 1.1 through 1.5.</p></div>
+  </section>
+
 </main>
 
 <script type="module">
@@ -707,8 +730,9 @@
 <script>
   window.NAV_BASE = '../';
   window.NAV_SECTIONS = [
-    { id:'nodes',  label:'Nodes' },
-    { id:'blocks', label:'Block bank' },
+    { id:'nodes',   label:'Nodes' },
+    { id:'blocks',  label:'Block bank' },
+    { id:'upgrade', label:'Was to became' },
   ];
 </script>
 <script src="../_nav.js"></script>

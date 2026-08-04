@@ -685,21 +685,29 @@ removed from here so there is one source of truth, not two.
 
 | Node | Source | Covers | Rendered |
 |------|--------|--------|----------|
-| 0 | [pages/navigation.md](pages/navigation.md) | GC1 App Header, GC2 Tab Bar, persona x plan state matrix, desktop rail delta, no-footer note | [navigation.html](../navigation.html) |
-| 1 | [pages/onboarding.md](pages/onboarding.md) | Welcome, Path Choice, Connect Bank, Add Subscription, Guided Reveal (screens 1 to 5) | [onboarding.html](../onboarding.html) |
-| 2 | [pages/core.md](pages/core.md) | Home, Subscription Detail (6 to 7); owns GC3, GC4; FLAG 1 resolution | [core.html](../core.html) |
-| 3 | [pages/alerts.md](pages/alerts.md) | Alerts / Activity (8); owns GC5 | [alerts.html](../alerts.html) |
-| 4 | [pages/cancel.md](pages/cancel.md) | Cancel Guide, Cancel Win, Share Snapshot (9 to 11) | [cancel.html](../cancel.html) |
-| 5 | [pages/pro.md](pages/pro.md) | History and Trends, Upgrade (12 to 13); owns GC7 | [pro.html](../pro.html) |
-| 6 | [pages/account.md](pages/account.md) | Connections, Data and Privacy, Settings (14 to 16); owns GC6; FLAG 2 resolution | [account.html](../account.html) |
+| 0 | [pages/navigation.md](pages/navigation.md) | GC1 App Header, GC2 Tab Bar, persona x plan state matrix, desktop rail delta, no-footer note | retired; see [globals.html](../globals.html) |
+| 1 | [pages/onboarding.md](pages/onboarding.md) | Welcome, Path Choice, Connect Bank, Add Subscription, Guided Reveal (screens 1 to 5) | retired; one page per node |
+| 2 | [pages/core.md](pages/core.md) | Home, Subscription Detail (6 to 7); owns GC3, GC4; FLAG 1 resolution | retired; one page per node |
+| 3 | [pages/alerts.md](pages/alerts.md) | Alerts / Activity (8); owns GC5 | retired; one page per node |
+| 4 | [pages/cancel.md](pages/cancel.md) | Cancel Guide, Cancel Win, Share Snapshot (9 to 11) | retired; one page per node |
+| 5 | [pages/pro.md](pages/pro.md) | History and Trends, Upgrade (12 to 13); owns GC7 | retired; one page per node |
+| 6 | [pages/account.md](pages/account.md) | Connections, Data and Privacy, Settings (14 to 16); owns GC6; FLAG 2 resolution | retired; one page per node |
 | 8 | [pages/seo.md](pages/seo.md) | SEO engine, scoped to the public Welcome screen | [seo.html](../seo.html) |
 | 9 | [pages/system.md](pages/system.md) | Not found, server error, maintenance, consent [?], toasts | [system.html](../system.html) |
 
-Reusable Sections and where each is specified: GC3 Recurring Summary Strip
-and GC4 Subscription List Item in core.md; GC5 Alert Item in alerts.md; GC6
-Data Source and Trust Indicator in account.md; GC7 Pro Gate and Plan Chip in
-pro.md. GC1 App Header and GC2 Global Tab Bar are global chrome in
-navigation.md.
+**Retired 2026-08-05.** The seven cluster renders are gone: their per-node sections
+became one page per node in `ia/`, their seven global-element sections became
+`ia/globals.html`, and their nine Accessibility sections became `docs/accessibility.md`
+and `ia/accessibility.html`. The markdown files stay as the base-layer record they were
+written as, and every node page names the section of them it supersedes. The two that
+still own their nodes, `seo.html` and `system.html`, were not touched.
+
+Reusable Sections: all seven are now specified in one place,
+[docs/nodes/globals.md](nodes/globals.md), rendered at
+[ia/globals.html](../globals.html). They were scattered across five cluster
+files (GC1 and GC2 in navigation.md, GC3 and GC4 in core.md, GC5 in
+alerts.md, GC6 in account.md, GC7 in pro.md), which is how GC7 came to carry
+two opposite rules for the same lock.
 
 ## Flags from Prompt 2 (resolved)
 

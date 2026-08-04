@@ -42,9 +42,7 @@ window.NAV = [
       { subhead:'Detail layer' },
       { label:'Sitemap',      page:'ia/sitemap.html',     done:true },
       { label:'Structure',    page:'ia/structure.html',   done:true },
-      // Temporary row: the pre-upgrade IA page still holds the page level library and
-      // the critique. It goes away when the detail layer above is rebuilt.
-      { label:'IA (pre-upgrade)', page:'ia/ia.html', done:true },
+      { label:'Accessibility', page:'ia/accessibility.html', done:true },
   ]},
   { label:'Wireframes',  page:'wireframes/overview.html', done:true },
   { label:'Voice',       page:'voice/voice.html',         done:true },
