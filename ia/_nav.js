@@ -34,10 +34,10 @@ window.IA_NAV = [
 
   // Pages, cluster by cluster
   { node:'1.1',  label:'Welcome / Value Intro',   type:'page',   group:'pages', file:'1-1-welcome.html',    scope:'MVP' },
-  { node:'1.2',  label:'Activation Path Choice',  type:'page',   group:'pages', file:'onboarding.html#1.2', scope:'MVP' },
-  { node:'1.3',  label:'Connect Bank',            type:'page',   group:'pages', file:'onboarding.html#1.3', scope:'MVP' },
-  { node:'1.4',  label:'Add Subscription',        type:'page',   group:'pages', file:'onboarding.html#1.4', scope:'MVP' },
-  { node:'1.5',  label:'Guided Reveal',           type:'page',   group:'pages', file:'onboarding.html#1.5', scope:'MVP' },
+  { node:'1.2',  label:'Activation Path Choice',  type:'page',   group:'pages', file:'1-2-path-choice.html', scope:'MVP' },
+  { node:'1.3',  label:'Connect Bank',            type:'page',   group:'pages', file:'1-3-connect-bank.html', scope:'MVP' },
+  { node:'1.4',  label:'Add Subscription',        type:'page',   group:'pages', file:'1-4-add-subscription.html', scope:'MVP' },
+  { node:'1.5',  label:'Guided Reveal',           type:'page',   group:'pages', file:'1-5-guided-reveal.html', scope:'MVP' },
   { node:'2.6',  label:'Home / Subscription List', type:'page',  group:'pages', file:'core.html#2.6',       scope:'MVP' },
   { node:'2.7',  label:'Subscription Detail',     type:'page',   group:'pages', file:'core.html#2.7',       scope:'MVP' },
   { node:'3.8',  label:'Alerts / Activity',       type:'page',   group:'pages', file:'alerts.html#3.8',     scope:'MVP' },

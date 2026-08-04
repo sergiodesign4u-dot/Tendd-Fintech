@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tendd IA - Sitemap</title>
+  <title>Tendd IA - Node 1.4 Add Subscription</title>
   <style>
     :root {
       --bg: #f8f7f4;
@@ -162,6 +162,30 @@
       vertical-align: middle; letter-spacing: 0.01em;
     }
     .tag.q { background: var(--yellow-light); color: #8a6e20; border-color: var(--yellow-mid); }
+    .tag.skip { background: var(--red-light); color: #8a2020; border-color: var(--red-mid); }
+    .tag.later { background: var(--bg); color: var(--text-muted); border-color: var(--border); }
+
+    /* Block bank */
+    td .tag { margin-left: 0; }
+    table.bank td:nth-child(2) { font-weight: 600; color: var(--text); }
+    table.bank td { font-size: 12.5px; }
+    .order-list { counter-reset: b; list-style: none; margin-top: 18px; }
+    .order-list li {
+      counter-increment: b; position: relative; padding: 9px 0 9px 40px;
+      border-bottom: 1px solid var(--border-light); font-size: 13.5px;
+    }
+    .order-list li:last-child { border-bottom: none; }
+    .order-list li::before {
+      content: counter(b); position: absolute; left: 0; top: 8px;
+      width: 24px; height: 24px; border-radius: 50%; background: var(--accent-light);
+      color: var(--accent); border: 1px solid var(--accent-mid);
+      font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    }
+    .order-list li b { color: var(--text); }
+    .src-list { list-style: none; margin-top: 14px; }
+    .src-list li { padding: 5px 0 5px 16px; position: relative; font-size: 13px; color: var(--text-secondary); }
+    .src-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-mid); }
+    .src-list li b { color: var(--text); font-weight: 600; }
 
     /* Entity cards */
     .ent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 20px; }
@@ -254,6 +278,23 @@
     .ia-chip-scope.later { color: var(--text-muted); }
     .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 18px; }
     .pill-row span { border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 12px; color: var(--text-secondary); }
+
+    .node-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+    .node-meta span { border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 12px; color: var(--text-secondary); background: var(--surface); }
+    .node-meta span.on { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+    .kv { margin-top: 16px; }
+    .kv div { display: flex; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--border-light); font-size: 13.5px; }
+    .kv div:last-child { border-bottom: none; }
+    .kv b { min-width: 120px; color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
+    .seo-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-top: 16px; }
+    .seo-block h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin: 0 0 10px; }
+    .seo-block + .seo-block { margin-top: 12px; }
+    .seo-block code { font-family: var(--mono); font-size: 12.5px; background: var(--bg); border: 1px solid var(--border-light); border-radius: 3px; padding: 1px 5px; }
+    .seo-block ul { margin: 8px 0 0 18px; font-size: 13.5px; }
+    .seo-block li { margin-bottom: 5px; }
+    ol.tpl { margin: 16px 0 0 20px; font-size: 13.5px; }
+    ol.tpl li { margin-bottom: 7px; }
+    ol.tpl b { color: var(--text); }
   </style>
 <link rel="stylesheet" href="../_nav.css">
 </head>
@@ -277,73 +318,64 @@
     <div class="hero-meta">
       <span class="badge">Information Architecture</span>
       <span class="badge">Detail layer</span>
-      <span class="badge">Sitemap</span>
+      <span class="badge">Node page</span>
     </div>
-    <h1>Sitemap</h1>
-    <p class="hero-tagline">The hierarchy of the product as clusters and their transitions. This page is the overview; the node by node specification lives on <a href="structure.html">Structure</a>, and the data behind both is the node map in <a href="docs/sitemap.md">docs/sitemap.md</a>.</p>
+    <h1>1.4 Add Subscription</h1>
+    <p class="hero-tagline">Make the manual path cheap enough that an avoider actually finishes it.</p>
+    <div class="node-meta">
+      <span class="on">Node 1.4</span><span>Type: page, loops to itself</span><span class="on">MVP</span>
+      <span>Cluster 1 Onboarding and Activation</span><span>noindex</span>
+    </div>
     <div class="callout">
-      <p>Six screen clusters plus global chrome and system nodes. Sixteen screens, thirteen of them MVP; states and dialogs are nodes of their own and are listed with their screen in the node map.</p>
+      <p>Specified with the template fixed on the etalon, <a href="1-1-welcome.html#template">node 1.1 Welcome</a>. Source: <a href="docs/nodes/1-4-add-subscription.md">docs/nodes/1-4-add-subscription.md</a>. Composition from <a href="structure.html#blocks">the block bank</a>, type B. Supersedes this node's section of <a href="docs/pages/onboarding.md">onboarding.md</a>.</p>
     </div>
   </section>
 
-  <section class="section" id="tree">
-    <div class="section-label">Detail layer</div>
-    <h2>Cluster tree</h2>
-    <p class="lead">Clusters 0 to 9, with the transitions that carry a person between them. Numbers are node numbers: they are the same in the map, in the hub and in every node page.</p>
-    <div class="pill-row">
-      <span>0 Global chrome</span><span>1 Onboarding and Activation</span><span>2 Core</span>
-      <span>3 Stay Ahead</span><span>4 Cut and Celebrate</span><span>5 Depth (Pro)</span>
-      <span>6 Account and Trust</span><span>8 SEO engine</span><span>9 System</span>
+  <section class="section" id="spec">
+    <div class="section-label">Node 1.4</div>
+    <h2>Purpose and jobs</h2>
+    <p class="lead">Today the manual path fails not because people cannot do it, but because it is fragmented and tedious: statements, app stores, email, and every service's own settings (CJM As-Is, phase 3). This node is the whole reason D2 is credible.</p>
+    <div class="kv"><div><b>Jobs</b><span><b>J5</b> is primary, with <b>J-MAIN</b>. Realizes <b>D2</b>.</span></div><div><b>URL</b><span><code>/start/add</code> during onboarding, <code>/add</code> from Home later.</span></div><div><b>Entry, exit</b><span>In from node 1.2, 1.5, 2.6 or 6.14. Out to node 1.5 in onboarding, back to node 2.6 afterwards.</span></div><div><b>Components</b><span>GC1 App Header, onboarding variant. GC4 Subscription List Item, tile variant, inside block 3.</span></div></div>
+  </section>
+
+  <section class="section" id="blocks">
+    <div class="section-label">Mobile-first priority</div>
+    <h2>Content blocks</h2>
+    <div class="table-wrap">
+      <table>
+        <tr><th>#</th><th>Block</th><th>Carries</th><th>From the bank</th></tr>
+        <tr><td>1</td><td>Step chrome: back</td><td>GC1</td><td>TAKE, DIFFERENTLY</td></tr><tr><td>2</td><td>Search field, focused on arrival</td><td>Phase 3 barrier</td><td>TAKE (IFTTT)</td></tr><tr><td>3</td><td>A row of the most tracked services as tiles with real logos</td><td>D2, growth zone 2, Phase 3 barrier</td><td>TAKE, DIFFERENTLY: ReSubs uses its preset count as a boast, we use it as evidence that the manual path is not punishment</td></tr><tr><td>4</td><td>The form, <b>prefilled from the chosen preset</b>: name, price, billing cycle, next charge</td><td>D2, J-MAIN</td><td>TAKE, DIFFERENTLY: a blank form is the version people abandon; ours is a confirmation, not data entry</td></tr><tr><td>5</td><td>Save, primary</td><td>J-MAIN</td><td>TAKE</td></tr><tr><td>6</td><td>"Add another", quiet, after saving</td><td>J-MAIN</td><td>TAKE: the one-at-a-time loop has to be cheap or the manual path stops at the first entry</td></tr><tr><td>7</td><td>Fully manual entry, for anything not in the catalogue</td><td>D2</td><td>TAKE</td></tr>
+      </table>
     </div>
-    <pre class="mermaid">
-graph TD
-  subgraph C0["0 Global chrome"]
-    N01["0.1 App Header"]
-    N02["0.2 Tab Bar"]
-    N03["0.3 to 0.7 Sections GC3 to GC7"]
-  end
-  subgraph C1["1 Onboarding and Activation"]
-    N11["1.1 Welcome"] --> N12["1.2 Path Choice"]
-    N12 --> N13["1.3 Connect Bank"]
-    N12 --> N14["1.4 Add Subscription"]
-    N13 --> N15["1.5 Guided Reveal"]
-    N14 --> N15
-  end
-  subgraph C2["2 Core"]
-    N26["2.6 Home"] --> N27["2.7 Subscription Detail"]
-  end
-  subgraph C3["3 Stay Ahead"]
-    N38["3.8 Alerts"]
-  end
-  subgraph C4["4 Cut and Celebrate"]
-    N49["4.9 Cancel Guide"] --> N410["4.10 Cancel Win"] --> N411["4.11 Share Snapshot"]
-  end
-  subgraph C5["5 Depth Pro"]
-    N512["5.12 History and Trends"] --> N513["5.13 Upgrade"]
-  end
-  subgraph C6["6 Account and Trust"]
-    N614["6.14 Connections"]
-    N615["6.15 Data and Privacy"]
-    N616["6.16 Settings"]
-  end
-  subgraph C9["9 System"]
-    N91["9.1 Not found"]
-    N92["9.2 Server error"]
-    N95["9.5 Toasts"]
-  end
-  N15 --> N26
-  N26 --> N38
-  N26 --> N14
-  N27 --> N49
-  N38 --> N27
-  N27 --> N512
-  N512 --> N513
-  N616 --> N614
-  N616 --> N615
-  N614 --> N13
-  N614 --> N14
-    </pre>
-    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)">States and dialogs are nodes too, and they are not drawn here on purpose: twenty five of them would turn the overview into a wall. They are listed against their screen in the node map, and each one is a page of its own in the <a href="../wireframes/overview.html">wireframe prototype</a>.</p>
+    <div class="callout"><p><b>Named and not added:</b> category, image upload, SKU and other catalogue fields (Square) - category is derived, not asked, and every extra field is a reason to close the tab. Also not added: a notes field (Subo), a tracker feature for people who enjoy trackers.</p></div>
+  </section>
+
+  <section class="section" id="states">
+    <div class="section-label">States and CTA</div>
+    <h2>States, filters, the one action</h2>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Node</th><th>State</th><th>Reads like</th><th>Trigger</th></tr>
+        <tr><td>1.4.1</td><td>Preset library loading</td><td>Skeleton tiles, the search field already usable</td><td>Catalogue not yet loaded</td></tr><tr><td>1.4.2</td><td>Presets unavailable</td><td>The catalogue is down, the manual form still works and is offered directly</td><td>Catalogue request failed</td></tr><tr><td>1.4.3</td><td>No preset matches</td><td>"We do not have this one yet" plus the manual form prefilled with what was typed</td><td>Search returned nothing</td></tr><tr><td>-</td><td>Saved</td><td>"Add another" and "Done" side by side</td><td>A save succeeded</td></tr>
+      </table>
+    </div>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)">The three failure states all end in the same place: the manual form. Nothing on this screen can leave a person unable to add a subscription. <b>Filters and facets:</b> none, the catalogue is browsed by search and by the popular row.</p>
+    <div class="callout"><p><b>Primary CTA: "Save"</b> on the form, then <b>"Done"</b> with "Add another" beside it. During onboarding, done leads to node 1.5; afterwards it leads to node 2.6.</p></div>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)"><b>Responsive.</b> Mobile: search, then a two-column tile grid, then the form full width. Desktop: a wider tile grid; the form stays a single column so the field order cannot be misread.</p>
+  </section>
+
+  <section class="section" id="emotion">
+    <div class="section-label">From the base layer</div>
+    <h2>Emotional support</h2>
+    <p>No mechanism from the table has this node as its home. <b>E1</b> through the voice rules of every state: no service is described as a waste, and an empty catalogue result is our failure, not the person's. Nothing else is claimed here.</p>
+  </section>
+
+  <section class="section" id="seo">
+    <div class="section-label">SEO and status</div>
+    <h2>SEO, locked, open</h2>
+    <p><b>SEO.</b> noindex, no schema. Private and transactional.</p>
+    <p style="margin-top:10px"><b>Locked:</b> search plus tiles, the prefilled form, the cheap loop, three failure states that all land on the manual form. <b>Open <span class="tag q">?</span>:</b> the real size of the preset catalogue at launch (the copy says 400+ services). Resolving input: the catalogue build.</p>
+    <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)">Grey screen: <a href="../wireframes/add-subscription.html">wireframes/add-subscription.html</a>.</p>
   </section>
 
 </main>
@@ -370,8 +402,14 @@ graph TD
 
 <script>
   window.NAV_BASE = '../';
+  window.NAV_ACTIVE = 'ia/structure.html';
+  window.NAV_ACTIVE_LABEL = 'Add Subscription (1.4)';
   window.NAV_SECTIONS = [
-    { id:'tree', label:'Cluster tree' },
+    { id:'spec', label:'Purpose and jobs' },
+    { id:'blocks', label:'Content blocks' },
+    { id:'states', label:'States and CTA' },
+    { id:'emotion', label:'Emotional support' },
+    { id:'seo', label:'SEO and status' },
   ];
 </script>
 <script src="../_nav.js"></script>

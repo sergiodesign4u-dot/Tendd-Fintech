@@ -330,12 +330,19 @@ that owns them and referenced by name everywhere else)
 | 1.3.1 | Connection error | state (dialog) | -> 1.3 retry, -> 1.4 | E / J1 | MVP |
 | 1.3.2 | Syncing your bank | state (loading) | -> 1.5, -> 1.3.1 | E / J1 | MVP |
 | 1.3.3 | Connected, nothing found | state (empty) | -> 1.4 | E / J1 | MVP |
+| 1.3.4 | Came back without connecting | state | -> 1.2, -> 1.4 | E / J1 | MVP |
 | 1.4 | Add Subscription | page | -> 1.5, loops to itself | R, all / J5 | MVP |
 | 1.4.1 | Preset library loading | state (loading) | -> 1.4 | R / J5 | MVP |
 | 1.4.2 | Presets unavailable | state (error) | -> 1.4 manual entry | R / J5 | MVP |
 | 1.4.3 | No preset matches | state (empty) | -> 1.4 manual entry | R / J5 | MVP |
 | 1.5 | Guided Reveal | page (3 internal steps) | -> 2.6 | E / J-MAIN | MVP |
 | 1.5.1 | Nothing to reveal yet | state (empty) | -> 1.4 | E, R / J-MAIN | MVP |
+
+**1.3.4 added 2026-08-04.** Plaid Link returns four outcomes, not three: connected,
+cancelled, failed, and connected-with-nothing-found (`plaid.com/docs/link`, read while
+building `blocks.md` type B). The map had the last three and not the cancelled one, so a
+person who opens the bank screen and backs out had nowhere specified to land. The category
+designs only the happy path; that is exactly the gap this node closes.
 
 **Cluster 2, Core** (group `pages`)
 
@@ -403,7 +410,7 @@ that owns them and referenced by name everywhere else)
 | 9.4 | Consent banner | dialog | LATER | Conditional on region, `[?]` |
 | 9.5 | Toasts | section | MVP | Lightweight feedback, no page of its own |
 
-**Count: 23 specified nodes (7 global, 16 screens) plus 5 system nodes, with 24
+**Count: 23 specified nodes (7 global, 16 screens) plus 5 system nodes, with 25
 state and dialog nodes hanging off the screens.** Of the 16 screens, 13 are MVP.
 The SEO engine (`ia/docs/pages/seo.md`) is a cross-cutting specification, not a
 node with a screen.
