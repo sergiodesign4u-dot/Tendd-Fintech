@@ -297,6 +297,117 @@ subject matter.
 No entity is left without a screen, and no screen was added to serve an entity
 that no job produces.
 
+### Node map (detail layer)
+
+The concept above expands into numbered nodes. `X` is the cluster, `Y` the step
+inside it; states and dialogs are nodes of their own, not footnotes, because each
+of them is a page in the prototype and a state in the code. GROUP is the value
+`ia/_nav.js` uses to place the chip in the hub: `global` elements frame every
+screen, `pages` are the screens themselves. SCOPE is inherited from the concept
+map above and is not re-derived here; a state inherits the scope of its screen.
+
+**Cluster 0, global chrome** (group `global`, specified in
+`ia/docs/pages/navigation.md`; the reusable sections are specified in the cluster
+that owns them and referenced by name everywhere else)
+
+| Node | Name | Type | Includes | Scope | Specified in |
+|---|---|---|---|---|---|
+| 0.1 | App Header (GC1) | section | brand, title, one action; states onboarding / signed-in / no-account-yet | MVP | navigation.md |
+| 0.2 | Global Tab Bar (GC2) | section | four destinations (Home, Alerts, Save, You); states default / hidden / new-on-alerts | MVP | navigation.md |
+| 0.3 | Recurring Summary Strip (GC3) | section | count, monthly total, context line, trust line | MVP | core.md |
+| 0.4 | Subscription List Item (GC4) | section | logo, name, amount, next date, status tag | MVP | core.md |
+| 0.5 | Alert Banner (GC5) | section | what changed, one action | MVP | alerts.md |
+| 0.6 | Data Source and Trust Indicator (GC6) | section | source of the figure, read-only statement | MVP | account.md |
+| 0.7 | Plan Chip (GC7) | section | Free or Pro, entry to the gate | LATER | pro.md |
+
+**Cluster 1, Onboarding and Activation** (group `pages`)
+
+| Node | Name | Type | Transitions | Persona / job | Scope |
+|---|---|---|---|---|---|
+| 1.1 | Welcome / Value Intro | page (public landing) | -> 1.2 | all / J1 | MVP |
+| 1.2 | Activation Path Choice | page | -> 1.3, -> 1.4 | E, R / J1 + J5 | MVP |
+| 1.3 | Connect Bank | page + dialog | -> 1.5, -> 1.4 (fallback) | E, C / J1 | MVP |
+| 1.3.1 | Connection error | state (dialog) | -> 1.3 retry, -> 1.4 | E / J1 | MVP |
+| 1.3.2 | Syncing your bank | state (loading) | -> 1.5, -> 1.3.1 | E / J1 | MVP |
+| 1.3.3 | Connected, nothing found | state (empty) | -> 1.4 | E / J1 | MVP |
+| 1.4 | Add Subscription | page | -> 1.5, loops to itself | R, all / J5 | MVP |
+| 1.4.1 | Preset library loading | state (loading) | -> 1.4 | R / J5 | MVP |
+| 1.4.2 | Presets unavailable | state (error) | -> 1.4 manual entry | R / J5 | MVP |
+| 1.4.3 | No preset matches | state (empty) | -> 1.4 manual entry | R / J5 | MVP |
+| 1.5 | Guided Reveal | page (3 internal steps) | -> 2.6 | E / J-MAIN | MVP |
+| 1.5.1 | Nothing to reveal yet | state (empty) | -> 1.4 | E, R / J-MAIN | MVP |
+
+**Cluster 2, Core** (group `pages`)
+
+| Node | Name | Type | Transitions | Persona / job | Scope |
+|---|---|---|---|---|---|
+| 2.6 | Home / Subscription List | page | -> 2.7, -> 3.8, -> 1.4, -> 4.9 | all / J-MAIN + E1 | MVP |
+| 2.6.1 | Empty list | state (empty) | -> 1.3, -> 1.4 | all / J-MAIN | MVP |
+| 2.6.2 | Refreshing | state (loading) | -> 2.6 | all / J-MAIN | MVP |
+| 2.6.3 | Sync failed, last known list | state (error) | -> 2.6 retry, -> 6.14 | all / J-MAIN | MVP |
+| 2.6.4 | Save focus | state (role) | -> 4.9 | C, E / J2 | MVP |
+| 2.7 | Subscription Detail | page | -> 4.9, -> 5.12, -> 3.8 | all / J3 + J4 | MVP |
+| 2.7.1 | Unrecognized charge | state (empty) | -> 2.7 named | all / J3 | MVP |
+| 2.7.2 | Price change | state (domain) | -> 4.9, -> 2.7 keep | E, C / J4 | MVP |
+| 2.7.3 | Payment failure | state (domain) | -> next step card | E / J4 | MVP |
+| 2.7.4 | Loading detail | state (loading) | -> 2.7 | all / J3 | MVP |
+| 2.7.5 | Could not load | state (error) | -> 2.6, retry | all / J3 | MVP |
+
+**Cluster 3, Stay Ahead** (group `pages`)
+
+| Node | Name | Type | Transitions | Persona / job | Scope |
+|---|---|---|---|---|---|
+| 3.8 | Alerts / Activity | page | -> 2.7, -> 4.9, -> 5.13 | E, C / J4 | MVP |
+| 3.8.1 | All clear | state (empty) | -> 2.6 | E / J4 | MVP |
+| 3.8.2 | Loading alerts | state (loading) | -> 3.8 | E / J4 | MVP |
+| 3.8.3 | Could not load alerts | state (error) | -> 3.8 retry, -> 2.6 | E / J4 | MVP |
+
+**Cluster 4, Cut and Celebrate** (group `pages`)
+
+| Node | Name | Type | Transitions | Persona / job | Scope |
+|---|---|---|---|---|---|
+| 4.9 | Cancel Guide | page + dialog | -> 4.10, -> 5.13 (full guide) | C, R, E / J2 | MVP |
+| 4.9.1 | No guide for this service | state (empty) | -> generic steps, request a guide | C / J2 | MVP |
+| 4.9.2 | Could not cancel | state (error) | -> in-app next step | C / J2 | MVP |
+| 4.10 | Cancel Win Moment | page | -> 4.11, -> 2.6 | C, E / E2 | MVP |
+| 4.11 | Share Snapshot | page | -> 4.10, -> 2.6 | E, C / S1 | LATER |
+| 4.11.1 | Generating the card | state (loading) | -> 4.11 | E / S1 | LATER |
+| 4.11.2 | Share failed | state (error) | -> 4.11 retry | E / S1 | LATER |
+
+**Cluster 5, Depth (Pro)** (group `pages`)
+
+| Node | Name | Type | Transitions | Persona / job | Scope |
+|---|---|---|---|---|---|
+| 5.12 | History and Trends | page | -> 5.13 gate, -> 2.7 | E, C / J-MAIN over time | LATER |
+| 5.12.1 | Still gathering history | state (empty) | -> 2.6 | E / J-MAIN | LATER |
+| 5.12.2 | Loading history | state (loading) | -> 5.12 | E / J-MAIN | LATER |
+| 5.13 | Upgrade / Tendd Pro | page (gate) | -> back to the gated surface | all / D3 + D4 | LATER |
+
+**Cluster 6, Account and Trust** (group `pages`)
+
+| Node | Name | Type | Transitions | Persona / job | Scope |
+|---|---|---|---|---|---|
+| 6.14 | Connections / Accounts | page + dialog | -> 1.3, -> 1.4, -> 6.15 | E, R / J1 + J5 | MVP |
+| 6.14.1 | No sources yet | state (empty) | -> 1.3, -> 1.4 | R / J5 | MVP |
+| 6.14.2 | Source needs attention | state (error) | -> 1.3 reauthorize | E / J1 | MVP |
+| 6.15 | Data and Privacy | page + dialog | -> 6.16, -> delete confirm | R, E / E3 | MVP |
+| 6.16 | Settings / Profile | page | -> 6.14, -> 6.15, -> 5.13 | all / E3 | MVP |
+
+**Cluster 9, System** (group `global`, specified in `ia/docs/pages/system.md`)
+
+| Node | Name | Type | Scope | Note |
+|---|---|---|---|---|
+| 9.1 | Not found | state (in-app) | MVP | Not a standalone page: an in-app state with a way back |
+| 9.2 | Server error | page (minimal template) | MVP | Standalone, outside the app shell |
+| 9.3 | Maintenance | page | LATER | Not built at MVP; sync issues are per source |
+| 9.4 | Consent banner | dialog | LATER | Conditional on region, `[?]` |
+| 9.5 | Toasts | section | MVP | Lightweight feedback, no page of its own |
+
+**Count: 23 specified nodes (7 global, 16 screens) plus 5 system nodes, with 24
+state and dialog nodes hanging off the screens.** Of the 16 screens, 13 are MVP.
+The SEO engine (`ia/docs/pages/seo.md`) is a cross-cutting specification, not a
+node with a screen.
+
 Notes on structure:
 
 - **Add Subscription is reused.** It is the privacy path in onboarding (Ravi)

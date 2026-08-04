@@ -40,8 +40,8 @@ window.NAV = [
       { label:'Flows',        page:'ia/flows.html',       done:true },
       { label:'Concept map',  page:'ia/concept-map.html', done:true },
       { subhead:'Detail layer' },
-      { label:'Sitemap',      page:'ia/sitemap.html',     done:false },
-      { label:'Structure',    page:'ia/structure.html',   done:false },
+      { label:'Sitemap',      page:'ia/sitemap.html',     done:true },
+      { label:'Structure',    page:'ia/structure.html',   done:true },
       // Temporary row: the pre-upgrade IA page still holds the page level library and
       // the critique. It goes away when the detail layer above is rebuilt.
       { label:'IA (pre-upgrade)', page:'ia/ia.html', done:true },
