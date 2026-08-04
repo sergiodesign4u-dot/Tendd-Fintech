@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tendd IA - Node 4.11 Share Snapshot</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --border-light: #f0ede6;
+      --text: #2a2724;
+      --text-secondary: #6b6560;
+      --text-muted: #9b958e;
+      --accent: #5c7a6e;
+      --accent-light: #eef4f1;
+      --accent-mid: #d0e4dc;
+      --yellow-light: #fdf8ed;
+      --yellow-mid: #f5e9c4;
+      --red-light: #fdf2f0;
+      --red-mid: #f2cfc8;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --radius: 8px;
+      --radius-sm: 4px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 220px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      z-index: 200;
+      transform: translateX(-100%);
+      transition: transform 0.22s ease;
+      overflow-y: auto;
+      padding-bottom: 32px;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 150;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    .sidebar-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+
+    .sidebar-close {
+      background: none; border: none; font-size: 18px; line-height: 1;
+      color: var(--text-muted); cursor: pointer; padding: 4px 6px;
+      border-radius: var(--radius-sm);
+    }
+    .sidebar-close:hover { color: var(--text); background: var(--border-light); }
+
+    .nav-toggle {
+      position: fixed; top: 14px; left: 16px; z-index: 100;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px;
+    }
+
+    .nav-page-active {
+      display: block; font-size: 13px; font-weight: 600; color: var(--accent);
+      padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light);
+      margin-bottom: 1px;
+    }
+
+    .nav-sub-link {
+      display: block; text-decoration: none; color: var(--text-muted);
+      font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm);
+      margin-bottom: 1px; transition: all 0.15s;
+    }
+    .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-sub-link.active { color: var(--accent); font-weight: 500; }
+
+    @media (min-width: 840px) {
+      .sidebar { transform: translateX(0); }
+      .sidebar-close { display: none; }
+      .sidebar-overlay { display: none !important; }
+      .nav-toggle { display: none; }
+    }
+
+    /* Layout */
+    main { max-width: 900px; margin: 0 auto; padding: 72px 24px 80px; }
+    @media (min-width: 840px) {
+      body { padding-left: 220px; }
+      main { padding-top: 40px; }
+    }
+    @media (max-width: 640px) {
+      main { padding-left: 16px; padding-right: 16px; }
+      h1 { font-size: 26px !important; }
+    }
+
+    /* Type */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+    }
+    h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; color: var(--text); }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px; }
+    h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 10px; margin-top: 6px; }
+    p { margin-bottom: 12px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    cite { font-size: 11.5px; color: var(--text-muted); font-style: normal; }
+
+    /* Hero */
+    .hero { padding: 64px 0 40px; border-bottom: 1px solid var(--border); }
+    .hero-meta { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; padding: 4px 10px;
+      border-radius: 100px; background: var(--accent-light);
+      color: var(--accent); border: 1px solid var(--accent-mid);
+    }
+    .hero-tagline { font-size: 18px; color: var(--text-secondary); margin-top: 12px; max-width: 660px; line-height: 1.5; }
+
+    .section { padding: 56px 0 0; }
+
+    .lead { font-size: 15px; color: var(--text-secondary); max-width: 680px; }
+
+    /* Callout */
+    .callout {
+      background: var(--accent-light); border: 1px solid var(--accent-mid);
+      border-radius: var(--radius); padding: 16px 20px; margin-top: 16px;
+    }
+    .callout p { color: var(--text); margin-bottom: 6px; }
+    .callout p:last-child { margin-bottom: 0; }
+    .callout .big { font-size: 26px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+
+    /* Tags */
+    .tag {
+      display: inline-block; font-size: 10.5px; font-weight: 600;
+      padding: 1px 6px; border-radius: 4px; margin-left: 4px;
+      background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid);
+      vertical-align: middle; letter-spacing: 0.01em;
+    }
+    .tag.q { background: var(--yellow-light); color: #8a6e20; border-color: var(--yellow-mid); }
+    .tag.skip { background: var(--red-light); color: #8a2020; border-color: var(--red-mid); }
+    .tag.later { background: var(--bg); color: var(--text-muted); border-color: var(--border); }
+
+    /* Block bank */
+    td .tag { margin-left: 0; }
+    table.bank td:nth-child(2) { font-weight: 600; color: var(--text); }
+    table.bank td { font-size: 12.5px; }
+    .order-list { counter-reset: b; list-style: none; margin-top: 18px; }
+    .order-list li {
+      counter-increment: b; position: relative; padding: 9px 0 9px 40px;
+      border-bottom: 1px solid var(--border-light); font-size: 13.5px;
+    }
+    .order-list li:last-child { border-bottom: none; }
+    .order-list li::before {
+      content: counter(b); position: absolute; left: 0; top: 8px;
+      width: 24px; height: 24px; border-radius: 50%; background: var(--accent-light);
+      color: var(--accent); border: 1px solid var(--accent-mid);
+      font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    }
+    .order-list li b { color: var(--text); }
+    .src-list { list-style: none; margin-top: 14px; }
+    .src-list li { padding: 5px 0 5px 16px; position: relative; font-size: 13px; color: var(--text-secondary); }
+    .src-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-mid); }
+    .src-list li b { color: var(--text); font-weight: 600; }
+
+    /* Entity cards */
+    .ent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 20px; }
+    .ent-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px 17px; }
+    .ent-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .ent-card p { font-size: 12.5px; color: var(--text-secondary); margin-bottom: 5px; line-height: 1.5; }
+    .ent-card .ent-job { font-size: 11.5px; color: var(--accent); font-weight: 600; }
+
+    /* Tree */
+    .tree {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px; margin-top: 18px;
+      font-family: var(--mono); font-size: 12.5px; line-height: 1.85;
+      color: var(--text); overflow-x: auto; white-space: pre;
+    }
+    .tree .job { color: var(--accent); }
+    .tree .prim { color: #8a6e20; font-weight: 700; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; margin-top: 18px; border: 1px solid var(--border); border-radius: var(--radius); }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; background: var(--surface); }
+    th, td { border-bottom: 1px solid var(--border-light); border-right: 1px solid var(--border-light); padding: 8px 11px; text-align: left; vertical-align: top; }
+    th { background: var(--accent-light); color: var(--accent); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; position: sticky; top: 0; }
+    tr:last-child td { border-bottom: none; }
+    td:last-child, th:last-child { border-right: none; }
+
+    table.matrix th, table.matrix td { text-align: center; padding: 7px 6px; font-size: 12px; }
+    table.matrix td.job { text-align: left; font-weight: 600; color: var(--text); white-space: nowrap; }
+    table.matrix td.check { color: var(--accent); font-weight: 700; }
+    table.matrix th.orphan, table.matrix td.orphan { background: var(--red-light); }
+    table.matrix th.orphan { color: #8a2020; }
+
+    /* Flow cards */
+    .flow-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-top: 20px; box-shadow: var(--shadow); }
+    .flow-card h3 { margin-top: 0; }
+    .flow-card .flow-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+    .mermaid { text-align: center; overflow-x: auto; margin: 8px 0 6px; }
+    .flow-notes { font-size: 12.5px; color: var(--text-secondary); margin-top: 10px; }
+    .flow-notes strong { color: var(--text); }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 12px; color: var(--text-secondary); }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .swatch { width: 13px; height: 13px; border-radius: 3px; border: 1px solid; display: inline-block; }
+    .swatch.state { background: #fff7e6; border-color: #d9a441; }
+    .swatch.success { background: #e9f5ee; border-color: #3f9c68; }
+    .swatch.dead { background: #fdeaea; border-color: #c96a6a; }
+    .swatch.screen { background: #fff; border-color: var(--text-muted); }
+
+    /* Footer */
+    .footer { border-top: 1px solid var(--border); margin-top: 72px; padding: 32px 0; text-align: center; }
+    .footer p { font-size: 13px; color: var(--text-muted); }
+
+    /* Prompt 2 additions */
+    .flag-callout { background: var(--yellow-light); border: 1px solid var(--yellow-mid); border-radius: var(--radius); padding: 14px 18px; margin-top: 16px; }
+    .flag-callout h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: #8a6e20; margin-bottom: 6px; }
+    .flag-callout p { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+    .flag-callout p:last-child { margin-bottom: 0; }
+    .gc-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-top: 14px; }
+    .gc-card h4 { font-size: 14px; color: var(--text); margin-bottom: 6px; }
+    .gc-card .gc-meta { font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.55; }
+    .blocklist { list-style: none; margin: 4px 0 0; padding: 0; }
+    .blocklist li { font-size: 13px; color: var(--text-secondary); padding: 2px 0; }
+    .pill { display: inline-block; font-size: 9.5px; font-weight: 700; padding: 1px 5px; border-radius: 3px; margin-right: 6px; vertical-align: middle; letter-spacing: 0.03em; }
+    .pill.p { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+    .pill.s { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+    .pc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 14px; margin-top: 18px; }
+    .pc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px 17px; }
+    .pc h4 { font-size: 14px; color: var(--text); margin-bottom: 3px; }
+    .pc .pc-job { font-size: 11.5px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+    .pc .pc-label { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin: 10px 0 4px; }
+    .pc ol { margin: 0; padding-left: 16px; }
+    .pc ol li { font-size: 12.5px; color: var(--text-secondary); margin-bottom: 2px; line-height: 1.45; }
+    .states { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+    .state-badge { font-size: 10.5px; padding: 2px 7px; border-radius: 100px; background: var(--bg); border: 1px solid var(--border); color: var(--text-secondary); }
+    .state-badge.err { background: var(--red-light); border-color: var(--red-mid); color: #8a2020; }
+    .state-badge.q { background: var(--yellow-light); border-color: var(--yellow-mid); color: #8a6e20; }
+    .pc-delta { font-size: 11.5px; color: #8a6e20; background: var(--yellow-light); border: 1px solid var(--yellow-mid); border-radius: var(--radius-sm); padding: 6px 9px; margin-top: 8px; line-height: 1.45; }
+
+    tr.scope td { border-top: 2px solid var(--border); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-secondary); text-align: center; }
+    tr.scope td.job { text-align: left; letter-spacing: 0.06em; }
+
+    .ia-group { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin: 26px 0 10px; font-weight: 700; }
+    .ia-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ia-chip { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px 6px 10px; text-decoration: none; color: var(--text); background: var(--surface); font-size: 13px; transition: border-color .15s, background .15s; }
+    .ia-chip:hover { border-color: var(--accent); background: var(--border-light); }
+    .ia-chip.is-active { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+    .ia-chip-node { font-variant-numeric: tabular-nums; color: var(--text-muted); font-size: 12px; min-width: 26px; }
+    .ia-chip-type { font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); border-left: 1px solid var(--border); padding-left: 8px; }
+    .ia-chip-scope { font-size: 10px; letter-spacing: 0.05em; font-weight: 700; color: var(--accent); }
+    .ia-chip-scope.later { color: var(--text-muted); }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 18px; }
+    .pill-row span { border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 12px; color: var(--text-secondary); }
+
+    .node-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+    .node-meta span { border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 12px; color: var(--text-secondary); background: var(--surface); }
+    .node-meta span.on { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+    .kv { margin-top: 16px; }
+    .kv div { display: flex; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--border-light); font-size: 13.5px; }
+    .kv div:last-child { border-bottom: none; }
+    .kv b { min-width: 120px; color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; padding-top: 2px; }
+    .seo-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-top: 16px; }
+    .seo-block h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin: 0 0 10px; }
+    .seo-block + .seo-block { margin-top: 12px; }
+    .seo-block code { font-family: var(--mono); font-size: 12.5px; background: var(--bg); border: 1px solid var(--border-light); border-radius: 3px; padding: 1px 5px; }
+    .seo-block ul { margin: 8px 0 0 18px; font-size: 13.5px; }
+    .seo-block li { margin-bottom: 5px; }
+    ol.tpl { margin: 16px 0 0 20px; font-size: 13.5px; }
+    ol.tpl li { margin-bottom: 7px; }
+    ol.tpl b { color: var(--text); }
+  </style>
+<link rel="stylesheet" href="../_nav.css">
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main>
+
+  <section class="hero" id="top">
+    <div class="hero-meta">
+      <span class="badge">Information Architecture</span>
+      <span class="badge">Detail layer</span>
+      <span class="badge">Node page</span>
+    </div>
+    <h1>4.11 Share Snapshot</h1>
+    <p class="hero-tagline">Let a person share the win without ever leaking a statement.</p>
+    <div class="node-meta">
+      <span class="on">Node 4.11</span><span>Type: page</span><span>Scope: LATER</span>
+      <span>Cluster 4 Cut and Celebrate</span><span>noindex</span><span>S1 is a hypothesis</span>
+    </div>
+    <div class="callout">
+      <p>Specified with the template fixed on the etalon, <a href="1-1-welcome.html#template">node 1.1 Welcome</a>. Source: <a href="docs/nodes/4-11-share-snapshot.md">docs/nodes/4-11-share-snapshot.md</a>. Composition from <a href="structure.html#blocks">the block bank</a>, type F. Supersedes this node's section of <a href="docs/pages/cancel.md">cancel.md</a>.</p>
+    </div>
+  </section>
+
+  <section class="section" id="spec">
+    <div class="section-label">Node 4.11</div>
+    <h2>Purpose and jobs</h2>
+    <div class="callout"><p><b>Out of MVP, and the reason is written down.</b> S1, the social job, is marked <span class="tag q">?</span> in <a href="../research/jtbd.html">JTBD</a>: the virality is a hypothesis, not a finding. The MVP exists to test H0, which node 4.10 carries without this screen, and <b>D-Share</b> (founder, 2026-08-04) moved the share block on 4.10 to LATER with it, so no MVP screen leads here. The node is specified anyway, because a LATER screen with no specification is how scope creep gets in later: when it is built, it is built to this.</p></div>
+    <div class="kv"><div><b>Jobs</b><span><b>S1 share the discovery</b>, hypothesis-level.</span></div><div><b>URL</b><span><code>/share/&lt;id&gt;</code></span></div><div><b>Entry, exit</b><span>In from node 4.10 when the share block returns. Out to node 2.6 or the system share sheet.</span></div><div><b>Components</b><span>GC1 App Header, light variant. The card itself is a rendered image, so it becomes a component of its own from Tokens onward.</span></div></div>
+  </section>
+
+  <section class="section" id="blocks">
+    <div class="section-label">Mobile-first priority</div>
+    <h2>Content blocks</h2>
+    <div class="table-wrap">
+      <table>
+        <tr><th>#</th><th>Block</th><th>Carries</th><th>From the bank</th></tr>
+        <tr><td>1</td><td>Back</td><td>GC1 light</td><td>&nbsp;</td></tr><tr><td>2</td><td>The card preview: the count and the total, and "just cancelled 2" when seeded from a win</td><td>S1, E2</td><td>No bank data, no account numbers, no merchant list by default</td></tr><tr><td>3</td><td>Share, to the system sheet</td><td>S1</td><td>&nbsp;</td></tr><tr><td>4</td><td>What is on this card, stated in full</td><td>E3, principle 4</td><td>The privacy promise is on the screen, not in a policy</td></tr><tr><td>5</td><td>Choose what to show</td><td>S1</td><td><span class="tag q">?</span> whether this is needed at all, or whether the safe default is enough</td></tr>
+      </table>
+    </div>
+    <div class="callout"><p><b>Safe by construction, not by memory.</b> The card cannot contain bank data, because the card is built from two numbers. That is a structural decision, not a checkbox the person has to remember.</p></div>
+  </section>
+
+  <section class="section" id="states">
+    <div class="section-label">States and CTA</div>
+    <h2>States, filters, the one action</h2>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Node</th><th>State</th><th>Reads like</th><th>Trigger</th></tr>
+        <tr><td>-</td><td>default</td><td>The preview and the share action</td><td>Arriving from node 4.10</td></tr><tr><td>4.11.1</td><td>Generating the card</td><td>"Making your card..."</td><td>Rendering the image</td></tr><tr><td>4.11.2</td><td>Share failed</td><td>"We could not create the card just now. Try again."</td><td>Render or share failed</td></tr>
+      </table>
+    </div>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)"><b>Filters and facets:</b> none.</p>
+    <div class="callout"><p><b>Primary CTA: "Share"</b>, to the system share sheet.</p></div>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)"><b>Responsive.</b> Mobile: the card at screen width, the share action directly under it. Desktop: the card at a fixed size, because it is an image with fixed proportions, not a layout.</p>
+  </section>
+
+  <section class="section" id="emotion">
+    <div class="section-label">From the base layer</div>
+    <h2>Emotional support</h2>
+    <div class="table-wrap"><table><tr><th>Job</th><th>Mechanism</th><th>Where exactly on this page</th></tr><tr><td>S1 share the discovery <span class="tag q">?</span></td><td>A snapshot card that carries the count and the total and no bank data, so sharing never leaks a statement</td><td>Blocks 2 and 4</td></tr></table></div><p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)">The table marks this row <span class="tag q">?</span> in the same breath, and that mark is the reason the node is LATER.</p>
+  </section>
+
+  <section class="section" id="seo">
+    <div class="section-label">SEO and status</div>
+    <h2>SEO, locked, open</h2>
+    <p><b>SEO.</b> noindex, no schema. The card image may be posted by the person; the screen is not indexable.</p>
+    <p style="margin-top:10px"><b>Scope: LATER</b>, by S1 being a hypothesis and by D-Share. <b>Open <span class="tag q">?</span>:</b> whether "choose what to show" is needed at all; and S1 itself, which needs the prototype test to become a finding.</p>
+    <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)">Grey screen: <a href="../wireframes/share-snapshot.html">wireframes/share-snapshot.html</a>. No coloured screen yet: only Home and Subscription Detail were taken into colour at Concept, and the rest arrive at UI + Visual (<a href="../design/overview.html">design/overview.html</a>).</p>
+  </section>
+
+</main>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'loose',
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
+    themeVariables: {
+      primaryColor: '#eef4f1',
+      primaryBorderColor: '#5c7a6e',
+      primaryTextColor: '#2a2724',
+      lineColor: '#9b958e',
+      secondaryColor: '#f8f7f4',
+      tertiaryColor: '#ffffff',
+      fontSize: '13px'
+    },
+    flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true }
+  });
+</script>
+
+<script>
+  window.NAV_BASE = '../';
+  window.NAV_ACTIVE = 'ia/structure.html';
+  window.NAV_ACTIVE_LABEL = 'Share Snapshot (4.11)';
+  window.NAV_SECTIONS = [
+    { id:'spec', label:'Purpose and jobs' },
+    { id:'blocks', label:'Content blocks' },
+    { id:'states', label:'States and CTA' },
+    { id:'emotion', label:'Emotional support' },
+    { id:'seo', label:'SEO and status' },
+  ];
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>
