@@ -24,7 +24,10 @@
     background: #ededed;
     line-height: 1.5;
   }
-  .wrap { max-width: 980px; margin: 0 auto; padding: 24px 20px 64px; }
+  .layout { display: flex; gap: 32px; max-width: 1320px; margin: 0 auto; padding: 24px 20px 0; align-items: flex-start; }
+  .layout > #sidebar { position: sticky; top: 24px; }
+  .wrap { flex: 1 1 auto; min-width: 0; max-width: 980px; margin: 0; padding: 0 0 64px; }
+  @media (max-width: 900px) { .layout { flex-direction: column; gap: 16px; padding: 16px 16px 0; } }
 
   header.top {
     border: 1px solid var(--line);
@@ -117,8 +120,11 @@
     ol.screens > li, ul.screens > li { gap: 6px; }
   }
 </style>
+<link rel="stylesheet" href="../_nav.css">
 </head>
 <body>
+<div class="layout">
+<aside id="sidebar"></aside>
 <div class="wrap">
 
   <header class="top">
@@ -142,7 +148,7 @@
   </header>
 
   <!-- ============ FLOWS ============ -->
-  <h2 class="section">Flows and their screens</h2>
+  <h2 class="section" id="flows">Flows and their screens</h2>
 
   <!-- Flow A -->
   <section class="flow">
@@ -386,7 +392,7 @@
   </section>
 
   <!-- ============ ALL PAGES ============ -->
-  <h2 class="section">All pages and states (40)</h2>
+  <h2 class="section" id="pages">All pages and states (40)</h2>
   <div class="tablewrap">
     <table>
       <caption>Rows are the 16 screens. A link is a page to build; a dash means the scenario does not produce that state. Success is the base page.</caption>
@@ -527,5 +533,15 @@
   </footer>
 
 </div>
+</div>
+
+<script>
+  window.NAV_BASE = '../';
+  window.NAV_SECTIONS = [
+    { id:'flows', label:'Flows and their screens' },
+    { id:'pages', label:'All pages and states' },
+  ];
+</script>
+<script src="../_nav.js"></script>
 </body>
 </html>

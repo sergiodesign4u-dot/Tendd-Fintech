@@ -119,76 +119,6 @@
       font-size: 15px;
     }
 
-    .sidebar-nav { padding: 12px 10px 0; }
-
-    .nav-section-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding: 10px 8px 5px;
-    }
-
-    .nav-section-label.active {
-      color: var(--accent);
-    }
-
-    .nav-link {
-      display: block;
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-size: 13px;
-      padding: 6px 10px;
-      border-radius: var(--radius-sm);
-      margin-bottom: 1px;
-      transition: all 0.15s;
-    }
-
-    .nav-link:hover {
-      color: var(--text);
-      background: var(--border-light);
-      text-decoration: none;
-    }
-
-    .nav-link.nav-group {
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .nav-divider {
-      border: none;
-      border-top: 1px solid var(--border-light);
-      margin: 10px 8px;
-    }
-
-    .nav-coming-soon-item {
-      display: block;
-      font-size: 13px;
-      color: var(--text-muted);
-      padding: 6px 10px;
-      margin-bottom: 1px;
-    }
-
-    .nav-coming-soon-badge {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      background: var(--border-light);
-      color: var(--text-muted);
-      padding: 1px 5px;
-      border-radius: 4px;
-      margin-left: 5px;
-      vertical-align: middle;
-    }
-
-
-
-    .nav-future-list { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border-light); }
-    .nav-future { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--text-muted); font-size: 13px; padding: 6px 10px; margin-bottom: 1px; cursor: default; }
-    .nav-future.nav-next { color: var(--text); font-weight: 600; }
-    .nav-pill { flex: none; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 1px 6px; }
-
     /* Desktop: sidebar always visible */
     @media (min-width: 840px) {
       .sidebar { transform: translateX(0); }
@@ -801,44 +731,18 @@
       h1 { font-size: 26px; }
     }
   </style>
+<link rel="stylesheet" href="../_nav.css">
 </head>
 <body>
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
 
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar-panel">
   <div class="sidebar-header">
-    <span class="nav-brand">Tendd Research</span>
+    <span class="nav-brand">Tendd</span>
     <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
   </div>
-  <nav class="sidebar-nav">
-    <div class="nav-section-label active">Foundation Research</div>
-    <a href="#intro" class="nav-link">Overview</a>
-    <a href="#canvas" class="nav-link">Canvas</a>
-    <a href="#strategy" class="nav-link">Strategy</a>
-    <a href="#aarrr" class="nav-link">AARRR</a>
-    <a href="#competitors" class="nav-link">Competitors</a>
-    <a href="#benchmark" class="nav-link">Benchmark</a>
-    <a href="#patterns" class="nav-link">UX Patterns</a>
-    <a href="#conclusions" class="nav-link">Conclusions</a>
-
-    <hr class="nav-divider">
-
-    <a href="personas.html" class="nav-link nav-group">User Research</a>
-    <a href="../ia/ia.html" class="nav-link nav-group">Information Architecture</a>
-    <a href="../wireframes/overview.html" class="nav-link nav-group">Wireframes</a>
-    <a href="../voice/voices.html" class="nav-link nav-group">Voice</a>
-    <a href="../design/concept/directions.html" class="nav-link nav-group">Concept</a>
-    <a href="../design/overview.html" class="nav-link nav-group">UI + Visual</a>
-
-    <div class="nav-future-list">
-      <span class="nav-future nav-next"><span>Tokens + Components</span><span class="nav-pill">Next</span></span>
-      <span class="nav-future">Design System</span>
-      <span class="nav-future">Responsive</span>
-      <span class="nav-future">Animation</span>
-      <span class="nav-future">Handoff</span>
-    </div>
-  </nav>
+  <div id="sidebar"></div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -1629,7 +1533,7 @@
 
 <script>
   (function() {
-    var sidebar = document.getElementById('sidebar');
+    var sidebar = document.getElementById('sidebar-panel');
     var overlay = document.getElementById('sidebarOverlay');
     var toggle = document.getElementById('navToggle');
     var close = document.getElementById('sidebarClose');
@@ -1647,14 +1551,25 @@
     toggle.addEventListener('click', openSidebar);
     close.addEventListener('click', closeSidebar);
     overlay.addEventListener('click', closeSidebar);
-
-    sidebar.querySelectorAll('.nav-link').forEach(function(link) {
-      link.addEventListener('click', function() {
-        if (window.innerWidth < 840) closeSidebar();
-      });
+    sidebar.addEventListener('click', function (e) {
+      if (e.target.closest('a') && window.innerWidth < 840) closeSidebar();
     });
   })();
 </script>
 
+<script>
+  window.NAV_BASE = '../';
+  window.NAV_SECTIONS = [
+    { id:'intro', label:'Overview' },
+    { id:'canvas', label:'Canvas' },
+    { id:'strategy', label:'Strategy' },
+    { id:'aarrr', label:'AARRR' },
+    { id:'competitors', label:'Competitors' },
+    { id:'benchmark', label:'Benchmark' },
+    { id:'patterns', label:'UX Patterns' },
+    { id:'conclusions', label:'Conclusions' },
+  ];
+</script>
+<script src="../_nav.js"></script>
 </body>
 </html>

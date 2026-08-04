@@ -12,17 +12,6 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15
 .nav-brand{font-weight:600;font-size:13.5px;color:var(--text);letter-spacing:-.01em}
 .sidebar-close{background:none;border:none;font-size:18px;line-height:1;color:var(--text-muted);cursor:pointer;padding:4px 6px;border-radius:var(--radius-sm)}
 .nav-toggle{position:fixed;top:14px;left:16px;z-index:100;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow);color:var(--text);font-size:15px}
-.sidebar-nav{padding:12px 10px 0}
-.nav-section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:10px 8px 5px}
-.nav-section-label.active{color:var(--accent)}
-.nav-link{display:block;text-decoration:none;color:var(--text-secondary);font-size:13px;padding:6px 10px;border-radius:var(--radius-sm);margin-bottom:1px;transition:all .15s}
-.nav-link:hover{color:var(--text);background:var(--border-light)}
-.nav-link.active{color:var(--accent);background:var(--accent-light);font-weight:500}.nav-link.nav-group{font-weight:600;color:var(--text)}
-.nav-divider{border:none;border-top:1px solid var(--border-light);margin:10px 8px}
-.nav-future-list { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border-light); }
-.nav-future { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--text-muted); font-size: 13px; padding: 6px 10px; margin-bottom: 1px; cursor: default; }
-.nav-future.nav-next { color: var(--text); font-weight: 600; }
-.nav-pill { flex: none; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 1px 6px; }
 @media(min-width:840px){.sidebar{transform:translateX(0)}.sidebar-close{display:none}.sidebar-overlay{display:none!important}.nav-toggle{display:none}}
 main{max-width:900px;margin:0 auto;padding:72px 24px 80px}
 @media(min-width:840px){body{padding-left:220px}main{padding-top:40px}}
@@ -77,40 +66,15 @@ td:last-child,th:last-child{border-right:none}
 .q{background:var(--yellow-light);border:1px solid var(--yellow-mid);color:#8a6e20;font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px}
 .footer{border-top:1px solid var(--border);margin-top:56px;padding:28px 0;text-align:center}
 .footer p{font-size:12.5px;color:var(--text-muted)}
-</style></head><body>
+</style><link rel="stylesheet" href="../_nav.css">
+</head><body>
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-header"><span class="nav-brand">Tendd Research</span><button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button></div>
-  <nav class="sidebar-nav">
-    <a href="../research/research.html" class="nav-link nav-group">Foundation Research</a>
-    <a href="../research/personas.html" class="nav-link nav-group">User Research</a>
-    <hr class="nav-divider">
-    <div class="nav-section-label active">Information Architecture</div>
-    <a href="ia.html" class="nav-link">Overview</a>
-    <a href="navigation.html" class="nav-link">Global Navigation</a>
-    <a href="onboarding.html" class="nav-link">1 Onboarding</a>
-    <a href="core.html" class="nav-link">2 Core</a>
-    <a href="alerts.html" class="nav-link">3 Stay Ahead</a>
-    <a href="cancel.html" class="nav-link active">4 Cut & Celebrate</a>
-    <a href="pro.html" class="nav-link">5 Depth (Pro)</a>
-    <a href="account.html" class="nav-link">6 Account & Trust</a>
-    <a href="system.html" class="nav-link">9 System</a>
-    <a href="seo.html" class="nav-link">SEO</a>
-    <hr class="nav-divider">
-
-    <a href="../wireframes/overview.html" class="nav-link nav-group">Wireframes</a>
-    <a href="../voice/voices.html" class="nav-link nav-group">Voice</a>
-    <a href="../design/concept/directions.html" class="nav-link nav-group">Concept</a>
-    <a href="../design/overview.html" class="nav-link nav-group">UI + Visual</a>
-
-    <div class="nav-future-list">
-      <span class="nav-future nav-next"><span>Tokens + Components</span><span class="nav-pill">Next</span></span>
-      <span class="nav-future">Design System</span>
-      <span class="nav-future">Responsive</span>
-      <span class="nav-future">Animation</span>
-      <span class="nav-future">Handoff</span>
-    </div>
-  </nav>
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
 </aside>
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <main>
@@ -125,5 +89,12 @@ td:last-child,th:last-child{border-right:none}
 <div class="footer"><p>Tendd - Full Information Architecture (Phase IA). Source of truth: <a href="docs/pages/cancel.md">docs/pages/cancel.md</a>. Structure and detail only, no visual design.</p>
 <p style="margin-top:4px"><a href="ia.html">IA overview</a> - <a href="../research/research.html">Research</a> - <a href="docs/sitemap.md">Sitemap index</a></p></div>
 </main>
-<script>(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open')}function cl(){s.classList.remove('open');o.classList.remove('open')}t.addEventListener('click',op);c.addEventListener('click',cl);o.addEventListener('click',cl);})();</script>
+<script>(function(){var s=document.getElementById('sidebar-panel'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open')}function cl(){s.classList.remove('open');o.classList.remove('open')}t.addEventListener('click',op);c.addEventListener('click',cl);o.addEventListener('click',cl);})();</script>
+<script>
+  window.NAV_BASE = '../';
+  window.NAV_SECTIONS = [];
+  window.NAV_ACTIVE = 'ia/ia.html';
+  window.NAV_ACTIVE_LABEL = 'Cut and Celebrate';
+</script>
+<script src="../_nav.js"></script>
 </body></html>

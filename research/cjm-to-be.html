@@ -40,22 +40,10 @@
     .sidebar-close { background: none; border: none; font-size: 18px; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--radius-sm); }
     .sidebar-close:hover { color: var(--text); background: var(--border-light); }
     .nav-toggle { position: fixed; top: 14px; left: 16px; z-index: 100; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px; }
-    .sidebar-nav { padding: 12px 10px 0; }
-    .nav-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 10px 8px 5px; }
-    .nav-section-label.active { color: var(--accent); }
-    .nav-link { display: block; text-decoration: none; color: var(--text-secondary); font-size: 13px; padding: 6px 10px; border-radius: var(--radius-sm); margin-bottom: 1px; transition: all 0.15s; }
-    .nav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
-    .nav-link.active { color: var(--accent); background: var(--accent-light); font-weight: 500; }
-    .nav-link.nav-group { font-weight: 600; color: var(--text); }
     .nav-page-active { display: block; font-size: 13px; font-weight: 600; color: var(--accent); padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light); margin-bottom: 1px; }
     .nav-sub-link { display: block; text-decoration: none; color: var(--text-muted); font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm); margin-bottom: 1px; transition: all 0.15s; }
     .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
     .nav-sub-link.active { color: var(--accent); font-weight: 500; }
-    .nav-divider { border: none; border-top: 1px solid var(--border-light); margin: 10px 8px; }
-    .nav-future-list { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border-light); }
-    .nav-future { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--text-muted); font-size: 13px; padding: 6px 10px; margin-bottom: 1px; cursor: default; }
-    .nav-future.nav-next { color: var(--text); font-weight: 600; }
-    .nav-pill { flex: none; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 1px 6px; }
     @media (min-width: 840px) { .sidebar { transform: translateX(0); } .sidebar-close { display: none; } .sidebar-overlay { display: none !important; } .nav-toggle { display: none; } }
 
     /* Layout */
@@ -146,48 +134,18 @@
     .footer { border-top: 1px solid var(--border); margin-top: 72px; padding: 32px 0; text-align: center; }
     .footer p { font-size: 13px; color: var(--text-muted); }
   </style>
+<link rel="stylesheet" href="../_nav.css">
 </head>
 <body>
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
 
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar-panel">
   <div class="sidebar-header">
-    <span class="nav-brand">Tendd Research</span>
+    <span class="nav-brand">Tendd</span>
     <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
   </div>
-  <nav class="sidebar-nav">
-    <a href="research.html" class="nav-link nav-group">Foundation Research</a>
-
-    <hr class="nav-divider">
-
-    <div class="nav-section-label active">User Research</div>
-    <a href="personas.html" class="nav-link">Personas</a>
-    <a href="jtbd.html" class="nav-link">JTBD</a>
-    <a href="cjm-as-is.html" class="nav-link">CJM As-Is</a>
-    <span class="nav-page-active">CJM To-Be</span>
-    <a href="#focus" class="nav-sub-link" data-section="focus">Focus</a>
-    <a href="#journey" class="nav-sub-link" data-section="journey">To-Be journey</a>
-    <a href="#curve" class="nav-sub-link" data-section="curve">Projected curve</a>
-    <a href="#backlog" class="nav-sub-link" data-section="backlog">Backlog and MVP</a>
-    <a href="#risks" class="nav-sub-link" data-section="risks">Risks and reconciliation</a>
-
-    <hr class="nav-divider">
-
-    <a href="../ia/ia.html" class="nav-link nav-group">Information Architecture</a>
-    <a href="../wireframes/overview.html" class="nav-link nav-group">Wireframes</a>
-    <a href="../voice/voices.html" class="nav-link nav-group">Voice</a>
-    <a href="../design/concept/directions.html" class="nav-link nav-group">Concept</a>
-    <a href="../design/overview.html" class="nav-link nav-group">UI + Visual</a>
-
-    <div class="nav-future-list">
-      <span class="nav-future nav-next"><span>Tokens + Components</span><span class="nav-pill">Next</span></span>
-      <span class="nav-future">Design System</span>
-      <span class="nav-future">Responsive</span>
-      <span class="nav-future">Animation</span>
-      <span class="nav-future">Handoff</span>
-    </div>
-  </nav>
+  <div id="sidebar"></div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -389,7 +347,7 @@
 
 <script>
   (function() {
-    var sidebar = document.getElementById('sidebar');
+    var sidebar = document.getElementById('sidebar-panel');
     var overlay = document.getElementById('sidebarOverlay');
     var toggle = document.getElementById('navToggle');
     var close = document.getElementById('sidebarClose');
@@ -418,5 +376,16 @@
   })();
 </script>
 
+<script>
+  window.NAV_BASE = '../';
+  window.NAV_SECTIONS = [
+    { id:'focus', label:'Focus' },
+    { id:'journey', label:'To-Be journey' },
+    { id:'curve', label:'Projected curve' },
+    { id:'backlog', label:'Backlog and MVP' },
+    { id:'risks', label:'Risks and reconciliation' },
+  ];
+</script>
+<script src="../_nav.js"></script>
 </body>
 </html>

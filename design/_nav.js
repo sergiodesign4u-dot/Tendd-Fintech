@@ -27,18 +27,18 @@
   function build() {
     var here = current();
     var html = '';
-    html += '<a class="nav-back' + (here === 'overview.html' ? ' current' : '') +
+    html += '<a class="scr-back' + (here === 'overview.html' ? ' current' : '') +
             '" href="overview.html">&#8592; All screens</a>';
-    html += '<div class="nav-section-label active">UI + Visual</div>';
+    html += '<div class="scr-label active">UI + Visual</div>';
     for (var i = 0; i < SCREENS.length; i++) {
       var sc = SCREENS[i];
       if (here === sc.base) {
-        html += '<span class="nav-page-active">' + esc(sc.name) + '</span>';
+        html += '<span class="scr-current">' + esc(sc.name) + '</span>';
       } else {
-        html += '<a class="nav-link" href="' + sc.base + '">' + esc(sc.name) + '</a>';
+        html += '<a class="scr-link" href="' + sc.base + '">' + esc(sc.name) + '</a>';
       }
       if (sc.states.length) {
-        html += '<ul class="nav-states">';
+        html += '<ul class="scr-states">';
         for (var k = 0; k < sc.states.length; k++) {
           var st = sc.states[k];
           var f = stateFile(sc.base, st);

@@ -84,23 +84,6 @@
       cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px;
     }
 
-    .sidebar-nav { padding: 12px 10px 0; }
-
-    .nav-section-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--text-muted); padding: 10px 8px 5px;
-    }
-    .nav-section-label.active { color: var(--accent); }
-
-    .nav-link {
-      display: block; text-decoration: none; color: var(--text-secondary);
-      font-size: 13px; padding: 6px 10px; border-radius: var(--radius-sm);
-      margin-bottom: 1px; transition: all 0.15s;
-    }
-    .nav-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
-    .nav-link.active { color: var(--accent); background: var(--accent-light); font-weight: 500; }
-    .nav-link.nav-group { font-weight: 600; color: var(--text); }
-
     .nav-page-active {
       display: block; font-size: 13px; font-weight: 600; color: var(--accent);
       padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light);
@@ -114,13 +97,6 @@
     }
     .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
     .nav-sub-link.active { color: var(--accent); font-weight: 500; }
-
-    .nav-divider { border: none; border-top: 1px solid var(--border-light); margin: 10px 8px; }
-
-    .nav-future-list { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border-light); }
-    .nav-future { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--text-muted); font-size: 13px; padding: 6px 10px; margin-bottom: 1px; cursor: default; }
-    .nav-future.nav-next { color: var(--text); font-weight: 600; }
-    .nav-pill { flex: none; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 1px 6px; }
 
     @media (min-width: 840px) {
       .sidebar { transform: translateX(0); }
@@ -264,60 +240,18 @@
     .state-badge.q { background: var(--yellow-light); border-color: var(--yellow-mid); color: #8a6e20; }
     .pc-delta { font-size: 11.5px; color: #8a6e20; background: var(--yellow-light); border: 1px solid var(--yellow-mid); border-radius: var(--radius-sm); padding: 6px 9px; margin-top: 8px; line-height: 1.45; }
   </style>
+<link rel="stylesheet" href="../_nav.css">
 </head>
 <body>
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
 
-<aside class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar-panel">
   <div class="sidebar-header">
-    <span class="nav-brand">Tendd Research</span>
+    <span class="nav-brand">Tendd</span>
     <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
   </div>
-  <nav class="sidebar-nav">
-    <a href="../research/research.html" class="nav-link nav-group">Foundation Research</a>
-    <a href="../research/personas.html" class="nav-link nav-group">User Research</a>
-
-    <hr class="nav-divider">
-
-    <div class="nav-section-label active">Information Architecture</div>
-    <span class="nav-page-active">Overview</span>
-    <a href="#entities" class="nav-sub-link" data-section="entities">Entities</a>
-    <a href="#sitemap" class="nav-sub-link" data-section="sitemap">Sitemap</a>
-    <a href="#navigation" class="nav-sub-link" data-section="navigation">Navigation</a>
-    <a href="#flows" class="nav-sub-link" data-section="flows">Flows</a>
-    <a href="#coverage" class="nav-sub-link" data-section="coverage">Coverage</a>
-    <a href="#critique" class="nav-sub-link" data-section="critique">Critique</a>
-    <a href="#graph" class="nav-sub-link" data-section="graph">Site graph</a>
-    <a href="#library" class="nav-sub-link" data-section="library">Library</a>
-
-    <hr class="nav-divider">
-    <div class="nav-section-label">IA library</div>
-    <a href="navigation.html" class="nav-link">Global Navigation</a>
-    <a href="onboarding.html" class="nav-link">1 Onboarding</a>
-    <a href="core.html" class="nav-link">2 Core</a>
-    <a href="alerts.html" class="nav-link">3 Stay Ahead</a>
-    <a href="cancel.html" class="nav-link">4 Cut &amp; Celebrate</a>
-    <a href="pro.html" class="nav-link">5 Depth (Pro)</a>
-    <a href="account.html" class="nav-link">6 Account &amp; Trust</a>
-    <a href="system.html" class="nav-link">9 System</a>
-    <a href="seo.html" class="nav-link">SEO</a>
-
-    <hr class="nav-divider">
-
-    <a href="../wireframes/overview.html" class="nav-link nav-group">Wireframes</a>
-    <a href="../voice/voices.html" class="nav-link nav-group">Voice</a>
-    <a href="../design/concept/directions.html" class="nav-link nav-group">Concept</a>
-    <a href="../design/overview.html" class="nav-link nav-group">UI + Visual</a>
-
-    <div class="nav-future-list">
-      <span class="nav-future nav-next"><span>Tokens + Components</span><span class="nav-pill">Next</span></span>
-      <span class="nav-future">Design System</span>
-      <span class="nav-future">Responsive</span>
-      <span class="nav-future">Animation</span>
-      <span class="nav-future">Handoff</span>
-    </div>
-  </nav>
+  <div id="sidebar"></div>
 </aside>
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -736,7 +670,7 @@ flowchart TD
 
 <script>
   (function() {
-    var sidebar = document.getElementById('sidebar');
+    var sidebar = document.getElementById('sidebar-panel');
     var overlay = document.getElementById('sidebarOverlay');
     var toggle = document.getElementById('navToggle');
     var close = document.getElementById('sidebarClose');
@@ -771,5 +705,19 @@ flowchart TD
   });
 </script>
 
+<script>
+  window.NAV_BASE = '../';
+  window.NAV_SECTIONS = [
+    { id:'entities', label:'Entities' },
+    { id:'sitemap', label:'Sitemap' },
+    { id:'navigation', label:'Navigation' },
+    { id:'flows', label:'Flows' },
+    { id:'coverage', label:'Coverage' },
+    { id:'critique', label:'Critique' },
+    { id:'graph', label:'Site graph' },
+    { id:'library', label:'Library' },
+  ];
+</script>
+<script src="../_nav.js"></script>
 </body>
 </html>
