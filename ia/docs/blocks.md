@@ -45,13 +45,22 @@ physically unavailable. For Tendd the domain half is available for two types onl
 |---|---|---|
 | A. Public landing | available: Rocket Money, ReSubs, Bobby | available |
 | B. Onboarding step | **missing**: behind signup at every competitor | available |
-| C. List dashboard | **missing**: behind login | available |
+| C. List dashboard | **second-hand**: Refero indexes real in-product screens (Monarch Money), plus two category peers on iOS | available |
 | D. Object detail | **missing**: behind login | available |
 | E. Activity feed | **missing**: behind login | available |
 | F. Task guide plus confirmation | partly available: ReSubs publishes cancel guides | available |
 | G. Account and settings | **missing**: behind login | available |
 
-For the five types marked missing, the pack fallback applies and the founder approved it on
+**Correction after type C ran (2026-08-04).** The line above says the domain half is missing
+for five types because competitor products are behind login. That is true of Playwright, and
+it turned out to be untrue of the whole question: Refero indexes screens from *inside* logged
+in products, so the domain half can come back through the craft instrument. For type C it did:
+Monarch Money's own recurring screens, plus two subscription trackers on iOS. Such a source is
+**second-hand and dated**: we did not open it, we cannot date it, and it is one capture rather
+than a live walk. It is marked as such wherever it is used, and it never carries a claim on its
+own. The availability table above is corrected as each type runs.
+
+For the types marked missing, the pack fallback applies and the founder approved it on
 2026-08-04: the craft half stays with Refero, and the domain half is replaced by **our own
 research** (barriers and growth zones from `cjm-as-is.md`, jobs from `jtbd.md`, open
 questions from `research.md`). We do not imitate a domain source from a competitor's
@@ -241,3 +250,80 @@ composition matches none of the sources: Arcade and Care have no escape hatch, S
 read-only statement, IFTTT has no prefilled form behind the tile, Quizlet reveals everything
 at once. The gradual reveal is ours by decision D1, and it is the one block in this type that
 no reference could have supplied.
+
+---
+
+## Type C. List dashboard (node 2.6 Home)
+
+The screen the whole product is. Everything before it is a path to it, everything after it is
+a detail of it. It carries J-MAIN in one frame: all recurring charges in one calm view.
+
+**The domain half came back, through the other instrument.** Playwright cannot reach it, but
+Refero indexes screens from inside logged in products, and it has the exact screen: Monarch
+Money's own recurring list, in two states. Two subscription trackers on iOS are in the index
+too. These are second-hand captures, not a live walk: we did not open them, we cannot date
+them, and they are marked that way in every row below.
+
+### Sources
+
+**Domain, second-hand through Refero:**
+- [Monarch Money, `/recurring/all`](https://refero.design/pages/fa06d2af-a192-4105-b136-edb66a555242) - a soft competitor in `research/docs/competitors.md`, the filled state
+- [Monarch Money, `/recurring/upcoming`](https://refero.design/pages/584d72ab-1c8c-4326-99a9-9e284d068654) - the same screen empty, with the connect-an-account card
+- [Subo](https://refero.design/screens/5385855d-77ed-4ac7-829d-77eb62f6d595) - a subscription tracker on iOS, category peer, grouped by category with per-group totals
+- [Orbit](https://refero.design/screens/29d16075-67b0-43da-8373-3289e47f5a3f) - a subscription tracker on iOS, category peer, count and total in the header
+
+**Craft, outside the category:**
+- [Cursor, billing dashboard](https://refero.design/pages/819744b3-e4a8-49fc-a182-a1187e622c11) - usage summary cards above a plain list, no chart anywhere
+- [Dime, budget overview](https://refero.design/screens/233611e2-db04-46da-a987-8a7fdcf4a1f5) - mobile: summary on top, grouped list under it, single column
+- [Teal, resume list](https://refero.design/pages/55d4bee1-eccf-4238-8f20-6015deee2e48) - a list with exactly one primary create action
+
+### Block order in the sources
+
+| Source | Order |
+|---|---|
+| Monarch, filled | sidebar of ten product sections (Recurring is one of them) / tabs: Recurring, Monthly, All recurring / filter row: By status, Filters, and a "Manage recurring" button / a table with five columns: name with icon, next due date with days remaining in parentheses, payment account, category with an emoji, amount / free trial progress and a discount offer pinned in the sidebar |
+| Monarch, empty | same chrome / month label / a three column split: Income, Expenses, Credit cards / a view switch: Today, List, Calendar / one centered card: "Automatically identify and track your recurring transactions" with a single button, "Connect an account to get started" |
+| Subo | top bar / category header rows, each with its own total / stacked cards: logo, name, renewal date, cost / search field at the bottom |
+| Orbit | header with the count and the yearly total / an Upgrade pill next to it / a plus button / sort and group popover / the list / a three tab bar |
+| Cursor | sidebar / stacked cards: included usage, on-demand usage, invoices / a table inside the last card / no chart |
+| Dime | top actions / a budget summary with the remaining amount and a progress bar / a grouped, dated expense list / a date range selector at the bottom |
+
+### Decisions
+
+| Source | Block | Verdict | Traces to | Scope | Where we are better and how |
+|---|---|---|---|---|---|
+| Orbit, Dime, Cursor | Summary strip at the top: the count in plain language and the monthly total | TAKE | GC3; J-MAIN; D1; design principle 2 (the most important number is the biggest thing) | MVP | Orbit puts the count and the total in a header line next to an Upgrade pill. Ours is the largest thing on the screen and has nothing selling next to it |
+| Subo | Grouping by category, each group carrying its own subtotal | TAKE, DIFFERENTLY | J-MAIN; J3; design principle 2 | MVP | Ours groups by default and offers no sort menu at MVP. A grouping the person has to choose is a decision handed to someone who came here to stop making decisions |
+| Monarch, Subo | List item: logo, real merchant name, amount, next charge | TAKE | GC4; growth zone 2 (cryptic charges); J3 | MVP | This is the block the whole category treats as table stakes and nobody has made a differentiator. Real names and logos are the fix for the unreadable bank code, and they are the reason the first look is not futile |
+| Monarch | Next due date with days remaining in parentheses | TAKE, DIFFERENTLY | J4 (never be surprised); GC4 | MVP | Ours drops the raw date to second place and leads with "in 6 days", because the question is never "what is the date", it is "is this about to happen" |
+| Monarch | Payment account column | SKIP | nothing traces to it; our person does not reconcile accounts | out | Every column that is not load-bearing makes the list denser, and density is the overwhelm barrier |
+| Monarch | Three way split: Income, Expenses, Credit cards | SKIP | out of product scope; this is accounting framing | out | The split is what turns a subscription tracker into a budgeting app, which our audience actively avoids |
+| Monarch | View switch: Today, List, Calendar | SKIP for now | design principle 2; no barrier asks for a calendar at MVP | LATER | A calendar of charges is a legitimate Pro-side idea; on the calm view it is a second product |
+| Monarch, Orbit | Filter row and sort popover | SKIP for now | a list of ten to twenty items does not need filtering, and offering it implies the list will be long | LATER | Implying a long list is itself anxiety. Returns if real lists turn out long |
+| Subo | Search field | SKIP for now | same reason as filters | LATER | |
+| Monarch (trial progress plus discount), Orbit (Upgrade pill) | Upsell inside the calm view | SKIP | D3: the paywall sits at depth, never at basic visibility | out | This is the single most important skip of this type. Emma's own reviews name aggressive upsells as the thing that spoils an otherwise strong app, and the calm view is exactly where an avoider must not be sold to |
+| Monarch, empty state | "Connect an account to get started" as the only way out of the empty state | TAKE, DIFFERENTLY | D2; growth zone 1; J5 | MVP | Their empty state is the bank wall again, one screen later. Ours offers both paths, in the same words used at Path Choice, so the manual route survives all the way to the empty list |
+| own research | Attention row, shown only when something needs it: a price change, a failed payment | TAKE | J4; GC4; D-Concept (amber, never red) | MVP | The category either says nothing or shouts in red. A quiet amber line that appears only when it is true is the version an anxious person can live with |
+| own research | Data source and trust line under the list | TAKE | GC6; design principle 4; J5 | MVP | No competitor tells you where the number came from. Ours names the source and the last sync, because a number with no origin is a number to distrust |
+| Monarch, Orbit | A prominent add or manage button in the header | TAKE, DIFFERENTLY | D2; J-MAIN | MVP | Ours is a quiet secondary. The job of this screen is to look, not to add; a plus button competing with the total sends the wrong instruction |
+| Vivid, Monarch cash flow | Charts, donuts, spending graphs | SKIP | growth zone 3 (too many numbers and graphs); the depth belongs to 5.12 | LATER | The chart is the exact texture our person named as overwhelming, and putting it behind Pro is D3 working as designed |
+| Cursor | Stacked cards instead of one flat table | TAKE, DIFFERENTLY | mobile-first; design principle 2 | MVP | A five column table does not survive 360px. Ours is one card per subscription, and the card carries four things, not five |
+
+### Our order, mobile-first
+
+1. App header (GC1): the screen name and a quiet way into the account
+2. Summary strip (GC3): "You are paying for 14 subscriptions", the monthly total as the biggest thing on screen, one line of context under it
+3. Attention row, only when it is true: a price change or a failed payment, amber, one line
+4. The list, grouped by category, each group with its own subtotal
+5. The item (GC4): logo, real name, amount, "in 6 days"
+6. Add a subscription, as a quiet secondary
+7. Data source and trust line (GC6): where these numbers come from and when they were last checked
+8. Tab bar (GC2)
+
+States: empty with both paths, loading as a skeleton of the list rather than a spinner, sync
+failed with the last known figures still visible and dated, and the ordinary filled state.
+
+Eight blocks. Monarch has three of them and buries the screen under ten product sections plus
+a trial countdown; Subo has the grouping and no summary; Orbit has the summary and sells next
+to it; Cursor and Dime supplied the shape (summary first, plain list under it, no chart) and
+know nothing about our people. The attention row and the trust line exist in none of the six.
