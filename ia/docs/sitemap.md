@@ -388,7 +388,17 @@ designs only the happy path; that is exactly the gap this node closes.
 | 5.12 | History and Trends | page | -> 5.13 gate, -> 2.7 | E, C / J-MAIN over time | LATER |
 | 5.12.1 | Still gathering history | state (empty) | -> 2.6 | E / J-MAIN | LATER |
 | 5.12.2 | Loading history | state (loading) | -> 5.12 | E / J-MAIN | LATER |
+| 5.12.3 | Could not load trends | state (error) | -> 5.12 retry, -> 2.6 | E / J-MAIN | LATER |
 | 5.13 | Upgrade / Tendd Pro | page (gate) | -> back to the gated surface | all / D3 + D4 | LATER |
+| 5.13.1 | Setting up your plan | state (processing) | -> the originating gate | all / D4 | LATER |
+| 5.13.2 | Payment did not go through | state (error) | -> 5.13 retry | all / D4 | LATER |
+
+**5.12.3, 5.13.1 and 5.13.2 added 2026-08-04.** `pages/pro.md` named these three
+states and gave them no numbers, so the two screens that decide whether money moves
+had unnumbered failure paths. A LATER screen is numbered like any other, the way
+4.11.1 and 4.11.2 already are: the second round builds to the map, it does not
+re-derive it. Success at 5.13 is deliberately not a state here, because it is a
+return to the gate the person came from and not a screen.
 
 **Cluster 6, Account and Trust** (group `pages`)
 
@@ -397,8 +407,17 @@ designs only the happy path; that is exactly the gap this node closes.
 | 6.14 | Connections / Accounts | page + dialog | -> 1.3, -> 1.4, -> 6.15 | E, R / J1 + J5 | MVP |
 | 6.14.1 | No sources yet | state (empty) | -> 1.3, -> 1.4 | R / J5 | MVP |
 | 6.14.2 | Source needs attention | state (error) | -> 1.3 reauthorize | E / J1 | MVP |
-| 6.15 | Data and Privacy | page + dialog | -> 6.16, -> delete confirm | R, E / E3 | MVP |
+| 6.14.3 | Add a source, the chooser | dialog | -> 1.3 in-app, -> 1.4 in-app | R / J5 | MVP |
+| 6.15 | Data and Privacy | page + dialog | -> 6.16, -> 6.15.1 | R, E / E3 | MVP |
+| 6.15.1 | Delete everything, confirmation | dialog | -> 6.15 (kept), -> signed out (deleted) | R / E3 | MVP |
 | 6.16 | Settings / Profile | page | -> 6.14, -> 6.15, -> 5.13 | all / E3 | MVP |
+
+**6.14.3 and 6.15.1 added 2026-08-04, and a numbering collision resolved with them.**
+`pages/account.md` numbered the add-a-source chooser 6.14.1, which this map already
+gave to the empty state, so the same number named two different things and the delete
+confirmation had no number at all. Both dialogs are real (FLAG 2 is resolved through
+the chooser, and deletion is a two-door dialog by `blocks.md` type G), so both are
+numbered here, where node numbers are owned. `pages/account.md` was corrected to match.
 
 **Cluster 9, System** (group `global`, specified in `ia/docs/pages/system.md`)
 
@@ -410,7 +429,7 @@ designs only the happy path; that is exactly the gap this node closes.
 | 9.4 | Consent banner | dialog | LATER | Conditional on region, `[?]` |
 | 9.5 | Toasts | section | MVP | Lightweight feedback, no page of its own |
 
-**Count: 23 specified nodes (7 global, 16 screens) plus 5 system nodes, with 25
+**Count: 23 specified nodes (7 global, 16 screens) plus 5 system nodes, with 30
 state and dialog nodes hanging off the screens.** Of the 16 screens, 13 are MVP.
 The SEO engine (`ia/docs/pages/seo.md`) is a cross-cutting specification, not a
 node with a screen.

@@ -10,7 +10,7 @@
 
 ## Decisions (recommendations, flagged for review)
 
-- **FLAG 2 resolved: Connections / Accounts (6.14) re-enters onboarding's Connect Bank and Add Subscription through one "Add a source" action, not by duplicating those screens.** Concretely, "Add a source" opens a small chooser (6.14.1) with two options, "Connect a bank" and "Add manually", mirroring the onboarding Path Choice logic. "Connect a bank" reopens 1.3 Connect Bank in its in-app variant (with the tab bar context, returning to 6.14 on success). "Add manually" reopens 1.4 Add Subscription the same way. No new screen is created; the locked screens are reused with an in-app entry point. Recorded as the resolution of FLAG 2.
+- **FLAG 2 resolved: Connections / Accounts (6.14) re-enters onboarding's Connect Bank and Add Subscription through one "Add a source" action, not by duplicating those screens.** Concretely, "Add a source" opens a small chooser (6.14.3) with two options, "Connect a bank" and "Add manually", mirroring the onboarding Path Choice logic. "Connect a bank" reopens 1.3 Connect Bank in its in-app variant (with the tab bar context, returning to 6.14 on success). "Add manually" reopens 1.4 Add Subscription the same way. No new screen is created; the locked screens are reused with an in-app entry point. Recorded as the resolution of FLAG 2.
 - **Data deletion is one clearly labeled action reachable in two taps from the You tab, with a single confirm, and it deletes everything.** Traces E3 (one-tap deletion, personas.md Ravi) and O20 (people want built-in controls). Reason: a person must never feel trapped; hiding deletion deep or splitting it into partial toggles reads as reluctance.
 - **The data-access explanation uses the "name the fear" pattern: it states plainly what a person is afraid of, then denies it with specifics.** Traces master-research M2. Reason: vague "bank-level security" language is exactly what scares Ravi (personas.md); specifics earn trust.
 - **There is no connection cap on Free: Free allows unlimited bank connections, matching the unlimited subscription count.** Resolved by product decision (July 2026): a connection cap is really a visibility cap, and capping the number of banks would truncate the core "see everything" relief; Pro's value is depth (history, trends, advanced alerts, cancel, shared, export), per D3. This supersedes the older CLAUDE.md "up to 2 bank accounts" line, which was removed.
@@ -27,11 +27,11 @@ Uses GC1, GC2, GC6. Entities Account, Subscription.
 Block order:
 1. (P) Title: "Your sources." [? draft copy]
 2. (P) Sources list: each source is a GC6 Data Source and Trust Indicator row showing the bank name or "Added by you", connection status, last sync time, and count of subscriptions from it. Traces the Account entity.
-3. (P) Add a source: "Add a source" -> the chooser 6.14.1. Free allows unlimited bank connections (no cap); Pro's value is depth, not connection count. FLAG 2 resolution.
+3. (P) Add a source: "Add a source" -> the chooser 6.14.3. Free allows unlimited bank connections (no cap); Pro's value is depth, not connection count. FLAG 2 resolution.
 4. (S) Per-source actions: "Reconnect" (needs-reauth), "Remove". Traces E3.
 5. (S) Provider note: "US banks connect through Plaid. More regions soon." [? EU via TrueLayer deferred, D5.]
 
-Sub-node 6.14.1 Add-a-source chooser (Dialog): "Connect a bank" -> 1.3 in-app, "Add manually" -> 1.4 in-app. Returns to 6.14 on completion.
+Sub-node 6.14.3 Add-a-source chooser (Dialog): "Connect a bank" -> 1.3 in-app, "Add manually" -> 1.4 in-app. Returns to 6.14 on completion.
 
 ### 6.15 Data and Privacy  (Page + Dialog, screen 15)
 
@@ -70,7 +70,7 @@ Block order:
 | 6.14 | needs-reauth | A source row shows "Reconnect needed" plus a "Reconnect" action | A connection expired (Account error state) |
 | 6.14 | loading | Skeleton source rows | Syncing sources |
 | 6.14 | error | "We could not load your sources. Try again." | Load failed |
-| 6.14.1 | chooser (Dialog) | "Connect a bank" or "Add manually" | "Add a source" tapped (FLAG 2) |
+| 6.14.3 | chooser (Dialog) | "Connect a bank" or "Add manually" | "Add a source" tapped (FLAG 2) |
 | 6.15 | default | Explanation plus controls | Opened |
 | 6.15.1 | deletion-confirmation (Dialog) | "This cannot be undone." Delete or Keep | "Delete all my data" tapped |
 | 6.16 | default | Settings list | Opened via You tab |

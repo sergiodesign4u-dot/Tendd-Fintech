@@ -44,11 +44,11 @@ window.IA_NAV = [
   { node:'4.9',  label:'Cancel Guide',            type:'page',   group:'pages', file:'4-9-cancel-guide.html', scope:'MVP' },
   { node:'4.10', label:'Cancel Win Moment',       type:'page',   group:'pages', file:'4-10-cancel-win.html', scope:'MVP' },
   { node:'4.11', label:'Share Snapshot',          type:'page',   group:'pages', file:'4-11-share-snapshot.html', scope:'LATER' },
-  { node:'5.12', label:'History and Trends',      type:'page',   group:'pages', file:'pro.html#5.12',       scope:'LATER' },
-  { node:'5.13', label:'Upgrade / Tendd Pro',     type:'page',   group:'pages', file:'pro.html#5.13',       scope:'LATER' },
-  { node:'6.14', label:'Connections / Accounts',  type:'page',   group:'pages', file:'account.html#6.14',   scope:'MVP' },
-  { node:'6.15', label:'Data and Privacy',        type:'page',   group:'pages', file:'account.html#6.15',   scope:'MVP' },
-  { node:'6.16', label:'Settings / Profile',      type:'page',   group:'pages', file:'account.html#6.16',   scope:'MVP' },
+  { node:'5.12', label:'History and Trends',      type:'page',   group:'pages', file:'5-12-history-trends.html', scope:'LATER' },
+  { node:'5.13', label:'Upgrade / Tendd Pro',     type:'page',   group:'pages', file:'5-13-upgrade.html',   scope:'LATER' },
+  { node:'6.14', label:'Connections / Accounts',  type:'page',   group:'pages', file:'6-14-connections.html', scope:'MVP' },
+  { node:'6.15', label:'Data and Privacy',        type:'page',   group:'pages', file:'6-15-data-privacy.html', scope:'MVP' },
+  { node:'6.16', label:'Settings / Profile',      type:'page',   group:'pages', file:'6-16-settings.html',  scope:'MVP' },
 ];
 
 (function () {

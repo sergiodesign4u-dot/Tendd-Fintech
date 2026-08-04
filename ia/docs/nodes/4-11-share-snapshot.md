@@ -2,6 +2,11 @@
 
 Template: `1-1-welcome.md`. Supersedes the 4.11 section of `../pages/cancel.md`.
 
+**Composition is not from `../blocks.md`:** the bank ran on the 13 MVP screens, and its type F
+covers nodes 4.9 and 4.10 only. This node is LATER, so its blocks come from `../pages/cancel.md`
+and from our own research, and it gets a bank round of its own when it is built. The same holds
+for nodes 5.12 and 5.13.
+
 ## Node, type, scope
 
 **Node 4.11 · Share Snapshot · page · LATER**
