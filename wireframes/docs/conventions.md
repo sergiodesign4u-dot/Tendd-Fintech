@@ -1,173 +1,193 @@
-# Wireframe Conventions (Tendd)
+# Wireframe conventions (Tendd)
 
-Phase: Wireframes, Step 2. These are the rules every Tendd wireframe follows.
-Steps 3 to 9 of this phase, and later phases that read wireframes, rely on
-this document. Read it before building or reviewing any screen.
+The contract every screen and every subagent follows. Read it before building or reviewing a
+screen. It is shown on `overview.html` under "Conventions", because a rule that lives only in a
+markdown file is a rule only the model reads.
 
-Sources this obeys: wireframes/docs/screens.md (the screen and state inventory),
-ia/docs/sitemap.md (screen names, navigation, entities), ia/docs/flows.md
-(flows and states), and the five design principles in CLAUDE.md.
+**A wireframe is structure, not look.** It answers what is on the screen, in what order, and
+what the one main action is. It says nothing about colour, type or brand: those are stages 06
+to 08, and they work on copies in `design/`, never on these files.
 
-A wireframe is structure, not look. It answers "what is on the screen, in
-what order, and what is the main action" and nothing about color, type, or
-brand. If a choice is visual, it is not made here; it is deferred to the
-Design phase.
+**Rewritten 2026-08-05.** Three rules changed and one is new. The old file asked for a zone
+label on every block, which is the schema form of the previous stage and is exactly what this
+stage removes. It listed four states, and the real set is the state nodes of the map. It
+pointed at `ia/docs/pages/`, which was retired into the node files. And it had nothing at all
+about where inline CSS is allowed to live, which is the rule this stage breaks quietly without.
 
 ---
 
-## 1. Fidelity: grey, structure only
+## 0. What this inherits, and from where
 
-- Greyscale only. No color, no brand palette, no accent hues. The only visual
-  variables are box, border, spacing, weight of the outline, and text.
-- No typography decisions: no font family, no type scale, no custom sizes
-  beyond the browser default hierarchy of headings and paragraphs.
-- No shadows, no gradients, no rounded-corner styling as decoration, no icons,
-  no images, no logos. Where a logo or image would sit, use a labelled grey
-  placeholder box, for example `[logo]` or `[merchant logo]`.
-- Show hierarchy and zones, not polish. A zone is a labelled region of the
-  screen (search, summary, list, detail, primary action). Each zone is a
-  bordered block with a short zone label so the structure reads at a glance.
-- One shared stylesheet only, inline in each page or a single linked file. No
-  external CSS frameworks, no icon fonts, no web fonts, no CDN libraries.
+Nothing below is invented here. Each line names its owner, and a gap is fixed in the owner
+first and rendered second.
 
-## 2. Markup: semantic HTML
+| What | Owner | Note |
+|---|---|---|
+| Screens, node numbers, scope | `ia/docs/sitemap.md` | The map owns numbering. A page renders a node |
+| Which blocks a screen has, in what order | `ia/docs/nodes/<node>.md` | Composition traces to `ia/docs/blocks.md`, the block bank |
+| The seven global elements | `ia/docs/nodes/globals.md` | GC1 to GC7, with what each must never do |
+| States and their exits | the "States" section of each node file, cross-checked against `ia/docs/flows.md` | |
+| Every interface string | `voice/docs/microcopy.md` | The node says what information the place needs; Voice owns the wording |
+| Accessible names, focus, live regions | `ia/docs/accessibility.md` | Six rules everywhere, plus what each node adds |
+| Grey tokens | `wireframes/_wf.css` | Inherited from the IA pages' greyscale, not a new palette |
 
-- Use real semantic elements, not a wall of `div`: `header`, `nav`, `main`,
-  `section`, `article`, `aside`, `form`, `label`, `input`, `button`, `a`,
-  `ul`, `ol`, `li`, `h1` to `h4`, `p`, `footer` only where a footer truly
-  exists (see the no-footer rule below).
-- Interactive things are real elements: a button is a `button`, a link is an
-  `a href`, a field is an `input` or `select` with a `label`. Not styled
-  spans.
-- Every screen has exactly one `h1` (the screen name or its main heading).
-  Zones are `section` with an `h2` label. Repeated items (a subscription row,
-  an alert row) are `article` or `li`.
-- Landmarks are present and correct so the structure is navigable: one
-  `header`, one `main` per page, and the product's own `nav` (the global tab
-  bar). No reviewer-only `nav` sits in a frame (see the shell rule below).
+**A-E SEO copy exists for node 1.1 only.** It is the one public, indexed screen; every other
+node is `noindex` and carries no A-E block, by design. So the text of every app screen comes
+from `voice/docs/microcopy.md`, which is the line inventory and the actual owner. This is a
+deliberate difference from the generic pack instruction "take the text from the A-E block".
 
-## 3. Real content, no lorem ipsum
+---
 
-Use real Tendd domain text so the structure is judged on real length and
-meaning. Never "Heading 1" or lorem ipsum.
+## 1. Fidelity: a live screen, not a schema
 
-Domain vocabulary and formats:
-- Money in US dollars first (D5, US and Plaid first): `$12.99`, `$7.99/mo`,
-  `$69/yr`. A monthly total like `$142.87`.
-- Subscriptions: real merchant name and a `[logo]` placeholder, amount,
-  billing frequency (monthly, yearly, quarterly), next billing date
-  (`Next: Aug 3`), category (Streaming, Music, Fitness, Software, News),
-  status (Active, Trial, Paused, Cancelled). Use plausible real services:
-  Spotify Premium, Netflix, Disney+, Adobe Creative Cloud, iCloud+, Notion,
-  Amazon Prime, The New York Times, Peloton, ChatGPT Plus.
-- The J3 decode case: show the raw statement string versus the readable name,
-  for example `SPOTIFYAB STOCKHOLM` decoded to `Spotify Premium`.
-- Counts and totals in plain language (design principle 3): "You are paying
-  for 14 subscriptions", not "Monthly recurring expenditure". The most
-  important number is the biggest thing in its zone (design principle 2).
-- Alerts in active voice, plain language (M1): "Netflix went up by $2.50",
-  "A payment to Peloton did not go through". No jargon, no red-alarm wording.
-- Tone is calm and non-judgmental (design principle 1): no urgent words, no
-  shame, no "you wasted". Reassure about data ("read-only, we cannot move
-  your money") wherever a trust moment appears (design principle 4).
+This is the rule the previous build broke, so it is first.
 
-Placeholders that are allowed because they stand for a deferred asset, not
-missing text: `[logo]`, `[merchant logo]`, `[chart]`, `[preview image]`.
-Everything else is real copy.
+- **Every page is a real screen at full viewport**, mobile-first, that scrolls and clicks. Not
+  an anatomy diagram, not a specification with captions.
+- **No zone labels.** A block does not carry a caption explaining what it is. If a zone needs a
+  label to be understood, the zone is wrong, and that is a finding for the IA, not a sticker.
+- **No "main action" captions.** The main action is a real button or link that goes somewhere.
+  Writing "Main action: cancel one you do not use" underneath is the schema form of the same
+  thing, and it lets a screen pass review without actually having the action.
+- **No mockup frame.** A screen is not a 420 by 720 card floating in a grey stage. It fills the
+  viewport and reflows, the way the product will.
+- **One screen per page, one viewport.** Never a desktop frame and a mobile frame side by side,
+  and never the IA's section 01 / section 02 split. Mobile is checked by narrowing the browser.
+- **A loading state is a real screen with grey placeholders in the shape of the content**, not a
+  skeleton standing in for a screen we did not build.
 
-## 4. File naming
+## 2. Grey, structure only
 
-- Latin, lowercase, hyphenated filenames. All wireframe files live in
-  `wireframes/`.
-- Base page per screen: `wireframes/<screen>.html`. The base page is the
-  success (normal, populated) state.
-- One page per extra state: `wireframes/<screen>-<state>.html` where state is
-  `empty`, `error`, or `loading`. Example set for Home:
-  `home.html`, `home-empty.html`, `home-error.html`, `home-loading.html`.
-- Filenames are fixed by wireframes/docs/screens.md (the File column). Do not
-  invent a filename that is not in that table, and do not create a state page
-  the table marks `-`.
-- The inventory docs live in `wireframes/docs/` with no leading underscore:
-  `docs/screens.md`, `docs/conventions.md`, `docs/critique.md`. The shared shell
-  files keep a leading underscore at the wireframes root: `_nav.js`, `_wf.css`.
-  The overview lives at `wireframes/overview.html`.
+- Greyscale only, from the tokens in `_wf.css`. No colour, no brand, no accent.
+- No type decisions: no font family, no scale beyond the browser's heading hierarchy.
+- No shadows, no gradients, no decorative radii, no icons, no images, no logos. Where an asset
+  will sit later, a labelled grey box: `[logo]`, `[merchant logo]`, `[chart]`.
+- Allowed placeholders stand for a deferred **asset**, never for missing **text**. There is no
+  lorem ipsum and no "Heading 1" anywhere: the copy exists, in `microcopy.md`.
 
-## 5. States: one page each, never a toggle
+## 3. Inline CSS is transport, not the home of look
 
-- Every state is a separate HTML page, not a JS toggle inside one file. Same
-  structure and zones as the base page; only the content of the affected zone
-  changes.
-- The four states and what each must contain:
-  - success (base): the normal, working view.
-  - empty: no data yet, plus a visible way out. Never a bare "nothing here".
-    For example Home empty invites connecting or adding; a search with no
-    preset match offers "add it by hand".
-  - error: a failure, plus a visible recovery. For example Connect Bank error
-    keeps both "try again" and "add them yourself instead".
-  - loading: calm grey placeholder blocks in the shape of the content that is
-    coming (skeleton rows), not a spinner-only screen.
-- No dead ends. Every empty and every error page has at least one main action
-  that leads somewhere real in flows.md. This is checked in Step 9.
-- Build only the states marked `check` for that screen in
-  wireframes/docs/screens.md. Do not add states the scenario does not produce.
+New rule, and the one this stage breaks silently without it. At fan-out, parallel agents cannot
+all write into `_wf.css`, so each agent puts its screen's CSS inline. **That is temporary by
+construction.** Two criteria decide where every rule ends up:
 
-## 6. Navigation and shell (shared on every page)
+1. **A token value never lives inline.** Not even on one screen. Greys, spacing, radii and sizes
+   are variables in `_wf.css`, and a screen writes `var(--...)`. A literal inline is the start
+   of drift. If the needed variable does not exist, an agent does not add one (the file is
+   shared): it writes the literal and reports the line "variable, value, why, which screen
+   needs it", and the parent decides.
+2. **A rule that appears on two or more screens moves into `_wf.css`.** The same "two or more
+   occurrences" test that stage 07 uses to decide what is a component. Only a genuinely
+   one-off rule stays inline, and even that is written through `var()`.
 
-- Review side menu (the wireframe tree, built by _nav.js): a grey `details`
-  panel on the left of every page, identical everywhere, listing section, then
-  screen, then that screen's states, with the current page marked. It is the
-  reviewer's navigation across the set; on narrow screens it collapses to a
-  "Wireframe map" bar at the top. Structure mirrors screens.md and sitemap.md.
-- What stays removed (the July 2026 declutter): the meta/annotation bar
-  (cluster, job, flow, tap depth), the "this screen: states" strip, and the
-  per-page desktop-reflow note. A frame is the product screen plus the review
-  tree, nothing else pasted on top. The overview, `wireframes/overview.html`, is
-  still the single flow-grouped index of every page and state.
-- The product's own chrome is the only navigation inside the frame itself. Per
-  sitemap.md the app has a global bar with four destinations, Home, Alerts,
-  Save, You; onboarding screens show no bar.
-- Welcome / Value Intro is the exception to the app shell. It is the public
-  landing (the web front door): a full-width marketing wireframe with its own
-  top nav and a footer, still greyscale and structure only, built with the
-  landing classes (`.landing`, `.lp-*`) in _wf.css. Its CTAs lead into
-  the onboarding chain at Path Choice. It is the one page that uses full width
-  rather than the centered phone frame.
-- Mobile first, desktop responsive, and the wireframe reflows for real (the
-  product is mobile-first web scaling to desktop). Author the mobile structure
-  first; the same page then reflows to desktop through the shared CSS, so
-  widening the browser shows the wide-screen layout, it is not only a note.
-  The shared reflow (in _wf.css, driven by a container query on the
-  stage) implements the IA delta:
-  - the global bar is a bottom tab bar on mobile and becomes a left rail on
-    desktop, with the header (GC1) folded into the top of that rail (per
-    navigation.md); single-column app screens sit in a centered, comfortable
-    measure (max 820px) so rows do not stretch on large monitors;
-  - Home and Subscription Detail become a real two-pane master-detail on wide
-    desktop (stage >= 1040): the list is the master and a selected-item detail
-    (Home) or the returning list (Detail) sits in the second pane;
-  - onboarding has no structural delta: it stays a single centered column,
-    just wider, with no rail.
-  Still deferred to Design: Cancel Guide, Share Snapshot, and Upgrade as modals
-  on desktop. Exact breakpoint values beyond these are a Design decision.
-- No footer inside the app (locked in IA navigation.md). Tendd is an app, not
-  a marketing site. Do not add a link or legal footer to app screens. The sole
-  footer in the set is on the Welcome landing, which is a marketing page.
-- Onboarding shows no global bar (Path Choice, Connect Bank, Add Subscription,
-  Guided Reveal are a one-time linear chain). Mark its absence so it does not
-  read as a gap. Welcome sits before this chain as the public landing.
+Every inline block sits in one `<style>` in the head, opened with the marker
+`/* INLINE: <screen> :: for consolidation into _wf.css */`, so the parent can find them
+mechanically instead of reading twenty files.
 
-## 7. Deferred to the Design phase (not here)
+**Why this is not pedantry.** Stage 07 derives the component classes of the kit from these
+screens. If the structure of twenty screens lives in twenty inline blocks, the extract honestly
+returns the differences: three card variants, two grids, four spacings where there should have
+been one. The defect becomes visible three stages after it is created.
 
-Color, brand, typography and type scale, shadows, real icons, real logos and
-imagery, motion and transitions, exact spacing values, the finished UI look,
-and any pixel-level layout. Wireframes stop at structure, hierarchy, zones,
-real copy, and the four states.
+## 4. Markup: semantic HTML
 
-## 8. Scope discipline
+- Real elements, not a wall of `div`: `header`, `nav`, `main`, `section`, `article`, `form`,
+  `label`, `input`, `button`, `a`, `ul`, `ol`, `li`, `h1` to `h4`, `p`.
+- Interactive things are real: a button is a `button`, a link is an `a href`, a field is an
+  `input` with a `label`. Never a styled span.
+- Exactly one `h1` per page. Repeated objects are `li` or `article`.
+- The accessible names from `ia/docs/accessibility.md` are written now, not later: one name per
+  subscription row carrying the whole row, `role="status"` on the alert banner, the live region
+  on the states that announce something. They cost nothing here and are expensive to retrofit.
 
-- Every wireframe traces to a screen in screens.md and a place in a flow in
-  flows.md. No screen that is not on the map.
-- No new zones beyond what sitemap.md and the IA page-level library
-  (ia/docs/pages/) define for that screen. If a zone seems missing, it is a
-  question for the map, not an invention in the wireframe.
-- English only in all files. No em dashes anywhere.
+## 5. Real content, and one canonical set of numbers
+
+The screens are judged on real length and meaning, so the data is one story told consistently.
+**Named once, here, and every screen uses it:**
+
+- The person: **Emma**. **14 subscriptions, $192.90 a month.**
+- Sources: **Chase, 11 subscriptions**, and **added by you, 3**. Eleven plus three is fourteen,
+  and that has to hold on every screen that shows either number.
+- Groups: Streaming 4, Software 4, Music, Fitness and News 6.
+- The alert case: **Netflix went up by $2.50, now $17.99**, which is also the subscription the
+  cancel chain runs on (detail, guide, win). A price rise is what triggers the cut.
+- The decode case: `SPOTIFYAB STOCKHOLM` decoded to **Spotify Premium**.
+- The failed payment: **Peloton**.
+- The save-focus candidates: **Peloton App $12.99** and **The New York Times $17.00**, which is
+  why save focus offers "up to $29.99 a month".
+- The win: **$17.99 a month, $215.88 a year**, with a running total of $32.98 a month.
+
+**Known break, to fix during the rebuild:** `connections.html` shows Chase with 11
+subscriptions and `connections-reconnect.html` shows Chase with 8. Same source, same story, two
+numbers. A stale connection does not reduce the count, and the IA says the last figures stay
+visible and dated.
+
+Domain formats: money in US dollars (D5), `$17.99 / month`; the next charge as days first and
+the date second; status as a quiet word. Plain money language, calm and non-judgmental, with
+the read-only line wherever a trust moment appears. All of it is already written in
+`microcopy.md`.
+
+## 6. File naming
+
+- Lowercase Latin, hyphenated, all in `wireframes/`.
+- `wireframes/<screen>.html` is the base page and is the success state.
+- `wireframes/<screen>-<state>.html` is one page per state, **named after the state itself**,
+  not after the nearest system word. `subscription-detail-unrecognized`, not
+  `subscription-detail-empty`, because node 2.7 has no empty state at all. The names are fixed
+  in `docs/screens.md`; a name not in that table does not get created.
+- `index.html` is the product home page, the public Welcome landing, node 1.1. The hub with
+  every screen and state is `overview.html`. The two are never swapped.
+- Shared shell files keep their underscore at the root: `_nav.js`, `_wf.css`. Docs sit in
+  `docs/` without one.
+
+## 7. States: one page each, never a toggle
+
+- Every state is its own page. Same structure as the base, different content in the zone that
+  changed. No JavaScript toggle inside one file: the prototype has to navigate between states.
+- **The four system states are the floor, not the set.** The real set is the state nodes in
+  `docs/screens.md`, which come from the node files. Domain and transit states (a price change,
+  a retention wall, a dialog) are first class and get their own page.
+- **No dead ends.** Every state has a visible exit that exists in `ia/docs/flows.md` and points
+  at a page that is really in `wireframes/`.
+- A state that is not in the table is not drawn. If a screen turns out to need one, say so and
+  fix the table, and if the gap is deeper, fix the node file first.
+
+## 8. Navigation: two of them, and they do not mix
+
+- **`overview.html` carries the roadmap sidebar** from the root `/_nav.js`: the bridge back into
+  the project. Its own sections are Flows, Coverage map, State matrix, Conventions, and after
+  the critique closes, "Was to became".
+- **Every screen page carries the wireframe-only side panel** from `wireframes/_nav.js`, and
+  nothing else: a header with an "All screens" button and the stage badge, a **three-level tree**
+  (IA cluster, then screen with its node number, then its states), an accordion that opens the
+  states of the current screen only, and at the bottom, quietly, a cross-link to the IA node
+  this screen renders.
+- **No thin state strip above the screen.** Navigation between states lives in the side panel.
+- **No roadmap on a screen page**, and no wireframe tree on `overview.html`. Each page has one
+  navigation, and it is the one that belongs to it.
+- The product's own chrome, GC1 and GC2, is the only navigation inside the screen. The
+  onboarding chain shows no tab bar, and that absence is deliberate.
+- **No footer inside the app.** Tendd is an app. The one footer in the set is on the Welcome
+  landing, which is a marketing page.
+
+## 9. Responsive: one screen that reflows
+
+Mobile-first, authored from the narrow layout. The same page reflows to desktop through
+`_wf.css`, so widening the browser really shows the wide layout. The reflow implements the IA
+delta, decided once and not re-decided per screen: the tab bar becomes a left rail with the
+header folded into its top; Home and Subscription Detail become a two-pane master and detail on
+a wide screen; onboarding stays a single column, just wider. **Every screen is checked at
+360px**: no horizontal scroll, no clipped text, no overlap.
+
+## 10. Deferred to Design, not decided here
+
+Colour, brand, typography, shadows, real icons and logos, imagery, motion, exact spacing values,
+and the finished look. Also deferred: whether Cancel Guide, Share Snapshot and Upgrade become
+modals on desktop.
+
+## 11. Scope discipline
+
+- Every screen traces to a node in `ia/docs/sitemap.md` and a place in `ia/docs/flows.md`.
+- **Every block traces to the node file**, whose composition traces to the block bank. A block
+  that seems missing is a question for the node, not an invention here.
+- English in the docs, product language on the screens. **No em dash anywhere**, in any file.
