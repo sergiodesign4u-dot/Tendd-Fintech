@@ -1,428 +1,162 @@
-# CLAUDE.md - Tendd Product Brief
+# CLAUDE.md - Tendd
 
-## Phase Status
+Rules for this repository. This file is loaded in full at the start of every session,
+so it holds only what must hold NEXT time. It is not a journal and not a report.
 
-| Phase | Output | Status |
-|-------|--------|--------|
-| Foundation Research | research/research.html, research/docs/*.md | Done (June 2026) |
-| User Research (Personas + JTBD) | research/personas.html, research/jtbd.html, research/docs/personas.md, research/docs/jtbd.md | Done (June 2026) |
-| CJM (As-Is + To-Be) | research/cjm-as-is.html, research/cjm-to-be.html, research/docs/cjm-as-is.md, research/docs/cjm-to-be.md | Done (July 2026) |
-| Information Architecture | ia/ia.html, ia/docs/sitemap.md, ia/docs/flows.md | Done (July 2026) |
-| Wireframes | wireframes/overview.html, wireframes/*.html, wireframes/docs/screens.md, wireframes/docs/conventions.md, wireframes/docs/critique.md | Done (July 2026) |
-| Voice | voice/voices.html, voice/voice.html, voice/microcopy.html, voice/docs/voice.md, voice/docs/microcopy.md | Done (July 2026) |
-| Concept | DESIGN-artifacts.md (root draft), design/concept/concept.html, design/concept/directions.html, design/concept/docs/references.md, design/concept/docs/concept.md, design/concept/assets/brand-plate-petrol-paper.png, design/ (Home + Subscription Detail in color) | Done (July 2026) |
-| UI + Visual | design/ | Pending (next) |
-| Tokens + Components | tokens-components/ | Pending |
-| Design System | design-system/ | Pending |
-| Responsive | responsive/ | Pending |
-| Animation | animation/ | Pending |
-| Handoff | handoff/ | Pending |
+- **Status** (what is done, what is next) lives in the README table and in `done:true`
+  in `/_nav.js`. Never here: a third copy only drifts from the other two.
+- **Decision records** (what we did, why exactly this, what we rejected and on what
+  ground) live in `docs/decisions.md`. That file is never loaded; read it when you need
+  the ground under a decision.
+- **Budget: 200 lines.** A new rule enters by replacing or generalizing an existing one,
+  not by being added next to it. Over budget means two rules inside already contradict.
 
-Founder decisions locked June 14 2026: D1 (gradual reveal with paired action), D2 (manual + presets at launch), D3 (paywall at history/trends/advanced alerts, NOT at cancel moment), D4 ($7.99/mo or $69/yr), D5 (US/Plaid first, EU deferred). See research/docs/strategy.md Section 6.
+**Project boundary:** one language (English); no brand at the start, the visual language
+was found and locked at Concept (Petrol and Paper); about 16 screens.
 
 ---
 
-## CJM (As-Is + To-Be) (Phase)
+## Product
 
-Built July 2026. A Customer Journey Map for the primary persona and job, Emma
-(The Anxious Non-Looker) x J-MAIN, drawn honestly: As-Is as an avoidance cycle,
-To-Be as the inversion the locked structure already delivers. It was a LITE
-mining pass on one persona-job, not all six. User Research now has four pages
-(Personas, JTBD, CJM As-Is, CJM To-Be); the CJM tree is wired into the review
-sidebar of every research and IA page. This was the last User-Research-track
-deliverable; next is Concept.
+**Tendd** helps people who are not into finance see and control their recurring payments
+and subscriptions, turning money anxiety into calm, everyday clarity. Mobile-first
+responsive web app, desktop in scope (a native app is not). Not a budgeting app: a calm,
+low-friction visibility and control layer for recurring spend, for people who feel anxious
+about money and avoid finance apps.
 
-- **As-Is** (research/docs/cjm-as-is.md, research/cjm-as-is.html): the
-  journey in five phases (baseline avoidance -> trigger -> attempt -> friction
-  pit -> retreat). Every emotion carries a research source or a `[?]`. The
-  deepest pit is Phase 4 (cryptic statement codes + the bank-connection wall +
-  overwhelm). The relief endpoint is a carried `[?]` = the riskiest assumption
-  H0 (whether an avoider actually looks and feels calmer), provable only in a
-  prototype (strategy.md Section 5).
-- **To-Be** (research/docs/cjm-to-be.md, research/cjm-to-be.html): the
-  journey (arrive without a bank demand -> choose path -> connect read-only ->
-  Guided Reveal -> calm list -> return hook) inverts the Phase 4 pit with the
-  gradual reveal (D1). Every To-Be step is covered by the already-locked
-  structure (flows.md Flow A + wireframes + D1-D5) and none contradicts it, so
-  the CJM validates the built product rather than surfacing a gap. Backlog:
-  B1-B7 (MVP) and L1-L6 (later).
+**Audience:** 22 to 42 (core 26 to 36), low to medium financial confidence, skeptical about
+connecting a bank. Primary driver: reducing anxiety ("I know what is going out, and I am
+okay"). Secondary: pride in a small win. They are not budget optimizers or spreadsheet fans.
 
----
+**Primary job (J-MAIN):** "When I suspect I am paying for things I forgot about, I want to
+see all my recurring charges in one calm view, so that I feel in control without becoming a
+finance person." Secondary: cancel what I do not use (J3), never be surprised by a price
+change or failed payment (J4).
 
-## Information Architecture (Phase)
+**Free tier** is the whole calm view, uncapped: value before any bank connection, connect a
+bank read-only through Plaid or add subscriptions yourself, the categorized list, basic
+details, the monthly total, basic alerts. **Tendd Pro** is depth, not a visibility unlock:
+history and trends, cancel support, advanced alerts, household view, export, priority
+support. Out of MVP: full budgeting, investments, native app, bill negotiation, bill pay.
 
-Structure locked July 2026. The full information architecture exists: the skeleton in ia/docs/sitemap.md and ia/docs/flows.md, plus a page-level library (one page per cluster with real copy drafts, content blocks, and states) in ia/docs/pages/. Living site at ia/ia.html. Next phase is Wireframes. (This is the ia/ folder; the later Concept phase is a separate, visual concept step.)
+**Markets:** US and EU (US and Plaid first, per D5). **Stack hypothesis:** Next.js on
+Vercel, Postgres, Plaid (US) and TrueLayer or GoCardless (EU), Stripe, PostHog.
 
-**Top-level sitemap (16 screens, 6 clusters):**
-- Onboarding and Activation: Welcome / Value Intro, Activation Path Choice, Connect Bank, Add Subscription, Guided Reveal
-- Core: Home / Subscription List, Subscription Detail
-- Stay Ahead: Alerts / Activity
-- Cut and Celebrate: Cancel Guide, Cancel Win Moment, Share Snapshot
-- Depth (Pro): History and Trends, Upgrade / Tendd Pro
-- Account and Trust: Connections / Accounts, Data and Privacy, Settings / Profile
+**Riskiest assumption (H0):** that an avoider actually looks and feels calmer. It is
+provable only in a prototype, so the MVP is built to test it, not to assume it. `[?]`
 
-**Global navigation (4 tabs):** Home (J-MAIN), Alerts (J4), Save (J2 + E2), You (E3 + J1).
+## Locked decisions
 
-**Main flow (J-MAIN, Emma, bank path):** Welcome -> Activation Path Choice -> Connect Bank -> Guided Reveal (gradual: count, then categories with logos, then total paired with an action, per D1) -> Home. The privacy path swaps Connect Bank for Add Subscription (manual + presets, per D2).
+Founder, June 14 2026 (ground in `research/docs/strategy.md` section 6):
 
-**Tap depth to the main job:** 3 taps in the first session (at the ceiling, not over), 0 to 1 tap in every session after (the app opens on Home).
+- **D1** Gradual reveal with a paired action (count, then categories, then the total).
+- **D2** Manual entry plus presets at launch, as an equal second path.
+- **D3** The paywall sits at depth (history, trends, advanced alerts), never at basic
+  visibility and never at the cancel moment.
+- **D4** Pro is 7.99 a month or 69 a year.
+- **D5** US and Plaid first, EU deferred.
+- **D-Free** (July 2026) No cap on subscriptions and no cap on bank connections in Free: a
+  cap is a visibility cap, and it would break the reveal.
+- **D-Concept** (July 2026) The visual language is Petrol and Paper: white canvas, Inter,
+  petrol #1c6a76 spent only on the primary action, the current selection and the trust
+  line; status is a quiet gray badge, never red; a price change is calm amber, a genuine
+  error desaturated clay.
 
-**Coverage:** zero orphan jobs; one intentional orphan screen (Upgrade / Tendd Pro), retained as a decision-justified gate (D3, D4).
+## Design principles
 
----
-
-## Wireframes (Phase)
-
-Built July 2026. Greyscale, semantic, mobile-first responsive wireframes for
-every screen, structure not look: real Tendd copy, no color or type decisions,
-and every state (empty, error, loading, success) as its own page. Living entry
-point at wireframes/overview.html (a flow-by-flow overview and a 40-page build
-dashboard). Next phase is the Design system (color, type, components).
-
-**Scale:** 16 screens, 41 pages (40 plus a Home save-focus state added in the
-audit). The main flow (Flow A, Emma) was built first
-by hand as the reference (Home is the pattern), then the rest were rolled out
-by subagents against the same contract and reviewed for consistency.
-
-**Contract and sources:**
-- wireframes/docs/conventions.md: the binding rules (greyscale, semantic HTML,
-  real copy, file naming, one page per state, shared shell, no footer,
-  mobile-first with a real desktop reflow).
-- wireframes/docs/screens.md: the screen and state inventory, grouped by flow, with
-  the screen-by-state table (which of the four states each screen produces).
-- wireframes/docs/critique.md: the Step 9 review and the one fix applied.
-
-**Shell:** each page shares _wf.css (the greyscale system) and _nav.js
-(the left review side menu / wireframe tree, restored July 2026, identical on
-every page and auto-marking the current one; it collapses to a top bar on
-mobile). The July 2026 declutter still stands for the annotations: the
-meta/annotation bar, the per-page state strip, and the desktop-reflow note are
-gone, so a frame is the product screen plus the review tree, nothing pasted on
-top. The overview, wireframes/overview.html, is the single flow-grouped index of
-every page and state. The product's own chrome is a four-tab bar (Home, Alerts,
-Save, You) that becomes a left rail on desktop via a container query on the
-stage; onboarding shows no tab bar.
-
-**Full-width desktop, header-in-rail, and two-pane (July 2026 founder decision,
-locked against IA 2026-07-04).** On desktop the tab bar becomes a left rail and
-the header (GC1) folds into the top of that rail (per navigation.md).
-Single-column app screens sit in a centered, comfortable measure (max 820px).
-Home and Subscription Detail become a real two-pane master-detail at stage width
->= 1040: Home keeps the list as master with a selected-item detail pane on the
-right; Subscription Detail brings the list back as a master on the left. Mobile
-is unchanged (single-column phone frame; the second pane is hidden). The IA docs
-(onboarding.md, navigation.md, seo.md, sitemap.md, core.md) were updated to lock
-Welcome-as-landing, the footer exception, and this desktop model.
-
-**Full-page dashboard shell (July 14 2026 founder decision, revises the desktop
-model above).** Founder feedback: the landing reads as a real full-width desktop
-page, but every app screen still read as a phone card framed in a grey field,
-and the bottom tab bar sat at the very bottom of a tall scrolling card instead of
-behaving like app chrome. Decision: on desktop the app screens become a real
-full-page dashboard, like the landing, still at wireframe fidelity (greyscale,
-structure, real copy). App screens are marked `.dash` (plus `stage-app` on the
-stage): the stage goes edge-to-edge (no grey gutter, no card border), the header
-folds into the top of a persistent full-height left sidebar with the tab bar as
-its vertical nav, and the content area owns the width and scrolls independently
-of the sidebar. The two-pane detail (Home, Subscription Detail) now spans full
-height beside the list, so a wide screen has no outside void. On mobile the tab
-bar becomes `position: fixed` (real viewport chrome). Applied to all 29 app pages
-(base + empty/error/loading states); onboarding (Welcome landing, Path Choice,
-Connect Bank, Add Subscription, Guided Reveal) and index are excluded and
-unchanged. It all lives in wireframes/_wf.css behind `.dash`; the old
-framed-phone desktop rules are fenced with `:not(.dash)` so nothing else moved.
-Verified across two-pane, single-column, state, and mobile; 0 broken links, 0 em
-dashes. Known trait: a two-pane detail pane shows whitespace below a short
-detail (normal master-detail).
-
-**Welcome is the public landing (July 2026 founder decision).** Welcome / Value
-Intro was rebuilt from a narrow onboarding step into a full-width marketing
-landing wireframe (top nav, two-column hero with a calm app preview, benefit
-cards, how-it-works, trust and security, social proof, final CTA, footer).
-Still greyscale/semantic/real-copy; it is the only full-width page and the only
-one with a footer. Its CTAs lead into the onboarding chain at Path Choice. New
-landing classes (.landing, .lp-*) live in _wf.css.
-
-**States and dead ends:** every empty and error page has a real exit (verified
-against flows.md). The IA critique's dead-end and missing-state fixes are all
-realized here as state pages: the bank-error manual fallback, the
-could-not-cancel in-app next step, the failed-payment next-step card, the
-sync-error last-known list, the unrecognized-charge naming prompt, and the
-still-gathering-history empty state.
-
-**Not here (deferred to Design):** color, typography, iconography, real logos,
-motion, exact spacing, and the deeper desktop reflows (Home/Detail two-pane,
-Cancel/Share/Upgrade modals).
+1. **Calm over clever.** Every screen lowers anxiety. No red, no urgency, no clutter.
+2. **One thing at a time.** Progressive disclosure by default; the most important number is
+   the biggest thing on screen.
+3. **Plain money language.** "You are paying for 14 subscriptions", never "monthly recurring
+   expenditure". Numbers always in context.
+4. **Trust through transparency.** Say what happens with the data, every time. Show the
+   source of every figure.
+5. **Small wins feel good.** The moment a forgotten subscription is found is the product's
+   most important emotional beat.
 
 ---
 
+## Rules that bind every stage
 
-## Voice (Phase)
+**Language.** Internal md (this file, README, every `*/docs/*.md`) in English. Chat in
+Ukrainian. Product copy and html pages in English. Registry labels in `/_nav.js` are
+interface text: one language across the sidebar, mixed language counts as a defect.
 
-Built July 2026. The product's voice, as rules not a mood: how Tendd talks, so any
-line can be written the same way by a person or by Claude. And the tone is set by
-state, an error does not joke, an empty state leads to an action, a success does
-not celebrate. Living entry point at voice/voices.html; the binding document is
-voice/docs/voice.md; the line inventory and was/became record is
-voice/docs/microcopy.md. The Voice tree is wired into the review sidebar of every
-research and IA page. Next phase is Concept, the first of the Design track:
-Concept, UI + Visual, Tokens + Components, Design System, Responsive, Animation,
-Handoff.
+**No em dash** in any output file of the project. Use a hyphen or rewrite the sentence.
 
-**voice.md, four sections:**
-- Principles (5, each sourced from a research line): (1) lead with calm and being
-  in control, not capability; (2) say who did the thing, in plain words; (3) frame
-  money as what you signed up for, never judgment; (4) earn trust by naming the
-  fear and answering with specifics; (5) mark the small win with a number and a
-  next step, then stop. These trace to the five design principles below.
-- Dictionary (one concept, one word): subscription (never "thing"), service (a
-  catalog preset), source and connection, "Connect your bank", "Add them yourself"
-  (method) and "Add a subscription" (affordance), "Back to your subscriptions",
-  "Try again", the read-only line "Read-only. Tendd cannot move your money.",
-  "through Plaid", "monthly total". Plus address (second person, no first-person
-  "my" in labels) and contraction rules (warm by default, spelled out in money and
-  data negations).
-- Forbidden (14 patterns, each with a fix): no "successfully", praise interjections
-  ("Nice."), performative emotion prompts, exclamations, emoji, hype/motivational
-  tone, jargon and exposure framing ("expenditure", "spent", "wasted"), alarm
-  framing, vague reassurance ("bank-level security"), passive voice with no actor,
-  and gerund-plus-ellipsis loaders.
-- Microcopy: rules by element type (button, heading, field, alert line, trust line,
-  status tag, Pro gate) and by state tone (empty, error, loading, success,
-  dangerous action).
+**Navigation has two levels, and the roadmap has one owner.** `/_nav.js` is the single
+registry of the project: it renders the sidebar on every page, and active / Next / SOON are
+computed at render. A new page means one row plus `done:true`, never a hand written roadmap
+in a page. `/_nav.css` owns the look; a page never describes `nav-*` itself. Per-stage
+registries (`wireframes/_nav.js`, `design/_nav.js`) keep their data and classes in their own
+namespace, because hub pages load both. Stage pages carry the roadmap; the screens of a
+stage carry only their stage panel.
 
-**Applied to all 41 wireframe pages (structure untouched, only text).** Home set
-the sample (already in-voice, two normalizations). The rest were rolled out by
-subagents, one per screen, all writing to voice.md; then an adversarial
-four-reviewer pass caught the last voice misses (a non-canonical loader, three
-"spend"/"spending" exposure frames). Alerts, Cancel Guide, Upgrade, and Settings
-were already fully in voice. microcopy.md carries the was/became record for every
-changed line, so no product line ships outside the table.
+**`index.html` is the product home page, `overview.html` is the hub.** In any stage folder:
+opening the folder lands on the product screen (node 0.0 from the flows); the list of all
+pages of that stage is `overview.html`. This holds for `wireframes/` and `design/` alike.
 
----
+**The wireframes are grey and frozen.** `wireframes/` is the structure contract: greyscale,
+semantic, real copy, one page per state. Voice was the last stage allowed to edit text
+there. From Concept on, color goes onto COPIES in `design/`, never onto the grey file, and a
+colored page may differ from its grey original by styling only.
 
-## Concept (Phase)
+**Every artifact has a visible place.** A md that no page shows does not exist for the person
+who decides. Three legal forms: its own page in the registry, a named section on the stage
+page (with a `NAV_SECTIONS` entry), or a satellite page that declares `NAV_ACTIVE` and the
+label of its nearest registry page. Critique and audit logs appear as a "was to became"
+summary in a closed state, not as a list of open defects.
 
-Built July 2026, the first Design-track deliverable. Concept is where the visual
-language was found and proven: not a mood, but named taste plus attribute pairs
-that every downstream color, type, and form decision must trace back to. A
-decision with no pair in concept.md is an invention, not a decision. Next phase
-is UI + Visual (the full system across all screens, with design/docs/design.md
-generated then via /impeccable document, never a root DESIGN.md).
+**Live md, unfrozen html.** Changing a md that already has a published page means rebuilding
+the affected section of that page in the same step. If the page cannot hold the new material,
+put a visible "updated after publishing" note on it and say so out loud.
 
-**Design-doc chain (course-aligned, July 2026).** The approved brand seeds a root
-DESIGN-artifacts.md, the DRAFT design doc entered here at Concept: identity,
-palette with roles, typography, icon language, and UI tone, each tagged with an
-attribute or taste line, plus a Sources section. It is design source material, not
-the product system. The product system is still generated at Etap 07 into
-design/docs/design.md (per the 2026-07-15 founder decision), so the chain is
-DESIGN-artifacts.md (draft, root) -> design/docs/design.md (product); there is
-no root DESIGN.md at any point. A dense brand toolkit plate for the locked
-direction (Google Nano Banana 2) is kept as a visual record at
-design/concept/assets/brand-plate-petrol-paper.png; the brand was chosen from the live
-HTML directions, so the plate documents that choice rather than making it (no
-three-divergent-plates round was run; rendered at 4k, stored at 2400px).
-concept.md carries the Brand and Layout choices explicitly.
+**One owner per string.** SEO copy (title, description, H1, body) belongs to the IA node in
+`ia/docs/pages/`. Interface strings (buttons, labels, states, toasts) belong to
+`voice/docs/microcopy.md`; the IA node states what information the place needs, not the
+wording. No product line exists in two editions. All product copy obeys `voice/docs/voice.md`.
 
-**The chosen language, Petrol & Paper (founder-locked, D-Concept):** a true-white
-canvas (not beige), one neutral grotesk (Inter), deep petrol accent (#1c6a76)
-spent only on the primary action, the current selection, and the trust line. Ink
-near-black is the biggest thing on screen; status is a quiet gray badge, never
-red; semantic tones are calm (success muted green, a price change warm amber, a
-genuine error desaturated clay, never alarm-red). It leads attribute A2 (trust
-shown, not claimed), the safest bet for a user whose activation gate is trust.
-Two other directions (Ink & Marigold, Plum & Fog) were built live and are kept on
-record, not chosen.
+**Values migrate, they are never re-derived.** One line of CSS values runs
+`design/_theme.css` (Concept) into `design/kit/kit.css` (UI + Visual, git mv, the `:root`
+block byte for byte) into `design/system/tokens.css` (Tokens + Components, split into
+primitive and semantic). Each step adds a level; a value changes only by a named decision
+("variable, value, why"), never as a side effect of an extract or a refactor. Every value
+carries its origin in a comment next to it.
 
-**Sources and method (built under the impeccable skill, product register):**
-- design/concept/docs/references.md: the visual language traced to real products via
-  Refero, Monzo as the benchmark base but minus its Hot Coral, one technique each
-  from Apple Wallet (transaction clarity) and Copilot (category color on light,
-  not its dark canvas). Rejects: red accent, dark canvas, the mint/sage/beige
-  "calm fintech" reflex, stock photos.
-- design/concept/docs/concept.md: the founder's named taste (liked and anti-references),
-  five attribute pairs (A1 calm-not-alarming, A2 trust-shown, A3 one-big-number,
-  A4 recognition-not-codes, A5 warm-restraint), each sourced to a research line,
-  and the three directions with the locked choice and its token table.
-- design/concept/directions.html: three contrasting directions live, each Restrained,
-  each on a light canvas, none using red or a reflex palette.
-- design/concept/concept.html: the Petrol & Paper stand, palette (each color carries its
-  attribute), Inter type scale, form, real inline-SVG brand logos, Solar icons,
-  three live components, and a WCAG AA contrast table (all pass).
+**Critique runs on two instruments.** Claude and Codex (read-only, see `AGENTS.md`), taken
+independently and merged afterwards, with a "who found it" column. Codex owns what is
+falsifiable in the source (contradiction between files, an orphan, a state that is not in
+the code, a broken link, a rule violation); "breaks at 360px" and pixel checks stay with
+Claude in a browser. Verify a finding by re-reading the place before fixing it; a finding
+that does not hold stays in the log marked "dropped at verification", with the reason.
 
-**Applied to the two anchor screens as color COPIES in design/ (wireframes/
-stays grey and untouched).** Home (home.html + empty/error/loading/savefocus) and
-Subscription Detail (subscription-detail.html + empty/error/loading) were copied
-from the wireframes and recolored through one shared layer, design/_theme.css:
-_wf.css swapped for the petrol theme + Inter, [logo] placeholders replaced with
-real inline-SVG brand tiles, tab glyphs with Solar icons, and a roadmap review
-sidebar injected (the wireframe wftree is left to the wireframes). Structural
-parity is exact: each colored page differs from its grey original only by
-styling, same copy, same markup, same state set. Home and Subscription Detail
-share the identical subscription card, so it reads as one product on both. Every
-text-on-surface pair clears WCAG AA (verified: no lighter-than-muted text tier;
-the genuine-error clay tone is scoped to real failures only, the empty state
-stays neutral). Zero em dashes; self-contained inline CSS/JS, no underscore
-assets.
+**Acceptance happens on screen.** Where a stage produces a screen or text on a screen, open
+it in a browser, walk every state, narrow to 360px, and only then call it done. Ask for the
+fix with a prompt, not by hand editing the file: a hand edit does not survive the next clone.
 
-**Not here (deferred to UI + Visual and later Design-track phases):** the full
-color pass across all 16 screens, design/docs/design.md, tokens and
-components, the design system, responsive, animation, and handoff.
+**Zone rules live in their own docs, this file only points at them:**
+`wireframes/docs/conventions.md` (the grey contract), `voice/docs/voice.md` (the voice) and
+`voice/docs/microcopy.md` (the line inventory), `ia/docs/sitemap.md` and `ia/docs/flows.md`
+(structure), `design/concept/docs/concept.md` (taste and attributes; a visual decision with
+no attribute is an invention).
 
 ---
 
-## Product Overview
+## Where things live
 
-**Name:** Tendd (placeholder - not validated for trademark)
-**Type:** Mobile-first responsive web app, scaling to desktop
-**One-sentence pitch:** Tendd helps people who are not into finance see and control their recurring payments and subscriptions, turning money anxiety into calm, everyday clarity.
-
-**Core differentiator:** Tendd is NOT a budgeting app. It is a calm, low-friction visibility and control layer for recurring spend - built specifically for people who feel anxious about money and avoid finance apps because they feel overwhelming or judgmental.
-
-**Platform:** Mobile-first responsive web, scaling to desktop. Desktop responsive is in scope: every screen is designed for phone first and reflows to desktop (bottom tab bar becomes a left rail, list-and-detail becomes a two-pane view). A native app is a later-stage decision and is out of scope for this phase.
-
----
-
-## Jobs to Be Done (JTBD) Analysis
-
-### Candidate Jobs (4-6)
-
-| # | Job | Frequency | Intensity | Willingness to Pay | Score |
-|---|-----|-----------|-----------|-------------------|-------|
-| J1 | See all subscriptions in one place | Very High | High | High | 9/10 |
-| J2 | Feel calm and in control of recurring money | High | Very High | High | 9/10 |
-| J3 | Cancel subscriptions I no longer use | Medium-High | High | High | 8/10 |
-| J4 | Get alerted when a price changes or payment fails | Medium | High | Medium | 7/10 |
-| J5 | Understand what a charge on my statement actually is | High | High | Medium | 7/10 |
-| J6 | Track shared subscriptions with a partner or family | Low-Medium | Medium | Medium | 5/10 |
-
-### Primary JTBD
-
-**J1 + J2 are deeply linked and form the combined primary job:**
-
-> "When I suspect I'm paying for things I forgot about or never use, I want to see all my recurring charges clearly in one calm view, so that I feel in control of my money without needing to become a finance person."
-
-### Secondary JTBD
-
-**J3 - Cancel and save:**
-> "When I am looking to reduce my monthly spend, I want to quickly identify which subscriptions I actually use vs which ones I keep forgetting to cancel, so that I can free up money without a complicated process."
-
-**J4 - Stay ahead of surprises:**
-> "When a subscription price changes or a payment fails, I want to be notified immediately in plain language, so that I am never caught off guard by an unexpected charge."
-
----
-
-## Target Audience
-
-- **Age range:** 22 to 42 years old (core: 26 to 36)
-- **Financial confidence level:** Low to medium. These users know money matters but find finance apps stressful or confusing. They are not financially illiterate - they are financially anxious.
-- **Trust level:** Skeptical. They are cautious about connecting bank accounts and sharing financial data. Trust must be earned through transparency and design, not just claimed.
-- **Primary emotional driver:** Reducing financial anxiety. The feeling they want is: "I know what's going out, and I'm okay."
-- **Secondary emotional driver:** Pride in small wins - catching a forgotten subscription, saving money, feeling on top of things.
-- **What they are NOT:** Power users, budget optimizers, spreadsheet fans, financial planners.
-
----
-
-## MVP Feature Scope
-
-### Free Tier (the whole calm view - explore and assess value)
-
-Free is the full visibility layer, not a capped teaser: the paywall is at depth
-(history, trends, advanced alerts), never at basic visibility (per D3). There is
-no subscription cap and no bank-connection cap - a cap is really a visibility
-cap, and it would break Emma's reveal. The subscription-count cap follows D3
-directly; the bank-connection cap was resolved to "none" by a July 2026 product
-decision, since D3 was silent on connection count (see ia/docs/pages/account.md).
-
-- Value before bank: the value is visible before any bank connection is required - the Welcome landing shows a calm preview, and the privacy path adds subscriptions manually with presets (per D2)
-- Connect a bank read-only through Plaid, or add subscriptions yourself
-- See all recurring charges in a clean, categorized list
-- Basic subscription details: name, amount, next billing date, category
-- Simple monthly total view
-- Basic alerts: price change detected, payment failed
-
-Whether this calm view actually lands for an avoider is the riskiest assumption
-(H0); it is provable only in a prototype, so the MVP is built to test it, not to
-assume it. `[?]`
-
-### Paid Tier (SaaS subscription - Tendd Pro)
-
-Pro is depth, not a visibility unlock: the full list, all bank connections, and the monthly total are free and uncapped (D3). Pro adds:
-
-- Full history and trends (3-month, 6-month, yearly view)
-- Cancel support: direct cancellation links + step-by-step guides
-- Advanced alerts: trial ending soon, unusual charge, duplicate subscription
-- Shared subscription tracking (household / partner view)
-- Export and reports
-- Priority support
-
-### Out of scope for MVP
-- Full budgeting (income tracking, budget envelopes, savings goals)
-- Investment tracking
-- Native mobile app
-- Bill negotiation
-- Bill pay
-
----
-
-## Business Model Hypothesis
-
-**Model:** Freemium SaaS
-
-**Free tier:** Enough to feel the core value - seeing your subscriptions clearly. Designed to build trust before asking for payment.
-
-**Paid tier:** Tendd Pro, priced at $7.99/month or $69/year (locked, D4 - competitor data supported a higher point than the original $4-6/mo hypothesis). Value proposition: "Pay less per month than most of the subscriptions you'll cancel."
-
-**Assumption:** The free tier drives organic discovery and trust-building. Conversion to paid is triggered by wanting depth - history and trends, advanced alerts, and cancel support - per D3, not by hitting a visibility cap.
-
-**Secondary revenue (later stage):** Affiliate commissions on subscription cancellation recommendations. Not in MVP.
-
----
-
-## Geography
-
-**Primary markets:** United States and Europe (UK, Germany, France, Netherlands, Spain, Nordics)
-**Global:** Accessible globally from launch, but support and compliance focus is US + EU first
-**Regulatory note:** EU open banking (PSD2) and US bank connectivity (Plaid) have different data models. This is a meaningful architectural consideration.
-
----
-
-## Design Principles
-
-1. **Calm over clever.** Every screen should lower anxiety, not raise it. Avoid red, urgent language, and visual complexity. Prefer soft neutrals, generous whitespace, and a reassuring tone.
-
-2. **One thing at a time.** Do not show users 10 things at once. Progressive disclosure is the default. The most important number is always the biggest thing on screen.
-
-3. **Plain money language.** Never use financial jargon. "You're paying for 14 subscriptions" not "Monthly recurring expenditure: $247.83." Numbers are always in context.
-
-4. **Trust through transparency.** Explain what you do with data, every time. Show the source of every figure. Never be vague about money.
-
-5. **Small wins feel good.** Design for the moment when a user finds a forgotten subscription or saves money. That moment is the product's most important emotional beat.
-
----
-
-## Tech Stack Hypothesis
-
-- **Frontend:** Next.js (React) with Tailwind CSS - mobile-first, responsive
-- **Backend:** Next.js API routes + Node.js (or separate Express service for complex integrations)
-- **Database:** PostgreSQL (via Supabase or PlanetScale for managed hosting)
-- **Auth:** Clerk or NextAuth.js
-- **Bank data (US):** Plaid Link
-- **Bank data (EU):** TrueLayer or Nordigen (now Powens/GoCardless Open Banking)
-- **Payments:** Stripe (subscriptions)
-- **Hosting:** Vercel (frontend) + Railway or Render (backend services)
-- **Notifications:** Resend (email) + web push via service worker
-- **Analytics:** PostHog (privacy-friendly, EU-compliant)
-
----
-
-## Timeline (Hypothesis)
-
-| Phase | Duration | Deliverable |
-|-------|----------|-------------|
-| Research Sprint | 2 weeks | This document set |
-| Design Sprint | 3 weeks | Wireframes, concept, design system |
-| Prototype | 2 weeks | Interactive prototype, user testing script |
-| User Testing | 2 weeks | 5-8 sessions, synthesis |
-| MVP Build | 8-12 weeks | Working product, free tier |
-| Beta Launch | Ongoing | Paid tier, iteration |
+```
+/_nav.js /_nav.css /index.html   the project registry, its look, the entry page
+CLAUDE.md  README.md  AGENTS.md  rules, status index, entry for the Codex critic
+docs/decisions.md                decision log, never loaded
+DESIGN-artifacts.md              draft design doc from the brand (Concept); DESIGN.md
+                                 is produced from the code at UI + Visual
+research/                        stages 01, 02 and 02+ together: research.html,
+                                 personas, jtbd, cjm-as-is, cjm-to-be + docs/ + screens/
+ia/                              structure: docs/sitemap.md, docs/flows.md, docs/pages/
+wireframes/                      the grey clickable prototype: index.html (home),
+                                 overview.html (hub), screens and states, docs/
+voice/                           voice.md, microcopy.md and their pages
+design/                          the whole visual half: concept/ (how the language was
+                                 found), _theme.css, the colored screens flat in the
+                                 root, overview.html as the hub
+```
