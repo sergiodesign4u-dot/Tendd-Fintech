@@ -47,7 +47,7 @@ physically unavailable. For Tendd the domain half is available for two types onl
 | B. Onboarding step | **missing**: behind signup at every competitor | available |
 | C. List dashboard | **second-hand**: Refero indexes real in-product screens (Monarch Money), plus two category peers on iOS | available |
 | D. Object detail | **second-hand**: Orbit's own detail sheet through Refero, plus Duolingo's cancel-side screen | available |
-| E. Activity feed | **missing**: behind login | available |
+| E. Activity feed | **partly**: the category has no feed at all, only per-item reminders (Subo, second-hand) plus a public promise on Rocket Money's landing | available, but in the wrong register |
 | F. Task guide plus confirmation | partly available: ReSubs publishes cancel guides | available |
 | G. Account and settings | **missing**: behind login | available |
 
@@ -393,3 +393,70 @@ the shape of what our person is about to walk into and none of what she needs be
 TwelveLabs and Wealthsimple supplied the stacking and the empty history. The decoder line and
 the correction action exist in no source, and they are the two blocks that make the screen
 worth opening.
+
+---
+
+## Type E. Activity feed (node 3.8 Alerts)
+
+The screen that closes J4, never be surprised by a price change or a failed payment. It is
+also the screen that decides whether the product is a source of calm or one more thing that
+buzzes at you.
+
+**Two findings before any block.** First, on the domain side: **the category has no such
+screen.** Subo and Orbit configure reminders per subscription, inside the add and edit flow,
+and deliver them outside the app; there is no place to go and see what happened. Rocket Money
+sells the promise on its public landing, opened 2026-08-04: "We'll notify you of important
+events that need your attention so you're never caught off guard", and nothing behind it is
+visible to us. Second, on the craft side: the pattern exists everywhere, but the good
+examples are **enterprise audit logs**, and their register is the opposite of ours. Both
+findings are load-bearing, and both push the same way: this screen has to be invented rather
+than adapted.
+
+### Sources
+
+**Domain:**
+- Rocket Money, [rocketmoney.com](https://www.rocketmoney.com/), opened 2026-08-04: the promise stated in marketing, no screen exposed
+- [Subo, add and edit](https://refero.design/screens/6960fdf8-365d-4fb3-90a2-269fbffecde6) and [the reminder step](https://refero.design/screens/2a6c41f1-ae0e-4516-9a0c-42de13b8e969), second-hand through Refero: a renewal reminder toggle, reminder timing, and a notes field, all per subscription
+- [Subo, subscription screen with delete confirmation](https://refero.design/screens/c38779de-5f0c-49ec-a2a4-afabe07eb4f4): reminders shown as a card on the object, not as a feed
+
+**Craft, outside the category:**
+- [Dropbox, admin activity log](https://refero.design/pages/5e6ff4e4-04f7-42ea-8790-4d7f92760895) - the complete pattern: search, filters, a multi column audit table
+- [Airbnb, notifications](https://refero.design/pages/c1ac5160-ac20-4557-84a6-f904b640df11) - one card: icon, message, dismiss, and nothing else
+- [Missive](https://refero.design/pages/f9871a0f-a2eb-472b-8fa4-d5b9f5455340) - an activity and notification feed inside a working surface
+
+### Decisions
+
+| Source | Block | Verdict | Traces to | Scope | Where we are better and how |
+|---|---|---|---|---|---|
+| Missive, Airbnb | A list of events, newest first, each one a plain sentence | TAKE | J4; GC5; design principle 3 (plain money language) | MVP | The category has no such list at all. Ours is a sentence a person can read once, not a log line to decode |
+| own research | Two groups: "Needs you" and "Just so you know" | TAKE | J4; design principle 2; growth zone 3 | MVP | **Exists in no source.** A feed sorted by date makes the person scan to find out whether anything is wrong. Sorting by whether it needs them answers that question before they start reading |
+| Dropbox | Unread counts, badges, red dots | SKIP | D-Concept: status is a quiet gray badge, never red; growth zone 3 | out | A red badge on a money app is an anxiety machine, and our person already avoids opening the app. The count is quiet or it is absent |
+| Dropbox | Search, filter row, multi column audit table | SKIP | the enterprise register; a person has a handful of events, not an audit trail | out | The whole craft half of this type is built for an admin proving what happened. Our person is deciding whether they need to worry |
+| Airbnb | Dismiss on an item | TAKE, DIFFERENTLY | J4 | MVP | Ours marks it read and never deletes the underlying fact. Dismissing a price change should not erase that the price changed |
+| own research | Price change alert shows the old price, the new price and the difference | TAKE | J4; growth zone 2; D-Concept (amber) | MVP | **Exists in no source.** Every product tells you the new number. The old one next to it is what turns a surprise into an explanation |
+| own research | The action lives inside the alert: see the charge, help me cancel | TAKE | J2, J4; the flows in `docs/flows.md` | MVP | An alert with no action is a notification. An alert with the next step is the product doing the job |
+| own research | An empty state that is a good state: "Nothing needs you right now" | TAKE | E1 (feel financially competent); H0 | MVP | In most products an empty feed reads as a dead end. Here it is the product working, and it is the single most reassuring sentence in the whole app |
+| Subo | Reminder settings attached to each subscription | TAKE, DIFFERENTLY | J4; design principle 2 | MVP | Subo makes you set a reminder on every item, one at a time, which means an avoider sets none. Ours has one place that says what we will tell you about, linked from here and living in Settings |
+| Subo | Notes field on a subscription | SKIP | nothing traces to it; it is a tracker feature for people who enjoy trackers | out | Our person is not a spreadsheet person, and that is in the audience definition |
+| Subo, Rocket Money | Channel configuration (push, email) on this screen | SKIP here | belongs to node 6.16 Settings | MVP | One screen, one job. The feed shows what happened; the settings decide what arrives |
+| own research | The source named on each alert: which account it came from | TAKE | GC6; design principle 4 | MVP | An alert that cannot say where it came from is a rumour |
+| own research | Older events, collapsed | TAKE | design principle 2 | MVP | The recent past is the job. The distant past is history, and history is node 5.12 |
+
+### Our order, mobile-first
+
+1. App header (GC1)
+2. "Needs you", usually empty: a failed payment (desaturated clay), a price change (amber)
+3. "Just so you know": charges due in the next seven days, a newly detected subscription
+4. The alert item (GC5): icon, one plain sentence, the merchant and the amount, when, the
+   source, and one inline action
+5. Older, collapsed
+6. A link to what we tell you about, into node 6.16
+7. Tab bar (GC2)
+
+States: nothing at all ("nothing needs you right now"), only the quiet group, something in
+"Needs you", and loading as a skeleton.
+
+Seven blocks, and the two that carry the screen came from neither half of the sources: the
+split into "needs you" and "just so you know", and the price change that shows the old number
+beside the new one. The craft half taught us mostly what not to do, which is a legitimate
+result and is written down here rather than quietly dropped.

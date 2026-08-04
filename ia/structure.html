@@ -335,7 +335,7 @@
         <tr><td>B. Onboarding step</td><td>1.2, 1.3, 1.4, 1.5</td><td><span class="tag skip">missing</span> behind signup</td><td>available</td></tr>
         <tr><td>C. List dashboard</td><td>2.6</td><td><span class="tag q">second-hand</span> Refero indexes in-product screens: Monarch Money, plus two category peers on iOS</td><td>available</td></tr>
         <tr><td>D. Object detail</td><td>2.7</td><td><span class="tag q">second-hand</span> Orbit's own detail sheet, plus Duolingo's cancel-side screen</td><td>available</td></tr>
-        <tr><td>E. Activity feed</td><td>3.8</td><td><span class="tag skip">missing</span> behind login</td><td>available</td></tr>
+        <tr><td>E. Activity feed</td><td>3.8</td><td><span class="tag q">partly</span> the category has no feed at all, only per-item reminders</td><td>available, but in the wrong register</td></tr>
         <tr><td>F. Task guide plus confirmation</td><td>4.9, 4.10</td><td>partly: ReSubs publishes cancel guides</td><td>available</td></tr>
         <tr><td>G. Account and settings</td><td>6.14, 6.15, 6.16</td><td><span class="tag skip">missing</span> behind login</td><td>available</td></tr>
       </table>
@@ -540,6 +540,47 @@
       <li><b>Data source and trust line (GC6).</b></li>
     </ol>
     <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)">States: a manual entry (no bank source, no decoder line, editable), a detected entry (source named, correction offered), price changed, payment failed, and already cancelled. Ten blocks: Orbit has five and its primary action only marks a status; Duolingo has the shape of what our person is about to walk into and none of what she needs before she does; TwelveLabs and Wealthsimple supplied the stacking and the empty history. The decoder line and the correction action exist in no source, and they are the two blocks that make the screen worth opening.</p>
+
+    <h3 style="margin-top:40px">Type E. Activity feed (node 3.8 Alerts)</h3>
+    <p>The screen that closes J4, never be surprised by a price change or a failed payment. It is also the screen that decides whether the product is a source of calm or one more thing that buzzes at you.</p>
+    <div class="callout">
+      <p><b>Two findings before any block.</b> On the domain side, <b>the category has no such screen</b>: Subo and Orbit configure reminders per subscription inside the add and edit flow and deliver them outside the app, so there is nowhere to go and see what happened. Rocket Money sells the promise on its public landing ("We'll notify you of important events that need your attention so you're never caught off guard") and exposes nothing behind it. On the craft side, the pattern exists everywhere, but the good examples are <b>enterprise audit logs</b>, whose register is the opposite of ours. Both findings push the same way: this screen has to be invented rather than adapted.</p>
+    </div>
+    <ul class="src-list">
+      <li><b>Domain:</b> <a href="https://www.rocketmoney.com/">Rocket Money</a> opened 2026-08-04, the promise in marketing with no screen behind it; <a href="https://refero.design/screens/6960fdf8-365d-4fb3-90a2-269fbffecde6">Subo's add and edit</a> and <a href="https://refero.design/screens/2a6c41f1-ae0e-4516-9a0c-42de13b8e969">its reminder step</a>, second-hand: a renewal reminder toggle, reminder timing and a notes field, all per subscription.</li>
+      <li><b>Craft:</b> <a href="https://refero.design/pages/5e6ff4e4-04f7-42ea-8790-4d7f92760895">Dropbox admin activity log</a> (search, filters, a multi column audit table), <a href="https://refero.design/pages/c1ac5160-ac20-4557-84a6-f904b640df11">Airbnb notifications</a> (one card: icon, message, dismiss), <a href="https://refero.design/pages/f9871a0f-a2eb-472b-8fa4-d5b9f5455340">Missive</a> (a feed inside a working surface).</li>
+    </ul>
+
+    <div class="table-wrap">
+      <table class="bank">
+        <tr><th>Source</th><th>Block</th><th>Verdict</th><th>Traces to</th><th>Scope</th><th>Where we are better and how</th></tr>
+        <tr><td>Missive, Airbnb</td><td>A list of events, newest first, each one a plain sentence</td><td><span class="tag">TAKE</span></td><td>J4; GC5; principle 3</td><td>MVP</td><td>The category has no such list at all. Ours is a sentence a person reads once, not a log line to decode</td></tr>
+        <tr><td>own research</td><td>Two groups: "Needs you" and "Just so you know"</td><td><span class="tag">TAKE</span></td><td>J4; principle 2; growth zone 3</td><td>MVP</td><td><b>Exists in no source.</b> A feed sorted by date makes the person scan to find out whether anything is wrong. Sorting by whether it needs them answers that before they start reading</td></tr>
+        <tr><td>Dropbox</td><td>Unread counts, badges, red dots</td><td><span class="tag skip">SKIP</span></td><td>D-Concept: a quiet gray badge, never red; growth zone 3</td><td>out</td><td>A red badge on a money app is an anxiety machine, and our person already avoids opening it. The count is quiet or it is absent</td></tr>
+        <tr><td>Dropbox</td><td>Search, filter row, multi column audit table</td><td><span class="tag skip">SKIP</span></td><td>the enterprise register; a handful of events is not an audit trail</td><td>out</td><td>The craft half of this type is built for an admin proving what happened. Our person is deciding whether they need to worry</td></tr>
+        <tr><td>Airbnb</td><td>Dismiss on an item</td><td><span class="tag">TAKE, DIFFERENTLY</span></td><td>J4</td><td>MVP</td><td>Ours marks it read and never deletes the underlying fact. Dismissing a price change should not erase that the price changed</td></tr>
+        <tr><td>own research</td><td>Price change shows the old price, the new price and the difference</td><td><span class="tag">TAKE</span></td><td>J4; growth zone 2; D-Concept</td><td>MVP</td><td><b>Exists in no source.</b> Every product tells you the new number. The old one beside it is what turns a surprise into an explanation</td></tr>
+        <tr><td>own research</td><td>The action lives inside the alert: see the charge, help me cancel</td><td><span class="tag">TAKE</span></td><td>J2, J4; the flows</td><td>MVP</td><td>An alert with no action is a notification. An alert with the next step is the product doing the job</td></tr>
+        <tr><td>own research</td><td>An empty state that is a good state: "Nothing needs you right now"</td><td><span class="tag">TAKE</span></td><td>E1; H0</td><td>MVP</td><td>In most products an empty feed reads as a dead end. Here it is the product working, and it is the most reassuring sentence in the app</td></tr>
+        <tr><td>Subo</td><td>Reminder settings attached to each subscription</td><td><span class="tag">TAKE, DIFFERENTLY</span></td><td>J4; principle 2</td><td>MVP</td><td>Subo makes you set a reminder on every item one at a time, which means an avoider sets none. Ours has one place that says what we will tell you about</td></tr>
+        <tr><td>Subo</td><td>Notes field on a subscription</td><td><span class="tag skip">SKIP</span></td><td>nothing traces to it; a tracker feature for people who enjoy trackers</td><td>out</td><td>Our person is not a spreadsheet person, and that is in the audience definition</td></tr>
+        <tr><td>Subo, Rocket Money</td><td>Channel configuration (push, email) on this screen</td><td><span class="tag skip">SKIP HERE</span></td><td>belongs to node 6.16 Settings</td><td>MVP</td><td>One screen, one job. The feed shows what happened; the settings decide what arrives</td></tr>
+        <tr><td>own research</td><td>The source named on each alert: which account it came from</td><td><span class="tag">TAKE</span></td><td>GC6; principle 4</td><td>MVP</td><td>An alert that cannot say where it came from is a rumour</td></tr>
+        <tr><td>own research</td><td>Older events, collapsed</td><td><span class="tag">TAKE</span></td><td>principle 2</td><td>MVP</td><td>The recent past is the job. The distant past is history, and history is node 5.12</td></tr>
+      </table>
+    </div>
+
+    <h3>Our order for node 3.8, mobile-first</h3>
+    <ol class="order-list">
+      <li><b>App header (GC1).</b></li>
+      <li><b>"Needs you", usually empty.</b> A failed payment in desaturated clay, a price change in amber</li>
+      <li><b>"Just so you know".</b> Charges due in the next seven days, a newly detected subscription</li>
+      <li><b>The alert item (GC5).</b> Icon, one plain sentence, the merchant and the amount, when, the source, and one inline action</li>
+      <li><b>Older, collapsed.</b></li>
+      <li><b>What we tell you about.</b> A link into node 6.16</li>
+      <li><b>Tab bar (GC2).</b></li>
+    </ol>
+    <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)">States: nothing at all ("nothing needs you right now"), only the quiet group, something in "Needs you", and loading as a skeleton. Seven blocks, and the two that carry the screen came from neither half of the sources: the split into "needs you" and "just so you know", and the price change that shows the old number beside the new one. The craft half taught us mostly what not to do, which is a legitimate result and is written down here rather than quietly dropped.</p>
   </section>
 
 </main>
