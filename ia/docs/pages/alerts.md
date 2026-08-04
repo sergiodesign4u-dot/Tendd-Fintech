@@ -12,7 +12,7 @@
 
 - **The alert feed is chronological, newest first, with no unread badge count on the tab by default.** Traces the calm principle: a red number-badge on a tab is exactly the urgency Emma closes apps over (personas.md, avoid red and urgent language). A single quiet dot for "new since last visit" is used instead of a count. [? confirm the dot vs count choice in usability testing.]
 - **Every alert is written in active voice, first person for the product ("we could not take your payment"), never passive ("payment declined").** Traces master-research M1 (Monzo principle). This is a copy rule for GC5, enforced here.
-- **Free alerts (price change, payment failed) and Pro alerts (trial ending, unusual charge, duplicate) live in the same feed; Pro alerts render as a gated, blurred-with-label item for free users, not hidden.** Traces D3. Reason: showing that Tendd noticed something, and that Pro would explain it, is a truthful upgrade prompt at a real moment, not a nag.
+- **Free alerts (price change, payment failed) and Pro alerts (trial ending, unusual charge, duplicate) live in the same feed; a Pro alert is shown to a free user with its type, its merchant and the fact that something was noticed, and only the explanation held back.** Traces D3. **Corrected 2026-08-04:** this line used to say the item was "blurred with label". `pro.md` locks the opposite treatment for the same job on 5.12 ("a real preview frame, not a fake blurred chart"), and GC7 renders both, so it could not hold both rules. Resolved to no blur anywhere, by applying the pro.md rule: a blur pretends there is text being withheld, and on a money screen an anxious person fills that blur with something bad. The honest form reads "We noticed something about Netflix. Tendd Pro explains what." See `../nodes/globals.md`, GC7.
 - **An empty feed is a healthy state, phrased as reassurance, not absence.** "All clear. Nothing needs your attention." Reason: for an anxious user, "no alerts" should feel like calm, not like something is missing.
 - **[? draft copy] all copy below is a specific first draft.**
 
@@ -27,7 +27,7 @@ Uses GC1, GC2, GC5, GC7. Entities Alert, Charge, Subscription.
 Block order, top to bottom:
 1. (P) Title: "Alerts." [? draft copy]
 2. (P) Alert list, newest first, each item a GC5 Alert Item. See the GC5 spec below.
-3. (S) Pro alert types appear inline as gated items for free users (blurred body plus "Tendd Pro explains this") -> GC7 -> 5.13. Traces D3.
+3. (S) Pro alert types appear inline as gated items for free users: the type, the merchant, and "Tendd Pro explains what", with no blur -> GC7 -> 5.13. Traces D3.
 
 ### Section GC5 - Alert Item (specified here, reused by 2.6 banner and 2.7)
 
@@ -52,7 +52,7 @@ Traces the Alert entity, J4, M1 (active voice), D3 (free vs Pro split). States: 
 | 3.8 | empty | "All clear. Nothing needs your attention." calm, reassuring | No alerts (Flow D). A healthy state, not an error. |
 | 3.8 | loading | Skeleton alert rows | Fetching alerts |
 | 3.8 | error | "We could not load your alerts. Try again." with a retry | Load failed (Flow D) |
-| GC5 | gated (Pro type, free user) | Item visible, body blurred, "Tendd Pro explains this" plus upgrade | A Pro alert type for a free user (D3) |
+| GC5 | gated (Pro type, free user) | Item visible, type and merchant stated, "Tendd Pro explains what" plus upgrade, no blur | A Pro alert type for a free user (D3) |
 | GC5 | new | A quiet dot, no red count | Arrived since last visit |
 
 ---
@@ -68,7 +68,7 @@ Private, behind auth. `noindex`, no schema, not a content surface.
 - The feed is a list; each GC5 item is a group with an accessible name combining type, subscription, and message ("Price change, Netflix, went up to $15.99").
 - A newly arrived alert is announced once via an `aria-live="polite"` region, never an assertive interruption (calm principle).
 - The single next-action per item is a real button, keyboard reachable, distinct from tapping the item body.
-- Gated Pro items expose their gated status to assistive tech ("Tendd Pro feature") rather than presenting a blurred body with no explanation.
+- Gated Pro items expose their gated status to assistive tech ("Tendd Pro feature"); nothing is obscured visually, so there is no gap between what is seen and what is read out.
 - Tap targets at least 44 by 44 px.
 
 ---

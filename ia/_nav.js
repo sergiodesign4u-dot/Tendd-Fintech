@@ -16,13 +16,13 @@
 
 window.IA_NAV = [
   // Global chrome and reusable sections
-  { node:'0.1', label:'App Header (GC1)',            type:'section', group:'global', file:'navigation.html#GC1' },
-  { node:'0.2', label:'Global Tab Bar (GC2)',        type:'section', group:'global', file:'navigation.html#GC2' },
-  { node:'0.3', label:'Recurring Summary Strip (GC3)', type:'section', group:'global', file:'core.html#GC3' },
-  { node:'0.4', label:'Subscription List Item (GC4)', type:'section', group:'global', file:'core.html#GC4' },
-  { node:'0.5', label:'Alert Item (GC5)',            type:'section', group:'global', file:'alerts.html#GC5' },
-  { node:'0.6', label:'Data Source and Trust (GC6)', type:'section', group:'global', file:'account.html#GC6' },
-  { node:'0.7', label:'Pro Gate and Plan Chip (GC7)', type:'section', group:'global', file:'pro.html#GC7' },
+  { node:'0.1', label:'App Header (GC1)',            type:'section', group:'global', file:'globals.html#GC1' },
+  { node:'0.2', label:'Global Tab Bar (GC2)',        type:'section', group:'global', file:'globals.html#GC2' },
+  { node:'0.3', label:'Recurring Summary Strip (GC3)', type:'section', group:'global', file:'globals.html#GC3' },
+  { node:'0.4', label:'Subscription List Item (GC4)', type:'section', group:'global', file:'globals.html#GC4' },
+  { node:'0.5', label:'Alert Item (GC5)',            type:'section', group:'global', file:'globals.html#GC5' },
+  { node:'0.6', label:'Data Source and Trust (GC6)', type:'section', group:'global', file:'globals.html#GC6' },
+  { node:'0.7', label:'Pro Gate and Plan Chip (GC7)', type:'section', group:'global', file:'globals.html#GC7' },
 
   // System nodes
   { node:'9.1', label:'Not found',       type:'state',   group:'global', file:'system.html#9.1' },

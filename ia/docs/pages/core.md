@@ -32,11 +32,17 @@ Block order, top to bottom:
 5. (S) Add action: a "+" labeled "Add subscription" -> reopens 1.4 Add Subscription in-app. Traces J5 reuse.
 6. (S) History link: "See your trends" -> 5.12, gated by GC7 for free users. Traces D3.
 
-### Section GC3 - Recurring Summary Strip (specified here, reused by 1.5, 5.12)
+**Changed 2026-08-04.** Both sections used to list node 5.12 as a place they appear.
+They do not. The summary strip states the present and node 5.12 states the past, whose own
+text summary already carries the current figure; and the trend row carries a change rather
+than a next charge, which makes it a different component, specified in the round that builds
+cluster 5. The canonical spec of all seven global elements is now `../nodes/globals.md`.
+
+### Section GC3 - Recurring Summary Strip (reused by 1.5; canonical spec moved to ../nodes/globals.md)
 
 Block order: (1) subscription count, (2) monthly total, rendered as the biggest number on screen, (3) one context line. Context line varies: default "what you have signed up for"; save-focus "You could save up to $X a month". Traces J-MAIN, D1 (a number with meaning, never a bare shock), the "biggest number" design principle, framing from master-research self-image finding. Aggregates the Subscription entity. States: populated, loading (numbers resolving, calm placeholder), empty (an invite, not a bare "$0"). No mobile/desktop content difference.
 
-### Section GC4 - Subscription List Item (specified here, reused by 1.5, 4.x, 5.12)
+### Section GC4 - Subscription List Item (reused by 1.5, 2.7; canonical spec moved to ../nodes/globals.md)
 
 Block order: (1) merchant logo, (2) real merchant name, (3) amount and billing frequency, (4) next billing date, (5) status tag (Active, Trial, Paused, Cancelled). Traces the Subscription entity, J-MAIN, J3 (real name and logo, master-research M3). Interaction: the whole row is one tap target -> 2.7. States: normal; unrecognized (name could not be enriched and stays cryptic, shows "Tap to name this charge", protects J3); trial (Trial tag plus "trial ends DATE" if known); cancelled (muted, "Cancelled" tag). Mobile stacks the blocks, desktop may show them across one row; layout only, same content.
 
