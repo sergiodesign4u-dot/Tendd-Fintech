@@ -162,6 +162,30 @@
       vertical-align: middle; letter-spacing: 0.01em;
     }
     .tag.q { background: var(--yellow-light); color: #8a6e20; border-color: var(--yellow-mid); }
+    .tag.skip { background: var(--red-light); color: #8a2020; border-color: var(--red-mid); }
+    .tag.later { background: var(--bg); color: var(--text-muted); border-color: var(--border); }
+
+    /* Block bank */
+    td .tag { margin-left: 0; }
+    table.bank td:nth-child(2) { font-weight: 600; color: var(--text); }
+    table.bank td { font-size: 12.5px; }
+    .order-list { counter-reset: b; list-style: none; margin-top: 18px; }
+    .order-list li {
+      counter-increment: b; position: relative; padding: 9px 0 9px 40px;
+      border-bottom: 1px solid var(--border-light); font-size: 13.5px;
+    }
+    .order-list li:last-child { border-bottom: none; }
+    .order-list li::before {
+      content: counter(b); position: absolute; left: 0; top: 8px;
+      width: 24px; height: 24px; border-radius: 50%; background: var(--accent-light);
+      color: var(--accent); border: 1px solid var(--accent-mid);
+      font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    }
+    .order-list li b { color: var(--text); }
+    .src-list { list-style: none; margin-top: 14px; }
+    .src-list li { padding: 5px 0 5px 16px; position: relative; font-size: 13px; color: var(--text-secondary); }
+    .src-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-mid); }
+    .src-list li b { color: var(--text); font-weight: 600; }
 
     /* Entity cards */
     .ent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 20px; }
@@ -293,6 +317,80 @@
     <div id="ia-structure"></div>
   </section>
 
+  <section class="section" id="blocks">
+    <div class="section-label">Detail layer</div>
+    <h2>Block bank by page type</h2>
+    <p class="lead">Where the composition of a screen comes from. Every other artifact here has a rule of origin: a research fact carries a source, a CJM emotion carries a quote or a <span class="tag q">?</span>, a color comes off the brand plate, a line comes from the microcopy inventory. The list of blocks on a page had none, so it was invented on the spot, and an invention is always the median of everything seen before: hero, filter, cards, pagination. That median is what a thin wireframe looks like. Full data: <a href="docs/blocks.md">docs/blocks.md</a>.</p>
+
+    <div class="callout">
+      <p>Collected <b>by page type, not by node</b>: 16 screens collapse into 7 types, so the expensive step runs 7 times instead of 23. Two sources answer two different questions: competitors say what holds a person inside our category, Refero says how a page of this type is built in best-in-class products outside it.</p>
+    </div>
+
+    <h3>Source availability, stated out loud</h3>
+    <p>The rule about two sources says what is not enough, not what to do when one half is physically unavailable. For Tendd the domain half exists for two types only; the rest of the product is behind a competitor login, and we do not log in.</p>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Type</th><th>Nodes</th><th>Domain half (competitors)</th><th>Craft half (Refero)</th></tr>
+        <tr><td>A. Public landing</td><td>1.1</td><td>available: Rocket Money, ReSubs, Bobby</td><td>available</td></tr>
+        <tr><td>B. Onboarding step</td><td>1.2, 1.3, 1.4, 1.5</td><td><span class="tag skip">missing</span> behind signup</td><td>available</td></tr>
+        <tr><td>C. List dashboard</td><td>2.6</td><td><span class="tag skip">missing</span> behind login</td><td>available</td></tr>
+        <tr><td>D. Object detail</td><td>2.7</td><td><span class="tag skip">missing</span> behind login</td><td>available</td></tr>
+        <tr><td>E. Activity feed</td><td>3.8</td><td><span class="tag skip">missing</span> behind login</td><td>available</td></tr>
+        <tr><td>F. Task guide plus confirmation</td><td>4.9, 4.10</td><td>partly: ReSubs publishes cancel guides</td><td>available</td></tr>
+        <tr><td>G. Account and settings</td><td>6.14, 6.15, 6.16</td><td><span class="tag skip">missing</span> behind login</td><td>available</td></tr>
+      </table>
+    </div>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)">For the five missing types the fallback is named and approved: the craft half stays with Refero, the domain half is replaced by our own research (barriers from <a href="../research/cjm-as-is.html">CJM As-Is</a>, jobs from <a href="../research/jtbd.html">JTBD</a>), and the column "where we are better" holds the barrier the block works on instead. We do not imitate a domain source from a competitor marketing landing: that is a different page type and its blocks are about something else. Types whose nodes are all LATER (Share Snapshot, History and Trends, Upgrade) are out of the first round.</p>
+
+    <h3>Type A. Public landing (node 1.1 Welcome / Value Intro)</h3>
+    <p>The front door, and the only indexed screen in the product. Its job is J1, activate without anxiety: carry an avoider to the first look without asking for a bank first, which is growth zone 1, the biggest gap named in the category.</p>
+    <ul class="src-list">
+      <li><b>Domain, opened in session 2026-08-04:</b> <a href="https://resubs.app/">ReSubs</a> (closest positioning, no bank access at all), <a href="https://www.rocketmoney.com/">Rocket Money</a> (category leader), <a href="https://bobbyapp.co/">Bobby</a> (the minimal end, four blocks total). Screenshots in <code>research/screens/blocks-*.png</code>.</li>
+      <li><b>Craft, Refero:</b> <a href="https://refero.design/pages/e8da34d5-3d08-4fbd-a78d-8876e59074e2">Visitors</a> (a privacy-first alternative selling against an incumbent), <a href="https://refero.design/pages/b711f2e6-e33f-4c4c-90cb-e8984b6bc47a">Cushion</a> (calm SaaS, reassurance under the CTA), <a href="https://refero.design/pages/fa494fb4-ed78-4b94-b8a5-a9bcb398de53">Copperx</a> (money product with a security section), <a href="https://refero.design/pages/e3694554-871d-4462-9779-3cd060d749a0">Vivid Money</a> (hero carries a real product view).</li>
+    </ul>
+
+    <div class="table-wrap">
+      <table class="bank">
+        <tr><th>Source</th><th>Block</th><th>Verdict</th><th>Traces to</th><th>Scope</th><th>Where we are better and how</th></tr>
+        <tr><td>all seven</td><td>Header: wordmark, one or two links, sign in</td><td><span class="tag">TAKE</span></td><td>GC1 App Header</td><td>MVP</td><td>Competitors put "Sign up" as the loud action; ours is "See how it works", because the sign-up ask before value is growth zone 1</td></tr>
+        <tr><td>all seven</td><td>Hero: H1, one-sentence promise, primary CTA</td><td><span class="tag">TAKE</span></td><td>J-MAIN; SEO block B</td><td>MVP</td><td>Rocket Money's H1 is about the app ("The money app that works for you"); ours names the person's outcome, per principle 3</td></tr>
+        <tr><td>Cushion, Visitors</td><td>Reassurance line under the CTA ("no credit card required")</td><td><span class="tag">TAKE, DIFFERENTLY</span></td><td>growth zone 1; J1; J5</td><td>MVP</td><td>Ours says the harder thing: "No bank connection needed to start". The category asks for the bank in step 1 to 2; this line is the promise the rest of the page has to keep</td></tr>
+        <tr><td>Vivid, Cushion, Copperx</td><td>Product preview in or under the hero</td><td><span class="tag">TAKE, DIFFERENTLY</span></td><td>growth zone 2; H0</td><td>MVP</td><td>Vivid shows a donut chart, Copperx a phone in a hand. Ours shows the actual calm list with real merchant names and one total: we sell legibility, not a chart</td></tr>
+        <tr><td>Visitors</td><td>"Set up in minutes": a numbered three-step strip</td><td><span class="tag">TAKE</span></td><td>Phase 3 barrier; the 3-tap activation node</td><td>MVP</td><td>Names the length of the path before any commitment. The category shows features, never the length of the road, and length is what an avoider is bracing for</td></tr>
+        <tr><td>ReSubs (no bank at all), Rocket Money (bank only)</td><td>Two paths: connect a bank read-only, or add it yourself</td><td><span class="tag">TAKE, DIFFERENTLY</span></td><td>D1, D2; J1; J5; growth zone 1</td><td>MVP</td><td>The category splits into two camps and each hides the other option. We show both as equals on the front door, which is the point of D2</td></tr>
+        <tr><td>Copperx, ReSubs</td><td>Trust block: what we access, what we never do, read-only, delete any time</td><td><span class="tag">TAKE</span></td><td>J1, J5, E3; principle 4; GC6</td><td>MVP</td><td>ReSubs states "100% privacy-first" as a badge inside a number strip. A badge is a claim; ours is a plain list of what happens with the data, in the same words used later at the connect step</td></tr>
+        <tr><td>ReSubs</td><td>Preset gallery (461 presets, browse the full list)</td><td><span class="tag">TAKE, DIFFERENTLY</span></td><td>D2; Phase 3 barrier; J-MAIN</td><td>MVP</td><td>ReSubs uses it as a feature boast. We use it as evidence that the manual path is not punishment: a short row of recognizable brands next to the manual path</td></tr>
+        <tr><td>Rocket Money, ReSubs</td><td>Plan line: what is free, what is Pro</td><td><span class="tag">TAKE, DIFFERENTLY</span></td><td>D3, D4; J1</td><td>MVP</td><td>Rocket Money runs a full free-vs-Premium table on the landing, turning the front door into a sales page. Ours is one honest line plus a link</td></tr>
+        <tr><td>ReSubs, Visitors, Cushion, Copperx</td><td>FAQ accordion</td><td><span class="tag">TAKE</span></td><td>J1, J5; growth zone 1; SEO block D (FAQPage)</td><td>MVP</td><td>ReSubs proves the questions people arrive with ("Can ReSubs access my bank account?"). Ours answers the same four objections in our voice, and it is the only block allowed to say "bank" twice</td></tr>
+        <tr><td>ReSubs, Rocket Money</td><td>Closing CTA repeat</td><td><span class="tag">TAKE</span></td><td>the page is long on mobile; J-MAIN</td><td>MVP</td><td>The same single action as the hero, not a second louder one. The category escalates at the bottom</td></tr>
+        <tr><td>all seven</td><td>Marketing footer: legal, privacy, contact</td><td><span class="tag">TAKE</span></td><td>navigation.md; SEO block E</td><td>MVP</td><td>Ours puts the privacy policy first, not last, because privacy is the objection, not a formality</td></tr>
+        <tr><td>ReSubs</td><td>Stats strip: 18,000+ users, 50,000+ subscriptions, 20+ countries</td><td><span class="tag skip">SKIP FOR NOW</span></td><td>nothing true to put in it at launch; a fabricated number breaks principle 4</td><td><span class="tag later">LATER</span></td><td>Returns when the numbers are real</td></tr>
+        <tr><td>Rocket Money</td><td>"$2.5 billion saved", "Join 10 million+ members", press logos</td><td><span class="tag skip">SKIP</span></td><td>traces to nothing on our side; frames first contact as money pressure, which is growth zone 3</td><td>out</td><td>The savings counter is the exact register an avoider retreats from</td></tr>
+        <tr><td>ReSubs, Rocket Money, Copperx, Bobby</td><td>Testimonials and store ratings</td><td><span class="tag skip">SKIP FOR NOW</span></td><td>no users at launch; a placeholder testimonial breaks principle 4</td><td><span class="tag later">LATER</span></td><td>Returns with real quotes, and then it carries the emotional beat E2, not a star count</td></tr>
+        <tr><td>Visitors, Cushion</td><td>Comparison table against a named competitor</td><td><span class="tag skip">SKIP HERE</span></td><td>no barrier asks for it at first contact; a head-to-head raises the anxiety register</td><td><span class="tag later">LATER</span></td><td>Belongs to the SEO engine as its own page, not to the front door</td></tr>
+        <tr><td>Rocket Money</td><td>Feature blocks: spending, autopilot savings, credit score, bill negotiation</td><td><span class="tag skip">SKIP</span></td><td>out of product scope: Tendd is not a budgeting app</td><td>out</td><td>These are the blocks that turned Rocket Money and Emma into platforms and buried the subscription core</td></tr>
+        <tr><td>Cushion</td><td>Secondary CTA "Talk to a human"</td><td><span class="tag skip">SKIP</span></td><td>no support desk at MVP; the promise would be false</td><td><span class="tag later">LATER</span></td><td>&nbsp;</td></tr>
+        <tr><td>Copperx</td><td>Avatar carousel "chosen by thousands"</td><td><span class="tag skip">SKIP</span></td><td>same as testimonials: nothing true yet</td><td><span class="tag later">LATER</span></td><td>&nbsp;</td></tr>
+        <tr><td>Bobby</td><td>Announcement bar above the header</td><td><span class="tag skip">SKIP</span></td><td>no message worth an interruption on the calmest screen of the product; principle 1</td><td>out</td><td>&nbsp;</td></tr>
+      </table>
+    </div>
+
+    <h3>Our order for node 1.1, mobile-first</h3>
+    <ol class="order-list">
+      <li><b>Header.</b> Wordmark, "How it works", Sign in</li>
+      <li><b>Hero.</b> H1, one-sentence promise, primary CTA, and the line "No bank connection needed to start"</li>
+      <li><b>Product preview.</b> The calm list with real merchant names and one total</li>
+      <li><b>How it works.</b> Three numbered steps, the length of the path stated up front</li>
+      <li><b>Two paths.</b> Connect a bank read-only, or add it yourself with presets</li>
+      <li><b>Trust.</b> What we access, what we never do, read-only, delete any time</li>
+      <li><b>Plan line.</b> The whole calm view is free, Pro is depth</li>
+      <li><b>FAQ.</b> Four objections, in our voice</li>
+      <li><b>Closing CTA.</b> The same single action</li>
+      <li><b>Marketing footer.</b> Privacy first</li>
+    </ol>
+    <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)">Ten blocks from five sources, matching none of them: ReSubs has no product preview and no two-paths block, Rocket Money has no trust block and no honest plan line, Visitors and Cushion carry a comparison table we dropped, Vivid and Copperx have no FAQ answering a bank objection. The reassurance line, the how-it-works strip and the FAQ are craft borrowed from outside the category; the preset row is the one block taken from a direct competitor, and it is repurposed.</p>
+  </section>
+
 </main>
 
 <script type="module">
@@ -318,7 +416,8 @@
 <script>
   window.NAV_BASE = '../';
   window.NAV_SECTIONS = [
-    { id:'nodes', label:'Nodes' },
+    { id:'nodes',  label:'Nodes' },
+    { id:'blocks', label:'Block bank' },
   ];
 </script>
 <script src="../_nav.js"></script>
