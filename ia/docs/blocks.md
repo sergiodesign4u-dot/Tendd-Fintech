@@ -510,7 +510,7 @@ instead of canceling?") / related guides / a disclaimer / a further reading bloc
 | LEGO, New Yorker | Confetti, animation, an exclamation | SKIP | design principle 1; growth zone 3 | out | The beat is real and it is carried by the number and the sentence, not by the decoration. The praise interjection was already dropped once in voice under D12 |
 | own research, already in voice | Confirmation on the person's word, stated as such | TAKE | design principle 4 | MVP | We cannot verify a cancellation with the merchant, and the line "On your word" says so. Category apps mark an item cancelled as if they had checked |
 | own research, already in voice | Running total across every cut so far | TAKE | E2; J2 | MVP | The single win is a moment; the running total is what makes the second cut feel worth doing |
-| voice (`cancel-win` share lines) | "Share this win" on the win screen | **CONTRADICTION** | node 4.11 Share Snapshot is LATER in `docs/sitemap.md`, but the share block sits on an MVP screen | LATER | Flagged, not silently resolved. Taken conservatively: the share block is LATER because its destination is LATER, and the MVP win screen ends with "back to your subscriptions". If the founder wants share in MVP, then 4.11 moves to MVP and the scope table changes with it |
+| voice (`cancel-win` share lines) | "Share this win" on the win screen | **DECIDED: LATER** (D-Share, founder, 2026-08-04) | node 4.11 Share Snapshot is LATER in `docs/sitemap.md`, and an MVP screen was pointing at it | LATER | Found as a contradiction and answered the same day: the share block moves to LATER with its destination, and the MVP win screen ends on "back to your subscriptions". Rejected: pulling 4.11 into the MVP to justify the button, since share is a social job and the MVP exists to test H0. The lines stay in the inventory, tagged, waiting for their screen |
 
 ### Our order, mobile-first
 
@@ -564,7 +564,7 @@ one competitor, because no subscription tracker exposes these screens.
 | Canva | Privacy toggles with learn-more links | TAKE, DIFFERENTLY | J5, E3; design principle 4 | MVP | Ours is first a plain statement of what we store and what we never do, and only then a control. Canva's list is controls without a statement, which reads as a menu of things being done to you |
 | Canva | Toggles for advertising, personalisation, profile enrichment | SKIP | we do none of these, and a toggle implies we could | out | The same rule that dropped the read against write toggle at node 1.3: a control with only one legal position is theatre |
 | Shop, Jace, Fingerprint | Export my data, delete my account | TAKE | J5, E3; legal duty | MVP | |
-| own research | Which export is free and which is Pro | TAKE, DIFFERENTLY | D3; J5 | MVP | Stated rather than left ambiguous: a plain export of your own data is free, because it is a right and not a feature. The analytical export of history and trends is Pro, and it lives with node 5.12. **This is an assumption written down for the founder, not a decision already taken** |
+| own research | Which export is free and which is Pro | **DECIDED** (D-Export, founder, 2026-08-04) | D3; J5 | MVP | A plain, complete export of what we hold about you is free, because it is a right and not a feature, and it lives here on node 6.15. The analytical export of history and trends is Pro and lives with node 5.12. Raised here as an assumption and answered the same day; the product brief in `CLAUDE.md` was corrected with it |
 | Fingerprint | Destructive confirmation: warning callout, "Keep account" against "Continue" | TAKE, DIFFERENTLY | D-Concept (clay only for a genuine error, never red decoration) | MVP | Ours keeps the two-door shape and drops the alarm colouring. The consequence carries the weight, not the palette |
 | Uber | Profile rows: name, email, phone | TAKE, DIFFERENTLY | node 6.16 | MVP | Ours is email and currency, and nothing else. We have no reason to hold a name or a phone number, and not holding them is easier to explain than protecting them |
 | Uber, fable | Avatar and photo upload | SKIP | nothing traces to it; the product has no social surface | out | |
@@ -611,8 +611,9 @@ or a written reason. **114 block decisions: 78 taken, 34 dropped with the reason
   successful check at 6.14, the two paths in every empty state, and the trust line that
   appears on four screens.
 - **One contradiction surfaced** between the scope table and the line inventory (share on the
-  MVP win screen against node 4.11 being LATER) and is carried to the founder, not fixed
-  quietly. **One assumption is flagged** (which export is free).
+  MVP win screen against node 4.11 being LATER) and **one assumption was flagged** (which
+  export is free). Both went to the founder rather than being resolved quietly, and both were
+  answered on 2026-08-04: see D-Share and D-Export in `docs/decisions.md`.
 
 What this is for: the composition of a screen is no longer invented at wireframe time. Node
 specifications take their block list from here, and a block that is not in the bank and traces

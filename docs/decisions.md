@@ -7,6 +7,36 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-04 - Two answers the block bank asked for: the share block and the export
+
+Building the block bank (`ia/docs/blocks.md`) surfaced one contradiction and one gap that
+could not be resolved inside the bank, so both were carried to the founder and both were
+answered the same day.
+
+**D-Share. The share block on the Cancel Win screen is LATER, because its destination is.**
+`voice/docs/microcopy.md` gave node 4.10 Cancel Win a "Share this win" button and a privacy
+line, and `ia/docs/sitemap.md` scopes node 4.11 Share Snapshot as LATER. An MVP screen was
+pointing at a screen that is not in the MVP. Resolved conservatively: the share block moves
+to LATER with its destination, and the MVP win screen ends on "back to your subscriptions".
+Rejected: pulling 4.11 into the MVP to justify the button. The share is a social job (S1),
+not a core one, and the MVP exists to test H0, which the win moment already carries without
+it. The lines stay in the microcopy inventory, tagged LATER: they are authored copy waiting
+for their screen, not copy to be written twice.
+
+**D-Export. A plain export of your own data is free; the analytical export is Pro.** The
+product brief lists "export" under Pro, which read as if every export were paid. That would
+put a paywall in front of a data right, which contradicts D3 (the paywall sits at depth,
+never at basic visibility) and the privacy promise the product sells on its front door.
+Split: the plain, complete export of what we hold about you is free and lives on node 6.15
+Data and Privacy; the analytical export of history and trends is Pro and lives with node 5.12.
+The product brief in `CLAUDE.md` is corrected in the same step.
+
+Both decisions land in `ia/docs/blocks.md` (the two flagged rows become decided rows), in
+`ia/docs/pages/cancel.md` and its page, and in `voice/docs/microcopy.md` and its page. The
+grey screen `wireframes/cancel-win.html` still shows the share block as a primary action; it
+is listed for the wireframe rebuild rather than hand-edited now, because that stage rebuilds
+the screen from its specification.
+
 ## 2026-08-04 - The repository moves to the current course structure
 
 The course pipeline (`AI Design Workflow/`) changed after this project was built: a single

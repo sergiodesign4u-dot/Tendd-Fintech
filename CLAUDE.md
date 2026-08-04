@@ -36,8 +36,8 @@ change or failed payment (J4).
 **Free tier** is the whole calm view, uncapped: value before any bank connection, connect a
 bank read-only through Plaid or add subscriptions yourself, the categorized list, basic
 details, the monthly total, basic alerts. **Tendd Pro** is depth, not a visibility unlock:
-history and trends, cancel support, advanced alerts, household view, export, priority
-support. Out of MVP: full budgeting, investments, native app, bill negotiation, bill pay.
+history and trends, cancel support, advanced alerts, household view, the analytical
+export of history, priority support. A plain export of your own data is free (D-Export). Out of MVP: full budgeting, investments, native app, bill negotiation, bill pay.
 
 **Markets:** US and EU (US and Plaid first, per D5). **Stack hypothesis:** Next.js on
 Vercel, Postgres, Plaid (US) and TrueLayer or GoCardless (EU), Stripe, PostHog.

@@ -15,6 +15,10 @@
 - **A blocked cancellation has an explicit in-app next step ("Couldn't cancel? Here is what else to try"), never a dead end.** Concrete fix for the Flow C dead end (Critique). Reason: the merchant's retention dark pattern is the single most likely failure, and the person must always have a move inside Tendd.
 - **Share Snapshot never contains bank data, account numbers, or exact merchant list by default.** Traces S1 (privacy-safe) and E3. Reason: the shareable card must be safe to post publicly by construction, not by the person remembering to hide things.
 - **The win uses specific numbers, monthly and yearly, not a generic success toast.** Traces E2 (jtbd.md: "you just freed up $14.99 a month, that is $179.88 a year"). Reason: the specific number is the emotional payload.
+- **The share block on 4.10 is LATER, because node 4.11 is.** D-Share (founder, 2026-08-04),
+  raised by the block bank: an MVP screen was pointing at a LATER screen. The MVP win screen
+  ends on "back to your subscriptions"; the share lines stay in `voice/docs/microcopy.md`,
+  tagged, waiting for their screen.
 - **[? draft copy] all copy below is a specific first draft.**
 
 ---
@@ -47,8 +51,9 @@ Uses GC1 (light). Entities Cancellation (money saved), Snapshot (seed). Reached 
 Block order:
 1. (P) Win statement with specific numbers: "Nice. You just freed up $15.99 a month. That is $191.88 a year." Traces E2.
 2. (S) Running total: "You have freed up $32 a month with Tendd so far." Traces E2.
-3. (P) Share action: "Share this win" -> 4.11. Traces S1.
-4. (S) Continue: "Back to my list" -> 2.6.
+3. **LATER** (P) Share action: "Share this win" -> 4.11. Traces S1. Out of MVP with its
+   destination: node 4.11 is LATER, so an MVP screen cannot lead there (D-Share, 2026-08-04).
+4. (S) Continue: "Back to my list" -> 2.6. In MVP this is the last block of the screen.
 
 ### 4.11 Share Snapshot  (Page, screen 11)
 

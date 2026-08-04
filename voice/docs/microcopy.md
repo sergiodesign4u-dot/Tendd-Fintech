@@ -492,9 +492,15 @@ list". Total: `$192.90 / month`.
 | cancel-win | win-summary | On your word. You can always resubscribe if you miss it. | body |
 | cancel-win | running-total | With Tendd so far | heading |
 | cancel-win | running-total | You have freed up $32.98 a month, about $395 a year, across the subscriptions you have cut. | body |
-| cancel-win | share | Feeling good about it? You can share a simple card. No bank details, ever. | body |
-| cancel-win | share | Share this win | button |
+| cancel-win | share | Feeling good about it? You can share a simple card. No bank details, ever. | body, LATER |
+| cancel-win | share | Share this win | button, LATER |
 | cancel-win | continue | Done, back to my list | button |
+
+The two `share` lines are authored and kept, and they are **out of MVP**: node 4.11 Share
+Snapshot is LATER, so an MVP screen cannot lead there (D-Share, founder, 2026-08-04, raised
+by `ia/docs/blocks.md`). In MVP the win screen ends on the continue line. The copy stays here
+rather than being deleted and rewritten later; the same applies to every `share-snapshot` line
+below.
 
 ### share-snapshot (+ error, loading)
 
