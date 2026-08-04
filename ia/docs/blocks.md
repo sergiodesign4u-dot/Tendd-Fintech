@@ -46,7 +46,7 @@ physically unavailable. For Tendd the domain half is available for two types onl
 | A. Public landing | available: Rocket Money, ReSubs, Bobby | available |
 | B. Onboarding step | **missing**: behind signup at every competitor | available |
 | C. List dashboard | **second-hand**: Refero indexes real in-product screens (Monarch Money), plus two category peers on iOS | available |
-| D. Object detail | **missing**: behind login | available |
+| D. Object detail | **second-hand**: Orbit's own detail sheet through Refero, plus Duolingo's cancel-side screen | available |
 | E. Activity feed | **missing**: behind login | available |
 | F. Task guide plus confirmation | partly available: ReSubs publishes cancel guides | available |
 | G. Account and settings | **missing**: behind login | available |
@@ -327,3 +327,69 @@ Eight blocks. Monarch has three of them and buries the screen under ten product 
 a trial countdown; Subo has the grouping and no summary; Orbit has the summary and sells next
 to it; Cursor and Dime supplied the shape (summary first, plain list under it, no chart) and
 know nothing about our people. The attention row and the trust line exist in none of the six.
+
+---
+
+## Type D. Object detail (node 2.7 Subscription Detail)
+
+One subscription, everything known about it. This screen is where J3 lives, the clarity job:
+"what IS this charge". It is also the doorway to J2, the cut job, because a person decides to
+cancel here and not on the list.
+
+**The domain half is second-hand again, and this time from both sides of the mirror.** Orbit,
+a subscription tracker on iOS, has the detail sheet. Duolingo has the screen our person meets
+at the other end, when they go to the merchant to cancel: that one is a retention screen, and
+knowing its shape is what makes node 4.9 honest later.
+
+### Sources
+
+**Domain, second-hand through Refero:**
+- [Orbit, subscription detail](https://refero.design/screens/6ca00e91-4000-4547-94ed-63be3c448fe9) - category peer, iOS: hero with logo, name and price / five label and value rows (Billing, Next payment, Total spent, Subscribed, Category) / a Billing History card / a full width "Mark as Cancelled" / a "Delete subscription" text link
+- [Duolingo, Manage subscription](https://refero.design/pages/cbce989c-30cb-4180-9597-55a434008700) - the merchant side: an expiry banner with REACTIVATE as the primary action / a benefits list that argues against leaving / current plan, next payment, payment method with the card ending / a per-benefit "TURN OFF"
+
+**Craft, outside the category:**
+- [TwelveLabs, billing](https://refero.design/pages/5ec94fab-0728-45b7-9e99-aaef03841592) - stacked cards: plan, payment, summary, history, including the history's empty state
+- [Wealthsimple, accounts](https://refero.design/pages/8a1adb56-9e86-49c3-9daf-72500aed3ac1) - back link, title, a stacked list of object cards, no tabs on one object
+- [Shop, order history](https://refero.design/pages/47c793b4-b845-4454-9022-c6f717cf3402) - a history block that is designed for being empty
+
+### Decisions
+
+| Source | Block | Verdict | Traces to | Scope | Where we are better and how |
+|---|---|---|---|---|---|
+| Orbit | Hero: logo, name, the amount as the largest thing, cycle beside it | TAKE | J3; GC4; design principle 2 | MVP | Orbit sets the price in lavender at 34pt on a purple gradient. Ours is the same hierarchy in a calm register: the number is big because it is the answer, not because it is dramatic |
+| own research | The decoder line: "Appears on your statement as SPOTIFYAB STOCKHOLM" | TAKE | growth zone 2 (cryptic charges); J3 | MVP | **This block exists in none of the sources.** It is the whole reason the detail screen exists: the friendly name is what we show, the bank code is what she saw, and connecting the two is the moment the charge stops being frightening |
+| Orbit | Label and value rows: billing cycle, next payment, category | TAKE | J3, J4; GC4 | MVP | Ours leads the next payment with "in 6 days" and keeps the date second, the same rule as on the list |
+| Orbit ("Total spent") | Paid so far | TAKE, DIFFERENTLY | J2 (deciding whether to cut); E2 | MVP | Neutral label, no exclamation, and only once there is enough history for it to mean anything. The same number can read as a small win or as an accusation, and the label decides which |
+| Duolingo, Orbit | Payment method, "Visa ending 4400" | TAKE, DIFFERENTLY | J3; design principle 4 | MVP | We do not hold card data, so we never print card digits. We name what we actually know from the source: "Charged to Chase checking". This is the column that was dropped from the list on purpose and belongs here, one level deeper |
+| Orbit, TwelveLabs | Charge history | TAKE, DIFFERENTLY | J3, J4; D3 | MVP | The last three months are free, because that is basic detail. Longer history and trends are Pro, node 5.12. D3 in one row: depth is paid, visibility is not |
+| own research | Price change marked inside the history, in amber | TAKE | J4; D-Concept (amber, never red) | MVP | The category tells you the new price and never shows you the old one. Ours marks the row where it changed, so a price rise is a fact with a date, not a suspicion |
+| Orbit ("Mark as Cancelled") | Primary action on the object | TAKE, DIFFERENTLY | J2; D3 (never a paywall at the cancel moment) | MVP | Orbit's primary marks a status the person has to achieve elsewhere on their own. Ours opens the cancel guide and actually helps, and it is free |
+| Duolingo | Benefits list plus a REACTIVATE banner | SKIP | retention framing; we are not the merchant | out | Kept as an input for node 4.9 instead: our cancel guide must warn that this is exactly what the merchant will show, so the pressure is expected rather than surprising |
+| Duolingo | Per-benefit "TURN OFF" toggle | SKIP | not our object; we do not control the merchant's plan | out | |
+| Orbit | Edit pencil on the history card | SKIP | editing past charges implies we keep an editable ledger of facts | out | History is evidence. If it is wrong, the fix is to report the source, not to overwrite the record |
+| own research | Correction action: "this is not a subscription" | TAKE | design principle 4; the detection is a guess and must be correctable | MVP | Automatic detection is wrong sometimes, and every competitor makes that the person's problem. A visible correction is what makes the figures trustworthy |
+| Orbit | Delete subscription as a destructive text link | TAKE, DIFFERENTLY | D-Concept (clay only for a genuine error, never red decoration) | MVP | For a bank-detected item ours hides it and says it can come back; only a manual entry is truly deleted. Deleting something the bank will re-detect tomorrow is a lie about what happened |
+| Wealthsimple | Tabs on the object | SKIP | one object, one screen; design principle 2 | out | |
+| own research | Data source and trust line | TAKE | GC6; design principle 4 | MVP | Where this figure came from and when it was last checked, on the screen where the person is deciding to act on it |
+
+### Our order, mobile-first
+
+1. Back to the list (GC1)
+2. Hero: logo, real merchant name, the amount, the cycle beside it
+3. Status: a quiet badge, amber only if the price changed or a payment failed
+4. The facts: next charge "in 6 days, 11 March", billing cycle, charged to, category, paid so far
+5. The decoder line: how this charge appears on the statement
+6. Charge history: the last three months, the price change marked; deeper history is Pro
+7. Primary: help me cancel this, into node 4.9
+8. Secondary: edit the details, and "this is not a subscription"
+9. Remove from the list, quiet, and honest about whether it can come back
+10. Data source and trust line (GC6)
+
+States: a manual entry (no bank source, no decoder line, editable), a detected entry (source
+named, correction offered), price changed, payment failed, and already cancelled.
+
+Ten blocks. Orbit has five of them and its primary action only marks a status; Duolingo has
+the shape of what our person is about to walk into and none of what she needs before she does;
+TwelveLabs and Wealthsimple supplied the stacking and the empty history. The decoder line and
+the correction action exist in no source, and they are the two blocks that make the screen
+worth opening.
