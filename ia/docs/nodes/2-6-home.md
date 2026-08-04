@@ -87,10 +87,20 @@ carries the rest.
 
 ## Responsive
 
-Mobile: the eight blocks in order, one column, the total large. Desktop: the summary strip and
-the list share a wider measure, groups may sit two-up, and the detail (node 2.7) may open as a
-right-hand pane instead of a route. The tab bar becomes a left rail. No block is added by
-breakpoint, and the total stays the biggest thing on the screen at every width.
+Mobile: the eight blocks in order, one column, the total large. Desktop: the tab bar becomes a
+left rail with the header folded into its top, the total and the attention row sit side by side
+across the top, and **the groups run in balanced columns**, two-up and then three-up, so most of
+the list is visible without scrolling. No block is added by breakpoint, and the total stays the
+biggest thing on the screen at every width.
+
+**Decided 2026-08-05, at the etalon: the right-hand detail pane is rejected.** The earlier
+version of this section allowed the detail (node 2.7) to open as a pane instead of a route. It
+was built and then removed, for three reasons. One action would have had two destinations
+depending on the width of the window, which is the kind of thing that cannot be taught and has
+to be discovered. The pane duplicated node 2.7, so the same object would have had two renderings
+to keep in agreement. And the pane spent the whole third of the screen on one subscription while
+the job of this screen is all of them: the same width spent on columns shows every one of the
+fourteen at once, which is J-MAIN read literally. A row opens node 2.7, at every width.
 
 ## SEO
 

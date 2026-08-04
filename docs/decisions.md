@@ -7,6 +7,31 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-05 - Home is a dashboard on desktop, and has no second pane
+
+The IA allowed the wide layout of Home to open a subscription in a right-hand pane instead of
+routing to node 2.7. It was built at the etalon and removed the same day.
+
+**Rejected, and on what ground.** One action would have had two destinations depending on the
+width of the window: tapping a row would route on a laptop and fill a pane on a monitor. That
+is a rule a person cannot be taught and has to discover, on the one screen whose whole promise
+is that nothing surprises you. The pane also duplicated node 2.7, so one object would have had
+two renderings to keep in agreement forever, and the first thing that drifts in that
+arrangement is the thing the screen exists to be trusted about. Finally it spent a third of the
+width on one subscription while the job of the screen is all of them.
+
+**Chosen instead.** The same width goes into the list: the total and the attention row sit side
+by side across the top, and the category groups run in balanced columns, two-up and then
+three-up. On a 1440 screen all fourteen subscriptions are visible without scrolling, which is
+J-MAIN ("all my recurring charges in one calm view") read literally rather than approximated.
+The total stays the biggest thing at every width, and a row opens node 2.7 at every width.
+
+**Not decided here.** Subscription Detail keeps a list as its master pane. It is a different
+thing, showing where you are in the list you came from rather than previewing where you might
+go, and it is re-decided on its own screen when that screen is rebuilt.
+
+---
+
 ## 2026-08-05 - The scaffolding comes down: nine cluster pages retired
 
 The detail layer of the IA was nine cluster pages, each holding several screens plus its own

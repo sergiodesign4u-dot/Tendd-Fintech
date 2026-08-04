@@ -15,8 +15,12 @@
 
    Block order is node 2.6, mobile-first: GC1 header, GC3 summary, the conditional
    attention row, the grouped list with subtotals, the two quiet secondaries, the
-   GC6 trust line, GC2 tab bar. The detail pane is the wide-screen affordance the
-   node allows, and it exists only there. */
+   GC6 trust line, GC2 tab bar.
+
+   The wide layout is a dashboard, not a wider phone. No detail pane: a row has one
+   destination at every width, and the freed width goes into showing more of the
+   list at once, which is the job of this screen. See the Responsive section of
+   node 2.6 for the ground. */
 
 .app {
   display: flex; flex-direction: column;
@@ -125,20 +129,6 @@
 .tabbar a .ic .dot { position: absolute; top: -3px; right: -4px; width: 7px; height: 7px; border-radius: 50%; background: var(--mid); }
 .tabbar a.cur { color: var(--ink); font-weight: 600; border-top-color: var(--ink); }
 
-/* The detail pane is a wide-screen affordance only (node 2.6, Responsive). */
-.detailpane { display: none; }
-.detailpane h2 { margin: 0 0 2px; font-size: 20px; }
-.detailpane .amt { font-size: 14px; color: var(--soft); }
-.detailpane .kv { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--line2); font-size: 13px; }
-.detailpane .kv .k { color: var(--soft); }
-.detailpane .kv .v { text-align: right; }
-.detailpane .pane-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; }
-.detailpane .pane-actions a {
-  display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
-  border: 1px solid var(--line); font-size: 13.5px; color: var(--mid); text-decoration: none;
-}
-.detailpane .pane-actions a.lead { border-color: var(--soft); color: var(--ink); font-weight: 600; }
-
 /* ---- The wide layout. Same screen, reflowed: the tab bar becomes a left rail
    and the header folds into its top, which is the IA delta decided once for the
    whole product. The query runs on the stage, so the screen reflows on the space
@@ -168,21 +158,32 @@
   }
   .tabbar a .ic { margin: 0; }
   .tabbar a.cur { border-top: 0; border-left-color: var(--ink); background: var(--frame); }
-  .screen { grid-column: 2; grid-row: 1 / -1; overflow: auto; padding: 28px 34px 44px; }
+  .screen { grid-column: 2; grid-row: 1 / -1; overflow: auto; padding: 30px 36px 48px; }
   .screen > * { max-width: 780px; }
   .summary .total { font-size: 54px; }
 }
 
-/* Wide enough for two panes: the row opens beside the list instead of navigating
-   away. 980 rather than 1040, because the review panel takes 250px and a 1280
-   laptop must still see the layout this screen is actually specified to have. */
-@container (min-width: 980px) {
-  .app { grid-template-columns: 232px minmax(340px, 1fr) minmax(340px, 1fr); }
+/* ---- Dashboard. Wide enough to stop being a tall column: the total and the one
+   thing that needs attention sit side by side across the top, and the groups run
+   in balanced columns so the person sees most of the list without scrolling.
+   That is J-MAIN read literally, all recurring charges in one calm view, and it
+   is the only thing the extra width is spent on. ---- */
+@container (min-width: 900px) {
   .screen > * { max-width: none; }
-  .detailpane {
-    display: block; grid-column: 3; grid-row: 1 / -1; overflow: auto;
-    border-left: 1px solid var(--line); padding: 28px 30px 44px;
+  .head {
+    display: grid; grid-template-columns: minmax(250px, 0.85fr) minmax(300px, 1.15fr);
+    gap: 30px 40px; align-items: center;
+    padding: 0 0 26px; margin: 0 0 26px; border-bottom: 1px solid var(--line2);
   }
+  .head .summary, .head .attention { margin: 0; }
+  .groups { columns: 2; column-gap: 44px; }
+  /* A category is read as one thing, so it never splits across a column break. */
+  .group { break-inside: avoid; margin: 0 0 26px; }
+  .secondary { margin-top: 6px; }
+}
+
+@container (min-width: 1340px) {
+  .groups { columns: 3; }
 }
 </style>
 </head>
@@ -201,20 +202,24 @@
 
   <main class="screen">
 
-    <!-- GC3 Recurring summary strip -->
-    <section class="summary">
-      <h1>You're paying for 14 subscriptions</h1>
-      <p class="total" aria-label="monthly total, $192.90">$192.90</p>
-      <p class="context">a month, for what you have signed up for</p>
-    </section>
+    <div class="head">
+      <!-- GC3 Recurring summary strip -->
+      <section class="summary">
+        <h1>You're paying for 14 subscriptions</h1>
+        <p class="total" aria-label="monthly total, $192.90">$192.90</p>
+        <p class="context">a month, for what you have signed up for</p>
+      </section>
 
-    <!-- Attention row, shown only when something is true -->
-    <section class="attention" role="status" aria-label="Needs your attention">
-      <p>Netflix went up by $2.50, now $17.99 a month.</p>
-      <a href="subscription-detail.html">See what changed</a>
-    </section>
+      <!-- Attention row, shown only when something is true -->
+      <section class="attention" role="status" aria-label="Needs your attention">
+        <p>Netflix went up by $2.50, now $17.99 a month.</p>
+        <a href="subscription-detail.html">See what changed</a>
+      </section>
+    </div>
 
     <!-- The list, grouped by category, each group with its subtotal -->
+    <div class="groups">
+
     <section class="group">
       <div class="group-head">
         <h2>Streaming (4)</h2>
@@ -331,6 +336,8 @@
       </ul>
     </section>
 
+    </div><!-- /groups -->
+
     <!-- Two quiet secondaries. The job of this screen is to look, not to add. -->
     <nav class="secondary" aria-label="More">
       <a href="add-subscription.html">Add a subscription</a>
@@ -346,27 +353,6 @@
     </section>
 
   </main>
-
-  <!-- The selected row, on a screen wide enough to hold both -->
-  <aside class="detailpane" aria-label="Selected subscription">
-    <h2>Netflix</h2>
-    <p class="amt">$17.99 / month</p>
-
-    <div class="kv"><span class="k">Next payment</span><span class="v">$17.99 in 2 days, Aug 3</span></div>
-    <div class="kv"><span class="k">Category</span><span class="v">Streaming</span></div>
-    <div class="kv"><span class="k">Source</span><span class="v">From Chase ...1234, read-only</span></div>
-    <div class="kv"><span class="k">Status</span><span class="v">Active</span></div>
-
-    <!-- Content of the selected item, not an announcement: one live region per screen -->
-    <div class="attention" style="margin:22px 0 0">
-      <p>The price went up by $2.50 on Jul 28, now $17.99 a month.</p>
-    </div>
-
-    <div class="pane-actions">
-      <a class="lead" href="cancel-guide.html">Cancel this subscription</a>
-      <a href="subscription-detail.html">Open full detail</a>
-    </div>
-  </aside>
 
   <!-- GC2 Global tab bar -->
   <nav class="tabbar" aria-label="Global navigation">

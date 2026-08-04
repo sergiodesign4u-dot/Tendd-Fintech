@@ -189,9 +189,17 @@ the read-only line wherever a trust moment appears. All of it is already written
 Mobile-first, authored from the narrow layout. The same page reflows to desktop through
 `_wf.css`, so widening the browser really shows the wide layout. The reflow implements the IA
 delta, decided once and not re-decided per screen: the tab bar becomes a left rail with the
-header folded into its top; Home and Subscription Detail become a two-pane master and detail on
-a wide screen; onboarding stays a single column, just wider. **Every screen is checked at
-360px**: no horizontal scroll, no clipped text, no overlap.
+header folded into its top; **Home becomes a dashboard** (the total and the attention row side
+by side across the top, the groups in balanced columns, two-up and then three-up); onboarding
+stays a single column, just wider. **Every screen is checked at 360px**: no horizontal scroll,
+no clipped text, no overlap.
+
+**Decided at the etalon, 2026-08-05: no second pane on Home.** The width goes into showing more
+of the list, not into a preview of one row. An action has one destination at every width, and a
+row opens node 2.7 whether the window is 360px or 1600px. The ground is in the Responsive
+section of `ia/docs/nodes/2-6-home.md`. Subscription Detail still carries a list as its master
+pane, which is a different thing: it shows where you are in the list you came from, and it is
+re-decided on its own screen at Step 6, not inherited from here.
 
 ## 10. Deferred to Design, not decided here
 

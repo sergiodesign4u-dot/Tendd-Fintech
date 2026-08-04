@@ -172,6 +172,7 @@ lists lines no screen shows is wrong in the same way a missing line is.
 | home | list-group | The five subtotals recorded | Node 2.6 block 4: each group carries its own subtotal. They are derived from the canonical dataset, not authored |
 | home | cancel-candidates | Three lines retired from the base screen | The nudge is not one of the eight blocks of node 2.6, and its own state is 2.6.4, whose trigger is "the person came here to cut". home-savefocus carries the same lines and keeps them. The Save tab is the door |
 | home | history-link | "Pro" status badge retired | Node 5.12 requires a route from Home, and node 2.6 forbids an upsell on the calm view ("any upsell" is the load-bearing skip of the type). The route stays, the badge goes: the gate belongs to node 5.12, where GC7 shows a real preview |
+| home | detail-pane | Five lines retired with the pane itself | The desktop right-hand pane was removed: one action must not have two destinations depending on the width of the window, and the pane duplicated node 2.7. The lines live on `subscription-detail`, which is where they were copied from. Ground: `docs/decisions.md`, 2026-08-05 |
 
 **Not a copy change, but recorded here because the screen reads differently:** the
 next charge is rendered days first and the date second (conventions section 5, and
@@ -391,11 +392,6 @@ list". Total: `$192.90 / month`.
 | home | trust-line | Read-only. Tendd cannot move your money. | body |
 | home | trust-line | Last checked today, 9:14 AM. | body |
 | home | trust-line | Data and privacy | link |
-| home | detail-pane | Next payment / Category / Source / Status | field-label |
-| home | detail-pane | From Chase ...1234, read-only | body |
-| home | detail-pane | The price went up by $2.50 on Jul 28, now $17.99 a month. | body |
-| home | detail-pane | Cancel this subscription | button |
-| home | detail-pane | Open full detail | button |
 | home | tab-bar | Home / Alerts / Save / You | nav |
 | home-empty | summary-strip | Nothing to add up yet | body |
 | home-empty | summary-strip | Connect your bank or add a subscription, and your monthly total appears here as the biggest thing on screen. | body |
