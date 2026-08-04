@@ -36,15 +36,15 @@ window.NAV = [
       { label:'CJM To-Be', page:'research/cjm-to-be.html', done:true },
   ]},
   { label:'Information Architecture (IA)', children:[
-      // Temporary row: the pre-upgrade IA lives on one page. It is removed once the
-      // base and detail layers below are rebuilt in the course format.
-      { label:'IA (pre-upgrade)', page:'ia/ia.html', done:true },
       { subhead:'Base layer' },
-      { label:'Flows',        page:'ia/flows.html',       done:false },
-      { label:'Concept map',  page:'ia/concept-map.html', done:false },
+      { label:'Flows',        page:'ia/flows.html',       done:true },
+      { label:'Concept map',  page:'ia/concept-map.html', done:true },
       { subhead:'Detail layer' },
       { label:'Sitemap',      page:'ia/sitemap.html',     done:false },
       { label:'Structure',    page:'ia/structure.html',   done:false },
+      // Temporary row: the pre-upgrade IA page still holds the page level library and
+      // the critique. It goes away when the detail layer above is rebuilt.
+      { label:'IA (pre-upgrade)', page:'ia/ia.html', done:true },
   ]},
   { label:'Wireframes',  page:'wireframes/overview.html', done:true },
   { label:'Voice',       page:'voice/voice.html',         done:true },

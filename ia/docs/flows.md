@@ -72,6 +72,14 @@ declines both retry and the manual fallback. The Guided Reveal is drawn as
 one node; internally it is gradual per D1 (count, then categories with logos,
 then total paired with an action).
 
+**Activation node: Guided Reveal.** research/docs/aarrr.md defines activation as
+"the first time the user sees a populated subscription list with a monthly
+total", and in this flow that happens inside the Guided Reveal, at its third
+step (the total paired with an action, per D1). It is the second screen after
+the bank connection and the third tap from the start, so the product delivers
+its promised value inside the ceiling the research set, not later. Home is where
+that value is kept, not where it first arrives.
+
 ---
 
 ## Flow B: J5, track without sharing bank data (Ravi, manual + presets)

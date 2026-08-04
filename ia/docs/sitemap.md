@@ -199,33 +199,103 @@ critique.
 
 ```
 Onboarding and Activation  (one-time chain, then never seen again)
-- Welcome / Value Intro                 (J1: show value before asking for data)   [E][R][C]
-- Activation Path Choice                (J1 + J5: two paths, equal weight, D2)     [E][R]
-  - Connect Bank                        (J1 bank path; D5 Plaid US first)          [E][C]
-  - Add Subscription (manual + presets) (J5 privacy path; D2 400+ presets)         [R]  (also reused in-app by all)
-- Guided Reveal                         (J-MAIN: the aha moment; gradual, D1)      [E] [PRIMARY PATH]
+- Welcome / Value Intro                 (J1: show value before asking for data)   [E][R][C]  MVP
+- Activation Path Choice                (J1 + J5: two paths, equal weight, D2)     [E][R]     MVP
+  - Connect Bank                        (J1 bank path; D5 Plaid US first)          [E][C]     MVP
+  - Add Subscription (manual + presets) (J5 privacy path; D2 400+ presets)         [R]        MVP  (also reused in-app by all)
+- Guided Reveal                         (J-MAIN: the aha moment; gradual, D1)      [E]        MVP  [PRIMARY PATH]
 
 Core  (the steady-state product)
-- Home / Subscription List              (J-MAIN + E1: calm list, count, total)     [E][R][C] [PRIMARY PATH]
-  - Subscription Detail                 (J3 decode a charge + J4 its alerts)       [E][R][C]
+- Home / Subscription List              (J-MAIN + E1: calm list, count, total)     [E][R][C]  MVP  [PRIMARY PATH]
+  - Subscription Detail                 (J3 decode a charge + J4 its alerts)       [E][R][C]  MVP
 
 Stay Ahead
-- Alerts / Activity                     (J4: price change, payment failed)         [E][C]
+- Alerts / Activity                     (J4: price change, payment failed)         [E][C]     MVP
 
 Cut and Celebrate
-- Cancel Guide                          (J2: identify and cancel; basic free, D3)  [C][R][E]
-  - Cancel Win Moment                   (E2: the small win, money saved)           [C][E]
-    - Share Snapshot                    (S1: privacy-safe share card)              [E][C]
+- Cancel Guide                          (J2: identify and cancel; basic free, D3)  [C][R][E]  MVP
+  - Cancel Win Moment                   (E2: the small win, money saved)           [C][E]     MVP
+    - Share Snapshot                    (S1: privacy-safe share card)              [E][C]     LATER
 
 Depth  (Pro, gated by D3)
-- History and Trends                    (J-MAIN over time; Pro gate, D3)           [E][C]
-- Upgrade / Tendd Pro                   (D3 split + D4 price: the paywall)          [E][R][C]
+- History and Trends                    (J-MAIN over time; Pro gate, D3)           [E][C]     LATER
+- Upgrade / Tendd Pro                   (D3 split + D4 price: the paywall)          [E][R][C] LATER
 
 Account and Trust
-- Connections / Accounts                (J1 + J5: manage sources, reauth; D5)      [E][R]
-- Data and Privacy                      (E3: plain-language data use, delete)      [R][E]
-- Settings / Profile                    (E3: plan, notification preferences)       [E][R][C]
+- Connections / Accounts                (J1 + J5: manage sources, reauth; D5)      [E][R]     MVP
+- Data and Privacy                      (E3: plain-language data use, delete)      [R][E]     MVP
+- Settings / Profile                    (E3: plan, notification preferences)       [E][R][C]  MVP
 ```
+
+### Scope: MVP or LATER on every screen
+
+The rule: a screen is **MVP** when the To-Be journey breaks without it or when an
+MVP backlog item (B1 to B7 in research/docs/cjm-to-be.md) cannot be delivered
+without it. Everything else is **LATER**. LATER screens stay on the map, because
+the map shows the product whole; the tag decides what the detail layer specifies
+first and what the wireframes and the color pass take in the first round.
+
+**Estimate: 13 MVP, 3 LATER.**
+
+| Screen | Scope | Traced to |
+|---|---|---|
+| Welcome / Value Intro | MVP | B1 value before the bank |
+| Activation Path Choice | MVP | B2 two visible paths (D2) |
+| Connect Bank | MVP | B3 read-only trust line (D5) |
+| Add Subscription | MVP | L6, which is MVP for the product as a whole (D2) |
+| Guided Reveal | MVP | B5 the gradual reveal (D1) |
+| Home / Subscription List | MVP | B6 the calm list and the total |
+| Subscription Detail | MVP | B4 and B6 what this charge is |
+| Alerts / Activity | MVP | B7 basic alerts, free (D3) |
+| Cancel Guide | MVP | Basic cancel is free by D3 |
+| Cancel Win Moment | MVP | Boundary call, see below |
+| Share Snapshot | LATER | L4 referral, hangs on S1, a `[?]` job |
+| History and Trends | LATER | L3 Pro depth (D3) |
+| Upgrade / Tendd Pro | LATER | L3 revenue gate |
+| Connections / Accounts | MVP | Reauthorization is part of the trust path (E3, D5) |
+| Data and Privacy | MVP | E3 and B3: trust is the activation gate |
+| Settings / Profile | MVP | E3 plan and notification control, minimal |
+
+**Two boundary calls, named rather than hidden.** *Cancel Win Moment* is not in
+the B1 to B7 backlog, because that backlog covers Emma crossed with J-MAIN only
+(a Lite CJM pass). It is kept MVP because cancelling is free by D3 and Flow C
+would otherwise end nowhere, which is the dead end class the critique exists to
+catch. *Upgrade / Tendd Pro* is LATER because every surface that leads to it
+(History and Trends, advanced alerts, the full cancel guides) is LATER: a paywall
+with no gated surface in front of it has nothing to gate.
+
+### Cross-check against the chosen UX pattern
+
+The pattern locked in research/docs/ux-patterns.md is **Pattern C (Guided Reveal)
+for onboarding plus Pattern A (Automated Dashboard) for return sessions**. The map
+realizes it literally: Guided Reveal is a screen of its own in the activation
+chain, and Home / Subscription List is the dashboard every later session opens on.
+
+The known break of Pattern A (an empty dashboard before trust is earned) is
+answered by two screens that exist for exactly that reason: Welcome / Value Intro
+shows the value before any data is asked for, and Activation Path Choice offers the
+manual path at equal weight. No screen on the map works against the pattern.
+
+### Second cut: every entity has a screen
+
+The first cut groups screens by intent, which catches holes in the person's path.
+This one goes by the objects in the Entities section, which catches holes in the
+subject matter.
+
+| Entity | Where it is seen or acted on |
+|---|---|
+| Subscription | Home (list), Subscription Detail, Add Subscription, Guided Reveal |
+| Account (source or connection) | Connect Bank, Connections / Accounts |
+| Preset (service template) | Add Subscription |
+| Alert | Alerts / Activity, Subscription Detail |
+| Charge (billing instance) | Subscription Detail, Alerts / Activity |
+| Cancellation | Cancel Guide, Cancel Win Moment |
+| Snapshot | Share Snapshot |
+| User and data controls | Data and Privacy, Settings / Profile |
+| Plan (Pro tier) | Upgrade / Tendd Pro, Settings / Profile |
+
+No entity is left without a screen, and no screen was added to serve an entity
+that no job produces.
 
 Notes on structure:
 
@@ -313,10 +383,16 @@ tap 1 into Path Choice, so the 3-tap count above is unchanged.
 
 ## Traceability
 
-Coverage matrix. Rows are every job from research/docs/jtbd.md (main,
-related, and emotional/social). Columns are every screen from the Screens
-section. A checkmark means the screen genuinely participates in closing that
-job. A gate that only unlocks a job does not count as closing it.
+Coverage matrix. Rows are the **functional** jobs from research/docs/jtbd.md
+(main and related). Columns are every screen from the Screens section. A
+checkmark means the screen genuinely participates in closing that job. A gate
+that only unlocks a job does not count as closing it.
+
+Emotional and social jobs (E1, E2, E3, S1) are deliberately **not** rows here.
+They are not closed by a screen: "feel competent, not judged" is a quality the
+product carries across screens, and asking "where does the person do this?"
+produces either a stretched checkmark or an invented screen. They get their own
+table below, which names the mechanism instead.
 
 Column key:
 Wel = Welcome / Value Intro, Pth = Activation Path Choice, Bnk = Connect
@@ -334,10 +410,26 @@ Privacy, Set = Settings / Profile.
 | J3 understand what a charge is |  |  |  |  | ✓ | ✓ | ✓ |  |  |  |  |  |  |  |  |  |
 | J4 stay ahead of surprises |  |  |  |  |  |  | ✓ | ✓ |  |  |  |  |  |  |  |  |
 | J5 track without sharing bank |  | ✓ |  | ✓ |  |  |  |  |  |  |  |  |  | ✓ |  |  |
-| E1 feel competent, not judged | ✓ |  |  |  | ✓ | ✓ |  |  |  | ✓ |  |  |  |  |  |  |
-| E2 the small win |  |  |  |  |  |  |  |  |  | ✓ | ✓ |  |  |  |  |  |
-| E3 feel safe, control data |  |  |  |  |  |  |  |  |  |  |  |  |  | ✓ | ✓ | ✓ |
-| S1 share the discovery |  |  |  |  |  |  |  |  |  | ✓ | ✓ |  |  |  |  |  |
+| **SCOPE** | MVP | MVP | MVP | MVP | MVP | MVP | MVP | MVP | MVP | MVP | LATER | LATER | LATER | MVP | MVP | MVP |
+
+**Estimate: 13 MVP screens, 3 LATER.** The detail layer specifies the MVP subset
+first, the wireframes draw it first, and the color pass takes it first; the three
+LATER screens go in a named second round, not into a silent backlog. No screen is
+tagged MVP without a checkmark above it except the two named in the orphan list
+below, and both carry a reason there.
+
+### Emotional and social jobs: what supports them
+
+Not screens, mechanisms. This table has two named readers: the detail layer takes
+the "emotional support" line of a node card from it, and Voice takes it as the
+order for tone.
+
+| Job | Mechanism (not a screen) | Where it lives | What backs it |
+|---|---|---|---|
+| E1 feel competent, not judged | Money is framed as "what you signed up for", never as spending or waste; no score, no red, no advice; the biggest thing on screen is one number the person can act on | Guided Reveal, Home summary strip, Cancel Win, and the voice rules of every state | personas.md O7 and the PMC finding that avoidance is triggered by a threat to a positive self-image (jtbd.md 6A); design principle 3 |
+| E2 the small win | The saved amount is stated as a specific number with a next step, then the product stops talking; the moment gets its own screen rather than a toast | Cancel Win Moment, and the savings line in the Home save-focus state | jtbd.md E2 and the Claudia quote ("saved me $400 in 15 minutes"); competitors.md gap G4 |
+| E3 feel safe, control data | Read-only is stated in the same breath as the bank request ("Read-only. Tendd cannot move your money."), the source of every figure is shown, and disconnect and delete are reachable in one tap, not buried | Connect Bank trust line, Connections / Accounts, Data and Privacy, Settings | personas.md Ravi; benchmark.md (Apple Card); D5; design principle 4 |
+| S1 share the discovery | A snapshot card that carries the count and the total and no bank data, so sharing never leaks a statement | Share Snapshot, entered from Cancel Win | jtbd.md S1, marked `[?]`: the virality is a hypothesis, which is why the screen is LATER |
 
 ### Orphan screens (columns with no checkmark)
 
@@ -353,6 +445,20 @@ Privacy, Set = Settings / Profile.
     how the Navigation section classifies it. It is the one screen that
     traces to a decision instead of a job, and that is recorded here openly
     rather than hidden with a stretched checkmark.
+
+- **Settings / Profile.** It lost its only checkmark when the emotional jobs
+  moved out of the matrix (it used to carry E3). No functional job closes here.
+  - **Resolution: retain, justified by mechanism and by D4.** E3 needs a place
+    where the plan, the notifications and the account live and can be changed;
+    the table above names that mechanism, and D4 (a paid plan exists) requires
+    somewhere to see and manage it. It stays out of the matrix honestly rather
+    than collecting a stretched checkmark.
+
+- **Share Snapshot.** Also lost its checkmarks with the emotional and social
+  jobs; it exists for S1, which jtbd.md itself marks `[?]`.
+  - **Resolution: retain, tagged LATER.** The screen is built and stays on the
+    map, but the hypothesis behind it is untested, which is exactly why it is not
+    in the MVP round.
 
 No other screen is orphaned. Every other column has at least one checkmark.
 

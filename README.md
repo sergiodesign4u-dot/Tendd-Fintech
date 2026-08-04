@@ -18,7 +18,7 @@ Rules for this repository: [CLAUDE.md](./CLAUDE.md). Decision log:
 | Foundation Research | [research/research.html](./research/research.html) | Done, June 2026 |
 | User Research (Personas + JTBD) | [research/personas.html](./research/personas.html), [research/jtbd.html](./research/jtbd.html) | Done, June 2026 |
 | CJM (As-Is + To-Be) | [research/cjm-as-is.html](./research/cjm-as-is.html), [research/cjm-to-be.html](./research/cjm-to-be.html) | Done, July 2026 |
-| Information Architecture (IA) | [ia/ia.html](./ia/ia.html) | In progress: the pre-upgrade page is live, the two-layer rebuild (flows, concept map, sitemap, structure, block bank) is next |
+| Information Architecture (IA) | [ia/flows.html](./ia/flows.html), [ia/concept-map.html](./ia/concept-map.html) | In progress: base layer rebuilt (flows, concept map, MVP scope, emotional mechanisms); detail layer next (node cards, block bank, sitemap and structure pages) |
 | Wireframes | [wireframes/overview.html](./wireframes/overview.html) | Done, July 2026; scheduled for a rebuild against the current pack (live screen, no zone annotations) |
 | Voice | [voice/voice.html](./voice/voice.html) | Done, July 2026 |
 | Concept | [design/concept/directions.html](./design/concept/directions.html), [design/concept/concept.html](./design/concept/concept.html) | Done, July 2026 |

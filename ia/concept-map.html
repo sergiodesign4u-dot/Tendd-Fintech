@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tendd IA - Concept map</title>
+  <style>
+    :root {
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --border: #e8e4dc;
+      --border-light: #f0ede6;
+      --text: #2a2724;
+      --text-secondary: #6b6560;
+      --text-muted: #9b958e;
+      --accent: #5c7a6e;
+      --accent-light: #eef4f1;
+      --accent-mid: #d0e4dc;
+      --yellow-light: #fdf8ed;
+      --yellow-mid: #f5e9c4;
+      --red-light: #fdf2f0;
+      --red-mid: #f2cfc8;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --radius: 8px;
+      --radius-sm: 4px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 220px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      z-index: 200;
+      transform: translateX(-100%);
+      transition: transform 0.22s ease;
+      overflow-y: auto;
+      padding-bottom: 32px;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 150;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    .sidebar-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+
+    .sidebar-close {
+      background: none; border: none; font-size: 18px; line-height: 1;
+      color: var(--text-muted); cursor: pointer; padding: 4px 6px;
+      border-radius: var(--radius-sm);
+    }
+    .sidebar-close:hover { color: var(--text); background: var(--border-light); }
+
+    .nav-toggle {
+      position: fixed; top: 14px; left: 16px; z-index: 100;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px;
+    }
+
+    .nav-page-active {
+      display: block; font-size: 13px; font-weight: 600; color: var(--accent);
+      padding: 6px 10px; border-radius: var(--radius-sm); background: var(--accent-light);
+      margin-bottom: 1px;
+    }
+
+    .nav-sub-link {
+      display: block; text-decoration: none; color: var(--text-muted);
+      font-size: 12px; padding: 4px 10px 4px 20px; border-radius: var(--radius-sm);
+      margin-bottom: 1px; transition: all 0.15s;
+    }
+    .nav-sub-link:hover { color: var(--text); background: var(--border-light); text-decoration: none; }
+    .nav-sub-link.active { color: var(--accent); font-weight: 500; }
+
+    @media (min-width: 840px) {
+      .sidebar { transform: translateX(0); }
+      .sidebar-close { display: none; }
+      .sidebar-overlay { display: none !important; }
+      .nav-toggle { display: none; }
+    }
+
+    /* Layout */
+    main { max-width: 900px; margin: 0 auto; padding: 72px 24px 80px; }
+    @media (min-width: 840px) {
+      body { padding-left: 220px; }
+      main { padding-top: 40px; }
+    }
+    @media (max-width: 640px) {
+      main { padding-left: 16px; padding-right: 16px; }
+      h1 { font-size: 26px !important; }
+    }
+
+    /* Type */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+    }
+    h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; color: var(--text); }
+    h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); margin-bottom: 16px; }
+    h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 10px; margin-top: 6px; }
+    p { margin-bottom: 12px; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    cite { font-size: 11.5px; color: var(--text-muted); font-style: normal; }
+
+    /* Hero */
+    .hero { padding: 64px 0 40px; border-bottom: 1px solid var(--border); }
+    .hero-meta { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; padding: 4px 10px;
+      border-radius: 100px; background: var(--accent-light);
+      color: var(--accent); border: 1px solid var(--accent-mid);
+    }
+    .hero-tagline { font-size: 18px; color: var(--text-secondary); margin-top: 12px; max-width: 660px; line-height: 1.5; }
+
+    .section { padding: 56px 0 0; }
+
+    .lead { font-size: 15px; color: var(--text-secondary); max-width: 680px; }
+
+    /* Callout */
+    .callout {
+      background: var(--accent-light); border: 1px solid var(--accent-mid);
+      border-radius: var(--radius); padding: 16px 20px; margin-top: 16px;
+    }
+    .callout p { color: var(--text); margin-bottom: 6px; }
+    .callout p:last-child { margin-bottom: 0; }
+    .callout .big { font-size: 26px; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+
+    /* Tags */
+    .tag {
+      display: inline-block; font-size: 10.5px; font-weight: 600;
+      padding: 1px 6px; border-radius: 4px; margin-left: 4px;
+      background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid);
+      vertical-align: middle; letter-spacing: 0.01em;
+    }
+    .tag.q { background: var(--yellow-light); color: #8a6e20; border-color: var(--yellow-mid); }
+
+    /* Entity cards */
+    .ent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 20px; }
+    .ent-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px 17px; }
+    .ent-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .ent-card p { font-size: 12.5px; color: var(--text-secondary); margin-bottom: 5px; line-height: 1.5; }
+    .ent-card .ent-job { font-size: 11.5px; color: var(--accent); font-weight: 600; }
+
+    /* Tree */
+    .tree {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px; margin-top: 18px;
+      font-family: var(--mono); font-size: 12.5px; line-height: 1.85;
+      color: var(--text); overflow-x: auto; white-space: pre;
+    }
+    .tree .job { color: var(--accent); }
+    .tree .prim { color: #8a6e20; font-weight: 700; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; margin-top: 18px; border: 1px solid var(--border); border-radius: var(--radius); }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; background: var(--surface); }
+    th, td { border-bottom: 1px solid var(--border-light); border-right: 1px solid var(--border-light); padding: 8px 11px; text-align: left; vertical-align: top; }
+    th { background: var(--accent-light); color: var(--accent); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; position: sticky; top: 0; }
+    tr:last-child td { border-bottom: none; }
+    td:last-child, th:last-child { border-right: none; }
+
+    table.matrix th, table.matrix td { text-align: center; padding: 7px 6px; font-size: 12px; }
+    table.matrix td.job { text-align: left; font-weight: 600; color: var(--text); white-space: nowrap; }
+    table.matrix td.check { color: var(--accent); font-weight: 700; }
+    table.matrix th.orphan, table.matrix td.orphan { background: var(--red-light); }
+    table.matrix th.orphan { color: #8a2020; }
+
+    /* Flow cards */
+    .flow-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; margin-top: 20px; box-shadow: var(--shadow); }
+    .flow-card h3 { margin-top: 0; }
+    .flow-card .flow-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+    .mermaid { text-align: center; overflow-x: auto; margin: 8px 0 6px; }
+    .flow-notes { font-size: 12.5px; color: var(--text-secondary); margin-top: 10px; }
+    .flow-notes strong { color: var(--text); }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 12px; color: var(--text-secondary); }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .swatch { width: 13px; height: 13px; border-radius: 3px; border: 1px solid; display: inline-block; }
+    .swatch.state { background: #fff7e6; border-color: #d9a441; }
+    .swatch.success { background: #e9f5ee; border-color: #3f9c68; }
+    .swatch.dead { background: #fdeaea; border-color: #c96a6a; }
+    .swatch.screen { background: #fff; border-color: var(--text-muted); }
+
+    /* Footer */
+    .footer { border-top: 1px solid var(--border); margin-top: 72px; padding: 32px 0; text-align: center; }
+    .footer p { font-size: 13px; color: var(--text-muted); }
+
+    /* Prompt 2 additions */
+    .flag-callout { background: var(--yellow-light); border: 1px solid var(--yellow-mid); border-radius: var(--radius); padding: 14px 18px; margin-top: 16px; }
+    .flag-callout h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: #8a6e20; margin-bottom: 6px; }
+    .flag-callout p { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+    .flag-callout p:last-child { margin-bottom: 0; }
+    .gc-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-top: 14px; }
+    .gc-card h4 { font-size: 14px; color: var(--text); margin-bottom: 6px; }
+    .gc-card .gc-meta { font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.55; }
+    .blocklist { list-style: none; margin: 4px 0 0; padding: 0; }
+    .blocklist li { font-size: 13px; color: var(--text-secondary); padding: 2px 0; }
+    .pill { display: inline-block; font-size: 9.5px; font-weight: 700; padding: 1px 5px; border-radius: 3px; margin-right: 6px; vertical-align: middle; letter-spacing: 0.03em; }
+    .pill.p { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+    .pill.s { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+    .pc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 14px; margin-top: 18px; }
+    .pc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 15px 17px; }
+    .pc h4 { font-size: 14px; color: var(--text); margin-bottom: 3px; }
+    .pc .pc-job { font-size: 11.5px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+    .pc .pc-label { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin: 10px 0 4px; }
+    .pc ol { margin: 0; padding-left: 16px; }
+    .pc ol li { font-size: 12.5px; color: var(--text-secondary); margin-bottom: 2px; line-height: 1.45; }
+    .states { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+    .state-badge { font-size: 10.5px; padding: 2px 7px; border-radius: 100px; background: var(--bg); border: 1px solid var(--border); color: var(--text-secondary); }
+    .state-badge.err { background: var(--red-light); border-color: var(--red-mid); color: #8a2020; }
+    .state-badge.q { background: var(--yellow-light); border-color: var(--yellow-mid); color: #8a6e20; }
+    .pc-delta { font-size: 11.5px; color: #8a6e20; background: var(--yellow-light); border: 1px solid var(--yellow-mid); border-radius: var(--radius-sm); padding: 6px 9px; margin-top: 8px; line-height: 1.45; }
+
+    tr.scope td { border-top: 2px solid var(--border); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-secondary); text-align: center; }
+    tr.scope td.job { text-align: left; letter-spacing: 0.06em; }
+  </style>
+<link rel="stylesheet" href="../_nav.css">
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main>
+
+  <section class="hero" id="top">
+    <div class="hero-meta">
+      <span class="badge">Information Architecture</span>
+      <span class="badge">Base layer</span>
+      <span class="badge">Concept map</span>
+    </div>
+    <h1>Concept map</h1>
+    <p class="hero-tagline">The concept of the structure: the objects the product is made of, the screens grouped by what a person is trying to do, the navigation model, and the matrix that proves every job has a home. States and page contents are not here: states live in the <a href="flows.html">flows</a>, page contents in the detail layer.</p>
+    <div class="callout">
+      <p>Source of truth: <a href="docs/sitemap.md">docs/sitemap.md</a>. Sixteen screens across six clusters, thirteen of them MVP. The scope row under the matrix is the gate for every stage after this one: the detail layer, the wireframes and the colour pass all take the MVP subset first.</p>
+    </div>
+  </section>
+
+  <section class="section" id="entities">
+    <div class="section-label">Step 1</div>
+    <h2>Entities</h2>
+    <p class="lead">The core objects a person deals with to close their jobs. Screens display entities; entities grow out of jobs, not out of a competitor's menu. Nine core entities, plus objects held under question.</p>
+    <div class="ent-grid">
+      <div class="ent-card"><h4>1. Subscription</h4><p>Name, real merchant name and logo, amount, frequency, next date, category, status, source, linked account. The central object.</p><p class="ent-job">J-MAIN, J3</p></div>
+      <div class="ent-card"><h4>2. Account (source)</h4><p>Bank connection via Plaid, or a manual private source. Status, last sync, count detected.</p><p class="ent-job">J1, J5, D5</p></div>
+      <div class="ent-card"><h4>3. Preset</h4><p>Service template (name, logo, typical price, frequency) so manual entry is low effort. 400+ at launch.</p><p class="ent-job">J5, D2</p></div>
+      <div class="ent-card"><h4>4. Alert</h4><p>Price change and payment failed are free; trial ending, unusual, duplicate are Pro. Plain-language, active voice.</p><p class="ent-job">J4</p></div>
+      <div class="ent-card"><h4>5. Charge</h4><p>A billing instance: date, amount, subscription, status. Full timeline is Pro history.</p><p class="ent-job">J4, D3</p></div>
+      <div class="ent-card"><h4>6. Cancellation</h4><p>Method (basic free, full guide Pro), progress status, money saved. The relief moment stays free.</p><p class="ent-job">J2, E2</p></div>
+      <div class="ent-card"><h4>7. Snapshot</h4><p>Shareable card: count, monthly total, optional win, no bank data. Virality is a hypothesis.<span class="tag q">?</span></p><p class="ent-job">S1, E2</p></div>
+      <div class="ent-card"><h4>8. User &amp; data controls</h4><p>Minimal identity, path, plan, notification preferences, data-access explanation, one-tap deletion.</p><p class="ent-job">E3, J1</p></div>
+      <div class="ent-card"><h4>9. Plan (Tendd Pro)</h4><p>Tier (Free / Pro monthly / yearly / lifetime), price $7.99 or $69, status. A business rule.</p><p class="ent-job">D3, D4</p></div>
+    </div>
+    <p style="margin-top:16px;font-size:13px;color:var(--text-secondary)"><strong>Under question</strong> (no entity, no screen): household / shared view <span class="tag q">JH1</span>, Gmail scan and screenshot import <span class="tag q">v2</span>, AI assistant <span class="tag q">JH2</span>, budgets, credit score, investments, bill negotiation (all explicitly cut). A scope note: the free tier is uncapped on both subscription count (per D3) and bank connections (July 2026 product decision), over the older CLAUDE.md "up to 10" and "up to 2 bank accounts" lines.</p>
+  </section>
+
+  <section class="section" id="schema">
+    <div class="section-label">Step 2</div>
+    <h2>Screens by intent</h2>
+    <p class="lead">Clusters are named by intent, not by section of a site. Each node is a screen and carries the job it serves; the tag after the job is its scope. No states, no page contents, no critique: this stays a readable concept.</p>
+    <pre class="mermaid">
+flowchart TD
+  subgraph OB["1 Onboarding"]
+    W["Welcome / Value Intro<br/>J1 - MVP"] --> PC["Activation Path Choice<br/>J1 + J5 - MVP"]
+    PC --> CB["Connect Bank<br/>J1 - MVP"]
+    PC --> AS["Add Subscription<br/>J5 - MVP"]
+    CB --> GR["Guided Reveal<br/>J-MAIN - MVP"]
+    AS --> GR
+  end
+  subgraph CORE["2 Core"]
+    HOME["Home / Subscription List<br/>J-MAIN - MVP"] --> DET["Subscription Detail<br/>J3 + J4 - MVP"]
+  end
+  subgraph SA["3 Stay Ahead"]
+    AL["Alerts / Activity<br/>J4 - MVP"]
+  end
+  subgraph CC["4 Cut and Celebrate"]
+    CG["Cancel Guide<br/>J2 - MVP"] --> CW["Cancel Win Moment<br/>E2 - MVP"] --> SH["Share Snapshot<br/>S1 - LATER"]
+  end
+  subgraph PR["5 Depth Pro"]
+    HT["History and Trends<br/>J-MAIN over time - LATER"] --> UP["Upgrade / Tendd Pro<br/>D3 + D4 - LATER"]
+  end
+  subgraph AC["6 Account and Trust"]
+    CON["Connections / Accounts<br/>J1 + J5 - MVP"]
+    DP["Data and Privacy<br/>E3 - MVP"]
+    SET["Settings / Profile<br/>E3 - MVP"]
+  end
+  GR --> HOME
+  HOME --> AL
+  HOME --> AS
+  DET --> CG
+  AL --> DET
+  DET --> HT
+  HT --> UP
+  SET --> CON
+  SET --> DP
+  CON --> CB
+  CON --> AS
+    </pre>
+  </section>
+
+  <section class="section" id="navigation">
+    <div class="section-label">Step 3</div>
+    <h2>Navigation</h2>
+    <p class="lead">A four-item bottom tab bar (thumb reach on a phone), deliberately small so the product stays calm. Each tab is an entry into one job cluster.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tab</th><th>Opens</th><th>Job cluster</th><th>Why it earns a global slot</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Home</strong></td><td>Subscription List</td><td>J-MAIN + E1</td><td>The reason the product exists. Reachable in zero taps, so it is the default.</td></tr>
+          <tr><td><strong>Alerts</strong></td><td>Alerts / Activity</td><td>J4</td><td>Also the return engine. Without an external hook this segment does not come back (BP4).</td></tr>
+          <tr><td><strong>Save</strong></td><td>Cancel hub</td><td>J2 + E2</td><td>The emotional peak and upgrade trigger. Claudia's primary job gets a calm door.</td></tr>
+          <tr><td><strong>You</strong></td><td>Settings / Profile</td><td>E3 + J1</td><td>Trust is ongoing. Ravi needs one-tap data control always findable.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:18px">
+      <p><strong>Depth to the main job (J-MAIN, see all recurring charges calmly):</strong></p>
+      <p><span class="big">3 taps</span> in the first session: from the Welcome landing, "Get started" opens Path Choice, then Connect Bank, then Guided Reveal. At the ceiling, not over it.</p>
+      <p><span class="big">0 to 1 tap</span> in every session after: the app opens on Home. The steady state is effectively zero depth.</p>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:var(--text-secondary)">History and Trends does not get a tab (it is Pro-gated, and a mostly-locked tab would break calm). Upgrade is not a tab either; it appears at the gate, in context.</p>
+    <div class="callout" style="margin-top:18px">
+      <p><strong>Desktop and chrome (realized in Wireframes, updated 2026-07-04):</strong></p>
+      <p>On desktop the bottom tab bar becomes a left rail and the header (GC1) folds into the top of that rail. Home and Subscription Detail become a two-pane master-detail (list left, selected detail right); other single-column screens sit in a centered, comfortable measure, not stretched full width. There is no footer on app screens; the Welcome landing is the sole exception, carrying a marketing footer.</p>
+    </div>
+  </section>
+
+  <section class="section" id="coverage">
+    <div class="section-label">Step 5</div>
+    <h2>Coverage matrix</h2>
+    <p class="lead">Functional jobs against screens. A checkmark means the screen genuinely helps close that job; a gate that only unlocks a job does not count. Emotional and social jobs are deliberately absent: they are not closed by a screen, so they get the mechanism table below instead of a stretched checkmark. The scope row under the matrix carries MVP or LATER for every screen.</p>
+    <div class="table-wrap">
+      <table class="matrix">
+        <thead><tr>
+          <th style="text-align:left">Job</th>
+          <th>Wel</th><th>Pth</th><th>Bnk</th><th>Add</th><th>Rev</th><th>Hom</th><th>Det</th><th>Alr</th><th>Gde</th><th>Win</th><th>Shr</th><th>His</th><th class="orphan">Upg</th><th>Con</th><th>Prv</th><th>Set</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="job">J-MAIN see charges calmly</td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="orphan"></td><td></td><td></td><td></td></tr>
+          <tr><td class="job">J1 activate without anxiety</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="orphan"></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td></tr>
+          <tr><td class="job">J2 identify and cancel unused</td><td></td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td class="check">&#10003;</td><td class="orphan"></td><td></td><td></td><td></td></tr>
+          <tr><td class="job">J3 understand a charge</td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td></td><td></td><td></td><td></td><td class="orphan"></td><td></td><td></td><td></td></tr>
+          <tr><td class="job">J4 stay ahead of surprises</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td></td><td></td><td></td><td></td><td class="orphan"></td><td></td><td></td><td></td></tr>
+          <tr><td class="job">J5 track without sharing bank</td><td></td><td class="check">&#10003;</td><td></td><td class="check">&#10003;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="orphan"></td><td class="check">&#10003;</td><td></td><td></td></tr>
+          <tr class="scope"><td class="job"><strong>SCOPE</strong></td><td>MVP</td><td>MVP</td><td>MVP</td><td>MVP</td><td>MVP</td><td>MVP</td><td>MVP</td><td>MVP</td><td>MVP</td><td>MVP</td><td>LATER</td><td>LATER</td><td><span class="orphan-cell">LATER</span></td><td>MVP</td><td>MVP</td><td>MVP</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)"><strong>Outcome: zero orphan jobs, three screens that trace to a decision instead of a job.</strong> Every job has a home. Three columns carry no checkmark. <strong>Upgrade / Tendd Pro</strong> traces to D3 and D4, not to a job, and is retained as a contextual gate over the Pro surfaces. <strong>Settings / Profile</strong> and <strong>Share Snapshot</strong> lost theirs when the emotional and social jobs moved to the mechanism table: Settings holds the plan, the notifications and the account controls that E3 and D4 require, and Share Snapshot is kept tagged LATER because the job behind it is still a hypothesis. All three are named here rather than given a stretched checkmark. Key: Wel Welcome, Pth Path Choice, Bnk Connect Bank, Add Add Subscription, Rev Guided Reveal, Hom Home, Det Subscription Detail, Alr Alerts, Gde Cancel Guide, Win Cancel Win, Shr Share Snapshot, His History and Trends, Upg Upgrade, Con Connections, Prv Data and Privacy, Set Settings.</p>
+    <h3 style="margin-top:30px" id="emotional">Emotional and social jobs: what supports them</h3>
+    <p class="lead">Not screens, mechanisms. Two stages read this table by name: the detail layer takes the emotional support line of a node card from it, and Voice takes it as the order for tone.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Job</th><th>Mechanism (not a screen)</th><th>Where it lives</th><th>What backs it</th></tr></thead>
+        <tbody>
+          <tr><td><strong>E1</strong> feel competent, not judged</td><td>Money is framed as what you signed up for, never as spending or waste; no score, no red, no advice; the biggest thing on screen is one number the person can act on</td><td>Guided Reveal, Home summary strip, Cancel Win, and the voice rules of every state</td><td>personas.md O7; the PMC finding that avoidance is triggered by a threat to a positive self-image; design principle 3</td></tr>
+          <tr><td><strong>E2</strong> the small win</td><td>The saved amount is stated as a specific number with a next step, then the product stops talking; the moment gets its own screen rather than a toast</td><td>Cancel Win Moment; the savings line in the Home save-focus state</td><td>jtbd.md E2, the Claudia quote; competitors.md gap G4</td></tr>
+          <tr><td><strong>E3</strong> feel safe, control data</td><td>Read-only is stated in the same breath as the bank request; the source of every figure is shown; disconnect and delete are one tap, not buried</td><td>Connect Bank trust line, Connections / Accounts, Data and Privacy, Settings</td><td>personas.md Ravi; benchmark.md (Apple Card); D5; design principle 4</td></tr>
+          <tr><td><strong>S1</strong> share the discovery</td><td>A snapshot card carrying the count and the total and no bank data, so sharing never leaks a statement</td><td>Share Snapshot, entered from Cancel Win</td><td>jtbd.md S1, marked <span class="tag q">?</span>: the virality is a hypothesis, which is why the screen is LATER</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'loose',
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
+    themeVariables: {
+      primaryColor: '#eef4f1',
+      primaryBorderColor: '#5c7a6e',
+      primaryTextColor: '#2a2724',
+      lineColor: '#9b958e',
+      secondaryColor: '#f8f7f4',
+      tertiaryColor: '#ffffff',
+      fontSize: '13px'
+    },
+    flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true }
+  });
+</script>
+
+<script>
+  window.NAV_BASE = '../';
+  window.NAV_SECTIONS = [
+    { id:'entities', label:'Entities' },
+    { id:'schema', label:'Screens by intent' },
+    { id:'navigation', label:'Navigation model' },
+    { id:'coverage', label:'Traceability matrix' },
+    { id:'emotional', label:'Emotional and social' },
+  ];
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>
