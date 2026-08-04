@@ -210,7 +210,7 @@
           <tr><td>history-trends</td><td>header</td><td class="kill">How your recurring spend has moved over time.</td><td class="term">How your monthly total has moved over time.</td><td>D9 (prefer "total" over "spend")</td></tr>
           <tr><td>history-trends-empty</td><td>state-message</td><td class="kill">Back to Home</td><td class="term">Back to your subscriptions</td><td>D3</td></tr>
           <tr><td>connections</td><td>connection-row</td><td class="kill">Bank connection via Plaid</td><td class="term">Bank connection through Plaid</td><td>D8</td></tr>
-          <tr><td>connections-error</td><td>connection-row</td><td class="kill">Bank connection via Plaid</td><td class="term">Bank connection through Plaid</td><td>D8</td></tr>
+          <tr><td>connections-reconnect</td><td>connection-row</td><td class="kill">Bank connection via Plaid</td><td class="term">Bank connection through Plaid</td><td>D8</td></tr>
           <tr><td>connections</td><td>connection-row</td><td class="kill">Read-only, cannot move money</td><td class="term">Read-only, cannot move your money</td><td>D7 (keep "your")</td></tr>
           <tr><td>connections</td><td>connection-row</td><td class="kill">Add another by hand</td><td class="term">Add a subscription</td><td>D1 (canonical add-one affordance)</td></tr>
           <tr><td>connections</td><td>add-source</td><td class="kill">Connect a bank</td><td class="term">Connect your bank</td><td>D2</td></tr>
@@ -242,19 +242,19 @@
           <tr><td>history-trends-empty</td><td>state-message</td><td class="kill">... the shape of your spending will be here.</td><td class="term">... the shape of your monthly total will be here.</td><td>D9 / Principle 3 (no spending/exposure frame)</td></tr>
           <tr><td>history-trends</td><td>chart summary</td><td class="kill">your monthly recurring total went from $172.90 in May ...</td><td class="term">your monthly total went from $172.90 in May ...</td><td>D9 (canonical "monthly total"; matches the header)</td></tr>
           <tr><td>data-privacy</td><td>export</td><td class="kill">Exporting your spend history as a CSV ...</td><td class="term">Exporting your history as a CSV ...</td><td>D9 / Principle 3 (drop "spend")</td></tr>
-          <tr><td>cancel-guide-empty</td><td>detail-head (data fix)</td><td class="kill">$4.25 / month, you can always resubscribe later</td><td class="term">$17.00 / month, you can always resubscribe later</td><td>Data fixture: The New York Times is $17.00/month in the canonical dataset.</td></tr>
+          <tr><td>cancel-guide-no-guide</td><td>detail-head (data fix)</td><td class="kill">$4.25 / month, you can always resubscribe later</td><td class="term">$17.00 / month, you can always resubscribe later</td><td>Data fixture: The New York Times is $17.00/month in the canonical dataset.</td></tr>
         </tbody>
       </table>
     </div>
     <p>Consistency judgments (resolved, no change):</p>
     <ul>
       <li>subscription-detail base/empty/loading appbar "back to Home" chevron: kept. It is the back-nav chevron to the parent (the Home tab keeps its nav label per D3), uniform across all four detail states; the error state's "Back to your subscriptions" is the separate content-recovery button. Two patterns by design, not a drift.</li>
-      <li>subscription-detail-empty "We could not identify this": kept. Active voice with the actor, and the next sentence names the object ("match it to a service").</li>
+      <li>subscription-detail-unrecognized "We could not identify this": kept. Active voice with the actor, and the next sentence names the object ("match it to a service").</li>
     </ul>
     <p>Coverage additions (lines on screen but missing from the Step 1 inventory, now recorded so nothing ships outside this file):</p>
     <ul>
-      <li>cancel-guide-empty detail-head: "Cancel The New York Times" (heading) and "$17.00 / month, you can always resubscribe later" (body).</li>
-      <li>cancel-guide-error detail-head: "Cancel Netflix" (heading) and "$17.99 / month, still active for now" (body). The "still active for now" amount variant is authored copy specific to the error state.</li>
+      <li>cancel-guide-no-guide detail-head: "Cancel The New York Times" (heading) and "$17.00 / month, you can always resubscribe later" (body).</li>
+      <li>cancel-guide-blocked detail-head: "Cancel Netflix" (heading) and "$17.99 / month, still active for now" (body). The "still active for now" amount variant is authored copy specific to the error state.</li>
       <li>connections "Added by you" source card: the "Added" field value "Kept up to date by you".</li>
     </ul>
     <p>Reviewer-note syncs (outside visible copy, aligned to current labels):</p>
@@ -498,12 +498,12 @@
           <tr><td>subscription-detail</td><td>history-link</td><td>See price and payment history</td><td>button</td></tr>
           <tr><td>subscription-detail</td><td>history-link</td><td>Pro</td><td>status</td></tr>
           <tr><td>subscription-detail</td><td>cancel-action</td><td>Cancel this subscription</td><td>button</td></tr>
-          <tr><td>subscription-detail-empty</td><td>header</td><td>SQ *BLUEBOTTLE 8890</td><td>heading (USER)</td></tr>
-          <tr><td>subscription-detail-empty</td><td>header</td><td>$14.00, seen monthly</td><td>body</td></tr>
-          <tr><td>subscription-detail-empty</td><td>state-message</td><td>We could not identify this</td><td>body</td></tr>
-          <tr><td>subscription-detail-empty</td><td>state-message</td><td>It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time.</td><td>body</td></tr>
-          <tr><td>subscription-detail-empty</td><td>state-message</td><td>Name this charge</td><td>button</td></tr>
-          <tr><td>subscription-detail-empty</td><td>state-message</td><td>Not a subscription</td><td>button</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>header</td><td>SQ *BLUEBOTTLE 8890</td><td>heading (USER)</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>header</td><td>$14.00, seen monthly</td><td>body</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>state-message</td><td>We could not identify this</td><td>body</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>state-message</td><td>It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time.</td><td>body</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>state-message</td><td>Name this charge</td><td>button</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>state-message</td><td>Not a subscription</td><td>button</td></tr>
           <tr><td>subscription-detail-error</td><td>state-message</td><td>We could not load this subscription</td><td>heading</td></tr>
           <tr><td>subscription-detail-error</td><td>state-message</td><td>This is usually temporary. Try again, or go back to your list.</td><td>body</td></tr>
           <tr><td>subscription-detail-error</td><td>state-message</td><td>Try again</td><td>button</td></tr>
@@ -554,19 +554,19 @@
           <tr><td>cancel-guide</td><td>confirm</td><td>I cancelled it</td><td>button</td></tr>
           <tr><td>cancel-guide</td><td>help-path</td><td>Ran into a wall or a "please stay" screen?</td><td>body</td></tr>
           <tr><td>cancel-guide</td><td>help-path</td><td>Couldn't cancel?</td><td>button</td></tr>
-          <tr><td>cancel-guide-empty</td><td>state-message</td><td>We do not have step-by-step for this one yet</td><td>heading</td></tr>
-          <tr><td>cancel-guide-empty</td><td>state-message</td><td>Here is the general way most subscriptions cancel. It works for The New York Times too.</td><td>state-message</td></tr>
-          <tr><td>cancel-guide-empty</td><td>step</td><td>Open the service's website and sign in. / Go to Account or Subscription settings. / Look for Cancel or Manage plan. / Confirm, and watch for a confirmation email.</td><td>body</td></tr>
-          <tr><td>cancel-guide-empty</td><td>request-guide</td><td>Want us to build a tailored guide for The New York Times? Tell us and we will add it.</td><td>body</td></tr>
-          <tr><td>cancel-guide-empty</td><td>request-guide</td><td>Ask us to add this guide</td><td>button</td></tr>
-          <tr><td>cancel-guide-empty</td><td>confirm</td><td>Managed to cancel with the general steps? Mark it here.</td><td>body</td></tr>
-          <tr><td>cancel-guide-empty</td><td>confirm</td><td>I cancelled it</td><td>button</td></tr>
-          <tr><td>cancel-guide-error</td><td>state-message</td><td>Cancelling can be made deliberately hard, and it is not your fault. Here is what else to try.</td><td>state-message</td></tr>
-          <tr><td>cancel-guide-error</td><td>step</td><td>Skip the "special offers" screen and keep choosing Cancel, not Pause. / Try cancelling from a web browser instead of the app. / If billed through Apple or Google, cancel in your device subscriptions. / Still stuck? Keep this open and come back, nothing is lost.</td><td>body</td></tr>
-          <tr><td>cancel-guide-error</td><td>primary-action</td><td>I cancelled it</td><td>button</td></tr>
-          <tr><td>cancel-guide-error</td><td>secondary-action</td><td>Remind me later</td><td>button</td></tr>
-          <tr><td>cancel-guide-error</td><td>next-move</td><td>Prefer a guided walk-through with a direct link?</td><td>body</td></tr>
-          <tr><td>cancel-guide-error</td><td>next-move</td><td>Full step-by-step guide</td><td>button</td></tr>
+          <tr><td>cancel-guide-no-guide</td><td>state-message</td><td>We do not have step-by-step for this one yet</td><td>heading</td></tr>
+          <tr><td>cancel-guide-no-guide</td><td>state-message</td><td>Here is the general way most subscriptions cancel. It works for The New York Times too.</td><td>state-message</td></tr>
+          <tr><td>cancel-guide-no-guide</td><td>step</td><td>Open the service's website and sign in. / Go to Account or Subscription settings. / Look for Cancel or Manage plan. / Confirm, and watch for a confirmation email.</td><td>body</td></tr>
+          <tr><td>cancel-guide-no-guide</td><td>request-guide</td><td>Want us to build a tailored guide for The New York Times? Tell us and we will add it.</td><td>body</td></tr>
+          <tr><td>cancel-guide-no-guide</td><td>request-guide</td><td>Ask us to add this guide</td><td>button</td></tr>
+          <tr><td>cancel-guide-no-guide</td><td>confirm</td><td>Managed to cancel with the general steps? Mark it here.</td><td>body</td></tr>
+          <tr><td>cancel-guide-no-guide</td><td>confirm</td><td>I cancelled it</td><td>button</td></tr>
+          <tr><td>cancel-guide-blocked</td><td>state-message</td><td>Cancelling can be made deliberately hard, and it is not your fault. Here is what else to try.</td><td>state-message</td></tr>
+          <tr><td>cancel-guide-blocked</td><td>step</td><td>Skip the "special offers" screen and keep choosing Cancel, not Pause. / Try cancelling from a web browser instead of the app. / If billed through Apple or Google, cancel in your device subscriptions. / Still stuck? Keep this open and come back, nothing is lost.</td><td>body</td></tr>
+          <tr><td>cancel-guide-blocked</td><td>primary-action</td><td>I cancelled it</td><td>button</td></tr>
+          <tr><td>cancel-guide-blocked</td><td>secondary-action</td><td>Remind me later</td><td>button</td></tr>
+          <tr><td>cancel-guide-blocked</td><td>next-move</td><td>Prefer a guided walk-through with a direct link?</td><td>body</td></tr>
+          <tr><td>cancel-guide-blocked</td><td>next-move</td><td>Full step-by-step guide</td><td>button</td></tr>
           <tr><td>cancel-win</td><td>header</td><td>A small win</td><td>body</td></tr>
           <tr><td>cancel-win</td><td>win-summary</td><td>Nice. You just cancelled Netflix and freed up $17.99 a month. That is $215.88 a year back in your pocket.</td><td>body</td></tr>
           <tr><td>cancel-win</td><td>win-summary</td><td>On your word. You can always resubscribe if you miss it.</td><td>body</td></tr>
@@ -658,10 +658,10 @@
           <tr><td>connections-empty</td><td>state-message</td><td>No sources connected yet</td><td>heading</td></tr>
           <tr><td>connections-empty</td><td>state-message</td><td>Connect a bank to find your subscriptions automatically, or add them yourself by hand. You can change this later.</td><td>state-message</td></tr>
           <tr><td>connections-empty</td><td>state-message</td><td>Connect a bank / Add manually</td><td>link</td></tr>
-          <tr><td>connections-error</td><td>state-message</td><td>Chase needs to reconnect. Banks ask for this now and then to keep your connection secure. Your last update is still shown below.</td><td>state-message</td></tr>
-          <tr><td>connections-error</td><td>state-message</td><td>Reconnect Chase</td><td>link</td></tr>
-          <tr><td>connections-error</td><td>connection-row</td><td>Reconnect needed</td><td>status</td></tr>
-          <tr><td>connections-error</td><td>connection-row</td><td>Reconnect</td><td>link</td></tr>
+          <tr><td>connections-reconnect</td><td>state-message</td><td>Chase needs to reconnect. Banks ask for this now and then to keep your connection secure. Your last update is still shown below.</td><td>state-message</td></tr>
+          <tr><td>connections-reconnect</td><td>state-message</td><td>Reconnect Chase</td><td>link</td></tr>
+          <tr><td>connections-reconnect</td><td>connection-row</td><td>Reconnect needed</td><td>status</td></tr>
+          <tr><td>connections-reconnect</td><td>connection-row</td><td>Reconnect</td><td>link</td></tr>
           <tr><td>data-privacy</td><td>header</td><td>Data and privacy</td><td>heading</td></tr>
           <tr><td>data-privacy</td><td>header</td><td>Exactly what Tendd reads, and how to remove it whenever you want.</td><td>body</td></tr>
           <tr><td>data-privacy</td><td>privacy-section</td><td>The plain answer</td><td>body</td></tr>
@@ -777,7 +777,7 @@
 
     <div class="principle">
       <h3>User content, never rewritten</h3>
-      <p>Values a user types or that stand in for their input: the add-subscription form values (<code>net</code>, <code>Netflix</code>, <code>$17.99</code>, <code>Aug 3, 2026</code>, <code>Cerebro Cloud</code>), the unrecognized raw descriptor <code>SQ *BLUEBOTTLE 8890</code> (subscription-detail-empty), the sample account <code>Emma Carter</code> / <code>emma@example.com</code> (settings), and the three quoted testimonials on welcome. Merchant names in the canonical dataset (Netflix, Spotify Premium, and so on) are product fixtures, not authored voice copy, and also stay.</p>
+      <p>Values a user types or that stand in for their input: the add-subscription form values (<code>net</code>, <code>Netflix</code>, <code>$17.99</code>, <code>Aug 3, 2026</code>, <code>Cerebro Cloud</code>), the unrecognized raw descriptor <code>SQ *BLUEBOTTLE 8890</code> (subscription-detail-unrecognized), the sample account <code>Emma Carter</code> / <code>emma@example.com</code> (settings), and the three quoted testimonials on welcome. Merchant names in the canonical dataset (Netflix, Spotify Premium, and so on) are product fixtures, not authored voice copy, and also stay.</p>
     </div>
 
     <div class="principle">

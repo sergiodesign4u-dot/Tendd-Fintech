@@ -132,7 +132,7 @@ the read-only line wherever a trust moment appears. All of it is already written
 - Lowercase Latin, hyphenated, all in `wireframes/`.
 - `wireframes/<screen>.html` is the base page and is the success state.
 - `wireframes/<screen>-<state>.html` is one page per state, **named after the state itself**,
-  not after the nearest system word. `subscription-detail-unrecognized`, not
+  not after the nearest system word. `subscription-detail-unrecognized`, never
   `subscription-detail-empty`, because node 2.7 has no empty state at all. The names are fixed
   in `docs/screens.md`; a name not in that table does not get created.
 - `index.html` is the product home page, the public Welcome landing, node 1.1. The hub with

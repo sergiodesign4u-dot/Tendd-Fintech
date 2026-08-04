@@ -14,12 +14,17 @@
   --nav-lh:     1.45;
 }
 
-#sidebar{ width:var(--nav-w); flex:0 0 var(--nav-w); font-size:var(--nav-size); line-height:var(--nav-lh); }
+/* The panel never assumes its container is as wide as --nav-w: the page shells that host it
+   were built with a 220px drawer, and a fixed 240px here overflowed every one of them by
+   20px, which clipped the Next and SOON badges at the panel edge. It fits its host and caps
+   itself at --nav-w. */
+#sidebar{ width:100%; max-width:var(--nav-w); flex:0 1 var(--nav-w); box-sizing:border-box;
+          font-size:var(--nav-size); line-height:var(--nav-lh); }
 .nav-roadmap, .nav-sub, .nav-sections{ list-style:none; margin:0; padding:0; }
 .nav-roadmap{ display:flex; flex-direction:column; gap:2px; }
 
 .nav-top{ display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:6px;
-          color:var(--nav-fg); text-decoration:none; }
+          color:var(--nav-fg); text-decoration:none; min-width:0; overflow-wrap:anywhere; }
 a.nav-top:hover{ background:color-mix(in srgb, var(--nav-active) 8%, transparent); }
 .nav-item.is-done    > .nav-top{ color:var(--nav-fg); }        /* a finished stage: a normal link */
 .nav-item.is-soon    > .nav-top{ color:var(--nav-muted); cursor:default; }
@@ -27,7 +32,7 @@ a.nav-top:hover{ background:color-mix(in srgb, var(--nav-active) 8%, transparent
           background:color-mix(in srgb, var(--nav-active) 10%, transparent); }
 .nav-item.is-partial > .nav-top{ color:var(--nav-fg); }
 
-.nav-badge{ margin-left:auto; font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+.nav-badge{ margin-left:auto; flex:none; font-size:10px; letter-spacing:.06em; text-transform:uppercase;
             padding:2px 6px; border-radius:999px; }
 .nav-badge-next{ color:#fff; background:var(--nav-badge); }
 .nav-badge-soon{ color:var(--nav-muted); border:1px solid var(--nav-rule); }
@@ -36,7 +41,7 @@ a.nav-top:hover{ background:color-mix(in srgb, var(--nav-active) 8%, transparent
 .nav-subhead{ padding:8px 10px 4px; font-size:11px; letter-spacing:.06em;
               text-transform:uppercase; color:var(--nav-muted); }
 .nav-link{ display:flex; align-items:center; gap:8px; padding:5px 10px; border-radius:6px;
-           color:var(--nav-fg); text-decoration:none; }
+           color:var(--nav-fg); text-decoration:none; min-width:0; overflow-wrap:anywhere; }
 span.nav-link{ color:var(--nav-muted); }
 a.nav-link:hover{ background:color-mix(in srgb, var(--nav-active) 8%, transparent); }
 .nav-link.is-current{ color:var(--nav-active); font-weight:600; }

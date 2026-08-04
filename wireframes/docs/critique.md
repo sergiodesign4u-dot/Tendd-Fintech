@@ -18,7 +18,7 @@ Every page in wireframes/ (40 screens plus index) across these defect classes:
 - Broken links; em dashes.
 
 Method: an automated audit script over all pages, plus full reads of
-data-privacy, alerts, connections, share-snapshot, cancel-guide-error, and
+data-privacy, alerts, connections, share-snapshot, cancel-guide-blocked, and
 history-trends-empty to judge content-level quality, and a container-query
 desktop reflow check.
 
@@ -26,7 +26,7 @@ desktop reflow check.
 
 | # | Severity | Screen | Defect | Resolution |
 |---|----------|--------|--------|------------|
-| 1 | High | subscription-detail-empty.html | Inline `font-family:monospace` (plus a font-size) on the raw charge descriptor. A typography decision, which the conventions defer to Design. | Fixed: removed the inline font; the raw descriptor still reads as raw from its content. |
+| 1 | High | subscription-detail-unrecognized.html | Inline `font-family:monospace` (plus a font-size) on the raw charge descriptor. A typography decision, which the conventions defer to Design. | Fixed: removed the inline font; the raw descriptor still reads as raw from its content. |
 | 2 | Low x15 | various | Heuristic "zone with no action". | Not defects: every flagged zone is a title, a trust statement, or a form/checkbox zone, and each page has a clear main action elsewhere (verified by reading the pages and their links). No change. |
 | 3 | Info | 24 agent-built pages | Inline `style=` used a little more than "tiny one-offs" (font-size, margins). | Kept: all values are greyscale (var() tokens) and structural, not brand or type-scale decisions. Acceptable at wireframe fidelity. |
 
@@ -88,7 +88,7 @@ flow, and data consistency. All of the following were fixed.
 - **connections.html** dropped the invented Data-and-privacy zone (the title
   already links it) and removed "Reconnect" from the healthy source (it belongs
   to needs-reauth). Source counts reconciled to 14 (11 bank + 3 manual).
-- **cancel-guide-error.html** re-weighted so the free next step ("I cancelled
+- **cancel-guide-blocked.html** re-weighted so the free next step ("I cancelled
   it") is the primary action and the Pro guide is secondary; D3 keeps the
   could-not-cancel moment a trust moment, not an upsell.
 - **share-snapshot.html** card dropped its inline custom type scale

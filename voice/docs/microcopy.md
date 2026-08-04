@@ -88,7 +88,7 @@ not touched (only visible product copy).
 | history-trends | header | How your recurring spend has moved over time. | How your monthly total has moved over time. | D9 (prefer "total" over "spend") |
 | history-trends-empty | state-message | Back to Home | Back to your subscriptions | D3 |
 | connections | connection-row | Bank connection via Plaid | Bank connection through Plaid | D8 |
-| connections-error | connection-row | Bank connection via Plaid | Bank connection through Plaid | D8 |
+| connections-reconnect | connection-row | Bank connection via Plaid | Bank connection through Plaid | D8 |
 | connections | connection-row | Read-only, cannot move money | Read-only, cannot move your money | D7 (keep "your") |
 | connections | connection-row | Add another by hand | Add a subscription | D1 (canonical add-one affordance) |
 | connections | add-source | Connect a bank | Connect your bank | D2 |
@@ -142,15 +142,15 @@ together.
 | history-trends-empty | state-message | ... the shape of your spending will be here. | ... the shape of your monthly total will be here. | D9 / Principle 3 (no spending/exposure frame) |
 | history-trends | chart summary | your monthly recurring total went from $172.90 in May ... | your monthly total went from $172.90 in May ... | D9 (canonical "monthly total"; matches the header) |
 | data-privacy | export | Exporting your spend history as a CSV ... | Exporting your history as a CSV ... | D9 / Principle 3 (drop "spend") |
-| cancel-guide-empty | detail-head (data fix) | $4.25 / month, you can always resubscribe later | $17.00 / month, you can always resubscribe later | Data fixture: The New York Times is $17.00/month in the canonical dataset. |
+| cancel-guide-no-guide | detail-head (data fix) | $4.25 / month, you can always resubscribe later | $17.00 / month, you can always resubscribe later | Data fixture: The New York Times is $17.00/month in the canonical dataset. |
 
 Consistency judgments (resolved, no change):
 - subscription-detail base/empty/loading appbar "back to Home" chevron: kept. It is the back-nav chevron to the parent (the Home tab keeps its nav label per D3), uniform across all four detail states; the error state's "Back to your subscriptions" is the separate content-recovery button. Two patterns by design, not a drift.
-- subscription-detail-empty "We could not identify this": kept. Active voice with the actor, and the next sentence names the object ("match it to a service").
+- subscription-detail-unrecognized "We could not identify this": kept. Active voice with the actor, and the next sentence names the object ("match it to a service").
 
 Coverage additions (lines on screen but missing from the Step 1 inventory, now recorded so nothing ships outside this file):
-- cancel-guide-empty detail-head: "Cancel The New York Times" (heading) and "$17.00 / month, you can always resubscribe later" (body).
-- cancel-guide-error detail-head: "Cancel Netflix" (heading) and "$17.99 / month, still active for now" (body). The "still active for now" amount variant is authored copy specific to the error state.
+- cancel-guide-no-guide detail-head: "Cancel The New York Times" (heading) and "$17.00 / month, you can always resubscribe later" (body).
+- cancel-guide-blocked detail-head: "Cancel Netflix" (heading) and "$17.99 / month, still active for now" (body). The "still active for now" amount variant is authored copy specific to the error state.
 - connections "Added by you" source card: the "Added" field value "Kept up to date by you".
 
 Reviewer-note syncs (outside visible copy, aligned to current labels):
@@ -408,12 +408,12 @@ list". Total: `$192.90 / month`.
 | subscription-detail | history-link | See price and payment history | button |
 | subscription-detail | history-link | Pro | status |
 | subscription-detail | cancel-action | Cancel this subscription | button |
-| subscription-detail-empty | header | SQ *BLUEBOTTLE 8890 | heading (USER) |
-| subscription-detail-empty | header | $14.00, seen monthly | body |
-| subscription-detail-empty | state-message | We could not identify this | body |
-| subscription-detail-empty | state-message | It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time. | body |
-| subscription-detail-empty | state-message | Name this charge | button |
-| subscription-detail-empty | state-message | Not a subscription | button |
+| subscription-detail-unrecognized | header | SQ *BLUEBOTTLE 8890 | heading (USER) |
+| subscription-detail-unrecognized | header | $14.00, seen monthly | body |
+| subscription-detail-unrecognized | state-message | We could not identify this | body |
+| subscription-detail-unrecognized | state-message | It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time. | body |
+| subscription-detail-unrecognized | state-message | Name this charge | button |
+| subscription-detail-unrecognized | state-message | Not a subscription | button |
 | subscription-detail-error | state-message | We could not load this subscription | heading |
 | subscription-detail-error | state-message | This is usually temporary. Try again, or go back to your list. | body |
 | subscription-detail-error | state-message | Try again | button |
@@ -469,19 +469,19 @@ list". Total: `$192.90 / month`.
 | cancel-guide | confirm | I cancelled it | button |
 | cancel-guide | help-path | Ran into a wall or a "please stay" screen? | body |
 | cancel-guide | help-path | Couldn't cancel? | button |
-| cancel-guide-empty | state-message | We do not have step-by-step for this one yet | heading |
-| cancel-guide-empty | state-message | Here is the general way most subscriptions cancel. It works for The New York Times too. | state-message |
-| cancel-guide-empty | step | Open the service's website and sign in. / Go to Account or Subscription settings. / Look for Cancel or Manage plan. / Confirm, and watch for a confirmation email. | body |
-| cancel-guide-empty | request-guide | Want us to build a tailored guide for The New York Times? Tell us and we will add it. | body |
-| cancel-guide-empty | request-guide | Ask us to add this guide | button |
-| cancel-guide-empty | confirm | Managed to cancel with the general steps? Mark it here. | body |
-| cancel-guide-empty | confirm | I cancelled it | button |
-| cancel-guide-error | state-message | Cancelling can be made deliberately hard, and it is not your fault. Here is what else to try. | state-message |
-| cancel-guide-error | step | Skip the "special offers" screen and keep choosing Cancel, not Pause. / Try cancelling from a web browser instead of the app. / If billed through Apple or Google, cancel in your device subscriptions. / Still stuck? Keep this open and come back, nothing is lost. | body |
-| cancel-guide-error | primary-action | I cancelled it | button |
-| cancel-guide-error | secondary-action | Remind me later | button |
-| cancel-guide-error | next-move | Prefer a guided walk-through with a direct link? | body |
-| cancel-guide-error | next-move | Full step-by-step guide | button |
+| cancel-guide-no-guide | state-message | We do not have step-by-step for this one yet | heading |
+| cancel-guide-no-guide | state-message | Here is the general way most subscriptions cancel. It works for The New York Times too. | state-message |
+| cancel-guide-no-guide | step | Open the service's website and sign in. / Go to Account or Subscription settings. / Look for Cancel or Manage plan. / Confirm, and watch for a confirmation email. | body |
+| cancel-guide-no-guide | request-guide | Want us to build a tailored guide for The New York Times? Tell us and we will add it. | body |
+| cancel-guide-no-guide | request-guide | Ask us to add this guide | button |
+| cancel-guide-no-guide | confirm | Managed to cancel with the general steps? Mark it here. | body |
+| cancel-guide-no-guide | confirm | I cancelled it | button |
+| cancel-guide-blocked | state-message | Cancelling can be made deliberately hard, and it is not your fault. Here is what else to try. | state-message |
+| cancel-guide-blocked | step | Skip the "special offers" screen and keep choosing Cancel, not Pause. / Try cancelling from a web browser instead of the app. / If billed through Apple or Google, cancel in your device subscriptions. / Still stuck? Keep this open and come back, nothing is lost. | body |
+| cancel-guide-blocked | primary-action | I cancelled it | button |
+| cancel-guide-blocked | secondary-action | Remind me later | button |
+| cancel-guide-blocked | next-move | Prefer a guided walk-through with a direct link? | body |
+| cancel-guide-blocked | next-move | Full step-by-step guide | button |
 
 ### cancel-win
 
@@ -598,10 +598,10 @@ below.
 | connections-empty | state-message | No sources connected yet | heading |
 | connections-empty | state-message | Connect a bank to find your subscriptions automatically, or add them yourself by hand. You can change this later. | state-message |
 | connections-empty | state-message | Connect a bank / Add manually | link |
-| connections-error | state-message | Chase needs to reconnect. Banks ask for this now and then to keep your connection secure. Your last update is still shown below. | state-message |
-| connections-error | state-message | Reconnect Chase | link |
-| connections-error | connection-row | Reconnect needed | status |
-| connections-error | connection-row | Reconnect | link |
+| connections-reconnect | state-message | Chase needs to reconnect. Banks ask for this now and then to keep your connection secure. Your last update is still shown below. | state-message |
+| connections-reconnect | state-message | Reconnect Chase | link |
+| connections-reconnect | connection-row | Reconnect needed | status |
+| connections-reconnect | connection-row | Reconnect | link |
 
 ### data-privacy
 
@@ -751,7 +751,7 @@ automatic delete.
 
 Values a user types or that stand in for their input: the add-subscription form
 values (`net`, `Netflix`, `$17.99`, `Aug 3, 2026`, `Cerebro Cloud`), the
-unrecognized raw descriptor `SQ *BLUEBOTTLE 8890` (subscription-detail-empty), the
+unrecognized raw descriptor `SQ *BLUEBOTTLE 8890` (subscription-detail-unrecognized), the
 sample account `Emma Carter` / `emma@example.com` (settings), and the three quoted
 testimonials on welcome. Merchant names in the canonical dataset (Netflix, Spotify
 Premium, and so on) are product fixtures, not authored voice copy, and also stay.

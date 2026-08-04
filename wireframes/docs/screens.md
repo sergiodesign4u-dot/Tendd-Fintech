@@ -182,15 +182,18 @@ this one.
 | 6.14.3 | `connections-add-source.html` | The chooser, which is the FLAG 2 resolution |
 | 6.15.1 | `data-privacy-delete-confirm.html` | The two-door dialog. It exists inside the page today and has no page of its own |
 
-**Four pages to rename**, because the file is named after the nearest system word rather than
-after its state:
+**Four pages renamed** on 2026-08-05, because each was named after the nearest system word
+rather than after its state:
 
-| Now | Becomes | Why |
+| Was | Is now | Why |
 |---|---|---|
-| `subscription-detail-empty.html` | `subscription-detail-unrecognized.html` | It is node 2.7.1, and node 2.7 has no empty state at all |
+| `subscription-detail-empty.html` | `subscription-detail-unrecognized.html` | Node 2.7.1, and node 2.7 has no empty state at all |
 | `cancel-guide-empty.html` | `cancel-guide-no-guide.html` | Node 4.9.1. Nothing on it is empty; it carries the general steps |
 | `cancel-guide-error.html` | `cancel-guide-blocked.html` | Node 4.9.2. Nothing failed on our side: the merchant blocked the person |
 | `connections-error.html` | `connections-reconnect.html` | Node 6.14.2. The IA states plainly that an expired connection is maintenance and not an error, and the file name was arguing the opposite |
+
+The keys of `voice/docs/microcopy.md` follow the file names, so its rows were renamed with them.
+The lines did not change; only the screen they are keyed to is now spelled correctly.
 
 **Carried in from the IA work, to be honoured while the screens are rebuilt:**
 
