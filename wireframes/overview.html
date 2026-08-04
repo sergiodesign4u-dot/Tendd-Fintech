@@ -9,6 +9,7 @@
     --ink: #1c1c1c;
     --mid: #555;
     --soft: #777;
+    --faint: #999;
     --line: #cfcfcf;
     --line2: #e2e2e2;
     --panel: #f4f4f4;
@@ -27,7 +28,14 @@
   .layout { display: flex; gap: 32px; max-width: 1320px; margin: 0 auto; padding: 24px 20px 0; align-items: flex-start; }
   .layout > #sidebar { position: sticky; top: 24px; }
   .wrap { flex: 1 1 auto; min-width: 0; max-width: 980px; margin: 0; padding: 0 0 64px; }
-  @media (max-width: 900px) { .layout { flex-direction: column; gap: 16px; padding: 16px 16px 0; } }
+  /* Below 900px the layout stacks. align-items:flex-start above is set for the row case, and in
+     a column it would size both children to their max-content, which the 640px tables inside
+     .tablewrap then push out to 658px at a 360px viewport. Stretch is the column rule. */
+  @media (max-width: 900px) {
+    .layout { flex-direction: column; align-items: stretch; gap: 16px; padding: 16px 16px 0; }
+    .layout > #sidebar { position: static; }
+    .wrap { width: 100%; }
+  }
 
   header.top {
     border: 1px solid var(--line);
@@ -35,7 +43,7 @@
     padding: 22px 22px 20px;
   }
   header.top h1 { margin: 0 0 6px; font-size: 24px; letter-spacing: -0.01em; }
-  header.top p.tag { margin: 0 0 16px; color: var(--mid); max-width: 60ch; }
+  header.top p.tag { margin: 0 0 16px; color: var(--mid); max-width: 62ch; }
   .meta { display: flex; flex-wrap: wrap; gap: 8px; }
   .meta span {
     border: 1px solid var(--line);
@@ -44,7 +52,6 @@
     font-size: 12px;
     padding: 4px 9px;
   }
-
   .legend {
     display: flex; flex-wrap: wrap; gap: 14px;
     margin: 16px 0 0; padding-top: 14px;
@@ -55,69 +62,107 @@
 
   h2.section {
     font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--soft); margin: 34px 0 12px; font-weight: 600;
+    color: var(--soft); margin: 38px 0 6px; font-weight: 600;
   }
+  p.section-lead { margin: 0 0 14px; color: var(--mid); font-size: 13.5px; max-width: 70ch; }
+  p.section-lead a, .note a, footer.foot a { color: var(--mid); }
 
-  .flow {
-    border: 1px solid var(--line);
-    background: var(--box);
-    margin: 0 0 14px;
+  .note {
+    border: 1px solid var(--line); border-left: 4px solid var(--soft);
+    background: var(--box); padding: 12px 16px; margin: 0 0 14px;
+    font-size: 13px; color: var(--mid);
   }
-  .flow > .flow-head {
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--line2);
-    background: var(--panel);
-  }
+  .note b { color: var(--ink); }
+  .note p { margin: 0 0 8px; }
+  .note p:last-child { margin: 0; }
+
+  /* ---------- flows ---------- */
+  .flow { border: 1px solid var(--line); background: var(--box); margin: 0 0 14px; }
+  .flow > .flow-head { padding: 14px 18px; border-bottom: 1px solid var(--line2); background: var(--panel); }
   .flow-head h3 { margin: 0 0 4px; font-size: 16px; }
   .flow-head .who { color: var(--soft); font-size: 12px; }
   .flow-head p { margin: 8px 0 0; color: var(--mid); font-size: 13px; }
   .flow-head.primary { border-left: 4px solid var(--soft); }
 
-  ol.screens, ul.screens { list-style: none; margin: 0; padding: 8px 0; }
-  ol.screens > li, ul.screens > li {
+  ul.screens { list-style: none; margin: 0; padding: 8px 0; }
+  ul.screens > li {
     padding: 10px 18px;
     border-bottom: 1px solid var(--line2);
     display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px;
   }
-  ol.screens > li:last-child, ul.screens > li:last-child { border-bottom: 0; }
+  ul.screens > li:last-child { border-bottom: 0; }
   .step {
     font-size: 11px; color: var(--soft);
     border: 1px solid var(--line); background: var(--panel2);
-    padding: 1px 6px; min-width: 46px; text-align: center;
+    padding: 1px 6px; min-width: 52px; text-align: center; flex: none;
   }
   .screen-name { font-weight: 600; }
   .job { color: var(--soft); font-size: 12px; }
-  .states { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; }
+  .reuse { color: var(--faint); font-size: 12px; font-style: italic; }
+  .ends { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto; align-items: baseline; }
 
-  a.pg {
+  a.pg, span.pg {
     font-size: 12px; text-decoration: none;
     border: 1px solid var(--line); padding: 2px 8px;
-    color: var(--mid); background: var(--box);
+    color: var(--mid); background: var(--box); display: inline-block;
   }
   a.pg:hover { border-color: var(--soft); color: var(--ink); }
   a.pg.base { font-weight: 600; }
-  a.pg.planned { border-style: dashed; color: var(--soft); }
-  a.pg.planned::after { content: " \00b7 planned"; font-size: 10px; color: #999; }
-  a.pg.done::after { content: " \2713"; }
+  span.pg.spec { border-style: dashed; color: var(--faint); background: var(--panel2); }
+  .n { color: var(--faint); font-variant-numeric: tabular-nums; margin-left: 6px; font-size: 11px; }
+  .later {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    border: 1px solid var(--line); background: var(--panel); color: var(--soft);
+    padding: 1px 5px; flex: none;
+  }
+  .count { font-size: 11px; color: var(--faint); }
 
-  .reuse { color: #999; font-size: 11px; font-style: italic; }
-
+  /* ---------- tables ---------- */
   .tablewrap { overflow-x: auto; border: 1px solid var(--line); background: var(--box); }
   table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 13px; }
   caption { text-align: left; padding: 12px 14px; color: var(--mid); font-size: 12px; border-bottom: 1px solid var(--line2); }
-  th, td { border-bottom: 1px solid var(--line2); padding: 8px 12px; text-align: left; }
-  thead th { background: var(--panel); color: var(--mid); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; position: sticky; top: 0; }
-  td.state { text-align: center; }
-  td.na { color: #bbb; text-align: center; }
+  th, td { border-bottom: 1px solid var(--line2); padding: 8px 12px; text-align: left; vertical-align: top; }
+  thead th { background: var(--panel); color: var(--mid); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
   tbody tr:hover { background: var(--panel2); }
-  .num { color: #aaa; font-variant-numeric: tabular-nums; }
+  td.mid { text-align: center; }
+  td.na { color: #c4c4c4; text-align: center; }
+  td.yes { text-align: center; color: var(--mid); }
+  td.why { color: var(--soft); font-size: 12px; }
+  .num { color: var(--faint); font-variant-numeric: tabular-nums; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; background: var(--panel); padding: 1px 4px; }
 
-  footer.foot { margin-top: 30px; color: var(--soft); font-size: 12px; border-top: 1px solid var(--line2); padding-top: 14px; }
-  footer.foot a { color: var(--mid); }
+  /* ---------- matrix ---------- */
+  .cl-head {
+    margin: 18px 0 0; padding: 8px 14px;
+    border: 1px solid var(--line); border-bottom: 0; background: var(--panel);
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft);
+  }
+  ul.mx { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); background: var(--box); }
+  ul.mx > li { padding: 12px 16px; border-bottom: 1px solid var(--line2); }
+  ul.mx > li:last-child { border-bottom: 0; }
+  .mx-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 10px; }
+  .mx-states { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; }
+  .mx-none { font-size: 12px; color: var(--faint); font-style: italic; margin: 8px 0 0; }
+  .totals { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+  .totals span { border: 1px solid var(--line); background: var(--box); color: var(--mid); font-size: 12px; padding: 4px 9px; }
+
+  /* ---------- conventions ---------- */
+  .conv { border: 1px solid var(--line); background: var(--box); margin: 0 0 14px; padding: 16px 18px; }
+  .conv h3 { margin: 0 0 8px; font-size: 15px; }
+  .conv h3 .cn { color: var(--faint); font-weight: 400; margin-right: 6px; }
+  .conv ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--mid); }
+  .conv ul li { margin: 0 0 6px; }
+  .conv ul li:last-child { margin: 0; }
+  .conv p { margin: 0 0 8px; font-size: 13px; color: var(--mid); }
+  .conv p:last-child { margin: 0; }
+  .conv b { color: var(--ink); }
+  .conv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+
+  footer.foot { margin-top: 34px; color: var(--soft); font-size: 12px; border-top: 1px solid var(--line2); padding-top: 14px; }
 
   @media (max-width: 620px) {
-    .states { margin-left: 0; width: 100%; }
-    ol.screens > li, ul.screens > li { gap: 6px; }
+    .ends { margin-left: 0; width: 100%; }
+    ul.screens > li { gap: 6px; }
   }
 </style>
 <link rel="stylesheet" href="../_nav.css">
@@ -129,417 +174,481 @@
 
   <header class="top">
     <h1>Tendd Wireframes</h1>
-    <p class="tag">Overview of the wireframe set. Structure, not look: grey, semantic, real copy. A screen is done only when every state it produces has its own page (empty, error, loading, success).</p>
-    <div class="meta">
-      <span>Phase: Wireframes</span>
-      <span>6 clusters</span>
-      <span>16 screens</span>
-      <span>41 pages</span>
-      <span>4 flows</span>
-      <span id="progress">Built: 41 of 41 pages</span>
-    </div>
+    <p class="tag">The grey clickable prototype: structure, not look. Semantic HTML, real copy, one page per state, and every screen a live screen at full viewport rather than a diagram of one. This page is the hub; the screens themselves carry their own panel.</p>
+    <div class="meta" id="meta"></div>
     <div class="legend">
-      <span><b>base</b> = success / default page</span>
-      <span><b>empty</b> no data, with a way out</span>
-      <span><b>error</b> a failure, with recovery</span>
-      <span><b>loading</b> calm placeholder</span>
-      <span><b>planned</b> not built yet</span>
+      <span><b>base</b> = the success state, the page itself</span>
+      <span><b>state</b> = its own page, named after the state</span>
+      <span><b>spec</b> = a node with no page yet</span>
+      <span><b>later</b> = round 2, deferred not lost</span>
     </div>
   </header>
 
-  <!-- ============ FLOWS ============ -->
+  <!-- ============ 1. FLOWS ============ -->
   <h2 class="section" id="flows">Flows and their screens</h2>
+  <p class="section-lead">Four flows from <a href="../ia/docs/flows.md">flows.md</a>, each one a person doing one job. Flow A is the first flow and is built end to end; it ends at Home, which is the etalon. A screen appears once with its job and is marked as shared where a later flow reuses it. States live in the matrix below, not here: this section is the route.</p>
+  <div id="flows-out"></div>
 
-  <!-- Flow A -->
-  <section class="flow">
-    <div class="flow-head primary">
-      <h3>Flow A - See all recurring charges calmly</h3>
-      <div class="who">J-MAIN &middot; Emma (bank path) &middot; PRIMARY, build first</div>
-      <p>First session, bank-connected. Welcome to the calm list. This flow sets the pattern the rest clone.</p>
-    </div>
-    <ol class="screens">
-      <li>
-        <span class="step">tap 0</span>
-        <span class="screen-name">Welcome / Value Intro</span>
-        <span class="job">J1 show value before asking for data</span>
-        <span class="states"><a class="pg base done" href="index.html">base</a></span>
-      </li>
-      <li>
-        <span class="step">tap 1</span>
-        <span class="screen-name">Activation Path Choice</span>
-        <span class="job">J1 + J5 two paths, equal weight (D2)</span>
-        <span class="states"><a class="pg base done" href="path-choice.html">base</a></span>
-      </li>
-      <li>
-        <span class="step">tap 2</span>
-        <span class="screen-name">Connect Bank</span>
-        <span class="job">J1 bank path (D5 Plaid US first)</span>
-        <span class="states">
-          <a class="pg base done" href="connect-bank.html">base</a>
-          <a class="pg done" href="connect-bank-empty.html">empty</a>
-          <a class="pg done" href="connect-bank-error.html">error</a>
-          <a class="pg done" href="connect-bank-loading.html">loading</a>
-        </span>
-      </li>
-      <li>
-        <span class="step">tap 3</span>
-        <span class="screen-name">Guided Reveal</span>
-        <span class="job">J-MAIN the aha, gradual (D1)</span>
-        <span class="states">
-          <a class="pg base done" href="guided-reveal.html">base</a>
-          <a class="pg done" href="guided-reveal-empty.html">empty</a>
-        </span>
-      </li>
-      <li>
-        <span class="step">end</span>
-        <span class="screen-name">Home / Subscription List</span>
-        <span class="job">J-MAIN + E1 calm list, count, total &middot; reference screen</span>
-        <span class="states">
-          <a class="pg base done" href="home.html">base</a>
-          <a class="pg done" href="home-savefocus.html">save-focus</a>
-          <a class="pg done" href="home-empty.html">empty</a>
-          <a class="pg done" href="home-error.html">error</a>
-          <a class="pg done" href="home-loading.html">loading</a>
-        </span>
-      </li>
-    </ol>
-  </section>
-
-  <!-- Flow B -->
-  <section class="flow">
-    <div class="flow-head">
-      <h3>Flow B - Track without sharing bank data</h3>
-      <div class="who">J5 &middot; Ravi (manual + presets)</div>
-      <p>The privacy path. Shares Welcome, Path Choice, Guided Reveal, and Home with Flow A; the distinct screen is Add Subscription (400+ presets, D2).</p>
-    </div>
-    <ul class="screens">
-      <li>
-        <span class="step">reuse</span>
-        <span class="screen-name">Welcome / Value Intro</span>
-        <span class="reuse">shared with Flow A</span>
-      </li>
-      <li>
-        <span class="step">reuse</span>
-        <span class="screen-name">Activation Path Choice</span>
-        <span class="reuse">shared with Flow A, picks Privacy</span>
-      </li>
-      <li>
-        <span class="step">main</span>
-        <span class="screen-name">Add Subscription</span>
-        <span class="job">J5 privacy path (D2, 400+ presets)</span>
-        <span class="states">
-          <a class="pg base done" href="add-subscription.html">base</a>
-          <a class="pg done" href="add-subscription-empty.html">empty</a>
-          <a class="pg done" href="add-subscription-error.html">error</a>
-          <a class="pg done" href="add-subscription-loading.html">loading</a>
-        </span>
-      </li>
-      <li>
-        <span class="step">reuse</span>
-        <span class="screen-name">Guided Reveal</span>
-        <span class="reuse">shared with Flow A, empty state matters more here</span>
-      </li>
-      <li>
-        <span class="step">reuse</span>
-        <span class="screen-name">Home / Subscription List</span>
-        <span class="reuse">shared with Flow A, private list, no bank</span>
-      </li>
-    </ul>
-  </section>
-
-  <!-- Flow C -->
-  <section class="flow">
-    <div class="flow-head">
-      <h3>Flow C - Find, cancel, and feel the win</h3>
-      <div class="who">J2 + E2 &middot; Claudia</div>
-      <p>The cut job and the pride moment. Basic cancel is free; the full guide is Pro (D3). Cancel is never walled at the relief moment.</p>
-    </div>
-    <ol class="screens">
-      <li>
-        <span class="step">start</span>
-        <span class="screen-name">Home / Subscription List</span>
-        <span class="reuse">shared with Flow A</span>
-      </li>
-      <li>
-        <span class="step">tap</span>
-        <span class="screen-name">Subscription Detail</span>
-        <span class="job">J3 decode a charge + J4 its alerts</span>
-        <span class="states">
-          <a class="pg base done" href="subscription-detail.html">base</a>
-          <a class="pg done" href="subscription-detail-unrecognized.html">empty</a>
-          <a class="pg done" href="subscription-detail-error.html">error</a>
-          <a class="pg done" href="subscription-detail-loading.html">loading</a>
-        </span>
-      </li>
-      <li>
-        <span class="step">cancel</span>
-        <span class="screen-name">Cancel Guide</span>
-        <span class="job">J2 identify and cancel; basic free (D3)</span>
-        <span class="states">
-          <a class="pg base done" href="cancel-guide.html">base</a>
-          <a class="pg done" href="cancel-guide-no-guide.html">empty</a>
-          <a class="pg done" href="cancel-guide-blocked.html">error</a>
-        </span>
-      </li>
-      <li>
-        <span class="step">gate</span>
-        <span class="screen-name">Upgrade / Tendd Pro</span>
-        <span class="job">D3 split + D4 price (the gate) &middot; orphan by design</span>
-        <span class="states"><a class="pg base done" href="upgrade.html">base</a></span>
-      </li>
-      <li>
-        <span class="step">win</span>
-        <span class="screen-name">Cancel Win Moment</span>
-        <span class="job">E2 the small win, money saved &middot; success-only</span>
-        <span class="states"><a class="pg base done" href="cancel-win.html">base</a></span>
-      </li>
-      <li>
-        <span class="step">share</span>
-        <span class="screen-name">Share Snapshot</span>
-        <span class="job">S1 privacy-safe share card</span>
-        <span class="states">
-          <a class="pg base done" href="share-snapshot.html">base</a>
-          <a class="pg done" href="share-snapshot-error.html">error</a>
-          <a class="pg done" href="share-snapshot-loading.html">loading</a>
-        </span>
-      </li>
-    </ol>
-  </section>
-
-  <!-- Flow D -->
-  <section class="flow">
-    <div class="flow-head">
-      <h3>Flow D - Stay ahead of a surprise</h3>
-      <div class="who">J4 &middot; alert to action</div>
-      <p>Entry is a notification (the return hook). Price change and payment failed are free; trial ending and unusual are Pro (D3).</p>
-    </div>
-    <ol class="screens">
-      <li>
-        <span class="step">open</span>
-        <span class="screen-name">Alerts / Activity</span>
-        <span class="job">J4 price change, payment failed</span>
-        <span class="states">
-          <a class="pg base done" href="alerts.html">base</a>
-          <a class="pg done" href="alerts-empty.html">empty</a>
-          <a class="pg done" href="alerts-error.html">error</a>
-          <a class="pg done" href="alerts-loading.html">loading</a>
-        </span>
-      </li>
-      <li>
-        <span class="step">tap</span>
-        <span class="screen-name">Subscription Detail</span>
-        <span class="reuse">shared with Flow C, "caught it early"</span>
-      </li>
-      <li>
-        <span class="step">gate</span>
-        <span class="screen-name">Upgrade / Tendd Pro</span>
-        <span class="reuse">shared with Flow C, a Pro alert type hits the gate</span>
-      </li>
-      <li>
-        <span class="step">handoff</span>
-        <span class="screen-name">Cancel Guide</span>
-        <span class="reuse">shared with Flow C, a price change may hand off to cancel</span>
-      </li>
-      <li>
-        <span class="step">fallback</span>
-        <span class="screen-name">Home / Subscription List</span>
-        <span class="reuse">shared with Flow A</span>
-      </li>
-    </ol>
-  </section>
-
-  <!-- Beyond -->
-  <section class="flow">
-    <div class="flow-head">
-      <h3>Beyond the four core flows - steady-state and account</h3>
-      <div class="who">Reached globally (You tab) or contextually (a Pro gate)</div>
-      <p>In the sitemap but not part of one linear persona flow. Built in Step 8.</p>
-    </div>
-    <ul class="screens">
-      <li>
-        <span class="step">Pro</span>
-        <span class="screen-name">History and Trends</span>
-        <span class="job">J-MAIN over time; Pro gate (D3)</span>
-        <span class="states">
-          <a class="pg base done" href="history-trends.html">base</a>
-          <a class="pg done" href="history-trends-empty.html">empty</a>
-          <a class="pg done" href="history-trends-loading.html">loading</a>
-        </span>
-      </li>
-      <li>
-        <span class="step">You</span>
-        <span class="screen-name">Connections / Accounts</span>
-        <span class="job">J1 + J5 manage sources, reauth (D5)</span>
-        <span class="states">
-          <a class="pg base done" href="connections.html">base</a>
-          <a class="pg done" href="connections-empty.html">empty</a>
-          <a class="pg done" href="connections-reconnect.html">error</a>
-        </span>
-      </li>
-      <li>
-        <span class="step">You</span>
-        <span class="screen-name">Data and Privacy</span>
-        <span class="job">E3 plain-language data use, delete</span>
-        <span class="states"><a class="pg base done" href="data-privacy.html">base</a></span>
-      </li>
-      <li>
-        <span class="step">You</span>
-        <span class="screen-name">Settings / Profile</span>
-        <span class="job">E3 plan, notification preferences</span>
-        <span class="states"><a class="pg base done" href="settings.html">base</a></span>
-      </li>
-    </ul>
-  </section>
-
-  <!-- ============ ALL PAGES ============ -->
-  <h2 class="section" id="pages">All pages and states (40)</h2>
+  <!-- ============ 2. COVERAGE MAP ============ -->
+  <h2 class="section" id="coverage">Coverage map</h2>
+  <p class="section-lead">The four system states across all 16 screens. This is the <b>floor</b>, not the set: it proves no screen quietly lost an error or an empty. Every dash carries its reason, because "this screen has no error state" and "we forgot the error state" look identical without one.</p>
   <div class="tablewrap">
     <table>
-      <caption>Rows are the 16 screens. A link is a page to build; a dash means the scenario does not produce that state. Success is the base page.</caption>
+      <caption>Source: <a href="docs/screens.md">docs/screens.md</a>, the floor table. Success is the base page and every screen has one.</caption>
       <thead>
         <tr>
-          <th class="num">#</th>
-          <th>Screen</th>
-          <th>empty</th>
-          <th>error</th>
-          <th>loading</th>
-          <th>success (base)</th>
-          <th>Build</th>
+          <th class="num">#</th><th>Screen</th>
+          <th>empty</th><th>error</th><th>loading</th><th>success</th>
+          <th>Why a dash is a dash</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="num">1</td><td>Welcome / Value Intro</td>
-          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
-          <td class="state"><a class="pg done" href="index.html">welcome</a></td>
-          <td>main</td>
-        </tr>
-        <tr>
-          <td class="num">2</td><td>Activation Path Choice</td>
-          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
-          <td class="state"><a class="pg done" href="path-choice.html">path-choice</a></td>
-          <td>main</td>
-        </tr>
-        <tr>
-          <td class="num">3</td><td>Connect Bank</td>
-          <td class="state"><a class="pg done" href="connect-bank-empty.html">empty</a></td>
-          <td class="state"><a class="pg done" href="connect-bank-error.html">error</a></td>
-          <td class="state"><a class="pg done" href="connect-bank-loading.html">loading</a></td>
-          <td class="state"><a class="pg done" href="connect-bank.html">connect-bank</a></td>
-          <td>main</td>
-        </tr>
-        <tr>
-          <td class="num">4</td><td>Add Subscription</td>
-          <td class="state"><a class="pg done" href="add-subscription-empty.html">empty</a></td>
-          <td class="state"><a class="pg done" href="add-subscription-error.html">error</a></td>
-          <td class="state"><a class="pg done" href="add-subscription-loading.html">loading</a></td>
-          <td class="state"><a class="pg done" href="add-subscription.html">add-subscription</a></td>
-          <td>step 8</td>
-        </tr>
-        <tr>
-          <td class="num">5</td><td>Guided Reveal</td>
-          <td class="state"><a class="pg done" href="guided-reveal-empty.html">empty</a></td>
-          <td class="na">-</td><td class="na">-</td>
-          <td class="state"><a class="pg done" href="guided-reveal.html">guided-reveal</a></td>
-          <td>main</td>
-        </tr>
-        <tr>
-          <td class="num">6</td><td>Home / Subscription List</td>
-          <td class="state"><a class="pg done" href="home-empty.html">empty</a></td>
-          <td class="state"><a class="pg done" href="home-error.html">error</a></td>
-          <td class="state"><a class="pg done" href="home-loading.html">loading</a></td>
-          <td class="state"><a class="pg done" href="home.html">home</a> <a class="pg done" href="home-savefocus.html">save-focus</a></td>
-          <td>main (reference)</td>
-        </tr>
-        <tr>
-          <td class="num">7</td><td>Subscription Detail</td>
-          <td class="state"><a class="pg done" href="subscription-detail-unrecognized.html">empty</a></td>
-          <td class="state"><a class="pg done" href="subscription-detail-error.html">error</a></td>
-          <td class="state"><a class="pg done" href="subscription-detail-loading.html">loading</a></td>
-          <td class="state"><a class="pg done" href="subscription-detail.html">subscription-detail</a></td>
-          <td>main</td>
-        </tr>
-        <tr>
-          <td class="num">8</td><td>Alerts / Activity</td>
-          <td class="state"><a class="pg done" href="alerts-empty.html">empty</a></td>
-          <td class="state"><a class="pg done" href="alerts-error.html">error</a></td>
-          <td class="state"><a class="pg done" href="alerts-loading.html">loading</a></td>
-          <td class="state"><a class="pg done" href="alerts.html">alerts</a></td>
-          <td>step 8</td>
-        </tr>
-        <tr>
-          <td class="num">9</td><td>Cancel Guide</td>
-          <td class="state"><a class="pg done" href="cancel-guide-no-guide.html">empty</a></td>
-          <td class="state"><a class="pg done" href="cancel-guide-blocked.html">error</a></td>
-          <td class="na">-</td>
-          <td class="state"><a class="pg done" href="cancel-guide.html">cancel-guide</a></td>
-          <td>step 8</td>
-        </tr>
-        <tr>
-          <td class="num">10</td><td>Cancel Win Moment</td>
-          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
-          <td class="state"><a class="pg done" href="cancel-win.html">cancel-win</a></td>
-          <td>step 8</td>
-        </tr>
-        <tr>
-          <td class="num">11</td><td>Share Snapshot</td>
-          <td class="na">-</td>
-          <td class="state"><a class="pg done" href="share-snapshot-error.html">error</a></td>
-          <td class="state"><a class="pg done" href="share-snapshot-loading.html">loading</a></td>
-          <td class="state"><a class="pg done" href="share-snapshot.html">share-snapshot</a></td>
-          <td>step 8</td>
-        </tr>
-        <tr>
-          <td class="num">12</td><td>History and Trends</td>
-          <td class="state"><a class="pg done" href="history-trends-empty.html">empty</a></td>
-          <td class="na">-</td>
-          <td class="state"><a class="pg done" href="history-trends-loading.html">loading</a></td>
-          <td class="state"><a class="pg done" href="history-trends.html">history-trends</a></td>
-          <td>step 8</td>
-        </tr>
-        <tr>
-          <td class="num">13</td><td>Upgrade / Tendd Pro</td>
-          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
-          <td class="state"><a class="pg done" href="upgrade.html">upgrade</a></td>
-          <td>step 8</td>
-        </tr>
-        <tr>
-          <td class="num">14</td><td>Connections / Accounts</td>
-          <td class="state"><a class="pg done" href="connections-empty.html">empty</a></td>
-          <td class="state"><a class="pg done" href="connections-reconnect.html">error</a></td>
-          <td class="na">-</td>
-          <td class="state"><a class="pg done" href="connections.html">connections</a></td>
-          <td>step 8</td>
-        </tr>
-        <tr>
-          <td class="num">15</td><td>Data and Privacy</td>
-          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
-          <td class="state"><a class="pg done" href="data-privacy.html">data-privacy</a></td>
-          <td>step 8</td>
-        </tr>
-        <tr>
-          <td class="num">16</td><td>Settings / Profile</td>
-          <td class="na">-</td><td class="na">-</td><td class="na">-</td>
-          <td class="state"><a class="pg done" href="settings.html">settings</a></td>
-          <td>step 8</td>
-        </tr>
+        <tr><td class="num">1</td><td>Welcome / Value Intro <span class="n">1.1</span></td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td><td class="yes">yes</td>
+          <td class="why">A static value screen. Nothing loads, nothing can fail, nothing can be empty</td></tr>
+        <tr><td class="num">2</td><td>Activation Path Choice <span class="n">1.2</span></td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td><td class="yes">yes</td>
+          <td class="why">An offline choice between two doors; no data is touched</td></tr>
+        <tr><td class="num">3</td><td>Connect Bank <span class="n">1.3</span></td>
+          <td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td>
+          <td class="why"></td></tr>
+        <tr><td class="num">4</td><td>Add Subscription <span class="n">1.4</span></td>
+          <td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td>
+          <td class="why"></td></tr>
+        <tr><td class="num">5</td><td>Guided Reveal <span class="n">1.5</span></td>
+          <td class="yes">yes</td><td class="na">-</td><td class="na">-</td><td class="yes">yes</td>
+          <td class="why">Upstream failures belong to Connect Bank and Add Subscription; the reveal only runs on a list that already exists</td></tr>
+        <tr><td class="num">6</td><td>Home / Subscription List <span class="n">2.6</span></td>
+          <td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td>
+          <td class="why"></td></tr>
+        <tr><td class="num">7</td><td>Subscription Detail <span class="n">2.7</span></td>
+          <td class="na">-</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td>
+          <td class="why">One object is either there or it is not. "No data" on this screen is the unrecognized charge, which is a domain state and not an empty one</td></tr>
+        <tr><td class="num">8</td><td>Alerts / Activity <span class="n">3.8</span></td>
+          <td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td>
+          <td class="why">The empty state here is the best state in the app, not an absence</td></tr>
+        <tr><td class="num">9</td><td>Cancel Guide <span class="n">4.9</span></td>
+          <td class="yes">yes</td><td class="yes">yes</td><td class="na">-</td><td class="yes">yes</td>
+          <td class="why">The steps are text we already hold; there is no fetch to wait for</td></tr>
+        <tr><td class="num">10</td><td>Cancel Win Moment <span class="n">4.10</span></td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td><td class="yes">yes</td>
+          <td class="why">The screen only exists after a completed action, and its numbers are already known</td></tr>
+        <tr><td class="num">11</td><td>Share Snapshot <span class="n">4.11</span></td>
+          <td class="na">-</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td>
+          <td class="why">The card is generated from two numbers the product already has, so it cannot be empty</td></tr>
+        <tr><td class="num">12</td><td>History and Trends <span class="n">5.12</span></td>
+          <td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td>
+          <td class="why"></td></tr>
+        <tr><td class="num">13</td><td>Upgrade / Tendd Pro <span class="n">5.13</span></td>
+          <td class="na">-</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td>
+          <td class="why">A plan list cannot be empty. Its error is a payment that did not go through, and its loading is the payment being processed</td></tr>
+        <tr><td class="num">14</td><td>Connections / Accounts <span class="n">6.14</span></td>
+          <td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td><td class="yes">yes</td>
+          <td class="why"></td></tr>
+        <tr><td class="num">15</td><td>Data and Privacy <span class="n">6.15</span></td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td><td class="yes">yes</td>
+          <td class="why">A statement of what we hold and two controls. Nothing to load, nothing to be empty</td></tr>
+        <tr><td class="num">16</td><td>Settings / Profile <span class="n">6.16</span></td>
+          <td class="na">-</td><td class="na">-</td><td class="na">-</td><td class="yes">yes</td>
+          <td class="why">A list of doors. The skeleton while preferences load is chrome, not a destination, and the logged-out variant waits on the auth model</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note" style="margin-top:14px">
+    <p><b>Where the floor understates the product.</b> Connect Bank shows four system states here and has a fourth state that is none of them: a person who opened the bank screen and came back without connecting. Connections shows three and has a chooser dialog. Subscription Detail shows an empty column of dashes and carries three domain states. The floor is a check for gaps, and the real set is the next section.</p>
+  </div>
+
+  <!-- ============ 3. STATE MATRIX ============ -->
+  <h2 class="section" id="matrix">State matrix</h2>
+  <p class="section-lead">Every page of the prototype, grouped by IA cluster, rendered from <code>_nav.js</code>, the same registry the screen panel uses. There is no second list: a node with no page still has a row here, muted and unlinked, so an unbuilt state is visible rather than absent. Each state links to the page that renders it, and each screen links to its IA node.</p>
+  <div id="matrix-out"></div>
+  <div class="totals" id="totals"></div>
+  <div class="tablewrap" style="margin-top:18px">
+    <table>
+      <caption>The round split. Round 1 is the MVP set; the three LATER screens keep their July pages and are brought to the same contract in round 2.</caption>
+      <thead><tr><th>Round</th><th>Screens</th><th>Pages</th><th>Built today</th></tr></thead>
+      <tbody id="rounds"></tbody>
+    </table>
+  </div>
+
+  <!-- ============ 4. CONVENTIONS ============ -->
+  <h2 class="section" id="conventions">Conventions</h2>
+  <p class="section-lead">The contract every screen and every subagent follows, from <a href="docs/conventions.md">docs/conventions.md</a>. It is shown here because a rule that lives only in a markdown file is a rule only the model reads.</p>
+
+  <div class="conv">
+    <h3><span class="cn">0</span>What this inherits, and from where</h3>
+    <p>Nothing in the conventions is invented at this stage. Each line names its owner, and a gap is fixed in the owner first and rendered second.</p>
+    <div class="tablewrap">
+      <table style="min-width:520px">
+        <thead><tr><th>What</th><th>Owner</th></tr></thead>
+        <tbody>
+          <tr><td>Screens, node numbers, scope</td><td><code>ia/docs/sitemap.md</code>, which owns numbering</td></tr>
+          <tr><td>Which blocks a screen has, in what order</td><td><code>ia/docs/nodes/&lt;node&gt;.md</code>, tracing to the block bank</td></tr>
+          <tr><td>The seven global elements</td><td><code>ia/docs/nodes/globals.md</code>, with what each must never do</td></tr>
+          <tr><td>States and their exits</td><td>the States section of each node file, against <code>flows.md</code></td></tr>
+          <tr><td>Every interface string</td><td><code>voice/docs/microcopy.md</code></td></tr>
+          <tr><td>Accessible names, focus, live regions</td><td><code>ia/docs/accessibility.md</code></td></tr>
+          <tr><td>Grey tokens</td><td><code>wireframes/_wf.css</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:10px"><b>A-E SEO copy exists for node 1.1 only</b>, the one public indexed screen. Every other node is noindex and carries no A-E block by design, so the text of every app screen comes from the microcopy inventory. That is a deliberate difference from the generic instruction "take the text from the A-E block".</p>
+  </div>
+
+  <div class="conv-grid">
+    <div class="conv">
+      <h3><span class="cn">1</span>A live screen, not a schema</h3>
+      <ul>
+        <li>Every page is a <b>real screen at full viewport</b>, mobile first, that scrolls and clicks.</li>
+        <li><b>No zone labels.</b> If a zone needs a caption to be understood, the zone is wrong, and that is a finding for the IA, not a sticker.</li>
+        <li><b>No "main action" captions.</b> The main action is a real button that goes somewhere.</li>
+        <li><b>No mockup frame.</b> A screen is not a 420 by 720 card floating in a grey stage.</li>
+        <li>One screen per page, one viewport. Mobile is checked by narrowing the browser.</li>
+        <li>A loading state is a real screen with grey placeholders in the shape of the content.</li>
+      </ul>
+    </div>
+
+    <div class="conv">
+      <h3><span class="cn">2</span>Grey, structure only</h3>
+      <ul>
+        <li>Greyscale from <code>_wf.css</code>. No colour, no brand, no accent.</li>
+        <li>No type decisions beyond the browser heading hierarchy.</li>
+        <li>No shadows, gradients, decorative radii, icons, images or logos. Where an asset will sit later, a labelled grey box.</li>
+        <li>Placeholders stand for a deferred <b>asset</b>, never for missing <b>text</b>. No lorem ipsum, no "Heading 1": the copy exists.</li>
+      </ul>
+    </div>
+
+    <div class="conv">
+      <h3><span class="cn">3</span>Inline CSS is transport</h3>
+      <ul>
+        <li>At fan-out, parallel agents cannot all write into <code>_wf.css</code>, so each screen carries its CSS inline. <b>That is temporary by construction.</b></li>
+        <li><b>A token value never lives inline</b>, not even on one screen. A screen writes <code>var(--...)</code>; a missing variable is reported as "variable, value, why", not added.</li>
+        <li><b>A rule on two or more screens moves into <code>_wf.css</code></b>, the same two-occurrence test stage 07 uses to decide what is a component.</li>
+        <li>Every inline block opens with <code>/* INLINE: &lt;screen&gt; :: for consolidation into _wf.css */</code>, so the parent finds them mechanically.</li>
+      </ul>
+    </div>
+
+    <div class="conv">
+      <h3><span class="cn">4</span>Semantic HTML</h3>
+      <ul>
+        <li>Real elements, not a wall of divs. Interactive things are real: a button is a button, a link is an anchor, a field has a label.</li>
+        <li>Exactly one h1 per page; repeated objects are list items or articles.</li>
+        <li>The accessible names are written now, not later: one name per subscription row carrying the whole row, a status role on the alert banner, live regions on the states that announce. They cost nothing here and are expensive to retrofit.</li>
+      </ul>
+    </div>
+
+    <div class="conv">
+      <h3><span class="cn">5</span>One canonical set of numbers</h3>
+      <ul>
+        <li>Emma. <b>14 subscriptions, $192.90 a month.</b></li>
+        <li>Sources: <b>Chase 11</b> and <b>added by you 3</b>. Eleven plus three is fourteen on every screen that shows either number.</li>
+        <li>Groups: Streaming 4, Software 4, Music, Fitness and News 6.</li>
+        <li>The alert case: <b>Netflix up by $2.50, now $17.99</b>, which is also the subscription the cancel chain runs on.</li>
+        <li>The decode case: <code>SPOTIFYAB STOCKHOLM</code> to <b>Spotify Premium</b>. The failed payment: <b>Peloton</b>.</li>
+        <li>Save focus: Peloton App $12.99 and The New York Times $17.00, so it offers "up to $29.99 a month".</li>
+        <li>The win: <b>$17.99 a month, $215.88 a year</b>, running total $32.98 a month.</li>
+      </ul>
+    </div>
+
+    <div class="conv">
+      <h3><span class="cn">6</span>File naming</h3>
+      <ul>
+        <li>Lowercase Latin, hyphenated, all in <code>wireframes/</code>.</li>
+        <li><code>&lt;screen&gt;.html</code> is the base page and is the success state.</li>
+        <li><code>&lt;screen&gt;-&lt;state&gt;.html</code> is one page per state, <b>named after the state itself</b>, not after the nearest system word. A name not in the matrix does not get created.</li>
+        <li><code>index.html</code> is the product home page, the public Welcome landing. The hub is this page. The two are never swapped.</li>
+      </ul>
+    </div>
+
+    <div class="conv">
+      <h3><span class="cn">7</span>States: one page each</h3>
+      <ul>
+        <li>Every state is its own page, same structure, different content in the zone that changed. <b>No JavaScript toggle inside one file:</b> the prototype navigates between states.</li>
+        <li>The four system states are the floor. Domain and transit states are first class and get their own page.</li>
+        <li><b>No dead ends.</b> Every state has a visible exit that exists in <code>flows.md</code> and points at a page that is really here.</li>
+      </ul>
+    </div>
+
+    <div class="conv">
+      <h3><span class="cn">8</span>Two navigations, and they do not mix</h3>
+      <ul>
+        <li><b>This page carries the roadmap</b> from the root registry: the bridge back into the project.</li>
+        <li><b>Every screen carries the wireframe-only panel</b> from <code>_nav.js</code>: cluster, screen with its node number, its states, an accordion open on the current screen only, and a quiet cross-link to the IA node it renders.</li>
+        <li>No thin state strip above a screen, no roadmap on a screen page, no wireframe tree here.</li>
+        <li>The product chrome, the header and the tab bar, is the only navigation inside a screen. <b>The onboarding chain shows no tab bar, and that absence is deliberate.</b></li>
+        <li><b>No footer inside the app.</b> The one footer in the set is on the Welcome landing, which is a marketing page.</li>
+      </ul>
+    </div>
+
+    <div class="conv">
+      <h3><span class="cn">9</span>One screen that reflows</h3>
+      <ul>
+        <li>Mobile first, authored narrow, reflowing to desktop through <code>_wf.css</code>.</li>
+        <li>The reflow implements the IA delta, decided once: the tab bar becomes a left rail with the header folded into its top; Home and Subscription Detail become a two-pane master and detail; onboarding stays a single column, just wider.</li>
+        <li><b>Every screen is checked at 360px</b>: no horizontal scroll, no clipped text, no overlap.</li>
+      </ul>
+    </div>
+
+    <div class="conv">
+      <h3><span class="cn">10 and 11</span>Deferred, and scope discipline</h3>
+      <ul>
+        <li>Deferred to Design: colour, brand, typography, shadows, real icons and logos, imagery, motion, exact spacing, the finished look. Also whether Cancel Guide, Share Snapshot and Upgrade become modals on desktop.</li>
+        <li>Every screen traces to a node in the sitemap and a place in the flows. <b>Every block traces to the node file</b>, whose composition traces to the block bank. A block that seems missing is a question for the node, not an invention here.</li>
+        <li>English in the docs, product language on the screens. <b>No em dash anywhere.</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 5. WORK ORDER ============ -->
+  <h2 class="section" id="delta">Work order</h2>
+  <p class="section-lead">The delta between the 41 pages that exist and the 49 the map specifies. The July build stands; this is what the rebuild owes. When the critique closes at the end of the stage, this section is replaced by "was to became", which is the same list with outcomes.</p>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Eight pages to add. Each one is a node of the map that has no page.</caption>
+      <thead><tr><th>Node</th><th>File</th><th>Round</th><th>Why it exists</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1.3.4</td><td><code>connect-bank-cancelled.html</code></td><td>1</td><td class="why">Plaid Link returns four outcomes, not three. A person who opens the bank screen and backs out had nowhere to land</td></tr>
+        <tr><td class="num">2.7.2</td><td><code>subscription-detail-price-change.html</code></td><td>1</td><td class="why">The state that carries J4 on the detail screen</td></tr>
+        <tr><td class="num">2.7.3</td><td><code>subscription-detail-payment-failed.html</code></td><td>1</td><td class="why">Named in the IA critique as a dead end: informed, with no next step</td></tr>
+        <tr><td class="num">6.14.3</td><td><code>connections-add-source.html</code></td><td>1</td><td class="why">The chooser dialog, which is the FLAG 2 resolution</td></tr>
+        <tr><td class="num">6.15.1</td><td><code>data-privacy-delete-confirm.html</code></td><td>1</td><td class="why">The two-door dialog. It exists inside the page today and has no page of its own</td></tr>
+        <tr><td class="num">5.12.3</td><td><code>history-trends-error.html</code></td><td>2</td><td class="why">LATER, with its screen</td></tr>
+        <tr><td class="num">5.13.1</td><td><code>upgrade-processing.html</code></td><td>2</td><td class="why">LATER, with its screen</td></tr>
+        <tr><td class="num">5.13.2</td><td><code>upgrade-payment-failed.html</code></td><td>2</td><td class="why">LATER, with its screen</td></tr>
       </tbody>
     </table>
   </div>
 
+  <div class="tablewrap" style="margin-top:14px">
+    <table>
+      <caption>Four pages renamed on 2026-08-05, because each was named after the nearest system word rather than after its state. The microcopy keys follow the file names and were renamed with them; the lines did not change.</caption>
+      <thead><tr><th>Was</th><th>Is now</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><code>subscription-detail-empty</code></td><td><code>subscription-detail-unrecognized</code></td><td class="why">Node 2.7.1, and node 2.7 has no empty state at all</td></tr>
+        <tr><td><code>cancel-guide-empty</code></td><td><code>cancel-guide-no-guide</code></td><td class="why">Node 4.9.1. Nothing on it is empty; it carries the general steps</td></tr>
+        <tr><td><code>cancel-guide-error</code></td><td><code>cancel-guide-blocked</code></td><td class="why">Node 4.9.2. Nothing failed on our side: the merchant blocked the person</td></tr>
+        <tr><td><code>connections-error</code></td><td><code>connections-reconnect</code></td><td class="why">Node 6.14.2. An expired connection is maintenance and not an error, and the file name was arguing the opposite</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:14px">
+    <p><b>Carried in from the IA work, to be honoured while the screens are rebuilt.</b></p>
+    <ul style="margin:0;padding-left:18px">
+      <li><a href="cancel-win.html">cancel-win</a> still shows the share block as a primary action. It is LATER under D-Share.</li>
+      <li><a href="settings.html">settings</a> shows a Name field, which the block bank decided against (email and currency, and nothing else), and has no currency row.</li>
+      <li><a href="cancel-guide.html">cancel-guide</a> is missing three blocks the bank found: what happens when you cancel with the real date, the "about five minutes, and where these steps came from" strip, and when the steps were last checked.</li>
+      <li><a href="connections.html">connections</a> needs the last successful check on every source and the disconnect consequence in the same sentence. It also shows Chase with 11 subscriptions while <a href="connections-reconnect.html">connections-reconnect</a> shows 8: same source, same story, two numbers.</li>
+      <li>Every screen carries zone labels and "main action" captions and sits inside a 420 by 720 mockup frame. Both are the schema form of the previous stage, and both come off.</li>
+    </ul>
+  </div>
+
   <footer class="foot">
-    Source of truth: <a href="docs/screens.md">screens.md</a> (screens and states) and <a href="docs/conventions.md">conventions.md</a> (rules). Structure from <a href="../ia/docs/sitemap.md">sitemap.md</a> and <a href="../ia/docs/flows.md">flows.md</a>. Grey, semantic, real copy: this overview updates as each page is built.
-    <br>Design track (in colour): the <a href="../design/concept/concept.html">Concept</a> stand and <a href="../design/concept/directions.html">Directions</a>, with <a href="../design/home.html">Home</a> and <a href="../design/subscription-detail.html">Subscription Detail</a> coloured in ui-visual. These wireframes stay grey.
+    Source of truth: <a href="docs/screens.md">screens.md</a> for screens and states, <a href="docs/conventions.md">conventions.md</a> for the rules, and <code>_nav.js</code> for what is built. Structure from <a href="../ia/docs/sitemap.md">sitemap.md</a> and <a href="../ia/docs/flows.md">flows.md</a>; every string from <a href="../voice/docs/microcopy.md">microcopy.md</a>.
+    <br>Design track, in colour: the <a href="../design/concept/concept.html">Concept</a> stand and <a href="../design/concept/directions.html">Directions</a>, with <a href="../design/home.html">Home</a> and <a href="../design/subscription-detail.html">Subscription Detail</a> already coloured. These wireframes stay grey.
   </footer>
 
 </div>
 </div>
 
+<script src="_nav.js"></script>
+<script>
+(function () {
+  var W = window.WF_NAV;
+  if (!W) return;
+
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function stateFile(sc, st) { return sc.file.replace('.html', '-' + st.slug + '.html'); }
+
+  // One index over the registry: the flows below name nodes, and everything else about a
+  // screen (its name, its file, its scope, its states) is resolved from here. No second list.
+  var byNode = {};
+  W.clusters.forEach(function (cl) {
+    cl.screens.forEach(function (sc) { byNode[sc.node] = sc; });
+  });
+
+  function pages(sc) { return 1 + sc.states.length; }
+  function built(sc) {
+    return (sc.built ? 1 : 0) + sc.states.filter(function (s) { return s.built; }).length;
+  }
+
+  /* ---------- 1. flows ---------- */
+  var FLOWS = [
+    { id: 'A', primary: true,
+      title: 'See all recurring charges calmly',
+      who: 'J-MAIN &middot; Emma, the bank path &middot; the first flow, built end to end',
+      note: 'First session, bank connected. It ends at the calm list, which is also the etalon every other screen is measured against.',
+      rows: [
+        { node: '1.1', role: 'tap 0', job: 'J1, show value before asking for data. The only public, indexed screen' },
+        { node: '1.2', role: 'tap 1', job: 'J1 and J5, two paths of equal weight (D2)' },
+        { node: '1.3', role: 'tap 2', job: 'J1, the bank path (D5, Plaid US first)' },
+        { node: '1.5', role: 'tap 3', job: 'J-MAIN, the aha, gradual (D1)' },
+        { node: '2.6', role: 'end', job: 'J-MAIN and E1, the calm list, then the steady state' },
+        { node: '2.7', role: 'one tap', job: 'J3, decode a charge' }
+      ] },
+    { id: 'B',
+      title: 'Track without sharing bank data',
+      who: 'J5 &middot; Ravi, manual entry and presets',
+      note: 'The privacy path. It shares Welcome, Path Choice, Guided Reveal and Home with Flow A; the distinct screen is Add Subscription, which is also the in-app plus.',
+      rows: [
+        { node: '1.1', role: 'reuse', shared: 'shared with Flow A' },
+        { node: '1.2', role: 'reuse', shared: 'shared with Flow A, picks the private door' },
+        { node: '1.4', role: 'main', job: 'J5, the privacy path (D2, presets), reused in-app' },
+        { node: '1.5', role: 'reuse', shared: 'shared with Flow A, where the empty state matters more' },
+        { node: '2.6', role: 'reuse', shared: 'shared with Flow A, a private list with no bank' }
+      ] },
+    { id: 'C',
+      title: 'Find it, cancel it, feel the win',
+      who: 'J2 and E2 &middot; Claudia',
+      note: 'The cut job and the pride moment. The basic guide is free and the cancel moment is never walled (D3).',
+      rows: [
+        { node: '2.6', role: 'start', shared: 'shared with Flow A' },
+        { node: '2.7', role: 'tap', shared: 'shared with Flow A, where the decision is made' },
+        { node: '4.9', role: 'cancel', job: 'J2, identify and cancel; the basic guide is free (D3)' },
+        { node: '4.10', role: 'win', job: 'E2, the small win' },
+        { node: '4.11', role: 'share', job: 'S1, the privacy-safe card, offered after the win' },
+        { node: '5.13', role: 'gate', job: 'No job of its own. It traces to D3 and D4, and it opens only from a real gate' }
+      ] },
+    { id: 'D',
+      title: 'Stay ahead of a surprise',
+      who: 'J4 &middot; alert to action',
+      note: 'The entry is a notification, which is the return hook. A price change and a failed payment are free; the deeper alert types are Pro (D3).',
+      rows: [
+        { node: '3.8', role: 'open', job: 'J4, a price change or a failed payment' },
+        { node: '2.7', role: 'tap', shared: 'shared with Flow C, the "caught it early" moment' },
+        { node: '4.9', role: 'handoff', shared: 'shared with Flow C, a price change may hand off to cancel' },
+        { node: '5.13', role: 'gate', shared: 'shared with Flow C, a Pro alert type reaches the gate' },
+        { node: '2.6', role: 'back', shared: 'shared with Flow A' }
+      ] }
+  ];
+
+  var GLOBAL = {
+    title: 'Reached globally, not through one flow',
+    who: 'The You tab, a trust link anywhere, or a real Pro gate',
+    note: 'In the sitemap and in no single linear flow. They are the steady state of the account, and they are built in the fan-out.',
+    rows: [
+      { node: '5.12', role: 'Pro', job: 'J-MAIN over time, behind the Pro gate (D3)' },
+      { node: '6.14', role: 'You', job: 'J1 and J5, manage the sources' },
+      { node: '6.15', role: 'You', job: 'J5 and E3, what we hold and how to end it' },
+      { node: '6.16', role: 'You', job: 'E3, the door to the cluster; J4 through notifications' }
+    ]
+  };
+
+  function flowRow(r) {
+    var sc = byNode[r.node];
+    if (!sc) return '';
+    var h = '<li>';
+    h += '<span class="step">' + esc(r.role) + '</span>';
+    h += '<span class="screen-name">' + esc(sc.name) + '<span class="n">' + sc.node + '</span></span>';
+    if (sc.scope === 'LATER') h += '<span class="later">later</span>';
+    h += r.shared ? '<span class="reuse">' + esc(r.shared) + '</span>'
+                  : '<span class="job">' + esc(r.job) + '</span>';
+    h += '<span class="ends">';
+    if (!r.shared) {
+      h += '<a class="pg base" href="' + sc.file + '">' + esc(sc.file.replace('.html', '')) + '</a>';
+      h += sc.states.length
+        ? '<a class="pg" href="#matrix">' + sc.states.length +
+          (sc.states.length === 1 ? ' more state' : ' more states') + '</a>'
+        : '<span class="count">no other state</span>';
+    }
+    h += '</span></li>';
+    return h;
+  }
+
+  function flowBlock(f) {
+    var h = '<section class="flow"><div class="flow-head' + (f.primary ? ' primary' : '') + '">';
+    h += '<h3>' + (f.id ? 'Flow ' + f.id + ' - ' : '') + esc(f.title) + '</h3>';
+    h += '<div class="who">' + f.who + '</div><p>' + esc(f.note) + '</p></div>';
+    h += '<ul class="screens">' + f.rows.map(flowRow).join('') + '</ul></section>';
+    return h;
+  }
+
+  document.getElementById('flows-out').innerHTML =
+    FLOWS.map(flowBlock).join('') + flowBlock(GLOBAL);
+
+  /* ---------- 2. state matrix ---------- */
+  var mx = '';
+  W.clusters.forEach(function (cl) {
+    mx += '<p class="cl-head">' + cl.id + ' ' + esc(cl.name) + '</p><ul class="mx">';
+    cl.screens.forEach(function (sc) {
+      mx += '<li><div class="mx-top">';
+      mx += '<a class="pg base" href="' + sc.file + '">' + esc(sc.name) + '</a>';
+      mx += '<span class="n">' + sc.node + '</span>';
+      if (sc.etalon) mx += '<span class="later">etalon</span>';
+      if (sc.scope === 'LATER') mx += '<span class="later">later</span>';
+      mx += '<span class="job">' + esc(sc.flow) + '</span>';
+      mx += '<span class="ends"><span class="count">' + built(sc) + ' of ' + pages(sc) +
+            (pages(sc) === 1 ? ' page' : ' pages') + '</span>';
+      mx += '<a class="pg" href="../ia/' + sc.ia + '">IA node</a></span>';
+      mx += '</div>';
+      if (sc.states.length) {
+        mx += '<div class="mx-states">';
+        sc.states.forEach(function (st) {
+          if (st.built) {
+            mx += '<a class="pg" href="' + stateFile(sc, st) + '">' + esc(st.label) +
+                  '<span class="n">' + st.node + '</span></a>';
+          } else {
+            mx += '<span class="pg spec">' + esc(st.label) +
+                  '<span class="n">' + st.node + ' &middot; spec</span></span>';
+          }
+        });
+        mx += '</div>';
+      } else {
+        mx += '<p class="mx-none">One state, and it is the page itself.</p>';
+      }
+      mx += '</li>';
+    });
+    mx += '</ul>';
+  });
+  document.getElementById('matrix-out').innerHTML = mx;
+
+  /* ---------- counts, computed rather than written down ---------- */
+  var all = [];
+  W.clusters.forEach(function (cl) { cl.screens.forEach(function (sc) { all.push(sc); }); });
+  function sum(list, fn) { return list.reduce(function (a, b) { return a + fn(b); }, 0); }
+
+  var mvp = all.filter(function (s) { return s.scope !== 'LATER'; });
+  var later = all.filter(function (s) { return s.scope === 'LATER'; });
+  var totalPages = sum(all, pages), totalBuilt = sum(all, built);
+
+  document.getElementById('meta').innerHTML = [
+    'Stage 04, Wireframes',
+    W.clusters.length + ' clusters',
+    all.length + ' screens',
+    totalPages + ' pages specified',
+    totalBuilt + ' built',
+    (totalPages - totalBuilt) + ' to add',
+    '4 flows'
+  ].map(function (t) { return '<span>' + t + '</span>'; }).join('');
+
+  document.getElementById('totals').innerHTML = [
+    all.length + ' screens',
+    sum(all, function (s) { return s.states.length; }) + ' state nodes',
+    totalPages + ' pages in the map',
+    totalBuilt + ' pages built',
+    (totalPages - totalBuilt) + ' specified, not drawn'
+  ].map(function (t) { return '<span>' + t + '</span>'; }).join('');
+
+  document.getElementById('rounds').innerHTML =
+    '<tr><td><b>Round 1, MVP</b></td><td>' + mvp.length + '</td><td>' + sum(mvp, pages) +
+      '</td><td>' + sum(mvp, built) + '</td></tr>' +
+    '<tr><td>Round 2, LATER</td><td>' + later.length + ' (' +
+      later.map(function (s) { return esc(s.name); }).join(', ') + ')</td><td>' +
+      sum(later, pages) + '</td><td>' + sum(later, built) + '</td></tr>' +
+    '<tr><td><b>Total</b></td><td><b>' + all.length + '</b></td><td><b>' + totalPages +
+      '</b></td><td><b>' + totalBuilt + '</b></td></tr>';
+})();
+</script>
+
 <script>
   window.NAV_BASE = '../';
   window.NAV_SECTIONS = [
-    { id:'flows', label:'Flows and their screens' },
-    { id:'pages', label:'All pages and states' },
+    { id:'flows',       label:'Flows and their screens' },
+    { id:'coverage',    label:'Coverage map' },
+    { id:'matrix',      label:'State matrix' },
+    { id:'conventions', label:'Conventions' },
+    { id:'delta',       label:'Work order' },
   ];
 </script>
 <script src="../_nav.js"></script>

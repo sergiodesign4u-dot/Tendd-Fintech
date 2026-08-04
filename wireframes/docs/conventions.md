@@ -155,8 +155,13 @@ the read-only line wherever a trust moment appears. All of it is already written
 ## 8. Navigation: two of them, and they do not mix
 
 - **`overview.html` carries the roadmap sidebar** from the root `/_nav.js`: the bridge back into
-  the project. Its own sections are Flows, Coverage map, State matrix, Conventions, and after
-  the critique closes, "Was to became".
+  the project. Its own sections are Flows, Coverage map, State matrix, Conventions and Work
+  order. The work order is the delta against the pages that exist; when the critique closes it
+  is replaced by "was to became", which is the same list with outcomes against it.
+- **The overview does not keep its own copy of the screen list.** The flows name node numbers,
+  and every name, file, scope and state is resolved from `wireframes/_nav.js`, the same registry
+  the screen panel renders. The counts on the page are computed from it too, so "41 of 49" can
+  never be a number someone forgot to update.
 - **Every screen page carries the wireframe-only side panel** from `wireframes/_nav.js`, and
   nothing else: a header with an "All screens" button and the stage badge, a **three-level tree**
   (IA cluster, then screen with its node number, then its states), an accordion that opens the
