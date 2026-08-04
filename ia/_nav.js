@@ -10,7 +10,9 @@
 
    file: where the node is specified today. While the detail layer still lives in
    cluster pages, that is a cluster page plus the node anchor; as node pages are
-   built, the entry moves to ia/<node>.html and nothing else changes. */
+   built, the entry moves to its own page and nothing else changes. Node pages are
+   named ia/<number>-<slug>.html with the dots of the node number turned into
+   hyphens (node 1.1 -> 1-1-welcome.html), so the file name sorts and links cleanly. */
 
 window.IA_NAV = [
   // Global chrome and reusable sections
@@ -31,7 +33,7 @@ window.IA_NAV = [
   { node:'8',   label:'SEO engine',      type:'spec',    group:'global', file:'seo.html' },
 
   // Pages, cluster by cluster
-  { node:'1.1',  label:'Welcome / Value Intro',   type:'page',   group:'pages', file:'onboarding.html#1.1', scope:'MVP' },
+  { node:'1.1',  label:'Welcome / Value Intro',   type:'page',   group:'pages', file:'1-1-welcome.html',    scope:'MVP' },
   { node:'1.2',  label:'Activation Path Choice',  type:'page',   group:'pages', file:'onboarding.html#1.2', scope:'MVP' },
   { node:'1.3',  label:'Connect Bank',            type:'page',   group:'pages', file:'onboarding.html#1.3', scope:'MVP' },
   { node:'1.4',  label:'Add Subscription',        type:'page',   group:'pages', file:'onboarding.html#1.4', scope:'MVP' },
