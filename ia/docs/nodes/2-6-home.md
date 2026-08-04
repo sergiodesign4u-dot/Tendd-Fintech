@@ -93,6 +93,13 @@ across the top, and **the groups run in balanced columns**, two-up and then thre
 the list is visible without scrolling. No block is added by breakpoint, and the total stays the
 biggest thing on the screen at every width.
 
+**Block 6 moves above the list on desktop, and only there.** Mobile keeps the priority order of
+the table above, where the add action sits after the list because the job of this screen is to
+look, not to add, and the end of the list is where wanting to add one actually happens. Below
+two balanced columns there is no such place: whatever sits there hangs under the shorter column
+and reads as a leftover rather than as the way on. So on the wide layout the two secondaries sit
+directly under the summary band, still quiet, still not competing with the total.
+
 **Decided 2026-08-05, at the etalon: the right-hand detail pane is rejected.** The earlier
 version of this section allowed the detail (node 2.7) to open as a pane instead of a route. It
 was built and then removed, for three reasons. One action would have had two destinations

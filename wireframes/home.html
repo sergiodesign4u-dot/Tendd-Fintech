@@ -173,13 +173,23 @@
   .head {
     display: grid; grid-template-columns: minmax(250px, 0.85fr) minmax(300px, 1.15fr);
     gap: 30px 40px; align-items: center;
-    padding: 0 0 26px; margin: 0 0 26px; border-bottom: 1px solid var(--line2);
+    padding: 0 0 26px; margin: 0 0 22px; border-bottom: 1px solid var(--line2);
   }
   .head .summary, .head .attention { margin: 0; }
   .groups { columns: 2; column-gap: 44px; }
   /* A category is read as one thing, so it never splits across a column break. */
   .group { break-inside: avoid; margin: 0 0 26px; }
-  .secondary { margin-top: 6px; }
+
+  /* The two secondaries move above the list here, and only here. The DOM keeps
+     the mobile-first order of node 2.6, where the add action is block 6 and sits
+     after the list because the job of this screen is to look, not to add. On a
+     dashboard that order puts them under the shorter of two balanced columns,
+     where they read as leftovers rather than as the way on. */
+  .screen { display: flex; flex-direction: column; }
+  .head { order: 1; }
+  .secondary { order: 2; margin: 0 0 26px; }
+  .groups { order: 3; }
+  .trust { order: 4; }
 }
 
 @container (min-width: 1340px) {
