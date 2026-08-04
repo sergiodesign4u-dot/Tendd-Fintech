@@ -49,7 +49,7 @@ physically unavailable. For Tendd the domain half is available for two types onl
 | D. Object detail | **second-hand**: Orbit's own detail sheet through Refero, plus Duolingo's cancel-side screen | available |
 | E. Activity feed | **partly**: the category has no feed at all, only per-item reminders (Subo, second-hand) plus a public promise on Rocket Money's landing | available, but in the wrong register |
 | F. Task guide plus confirmation | **available**: ReSubs publishes a full cancel guide library, opened live 2026-08-04 | available |
-| G. Account and settings | **missing**: behind login | available |
+| G. Account and settings | **second-hand**: connection and privacy screens from several products through Refero | available |
 
 **Correction after type C ran (2026-08-04).** The line above says the domain half is missing
 for five types because competitor products are behind login. That is true of Playwright, and
@@ -528,3 +528,92 @@ Nine blocks on the guide, five on the win. Three of them were missing from the g
 and are the reason this type was worth running: the time and source strip, what happens when
 you cancel with the real date, and the freshness line. One contradiction was found and is
 being carried to the founder rather than quietly fixed.
+
+---
+
+## Type G. Account and settings (nodes 6.14 Connections, 6.15 Data and Privacy, 6.16 Settings)
+
+Three screens that look like housekeeping and are not: for an audience that is skeptical
+about connecting a bank, this cluster is where the trust promise made on the landing either
+holds or turns out to be marketing. J5, the privacy job, and E3, feeling safe about the data,
+live here.
+
+The domain half is second-hand again, and it is spread across several products rather than
+one competitor, because no subscription tracker exposes these screens.
+
+### Sources
+
+**Domain and adjacent, second-hand through Refero:**
+- [Linear, connected accounts](https://refero.design/pages/94ac7513-e781-40fd-8238-e4e4998c49c9) and [Squarespace, connected accounts](https://refero.design/pages/4f62250b-f1cd-43ba-b330-a28f5e49a7c8) - connection cards with a connect action and a per-integration toggle
+- [Klarna](https://refero.design/pages/3112b15b-7dae-4ebb-a398-18df7a86dc99) and [PayPal](https://refero.design/pages/a6066c83-e6db-45b0-b320-55a3272b0de1) - the bank picker: search plus a list of popular banks
+- [Canva, privacy preferences](https://refero.design/pages/efd59a4e-5e32-4631-889f-858d44f92a18) - a list of privacy toggles (AI usage, marketing, personalised ads) with learn-more links
+- [Shop, data and privacy](https://refero.design/pages/e18ef05a-7fb7-4af2-8638-8d78be084946) - a privacy card with policy links and account deletion
+- [Jace, account](https://refero.design/pages/e0621b8d-1b96-46e9-9288-90cbbf174177) and [Fingerprint, delete account](https://refero.design/pages/1365b24f-7658-4cf0-aad3-48e52b86259c) - the destructive path: a warning callout, "Keep account" against "Continue", then a code
+- [Uber, account info](https://refero.design/pages/3cc25d40-12aa-4728-815a-83f6f20e6c4f) - profile rows plus a sidebar that separates Security from Privacy and Data
+
+### Decisions
+
+| Source | Block | Verdict | Traces to | Scope | Where we are better and how |
+|---|---|---|---|---|---|
+| Linear, Squarespace | A list of connections, one card each | TAKE | node 6.14; J1 | MVP | |
+| own research | Last successful check, on every connection | TAKE | GC6; J1; design principle 4 | MVP | **Exists in none of the sources.** A silently stale connection makes the whole calm view quietly wrong, and the person has no way to know. The freshness line is the same promise as the trust line on Home, one level deeper |
+| own research | Reconnect, when a connection has expired | TAKE | J1; the sync-failed state on node 2.6 | MVP | Bank connections expire by design. The category treats that as an error; ours treats it as maintenance, in the same calm register |
+| Linear, Squarespace | Disconnect | TAKE, DIFFERENTLY | J5, E3; design principle 4 | MVP | Every source offers disconnect and none says what happens to the data already collected. Ours states it in the same sentence: what stays, what goes, and whether the subscriptions remain visible |
+| Klarna, PayPal | Bank search and picker | SKIP | Plaid Link owns this screen, the same boundary as node 1.3 | out | |
+| own research | "Add another bank", with no counter and no limit anywhere on the screen | TAKE | D-Free (no cap on connections); J1 | MVP | A count next to a connection list reads as a cap even when there is none. D-Free is a promise this screen can quietly break by design, so it is written down as a block decision |
+| Canva | Privacy toggles with learn-more links | TAKE, DIFFERENTLY | J5, E3; design principle 4 | MVP | Ours is first a plain statement of what we store and what we never do, and only then a control. Canva's list is controls without a statement, which reads as a menu of things being done to you |
+| Canva | Toggles for advertising, personalisation, profile enrichment | SKIP | we do none of these, and a toggle implies we could | out | The same rule that dropped the read against write toggle at node 1.3: a control with only one legal position is theatre |
+| Shop, Jace, Fingerprint | Export my data, delete my account | TAKE | J5, E3; legal duty | MVP | |
+| own research | Which export is free and which is Pro | TAKE, DIFFERENTLY | D3; J5 | MVP | Stated rather than left ambiguous: a plain export of your own data is free, because it is a right and not a feature. The analytical export of history and trends is Pro, and it lives with node 5.12. **This is an assumption written down for the founder, not a decision already taken** |
+| Fingerprint | Destructive confirmation: warning callout, "Keep account" against "Continue" | TAKE, DIFFERENTLY | D-Concept (clay only for a genuine error, never red decoration) | MVP | Ours keeps the two-door shape and drops the alarm colouring. The consequence carries the weight, not the palette |
+| Uber | Profile rows: name, email, phone | TAKE, DIFFERENTLY | node 6.16 | MVP | Ours is email and currency, and nothing else. We have no reason to hold a name or a phone number, and not holding them is easier to explain than protecting them |
+| Uber, fable | Avatar and photo upload | SKIP | nothing traces to it; the product has no social surface | out | |
+| own research | Notification settings: what we tell you about | TAKE | J4; the link from node 3.8 | MVP | One place that answers what will reach you, instead of a reminder toggle on every subscription the way the category does it |
+| own research | The plan row: what Free includes, what Pro adds | TAKE | D3, D4 | MVP | **This is the right home for the plan**, and it is the reason the calm view can stay clean. The upsell was dropped from node 2.6 precisely so it could live here, once, without pressure |
+| Squarespace, Canva, Linear | Two-column settings with a category sidebar | SKIP | mobile-first; design principle 2 | out | A sidebar of settings categories does not survive 360px. Ours is one list of rows that open their own screen, which is also why this cluster is three nodes and not one |
+| Uber | Security separated from Privacy and Data | TAKE | node 6.15 against node 6.16 | MVP | Confirms the split the IA already made: the data question and the preferences question are different questions and different screens |
+
+### Our order, mobile-first
+
+**6.16 Settings** is the entry: plan row / notifications, what we tell you about / your details
+(email, currency) / a row into Connections / a row into Data and privacy / sign out.
+
+**6.14 Connections:** back / a card per bank: logo, institution, which accounts are included,
+last successful check, status / reconnect when expired / disconnect, with the consequence in
+the same sentence / add another bank, with no counter anywhere / the trust line.
+
+**6.15 Data and Privacy:** back / what we store, in plain words / what we never do (move
+money, sell data, write anything to your bank) / the controls that actually control something
+/ export my data / delete my account, two doors, no alarm colouring / links to the policy and
+to the source of every figure.
+
+Seventeen rows across the three nodes. Two blocks exist in none of the sources: the last
+successful check on every connection, and the sentence that says what happens to your data
+when you disconnect. One assumption is written down rather than assumed: which export is free.
+
+---
+
+## The bank, closed
+
+Seven types, thirteen MVP screens, and the composition of every one of them now has a source
+or a written reason. **114 block decisions: 78 taken, 34 dropped with the reason written down,
+2 carried to the founder.** What the round produced:
+
+- **The availability table was wrong when it was written and is now right.** "Behind login"
+  was true of Playwright and false of the question: Refero indexes screens from inside logged
+  in products, so five of the seven types got a domain half after all, marked second-hand.
+- **Three types produced a live domain source**: A (three competitor landings), B (Plaid Link,
+  the component we embed), F (ReSubs' open library of cancel guides).
+- **One type has no domain source anywhere and that is the finding**: E, because the category
+  has no activity feed at all, only per-item reminders delivered outside the app.
+- **The blocks that carry each screen are mostly the ones no source had**: the decoder line at
+  2.7, the "needs you" split at 3.8, the price change that shows the old number, the last
+  successful check at 6.14, the two paths in every empty state, and the trust line that
+  appears on four screens.
+- **One contradiction surfaced** between the scope table and the line inventory (share on the
+  MVP win screen against node 4.11 being LATER) and is carried to the founder, not fixed
+  quietly. **One assumption is flagged** (which export is free).
+
+What this is for: the composition of a screen is no longer invented at wireframe time. Node
+specifications take their block list from here, and a block that is not in the bank and traces
+to nothing does not get added silently.
