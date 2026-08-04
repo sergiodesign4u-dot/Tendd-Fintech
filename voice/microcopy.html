@@ -262,6 +262,23 @@
       <li>add-subscription-empty zaction: "add it manually" to "add it by hand".</li>
       <li>connect-bank zaction: "choose your bank" to "Connect your bank".</li>
     </ul>
+
+    <h3>Wireframes rebuild, Home as the etalon (2026-08-05)</h3>
+    <p>The wireframe stage was re-run against the upgraded IA, and Home was rebuilt as the etalon. <strong>No line was rewritten.</strong> What changed is which lines the screen carries and where they sit, and this inventory follows, because a line inventory that lists lines no screen shows is wrong in the same way a missing line is.</p>
+    <div class="twrap">
+      <table class="vtable">
+        <thead><tr><th>Screen</th><th>Zone</th><th>Change</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>home</td><td>add-action</td><td>Inventory row corrected to "Add a subscription"</td><td>The Step 5 log had already resolved D1 and the screen already said it. The inventory row still carried the pre-rewrite "+ Add subscription".</td></tr>
+          <tr><td>home</td><td>summary-strip to trust-line</td><td>"Read-only. Tendd cannot move your money." moved zone</td><td>Node 2.6 gives the strip the count, the total and one line of context. Source and trust are block 7, GC6, whose content order states read-only in the same breath as the source. The line itself is untouched (D7 anchor).</td></tr>
+          <tr><td>home</td><td>trust-line</td><td>Three lines added: the source, the last successful check, and the way to the full answer</td><td>Node 2.6 block 7 requires GC6, and GC6 requires the last successful check. Home showed a figure with no source and no freshness. "Data and privacy" is the existing name of node 6.15, not a new label.</td></tr>
+          <tr><td>home</td><td>list-group</td><td>The five subtotals recorded</td><td>Node 2.6 block 4: each group carries its own subtotal. They are derived from the canonical dataset, not authored.</td></tr>
+          <tr><td>home</td><td>cancel-candidates</td><td>Three lines retired from the base screen</td><td>The nudge is not one of the eight blocks of node 2.6, and its own state is 2.6.4, whose trigger is "the person came here to cut". home-savefocus carries the same lines and keeps them. The Save tab is the door.</td></tr>
+          <tr><td>home</td><td>history-link</td><td>"Pro" status badge retired</td><td>Node 5.12 requires a route from Home, and node 2.6 forbids an upsell on the calm view ("any upsell" is the load-bearing skip of the type). The route stays, the badge goes: the gate belongs to node 5.12, where GC7 shows a real preview.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Not a copy change, but recorded here because the screen reads differently:</strong> the next charge is rendered days first and the date second (wireframe conventions section 5, and node 2.6 block 5), against a fixed fixture date of 1 August. "in 2 days, Aug 3", and "tomorrow" at one day.</p>
   </section>
 
   <section id="dataset">
@@ -454,17 +471,17 @@
           <tr><td>home</td><td>header</td><td>Hi, Emma</td><td>body</td></tr>
           <tr><td>home</td><td>summary-strip</td><td>You're paying for 14 subscriptions</td><td>body</td></tr>
           <tr><td>home</td><td>summary-strip</td><td>a month, for what you have signed up for</td><td>body</td></tr>
-          <tr><td>home</td><td>summary-strip</td><td>Read-only. Tendd cannot move your money.</td><td>body</td></tr>
           <tr><td>home</td><td>alert-banner</td><td>Netflix went up by $2.50, now $17.99 a month.</td><td>body</td></tr>
           <tr><td>home</td><td>alert-banner</td><td>See what changed &#8594;</td><td>link</td></tr>
           <tr><td>home</td><td>list</td><td>Streaming (4) / Software (4) / Music (2) / Fitness (2) / News (2)</td><td>heading</td></tr>
+          <tr><td>home</td><td>list-group</td><td>$54.96 a month / $53.98 a month / $22.98 a month / $24.98 a month / $36.00 a month</td><td>body</td></tr>
           <tr><td>home</td><td>list-row</td><td>(the canonical list, one GC4 row each)</td><td>body</td></tr>
-          <tr><td>home</td><td>cancel-candidates</td><td>2 you might not be using</td><td>body</td></tr>
-          <tr><td>home</td><td>cancel-candidates</td><td>Peloton App, The New York Times</td><td>body</td></tr>
-          <tr><td>home</td><td>cancel-candidates</td><td>Review &#8594;</td><td>link</td></tr>
-          <tr><td>home</td><td>add-action</td><td>+ Add subscription</td><td>button</td></tr>
+          <tr><td>home</td><td>add-action</td><td>Add a subscription</td><td>button</td></tr>
           <tr><td>home</td><td>history-link</td><td>See your trends</td><td>button</td></tr>
-          <tr><td>home</td><td>history-link</td><td>Pro</td><td>status</td></tr>
+          <tr><td>home</td><td>trust-line</td><td>From Chase, 11 subscriptions, and 3 you added yourself.</td><td>body</td></tr>
+          <tr><td>home</td><td>trust-line</td><td>Read-only. Tendd cannot move your money.</td><td>body</td></tr>
+          <tr><td>home</td><td>trust-line</td><td>Last checked today, 9:14 AM.</td><td>body</td></tr>
+          <tr><td>home</td><td>trust-line</td><td>Data and privacy</td><td>link</td></tr>
           <tr><td>home</td><td>detail-pane</td><td>Next payment / Category / Source / Status</td><td>field-label</td></tr>
           <tr><td>home</td><td>detail-pane</td><td>From Chase ...1234, read-only</td><td>body</td></tr>
           <tr><td>home</td><td>detail-pane</td><td>The price went up by $2.50 on Jul 28, now $17.99 a month.</td><td>body</td></tr>

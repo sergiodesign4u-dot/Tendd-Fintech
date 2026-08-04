@@ -3,293 +3,380 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home / Subscription List (success) - Tendd Wireframe</title>
+<title>Home / Subscription List - Tendd wireframe</title>
 <link rel="stylesheet" href="_wf.css">
+<style>
+/* INLINE: home :: for consolidation into _wf.css
+
+   The etalon. It is a live screen at full viewport, not a framed card: no .phone,
+   no zone captions, no "main action" line. Every value below is a var() from
+   _wf.css; nothing here introduces a token. The rules that survive the fan-out
+   move into _wf.css at Step 8, which is why this block is one place and is marked.
+
+   Block order is node 2.6, mobile-first: GC1 header, GC3 summary, the conditional
+   attention row, the grouped list with subtotals, the two quiet secondaries, the
+   GC6 trust line, GC2 tab bar. The detail pane is the wide-screen affordance the
+   node allows, and it exists only there. */
+
+.app {
+  display: flex; flex-direction: column;
+  min-height: 100vh; min-height: 100dvh;
+  background: var(--frame);
+}
+
+/* GC1: the wordmark, and one quiet way into the account. No back control here:
+   Home is the root of the signed-in product. */
+.appbar {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px; background: var(--frame); border-bottom: 1px solid var(--line2);
+}
+.appbar .wordmark { font-weight: 700; font-size: 16px; letter-spacing: 0.02em; }
+/* Quiet by design: it is the way into the account, not an action of this screen.
+   The padding is there to reach a 44px target without drawing a button. */
+.appbar .acct {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px;
+  font-size: 13px; color: var(--soft); text-decoration: none;
+}
+.appbar .acct:hover { color: var(--ink); }
+
+/* The scrolling body. The bottom padding clears the fixed tab bar. */
+.screen { flex: 1; padding: 18px 16px 104px; }
+
+/* GC3: the total is the biggest thing on the screen, and nothing sits beside it. */
+.summary { margin: 0 0 20px; }
+.summary h1 { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--mid); letter-spacing: 0; }
+.summary .total { margin: 0; font-size: 46px; font-weight: 700; line-height: 1.02; letter-spacing: -0.025em; font-variant-numeric: tabular-nums; }
+.summary .context { margin: 6px 0 0; font-size: 13px; color: var(--soft); }
+
+/* The attention row. It is a live region so a new one is announced politely,
+   and the action inside it stays a real link. Shown only when it is true. */
+.attention {
+  border: 1px solid var(--line); border-left: 3px solid var(--soft);
+  background: var(--panel2); padding: 12px 14px; margin: 0 0 22px;
+}
+.attention p { margin: 0; font-size: 13.5px; color: var(--mid); }
+.attention a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; color: var(--ink); }
+.attention a::after { content: "  \2192"; color: var(--faint); }
+
+/* The list: grouped by category, every group carrying its own subtotal. */
+.group { margin: 0 0 24px; }
+.group-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 0 0 6px; margin: 0 0 2px; border-bottom: 1px solid var(--line2);
+}
+.group-head h2 { margin: 0; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); }
+.group-head .subtotal { font-size: 12px; color: var(--soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.group ul { list-style: none; margin: 0; padding: 0; }
+
+/* GC4: the whole row is the target, and the days lead the date. */
+.row {
+  display: flex; align-items: center; gap: 12px;
+  min-height: 56px; margin: 0; padding: 10px 4px;
+  /* The reset is deliberate: _wf.css still carries the framed-card row from the
+     July build, and a row here is a line in a list, not a card in a stack. */
+  border: 0; border-bottom: 1px solid var(--line2); background: none;
+  text-decoration: none; color: inherit;
+}
+.group li:last-child .row { border-bottom: 0; }
+.row:hover { background: var(--panel2); }
+.row .logo {
+  flex: none; width: 36px; height: 36px; border: 1px dashed var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; color: var(--faint);
+}
+.row .body { flex: 1; min-width: 0; }
+.row .name { display: block; font-size: 15px; font-weight: 600; }
+.row .when { display: block; font-size: 12.5px; color: var(--soft); }
+.row .amt { flex: none; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Status is a word, and it appears only when it is not the plain default: a
+   column of fourteen "Active" tags is noise on a screen whose job is calm. */
+.row .tag {
+  flex: none; font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase;
+  border: 1px solid var(--line); padding: 2px 6px; color: var(--soft);
+}
+
+/* The two quiet secondaries. Neither competes with the total. */
+.secondary { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; }
+.secondary a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--line); background: var(--frame);
+  font-size: 13.5px; color: var(--mid); text-decoration: none;
+}
+.secondary a:hover { border-color: var(--soft); color: var(--ink); }
+
+/* GC6: where the figures came from, that we cannot move money, when it was last
+   checked, and the way to the full answer. */
+.trust { margin: 26px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line2); font-size: 12px; color: var(--soft); }
+.trust p { margin: 0 0 4px; }
+.trust a { display: inline-flex; align-items: center; min-height: 44px; color: var(--mid); }
+
+/* GC2. Fixed chrome on the narrow layout, the left rail on the wide one. */
+.tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 6;
+  display: flex; background: var(--frame); border-top: 1px solid var(--line);
+}
+.tabbar a {
+  flex: 1; min-height: 56px; padding: 9px 4px 10px; text-align: center;
+  font-size: 12px; color: var(--soft); text-decoration: none;
+  border-top: 2px solid transparent;
+}
+.tabbar a .ic { display: block; width: 18px; height: 18px; border: 1px solid var(--line); margin: 0 auto 4px; position: relative; }
+.tabbar a .ic .dot { position: absolute; top: -3px; right: -4px; width: 7px; height: 7px; border-radius: 50%; background: var(--mid); }
+.tabbar a.cur { color: var(--ink); font-weight: 600; border-top-color: var(--ink); }
+
+/* The detail pane is a wide-screen affordance only (node 2.6, Responsive). */
+.detailpane { display: none; }
+.detailpane h2 { margin: 0 0 2px; font-size: 20px; }
+.detailpane .amt { font-size: 14px; color: var(--soft); }
+.detailpane .kv { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--line2); font-size: 13px; }
+.detailpane .kv .k { color: var(--soft); }
+.detailpane .kv .v { text-align: right; }
+.detailpane .pane-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; }
+.detailpane .pane-actions a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--line); font-size: 13.5px; color: var(--mid); text-decoration: none;
+}
+.detailpane .pane-actions a.lead { border-color: var(--soft); color: var(--ink); font-weight: 600; }
+
+/* ---- The wide layout. Same screen, reflowed: the tab bar becomes a left rail
+   and the header folds into its top, which is the IA delta decided once for the
+   whole product. The query runs on the stage, so the screen reflows on the space
+   it actually has rather than on the viewport the review panel also occupies. ---- */
+@container (min-width: 760px) {
+  .app {
+    display: grid; height: 100vh; height: 100dvh;
+    grid-template-columns: 232px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+  .appbar {
+    position: static; grid-column: 1; grid-row: 1;
+    flex-direction: column; align-items: flex-start; gap: 4px;
+    padding: 20px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line2);
+  }
+  .appbar .acct { padding: 0; font-size: 12px; }
+  .tabbar {
+    position: static; grid-column: 1; grid-row: 2;
+    flex-direction: column; align-content: start;
+    background: var(--panel2); border-top: 0; border-right: 1px solid var(--line);
+    padding: 10px 0;
+  }
+  .tabbar a {
+    flex: none; min-height: 48px; text-align: left; padding: 0 20px;
+    display: flex; align-items: center; gap: 10px;
+    border-top: 0; border-left: 3px solid transparent;
+  }
+  .tabbar a .ic { margin: 0; }
+  .tabbar a.cur { border-top: 0; border-left-color: var(--ink); background: var(--frame); }
+  .screen { grid-column: 2; grid-row: 1 / -1; overflow: auto; padding: 28px 34px 44px; }
+  .screen > * { max-width: 780px; }
+  .summary .total { font-size: 54px; }
+}
+
+/* Wide enough for two panes: the row opens beside the list instead of navigating
+   away. 980 rather than 1040, because the review panel takes 250px and a 1280
+   laptop must still see the layout this screen is actually specified to have. */
+@container (min-width: 980px) {
+  .app { grid-template-columns: 232px minmax(340px, 1fr) minmax(340px, 1fr); }
+  .screen > * { max-width: none; }
+  .detailpane {
+    display: block; grid-column: 3; grid-row: 1 / -1; overflow: auto;
+    border-left: 1px solid var(--line); padding: 28px 30px 44px;
+  }
+}
+</style>
 </head>
 <body>
 <div class="layout">
-<div id="wftree"></div>
+<div id="wf-sidebar"></div>
 <div class="stage stage-app">
 
-<main class="phone dash tp-home" aria-label="Home screen">
+<div class="app">
 
   <!-- GC1 App header -->
   <header class="appbar">
     <span class="wordmark">Tendd</span>
-    <span class="right">Hi, Emma</span>
+    <a class="acct" href="settings.html" aria-label="Hi Emma, open your account">Hi, Emma</a>
   </header>
 
-  <div class="screen">
+  <main class="screen">
 
-    <!-- BLOCK 1 (P): GC3 Recurring Summary Strip -->
-    <section class="zone summary" aria-label="Recurring summary">
-      <span class="zlabel">GC3 Recurring summary strip - the biggest thing on screen</span>
-      <p class="count">You're paying for <strong>14 subscriptions</strong></p>
-      <p class="total">$192.90</p>
+    <!-- GC3 Recurring summary strip -->
+    <section class="summary">
+      <h1>You're paying for 14 subscriptions</h1>
+      <p class="total" aria-label="monthly total, $192.90">$192.90</p>
       <p class="context">a month, for what you have signed up for</p>
-      <p class="trust">Read-only. Tendd cannot move your money.</p>
     </section>
 
-    <!-- BLOCK 2 (S): Active alert banner, at most one GC5 item -->
-    <section class="zone" aria-label="Attention">
-      <span class="zlabel">Alert banner (GC5) - shown only when something needs attention</span>
-      <a class="alert-banner" href="subscription-detail.html" style="display:block;text-decoration:none">
-        <p>Netflix went up by $2.50, now $17.99 a month.</p>
-        <span class="go">See what changed &rarr;</span>
-      </a>
-      <p class="zaction">Main action: <b>open the affected subscription</b></p>
+    <!-- Attention row, shown only when something is true -->
+    <section class="attention" role="status" aria-label="Needs your attention">
+      <p>Netflix went up by $2.50, now $17.99 a month.</p>
+      <a href="subscription-detail.html">See what changed</a>
     </section>
 
-    <!-- BLOCK 3 (P): Subscription list, grouped by category, GC4 rows -->
-    <section class="zone" aria-label="Your subscriptions">
-      <span class="zlabel">Subscription list (GC4 rows), grouped by category</span>
-
-      <h2 class="group-title">Streaming (4)</h2>
-      <ul class="list">
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Netflix, $17.99 monthly, next 3 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Netflix</span>
-              <span class="meta">$17.99 / month</span>
-              <span class="when">Next: Aug 3</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Disney Plus, $13.99 monthly, next 12 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Disney+</span>
-              <span class="meta">$13.99 / month</span>
-              <span class="when">Next: Aug 12</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Amazon Prime, $14.99 monthly, next 20 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Amazon Prime</span>
-              <span class="meta">$14.99 / month</span>
-              <span class="when">Next: Aug 20</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Hulu, $7.99 monthly, next 25 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Hulu</span>
-              <span class="meta">$7.99 / month</span>
-              <span class="when">Next: Aug 25</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-      </ul>
-
-      <h2 class="group-title">Software (4)</h2>
-      <ul class="list">
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Adobe Creative Cloud, $22.99 monthly, next 15 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Adobe Creative Cloud</span>
-              <span class="meta">$22.99 / month</span>
-              <span class="when">Next: Aug 15</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, $20.00 monthly, next 5 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">ChatGPT Plus</span>
-              <span class="meta">$20.00 / month</span>
-              <span class="when">Next: Aug 5</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="iCloud Plus, $2.99 monthly, next 2 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">iCloud+</span>
-              <span class="meta">$2.99 / month</span>
-              <span class="when">Next: Aug 2</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Notion, $8.00 monthly, next 9 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Notion</span>
-              <span class="meta">$8.00 / month</span>
-              <span class="when">Next: Aug 9</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-      </ul>
-
-      <h2 class="group-title">Music (2)</h2>
-      <ul class="list">
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Spotify Premium, $11.99 monthly, next 7 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Spotify Premium</span>
-              <span class="meta">$11.99 / month</span>
-              <span class="when">Next: Aug 7</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Apple Music, $10.99 monthly, next 14 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Apple Music</span>
-              <span class="meta">$10.99 / month</span>
-              <span class="when">Next: Aug 14</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-      </ul>
-
-      <h2 class="group-title">Fitness (2)</h2>
-      <ul class="list">
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Peloton App, $12.99 monthly, trial ends 18 August">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Peloton App</span>
-              <span class="meta">$12.99 / month</span>
-              <span class="when">Trial ends: Aug 18</span>
-            </span>
-            <span class="tag trial">Trial</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Strava, $11.99 monthly, next 22 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Strava</span>
-              <span class="meta">$11.99 / month</span>
-              <span class="when">Next: Aug 22</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-      </ul>
-
-      <h2 class="group-title">News (2)</h2>
-      <ul class="list">
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="The New York Times, $17.00 monthly, next 11 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">The New York Times</span>
-              <span class="meta">$17.00 / month</span>
-              <span class="when">Next: Aug 11</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="The Economist, $19.00 monthly, next 28 August, active">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">The Economist</span>
-              <span class="meta">$19.00 / month</span>
-              <span class="when">Next: Aug 28</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-      </ul>
-
-      <p class="zaction">Main action: <b>tap a row to open its detail</b>. All 14 shown, grouped 4 / 4 / 2 / 2 / 2, matching the Guided Reveal.</p>
-    </section>
-
-    <!-- BLOCK 4 (S): cancel-candidates nudge, collapsed on default Home -->
-    <section class="zone" aria-label="You might not be using these">
-      <span class="zlabel">Cancel candidates (J2 entry) - collapsed by default, pinned open in the Save tab</span>
-      <a class="nudge" href="home-savefocus.html" style="text-decoration:none;color:inherit">
-        <span><strong>2 you might not be using</strong><br><span class="row-sub" style="font-size:12px;color:var(--soft)">Peloton App, The New York Times</span></span>
-        <span class="chev">Review &rarr;</span>
-      </a>
-      <p class="zaction">Main action: <b>review, then cancel</b> (opens the Save focus of Home)</p>
-    </section>
-
-    <!-- BLOCK 5 (S): Add action -->
-    <!-- BLOCK 6 (S): History link, GC7-gated for free -->
-    <section class="zone plain" aria-label="Add and trends">
-      <span class="zlabel">Add / history actions</span>
-      <div class="act-row">
-        <a class="btn primary" href="add-subscription.html">Add a subscription</a>
-        <a class="btn" href="history-trends.html">See your trends <span class="locklabel">Pro</span></a>
+    <!-- The list, grouped by category, each group with its subtotal -->
+    <section class="group">
+      <div class="group-head">
+        <h2>Streaming (4)</h2>
+        <span class="subtotal">$54.96 a month</span>
       </div>
-      <p class="zaction">Add reopens Add Subscription in-app (J5 reuse). Trends is gated by the Pro gate (GC7, D3).</p>
+      <ul>
+        <li><a class="row" href="subscription-detail.html" aria-label="Netflix, $17.99 a month, next in 2 days on 3 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
+          <span class="amt">$17.99</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="Disney Plus, $13.99 a month, next in 11 days on 12 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Disney+</span><span class="when">in 11 days &middot; Aug 12</span></span>
+          <span class="amt">$13.99</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="Amazon Prime, $14.99 a month, next in 19 days on 20 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Amazon Prime</span><span class="when">in 19 days &middot; Aug 20</span></span>
+          <span class="amt">$14.99</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="Hulu, $7.99 a month, next in 24 days on 25 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Hulu</span><span class="when">in 24 days &middot; Aug 25</span></span>
+          <span class="amt">$7.99</span>
+        </a></li>
+      </ul>
     </section>
 
-  </div>
+    <section class="group">
+      <div class="group-head">
+        <h2>Software (4)</h2>
+        <span class="subtotal">$53.98 a month</span>
+      </div>
+      <ul>
+        <li><a class="row" href="subscription-detail.html" aria-label="iCloud Plus, $2.99 a month, next tomorrow on 2 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">iCloud+</span><span class="when">tomorrow &middot; Aug 2</span></span>
+          <span class="amt">$2.99</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, $20.00 a month, next in 4 days on 5 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">ChatGPT Plus</span><span class="when">in 4 days &middot; Aug 5</span></span>
+          <span class="amt">$20.00</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="Notion, $8.00 a month, next in 8 days on 9 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Notion</span><span class="when">in 8 days &middot; Aug 9</span></span>
+          <span class="amt">$8.00</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="Adobe Creative Cloud, $22.99 a month, next in 14 days on 15 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Adobe Creative Cloud</span><span class="when">in 14 days &middot; Aug 15</span></span>
+          <span class="amt">$22.99</span>
+        </a></li>
+      </ul>
+    </section>
 
-  <!-- Detail pane: desktop-only second column. On mobile a row opens
-       subscription-detail.html; on wide desktop the selected row opens here. -->
+    <section class="group">
+      <div class="group-head">
+        <h2>Music (2)</h2>
+        <span class="subtotal">$22.98 a month</span>
+      </div>
+      <ul>
+        <li><a class="row" href="subscription-detail.html" aria-label="Spotify Premium, $11.99 a month, next in 6 days on 7 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Spotify Premium</span><span class="when">in 6 days &middot; Aug 7</span></span>
+          <span class="amt">$11.99</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="Apple Music, $10.99 a month, next in 13 days on 14 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Apple Music</span><span class="when">in 13 days &middot; Aug 14</span></span>
+          <span class="amt">$10.99</span>
+        </a></li>
+      </ul>
+    </section>
+
+    <section class="group">
+      <div class="group-head">
+        <h2>Fitness (2)</h2>
+        <span class="subtotal">$24.98 a month</span>
+      </div>
+      <ul>
+        <li><a class="row" href="subscription-detail.html" aria-label="Peloton App, $12.99 a month, trial ends in 17 days on 18 August">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; Aug 18</span></span>
+          <span class="amt">$12.99</span>
+          <span class="tag">Trial</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="Strava, $11.99 a month, next in 21 days on 22 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Strava</span><span class="when">in 21 days &middot; Aug 22</span></span>
+          <span class="amt">$11.99</span>
+        </a></li>
+      </ul>
+    </section>
+
+    <section class="group">
+      <div class="group-head">
+        <h2>News (2)</h2>
+        <span class="subtotal">$36.00 a month</span>
+      </div>
+      <ul>
+        <li><a class="row" href="subscription-detail.html" aria-label="The New York Times, $17.00 a month, next in 10 days on 11 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">The New York Times</span><span class="when">in 10 days &middot; Aug 11</span></span>
+          <span class="amt">$17.00</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="The Economist, $19.00 a month, next in 27 days on 28 August, active">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">The Economist</span><span class="when">in 27 days &middot; Aug 28</span></span>
+          <span class="amt">$19.00</span>
+        </a></li>
+      </ul>
+    </section>
+
+    <!-- Two quiet secondaries. The job of this screen is to look, not to add. -->
+    <nav class="secondary" aria-label="More">
+      <a href="add-subscription.html">Add a subscription</a>
+      <a href="history-trends.html">See your trends</a>
+    </nav>
+
+    <!-- GC6 Data source and trust -->
+    <section class="trust" aria-label="Where these figures come from">
+      <p>From Chase, 11 subscriptions, and 3 you added yourself.</p>
+      <p>Read-only. Tendd cannot move your money.</p>
+      <p>Last checked today, 9:14 AM.</p>
+      <a href="data-privacy.html">Data and privacy</a>
+    </section>
+
+  </main>
+
+  <!-- The selected row, on a screen wide enough to hold both -->
   <aside class="detailpane" aria-label="Selected subscription">
-    <p class="pane-note">Detail pane (desktop) - the selected row opens here instead of a new screen</p>
+    <h2>Netflix</h2>
+    <p class="amt">$17.99 / month</p>
 
-    <section class="zone" aria-label="Subscription">
-      <div class="detail-head">
-        <span class="logo">[logo]</span>
-        <span>
-          <span class="name">Netflix</span><br>
-          <span class="amt">$17.99 / month</span>
-        </span>
-      </div>
-    </section>
+    <div class="kv"><span class="k">Next payment</span><span class="v">$17.99 in 2 days, Aug 3</span></div>
+    <div class="kv"><span class="k">Category</span><span class="v">Streaming</span></div>
+    <div class="kv"><span class="k">Source</span><span class="v">From Chase ...1234, read-only</span></div>
+    <div class="kv"><span class="k">Status</span><span class="v">Active</span></div>
 
-    <section class="zone" aria-label="Billing and source">
-      <div class="kv"><span class="k">Next payment</span><span class="v">$17.99 on Aug 3</span></div>
-      <div class="kv"><span class="k">Category</span><span class="v">Streaming</span></div>
-      <div class="kv"><span class="k">Source</span><span class="v">From Chase ...1234, read-only</span></div>
-      <div class="kv"><span class="k">Status</span><span class="v">Active</span></div>
-    </section>
+    <!-- Content of the selected item, not an announcement: one live region per screen -->
+    <div class="attention" style="margin:22px 0 0">
+      <p>The price went up by $2.50 on Jul 28, now $17.99 a month.</p>
+    </div>
 
-    <section class="zone" aria-label="Alerts on this subscription">
-      <div class="alert-banner">
-        <p>The price went up by $2.50 on Jul 28, now $17.99 a month.</p>
-      </div>
-    </section>
-
-    <section class="zone" aria-label="Actions">
-      <div class="act-row">
-        <a class="btn primary" href="cancel-guide.html">Cancel this subscription</a>
-        <a class="btn" href="subscription-detail.html">Open full detail</a>
-      </div>
-      <p class="zaction">Same actions as the full Subscription Detail screen (J2 cancel, J4 alerts).</p>
-    </section>
+    <div class="pane-actions">
+      <a class="lead" href="cancel-guide.html">Cancel this subscription</a>
+      <a href="subscription-detail.html">Open full detail</a>
+    </div>
   </aside>
 
   <!-- GC2 Global tab bar -->
   <nav class="tabbar" aria-label="Global navigation">
     <a class="cur" href="home.html" aria-current="page"><span class="ic"></span>Home</a>
-    <a href="alerts.html"><span class="ic"></span>Alerts</a>
+    <a href="alerts.html"><span class="ic"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
     <a href="home-savefocus.html"><span class="ic"></span>Save</a>
     <a href="settings.html"><span class="ic"></span>You</a>
   </nav>
 
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

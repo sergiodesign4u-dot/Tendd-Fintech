@@ -157,6 +157,27 @@ Reviewer-note syncs (outside visible copy, aligned to current labels):
 - add-subscription-empty zaction: "add it manually" to "add it by hand".
 - connect-bank zaction: "choose your bank" to "Connect your bank".
 
+### Wireframes rebuild, Home as the etalon (2026-08-05)
+
+The wireframe stage was re-run against the upgraded IA, and Home was rebuilt as
+the etalon. **No line was rewritten.** What changed is which lines the screen
+carries and where they sit, and this file follows, because a line inventory that
+lists lines no screen shows is wrong in the same way a missing line is.
+
+| Screen | Zone | Change | Why |
+|--------|------|--------|-----|
+| home | add-action | Inventory row corrected to "Add a subscription" | The Step 5 log had already resolved D1 and the screen already said it. The inventory row still carried the pre-rewrite "+ Add subscription" |
+| home | summary-strip to trust-line | "Read-only. Tendd cannot move your money." moved zone | Node 2.6 gives the strip the count, the total and one line of context. Source and trust are block 7, GC6, whose content order states read-only in the same breath as the source. The line itself is untouched (D7 anchor) |
+| home | trust-line | Three lines added: the source, the last successful check, and the way to the full answer | Node 2.6 block 7 requires GC6, and GC6 requires the last successful check. Home showed a figure with no source and no freshness. "Data and privacy" is the existing name of node 6.15, not a new label |
+| home | list-group | The five subtotals recorded | Node 2.6 block 4: each group carries its own subtotal. They are derived from the canonical dataset, not authored |
+| home | cancel-candidates | Three lines retired from the base screen | The nudge is not one of the eight blocks of node 2.6, and its own state is 2.6.4, whose trigger is "the person came here to cut". home-savefocus carries the same lines and keeps them. The Save tab is the door |
+| home | history-link | "Pro" status badge retired | Node 5.12 requires a route from Home, and node 2.6 forbids an upsell on the calm view ("any upsell" is the load-bearing skip of the type). The route stays, the badge goes: the gate belongs to node 5.12, where GC7 shows a real preview |
+
+**Not a copy change, but recorded here because the screen reads differently:** the
+next charge is rendered days first and the date second (conventions section 5, and
+node 2.6 block 5), against a fixed fixture date of 1 August. "in 2 days, Aug 3",
+and "tomorrow" at one day.
+
 ---
 
 ## Canonical subscription dataset (product fixtures, not authored copy)
@@ -359,17 +380,17 @@ list". Total: `$192.90 / month`.
 | home | header | Hi, Emma | body |
 | home | summary-strip | You're paying for 14 subscriptions | body |
 | home | summary-strip | a month, for what you have signed up for | body |
-| home | summary-strip | Read-only. Tendd cannot move your money. | body |
 | home | alert-banner | Netflix went up by $2.50, now $17.99 a month. | body |
 | home | alert-banner | See what changed → | link |
 | home | list | Streaming (4) / Software (4) / Music (2) / Fitness (2) / News (2) | heading |
+| home | list-group | $54.96 a month / $53.98 a month / $22.98 a month / $24.98 a month / $36.00 a month | body |
 | home | list-row | (the canonical list, one GC4 row each) | body |
-| home | cancel-candidates | 2 you might not be using | body |
-| home | cancel-candidates | Peloton App, The New York Times | body |
-| home | cancel-candidates | Review → | link |
-| home | add-action | + Add subscription | button |
+| home | add-action | Add a subscription | button |
 | home | history-link | See your trends | button |
-| home | history-link | Pro | status |
+| home | trust-line | From Chase, 11 subscriptions, and 3 you added yourself. | body |
+| home | trust-line | Read-only. Tendd cannot move your money. | body |
+| home | trust-line | Last checked today, 9:14 AM. | body |
+| home | trust-line | Data and privacy | link |
 | home | detail-pane | Next payment / Category / Source / Status | field-label |
 | home | detail-pane | From Chase ...1234, read-only | body |
 | home | detail-pane | The price went up by $2.50 on Jul 28, now $17.99 a month. | body |

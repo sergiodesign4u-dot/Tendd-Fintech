@@ -122,8 +122,17 @@ subscriptions and `connections-reconnect.html` shows Chase with 8. Same source, 
 numbers. A stale connection does not reduce the count, and the IA says the last figures stay
 visible and dated.
 
+- **Today is 1 August**, fixed. Every screen that says "in 6 days" counts from it, and the
+  canonical dates were already written against it: node 2.6 gives "in 6 days" as its example
+  and Spotify Premium renews on 7 August. Without one fixed today, two screens showing the same
+  subscription disagree about when it charges.
+- Group subtotals, derived from the list and not authored: Streaming $54.96, Software $53.98,
+  Music $22.98, Fitness $24.98, News $36.00. They add up to $192.90.
+
 Domain formats: money in US dollars (D5), `$17.99 / month`; the next charge as days first and
-the date second; status as a quiet word. Plain money language, calm and non-judgmental, with
+the date second (`in 2 days, Aug 3`, and `tomorrow` at one day); status as a quiet word, and
+shown only when it is not the plain default, because a column of fourteen "Active" tags is
+noise on a screen whose job is calm. Plain money language, calm and non-judgmental, with
 the read-only line wherever a trust moment appears. All of it is already written in
 `microcopy.md`.
 
