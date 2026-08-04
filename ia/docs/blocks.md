@@ -48,7 +48,7 @@ physically unavailable. For Tendd the domain half is available for two types onl
 | C. List dashboard | **second-hand**: Refero indexes real in-product screens (Monarch Money), plus two category peers on iOS | available |
 | D. Object detail | **second-hand**: Orbit's own detail sheet through Refero, plus Duolingo's cancel-side screen | available |
 | E. Activity feed | **partly**: the category has no feed at all, only per-item reminders (Subo, second-hand) plus a public promise on Rocket Money's landing | available, but in the wrong register |
-| F. Task guide plus confirmation | partly available: ReSubs publishes cancel guides | available |
+| F. Task guide plus confirmation | **available**: ReSubs publishes a full cancel guide library, opened live 2026-08-04 | available |
 | G. Account and settings | **missing**: behind login | available |
 
 **Correction after type C ran (2026-08-04).** The line above says the domain half is missing
@@ -460,3 +460,71 @@ Seven blocks, and the two that carry the screen came from neither half of the so
 split into "needs you" and "just so you know", and the price change that shows the old number
 beside the new one. The craft half taught us mostly what not to do, which is a legitimate
 result and is written down here rather than quietly dropped.
+
+---
+
+## Type F. Task guide plus confirmation (nodes 4.9 Cancel Guide, 4.10 Cancel Win)
+
+The cut job, J2, and the emotional beat the product is built around. These two screens
+already exist in grey and already have their copy: the strings belong to
+`voice/docs/microcopy.md` and are not re-decided here. What this type decides is the
+**composition**, and it found three blocks missing and one contradiction.
+
+**The domain half is fully available here**, for the first time since type A: ReSubs
+publishes an open library of cancel guides, and one was opened live in this session.
+
+### Sources
+
+**Domain, opened 2026-08-04:**
+- ReSubs, [how to cancel Spotify](https://resubs.app/resources/how-to-cancel-spotify), one of about thirty published guides ([the library](https://resubs.app/resources)). Screenshot: `research/screens/blocks-resubs-cancel-guide.png`
+
+**Craft, outside the category:**
+- [Brilliant, "You earned 1 Streak Charge"](https://refero.design/pages/c0942ebc-8348-4cc6-b424-899d56faa82f) - a reward screen that stays quiet: one icon, one sentence, an explain link and a continue
+- [LEGO, level complete](https://refero.design/pages/1fdbdf65-1bc2-4462-9472-c6846c2ddf6b) and [The New Yorker, puzzle solved](https://refero.design/pages/1921cba1-ac5a-4c1c-84c6-7843a98153e5) - the loud end of the same pattern, taken as a contrast
+- [FeedHive](https://refero.design/pages/9a37d9d4-2441-4890-86e4-c88f2c060657) and [Rarible](https://refero.design/pages/e8f192d9-19e8-4ee4-9a7b-6e7d539e060b) - the plain success card: icon, title, one line, one action
+
+### What the ReSubs guide is made of
+
+Badge and title with a promise of duration and a reassurance built into the H1 ("Cancel
+Spotify Premium in 60 Seconds (Keep Access Until Renewal)") / date and read time / a one line
+summary / a mini table of contents / a meta strip: difficulty "Easy", "~5 min", the source
+"Spotify Support", and a primary link that opens the cancellation page in a new tab / three
+channel sections, spotify.com, the App Store and Google Play, each with numbered steps /
+refund policy / an FAQ of six questions ("Will I lose access immediately?", "Can I pause
+instead of canceling?") / related guides / a disclaimer / a further reading block and footer.
+
+### Decisions
+
+| Source | Block | Verdict | Traces to | Scope | Where we are better and how |
+|---|---|---|---|---|---|
+| ReSubs | Numbered steps for the actual service | TAKE | J2; already in the grey screen and in `microcopy.md` | MVP | Ours is inside the product, at the moment of the decision, instead of an article the person has to go and find |
+| ReSubs | Three channel sections: web, App Store, Google Play | TAKE, DIFFERENTLY | J2; growth zone 2; the decoder line at node 2.7 | MVP | **This is the sharpest difference in the whole bank.** ReSubs must show all three because it does not know how you subscribed. We do: the charge came through a bank descriptor or an app store. So we show one path, the one that matches this person, and say why. The category's biggest article asset is a question we can answer |
+| ReSubs | Meta strip: difficulty, time, and the source of the instructions | TAKE | Phase 3 barrier (effort); design principle 4 (show the source) | MVP | **Missing from our grey screen.** "About 5 minutes, from Spotify's own help pages" removes the fear that this is a long fight, and names where the steps came from |
+| ReSubs (H1 promise) | What happens when you cancel, with the real date | TAKE | J2; the anxiety of an irreversible action | MVP | **Missing from our grey screen.** Ours can say the actual date, "you keep it until 3 August", because we know the billing period. ReSubs can only promise it in general |
+| ReSubs | Disclaimer, and when the guide was last checked | TAKE, DIFFERENTLY | design principle 4 | MVP | **Missing from our grey screen.** Cancellation steps go stale, and a guide that silently rots is worse than no guide. One line: when we last checked these steps |
+| ReSubs | FAQ of six questions | SKIP for now | on a task screen it is a second document; the two useful answers are already taken above | LATER | The rest belongs to the SEO engine, node 8, if it becomes a public guide library |
+| ReSubs | "Can I pause instead of cancelling?" | TAKE, LATER | J2; regret avoidance | LATER | It needs per-service data we will not have at MVP. Named here so it is a decision rather than an omission |
+| ReSubs | Related guides, keep reading, article footer | SKIP | in-product; nothing traces to it | out | That is an SEO surface, not a task screen |
+| own research, already in the grey | "I cancelled it" confirmation and the "could not cancel" path | TAKE | J2; `microcopy.md` cancel-guide | MVP | The category ends at the instructions. Ours stays for the outcome, including the failure, and says out loud that being blocked is not the person's fault |
+| Brilliant, FeedHive | A quiet result screen: one line, the number, one action | TAKE | E2 (the pride moment); design principle 5; D-Concept | MVP | Already in voice, and this confirms the composition: the calm end of the pattern is the right one |
+| LEGO, New Yorker | Confetti, animation, an exclamation | SKIP | design principle 1; growth zone 3 | out | The beat is real and it is carried by the number and the sentence, not by the decoration. The praise interjection was already dropped once in voice under D12 |
+| own research, already in voice | Confirmation on the person's word, stated as such | TAKE | design principle 4 | MVP | We cannot verify a cancellation with the merchant, and the line "On your word" says so. Category apps mark an item cancelled as if they had checked |
+| own research, already in voice | Running total across every cut so far | TAKE | E2; J2 | MVP | The single win is a moment; the running total is what makes the second cut feel worth doing |
+| voice (`cancel-win` share lines) | "Share this win" on the win screen | **CONTRADICTION** | node 4.11 Share Snapshot is LATER in `docs/sitemap.md`, but the share block sits on an MVP screen | LATER | Flagged, not silently resolved. Taken conservatively: the share block is LATER because its destination is LATER, and the MVP win screen ends with "back to your subscriptions". If the founder wants share in MVP, then 4.11 moves to MVP and the scope table changes with it |
+
+### Our order, mobile-first
+
+**4.9 Cancel Guide.** Back to the subscription / heading and the amount with "you can always
+resubscribe later" / what happens when you cancel, with the real date / the meta strip: about
+five minutes, and where the steps came from / the one channel path that matches how this
+person pays, numbered / the primary action that opens the cancellation page / "I cancelled
+it" / "could not cancel?" / when we last checked these steps.
+
+**4.10 Cancel Win.** A quiet header / the result in one sentence with the monthly and the
+yearly number / "on your word, you can always resubscribe" / the running total across every
+cut / back to your subscriptions. The share block waits for node 4.11.
+
+Nine blocks on the guide, five on the win. Three of them were missing from the grey screen
+and are the reason this type was worth running: the time and source strip, what happens when
+you cancel with the real date, and the freshness line. One contradiction was found and is
+being carried to the founder rather than quietly fixed.
