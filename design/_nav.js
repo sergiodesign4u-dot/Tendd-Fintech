@@ -10,7 +10,7 @@
 (function () {
   var SCREENS = [
     { name: 'Home', base: 'home.html', states: ['empty', 'error', 'loading', 'savefocus'] },
-    { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['empty', 'error', 'loading'] }
+    { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['unrecognized', 'error', 'loading'] }
   ];
 
   function stateFile(base, state) {
