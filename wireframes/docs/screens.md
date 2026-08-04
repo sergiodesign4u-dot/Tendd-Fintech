@@ -1,173 +1,214 @@
-# Wireframes - Screen and State Inventory (Tendd)
+# Wireframes - screen and state inventory (Tendd)
 
-Phase: Wireframes, Step 1. This is not a wireframe yet. It is the order for
-every step that follows: which screens exist, what job each closes, where it
-sits in a flow, and which of the four states (empty / error / loading /
-success) are real for it. Steps 3 to 8 build against this table.
+**Etalon: Home / Subscription List (node 2.6), `home.html`. First flow: Flow A, Emma, the
+bank path.** Both were chosen at the first build in July 2026 and both are confirmed rather
+than re-derived below. Voice and Concept take the etalon from this line, not from their own
+reading.
 
-Source of truth: ia/docs/sitemap.md (screen names, jobs, navigation),
-ia/docs/flows.md (flows, decisions, states, dead ends), and
-research/docs/jtbd.md (jobs). Screen names below are copied exactly from
-sitemap.md. No screen is invented here.
+This is not a wireframe. It is the order for every step that follows: which screens exist,
+what job each closes, where it sits in a flow, whether it is MVP, and **exactly which states
+it has**. Steps 3 to 8 build against this table, and two later stages read it as the complete
+list of states in the product: Voice (the tone of each state) and Tokens and Components (the
+component inventory, which is read from every state, not from a coloured sample).
 
-## How to read the four states
+**Sources.** `ia/docs/sitemap.md` (the node map, which owns node numbers and the MVP or LATER
+label), `ia/docs/nodes/*.md` (one file per screen: blocks, states, components, the primary
+action), `ia/docs/flows.md` (routes and dead ends), `research/docs/jtbd.md` (jobs). Screen
+names are copied from the map. **No screen and no state is invented here:** a state that is
+not a node in `sitemap.md` does not get a page, and if a page turns out to be needed, the map
+is fixed first.
 
-Wireframes are structure, not look. A screen is not done until every state
-that its scenario actually produces has its own page (same structure,
-different content):
-
-- **success** = the base page: the normal, working, default view of the
-  screen. This is the file `<screen>.html`. Every screen has one. It is the
-  "it works, here is your result" view, not a separate celebration screen,
-  except for Cancel Win Moment, which is a dedicated success-only screen.
-- **empty** = the screen has no data to show yet, and the empty view must
-  offer a way out (never a dead end).
-- **error** = something failed (a load, a sync, a connection), and the error
-  view must offer a way out (retry or an alternative).
-- **loading** = a real waiting beat worth showing calmly (grey placeholders),
-  not an instant, offline screen.
-
-In the state table: `check` where the scenario genuinely produces that state,
-`-` where it does not. Success is only marked where the base page carries a
-real result; pure waypoint screens (Welcome, Path Choice) get success on the
-base page as their default view but no extra state pages.
-
-## Build order
-
-- **Main flow (build first, Steps 3 to 7):** Flow A, Emma, bank path. The
-  screens are Welcome, Activation Path Choice, Connect Bank, Guided Reveal,
-  Home / Subscription List, plus Subscription Detail (the Core pair). Home is
-  the reference screen (the pattern the rest clone).
-- **Everything else (Step 8, subagents):** the remaining flows and every
-  other sitemap screen, cloning the pattern locked by the main flow.
+**Rebuilt 2026-08-05 against the upgraded IA.** The previous version of this file predates the
+detail layer: it listed four system states per screen, and the real set is the numbered state
+nodes of the map, which is 30 across the product. The differences are listed at the bottom
+under "What changes against the 41 pages that exist".
 
 ---
 
-## Flows and their screens
+## How to read the states
 
-Screens repeat across flows on purpose (Home, Subscription Detail, Add
-Subscription, Upgrade are shared). Reuse is noted, not duplicated.
+The four system states are the **floor**, not the set. The real set for each screen is the
+"States" section of its node file, and every state there is a node with a number.
 
-### Flow A - J-MAIN, see all recurring charges calmly (Emma, bank path) - PRIMARY, BUILD FIRST
+- **success** is the base page `<screen>.html`: the normal working view. Every screen has one.
+- **empty**, **error** and **loading** get their own page when the scenario genuinely produces
+  them.
+- **domain and transit states** (a price change, a payment that failed, a retention wall, a
+  dialog) are first class and get their own page too. They are what makes this product's state
+  set bigger than four.
 
-The main job, first session, bank-connected path. Ends at the calm list.
+Each state page is a real screen with the same structure and different content, and each one
+has a visible way out. A file name says which state it is: **the file is named after the
+state, not after the nearest system word.** "Unrecognized charge" is not an empty state and is
+not filed as one.
 
-| Screen (from sitemap) | Job closed (jtbd) | Place in Flow A | Real states and why |
-|---|---|---|---|
-| Welcome / Value Intro | J1 show value before asking for data | Entry, tap 0 | success only. A static value screen with no data to load, fail, or be empty. |
-| Activation Path Choice | J1 + J5 two paths, equal weight (D2) | tap 1 | success only. An offline choice between two paths; no data, so no empty / error / loading. |
-| Connect Bank | J1 bank path (D5 Plaid US first) | tap 2 | success (connect prompt and handoff), loading (syncing your bank), error (could not connect, keeps a manual fallback so it is not a dead end), empty (connected but no recurring charges found). |
-| Guided Reveal | J-MAIN the aha, gradual (D1) | tap 3, the aha | success (the reveal: count, then categories, then total with an action), empty (nothing to reveal yet, thin or partial list). No error (upstream failures live on Connect Bank / Add Subscription). |
-| Home / Subscription List | J-MAIN + E1 calm list, count, total | end of flow, then the steady state | success (populated calm list), empty (zero or all cancelled, a calm invite), loading (refreshing sync, non-alarming), error (sync failed, still shows the last known list). |
-
-### Flow B - J5, track without sharing bank data (Ravi, manual + presets)
-
-The privacy path. Shares Welcome, Path Choice, Guided Reveal, and Home with
-Flow A; the distinct screen is Add Subscription.
-
-| Screen (from sitemap) | Job closed (jtbd) | Place in Flow B | Real states and why |
-|---|---|---|---|
-| Welcome / Value Intro | J1 | Entry | shared with Flow A. |
-| Activation Path Choice | J1 + J5 | tap 1, picks Privacy | shared with Flow A. |
-| Add Subscription (manual + presets) | J5 privacy path (D2, 400+ presets) | after choosing Privacy; reused in-app as the "+" | success (added from a preset, prefilled), loading (preset library loading), error (presets unavailable, falls back to manual custom entry), empty (no preset matches the search / nothing added yet). |
-| Guided Reveal | J-MAIN | after adding | shared with Flow A; the empty state matters more here (manual-entry trap). |
-| Home / Subscription List | J-MAIN + E1 | end of flow | shared with Flow A (private list, no bank). |
-
-### Flow C - J2 + E2, find, cancel, and feel the win (Claudia)
-
-The cut job and the pride moment. Basic cancel is free; the full guide is Pro
-(D3). Cancel is never walled at the relief moment.
-
-| Screen (from sitemap) | Job closed (jtbd) | Place in Flow C | Real states and why |
-|---|---|---|---|
-| Home / Subscription List | J-MAIN, entry to the cut | start | shared with Flow A. |
-| Subscription Detail | J3 decode a charge + J4 its alerts | tap a row | success (normal detail), loading (detail loading), error (could not load, or a failed-payment fix that lives at the bank / merchant, with a plain next step), empty (unrecognized charge, enrichment failed, a prompt to name it). |
-| Cancel Guide | J2 identify and cancel; basic free (D3) | after choosing to cancel | success (steps: basic free or full Pro), empty (no guide for this service yet, generic steps plus request-a-guide), error (could not cancel, blocked by a retention dark pattern, with an in-app next step). |
-| Upgrade / Tendd Pro | D3 split + D4 price (the gate) | if the user wants the full guide | success only. A contextual paywall / plan screen; not a data screen. Orphan by design (traces to a decision, not a job). |
-| Cancel Win Moment | E2 the small win, money saved | after a successful cancel | success only. The dedicated "it worked" celebration screen. |
-| Share Snapshot | S1 privacy-safe share card | offered after the win | success (card ready / shared), loading (generating the card), error (share or image failed). |
-
-### Flow D - J4, stay ahead of a surprise (alert to action)
-
-Entry is a notification (the return hook). Price change and payment failed
-are free; trial ending and unusual are Pro (D3).
-
-| Screen (from sitemap) | Job closed (jtbd) | Place in Flow D | Real states and why |
-|---|---|---|---|
-| Alerts / Activity | J4 price change, payment failed | opens from a notification | success (the alert feed), empty (all clear, a calm healthy state), loading (loading alerts), error (could not load alerts, with retry). |
-| Subscription Detail | J3 + J4 | open the alerted subscription | shared with Flow C. Success here is "caught it early, nothing to do". |
-| Upgrade / Tendd Pro | D3 | a Pro alert type hits the gate | shared with Flow C. |
-| Cancel Guide | J2 | a price change may hand off to cancel | shared with Flow C. |
-| Home / Subscription List | J-MAIN | fallback after retry declined or empty | shared with Flow A. |
-
-### Beyond the four core flows - steady-state and account screens
-
-These are in sitemap.md but are not part of a single linear persona flow. They
-are reached globally (the You tab) or contextually (a Pro gate), and they are
-built in Step 8.
-
-| Screen (from sitemap) | Job closed (jtbd) | Reached from | Real states and why |
-|---|---|---|---|
-| History and Trends | J-MAIN over time; Pro gate (D3) | contextually from Home; Pro only | success (charts and trends), empty (still gathering your history, under 3 months, distinct from the Pro upsell), loading (loading history). No standalone error page at this stage. |
-| Connections / Accounts | J1 + J5 manage sources, reauth (D5) | You tab | success (list of sources), empty (no sources connected yet), error (a source needs reauth or is in error). |
-| Data and Privacy | E3 plain-language data use, delete | You tab | success only. A static trust and control page (what we read, one-tap delete). |
-| Settings / Profile | E3 plan, notification preferences | You tab (default of You) | success only. A static settings page (plan, notifications). |
+In the floor table below, `check` means the state is real and gets a page, `-` means the
+scenario does not produce it, and every `-` carries its reason in the last column. Without the
+reason, "this screen has no error state" cannot be told apart from "we forgot the error state".
 
 ---
 
-## Master state table (all 16 screens)
+## Flow A - J-MAIN, see all recurring charges calmly (Emma, bank path)
 
-Rows are screens. Columns are the four states. `check` = a real state that
-gets its own page; `-` = the scenario does not produce it. The file column is
-the base filename; state pages append `-empty`, `-error`, `-loading`.
+**The main job, first session, bank path. This is the first flow, built end to end.** It ends
+at the calm list, which is also the etalon.
 
-| # | Screen | File (base) | empty | error | loading | success | Build |
-|---|---|---|:---:|:---:|:---:|:---:|---|
-| 1 | Welcome / Value Intro | welcome.html | - | - | - | check | main |
-| 2 | Activation Path Choice | path-choice.html | - | - | - | check | main |
-| 3 | Connect Bank | connect-bank.html | check | check | check | check | main |
-| 4 | Add Subscription | add-subscription.html | check | check | check | check | step 8 |
-| 5 | Guided Reveal | guided-reveal.html | check | - | - | check | main |
-| 6 | Home / Subscription List | home.html | check | check | check | check | main (reference) |
-| 7 | Subscription Detail | subscription-detail.html | check | check | check | check | main |
-| 8 | Alerts / Activity | alerts.html | check | check | check | check | step 8 |
-| 9 | Cancel Guide | cancel-guide.html | check | check | - | check | step 8 |
-| 10 | Cancel Win Moment | cancel-win.html | - | - | - | check | step 8 |
-| 11 | Share Snapshot | share-snapshot.html | - | check | check | check | step 8 |
-| 12 | History and Trends | history-trends.html | check | - | check | check | step 8 |
-| 13 | Upgrade / Tendd Pro | upgrade.html | - | - | - | check | step 8 |
-| 14 | Connections / Accounts | connections.html | check | check | - | check | step 8 |
-| 15 | Data and Privacy | data-privacy.html | - | - | - | check | step 8 |
-| 16 | Settings / Profile | settings.html | - | - | - | check | step 8 |
+| Screen | Node | Job | Place in Flow A | Scope |
+|---|---|---|---|---|
+| Welcome / Value Intro | 1.1 | J1, show value before asking for data | Entry, tap 0. The only public, indexed screen | MVP |
+| Activation Path Choice | 1.2 | J1 and J5, two paths of equal weight (D2) | tap 1 | MVP |
+| Connect Bank | 1.3 | J1, the bank path (D5, Plaid US first) | tap 2 | MVP |
+| Guided Reveal | 1.5 | J-MAIN, the aha, gradual (D1) | tap 3, the aha | MVP |
+| Home / Subscription List | 2.6 | J-MAIN and E1, the calm list | End of the flow, then the steady state | MVP |
+| Subscription Detail | 2.7 | J3, decode a charge | One tap from the list | MVP |
 
-### Page count
+## Flow B - J5, track without sharing bank data (Ravi, manual and presets)
 
-41 pages total (one base page per screen plus one page per extra state, plus
-the Home save-focus state added in the Step 9 audit fixes).
+Shares Welcome, Path Choice, Guided Reveal and Home with Flow A. The distinct screen is Add
+Subscription, which is also the in-app "+" later.
 
-Home has a fifth state beyond the four standard ones: **save-focus**
-(home-savefocus.html). It is the Save tab destination and the target of the
-"Review these 2" and cancel-candidates actions (FLAG 1 in core.md: a
-parameterized state of Home, not a new screen). It pins the cancel candidates
-open and swaps the summary context line to potential savings.
+| Screen | Node | Job | Place in Flow B | Scope |
+|---|---|---|---|---|
+| Add Subscription | 1.4 | J5, the privacy path (D2, presets) | After choosing the private path; reused in-app | MVP |
 
-- Main flow build set (Steps 3 to 7): Welcome (1), Activation Path Choice (1),
-  Connect Bank (4), Guided Reveal (2), Home (4), Subscription Detail (4) = 16
-  pages.
-- Step 8 (the rest): 24 pages.
+## Flow C - J2 and E2, find it, cancel it, feel the win (Claudia)
 
-### Notes carried from the IA critique (must be honored as states, not new screens)
+| Screen | Node | Job | Place in Flow C | Scope |
+|---|---|---|---|---|
+| Cancel Guide | 4.9 | J2, identify and cancel; the basic guide is free (D3) | After deciding to cancel | MVP |
+| Cancel Win Moment | 4.10 | E2, the small win | After a cancellation | MVP |
+| Share Snapshot | 4.11 | S1, the privacy-safe card | Offered after the win | **LATER** (D-Share) |
+| Upgrade / Tendd Pro | 5.13 | None. Traces to D3 and D4 | Only from a real gate | **LATER** |
 
-- Connect Bank error keeps a persistent "add them yourself instead" exit.
-- Add Subscription persists partial progress; the reveal can run on a partial
-  list (the manual-entry trap).
-- Cancel Guide has a "could not cancel" state with an in-app next step.
-- Subscription Detail has an "unrecognized charge" state (protects J3) and a
-  failed-payment next-step card.
-- Home has empty, loading, and sync-error states.
-- History and Trends has a "still gathering your history" empty state, kept
-  distinct from the Pro upsell.
-- Share Snapshot has a generating (loading) state and a share-failed error.
+## Flow D - J4, stay ahead of a surprise
 
-These are the four-state and dead-end fixes from ia/docs/sitemap.md Critique.
-Every one resolves to a state page here, not a new screen.
+| Screen | Node | Job | Place in Flow D | Scope |
+|---|---|---|---|---|
+| Alerts / Activity | 3.8 | J4, a price change or a failed payment | Opens from a notification | MVP |
+
+## Reached globally, not through one flow
+
+| Screen | Node | Job | Reached from | Scope |
+|---|---|---|---|---|
+| History and Trends | 5.12 | J-MAIN over time, behind the Pro gate (D3) | Home and Subscription Detail | **LATER** |
+| Connections / Accounts | 6.14 | J1 and J5, manage the sources | Settings, and the trust line anywhere | MVP |
+| Data and Privacy | 6.15 | J5 and E3, what we hold and how to end it | Settings, and every trust link | MVP |
+| Settings / Profile | 6.16 | E3, the door to the cluster; J4 through notifications | The You tab | MVP |
+
+---
+
+## The floor: four system states across all 16 screens
+
+| # | Screen | empty | error | loading | success | Why a `-` is a `-` |
+|---|---|:---:|:---:|:---:|:---:|---|
+| 1 | Welcome / Value Intro | - | - | - | check | A static value screen. Nothing loads, nothing can fail, nothing can be empty |
+| 2 | Activation Path Choice | - | - | - | check | An offline choice between two doors; no data is touched |
+| 3 | Connect Bank | check | check | check | check | |
+| 4 | Add Subscription | check | check | check | check | |
+| 5 | Guided Reveal | check | - | - | check | Upstream failures belong to Connect Bank and Add Subscription; the reveal only runs on a list that already exists |
+| 6 | Home / Subscription List | check | check | check | check | |
+| 7 | Subscription Detail | - | check | check | check | One object is either there or it is not; "no data" on this screen is the unrecognized charge, which is a domain state and not an empty one |
+| 8 | Alerts / Activity | check | check | check | check | The empty state here is the best state in the app, not an absence |
+| 9 | Cancel Guide | check | check | - | check | The steps are text we already hold; there is no fetch to wait for |
+| 10 | Cancel Win Moment | - | - | - | check | The screen only exists after a completed action, and its numbers are already known |
+| 11 | Share Snapshot | - | check | check | check | The card is generated from two numbers the product already has, so it cannot be empty |
+| 12 | History and Trends | check | check | check | check | |
+| 13 | Upgrade / Tendd Pro | - | check | check | check | A plan list cannot be empty. Its error is a payment that did not go through, and its loading is the payment being processed |
+| 14 | Connections / Accounts | check | check | check | check | |
+| 15 | Data and Privacy | - | - | - | check | A statement of what we hold and two controls. Nothing to load, nothing to be empty |
+| 16 | Settings / Profile | - | - | - | check | A list of doors. The skeleton while preferences load is chrome, not a destination, and the logged-out variant waits on the auth model `[?]` |
+
+---
+
+## The real set: every state page, and the node it renders
+
+The base page is the success state. Every other page below is a numbered node in
+`ia/docs/sitemap.md`.
+
+| Screen | Base page | State pages: node, file, what it is |
+|---|---|---|
+| Welcome (1.1) | `index.html` | none |
+| Path Choice (1.2) | `path-choice.html` | none |
+| Connect Bank (1.3) | `connect-bank.html` | 1.3.1 `connect-bank-error` connection failed, keeps the manual exit · 1.3.2 `connect-bank-loading` syncing your bank · 1.3.3 `connect-bank-empty` connected, nothing found · **1.3.4 `connect-bank-cancelled` came back without connecting** |
+| Add Subscription (1.4) | `add-subscription.html` | 1.4.1 `add-subscription-loading` preset library loading · 1.4.2 `add-subscription-error` presets unavailable, the manual form still works · 1.4.3 `add-subscription-empty` no preset matches |
+| Guided Reveal (1.5) | `guided-reveal.html` | 1.5.1 `guided-reveal-empty` nothing to reveal yet |
+| Home (2.6) | `home.html` | 2.6.1 `home-empty` both doors offered · 2.6.2 `home-loading` refreshing · 2.6.3 `home-error` sync failed, last known list stays visible and dated · 2.6.4 `home-savefocus` the Save tab |
+| Subscription Detail (2.7) | `subscription-detail.html` | **2.7.1 `subscription-detail-unrecognized`** the decoder line is all we have · **2.7.2 `subscription-detail-price-change`** old price beside new · **2.7.3 `subscription-detail-payment-failed`** and what usually happens next · 2.7.4 `subscription-detail-loading` · 2.7.5 `subscription-detail-error` could not load |
+| Alerts (3.8) | `alerts.html` | 3.8.1 `alerts-empty` nothing needs your attention · 3.8.2 `alerts-loading` · 3.8.3 `alerts-error` could not reach your alerts |
+| Cancel Guide (4.9) | `cancel-guide.html` | **4.9.1 `cancel-guide-no-guide`** the general way, plus ask us to add this one · **4.9.2 `cancel-guide-blocked`** could not cancel, not your fault |
+| Cancel Win (4.10) | `cancel-win.html` | none |
+| Share Snapshot (4.11) | `share-snapshot.html` | 4.11.1 `share-snapshot-loading` making your card · 4.11.2 `share-snapshot-error` |
+| History and Trends (5.12) | `history-trends.html` | 5.12.1 `history-trends-empty` still gathering, and it is not the lock · 5.12.2 `history-trends-loading` · **5.12.3 `history-trends-error`** |
+| Upgrade (5.13) | `upgrade.html` | **5.13.1 `upgrade-processing`** setting up your plan · **5.13.2 `upgrade-payment-failed`** |
+| Connections (6.14) | `connections.html` | 6.14.1 `connections-empty` both doors again · **6.14.2 `connections-reconnect`** a source needs attention · **6.14.3 `connections-add-source`** the chooser dialog |
+| Data and Privacy (6.15) | `data-privacy.html` | **6.15.1 `data-privacy-delete-confirm`** two doors, no alarm colouring |
+| Settings (6.16) | `settings.html` | none |
+
+**Bold** marks a page that does not exist yet or whose name is wrong today. Eight are new and
+four are renames; the list is at the bottom.
+
+---
+
+## Page count and the round
+
+| Round | Screens | Pages |
+|---|---|---|
+| **Round 1, MVP** | 13 | **39** (13 base plus 26 states) |
+| Round 2, LATER | 3 (Share Snapshot, History and Trends, Upgrade) | 10 (3 base plus 7 states) |
+| **Total** | **16** | **49** |
+
+**The three LATER screens are deferred, not lost.** They have pages today, built in July before
+the scope labels were applied. Round 1 leaves those pages standing and does not refactor them;
+round 2 brings them to the same contract. This is written down here so that "we did the
+important ones" cannot happen quietly inside a round.
+
+---
+
+## What changes against the 41 pages that exist
+
+The July build stands. What follows is the delta, and it is the work order for the steps after
+this one.
+
+**Eight pages to add** (each one is a node that has no page):
+
+| Node | File | Why it exists |
+|---|---|---|
+| 1.3.4 | `connect-bank-cancelled.html` | Plaid Link returns four outcomes, not three. A person who opens the bank screen and backs out had nowhere to land |
+| 2.7.2 | `subscription-detail-price-change.html` | The state that carries J4 on the detail screen |
+| 2.7.3 | `subscription-detail-payment-failed.html` | Named in the IA critique as a dead end: informed, with no next step |
+| 5.12.3 | `history-trends-error.html` | LATER, round 2 |
+| 5.13.1 | `upgrade-processing.html` | LATER, round 2 |
+| 5.13.2 | `upgrade-payment-failed.html` | LATER, round 2 |
+| 6.14.3 | `connections-add-source.html` | The chooser, which is the FLAG 2 resolution |
+| 6.15.1 | `data-privacy-delete-confirm.html` | The two-door dialog. It exists inside the page today and has no page of its own |
+
+**Four pages to rename**, because the file is named after the nearest system word rather than
+after its state:
+
+| Now | Becomes | Why |
+|---|---|---|
+| `subscription-detail-empty.html` | `subscription-detail-unrecognized.html` | It is node 2.7.1, and node 2.7 has no empty state at all |
+| `cancel-guide-empty.html` | `cancel-guide-no-guide.html` | Node 4.9.1. Nothing on it is empty; it carries the general steps |
+| `cancel-guide-error.html` | `cancel-guide-blocked.html` | Node 4.9.2. Nothing failed on our side: the merchant blocked the person |
+| `connections-error.html` | `connections-reconnect.html` | Node 6.14.2. The IA states plainly that an expired connection is maintenance and not an error, and the file name was arguing the opposite |
+
+**Carried in from the IA work, to be honoured while the screens are rebuilt:**
+
+- `cancel-win.html` still shows the share block as a primary action. It is LATER under D-Share.
+- `settings.html` shows a **Name** field, which the block bank decided against (email and
+  currency, and nothing else), and has no currency row.
+- `cancel-guide.html` is missing three blocks the bank found: what happens when you cancel with
+  the real date, the "about five minutes, and where these steps came from" strip, and when the
+  steps were last checked.
+- `connections.html` needs the last successful check on every source and the disconnect
+  consequence in the same sentence.
+- Every screen carries `.zlabel` and `.zaction` annotations and sits inside a 420 by 720
+  mockup frame. Both are the schema form of the previous stage, and both come off.
+
+---
+
+## Notes carried from the IA critique
+
+All eleven findings of the IA critique are closed as states in the map, and this table renders
+them. They are listed on `ia/structure.html` under "was to became" with the node each landed
+on; none of them is a new screen, and none of them is invented here.

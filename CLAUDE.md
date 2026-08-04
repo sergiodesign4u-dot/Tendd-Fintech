@@ -97,9 +97,11 @@ opening the folder lands on the product screen (node 0.0 from the flows); the li
 pages of that stage is `overview.html`. This holds for `wireframes/` and `design/` alike.
 
 **The wireframes are grey and frozen.** `wireframes/` is the structure contract: greyscale,
-semantic, real copy, one page per state. Voice was the last stage allowed to edit text
-there. From Concept on, color goes onto COPIES in `design/`, never onto the grey file, and a
-colored page may differ from its grey original by styling only.
+semantic, real copy, one page per state, and a state page is named after its state rather than
+after the nearest system word. Voice was the last stage allowed to edit text there. From Concept
+on, color goes onto COPIES in `design/`, never onto the grey file, and a colored page may differ
+from its grey original by styling only. The etalon screen and the first flow are named on the
+first line of `wireframes/docs/screens.md`: later stages take them from there, not re-derived.
 
 **Every artifact has a visible place.** A md that no page shows does not exist for the person
 who decides. Three legal forms: its own page in the registry, a named section on the stage
