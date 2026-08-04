@@ -6,12 +6,12 @@ person moves between them. Per-screen content structure, states, and shared
 components are Prompt 2, not this document.
 
 Every entity and every screen below traces to a job in
-user-research/docs/jtbd.md or a locked decision in research/docs/strategy.md
+research/docs/jtbd.md or a locked decision in research/docs/strategy.md
 (Section 6, D1 to D5). Anything only suspected is marked [?] and kept in an
 "Under question" list, not in the main structure. Anything explicitly cut
 from MVP scope gets no entity and no screen.
 
-Job shorthand (from user-research/docs/jtbd.md):
+Job shorthand (from research/docs/jtbd.md):
 - J-MAIN: see all recurring charges clearly in one calm view (fused J1+J2 of strategy.md)
 - J1: activate without anxiety, the trust job (trust before bank)
 - J2: identify and cancel unused subscriptions, the cut job
@@ -30,8 +30,8 @@ Job shorthand (from user-research/docs/jtbd.md):
 
 The core objects a person deals with to close their jobs. Screens only
 display entities, and entities grow out of jobs. This inventory is built
-from user-research/docs/personas.md, user-research/docs/jtbd.md, and
-research/docs/master-research.md. It is deliberately not built from a
+from research/docs/personas.md, research/docs/jtbd.md, and
+research/docs/research.md. It is deliberately not built from a
 competitor's menu.
 
 ### 1. Subscription (central entity)
@@ -313,7 +313,7 @@ tap 1 into Path Choice, so the 3-tap count above is unchanged.
 
 ## Traceability
 
-Coverage matrix. Rows are every job from user-research/docs/jtbd.md (main,
+Coverage matrix. Rows are every job from research/docs/jtbd.md (main,
 related, and emotional/social). Columns are every screen from the Screens
 section. A checkmark means the screen genuinely participates in closing that
 job. A gate that only unlocks a job does not count as closing it.

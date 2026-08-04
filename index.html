@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tendd - Project entry</title>
+<link rel="stylesheet" href="_nav.css">
+<style>
+  :root{
+    --ink:#111617;
+    --muted:#5b6668;
+    --line:#e4e7e8;
+    --petrol:#1c6a76;
+    --paper:#ffffff;
+    --wash:#f6f8f8;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .layout{ display:flex; gap:40px; max-width:1100px; margin:0 auto; padding:40px 24px 72px; }
+  #sidebar{ position:sticky; top:40px; align-self:flex-start; }
+  main{ flex:1 1 auto; min-width:0; }
+
+  .eyebrow{ font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--petrol); margin:0 0 10px; }
+  h1{ font-size:34px; line-height:1.15; letter-spacing:-0.02em; margin:0 0 12px; }
+  .lede{ font-size:17px; color:var(--muted); max-width:62ch; margin:0 0 32px; }
+
+  h2{ font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+      margin:0 0 14px; font-weight:600; }
+
+  ol.stages{ list-style:none; margin:0; padding:0; border-top:1px solid var(--line); }
+  ol.stages li{ display:flex; align-items:baseline; gap:14px; padding:11px 4px;
+                border-bottom:1px solid var(--line); }
+  ol.stages .num{ font-size:12px; color:var(--muted); width:22px; flex:0 0 22px; font-variant-numeric:tabular-nums; }
+  ol.stages .name{ flex:1 1 auto; }
+  ol.stages a{ color:var(--ink); text-decoration:none; border-bottom:1px solid transparent; }
+  ol.stages a:hover{ border-bottom-color:var(--petrol); color:var(--petrol); }
+  ol.stages .soon .name{ color:var(--muted); }
+
+  .status{ font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px;
+           border-radius:999px; white-space:nowrap; }
+  .status.done{ color:var(--petrol); background:color-mix(in srgb, var(--petrol) 10%, transparent); }
+  .status.partial{ color:var(--ink); background:var(--wash); border:1px solid var(--line); }
+  .status.next{ color:#fff; background:var(--petrol); }
+  .status.soon{ color:var(--muted); border:1px solid var(--line); }
+
+  .foot{ margin-top:34px; font-size:14px; color:var(--muted); }
+  .foot a{ color:var(--petrol); }
+
+  @media (max-width:900px){
+    .layout{ flex-direction:column; gap:24px; padding:28px 18px 56px; }
+    #sidebar{ position:static; }
+    h1{ font-size:28px; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside id="sidebar"></aside>
+
+  <main>
+    <p class="eyebrow">Design engineering project</p>
+    <h1>Tendd</h1>
+    <p class="lede">
+      Tendd helps people who are not into finance see and control their recurring payments and
+      subscriptions, turning money anxiety into calm, everyday clarity. This page is the entry point
+      to the whole project: every stage below is a live artifact in this repository.
+    </p>
+
+    <h2>Stages</h2>
+    <ol class="stages" id="stage-list"></ol>
+
+    <p class="foot">
+      Rules and context for this repository live in <code>CLAUDE.md</code>, the decision log in
+      <code>docs/decisions.md</code>, and the status table in <a href="README.md">README</a>.
+    </p>
+  </main>
+</div>
+
+<script>
+  window.NAV_BASE = '';
+  window.NAV_SECTIONS = [];
+</script>
+<script src="_nav.js"></script>
+<script>
+  // The one allowed exception in the project: this page renders its body list from the same
+  // registry the sidebar uses, so a stage is switched on in one place (done:true) and nowhere else.
+  (function () {
+    var list = document.getElementById('stage-list');
+    if (!list || !window.NAV) return;
+
+    function pagesOf(item){ return (item.children || [item]).filter(function(c){ return c.page; }); }
+    var nextItem = NAV.filter(function(it){
+      var ps = pagesOf(it);
+      return ps.length === 0 || ps.some(function(p){ return !p.done; });
+    })[0] || null;
+
+    NAV.forEach(function(item, i){
+      var pages = pagesOf(item);
+      var doneCount = pages.filter(function(p){ return p.done; }).length;
+      var fullyDone = pages.length > 0 && doneCount === pages.length;
+      var state = fullyDone ? 'done' : (item === nextItem ? 'next' : (doneCount ? 'partial' : 'soon'));
+      var label = { done:'Done', next:'Next', partial:'In progress', soon:'Not started' }[state];
+      var target = pages.filter(function(p){ return p.done; })[0];
+
+      var li = document.createElement('li');
+      if (state === 'soon') li.className = 'soon';
+
+      var num = document.createElement('span');
+      num.className = 'num';
+      num.textContent = String(i + 1).padStart(2, '0');
+
+      var name = document.createElement('span');
+      name.className = 'name';
+      if (target) {
+        var a = document.createElement('a');
+        a.href = target.page;
+        a.textContent = item.label;
+        name.appendChild(a);
+      } else {
+        name.textContent = item.label;
+      }
+
+      var tag = document.createElement('span');
+      tag.className = 'status ' + state;
+      tag.textContent = label;
+
+      li.appendChild(num); li.appendChild(name); li.appendChild(tag);
+      list.appendChild(li);
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+/* _nav.css : the look of the project side panel.
+   /_nav.js owns the structure, the look lives here, a page never describes nav-* itself.
+   Tune ONLY the variables below for the project theme. Do not rewrite the rules.
+   Theme: Petrol and Paper (Concept, D-Concept), petrol #1c6a76 on a white canvas. */
+
+:root{
+  --nav-w:      240px;      /* panel width */
+  --nav-fg:     #1c1c1c;    /* a ready stage: a normal link */
+  --nav-active: #1c6a76;    /* the current stage and the current page */
+  --nav-muted:  #9aa0a2;    /* SOON: not started, not a link */
+  --nav-rule:   #e4e7e8;    /* rules, badge borders */
+  --nav-badge:  #1c6a76;    /* the Next badge */
+  --nav-size:   14px;
+  --nav-lh:     1.45;
+}
+
+#sidebar{ width:var(--nav-w); flex:0 0 var(--nav-w); font-size:var(--nav-size); line-height:var(--nav-lh); }
+.nav-roadmap, .nav-sub, .nav-sections{ list-style:none; margin:0; padding:0; }
+.nav-roadmap{ display:flex; flex-direction:column; gap:2px; }
+
+.nav-top{ display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:6px;
+          color:var(--nav-fg); text-decoration:none; }
+a.nav-top:hover{ background:color-mix(in srgb, var(--nav-active) 8%, transparent); }
+.nav-item.is-done    > .nav-top{ color:var(--nav-fg); }        /* a finished stage: a normal link */
+.nav-item.is-soon    > .nav-top{ color:var(--nav-muted); cursor:default; }
+.nav-item.is-active  > .nav-top{ color:var(--nav-active); font-weight:600;
+          background:color-mix(in srgb, var(--nav-active) 10%, transparent); }
+.nav-item.is-partial > .nav-top{ color:var(--nav-fg); }
+
+.nav-badge{ margin-left:auto; font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+            padding:2px 6px; border-radius:999px; }
+.nav-badge-next{ color:#fff; background:var(--nav-badge); }
+.nav-badge-soon{ color:var(--nav-muted); border:1px solid var(--nav-rule); }
+
+.nav-sub{ margin:2px 0 6px; padding-left:10px; border-left:1px solid var(--nav-rule); }
+.nav-subhead{ padding:8px 10px 4px; font-size:11px; letter-spacing:.06em;
+              text-transform:uppercase; color:var(--nav-muted); }
+.nav-link{ display:flex; align-items:center; gap:8px; padding:5px 10px; border-radius:6px;
+           color:var(--nav-fg); text-decoration:none; }
+span.nav-link{ color:var(--nav-muted); }
+a.nav-link:hover{ background:color-mix(in srgb, var(--nav-active) 8%, transparent); }
+.nav-link.is-current{ color:var(--nav-active); font-weight:600; }
+
+.nav-sections{ margin:2px 0 6px; padding-left:12px; }
+.nav-section{ display:block; padding:3px 10px; color:var(--nav-muted); text-decoration:none; font-size:13px; }
+.nav-section:hover{ color:var(--nav-fg); }
+.nav-section.is-current{ color:var(--nav-active); }
+
+@media (max-width: 900px){
+  #sidebar{ width:auto; flex:none; }
+  .nav-item:not(.is-active) > .nav-top{ padding:6px 10px; }
+}

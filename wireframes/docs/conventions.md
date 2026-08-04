@@ -90,7 +90,7 @@ Everything else is real copy.
 - The inventory docs live in `wireframes/docs/` with no leading underscore:
   `docs/screens.md`, `docs/conventions.md`, `docs/critique.md`. The shared shell
   files keep a leading underscore at the wireframes root: `_nav.js`, `_wf.css`.
-  The overview lives at `wireframes/index.html`.
+  The overview lives at `wireframes/overview.html`.
 
 ## 5. States: one page each, never a toggle
 
@@ -121,7 +121,7 @@ Everything else is real copy.
 - What stays removed (the July 2026 declutter): the meta/annotation bar
   (cluster, job, flow, tap depth), the "this screen: states" strip, and the
   per-page desktop-reflow note. A frame is the product screen plus the review
-  tree, nothing else pasted on top. The overview, `wireframes/index.html`, is
+  tree, nothing else pasted on top. The overview, `wireframes/overview.html`, is
   still the single flow-grouped index of every page and state.
 - The product's own chrome is the only navigation inside the frame itself. Per
   sitemap.md the app has a global bar with four destinations, Home, Alerts,

@@ -12,7 +12,7 @@
 
 - **Public and indexable today:** onboarding 1.1 Welcome / Value Intro only. It is reachable before sign-in.
 - **Not indexable:** everything from Activation Path Choice (1.2) and Guided Reveal (1.5) onward. These are behind the activation flow and are transactional or private. Each cluster file says so in its own SEO section.
-- **Now in this repo (updated 2026-07-04):** the public marketing landing is built in-repo as the Welcome / Value Intro page (`wireframes/welcome.html`), replacing the earlier plan for a separate out-of-repo site. It is the single public, indexable surface (full-width hero, benefits, how-it-works, trust and security, social proof, footer) and it reuses the templates and keyword model below. A separate standalone marketing domain may still come later, but the front door now exists here.
+- **Now in this repo (updated 2026-07-04):** the public marketing landing is built in-repo as the Welcome / Value Intro page (`wireframes/index.html`), replacing the earlier plan for a separate out-of-repo site. It is the single public, indexable surface (full-width hero, benefits, how-it-works, trust and security, social proof, footer) and it reuses the templates and keyword model below. A separate standalone marketing domain may still come later, but the front door now exists here.
 
 This scope is not forced onto private screens. Do not add schema, titles, or keywords to authenticated app screens.
 
@@ -31,7 +31,7 @@ Traces CLAUDE.md design principles.
 
 ## Keyword model
 
-Grounded in research/docs/master-research.md and research/docs/competitive-analysis.md (which establish "subscription tracker" as the category term and the calm, no-bank, and cancel angles as the gaps). Search volumes and keyword difficulty are marked [?] because they need real tool data.
+Grounded in research/docs/research.md and research/docs/competitors.md (which establish "subscription tracker" as the category term and the calm, no-bank, and cancel angles as the gaps). Search volumes and keyword difficulty are marked [?] because they need real tool data.
 
 **Head terms (high volume, high competition):**
 - subscription tracker [? vol, KD]
@@ -110,7 +110,7 @@ The only public surface (Welcome) has no structural mobile/desktop delta (onboar
 
 ## Locked (draft, 2026-07-03) / Open
 
-- **Updated and locked 2026-07-04:** the public marketing landing is built in-repo as Welcome (1.1) / `wireframes/welcome.html`, not deferred to an out-of-repo site. Public scope is still exactly this one surface; the templates and structured-data model apply to it.
+- **Updated and locked 2026-07-04:** the public marketing landing is built in-repo as Welcome (1.1) / `wireframes/index.html`, not deferred to an out-of-repo site. Public scope is still exactly this one surface; the templates and structured-data model apply to it.
 - **Locked (draft, 2026-07-03):**
   - Public scope is Welcome (1.1) only; everything else is explicitly private.
   - Calm, trust-first, plain-language writing principles for public copy.

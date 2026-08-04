@@ -8,7 +8,7 @@
 (function () {
   var TREE = [
     { section: 'Onboarding and Activation', screens: [
-      { name: 'Welcome (landing)', base: 'welcome.html', states: [] },
+      { name: 'Welcome (landing)', base: 'index.html', states: [] },
       { name: 'Activation Path Choice', base: 'path-choice.html', states: [] },
       { name: 'Connect Bank', base: 'connect-bank.html', states: ['empty', 'error', 'loading'] },
       { name: 'Add Subscription', base: 'add-subscription.html', states: ['empty', 'error', 'loading'] },
@@ -53,7 +53,7 @@
     var html = '';
     html += '<summary>Wireframe map</summary>';
     html += '<div class="wftree-body">';
-    html += '<a class="wf-overview-link' + (here === 'index.html' ? ' current' : '') + '" href="index.html">Overview</a>';
+    html += '<a class="wf-overview-link' + (here === 'overview.html' ? ' current' : '') + '" href="overview.html">Overview</a>';
     for (var i = 0; i < TREE.length; i++) {
       var sec = TREE[i];
       html += '<p class="cluster">' + esc(sec.section) + '</p><ul>';
@@ -79,10 +79,10 @@
     // The wireframes stay grey; these links jump to the coloured concept pages.
     html += '<div class="wf-track-out">';
     html += '<p class="cluster">Design track</p><ul>';
-    html += '<li class="wf-screen"><a href="../concept/concept.html">Concept (in colour)</a></li>';
-    html += '<li class="wf-screen"><a href="../concept/directions.html">Directions</a></li>';
-    html += '<li class="wf-screen"><a href="../ui-visual/home.html">Home in colour</a></li>';
-    html += '<li class="wf-screen"><a href="../ui-visual/subscription-detail.html">Subscription Detail in colour</a></li>';
+    html += '<li class="wf-screen"><a href="../design/concept/concept.html">Concept (in colour)</a></li>';
+    html += '<li class="wf-screen"><a href="../design/concept/directions.html">Directions</a></li>';
+    html += '<li class="wf-screen"><a href="../design/home.html">Home in colour</a></li>';
+    html += '<li class="wf-screen"><a href="../design/subscription-detail.html">Subscription Detail in colour</a></li>';
     html += '</ul></div>';
     html += '</div>';
     return html;

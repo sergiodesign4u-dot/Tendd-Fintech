@@ -7,7 +7,7 @@ success) are real for it. Steps 3 to 8 build against this table.
 
 Source of truth: ia/docs/sitemap.md (screen names, jobs, navigation),
 ia/docs/flows.md (flows, decisions, states, dead ends), and
-user-research/docs/jtbd.md (jobs). Screen names below are copied exactly from
+research/docs/jtbd.md (jobs). Screen names below are copied exactly from
 sitemap.md. No screen is invented here.
 
 ## How to read the four states

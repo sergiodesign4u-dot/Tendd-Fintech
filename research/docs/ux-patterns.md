@@ -118,7 +118,7 @@ Without a reason to return, the user will not open the app again after the first
 
 3. **It creates a natural upgrade trigger.** The Guided Reveal ends at a natural inflection point - after seeing their subscriptions, the user is most motivated to act (cancel, investigate, share). This is where the upgrade to paid is most likely to convert.
 
-**Evidence:** Spotify Wrapped's annual reveal generates massive organic sharing. Apple Card's first transaction clarity screen is described as a "relief moment" by reviewers. Phase 3 identified "calm reveal as emotional experience" as a gap no competitor fills. Source: competitive-analysis.md gap #4.
+**Evidence:** Spotify Wrapped's annual reveal generates massive organic sharing. Apple Card's first transaction clarity screen is described as a "relief moment" by reviewers. Phase 3 identified "calm reveal as emotional experience" as a gap no competitor fills. Source: competitors.md gap #4.
 
 ---
 

@@ -7,9 +7,9 @@ anti-example (a line that breaks it), and a reason traced to a source line in th
 research. Adjectives without examples are not accepted: you cannot write a button
 from "friendly".
 
-Sources read for this document: user-research/docs/personas.md, user-research/docs/jtbd.md,
-research/docs/master-research.md, research/docs/benchmark-trust.md,
-research/docs/competitive-analysis.md, research/docs/ux-patterns.md,
+Sources read for this document: research/docs/personas.md, research/docs/jtbd.md,
+research/docs/research.md, research/docs/benchmark.md,
+research/docs/competitors.md, research/docs/ux-patterns.md,
 research/docs/strategy.md, and the five design principles in CLAUDE.md. The line
 inventory this voice is measured against is voice/docs/microcopy.md.
 
@@ -55,11 +55,11 @@ you have").
 **Why (from the data).**
 - "no competitor, including new entrant ReSubs, leads with 'calm' as a design or
   brand promise. Every product leads with capability ('find subscriptions,' 'save
-  money,' 'control your finances') not emotional state." (competitive-analysis.md)
+  money,' 'control your finances') not emotional state." (competitors.md)
 - "'I know what's going out, and I'm okay.' Calm, not optimization."
   (strategy.md, Segment A motivation)
 - "the more people talk about their personal finances, the better they feel... the
-  Guided Reveal must be engaging enough to get the user to LOOK." (master-research.md,
+  Guided Reveal must be engaging enough to get the user to LOOK." (research.md,
   Q1) This is why calm still invites looking.
 
 ### Principle 2: Say who did the thing, in plain words
@@ -81,11 +81,11 @@ because no subscription tracker has made it one.
 **Why (from the data).**
 - Monzo's principle: "Say who did the thing." Instead of "your payment was
   declined" they write "we couldn't take this payment, your card was declined by
-  [merchant]". (benchmark-trust.md)
+  [merchant]". (benchmark.md)
 - "Passive voice in financial communication creates anxiety because the user does
-  not know who is responsible for what." (benchmark-trust.md)
+  not know who is responsible for what." (benchmark.md)
 - "Plain language and active voice... no subscription tracker has made it a core
-  differentiator." (master-research.md, Key Conclusion 4)
+  differentiator." (research.md, Key Conclusion 4)
 
 ### Principle 3: Frame money as what you signed up for, never as judgment
 
@@ -108,7 +108,7 @@ control (which they came for).
 **Why (from the data).**
 - "Do not present the subscription total as 'how much you are spending.' Present it
   as 'what you have signed up for'... The framing of control vs. exposure makes a
-  real psychological difference." (master-research.md, Q2)
+  real psychological difference." (research.md, Q2)
 - "every screen must be judgment-free. No red. No language implying failure. The
   subscription list is presented as discovery, not audit." (jtbd.md, E1)
 - "surface surprises as positive discoveries ('look what we found') rather than
@@ -135,13 +135,13 @@ worse than none, because it makes the person ask why you needed to say it.
 **Why (from the data).**
 - "vague reassurances trigger more anxiety than no reassurance at all ('why do they
   need to say that?'). A specific, direct statement that names the fear... is
-  processed as evidence of honesty, not marketing." (benchmark-trust.md, Mechanism 2)
+  processed as evidence of honesty, not marketing." (benchmark.md, Mechanism 2)
 - Ravi is scared off by "Vague language like 'bank-level security' without
   specifics". (personas.md, Ravi)
 - "Trust must be earned through transparency and design, not just claimed."
   (CLAUDE.md, Target Audience)
 - Apple Card's "No fees. Not even hidden ones." works because "it is a precise,
-  falsifiable claim." (benchmark-trust.md)
+  falsifiable claim." (benchmark.md)
 
 ### Principle 5: Mark the small win with a number and a next step, then stop
 

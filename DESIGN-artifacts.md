@@ -7,38 +7,38 @@ to the founder's recorded taste, plus a Sources section. It is the raw design
 material that the next phase reads.
 
 **This is NOT the product `DESIGN.md`.** By founder decision (2026-07-15,
-recorded in `ui-visual/docs/design.md`) the product design system does not live at
-a root `DESIGN.md`. It lives at `ui-visual/docs/design.md` and is generated at
+recorded in `design/docs/design.md`) the product design system does not live at
+a root `DESIGN.md`. It lives at `design/docs/design.md` and is generated at
 Etap 07 (UI + Visual) with `/impeccable document` from the real code of the
 colored screens plus this file. The chain for Tendd is therefore:
 
-`DESIGN-artifacts.md` (this draft, Etap 06) -> `ui-visual/docs/design.md`
+`DESIGN-artifacts.md` (this draft, Etap 06) -> `design/docs/design.md`
 (product system, Etap 07). There is intentionally no root `DESIGN.md`.
 
 Every decision below carries the attribute (A1 to A5) or taste line it traces to.
 A color, form, or font with no such pair is an invention, not a decision. The
-attribute pairs and the taste live in `concept/docs/concept.md`; the borrowed
-techniques (T1 to T5) live in `concept/docs/references.md`.
+attribute pairs and the taste live in `design/concept/docs/concept.md`; the borrowed
+techniques (T1 to T5) live in `design/concept/docs/references.md`.
 
 ---
 
 ## Brand: Petrol & Paper
 
 Founder-locked (D-Concept, 2026-07-15). One of three directions built live in
-`concept/directions.html`; the two others (Ink & Marigold, Plum & Fog) stay on
-record in `concept/docs/concept.md` and are not deleted.
+`design/concept/directions.html`; the two others (Ink & Marigold, Plum & Fog) stay on
+record in `design/concept/docs/concept.md` and are not deleted.
 
-**Recorded as a brand toolkit plate:** `concept/assets/brand-plate-petrol-paper.png`
+**Recorded as a brand toolkit plate:** `design/concept/assets/brand-plate-petrol-paper.png`
 (rendered at 4k with Google Nano Banana 2, stored downscaled to 2400px to keep the
 repo light). The plate is a visual record of the
 already-locked language, not a divergence exercise: the brand was chosen from the
 live HTML directions, and the plate documents that choice as a single dense
 brand-guidelines board (identity, palette, type specimen, icon set, applications
 in product context, UI components). The authoritative token values are in this
-file and in `concept/concept.html`, not in the rendered plate.
+file and in `design/concept/concept.html`, not in the rendered plate.
 
 **Why this brand.** For a user whose activation gate is trust (J1,
-`research/docs/benchmark-trust.md` C2), the direction that leads with A2 (trust
+`research/docs/benchmark.md` C2), the direction that leads with A2 (trust
 shown, not claimed) is the safest and most on-thesis. Deep petrol is a calm,
 institutional, non-red hue that reads trustworthy without alarm (A1). Inter is the
 clean grotesk that disappears into the task (product register). The monthly total
@@ -124,7 +124,7 @@ Traces to A1 (calm, unfussy) and A2 (precise, trustworthy, not a toy):
 
 ## UI tone (screen tone, not a specific layout)
 
-The layout composition is chosen separately in `concept/docs/concept.md` (Layout).
+The layout composition is chosen separately in `design/concept/docs/concept.md` (Layout).
 This is the tone every colored screen carries:
 
 - Calm-light throughout. White canvas, one reserved accent, generous whitespace.
@@ -142,7 +142,7 @@ This is the tone every colored screen carries:
 
 ## Recorded, not chosen (brand alternatives)
 
-Kept for the record in `concept/docs/concept.md`; can be returned to.
+Kept for the record in `design/concept/docs/concept.md`; can be returned to.
 
 - **Ink & Marigold** (recorded). Marigold accent `#d99a2b`, pill buttons, Hanken
   Grotesk. Leads A5 warm restraint.
@@ -153,14 +153,14 @@ Kept for the record in `concept/docs/concept.md`; can be returned to.
 
 ## Sources
 
-- `concept/docs/concept.md` - the founder's recorded taste, the five attribute
+- `design/concept/docs/concept.md` - the founder's recorded taste, the five attribute
   pairs (A1 to A5, each with a source line), the chosen brand, and the chosen
   layout.
-- `concept/docs/references.md` - the borrowed techniques (T1 to T5), the benchmark
+- `design/concept/docs/references.md` - the borrowed techniques (T1 to T5), the benchmark
   base (Monzo minus Hot Coral), and the rejects.
-- `concept/concept.html` - the live language stand: palette, type scale, form,
+- `design/concept/concept.html` - the live language stand: palette, type scale, form,
   real brand logos, Solar icons, three components, and the WCAG AA contrast table.
-- `concept/assets/brand-plate-petrol-paper.png` - the brand toolkit plate for the
+- `design/concept/assets/brand-plate-petrol-paper.png` - the brand toolkit plate for the
   locked direction.
-- `ui-visual/home.html`, `ui-visual/subscription-detail.html` - the language
+- `design/home.html`, `design/subscription-detail.html` - the language
   applied to the two anchor screens (with their state pages).

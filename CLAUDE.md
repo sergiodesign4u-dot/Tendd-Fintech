@@ -5,13 +5,13 @@
 | Phase | Output | Status |
 |-------|--------|--------|
 | Foundation Research | research/research.html, research/docs/*.md | Done (June 2026) |
-| User Research (Personas + JTBD) | user-research/personas.html, user-research/jtbd.html, user-research/docs/personas.md, user-research/docs/jtbd.md | Done (June 2026) |
-| CJM (As-Is + To-Be) | user-research/cjm-as-is.html, user-research/cjm-to-be.html, user-research/docs/cjm-as-is.md, user-research/docs/cjm-to-be.md | Done (July 2026) |
+| User Research (Personas + JTBD) | research/personas.html, research/jtbd.html, research/docs/personas.md, research/docs/jtbd.md | Done (June 2026) |
+| CJM (As-Is + To-Be) | research/cjm-as-is.html, research/cjm-to-be.html, research/docs/cjm-as-is.md, research/docs/cjm-to-be.md | Done (July 2026) |
 | Information Architecture | ia/ia.html, ia/docs/sitemap.md, ia/docs/flows.md | Done (July 2026) |
-| Wireframes | wireframes/index.html, wireframes/*.html, wireframes/docs/screens.md, wireframes/docs/conventions.md, wireframes/docs/critique.md | Done (July 2026) |
+| Wireframes | wireframes/overview.html, wireframes/*.html, wireframes/docs/screens.md, wireframes/docs/conventions.md, wireframes/docs/critique.md | Done (July 2026) |
 | Voice | voice/voices.html, voice/voice.html, voice/microcopy.html, voice/docs/voice.md, voice/docs/microcopy.md | Done (July 2026) |
-| Concept | DESIGN-artifacts.md (root draft), concept/concept.html, concept/directions.html, concept/docs/references.md, concept/docs/concept.md, concept/assets/brand-plate-petrol-paper.png, ui-visual/ (Home + Subscription Detail in color) | Done (July 2026) |
-| UI + Visual | ui-visual/ | Pending (next) |
+| Concept | DESIGN-artifacts.md (root draft), design/concept/concept.html, design/concept/directions.html, design/concept/docs/references.md, design/concept/docs/concept.md, design/concept/assets/brand-plate-petrol-paper.png, design/ (Home + Subscription Detail in color) | Done (July 2026) |
+| UI + Visual | design/ | Pending (next) |
 | Tokens + Components | tokens-components/ | Pending |
 | Design System | design-system/ | Pending |
 | Responsive | responsive/ | Pending |
@@ -32,14 +32,14 @@ mining pass on one persona-job, not all six. User Research now has four pages
 sidebar of every research and IA page. This was the last User-Research-track
 deliverable; next is Concept.
 
-- **As-Is** (user-research/docs/cjm-as-is.md, user-research/cjm-as-is.html): the
+- **As-Is** (research/docs/cjm-as-is.md, research/cjm-as-is.html): the
   journey in five phases (baseline avoidance -> trigger -> attempt -> friction
   pit -> retreat). Every emotion carries a research source or a `[?]`. The
   deepest pit is Phase 4 (cryptic statement codes + the bank-connection wall +
   overwhelm). The relief endpoint is a carried `[?]` = the riskiest assumption
   H0 (whether an avoider actually looks and feels calmer), provable only in a
   prototype (strategy.md Section 5).
-- **To-Be** (user-research/docs/cjm-to-be.md, user-research/cjm-to-be.html): the
+- **To-Be** (research/docs/cjm-to-be.md, research/cjm-to-be.html): the
   journey (arrive without a bank demand -> choose path -> connect read-only ->
   Guided Reveal -> calm list -> return hook) inverts the Phase 4 pit with the
   gradual reveal (D1). Every To-Be step is covered by the already-locked
@@ -76,7 +76,7 @@ Structure locked July 2026. The full information architecture exists: the skelet
 Built July 2026. Greyscale, semantic, mobile-first responsive wireframes for
 every screen, structure not look: real Tendd copy, no color or type decisions,
 and every state (empty, error, loading, success) as its own page. Living entry
-point at wireframes/index.html (a flow-by-flow overview and a 40-page build
+point at wireframes/overview.html (a flow-by-flow overview and a 40-page build
 dashboard). Next phase is the Design system (color, type, components).
 
 **Scale:** 16 screens, 41 pages (40 plus a Home save-focus state added in the
@@ -98,7 +98,7 @@ every page and auto-marking the current one; it collapses to a top bar on
 mobile). The July 2026 declutter still stands for the annotations: the
 meta/annotation bar, the per-page state strip, and the desktop-reflow note are
 gone, so a frame is the product screen plus the review tree, nothing pasted on
-top. The overview, wireframes/index.html, is the single flow-grouped index of
+top. The overview, wireframes/overview.html, is the single flow-grouped index of
 every page and state. The product's own chrome is a four-tab bar (Home, Alerts,
 Save, You) that becomes a left rail on desktop via a container query on the
 stage; onboarding shows no tab bar.
@@ -207,7 +207,7 @@ Built July 2026, the first Design-track deliverable. Concept is where the visual
 language was found and proven: not a mood, but named taste plus attribute pairs
 that every downstream color, type, and form decision must trace back to. A
 decision with no pair in concept.md is an invention, not a decision. Next phase
-is UI + Visual (the full system across all screens, with ui-visual/docs/design.md
+is UI + Visual (the full system across all screens, with design/docs/design.md
 generated then via /impeccable document, never a root DESIGN.md).
 
 **Design-doc chain (course-aligned, July 2026).** The approved brand seeds a root
@@ -215,11 +215,11 @@ DESIGN-artifacts.md, the DRAFT design doc entered here at Concept: identity,
 palette with roles, typography, icon language, and UI tone, each tagged with an
 attribute or taste line, plus a Sources section. It is design source material, not
 the product system. The product system is still generated at Etap 07 into
-ui-visual/docs/design.md (per the 2026-07-15 founder decision), so the chain is
-DESIGN-artifacts.md (draft, root) -> ui-visual/docs/design.md (product); there is
+design/docs/design.md (per the 2026-07-15 founder decision), so the chain is
+DESIGN-artifacts.md (draft, root) -> design/docs/design.md (product); there is
 no root DESIGN.md at any point. A dense brand toolkit plate for the locked
 direction (Google Nano Banana 2) is kept as a visual record at
-concept/assets/brand-plate-petrol-paper.png; the brand was chosen from the live
+design/concept/assets/brand-plate-petrol-paper.png; the brand was chosen from the live
 HTML directions, so the plate documents that choice rather than making it (no
 three-divergent-plates round was run; rendered at 4k, stored at 2400px).
 concept.md carries the Brand and Layout choices explicitly.
@@ -235,25 +235,25 @@ Two other directions (Ink & Marigold, Plum & Fog) were built live and are kept o
 record, not chosen.
 
 **Sources and method (built under the impeccable skill, product register):**
-- concept/docs/references.md: the visual language traced to real products via
+- design/concept/docs/references.md: the visual language traced to real products via
   Refero, Monzo as the benchmark base but minus its Hot Coral, one technique each
   from Apple Wallet (transaction clarity) and Copilot (category color on light,
   not its dark canvas). Rejects: red accent, dark canvas, the mint/sage/beige
   "calm fintech" reflex, stock photos.
-- concept/docs/concept.md: the founder's named taste (liked and anti-references),
+- design/concept/docs/concept.md: the founder's named taste (liked and anti-references),
   five attribute pairs (A1 calm-not-alarming, A2 trust-shown, A3 one-big-number,
   A4 recognition-not-codes, A5 warm-restraint), each sourced to a research line,
   and the three directions with the locked choice and its token table.
-- concept/directions.html: three contrasting directions live, each Restrained,
+- design/concept/directions.html: three contrasting directions live, each Restrained,
   each on a light canvas, none using red or a reflex palette.
-- concept/concept.html: the Petrol & Paper stand, palette (each color carries its
+- design/concept/concept.html: the Petrol & Paper stand, palette (each color carries its
   attribute), Inter type scale, form, real inline-SVG brand logos, Solar icons,
   three live components, and a WCAG AA contrast table (all pass).
 
-**Applied to the two anchor screens as color COPIES in ui-visual/ (wireframes/
+**Applied to the two anchor screens as color COPIES in design/ (wireframes/
 stays grey and untouched).** Home (home.html + empty/error/loading/savefocus) and
 Subscription Detail (subscription-detail.html + empty/error/loading) were copied
-from the wireframes and recolored through one shared layer, ui-visual/_theme.css:
+from the wireframes and recolored through one shared layer, design/_theme.css:
 _wf.css swapped for the petrol theme + Inter, [logo] placeholders replaced with
 real inline-SVG brand tiles, tab glyphs with Solar icons, and a roadmap review
 sidebar injected (the wireframe wftree is left to the wireframes). Structural
@@ -266,7 +266,7 @@ stays neutral). Zero em dashes; self-contained inline CSS/JS, no underscore
 assets.
 
 **Not here (deferred to UI + Visual and later Design-track phases):** the full
-color pass across all 16 screens, ui-visual/docs/design.md, tokens and
+color pass across all 16 screens, design/docs/design.md, tokens and
 components, the design system, responsive, animation, and handoff.
 
 ---
