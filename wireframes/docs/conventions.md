@@ -91,6 +91,17 @@ rows the rest of the set shares. Every one of them was a multi-screen rule on ar
 inline stage never happened; the rule below is what would have applied if any of them had been a
 one-screen rule.
 
+**Closed at the critique, 2026-08-05: zero inline `style` attributes.** The blocks moved, but
+twenty-nine literal values stayed behind in `style=` on the pages, and four of them were the same
+rule written out on four screens. Criterion 1 above says a token value never lives inline "not
+even on one screen", so a rule that has run only once still gets a name: `.group-head.plain`,
+`.facts.sentences`, `.consequence.lead`, `.state h2`, `.intro`, `.skel-list`, and a percentage
+scale for placeholder widths. **Every one of the 39 MVP pages and the landing now carries no
+`style` attribute at all**, which is a single grep and not a judgement call. A placeholder inside
+a box that shrinks to its content (a group head, a fact, a charge) is the one case where the
+width is stated in `_wf.css` rather than in percent: there is nothing for a percentage to resolve
+against there.
+
 **The etalon consolidated early, at Step 5, and that is the rule and not an exception.** The
 moment node 2.6 had its four state pages, the shell was a five-screen rule by the test above, and
 leaving it inline would have meant five copies of it until Step 8. It sits in `_wf.css` under the
@@ -130,9 +141,9 @@ The screens are judged on real length and meaning, so the data is one story told
   Spotify Premium is the subscription the base detail page renders: the screen exists for the
   decoder line, so its default should be the case that shows one.
 - The failed payment: **Amazon Prime**, on **Jul 20**, at $14.99. Corrected here on 2026-08-05:
-  this file said Peloton, and the screen that actually renders the event (`alerts.html`) and the
-  line inventory both say Amazon Prime. `alerts.html` still dates it Jul 2, which its own
-  billing cycle contradicts; that is a carried fix for the round that rebuilds Alerts.
+  this file said Peloton, and the screen that renders the event (`alerts.html`) and the line
+  inventory both say Amazon Prime. The date was Jul 2 on the July screen, which its own billing
+  cycle contradicted; the rebuilt Alerts says Jul 20 and this is now the only date in the set.
 - The three detail cases, one page each: **Spotify Premium** at rest, **Netflix** for the price
   change (the alert case above), **Amazon Prime** for the failed payment. Statement strings:
   `SPOTIFYAB STOCKHOLM`, `NETFLIX.COM 866-579-7172`, `AMZN Digital*2H4KL9`, and the unmatched

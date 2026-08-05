@@ -93,7 +93,7 @@ namespace, because hub pages load both. Stage pages carry the roadmap; the scree
 stage carry only their stage panel.
 
 **`index.html` is the product home page, `overview.html` is the hub.** In any stage folder:
-opening the folder lands on the product screen (node 0.0 from the flows); the list of all
+opening the folder lands on the product screen (node 1.1, Welcome); the list of all
 pages of that stage is `overview.html`. This holds for `wireframes/` and `design/` alike.
 
 **The wireframes are grey and frozen.** `wireframes/` is the structure contract: greyscale,

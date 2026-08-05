@@ -1,8 +1,79 @@
-# Wireframe Critique and Final Check (Step 9)
+# Wireframe critique log
 
-Phase: Wireframes, Step 9. A strict pass over all 40 wireframe pages against
-wireframes/docs/conventions.md, ia/docs/sitemap.md, and ia/docs/flows.md. Defects
-first as a table, then the fixes applied. Structure only; no visual design.
+Newest on top. Each round is a table of what was found, who found it, and what it
+became. A finding that did not survive a second reading stays in the log, marked
+"dropped at verification", with the reason: an audit that quietly deletes its own
+misses cannot be judged.
+
+---
+
+# The rebuild critique (2026-08-05, Step 9)
+
+The stage that rebuilt the prototype against the upgraded IA (steps 3 to 8, 46 of
+49 pages) closed with a critique taken on **two instruments, separately, and
+merged afterwards**:
+
+- **Codex**, read-only, on the source: contradictions between files, orphans, a
+  state that is not in the code, a broken link, a violated rule. It read
+  `CLAUDE.md`, `docs/decisions.md`, both wireframe docs, all 47 html files,
+  `_wf.css`, `_nav.js`, the sitemap, the flows, the 16 node files and the line
+  inventory. Its brief is `AGENTS.md`.
+- **Claude**, in a browser, on the render: every built page at 360 and at 1280,
+  measured for overflow, clipped text, tap targets and elements a fixed tab bar
+  covers, then read as screens.
+
+Neither saw the other's list until both were finished. Eight findings held, four
+did not. The instruments overlapped on nothing, which is the point: the source
+pass cannot see a name breaking into two lines, and the browser pass cannot see a
+document describing a defect that no longer exists.
+
+## What held
+
+| # | Weight | Where | Found by | Was | Became |
+|---|--------|-------|----------|-----|--------|
+| 1 | High | `home.html` and every screen with GC4 | Claude | The status badge took its width from the name beside it. At 360 "Amazon Prime" broke into two lines and "in 19 days &middot; Aug 20" broke after "Aug"; at 1280 in the two-column dashboard the name column fell to 99px. On the etalon screen, at the etalon width | The name and its date have a floor of 160px in `_wf.css`, and below it the badge drops to its own line, right-aligned, instead of squeezing them |
+| 2 | Medium | `add-subscription-loading.html` | Claude | The preset tiles ran 15px past the edge of a 360 screen and the page gained a horizontal scrollbar, because each placeholder line carried a fixed pixel width (up to 110px) inside a two-column grid | Placeholder widths are a percentage scale in `_wf.css` (`w40` to `w90`), so they narrow with the column, and the text half of a tile can shrink |
+| 3 | Medium | `guided-reveal.html` | Claude | Two counters said "of 3" on one screen and meant different things: the header said step 3 of the onboarding chain, the first line under it said step 1 of the reveal | The chain counter is gone from that one screen. The chain ends when the reveal starts, so the counter that stays is the reveal's own. `guided-reveal-empty` keeps its header counter: it has no reveal to count |
+| 4 | Medium | `cancel-guide.html`, `cancel-guide-no-guide.html` | Claude | Three sentences ("Aug 3, the end of the month you paid for") were set as data values, right-aligned against their labels, so each wrapped into a ragged column at 360. The block that answers "what happens if I cancel" is the anxiety block of the screen | `.facts.sentences`: when the answers are sentences the pair stacks and reads left to right |
+| 5 | Medium | `overview.html:371` | Codex | The visible hub named **Peloton** as the failed payment, against `conventions.md` and against the state page that renders it (`<h1>Amazon Prime</h1>`) | Amazon Prime, Jul 20, $14.99, in the canonical set on the hub |
+| 6 | Medium | 19 rebuilt pages | Codex | Twenty-nine literal CSS values still sat in `style=` attributes, four of them the same rule written out on four screens, against both criteria of conventions section 3 | Named classes in `_wf.css`. **Zero `style` attributes** on the 39 MVP pages and on the landing, which is one grep rather than a judgement |
+| 7 | Low | `conventions.md`, `voice/docs/microcopy.md` | Codex | Both still described "alerts dates the failure Jul 2" as an open carried fix, though the fan-out had already dated it Jul 20 on the screen. A live document describing a defect that no longer exists | Both entries closed, with the date that is on the screen |
+| 8 | Low | `CLAUDE.md:96` | Codex | The rule sent the product home page to "node 0.0 from the flows", and no node 0.0 exists in the sitemap, the flows or `screens.md`. Welcome is node 1.1 | The rule names node 1.1 |
+
+## Dropped at verification
+
+| Where | Claimed | Why it does not hold |
+|-------|---------|----------------------|
+| `alerts.html` | The last alert sits behind the fixed tab bar with the page fully scrolled | The rect came from inside a closed `<details>`. Chrome reports a laid-out box for content under `content-visibility: hidden`, and on screen the Older section is collapsed and nothing is covered. Measured, then looked at |
+| `settings.html`, `data-privacy.html` | The notification switches are 20px tap targets | The `<input>` is 20px, but the whole `<label class="switch">` is the hit area and clears 55px |
+| Every screen with a tab bar | The tab icon clips its content | The new-alerts dot is deliberately positioned outside the icon box, and nothing on the row has `overflow: hidden`. The check was wrong, not the screen |
+| `index.html` | The landing's section links are 26px tap targets at 360 | Those are the footer links, and the top nav hides its section links below 760. The one real case, "Sign in" at 20px, was fixed: the landing is opened on the same phone as the app, so its nav clears the same 44px |
+
+## What both instruments found clean
+
+State coverage against `screens.md` (46 built, 3 spec, no invented state, no
+orphan file), the registry against the file system, labels and slugs against the
+matrix, every local link, greyscale (no hex, no shadow, no font-family, no
+`<img>`, no `<style>` block), no em dash, one `h1` per page, the correct current
+tab on every app screen, the canonical numbers across neighbouring screens, and
+the tier rules (no cap on Free, no paywall in front of basic visibility or at the
+cancel moment). One screen has no visible exit, `connect-bank-loading.html`, and
+that is the written exception: a wait the system finishes by itself.
+
+## Verified after the fixes
+
+47 pages, every local link resolving, no horizontal scroll and no clipped text at
+360 or at 1280 on any built page, no `style` attribute anywhere in the rebuilt
+set, and the four changed screens walked again in a browser at both widths.
+
+---
+
+# The first build critique (July 2026, 41 pages)
+
+Phase: Wireframes, Step 9 of the July build. A strict pass over all 40 wireframe
+pages against wireframes/docs/conventions.md, ia/docs/sitemap.md, and
+ia/docs/flows.md. Defects first as a table, then the fixes applied. Structure
+only; no visual design.
 
 ## What was checked
 

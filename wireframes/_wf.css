@@ -426,7 +426,9 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .lp-nav .lp-links a { color: var(--mid); text-decoration: none; font-size: 14px; }
 .lp-nav .lp-links a:hover { color: var(--ink); }
 .lp-nav .lp-actions { display: flex; align-items: center; gap: 14px; }
-.lp-nav .signin { color: var(--mid); text-decoration: none; font-size: 14px; }
+/* The landing is a marketing page, but it is opened on the same phone: its top
+   nav clears the same 44px as every control in the app. */
+.lp-nav .signin { display: inline-flex; align-items: center; min-height: 44px; color: var(--mid); text-decoration: none; font-size: 14px; }
 .lp-nav .signin:hover { color: var(--ink); }
 
 /* Section rhythm */
@@ -477,6 +479,7 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .lp-final .lp-wrap { text-align: center; }
 .lp-final .lp-lead { margin-left: auto; margin-right: auto; }
 .lp-final .lp-cta-row { justify-content: center; }
+.lp-trust .lp-cta-row { margin-top: 24px; }
 
 /* Footer (marketing site only; the app itself has no footer) */
 .lp-footer { background: var(--panel2); border-top: 1px solid var(--line); }
@@ -569,11 +572,14 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 }
 .app .group-head h2 { margin: 0; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); }
 .app .group-head .subtotal { font-size: 12px; color: var(--soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Above a list the head is a band with a rule under it. Above a block that is
+   not a list (the preset tiles, the cancel steps) it is only a title. */
+.app .group-head.plain { border: 0; padding: 0; margin: 0 0 12px; }
 .app .group ul { list-style: none; margin: 0; padding: 0; }
 
 /* GC4: the whole row is the target, and the days lead the date. */
 .app .row {
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center; gap: 4px 12px; flex-wrap: wrap;
   min-height: 56px; margin: 0; padding: 10px 4px;
   /* The reset is deliberate: _wf.css still carries the framed-card row from the
      July build, and a row here is a line in a list, not a card in a stack. */
@@ -587,14 +593,18 @@ ul.list { list-style: none; margin: 0; padding: 0; }
   display: flex; align-items: center; justify-content: center;
   font-size: 8px; color: var(--faint);
 }
-.app .row .body { flex: 1; min-width: 0; }
+/* The name and its date get a floor, and the status badge yields: a name that
+   breaks into two lines ("Amazon / Prime") and a date that breaks mid-phrase
+   ("Aug / 20") is the list failing at the one thing it is for. Below the floor
+   the badge drops to its own line instead of squeezing them. */
+.app .row .body { flex: 1 1 160px; min-width: 0; }
 .app .row .name { display: block; font-size: 15px; font-weight: 600; }
 .app .row .when { display: block; font-size: 12.5px; color: var(--soft); }
 .app .row .amt { flex: none; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 /* Status is a word, and it appears only when it is not the plain default: a
    column of fourteen "Active" tags is noise on a screen whose job is calm. */
 .app .row .tag {
-  flex: none; font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase;
+  flex: none; margin-left: auto; font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase;
   border: 1px solid var(--line); padding: 2px 6px; color: var(--soft);
 }
 
@@ -729,9 +739,29 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .app .skel.line.short { width: 40%; }
 .app .skel.total { height: 44px; width: 190px; margin: 6px 0 0; }
 .app .skel.amt-skel { flex: none; width: 56px; height: 13px; }
+/* A placeholder line has no content, so its width is the only thing it says.
+   The widths are a scale rather than a literal per line: in percent they narrow
+   with the column they sit in, which a pixel width cannot do (the preset tiles
+   ran 15px past the edge of a 360 screen while the catalogue was loading). */
+.app .skel.w40 { width: 40%; }
+.app .skel.w50 { width: 50%; }
+.app .skel.w60 { width: 60%; }
+.app .skel.w70 { width: 70%; }
+.app .skel.w80 { width: 80%; }
+.app .skel.w90 { width: 90%; }
+/* The wait on Connect Bank: the shape of the list that is coming. */
+.app .skel-list { margin-top: 26px; }
 .app .row.is-skel { cursor: default; }
 .app .row .logo.is-skel { border-style: solid; border-color: var(--line2); background: var(--skel); }
-.app .group-head .skel { margin: 0; }
+/* Where the box around a placeholder shrinks to its content, a percentage has
+   nothing to resolve against, so those three places state their width here:
+   the head of a group, a fact and its answer, a charge and its amount. */
+.app .group-head .skel { width: 104px; margin: 0; }
+.app .group-head .skel + .skel { width: 90px; }
+.app .facts .skel { width: 84px; }
+.app .facts dd .skel { width: 110px; }
+.app .charges .skel { width: 56px; }
+.app .decoder .skel + .skel { margin-top: 8px; }
 
 /* 2.6.4 save focus. The row keeps its whole-row target and the cut is a second,
    separately named control: confusing the two is what costs the cancellation. */
@@ -805,6 +835,8 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .app .door .pick::after { content: "\2192"; color: var(--faint); margin-left: 6px; }
 
 /* What we can see and what we can never do. Three facts, not a badge. */
+/* The sentence that sets up a block, on a screen whose h1 is already spent. */
+.app .intro { margin: 0 0 14px; font-size: 14px; color: var(--mid); }
 .app .promises { list-style: none; margin: 0 0 22px; padding: 0; }
 .app .promises li { border-left: 3px solid var(--line); padding: 2px 0 2px 14px; margin: 0 0 12px; font-size: 13.5px; color: var(--mid); }
 .app .promises li strong { display: block; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
@@ -816,6 +848,11 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .app .facts div:last-child { border-bottom: 0; }
 .app .facts dt { color: var(--soft); }
 .app .facts dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+/* An answer can be a figure or a sentence. A sentence set against its label on
+   the right wraps into a ragged column and stops being readable at 360, so when
+   the answers are sentences the pair stacks and reads left to right. */
+.app .facts.sentences div { display: block; }
+.app .facts.sentences dd { text-align: left; margin: 3px 0 0; }
 
 /* Actions. One primary that is unmistakably the way on, and beside it the way
    that is not a dead end. Both are links, because the prototype navigates. */
@@ -841,6 +878,9 @@ ul.list { list-style: none; margin: 0; padding: 0; }
    message in the middle of a flow reads as a stop rather than as a step. */
 .app .state { margin: 0 0 22px; }
 .app .state h1 { margin: 0 0 8px; font-size: 21px; line-height: 1.2; }
+/* The same block on a screen whose h1 is elsewhere: a state inside a page, not
+   the page's own subject. */
+.app .state h2 { margin: 0 0 8px; font-size: 17px; line-height: 1.25; }
 .app .state p { margin: 0 0 18px; font-size: 14px; color: var(--mid); max-width: 50ch; }
 
 /* ---- Node 1.5, the reveal. Three steps on one page, never three routes: back
@@ -855,6 +895,7 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .app .rstep .context { margin: 6px 0 0; font-size: 13px; color: var(--soft); }
 .app .rstep .next { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; font-size: 13.5px; color: var(--mid); }
 .app .rstep .next::after { content: "\2193"; color: var(--faint); margin-left: 6px; }
+.app .rstep .actions { margin-top: 18px; }
 /* Step two names the merchants and shows no amounts: the number comes third. */
 .app .rgroup { margin: 14px 0 0; }
 .app .rgroup h3 { margin: 0 0 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); }
@@ -881,6 +922,9 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .app.detail .hero h1 { margin: 0 0 2px; font-size: 21px; line-height: 1.2; }
 .app.detail .hero .amt { display: block; font-size: 32px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.08; font-variant-numeric: tabular-nums; }
 .app.detail .hero .cycle { font-size: 13px; color: var(--soft); }
+/* The line that says a wait is a wait, under a hero that is already filled from
+   the list: the identity arrives first, the facts follow. */
+.app.detail .context { margin: 0 0 20px; font-size: 13px; color: var(--soft); }
 
 /* Status is a word in a quiet frame. At Concept a price change becomes amber
    and a failed payment desaturated clay (D-Concept), and the two never become
@@ -897,6 +941,9 @@ ul.list { list-style: none; margin: 0; padding: 0; }
    below what is free, never in front of it (GC7, D3). */
 .app .panel { border: 1px solid var(--line2); margin: 0 0 22px; }
 .app .panel h2 { margin: 0; padding: 12px 14px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); border-bottom: 1px solid var(--line2); }
+/* The same panel as a disclosure: the older alerts, closed until asked for. */
+.app .panel > summary { padding: 14px; font-size: 13px; color: var(--mid); cursor: pointer; }
+.app .panel .alerts { padding: 0 14px 6px; }
 .app .charges { list-style: none; margin: 0; padding: 0; }
 .app .charges li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line2); font-size: 13.5px; }
 .app .charges li .amt { font-variant-numeric: tabular-nums; }
@@ -904,6 +951,7 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .app .charges li.marked { background: var(--panel2); }
 .app .gate { padding: 14px; font-size: 13px; color: var(--mid); }
 .app .gate p { margin: 0 0 10px; }
+.app .gate .actions { margin: 0; }
 
 /* Removing a detected charge hides it and says so; only something you added by
    hand is really deleted. Quiet, and honest about which one this is. */
@@ -994,6 +1042,11 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 }
 .app .tile:hover { border-color: var(--soft); }
 .app .tile .logo { flex: none; width: 30px; height: 30px; border: 1px dashed var(--line); }
+/* The text half of a tile takes the rest of the tile and shrinks with it:
+   without the floor a long service name pushes the grid past the edge of the
+   screen, and without the growth a placeholder line has no width to be a
+   percentage of. */
+.app .tile > span:last-child { flex: 1 1 auto; min-width: 0; }
 .app .tile .p { display: block; font-size: 11.5px; color: var(--soft); }
 .app .tile[aria-pressed="true"] { border-color: var(--ink); }
 /* Choosing a preset fills the form below; it does not navigate, so it is a button. */
@@ -1012,6 +1065,7 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .app .alert .logo { flex: none; width: 32px; height: 32px; border: 1px dashed var(--line); display: flex; align-items: center; justify-content: center; font-size: 8px; color: var(--faint); }
 .app .alert .body { flex: 1; min-width: 0; }
 .app .alert .what { display: block; font-size: 14.5px; font-weight: 600; }
+.app .alert .what .badge { margin: 0 0 0 4px; }
 .app .alert .meta { display: block; font-size: 12.5px; color: var(--soft); margin: 3px 0 0; }
 .app .alert .go { display: inline-flex; align-items: center; min-height: 40px; font-size: 13px; color: var(--ink); }
 .app .alert .go::after { content: "\2192"; margin-left: 6px; color: var(--faint); }
@@ -1059,9 +1113,14 @@ ul.list { list-style: none; margin: 0; padding: 0; }
 .app .source h2 { margin: 0; font-size: 15px; }
 .app .source .kind { display: block; font-size: 12.5px; color: var(--soft); }
 .app .source .badge { margin: 0 0 0 auto; }
+.app .source .actions { margin-top: 12px; }
 /* Disconnect says what happens in the same sentence. Every product offers the
    control and none of them says what becomes of the data already collected. */
 .app .consequence { margin: 12px 0 0; font-size: 12.5px; color: var(--soft); }
+/* The same sentence has two places: after the control it explains (the default)
+   and in front of the block it introduces. */
+.app .consequence.lead { margin: 0 0 12px; }
+.app .consequence.spaced { margin-top: 18px; }
 
 .app .navrows { list-style: none; margin: 0 0 22px; padding: 0; }
 .app .navrow {

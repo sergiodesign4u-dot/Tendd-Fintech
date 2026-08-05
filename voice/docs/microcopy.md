@@ -241,9 +241,9 @@ its default should be the case that shows one; Netflix moved to the price-change
 state, which is where the canonical alert case belongs. And the failed payment is
 **Amazon Prime**, not Peloton: `alerts.html` and this inventory both said Amazon
 Prime, and only `wireframes/docs/conventions.md` said Peloton. It has been
-corrected there. `alerts.html` still dates the failure Jul 2, which its own
-billing cycle contradicts; that is a carried fix for the round that rebuilds
-Alerts.
+corrected there. The failure was dated Jul 2 on the July screen, which its own
+billing cycle contradicts; the rebuilt Alerts dates it Jul 20, and that is now
+the only date in the set.
 
 **One finding for the map, not for Voice.** Node 2.7 block 8 asks for "edit the
 details" and the map has no node to send it to: node 1.4 owns the only form in
@@ -301,6 +301,18 @@ source with one number for Chase instead of two.
 for and the screen did not have, a fixture that disagreed with itself, or a
 label the dictionary had already settled and the inventory had not caught up
 with.
+
+### The critique (2026-08-05, Step 9)
+
+One line left the product, and it is the only copy change the critique produced.
+
+| Screen | Zone | Change | Why |
+|--------|------|--------|-----|
+| guided-reveal | header | "Step 3 of 3" retired from the header | The screen carries its own three steps, so two counters read "of 3" at once and meant different things: the header said step 3 of the chain while the first line under it said step 1 of the reveal. The chain ends when the reveal starts, so the counter that stays is the reveal's own. `guided-reveal-empty` keeps the header counter: it has no reveal to count, and there the chain genuinely ended |
+
+Everything else the critique found was structure or a document that had fallen
+behind the screens, and none of it touched a line. The log is
+`wireframes/docs/critique.md`.
 ---
 
 ## Canonical subscription dataset (product fixtures, not authored copy)
@@ -501,7 +513,6 @@ list". Total: `$192.90 / month`.
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
-| guided-reveal | header | Step 3 of 3 | status |
 | guided-reveal | reveal-step | Step 1 of 3 | status |
 | guided-reveal | reveal-step | You're paying for 14 subscriptions | heading |
 | guided-reveal | reveal-step | Found in your Chase account. No total yet, and no verdict. | body |
