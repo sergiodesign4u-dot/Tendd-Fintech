@@ -275,6 +275,7 @@
     <div class="section-label">Step 4</div>
     <h2>Flows</h2>
     <p class="lead">How the personas actually move, with decision points, states, and honest dead ends, not just the happy path. Rectangles are screens matching the sitemap; diamonds are decisions; stadium nodes are states and outcomes.</p>
+    <p class="lead" style="margin-top:12px"><b>Closed in the prototype, 2026-08-05.</b> All four dead ends are now a named control on a named page, and the list with the page and the control for each is on <a href="../wireframes/overview.html#flows">wireframes/overview.html</a> under Flows. In short: Flow A by the third exit on <a href="../wireframes/connect-bank-error.html">connect-bank-error</a> and by node 1.3.4, which had no page before; Flow B by the saved-as-you-go list and the retreat on <a href="../wireframes/guided-reveal-empty.html">guided-reveal-empty</a>; Flow C by the alternative steps and the two non-terminal choices on <a href="../wireframes/cancel-guide-blocked.html">cancel-guide-blocked</a>; Flow D by node 2.7.3, which had no page before. The diagrams still draw them, because the drawing is the record of where the product can fail, not a list of open bugs.</p>
     <div class="legend">
       <span><i class="swatch screen"></i> Screen</span>
       <span><i class="swatch state"></i> Loading / empty / error state</span>
@@ -314,7 +315,7 @@ flowchart TD
   class Success success
   class StuckExit dead
       </pre>
-      <p class="flow-notes"><strong>Dead end:</strong> leaves without any list if both retry and the manual fallback are declined. The Guided Reveal is one node; internally it is gradual per D1 (count, categories with logos, then total paired with an action).</p>
+      <p class="flow-notes"><strong>Dead end, closed:</strong> leaves without any list if both retry and the manual fallback are declined. <a href="../wireframes/connect-bank-error.html">connect-bank-error</a> carries a third exit onto Home with both doors open, and node 1.3.4 <a href="../wireframes/connect-bank-cancelled.html">connect-bank-cancelled</a> does the same for backing out inside Link. The Guided Reveal is one node; internally it is gradual per D1 (count, categories with logos, then total paired with an action).</p>
     </div>
 
     <div class="flow-card" id="flow-b">
@@ -350,7 +351,7 @@ flowchart TD
   class Success2 success
   class AbandonRisk dead
       </pre>
-      <p class="flow-notes"><strong>Dead end:</strong> abandons half-done. Ravi has twice abandoned manual entry in the research; if nothing pulls him back he leaves with a partial list.</p>
+      <p class="flow-notes"><strong>Dead end, closed:</strong> abandons half-done. The list is saved as you go and says so, and <a href="../wireframes/guided-reveal-empty.html">guided-reveal-empty</a> offers both a way on and a way out. Ravi has twice abandoned manual entry in the research; if nothing pulls him back he leaves with a partial list.</p>
     </div>
 
     <div class="flow-card" id="flow-c">
@@ -388,7 +389,7 @@ flowchart TD
   class Success3 success
   class StuckCancel dead
       </pre>
-      <p class="flow-notes"><strong>Dead end:</strong> gives up with no in-app next step if a blocked cancellation is not caught. Declining the upgrade always returns the free basic instruction, so the relief moment is never paywalled.</p>
+      <p class="flow-notes"><strong>Dead end, closed:</strong> gives up with no in-app next step if a blocked cancellation is not caught. <a href="../wireframes/cancel-guide-blocked.html">cancel-guide-blocked</a> names the dark pattern as not the person fault, gives four alternative steps, and offers two non-terminal choices. Declining the upgrade always returns the free basic instruction, so the relief moment is never paywalled.</p>
     </div>
 
     <div class="flow-card" id="flow-d">
@@ -424,7 +425,7 @@ flowchart TD
   class SuccessA success
   class NoNext dead
       </pre>
-      <p class="flow-notes"><strong>Dead end:</strong> no in-app next step for a failed payment when the fix lives at the bank or merchant and the app stops at "informed".</p>
+      <p class="flow-notes"><strong>Dead end, closed:</strong> no in-app next step for a failed payment when the fix lives at the bank or merchant. Node 2.7.3 <a href="../wireframes/subscription-detail-payment-failed.html">subscription-detail-payment-failed</a>, which had no page before the rebuild, states what usually happens next, says the money itself is fine, and carries the cancel guide and the way to the full alert list.</p>
     </div>
     <div class="callout" style="margin-top:22px">
       <p><strong>Activation node: Guided Reveal.</strong> research/docs/aarrr.md defines activation as the first time a person sees a populated subscription list with a monthly total. In Flow A that happens inside the Guided Reveal, at its third step (the total paired with an action, per D1): three taps from the start, inside the ceiling the research set. Home is where that value is kept, not where it first arrives.</p>

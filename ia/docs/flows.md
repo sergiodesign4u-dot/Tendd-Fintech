@@ -16,6 +16,16 @@ The dead ends are drawn on purpose. They are the honest failure points a
 person could hit, and the Critique section of ia/docs/sitemap.md lists them
 as defects with fixes. They are not accepted as normal.
 
+**Closed in the prototype, 2026-08-05.** All four are now a named control on a
+named page, and the list with the page and the control for each is on
+`wireframes/overview.html` under Flows. In short: Flow A by the third exit on
+`connect-bank-error` and by node 1.3.4, which had no page before; Flow B by the
+saved-as-you-go list and the retreat on `guided-reveal-empty`; Flow C by the
+alternative steps and the two non-terminal choices on `cancel-guide-blocked`;
+Flow D by node 2.7.3, which had no page before. The diagrams below still draw
+them, because the drawing is the record of where the product can fail, not a
+list of open bugs.
+
 ---
 
 ## Flow A: J-MAIN, see all recurring charges calmly (Emma, bank path)

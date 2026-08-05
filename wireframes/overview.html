@@ -189,6 +189,29 @@
   <p class="section-lead">Four flows from <a href="../ia/docs/flows.md">flows.md</a>, each one a person doing one job. Flow A is the first flow and is built end to end; it ends at Home, which is the etalon. A screen appears once with its job and is marked as shared where a later flow reuses it. States live in the matrix below, not here: this section is the route.</p>
   <div id="flows-out"></div>
 
+  <h3 style="margin:26px 0 6px;font-size:15px">The four dead ends, and what closes each</h3>
+  <p class="section-lead"><a href="../ia/docs/flows.md">flows.md</a> draws four places where a person could get stuck, on purpose, because they are the honest failure points of this product and not an accident of the diagram. Each one is a defect with a fix, and this is where the fix has to become a real control on a real page. Linked on 2026-08-05, when the main flow was wired end to end.</p>
+  <div class="tablewrap">
+    <table>
+      <caption>Source: the "Dead end (defect)" note under each flow in <a href="../ia/docs/flows.md">flows.md</a>.</caption>
+      <thead><tr><th>Flow</th><th>The dead end</th><th>Where a person hits it</th><th>What closes it, and on which page</th></tr></thead>
+      <tbody>
+        <tr><td class="num">A</td><td>Leaves without any list</td><td class="why">The bank connection fails and the person declines both the retry and the manual path</td>
+          <td class="why"><a href="connect-bank-error.html">connect-bank-error</a> carries three exits, not two: <b>Try again</b>, <b>Add them yourself instead</b>, and the quiet <b>Do this later</b>, which lands on <a href="home-empty.html">Home with both doors still open</a> rather than on nothing. <a href="connect-bank-cancelled.html">connect-bank-cancelled</a> (node 1.3.4, drawn at the rebuild) does the same for the person who backs out inside Link</td></tr>
+        <tr><td class="num">B</td><td>Abandons half-done, the manual entry trap</td><td class="why">Adds two or three subscriptions by hand and stops</td>
+          <td class="why"><a href="add-subscription.html">add-subscription</a> says the list is saved as you go and how many are in it, so stopping is not losing. <a href="guided-reveal-empty.html">guided-reveal-empty</a> offers <b>Add a subscription</b> and the same <b>Do this later</b>. The retreat is the As-Is default and the product survives it</td></tr>
+        <tr><td class="num">C</td><td>Gives up, no in-app next step</td><td class="why">The merchant's retention flow blocks the cancellation</td>
+          <td class="why"><a href="cancel-guide-blocked.html">cancel-guide-blocked</a> is not an error page. It names the dark pattern as not the person's fault, gives four alternative steps, and offers <b>I cancelled it</b> and <b>Remind me later</b>. The Pro guide is secondary there, never the push at the frustration moment (D3)</td></tr>
+        <tr><td class="num">D</td><td>No in-app next step for a failed payment</td><td class="why">Told that a payment failed, with the fix living at the bank or the merchant</td>
+          <td class="why"><a href="subscription-detail-payment-failed.html">subscription-detail-payment-failed</a> (node 2.7.3, drawn at the rebuild) states what usually happens next, says the money itself is fine, and carries the cancel guide, the correction and the way to the full alert list</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:14px">
+    <p><b>A wait is not a dead end, and it does not get a button.</b> An edge a person takes is a real control on the screen. An edge the system takes, a sync finishing or a load resolving, is not: a button on a wait screen would give the screen an action the product does not have. Those edges are walked in the side panel, which is why every state of every screen is a row in it. <a href="connect-bank-loading.html">connect-bank-loading</a> is the one page in the set with no link at all, and that is correct: the onboarding chain has no tab bar, and a sync has nothing for a person to do. The check that makes this falsifiable rather than a story: <b>all sixteen base screens are reachable from the front door by clicking, and the only pages that are not are state pages</b>, every one of them produced by a condition rather than by a tap. Twenty of the forty-four pages are in that group today.</p>
+  </div>
+
   <!-- ============ 2. COVERAGE MAP ============ -->
   <h2 class="section" id="coverage">Coverage map</h2>
   <p class="section-lead">The four system states across all 16 screens. This is the <b>floor</b>, not the set: it proves no screen quietly lost an error or an empty. Every dash carries its reason, because "this screen has no error state" and "we forgot the error state" look identical without one.</p>
@@ -410,9 +433,9 @@
       <caption>Eight pages to add. Each one is a node of the map that has no page.</caption>
       <thead><tr><th>Node</th><th>File</th><th>Round</th><th>Why it exists</th></tr></thead>
       <tbody>
-        <tr><td class="num">1.3.4</td><td><code>connect-bank-cancelled.html</code></td><td>1</td><td class="why">Plaid Link returns four outcomes, not three. A person who opens the bank screen and backs out had nowhere to land</td></tr>
-        <tr><td class="num">2.7.2</td><td><code>subscription-detail-price-change.html</code></td><td>1</td><td class="why">The state that carries J4 on the detail screen</td></tr>
-        <tr><td class="num">2.7.3</td><td><code>subscription-detail-payment-failed.html</code></td><td>1</td><td class="why">Named in the IA critique as a dead end: informed, with no next step</td></tr>
+        <tr><td class="num">1.3.4</td><td><code>connect-bank-cancelled.html</code></td><td>1 <b>built</b></td><td class="why">Plaid Link returns four outcomes, not three. A person who opens the bank screen and backs out had nowhere to land</td></tr>
+        <tr><td class="num">2.7.2</td><td><code>subscription-detail-price-change.html</code></td><td>1 <b>built</b></td><td class="why">The state that carries J4 on the detail screen</td></tr>
+        <tr><td class="num">2.7.3</td><td><code>subscription-detail-payment-failed.html</code></td><td>1 <b>built</b></td><td class="why">Named in the IA critique as a dead end: informed, with no next step</td></tr>
         <tr><td class="num">6.14.3</td><td><code>connections-add-source.html</code></td><td>1</td><td class="why">The chooser dialog, which is the FLAG 2 resolution</td></tr>
         <tr><td class="num">6.15.1</td><td><code>data-privacy-delete-confirm.html</code></td><td>1</td><td class="why">The two-door dialog. It exists inside the page today and has no page of its own</td></tr>
         <tr><td class="num">5.12.3</td><td><code>history-trends-error.html</code></td><td>2</td><td class="why">LATER, with its screen</td></tr>
@@ -442,7 +465,7 @@
       <li><a href="settings.html">settings</a> shows a Name field, which the block bank decided against (email and currency, and nothing else), and has no currency row.</li>
       <li><a href="cancel-guide.html">cancel-guide</a> is missing three blocks the bank found: what happens when you cancel with the real date, the "about five minutes, and where these steps came from" strip, and when the steps were last checked.</li>
       <li><a href="connections.html">connections</a> needs the last successful check on every source and the disconnect consequence in the same sentence. It also shows Chase with 11 subscriptions while <a href="connections-reconnect.html">connections-reconnect</a> shows 8: same source, same story, two numbers.</li>
-      <li>Every screen carries zone labels and "main action" captions and sits inside a 420 by 720 mockup frame. Both are the schema form of the previous stage, and both come off.</li>
+      <li>Zone labels, "main action" captions and the 420 by 720 mockup frame are the schema form of the previous stage, and both come off. Gone from the twenty pages rebuilt so far (nodes 1.1, 1.2, 1.3, 1.5, 2.6 and 2.7 with all their states); still on the rest until each is rebuilt.</li>
     </ul>
   </div>
 

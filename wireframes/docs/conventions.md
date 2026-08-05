@@ -177,6 +177,20 @@ the read-only line wherever a trust moment appears. All of it is already written
   a retention wall, a dialog) are first class and get their own page.
 - **No dead ends.** Every state has a visible exit that exists in `ia/docs/flows.md` and points
   at a page that is really in `wireframes/`.
+- **An edge a person takes is a control; an edge the system takes is not.** Added 2026-08-05,
+  when the flow was wired end to end. A person tapping "Try again" is a real `a href`. A sync
+  finishing or a load resolving is not: putting a button on a wait screen would give the screen
+  an action the product does not have, which is the same defect as a caption naming an action
+  that is not there (section 1). System edges are walked in the side panel, which is why every
+  state of every screen is a row in it. `connect-bank-loading` is the one page in the set with
+  no link at all, and that is correct: the onboarding chain has no tab bar and a sync has
+  nothing for a person to do.
+  The check that makes this falsifiable: **all sixteen base screens are reachable from the
+  front door by clicking, and the only pages that are not are state pages**, each produced by
+  a condition rather than by a tap.
+- **The four dead ends of `flows.md` are drawn on purpose and each one is closed by a named
+  control on a named page.** The list is on `overview.html` under Flows. A wireframe stage that
+  leaves one of them open has not finished, whatever else it drew.
 - A state that is not in the table is not drawn. If a screen turns out to need one, say so and
   fix the table, and if the gap is deeper, fix the node file first.
 
