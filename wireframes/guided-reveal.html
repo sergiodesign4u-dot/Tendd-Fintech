@@ -3,62 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Guided Reveal (success) - Tendd Wireframe</title>
+<title>Guided Reveal - Tendd wireframe</title>
 <link rel="stylesheet" href="_wf.css">
 </head>
 <body>
 <div class="layout">
-<div id="wftree"></div>
-<div class="stage">
+<div id="wf-sidebar"></div>
+<div class="stage stage-app">
 
-<main class="phone onboarding" aria-label="Guided reveal screen, mobile layout">
+<div class="app flow">
 
+  <!-- No back: the sync behind this cannot be re-entered, and no tab bar until
+       the reveal ends. The absence is the pacing. -->
   <header class="appbar">
     <span class="wordmark">Tendd</span>
-    <span class="stepdot">Step 3 of 3</span>
+    <span class="step">Step 3 of 3</span>
   </header>
 
-  <div class="screen">
+  <main class="screen">
 
-    <section class="zone" aria-label="Your reveal">
-      <span class="zlabel">Guided Reveal - one screen, three steps advanced by the person (D1). Do not reorder.</span>
+    <!-- Three steps on one page, never three routes: back must not mean starting
+         over. The order is fixed by D1 and does not change: the count, then the
+         categories, then the total. Every step carries its own action, which is
+         what "gradual reveal with a paired action" means when it is drawn.
 
-      <!-- Step 1: count first, no total -->
-      <div class="revstep dim">
-        <span class="stepnum">Step 1 of 3 - count first</span>
-        <p class="big">You're paying for 14 subscriptions.</p>
+         Node 1.5 block 1, the honest wait, is not drawn twice: it is the page
+         before this one, connect-bank-loading (node 1.3.2). -->
+
+    <section class="rstep" id="step-1" aria-label="Step one, the count">
+      <span class="num">Step 1 of 3</span>
+      <h1>You're paying for 14 subscriptions</h1>
+      <p class="context">Found in your Chase account. No total yet, and no verdict.</p>
+      <a class="next" href="#step-2">See what they are</a>
+    </section>
+
+    <!-- The real merchant names, in the first list a person sees. Half the
+         charges on a bank statement are unreadable codes, and this is where that
+         is fixed. No amounts here: the number comes third, never first. -->
+    <section class="rstep" id="step-2" aria-label="Step two, the categories">
+      <span class="num">Step 2 of 3</span>
+      <h2>Here they are, grouped</h2>
+      <p class="context">Five categories, and the real names behind the charges.</p>
+
+      <div class="rgroup">
+        <h3>Streaming (4)</h3>
+        <ul>
+          <li><span class="logo" aria-hidden="true"></span>Netflix</li>
+          <li><span class="logo" aria-hidden="true"></span>Disney+</li>
+          <li><span class="logo" aria-hidden="true"></span>Amazon Prime</li>
+          <li><span class="logo" aria-hidden="true"></span>Hulu</li>
+        </ul>
       </div>
-
-      <!-- Step 2: categories with logos -->
-      <div class="revstep dim">
-        <span class="stepnum">Step 2 of 3 - the 14, grouped</span>
-        <ul class="list" aria-hidden="true">
-          <li><div class="row"><span class="logo">[logo]</span><span class="body"><span class="name">Streaming</span><span class="meta">4 subscriptions</span></span></div></li>
-          <li><div class="row"><span class="logo">[logo]</span><span class="body"><span class="name">Software</span><span class="meta">4 subscriptions</span></span></div></li>
-          <li><div class="row"><span class="logo">[logo]</span><span class="body"><span class="name">Music, Fitness, News</span><span class="meta">6 subscriptions</span></span></div></li>
+      <div class="rgroup">
+        <h3>Software (4)</h3>
+        <ul>
+          <li><span class="logo" aria-hidden="true"></span>Adobe Creative Cloud</li>
+          <li><span class="logo" aria-hidden="true"></span>ChatGPT Plus</li>
+          <li><span class="logo" aria-hidden="true"></span>iCloud+</li>
+          <li><span class="logo" aria-hidden="true"></span>Notion</li>
+        </ul>
+      </div>
+      <div class="rgroup">
+        <h3>Music (2)</h3>
+        <ul>
+          <li><span class="logo" aria-hidden="true"></span>Spotify Premium</li>
+          <li><span class="logo" aria-hidden="true"></span>Apple Music</li>
+        </ul>
+      </div>
+      <div class="rgroup">
+        <h3>Fitness (2)</h3>
+        <ul>
+          <li><span class="logo" aria-hidden="true"></span>Peloton App</li>
+          <li><span class="logo" aria-hidden="true"></span>Strava</li>
+        </ul>
+      </div>
+      <div class="rgroup">
+        <h3>News (2)</h3>
+        <ul>
+          <li><span class="logo" aria-hidden="true"></span>The New York Times</li>
+          <li><span class="logo" aria-hidden="true"></span>The Economist</li>
         </ul>
       </div>
 
-      <!-- Step 3: total paired with an action, never alone -->
-      <div class="revstep" role="status" aria-live="polite">
-        <span class="stepnum">Step 3 of 3 - total, paired with an action</span>
-        <p class="big">That is $192.90 a month.</p>
-        <p class="hero-sub">Here are 2 you might not be using: Peloton App and The New York Times.</p>
-        <div class="act-row" style="margin-top:10px">
-          <a class="btn primary" href="home-savefocus.html">Review these 2</a>
-          <a class="btn" href="home.html">See your subscriptions</a>
-        </div>
-      </div>
-
-      <p class="zaction">Main action: <b>review the 2 candidates</b> or <b>see the full list</b> (into Home). The total is always paired with a next move, never shown alone (D1).</p>
+      <a class="next" href="#step-3">See the monthly total</a>
     </section>
 
-    <!-- Judgment-free tone line held throughout -->
-    <p class="hero-sub" style="text-align:center">This is what you have signed up for, not what you wasted.</p>
+    <!-- The total, third, and paired with the one way on. A menu of next steps
+         at the emotional peak is a second decision nobody asked for. -->
+    <section class="rstep" id="step-3" aria-label="Step three, the total" role="status" aria-live="polite">
+      <span class="num">Step 3 of 3</span>
+      <h2 class="lbl">All together</h2>
+      <p class="total">$192.90</p>
+      <p class="context">a month, for what you have signed up for</p>
+      <p class="tone">This is what you have signed up for, not what you wasted.</p>
+      <div class="actions" style="margin-top:18px">
+        <a class="btn primary" href="home.html">See your subscriptions</a>
+      </div>
+    </section>
 
-  </div>
+  </main>
 
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

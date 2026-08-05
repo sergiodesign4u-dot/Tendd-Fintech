@@ -210,8 +210,12 @@ No `Product` or `Offer` schema: the plan line is one honest sentence, not a pric
 **Locked here:** the ten-block composition and its order, the single primary action repeated
 three times, the H1 in its contracted form, and the FAQPage schema on block 9.
 
-**Carried to the wireframe rebuild:** the testimonial block is dropped (bank, type A) and the
-FAQ block is added; the grey screen currently has the first and not the second.
+**Done at the wireframe rebuild, 2026-08-05:** the testimonial block is dropped (bank, type A)
+and three blocks the July screen did not have are on it: the two paths (block 6), the plan line
+(block 8) and the FAQ (block 9). The ten blocks are now all present and in order. The two-paths
+block carries no button of its own, because the single action of this page appears in the
+header, the hero and the closing block and nowhere else; adding a fourth instance of it there
+would make the page argue with its own rule.
 
 **Still `[?]`:** real search volumes and Core Web Vitals targets, both operational and both
 already marked in `../pages/seo.md`.

@@ -297,6 +297,36 @@
       <li><b><code>home-empty</code> carries two headings that say the same thing</b> a hundred pixels apart: "Nothing to add up yet" in the summary strip and "Nothing here yet" over the two doors. Both are in the inventory, both are now visible on one screen with no zone boxes between them, and together they read as a stutter.</li>
       <li><b>The two <code>home-savefocus</code> candidate rows put the date first</b> ("Trial ends: Aug 18", "Next: Aug 11") while every other row in the product now leads with the days. These two lines pair the next charge with how long it has been unopened, so the fix is a rewrite and not a reformat.</li>
     </ol>
+    <h3>The rest of the main flow (2026-08-05, same rebuild)</h3>
+    <p>Nodes 1.1, 1.2, 1.3 with its four returns, 1.5 with its empty state, and 2.7 with its five states. Unlike the Home rebuild this one does add lines: three blocks of the landing and most of the detail screen had no copy at all, because the July screens did not have the blocks. Every new line is in the inventory below. What follows is what changed about lines that already existed.</p>
+    <div class="twrap">
+      <table class="vtable">
+        <thead><tr><th>Screen</th><th>Zone</th><th>Change</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>welcome</td><td>social-proof</td><td>Seven lines retired with the block</td><td>Node 1.1 names the testimonial block as a SKIP row of the block bank: authored copy with no real quote behind it. It was carried from July and is now off the screen</td></tr>
+          <tr><td>welcome</td><td>how-it-works</td><td>&quot;from 400+ presets&quot; to &quot;from 400+ services&quot;, and &quot;Securely connect your bank&quot; to &quot;Connect your bank read-only&quot;</td><td>The dictionary makes &quot;service&quot; the word for a catalog entry (D5), and &quot;securely&quot; is exactly the vague reassurance the trust block exists to replace with a fact</td></tr>
+          <tr><td>welcome</td><td>trust</td><td>&quot;Bank-level connection&quot; to &quot;Bank connection through Plaid&quot;, and the body rewritten to lead with signing in on your own bank site</td><td>D8 fixes the preposition. A label whose content is the reassurance itself is the pattern this audience distrusts</td></tr>
+          <tr><td>welcome</td><td>hero, trust</td><td>&quot;can never move your money&quot; to &quot;cannot move your money&quot;</td><td>D7 fixes the verb of the fixed trust line. The Step 6 log had already resolved it for path-choice, and three inventory rows still carried the old form</td></tr>
+          <tr><td>welcome</td><td>top-nav</td><td>&quot;Pricing&quot; lands on the page own pricing block instead of node 5.13</td><td>Node 5.13 is reached only from a real gate. A public nav item pointing into the in-app upgrade screen is a gate with nothing behind it</td></tr>
+          <tr><td>path-choice</td><td>path-option</td><td>Both support lines rewritten</td><td>Node 1.2 block 4 asks each door for one line of consequence (&quot;read-only, about a minute&quot; against &quot;start with one, add more later&quot;). The July lines described the doors instead (&quot;Fast and automatic&quot;, &quot;Private&quot;)</td></tr>
+          <tr><td>path-choice</td><td>reassurance</td><td>&quot;What does each option access?&quot; retired</td><td>The two doors answer it themselves now, and node 1.2 block 6 asks for a legal line in that place</td></tr>
+          <tr><td>connect-bank</td><td>primary-action</td><td>&quot;Choose your bank&quot; to &quot;Connect your bank&quot;</td><td>D2, resolved at Step 6 of the Voice stage and never applied to the inventory row</td></tr>
+          <tr><td>connect-bank</td><td>trust-note</td><td>One sentence became three named facts</td><td>Node 1.3 block 3 asks for three lines: what Tendd can see, what it can never do, what you can undo. The fixed trust line is the middle one, verbatim, directly above the button</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>&quot;You are subscribed to 14 things.&quot; to &quot;You&#x27;re paying for 14 subscriptions&quot;</td><td>The Forbidden table names this exact line. The screen was fixed in July, the inventory row was not</td></tr>
+          <tr><td>guided-reveal</td><td>primary-action</td><td>&quot;See my full list&quot; to &quot;See your subscriptions&quot;, and &quot;Review these 2&quot; retired with the save-focus line</td><td>D3 for the label. The second button left with it: one action at the emotional peak, and node 2.6.4 is one tap away the moment the tab bar appears</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>&quot;That is $192.90 a month.&quot; became the summary strip form: the number, then the context line</td><td>GC3 has one rendering. The reveal and Home now show the total the same way, which is what makes it the same component</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>&quot;Show me what they are&quot; to &quot;See what they are&quot;, same for the total</td><td>Buttons are Tendd labels in the second person. &quot;Show me&quot; is the person speaking, which the address rule reserves for the share card alone</td></tr>
+          <tr><td>subscription-detail</td><td>header</td><td>&quot;Home&quot; to &quot;Your subscriptions&quot; on the back control</td><td>D3: the tab keeps its nav label, the descriptive control says where you land</td></tr>
+          <tr><td>subscription-detail</td><td>master-pane</td><td>Retired with the pane itself</td><td>docs/decisions.md, 2026-08-05</td></tr>
+          <tr><td>subscription-detail</td><td>history-link</td><td>&quot;See price and payment history&quot; and the &quot;Pro&quot; badge retired</td><td>Three months of charges are on the screen and free (D3, node 2.7 block 6). GC7 sits below them, states what Pro adds, and carries &quot;Maybe later&quot; beside it</td></tr>
+          <tr><td>subscription-detail</td><td>alert-banner</td><td>&quot;The price went up by $2.50 on Jul 28, now $17.99 a month.&quot; to &quot;Netflix went up by $2.50 on Jul 28. Your next charge is $17.99 instead of $15.49.&quot;</td><td>Active voice names who did the thing (Principle 2), and the old price beside the new is what node 2.7.2 asks the state to show</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>state-message</td><td>&quot;Not a subscription&quot; to &quot;This is not a subscription&quot;</td><td>It is the same correction control as on the base screen, so it is the same label</td></tr>
+          <tr><td>subscription-detail-error</td><td>state-message</td><td>&quot;We could not load this subscription&quot; to &quot;We could not load the rest of this subscription. This is usually temporary, and nothing about your money changed.&quot;</td><td>The name and the amount survive from the list, so the old line overstated the loss. The money-screen reassurance is the error rule</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:14px">Two fixtures corrected, which is data and not copy. The base detail page now renders Spotify Premium, because the screen exists for the decoder line and its default should be the case that shows one; Netflix moved to the price-change state, which is where the canonical alert case belongs. And the failed payment is Amazon Prime, not Peloton: <code>alerts.html</code> and this inventory both said Amazon Prime, and only <code>wireframes/docs/conventions.md</code> said Peloton. It has been corrected there. <code>alerts.html</code> still dates the failure Jul 2, which its own billing cycle contradicts; that is a carried fix for the round that rebuilds Alerts.</p>
+    <p style="margin-top:14px">One finding for the map, not for Voice. Node 2.7 block 8 asks for &quot;edit the details&quot; and the map has no node to send it to: node 1.4 owns the only form in the product, and the grey screen borrows it. Recorded in <code>ia/docs/nodes/2-7-subscription-detail.md</code>.</p>
 </section>
 
   <section id="dataset">
@@ -343,13 +373,13 @@
           <tr><td>welcome</td><td>top-nav</td><td>Sign in</td><td>link</td></tr>
           <tr><td>welcome</td><td>top-nav</td><td>Get started free</td><td>button</td></tr>
           <tr><td>welcome</td><td>hero</td><td>For people who are not into finance</td><td>body</td></tr>
-          <tr><td>welcome</td><td>hero</td><td>See what you're paying for. Calmly.</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>hero</td><td>See what you&#x27;re paying for. Calmly.</td><td>heading</td></tr>
           <tr><td>welcome</td><td>hero</td><td>Tendd shows every subscription and recurring charge in one calm view, so you always know what is going out. No spreadsheets, no judgment, no surprises.</td><td>body</td></tr>
           <tr><td>welcome</td><td>hero</td><td>Get started free</td><td>button</td></tr>
           <tr><td>welcome</td><td>hero</td><td>See how it works</td><td>button</td></tr>
-          <tr><td>welcome</td><td>hero</td><td>No bank connection needed to start. Read-only, we can never move your money.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>hero</td><td>No bank connection needed to start. Read-only, we cannot move your money.</td><td>body</td></tr>
           <tr><td>welcome</td><td>hero-preview</td><td>Example, not your data</td><td>body</td></tr>
-          <tr><td>welcome</td><td>hero-preview</td><td>You're paying for 14 subscriptions</td><td>body</td></tr>
+          <tr><td>welcome</td><td>hero-preview</td><td>You&#x27;re paying for 14 subscriptions</td><td>body</td></tr>
           <tr><td>welcome</td><td>hero-preview</td><td>a month, for what you have signed up for</td><td>body</td></tr>
           <tr><td>welcome</td><td>benefit-card</td><td>Calm control of your recurring money</td><td>heading</td></tr>
           <tr><td>welcome</td><td>benefit-card</td><td>Tendd is not a budgeting app. It is a simple, low-pressure way to see and control what you are subscribed to.</td><td>body</td></tr>
@@ -362,48 +392,59 @@
           <tr><td>welcome</td><td>how-it-works</td><td>How Tendd works</td><td>heading</td></tr>
           <tr><td>welcome</td><td>how-it-works</td><td>Three steps, a few minutes. You are in control the whole way.</td><td>body</td></tr>
           <tr><td>welcome</td><td>how-it-works</td><td>Connect or add</td><td>heading</td></tr>
-          <tr><td>welcome</td><td>how-it-works</td><td>Securely connect your bank, or add your subscriptions by hand from 400+ presets. Your choice, no pressure to link an account.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>how-it-works</td><td>Connect your bank read-only, or add your subscriptions yourself from 400+ services. Your choice, no pressure to link an account.</td><td>body</td></tr>
           <tr><td>welcome</td><td>how-it-works</td><td>See it all, calmly</td><td>heading</td></tr>
           <tr><td>welcome</td><td>how-it-works</td><td>Tendd finds your recurring charges and shows them in one clear list, with your real monthly total as the biggest thing on screen.</td><td>body</td></tr>
           <tr><td>welcome</td><td>how-it-works</td><td>Cancel and save</td><td>heading</td></tr>
           <tr><td>welcome</td><td>how-it-works</td><td>Spot what you no longer use and cancel it with a step-by-step guide. Feel the small win when the number goes down.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>two-paths</td><td>Two ways to start</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>two-paths</td><td>Neither one is the real way in. You pick when you start, and you can add the other later.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>two-paths</td><td>Connect your bank</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>two-paths</td><td>Read-only, through Plaid, and about a minute. Tendd finds the charges that repeat and names them for you.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>two-paths</td><td>Add them yourself</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>two-paths</td><td>Pick from 400+ services and add what you already know about. No bank is involved, and nothing leaves your control.</td><td>body</td></tr>
           <tr><td>welcome</td><td>trust</td><td>Trusted with your money</td><td>heading</td></tr>
           <tr><td>welcome</td><td>trust</td><td>Trust is earned, not claimed. Here is exactly what Tendd can and cannot do.</td><td>body</td></tr>
           <tr><td>welcome</td><td>trust</td><td>Read-only, always</td><td>body</td></tr>
-          <tr><td>welcome</td><td>trust</td><td>Tendd can see your recurring charges but can never move, spend, or touch your money.</td><td>body</td></tr>
-          <tr><td>welcome</td><td>trust</td><td>Bank-level connection</td><td>body</td></tr>
-          <tr><td>welcome</td><td>trust</td><td>We connect through Plaid, the same secure service used by many major finance apps. We never see your bank password.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>trust</td><td>Tendd can see your recurring charges but cannot move, spend, or touch your money.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>trust</td><td>Bank connection through Plaid</td><td>body</td></tr>
+          <tr><td>welcome</td><td>trust</td><td>You sign in on your bank&#x27;s own site, through Plaid, the same service many major finance apps use. We never see your bank password.</td><td>body</td></tr>
           <tr><td>welcome</td><td>trust</td><td>You are in control</td><td>body</td></tr>
           <tr><td>welcome</td><td>trust</td><td>Disconnect any account or delete all of your data at any time, in one tap. It is gone when you say so.</td><td>body</td></tr>
           <tr><td>welcome</td><td>trust</td><td>We never sell your data</td><td>body</td></tr>
           <tr><td>welcome</td><td>trust</td><td>Your financial life is yours. Tendd does not sell or share it, full stop.</td><td>body</td></tr>
           <tr><td>welcome</td><td>trust</td><td>Read what we access</td><td>link</td></tr>
-          <tr><td>welcome</td><td>social-proof</td><td>People feel the difference</td><td>heading</td></tr>
-          <tr><td>welcome</td><td>social-proof</td><td>Most people find at least one subscription they had forgotten about in their first session.</td><td>body</td></tr>
-          <tr><td>welcome</td><td>social-proof</td><td>I finally know what is leaving my account every month, and I stopped feeling anxious about it.</td><td>body (USER)</td></tr>
-          <tr><td>welcome</td><td>social-proof</td><td>Emma, 29</td><td>body</td></tr>
-          <tr><td>welcome</td><td>social-proof</td><td>I added everything by hand without connecting my bank. That mattered to me, and it still took five minutes.</td><td>body (USER)</td></tr>
-          <tr><td>welcome</td><td>social-proof</td><td>Ravi, 34</td><td>body</td></tr>
-          <tr><td>welcome</td><td>social-proof</td><td>Found three subscriptions I forgot about and cancelled them in an afternoon. It felt great.</td><td>body (USER)</td></tr>
-          <tr><td>welcome</td><td>social-proof</td><td>Claudia, 41</td><td>body</td></tr>
-          <tr><td>welcome</td><td>final-cta</td><td>See what you're paying for. Calmly.</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>pricing</td><td>Simple, honest pricing</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>pricing</td><td>The whole calm view is free. Tendd Pro, $7.99 a month or $69 a year, adds history, trends, and advanced alerts.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>pricing</td><td>No cap on subscriptions and no cap on banks in Free. Cancelling is free, always.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>faq</td><td>Questions people ask first</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>faq</td><td>Do I have to connect my bank?</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>faq</td><td>No. You can add your subscriptions yourself from 400+ services and get the same calm view. Connecting a bank is one of two ways in, not the price of entry.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>faq</td><td>Is connecting my bank safe?</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>faq</td><td>You sign in on your bank&#x27;s own site, through Plaid, so Tendd never sees your password. The connection is read-only. Tendd cannot move your money, and you can disconnect at any time.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>faq</td><td>What does Tendd cost?</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>faq</td><td>The calm view is free, with no cap on how many subscriptions or banks you add. Tendd Pro is $7.99 a month or $69 a year, and it adds history, trends, and advanced alerts.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>faq</td><td>Can Tendd cancel subscriptions for me?</td><td>heading</td></tr>
+          <tr><td>welcome</td><td>faq</td><td>Tendd shows you how to cancel, step by step, and that part is free. It does not cancel on your behalf, because that would mean asking for more than read-only access to your money.</td><td>body</td></tr>
+          <tr><td>welcome</td><td>final-cta</td><td>See what you&#x27;re paying for. Calmly.</td><td>heading</td></tr>
           <tr><td>welcome</td><td>final-cta</td><td>Start free. No bank connection needed, and nothing to cancel later if it is not for you.</td><td>body</td></tr>
           <tr><td>welcome</td><td>final-cta</td><td>Get started free</td><td>button</td></tr>
           <tr><td>welcome</td><td>final-cta</td><td>Already using Tendd?</td><td>body</td></tr>
           <tr><td>welcome</td><td>final-cta</td><td>Sign in</td><td>link</td></tr>
           <tr><td>welcome</td><td>footer</td><td>A calm way to see and control your recurring payments. Built for people who are not into finance.</td><td>footer</td></tr>
           <tr><td>welcome</td><td>footer</td><td>Product / Company / Legal (How it works, Trust and security, Pricing, About, Contact, Careers, Privacy, Terms, Data and privacy)</td><td>footer</td></tr>
-          <tr><td>path-choice</td><td>appbar</td><td>&#8249; Back</td><td>link</td></tr>
+          <tr><td>path-choice</td><td>appbar</td><td>‹ Back</td><td>link</td></tr>
           <tr><td>path-choice</td><td>appbar</td><td>Step 1 of 3</td><td>status</td></tr>
           <tr><td>path-choice</td><td>title</td><td>How do you want to start?</td><td>heading</td></tr>
+          <tr><td>path-choice</td><td>title</td><td>Either way you land on the same calm view, and you can add the other one later.</td><td>body</td></tr>
           <tr><td>path-choice</td><td>path-option</td><td>Connect your bank</td><td>heading</td></tr>
-          <tr><td>path-choice</td><td>path-option</td><td>Fast and automatic. Read-only, we can never move your money.</td><td>body</td></tr>
-          <tr><td>path-choice</td><td>path-option</td><td>Choose this path &#8594;</td><td>button</td></tr>
+          <tr><td>path-choice</td><td>path-option</td><td>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</td><td>body</td></tr>
+          <tr><td>path-choice</td><td>path-option</td><td>Choose this path</td><td>button</td></tr>
           <tr><td>path-choice</td><td>path-option</td><td>Add them yourself</td><td>heading</td></tr>
-          <tr><td>path-choice</td><td>path-option</td><td>Private. Pick from 400+ services, nothing leaves your control.</td><td>body</td></tr>
-          <tr><td>path-choice</td><td>path-option</td><td>Choose this path &#8594;</td><td>button</td></tr>
-          <tr><td>path-choice</td><td>reassurance</td><td>Either way, you land on the same calm view.</td><td>body</td></tr>
-          <tr><td>path-choice</td><td>reassurance</td><td>What does each option access?</td><td>link</td></tr>
+          <tr><td>path-choice</td><td>path-option</td><td>Start with one and add more later. No bank is involved, and nothing leaves your control.</td><td>body</td></tr>
+          <tr><td>path-choice</td><td>path-option</td><td>Choose this path</td><td>button</td></tr>
+          <tr><td>path-choice</td><td>later</td><td>Do this later</td><td>link</td></tr>
+          <tr><td>path-choice</td><td>legal</td><td>By starting you agree to our Terms and Privacy Policy. Tendd asks for read-only access and never for permission to move money.</td><td>body</td></tr>
         </tbody>
       </table>
     </div>
@@ -413,30 +454,46 @@
       <table class="vtable">
         <thead><tr><th>Screen</th><th>Zone</th><th>Line</th><th>Type</th></tr></thead>
         <tbody>
-          <tr><td>connect-bank</td><td>header</td><td>Step 2 of 3</td><td>status</td></tr>
+          <tr><td>connect-bank</td><td>appbar</td><td>‹ Back</td><td>link</td></tr>
+          <tr><td>connect-bank</td><td>appbar</td><td>Step 2 of 3</td><td>status</td></tr>
           <tr><td>connect-bank</td><td>title</td><td>Connect your bank</td><td>heading</td></tr>
-          <tr><td>connect-bank</td><td>trust-note</td><td>Here is exactly what we do</td><td>body</td></tr>
-          <tr><td>connect-bank</td><td>trust-note</td><td>We read your recurring charges, read-only. We can never move your money. Powered by Plaid.</td><td>body</td></tr>
-          <tr><td>connect-bank</td><td>primary-action</td><td>Choose your bank</td><td>button</td></tr>
+          <tr><td>connect-bank</td><td>title</td><td>Next you&#x27;ll pick your bank and sign in on your bank&#x27;s own site. Tendd never sees your password, and you choose which accounts to share.</td><td>body</td></tr>
+          <tr><td>connect-bank</td><td>facts</td><td>How long it takes / About a minute</td><td>field-label</td></tr>
+          <tr><td>connect-bank</td><td>facts</td><td>What you need / Your online banking login, entered on your bank&#x27;s site</td><td>field-label</td></tr>
+          <tr><td>connect-bank</td><td>trust-note</td><td>What Tendd can see</td><td>body</td></tr>
+          <tr><td>connect-bank</td><td>trust-note</td><td>The charges that repeat on your account, and nothing else you do with your money.</td><td>body</td></tr>
+          <tr><td>connect-bank</td><td>trust-note</td><td>What Tendd can never do</td><td>body</td></tr>
+          <tr><td>connect-bank</td><td>trust-note</td><td>Read-only. Tendd cannot move your money.</td><td>body</td></tr>
+          <tr><td>connect-bank</td><td>trust-note</td><td>What you can undo</td><td>body</td></tr>
+          <tr><td>connect-bank</td><td>trust-note</td><td>Disconnect at any time, and your bank data goes with it.</td><td>body</td></tr>
+          <tr><td>connect-bank</td><td>primary-action</td><td>Connect your bank</td><td>button</td></tr>
           <tr><td>connect-bank</td><td>primary-action</td><td>Add them yourself instead</td><td>button</td></tr>
           <tr><td>connect-bank</td><td>region-note</td><td>Available for US banks today. More regions soon.</td><td>body</td></tr>
+          <tr><td>connect-bank-loading</td><td>state-message</td><td>Syncing your bank</td><td>heading</td></tr>
+          <tr><td>connect-bank-loading</td><td>state-message</td><td>We are reading your recurring charges, read-only. This usually takes a moment.</td><td>state-message</td></tr>
+          <tr><td>connect-bank-error</td><td>state-message</td><td>We could not connect to your bank</td><td>heading</td></tr>
+          <tr><td>connect-bank-error</td><td>state-message</td><td>This is usually temporary. You can try again, or add your subscriptions yourself and connect later.</td><td>state-message</td></tr>
+          <tr><td>connect-bank-error</td><td>primary-action</td><td>Try again</td><td>button</td></tr>
+          <tr><td>connect-bank-error</td><td>primary-action</td><td>Add them yourself instead</td><td>button</td></tr>
+          <tr><td>connect-bank-error</td><td>later</td><td>Do this later</td><td>link</td></tr>
           <tr><td>connect-bank-empty</td><td>state-message</td><td>Connected, but nothing recurring yet</td><td>heading</td></tr>
           <tr><td>connect-bank-empty</td><td>state-message</td><td>We linked your bank but did not find recurring charges yet. Some show up only on the next billing cycle. You can add the ones you know about now.</td><td>state-message</td></tr>
           <tr><td>connect-bank-empty</td><td>primary-action</td><td>Add them yourself</td><td>button</td></tr>
           <tr><td>connect-bank-empty</td><td>primary-action</td><td>Check again</td><td>button</td></tr>
-          <tr><td>connect-bank-error</td><td>state-message</td><td>We could not connect to your bank</td><td>state-message</td></tr>
-          <tr><td>connect-bank-error</td><td>state-message</td><td>This is usually temporary. You can try again, or add your subscriptions yourself and connect later.</td><td>state-message</td></tr>
-          <tr><td>connect-bank-error</td><td>primary-action</td><td>Try again</td><td>button</td></tr>
-          <tr><td>connect-bank-error</td><td>primary-action</td><td>Add them yourself instead</td><td>button</td></tr>
-          <tr><td>connect-bank-loading</td><td>state-message</td><td>Syncing your bank</td><td>heading</td></tr>
-          <tr><td>connect-bank-loading</td><td>state-message</td><td>This takes a few seconds. We are reading your recurring charges, read-only.</td><td>state-message</td></tr>
+          <tr><td>connect-bank-empty</td><td>trust-line</td><td>Connected to Chase, read-only. Tendd cannot move your money. Last checked today, 9:14 AM.</td><td>body</td></tr>
+          <tr><td>connect-bank-empty</td><td>trust-line</td><td>Your sources</td><td>link</td></tr>
+          <tr><td>connect-bank-cancelled</td><td>state-message</td><td>You came back without connecting</td><td>heading</td></tr>
+          <tr><td>connect-bank-cancelled</td><td>state-message</td><td>Nothing was shared and nothing was lost. Both ways in are still open, and you can pick either one now.</td><td>state-message</td></tr>
+          <tr><td>connect-bank-cancelled</td><td>primary-action</td><td>Connect your bank</td><td>button</td></tr>
+          <tr><td>connect-bank-cancelled</td><td>primary-action</td><td>Add them yourself instead</td><td>button</td></tr>
+          <tr><td>connect-bank-cancelled</td><td>later</td><td>Do this later</td><td>link</td></tr>
           <tr><td>add-subscription</td><td>title</td><td>Add a subscription</td><td>heading</td></tr>
           <tr><td>add-subscription</td><td>title</td><td>Pick from 400+ services, or add your own. Nothing leaves your control.</td><td>body</td></tr>
           <tr><td>add-subscription</td><td>field</td><td>Find a service</td><td>field-label</td></tr>
           <tr><td>add-subscription</td><td>field</td><td>Search 400+ services</td><td>hint</td></tr>
           <tr><td>add-subscription</td><td>list</td><td>Chosen / Use</td><td>status</td></tr>
           <tr><td>add-subscription</td><td>list</td><td>Typically $17.99 / month</td><td>body</td></tr>
-          <tr><td>add-subscription</td><td>custom-fallback</td><td>Can't find it?</td><td>body</td></tr>
+          <tr><td>add-subscription</td><td>custom-fallback</td><td>Can&#x27;t find it?</td><td>body</td></tr>
           <tr><td>add-subscription</td><td>custom-fallback</td><td>Add it manually</td><td>link</td></tr>
           <tr><td>add-subscription</td><td>custom-fallback</td><td>and fill the details yourself.</td><td>body</td></tr>
           <tr><td>add-subscription</td><td>field</td><td>Name / Amount / Billing frequency / Next payment date / Category</td><td>field-label</td></tr>
@@ -449,7 +506,7 @@
           <tr><td>add-subscription</td><td>primary-action</td><td>See my list</td><td>button</td></tr>
           <tr><td>add-subscription</td><td>field</td><td>net / Netflix / $17.99 / Aug 3, 2026</td><td>field-label (USER)</td></tr>
           <tr><td>add-subscription-empty</td><td>field</td><td>Cerebro Cloud</td><td>field-label (USER)</td></tr>
-          <tr><td>add-subscription-empty</td><td>state-message</td><td>No match for "Cerebro Cloud"</td><td>state-message</td></tr>
+          <tr><td>add-subscription-empty</td><td>state-message</td><td>No match for &quot;Cerebro Cloud&quot;</td><td>state-message</td></tr>
           <tr><td>add-subscription-empty</td><td>state-message</td><td>Not every service is in our list yet. You can add it by hand below, and it will sit alongside the rest.</td><td>state-message</td></tr>
           <tr><td>add-subscription-empty</td><td>field</td><td>For example, Aug 3, 2026</td><td>hint</td></tr>
           <tr><td>add-subscription-empty</td><td>primary-action</td><td>Add it manually</td><td>button</td></tr>
@@ -464,19 +521,25 @@
           <tr><td>add-subscription-error</td><td>primary-action</td><td>See my list</td><td>button</td></tr>
           <tr><td>add-subscription-loading</td><td>state-message</td><td>Loading services...</td><td>state-message</td></tr>
           <tr><td>guided-reveal</td><td>header</td><td>Step 3 of 3</td><td>status</td></tr>
-          <tr><td>guided-reveal</td><td>reveal-step</td><td>Step 1 of 3 - count first</td><td>status</td></tr>
-          <tr><td>guided-reveal</td><td>reveal-step</td><td>You are subscribed to 14 things.</td><td>body</td></tr>
-          <tr><td>guided-reveal</td><td>reveal-step</td><td>Step 2 of 3 - the 14, grouped</td><td>status</td></tr>
-          <tr><td>guided-reveal</td><td>list</td><td>Streaming (4 subscriptions), Software (4), Music, Fitness, News (6)</td><td>body</td></tr>
-          <tr><td>guided-reveal</td><td>reveal-step</td><td>Step 3 of 3 - total, paired with an action</td><td>status</td></tr>
-          <tr><td>guided-reveal</td><td>reveal-step</td><td>That is $192.90 a month.</td><td>body</td></tr>
-          <tr><td>guided-reveal</td><td>reveal-step</td><td>Here are 2 you might not be using: Peloton App and The New York Times.</td><td>body</td></tr>
-          <tr><td>guided-reveal</td><td>primary-action</td><td>Review these 2</td><td>button</td></tr>
-          <tr><td>guided-reveal</td><td>primary-action</td><td>See my full list</td><td>button</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>Step 1 of 3</td><td>status</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>You&#x27;re paying for 14 subscriptions</td><td>heading</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>Found in your Chase account. No total yet, and no verdict.</td><td>body</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>Show me what they are</td><td>link</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>Step 2 of 3</td><td>status</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>Here they are, grouped</td><td>heading</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>Five categories, and the real names behind the charges.</td><td>body</td></tr>
+          <tr><td>guided-reveal</td><td>list</td><td>Streaming (4) / Software (4) / Music (2) / Fitness (2) / News (2), each with its merchant names and no amounts</td><td>body</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>Show me the monthly total</td><td>link</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>Step 3 of 3</td><td>status</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>All together</td><td>heading</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>$192.90</td><td>body</td></tr>
+          <tr><td>guided-reveal</td><td>reveal-step</td><td>a month, for what you have signed up for</td><td>body</td></tr>
           <tr><td>guided-reveal</td><td>tone-line</td><td>This is what you have signed up for, not what you wasted.</td><td>body</td></tr>
+          <tr><td>guided-reveal</td><td>primary-action</td><td>See your subscriptions</td><td>button</td></tr>
           <tr><td>guided-reveal-empty</td><td>state-message</td><td>Nothing to reveal yet</td><td>heading</td></tr>
           <tr><td>guided-reveal-empty</td><td>state-message</td><td>Add at least one subscription and your list appears here. Even a partial list is saved, so you can come back any time.</td><td>state-message</td></tr>
           <tr><td>guided-reveal-empty</td><td>primary-action</td><td>Add a subscription</td><td>button</td></tr>
+          <tr><td>guided-reveal-empty</td><td>later</td><td>Do this later</td><td>link</td></tr>
         </tbody>
       </table>
     </div>
@@ -487,10 +550,10 @@
         <thead><tr><th>Screen</th><th>Zone</th><th>Line</th><th>Type</th></tr></thead>
         <tbody>
           <tr><td>home</td><td>header</td><td>Hi, Emma</td><td>body</td></tr>
-          <tr><td>home</td><td>summary-strip</td><td>You're paying for 14 subscriptions</td><td>body</td></tr>
+          <tr><td>home</td><td>summary-strip</td><td>You&#x27;re paying for 14 subscriptions</td><td>body</td></tr>
           <tr><td>home</td><td>summary-strip</td><td>a month, for what you have signed up for</td><td>body</td></tr>
           <tr><td>home</td><td>alert-banner</td><td>Netflix went up by $2.50, now $17.99 a month.</td><td>body</td></tr>
-          <tr><td>home</td><td>alert-banner</td><td>See what changed &#8594;</td><td>link</td></tr>
+          <tr><td>home</td><td>alert-banner</td><td>See what changed →</td><td>link</td></tr>
           <tr><td>home</td><td>list</td><td>Streaming (4) / Software (4) / Music (2) / Fitness (2) / News (2)</td><td>heading</td></tr>
           <tr><td>home</td><td>list-group</td><td>$54.96 a month / $53.98 a month / $22.98 a month / $24.98 a month / $36.00 a month</td><td>body</td></tr>
           <tr><td>home</td><td>list-row</td><td>(the canonical list, one GC4 row each)</td><td>body</td></tr>
@@ -518,31 +581,53 @@
           <tr><td>home-savefocus</td><td>summary-strip</td><td>a month. You could save up to $29.99 a month by cutting 2 you might not be using.</td><td>body</td></tr>
           <tr><td>home-savefocus</td><td>trust-line</td><td>(the GC6 lines as on <code>home</code>)</td><td>body</td></tr>
           <tr><td>home-savefocus</td><td>cancel-candidates</td><td>Two you have not opened in a while. No pressure, just a nudge.</td><td>body</td></tr>
-          <tr><td>home-savefocus</td><td>cancel-candidates</td><td>Trial ends: Aug 18 &#183; not opened in 3 weeks</td><td>body</td></tr>
-          <tr><td>home-savefocus</td><td>cancel-candidates</td><td>Next: Aug 11 &#183; not opened in 6 weeks</td><td>body</td></tr>
+          <tr><td>home-savefocus</td><td>cancel-candidates</td><td>Trial ends: Aug 18 · not opened in 3 weeks</td><td>body</td></tr>
+          <tr><td>home-savefocus</td><td>cancel-candidates</td><td>Next: Aug 11 · not opened in 6 weeks</td><td>body</td></tr>
           <tr><td>home-savefocus</td><td>cancel-candidates</td><td>Cancel</td><td>button</td></tr>
-          <tr><td>subscription-detail</td><td>header</td><td>&#8249; Home</td><td>link</td></tr>
-          <tr><td>subscription-detail</td><td>master-pane</td><td>(the canonical list, kept beside the detail on desktop)</td><td>body</td></tr>
-          <tr><td>subscription-detail</td><td>header</td><td>Netflix</td><td>heading</td></tr>
-          <tr><td>subscription-detail</td><td>header</td><td>$17.99 / month</td><td>body</td></tr>
-          <tr><td>subscription-detail</td><td>next-payment</td><td>Next payment</td><td>field-label</td></tr>
-          <tr><td>subscription-detail</td><td>next-payment</td><td>$17.99 on Aug 3</td><td>body</td></tr>
-          <tr><td>subscription-detail</td><td>category-source</td><td>Category / Source / Status</td><td>field-label</td></tr>
-          <tr><td>subscription-detail</td><td>category-source</td><td>From Chase ...1234, read-only</td><td>body</td></tr>
-          <tr><td>subscription-detail</td><td>alert-banner</td><td>The price went up by $2.50 on Jul 28, now $17.99 a month.</td><td>body</td></tr>
-          <tr><td>subscription-detail</td><td>history-link</td><td>See price and payment history</td><td>button</td></tr>
-          <tr><td>subscription-detail</td><td>history-link</td><td>Pro</td><td>status</td></tr>
+          <tr><td>subscription-detail</td><td>appbar</td><td>‹ Your subscriptions</td><td>link</td></tr>
+          <tr><td>subscription-detail</td><td>hero</td><td>Spotify Premium</td><td>heading</td></tr>
+          <tr><td>subscription-detail</td><td>hero</td><td>$11.99</td><td>body</td></tr>
+          <tr><td>subscription-detail</td><td>hero</td><td>a month</td><td>body</td></tr>
+          <tr><td>subscription-detail</td><td>status</td><td>Active</td><td>status</td></tr>
+          <tr><td>subscription-detail</td><td>facts</td><td>Next charge / Billing cycle / Charged to / Category / Paid so far</td><td>field-label</td></tr>
+          <tr><td>subscription-detail</td><td>facts</td><td>in 6 days, Aug 7 / Monthly / Chase checking / Music / $143.88 since Aug 2025</td><td>body</td></tr>
+          <tr><td>subscription-detail</td><td>decoder</td><td>Appears on your statement as</td><td>body</td></tr>
+          <tr><td>subscription-detail</td><td>decoder</td><td>SPOTIFYAB STOCKHOLM</td><td>body (USER)</td></tr>
+          <tr><td>subscription-detail</td><td>charges</td><td>Recent charges</td><td>heading</td></tr>
+          <tr><td>subscription-detail</td><td>gate</td><td>Three months are free. Longer history and trends are part of Tendd Pro.</td><td>body</td></tr>
+          <tr><td>subscription-detail</td><td>gate</td><td>See what Pro adds</td><td>button</td></tr>
+          <tr><td>subscription-detail</td><td>gate</td><td>Maybe later</td><td>button</td></tr>
           <tr><td>subscription-detail</td><td>cancel-action</td><td>Cancel this subscription</td><td>button</td></tr>
-          <tr><td>subscription-detail-unrecognized</td><td>header</td><td>SQ *BLUEBOTTLE 8890</td><td>heading (USER)</td></tr>
-          <tr><td>subscription-detail-unrecognized</td><td>header</td><td>$14.00, seen monthly</td><td>body</td></tr>
-          <tr><td>subscription-detail-unrecognized</td><td>state-message</td><td>We could not identify this</td><td>body</td></tr>
-          <tr><td>subscription-detail-unrecognized</td><td>state-message</td><td>It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time.</td><td>body</td></tr>
-          <tr><td>subscription-detail-unrecognized</td><td>state-message</td><td>Name this charge</td><td>button</td></tr>
-          <tr><td>subscription-detail-unrecognized</td><td>state-message</td><td>Not a subscription</td><td>button</td></tr>
-          <tr><td>subscription-detail-error</td><td>state-message</td><td>We could not load this subscription</td><td>heading</td></tr>
-          <tr><td>subscription-detail-error</td><td>state-message</td><td>This is usually temporary. Try again, or go back to your list.</td><td>body</td></tr>
-          <tr><td>subscription-detail-error</td><td>state-message</td><td>Try again</td><td>button</td></tr>
-          <tr><td>subscription-detail-error</td><td>state-message</td><td>Back to Home</td><td>button</td></tr>
+          <tr><td>subscription-detail</td><td>correction</td><td>Edit the details</td><td>button</td></tr>
+          <tr><td>subscription-detail</td><td>correction</td><td>This is not a subscription</td><td>button</td></tr>
+          <tr><td>subscription-detail</td><td>removal</td><td>This one came from Chase, so removing it hides the row rather than deleting it. If the charge appears again, Tendd will show it again.</td><td>body</td></tr>
+          <tr><td>subscription-detail</td><td>removal</td><td>Remove from your list</td><td>link</td></tr>
+          <tr><td>subscription-detail</td><td>trust-line</td><td>From Chase, read-only. Tendd cannot move your money.</td><td>body</td></tr>
+          <tr><td>subscription-detail</td><td>trust-line</td><td>Last checked today, 9:14 AM.</td><td>body</td></tr>
+          <tr><td>subscription-detail</td><td>trust-line</td><td>Data and privacy</td><td>link</td></tr>
+          <tr><td>subscription-detail-price-change</td><td>hero</td><td>Netflix / $17.99 / a month</td><td>heading</td></tr>
+          <tr><td>subscription-detail-price-change</td><td>status</td><td>Price changed</td><td>status</td></tr>
+          <tr><td>subscription-detail-price-change</td><td>alert-banner</td><td>Netflix went up by $2.50 on Jul 28. Your next charge is $17.99 instead of $15.49.</td><td>body</td></tr>
+          <tr><td>subscription-detail-price-change</td><td>charges</td><td>Aug 3, next / $17.99 / was $15.49</td><td>body</td></tr>
+          <tr><td>subscription-detail-payment-failed</td><td>hero</td><td>Amazon Prime / $14.99 / a month</td><td>heading</td></tr>
+          <tr><td>subscription-detail-payment-failed</td><td>status</td><td>Payment failed</td><td>status</td></tr>
+          <tr><td>subscription-detail-payment-failed</td><td>state-message</td><td>A payment to Amazon Prime did not go through on Jul 20. Amazon usually tries again within a few days, and Tendd will tell you when it does. Nothing is wrong with your money.</td><td>state-message</td></tr>
+          <tr><td>subscription-detail-payment-failed</td><td>facts</td><td>Next attempt / expected in the next few days</td><td>field-label</td></tr>
+          <tr><td>subscription-detail-payment-failed</td><td>charges</td><td>Jul 20 / $14.99 / did not go through</td><td>body</td></tr>
+          <tr><td>subscription-detail-payment-failed</td><td>correction</td><td>See all your alerts</td><td>button</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>hero</td><td>SQ *BLUEBOTTLE 8890</td><td>heading (USER)</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>hero</td><td>$14.00, seen monthly</td><td>body</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>status</td><td>Not identified</td><td>status</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>state-message</td><td>It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time.</td><td>state-message</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>facts</td><td>Seen / Last charge / Charged to / Category</td><td>field-label</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>facts</td><td>3 times, monthly since May / Jul 12 / Chase checking / not set yet</td><td>body</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>decoder</td><td>All we have is how it appears on your statement</td><td>body</td></tr>
+          <tr><td>subscription-detail-unrecognized</td><td>primary-action</td><td>Name this charge</td><td>button</td></tr>
+          <tr><td>subscription-detail-loading</td><td>state-message</td><td>Getting the details. This usually takes a moment.</td><td>state-message</td></tr>
+          <tr><td>subscription-detail-error</td><td>state-message</td><td>We could not load the rest of this subscription. This is usually temporary, and nothing about your money changed.</td><td>state-message</td></tr>
+          <tr><td>subscription-detail-error</td><td>primary-action</td><td>Try again</td><td>button</td></tr>
+          <tr><td>subscription-detail-error</td><td>primary-action</td><td>Back to your subscriptions</td><td>button</td></tr>
+          <tr><td>subscription-detail-error</td><td>trust-line</td><td>Your sources</td><td>link</td></tr>
         </tbody>
       </table>
     </div>
@@ -555,19 +640,19 @@
           <tr><td>alerts</td><td>title</td><td>Alerts</td><td>heading</td></tr>
           <tr><td>alerts</td><td>title</td><td>The few things worth knowing about, newest first. A quiet dot marks what is new since your last visit.</td><td>body</td></tr>
           <tr><td>alerts</td><td>alert-row</td><td>Netflix went up by $2.50, now $17.99 a month</td><td>body</td></tr>
-          <tr><td>alerts</td><td>alert-row</td><td>Price change &#183; Netflix &#183; Your next payment is Aug 3</td><td>body</td></tr>
-          <tr><td>alerts</td><td>alert-row</td><td>See what changed &#8594;</td><td>link</td></tr>
+          <tr><td>alerts</td><td>alert-row</td><td>Price change · Netflix · Your next payment is Aug 3</td><td>body</td></tr>
+          <tr><td>alerts</td><td>alert-row</td><td>See what changed →</td><td>link</td></tr>
           <tr><td>alerts</td><td>alert-row</td><td>A payment to Amazon Prime did not go through</td><td>body</td></tr>
-          <tr><td>alerts</td><td>alert-row</td><td>Payment failed &#183; Amazon Prime &#183; It usually tries again in a day or two</td><td>body</td></tr>
-          <tr><td>alerts</td><td>alert-row</td><td>What to do &#8594;</td><td>link</td></tr>
+          <tr><td>alerts</td><td>alert-row</td><td>Payment failed · Amazon Prime · It usually tries again in a day or two</td><td>body</td></tr>
+          <tr><td>alerts</td><td>alert-row</td><td>What to do →</td><td>link</td></tr>
           <tr><td>alerts</td><td>alert-row</td><td>Your Peloton App trial ends soon</td><td>body</td></tr>
-          <tr><td>alerts</td><td>alert-row</td><td>Trial ending &#183; Peloton App &#183; Tendd Pro explains this in plain language</td><td>body</td></tr>
-          <tr><td>alerts</td><td>alert-row</td><td>Unlock with Tendd Pro &#8594;</td><td>link</td></tr>
+          <tr><td>alerts</td><td>alert-row</td><td>Trial ending · Peloton App · Tendd Pro explains this in plain language</td><td>body</td></tr>
+          <tr><td>alerts</td><td>alert-row</td><td>Unlock with Tendd Pro →</td><td>link</td></tr>
           <tr><td>alerts</td><td>alert-row</td><td>We noticed something about your Adobe charge</td><td>body</td></tr>
-          <tr><td>alerts</td><td>alert-row</td><td>Unusual charge &#183; Adobe Creative Cloud &#183; Tendd Pro explains this in plain language</td><td>body</td></tr>
+          <tr><td>alerts</td><td>alert-row</td><td>Unusual charge · Adobe Creative Cloud · Tendd Pro explains this in plain language</td><td>body</td></tr>
           <tr><td>alerts</td><td>alert-row</td><td>We could not take your Spotify Premium payment on Jun 28</td><td>body</td></tr>
-          <tr><td>alerts</td><td>alert-row</td><td>Payment failed &#183; Spotify Premium &#183; This one has since gone through</td><td>body</td></tr>
-          <tr><td>alerts</td><td>alert-row</td><td>See Spotify Premium &#8594;</td><td>link</td></tr>
+          <tr><td>alerts</td><td>alert-row</td><td>Payment failed · Spotify Premium · This one has since gone through</td><td>body</td></tr>
+          <tr><td>alerts</td><td>alert-row</td><td>See Spotify Premium →</td><td>link</td></tr>
           <tr><td>alerts</td><td>alert-row</td><td>New / Pro</td><td>status</td></tr>
           <tr><td>alerts-empty</td><td>state-message</td><td>All clear</td><td>heading</td></tr>
           <tr><td>alerts-empty</td><td>state-message</td><td>Nothing needs your attention right now. If a price changes or a payment does not go through, you will see it here first, in plain language.</td><td>state-message</td></tr>
@@ -579,7 +664,7 @@
           <tr><td>alerts-loading</td><td>state-message</td><td>Checking for anything worth knowing about. This usually takes a moment.</td><td>state-message</td></tr>
           <tr><td>cancel-guide</td><td>header</td><td>Back to Netflix</td><td>link</td></tr>
           <tr><td>cancel-guide</td><td>detail-head</td><td>Cancel Netflix</td><td>heading</td></tr>
-          <tr><td>cancel-guide</td><td>detail-head</td><td>$17.99 / month &#183; you can always resubscribe later</td><td>body</td></tr>
+          <tr><td>cancel-guide</td><td>detail-head</td><td>$17.99 / month · you can always resubscribe later</td><td>body</td></tr>
           <tr><td>cancel-guide</td><td>step</td><td>Here is how to cancel Netflix</td><td>heading</td></tr>
           <tr><td>cancel-guide</td><td>step</td><td>Go to your Netflix account page. / Select Cancel Membership. / Confirm the cancellation.</td><td>body</td></tr>
           <tr><td>cancel-guide</td><td>primary-action</td><td>Open netflix.com/account</td><td>button</td></tr>
@@ -587,17 +672,17 @@
           <tr><td>cancel-guide</td><td>pro-callout</td><td>See Tendd Pro</td><td>button</td></tr>
           <tr><td>cancel-guide</td><td>confirm</td><td>Managed to cancel? Mark it here and we will show what you saved.</td><td>body</td></tr>
           <tr><td>cancel-guide</td><td>confirm</td><td>I cancelled it</td><td>button</td></tr>
-          <tr><td>cancel-guide</td><td>help-path</td><td>Ran into a wall or a "please stay" screen?</td><td>body</td></tr>
-          <tr><td>cancel-guide</td><td>help-path</td><td>Couldn't cancel?</td><td>button</td></tr>
+          <tr><td>cancel-guide</td><td>help-path</td><td>Ran into a wall or a &quot;please stay&quot; screen?</td><td>body</td></tr>
+          <tr><td>cancel-guide</td><td>help-path</td><td>Couldn&#x27;t cancel?</td><td>button</td></tr>
           <tr><td>cancel-guide-no-guide</td><td>state-message</td><td>We do not have step-by-step for this one yet</td><td>heading</td></tr>
           <tr><td>cancel-guide-no-guide</td><td>state-message</td><td>Here is the general way most subscriptions cancel. It works for The New York Times too.</td><td>state-message</td></tr>
-          <tr><td>cancel-guide-no-guide</td><td>step</td><td>Open the service's website and sign in. / Go to Account or Subscription settings. / Look for Cancel or Manage plan. / Confirm, and watch for a confirmation email.</td><td>body</td></tr>
+          <tr><td>cancel-guide-no-guide</td><td>step</td><td>Open the service&#x27;s website and sign in. / Go to Account or Subscription settings. / Look for Cancel or Manage plan. / Confirm, and watch for a confirmation email.</td><td>body</td></tr>
           <tr><td>cancel-guide-no-guide</td><td>request-guide</td><td>Want us to build a tailored guide for The New York Times? Tell us and we will add it.</td><td>body</td></tr>
           <tr><td>cancel-guide-no-guide</td><td>request-guide</td><td>Ask us to add this guide</td><td>button</td></tr>
           <tr><td>cancel-guide-no-guide</td><td>confirm</td><td>Managed to cancel with the general steps? Mark it here.</td><td>body</td></tr>
           <tr><td>cancel-guide-no-guide</td><td>confirm</td><td>I cancelled it</td><td>button</td></tr>
           <tr><td>cancel-guide-blocked</td><td>state-message</td><td>Cancelling can be made deliberately hard, and it is not your fault. Here is what else to try.</td><td>state-message</td></tr>
-          <tr><td>cancel-guide-blocked</td><td>step</td><td>Skip the "special offers" screen and keep choosing Cancel, not Pause. / Try cancelling from a web browser instead of the app. / If billed through Apple or Google, cancel in your device subscriptions. / Still stuck? Keep this open and come back, nothing is lost.</td><td>body</td></tr>
+          <tr><td>cancel-guide-blocked</td><td>step</td><td>Skip the &quot;special offers&quot; screen and keep choosing Cancel, not Pause. / Try cancelling from a web browser instead of the app. / If billed through Apple or Google, cancel in your device subscriptions. / Still stuck? Keep this open and come back, nothing is lost.</td><td>body</td></tr>
           <tr><td>cancel-guide-blocked</td><td>primary-action</td><td>I cancelled it</td><td>button</td></tr>
           <tr><td>cancel-guide-blocked</td><td>secondary-action</td><td>Remind me later</td><td>button</td></tr>
           <tr><td>cancel-guide-blocked</td><td>next-move</td><td>Prefer a guided walk-through with a direct link?</td><td>body</td></tr>
@@ -620,7 +705,7 @@
           <tr><td>share-snapshot</td><td>privacy-note</td><td>No account numbers, no bank details, and no list of your exact subscriptions. Only what you see above.</td><td>body</td></tr>
           <tr><td>share-snapshot</td><td>continue</td><td>Done, back to my list</td><td>button</td></tr>
           <tr><td>share-snapshot-error</td><td>state-message</td><td>We could not create the card just now</td><td>heading</td></tr>
-          <tr><td>share-snapshot-error</td><td>state-message</td><td>Nothing is wrong with your account, and your cancel win is still saved. Let's try the card again.</td><td>state-message</td></tr>
+          <tr><td>share-snapshot-error</td><td>state-message</td><td>Nothing is wrong with your account, and your cancel win is still saved. Let&#x27;s try the card again.</td><td>state-message</td></tr>
           <tr><td>share-snapshot-error</td><td>primary-action</td><td>Try again</td><td>button</td></tr>
           <tr><td>share-snapshot-error</td><td>secondary-action</td><td>Done, back to my list</td><td>button</td></tr>
           <tr><td>share-snapshot-loading</td><td>state-message</td><td>Creating your card...</td><td>heading</td></tr>
@@ -672,8 +757,8 @@
           <tr><td>connections</td><td>header</td><td>Your sources</td><td>heading</td></tr>
           <tr><td>connections</td><td>header</td><td>Where Tendd gets the list of what you pay for. You are always in control of these.</td><td>body</td></tr>
           <tr><td>connections</td><td>header</td><td>Read-only. Tendd cannot move your money.</td><td>body</td></tr>
-          <tr><td>connections</td><td>header</td><td>What we read &#8594;</td><td>link</td></tr>
-          <tr><td>connections</td><td>connection-row</td><td>Chase &#183;&#183;&#183;&#183;1234</td><td>body</td></tr>
+          <tr><td>connections</td><td>header</td><td>What we read →</td><td>link</td></tr>
+          <tr><td>connections</td><td>connection-row</td><td>Chase ····1234</td><td>body</td></tr>
           <tr><td>connections</td><td>connection-row</td><td>Bank connection via Plaid</td><td>body</td></tr>
           <tr><td>connections</td><td>connection-row</td><td>Connected / Private</td><td>status</td></tr>
           <tr><td>connections</td><td>connection-row</td><td>Last synced / Tracking from here / Access / Added / Tracking here</td><td>field-label</td></tr>
@@ -688,7 +773,7 @@
           <tr><td>connections</td><td>add-source</td><td>Find your subscriptions automatically. Read-only through Plaid.</td><td>body</td></tr>
           <tr><td>connections</td><td>add-source</td><td>Add manually</td><td>heading</td></tr>
           <tr><td>connections</td><td>add-source</td><td>Type them in yourself from a list of 400+ services. No bank needed.</td><td>body</td></tr>
-          <tr><td>connections</td><td>add-source</td><td>Choose this &#8594;</td><td>link</td></tr>
+          <tr><td>connections</td><td>add-source</td><td>Choose this →</td><td>link</td></tr>
           <tr><td>connections</td><td>provider-note</td><td>US banks connect through Plaid. More regions soon.</td><td>body</td></tr>
           <tr><td>connections-empty</td><td>state-message</td><td>No sources connected yet</td><td>heading</td></tr>
           <tr><td>connections-empty</td><td>state-message</td><td>Connect a bank to find your subscriptions automatically, or add them yourself by hand. You can change this later.</td><td>state-message</td></tr>
@@ -724,8 +809,8 @@
           <tr><td>settings</td><td>plan-card</td><td>Free / Pro</td><td>status</td></tr>
           <tr><td>settings</td><td>plan-card</td><td>Manage plan</td><td>link</td></tr>
           <tr><td>settings</td><td>notifications</td><td>Choose what Tendd tells you about. All in plain language, never alarming.</td><td>body</td></tr>
-          <tr><td>settings</td><td>notifications</td><td>A price goes up (Like "Netflix went up by $2.50".)</td><td>field-label</td></tr>
-          <tr><td>settings</td><td>notifications</td><td>A payment does not go through (Like "A payment to Peloton did not go through".)</td><td>field-label</td></tr>
+          <tr><td>settings</td><td>notifications</td><td>A price goes up (Like &quot;Netflix went up by $2.50&quot;.)</td><td>field-label</td></tr>
+          <tr><td>settings</td><td>notifications</td><td>A payment does not go through (Like &quot;A payment to Peloton did not go through&quot;.)</td><td>field-label</td></tr>
           <tr><td>settings</td><td>notifications</td><td>A free trial is ending soon (Advanced alert.)</td><td>field-label</td></tr>
           <tr><td>settings</td><td>notifications</td><td>Weekly email digest (A calm Sunday summary of what is coming up.)</td><td>field-label</td></tr>
           <tr><td>settings</td><td>settings-row</td><td>Data and privacy (What we read, and delete everything)</td><td>body</td></tr>

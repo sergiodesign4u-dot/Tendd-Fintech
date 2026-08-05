@@ -82,3 +82,10 @@ the design.
 **Locked:** three steps in the order count, categories, total; each paired with an action; one
 exit. **Open:** `[?]` H0 itself, which is not resolvable in IA. Resolving input: the prototype
 test named in `research/docs/strategy.md`.
+
+**Drawn 2026-08-05, and two things settled while drawing it.** Block 1, the honest wait, is not
+a block of this page: it is the page before it, node 1.3.2, and drawing a second wait here
+would have been the same screen twice. And the July screen ended with two buttons plus a line
+naming two subscriptions the person might not be using; that is the menu this node's Primary
+CTA section rules out, and it duplicates node 2.6.4, which is one tap away the moment the tab
+bar appears. The reveal ends with "See your subscriptions" and nothing else.

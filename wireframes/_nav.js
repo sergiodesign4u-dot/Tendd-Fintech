@@ -30,7 +30,7 @@ window.WF_NAV = {
         { node: '1.3.1', slug: 'error',     label: 'connection failed',        built: true },
         { node: '1.3.2', slug: 'loading',   label: 'syncing your bank',        built: true },
         { node: '1.3.3', slug: 'empty',     label: 'connected, nothing found', built: true },
-        { node: '1.3.4', slug: 'cancelled', label: 'came back without connecting', built: false }
+        { node: '1.3.4', slug: 'cancelled', label: 'came back without connecting', built: true }
       ]},
       { node: '1.4', name: 'Add Subscription', file: 'add-subscription.html', ia: '1-4-add-subscription.html',
         flow: 'B, and the in-app plus', scope: 'MVP', built: true, states: [
@@ -56,7 +56,7 @@ window.WF_NAV = {
         flow: 'C and D, one tap from the list', scope: 'MVP', built: true, states: [
         { node: '2.7.1', slug: 'unrecognized',   label: 'unrecognized charge', built: true, wasNamed: 'subscription-detail-empty.html' },
         { node: '2.7.2', slug: 'price-change',   label: 'price change',        built: false },
-        { node: '2.7.3', slug: 'payment-failed', label: 'payment did not go through', built: false },
+        { node: '2.7.3', slug: 'payment-failed', label: 'payment did not go through', built: true },
         { node: '2.7.4', slug: 'loading',        label: 'loading the detail',  built: true },
         { node: '2.7.5', slug: 'error',          label: 'could not load',      built: true }
       ]}
@@ -96,7 +96,7 @@ window.WF_NAV = {
       { node: '5.13', name: 'Upgrade / Tendd Pro', file: 'upgrade.html', ia: '5-13-upgrade.html',
         flow: 'only from a real gate', scope: 'LATER', built: true, states: [
         { node: '5.13.1', slug: 'processing',     label: 'setting up your plan', built: false },
-        { node: '5.13.2', slug: 'payment-failed', label: 'payment did not go through', built: false }
+        { node: '5.13.2', slug: 'payment-failed', label: 'payment did not go through', built: true }
       ]}
     ]},
 

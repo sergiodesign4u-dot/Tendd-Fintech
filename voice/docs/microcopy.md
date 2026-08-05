@@ -204,6 +204,51 @@ not this stage's to change:**
    the days (conventions section 5). These two lines pair the next charge with how
    long it has been unopened, so the fix is a rewrite and not a reformat.
 
+
+### The rest of the main flow (2026-08-05, same rebuild)
+
+Nodes 1.1, 1.2, 1.3 with its four returns, 1.5 with its empty state, and 2.7
+with its five states. Unlike the Home rebuild this one **does add lines**: three
+blocks of the landing and most of the detail screen had no copy at all, because
+the July screens did not have the blocks. Every new line is in the inventory
+below. What follows is what changed about lines that already existed.
+
+| Screen | Zone | Change | Why |
+|--------|------|--------|-----|
+| welcome | social-proof | Seven lines retired with the block | Node 1.1 names the testimonial block as a SKIP row of the block bank: authored copy with no real quote behind it. It was carried from July and is now off the screen |
+| welcome | how-it-works | "from 400+ presets" to "from 400+ services", and "Securely connect your bank" to "Connect your bank read-only" | The dictionary makes "service" the word for a catalog entry (D5), and "securely" is exactly the vague reassurance the trust block exists to replace with a fact |
+| welcome | trust | "Bank-level connection" to "Bank connection through Plaid", and the body rewritten to lead with signing in on your own bank site | D8 fixes the preposition. A label whose content is the reassurance itself is the pattern this audience distrusts |
+| welcome | hero, trust | "can never move your money" to "cannot move your money" | D7 fixes the verb of the fixed trust line. The Step 6 log had already resolved it for path-choice, and three inventory rows still carried the old form |
+| welcome | top-nav | "Pricing" lands on the page own pricing block instead of node 5.13 | Node 5.13 is reached only from a real gate. A public nav item pointing into the in-app upgrade screen is a gate with nothing behind it |
+| path-choice | path-option | Both support lines rewritten | Node 1.2 block 4 asks each door for one line of consequence ("read-only, about a minute" against "start with one, add more later"). The July lines described the doors instead ("Fast and automatic", "Private") |
+| path-choice | reassurance | "What does each option access?" retired | The two doors answer it themselves now, and node 1.2 block 6 asks for a legal line in that place |
+| connect-bank | primary-action | "Choose your bank" to "Connect your bank" | D2, resolved at Step 6 of the Voice stage and never applied to the inventory row |
+| connect-bank | trust-note | One sentence became three named facts | Node 1.3 block 3 asks for three lines: what Tendd can see, what it can never do, what you can undo. The fixed trust line is the middle one, verbatim, directly above the button |
+| guided-reveal | reveal-step | "You are subscribed to 14 things." to "You're paying for 14 subscriptions" | The Forbidden table names this exact line. The screen was fixed in July, the inventory row was not |
+| guided-reveal | primary-action | "See my full list" to "See your subscriptions", and "Review these 2" retired with the save-focus line | D3 for the label. The second button left with it: one action at the emotional peak, and node 2.6.4 is one tap away the moment the tab bar appears |
+| guided-reveal | reveal-step | "That is $192.90 a month." became the summary strip form: the number, then the context line | GC3 has one rendering. The reveal and Home now show the total the same way, which is what makes it the same component |
+| guided-reveal | reveal-step | "Show me what they are" to "See what they are", same for the total | Buttons are Tendd labels in the second person. "Show me" is the person speaking, which the address rule reserves for the share card alone |
+| subscription-detail | header | "Home" to "Your subscriptions" on the back control | D3: the tab keeps its nav label, the descriptive control says where you land |
+| subscription-detail | master-pane | Retired with the pane itself | docs/decisions.md, 2026-08-05 |
+| subscription-detail | history-link | "See price and payment history" and the "Pro" badge retired | Three months of charges are on the screen and free (D3, node 2.7 block 6). GC7 sits below them, states what Pro adds, and carries "Maybe later" beside it |
+| subscription-detail | alert-banner | "The price went up by $2.50 on Jul 28, now $17.99 a month." to "Netflix went up by $2.50 on Jul 28. Your next charge is $17.99 instead of $15.49." | Active voice names who did the thing (Principle 2), and the old price beside the new is what node 2.7.2 asks the state to show |
+| subscription-detail-unrecognized | state-message | "Not a subscription" to "This is not a subscription" | It is the same correction control as on the base screen, so it is the same label |
+| subscription-detail-error | state-message | "We could not load this subscription" to "We could not load the rest of this subscription. This is usually temporary, and nothing about your money changed." | The name and the amount survive from the list, so the old line overstated the loss. The money-screen reassurance is the error rule |
+
+**Two fixtures corrected, which is data and not copy.** The base detail page now
+renders **Spotify Premium**, because the screen exists for the decoder line and
+its default should be the case that shows one; Netflix moved to the price-change
+state, which is where the canonical alert case belongs. And the failed payment is
+**Amazon Prime**, not Peloton: `alerts.html` and this inventory both said Amazon
+Prime, and only `wireframes/docs/conventions.md` said Peloton. It has been
+corrected there. `alerts.html` still dates the failure Jul 2, which its own
+billing cycle contradicts; that is a carried fix for the round that rebuilds
+Alerts.
+
+**One finding for the map, not for Voice.** Node 2.7 block 8 asks for "edit the
+details" and the map has no node to send it to: node 1.4 owns the only form in
+the product, and the grey screen borrows it. Recorded in
+`ia/docs/nodes/2-7-subscription-detail.md`.
 ---
 
 ## Canonical subscription dataset (product fixtures, not authored copy)
@@ -249,7 +294,7 @@ list". Total: `$192.90 / month`.
 | welcome | hero | Tendd shows every subscription and recurring charge in one calm view, so you always know what is going out. No spreadsheets, no judgment, no surprises. | body |
 | welcome | hero | Get started free | button |
 | welcome | hero | See how it works | button |
-| welcome | hero | No bank connection needed to start. Read-only, we can never move your money. | body |
+| welcome | hero | No bank connection needed to start. Read-only, we cannot move your money. | body |
 | welcome | hero-preview | Example, not your data | body |
 | welcome | hero-preview | You're paying for 14 subscriptions | body |
 | welcome | hero-preview | a month, for what you have signed up for | body |
@@ -264,30 +309,40 @@ list". Total: `$192.90 / month`.
 | welcome | how-it-works | How Tendd works | heading |
 | welcome | how-it-works | Three steps, a few minutes. You are in control the whole way. | body |
 | welcome | how-it-works | Connect or add | heading |
-| welcome | how-it-works | Securely connect your bank, or add your subscriptions by hand from 400+ presets. Your choice, no pressure to link an account. | body |
+| welcome | how-it-works | Connect your bank read-only, or add your subscriptions yourself from 400+ services. Your choice, no pressure to link an account. | body |
 | welcome | how-it-works | See it all, calmly | heading |
 | welcome | how-it-works | Tendd finds your recurring charges and shows them in one clear list, with your real monthly total as the biggest thing on screen. | body |
 | welcome | how-it-works | Cancel and save | heading |
 | welcome | how-it-works | Spot what you no longer use and cancel it with a step-by-step guide. Feel the small win when the number goes down. | body |
+| welcome | two-paths | Two ways to start | heading |
+| welcome | two-paths | Neither one is the real way in. You pick when you start, and you can add the other later. | body |
+| welcome | two-paths | Connect your bank | heading |
+| welcome | two-paths | Read-only, through Plaid, and about a minute. Tendd finds the charges that repeat and names them for you. | body |
+| welcome | two-paths | Add them yourself | heading |
+| welcome | two-paths | Pick from 400+ services and add what you already know about. No bank is involved, and nothing leaves your control. | body |
 | welcome | trust | Trusted with your money | heading |
 | welcome | trust | Trust is earned, not claimed. Here is exactly what Tendd can and cannot do. | body |
 | welcome | trust | Read-only, always | body |
-| welcome | trust | Tendd can see your recurring charges but can never move, spend, or touch your money. | body |
-| welcome | trust | Bank-level connection | body |
-| welcome | trust | We connect through Plaid, the same secure service used by many major finance apps. We never see your bank password. | body |
+| welcome | trust | Tendd can see your recurring charges but cannot move, spend, or touch your money. | body |
+| welcome | trust | Bank connection through Plaid | body |
+| welcome | trust | You sign in on your bank's own site, through Plaid, the same service many major finance apps use. We never see your bank password. | body |
 | welcome | trust | You are in control | body |
 | welcome | trust | Disconnect any account or delete all of your data at any time, in one tap. It is gone when you say so. | body |
 | welcome | trust | We never sell your data | body |
 | welcome | trust | Your financial life is yours. Tendd does not sell or share it, full stop. | body |
 | welcome | trust | Read what we access | link |
-| welcome | social-proof | People feel the difference | heading |
-| welcome | social-proof | Most people find at least one subscription they had forgotten about in their first session. | body |
-| welcome | social-proof | I finally know what is leaving my account every month, and I stopped feeling anxious about it. | body (USER) |
-| welcome | social-proof | Emma, 29 | body |
-| welcome | social-proof | I added everything by hand without connecting my bank. That mattered to me, and it still took five minutes. | body (USER) |
-| welcome | social-proof | Ravi, 34 | body |
-| welcome | social-proof | Found three subscriptions I forgot about and cancelled them in an afternoon. It felt great. | body (USER) |
-| welcome | social-proof | Claudia, 41 | body |
+| welcome | pricing | Simple, honest pricing | heading |
+| welcome | pricing | The whole calm view is free. Tendd Pro, $7.99 a month or $69 a year, adds history, trends, and advanced alerts. | body |
+| welcome | pricing | No cap on subscriptions and no cap on banks in Free. Cancelling is free, always. | body |
+| welcome | faq | Questions people ask first | heading |
+| welcome | faq | Do I have to connect my bank? | heading |
+| welcome | faq | No. You can add your subscriptions yourself from 400+ services and get the same calm view. Connecting a bank is one of two ways in, not the price of entry. | body |
+| welcome | faq | Is connecting my bank safe? | heading |
+| welcome | faq | You sign in on your bank's own site, through Plaid, so Tendd never sees your password. The connection is read-only. Tendd cannot move your money, and you can disconnect at any time. | body |
+| welcome | faq | What does Tendd cost? | heading |
+| welcome | faq | The calm view is free, with no cap on how many subscriptions or banks you add. Tendd Pro is $7.99 a month or $69 a year, and it adds history, trends, and advanced alerts. | body |
+| welcome | faq | Can Tendd cancel subscriptions for me? | heading |
+| welcome | faq | Tendd shows you how to cancel, step by step, and that part is free. It does not cancel on your behalf, because that would mean asking for more than read-only access to your money. | body |
 | welcome | final-cta | See what you're paying for. Calmly. | heading |
 | welcome | final-cta | Start free. No bank connection needed, and nothing to cancel later if it is not for you. | body |
 | welcome | final-cta | Get started free | button |
@@ -303,40 +358,57 @@ list". Total: `$192.90 / month`.
 | path-choice | appbar | ‹ Back | link |
 | path-choice | appbar | Step 1 of 3 | status |
 | path-choice | title | How do you want to start? | heading |
+| path-choice | title | Either way you land on the same calm view, and you can add the other one later. | body |
 | path-choice | path-option | Connect your bank | heading |
-| path-choice | path-option | Fast and automatic. Read-only, we can never move your money. | body |
-| path-choice | path-option | Choose this path → | button |
+| path-choice | path-option | Read-only, through Plaid, and about a minute. Tendd cannot move your money. | body |
+| path-choice | path-option | Choose this path | button |
 | path-choice | path-option | Add them yourself | heading |
-| path-choice | path-option | Private. Pick from 400+ services, nothing leaves your control. | body |
-| path-choice | path-option | Choose this path → | button |
-| path-choice | reassurance | Either way, you land on the same calm view. | body |
-| path-choice | reassurance | What does each option access? | link |
+| path-choice | path-option | Start with one and add more later. No bank is involved, and nothing leaves your control. | body |
+| path-choice | path-option | Choose this path | button |
+| path-choice | later | Do this later | link |
+| path-choice | legal | By starting you agree to our Terms and Privacy Policy. Tendd asks for read-only access and never for permission to move money. | body |
 
 ---
 
 ## Cluster B: Connect Bank, Add Subscription, Guided Reveal
 
-### connect-bank (+ empty, error, loading)
+### connect-bank (+ loading, error, empty, cancelled)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
-| connect-bank | header | Step 2 of 3 | status |
+| connect-bank | appbar | ‹ Back | link |
+| connect-bank | appbar | Step 2 of 3 | status |
 | connect-bank | title | Connect your bank | heading |
-| connect-bank | trust-note | Here is exactly what we do | body |
-| connect-bank | trust-note | We read your recurring charges, read-only. We can never move your money. Powered by Plaid. | body |
-| connect-bank | primary-action | Choose your bank | button |
+| connect-bank | title | Next you'll pick your bank and sign in on your bank's own site. Tendd never sees your password, and you choose which accounts to share. | body |
+| connect-bank | facts | How long it takes / About a minute | field-label |
+| connect-bank | facts | What you need / Your online banking login, entered on your bank's site | field-label |
+| connect-bank | trust-note | What Tendd can see | body |
+| connect-bank | trust-note | The charges that repeat on your account, and nothing else you do with your money. | body |
+| connect-bank | trust-note | What Tendd can never do | body |
+| connect-bank | trust-note | Read-only. Tendd cannot move your money. | body |
+| connect-bank | trust-note | What you can undo | body |
+| connect-bank | trust-note | Disconnect at any time, and your bank data goes with it. | body |
+| connect-bank | primary-action | Connect your bank | button |
 | connect-bank | primary-action | Add them yourself instead | button |
 | connect-bank | region-note | Available for US banks today. More regions soon. | body |
+| connect-bank-loading | state-message | Syncing your bank | heading |
+| connect-bank-loading | state-message | We are reading your recurring charges, read-only. This usually takes a moment. | state-message |
+| connect-bank-error | state-message | We could not connect to your bank | heading |
+| connect-bank-error | state-message | This is usually temporary. You can try again, or add your subscriptions yourself and connect later. | state-message |
+| connect-bank-error | primary-action | Try again | button |
+| connect-bank-error | primary-action | Add them yourself instead | button |
+| connect-bank-error | later | Do this later | link |
 | connect-bank-empty | state-message | Connected, but nothing recurring yet | heading |
 | connect-bank-empty | state-message | We linked your bank but did not find recurring charges yet. Some show up only on the next billing cycle. You can add the ones you know about now. | state-message |
 | connect-bank-empty | primary-action | Add them yourself | button |
 | connect-bank-empty | primary-action | Check again | button |
-| connect-bank-error | state-message | We could not connect to your bank | state-message |
-| connect-bank-error | state-message | This is usually temporary. You can try again, or add your subscriptions yourself and connect later. | state-message |
-| connect-bank-error | primary-action | Try again | button |
-| connect-bank-error | primary-action | Add them yourself instead | button |
-| connect-bank-loading | state-message | Syncing your bank | heading |
-| connect-bank-loading | state-message | This takes a few seconds. We are reading your recurring charges, read-only. | state-message |
+| connect-bank-empty | trust-line | Connected to Chase, read-only. Tendd cannot move your money. Last checked today, 9:14 AM. | body |
+| connect-bank-empty | trust-line | Your sources | link |
+| connect-bank-cancelled | state-message | You came back without connecting | heading |
+| connect-bank-cancelled | state-message | Nothing was shared and nothing was lost. Both ways in are still open, and you can pick either one now. | state-message |
+| connect-bank-cancelled | primary-action | Connect your bank | button |
+| connect-bank-cancelled | primary-action | Add them yourself instead | button |
+| connect-bank-cancelled | later | Do this later | link |
 
 ### add-subscription (+ empty, error, loading)
 
@@ -381,19 +453,25 @@ list". Total: `$192.90 / month`.
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
 | guided-reveal | header | Step 3 of 3 | status |
-| guided-reveal | reveal-step | Step 1 of 3 - count first | status |
-| guided-reveal | reveal-step | You are subscribed to 14 things. | body |
-| guided-reveal | reveal-step | Step 2 of 3 - the 14, grouped | status |
-| guided-reveal | list | Streaming (4 subscriptions), Software (4), Music, Fitness, News (6) | body |
-| guided-reveal | reveal-step | Step 3 of 3 - total, paired with an action | status |
-| guided-reveal | reveal-step | That is $192.90 a month. | body |
-| guided-reveal | reveal-step | Here are 2 you might not be using: Peloton App and The New York Times. | body |
-| guided-reveal | primary-action | Review these 2 | button |
-| guided-reveal | primary-action | See my full list | button |
+| guided-reveal | reveal-step | Step 1 of 3 | status |
+| guided-reveal | reveal-step | You're paying for 14 subscriptions | heading |
+| guided-reveal | reveal-step | Found in your Chase account. No total yet, and no verdict. | body |
+| guided-reveal | reveal-step | See what they are | link |
+| guided-reveal | reveal-step | Step 2 of 3 | status |
+| guided-reveal | reveal-step | Here they are, grouped | heading |
+| guided-reveal | reveal-step | Five categories, and the real names behind the charges. | body |
+| guided-reveal | list | Streaming (4) / Software (4) / Music (2) / Fitness (2) / News (2), each with its merchant names and no amounts | body |
+| guided-reveal | reveal-step | See the monthly total | link |
+| guided-reveal | reveal-step | Step 3 of 3 | status |
+| guided-reveal | reveal-step | All together | heading |
+| guided-reveal | reveal-step | $192.90 | body |
+| guided-reveal | reveal-step | a month, for what you have signed up for | body |
 | guided-reveal | tone-line | This is what you have signed up for, not what you wasted. | body |
+| guided-reveal | primary-action | See your subscriptions | button |
 | guided-reveal-empty | state-message | Nothing to reveal yet | heading |
 | guided-reveal-empty | state-message | Add at least one subscription and your list appears here. Even a partial list is saved, so you can come back any time. | state-message |
 | guided-reveal-empty | primary-action | Add a subscription | button |
+| guided-reveal-empty | later | Do this later | link |
 
 ---
 
@@ -439,32 +517,54 @@ list". Total: `$192.90 / month`.
 | home-savefocus | cancel-candidates | Next: Aug 11 · not opened in 6 weeks | body |
 | home-savefocus | cancel-candidates | Cancel | button |
 
-### subscription-detail (+ empty, error, loading)
+### subscription-detail (+ price-change, payment-failed, unrecognized, loading, error)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
-| subscription-detail | header | ‹ Home | link |
-| subscription-detail | master-pane | (the canonical list, kept beside the detail on desktop) | body |
-| subscription-detail | header | Netflix | heading |
-| subscription-detail | header | $17.99 / month | body |
-| subscription-detail | next-payment | Next payment | field-label |
-| subscription-detail | next-payment | $17.99 on Aug 3 | body |
-| subscription-detail | category-source | Category / Source / Status | field-label |
-| subscription-detail | category-source | From Chase ...1234, read-only | body |
-| subscription-detail | alert-banner | The price went up by $2.50 on Jul 28, now $17.99 a month. | body |
-| subscription-detail | history-link | See price and payment history | button |
-| subscription-detail | history-link | Pro | status |
+| subscription-detail | appbar | ‹ Your subscriptions | link |
+| subscription-detail | hero | Spotify Premium | heading |
+| subscription-detail | hero | $11.99 | body |
+| subscription-detail | hero | a month | body |
+| subscription-detail | status | Active | status |
+| subscription-detail | facts | Next charge / Billing cycle / Charged to / Category / Paid so far | field-label |
+| subscription-detail | facts | in 6 days, Aug 7 / Monthly / Chase checking / Music / $143.88 since Aug 2025 | body |
+| subscription-detail | decoder | Appears on your statement as | body |
+| subscription-detail | decoder | SPOTIFYAB STOCKHOLM | body (USER) |
+| subscription-detail | charges | Recent charges | heading |
+| subscription-detail | gate | Three months are free. Longer history and trends are part of Tendd Pro. | body |
+| subscription-detail | gate | See what Pro adds | button |
+| subscription-detail | gate | Maybe later | button |
 | subscription-detail | cancel-action | Cancel this subscription | button |
-| subscription-detail-unrecognized | header | SQ *BLUEBOTTLE 8890 | heading (USER) |
-| subscription-detail-unrecognized | header | $14.00, seen monthly | body |
-| subscription-detail-unrecognized | state-message | We could not identify this | body |
-| subscription-detail-unrecognized | state-message | It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time. | body |
-| subscription-detail-unrecognized | state-message | Name this charge | button |
-| subscription-detail-unrecognized | state-message | Not a subscription | button |
-| subscription-detail-error | state-message | We could not load this subscription | heading |
-| subscription-detail-error | state-message | This is usually temporary. Try again, or go back to your list. | body |
-| subscription-detail-error | state-message | Try again | button |
-| subscription-detail-error | state-message | Back to Home | button |
+| subscription-detail | correction | Edit the details | button |
+| subscription-detail | correction | This is not a subscription | button |
+| subscription-detail | removal | This one came from Chase, so removing it hides the row rather than deleting it. If the charge appears again, Tendd will show it again. | body |
+| subscription-detail | removal | Remove from your list | link |
+| subscription-detail | trust-line | From Chase, read-only. Tendd cannot move your money. | body |
+| subscription-detail | trust-line | Last checked today, 9:14 AM. | body |
+| subscription-detail | trust-line | Data and privacy | link |
+| subscription-detail-price-change | hero | Netflix / $17.99 / a month | heading |
+| subscription-detail-price-change | status | Price changed | status |
+| subscription-detail-price-change | alert-banner | Netflix went up by $2.50 on Jul 28. Your next charge is $17.99 instead of $15.49. | body |
+| subscription-detail-price-change | charges | Aug 3, next / $17.99 / was $15.49 | body |
+| subscription-detail-payment-failed | hero | Amazon Prime / $14.99 / a month | heading |
+| subscription-detail-payment-failed | status | Payment failed | status |
+| subscription-detail-payment-failed | state-message | A payment to Amazon Prime did not go through on Jul 20. Amazon usually tries again within a few days, and Tendd will tell you when it does. Nothing is wrong with your money. | state-message |
+| subscription-detail-payment-failed | facts | Next attempt / expected in the next few days | field-label |
+| subscription-detail-payment-failed | charges | Jul 20 / $14.99 / did not go through | body |
+| subscription-detail-payment-failed | correction | See all your alerts | button |
+| subscription-detail-unrecognized | hero | SQ *BLUEBOTTLE 8890 | heading (USER) |
+| subscription-detail-unrecognized | hero | $14.00, seen monthly | body |
+| subscription-detail-unrecognized | status | Not identified | status |
+| subscription-detail-unrecognized | state-message | It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time. | state-message |
+| subscription-detail-unrecognized | facts | Seen / Last charge / Charged to / Category | field-label |
+| subscription-detail-unrecognized | facts | 3 times, monthly since May / Jul 12 / Chase checking / not set yet | body |
+| subscription-detail-unrecognized | decoder | All we have is how it appears on your statement | body |
+| subscription-detail-unrecognized | primary-action | Name this charge | button |
+| subscription-detail-loading | state-message | Getting the details. This usually takes a moment. | state-message |
+| subscription-detail-error | state-message | We could not load the rest of this subscription. This is usually temporary, and nothing about your money changed. | state-message |
+| subscription-detail-error | primary-action | Try again | button |
+| subscription-detail-error | primary-action | Back to your subscriptions | button |
+| subscription-detail-error | trust-line | Your sources | link |
 
 ---
 

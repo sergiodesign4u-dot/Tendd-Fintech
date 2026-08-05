@@ -7,6 +7,36 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-05 - Subscription Detail has no master pane either, and the reveal ends with one door
+
+Two decisions from the same step, both left open when Home was rebuilt.
+
+**The master pane on node 2.7 is gone.** The July screen kept the whole list in a left-hand
+pane beside the detail on a wide screen. It was rejected on three grounds. The first is that it
+no longer has an origin: Home has no pane, so a person tapping a row would arrive at a two-pane
+view they had never seen, and the same row would look like two different things depending on
+where it was tapped from. The second is that it was a second copy of the canonical fourteen
+subscriptions, which is a thing to keep in agreement forever on the screens whose whole job is
+to be trusted about numbers. The third is that it spent the left half of the screen on
+navigation the header already provides in one control.
+
+**Chosen instead.** The width goes into the subscription itself: on a wide screen the detail
+becomes two columns, the identity and the facts on the left (hero, status, the facts, the
+decoder line), the evidence and the actions on the right (the charges, cancel, correct, remove,
+the trust line). The order down the page on a narrow screen is unchanged, and the two columns
+are the two halves of that same order, so "what is this" still comes before "what now".
+
+**The reveal offers one action, and the save-focus nudge left it.** Node 1.5 says one action at
+the emotional peak, and the July screen had two buttons plus a line naming two subscriptions
+the person might not be using. That is a menu, and it duplicates node 2.6.4, which is one tap
+away in the tab bar the moment the reveal ends. The reveal now ends with "See your
+subscriptions" and nothing else.
+
+**Not decided here.** Whether Cancel Guide, Share Snapshot and Upgrade become modals on a wide
+screen. That stays deferred to Design.
+
+---
+
 ## 2026-08-05 - Home is a dashboard on desktop, and has no second pane
 
 The IA allowed the wide layout of Home to open a subscription in a right-hand pane instead of

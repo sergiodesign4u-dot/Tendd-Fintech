@@ -3,55 +3,107 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Subscription Detail (unrecognized charge) - Tendd Wireframe</title>
+<title>Subscription Detail, unrecognized charge - Tendd wireframe</title>
 <link rel="stylesheet" href="_wf.css">
 </head>
 <body>
 <div class="layout">
-<div id="wftree"></div>
+<div id="wf-sidebar"></div>
 <div class="stage stage-app">
 
-<main class="phone dash" aria-label="Subscription detail unrecognized, mobile layout">
+<div class="app detail">
 
   <header class="appbar">
-    <a class="back" href="home.html">&lsaquo; Home</a>
+    <a class="back" href="home.html">&lsaquo; Your subscriptions</a>
     <span class="wordmark">Tendd</span>
-    <span class="right">&nbsp;</span>
   </header>
 
-  <div class="screen">
+  <main class="screen">
 
-    <!-- Header shows the raw descriptor, not a cryptic dead end -->
-    <section class="zone" aria-label="Unidentified charge">
-      <span class="zlabel">Unrecognized charge - raw descriptor plus a way to name it (protects J3)</span>
-      <div class="detail-head">
+    <div class="col1">
+
+      <!-- The raw string is shown as the raw string. Pretending a bank code is a
+           merchant name is exactly the thing the decoder line exists to stop, so
+           an unmatched charge says so instead of inventing a name. -->
+      <div class="hero">
         <span class="logo">[ ? ]</span>
         <span>
-          <span class="name">SQ *BLUEBOTTLE 8890</span><br>
-          <span class="amt">$14.00, seen monthly</span>
+          <h1>SQ *BLUEBOTTLE 8890</h1>
+          <span class="amt">$14.00</span>
+          <span class="cycle">seen monthly</span>
         </span>
       </div>
-      <div class="callout" role="status" aria-live="polite" style="margin-top:12px">
-        <span class="k">We could not identify this</span>
-        It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time.
-      </div>
-      <div class="act-row">
-        <a class="btn primary" href="subscription-detail.html">Name this charge</a>
-        <a class="btn" href="home.html">Not a subscription</a>
-      </div>
-      <p class="zaction">Main action: <b>name this charge</b> (turns it into a normal, readable row), or mark it <b>not a subscription</b>. A failed name lookup never leaves a cryptic dead end.</p>
-    </section>
 
-  </div>
+      <p class="badge">Not identified</p>
+
+      <section class="notice" role="status" aria-label="What we know">
+        <p>It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time.</p>
+      </section>
+
+      <dl class="facts">
+        <div><dt>Seen</dt><dd>3 times, monthly since May</dd></div>
+        <div><dt>Last charge</dt><dd>Jul 12</dd></div>
+        <div><dt>Charged to</dt><dd>Chase checking</dd></div>
+        <div><dt>Category</dt><dd>not set yet</dd></div>
+      </dl>
+
+      <!-- Here the decoder line is all we have, so it is the whole identity of
+           the charge rather than a footnote under a name. -->
+      <section class="decoder" aria-label="How this appears on your statement">
+        All we have is how it appears on your statement
+        <span class="raw">SQ *BLUEBOTTLE 8890</span>
+      </section>
+
+    </div>
+
+    <div class="col2">
+
+      <section class="panel" aria-label="Recent charges">
+        <h2>Recent charges</h2>
+        <ul class="charges">
+          <li><span>Jul 12</span><span class="amt">$14.00</span></li>
+          <li><span>Jun 12</span><span class="amt">$14.00</span></li>
+          <li><span>May 12</span><span class="amt">$14.00</span></li>
+        </ul>
+        <div class="gate">
+          <p>Three months are free. Longer history and trends are part of Tendd Pro.</p>
+          <div class="actions" style="margin:0">
+            <a class="btn" href="upgrade.html">See what Pro adds</a>
+            <button type="button" class="btn">Maybe later</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- The primary is naming it, not cancelling it: you cannot decide about a
+           charge you cannot read, and that decision is what this screen is for. -->
+      <div class="actions">
+        <a class="btn primary" href="add-subscription.html">Name this charge</a>
+        <a class="btn" href="home.html">This is not a subscription</a>
+      </div>
+
+      <div class="removal">
+        <p>This one came from Chase, so removing it hides the row rather than deleting it. If the charge appears again, Tendd will show it again.</p>
+        <a href="home.html">Remove from your list</a>
+      </div>
+
+      <section class="trust" aria-label="Where these figures come from">
+        <p>From Chase, read-only. Tendd cannot move your money.</p>
+        <p>Last checked today, 9:14 AM.</p>
+        <a href="data-privacy.html">Data and privacy</a>
+      </section>
+
+    </div>
+
+  </main>
 
   <nav class="tabbar" aria-label="Global navigation">
     <a class="cur" href="home.html" aria-current="page"><span class="ic"></span>Home</a>
-    <a href="alerts.html"><span class="ic"></span>Alerts</a>
+    <a href="alerts.html"><span class="ic"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
     <a href="home-savefocus.html"><span class="ic"></span>Save</a>
     <a href="settings.html"><span class="ic"></span>You</a>
   </nav>
 
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

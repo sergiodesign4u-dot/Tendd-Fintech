@@ -79,9 +79,19 @@ blocks 4, 5 and 10, which say where every figure came from; its home is node 1.3
 
 ## Responsive
 
-Mobile: one column, the hero first, the history collapsed to three months. Desktop: the detail
-may open as a right-hand pane beside the list, which keeps the person's place; the block order
-does not change.
+Mobile: one column, the hero first, the history collapsed to three months.
+
+**Rewritten 2026-08-05, at the wireframe rebuild.** This section allowed the detail to open as
+a pane beside the list on a wide screen. Node 2.6 had the mirror of that permission and lost it
+at the etalon, which left this one with no origin: a person tapping a row would arrive at a
+two-pane view they had never seen, and one row would look like two different things depending
+on where it was tapped from. It was also a second copy of the canonical list, on the pair of
+screens whose whole job is to be trusted about numbers.
+
+**Desktop, decided:** the width goes into the subscription. Two columns, the identity and the
+facts on the left (blocks 2 to 5) and the evidence and the actions on the right (blocks 6 to
+10). The block order is unchanged: the two columns are the two halves of the same order, so
+"what is this" is still read before "what now". The ground is in `docs/decisions.md`.
 
 ## SEO
 
@@ -90,7 +100,15 @@ does not change.
 ## Status
 
 **Locked:** the decoder line, the correction action, three months of history free with depth
-behind Pro, the payment source without card digits, honest removal.
+behind Pro, the payment source without card digits, honest removal, and (2026-08-05) two
+columns rather than a master pane on a wide screen.
+
 **Open:** `[?]` whether the price-change history can go back further than the charge history
 itself for a detected subscription. Resolving input: what the Plaid transaction window actually
 returns at build time.
+
+**Found at the wireframe rebuild, 2026-08-05:** block 8 asks for "edit the details" and the map
+has no node to send it to. There is no edit screen: node 1.4 Add Subscription owns the only
+form in the product, and the grey screen borrows it, which is honest for a prototype and is not
+a specification. Either node 1.4 gains an edit variant or the map gains a node, and that is a
+decision for the map, not for a wireframe.

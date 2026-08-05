@@ -119,8 +119,19 @@ The screens are judged on real length and meaning, so the data is one story told
 - Groups: Streaming 4, Software 4, Music, Fitness and News 6.
 - The alert case: **Netflix went up by $2.50, now $17.99**, which is also the subscription the
   cancel chain runs on (detail, guide, win). A price rise is what triggers the cut.
-- The decode case: `SPOTIFYAB STOCKHOLM` decoded to **Spotify Premium**.
-- The failed payment: **Peloton**.
+- The decode case: `SPOTIFYAB STOCKHOLM` decoded to **Spotify Premium**, which is also why
+  Spotify Premium is the subscription the base detail page renders: the screen exists for the
+  decoder line, so its default should be the case that shows one.
+- The failed payment: **Amazon Prime**, on **Jul 20**, at $14.99. Corrected here on 2026-08-05:
+  this file said Peloton, and the screen that actually renders the event (`alerts.html`) and the
+  line inventory both say Amazon Prime. `alerts.html` still dates it Jul 2, which its own
+  billing cycle contradicts; that is a carried fix for the round that rebuilds Alerts.
+- The three detail cases, one page each: **Spotify Premium** at rest, **Netflix** for the price
+  change (the alert case above), **Amazon Prime** for the failed payment. Statement strings:
+  `SPOTIFYAB STOCKHOLM`, `NETFLIX.COM 866-579-7172`, `AMZN Digital*2H4KL9`, and the unmatched
+  `SQ *BLUEBOTTLE 8890` at $14.00. Paid so far, twelve months back to Aug 2025: $143.88,
+  $185.88, and $164.89, which is eleven payments and the one that did not go through.
+- The payment source is named as **Chase checking**, never with card digits.
 - The save-focus candidates: **Peloton App $12.99** and **The New York Times $17.00**, which is
   why save focus offers "up to $29.99 a month".
 - The win: **$17.99 a month, $215.88 a year**, with a running total of $32.98 a month.
@@ -205,9 +216,15 @@ no clipped text, no overlap.
 **Decided at the etalon, 2026-08-05: no second pane on Home.** The width goes into showing more
 of the list, not into a preview of one row. An action has one destination at every width, and a
 row opens node 2.7 whether the window is 360px or 1600px. The ground is in the Responsive
-section of `ia/docs/nodes/2-6-home.md`. Subscription Detail still carries a list as its master
-pane, which is a different thing: it shows where you are in the list you came from, and it is
-re-decided on its own screen at Step 6, not inherited from here.
+section of `ia/docs/nodes/2-6-home.md`.
+
+**Decided at Step 6, the same day: no master pane on Subscription Detail either.** It was left
+open above and is now closed. The pane had no origin once Home lost its own, it was a second
+copy of the canonical list, and it spent half the screen on navigation the header already
+provides. The width goes into the subscription instead: two columns, the identity and the facts
+on the left, the evidence and the actions on the right, in the same order the narrow layout
+reads down the page. The onboarding chain has no desktop delta at all, so it overrides the
+dashboard grid rather than inheriting it: single column, centred, just wider.
 
 ## 10. Deferred to Design, not decided here
 

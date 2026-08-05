@@ -169,13 +169,14 @@ important ones" cannot happen quietly inside a round.
 The July build stands. What follows is the delta, and it is the work order for the steps after
 this one.
 
-**Eight pages to add** (each one is a node that has no page):
+**Eight pages to add** (each one is a node that has no page). Three were built on 2026-08-05,
+at the step that rebuilt the main flow:
 
 | Node | File | Why it exists |
 |---|---|---|
-| 1.3.4 | `connect-bank-cancelled.html` | Plaid Link returns four outcomes, not three. A person who opens the bank screen and backs out had nowhere to land |
-| 2.7.2 | `subscription-detail-price-change.html` | The state that carries J4 on the detail screen |
-| 2.7.3 | `subscription-detail-payment-failed.html` | Named in the IA critique as a dead end: informed, with no next step |
+| 1.3.4 | `connect-bank-cancelled.html` **built** | Plaid Link returns four outcomes, not three. A person who opens the bank screen and backs out had nowhere to land |
+| 2.7.2 | `subscription-detail-price-change.html` **built** | The state that carries J4 on the detail screen |
+| 2.7.3 | `subscription-detail-payment-failed.html` **built** | Named in the IA critique as a dead end: informed, with no next step |
 | 5.12.3 | `history-trends-error.html` | LATER, round 2 |
 | 5.13.1 | `upgrade-processing.html` | LATER, round 2 |
 | 5.13.2 | `upgrade-payment-failed.html` | LATER, round 2 |
@@ -205,8 +206,10 @@ The lines did not change; only the screen they are keyed to is now spelled corre
   steps were last checked.
 - `connections.html` needs the last successful check on every source and the disconnect
   consequence in the same sentence.
-- Every screen carries `.zlabel` and `.zaction` annotations and sits inside a 420 by 720
-  mockup frame. Both are the schema form of the previous stage, and both come off.
+- The `.zlabel` and `.zaction` annotations and the 420 by 720 mockup frame are the schema form
+  of the previous stage, and both come off. Gone from the twenty pages rebuilt so far (node 2.6
+  with its four states, node 1.1, node 1.2, node 1.3 with its four, node 1.5 with its one, node
+  2.7 with its five); still on the remaining pages until each is rebuilt.
 
 ---
 
