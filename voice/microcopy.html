@@ -280,7 +280,24 @@
       </table>
     </div>
     <p><strong>Not a copy change, but recorded here because the screen reads differently:</strong> the next charge is rendered days first and the date second (wireframe conventions section 5, and node 2.6 block 5), against a fixed fixture date of 1 August. "in 2 days, Aug 3", and "tomorrow" at one day.</p>
-  </section>
+      <h3>The four states of Home (2026-08-05, same rebuild)</h3>
+    <p>Again no line was rewritten. Two stale inventory rows were corrected against the Step 5 log, which had already resolved both and whose decisions the screens have been rendering since July: <code>home-savefocus</code> summary-strip is "you might not be using", and the door label is "Add a subscription".</p>
+    <div class="twrap">
+      <table class="vtable">
+        <thead><tr><th>Screen</th><th>Zone</th><th>Change</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>home-empty</td><td>state-message</td><td>The two door support lines recorded</td><td>Node 2.6.1 says both paths are offered "in the same words used at node 1.2", so the doors carry the path-choice support lines. They were on screen and missing from the inventory.</td></tr>
+          <tr><td>home-error</td><td>trust-line</td><td>GC6 added, with the link pointing at <code>connections</code> rather than <code>data-privacy</code></td><td>Node 2.6.3 requires a way into node 6.14 from this state: the figures are stale, and the place to do something about that is the source.</td></tr>
+          <tr><td>home-savefocus</td><td>trust-line</td><td>GC6 added</td><td>Every populated Home page shows where its figures came from. The state does not change the source.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>Two findings for Voice, left open rather than fixed here, because the words are not the wireframe stage's to change.</b></p>
+    <ol>
+      <li><b><code>home-empty</code> carries two headings that say the same thing</b> a hundred pixels apart: "Nothing to add up yet" in the summary strip and "Nothing here yet" over the two doors. Both are in the inventory, both are now visible on one screen with no zone boxes between them, and together they read as a stutter.</li>
+      <li><b>The two <code>home-savefocus</code> candidate rows put the date first</b> ("Trial ends: Aug 18", "Next: Aug 11") while every other row in the product now leads with the days. These two lines pair the next charge with how long it has been unopened, so the fix is a rewrite and not a reformat.</li>
+    </ol>
+</section>
 
   <section id="dataset">
     <h2>Canonical subscription dataset</h2>
@@ -489,12 +506,17 @@
           <tr><td>home-empty</td><td>state-message</td><td>Nothing here yet</td><td>heading</td></tr>
           <tr><td>home-empty</td><td>state-message</td><td>See everything you pay for in one calm place. Pick the way that feels right; you can change it later.</td><td>body</td></tr>
           <tr><td>home-empty</td><td>state-message</td><td>Connect your bank</td><td>button</td></tr>
+          <tr><td>home-empty</td><td>state-message</td><td>Fast and automatic. Read-only, we can never move your money.</td><td>body</td></tr>
           <tr><td>home-empty</td><td>state-message</td><td>Add a subscription</td><td>button</td></tr>
+          <tr><td>home-empty</td><td>state-message</td><td>Private. Pick from 400+ services, nothing leaves your control.</td><td>body</td></tr>
           <tr><td>home-error</td><td>state-message</td><td>We could not refresh just now. Showing your last update from today, 9:14 AM.</td><td>state-message</td></tr>
           <tr><td>home-error</td><td>state-message</td><td>Try again</td><td>button</td></tr>
           <tr><td>home-error</td><td>summary-strip</td><td>a month, as of your last update</td><td>body</td></tr>
+          <tr><td>home-error</td><td>trust-line</td><td>(the GC6 lines as on <code>home</code>, with the link pointing at <code>connections</code>)</td><td>body</td></tr>
+          <tr><td>home-error</td><td>trust-line</td><td>Your sources</td><td>link</td></tr>
           <tr><td>home-loading</td><td>summary-strip</td><td>Getting your subscriptions. This usually takes a moment.</td><td>body</td></tr>
-          <tr><td>home-savefocus</td><td>summary-strip</td><td>a month. You could save up to $29.99 a month by cutting 2 you might not use.</td><td>body</td></tr>
+          <tr><td>home-savefocus</td><td>summary-strip</td><td>a month. You could save up to $29.99 a month by cutting 2 you might not be using.</td><td>body</td></tr>
+          <tr><td>home-savefocus</td><td>trust-line</td><td>(the GC6 lines as on <code>home</code>)</td><td>body</td></tr>
           <tr><td>home-savefocus</td><td>cancel-candidates</td><td>Two you have not opened in a while. No pressure, just a nudge.</td><td>body</td></tr>
           <tr><td>home-savefocus</td><td>cancel-candidates</td><td>Trial ends: Aug 18 &#183; not opened in 3 weeks</td><td>body</td></tr>
           <tr><td>home-savefocus</td><td>cancel-candidates</td><td>Next: Aug 11 &#183; not opened in 6 weeks</td><td>body</td></tr>

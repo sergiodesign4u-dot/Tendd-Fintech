@@ -179,6 +179,31 @@ next charge is rendered days first and the date second (conventions section 5, a
 node 2.6 block 5), against a fixed fixture date of 1 August. "in 2 days, Aug 3",
 and "tomorrow" at one day.
 
+### The four states of Home (2026-08-05, same rebuild)
+
+Again no line was rewritten. Two stale inventory rows were corrected against the
+Step 5 log, which had already resolved both and whose decisions the screens have
+been rendering since July: `home-savefocus` summary-strip is "you might not be
+using", and the door label is "Add a subscription".
+
+| Screen | Zone | Change | Why |
+|--------|------|--------|-----|
+| home-empty | state-message | The two door support lines recorded | Node 2.6.1 says both paths are offered "in the same words used at node 1.2", so the doors carry the path-choice support lines. They were on screen and missing from the inventory |
+| home-error | trust-line | GC6 added, with the link pointing at `connections` rather than `data-privacy` | Node 2.6.3 requires a way into node 6.14 from this state: the figures are stale, and the place to do something about that is the source |
+| home-savefocus | trust-line | GC6 added | Every populated Home page shows where its figures came from. The state does not change the source |
+
+**Two findings for Voice, left open rather than fixed here, because the words are
+not this stage's to change:**
+
+1. **`home-empty` carries two headings that say the same thing** a hundred pixels
+   apart: "Nothing to add up yet" in the summary strip and "Nothing here yet" over
+   the two doors. Both are in the inventory, both are now visible on one screen
+   with no zone boxes between them, and together they read as a stutter.
+2. **The two `home-savefocus` candidate rows put the date first** ("Trial ends:
+   Aug 18", "Next: Aug 11") while every other row in the product now leads with
+   the days (conventions section 5). These two lines pair the next charge with how
+   long it has been unopened, so the fix is a rewrite and not a reformat.
+
 ---
 
 ## Canonical subscription dataset (product fixtures, not authored copy)
@@ -398,12 +423,17 @@ list". Total: `$192.90 / month`.
 | home-empty | state-message | Nothing here yet | heading |
 | home-empty | state-message | See everything you pay for in one calm place. Pick the way that feels right; you can change it later. | body |
 | home-empty | state-message | Connect your bank | button |
+| home-empty | state-message | Fast and automatic. Read-only, we can never move your money. | body |
 | home-empty | state-message | Add a subscription | button |
+| home-empty | state-message | Private. Pick from 400+ services, nothing leaves your control. | body |
 | home-error | state-message | We could not refresh just now. Showing your last update from today, 9:14 AM. | state-message |
 | home-error | state-message | Try again | button |
 | home-error | summary-strip | a month, as of your last update | body |
+| home-error | trust-line | (the GC6 lines as on `home`, with the link pointing at `connections`) | body |
+| home-error | trust-line | Your sources | link |
 | home-loading | summary-strip | Getting your subscriptions. This usually takes a moment. | body |
-| home-savefocus | summary-strip | a month. You could save up to $29.99 a month by cutting 2 you might not use. | body |
+| home-savefocus | summary-strip | a month. You could save up to $29.99 a month by cutting 2 you might not be using. | body |
+| home-savefocus | trust-line | (the GC6 lines as on `home`) | body |
 | home-savefocus | cancel-candidates | Two you have not opened in a while. No pressure, just a nudge. | body |
 | home-savefocus | cancel-candidates | Trial ends: Aug 18 · not opened in 3 weeks | body |
 | home-savefocus | cancel-candidates | Next: Aug 11 · not opened in 6 weeks | body |

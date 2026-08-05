@@ -84,6 +84,14 @@ Every inline block sits in one `<style>` in the head, opened with the marker
 `/* INLINE: <screen> :: for consolidation into _wf.css */`, so the parent can find them
 mechanically instead of reading twenty files.
 
+**The etalon consolidated early, at Step 5, and that is the rule and not an exception.** The
+moment node 2.6 had its four state pages, the shell was a five-screen rule by the test above, and
+leaving it inline would have meant five copies of it until Step 8. It sits in `_wf.css` under the
+heading "The live screen shell", **scoped under `.app`**, which makes it strictly additive: the
+pages still on the July `.phone` frame are untouched, and the `.phone` block dies when the last
+one leaves it. Any screen rebuilt from here writes `.app` and inherits the shell; what it adds
+for itself goes inline until it too is shared.
+
 **Why this is not pedantry.** Stage 07 derives the component classes of the kit from these
 screens. If the structure of twenty screens lives in twenty inline blocks, the extract honestly
 returns the differences: three card variants, two grids, four spacings where there should have

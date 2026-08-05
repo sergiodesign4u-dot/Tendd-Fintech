@@ -498,3 +498,265 @@ ul.list { list-style: none; margin: 0; padding: 0; }
   .lp-quotes { grid-template-columns: repeat(3, 1fr); }
   .lp-footer .lp-wrap { grid-template-columns: 2fr 1fr 1fr 1fr; }
 }
+
+/* ============================================================
+   THE LIVE SCREEN SHELL (.app)
+   Consolidated 2026-08-05 from the etalon, wireframes/home.html.
+
+   Conventions section 3 says a rule that appears on two or more screens moves
+   out of the page and into this file. Node 2.6 has five pages (the base and its
+   four states), so the moment the states existed the shell was a five-screen
+   rule, and consolidating it later would have meant maintaining five copies of
+   it in the meantime.
+
+   Everything is scoped under .app, which makes the block strictly additive: the
+   July pages still use .phone and are untouched until each is rebuilt. The
+   .phone block above dies when the last page leaves it.
+
+   Order of blocks is node 2.6, mobile-first: GC1 header, GC3 summary, the
+   conditional attention row, the grouped list with subtotals, the two quiet
+   secondaries, the GC6 trust line, GC2 tab bar. The wide layout is a dashboard,
+   not a wider phone, and it has no second pane: a row has one destination at
+   every width (docs/decisions.md, 2026-08-05).
+   ============================================================ */
+
+.app {
+  display: flex; flex-direction: column;
+  min-height: 100vh; min-height: 100dvh;
+  background: var(--frame);
+}
+
+/* GC1: the wordmark, and one quiet way into the account. No back control here:
+   Home is the root of the signed-in product. */
+.app .appbar {
+  position: sticky; top: 0; z-index: 5;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px; background: var(--frame); border-bottom: 1px solid var(--line2);
+}
+.app .appbar .wordmark { font-weight: 700; font-size: 16px; letter-spacing: 0.02em; }
+/* Quiet by design: it is the way into the account, not an action of this screen.
+   The padding is there to reach a 44px target without drawing a button. */
+.app .appbar .acct {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px;
+  font-size: 13px; color: var(--soft); text-decoration: none;
+}
+.app .appbar .acct:hover { color: var(--ink); }
+
+/* The scrolling body. The bottom padding clears the fixed tab bar. */
+.app .screen { flex: 1; padding: 18px 16px 104px; }
+
+/* GC3: the total is the biggest thing on the screen, and nothing sits beside it. */
+.app .summary { margin: 0 0 20px; }
+.app .summary h1 { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--mid); letter-spacing: 0; }
+.app .summary .total { margin: 0; font-size: 46px; font-weight: 700; line-height: 1.02; letter-spacing: -0.025em; font-variant-numeric: tabular-nums; }
+.app .summary .context { margin: 6px 0 0; font-size: 13px; color: var(--soft); }
+
+/* The attention row. It is a live region so a new one is announced politely,
+   and the action inside it stays a real link. Shown only when it is true. */
+.app .attention {
+  border: 1px solid var(--line); border-left: 3px solid var(--soft);
+  background: var(--panel2); padding: 12px 14px; margin: 0 0 22px;
+}
+.app .attention p { margin: 0; font-size: 13.5px; color: var(--mid); }
+.app .attention a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; color: var(--ink); }
+.app .attention a::after { content: "  \2192"; color: var(--faint); }
+
+/* The list: grouped by category, every group carrying its own subtotal. */
+.app .group { margin: 0 0 24px; }
+.app .group-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 0 0 6px; margin: 0 0 2px; border-bottom: 1px solid var(--line2);
+}
+.app .group-head h2 { margin: 0; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); }
+.app .group-head .subtotal { font-size: 12px; color: var(--soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.app .group ul { list-style: none; margin: 0; padding: 0; }
+
+/* GC4: the whole row is the target, and the days lead the date. */
+.app .row {
+  display: flex; align-items: center; gap: 12px;
+  min-height: 56px; margin: 0; padding: 10px 4px;
+  /* The reset is deliberate: _wf.css still carries the framed-card row from the
+     July build, and a row here is a line in a list, not a card in a stack. */
+  border: 0; border-bottom: 1px solid var(--line2); background: none;
+  text-decoration: none; color: inherit;
+}
+.app .group li:last-child .row { border-bottom: 0; }
+.app .row:hover { background: var(--panel2); }
+.app .row .logo {
+  flex: none; width: 36px; height: 36px; border: 1px dashed var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; color: var(--faint);
+}
+.app .row .body { flex: 1; min-width: 0; }
+.app .row .name { display: block; font-size: 15px; font-weight: 600; }
+.app .row .when { display: block; font-size: 12.5px; color: var(--soft); }
+.app .row .amt { flex: none; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Status is a word, and it appears only when it is not the plain default: a
+   column of fourteen "Active" tags is noise on a screen whose job is calm. */
+.app .row .tag {
+  flex: none; font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase;
+  border: 1px solid var(--line); padding: 2px 6px; color: var(--soft);
+}
+
+/* The two quiet secondaries. Neither competes with the total. */
+.app .secondary { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; }
+.app .secondary a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--line); background: var(--frame);
+  font-size: 13.5px; color: var(--mid); text-decoration: none;
+}
+.app .secondary a:hover { border-color: var(--soft); color: var(--ink); }
+
+/* GC6: where the figures came from, that we cannot move money, when it was last
+   checked, and the way to the full answer. */
+.app .trust { margin: 26px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line2); font-size: 12px; color: var(--soft); }
+.app .trust p { margin: 0 0 4px; }
+.app .trust a { display: inline-flex; align-items: center; min-height: 44px; color: var(--mid); }
+
+/* GC2. Fixed chrome on the narrow layout, the left rail on the wide one. */
+.app .tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 6;
+  display: flex; background: var(--frame); border-top: 1px solid var(--line);
+}
+.app .tabbar a {
+  flex: 1; min-height: 56px; padding: 9px 4px 10px; text-align: center;
+  font-size: 12px; color: var(--soft); text-decoration: none;
+  border-top: 2px solid transparent;
+}
+.app .tabbar a .ic { display: block; width: 18px; height: 18px; border: 1px solid var(--line); margin: 0 auto 4px; position: relative; }
+.app .tabbar a .ic .dot { position: absolute; top: -3px; right: -4px; width: 7px; height: 7px; border-radius: 50%; background: var(--mid); }
+.app .tabbar a.cur { color: var(--ink); font-weight: 600; border-top-color: var(--ink); }
+
+/* ---- The wide layout. Same screen, reflowed: the tab bar becomes a left rail
+   and the header folds into its top, which is the IA delta decided once for the
+   whole product. The query runs on the stage, so the screen reflows on the space
+   it actually has rather than on the viewport the review panel also occupies. ---- */
+@container (min-width: 760px) {
+  .app {
+    display: grid; height: 100vh; height: 100dvh;
+    grid-template-columns: 232px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+  .app .appbar {
+    position: static; grid-column: 1; grid-row: 1;
+    flex-direction: column; align-items: flex-start; gap: 4px;
+    padding: 20px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line2);
+  }
+  .app .appbar .acct { padding: 0; font-size: 12px; }
+  .app .tabbar {
+    position: static; grid-column: 1; grid-row: 2;
+    flex-direction: column; align-content: start;
+    background: var(--panel2); border-top: 0; border-right: 1px solid var(--line);
+    padding: 10px 0;
+  }
+  .app .tabbar a {
+    flex: none; min-height: 48px; text-align: left; padding: 0 20px;
+    display: flex; align-items: center; gap: 10px;
+    border-top: 0; border-left: 3px solid transparent;
+  }
+  .app .tabbar a .ic { margin: 0; }
+  .app .tabbar a.cur { border-top: 0; border-left-color: var(--ink); background: var(--frame); }
+  .app .screen { grid-column: 2; grid-row: 1 / -1; overflow: auto; padding: 30px 36px 48px; }
+  .app .screen > * { max-width: 780px; }
+  .app .summary .total { font-size: 54px; }
+}
+
+/* ---- Dashboard. Wide enough to stop being a tall column: the total and the one
+   thing that needs attention sit side by side across the top, and the groups run
+   in balanced columns so the person sees most of the list without scrolling.
+   That is J-MAIN read literally, all recurring charges in one calm view, and it
+   is the only thing the extra width is spent on. ---- */
+@container (min-width: 900px) {
+  .app .screen > * { max-width: none; }
+  .app .head {
+    display: grid; grid-template-columns: minmax(250px, 0.85fr) minmax(300px, 1.15fr);
+    gap: 30px 40px; align-items: center;
+    padding: 0 0 26px; margin: 0 0 22px; border-bottom: 1px solid var(--line2);
+  }
+  .app .head .summary, .app .head .attention { margin: 0; }
+  .app .groups { columns: 2; column-gap: 44px; }
+  /* A category is read as one thing, so it never splits across a column break. */
+  .app .group { break-inside: avoid; margin: 0 0 26px; }
+
+  /* The two secondaries move above the list here, and only here. The DOM keeps
+     the mobile-first order of node 2.6, where the add action is block 6 and sits
+     after the list because the job of this screen is to look, not to add. On a
+     dashboard that order puts them under the shorter of two balanced columns,
+     where they read as leftovers rather than as the way on. */
+  .app .screen { display: flex; flex-direction: column; }
+  .app .head { order: 1; }
+  .app .secondary { order: 2; margin: 0 0 26px; }
+  .app .groups { order: 3; }
+  .app .trust { order: 4; }
+}
+
+@container (min-width: 1340px) {
+  .app .groups { columns: 3; }
+}
+
+/* ---- The four states of node 2.6. Each is its own page (conventions section 7),
+   and these are the only rules the states add to the shell. ---- */
+
+/* 2.6.3 sync failed. It is a separate class from .attention on purpose: at the
+   Concept stage a price change is calm amber and a genuine failure is desaturated
+   clay (D-Concept), so the two cannot be one component that merely looks alike in
+   grey. */
+.app .notice {
+  border: 1px solid var(--line); border-left: 3px solid var(--mid);
+  background: var(--panel); padding: 12px 14px; margin: 0 0 22px;
+}
+.app .notice p { margin: 0; font-size: 13.5px; color: var(--mid); }
+.app .notice a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; color: var(--ink); }
+
+/* 2.6.1 empty. Two doors of equal weight: neither is the recommended one (D2),
+   so they share a row on a wide screen rather than stacking with one on top. */
+.app .empty { margin: 0 0 24px; }
+.app .empty h2 { margin: 0 0 6px; font-size: 17px; }
+.app .empty > p { margin: 0 0 18px; font-size: 13.5px; color: var(--soft); max-width: 52ch; }
+.app .doors { display: grid; gap: 12px; }
+.app .door {
+  display: block; border: 1px solid var(--line); background: var(--frame);
+  padding: 16px; text-decoration: none; color: inherit;
+}
+.app .door:hover { border-color: var(--soft); }
+.app .door h3 { margin: 0 0 4px; font-size: 16px; }
+.app .door p { margin: 0; font-size: 13px; color: var(--soft); }
+
+/* 2.6.2 refreshing. A skeleton in the shape of the content, never a spinner over
+   the screen: the shape is the promise that the same screen is coming back. */
+.app .skel { background: var(--skel); display: inline-block; height: 12px; }
+.app .skel.line { display: block; height: 11px; margin: 3px 0; }
+.app .skel.line.short { width: 40%; }
+.app .skel.total { height: 44px; width: 190px; margin: 6px 0 0; }
+.app .skel.amt-skel { flex: none; width: 56px; height: 13px; }
+.app .row.is-skel { cursor: default; }
+.app .row .logo.is-skel { border-style: solid; border-color: var(--line2); background: var(--skel); }
+.app .group-head .skel { margin: 0; }
+
+/* 2.6.4 save focus. The row keeps its whole-row target and the cut is a second,
+   separately named control: confusing the two is what costs the cancellation. */
+.app .candidates { margin: 0 0 24px; }
+.app .candidates .lead { margin: 0 0 8px; font-size: 13px; color: var(--soft); }
+.app .candidates ul { list-style: none; margin: 0; padding: 0; }
+.app .cand { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--line2); }
+.app .cand:last-child { border-bottom: 0; }
+.app .cand .row { flex: 1; min-width: 0; border-bottom: 0; }
+.app .cand .cut {
+  flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--line); background: var(--frame);
+  font-size: 13px; color: var(--mid); text-decoration: none;
+}
+.app .cand .cut:hover { border-color: var(--soft); color: var(--ink); }
+
+@container (min-width: 760px) {
+  .app .doors { grid-template-columns: 1fr 1fr; gap: 16px; }
+}
+
+/* On the narrowest layout the cut drops to its own line: a merchant name, an
+   amount and a second control do not share 360px without the name wrapping into
+   the amount, and the name is the thing being decided about. */
+@media (max-width: 460px) {
+  .app .cand { flex-wrap: wrap; padding: 4px 0 10px; }
+  .app .cand .row { flex: 1 1 100%; }
+  .app .cand .cut { margin-left: auto; }
+}
