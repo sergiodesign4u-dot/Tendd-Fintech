@@ -3,118 +3,90 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>History and Trends (success) - Tendd Wireframe</title>
+<title>History and Trends - Tendd wireframe</title>
 <link rel="stylesheet" href="_wf.css">
 </head>
 <body>
 <div class="layout">
-<div id="wftree"></div>
+<div id="wf-sidebar"></div>
 <div class="stage stage-app">
 
-<main class="phone dash" aria-label="History and Trends screen, mobile layout">
+<div class="app">
 
+  <!-- GC1 detail variant: back, and the plan chip. The chip states the plan and
+       never sells: on this page the person already pays. The free person's view
+       of the same screen is node 5.12.4, history-trends-locked. -->
   <header class="appbar">
+    <a class="back" href="home.html">&lsaquo; Your subscriptions</a>
     <span class="wordmark">Tendd</span>
-    <span class="right">Pro</span>
+    <span class="plan">Pro</span>
   </header>
 
-  <div class="screen">
+  <main class="screen">
 
-    <!-- BLOCK 1 (P): Title + plan chip (GC7 Pro state, no gate) -->
-    <section class="zone" aria-label="Your trends">
-      <span class="zlabel">Title + plan indicator (GC7, Pro state - no gate)</span>
-      <div class="detail-head">
-        <span class="name">Your trends</span>
-        <span class="locklabel">Pro</span>
-      </div>
-      <p class="context" style="font-size:12px;color:var(--soft);margin:6px 0 0">How your monthly total has moved over time. Nothing to act on here, just the shape of it.</p>
-    </section>
+    <div class="lede">
+      <h1>Your trends</h1>
+      <p>How your monthly total has moved over time. Nothing to act on here, just the shape of it.</p>
+    </div>
 
-    <!-- BLOCK 2 (P): Time-range selector -->
-    <section class="zone" aria-label="Time range">
-      <span class="zlabel">Time-range selector (3 / 6 / 12 months)</span>
-      <div class="act-row" role="group" aria-label="Choose a time range">
-        <button class="btn primary" type="button" aria-pressed="true">3 months</button>
-        <button class="btn" type="button" aria-pressed="false">6 months</button>
-        <button class="btn" type="button" aria-pressed="false">12 months</button>
-      </div>
-      <p class="zaction">Main action: <b>pick a range</b>. The chart and the list below both follow it.</p>
-    </section>
+    <!-- Three ranges. Type H found more in every source and every extra one is a
+         decision asked of a person who came here to read. -->
+    <div class="range" role="group" aria-label="Choose a time range">
+      <button type="button" aria-pressed="true">3 months</button>
+      <button type="button" aria-pressed="false">6 months</button>
+      <button type="button" aria-pressed="false">12 months</button>
+    </div>
 
-    <!-- BLOCK 3 (P): Spend-over-time chart placeholder -->
-    <section class="zone" aria-label="Spend over time">
-      <span class="zlabel">Spend-over-time chart - monthly recurring total across the range</span>
-      <div style="border:1px dashed var(--line);background:var(--panel2);height:180px;display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:12px">[chart: monthly recurring total, May to Jul]</div>
-      <div class="kv" style="border-bottom:0;margin-top:8px">
-        <span class="k">May</span><span class="k">Jun</span><span class="k">Jul</span>
-      </div>
-      <p class="callout" role="status" aria-live="polite" style="margin-top:8px">Text summary: your monthly total went from <strong>$172.90 in May</strong> to <strong>$192.90 in July</strong>, up about $20 across three months.</p>
-    </section>
+    <!-- The fact in words, ABOVE the chart. This is the whole of type H: in every
+         source the number lives inside the picture, and growth zone 3 says a
+         picture is what makes this person close a finance app. -->
+    <p class="readout">Your monthly total went from <strong>$172.90 in May</strong> to <strong>$192.90 in July</strong>, up about <strong>$20</strong> across three months.</p>
 
-    <!-- BLOCK 4 (S): Trend list, per-category / per-subscription change -->
-    <section class="zone" aria-label="What moved">
-      <span class="zlabel">Trend list - what changed, in plain language</span>
-      <ul class="list">
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Netflix up 2 dollars 50 cents since May">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Netflix</span>
-              <span class="meta">Up $2.50 since May, now $17.99 / month</span>
-              <span class="when">Streaming</span>
-            </span>
-            <span class="tag">Higher</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus added in June">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">ChatGPT Plus</span>
-              <span class="meta">New since June, $20.00 / month</span>
-              <span class="when">Software</span>
-            </span>
-            <span class="tag">New</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="The New York Times unchanged since March">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">The New York Times</span>
-              <span class="meta">No change since March, $4.25 / month</span>
-              <span class="when">News</span>
-            </span>
-            <span class="tag">Steady</span>
-          </a>
-        </li>
+    <div class="chart" role="img" aria-label="Line chart of your monthly total from May to July, the same figures as the sentence above">[chart: monthly total, May to Jul]</div>
+    <p class="axis"><span>May</span><span>Jun</span><span>Jul</span></p>
+
+    <!-- The trend list. A word, never a coloured arrow: "Higher" is a fact and a
+         red arrow is a verdict (D-Concept, and node 5.12 block 6). -->
+    <section class="group" aria-label="What moved">
+      <div class="group-head"><h2>What moved</h2></div>
+      <ul>
+        <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, up 2 dollars 50 cents since May, now 17 dollars 99 a month, Streaming">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">Netflix</span><span class="when">Up $2.50 since May, now $17.99 a month</span></span>
+          <span class="tag">Higher</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, new since June, 20 dollars a month, Software">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">ChatGPT Plus</span><span class="when">New since June, $20.00 a month</span></span>
+          <span class="tag">New</span>
+        </a></li>
+        <li><a class="row" href="subscription-detail.html" aria-label="The New York Times, no change since March, 17 dollars a month, News">
+          <span class="logo">[logo]</span>
+          <span class="body"><span class="name">The New York Times</span><span class="when">No change since March, $17.00 a month</span></span>
+          <span class="tag">Steady</span>
+        </a></li>
       </ul>
-      <div class="callout" style="margin-top:4px">
-        <span class="k">By category</span>
-        Streaming is up $6 since March. Everything else held steady.
-      </div>
-      <p class="zaction">Main action: <b>tap a subscription to see its detail</b>.</p>
     </section>
 
-    <!-- BLOCK 5 (S): Export action (Pro, unlocked here) -->
-    <section class="zone plain" aria-label="Export">
-      <span class="zlabel">Export action (Pro)</span>
-      <div class="act-row">
-        <button class="btn" type="button">Export as CSV</button>
-      </div>
-      <p class="zaction">Downloads your history as a spreadsheet. Part of Tendd Pro.</p>
-    </section>
+    <p class="bycat"><span class="k">By category</span>Streaming is up $6 since March. Everything else held steady.</p>
 
-  </div>
+    <!-- D-Export names the split out loud, on the screen that sells one of the
+         two exports. A plain copy of your own data is free and lives on 6.15. -->
+    <div class="actions">
+      <button type="button" class="btn">Export as CSV</button>
+    </div>
+    <p class="consequence">Your history as a spreadsheet, for reading it somewhere else. Part of Tendd Pro. A plain copy of everything we hold is free and lives in <a href="data-privacy.html">Data and privacy</a>.</p>
+
+  </main>
 
   <nav class="tabbar" aria-label="Global navigation">
     <a class="cur" href="home.html" aria-current="page"><span class="ic"></span>Home</a>
-    <a href="alerts.html"><span class="ic"></span>Alerts</a>
+    <a href="alerts.html"><span class="ic"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
     <a href="home-savefocus.html"><span class="ic"></span>Save</a>
     <a href="settings.html"><span class="ic"></span>You</a>
   </nav>
 
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

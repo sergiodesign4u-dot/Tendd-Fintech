@@ -105,10 +105,11 @@ against there.
 **The etalon consolidated early, at Step 5, and that is the rule and not an exception.** The
 moment node 2.6 had its four state pages, the shell was a five-screen rule by the test above, and
 leaving it inline would have meant five copies of it until Step 8. It sits in `_wf.css` under the
-heading "The live screen shell", **scoped under `.app`**, which makes it strictly additive: the
-pages still on the July `.phone` frame are untouched, and the `.phone` block dies when the last
-one leaves it. Any screen rebuilt from here writes `.app` and inherits the shell; what it adds
-for itself goes inline until it too is shared.
+heading "The live screen shell", **scoped under `.app`**, which made it strictly additive while
+the July `.phone` frame still had pages. **The last seven left it in round 2 on 2026-08-05 and
+the `.phone` block was deleted the same day**, which is what "additive" was for: no page uses
+it, so it is not kept in case. Any screen writes `.app` and inherits the shell; what it adds for
+itself goes inline until it too is shared.
 
 **Why this is not pedantry.** Stage 07 derives the component classes of the kit from these
 screens. If the structure of twenty screens lives in twenty inline blocks, the extract honestly
@@ -200,15 +201,19 @@ the read-only line wherever a trust moment appears. All of it is already written
   finishing or a load resolving is not: putting a button on a wait screen would give the screen
   an action the product does not have, which is the same defect as a caption naming an action
   that is not there (section 1). System edges are walked in the side panel, which is why every
-  state of every screen is a row in it. `connect-bank-loading` is the one page in the set with
-  no link at all, and that is correct: the onboarding chain has no tab bar and a sync has
-  nothing for a person to do.
+  state of every screen is a row in it. Two pages in the set have no link at all, and both are
+  correct: `connect-bank-loading`, where the chain has no tab bar and a sync has nothing for a
+  person to do, and `upgrade-processing`, where a way out in the middle of a charge is the
+  thing the screen must not offer.
   The check that makes this falsifiable: **every MVP base screen is reachable from the front
   door by clicking, and the pages that are not are state pages**, each produced by a condition
-  rather than by a tap. One base screen is deliberately unreachable: node 4.11 Share Snapshot
-  is LATER under D-Share, and it lost its entry when the share block came off `cancel-win`. An
-  MVP screen cannot lead to a screen that is not in MVP, and that is the decision showing up in
-  the link graph rather than a broken route.
+  rather than by a tap. Two pages are deliberately unreachable by click, and both are the same
+  kind of truth rather than a broken route. Node 4.11 Share Snapshot is LATER under D-Share and
+  lost its entry when the share block came off `cancel-win`: an MVP screen cannot lead to a
+  screen that is not in MVP. And `history-trends` in its unlocked form is a Pro screen, which
+  the canonical person cannot reach because she is on Free: every "See your trends" link in the
+  product goes to `history-trends-locked` (node 5.12.4), and the unlocked page is what opens
+  after the gate. Both are reached in the prototype from the side panel.
 - **The four dead ends of `flows.md` are drawn on purpose and each one is closed by a named
   control on a named page.** The list is on `overview.html` under Flows. A wireframe stage that
   leaves one of them open has not finished, whatever else it drew.
@@ -218,12 +223,12 @@ the read-only line wherever a trust moment appears. All of it is already written
 ## 8. Navigation: two of them, and they do not mix
 
 - **`overview.html` carries the roadmap sidebar** from the root `/_nav.js`: the bridge back into
-  the project. Its own sections are Flows, Coverage map, State matrix, Conventions and Work
-  order. The work order is the delta against the pages that exist; when the critique closes it
-  is replaced by "was to became", which is the same list with outcomes against it.
+  the project. Its own sections are Flows, Coverage map, State matrix, Conventions and, since
+  the critique closed, "Was to became": the delta the stage owed, with the outcome of each line
+  and the merged critique table beside it.
 - **The overview does not keep its own copy of the screen list.** The flows name node numbers,
   and every name, file, scope and state is resolved from `wireframes/_nav.js`, the same registry
-  the screen panel renders. The counts on the page are computed from it too, so "41 of 49" can
+  the screen panel renders. The counts on the page are computed from it too, so "50 of 50" can
   never be a number someone forgot to update.
 - **Every screen page carries the wireframe-only side panel** from `wireframes/_nav.js`, and
   nothing else: a header with an "All screens" button and the stage badge, a **three-level tree**

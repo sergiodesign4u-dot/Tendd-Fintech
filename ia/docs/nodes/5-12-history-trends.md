@@ -6,12 +6,12 @@ Template: `1-1-welcome.md`. Supersedes the 5.12 section of `../pages/pro.md`.
 
 **Node 5.12 · History and Trends · page · LATER**
 
-**Where the composition comes from, and where it does not.** `../blocks.md` ran on the 13 MVP
-screens; cluster 5 was out of that round by its own rule, because both its nodes are LATER. So
-this node takes its blocks from `../pages/pro.md`, from the lines already written in
-`voice/docs/microcopy.md`, and from our own research. When Pro is built, this node and node
-5.13 get a bank round of their own first: a depth-and-chart type and an upgrade type, neither
-of which exists in the bank yet. That round happens before the screen is drawn, not after.
+**Where the composition comes from.** `../blocks.md` ran its first round on the 13 MVP screens
+and cluster 5 was out of it, so this node was first written from `../pages/pro.md`, the lines
+in `voice/docs/microcopy.md` and our own research. **The bank round ran on 2026-08-05, as
+type H, before the screen was drawn**, with Copilot, Wise, Klarna and Roi second-hand through
+Refero as the domain half. It confirmed the seven blocks below and added no new one; what it
+changed is the list of refusals, which grew.
 
 ## Purpose and jobs
 
@@ -52,6 +52,12 @@ turns every reading into a pass or a fail), a comparison against other people, a
 "you overspent" verdict of any kind, a donut of categories, and a projection of next year.
 Every one of them converts a shape into a judgement, and E1 is the job that would break.
 
+**Added by the bank round (type H), all refusals:** colour that means good or bad, which every
+domain source uses and D-Concept forbids (the status word carries it instead); a second time
+control beside the range, because Copilot and Wise both put a month selector on the same screen
+as a range and that is the audit-table texture type E rejected; a percentage and an arrow beside
+the change, which Roi uses and principle 3 rewrites into words.
+
 ## Components and variants
 
 GC1 App Header, detail variant with back. GC3 is not reused here: the summary strip belongs to
@@ -62,10 +68,15 @@ the present, and this screen is the past. GC7 Pro Gate, in block 8 only.
 | Node | State | Reads like | Trigger |
 |---|---|---|---|
 | - | Pro, with data | Blocks 1 to 7 | A Pro plan and three months or more of history |
-| - | Pro-locked | The same frame, the person's own labels, the lock and the upgrade action | A free plan (D3) |
+| 5.12.4 | Trends behind the Pro gate | The same frame, the person's own labels, the lock and the upgrade action | A free plan (D3) |
 | 5.12.1 | Still gathering history | "Trends need a few months to be worth looking at." | Under three months of data, on a paid plan |
 | 5.12.2 | Loading history | A skeleton chart, "Adding up your last few months." | Fetching |
 | 5.12.3 | Could not load trends | "We could not load your trends. Try again." | Load failed |
+
+**5.12.4 was numbered on 2026-08-05.** It stood here as an unnumbered variant, and an
+unnumbered variant gets no page, which left the product's only view of this screen for a free
+person undrawable. Node 5.13 block 3 says the person arrived at the upgrade screen "from Your
+trends", and that sentence is only true if this screen gates. The ground is in `../sitemap.md`.
 
 **5.12.1 is not the lock.** A paid person with two months of data must never see an upgrade
 prompt; they have already paid, and the screen owes them a date rather than an offer. Keeping
@@ -108,4 +119,5 @@ against the free one.
 **Open:** `[?]` whether the price-change history can reach further back than the charge history
 (shared with node 2.7). Resolving input: what the Plaid transaction window returns at build
 time.
-**Before it is drawn:** its own block-bank round, per the note at the top.
+**The bank round ran on 2026-08-05** (type H) and the screen was drawn after it, in the second
+round of the wireframe stage. The note that used to stand here is closed.

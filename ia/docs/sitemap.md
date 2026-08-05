@@ -389,6 +389,7 @@ designs only the happy path; that is exactly the gap this node closes.
 | 5.12.1 | Still gathering history | state (empty) | -> 2.6 | E / J-MAIN | LATER |
 | 5.12.2 | Loading history | state (loading) | -> 5.12 | E / J-MAIN | LATER |
 | 5.12.3 | Could not load trends | state (error) | -> 5.12 retry, -> 2.6 | E / J-MAIN | LATER |
+| 5.12.4 | Trends behind the Pro gate | state (locked) | -> 5.13, -> 2.6 | E / D3 | LATER |
 | 5.13 | Upgrade / Tendd Pro | page (gate) | -> back to the gated surface | all / D3 + D4 | LATER |
 | 5.13.1 | Setting up your plan | state (processing) | -> the originating gate | all / D4 | LATER |
 | 5.13.2 | Payment did not go through | state (error) | -> 5.13 retry | all / D4 | LATER |
@@ -399,6 +400,17 @@ had unnumbered failure paths. A LATER screen is numbered like any other, the way
 4.11.1 and 4.11.2 already are: the second round builds to the map, it does not
 re-derive it. Success at 5.13 is deliberately not a state here, because it is a
 return to the gate the person came from and not a screen.
+
+**5.12.4 added 2026-08-05, at the second wireframe round.** The locked view stood in
+the node file as an unnumbered variant, and an unnumbered variant gets no page. That
+left the map unable to draw the only version of this screen the canonical person can
+see: Emma is on Free everywhere else in the product, and node 5.13 states that the
+person arrived at the upgrade screen **from Your trends**, which requires a gate on
+this screen for that sentence to be true. Numbering it makes the chain walkable
+(5.12.4 -> 5.13 -> back to 5.12.4) and keeps D3 visible, since this is the screen
+where the paywall legitimately sits. The unlocked view stays the base page: it is what
+the screen is for, and the three other states are drawn on a paid plan, which node
+5.12 requires for 5.12.1 in particular.
 
 **Cluster 6, Account and Trust** (group `pages`)
 

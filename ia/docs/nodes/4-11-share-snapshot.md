@@ -2,10 +2,11 @@
 
 Template: `1-1-welcome.md`. Supersedes the 4.11 section of `../pages/cancel.md`.
 
-**Composition is not from `../blocks.md`:** the bank ran on the 13 MVP screens, and its type F
-covers nodes 4.9 and 4.10 only. This node is LATER, so its blocks come from `../pages/cancel.md`
-and from our own research, and it gets a bank round of its own when it is built. The same holds
-for nodes 5.12 and 5.13.
+**Composition:** the first bank round covered the 13 MVP screens and its type F covers nodes 4.9
+and 4.10 only, so this node was first written from `../pages/cancel.md` and our own research.
+**Its own round ran on 2026-08-05, as type J, before the screen was drawn.** It found the domain
+half genuinely empty: no subscription tracker has a share surface at all. The craft half came
+from outside the category, and the five blocks below survived it unchanged.
 
 ## Node, type, scope
 
@@ -43,6 +44,11 @@ share sheet.
 **Safe by construction, not by memory.** The card cannot contain bank data, because the card is
 built from two numbers. That is a structural decision, not a checkbox the person has to
 remember.
+
+**Named and not added, from the bank round (type J):** swipeable card variants and a branded
+hashtag, both from TIDAL's recap card, and a direct Instagram button beside the system sheet.
+Variants are a styling choice for a screen whose job is still a hypothesis, the hashtag puts our
+marketing on the person's win, and a network button assumes an audience S1 has not proven.
 
 ## Components and variants
 
@@ -88,3 +94,6 @@ indexable.
 **Scope: LATER**, by S1 being a hypothesis and by D-Share.
 **Open:** `[?]` whether "choose what to show" is needed at all; `[?]` S1 itself, which needs the
 prototype test to become a finding.
+**The bank round ran on 2026-08-05** (type J) and the screen was drawn after it, in the second
+round of the wireframe stage. It stays unreachable by click: no MVP screen leads here, by
+D-Share, and the prototype reaches it from the stage panel only.

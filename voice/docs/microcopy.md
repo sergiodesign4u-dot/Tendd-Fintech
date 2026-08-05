@@ -313,6 +313,30 @@ One line left the product, and it is the only copy change the critique produced.
 Everything else the critique found was structure or a document that had fallen
 behind the screens, and none of it touched a line. The log is
 `wireframes/docs/critique.md`.
+
+### Round 2: the three LATER screens (2026-08-05)
+
+The last seven pages left the July frame and three states were drawn for the
+first time, so the inventories for node 4.11, node 5.12 and node 5.13 are
+rewritten above. Their compositions come from the second bank round
+(`ia/docs/blocks.md`, types H, I and J), which ran before the screens were drawn.
+
+| Screen | Zone | Change | Why |
+|--------|------|--------|-----|
+| history-trends | header | "How your recurring spend has moved" to "How your monthly total has moved" | The dictionary settled on "monthly total" at D5, and the node block says the same. The inventory was the last place still saying "recurring spend" |
+| history-trends | chart-area | The summary sentence moved above the chart and lost the words "Text summary" | Node 5.12 block 4 and the whole of bank type H: in every source the number lives inside the picture, and growth zone 3 says a picture is what makes this person close a finance app. The sentence is the fact; the chart illustrates it |
+| history-trends | trend-list | The New York Times reads $17.00 a month, not $4.25 | One fixture for one subscription across the product. $4.25 was a July invention and it contradicted the canonical set on Home |
+| history-trends | export | The export line now names the free export beside the Pro one | D-Export: a plain copy of your own data is free and lives on node 6.15, and the screen that sells the analytical one is where that split has to be visible |
+| history-trends-locked | whole screen | **New.** The frame, the person's own category labels, what Pro adds, and the gate | Node 5.12.4, numbered on 2026-08-05. Emma is on Free everywhere else in the product, so this is the only view of this screen she can have, and node 5.13 says she came to the upgrade screen "from Your trends" |
+| history-trends-empty | state-message | "We have less than three months so far" gained the date the first line appears | Node 5.12.1 is not the lock: this person has paid, so the screen owes them a date and never an offer |
+| history-trends-error | whole screen | **New.** Node 5.12.3 | It says what is unaffected in the same breath: the list, the total and the alerts are a different request |
+| upgrade | header | "Close" added | Node 5.13 block 1: close, not back. The screen interrupts something the person was doing |
+| upgrade | feature-list | "One-tap links" to "with the direct link" | The dictionary has no "tap" in it: the product is a responsive web app read on a desktop as often as a phone |
+| upgrade-processing | whole screen | **New.** Node 5.13.1 | The payment provider owns its sheet; we own the wait around it. It says nothing is charged twice, which is the fear at that moment |
+| upgrade-payment-failed | whole screen | **New.** Node 5.13.2 | A payment that did not go through is a fact with a next step, never a fault. It states that nothing was charged before it offers to try again |
+| share-snapshot | header | "Card preview" to "Share this win", with "nothing is shared until you tap Share" | The old heading named the component. The new one names the moment, and the second line answers the only question a person has on this screen |
+| share-snapshot | privacy-note | The list of what is on the card is now specific | Bank type J: this exists in no source, and it is the one thing this screen adds to the category. "No account numbers" is a promise; naming the three things that are on it is proof |
+| share-snapshot | continue | "Done, back to my list" to "Back to your subscriptions" | The dictionary gives this destination one label, in second person. D3 in the discrepancy list settled it and this page had not caught up |
 ---
 
 ## Canonical subscription dataset (product fixtures, not authored copy)
@@ -736,73 +760,105 @@ by `ia/docs/blocks.md`). In MVP the win screen ends on the continue line. The co
 rather than being deleted and rewritten later; the same applies to every `share-snapshot` line
 below.
 
-### share-snapshot (+ error, loading)
+### share-snapshot (+ loading, error)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
 | share-snapshot | header | Back | link |
-| share-snapshot | share-preview | Card preview | heading |
-| share-snapshot | share-preview | On Tendd, I am keeping an eye on 13 subscriptions | body |
+| share-snapshot | header | Share this win | heading |
+| share-snapshot | header | Here is the card, exactly as it will look. Nothing is shared until you tap Share. | body |
+| share-snapshot | share-preview | On Tendd, I am keeping an eye on | body |
+| share-snapshot | share-preview | 13 subscriptions | body |
+| share-snapshot | share-preview | $174.91 | body |
 | share-snapshot | share-preview | a month, all in one calm place | body |
 | share-snapshot | share-preview | Just cancelled Netflix and freed up $17.99 a month. | body |
 | share-snapshot | primary-action | Share | button |
+| share-snapshot | secondary-action | Back to your subscriptions | button |
 | share-snapshot | privacy-note | What is on this card | heading |
-| share-snapshot | privacy-note | No account numbers, no bank details, and no list of your exact subscriptions. Only what you see above. | body |
-| share-snapshot | continue | Done, back to my list | button |
-| share-snapshot-error | state-message | We could not create the card just now | heading |
-| share-snapshot-error | state-message | Nothing is wrong with your account, and your cancel win is still saved. Let's try the card again. | state-message |
-| share-snapshot-error | primary-action | Try again | button |
-| share-snapshot-error | secondary-action | Done, back to my list | button |
-| share-snapshot-loading | state-message | Creating your card... | heading |
+| share-snapshot | privacy-note | The number of subscriptions, the monthly total, and the one you just cancelled. No account numbers, no bank details, and no list of what you pay for. | body |
 | share-snapshot-loading | state-message | Making your card. This usually takes a moment. | state-message |
+| share-snapshot-loading | privacy-note | Nothing is shared while this is being made, and nothing is shared afterwards until you tap Share. | body |
+| share-snapshot-error | state-message | We could not create the card | heading |
+| share-snapshot-error | state-message | Nothing is wrong with your account, and your cancel win is saved. This is only the picture. | state-message |
+| share-snapshot-error | primary-action | Try again | button |
+| share-snapshot-error | secondary-action | Back to your subscriptions | button |
+| share-snapshot-error | privacy-note | Nothing was shared, and nothing was posted anywhere. | body |
 
 ---
 
 ## Cluster E: History and Trends, Upgrade, Connections, Data and Privacy, Settings
 
-### history-trends (+ empty, loading)
+### history-trends (+ locked, empty, loading, error)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
+| history-trends | header | Your subscriptions | link |
 | history-trends | header | Your trends | heading |
 | history-trends | header | Pro | status |
-| history-trends | header | How your recurring spend has moved over time. Nothing to act on here, just the shape of it. | body |
+| history-trends | header | How your monthly total has moved over time. Nothing to act on here, just the shape of it. | body |
 | history-trends | time-range | 3 months / 6 months / 12 months | button |
-| history-trends | chart-area | Text summary: your monthly recurring total went from $172.90 in May to $192.90 in July, up about $20 across three months. | state-message |
-| history-trends | trend-list | Up $2.50 since May, now $17.99 / month | body |
-| history-trends | trend-list | New since June, $20.00 / month | body |
-| history-trends | trend-list | No change since March, $4.25 / month | body |
+| history-trends | chart-area | Your monthly total went from $172.90 in May to $192.90 in July, up about $20 across three months. | body |
+| history-trends | trend-list | What moved | heading |
+| history-trends | trend-list | Up $2.50 since May, now $17.99 a month | body |
+| history-trends | trend-list | New since June, $20.00 a month | body |
+| history-trends | trend-list | No change since March, $17.00 a month | body |
 | history-trends | trend-list | Higher / New / Steady | status |
 | history-trends | trend-list | By category | body |
 | history-trends | trend-list | Streaming is up $6 since March. Everything else held steady. | body |
 | history-trends | export | Export as CSV | button |
-| history-trends | export | Downloads your history as a spreadsheet. Part of Tendd Pro. | body |
+| history-trends | export | Your history as a spreadsheet, for reading it somewhere else. Part of Tendd Pro. A plain copy of everything we hold is free and lives in Data and privacy. | body |
+| history-trends-locked | header | Free | status |
+| history-trends-locked | lock | Trends are part of Tendd Pro | heading |
+| history-trends-locked | lock | Your list, your total and your alerts stay free and uncapped. What Pro adds here is the past: | body |
+| history-trends-locked | lock | How your monthly total moved, over 3, 6 or 12 months | body |
+| history-trends-locked | lock | Which subscriptions went up, which are new, which held steady | body |
+| history-trends-locked | lock | Your history as a spreadsheet | body |
+| history-trends-locked | primary-action | See what Pro adds | button |
+| history-trends-locked | export | A plain copy of everything we hold about you is free, and it is in Data and privacy. This is the analytical export, which is the Pro one. | body |
 | history-trends-empty | state-message | Still gathering your history | heading |
-| history-trends-empty | state-message | Trends need a few months to be worth looking at. We have less than three months so far. Check back in a few weeks and the shape of your spending will be here. | state-message |
-| history-trends-empty | state-message | Back to Home | button |
-| history-trends-loading | chart-area | Adding up your last few months. This usually takes a moment. | state-message |
+| history-trends-empty | state-message | Trends need a few months to be worth looking at, and we have less than three so far. Come back in a few weeks and the shape of your spending will be here. | state-message |
+| history-trends-empty | chart-area | Two months so far. Your first trend line appears once September closes. | body |
+| history-trends-empty | primary-action | Back to your subscriptions | button |
+| history-trends-empty | reassurance | Nothing is missing and nothing failed. Your list, your total and your alerts are all working as usual. | body |
+| history-trends-loading | state-message | Adding up your last few months. This usually takes a moment. | state-message |
+| history-trends-error | state-message | We could not load your trends | heading |
+| history-trends-error | state-message | Something on our side did not answer. Your subscriptions, your total and your alerts are not affected: this is only the history view. | state-message |
+| history-trends-error | primary-action | Try again | button |
+| history-trends-error | secondary-action | Back to your subscriptions | button |
+| history-trends-error | reassurance | Nothing about your plan or your data changed. If it keeps happening, tell us and we will look at it. | body |
 
-### upgrade
+### upgrade (+ processing, payment-failed)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
+| upgrade | header | Close | link |
 | upgrade | header | Tendd Pro | heading |
 | upgrade | header | Free | status |
 | upgrade | header | Pay less per month than most of the subscriptions you will cancel. | body |
 | upgrade | context | You came here from Your trends. History and trends are part of Tendd Pro. | body |
-| upgrade | feature-list | History and trends (3, 6, and 12 month views) | body |
+| upgrade | feature-list | History and trends (3, 6 and 12 month views) | body |
 | upgrade | feature-list | Advanced alerts (Trial ending, unusual, duplicate) | body |
-| upgrade | feature-list | Full cancel guides (Step by step, one-tap links) | body |
+| upgrade | feature-list | Full cancel guides (Step by step, with the direct link) | body |
 | upgrade | feature-list | Export (Your history as a spreadsheet) | body |
 | upgrade | price | $69 a year | heading |
 | upgrade | price | That is $5.75 a month. Our calmest option, and it saves about $27 a year versus paying monthly. | body |
 | upgrade | price | Best value | status |
 | upgrade | price | $7.99 a month | heading |
 | upgrade | price | Month to month. Cancel any time, no lock-in. | body |
-| upgrade | price | A one-time lifetime option is planned; its price is still being decided. [? D4 lifetime price open] | body |
+| upgrade | price | A one-time lifetime option is planned and its price is still being decided. [? D4 lifetime price open] | body |
 | upgrade | primary-action | Start Tendd Pro - $69 a year | button |
-| upgrade | primary-action | Maybe later | link |
+| upgrade | primary-action | Maybe later | button |
 | upgrade | primary-action | Pays for itself with the first subscription you cancel. | body |
+| upgrade-processing | state-message | Setting up your Pro plan | heading |
+| upgrade-processing | state-message | This takes a few seconds. Do not close this page, and nothing is charged twice if it takes a moment longer. | state-message |
+| upgrade-processing | context | When it is done you go straight back to Your trends, open. | body |
+| upgrade-payment-failed | state-message | That payment did not go through | heading |
+| upgrade-payment-failed | state-message | Your bank did not approve it, so nothing was charged. This happens most often with a card that has expired or a bank that wants to confirm a new payment. | state-message |
+| upgrade-payment-failed | facts | What was charged: Nothing. There is no payment to reverse | body |
+| upgrade-payment-failed | facts | Your plan: Still Free, and everything free is still working | body |
+| upgrade-payment-failed | primary-action | Try another payment method | button |
+| upgrade-payment-failed | secondary-action | Maybe later | button |
+| upgrade-payment-failed | reassurance | You can come back to this from any Pro feature. Nothing about your subscriptions or your data changed. | body |
 
 ### connections (+ empty, reconnect, add-source)
 

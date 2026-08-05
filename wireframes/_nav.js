@@ -91,12 +91,13 @@ window.WF_NAV = {
         flow: 'from Home and from a subscription', scope: 'LATER', built: true, states: [
         { node: '5.12.1', slug: 'empty',   label: 'still gathering, not the lock', built: true },
         { node: '5.12.2', slug: 'loading', label: 'adding up your months',         built: true },
-        { node: '5.12.3', slug: 'error',   label: 'could not load trends',         built: false }
+        { node: '5.12.3', slug: 'error',   label: 'could not load trends',         built: true },
+        { node: '5.12.4', slug: 'locked',  label: 'behind the Pro gate',           built: true }
       ]},
       { node: '5.13', name: 'Upgrade / Tendd Pro', file: 'upgrade.html', ia: '5-13-upgrade.html',
         flow: 'only from a real gate', scope: 'LATER', built: true, states: [
-        { node: '5.13.1', slug: 'processing',     label: 'setting up your plan', built: false },
-        { node: '5.13.2', slug: 'payment-failed', label: 'payment did not go through', built: false }
+        { node: '5.13.1', slug: 'processing',     label: 'setting up your plan', built: true },
+        { node: '5.13.2', slug: 'payment-failed', label: 'payment did not go through', built: true }
       ]}
     ]},
 

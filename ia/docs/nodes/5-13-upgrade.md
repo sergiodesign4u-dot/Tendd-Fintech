@@ -6,9 +6,12 @@ Template: `1-1-welcome.md`. Supersedes the 5.13 section of `../pages/pro.md`.
 
 **Node 5.13 · Upgrade / Tendd Pro · page (gate) · LATER**
 
-Composition comes from `../pages/pro.md`, `voice/docs/microcopy.md` and our own research, not
-from `../blocks.md`: cluster 5 was out of the first bank round because both its nodes are
-LATER. The same rule as node 5.12 applies, and a bank round precedes the build.
+Composition was first written from `../pages/pro.md`, `voice/docs/microcopy.md` and our own
+research, because cluster 5 was out of the first bank round. **The bank round ran on
+2026-08-05, as type I, before the screen was drawn.** It is the one type where the domain half
+was fully available (a paywall is the screen every product shows to a stranger) and the one
+type where we refuse most of what the category agrees on: six of its thirteen decisions are
+refusals of unanimous patterns.
 
 ## Purpose and jobs
 
@@ -40,7 +43,12 @@ the surface that sent them.
 
 **Named and not added:** a countdown, an offer that expires, a discount that appears when you
 try to leave, a pre-selected plan that is the expensive one, "most people choose this", a
-badge, and any version of this screen that cannot be dismissed. The bank already dropped
+badge, and any version of this screen that cannot be dismissed. **Added by the bank round
+(type I):** a Free-against-Pro comparison table (Comet), which would have to list what Free
+lacks, and Free lacks nothing visible under D-Free; a free trial as the primary offer (Medium,
+Ivory), because a trial that converts silently is exactly what this product exists to find;
+and a buy button anchored to the bottom of the scroll (Comet), because a control that cannot
+be scrolled away from is pressure. The bank already dropped
 Monarch's pinned trial countdown from node 2.6 as the texture we refuse; it does not come back
 in through the screen that is allowed to sell.
 
@@ -100,3 +108,5 @@ offer, yearly first with the monthly equivalent, the amount on the button, a dis
 weight, no success screen.
 **Open:** `[?]` the lifetime price ($99 to $139, D4); `[?]` the anchoring order, which is a test
 and not a decision. Payment provider specifics are operations, not IA.
+**The bank round ran on 2026-08-05** (type I) and the screen was drawn after it, in the second
+round of the wireframe stage.

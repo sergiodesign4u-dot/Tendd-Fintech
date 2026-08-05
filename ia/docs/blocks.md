@@ -82,6 +82,21 @@ History and Trends, Upgrade) are out of the first round.
 | F. Task guide plus confirmation | 4.9, 4.10 | 2 |
 | G. Account and settings | 6.14, 6.15, 6.16 | 3 |
 
+## The second round (2026-08-05): the three LATER screens
+
+The three LATER nodes each carry the same line: their blocks did not come from this bank, and
+**a bank round precedes the build**. The wireframe stage reached them, so the round ran before
+a pixel was drawn, not after.
+
+| Type | Nodes | Domain half | Craft half |
+|---|---|---|---|
+| H. Depth and chart | 5.12 | **second-hand** through Refero: Copilot, Wise, Klarna, Roi | available |
+| I. Upgrade gate | 5.13 | **available**: paywalls are the one screen every product shows before login | available |
+| J. Share card | 4.11 | **missing** in the category, **available** outside it: TIDAL's recap card | available |
+
+Three types, three screens, and they are the last three of the sixteen. The bank is closed
+again at the bottom of this file, with the second round counted separately.
+
 ---
 
 ## Type A. Public landing (node 1.1 Welcome / Value Intro)
@@ -593,6 +608,143 @@ when you disconnect. One assumption is written down rather than assumed: which e
 
 ---
 
+## Type H. Depth and chart (node 5.12 History and Trends)
+
+The paid half of D3, and the screen that inherits exactly the texture our person avoids:
+growth zone 3 in `../../research/docs/cjm-as-is.md` names "too many numbers and graphs" as
+what makes an avoider close a finance app. Type C dropped every chart from Home for that
+reason and sent the depth here. So this type has one question above all others: **what does a
+person who does not read charts leave with.**
+
+### Sources
+
+**Domain, second-hand through Refero (screens from inside logged in finance products):**
+- [Copilot, budget and categories](https://refero.design/screens/e75921dd-7cc7-42a3-8d23-f67b64f711e0) - a donut, total spent against total budget, and a category list with progress bars. Its own tab row is Dashboard / Categories / **Recurrings**
+- [Copilot, "Your Finances"](https://refero.design/screens/8cdc9f80-799f-4fe5-93df-e2b1b61ad3fe) - three summary cards, one per area, each with a "review" link
+- [Wise, spending summary](https://refero.design/screens/0272fd42-70f6-402c-b661-0d12499046f7) - a month selector, two figures (average and this month), and an illustration where the chart would be when there is nothing to draw
+- [Klarna, budget](https://refero.design/screens/5bc5a8a1-e42f-406f-9532-dd9102c937aa) - remaining budget, a spending chart by month, and a skeleton state for it
+- [Roi, net worth](https://refero.design/screens/bcb9a297-8d7e-4086-a069-b1c1cd6a401c) - the big number, the change beside it, a line chart, and time-range tabs
+
+**Craft, outside the category:**
+- [Gentler Streak, activities](https://refero.design/screens/5eca43b8-89da-4a44-af03-cc9ed77ebf56) - time range, one chart, and four metric cards under it
+- [Binge, viewing stats](https://refero.design/screens/e1c4ae4f-1ced-4a89-8895-40731ce89e00) - a small chart with a stacked list of the same numbers in words
+
+### Decisions
+
+| Source | Block | Verdict | Traces to | Scope | Where we are better and how |
+|---|---|---|---|---|---|
+| Roi, Klarna, Gentler Streak | A time range control: 3, 6, 12 months | TAKE | node 5.12 block 3 | LATER | Three ranges, not seven. Every source offers more ranges than a person needs, and each one is a decision asked of someone who came to read |
+| Roi, Klarna, Copilot | The chart as the thing that carries the fact | **TAKE, DIFFERENTLY** | growth zone 3; principle 3 | LATER | **The whole type turns on this.** In every source the number lives in the picture. Ours states it in a sentence above the chart, "your monthly total went from $172.90 in May to $192.90 in July, up about $20 across three months", and the chart illustrates a fact the person already has. A person who does not read charts still leaves with the answer |
+| Copilot | Donut of categories, spending against budget | SKIP | we are not a budgeting app; principle 1 | out | A budget bar turns every reading into a pass or a fail. Type C dropped the same texture from Home |
+| Copilot, Klarna | Colour that means good or bad (green under budget, red over) | SKIP | D-Concept; principle 1 | out | A colour that judges is the thing this audience closes the app over. Ours uses a word: Higher, New, Steady |
+| Roi | The change stated beside the number, with a direction | TAKE, DIFFERENTLY | J-MAIN over time | LATER | We keep the change and drop the arrow and the percentage. "Up about $20 across three months" is the same fact in the language of principle 3 |
+| Copilot ("Recurrings" tab), own research | A per-subscription trend list with a quiet status word | TAKE | node 5.12 block 6; J4 | LATER | Copilot has a recurring tab and it lists items; it does not say which of them moved. Ours does, in one word per row |
+| Wise | An illustration where the chart would be, when there is nothing to draw | TAKE, DIFFERENTLY | node 5.12.1 | LATER | Ours says how long it will take: "Trends need a few months to be worth looking at." An illustration alone leaves a paid person guessing whether the feature is broken |
+| Klarna | A skeleton in the shape of the chart while it loads | TAKE | node 5.12.2 | LATER | Same rule as every other wait in this product: the shape of what is coming, never a spinner |
+| own research | The Pro-locked frame: the person's own category labels behind the lock | TAKE | D3; principle 4 | LATER | **Exists in no source.** Every product blurs a fake chart. A blur is a lie about our own product, and an honest preview of the real shape persuades better |
+| own research | The analytical export, named against the free one | TAKE | D-Export; D3 | LATER | The plain export of what we hold is free and lives on node 6.15. Naming both on the screen that sells one of them is how the split stays honest |
+| Copilot, Wise | A month selector that changes the whole screen | SKIP | one control, not two | out | The range control already answers "how far back". A second time control on the same screen is the audit-table texture type E rejected |
+| own research | "Nothing to act on here, just the shape of it" | TAKE | E1; principle 1 | LATER | **Exists in no source.** A trends screen that implies a verdict is a judgement screen, and this audience reads a chart as an accusation unless told otherwise |
+
+### Our order, mobile-first
+
+Back and the Pro chip / "How your monthly total has moved over time. Nothing to act on here,
+just the shape of it." / the range control, 3, 6, 12 months / **the summary sentence** / the
+chart / the trend list, one word of status per row / export as CSV, Pro. For a free person,
+blocks 1 to 3 and the real frame with their own labels, then the gate.
+
+Twelve decisions, seven blocks. The one that matters is the third: this is the only screen in
+the product where a chart appears at all, and it is the only screen where the fact is stated
+twice on purpose.
+
+---
+
+## Type I. Upgrade gate (node 5.13 Upgrade / Tendd Pro)
+
+The one screen in the product that serves no user job. The domain half is fully available for
+the first time since type F, because a paywall is the one screen every product will show to a
+stranger. That makes this the type where the category is most confident and where we refuse
+the most.
+
+### Sources
+
+**Domain and adjacent, second-hand through Refero:**
+- [Comet, Pro paywall](https://refero.design/screens/69d60aad-8ded-4638-8c7d-c24f15f9e1cc) - a tier toggle, a Free-against-Pro comparison table, two pricing cards, an anchored buy button, restore purchases
+- [Medium, subscription modal](https://refero.design/screens/89049869-b569-47b9-8b3a-8b8887c6fa16) - two plan cards, "start free trial", terms and billing in plain fine print
+- [Ivory, plans](https://refero.design/screens/52a5ea4d-99e8-4da6-8bc6-a28729038a0b) - two cards, a 7-day trial, yearly with the saving stated
+- [Spotify, premium](https://refero.design/screens/d9f85137-d16a-45a1-97e0-61389ba71a8f) - the current plan as a card first, then the offers
+- [Steps, Pro yearly](https://refero.design/screens/a1a82c3e-9e2e-4723-bbbd-afc16005f415) - the person's own metrics above the price, as the argument for it
+- [Bear, PRO status](https://refero.design/screens/c59055a8-440a-4998-ad8d-1f6e54fdfcb3) - what the paid state looks like afterwards: status, renewal date, manage
+- [Chopra, App Store confirmation](https://refero.design/screens/03211b86-af63-499c-bcf6-58522e85ef7a) - the system sheet that ends the flow, which is where our processing state lives
+
+### Decisions
+
+| Source | Block | Verdict | Traces to | Scope | Where we are better and how |
+|---|---|---|---|---|---|
+| Comet, Medium, Ivory | Close, at the top, and a real dismissal | TAKE | node 5.13 blocks 1 and 8; principle 1 | LATER | Close, not back: this interrupts something the person was doing. Ours puts the dismissal at the same legibility as the primary, which none of the sources do |
+| Steps | The person's own numbers as the argument | TAKE, DIFFERENTLY | node 5.13 block 3; principle 4 | LATER | **This is our version of it and it is sharper.** Steps shows your metrics. We name the gate you just touched: "You came here from Your trends." The offer is honest only at the moment the person wanted the thing, and saying which moment it was is how that stays true |
+| Comet | Free against Pro comparison table | SKIP | D3; D-Free | out | A comparison table has to list what Free lacks, and our Free lacks nothing visible. The table would either be empty or would invent a lack |
+| Comet, Ivory, Medium | Yearly first, with the saving stated | TAKE | D4; node 5.13 block 5 | LATER | Yearly first with the monthly equivalent, "$69 a year, that is $5.75 a month". The anchoring order stays `[?]`: a test, not a decision |
+| Medium, Ivory | Free trial as the primary offer | SKIP | D3; the product's own frame | out | A trial that converts silently is the pattern this audience has been burned by, and it is what Tendd exists to find. Selling with it would be the product contradicting itself |
+| Comet | An anchored button that follows the scroll | SKIP | principle 1 | out | A control that cannot be scrolled away from is pressure |
+| own research | The amount on the button: "Start Tendd Pro - $69 a year" | TAKE | D4; principle 4 | LATER | **Exists in no source.** Every source puts the price near the button and the word "Continue" on it. A person should never learn what they are being charged after the tap |
+| own research | "Pay less per month than most of the subscriptions you will cancel" | TAKE | D4 | LATER | The product measured against the things it finds, which is the only honest frame a subscription tracker has for its own subscription |
+| Ivory, Medium | Countdown, expiring offer, "most popular" badge, preselected expensive plan | SKIP | principle 1; node 5.13 named-and-not-added | out | Named as a group so the omission is a decision. The bank already dropped Monarch's pinned trial countdown at type C; it does not come back in through the screen allowed to sell |
+| Spotify, Bear | The current plan stated first | TAKE, DIFFERENTLY | GC7 | LATER | Ours is the plan chip in the header rather than a card, because on this screen the plan is context and the price is the subject |
+| Chopra | The payment sheet, and what happens while it is working | TAKE | node 5.13.1 | LATER | The provider owns the sheet; we own the wait and the failure around it, in our own voice |
+| Bear | A success screen after paying | SKIP | node 5.13; principle 5 | out | On success the person returns to the gate with the thing they wanted open. Celebrating a payment would put the product's most important emotional beat on the wrong screen: that beat belongs to node 4.10, where money was saved rather than spent |
+| own research | The lifetime option, named and priced `[?]` | TAKE, `[?]` | D4 | LATER | Named so that leaving it out is a decision rather than an omission |
+
+### Our order, mobile-first
+
+Close and the plan chip / "Tendd Pro" and the one line / **where you came from** / what Pro
+unlocks / the price, yearly first with the monthly equivalent / the lifetime option `[?]` /
+the button with the amount on it / "Maybe later", equal weight / "Pays for itself with the
+first subscription you cancel."
+
+Thirteen decisions, nine blocks, and six of the thirteen are refusals. That ratio is the
+finding: on this screen the category is unanimous and almost every unanimous pattern is one
+we will not use.
+
+---
+
+## Type J. Share card (node 4.11 Share Snapshot)
+
+The social job S1, which is a hypothesis and not a finding, on a screen that must never leak a
+bank statement. The category has nothing to show here: no subscription tracker offers sharing,
+which is itself the reason to be careful rather than the reason to invent.
+
+### Sources
+
+**Domain: none.** No competitor in the category has a share surface. Stated as a finding, not
+worked around.
+
+**Craft, outside the category:**
+- [TIDAL, share your top artists](https://refero.design/screens/f479022c-5c0a-469b-87e5-9b29b389bda2) - a preview card, then two actions: the system sheet and Instagram
+- [TIDAL, card variants](https://refero.design/screens/5f7a208e-bcb4-4d1e-b21e-543235cf89e1) - the same card, swipeable between designs, with a branded hashtag
+
+### Decisions
+
+| Source | Block | Verdict | Traces to | Scope | Where we are better and how |
+|---|---|---|---|---|---|
+| TIDAL | The card previewed at full size before anything is shared | TAKE | node 4.11 block 2; E3 | LATER | Nothing is posted that the person has not seen |
+| TIDAL | Share to the system sheet | TAKE | node 4.11 block 3 | LATER | The system sheet only. A direct Instagram button assumes a network and an audience, and S1 is a hypothesis |
+| TIDAL | Card variants to swipe between | SKIP | `[?]` on the node; principle 2 | out | Variants are a styling choice for a screen whose job is not yet proven. If S1 becomes a finding, this comes back |
+| TIDAL | A branded hashtag on the card | SKIP | principle 1 | out | The card carries the person's win, not our marketing |
+| own research | What is on this card, listed in full, above the share action | TAKE | E3; principle 4 | LATER | **Exists in no source.** TIDAL's card is taste; ours is a person's money. The privacy promise belongs on the screen, not in a policy |
+| own research | The card built from two numbers, so bank data cannot reach it | TAKE | J5; E3 | LATER | Safe by construction rather than by memory: there is no merchant list and no account number to leak, because the card is not made from them |
+| own research | "Choose what to show" | TAKE, `[?]` | node 4.11 block 5 | LATER | Kept as an open question on the node: it may be that the safe default is enough and a chooser only adds a decision |
+
+### Our order, mobile-first
+
+Back / the card preview, count and total, and "just cancelled 2" when it comes from a win /
+share, to the system sheet / what is on this card, in full / choose what to show `[?]`.
+
+Seven decisions, five blocks. The type is small because the screen is small, and the one thing
+it adds to the category is the sentence that says what is on the card.
+
+---
+
 ## The bank, closed
 
 Seven types, thirteen MVP screens, and the composition of every one of them now has a source
@@ -618,3 +770,23 @@ or a written reason. **114 block decisions: 78 taken, 34 dropped with the reason
 What this is for: the composition of a screen is no longer invented at wireframe time. Node
 specifications take their block list from here, and a block that is not in the bank and traces
 to nothing does not get added silently.
+
+### The second round, closed (2026-08-05)
+
+Three types, three screens, **32 more block decisions: 20 taken, 12 dropped with the reason**.
+All sixteen screens of the product now have a composition with a source or a written reason,
+and the three LATER nodes no longer carry "a bank round precedes the build".
+
+- **The domain half came back in full for type I.** A paywall is the one screen every product
+  shows to a stranger, so for the first time the category could be read directly rather than
+  second-hand. It made the type the most refused in the bank: six of thirteen decisions are
+  "we will not do this", and they are unanimous patterns, not fringe ones.
+- **Type J found nothing to read.** No subscription tracker has a share surface at all. That
+  is recorded as the finding and the composition came from outside the category and from our
+  own research, exactly as the fallback prescribes.
+- **The three blocks that carry these screens exist in none of the sources**: the summary
+  sentence above the chart (5.12), the gate the person came from named out loud (5.13), and
+  the list of what is on the card (4.11).
+- **One rule survived the round intact**: no colour that judges, no countdown, no trial that
+  converts silently, no comparison table that has to invent a lack in Free. Every one of them
+  is a category default, and every one of them is what D-Free, D3 and principle 1 forbid.

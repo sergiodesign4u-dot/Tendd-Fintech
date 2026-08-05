@@ -138,7 +138,7 @@ The base page is the success state. Every other page below is a numbered node in
 | Cancel Guide (4.9) | `cancel-guide.html` | **4.9.1 `cancel-guide-no-guide`** the general way, plus ask us to add this one · **4.9.2 `cancel-guide-blocked`** could not cancel, not your fault |
 | Cancel Win (4.10) | `cancel-win.html` | none |
 | Share Snapshot (4.11) | `share-snapshot.html` | 4.11.1 `share-snapshot-loading` making your card · 4.11.2 `share-snapshot-error` |
-| History and Trends (5.12) | `history-trends.html` | 5.12.1 `history-trends-empty` still gathering, and it is not the lock · 5.12.2 `history-trends-loading` · **5.12.3 `history-trends-error`** |
+| History and Trends (5.12) | `history-trends.html` | 5.12.1 `history-trends-empty` still gathering, and it is not the lock · 5.12.2 `history-trends-loading` · **5.12.3 `history-trends-error`** · **5.12.4 `history-trends-locked`** the frame, the person's own labels, and the gate |
 | Upgrade (5.13) | `upgrade.html` | **5.13.1 `upgrade-processing`** setting up your plan · **5.13.2 `upgrade-payment-failed`** |
 | Connections (6.14) | `connections.html` | 6.14.1 `connections-empty` both doors again · **6.14.2 `connections-reconnect`** a source needs attention · **6.14.3 `connections-add-source`** the chooser dialog |
 | Data and Privacy (6.15) | `data-privacy.html` | **6.15.1 `data-privacy-delete-confirm`** two doors, no alarm colouring |
@@ -154,8 +154,8 @@ four are renames; the list is at the bottom.
 | Round | Screens | Pages |
 |---|---|---|
 | **Round 1, MVP** | 13 | **39** (13 base plus 26 states) |
-| Round 2, LATER | 3 (Share Snapshot, History and Trends, Upgrade) | 10 (3 base plus 7 states) |
-| **Total** | **16** | **49** |
+| Round 2, LATER | 3 (Share Snapshot, History and Trends, Upgrade) | **11** (3 base plus 8 states) |
+| **Total** | **16** | **50** |
 
 **The three LATER screens are deferred, not lost.** They have pages today, built in July before
 the scope labels were applied. Round 1 leaves those pages standing and does not refactor them;
@@ -177,9 +177,10 @@ at the step that rebuilt the main flow:
 | 1.3.4 | `connect-bank-cancelled.html` **built** | Plaid Link returns four outcomes, not three. A person who opens the bank screen and backs out had nowhere to land |
 | 2.7.2 | `subscription-detail-price-change.html` **built** | The state that carries J4 on the detail screen |
 | 2.7.3 | `subscription-detail-payment-failed.html` **built** | Named in the IA critique as a dead end: informed, with no next step |
-| 5.12.3 | `history-trends-error.html` | LATER, round 2 |
-| 5.13.1 | `upgrade-processing.html` | LATER, round 2 |
-| 5.13.2 | `upgrade-payment-failed.html` | LATER, round 2 |
+| 5.12.3 | `history-trends-error.html` **built** | LATER, drawn in round 2 |
+| 5.12.4 | `history-trends-locked.html` **built** | Numbered on 2026-08-05 and drawn in round 2. The gate on the screen node 5.13 says the person came from |
+| 5.13.1 | `upgrade-processing.html` **built** | LATER, drawn in round 2 |
+| 5.13.2 | `upgrade-payment-failed.html` **built** | LATER, drawn in round 2 |
 | 6.14.3 | `connections-add-source.html` **built** | The chooser, which is the FLAG 2 resolution |
 | 6.15.1 | `data-privacy-delete-confirm.html` **built** | The two-door dialog. It lived inside the page and had no page of its own |
 
@@ -209,9 +210,9 @@ The lines did not change; only the screen they are keyed to is now spelled corre
   consequence in the same sentence.
 - The `.zlabel` and `.zaction` annotations and the 420 by 720 mockup frame are the schema form
   of the previous stage, and both come off. **Gone from all 39 MVP pages** after the fan-out on
-  2026-08-05. They survive only on the seven LATER pages (node 4.11, node 5.12, node 5.13),
-  which round 2 brings to the same contract, and that is also why the `.phone` block is still
-  in `_wf.css`.
+  2026-08-05, and **gone from the whole set** after round 2 on the same day, which took the
+  three LATER screens to the same contract. The `.phone` block left `_wf.css` with them: no
+  page uses it, so it is not kept "in case".
 
 ---
 

@@ -66,6 +66,34 @@ that is the written exception: a wait the system finishes by itself.
 360 or at 1280 on any built page, no `style` attribute anywhere in the rebuilt
 set, and the four changed screens walked again in a browser at both widths.
 
+## Round 2, the same day: the stage closed at 50 of 50
+
+The critique closed the MVP set; round 2 closed the stage. The three LATER
+screens (node 4.11, node 5.12, node 5.13) came off the July frame, three states
+were drawn for the first time, and one more was numbered in the map on the way.
+What is worth carrying forward from it:
+
+- **The bank round ran before the screens were drawn, not after.** All three
+  nodes carried the line "a bank round precedes the build", and it would have
+  been easy to treat as a formality. It was not: types H, I and J in
+  `ia/docs/blocks.md` produced 32 decisions, 12 of them refusals of patterns the
+  category agrees on unanimously.
+- **A map fix, not a wireframe fix.** The trends screen could not be drawn
+  honestly: the canonical person is on Free everywhere else in the product, and
+  node 5.13 says out loud that she reached the upgrade screen "from Your trends".
+  The locked view stood in the node file as an unnumbered variant, and an
+  unnumbered variant gets no page. It was numbered as **5.12.4** in
+  `ia/docs/sitemap.md` and drawn, which is the rule working the way it should:
+  the hole was patched in the owner, not papered over here.
+- **The `.phone` block is gone from `_wf.css`.** Three hundred lines of July
+  frame, its two-pane variants and its dashboard override, deleted the moment the
+  last page left them. That is what "strictly additive" was for.
+- **Two pages now have no way out and both are correct:**
+  `connect-bank-loading` and `upgrade-processing`. A way out in the middle of a
+  charge is the one thing that screen must not offer. The reachability rule in
+  `conventions.md` names both, and names the two pages that are unreachable by
+  click on purpose.
+
 ---
 
 # The first build critique (July 2026, 41 pages)
