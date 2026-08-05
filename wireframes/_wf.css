@@ -958,3 +958,141 @@ ul.list { list-style: none; margin: 0; padding: 0; }
   .lp-paths { grid-template-columns: 1fr 1fr; gap: 22px; }
   .lp-path .lp-btn { width: auto; }
 }
+
+/* ============================================================
+   THE REST OF THE SET, Step 8
+   Node 1.4 with its three states, node 3.8 with its three, node 4.9 with its
+   two, node 4.10, node 6.14 with its three, node 6.15 with its dialog, and
+   node 6.16. Nineteen pages, so every block below is a shared rule on arrival
+   and none of it was ever inline (conventions section 3).
+
+   The three LATER screens (4.11, 5.12, 5.13) keep the July .phone frame until
+   round 2, which is why the .phone block above is still here.
+   ============================================================ */
+
+/* ---- Forms. Node 1.4 draws the only form in the product, and node 6.15 and
+   node 6.16 draw its controls. A field is a label and a real input, never a
+   styled span, and every one clears 44px. ---- */
+.app fieldset { border: 0; margin: 0; padding: 0; }
+.app .field { margin: 0 0 16px; }
+.app .field label { display: block; font-size: 12px; color: var(--soft); margin: 0 0 5px; }
+.app .field input, .app .field select {
+  width: 100%; min-height: 44px; padding: 0 12px;
+  border: 1px solid var(--line); background: var(--frame);
+  font: inherit; font-size: 14px; color: var(--ink);
+}
+.app .field input:focus, .app .field select:focus { outline: 2px solid var(--soft); outline-offset: -1px; }
+.app .field .hint { margin: 5px 0 0; font-size: 12px; color: var(--faint); }
+
+/* The most tracked services, as tiles. The catalogue is evidence that the
+   manual path is not a punishment, so it is shown rather than counted. */
+.app .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 22px; }
+.app .tile {
+  display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 10px;
+  border: 1px solid var(--line); background: var(--frame);
+  font: inherit; font-size: 13.5px; color: inherit; text-align: left; cursor: pointer;
+}
+.app .tile:hover { border-color: var(--soft); }
+.app .tile .logo { flex: none; width: 30px; height: 30px; border: 1px dashed var(--line); }
+.app .tile .p { display: block; font-size: 11.5px; color: var(--soft); }
+.app .tile[aria-pressed="true"] { border-color: var(--ink); }
+/* Choosing a preset fills the form below; it does not navigate, so it is a button. */
+.app button.row { width: 100%; font: inherit; text-align: left; cursor: pointer; }
+.app .row .p { display: block; font-size: 12.5px; color: var(--soft); }
+
+/* ---- GC5, the alert item. One plain sentence, then who and when, then one
+   inline action. An alert with no action is a notification, and an alert that
+   cannot say where it came from is a rumour. ---- */
+.app .alert {
+  display: flex; gap: 12px; padding: 14px 4px; border-bottom: 1px solid var(--line2);
+  text-decoration: none; color: inherit;
+}
+.app .alerts li:last-child .alert { border-bottom: 0; }
+.app .alert:hover { background: var(--panel2); }
+.app .alert .logo { flex: none; width: 32px; height: 32px; border: 1px dashed var(--line); display: flex; align-items: center; justify-content: center; font-size: 8px; color: var(--faint); }
+.app .alert .body { flex: 1; min-width: 0; }
+.app .alert .what { display: block; font-size: 14.5px; font-weight: 600; }
+.app .alert .meta { display: block; font-size: 12.5px; color: var(--soft); margin: 3px 0 0; }
+.app .alert .go { display: inline-flex; align-items: center; min-height: 40px; font-size: 13px; color: var(--ink); }
+.app .alert .go::after { content: "\2192"; margin-left: 6px; color: var(--faint); }
+/* New since the last visit is a quiet dot, never a red count: a red badge on a
+   money app is an anxiety machine, and this person already avoids opening it. */
+.app .newdot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--mid); margin-right: 7px; vertical-align: middle; }
+/* The old price beside the new one. Every product shows the new number; the old
+   one is what turns a surprise into an explanation. */
+.app .prices { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 8px 0 0; font-size: 12.5px; }
+.app .prices span { color: var(--soft); }
+.app .prices b { font-weight: 600; color: var(--ink); }
+
+/* ---- Numbered steps and the meta strip. Node 4.9 asks for one channel path,
+   how long it takes, where the steps came from, and when they were checked. ---- */
+.app .steps { counter-reset: s; list-style: none; margin: 0 0 22px; padding: 0; }
+.app .steps li { position: relative; padding: 3px 0 16px 36px; font-size: 14px; }
+.app .steps li::before {
+  counter-increment: s; content: counter(s);
+  position: absolute; left: 0; top: 0; width: 26px; height: 26px;
+  border: 1px solid var(--line); display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: var(--soft);
+}
+.app .strip {
+  display: flex; flex-wrap: wrap; gap: 4px 22px; margin: 0 0 22px; padding: 10px 0;
+  border-top: 1px solid var(--line2); border-bottom: 1px solid var(--line2);
+  font-size: 12.5px; color: var(--soft);
+}
+.app .freshness { margin: 0 0 22px; font-size: 12px; color: var(--faint); }
+
+/* ---- Node 4.10. The number is the emotional payload, so it is the only large
+   thing, and there is deliberately nothing around it. ---- */
+.app .win { margin: 0 0 26px; }
+.app .win .lbl { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--faint); margin: 0 0 12px; }
+.app .win h1 { margin: 0 0 10px; font-size: 22px; line-height: 1.25; font-weight: 600; }
+.app .win .freed { margin: 0; font-size: 40px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.app .win .year { margin: 6px 0 0; font-size: 13.5px; color: var(--soft); }
+.app .win .honest { margin: 18px 0 0; font-size: 13px; color: var(--soft); max-width: 46ch; }
+
+/* ---- Source cards, setting rows and real toggles. Nodes 6.14, 6.15, 6.16.
+   One column at every width: a settings sidebar does not survive 360px, which
+   is also why this cluster is three screens and not one. ---- */
+.app .source { border: 1px solid var(--line); padding: 16px; margin: 0 0 14px; }
+.app .source .top { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; }
+.app .source .top .logo { flex: none; width: 36px; height: 36px; border: 1px dashed var(--line); display: flex; align-items: center; justify-content: center; font-size: 8px; color: var(--faint); }
+.app .source h2 { margin: 0; font-size: 15px; }
+.app .source .kind { display: block; font-size: 12.5px; color: var(--soft); }
+.app .source .badge { margin: 0 0 0 auto; }
+/* Disconnect says what happens in the same sentence. Every product offers the
+   control and none of them says what becomes of the data already collected. */
+.app .consequence { margin: 12px 0 0; font-size: 12.5px; color: var(--soft); }
+
+.app .navrows { list-style: none; margin: 0 0 22px; padding: 0; }
+.app .navrow {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 56px; padding: 12px 2px; border-bottom: 1px solid var(--line2);
+  text-decoration: none; color: inherit; font-size: 14.5px;
+}
+.app .navrows li:last-child .navrow { border-bottom: 0; }
+.app .navrow:hover { background: var(--panel2); }
+.app .navrow .sub { display: block; font-size: 12.5px; color: var(--soft); font-weight: 400; }
+.app .navrow .arrow { flex: none; color: var(--faint); }
+
+.app .switch { display: flex; gap: 12px; padding: 12px 2px; border-bottom: 1px solid var(--line2); }
+.app .switch:last-of-type { border-bottom: 0; }
+.app .switch input { flex: none; width: 20px; height: 20px; margin: 3px 0 0; }
+.app .switch .t { display: block; font-size: 14px; }
+.app .switch .h { display: block; font-size: 12.5px; color: var(--soft); margin-top: 2px; }
+
+/* ---- A dialog is its own page (conventions section 7), and it is drawn as
+   what it is: a full-width sheet on a narrow screen, a centred one on a wide
+   screen. The consequence carries the weight, never the colour (D-Concept). ---- */
+.app .sheet { max-width: 480px; margin: 0 auto; }
+.app .sheet h1 { margin: 0 0 10px; font-size: 20px; line-height: 1.25; }
+.app .sheet p { margin: 0 0 18px; font-size: 14px; color: var(--mid); }
+.app .sheet .doors { margin: 0 0 18px; }
+
+@container (min-width: 760px) {
+  .app .tiles { grid-template-columns: repeat(3, 1fr); }
+  /* The form stays one column at every width so the field order cannot be
+     misread, and the account cluster never gains a sidebar. */
+  .app .form-col { max-width: 560px; }
+  .app .rows-col { max-width: 620px; }
+  .app .sheet { border: 1px solid var(--line); padding: 24px; margin-top: 24px; }
+}

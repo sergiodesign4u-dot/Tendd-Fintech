@@ -95,5 +95,8 @@ different surface and belongs to node 8.
 **Locked:** the statement before the controls, no theatre toggles, the free plain export
 (D-Export), one-tap deletion with a single confirm that deletes everything, two doors with no
 alarm colouring.
+**Done at the wireframe rebuild, 2026-08-05:** node 6.15.1 has a page for the first time. It
+lived inside the page as a block and could not be walked as the interruption it is.
+
 **Open:** none. The export question that was open here was answered on 2026-08-04 (D-Export),
 and `CLAUDE.md` was corrected with it.

@@ -3,86 +3,56 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Add Subscription (success) - Tendd Wireframe</title>
+<title>Add Subscription - Tendd wireframe</title>
 <link rel="stylesheet" href="_wf.css">
 </head>
 <body>
 <div class="layout">
-<div id="wftree"></div>
-<div class="stage">
+<div id="wf-sidebar"></div>
+<div class="stage stage-app">
 
-<main class="phone onboarding" aria-label="Add subscription screen, mobile layout">
+<div class="app flow">
 
   <header class="appbar">
     <a class="back" href="path-choice.html">&lsaquo; Back</a>
     <span class="wordmark">Tendd</span>
-    <span class="stepdot">Step 2 of 3</span>
+    <span class="step">Step 2 of 3</span>
   </header>
 
-  <div class="screen">
+  <main class="screen">
 
-    <!-- BLOCK 1: title -->
-    <section class="zone" aria-label="Add a subscription">
-      <span class="zlabel">Title</span>
-      <h2 class="hero-h">Add a subscription</h2>
-      <p class="hero-sub">Pick from 400+ services, or add your own. Nothing leaves your control.</p>
-    </section>
+    <div class="lede">
+      <h1>Add a subscription</h1>
+      <p>Pick from 400+ services, or add your own. Nothing leaves your control.</p>
+    </div>
 
-    <!-- BLOCK 2: preset search field -->
-    <section class="zone" aria-label="Find a service">
-      <span class="zlabel">Preset search - searches the 400+ service library (D2)</span>
-      <form class="field" role="search" onsubmit="return false">
-        <label for="preset-search">Find a service</label>
-        <input id="preset-search" type="search" placeholder="Search 400+ services" value="net">
-      </form>
-    </section>
+    <!-- The search is focused on arrival, because the fastest finish is typing
+         three letters. The tiles below are for the person who would rather look. -->
+    <form class="field" role="search" onsubmit="return false">
+      <label for="preset-search">Find a service</label>
+      <input id="preset-search" type="search" placeholder="Search 400+ services" autofocus>
+    </form>
 
-    <!-- BLOCK 3: preset results -->
-    <section class="zone" aria-label="Matching services">
-      <span class="zlabel">Preset results - each has a logo, name, and a typical price to prefill</span>
-      <ul class="list">
-        <li>
-          <button type="button" class="row" aria-label="Netflix, typical price $17.99 a month, selected and prefilled below">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Netflix</span>
-              <span class="meta">Typically $17.99 / month</span>
-              <span class="when">Streaming</span>
-            </span>
-            <span class="tag">Chosen</span>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="row" aria-label="Netflix Basic, typical price $6.99 a month, tap to prefill">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">Netflix Basic with ads</span>
-              <span class="meta">Typically $6.99 / month</span>
-              <span class="when">Streaming</span>
-            </span>
-            <span class="tag">Use</span>
-          </button>
-        </li>
-        <li>
-          <button type="button" class="row" aria-label="The New York Times, typical price $17.00 a month, tap to prefill">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">The New York Times</span>
-              <span class="meta">Typically $17.00 / month</span>
-              <span class="when">News</span>
-            </span>
-            <span class="tag">Use</span>
-          </button>
-        </li>
-      </ul>
-      <!-- BLOCK 6: custom fallback below results -->
-      <p class="zaction" style="margin-top:10px">Can't find it? <b><a href="add-subscription-empty.html">Add it by hand</a></b> and fill the details yourself.</p>
-    </section>
+    <!-- The catalogue as evidence rather than as a boast. A blank form is the
+         version people abandon; tapping one of these makes the form below a
+         confirmation instead of data entry. -->
+    <h2 class="group-head" style="border:0;padding:0;margin:0 0 10px"><span>Most tracked</span></h2>
+    <div class="tiles">
+      <button type="button" class="tile" aria-pressed="true"><span class="logo"></span><span>Netflix<span class="p">Typically $17.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"></span><span>Spotify Premium<span class="p">Typically $11.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"></span><span>Disney+<span class="p">Typically $13.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"></span><span>Amazon Prime<span class="p">Typically $14.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"></span><span>Adobe Creative Cloud<span class="p">Typically $22.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"></span><span>The New York Times<span class="p">Typically $17.00 a month</span></span></button>
+    </div>
 
-    <!-- BLOCK 4: prefilled, editable form -->
-    <section class="zone" aria-label="Subscription details">
-      <span class="zlabel">Subscription form - prefilled from the chosen preset, every field editable</span>
-      <form onsubmit="return false">
+    <p class="quiet">Can't find it? <a href="add-subscription-empty.html">Add it by hand</a> and fill the details yourself.</p>
+
+    <!-- Prefilled from the chosen preset, and every field editable. There is no
+         category field: the category is derived from the service, and every
+         extra field on this screen is a reason to close the tab. -->
+    <form class="form-col" onsubmit="return false">
+      <fieldset>
         <div class="field">
           <label for="sub-name">Name</label>
           <input id="sub-name" type="text" value="Netflix">
@@ -104,44 +74,27 @@
         <div class="field">
           <label for="sub-next">Next payment date</label>
           <input id="sub-next" type="text" value="Aug 3, 2026">
+          <p class="hint">For example, Aug 3, 2026</p>
         </div>
-        <div class="field">
-          <label for="sub-cat">Category</label>
-          <select id="sub-cat">
-            <option>Streaming</option>
-            <option>Music</option>
-            <option>Fitness</option>
-            <option>Software</option>
-            <option>News</option>
-            <option>Other</option>
-          </select>
-        </div>
+      </fieldset>
 
-        <!-- BLOCK 5: primary action pair -->
-        <div class="act-row">
-          <button type="submit" class="btn primary">Add subscription</button>
-          <button type="button" class="btn">Add another</button>
-        </div>
-        <p class="zaction">Main action: <b>add subscription</b>, then <b>add another</b> loops back to an empty form (Flow B). Both keep you on this screen; your list is saved as you go.</p>
-      </form>
-    </section>
-
-    <!-- BLOCK 7 + 8: running progress and finish -->
-    <section class="zone" aria-label="Your progress">
-      <span class="zlabel">Running progress + finish (anti-abandon, Critique fix)</span>
-      <div class="callout">
-        <span class="k">Saved as you go</span>
-        3 added so far. Your list is saved, so you can stop and come back any time.
+      <div class="actions">
+        <button type="submit" class="btn primary">Add subscription</button>
+        <button type="button" class="btn">Add another</button>
       </div>
-      <div class="act-row">
-        <a class="btn primary" href="guided-reveal.html">See your subscriptions</a>
-      </div>
-      <p class="zaction">Finish action: <b>See your subscriptions</b> continues to the Guided Reveal once at least one is added.</p>
-    </section>
+    </form>
 
-  </div>
+    <!-- The one-at-a-time loop has to be cheap, and stopping has to be safe, or
+         the manual path ends at the first entry. This is the anti-abandon block. -->
+    <p class="consequence">Saved as you go: 3 added so far. Your list is saved, so you can stop and come back any time.</p>
 
-</main>
+    <div class="actions">
+      <a class="btn primary" href="guided-reveal.html">See your subscriptions</a>
+    </div>
+
+  </main>
+
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

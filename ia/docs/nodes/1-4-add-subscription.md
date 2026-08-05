@@ -81,6 +81,11 @@ grid; the form stays a single column so the field order cannot be misread.
 ## Status
 
 **Locked:** search plus tiles, the prefilled form, the cheap loop, three failure states that
-all land on the manual form. **Open:** `[?]` the real size of the preset catalogue at launch
+all land on the manual form.
+
+**Done at the wireframe rebuild, 2026-08-05:** the "Most tracked" tile row is on the
+screen (block 3, which the July build skipped straight past), and the Category select is off
+the form. Category is derived, not asked, and it was one of the fields this node names and
+does not add. **Open:** `[?]` the real size of the preset catalogue at launch
 (the copy currently says 400+ services, from `voice/docs/microcopy.md`); resolving input is
 the catalogue build.

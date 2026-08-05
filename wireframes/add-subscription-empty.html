@@ -3,52 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Add Subscription (empty) - Tendd Wireframe</title>
+<title>Add Subscription, no preset matches - Tendd wireframe</title>
 <link rel="stylesheet" href="_wf.css">
 </head>
 <body>
 <div class="layout">
-<div id="wftree"></div>
-<div class="stage">
+<div id="wf-sidebar"></div>
+<div class="stage stage-app">
 
-<main class="phone onboarding" aria-label="Add subscription empty search, mobile layout">
+<div class="app flow">
 
   <header class="appbar">
     <a class="back" href="path-choice.html">&lsaquo; Back</a>
     <span class="wordmark">Tendd</span>
-    <span class="stepdot">Step 2 of 3</span>
+    <span class="step">Step 2 of 3</span>
   </header>
 
-  <div class="screen">
+  <main class="screen">
 
-    <!-- BLOCK 1: title -->
-    <section class="zone" aria-label="Add a subscription">
-      <span class="zlabel">Title</span>
-      <h2 class="hero-h">Add a subscription</h2>
-    </section>
+    <div class="lede">
+      <h1>Add a subscription</h1>
+    </div>
 
-    <!-- BLOCK 2: search field, keeps the term that found nothing -->
-    <section class="zone" aria-label="Find a service">
-      <span class="zlabel">Preset search - the term that returned no match</span>
-      <form class="field" role="search" onsubmit="return false">
-        <label for="preset-search">Find a service</label>
-        <input id="preset-search" type="search" placeholder="Search 400+ services" value="Cerebro Cloud">
-      </form>
-    </section>
+    <form class="field" role="search" onsubmit="return false">
+      <label for="preset-search">Find a service</label>
+      <input id="preset-search" type="search" value="Cerebro Cloud">
+    </form>
 
-    <!-- BLOCK 3 empty: no preset match, offer to add by hand (the way out) -->
-    <section class="zone" aria-label="No matching service">
-      <span class="zlabel">Empty search result - no dead end, add it by hand</span>
-      <div class="msg" role="status" aria-live="polite">
-        <h2>No match for "Cerebro Cloud"</h2>
-        <p>Not every service is in our list yet. You can add it by hand below, and it will sit alongside the rest.</p>
-      </div>
-    </section>
+    <!-- An empty catalogue result is our gap, not the person's mistake, and the
+         line says so before it offers the way on. -->
+    <div class="state" role="status" aria-live="polite">
+      <h2 style="margin:0 0 8px;font-size:17px">No match for "Cerebro Cloud"</h2>
+      <p>Not every service is in our list yet. You can add it by hand below, and it will sit alongside the rest.</p>
+    </div>
 
-    <!-- BLOCK 4: manual custom-entry form, prefilled with the searched name -->
-    <section class="zone" aria-label="Add it by hand">
-      <span class="zlabel">Manual custom entry - name prefilled from the search, everything editable</span>
-      <form onsubmit="return false">
+    <!-- The name carries over from the search, so nothing typed is retyped. -->
+    <form class="form-col" onsubmit="return false">
+      <fieldset>
         <div class="field">
           <label for="sub-name">Name</label>
           <input id="sub-name" type="text" value="Cerebro Cloud">
@@ -56,6 +47,7 @@
         <div class="field">
           <label for="sub-amount">Amount</label>
           <input id="sub-amount" type="text" placeholder="$0.00">
+          <p class="hint">Enter an amount, like $9.99</p>
         </div>
         <div class="field">
           <label for="sub-freq">Billing frequency</label>
@@ -69,38 +61,24 @@
         </div>
         <div class="field">
           <label for="sub-next">Next payment date</label>
-          <input id="sub-next" type="text" placeholder="For example, Aug 3, 2026">
+          <input id="sub-next" type="text" placeholder="Aug 3, 2026">
+          <p class="hint">For example, Aug 3, 2026</p>
         </div>
-        <div class="field">
-          <label for="sub-cat">Category</label>
-          <select id="sub-cat">
-            <option>Software</option>
-            <option>Streaming</option>
-            <option>Music</option>
-            <option>Fitness</option>
-            <option>News</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="act-row">
-          <button type="submit" class="btn primary">Add it by hand</button>
-          <a class="btn" href="add-subscription.html">Search again</a>
-        </div>
-        <p class="zaction">Main action: <b>add it by hand</b>. The add-by-hand form is always here, so a search with no match is never a dead end (Critique fix, Flow B).</p>
-      </form>
-    </section>
+      </fieldset>
 
-    <!-- Finish, once at least one is added -->
-    <section class="zone" aria-label="Your progress">
-      <span class="zlabel">Finish - once at least one is added</span>
-      <div class="act-row">
-        <a class="btn primary" href="guided-reveal.html">See your subscriptions</a>
+      <div class="actions">
+        <button type="submit" class="btn primary">Add subscription</button>
+        <a class="btn" href="add-subscription.html">Search again</a>
       </div>
-    </section>
+    </form>
 
-  </div>
+    <div class="actions">
+      <a class="btn primary" href="guided-reveal.html">See your subscriptions</a>
+    </div>
 
-</main>
+  </main>
+
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

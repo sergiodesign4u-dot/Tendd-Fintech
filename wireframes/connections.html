@@ -3,115 +3,100 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Connections / Accounts (success) - Tendd Wireframe</title>
+<title>Connections / Accounts - Tendd wireframe</title>
 <link rel="stylesheet" href="_wf.css">
 </head>
 <body>
 <div class="layout">
-<div id="wftree"></div>
+<div id="wf-sidebar"></div>
 <div class="stage stage-app">
 
-<!-- ============ THE MOBILE SCREEN ============ -->
-<main class="phone dash" aria-label="Connections screen, mobile layout">
+<div class="app">
 
-  <!-- GC1 App header -->
   <header class="appbar">
+    <a class="back" href="settings.html">&lsaquo; You</a>
     <span class="wordmark">Tendd</span>
-    <span class="right">Hi, Emma</span>
   </header>
 
-  <div class="screen">
+  <main class="screen">
+   <div class="rows-col">
 
-    <!-- BLOCK 1 (P): Title -->
-    <section class="zone" aria-label="Your sources">
-      <span class="zlabel">Title</span>
-      <h2 style="margin:0 0 4px;font-size:18px">Your sources</h2>
-      <p style="margin:0;font-size:13px;color:var(--soft)">Where Tendd gets the list of what you pay for. You are always in control of these.</p>
-      <p class="trust" style="margin-top:8px;font-size:11px;color:var(--faint)">Read-only. Tendd cannot move your money. <a href="data-privacy.html" style="color:var(--soft)">What we read &rarr;</a></p>
+    <!-- A plain statement first, controls after. A list of controls with no
+         statement reads as a menu of things being done to you. -->
+    <div class="lede">
+      <h1>Your sources</h1>
+      <p>Where Tendd gets the list of what you pay for. You are always in control of these. Read-only. Tendd cannot move your money.</p>
+    </div>
+
+    <!-- One card per source. The last successful check is on every one of them,
+         because a silently stale connection makes the whole calm view quietly
+         wrong and the person has no way to know. -->
+    <section class="source" aria-label="Chase, bank connection">
+      <div class="top">
+        <span class="logo">[logo]</span>
+        <span>
+          <h2>Chase</h2>
+          <span class="kind">Bank connection through Plaid</span>
+        </span>
+        <span class="badge">Connected</span>
+      </div>
+      <dl class="facts">
+        <div><dt>Last checked</dt><dd>today, 9:14 AM</dd></div>
+        <div><dt>Accounts included</dt><dd>Checking</dd></div>
+        <div><dt>Tracking from here</dt><dd>11 subscriptions</dd></div>
+        <div><dt>Access</dt><dd>Read-only. Tendd cannot move your money.</dd></div>
+      </dl>
+      <!-- Disconnect with the consequence in the same sentence. Every product
+           offers this control and none of them says what becomes of the data
+           already collected. -->
+      <p class="consequence">Disconnecting stops Tendd from reading new charges. The 11 subscriptions already found stay on your list and become yours to keep up to date.</p>
+      <div class="actions" style="margin-top:12px">
+        <a class="btn" href="connections-empty.html">Disconnect Chase</a>
+      </div>
     </section>
 
-    <!-- BLOCK 2 (P): Sources list, each a GC6 Data Source and Trust Indicator row -->
-    <section class="zone" aria-label="Connected sources">
-      <span class="zlabel">GC6 Data source and trust indicators - one row per source</span>
-      <ul class="list">
-
-        <li>
-          <article aria-label="Chase, bank connection, connected, 11 subscriptions">
-            <div class="detail-head" style="margin-bottom:8px">
-              <span class="logo">[logo]</span>
-              <span>
-                <span class="name">Chase &middot;&middot;&middot;&middot;1234</span>
-                <span class="amt" style="display:block">Bank connection through Plaid</span>
-              </span>
-              <span class="tag" style="margin-left:auto">Connected</span>
-            </div>
-            <div class="kv"><span class="k">Last synced</span><span class="v">Today, 9:14 AM</span></div>
-            <div class="kv"><span class="k">Tracking from here</span><span class="v">11 subscriptions</span></div>
-            <div class="kv"><span class="k">Access</span><span class="v">Read-only, cannot move your money</span></div>
-            <div class="act-row" style="margin-top:10px">
-              <a class="btn" href="connections-empty.html">Remove</a>
-            </div>
-          </article>
-        </li>
-
-        <li>
-          <article aria-label="Added by you, private manual source, 3 subscriptions">
-            <div class="detail-head" style="margin-bottom:8px">
-              <span class="logo">[logo]</span>
-              <span>
-                <span class="name">Added by you</span>
-                <span class="amt" style="display:block">Private, entered by hand</span>
-              </span>
-              <span class="tag" style="margin-left:auto">Private</span>
-            </div>
-            <div class="kv"><span class="k">Added</span><span class="v">Kept up to date by you</span></div>
-            <div class="kv"><span class="k">Tracking here</span><span class="v">3 subscriptions</span></div>
-            <div class="kv"><span class="k">Access</span><span class="v">Only what you type</span></div>
-            <div class="act-row" style="margin-top:10px">
-              <a class="btn" href="add-subscription.html">Add a subscription</a>
-              <a class="btn" href="connections-empty.html">Remove</a>
-            </div>
-          </article>
-        </li>
-
-      </ul>
-      <p class="zaction">Main action: <b>reconnect or remove a source</b>. Each row is a GC6 trust indicator: source, status, count, and the read-only reassurance.</p>
+    <!-- The manual path is a source with equal standing, not a lesser mode. -->
+    <section class="source" aria-label="Added by you, a private source">
+      <div class="top">
+        <span class="logo">[logo]</span>
+        <span>
+          <h2>Added by you</h2>
+          <span class="kind">Private, entered by hand</span>
+        </span>
+        <span class="badge">Private</span>
+      </div>
+      <dl class="facts">
+        <div><dt>Last updated</dt><dd>by you, Jul 30</dd></div>
+        <div><dt>Tracking here</dt><dd>3 subscriptions</dd></div>
+        <div><dt>Access</dt><dd>Only what you type. Nothing is read from anywhere.</dd></div>
+      </dl>
+      <p class="consequence">Removing this source deletes the 3 subscriptions you typed. They exist nowhere else, so this one cannot be undone.</p>
+      <div class="actions" style="margin-top:12px">
+        <a class="btn" href="add-subscription.html">Add a subscription</a>
+        <a class="btn" href="connections-empty.html">Remove this source</a>
+      </div>
     </section>
 
-    <!-- BLOCK 3 (P): Add a source - the FLAG 2 chooser, re-enters 1.3 / 1.4 in-app -->
-    <section class="zone" aria-label="Add a source">
-      <span class="zlabel">Add a source (FLAG 2 chooser) - re-enters Connect Bank or Add Subscription in-app</span>
-      <p style="margin:0 0 10px;font-size:13px;color:var(--mid)">Add a source</p>
-      <a class="opt" href="connect-bank.html">
-        <h3>Connect your bank</h3>
-        <p>Find your subscriptions automatically. Read-only through Plaid.</p>
-        <span class="pick">Choose this &rarr;</span>
-      </a>
-      <a class="opt" href="add-subscription.html">
-        <h3>Add them yourself</h3>
-        <p>Type them in yourself from a list of 400+ services. No bank needed.</p>
-        <span class="pick">Choose this &rarr;</span>
-      </a>
-      <p class="zaction">Main action: <b>pick a way to add a source</b>. Both reuse the locked onboarding screens in-app, returning here when done.</p>
-    </section>
+    <!-- No counter and no limit anywhere on this screen. A count beside a
+         connection list reads as a cap even when there is none, and D-Free is a
+         promise this screen could quietly break by design. -->
+    <div class="actions">
+      <a class="btn primary" href="connections-add-source.html">Add a source</a>
+    </div>
 
-    <!-- BLOCK 4 (S): Provider note -->
-    <section class="zone plain" aria-label="Provider note">
-      <span class="zlabel">Provider note</span>
-      <p style="margin:0;font-size:12px;color:var(--soft)">US banks connect through Plaid. More regions soon.</p>
-    </section>
+    <p class="legal">US banks connect through Plaid. More regions soon. <a href="data-privacy.html">What we read</a></p>
 
-  </div>
+   </div>
+  </main>
 
-  <!-- GC2 Global tab bar, You current -->
   <nav class="tabbar" aria-label="Global navigation">
     <a href="home.html"><span class="ic"></span>Home</a>
-    <a href="alerts.html"><span class="ic"></span>Alerts</a>
+    <a href="alerts.html"><span class="ic"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
     <a href="home-savefocus.html"><span class="ic"></span>Save</a>
     <a class="cur" href="settings.html" aria-current="page"><span class="ic"></span>You</a>
   </nav>
 
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

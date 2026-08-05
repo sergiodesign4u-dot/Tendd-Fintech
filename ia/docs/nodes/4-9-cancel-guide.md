@@ -95,3 +95,9 @@ surface owned by node 8, and then `HowTo` and `FAQPage` schema become legitimate
 with the real date, the freshness line, the not-your-fault dialog.
 **Open:** `[?]` guide coverage at launch (the long tail of services with no specific guide).
 Resolving input: how many guides are authored before release.
+
+**Done at the wireframe rebuild, 2026-08-05:** the three blocks the bank found
+missing are on the screen: what happens when you cancel with the real date (block 3), the
+duration and source strip (block 4), and when the steps were last checked (block 10). The
+steps themselves are the netflix.com path rather than a generic list, which is block 5 and the
+sharpest difference in the bank.

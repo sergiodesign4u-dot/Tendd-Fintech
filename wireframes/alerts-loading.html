@@ -3,69 +3,61 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alerts / Activity (loading) - Tendd Wireframe</title>
+<title>Alerts, loading alerts - Tendd wireframe</title>
 <link rel="stylesheet" href="_wf.css">
 </head>
 <body>
 <div class="layout">
-<div id="wftree"></div>
+<div id="wf-sidebar"></div>
 <div class="stage stage-app">
 
-<main class="phone dash" aria-label="Alerts screen, loading state, mobile layout">
+<div class="app">
 
   <header class="appbar">
     <span class="wordmark">Tendd</span>
-    <span class="right">Hi, Emma</span>
+    <a class="acct" href="settings.html" aria-label="Hi Emma, open your account">Hi, Emma</a>
   </header>
 
-  <div class="screen">
+  <main class="screen" aria-busy="true">
+   <div class="rows-col">
 
-    <!-- BLOCK 1 (P): Title -->
-    <section class="zone plain" aria-label="Alerts heading">
-      <span class="zlabel">Title - stays put while the feed resolves</span>
-      <h2 style="margin:0;font-size:18px">Alerts</h2>
-    </section>
+    <div class="lede" role="status" aria-live="polite">
+      <h1>Alerts</h1>
+      <p>Checking for anything worth knowing about. This usually takes a moment.</p>
+    </div>
 
-    <!-- BLOCK 2 (P): feed as skeleton alert rows -->
-    <section class="zone" aria-label="Your alerts loading" aria-busy="true">
-      <span class="zlabel">Alert feed - skeleton rows in the shape of the GC5 items</span>
-      <ul class="list">
-        <li>
-          <div class="row" aria-hidden="true">
-            <span class="logo"></span>
-            <span class="body">
-              <span class="skel block" style="width:80%"></span>
-              <span class="skel block" style="width:60%;margin-top:7px;height:10px"></span>
-              <span class="skel block" style="width:30%;margin-top:7px;height:10px"></span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="row" aria-hidden="true">
-            <span class="logo"></span>
-            <span class="body">
-              <span class="skel block" style="width:72%"></span>
-              <span class="skel block" style="width:55%;margin-top:7px;height:10px"></span>
-              <span class="skel block" style="width:26%;margin-top:7px;height:10px"></span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="row" aria-hidden="true">
-            <span class="logo"></span>
-            <span class="body">
-              <span class="skel block" style="width:76%"></span>
-              <span class="skel block" style="width:58%;margin-top:7px;height:10px"></span>
-              <span class="skel block" style="width:32%;margin-top:7px;height:10px"></span>
-            </span>
-          </div>
-        </li>
+    <!-- The skeleton keeps both group headings, because the shape of this screen
+         is the answer to "is anything wrong" and the shape arrives first. -->
+    <section class="group" aria-hidden="true">
+      <div class="group-head"><h2>Needs you</h2></div>
+      <ul class="alerts">
+        <li><div class="alert">
+          <span class="logo is-skel"></span>
+          <span class="body"><span class="skel line" style="width:74%"></span><span class="skel line" style="width:52%"></span></span>
+        </div></li>
       </ul>
-      <p class="context" style="margin-top:10px">Checking for anything worth knowing about. This usually takes a moment.</p>
-      <p class="zaction">No action needed: this resolves into <b><a href="alerts.html">the alert feed</a></b>, or the calm <a href="alerts-empty.html">all-clear</a> if nothing needs you. If the fetch fails it becomes the <a href="alerts-error.html">error</a> state, which offers a retry.</p>
     </section>
 
-  </div>
+    <section class="group" aria-hidden="true">
+      <div class="group-head"><h2>Just so you know</h2></div>
+      <ul class="alerts">
+        <li><div class="alert">
+          <span class="logo is-skel"></span>
+          <span class="body"><span class="skel line" style="width:60%"></span><span class="skel line" style="width:46%"></span></span>
+        </div></li>
+        <li><div class="alert">
+          <span class="logo is-skel"></span>
+          <span class="body"><span class="skel line" style="width:68%"></span><span class="skel line" style="width:50%"></span></span>
+        </div></li>
+        <li><div class="alert">
+          <span class="logo is-skel"></span>
+          <span class="body"><span class="skel line" style="width:56%"></span><span class="skel line" style="width:44%"></span></span>
+        </div></li>
+      </ul>
+    </section>
+
+   </div>
+  </main>
 
   <nav class="tabbar" aria-label="Global navigation">
     <a href="home.html"><span class="ic"></span>Home</a>
@@ -74,7 +66,7 @@
     <a href="settings.html"><span class="ic"></span>You</a>
   </nav>
 
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

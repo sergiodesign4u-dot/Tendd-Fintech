@@ -84,6 +84,13 @@ Every inline block sits in one `<style>` in the head, opened with the marker
 `/* INLINE: <screen> :: for consolidation into _wf.css */`, so the parent can find them
 mechanically instead of reading twenty files.
 
+**Everything shared lives in `_wf.css` and nothing shipped inline.** By the end of the stage the
+file holds four blocks under `.app`: the live screen shell (node 2.6 and node 2.7's family), the
+onboarding chain `.app.flow`, the detail `.app.detail`, and the forms, feed, steps, cards and
+rows the rest of the set shares. Every one of them was a multi-screen rule on arrival, so the
+inline stage never happened; the rule below is what would have applied if any of them had been a
+one-screen rule.
+
 **The etalon consolidated early, at Step 5, and that is the rule and not an exception.** The
 moment node 2.6 had its four state pages, the shell was a five-screen rule by the test above, and
 leaving it inline would have meant five copies of it until Step 8. It sits in `_wf.css` under the
@@ -185,9 +192,12 @@ the read-only line wherever a trust moment appears. All of it is already written
   state of every screen is a row in it. `connect-bank-loading` is the one page in the set with
   no link at all, and that is correct: the onboarding chain has no tab bar and a sync has
   nothing for a person to do.
-  The check that makes this falsifiable: **all sixteen base screens are reachable from the
-  front door by clicking, and the only pages that are not are state pages**, each produced by
-  a condition rather than by a tap.
+  The check that makes this falsifiable: **every MVP base screen is reachable from the front
+  door by clicking, and the pages that are not are state pages**, each produced by a condition
+  rather than by a tap. One base screen is deliberately unreachable: node 4.11 Share Snapshot
+  is LATER under D-Share, and it lost its entry when the share block came off `cancel-win`. An
+  MVP screen cannot lead to a screen that is not in MVP, and that is the decision showing up in
+  the link graph rather than a broken route.
 - **The four dead ends of `flows.md` are drawn on purpose and each one is closed by a named
   control on a named page.** The list is on `overview.html` under Flows. A wireframe stage that
   leaves one of them open has not finished, whatever else it drew.

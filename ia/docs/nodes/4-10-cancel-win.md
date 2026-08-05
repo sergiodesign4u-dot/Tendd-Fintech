@@ -83,6 +83,7 @@ a wider breakpoint.
 
 **Locked:** the quiet header, the specific monthly and yearly number, the honest "on your word"
 line, the running total, one way out. The share block is LATER with node 4.11 (D-Share).
-**Carried to the wireframe rebuild:** the grey screen still shows the share block as a primary
-action.
+**Done at the wireframe rebuild, 2026-08-05:** the share block is off the screen, and the tab
+bar with it: GC1 is drawn in its minimal variant, so nothing competes with the moment. The
+win ends on one action, back to the list.
 **Open:** none.

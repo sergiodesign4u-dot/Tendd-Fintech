@@ -180,8 +180,8 @@ at the step that rebuilt the main flow:
 | 5.12.3 | `history-trends-error.html` | LATER, round 2 |
 | 5.13.1 | `upgrade-processing.html` | LATER, round 2 |
 | 5.13.2 | `upgrade-payment-failed.html` | LATER, round 2 |
-| 6.14.3 | `connections-add-source.html` | The chooser, which is the FLAG 2 resolution |
-| 6.15.1 | `data-privacy-delete-confirm.html` | The two-door dialog. It exists inside the page today and has no page of its own |
+| 6.14.3 | `connections-add-source.html` **built** | The chooser, which is the FLAG 2 resolution |
+| 6.15.1 | `data-privacy-delete-confirm.html` **built** | The two-door dialog. It lived inside the page and had no page of its own |
 
 **Four pages renamed** on 2026-08-05, because each was named after the nearest system word
 rather than after its state:
@@ -196,20 +196,22 @@ rather than after its state:
 The keys of `voice/docs/microcopy.md` follow the file names, so its rows were renamed with them.
 The lines did not change; only the screen they are keyed to is now spelled correctly.
 
-**Carried in from the IA work, to be honoured while the screens are rebuilt:**
+**Carried in from the IA work, and all of it closed on 2026-08-05:**
 
-- `cancel-win.html` still shows the share block as a primary action. It is LATER under D-Share.
-- `settings.html` shows a **Name** field, which the block bank decided against (email and
-  currency, and nothing else), and has no currency row.
-- `cancel-guide.html` is missing three blocks the bank found: what happens when you cancel with
-  the real date, the "about five minutes, and where these steps came from" strip, and when the
-  steps were last checked.
-- `connections.html` needs the last successful check on every source and the disconnect
+- `cancel-win.html` showed the share block as a primary action. It is off the screen, and the
+  tab bar with it: node 4.10 draws GC1 in its minimal variant. LATER under D-Share.
+- `settings.html` showed a **Name** field, which the block bank decided against. The field is
+  gone and the currency row is on the screen.
+- `cancel-guide.html` was missing three blocks the bank found: what happens when you cancel
+  with the real date, the "about five minutes, and where these steps came from" strip, and when
+  the steps were last checked. All three are on it, and the steps are the netflix.com path.
+- `connections.html` now states the last successful check on every source and the disconnect
   consequence in the same sentence.
 - The `.zlabel` and `.zaction` annotations and the 420 by 720 mockup frame are the schema form
-  of the previous stage, and both come off. Gone from the twenty pages rebuilt so far (node 2.6
-  with its four states, node 1.1, node 1.2, node 1.3 with its four, node 1.5 with its one, node
-  2.7 with its five); still on the remaining pages until each is rebuilt.
+  of the previous stage, and both come off. **Gone from all 39 MVP pages** after the fan-out on
+  2026-08-05. They survive only on the seven LATER pages (node 4.11, node 5.12, node 5.13),
+  which round 2 brings to the same contract, and that is also why the `.phone` block is still
+  in `_wf.css`.
 
 ---
 

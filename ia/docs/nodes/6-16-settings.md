@@ -95,7 +95,7 @@ and the tab bar becomes a left rail. No settings sidebar at any width.
 
 **Locked:** email and currency only, the plan stated once and here, one place that answers what
 will reach you, the two cluster doors one tap from the tab bar, no sidebar at any width.
-**Carried to the wireframe rebuild:** the Name field on the grey screen, and the missing
-currency row.
+**Done at the wireframe rebuild, 2026-08-05:** the Name field is off the screen and the
+currency row is on it. The screen holds an email and a currency, and nothing else.
 **Open:** `[?]` the no-account-to-try auth model, shared with node 1.1. Resolving input: a
 product decision on lazy against up-front account creation.

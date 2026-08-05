@@ -3,114 +3,161 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alerts / Activity (success) - Tendd Wireframe</title>
+<title>Alerts / Activity - Tendd wireframe</title>
 <link rel="stylesheet" href="_wf.css">
 </head>
 <body>
 <div class="layout">
-<div id="wftree"></div>
+<div id="wf-sidebar"></div>
 <div class="stage stage-app">
 
-<!-- ============ THE MOBILE SCREEN ============ -->
-<main class="phone dash" aria-label="Alerts screen, mobile layout">
+<div class="app">
 
-  <!-- GC1 App header -->
   <header class="appbar">
     <span class="wordmark">Tendd</span>
-    <span class="right">Hi, Emma</span>
+    <a class="acct" href="settings.html" aria-label="Hi Emma, open your account">Hi, Emma</a>
   </header>
 
-  <div class="screen">
+  <main class="screen">
+   <div class="rows-col">
 
-    <!-- BLOCK 1 (P): Title -->
-    <section class="zone plain" aria-label="Alerts heading">
-      <span class="zlabel">Title (GC5 feed header) - calm, no red count on the tab</span>
-      <h2 style="margin:0;font-size:18px">Alerts</h2>
-      <p class="context" style="margin-top:4px">The few things worth knowing about, newest first. A quiet dot marks what is new since your last visit.</p>
-    </section>
+    <div class="lede">
+      <h1>Alerts</h1>
+      <p>The few things worth knowing about. A quiet dot marks what is new since your last visit.</p>
+    </div>
 
-    <!-- BLOCK 2 (P): Alert feed, single column, newest first, GC5 items -->
-    <section class="zone" aria-label="Your alerts">
-      <span class="zlabel">Alert feed (GC5 rows) - free alerts open the subscription, Pro alerts open Upgrade</span>
-      <ul class="list">
-
-        <!-- Free: price change, NEW -->
+    <!-- Sorted by whether it needs you, not by date. A feed sorted by date makes
+         a person scan to find out whether anything is wrong; this answers that
+         before they read a word. This group is usually empty, and that is the
+         product working. -->
+    <section class="group" aria-label="Needs you">
+      <div class="group-head">
+        <h2>Needs you</h2>
+        <span class="subtotal">2</span>
+      </div>
+      <ul class="alerts">
         <li>
-          <a class="row" href="subscription-detail-price-change.html" aria-label="New. Price change. Netflix went up by $2.50, now $17.99 a month. See what changed.">
+          <a class="alert" href="subscription-detail-price-change.html" aria-label="New. Netflix went up by $2.50, now $17.99 a month. Price change from Chase, Jul 28. See what changed.">
             <span class="logo">[logo]</span>
             <span class="body">
-              <span class="name"><span aria-hidden="true" style="display:inline-block;width:7px;height:7px;border:1px solid var(--ink);background:var(--soft);border-radius:50%;margin-right:6px;vertical-align:middle"></span>Netflix went up by $2.50, now $17.99 a month</span>
-              <span class="meta">Price change &middot; Netflix &middot; Your next payment is Aug 3</span>
-              <span class="when">See what changed &rarr;</span>
-            </span>
-            <span class="tag">New</span>
-          </a>
-        </li>
-
-        <!-- Free: payment failed, NEW -->
-        <li>
-          <a class="row" href="subscription-detail-payment-failed.html" aria-label="New. Payment failed. A payment to Amazon Prime did not go through on Jul 2. What to do.">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name"><span aria-hidden="true" style="display:inline-block;width:7px;height:7px;border:1px solid var(--ink);background:var(--soft);border-radius:50%;margin-right:6px;vertical-align:middle"></span>A payment to Amazon Prime did not go through</span>
-              <span class="meta">Payment failed &middot; Amazon Prime &middot; It usually tries again in a day or two</span>
-              <span class="when">What to do &rarr;</span>
-            </span>
-            <span class="tag">New</span>
-          </a>
-        </li>
-
-        <!-- Pro: trial ending, gated for free users, NEW -->
-        <li>
-          <a class="row" href="upgrade.html" aria-label="New. Tendd Pro feature. Trial ending for Peloton App. Tendd Pro explains this. Unlock with Tendd Pro.">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name"><span aria-hidden="true" style="display:inline-block;width:7px;height:7px;border:1px solid var(--ink);background:var(--soft);border-radius:50%;margin-right:6px;vertical-align:middle"></span>Your Peloton App trial ends soon <span class="locklabel">Pro</span></span>
-              <span class="meta">Trial ending &middot; Peloton App &middot; Tendd Pro explains this in plain language</span>
-              <span class="when">Unlock with Tendd Pro &rarr;</span>
+              <span class="what"><span class="newdot" aria-hidden="true"></span>Netflix went up by $2.50, now $17.99 a month</span>
+              <span class="meta">Price change &middot; Netflix &middot; Jul 28 &middot; from Chase</span>
+              <!-- The old price beside the new one. Every product shows the new
+                   number; the old one turns a surprise into an explanation. -->
+              <span class="prices"><span>Was <b>$15.49</b></span><span>Now <b>$17.99</b></span><span>Difference <b>$2.50</b></span></span>
+              <span class="go">See what changed</span>
             </span>
           </a>
         </li>
-
-        <!-- Pro: unusual charge, gated for free users, read -->
         <li>
-          <a class="row" href="upgrade.html" aria-label="Tendd Pro feature. Unusual charge on Adobe Creative Cloud. Tendd Pro explains this. Unlock with Tendd Pro.">
+          <a class="alert" href="subscription-detail-payment-failed.html" aria-label="New. A payment to Amazon Prime did not go through. Payment failed from Chase, Jul 20, $14.99. What to do.">
             <span class="logo">[logo]</span>
             <span class="body">
-              <span class="name">We noticed something about your Adobe charge <span class="locklabel">Pro</span></span>
-              <span class="meta">Unusual charge &middot; Adobe Creative Cloud &middot; Tendd Pro explains this in plain language</span>
-              <span class="when">Unlock with Tendd Pro &rarr;</span>
+              <span class="what"><span class="newdot" aria-hidden="true"></span>A payment to Amazon Prime did not go through</span>
+              <span class="meta">Payment failed &middot; Amazon Prime &middot; $14.99 &middot; Jul 20 &middot; from Chase</span>
+              <span class="go">What to do</span>
             </span>
           </a>
         </li>
-
-        <!-- Free: payment failed, read -->
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Payment failed. We could not take your Spotify Premium payment on Jun 28. It has since gone through.">
-            <span class="logo">[logo]</span>
-            <span class="body">
-              <span class="name">We could not take your Spotify Premium payment on Jun 28</span>
-              <span class="meta">Payment failed &middot; Spotify Premium &middot; This one has since gone through</span>
-              <span class="when">See Spotify Premium &rarr;</span>
-            </span>
-          </a>
-        </li>
-
       </ul>
-      <p class="zaction">Main action: <b>tap a free alert to open its subscription</b>; a Pro alert opens <b>Upgrade</b> (GC7 gate, D3). Free vs Pro live in one feed, Pro shown as gated, not hidden.</p>
     </section>
 
-  </div>
+    <section class="group" aria-label="Just so you know">
+      <div class="group-head">
+        <h2>Just so you know</h2>
+        <span class="subtotal">5</span>
+      </div>
+      <ul class="alerts">
+        <li>
+          <a class="alert" href="subscription-detail.html" aria-label="iCloud Plus charges $2.99 tomorrow. Coming up from Chase, 2 August. See iCloud Plus.">
+            <span class="logo">[logo]</span>
+            <span class="body">
+              <span class="what">iCloud+ charges $2.99 tomorrow</span>
+              <span class="meta">Coming up &middot; iCloud+ &middot; Aug 2 &middot; from Chase</span>
+              <span class="go">See iCloud+</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="alert" href="subscription-detail.html" aria-label="ChatGPT Plus charges $20.00 in 4 days. Coming up from Chase, 5 August. See ChatGPT Plus.">
+            <span class="logo">[logo]</span>
+            <span class="body">
+              <span class="what">ChatGPT Plus charges $20.00 in 4 days</span>
+              <span class="meta">Coming up &middot; ChatGPT Plus &middot; Aug 5 &middot; from Chase</span>
+              <span class="go">See ChatGPT Plus</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="alert" href="subscription-detail.html" aria-label="Tendd found a new subscription, Strava, $11.99 a month. New subscription from Chase, found 29 July. See Strava.">
+            <span class="logo">[logo]</span>
+            <span class="body">
+              <span class="what"><span class="newdot" aria-hidden="true"></span>Tendd found a new subscription, Strava, $11.99 a month</span>
+              <span class="meta">New subscription &middot; Strava &middot; found Jul 29 &middot; from Chase</span>
+              <span class="go">See Strava</span>
+            </span>
+          </a>
+        </li>
+        <!-- The two Pro alert types are shown, not hidden, and they state what
+             they are: no blur, because a blur pretends there is text being
+             withheld and an anxious person fills it in with something bad. -->
+        <li>
+          <a class="alert" href="upgrade.html" aria-label="Your Peloton App trial ends soon. Trial ending, part of Tendd Pro. See what Pro adds.">
+            <span class="logo">[logo]</span>
+            <span class="body">
+              <span class="what">Your Peloton App trial ends soon <span class="badge" style="margin:0 0 0 4px">Pro</span></span>
+              <span class="meta">Trial ending &middot; Peloton App &middot; Aug 18 &middot; Tendd Pro explains what happens next</span>
+              <span class="go">See what Pro adds</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="alert" href="upgrade.html" aria-label="We noticed something about your Adobe Creative Cloud charge. Unusual charge, part of Tendd Pro. See what Pro adds.">
+            <span class="logo">[logo]</span>
+            <span class="body">
+              <span class="what">We noticed something about your Adobe Creative Cloud charge <span class="badge" style="margin:0 0 0 4px">Pro</span></span>
+              <span class="meta">Unusual charge &middot; Adobe Creative Cloud &middot; Jul 15 &middot; Tendd Pro explains what we saw</span>
+              <span class="go">See what Pro adds</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
 
-  <!-- GC2 Global tab bar -->
+    <!-- The recent past is the job of this screen. The distant past is node 5.12. -->
+    <details class="panel" style="margin-bottom:22px">
+      <summary style="padding:14px;font-size:13px;color:var(--mid);cursor:pointer">Older</summary>
+      <ul class="alerts" style="padding:0 14px 6px">
+        <li>
+          <a class="alert" href="subscription-detail.html" aria-label="We could not take your Spotify Premium payment on 28 June. Payment failed from Chase, since gone through. See Spotify Premium.">
+            <span class="logo">[logo]</span>
+            <span class="body">
+              <span class="what">We could not take your Spotify Premium payment on Jun 28</span>
+              <span class="meta">Payment failed &middot; Spotify Premium &middot; $11.99 &middot; from Chase &middot; this one has since gone through</span>
+              <span class="go">See Spotify Premium</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </details>
+
+    <!-- One place that answers what will reach you, rather than a reminder
+         toggle on every subscription the way the category does it. -->
+    <nav class="secondary" aria-label="More">
+      <a href="settings.html">What Tendd tells you about</a>
+    </nav>
+
+   </div>
+  </main>
+
   <nav class="tabbar" aria-label="Global navigation">
     <a href="home.html"><span class="ic"></span>Home</a>
-    <a class="cur" href="alerts.html" aria-current="page"><span class="ic"></span>Alerts</a>
+    <a class="cur" href="alerts.html" aria-current="page"><span class="ic"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
     <a href="home-savefocus.html"><span class="ic"></span>Save</a>
     <a href="settings.html"><span class="ic"></span>You</a>
   </nav>
 
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

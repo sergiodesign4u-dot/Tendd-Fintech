@@ -96,6 +96,11 @@ first and not scanned in parallel.
 
 **Locked:** the two groups, the inline action, the old price beside the new one, the empty
 state as the best state, no red badges.
+
+**Done at the wireframe rebuild, 2026-08-05:** the July screen was one feed sorted by
+date and it is now the two groups, every alert names its source and its date, the price change
+carries the old price beside the new one and the difference, and the empty state says what
+would appear here if it did.
 **Open:** `[?]` which alert types are Free and which are Pro depth. D3 fixes the principle
 (price change and failed payment are basic, so they are free), but the full list is a pricing
 decision. Resolving input: the founder, alongside the Pro feature list.

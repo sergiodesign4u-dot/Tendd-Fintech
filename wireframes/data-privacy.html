@@ -3,108 +3,96 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Data and Privacy (success) - Tendd Wireframe</title>
+<title>Data and Privacy - Tendd wireframe</title>
 <link rel="stylesheet" href="_wf.css">
 </head>
 <body>
 <div class="layout">
-<div id="wftree"></div>
+<div id="wf-sidebar"></div>
 <div class="stage stage-app">
 
-<!-- ============ THE MOBILE SCREEN ============ -->
-<main class="phone dash" aria-label="Data and privacy screen, mobile layout">
+<div class="app">
 
-  <!-- GC1 App header -->
   <header class="appbar">
+    <a class="back" href="settings.html">&lsaquo; You</a>
     <span class="wordmark">Tendd</span>
-    <span class="right">Hi, Emma</span>
   </header>
 
-  <div class="screen">
+  <main class="screen">
+   <div class="rows-col">
 
-    <!-- BLOCK 1 (P): Title -->
-    <section class="zone" aria-label="Data and privacy">
-      <span class="zlabel">Title</span>
-      <h2 style="margin:0 0 4px;font-size:18px">Data and privacy</h2>
-      <p style="margin:0;font-size:13px;color:var(--soft)">Exactly what Tendd reads, and how to remove it whenever you want.</p>
-    </section>
+    <div class="lede">
+      <h1>Data and privacy</h1>
+      <p>Exactly what Tendd reads, and how to remove it whenever you want.</p>
+    </div>
 
-    <!-- BLOCK 2 (P): Data-access explanation, name-the-fear (M2) -->
-    <section class="zone" aria-label="What we do with your bank data">
-      <span class="zlabel">Data-access explanation (name-the-fear, M2)</span>
-      <div class="callout">
-        <span class="k">The plain answer</span>
-        <p style="margin:0 0 8px">Worried what an app does with your bank data? Here is exactly what we do.</p>
-        <ul style="margin:0;padding-left:18px;font-size:13px;color:var(--mid)">
-          <li>We read your recurring charges, read-only.</li>
-          <li>We cannot move your money.</li>
-          <li>We do not sell your data.</li>
-        </ul>
-      </div>
-      <p class="zaction">The trust moment (design principle 4): name the fear, then deny it with specifics, not vague "bank-level security".</p>
-    </section>
-
-    <!-- BLOCK 3 (P): Delete data, prominent, right under the explanation (account.md order); one action, single confirm, deletes everything (E3) -->
-    <section class="zone" aria-label="Delete all my data">
-      <span class="zlabel">Delete all my data - one action, single confirm, deletes everything (E3), placed high so it is one-tap reachable</span>
-      <div class="callout">
-        <span class="k">If you delete</span>
-        <p style="margin:0">This deletes your subscriptions, sources, and account. It cannot be undone.</p>
-      </div>
-      <div class="act-row">
-        <button type="button" class="btn primary">Delete everything</button>
-        <a class="btn" href="settings.html">Keep my data</a>
-      </div>
-      <p class="zaction">Main action: <b>delete everything</b> in one clear step with a single confirm. The consequence is stated in words, not by color. "Keep my data" is the safe default.</p>
-    </section>
-
-    <!-- BLOCK 4 (S): What each source accesses, one sentence per method -->
-    <section class="zone" aria-label="What each source accesses">
-      <span class="zlabel">What each source can see</span>
-      <div class="kv"><span class="k">Bank connection</span><span class="v">Read-only transaction history through Plaid</span></div>
-      <div class="kv"><span class="k">Added by you</span><span class="v">Only what you type</span></div>
-      <p class="zaction">One sentence per method (D2). Manage the sources themselves on <a href="connections.html">Your sources</a>.</p>
-    </section>
-
-    <!-- BLOCK 5 (S): Permission management -->
-    <section class="zone" aria-label="Permissions">
-      <span class="zlabel">Permission and access controls</span>
-      <ul class="list">
-        <li>
-          <label class="opt" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-            <span><strong style="font-weight:600">Refresh my bank data automatically</strong><br><span style="font-size:12px;color:var(--soft)">Read-only. Keeps your list current without you asking.</span></span>
-            <input type="checkbox" checked aria-label="Refresh my bank data automatically">
-          </label>
-        </li>
-        <li>
-          <label class="opt" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-            <span><strong style="font-weight:600">Use my activity to improve Tendd</strong><br><span style="font-size:12px;color:var(--soft)">Off by default. We never sell your data either way.</span></span>
-            <input type="checkbox" aria-label="Use my activity to improve Tendd">
-          </label>
-        </li>
+    <!-- The fear stated first, then denied with specifics. Vague "bank-level
+         security" language is precisely what scares this person; a specific,
+         falsifiable claim is what earns the trust. -->
+    <section aria-label="The plain answer">
+      <p style="margin:0 0 14px;font-size:14px;color:var(--mid)">Worried what an app does with your bank data? Here is exactly what we do.</p>
+      <ul class="promises">
+        <li><strong>We read your recurring charges</strong>Read-only, and nothing else you do with your money.</li>
+        <li><strong>We can never move your money</strong>The connection has no permission to, and we never ask for one.</li>
+        <li><strong>We do not sell your data</strong>Not to advertisers, not to anyone, on any plan.</li>
       </ul>
     </section>
 
-    <!-- BLOCK 6 (S): Export your data -->
-    <section class="zone plain" aria-label="Export your data">
-      <span class="zlabel">Export your data</span>
-      <p style="margin:0 0 10px;font-size:13px;color:var(--mid)">Download everything Tendd holds for you. This is your right and is free. (Exporting your history as a CSV is a separate Tendd Pro feature, on History and Trends.)</p>
-      <div class="act-row">
-        <a class="btn" href="settings.html">Download my data</a>
+    <section class="group" aria-label="What each source can reach">
+      <div class="group-head"><h2>What each source can reach</h2></div>
+      <dl class="facts">
+        <div><dt>Bank connection</dt><dd>read-only transaction history, through Plaid</dd></div>
+        <div><dt>Added by you</dt><dd>only what you type</dd></div>
+      </dl>
+      <nav class="secondary" aria-label="More">
+        <a href="connections.html">Your sources</a>
+      </nav>
+    </section>
+
+    <!-- Two real toggles and no theatre. There is no advertising switch and no
+         personalisation switch, because we do neither, and offering a control
+         with only one legal position implies we could. -->
+    <section class="group" aria-label="Controls">
+      <div class="group-head"><h2>Controls</h2></div>
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span><span class="t">Refresh my bank data automatically</span><span class="h">Read-only. Keeps your list current without you asking.</span></span>
+      </label>
+      <label class="switch">
+        <input type="checkbox">
+        <span><span class="t">Use my activity to improve Tendd</span><span class="h">Off by default. We never sell your data either way.</span></span>
+      </label>
+    </section>
+
+    <!-- A plain, complete export of what we hold about you is a right, not a
+         feature, so it is free and it lives here. The analytical export of
+         history and trends is a different thing and it is Pro. -->
+    <section class="group" aria-label="Your data">
+      <div class="group-head"><h2>Your data</h2></div>
+      <p class="consequence" style="margin:0 0 12px">Download everything Tendd holds for you. This is your right and it is free. Exporting your spend history as a spreadsheet is a separate Tendd Pro feature, on Your trends.</p>
+      <div class="actions">
+        <button type="button" class="btn">Download my data</button>
+      </div>
+
+      <p class="consequence" style="margin:18px 0 12px">Deleting removes your subscriptions, your sources and your account. It cannot be undone.</p>
+      <div class="actions">
+        <a class="btn" href="data-privacy-delete-confirm.html">Delete everything</a>
       </div>
     </section>
 
-  </div>
+    <p class="legal">The full privacy policy is at <a href="#">tendd.com/privacy</a>.</p>
 
-  <!-- GC2 Global tab bar, You current -->
+   </div>
+  </main>
+
   <nav class="tabbar" aria-label="Global navigation">
     <a href="home.html"><span class="ic"></span>Home</a>
-    <a href="alerts.html"><span class="ic"></span>Alerts</a>
+    <a href="alerts.html"><span class="ic"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
     <a href="home-savefocus.html"><span class="ic"></span>Save</a>
     <a class="cur" href="settings.html" aria-current="page"><span class="ic"></span>You</a>
   </nav>
 
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

@@ -55,7 +55,7 @@ window.WF_NAV = {
       { node: '2.7', name: 'Subscription Detail', file: 'subscription-detail.html', ia: '2-7-subscription-detail.html',
         flow: 'C and D, one tap from the list', scope: 'MVP', built: true, states: [
         { node: '2.7.1', slug: 'unrecognized',   label: 'unrecognized charge', built: true, wasNamed: 'subscription-detail-empty.html' },
-        { node: '2.7.2', slug: 'price-change',   label: 'price change',        built: false },
+        { node: '2.7.2', slug: 'price-change',   label: 'price change',        built: true },
         { node: '2.7.3', slug: 'payment-failed', label: 'payment did not go through', built: true },
         { node: '2.7.4', slug: 'loading',        label: 'loading the detail',  built: true },
         { node: '2.7.5', slug: 'error',          label: 'could not load',      built: true }
@@ -96,7 +96,7 @@ window.WF_NAV = {
       { node: '5.13', name: 'Upgrade / Tendd Pro', file: 'upgrade.html', ia: '5-13-upgrade.html',
         flow: 'only from a real gate', scope: 'LATER', built: true, states: [
         { node: '5.13.1', slug: 'processing',     label: 'setting up your plan', built: false },
-        { node: '5.13.2', slug: 'payment-failed', label: 'payment did not go through', built: true }
+        { node: '5.13.2', slug: 'payment-failed', label: 'payment did not go through', built: false }
       ]}
     ]},
 
@@ -105,11 +105,11 @@ window.WF_NAV = {
         flow: 'Settings, and the trust line anywhere', scope: 'MVP', built: true, states: [
         { node: '6.14.1', slug: 'empty',      label: 'no sources yet',         built: true },
         { node: '6.14.2', slug: 'reconnect',  label: 'a source needs attention', built: true, wasNamed: 'connections-error.html' },
-        { node: '6.14.3', slug: 'add-source', label: 'the chooser',            built: false }
+        { node: '6.14.3', slug: 'add-source', label: 'the chooser',            built: true }
       ]},
       { node: '6.15', name: 'Data and Privacy', file: 'data-privacy.html', ia: '6-15-data-privacy.html',
         flow: 'Settings, and every trust link', scope: 'MVP', built: true, states: [
-        { node: '6.15.1', slug: 'delete-confirm', label: 'delete everything', built: false }
+        { node: '6.15.1', slug: 'delete-confirm', label: 'delete everything', built: true }
       ]},
       { node: '6.16', name: 'Settings / Profile', file: 'settings.html', ia: '6-16-settings.html',
         flow: 'the You tab', scope: 'MVP', built: true, states: [] }

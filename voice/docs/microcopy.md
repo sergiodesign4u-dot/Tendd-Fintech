@@ -249,6 +249,58 @@ Alerts.
 details" and the map has no node to send it to: node 1.4 owns the only form in
 the product, and the grey screen borrows it. Recorded in
 `ia/docs/nodes/2-7-subscription-detail.md`.
+
+### The rest of the set (2026-08-05, same rebuild)
+
+The nineteen MVP pages that were still on the July frame: node 1.4 with its
+three states, node 3.8 with its three, node 4.9 with its two, node 4.10, node
+6.14 with its three, node 6.15 with its dialog, and node 6.16. Two of those
+state pages had never existed. The three LATER screens (4.11, 5.12, 5.13) are
+untouched and keep their rows above: round 2 brings them to the same contract.
+
+| Screen | Zone | Change | Why |
+|--------|------|--------|-----|
+| add-subscription | field | The Category select retired | Node 1.4 names category among the fields it does not ask for: it is derived from the service, and every extra field on this screen is a reason to close the tab. It was on the July form |
+| add-subscription | presets | A "Most tracked" tile row added, with six services | Node 1.4 block 3. The July screen went straight from the search field to its results, so the catalogue never appeared to a person who had not typed anything, which is the arrival case this block exists for |
+| add-subscription | custom-fallback | "Add it manually" to "Add it by hand" | The reviewer-note sync of the Voice rollout had already resolved this; the inventory row still carried the old form |
+| add-subscription | progress | The saved-as-you-go line became one sentence | It is the anti-abandon block of Flow B and it was two fragments in a callout. One sentence says the same thing where a person actually reads it |
+| add-subscription-empty | primary-action | "Add it by hand" to "Add subscription" on the form button | The dictionary gives the form submit one label. "By hand" is the method, and it is already said above the form |
+| alerts | group | Two groups added: "Needs you" and "Just so you know" | Node 3.8 block 2 and block 3, and the invention the node is built on. The July screen was one feed sorted by date, which makes a person scan to find out whether anything is wrong. Sorting by whether it needs them answers that before they read |
+| alerts | alert-row | Every meta line now carries the amount, the date and the source | Node 3.8 block 4: an alert that cannot say where it came from is a rumour. The July lines named the type and the merchant and stopped |
+| alerts | alert-row | The price-change alert shows the old price, the new price and the difference | Node 3.8 block 5, which exists in none of the sources. Every product shows the new number; the old one beside it turns a surprise into an explanation |
+| alerts | alert-row | Three items added: two upcoming charges and one newly detected subscription | Node 3.8 block 3. Without them "Just so you know" would have had nothing in it, and the group is the half of the screen that is usually not empty |
+| alerts | alert-row | The Amazon Prime failure is dated Jul 20, not Jul 2 | Its billing cycle is the 20th, so Jul 2 was impossible. Carried in from the conventions fixture list |
+| alerts | alert-row | Older moved into a collapsed group | Node 3.8 block 6: the recent past is the job of this screen and the distant past is node 5.12 |
+| alerts | settings-link | "What Tendd tells you about" added | Node 3.8 block 7. One place that answers what will reach you, instead of a reminder toggle on every subscription |
+| alerts-empty | group | "What shows up here" added, with the four things | Node 3.8.1 asks the empty state to say what would appear if it did. An empty screen that does not say what it is for reads as broken rather than as calm |
+| cancel-guide | what-happens | What happens when you cancel, with the real date | Node 4.9 block 3, missing from the July screen. The category can only promise this in general; we know the billing period, and the anxiety of an irreversible action is mostly the not knowing |
+| cancel-guide | strip | The meta strip: about five minutes, and where the steps came from | Node 4.9 block 4, missing from the July screen |
+| cancel-guide | freshness | When we last checked these steps | Node 4.9 block 10, missing from the July screen. A guide that silently rots is worse than no guide |
+| cancel-guide | step | The steps became the netflix.com path specifically | Node 4.9 block 5, the sharpest difference in the block bank. ReSubs publishes three channel sections because it does not know how you subscribed. The decoder line on node 2.7 says NETFLIX.COM, so we do |
+| cancel-guide | primary-action | "Open netflix.com/account" to "Open netflix.com and cancel" | A button says the result, not the URL |
+| cancel-guide | pro-callout | The Pro line now says the free steps stay free before it says what Pro adds | D3 binds hardest on this screen: the basic instruction is always free and always first, and the Pro block is an addition below it |
+| cancel-guide-blocked | state-message | The not-your-fault sentence became the heading | It is the whole job of this state, and it was a callout under a heading that repeated the subscription name |
+| cancel-win | win-summary | "Nice." dropped, and the sentence split into a line and a number | The Forbidden table bans praise interjections by name and the Voice log had already dropped this one. The number is the emotional payload, so it is the large thing rather than a clause in the middle of a sentence |
+| cancel-win | share | The two share lines are off the screen | Node 4.11 is LATER under D-Share, so an MVP screen cannot lead there. The lines stay in this inventory rather than being deleted and rewritten later |
+| connections | connection-row | The last successful check added to every source | Node 6.14 block 4, and GC6 requires it. A silently stale connection makes the whole calm view quietly wrong and the person has no way to know |
+| connections | connection-row | Disconnect now states the consequence in the same sentence | Node 6.14 block 6. Every product offers this control and none of them says what becomes of the data already collected |
+| connections | connection-row | Chase shows 11 subscriptions on both the default and the reconnect state | They were 11 and 8: same source, same story, two numbers. A stale connection does not reduce the count |
+| connections | connection-row | The card digits are gone from the source name | Node 2.7 already banned card digits on the payment source line, and there is no reason for this screen to hold to a different rule |
+| connections | add-source | The inline chooser became a real dialog page | Node 6.14.3, which had no page. It creates no new screen: it reopens node 1.3 and node 1.4 and returns here |
+| data-privacy | delete | The delete confirmation became its own page | Node 6.15.1, which lived inside the page and had no page of its own |
+| settings | account | The Name field retired, and a Currency row added | Node 6.16 block 2: an email and a currency, and nothing else. We have no reason to hold a name, and not holding it is easier to explain than protecting it |
+| settings | notifications | The failed-payment example is Amazon Prime, not Peloton | One fixture for one event across the whole product |
+
+**Every carried fix from the IA work is closed.** The share block is off
+`cancel-win`, the Name field is off `settings` and the currency row is on it,
+`cancel-guide` has the three blocks the block bank found missing, and
+`connections` states the last check and the disconnect consequence on every
+source with one number for Chase instead of two.
+
+**Nothing was rewritten for style.** Every change above is a block the node asks
+for and the screen did not have, a fixture that disagreed with itself, or a
+label the dictionary had already settled and the inventory had not caught up
+with.
 ---
 
 ## Canonical subscription dataset (product fixtures, not authored copy)
@@ -410,43 +462,40 @@ list". Total: `$192.90 / month`.
 | connect-bank-cancelled | primary-action | Add them yourself instead | button |
 | connect-bank-cancelled | later | Do this later | link |
 
-### add-subscription (+ empty, error, loading)
+### add-subscription (+ loading, error, empty)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
+| add-subscription | appbar | ‹ Back | link |
+| add-subscription | appbar | Step 2 of 3 | status |
 | add-subscription | title | Add a subscription | heading |
 | add-subscription | title | Pick from 400+ services, or add your own. Nothing leaves your control. | body |
 | add-subscription | field | Find a service | field-label |
 | add-subscription | field | Search 400+ services | hint |
-| add-subscription | list | Chosen / Use | status |
-| add-subscription | list | Typically $17.99 / month | body |
+| add-subscription | presets | Most tracked | heading |
+| add-subscription | presets | Netflix / Spotify Premium / Disney+ / Amazon Prime / Adobe Creative Cloud / The New York Times | body |
+| add-subscription | presets | Typically $17.99 a month | body |
 | add-subscription | custom-fallback | Can't find it? | body |
-| add-subscription | custom-fallback | Add it manually | link |
+| add-subscription | custom-fallback | Add it by hand | link |
 | add-subscription | custom-fallback | and fill the details yourself. | body |
-| add-subscription | field | Name / Amount / Billing frequency / Next payment date / Category | field-label |
+| add-subscription | field | Name / Amount / Billing frequency / Next payment date | field-label |
+| add-subscription | field | Netflix / $17.99 / Monthly / Aug 3, 2026 | field-label (USER) |
 | add-subscription | field | Monthly / Every 4 weeks / Quarterly / Yearly / Custom | body |
-| add-subscription | field | Streaming / Music / Fitness / Software / News / Other | body |
+| add-subscription | field | For example, Aug 3, 2026 | hint |
 | add-subscription | primary-action | Add subscription | button |
 | add-subscription | primary-action | Add another | button |
-| add-subscription | progress | Saved as you go | body |
-| add-subscription | progress | 3 added so far. Your list is saved, so you can stop and come back any time. | body |
-| add-subscription | primary-action | See my list | button |
-| add-subscription | field | net / Netflix / $17.99 / Aug 3, 2026 | field-label (USER) |
-| add-subscription-empty | field | Cerebro Cloud | field-label (USER) |
-| add-subscription-empty | state-message | No match for "Cerebro Cloud" | state-message |
-| add-subscription-empty | state-message | Not every service is in our list yet. You can add it by hand below, and it will sit alongside the rest. | state-message |
-| add-subscription-empty | field | For example, Aug 3, 2026 | hint |
-| add-subscription-empty | primary-action | Add it manually | button |
-| add-subscription-empty | primary-action | Search again | button |
-| add-subscription-empty | primary-action | See my list | button |
-| add-subscription-error | state-message | We could not load the service list | state-message |
+| add-subscription | progress | Saved as you go: 3 added so far. Your list is saved, so you can stop and come back any time. | body |
+| add-subscription | primary-action | See your subscriptions | button |
+| add-subscription-loading | state-message | Getting the list of services. This usually takes a moment. | state-message |
+| add-subscription-error | state-message | We could not load the service list | heading |
 | add-subscription-error | state-message | You can still add subscriptions by hand below, and the search will come back on its own. | state-message |
-| add-subscription-error | primary-action | Try the list again | button |
+| add-subscription-error | primary-action | Try again | button |
 | add-subscription-error | field | For example, Spotify Premium | hint |
-| add-subscription-error | primary-action | Add subscription | button |
-| add-subscription-error | primary-action | Add another | button |
-| add-subscription-error | primary-action | See my list | button |
-| add-subscription-loading | state-message | Loading services... | state-message |
+| add-subscription-error | field | Enter an amount, like $9.99 | hint |
+| add-subscription-empty | field | Cerebro Cloud | field-label (USER) |
+| add-subscription-empty | state-message | No match for "Cerebro Cloud" | heading |
+| add-subscription-empty | state-message | Not every service is in our list yet. You can add it by hand below, and it will sit alongside the rest. | state-message |
+| add-subscription-empty | primary-action | Search again | button |
 
 ### guided-reveal (+ empty)
 
@@ -507,11 +556,11 @@ list". Total: `$192.90 / month`.
 | home-error | state-message | We could not refresh just now. Showing your last update from today, 9:14 AM. | state-message |
 | home-error | state-message | Try again | button |
 | home-error | summary-strip | a month, as of your last update | body |
-| home-error | trust-line | (the GC6 lines as on `home`, with the link pointing at `connections`) | body |
+| home-error | trust-line | (the GC6 lines as on home, with the link pointing at connections) | body |
 | home-error | trust-line | Your sources | link |
 | home-loading | summary-strip | Getting your subscriptions. This usually takes a moment. | body |
 | home-savefocus | summary-strip | a month. You could save up to $29.99 a month by cutting 2 you might not be using. | body |
-| home-savefocus | trust-line | (the GC6 lines as on `home`) | body |
+| home-savefocus | trust-line | (the GC6 lines as on home) | body |
 | home-savefocus | cancel-candidates | Two you have not opened in a while. No pressure, just a nudge. | body |
 | home-savefocus | cancel-candidates | Trial ends: Aug 18 · not opened in 3 weeks | body |
 | home-savefocus | cancel-candidates | Next: Aug 11 · not opened in 6 weeks | body |
@@ -570,78 +619,105 @@ list". Total: `$192.90 / month`.
 
 ## Cluster D: Alerts, Cancel Guide, Cancel Win, Share Snapshot
 
-### alerts (+ empty, error, loading)
+### alerts (+ empty, loading, error)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
 | alerts | title | Alerts | heading |
-| alerts | title | The few things worth knowing about, newest first. A quiet dot marks what is new since your last visit. | body |
+| alerts | title | The few things worth knowing about. A quiet dot marks what is new since your last visit. | body |
+| alerts | group | Needs you | heading |
 | alerts | alert-row | Netflix went up by $2.50, now $17.99 a month | body |
-| alerts | alert-row | Price change · Netflix · Your next payment is Aug 3 | body |
-| alerts | alert-row | See what changed → | link |
+| alerts | alert-row | Price change · Netflix · Jul 28 · from Chase | body |
+| alerts | alert-row | Was $15.49 / Now $17.99 / Difference $2.50 | body |
+| alerts | alert-row | See what changed | link |
 | alerts | alert-row | A payment to Amazon Prime did not go through | body |
-| alerts | alert-row | Payment failed · Amazon Prime · It usually tries again in a day or two | body |
-| alerts | alert-row | What to do → | link |
+| alerts | alert-row | Payment failed · Amazon Prime · $14.99 · Jul 20 · from Chase | body |
+| alerts | alert-row | What to do | link |
+| alerts | group | Just so you know | heading |
+| alerts | alert-row | iCloud+ charges $2.99 tomorrow | body |
+| alerts | alert-row | Coming up · iCloud+ · Aug 2 · from Chase | body |
+| alerts | alert-row | ChatGPT Plus charges $20.00 in 4 days | body |
+| alerts | alert-row | Tendd found a new subscription, Strava, $11.99 a month | body |
+| alerts | alert-row | New subscription · Strava · found Jul 29 · from Chase | body |
 | alerts | alert-row | Your Peloton App trial ends soon | body |
-| alerts | alert-row | Trial ending · Peloton App · Tendd Pro explains this in plain language | body |
-| alerts | alert-row | Unlock with Tendd Pro → | link |
-| alerts | alert-row | We noticed something about your Adobe charge | body |
-| alerts | alert-row | Unusual charge · Adobe Creative Cloud · Tendd Pro explains this in plain language | body |
+| alerts | alert-row | Trial ending · Peloton App · Aug 18 · Tendd Pro explains what happens next | body |
+| alerts | alert-row | We noticed something about your Adobe Creative Cloud charge | body |
+| alerts | alert-row | Unusual charge · Adobe Creative Cloud · Jul 15 · Tendd Pro explains what we saw | body |
+| alerts | alert-row | See what Pro adds | link |
+| alerts | alert-row | Pro | status |
+| alerts | group | Older | heading |
 | alerts | alert-row | We could not take your Spotify Premium payment on Jun 28 | body |
-| alerts | alert-row | Payment failed · Spotify Premium · This one has since gone through | body |
-| alerts | alert-row | See Spotify Premium → | link |
-| alerts | alert-row | New / Pro | status |
+| alerts | alert-row | Payment failed · Spotify Premium · $11.99 · from Chase · this one has since gone through | body |
+| alerts | alert-row | See Spotify Premium | link |
+| alerts | settings-link | What Tendd tells you about | link |
 | alerts-empty | state-message | All clear | heading |
 | alerts-empty | state-message | Nothing needs your attention right now. If a price changes or a payment does not go through, you will see it here first, in plain language. | state-message |
+| alerts-empty | group | What shows up here | heading |
+| alerts-empty | group | A price goes up (with the old price beside the new one) / A payment does not go through (and what usually happens next) / A charge is coming (in the next seven days) / Tendd finds a new subscription (on one of your sources) | body |
 | alerts-empty | primary-action | Back to your subscriptions | button |
+| alerts-loading | state-message | Checking for anything worth knowing about. This usually takes a moment. | state-message |
 | alerts-error | state-message | We could not load your alerts | heading |
 | alerts-error | state-message | Nothing is wrong with your money, we just could not reach your alerts right now. Give it another try, or head back to your subscriptions. | state-message |
 | alerts-error | primary-action | Try again | button |
 | alerts-error | secondary-action | Back to your subscriptions | button |
-| alerts-loading | state-message | Checking for anything worth knowing about. This usually takes a moment. | state-message |
+| alerts-error | trust-line | Your sources | link |
 
-### cancel-guide (+ empty, error)
+### cancel-guide (+ no-guide, blocked)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
-| cancel-guide | header | Back to Netflix | link |
-| cancel-guide | detail-head | Cancel Netflix | heading |
-| cancel-guide | detail-head | $17.99 / month · you can always resubscribe later | body |
-| cancel-guide | step | Here is how to cancel Netflix | heading |
-| cancel-guide | step | Go to your Netflix account page. / Select Cancel Membership. / Confirm the cancellation. | body |
-| cancel-guide | primary-action | Open netflix.com/account | button |
-| cancel-guide | pro-callout | Step-by-step with screenshots for Netflix, plus a one-tap direct cancel link so you skip the retention screens. | body |
-| cancel-guide | pro-callout | See Tendd Pro | button |
+| cancel-guide | appbar | ‹ Netflix | link |
+| cancel-guide | title | Cancel Netflix | heading |
+| cancel-guide | title | $17.99 a month. You can always resubscribe later. | body |
+| cancel-guide | what-happens | You keep Netflix until / Aug 3, the end of the month you paid for | field-label |
+| cancel-guide | what-happens | After that / no further charges, and $17.99 a month stops going out | field-label |
+| cancel-guide | what-happens | If you change your mind / resubscribing takes a minute and your profiles are kept | field-label |
+| cancel-guide | strip | About five minutes | body |
+| cancel-guide | strip | Steps for netflix.com, which is how you pay for this one | body |
+| cancel-guide | step | How to cancel Netflix | heading |
+| cancel-guide | step | Go to netflix.com and sign in. / Open Account, then Membership and Billing. / Choose Cancel Membership. / Netflix will offer to pause instead. Keep choosing Cancel, and watch for the confirmation email. | body |
+| cancel-guide | freshness | We last checked these steps on Jul 24. If Netflix has changed them, tell us and we will fix the guide. | body |
+| cancel-guide | primary-action | Open netflix.com and cancel | button |
+| cancel-guide | pro-callout | The steps above are free and always will be. Tendd Pro adds screenshots for each one and a direct link that skips the retention screens. | body |
+| cancel-guide | pro-callout | See what Pro adds | button |
+| cancel-guide | pro-callout | Maybe later | button |
 | cancel-guide | confirm | Managed to cancel? Mark it here and we will show what you saved. | body |
 | cancel-guide | confirm | I cancelled it | button |
 | cancel-guide | help-path | Ran into a wall or a "please stay" screen? | body |
-| cancel-guide | help-path | Couldn't cancel? | button |
+| cancel-guide | help-path | Couldn't cancel? | link |
+| cancel-guide-no-guide | title | Cancel The New York Times | heading |
 | cancel-guide-no-guide | state-message | We do not have step-by-step for this one yet | heading |
 | cancel-guide-no-guide | state-message | Here is the general way most subscriptions cancel. It works for The New York Times too. | state-message |
+| cancel-guide-no-guide | strip | The general path, because we have no tailored steps for this service yet | body |
+| cancel-guide-no-guide | step | The general way | heading |
 | cancel-guide-no-guide | step | Open the service's website and sign in. / Go to Account or Subscription settings. / Look for Cancel or Manage plan. / Confirm, and watch for a confirmation email. | body |
-| cancel-guide-no-guide | request-guide | Want us to build a tailored guide for The New York Times? Tell us and we will add it. | body |
+| cancel-guide-no-guide | freshness | These general steps were last checked on Jul 24. | body |
+| cancel-guide-no-guide | request-guide | Want a tailored guide? Tell us and we will add one for The New York Times. | body |
 | cancel-guide-no-guide | request-guide | Ask us to add this guide | button |
 | cancel-guide-no-guide | confirm | Managed to cancel with the general steps? Mark it here. | body |
-| cancel-guide-no-guide | confirm | I cancelled it | button |
-| cancel-guide-blocked | state-message | Cancelling can be made deliberately hard, and it is not your fault. Here is what else to try. | state-message |
-| cancel-guide-blocked | step | Skip the "special offers" screen and keep choosing Cancel, not Pause. / Try cancelling from a web browser instead of the app. / If billed through Apple or Google, cancel in your device subscriptions. / Still stuck? Keep this open and come back, nothing is lost. | body |
+| cancel-guide-blocked | state-message | Cancelling can be made deliberately hard, and it is not your fault | heading |
+| cancel-guide-blocked | state-message | Netflix is still active. Here is what else to try, and none of it costs you the progress you have made. | state-message |
+| cancel-guide-blocked | step | Skip the "special offers" screen and keep choosing Cancel, not Pause. / Try cancelling from a web browser instead of the app. / If you are billed through Apple or Google, cancel in your device subscriptions instead. / Still stuck? Leave it and come back. Nothing is lost, and we will remind you before the next charge on Aug 3. | body |
 | cancel-guide-blocked | primary-action | I cancelled it | button |
 | cancel-guide-blocked | secondary-action | Remind me later | button |
-| cancel-guide-blocked | next-move | Prefer a guided walk-through with a direct link? | body |
-| cancel-guide-blocked | next-move | Full step-by-step guide | button |
+| cancel-guide-blocked | next-move | Prefer a guided walk-through with a direct link that skips the retention screens? | body |
+| cancel-guide-blocked | next-move | See what Pro adds | link |
 
 ### cancel-win
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
 | cancel-win | header | A small win | body |
-| cancel-win | win-summary | Nice. You just cancelled Netflix and freed up $17.99 a month. That is $215.88 a year back in your pocket. | body |
+| cancel-win | win-summary | You just cancelled Netflix and freed up | heading |
+| cancel-win | win-summary | $17.99 a month | body |
+| cancel-win | win-summary | That is $215.88 a year back in your pocket. | body |
 | cancel-win | win-summary | On your word. You can always resubscribe if you miss it. | body |
-| cancel-win | running-total | With Tendd so far | heading |
-| cancel-win | running-total | You have freed up $32.98 a month, about $395 a year, across the subscriptions you have cut. | body |
+| cancel-win | running-total | With Tendd so far / $32.98 a month freed up | field-label |
+| cancel-win | running-total | Over a year / about $395, across the subscriptions you have cut | field-label |
+| cancel-win | continue | Back to your subscriptions | button |
 | cancel-win | share | Feeling good about it? You can share a simple card. No bank details, ever. | body, LATER |
 | cancel-win | share | Share this win | button, LATER |
-| cancel-win | continue | Done, back to my list | button |
+
 
 The two `share` lines are authored and kept, and they are **out of MVP**: node 4.11 Share
 Snapshot is LATER, so an MVP screen cannot lead there (D-Share, founder, 2026-08-04, raised
@@ -717,81 +793,108 @@ below.
 | upgrade | primary-action | Maybe later | link |
 | upgrade | primary-action | Pays for itself with the first subscription you cancel. | body |
 
-### connections (+ empty, error)
+### connections (+ empty, reconnect, add-source)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
+| connections | appbar | ‹ You | link |
 | connections | header | Your sources | heading |
-| connections | header | Where Tendd gets the list of what you pay for. You are always in control of these. | body |
-| connections | header | Read-only. Tendd cannot move your money. | body |
-| connections | header | What we read → | link |
-| connections | connection-row | Chase ····1234 | body |
-| connections | connection-row | Bank connection via Plaid | body |
-| connections | connection-row | Connected / Private | status |
-| connections | connection-row | Last synced / Tracking from here / Access / Added / Tracking here | field-label |
-| connections | connection-row | Read-only, cannot move money | body |
-| connections | connection-row | Added by you | body |
+| connections | header | Where Tendd gets the list of what you pay for. You are always in control of these. Read-only. Tendd cannot move your money. | body |
+| connections | connection-row | Chase | heading |
+| connections | connection-row | Bank connection through Plaid | body |
+| connections | connection-row | Connected / Private / Reconnect needed | status |
+| connections | connection-row | Last checked / Accounts included / Tracking from here / Access | field-label |
+| connections | connection-row | today, 9:14 AM / Checking / 11 subscriptions / Read-only. Tendd cannot move your money. | body |
+| connections | connection-row | Disconnecting stops Tendd from reading new charges. The 11 subscriptions already found stay on your list and become yours to keep up to date. | body |
+| connections | connection-row | Disconnect Chase | button |
+| connections | connection-row | Added by you | heading |
 | connections | connection-row | Private, entered by hand | body |
-| connections | connection-row | Only what you type | body |
-| connections | connection-row | Add another by hand | link |
-| connections | connection-row | Remove | link |
-| connections | add-source | Add a source | body |
-| connections | add-source | Connect a bank | heading |
-| connections | add-source | Find your subscriptions automatically. Read-only through Plaid. | body |
-| connections | add-source | Add manually | heading |
-| connections | add-source | Type them in yourself from a list of 400+ services. No bank needed. | body |
-| connections | add-source | Choose this → | link |
+| connections | connection-row | Last updated / Tracking here / Access | field-label |
+| connections | connection-row | by you, Jul 30 / 3 subscriptions / Only what you type. Nothing is read from anywhere. | body |
+| connections | connection-row | Removing this source deletes the 3 subscriptions you typed. They exist nowhere else, so this one cannot be undone. | body |
+| connections | connection-row | Add a subscription | button |
+| connections | connection-row | Remove this source | button |
+| connections | add-source | Add a source | button |
 | connections | provider-note | US banks connect through Plaid. More regions soon. | body |
-| connections-empty | state-message | No sources connected yet | heading |
-| connections-empty | state-message | Connect a bank to find your subscriptions automatically, or add them yourself by hand. You can change this later. | state-message |
-| connections-empty | state-message | Connect a bank / Add manually | link |
-| connections-reconnect | state-message | Chase needs to reconnect. Banks ask for this now and then to keep your connection secure. Your last update is still shown below. | state-message |
-| connections-reconnect | state-message | Reconnect Chase | link |
-| connections-reconnect | connection-row | Reconnect needed | status |
-| connections-reconnect | connection-row | Reconnect | link |
+| connections | provider-note | What we read | link |
+| connections-empty | state-message | No sources yet | heading |
+| connections-empty | state-message | Add one and your subscriptions appear on your list. You can change this later, and you can have both. | state-message |
+| connections-empty | state-message | Connect your bank / Add a subscription | button |
+| connections-reconnect | state-message | Chase needs to reconnect. Banks ask for this now and then to keep your connection secure. Your last update is still below, and nothing about your money has changed. | state-message |
+| connections-reconnect | connection-row | Until it reconnects, your list is the one from Jul 29. New charges and price changes will not appear. | body |
+| connections-reconnect | connection-row | Jul 29, 8:02 AM | body |
+| connections-reconnect | primary-action | Reconnect Chase | button |
+| connections-add-source | state-message | Add a source | heading |
+| connections-add-source | state-message | The same two ways in, and you can have both. There is no limit on how many you add. | state-message |
+| connections-add-source | path-option | Connect your bank | heading |
+| connections-add-source | path-option | Read-only, through Plaid, and about a minute. Tendd cannot move your money. | body |
+| connections-add-source | path-option | Add them yourself | heading |
+| connections-add-source | path-option | Start with one and add more later. No bank is involved, and nothing leaves your control. | body |
+| connections-add-source | path-option | Choose this path | button |
+| connections-add-source | later | Not now | link |
 
-### data-privacy
+### data-privacy (+ delete-confirm)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
+| data-privacy | appbar | ‹ You | link |
 | data-privacy | header | Data and privacy | heading |
 | data-privacy | header | Exactly what Tendd reads, and how to remove it whenever you want. | body |
-| data-privacy | privacy-section | The plain answer | body |
 | data-privacy | privacy-section | Worried what an app does with your bank data? Here is exactly what we do. | body |
-| data-privacy | privacy-section | We read your recurring charges, read-only. | body |
-| data-privacy | privacy-section | We can never move your money. | body |
-| data-privacy | privacy-section | We do not sell your data. | body |
-| data-privacy | privacy-section | If you delete | body |
-| data-privacy | privacy-section | This deletes your subscriptions, sources, and account. It cannot be undone. | body |
-| data-privacy | primary-action | Delete everything | button |
-| data-privacy | primary-action | Keep my data | link |
-| data-privacy | privacy-section | Bank connection (Read-only transaction history via Plaid) / Added by you (Only what you type) | field-label |
+| data-privacy | privacy-section | We read your recurring charges | body |
+| data-privacy | privacy-section | Read-only, and nothing else you do with your money. | body |
+| data-privacy | privacy-section | We can never move your money | body |
+| data-privacy | privacy-section | The connection has no permission to, and we never ask for one. | body |
+| data-privacy | privacy-section | We do not sell your data | body |
+| data-privacy | privacy-section | Not to advertisers, not to anyone, on any plan. | body |
+| data-privacy | privacy-section | What each source can reach | heading |
+| data-privacy | privacy-section | Bank connection / read-only transaction history, through Plaid | field-label |
+| data-privacy | privacy-section | Added by you / only what you type | field-label |
 | data-privacy | privacy-section | Your sources | link |
+| data-privacy | permissions | Controls | heading |
 | data-privacy | permissions | Refresh my bank data automatically | field-label |
 | data-privacy | permissions | Read-only. Keeps your list current without you asking. | hint |
 | data-privacy | permissions | Use my activity to improve Tendd | field-label |
 | data-privacy | permissions | Off by default. We never sell your data either way. | hint |
-| data-privacy | export | Download everything Tendd holds for you. This is your right and is free. (Exporting your spend history as a CSV is a separate Tendd Pro feature, on History and Trends.) | body |
-| data-privacy | export | Download my data | link |
+| data-privacy | export | Your data | heading |
+| data-privacy | export | Download everything Tendd holds for you. This is your right and it is free. Exporting your spend history as a spreadsheet is a separate Tendd Pro feature, on Your trends. | body |
+| data-privacy | export | Download my data | button |
+| data-privacy | delete | Deleting removes your subscriptions, your sources and your account. It cannot be undone. | body |
+| data-privacy | delete | Delete everything | button |
+| data-privacy | policy | The full privacy policy is at tendd.com/privacy. | body |
+| data-privacy-delete-confirm | state-message | Delete everything Tendd holds for you? | heading |
+| data-privacy-delete-confirm | state-message | This deletes your 14 subscriptions, both of your sources, and your account. It cannot be undone, and we keep no copy. | state-message |
+| data-privacy-delete-confirm | consequence | Your subscriptions / deleted, including the 3 you typed | field-label |
+| data-privacy-delete-confirm | consequence | Your bank connection / disconnected at Chase, and the read access ends | field-label |
+| data-privacy-delete-confirm | consequence | Your account / closed, and you are signed out | field-label |
+| data-privacy-delete-confirm | export | Want a copy first? Download my data is free and takes a moment. | body |
+| data-privacy-delete-confirm | primary-action | Delete everything | button |
+| data-privacy-delete-confirm | primary-action | Keep my data | button |
 
 ### settings
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
 | settings | account | You | heading |
-| settings | account | Name / Email | field-label |
-| settings | account | Emma Carter / emma@example.com | body (USER) |
-| settings | plan-card | Tendd Free | body |
-| settings | plan-card | Unlimited subscriptions and bank connections. History, trends and advanced alerts are Pro. | body |
+| settings | account | Your details, your plan, and the two screens that hold everything about your data. | body |
+| settings | account | Your details | heading |
+| settings | account | Email | field-label |
+| settings | account | emma@example.com | body (USER) |
+| settings | account | Currency | field-label |
+| settings | account | US dollar ($) / Euro / British pound | body |
+| settings | account | Every amount in Tendd is shown in this currency. | hint |
+| settings | plan-card | Your plan | heading |
 | settings | plan-card | Free / Pro | status |
-| settings | plan-card | Manage plan | link |
-| settings | notifications | Choose what Tendd tells you about. All in plain language, never alarming. | body |
+| settings | plan-card | Unlimited subscriptions and unlimited bank connections. History, trends and advanced alerts are part of Tendd Pro. | body |
+| settings | plan-card | Manage plan | button |
+| settings | notifications | What Tendd tells you about | heading |
+| settings | notifications | All in plain language, never alarming. | body |
 | settings | notifications | A price goes up (Like "Netflix went up by $2.50".) | field-label |
-| settings | notifications | A payment does not go through (Like "A payment to Peloton did not go through".) | field-label |
-| settings | notifications | A free trial is ending soon (Advanced alert.) | field-label |
+| settings | notifications | A payment does not go through (Like "A payment to Amazon Prime did not go through".) | field-label |
+| settings | notifications | A free trial is ending soon (Part of Tendd Pro.) | field-label |
 | settings | notifications | Weekly email digest (A calm Sunday summary of what is coming up.) | field-label |
-| settings | settings-row | Data and privacy (What we read, and delete everything) | body |
 | settings | settings-row | Your sources (Banks and manual entries you track) | body |
+| settings | settings-row | Data and privacy (What we read, and delete everything) | body |
 | settings | settings-row | Help and support (Guides and how to reach us) | body |
 | settings | settings-row | Sign out | body |
 

@@ -101,4 +101,10 @@ rather than one screen with sections.
 **Locked:** the last successful check on every source, disconnect with its consequence in the
 same sentence, no counter anywhere, reconnect as maintenance rather than error, the manual
 source as an equal card, FLAG 2 resolved through one dialog.
+
+**Done at the wireframe rebuild, 2026-08-05:** all four of those are on the
+screen, node 6.14.3 has a page for the first time, and the Chase count is 11 on both the
+default and the reconnect state. It was 11 on one and 8 on the other: a stale connection does
+not reduce the count, and the IA says the last figures stay visible and dated.
+
 **Open:** none.
