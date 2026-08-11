@@ -7,6 +7,62 @@ misses cannot be judged.
 
 ---
 
+# The 360 measure (2026-08-10)
+
+One finding, taken in a browser, and it is about the instrument rather than about
+a screen. It came out of a question that had nothing to do with layout: whether
+the thinnest state pages were too thin to be a product.
+
+They were not. Each of the five smallest pages carries the shell, exactly one
+`h1`, real copy from `microcopy.md`, a live region and a real exit, and the
+loading state draws its skeleton in the proportions of the card it is waiting
+for. Byte size turned out to measure how much an error state has to say, which
+is not much. What the measurement found instead:
+
+| # | Weight | Where | Found by | Was | Became |
+|---|--------|-------|----------|-----|--------|
+| 1 | High | `_wf.css:35`, all 49 app pages | Claude | `.stage` carried `padding: 28px 16px 56px` at every width. At a 360 viewport the app was **313px** wide, with 16px of grey down each side, so the 360 check of conventions section 9, which every screen of this stage passed, was really being run at 313. A row that breaks at a true 360 had 13 per cent of slack and passed anyway. The gutter also stood against section 1: a screen that does not reach the edge of the viewport is the mockup frame this stage removed, drawn in padding instead of in a border | `@media (max-width: 460px) { .stage.stage-app { padding: 0 } }`. The screen fills the viewport at every phone width. Measured after the fix: **345 of 345 on all 49 app pages**, no horizontal scroll, no element crossing the edge. The landing keeps `.stage-flush`, which is the same decision taken for it alone when it was built, and the desktop layout is untouched: at 1280 the app starts at 266 and is 983 wide, before and after |
+
+The breakpoint is not a new number. 460px is where the app already switches to
+phone chrome (the fixed tab bar, `_wf.css:493`), so the gutter goes at exactly
+the width where the stage stops being a window and starts being a device.
+
+**Why it was worth a round.** The check was not wrong on any one page. It was
+wrong on all of them by the same 47px, which is the one thing a page by page
+review cannot see: every screen agreed with every other, and the agreement was
+the defect. It was also one stage from travelling, because stage 07 copies these
+screens into colour and the copies would have inherited a 360 that is not 360.
+
+**Re-verified after the fix.** All 50 pages loaded at a 360 viewport with the
+stylesheet re-fetched, measured against `documentElement.clientWidth` rather
+than against the window (the window includes the scrollbar, and that 15px is the
+same class of error as the one being fixed): 49 of 49 app pages fill the layout
+viewport exactly, zero pages with horizontal scroll, zero elements crossing the
+right edge. `index.html` is the landing and has no `.app`, which is why the
+count is 49 and not 50.
+
+## Four gates the stage had skipped, closed the same day
+
+Run against the stage contract as a checklist rather than against the screens,
+four items came back unmet. None of them was a defect on a page, which is why
+neither instrument had seen any of them: an instrument pointed at the screens
+cannot find a step that never ran.
+
+| # | What the stage owed | State on 2026-08-10 | Closed by |
+|---|---|---|---|
+| 1 | Before and after screens from the consolidation: three screens, two widths, a pair at 360 among them | Never taken. `screens/` did not exist and the hub carried no image at all, so the delta of the whole stage was argued in prose | Six pairs in `wireframes/screens/`, shot from the pre-rebuild commit `8fffb37` in a git worktree, beside today's pages at the same widths. Recoverable only because the July frame is still in git |
+| 2 | `wireframes/CLAUDE.md` correct, and under ten lines | Said Welcome is "node 0.0". That is the exact defect Codex found in the ROOT `CLAUDE.md` at Step 9 (finding 8), fixed there and missed in the nested copy. Twelve lines | Node 1.1, ten lines, and the 360 rule folded into rule 5 |
+| 3 | The strategic dimension of `benchmark.md` named against a concrete element of the etalon, or its absence written down | Neither happened. The words benchmark, strategic, trust and clarity appeared nowhere in this folder | Named in `screens.md` under the etalon line and on the hub: GC4 carries mechanism 3 (real names, real context), the attention row carries mechanism 1 (active voice), GC6 carries mechanism 2 (the declaration that names the fear). All three were built from day one; only the paragraph was missing |
+| 4 | Why this etalon and why this first flow, in `docs/decisions.md` | Not recorded anywhere. `screens.md` said only that both were "confirmed rather than re-derived" | Recorded with the count that makes it checkable: five of the seven globals stand on Home at once, and the two that do not are absent by rule (GC5 belongs to Alerts, GC7 is barred from the calm view by D3) |
+
+**What this says about the two instruments.** Both were pointed at the artifact,
+Codex at the source and Claude at the render. Neither was pointed at the process,
+and all four of these are steps that did not happen rather than things that came
+out wrong. Reading the stage contract as a checklist is a third instrument, and
+it costs one pass.
+
+---
+
 # The rebuild critique (2026-08-05, Step 9)
 
 The stage that rebuilt the prototype against the upgraded IA (steps 3 to 8, 46 of

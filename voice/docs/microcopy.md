@@ -223,7 +223,7 @@ below. What follows is what changed about lines that already existed.
 | path-choice | path-option | Both support lines rewritten | Node 1.2 block 4 asks each door for one line of consequence ("read-only, about a minute" against "start with one, add more later"). The July lines described the doors instead ("Fast and automatic", "Private") |
 | path-choice | reassurance | "What does each option access?" retired | The two doors answer it themselves now, and node 1.2 block 6 asks for a legal line in that place |
 | connect-bank | primary-action | "Choose your bank" to "Connect your bank" | D2, resolved at Step 6 of the Voice stage and never applied to the inventory row |
-| connect-bank | trust-note | One sentence became three named facts | Node 1.3 block 3 asks for three lines: what Tendd can see, what it can never do, what you can undo. The fixed trust line is the middle one, verbatim, directly above the button |
+| connect-bank | trust-note | One sentence became three named facts | Node 1.3 block 5 asks for three lines: what Tendd can see, what it can never do, what you can undo. The fixed trust line is the middle one, verbatim, directly above the button |
 | guided-reveal | reveal-step | "You are subscribed to 14 things." to "You're paying for 14 subscriptions" | The Forbidden table names this exact line. The screen was fixed in July, the inventory row was not |
 | guided-reveal | primary-action | "See my full list" to "See your subscriptions", and "Review these 2" retired with the save-focus line | D3 for the label. The second button left with it: one action at the emotional peak, and node 2.6.4 is one tap away the moment the tab bar appears |
 | guided-reveal | reveal-step | "That is $192.90 a month." became the summary strip form: the number, then the context line | GC3 has one rendering. The reveal and Home now show the total the same way, which is what makes it the same component |
@@ -337,6 +337,22 @@ rewritten above. Their compositions come from the second bank round
 | share-snapshot | header | "Card preview" to "Share this win", with "nothing is shared until you tap Share" | The old heading named the component. The new one names the moment, and the second line answers the only question a person has on this screen |
 | share-snapshot | privacy-note | The list of what is on the card is now specific | Bank type J: this exists in no source, and it is the one thing this screen adds to the category. "No account numbers" is a promise; naming the three things that are on it is proof |
 | share-snapshot | continue | "Done, back to my list" to "Back to your subscriptions" | The dictionary gives this destination one label, in second person. D3 in the discrepancy list settled it and this page had not caught up |
+
+### Round 3: the auth model (2026-08-10)
+
+Five pages and one field, from the decision that closed the last structural `[?]` in the
+map. This is the round that re-opened a stage marked Done, and the copy carries the reason
+rather than hiding it: on the bank path the email is asked with the trust argument attached,
+not as a signup.
+
+| Screen | Zone | Change | Why |
+|--------|------|--------|-----|
+| sign-in | whole screen | **New.** Node 1.6, with 1.6.1 and 1.6.2 | The landing header already said "Sign in" and Settings already said "Sign out", so the product had a door in and a door out of an account nothing in it created |
+| sign-in-expired | state-message | Written in the reconnect register, not the error register | Node 6.14.2 already settled the tone for a credential that expired by design: it is maintenance, and the screen says nothing was lost before it asks for anything |
+| connect-bank | account | **New field**, with the reason in the hint rather than in a tooltip | Node 1.3 block 4. The category asks for an account before showing anything; this asks on the one screen where the reason is true and fits in a sentence. "cannot" and "delete" are spelled out, per the contraction rule for money and data |
+| settings-no-account | whole screen | **New.** Node 6.16.1, which stood as "logged out `[?]`" until the auth model | The manual path creates no account, so this is a steady state and not an edge case. Its three lines say what an account changes in the person's terms, never in ours |
+| upgrade-current-plan | whole screen | **New.** Node 5.13.3 | Settings routed "manage plan" into the screen that sells Pro, and there was no way anywhere to cancel it. The cancel line carries no discount, no "are you sure", and no "tell us why" |
+
 ---
 
 ## Canonical subscription dataset (product fixtures, not authored copy)
@@ -420,6 +436,15 @@ list". Total: `$192.90 / month`.
 | welcome | trust | Your financial life is yours. Tendd does not sell or share it, full stop. | body |
 | welcome | trust | Read what we access | link |
 | welcome | pricing | Simple, honest pricing | heading |
+| welcome | pricing | The whole calm view is free. Tendd Pro adds history, trends and advanced alerts. | body |
+| welcome | price | $69 a year | heading |
+| welcome | price | That is $5.75 a month, and it saves about $27 a year versus paying monthly. | body |
+| welcome | price | Best value | status |
+| welcome | price | $7.99 a month | heading |
+| welcome | price | Month to month. Cancel any time, no lock-in. | body |
+| welcome | price | Lifetime | heading |
+| welcome | price | One payment, and Tendd Pro stays open. For people who would rather never think about a renewal again. | body |
+| welcome | price | [? D4, the lifetime price, $99 to $139, is still being decided] | body |
 | welcome | pricing | The whole calm view is free. Tendd Pro, $7.99 a month or $69 a year, adds history, trends, and advanced alerts. | body |
 | welcome | pricing | No cap on subscriptions and no cap on banks in Free. Cancelling is free, always. | body |
 | welcome | faq | Questions people ask first | heading |
@@ -458,7 +483,7 @@ list". Total: `$192.90 / month`.
 
 ---
 
-## Cluster B: Connect Bank, Add Subscription, Guided Reveal
+## Cluster B: Connect Bank, Add Subscription, Guided Reveal, Sign In
 
 ### connect-bank (+ loading, error, empty, cancelled)
 
@@ -470,6 +495,8 @@ list". Total: `$192.90 / month`.
 | connect-bank | title | Next you'll pick your bank and sign in on your bank's own site. Tendd never sees your password, and you choose which accounts to share. | body |
 | connect-bank | facts | How long it takes / About a minute | field-label |
 | connect-bank | facts | What you need / Your online banking login, entered on your bank's site | field-label |
+| connect-bank | account | Your email | field-label |
+| connect-bank | account | Bank data needs somewhere that is yours: a place you can sign back into, and a place you can tell us to delete. We'll send a link to confirm it, and you can carry on now. | hint |
 | connect-bank | trust-note | What Tendd can see | body |
 | connect-bank | trust-note | The charges that repeat on your account, and nothing else you do with your money. | body |
 | connect-bank | trust-note | What Tendd can never do | body |
@@ -477,14 +504,14 @@ list". Total: `$192.90 / month`.
 | connect-bank | trust-note | What you can undo | body |
 | connect-bank | trust-note | Disconnect at any time, and your bank data goes with it. | body |
 | connect-bank | primary-action | Connect your bank | button |
-| connect-bank | primary-action | Add them yourself instead | button |
+| connect-bank | primary-action | Add them yourself | button |
 | connect-bank | region-note | Available for US banks today. More regions soon. | body |
 | connect-bank-loading | state-message | Syncing your bank | heading |
 | connect-bank-loading | state-message | We are reading your recurring charges, read-only. This usually takes a moment. | state-message |
 | connect-bank-error | state-message | We could not connect to your bank | heading |
 | connect-bank-error | state-message | This is usually temporary. You can try again, or add your subscriptions yourself and connect later. | state-message |
 | connect-bank-error | primary-action | Try again | button |
-| connect-bank-error | primary-action | Add them yourself instead | button |
+| connect-bank-error | primary-action | Add them yourself | button |
 | connect-bank-error | later | Do this later | link |
 | connect-bank-empty | state-message | Connected, but nothing recurring yet | heading |
 | connect-bank-empty | state-message | We linked your bank but did not find recurring charges yet. Some show up only on the next billing cycle. You can add the ones you know about now. | state-message |
@@ -495,7 +522,7 @@ list". Total: `$192.90 / month`.
 | connect-bank-cancelled | state-message | You came back without connecting | heading |
 | connect-bank-cancelled | state-message | Nothing was shared and nothing was lost. Both ways in are still open, and you can pick either one now. | state-message |
 | connect-bank-cancelled | primary-action | Connect your bank | button |
-| connect-bank-cancelled | primary-action | Add them yourself instead | button |
+| connect-bank-cancelled | primary-action | Add them yourself | button |
 | connect-bank-cancelled | later | Do this later | link |
 
 ### add-subscription (+ loading, error, empty)
@@ -558,6 +585,41 @@ list". Total: `$192.90 / month`.
 | guided-reveal-empty | later | Do this later | link |
 
 ---
+
+### sign-in (+ sent, expired)
+
+Added 2026-08-10 with the auth model. Node 1.6 is the one screen in the onboarding
+family that returns a person rather than activating one, so it takes the shape and
+none of the persuasion.
+
+| Screen | Zone | Line | Type |
+|--------|------|------|------|
+| sign-in | appbar | ‹ Back | link |
+| sign-in | title | Sign in | heading |
+| sign-in | title | Type the email you used, and we'll send you a link. There is no password to remember, and nothing to reset. | body |
+| sign-in | account | Email | field-label |
+| sign-in | account | The address your list is kept under. | hint |
+| sign-in | facts | What arrives / A link you tap. There is no code to copy out | field-label |
+| sign-in | facts | How long it works / Once, and then it expires. You can send another at any time | field-label |
+| sign-in | primary-action | Send a sign-in link | button |
+| sign-in | later | No account yet? Start here | link |
+| sign-in | trust-line | Tendd holds an email and a currency, and nothing else. | body |
+| sign-in | trust-line | What we read | link |
+| sign-in-sent | state-message | Check your email | heading |
+| sign-in-sent | state-message | A link is on its way to emma@example.com. Tap it and you are back in your list. | state-message |
+| sign-in-sent | facts | If it has not arrived / Give it a minute, and look in your spam folder | field-label |
+| sign-in-sent | facts | If the address is wrong / Go back and type it again. Nothing was sent anywhere else | field-label |
+| sign-in-sent | secondary-action | Send another link | button |
+| sign-in-sent | later | Use a different email | link |
+| sign-in-expired | state-message | That link has expired | heading |
+| sign-in-expired | state-message | A sign-in link works once and then stops, which is what keeps an old email from being a way in. Nothing is wrong with your account and nothing was lost. | state-message |
+| sign-in-expired | primary-action | Send a new link | button |
+| sign-in-expired | later | Use a different email | link |
+
+**Deliberately absent, and it is a line that must never be written here:** "that email
+is not registered", or any wording that tells the reader whether an address has an
+account. Saying it to one person says it to anybody who asks. The screen behaves the
+same either way, and the mail that arrives is the one that fits.
 
 ## Cluster C: Home and Subscription Detail
 
@@ -827,7 +889,7 @@ below.
 | history-trends-error | secondary-action | Back to your subscriptions | button |
 | history-trends-error | reassurance | Nothing about your plan or your data changed. If it keeps happening, tell us and we will look at it. | body |
 
-### upgrade (+ processing, payment-failed)
+### upgrade (+ processing, payment-failed, current-plan)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
@@ -845,7 +907,9 @@ below.
 | upgrade | price | Best value | status |
 | upgrade | price | $7.99 a month | heading |
 | upgrade | price | Month to month. Cancel any time, no lock-in. | body |
-| upgrade | price | A one-time lifetime option is planned and its price is still being decided. [? D4 lifetime price open] | body |
+| upgrade | price | Lifetime | heading |
+| upgrade | price | One payment, and Tendd Pro stays open. For people who would rather never think about a renewal again. | body |
+| upgrade | price | [? D4, the lifetime price, $99 to $139, is still being decided] | body |
 | upgrade | primary-action | Start Tendd Pro - $69 a year | button |
 | upgrade | primary-action | Maybe later | button |
 | upgrade | primary-action | Pays for itself with the first subscription you cancel. | body |
@@ -859,6 +923,26 @@ below.
 | upgrade-payment-failed | primary-action | Try another payment method | button |
 | upgrade-payment-failed | secondary-action | Maybe later | button |
 | upgrade-payment-failed | reassurance | You can come back to this from any Pro feature. Nothing about your subscriptions or your data changed. | body |
+| upgrade-current-plan | appbar | ‹ Back | link |
+| upgrade-current-plan | appbar | Pro | status |
+| upgrade-current-plan | title | You are on Tendd Pro | heading |
+| upgrade-current-plan | title | Everything below is open to you. Nothing here needs doing unless you want to stop. | body |
+| upgrade-current-plan | facts | Your plan / Tendd Pro, yearly | field-label |
+| upgrade-current-plan | facts | Renews / 1 May 2027, at $69 | field-label |
+| upgrade-current-plan | consequence | Cancelling keeps everything you can see without Pro. Your subscriptions, the monthly total and the basic alerts are Free and uncapped, and they stay. History, trends and the advanced alerts close at the end of the period you have already paid for, on 1 May 2027, and you can start Pro again any time. | body |
+| upgrade-current-plan | feature-list | History and trends (3, 6 and 12 month views) | body |
+| upgrade-current-plan | feature-list | Advanced alerts (Trial ending, unusual, duplicate) | body |
+| upgrade-current-plan | feature-list | Full cancel guides (Step by step, with the direct link) | body |
+| upgrade-current-plan | feature-list | Export (Your history as a spreadsheet) | body |
+| upgrade-current-plan | primary-action | Cancel Tendd Pro | link |
+| upgrade-current-plan | later | Back to your settings | link |
+
+**On the cancel line, and the three things it does not say.** No discount, no "are you
+sure you want to lose", no "tell us why". A product whose whole promise is that
+cancelling should be easy cannot make its own subscription the hard one, and every
+retention pattern the category uses here is the pattern node 4.9 exists to help people
+survive. The consequence is stated above the action rather than sprung after it, and
+what it says first is what the person is actually afraid of: the list stays.
 
 ### connections (+ empty, reconnect, add-source)
 
@@ -938,7 +1022,7 @@ below.
 | data-privacy-delete-confirm | primary-action | Delete everything | button |
 | data-privacy-delete-confirm | primary-action | Keep my data | button |
 
-### settings
+### settings (+ no-account)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
@@ -964,6 +1048,26 @@ below.
 | settings | settings-row | Data and privacy (What we read, and delete everything) | body |
 | settings | settings-row | Help and support (Guides and how to reach us) | body |
 | settings | settings-row | Sign out | body |
+| settings-no-account | account | You | heading |
+| settings-no-account | account | Your plan, and the two screens that hold everything about your data. | body |
+| settings-no-account | account | Create an account to keep your list | heading |
+| settings-no-account | account | You have 3 subscriptions saved in this browser. An account is one email, and it is what lets them follow you. | body |
+| settings-no-account | account | Email | field-label |
+| settings-no-account | primary-action | Send a sign-in link | button |
+| settings-no-account | trust-note | Your list follows you | body |
+| settings-no-account | trust-note | Right now it lives in this browser only. Clear it, or open Tendd on your phone, and the list is not there. | body |
+| settings-no-account | trust-note | What we tell you about can reach you | body |
+| settings-no-account | trust-note | A price change or a payment that did not go through can be sent to you, instead of waiting here until you look. | body |
+| settings-no-account | trust-note | What we would hold | body |
+| settings-no-account | trust-note | An email and a currency. Nothing is read from a bank, because you have not connected one. | body |
+| settings-no-account | settings-row | Your sources (3 subscriptions you typed, and nothing connected) | body |
+| settings-no-account | settings-row | Already have an account? (Sign in and this list joins it) | body |
+
+**Two rows are missing from this state on purpose.** There is no "What Tendd tells you
+about" block, because there is no address to send anything to, and a preference screen
+for messages that cannot arrive is theatre. That fact is not hidden: it is the second
+of the three lines above, written as what an account changes rather than as a lack.
+And there is no "Sign out", because there is nothing to sign out of.
 
 ---
 

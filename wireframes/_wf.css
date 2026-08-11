@@ -36,6 +36,20 @@ body {
 /* The landing wants an edge-to-edge stage (its sections are full-bleed). */
 .stage.stage-flush { padding: 0; }
 
+/* Mobile: the app stage gives the gutter back to the screen. Measured on
+   home.html at a 360 viewport, the 16px sides left .app 313px wide, so the
+   360 check of conventions section 9 was really being run at 313 and a row
+   that breaks at a true 360 still passed with 13% to spare. The 28px top and
+   56px bottom went the same way: .app is min-height 100dvh and .app .screen
+   already clears the fixed tab bar with its own 104px, so the padding only
+   pushed the screen past the viewport it is supposed to be. The breakpoint is
+   the one the app already uses for phone chrome (the fixed tab bar, line 493),
+   not a new number. The landing keeps .stage-flush, and overview.html is not
+   a screen. */
+@media (max-width: 460px) {
+  .stage.stage-app { padding: 0; }
+}
+
 /* Wireframe-only side panel (built by _nav.js): stage header, three level tree
    cluster > screen > states, accordion on the current screen, cross-links out.
    The roadmap sidebar is a different thing and lives only on overview.html. */
@@ -908,15 +922,82 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 
 /* Node 5.13. The price is the subject of the screen, so it is the largest thing
    on it, and the dismissal is as legible as the primary. */
-.app .plans { margin: 0 0 12px; }
-.app .plan-opt {
-  display: block; border: 1px solid var(--line); padding: 14px; margin: 0 0 10px; cursor: pointer;
+/* The plan card runs on two screens from 2026-08-10: node 5.13 and the pricing
+   block of the landing. It is one rule with two hosts rather than an lp- copy,
+   because a second copy is the drift this file exists to prevent.
+
+   Rebuilt 2026-08-10 into the shape the category has taught people to read: the
+   price is the biggest object in the card, the badge sits at the top where it
+   qualifies the card rather than trailing it, and every card carries its own
+   action. Before this the landing showed three prices and no button at all, and
+   the upgrade screen had one button under three cards saying "$69 a year", so
+   it matched exactly one of them.
+
+   The radios are gone with it. A card that is also a radio label cannot legally
+   hold a link or a button inside it, and a card you click is the plainer
+   mechanism anyway. */
+.app .plans, .landing .plans { display: grid; gap: 10px; margin: 0 0 12px; }
+.app .plan-opt, .landing .plan-opt {
+  display: flex; flex-direction: column; border: 1px solid var(--line); padding: 18px 16px 16px;
 }
-.app .plan-opt:has(input:checked) { border-color: var(--ink); }
-.app .plan-opt input { position: absolute; opacity: 0; }
-.app .plan-opt .amt { display: block; font-size: 22px; font-weight: 700; letter-spacing: -0.015em; font-variant-numeric: tabular-nums; }
-.app .plan-opt .p { display: block; margin-top: 4px; font-size: 13px; color: var(--mid); }
-.app .plan-opt .best { display: inline-block; margin-top: 8px; border: 1px solid var(--line); padding: 2px 6px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--soft); }
+
+/* The badge leads the card. It is the only thing above the price, so it reads
+   as a qualifier of the whole card and not as a footnote after the reasoning. */
+.app .plan-opt .best, .landing .plan-opt .best {
+  align-self: flex-start; margin: 0 0 10px; border: 1px solid var(--line);
+  padding: 2px 6px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--soft);
+}
+
+/* The price is the card's one big thing, and the period rides under it in the
+   secondary tier so the figure is never diluted by its own unit. */
+.app .plan-opt .amt, .landing .plan-opt .amt {
+  display: block; font-size: 30px; font-weight: 700; line-height: 1.05;
+  letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--ink);
+}
+.app .plan-opt .per, .landing .plan-opt .per {
+  display: block; margin-top: 2px; font-size: 13px; font-weight: 400;
+  letter-spacing: 0; color: var(--soft);
+}
+
+/* The description grows so the action sits on one line across all three
+   columns, whatever length the middle text runs to. */
+.app .plan-opt .p, .landing .plan-opt .p {
+  display: block; flex: 1 1 auto; margin: 10px 0 16px; font-size: 13px; color: var(--mid);
+}
+
+/* The card's own action, full width because the card is its container. Only the
+   recommended card takes .primary: three accent buttons in one row would break
+   the one-per-zone rule the whole set is measured against. */
+.app .plan-opt .btn, .landing .plan-opt .btn { align-self: stretch; }
+
+/* The lifetime card carries this instead of a button. Its price is an open
+   decision, and a button that cannot state an amount is worse than no button:
+   node 5.13 block 7 puts the amount on the button. */
+.app .plan-opt .q, .landing .plan-opt .q {
+  display: block; align-self: stretch; min-height: 44px; padding: 12px 0 0;
+  font-size: 12px; color: var(--soft);
+}
+
+/* What the plan includes, inside the card. The list is identical in all three
+   and its label says so, because these are three ways to pay for one plan:
+   stating the sameness is what stops the row reading as a comparison table,
+   which block 8 of node 1.1 refuses. */
+.app .plan-opt .incl, .landing .plan-opt .incl {
+  margin: 16px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line2);
+}
+.app .plan-opt .incl .k, .landing .plan-opt .incl .k {
+  display: block; margin: 0 0 8px; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft);
+}
+.app .plan-opt .incl ul, .landing .plan-opt .incl ul { list-style: none; margin: 0; padding: 0; }
+.app .plan-opt .incl li, .landing .plan-opt .incl li {
+  position: relative; padding: 0 0 7px 20px; font-size: 13px; color: var(--mid);
+}
+.app .plan-opt .incl li:last-child, .landing .plan-opt .incl li:last-child { padding-bottom: 0; }
+.app .plan-opt .incl li::before, .landing .plan-opt .incl li::before {
+  content: "\2713"; position: absolute; left: 0; top: 0; color: var(--soft);
+}
+
 .app .unlocks { list-style: none; margin: 0 0 22px; padding: 0; }
 .app .unlocks li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line2); font-size: 13.5px; }
 .app .unlocks li:last-child { border-bottom: 0; }
@@ -937,5 +1018,15 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 
 @container (min-width: 760px) {
   .app .chart { height: 220px; }
-  .app .plans, .app .sharecard, .app .oncard, .app .locked { max-width: 560px; }
+  .app .sharecard, .app .oncard, .app .locked { max-width: 560px; }
+  /* Three tall columns side by side once there is room. Below this the same
+     three stack, which is the only honest thing a column can do at 360. */
+  .app .plans { grid-template-columns: repeat(3, 1fr); max-width: 720px; }
+}
+
+/* The landing hosts the same card, left aligned inside a centred section, and
+   with no radio: nothing is being chosen here, the prices are being stated. */
+.lp-plan .plans { max-width: 420px; margin: 0 auto 14px; text-align: left; }
+@media (min-width: 760px) {
+  .lp-plan .plans { grid-template-columns: repeat(3, 1fr); max-width: 780px; }
 }

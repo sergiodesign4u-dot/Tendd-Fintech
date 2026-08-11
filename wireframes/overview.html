@@ -186,8 +186,13 @@
 
   <!-- ============ 1. FLOWS ============ -->
   <h2 class="section" id="flows">Flows and their screens</h2>
-  <p class="section-lead">Four flows from <a href="../ia/docs/flows.md">flows.md</a>, each one a person doing one job. Flow A is the first flow and is built end to end; it ends at Home, which is the etalon. A screen appears once with its job and is marked as shared where a later flow reuses it. States live in the matrix below, not here: this section is the route.</p>
+  <p class="section-lead">Five flows from <a href="../ia/docs/flows.md">flows.md</a>, each one a person doing one job. Flow A is the first flow and is built end to end; it ends at Home, which is the etalon. A screen appears once with its job and is marked as shared where a later flow reuses it. States live in the matrix below, not here: this section is the route.</p>
   <div id="flows-out"></div>
+
+  <div class="note" style="margin-top:16px">
+    <p><b>Why Home is the etalon, and what it has to carry.</b> Five of the seven global elements stand on it at once (GC1 the header, GC2 the tab bar, GC3 the summary strip, GC4 the row, GC6 the trust line), and the two that are missing are missing on purpose: GC5 belongs to <a href="alerts.html">Alerts</a>, and GC7 is barred from the calm view by D3. An etalon is what later screens are measured against, so the screen that already contains most of the product is worth more than the one a person sees first. Ground: <a href="../docs/decisions.md">docs/decisions.md</a>, 2026-08-10.</p>
+    <p style="margin-top:10px"><b>The strategic dimension, on three named elements.</b> <a href="../research/docs/benchmark.md">benchmark.md</a> names one dimension and calls it an activation requirement rather than a nice-to-have: <b>trust and first-time clarity</b>. On <a href="home.html">Home</a> it is three things you can point at, not a general feeling. <b>GC4, the row:</b> logo, real merchant name, amount, "in 2 days, Aug 3", with the raw statement string deliberately absent here and living on <a href="subscription-detail.html">node 2.7</a> as the decoder line. <b>The attention row:</b> "Netflix went up by $2.50, now $17.99 a month", which says who did the thing rather than announcing that a change was detected. <b>GC6, the trust line:</b> "Read-only. Tendd cannot move your money", beside where the figures came from and when they were last checked. Written down on 2026-08-10: all three were built from the first day, the paragraph naming them was the check the stage owed.</p>
+  </div>
 
   <h3 style="margin:26px 0 6px;font-size:15px">The four dead ends, and what closes each</h3>
   <p class="section-lead"><a href="../ia/docs/flows.md">flows.md</a> draws four places where a person could get stuck, on purpose, because they are the honest failure points of this product and not an accident of the diagram. Each one is a defect with a fix, and this is where the fix has to become a real control on a real page. Linked on 2026-08-05, when the main flow was wired end to end.</p>
@@ -197,7 +202,7 @@
       <thead><tr><th>Flow</th><th>The dead end</th><th>Where a person hits it</th><th>What closes it, and on which page</th></tr></thead>
       <tbody>
         <tr><td class="num">A</td><td>Leaves without any list</td><td class="why">The bank connection fails and the person declines both the retry and the manual path</td>
-          <td class="why"><a href="connect-bank-error.html">connect-bank-error</a> carries three exits, not two: <b>Try again</b>, <b>Add them yourself instead</b>, and the quiet <b>Do this later</b>, which lands on <a href="home-empty.html">Home with both doors still open</a> rather than on nothing. <a href="connect-bank-cancelled.html">connect-bank-cancelled</a> (node 1.3.4, drawn at the rebuild) does the same for the person who backs out inside Link</td></tr>
+          <td class="why"><a href="connect-bank-error.html">connect-bank-error</a> carries three exits, not two: <b>Try again</b>, <b>Add them yourself</b>, and the quiet <b>Do this later</b>, which lands on <a href="home-empty.html">Home with both doors still open</a> rather than on nothing. <a href="connect-bank-cancelled.html">connect-bank-cancelled</a> (node 1.3.4, drawn at the rebuild) does the same for the person who backs out inside Link</td></tr>
         <tr><td class="num">B</td><td>Abandons half-done, the manual entry trap</td><td class="why">Adds two or three subscriptions by hand and stops</td>
           <td class="why"><a href="add-subscription.html">add-subscription</a> says the list is saved as you go and how many are in it, so stopping is not losing. <a href="guided-reveal-empty.html">guided-reveal-empty</a> offers <b>Add a subscription</b> and the same <b>Do this later</b>. The retreat is the As-Is default and the product survives it</td></tr>
         <tr><td class="num">C</td><td>Gives up, no in-app next step</td><td class="why">The merchant's retention flow blocks the cancellation</td>
@@ -209,12 +214,12 @@
   </div>
 
   <div class="note" style="margin-top:14px">
-    <p><b>A wait is not a dead end, and it does not get a button.</b> An edge a person takes is a real control on the screen. An edge the system takes, a sync finishing or a load resolving, is not: a button on a wait screen would give the screen an action the product does not have. Those edges are walked in the side panel, which is why every state of every screen is a row in it. Two pages have no link at all and both are correct: <a href="connect-bank-loading.html">connect-bank-loading</a>, where the chain has no tab bar and a sync has nothing for a person to do, and <a href="upgrade-processing.html">upgrade-processing</a>, where a way out in the middle of a charge is exactly what the screen must not offer. The check that makes this falsifiable rather than a story: <b>every MVP base screen is reachable from the front door by clicking, and the pages that are not are state pages</b>, each produced by a condition rather than by a tap. Two pages are deliberately unreachable by click. <a href="share-snapshot.html">Share Snapshot</a> is node 4.11, LATER under D-Share, and it lost its entry when the share block came off <a href="cancel-win.html">cancel-win</a>: an MVP screen cannot lead to a screen that is not in MVP. <a href="history-trends.html">History and Trends</a> unlocked is a Pro screen, and the canonical person is on Free, so every "See your trends" link goes to <a href="history-trends-locked.html">the locked state</a> and the unlocked page is what opens after the gate. Both are decisions showing up in the link graph rather than broken routes, and both are reached here from the side panel.</p>
+    <p><b>A wait is not a dead end, and it does not get a button.</b> An edge a person takes is a real control on the screen. An edge the system takes, a sync finishing or a load resolving, is not: a button on a wait screen would give the screen an action the product does not have. Those edges are walked in the side panel, which is why every state of every screen is a row in it. Two pages have no link at all and both are correct: <a href="connect-bank-loading.html">connect-bank-loading</a>, where the chain has no tab bar and a sync has nothing for a person to do, and <a href="upgrade-processing.html">upgrade-processing</a>, where a way out in the middle of a charge is exactly what the screen must not offer. The check that makes this falsifiable rather than a story: <b>every MVP base screen is reachable from the front door by clicking, and the pages that are not are state pages</b>, each produced by a condition rather than by a tap. Four pages are deliberately unreachable by click, and every one of them is a decision showing up in the link graph rather than a broken route. All four are reached here from the side panel. <a href="share-snapshot.html">Share Snapshot</a> is node 4.11, LATER under D-Share, and it lost its entry when the share block came off <a href="cancel-win.html">cancel-win</a>: an MVP screen cannot lead to a screen that is not in MVP. <a href="history-trends.html">History and Trends</a> unlocked is a Pro screen, and the canonical person is on Free, so every "See your trends" link goes to <a href="history-trends-locked.html">the locked state</a> and the unlocked page is what opens after the gate. <b>Two more joined them on 2026-08-10, for the same reason in two directions.</b> <a href="upgrade-current-plan.html">The plan you are on</a> is node 5.13.3 and it can only be opened by somebody already on Pro, which the canonical person is not, so <a href="settings.html">Settings</a> routes "manage plan" to the gate. <a href="settings-no-account.html">You, with no account yet</a> is node 6.16.1, the You tab of somebody who came in through the manual path and never made an account, which the canonical person also is not: she connected Chase, so her Settings is the one with an email on it. A prototype has one person in it, and the states that belong to a different person are honest to draw and dishonest to link.</p>
   </div>
 
   <!-- ============ 2. COVERAGE MAP ============ -->
   <h2 class="section" id="coverage">Coverage map</h2>
-  <p class="section-lead">The four system states across all 16 screens. This is the <b>floor</b>, not the set: it proves no screen quietly lost an error or an empty. Every dash carries its reason, because "this screen has no error state" and "we forgot the error state" look identical without one.</p>
+  <p class="section-lead">The four system states across all 17 screens. This is the <b>floor</b>, not the set: it proves no screen quietly lost an error or an empty. Every dash carries its reason, because "this screen has no error state" and "we forgot the error state" look identical without one.</p>
   <div class="tablewrap">
     <table>
       <caption>Source: <a href="docs/screens.md">docs/screens.md</a>, the floor table. Success is the base page and every screen has one.</caption>
@@ -273,7 +278,10 @@
           <td class="why">A statement of what we hold and two controls. Nothing to load, nothing to be empty</td></tr>
         <tr><td class="num">16</td><td>Settings / Profile <span class="n">6.16</span></td>
           <td class="na">-</td><td class="na">-</td><td class="na">-</td><td class="yes">yes</td>
-          <td class="why">A list of doors. The skeleton while preferences load is chrome, not a destination, and the logged-out variant waits on the auth model</td></tr>
+          <td class="why">A list of doors. The skeleton while preferences load is chrome, not a destination. The account-less variant is no longer waiting on the auth model: it is node 6.16.1, a domain state and not an empty one, because the list is full and only the account is missing</td></tr>
+        <tr><td class="num">17</td><td>Sign In <span class="n">1.6</span></td>
+          <td class="na">-</td><td class="yes">yes</td><td class="na">-</td><td class="yes">yes</td>
+          <td class="why">Added 2026-08-10. Nothing loads and nothing can be empty: one field and one action. Its error is node 1.6.2, an expired link, which is the only way this screen can fail</td></tr>
       </tbody>
     </table>
   </div>
@@ -365,7 +373,7 @@
       <h3><span class="cn">5</span>One canonical set of numbers</h3>
       <ul>
         <li>Emma. <b>14 subscriptions, $192.90 a month.</b></li>
-        <li>Sources: <b>Chase 11</b> and <b>added by you 3</b>. Eleven plus three is fourteen on every screen that shows either number.</li>
+        <li>Sources: <b>Chase 11</b> and <b>added by you 3</b>. Eleven plus three is fourteen on every screen that shows either number. <b>The three are named, from 2026-08-10: Peloton App, The New York Times, Notion.</b> The set said how many were typed and never which, and one of them had to be Peloton: it is shown mid-trial on four screens, and a trial that has not charged produces no transaction, so no bank could be the source of that date. No page ever claimed Peloton came from Chase, so naming it costs nothing and makes the row honest.</li>
         <li>Groups: Streaming 4, Software 4, Music, Fitness and News 6.</li>
         <li>The alert case: <b>Netflix up by $2.50, now $17.99</b>, which is also the subscription the cancel chain runs on.</li>
         <li>The decode case: <code>SPOTIFYAB STOCKHOLM</code> to <b>Spotify Premium</b>. The failed payment: <b>Amazon Prime</b>, on <b>Jul 20</b>, at $14.99.</li>
@@ -426,9 +434,50 @@
 
   <!-- ============ 5. WAS TO BECAME ============ -->
   <h2 class="section" id="delta">Was to became</h2>
-  <p class="section-lead">The stage opened owing eight pages and carrying four file names that argued with their own states. It closed on a critique taken on two instruments, and then on round 2, which took the last three screens off the July frame and drew the four states nobody had drawn yet. <b>Nothing is open and nothing is deferred: 50 of 50.</b> The full log, including the findings that did not survive a second reading, is <a href="docs/critique.md">critique.md</a>.</p>
+  <p class="section-lead">The stage opened owing eight pages and carrying four file names that argued with their own states. It closed on a critique taken on two instruments, and then on round 2, which took the last three screens off the July frame and drew the four states nobody had drawn yet. On 2026-08-10 one more round measured the width the screens were being checked at. <b>Nothing is open and nothing is deferred: 55 of 55.</b> The full log, including the findings that did not survive a second reading, is <a href="docs/critique.md">critique.md</a>.</p>
 
   <div class="note">
+    <p><b>The pairs, and why they are dated later than the work.</b> This stage never took its before and after screens at the time, which is the one gate it skipped. They are shot here on 2026-08-10 from the pre-rebuild commit (<code>8fffb37</code>, where the July <code>.phone</code> frame was still live) in a git worktree, beside today's pages at the same widths. Three screens, two widths each: the etalon, the screen with the most states, and one from the last batch. <b>What to look for:</b> the captions naming each zone are gone, "ACTIVE" on every row became a quiet word shown only when it is not the default, "$17.99 / month, Next: Aug 3" became "in 2 days, Aug 3" with the days leading, the desktop stopped being one column of boxes and became a dashboard, and on Your trends the sentence that carries the fact moved above the chart, which was the type H decision of the bank round.</p>
+  </div>
+
+  <div style="margin-top:14px">
+    <figure style="margin:0 0 18px">
+      <img src="screens/home-360-was-became.png" alt="Home at 360px: the July framed screen with zone captions beside today's live screen" style="display:block;width:100%;height:auto;border:1px solid var(--line, #d8d5d0)">
+      <figcaption style="margin-top:6px;font-size:12.5px;color:var(--text-muted, #6b6b6b)">Home (the etalon) at 360px. The gutter around the screen went on 2026-08-10: the app now fills the viewport, which is why the right pane reaches Software while the left one does not.</figcaption>
+    </figure>
+    <figure style="margin:0 0 18px">
+      <img src="screens/home-1280-was-became.png" alt="Home at 1280px: one column of annotated blocks beside today's dashboard" style="display:block;width:100%;height:auto;border:1px solid var(--line, #d8d5d0)">
+      <figcaption style="margin-top:6px;font-size:12.5px;color:var(--text-muted, #6b6b6b)">Home at 1280px. The width used to go into a single centred column; it now goes into the list, with the total and the attention row side by side and the groups in balanced columns.</figcaption>
+    </figure>
+    <figure style="margin:0 0 18px">
+      <img src="screens/subscription-detail-360-was-became.png" alt="Subscription Detail at 360px, was and became" style="display:block;width:100%;height:auto;border:1px solid var(--line, #d8d5d0)">
+      <figcaption style="margin-top:6px;font-size:12.5px;color:var(--text-muted, #6b6b6b)">Subscription Detail at 360px, the screen with the most states: five plus the base.</figcaption>
+    </figure>
+    <figure style="margin:0 0 18px">
+      <img src="screens/subscription-detail-1280-was-became.png" alt="Subscription Detail at 1280px, was and became" style="display:block;width:100%;height:auto;border:1px solid var(--line, #d8d5d0)">
+      <figcaption style="margin-top:6px;font-size:12.5px;color:var(--text-muted, #6b6b6b)">Subscription Detail at 1280px. The master pane is gone and the width goes into the subscription itself, identity and facts on the left, evidence and actions on the right.</figcaption>
+    </figure>
+    <figure style="margin:0 0 18px">
+      <img src="screens/history-trends-360-was-became.png" alt="History and Trends at 360px, was and became" style="display:block;width:100%;height:auto;border:1px solid var(--line, #d8d5d0)">
+      <figcaption style="margin-top:6px;font-size:12.5px;color:var(--text-muted, #6b6b6b)">History and Trends at 360px, from the last batch. The sentence carrying the fact moved above the chart: in every source the number lives inside the picture, and a picture is what makes this person close a finance app.</figcaption>
+    </figure>
+    <figure style="margin:0 0 18px">
+      <img src="screens/history-trends-1280-was-became.png" alt="History and Trends at 1280px, was and became" style="display:block;width:100%;height:auto;border:1px solid var(--line, #d8d5d0)">
+      <figcaption style="margin-top:6px;font-size:12.5px;color:var(--text-muted, #6b6b6b)">History and Trends at 1280px.</figcaption>
+    </figure>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>The measure round of 2026-08-10. One finding, and it is about the instrument rather than about a screen: every page agreed with every other, and the agreement was the defect.</caption>
+      <thead><tr><th>Was</th><th>Found by</th><th>Became</th></tr></thead>
+      <tbody>
+        <tr><td class="why">The stage around every screen carried a 16px gutter at every width, so at a 360 viewport the app was <b>313px</b> wide. The 360 check that all 50 pages passed was really being run at 313, and a row that breaks at a true 360 had 13 per cent of slack. A screen that does not reach the edge of the viewport is also the mockup frame this stage removed, drawn in padding instead of in a border</td><td>Claude</td><td class="why">Below 460px, the width where the app already switches to phone chrome, the stage gives the gutter back: the screen fills the viewport. Measured after the fix, <b>345 of 345 on all 49 app pages</b>, no horizontal scroll and no element crossing the edge. The landing keeps its own edge-to-edge stage and the desktop layout is untouched</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note" style="margin-top:14px">
     <p><b>Round 2, 2026-08-05.</b> The three LATER screens (<a href="share-snapshot.html">Share Snapshot</a>, <a href="history-trends.html">History and Trends</a>, <a href="upgrade.html">Upgrade</a>) each carried the same line in their node file: <i>a bank round precedes the build</i>. So it ran first, as types H, I and J in <a href="../ia/docs/blocks.md">the block bank</a>: 32 decisions, 12 of them refusals of patterns the category agrees on unanimously (a comparison table that has to invent a lack in Free, a trial that converts silently, a countdown, colour that judges). Then the screens were drawn, the <code>.phone</code> frame was deleted from <code>_wf.css</code>, and the map gained <b>node 5.12.4</b>, the locked view of the trends screen: the canonical person is on Free everywhere else in the product, and node 5.13 says out loud that she came to the upgrade screen "from Your trends", which needs a gate on that screen to be true.</p>
   </div>
 
@@ -666,7 +715,7 @@
     totalPages + ' pages specified',
     totalBuilt + ' built',
     (totalPages - totalBuilt) + ' to add',
-    '4 flows'
+    '5 flows'
   ].map(function (t) { return '<span>' + t + '</span>'; }).join('');
 
   document.getElementById('totals').innerHTML = [

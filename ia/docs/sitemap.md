@@ -235,13 +235,14 @@ without it. Everything else is **LATER**. LATER screens stay on the map, because
 the map shows the product whole; the tag decides what the detail layer specifies
 first and what the wireframes and the color pass take in the first round.
 
-**Estimate: 13 MVP, 3 LATER.**
+**Estimate: 14 MVP, 3 LATER.** Node 1.6 Sign In joined the MVP count on 2026-08-10, with the auth model.
 
 | Screen | Scope | Traced to |
 |---|---|---|
 | Welcome / Value Intro | MVP | B1 value before the bank |
 | Activation Path Choice | MVP | B2 two visible paths (D2) |
 | Connect Bank | MVP | B3 read-only trust line (D5) |
+| Sign In | MVP | The auth model, 2026-08-10: a return path that is not a wall |
 | Add Subscription | MVP | L6, which is MVP for the product as a whole (D2) |
 | Guided Reveal | MVP | B5 the gradual reveal (D1) |
 | Home / Subscription List | MVP | B6 the calm list and the total |
@@ -337,6 +338,16 @@ that owns them and referenced by name everywhere else)
 | 1.4.3 | No preset matches | state (empty) | -> 1.4 manual entry | R / J5 | MVP |
 | 1.5 | Guided Reveal | page (3 internal steps) | -> 2.6 | E / J-MAIN | MVP |
 | 1.5.1 | Nothing to reveal yet | state (empty) | -> 1.4 | E, R / J-MAIN | MVP |
+| 1.6 | Sign In | page | -> 2.6, -> 1.2 | all / J1 + J5 | MVP |
+| 1.6.1 | Check your email | state | -> 2.6 on the link | all / J1 | MVP |
+| 1.6.2 | That link has expired | state (error) | -> 1.6, -> 1.6.1 | all / J1 | MVP |
+
+**1.6 added 2026-08-10, with the auth model.** Node 1.1 already had "Sign in" in its header and
+node 6.16 already had "sign out", and the screen between them was never specified: the map had
+a door in and a door out of an account that nothing in it created. The auth model decision
+(`../../docs/decisions.md`) answers where an account comes from on each path, and this is the
+only new page it needs. Account creation on the bank path is a block on node 1.3, not a screen
+of its own, and the manual path creates no account at all.
 
 **1.3.4 added 2026-08-04.** Plaid Link returns four outcomes, not three: connected,
 cancelled, failed, and connected-with-nothing-found (`plaid.com/docs/link`, read while
@@ -393,6 +404,7 @@ designs only the happy path; that is exactly the gap this node closes.
 | 5.13 | Upgrade / Tendd Pro | page (gate) | -> back to the gated surface | all / D3 + D4 | LATER |
 | 5.13.1 | Setting up your plan | state (processing) | -> the originating gate | all / D4 | LATER |
 | 5.13.2 | Payment did not go through | state (error) | -> 5.13 retry | all / D4 | LATER |
+| 5.13.3 | The plan you are on | state | -> 6.16 | all / D3 + D4 | LATER |
 
 **5.12.3, 5.13.1 and 5.13.2 added 2026-08-04.** `pages/pro.md` named these three
 states and gave them no numbers, so the two screens that decide whether money moves
@@ -422,7 +434,8 @@ the screen is for, and the three other states are drawn on a paid plan, which no
 | 6.14.3 | Add a source, the chooser | dialog | -> 1.3 in-app, -> 1.4 in-app | R / J5 | MVP |
 | 6.15 | Data and Privacy | page + dialog | -> 6.16, -> 6.15.1 | R, E / E3 | MVP |
 | 6.15.1 | Delete everything, confirmation | dialog | -> 6.15 (kept), -> signed out (deleted) | R / E3 | MVP |
-| 6.16 | Settings / Profile | page | -> 6.14, -> 6.15, -> 5.13 | all / E3 | MVP |
+| 6.16 | Settings / Profile | page | -> 6.14, -> 6.15, -> 5.13, -> 5.13.3 | all / E3 | MVP |
+| 6.16.1 | No account yet | state | -> 1.6, -> 2.6 | R / J5 | MVP |
 
 **6.14.3 and 6.15.1 added 2026-08-04, and a numbering collision resolved with them.**
 `pages/account.md` numbered the add-a-source chooser 6.14.1, which this map already
@@ -441,8 +454,8 @@ numbered here, where node numbers are owned. `pages/account.md` was corrected to
 | 9.4 | Consent banner | dialog | LATER | Conditional on region, `[?]` |
 | 9.5 | Toasts | section | MVP | Lightweight feedback, no page of its own |
 
-**Count: 23 specified nodes (7 global, 16 screens) plus 5 system nodes, with 30
-state and dialog nodes hanging off the screens.** Of the 16 screens, 13 are MVP.
+**Count: 24 specified nodes (7 global, 17 screens) plus 5 system nodes, with 37
+state and dialog nodes hanging off the screens.** Of the 17 screens, 14 are MVP.
 The SEO engine (`ia/docs/pages/seo.md`) is a cross-cutting specification, not a
 node with a screen.
 
@@ -551,17 +564,17 @@ Win = Cancel Win Moment, Shr = Share Snapshot, His = History and Trends,
 Upg = Upgrade / Tendd Pro, Con = Connections / Accounts, Prv = Data and
 Privacy, Set = Settings / Profile.
 
-| Job | Wel | Pth | Bnk | Add | Rev | Hom | Det | Alr | Gde | Win | Shr | His | Upg | Con | Prv | Set |
-|-----|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| J-MAIN see all charges calmly |  |  |  |  | ✓ | ✓ |  |  |  |  |  | ✓ |  |  |  |  |
-| J1 activate without anxiety | ✓ | ✓ | ✓ |  |  |  |  |  |  |  |  |  |  | ✓ | ✓ |  |
-| J2 identify and cancel unused |  |  |  |  |  | ✓ | ✓ |  | ✓ | ✓ |  | ✓ |  |  |  |  |
-| J3 understand what a charge is |  |  |  |  | ✓ | ✓ | ✓ |  |  |  |  |  |  |  |  |  |
-| J4 stay ahead of surprises |  |  |  |  |  |  | ✓ | ✓ |  |  |  |  |  |  |  |  |
-| J5 track without sharing bank |  | ✓ |  | ✓ |  |  |  |  |  |  |  |  |  | ✓ |  |  |
-| **SCOPE** | MVP | MVP | MVP | MVP | MVP | MVP | MVP | MVP | MVP | MVP | LATER | LATER | LATER | MVP | MVP | MVP |
+| Job | Wel | Pth | Bnk | Add | Rev | Sgn | Hom | Det | Alr | Gde | Win | Shr | His | Upg | Con | Prv | Set |
+|-----|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| J-MAIN see all charges calmly |  |  |  |  | ✓ |  | ✓ |  |  |  |  |  | ✓ |  |  |  |  |
+| J1 activate without anxiety | ✓ | ✓ | ✓ |  |  | ✓ |  |  |  |  |  |  |  |  | ✓ | ✓ |  |
+| J2 identify and cancel unused |  |  |  |  |  |  | ✓ | ✓ |  | ✓ | ✓ |  | ✓ |  |  |  |  |
+| J3 understand what a charge is |  |  |  |  | ✓ |  | ✓ | ✓ |  |  |  |  |  |  |  |  |  |
+| J4 stay ahead of surprises |  |  |  |  |  |  |  | ✓ | ✓ |  |  |  |  |  |  |  |  |
+| J5 track without sharing bank |  | ✓ |  | ✓ |  | ✓ |  |  |  |  |  |  |  |  | ✓ |  |  |
+| **SCOPE** | MVP | MVP | MVP | MVP | MVP |  | MVP | MVP | MVP | MVP | MVP | LATER | LATER | LATER | MVP | MVP | MVP |
 
-**Estimate: 13 MVP screens, 3 LATER.** The detail layer specifies the MVP subset
+**Estimate: 14 MVP screens, 3 LATER.** The detail layer specifies the MVP subset
 first, the wireframes draw it first, and the color pass takes it first; the three
 LATER screens go in a named second round, not into a silent backlog. No screen is
 tagged MVP without a checkmark above it except the two named in the orphan list
@@ -640,7 +653,7 @@ so the 16-screen inventory does not change.
 
 | Where | What (defect) | Proposed fix (for Prompt 2) |
 |-------|---------------|------------------------------|
-| Flow A, Connect Bank | If the user declines both retry and the manual fallback after a connection error, they leave with no list at all. | Make the manual path the always-available floor: the connection-error state keeps a persistent "Add them yourself instead" action, so there is never a version of the error with only a dead exit. |
+| Flow A, Connect Bank | If the user declines both retry and the manual fallback after a connection error, they leave with no list at all. | Make the manual path the always-available floor: the connection-error state keeps a persistent "Add them yourself" action, so there is never a version of the error with only a dead exit. |
 | Flow B, Add Subscription | Ravi abandons manual entry half-done (the manual-entry trap) and leaves with a partial, low-value list. | Save partial progress and re-hook: persist what was added, let the reveal run on a partial list ("here is what you have so far"), and use the return notification (BP4) to pull him back to finish. |
 | Flow C, Cancel Guide | A blocked external cancellation (retention dark pattern) leaves the user stuck with no in-app next step. | Add a "could not cancel" state to Cancel Guide with a next step (alternative steps, escalation tips, or mark-to-retry) so the person always has a move inside the app. |
 | Flow D, Subscription Detail | A failed-payment alert whose fix lives at the bank or merchant ends at "informed" with nothing to do. | Add a plain-language next-step card ("update your card with the merchant" or "no action needed, it will retry on DATE") so the alert never terminates without a next step. |
@@ -749,7 +762,9 @@ two opposite rules for the same lock.
 ## Open items [?] (operational or data, not IA)
 
 Gathered from every page-level file's Open section:
-- Auth model for try-with-no-account vs returning sign in (onboarding.md, account.md, navigation.md).
+- ~~Auth model for try-with-no-account vs returning sign in~~ **closed 2026-08-10.** No account
+  on the manual path, an email on node 1.3 for the bank path, node 1.6 for returning, state
+  6.16.1 for the account-less steady state. Ground in `../../docs/decisions.md`.
 - Minimum subscription count for the Guided Reveal aha (onboarding.md).
 - How cancel candidates and potential savings are computed (core.md).
 - Cancellation verification via the next billing cycle (cancel.md).

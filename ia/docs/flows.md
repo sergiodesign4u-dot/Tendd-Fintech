@@ -82,6 +82,13 @@ declines both retry and the manual fallback. The Guided Reveal is drawn as
 one node; internally it is gradual per D1 (count, then categories with logos,
 then total paired with an action).
 
+**Where the account is created, added 2026-08-10.** The auth model puts it inside Connect Bank
+as a block, not as a step: the email is asked on node 1.3 with its reason beside it, the account
+is created unverified and **Plaid Link opens immediately**, so this flow gains no node and no
+tap. Flow B creates no account at all. That asymmetry is the decision, not an oversight: bank
+data needs an owner and three lines a person typed do not. Ground in `../../docs/decisions.md`,
+and the returning path is Flow E below.
+
 **Activation node: Guided Reveal.** research/docs/aarrr.md defines activation as
 "the first time the user sees a populated subscription list with a monthly
 total", and in this flow that happens inside the Guided Reveal, at its third
@@ -261,3 +268,54 @@ flowchart TD
 **Dead end (defect, see Critique):** "no in-app next step for a failed
 payment" when the fix lives at the bank or merchant and the app stops at
 "informed" without telling the person what to do next.
+
+---
+
+## Flow E: coming back, and keeping a list that was made without an account
+
+Added 2026-08-10 with the auth model. It is the only flow that starts outside a session, and
+it is deliberately the shortest one in the map: everything persuasive already happened.
+
+```mermaid
+flowchart TD
+  classDef state fill:#fff7e6,stroke:#d9a441,color:#5c4813;
+  classDef success fill:#e9f5ee,stroke:#3f9c68,color:#1e4d33;
+
+  Return["Returns to Tendd"] --> HasQ{"Signed in on this device?"}
+  HasQ -->|yes| Home["Home / Subscription List"]
+  HasQ -->|"no, has an account"| SignIn["Sign In"]
+  SignIn --> Sent(["Check your email"])
+  Sent --> LinkQ{"Link still valid?"}
+  Sent -->|"send another"| Sent
+  LinkQ -->|no| Expired(["That link has expired"])
+  Expired -->|"send a new link"| Sent
+  Expired --> SignIn
+  LinkQ -->|yes| Home
+  HasQ -->|"no account, list made by hand"| NoAcct["You, with no account yet"]
+  NoAcct -->|"already have an account"| SignIn
+  NoAcct --> Offer{"Create an account?"}
+  Offer -->|"not now"| Home
+  Offer -->|yes| Sent
+  Home --> SuccessE(["Success: the same list, on any device"])
+
+  class Sent,Expired,NoAcct state
+  class SuccessE success
+```
+
+**Decisions:**
+- Signed in on this device? The only question the product asks first.
+- Link still valid? Sign-in links expire, which is maintenance and not a failure.
+- Create an account? Offered on node 6.16.1, never demanded, and the list works either way.
+
+**States:**
+- Check your email (1.6.1), naming the address it went to, because a typo is invisible once
+  the field is gone.
+- That link has expired (1.6.2), in the same register node 6.14.2 uses for a bank connection
+  that needs reconnecting: nothing was lost.
+- You, with no account yet (6.16.1), the steady state of the manual path rather than an error.
+
+**No dead end, and one thing deliberately absent.** There is no "that email is not registered"
+anywhere in this flow. Telling anybody which addresses have accounts tells everybody, so the
+screen behaves identically either way and the mail that arrives is the one that fits. The
+merge is the other quiet part: a list built with no account joins the account the moment one
+exists, so nothing a person typed is the price of signing up.

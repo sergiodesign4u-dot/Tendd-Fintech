@@ -28,17 +28,37 @@ most one thing to do.
 onboarding chain (1.2 to 1.5), and node 1.1 does not use it at all: the public landing has its
 own marketing top nav with section links, sign in and a Get started action.
 
-**Content, in order.** (1) back or menu, (2) the screen title, (3) one contextual action slot.
+**Content, in order.** (1) back or menu, (2) the screen title or, on the app variant of the You
+tab, a greeting built from the address on file, (3) one contextual action slot.
+On the Pro cluster that slot carries the plan chip instead of an action: it is status, and a
+status is not a thing to do.
 
 **Variants.** App (title plus the tab bar below), detail (back plus the title, on 2.7, 4.9,
 5.12, 6.14, 6.15), minimal (node 4.10: nothing competing with the moment), light (node 4.11),
-onboarding (brand mark only), no-account-yet (`[?]` auth model).
+onboarding (brand mark only), no-account-yet.
 
 **States.** Onboarding, signed-in, no-account-yet.
 
+**The `[?]` on no-account-yet closed on 2026-08-10.** It was waiting on the auth model, which
+is now decided: the manual path runs with no account, so this is not a trial mode with an
+expiry, it is the steady state of everyone who came in through node 1.4. The shell differs in
+exactly two places: the You tab lands on node 6.16.1 instead of node 6.16, and **the header
+carries no greeting**, because a greeting needs an address and this person has not given one.
+Nothing counts down, nothing says the word trial, and nothing nags. Built on
+`wireframes/settings-no-account.html`.
+
 **Never.** Two actions at once (one thing at a time, principle 2). An icon with no label. A
-count or a badge of any kind. On desktop it folds into the top of the left rail rather than
-staying a separate bar.
+count, a notification dot, or any badge that moves: a number that climbs is the thing this
+product exists to quiet. **One static chip is the exception, decided 2026-08-10:** GC7's plan
+chip, the word Free or Pro, hosted in slot 3 on the Pro cluster (node 5.12 with its states,
+node 5.12.4, node 5.13 with its states, including 5.13.3 from 2026-08-10: nine pages). GC7 specifies it and node 5.12 block 1
+already named it there; this line exists so that GC1 stops forbidding what GC7 requires. It
+counts nothing and never changes on its own, and `voice/docs/microcopy.md` owns those three
+lines as `status` rather than as a label. Node 5.12.4 exists only because a person on Free has
+to see which side of the gate she is standing on, which no screen can say without saying which
+plan she is on. It stays forbidden where it was already retired for reading as an upsell: nodes
+2.6 and 2.7, whose job is the calm view (`microcopy.md`, the two "Pro status badge retired"
+rows). On desktop it folds into the top of the left rail rather than staying a separate bar.
 
 **Strings:** `voice/docs/microcopy.md`. **Next stage:** one component, six variants.
 
@@ -194,7 +214,12 @@ states. It carries **E3** on four different screens.
 plan, the gate offers the upgrade.** They are never the same element and never in the same
 place.
 
-**Where it appears.** The chip on node 6.16 (its home) and on node 5.12. The gate at real gated
+**Where it appears.** The chip on node 6.16 (its home **on paper**: the built settings screens render a `.subtotal` in the plan group head instead, and `.plan` appears on none of them, which the kit inventory records as a gap rather than as a fix), and in the GC1 header slot across the
+Pro cluster: node 5.12 with its states, node 5.12.4, and node 5.13 with its states. That is
+nine header pages (**corrected 2026-08-10**: GC1's line said nine and this one said eight; `grep
+-l 'class="plan"'` returns nine, and node 5.13.3 is the ninth), and it is the exception named
+under GC1: the chip is the one
+static thing allowed in a header that otherwise carries no badge. The gate at real gated
 features only: node 5.12's lock, the Pro alert types on node 3.8, the Pro depth block on node
 4.9.
 

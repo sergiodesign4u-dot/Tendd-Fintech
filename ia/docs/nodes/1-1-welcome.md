@@ -79,7 +79,7 @@ each is the bank row, and the bank row carries the trace.
 | 5 | How Tendd works: three numbered steps, and the length of the path stated up front | Phase 3 barrier (tedium), the 3-tap activation node | TAKE (Visitors' "set up in minutes") |
 | 6 | Two paths: connect a bank read-only, or add it yourself from 400+ services | D1, D2, J5, growth zone 1 | TAKE, DIFFERENTLY: the category hides one of the two doors, we show both as equals |
 | 7 | Trust and security: what we can see, what we can never do, read-only, delete any time | J1, J5, E3, GC6 | TAKE (ReSubs states a badge, we state the facts) |
-| 8 | Plan line: the whole calm view is free, Pro is depth | D3, D4 | TAKE, DIFFERENTLY (one honest line, not a comparison table) |
+| 8 | Plan line, and the three ways to pay for Pro as columns: the whole calm view is free, Pro is depth | D3, D4 | TAKE, DIFFERENTLY: **amended 2026-08-10.** Three tall columns, the same card node 5.13 uses: yearly with the Best value badge, monthly, and lifetime with its price still `[?]` under D4. Still not a comparison table, and the difference is the axis: a table compares **plans** and has to name what the cheaper one lacks, and under D-Free Free lacks nothing a person can see. These three are one plan with three ways to pay, so no column is the lesser one |
 | 9 | FAQ, four objections, the same ones the category proves people arrive with | J1, J5, SEO block D | TAKE |
 | 10 | Closing CTA (the same single action) and the marketing footer, privacy first | J-MAIN, SEO block E | TAKE |
 
@@ -192,7 +192,7 @@ data exists.
 
 `Organization` (name, logo, and social profiles when they exist) and `WebSite`. `FAQPage` on
 block 9, which is now legitimate because the questions and answers are real on-page text.
-No `Product` or `Offer` schema: the plan line is one honest sentence, not a pricing page.
+No `Product` or `Offer` schema: block 8 states two prices, and stating a price is not a shop. If a real pricing page is ever published it is a different surface and belongs to node 8.
 
 **E. Optimization checklist**
 

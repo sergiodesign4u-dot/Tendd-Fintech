@@ -41,6 +41,11 @@ window.WF_NAV = {
       { node: '1.5', name: 'Guided Reveal', file: 'guided-reveal.html', ia: '1-5-guided-reveal.html',
         flow: 'A tap 3, the aha', scope: 'MVP', built: true, states: [
         { node: '1.5.1', slug: 'empty', label: 'nothing to reveal yet', built: true }
+      ]},
+      { node: '1.6', name: 'Sign In', file: 'sign-in.html', ia: '1-6-sign-in.html',
+        flow: 'E, coming back', scope: 'MVP', built: true, states: [
+        { node: '1.6.1', slug: 'sent',    label: 'check your email',     built: true },
+        { node: '1.6.2', slug: 'expired', label: 'that link has expired', built: true }
       ]}
     ]},
 
@@ -97,7 +102,8 @@ window.WF_NAV = {
       { node: '5.13', name: 'Upgrade / Tendd Pro', file: 'upgrade.html', ia: '5-13-upgrade.html',
         flow: 'only from a real gate', scope: 'LATER', built: true, states: [
         { node: '5.13.1', slug: 'processing',     label: 'setting up your plan', built: true },
-        { node: '5.13.2', slug: 'payment-failed', label: 'payment did not go through', built: true }
+        { node: '5.13.2', slug: 'payment-failed', label: 'payment did not go through', built: true },
+        { node: '5.13.3', slug: 'current-plan',   label: 'the plan you are on',   built: true }
       ]}
     ]},
 
@@ -113,7 +119,9 @@ window.WF_NAV = {
         { node: '6.15.1', slug: 'delete-confirm', label: 'delete everything', built: true }
       ]},
       { node: '6.16', name: 'Settings / Profile', file: 'settings.html', ia: '6-16-settings.html',
-        flow: 'the You tab', scope: 'MVP', built: true, states: [] }
+        flow: 'the You tab', scope: 'MVP', built: true, states: [
+        { node: '6.16.1', slug: 'no-account', label: 'no account yet', built: true }
+      ]}
     ]}
   ],
 

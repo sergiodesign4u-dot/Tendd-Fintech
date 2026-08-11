@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tendd IA - Node 3.8 Alerts</title>
+  <title>Tendd IA - Node 1.6 Sign In</title>
   <style>
     :root {
       --bg: #f8f7f4;
@@ -321,36 +321,35 @@
       <span class="badge">Detail layer</span>
       <span class="badge">Node page</span>
     </div>
-    <h1>3.8 Alerts / Activity</h1>
-    <p class="hero-tagline">The screen that decides whether the product is a source of calm or one more thing that buzzes at you.</p>
+    <h1>1.6 Sign In</h1>
+    <p class="hero-tagline">Let a person who already has an account get back to their list, without a password. Nothing persuasive happens here: that all happened at node 1.1.</p>
     <div class="node-meta">
-      <span class="on">Node 3.8</span><span>Type: page</span><span class="on">MVP</span>
-      <span>Cluster 3 Stay Ahead</span><span>noindex</span><span>invented, not adapted</span>
+      <span class="on">Node 1.6</span><span>Type: page plus two states</span><span class="on">MVP</span>
+      <span>Cluster 1 Onboarding and Activation</span><span>noindex</span><span>Added 2026-08-10</span>
     </div>
     <div class="callout">
-      <p>Specified with the template fixed on the etalon, <a href="1-1-welcome.html#template">node 1.1 Welcome</a>. Source: <a href="docs/nodes/3-8-alerts.md">docs/nodes/3-8-alerts.md</a>. Composition from <a href="structure.html#blocks">the block bank</a>, type E. Supersedes this node's section of <a href="docs/pages/alerts.md">alerts.md</a>.</p>
+      <p><b>Added 2026-08-10, with the auth model.</b> Nothing in the map specified this screen before: <a href="1-1-welcome.html">node 1.1</a> block 1 already had a "Sign in" link in its header and <a href="6-16-settings.html">node 6.16</a> block 7 already had "sign out", so the map had a door in and a door out of an account that nothing in it created. Source: <a href="docs/nodes/1-6-sign-in.md">docs/nodes/1-6-sign-in.md</a>. Ground: <a href="../docs/decisions.md">docs/decisions.md</a>, 2026-08-10.</p>
     </div>
   </section>
 
   <section class="section" id="spec">
-    <div class="section-label">Node 3.8</div>
+    <div class="section-label">Node 1.6</div>
     <h2>Purpose and jobs</h2>
-    <p class="lead">Close J4, never be surprised by a price change or a failed payment.</p><div class="callout"><p><b>The category has no such screen.</b> Subo and Orbit configure reminders per subscription and deliver them outside the app; Rocket Money sells the promise on its landing and exposes nothing behind it. On the craft side the good examples are enterprise audit logs, whose register is the opposite of ours. This node is invented, not adapted, and <a href="structure.html#blocks">the bank</a> says why.</p></div>
-    <div class="kv"><div><b>Jobs</b><span><b>J4</b> is primary. Feeds <b>J2</b> and <b>J3</b>: an alert is the shortest path to the charge behind it.</span></div><div><b>URL</b><span><code>/alerts</code>. No breadcrumbs: it is a tab.</span></div><div><b>Entry, exit</b><span>In through GC2, or through the <b>email</b> that announced the alert. Out to node 2.7, 4.9, 6.16.</span></div><div><b>Components</b><span>GC1 app variant, GC2 Global Tab Bar, GC5 Alert Item (price-change, payment-failed, trial-ending, upcoming-charge, new-subscription), GC7 Pro Gate on Pro-depth alert types only, never on the two that carry J4.</span></div></div>
-    <div class="callout"><p><b>The channel is email, decided 2026-08-10.</b> This line said "or a push notification" until then. Tendd is a mobile-first responsive web app and a native app is out of scope, and on iOS web push only reaches a site the person has installed to their home screen, so push would have covered a minority of exactly this audience while reading on paper as though it covered everyone. J4 is "never be surprised", and a message that only exists inside the app cannot keep that promise. Push is deferred, not rejected, and it changes no block here when it arrives.</p></div>
-    <div class="callout"><p><b>What each GC5 variant can actually know, settled 2026-08-10.</b> Price-change and payment-failed are computed by us and have no field behind them in any bank API; the rules are in <a href="../docs/bank-connection.md">docs/bank-connection.md</a> section 6. <b>Trial-ending only fires on a subscription the person entered themselves</b>, because a trial that has not charged produces no transaction, no stream and no date: there is nothing for a bank to report. The bank-side counterpart is the new-subscription variant at the other end of the same event, "the first full charge has landed", which is detectable and is the more useful half anyway.</p></div>
+    <div class="callout"><p><b>The boundary, stated first.</b> <b>There is no password anywhere in this product.</b> A person types their email, we send a link, the link signs them in. The same mechanism verifies a new address, so one thing does both jobs and there is nothing to reset, nothing to store and nothing to leak. <b>This node never creates an account on the bank path</b>: that happens on <a href="1-3-connect-bank.html">node 1.3</a>, in the same breath as the bank ask. This screen is only for coming back.</p></div>
+    <div class="kv"><div><b>Jobs</b><span><b>J1</b> indirectly, because the return has to be as calm as the arrival, and <b>J5</b>. Realizes the auth model decision of 2026-08-10.</span></div><div><b>URL</b><span><code>/signin</code></span></div><div><b>Entry, exit</b><span>In from the "Sign in" link in the node 1.1 header, from an expired session on any app screen, and from the offer on node 6.16.1. Out to node 2.6 on success.</span></div><div><b>Components</b><span>GC1 App Header, onboarding variant. GC6 Data Source and Trust, short variant, in block 7. No GC2: this sits outside the signed-in shell.</span></div></div>
   </section>
 
   <section class="section" id="blocks">
     <div class="section-label">Mobile-first priority</div>
     <h2>Content blocks</h2>
+    <p>From <a href="structure.html#blocks">the block bank</a>, type B, the onboarding-step shape. It is the one type B page that returns a person rather than activating one, so it takes the shape and none of the persuasion.</p>
     <div class="table-wrap">
       <table>
         <tr><th>#</th><th>Block</th><th>Carries</th><th>From the bank</th></tr>
-        <tr><td>1</td><td>App header (GC1)</td><td>GC1</td><td>TAKE</td></tr><tr><td>2</td><td><b>"Needs you"</b>, usually empty: a failed payment in desaturated clay, a price change in amber</td><td>J4, principle 2, growth zone 3</td><td>TAKE: <b>exists in no source.</b> A feed sorted by date makes the person scan to find out whether anything is wrong; sorting by whether it needs them answers that before they read</td></tr><tr><td>3</td><td><b>"Just so you know"</b>: charges due in the next seven days, a newly detected subscription</td><td>J4</td><td>TAKE</td></tr><tr><td>4</td><td>The alert item (GC5): icon, one plain sentence, the merchant and the amount, when, the source, and one inline action</td><td>GC5, J4, principle 3, principle 4</td><td>TAKE plus TAKE, DIFFERENTLY: an alert with no action is a notification; an alert that cannot say where it came from is a rumour</td></tr><tr><td>5</td><td>Price change alerts show the old price, the new price and the difference</td><td>J4, growth zone 2, D-Concept</td><td>TAKE: <b>exists in no source.</b> Every product tells you the new number; the old one beside it turns a surprise into an explanation</td></tr><tr><td>6</td><td>Older, collapsed</td><td>principle 2</td><td>TAKE: the recent past is the job, the distant past is node 5.12</td></tr><tr><td>7</td><td>What we tell you about, a link into node 6.16</td><td>J4</td><td>TAKE, DIFFERENTLY: one place instead of a reminder toggle on every subscription</td></tr><tr><td>8</td><td>Tab bar (GC2)</td><td>GC2</td><td>TAKE</td></tr>
+        <tr><td>1</td><td>Step chrome: the brand mark, and a way back to node 1.1</td><td>GC1 onboarding variant</td><td>TAKE</td></tr><tr><td>2</td><td>H1 and one line: what this does and what will arrive</td><td>J1</td><td>TAKE</td></tr><tr><td>3</td><td>One field, the email</td><td>principle 2</td><td>TAKE</td></tr><tr><td>4</td><td><b>What arrives, said before it is asked for</b>: a link, not a code to copy, and it expires</td><td>J1, principle 4</td><td>TAKE, DIFFERENTLY: the category sends the mail and explains afterwards. A person who does not know a mail is coming reads the empty screen as a failure</td></tr><tr><td>5</td><td>The one action</td><td>principle 2</td><td>TAKE</td></tr><tr><td>6</td><td><b>"No account yet? Start here", into node 1.2</b></td><td>J1</td><td>TAKE: a sign-in screen that is a dead end for a new person is the commonest dead end in the category</td></tr><tr><td>7</td><td>The trust line (GC6), short: we hold an email and a currency</td><td>J5, E3, principle 4</td><td>TAKE, DIFFERENTLY: stating what little we hold is cheaper than a security badge and it is true</td></tr>
       </table>
     </div>
-    <div class="callout"><p><b>Named and not added:</b> unread counts, badges and red dots - D-Concept says status is a quiet gray badge, never red, and a red badge on a money app is an anxiety machine for a person who already avoids opening it. Also not added: search, a filter row and a multi-column audit table (the enterprise register), and a notes field.</p></div>
+    <div class="callout"><p><b>Named and not added:</b> a password field, "remember me", social sign-in buttons, and a CAPTCHA. The first three do not exist in this model, and the fourth is a wall in front of a person who is already ours, on the screen where they are least patient.</p></div>
   </section>
 
   <section class="section" id="states">
@@ -359,55 +358,35 @@
     <div class="table-wrap">
       <table>
         <tr><th>Node</th><th>State</th><th>Reads like</th><th>Trigger</th></tr>
-        <tr><td>-</td><td>default</td><td>Both groups, "Needs you" usually empty</td><td>Anything to report</td></tr><tr><td>3.8.1</td><td>All clear</td><td><b>"Nothing needs your attention right now"</b>, and what would show up here if it did</td><td>Nothing to report</td></tr><tr><td>3.8.2</td><td>Loading alerts</td><td>A skeleton of the list</td><td>Fetch in progress</td></tr><tr><td>3.8.3</td><td>Could not load alerts</td><td>"Nothing is wrong with your money, we just could not reach your alerts"</td><td>Fetch failed</td></tr>
+        <tr><td>-</td><td>default</td><td>The seven blocks, one field</td><td>Opened</td></tr><tr><td>1.6.1</td><td>Check your email</td><td>"A link is on its way to &lt;address&gt;", what to do if it does not arrive, and how to send another</td><td>The address was submitted</td></tr><tr><td>1.6.2</td><td>That link has expired</td><td>Plainly not the person's fault, and one action to send a fresh one</td><td>An old or used link was opened</td></tr>
       </table>
     </div>
-    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)"><b>On 3.8.1:</b> in most products an empty feed reads as a dead end. Here it is the product working, and it is the most reassuring sentence in the app: designed as the best state, not the missing one. <b>On 3.8.3:</b> the error copy separates the two fears on purpose, because the first thought at an error on a money screen is that something happened to the money. <b>Filters and facets:</b> none, a handful of events is not an audit trail.</p>
-    <div class="callout"><p><b>No primary CTA on the screen; one inside every item.</b> The action belongs to the alert it concerns: "see what changed" to node 2.7, "what to do" for a failed payment, "help me cancel" to node 4.9. An empty screen has no action at all, and that is correct.</p></div>
-    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)"><b>Responsive.</b> Mobile: two groups, one column, the older section collapsed. Desktop: the same order at a wider measure; the groups never become columns side by side, because "needs you" must be read first and not scanned in parallel.</p>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)"><b>On 1.6.1:</b> the screen states the address it sent to, because the commonest failure is a typo the person cannot see once the field is gone. Resending is available but not loud. <b>On 1.6.2:</b> links expire, and this is maintenance rather than an error, in exactly the register <a href="6-14-connections.html">node 6.14.2</a> uses for a bank connection that needs reconnecting. <b>Filters and facets:</b> none.</p>
+    <div class="callout"><p><b>Deliberately not a state: "that email is not registered".</b> Saying which addresses have accounts tells anybody who asks which addresses have accounts. The screen behaves identically either way, and the mail that arrives is the one that fits.</p></div>
+    <div class="callout"><p><b>Primary CTA: "Send a sign-in link"</b>. One action. Block 6 is the only other route and it leads out of this node entirely.</p></div>
+    <p style="margin-top:14px;font-size:13.5px;color:var(--text-secondary)"><b>Responsive.</b> Mobile: single column, the field above the fold, the trust line under the action. Desktop: the same order, centred at a narrow measure. Nothing about this screen changes with width.</p>
   </section>
 
   <section class="section" id="emotion">
     <div class="section-label">From the base layer</div>
     <h2>Emotional support</h2>
-    <p>No mechanism from the table has this node as its home. <b>E1</b> through the voice rules of every state, and most of all through the empty state, which says the product is working rather than that something is missing. Nothing else is claimed here.</p>
+    <div class="table-wrap"><table><tr><th>Job</th><th>Mechanism</th><th>Where exactly on this page</th></tr><tr><td>E3 feel safe, control data</td><td>The screen holds one field, states what we hold, and asks for no secret</td><td>Blocks 3 and 7</td></tr></table></div>
   </section>
 
   <section class="section" id="seo">
     <div class="section-label">SEO and status</div>
     <h2>SEO, locked, open</h2>
-    <p><b>SEO.</b> noindex, no schema. Private and personal.</p>
-    <p style="margin-top:10px"><b>Locked:</b> the two groups, the inline action, the old price beside the new one, the empty state as the best state, no red badges. <b>Open <span class="tag q">?</span>:</b> which alert types are Free and which are Pro depth. D3 fixes the principle (price change and failed payment are basic, so they are free), but the full list is a pricing decision for the founder.</p>
-    <p style="margin-top:10px"><b>Done at the wireframe rebuild, 2026-08-05:</b> the July screen was one feed sorted by date and it is now the two groups, every alert names its source and its date, the price change carries the old price beside the new one and the difference, and the empty state says what would appear here if it did.</p>
-    <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)">Grey screen: <a href="../wireframes/alerts.html">wireframes/alerts.html</a>. No coloured screen yet: only Home and Subscription Detail were taken into colour at Concept, and the rest arrive at UI + Visual (<a href="../design/overview.html">design/overview.html</a>).</p>
+    <p><b>SEO.</b> noindex, no schema. Transactional.</p>
+    <p style="margin-top:10px"><b>Locked:</b> passwordless, one field, no account enumeration, a way out to node 1.2, the same mechanism for verification and for return. <b>Open:</b> none in the IA. Link lifetime and rate limiting are operations.</p>
+    <p style="margin-top:16px;font-size:13.5px;color:var(--text-secondary)"><b>Drawn 2026-08-10</b>, in the round that re-opened the grey stage on purpose. Grey screens: <a href="../wireframes/sign-in.html">wireframes/sign-in.html</a>, <a href="../wireframes/sign-in-sent.html">sign-in-sent</a> (1.6.1), <a href="../wireframes/sign-in-expired.html">sign-in-expired</a> (1.6.2). The landing's "Sign in" link pointed at <code>settings.html</code> until that round, because there was nowhere else for it to go.</p>
   </section>
 
 </main>
 
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({
-    startOnLoad: true,
-    theme: 'base',
-    securityLevel: 'loose',
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
-    themeVariables: {
-      primaryColor: '#eef4f1',
-      primaryBorderColor: '#5c7a6e',
-      primaryTextColor: '#2a2724',
-      lineColor: '#9b958e',
-      secondaryColor: '#f8f7f4',
-      tertiaryColor: '#ffffff',
-      fontSize: '13px'
-    },
-    flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: true }
-  });
-</script>
-
 <script>
   window.NAV_BASE = '../';
   window.NAV_ACTIVE = 'ia/structure.html';
-  window.NAV_ACTIVE_LABEL = 'Alerts (3.8)';
+  window.NAV_ACTIVE_LABEL = 'Sign In (1.6)';
   window.NAV_SECTIONS = [
     { id:'spec', label:'Purpose and jobs' },
     { id:'blocks', label:'Content blocks' },
@@ -419,3 +398,4 @@
 <script src="../_nav.js"></script>
 </body>
 </html>
+

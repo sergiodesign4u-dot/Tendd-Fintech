@@ -177,7 +177,7 @@ and it is repurposed.
 
 ---
 
-## Type B. Onboarding step (nodes 1.2 Path Choice, 1.3 Connect Bank, 1.4 Add Subscription, 1.5 Guided Reveal)
+## Type B. Onboarding step (nodes 1.2 Path Choice, 1.3 Connect Bank, 1.4 Add Subscription, 1.5 Guided Reveal, and from 2026-08-10 node 1.6 Sign In)
 
 Four screens, one type: each is a single step that asks for exactly one thing and then gets
 out of the way. This is the chain the whole product is judged on, because it is where the

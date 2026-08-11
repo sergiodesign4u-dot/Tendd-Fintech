@@ -30,15 +30,36 @@ From `../blocks.md`, type G.
 | 1 | Back, and the title (GC1) | GC1 | TAKE |
 | 2 | **The plain answer, name-the-fear**: the fear stated first, then denied with specifics: we read your recurring charges, read-only; we cannot move your money; we do not sell your data | J5, E3, master-research M2 | TAKE, DIFFERENTLY (Canva): a statement before any control. Vague "bank-level security" language is exactly what scares this person; specifics earn trust |
 | 3 | What each source can reach, one sentence each: the bank connection, and what you typed yourself | D2, principle 4 | TAKE |
-| 4 | The controls that actually control something: refresh automatically, and use my activity to improve Tendd, off by default | J5, O20 | TAKE, DIFFERENTLY: two real toggles and no theatre |
+| 4 | The controls that actually control something: refresh automatically, and use my activity to improve Tendd, off by default. **Above them, one stated line about what is counted either way** | J5, O20, principle 4 | TAKE, DIFFERENTLY: two real toggles, no theatre, and a statement where the category would have put silence |
 | 5 | **Export my data, free** | J5, D-Export | TAKE: **decided on 2026-08-04.** A plain, complete export of what we hold about you is a right, not a feature, so it is free and it lives here. The analytical export of history and trends is Pro and lives with node 5.12 |
 | 6 | Delete everything, into dialog 6.15.1 | J5, E3, legal duty | TAKE: one clearly labelled action, two taps from the You tab |
 | 7 | Links to the policy and to node 6.14 | E3 | TAKE |
 
+**On block 4, and the two classes of telemetry, decided 2026-08-10.** This block said "use my
+activity to improve Tendd, off by default" and nothing else, which reads as though switching it
+off switches off all measurement. It does not, and pretending otherwise on the one screen built
+to be believed would be the worst possible place to be imprecise.
+
+- **Counted either way, and stated rather than toggled:** anonymous counts of what happened,
+  such as whether a reveal was completed and how many subscriptions it showed. No profile, and
+  never tied to a bank, an amount or a merchant. This is how we know whether the product does
+  the one thing it claims to do; `research/docs/cjm-to-be.md` measures H0 as the share of people
+  who see three or more subscriptions in their first session, and a product that cannot tell
+  whether it helped anybody cannot get better and has no honest reason to keep asking for a
+  bank connection.
+- **Behind the toggle, off by default, exactly where it already was:** anything person-level.
+  Behaviour tied to an individual, session replay, any picture of a particular human being.
+
+The line above the toggles says the first in one plain sentence. **The failure this avoids is
+not "we measured", it is "we measured while the screen implied we did not".** Whether the
+counting itself needs a consent banner is part of the EU review that D5 defers, and
+`../pages/system.md` already carries that as node 9.4 `[?]`.
+
 **Named and not added:** toggles for advertising, personalisation and profile enrichment. We do
 none of these, and offering a switch implies we could. It is the same rule that dropped the
 read-against-write toggle at node 1.3: a control with only one legal position is theatre, and
-theatre is the opposite of what this screen is for.
+theatre is the opposite of what this screen is for. **And no toggle for the counting above**,
+for the mirror of that reason: a switch on something we would keep doing is worse theatre still.
 
 ## Components and variants
 

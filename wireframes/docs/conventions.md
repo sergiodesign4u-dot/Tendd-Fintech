@@ -62,6 +62,10 @@ This is the rule the previous build broke, so it is first.
 - No type decisions: no font family, no scale beyond the browser's heading hierarchy.
 - No shadows, no gradients, no decorative radii, no icons, no images, no logos. Where an asset
   will sit later, a labelled grey box: `[logo]`, `[merchant logo]`, `[chart]`.
+- **The "no `<img>`" check runs over the screens, and `overview.html` is not one.** The hub
+  carries the before and after pairs in `screens/` as real images, added 2026-08-10, because a
+  consolidation proved in prose is not proved. Anyone greping `wireframes/*.html` for `<img>`
+  should expect exactly one file to answer, and a second one is a defect.
 - Allowed placeholders stand for a deferred **asset**, never for missing **text**. There is no
   lorem ipsum and no "Heading 1" anywhere: the copy exists, in `microcopy.md`.
 
@@ -96,7 +100,7 @@ twenty-nine literal values stayed behind in `style=` on the pages, and four of t
 rule written out on four screens. Criterion 1 above says a token value never lives inline "not
 even on one screen", so a rule that has run only once still gets a name: `.group-head.plain`,
 `.facts.sentences`, `.consequence.lead`, `.state h2`, `.intro`, `.skel-list`, and a percentage
-scale for placeholder widths. **Every one of the 39 MVP pages and the landing now carries no
+scale for placeholder widths. **Every one of the 43 MVP pages and the landing now carries no
 `style` attribute at all**, which is a single grep and not a judgement call. A placeholder inside
 a box that shrinks to its content (a group head, a fact, a charge) is the one case where the
 width is stated in `_wf.css` rather than in percent: there is nothing for a percentage to resolve
@@ -134,7 +138,13 @@ The screens are judged on real length and meaning, so the data is one story told
 
 - The person: **Emma**. **14 subscriptions, $192.90 a month.**
 - Sources: **Chase, 11 subscriptions**, and **added by you, 3**. Eleven plus three is fourteen,
-  and that has to hold on every screen that shows either number.
+  and that has to hold on every screen that shows either number. **The three are named, from
+  2026-08-10: Peloton App, The New York Times, Notion.** The set said how many were typed and
+  never which, and one of them had to be Peloton: it is shown mid-trial on four screens, and a
+  trial that has not charged produces no transaction, so no bank could be the source of that
+  date. No page ever claimed Peloton came from Chase, so naming it costs nothing and makes the
+  row honest. The other two are the ones the story wants: NYT is a save-focus candidate, and
+  Notion puts a typed row in a third category so the manual source is not a corner.
 - Groups: Streaming 4, Software 4, Music, Fitness and News 6.
 - The alert case: **Netflix went up by $2.50, now $17.99**, which is also the subscription the
   cancel chain runs on (detail, guide, win). A price rise is what triggers the cut.
@@ -155,10 +165,12 @@ The screens are judged on real length and meaning, so the data is one story told
   why save focus offers "up to $29.99 a month".
 - The win: **$17.99 a month, $215.88 a year**, with a running total of $32.98 a month.
 
-**Known break, to fix during the rebuild:** `connections.html` shows Chase with 11
-subscriptions and `connections-reconnect.html` shows Chase with 8. Same source, same story, two
-numbers. A stale connection does not reduce the count, and the IA says the last figures stay
-visible and dated.
+**Closed in the rebuild, and the rule it left behind:** `connections.html` and
+`connections-reconnect.html` both say **Chase, 11 subscriptions**. The July pair said 11 and 8,
+which is the same source telling one story twice with two numbers. A stale connection does not
+reduce the count: it stops the figures being refreshed, and the IA says the last ones stay
+visible and dated. Any screen that shows a source and its count reads it from the canonical set
+above, whatever state the connection is in.
 
 - **Today is 1 August**, fixed. Every screen that says "in 6 days" counts from it, and the
   canonical dates were already written against it: node 2.6 gives "in 6 days" as its example
@@ -207,7 +219,7 @@ the read-only line wherever a trust moment appears. All of it is already written
   thing the screen must not offer.
   The check that makes this falsifiable: **every MVP base screen is reachable from the front
   door by clicking, and the pages that are not are state pages**, each produced by a condition
-  rather than by a tap. Two pages are deliberately unreachable by click, and both are the same
+  rather than by a tap. Four pages are deliberately unreachable by click, and all four are the same
   kind of truth rather than a broken route. Node 4.11 Share Snapshot is LATER under D-Share and
   lost its entry when the share block came off `cancel-win`: an MVP screen cannot lead to a
   screen that is not in MVP. And `history-trends` in its unlocked form is a Pro screen, which
@@ -228,7 +240,7 @@ the read-only line wherever a trust moment appears. All of it is already written
   and the merged critique table beside it.
 - **The overview does not keep its own copy of the screen list.** The flows name node numbers,
   and every name, file, scope and state is resolved from `wireframes/_nav.js`, the same registry
-  the screen panel renders. The counts on the page are computed from it too, so "50 of 50" can
+  the screen panel renders. The counts on the page are computed from it too, so "55 of 55" can
   never be a number someone forgot to update.
 - **Every screen page carries the wireframe-only side panel** from `wireframes/_nav.js`, and
   nothing else: a header with an "All screens" button and the stage badge, a **three-level tree**

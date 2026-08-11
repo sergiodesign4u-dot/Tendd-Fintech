@@ -21,8 +21,15 @@ register is the opposite of ours. This node is invented, not adapted, and the ba
 
 ## URL and breadcrumbs
 
-`/alerts`. No breadcrumbs; it is a tab. In through GC2 or a push notification. Out to node
-2.7, node 4.9, node 6.16.
+`/alerts`. No breadcrumbs; it is a tab. In through GC2, or through the **email** that announced
+the alert. Out to node 2.7, node 4.9, node 6.16.
+
+**The channel is email, decided 2026-08-10.** This line said "or a push notification" until
+then. Tendd is a mobile-first responsive web app and a native app is out of scope, and on iOS
+web push only reaches a site the person has installed to their home screen, so push would have
+covered a minority of exactly this audience while reading on paper as though it covered
+everyone. J4 is "never be surprised", and a message that only exists inside the app cannot keep
+that promise. Push is deferred, not rejected, and it changes no block here when it arrives.
 
 ## Content blocks, mobile-first priority
 
@@ -49,6 +56,14 @@ register); a notes field.
 GC1 App Header, app variant. GC2 Global Tab Bar. GC5 Alert Item: price-change, payment-failed,
 trial-ending, upcoming-charge and new-subscription variants. GC7 Pro Gate, on the alert types
 that are Pro depth only, never on the two that carry J4.
+
+**What each variant can actually know, settled 2026-08-10.** Price-change and payment-failed
+are computed by us and have no field behind them in any bank API; the rules are in
+`../../../docs/bank-connection.md` section 6. **Trial-ending only fires on a subscription the
+person entered themselves**, because a trial that has not charged produces no transaction, no
+stream and no date: there is nothing for a bank to report. The bank-side counterpart is the
+new-subscription variant at the other end of the same event, "the first full charge has
+landed", which is detectable and is the more useful half anyway.
 
 ## States
 

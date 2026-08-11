@@ -33,7 +33,7 @@ From `../blocks.md`, type G.
 | 1 | App header (GC1) and the tab bar (GC2) | GC1, GC2 | TAKE |
 | 2 | **Your details: email and currency, and nothing else** | principle 4 | TAKE, DIFFERENTLY (Uber): ours holds an email and a currency. We have no reason to hold a name or a phone number, and not holding them is easier to explain than protecting them |
 | 3 | The plan row: Free or Pro, what Free includes, and manage plan into node 5.13 | D3, D4 | TAKE: **the right home for the plan.** Stated once, in the place a person goes to look for it |
-| 4 | **What we tell you about**: which alerts arrive, and the weekly digest on or off | J4 | TAKE: one place that answers what will reach you, instead of a reminder toggle on every subscription the way the category does it. This is where the link from node 3.8 lands |
+| 4 | **What we tell you about**: which alerts arrive, the channel they arrive by, and the weekly digest on or off | J4 | TAKE: one place that answers what will reach you, instead of a reminder toggle on every subscription the way the category does it. This is where the link from node 3.8 lands |
 | 5 | A row into node 6.14, Your sources | J1, E3 | TAKE |
 | 6 | A row into node 6.15, Data and privacy | J5, E3 | TAKE, and Uber's split confirmed: the data question and the preferences question are different questions and different screens |
 | 7 | Help, and sign out | | TAKE |
@@ -42,9 +42,21 @@ From `../blocks.md`, type G.
 no social surface), a phone number, and a two-column settings layout with a category sidebar,
 which does not survive 360px and is the reason this cluster is three screens rather than one.
 
-**Carried to the wireframe rebuild:** the grey `wireframes/settings.html` shows a **Name**
-field, which contradicts block 2, and it has no currency row. The bank decided the field list
-after the wireframe was drawn, so the screen is behind the decision, not the other way round.
+**Closed at the wireframe rebuild, confirmed 2026-08-10:** this said the grey
+`wireframes/settings.html` still showed a **Name** field and no currency row. The rebuilt screen
+shows Email and Currency and no name, so the carried fix is done and the note is closed rather
+than left standing as an open break.
+
+**On block 3, and the state it now routes to.** For a person on Free the row leads to node 5.13
+as before. For a person on Pro it leads to **node 5.13.3**, the plan they are on, which is the
+only place in the product where Pro can be cancelled. Sending a subscriber into the screen that
+sells Pro was the defect this closes; the ground is in `../../../docs/decisions.md`, 2026-08-10.
+
+**On block 4, and what the channel row says.** Alerts and the weekly digest both arrive by
+**email**, decided 2026-08-10 with the ground in node 3.8. The row names the address they go to
+and links to block 2 to change it. There is no push toggle, because there is no push at MVP,
+and a switch for something that does not happen is the same theatre as the read-against-write
+toggle node 1.3 refused.
 
 ## Components and variants
 
@@ -53,16 +65,34 @@ only, in its chip form: the plan is stated here, never sold here.
 
 ## States
 
-| State | Reads like | Trigger |
-|---|---|---|
-| default | The seven blocks | Opened through the You tab |
-| loading | Skeleton rows | Loading preferences |
-| logged out `[?]` | "Create an account to save your list" in place of the details | A no-account trial session |
+| Node | State | Reads like | Trigger |
+|---|---|---|---|
+| - | default | The seven blocks | Opened through the You tab |
+| - | loading | Skeleton rows | Loading preferences |
+| 6.16.1 | No account yet | "Create an account to keep your list" in place of the details, one field, and what an account changes | A manual-path session with no account |
 
-**Neither of these two gets a node number, and the reason differs.** The skeleton is chrome and
-not a distinct destination. The logged-out variant depends on an unresolved product decision
-(whether an account is created up front or lazily); it is numbered when that is answered, and
-`[?]` is what an unanswered question looks like here.
+**6.16.1 was numbered on 2026-08-10, and the reason it could not be before.** This state stood
+here as "logged out `[?]`" with a note saying it gets a number when the auth model is answered.
+It now is: the manual path runs with no account at all, so this is not an edge case, it is the
+steady state of everyone who came in through node 1.4 and never connected a bank. It is a
+destination people live in, so it is numbered like one.
+
+It offers, and does not nag. What an account changes is stated in the person's terms (your list
+survives this device, and alerts can reach you), not in ours. If the address turns out to
+already have an account, the same emailed link signs them in and the list they built here joins
+the one they had, which is the merge rule in the auth model decision.
+
+**Two blocks come off in this state, and one link is knowingly imperfect.** Block 4, what we
+tell you about, is gone: there is no address to send anything to, and a preferences panel for
+messages that cannot arrive is the same theatre as the read-against-write toggle node 1.3
+refused. That fact is not hidden, it is the second of the three lines above, written as what an
+account changes rather than as a lack. Block 7's sign-out is gone too, because there is nothing
+to sign out of; help stays. **And the two cluster rows still lead to node 6.14 and node 6.15 as
+the canonical person sees them, with Chase on them.** That is the same accepted seam as the
+pages the prototype leaves unreachable: one prototype holds one person, and drawing a second
+full set of sources for a second person would buy less than the confusion it costs.
+
+**The skeleton stays unnumbered:** it is chrome, not a distinct destination.
 
 ## Filters and facets
 
@@ -95,7 +125,6 @@ and the tab bar becomes a left rail. No settings sidebar at any width.
 
 **Locked:** email and currency only, the plan stated once and here, one place that answers what
 will reach you, the two cluster doors one tap from the tab bar, no sidebar at any width.
-**Done at the wireframe rebuild, 2026-08-05:** the Name field is off the screen and the
-currency row is on it. The screen holds an email and a currency, and nothing else.
-**Open:** `[?]` the no-account-to-try auth model, shared with node 1.1. Resolving input: a
-product decision on lazy against up-front account creation.
+**Open:** none. The auth model closed that `[?]` on 2026-08-10, and the answer is above: no
+account on the manual path, so the account-less view is state 6.16.1 rather than a variant
+waiting on a decision.

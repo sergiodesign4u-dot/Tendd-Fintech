@@ -427,8 +427,42 @@ flowchart TD
       </pre>
       <p class="flow-notes"><strong>Dead end, closed:</strong> no in-app next step for a failed payment when the fix lives at the bank or merchant. Node 2.7.3 <a href="../wireframes/subscription-detail-payment-failed.html">subscription-detail-payment-failed</a>, which had no page before the rebuild, states what usually happens next, says the money itself is fine, and carries the cancel guide and the way to the full alert list.</p>
     </div>
+    <div class="flow-card" id="flow-e">
+      <h3>Flow E. Coming back, and keeping a list made without an account</h3>
+      <p class="flow-sub">Added 2026-08-10 with the auth model. The only flow that starts outside a session, and deliberately the shortest in the map: everything persuasive already happened.</p>
+      <pre class="mermaid">
+flowchart TD
+  classDef state fill:#fff7e6,stroke:#d9a441,color:#5c4813;
+  classDef success fill:#e9f5ee,stroke:#3f9c68,color:#1e4d33;
+
+  Return["Returns to Tendd"] --> HasQ{"Signed in on this device?"}
+  HasQ -->|yes| Home["Home / Subscription List"]
+  HasQ -->|"no, has an account"| SignIn["Sign In"]
+  SignIn --> Sent(["Check your email"])
+  Sent --> LinkQ{"Link still valid?"}
+  Sent -->|"send another"| Sent
+  LinkQ -->|no| Expired(["That link has expired"])
+  Expired -->|"send a new link"| Sent
+  Expired --> SignIn
+  LinkQ -->|yes| Home
+  HasQ -->|"no account, list made by hand"| NoAcct["You, with no account yet"]
+  NoAcct -->|"already have an account"| SignIn
+  NoAcct --> Offer{"Create an account?"}
+  Offer -->|"not now"| Home
+  Offer -->|yes| Sent
+  Home --> SuccessE(["Success: the same list, on any device"])
+
+  class Sent,Expired,NoAcct state
+  class SuccessE success
+      </pre>
+      <p class="flow-notes"><strong>No dead end, and one thing deliberately absent.</strong> There is no "that email is not registered" anywhere in this flow: telling anybody which addresses have accounts tells everybody, so the screen behaves identically either way and the mail that arrives is the one that fits. The merge is the other quiet part, and the list built with no account joins the account the moment one exists, so nothing a person typed is the price of signing up. States: <a href="1-6-sign-in.html">1.6.1</a> check your email, naming the address it went to because a typo is invisible once the field is gone; 1.6.2 that link has expired, in the same register node 6.14.2 uses for a bank connection that needs reconnecting; <a href="6-16-settings.html">6.16.1</a> you, with no account yet, which is the steady state of the manual path and not an error.</p>
+    </div>
+
     <div class="callout" style="margin-top:22px">
       <p><strong>Activation node: Guided Reveal.</strong> research/docs/aarrr.md defines activation as the first time a person sees a populated subscription list with a monthly total. In Flow A that happens inside the Guided Reveal, at its third step (the total paired with an action, per D1): three taps from the start, inside the ceiling the research set. Home is where that value is kept, not where it first arrives.</p>
+    </div>
+    <div class="callout" style="margin-top:14px">
+      <p><strong>Where the account is created, added 2026-08-10.</strong> The auth model puts it inside Connect Bank as a block, not as a step: the email is asked on <a href="1-3-connect-bank.html">node 1.3</a> with its reason beside it, the account is created unverified and Plaid Link opens immediately, so Flow A gains no node and no tap. Flow B creates no account at all. That asymmetry is the decision and not an oversight: bank data needs an owner and three lines a person typed do not.</p>
     </div>
   </section>
 
@@ -461,6 +495,7 @@ flowchart TD
     { id:'flow-b', label:'Flow B: privacy path' },
     { id:'flow-c', label:'Flow C: cancel and win' },
     { id:'flow-d', label:'Flow D: stay ahead' },
+    { id:'flow-e', label:'Flow E: coming back' },
   ];
 </script>
 <script src="../_nav.js"></script>

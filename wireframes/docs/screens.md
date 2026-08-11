@@ -3,7 +3,29 @@
 **Etalon: Home / Subscription List (node 2.6), `home.html`. First flow: Flow A, Emma, the
 bank path.** Both were chosen at the first build in July 2026 and both are confirmed rather
 than re-derived below. Voice and Concept take the etalon from this line, not from their own
-reading.
+reading. The ground for both choices is in `docs/decisions.md`, 2026-08-10.
+
+**The strategic dimension, and the three elements of the etalon that carry it.**
+`research/docs/benchmark.md` names one dimension and calls it the most important for this
+product: **trust and first-time clarity**, an activation requirement rather than a
+nice-to-have, because a person who does not feel safe and understood will not connect a bank,
+will not come back and will not pay. On `home.html` it is not a general feeling, it is three
+named things:
+
+- **GC4, the subscription row**, carries mechanism 3, the transaction clarity layer: `[logo]`,
+  the real merchant name, the amount, and "in 2 days, Aug 3". The raw statement string is
+  deliberately not here. It appears on node 2.7 as the decoder line, on the screen that exists
+  to answer "what is this charge".
+- **The attention row** carries mechanism 1, active voice: "Netflix went up by $2.50, now
+  $17.99 a month" says who did the thing and by how much, instead of announcing that a change
+  has been detected by nobody in particular.
+- **GC6, the trust line**, carries mechanism 2, the declaration that names the fear before it
+  is asked: "Read-only. Tendd cannot move your money", next to where the figures came from and
+  when they were last checked.
+
+Written down on 2026-08-10, after the stage closed. All three were built from the first day;
+what was missing is this paragraph, which is the check the stage owed: a dimension that no
+element carries is either the wrong etalon or a dimension that lives nowhere in the product.
 
 This is not a wireframe. It is the order for every step that follows: which screens exist,
 what job each closes, where it sits in a flow, whether it is MVP, and **exactly which states
@@ -86,6 +108,15 @@ Subscription, which is also the in-app "+" later.
 |---|---|---|---|---|
 | Alerts / Activity | 3.8 | J4, a price change or a failed payment | Opens from a notification | MVP |
 
+## Flow E - coming back, and keeping a list made without an account
+
+Added 2026-08-10 with the auth model. The only flow that starts outside a session, and the
+shortest in the map: everything persuasive already happened at Welcome.
+
+| Screen | Node | Job | Place in Flow E | Scope |
+|---|---|---|---|---|
+| Sign In | 1.6 | J1 and J5, return without a password | The entry, from the landing header or an expired session | MVP |
+
 ## Reached globally, not through one flow
 
 | Screen | Node | Job | Reached from | Scope |
@@ -97,7 +128,7 @@ Subscription, which is also the in-app "+" later.
 
 ---
 
-## The floor: four system states across all 16 screens
+## The floor: four system states across all 17 screens
 
 | # | Screen | empty | error | loading | success | Why a `-` is a `-` |
 |---|---|:---:|:---:|:---:|:---:|---|
@@ -116,7 +147,8 @@ Subscription, which is also the in-app "+" later.
 | 13 | Upgrade / Tendd Pro | - | check | check | check | A plan list cannot be empty. Its error is a payment that did not go through, and its loading is the payment being processed |
 | 14 | Connections / Accounts | check | check | check | check | |
 | 15 | Data and Privacy | - | - | - | check | A statement of what we hold and two controls. Nothing to load, nothing to be empty |
-| 16 | Settings / Profile | - | - | - | check | A list of doors. The skeleton while preferences load is chrome, not a destination, and the logged-out variant waits on the auth model `[?]` |
+| 16 | Settings / Profile | - | - | - | check | A list of doors. The skeleton while preferences load is chrome, not a destination. The account-less variant is no longer a `[?]`: it is node 6.16.1, a domain state and not an empty one, because the list is full and only the account is missing |
+| 17 | Sign In | - | check | - | check | Nothing loads and nothing can be empty: one field and one action. Its error is node 1.6.2, an expired link, which is the only way this screen can fail |
 
 ---
 
@@ -132,6 +164,7 @@ The base page is the success state. Every other page below is a numbered node in
 | Connect Bank (1.3) | `connect-bank.html` | 1.3.1 `connect-bank-error` connection failed, keeps the manual exit · 1.3.2 `connect-bank-loading` syncing your bank · 1.3.3 `connect-bank-empty` connected, nothing found · **1.3.4 `connect-bank-cancelled` came back without connecting** |
 | Add Subscription (1.4) | `add-subscription.html` | 1.4.1 `add-subscription-loading` preset library loading · 1.4.2 `add-subscription-error` presets unavailable, the manual form still works · 1.4.3 `add-subscription-empty` no preset matches |
 | Guided Reveal (1.5) | `guided-reveal.html` | 1.5.1 `guided-reveal-empty` nothing to reveal yet |
+| Sign In (1.6) | `sign-in.html` | 1.6.1 `sign-in-sent` check your email, with the address stated back · 1.6.2 `sign-in-expired` that link has expired, in the reconnect register |
 | Home (2.6) | `home.html` | 2.6.1 `home-empty` both doors offered · 2.6.2 `home-loading` refreshing · 2.6.3 `home-error` sync failed, last known list stays visible and dated · 2.6.4 `home-savefocus` the Save tab |
 | Subscription Detail (2.7) | `subscription-detail.html` | **2.7.1 `subscription-detail-unrecognized`** the decoder line is all we have · **2.7.2 `subscription-detail-price-change`** old price beside new · **2.7.3 `subscription-detail-payment-failed`** and what usually happens next · 2.7.4 `subscription-detail-loading` · 2.7.5 `subscription-detail-error` could not load |
 | Alerts (3.8) | `alerts.html` | 3.8.1 `alerts-empty` nothing needs your attention · 3.8.2 `alerts-loading` · 3.8.3 `alerts-error` could not reach your alerts |
@@ -139,10 +172,10 @@ The base page is the success state. Every other page below is a numbered node in
 | Cancel Win (4.10) | `cancel-win.html` | none |
 | Share Snapshot (4.11) | `share-snapshot.html` | 4.11.1 `share-snapshot-loading` making your card · 4.11.2 `share-snapshot-error` |
 | History and Trends (5.12) | `history-trends.html` | 5.12.1 `history-trends-empty` still gathering, and it is not the lock · 5.12.2 `history-trends-loading` · **5.12.3 `history-trends-error`** · **5.12.4 `history-trends-locked`** the frame, the person's own labels, and the gate |
-| Upgrade (5.13) | `upgrade.html` | **5.13.1 `upgrade-processing`** setting up your plan · **5.13.2 `upgrade-payment-failed`** |
+| Upgrade (5.13) | `upgrade.html` | **5.13.1 `upgrade-processing`** setting up your plan · **5.13.2 `upgrade-payment-failed`** · 5.13.3 `upgrade-current-plan` the plan you are on, and the only place Pro can be cancelled |
 | Connections (6.14) | `connections.html` | 6.14.1 `connections-empty` both doors again · **6.14.2 `connections-reconnect`** a source needs attention · **6.14.3 `connections-add-source`** the chooser dialog |
 | Data and Privacy (6.15) | `data-privacy.html` | **6.15.1 `data-privacy-delete-confirm`** two doors, no alarm colouring |
-| Settings (6.16) | `settings.html` | none |
+| Settings (6.16) | `settings.html` | 6.16.1 `settings-no-account` no account yet, the steady state of the manual path |
 
 **Bold** marks a page that does not exist yet or whose name is wrong today. Eight are new and
 four are renames; the list is at the bottom.
@@ -155,7 +188,14 @@ four are renames; the list is at the bottom.
 |---|---|---|
 | **Round 1, MVP** | 13 | **39** (13 base plus 26 states) |
 | Round 2, LATER | 3 (Share Snapshot, History and Trends, Upgrade) | **11** (3 base plus 8 states) |
-| **Total** | **16** | **50** |
+| Round 3, the auth model, 2026-08-10 | 1 (Sign In) | **5** (1 base plus 2 states, plus 6.16.1 and 5.13.3 on screens that already existed) |
+| **Total** | **17** | **55** |
+
+**Round 3 re-opened a stage marked Done, and that was the point of naming it a round.** The
+auth model closed the last structural `[?]` in the map and it added screens, so the grey set
+was behind the IA by four pages and one field. Doing it as a named round rather than as a
+quiet patch is what keeps "the wireframes are frozen" meaningful: the freeze is broken on
+purpose, in the open, with the reason written down, or it is not a freeze at all.
 
 **The three LATER screens are deferred, not lost.** They have pages today, built in July before
 the scope labels were applied. Round 1 leaves those pages standing and does not refactor them;
@@ -169,7 +209,7 @@ important ones" cannot happen quietly inside a round.
 The July build stands. What follows is the delta, and it is the work order for the steps after
 this one.
 
-**Eight pages to add** (each one is a node that has no page). Three were built on 2026-08-05,
+**Nine pages to add** (each one is a node that has no page). Three were built on 2026-08-05,
 at the step that rebuilt the main flow:
 
 | Node | File | Why it exists |
