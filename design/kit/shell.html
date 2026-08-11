@@ -8,6 +8,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../system/index.css">
+<!-- The stand's own look and the roadmap chrome. This page linked the system and
+     nothing else, which was survivable while kit.css declared the drawer, and
+     stopped being so the day kit.css was deleted: measured at a 1280 viewport,
+     `.sidebar` computed `position: static` and 1280px wide, so the roadmap laid
+     itself across the page as an ordinary block. Same repair as kit.html got,
+     and the smoke test is not weakened by it: the shell is still drawn by the
+     system alone, and these two files own the reviewer chrome only. -->
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="../../_nav.css">
 </head>
 <body>
 
@@ -15,15 +24,17 @@
   THE SHELL. Every coloured screen is a copy of this file with the middle filled in.
 
   Two paths change when you copy it up into design/:
-    kit.css        becomes  kit/kit.css
-    ../_nav.js     becomes  _nav.js
+    ../system/index.css   becomes  system/index.css
+    ../_nav.js            becomes  _nav.js
+  A copy in design/ also loads _screen.css beside it, which draws the reviewer's
+  chrome (.layout, .stage, .sidebar and the toggle) around the product.
 
   The one rule this file exists to enforce: a screen carries NO style of its own.
   Not a <style> block, not a style attribute, not a class invented on the page.
-  A screen is assembled from kit classes. If a detail is missing, it goes into the
-  kit first (kit.css plus kit.html plus docs/inventory.md) and onto the screen second.
-  A rule written on a screen looks flawless in the browser and becomes drift at
-  stage 08, where the system derives tokens from exactly these files.
+  A screen is assembled from system classes. If a detail is missing, it goes into
+  the system first (the component's css plus its page in design/kit/ plus
+  docs/inventory.md) and onto the screen second. A rule written on a screen looks
+  flawless in the browser and becomes drift the next time the system moves.
 
   THE THREE FORMS OF THE SHELL, chosen on the <main> element:
     .app              the steady state: app bar, screen, tab bar
@@ -60,7 +71,7 @@
        on the You tab, one contextual action. On the Pro cluster that third slot
        carries the plan chip instead of an action: it is status, not a thing to do. -->
   <header class="appbar">
-    <a class="back" href="#">&lsaquo; Back</a>
+    <a class="back" href="#">Back</a>
     <span class="wordmark">Tendd</span>
     <span class="step">Step 2 of 3</span>
   </header>

@@ -5,8 +5,12 @@
    when it is colored. No external libraries.
 
    Mirror of wireframes/_nav.js, but for the colored screens and styled through
-   design/kit/kit.css (it was design/_theme.css until the kit was formed at stage 07,
-   moved with git mv). Fills the #ui-screen-nav mount inside the .sidebar shell. */
+   design/_screen.css. That look moved twice: design/_theme.css until the kit was
+   formed at stage 07, design/kit/kit.css until step 6 of stage 08 deleted that
+   file and sent the reviewer's chrome to _screen.css, which is the one stylesheet
+   a colored screen loads besides design/system/index.css. The moves were git mv
+   and a lift, never a re-derivation of a value.
+   Fills the #ui-screen-nav mount inside the .sidebar shell. */
 
 (function () {
   var SCREENS = [

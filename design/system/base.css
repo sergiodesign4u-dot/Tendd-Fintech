@@ -71,11 +71,74 @@ fieldset { border: 0; margin: 0; padding: 0; }
    still override it without reaching for !important.
 
    Contrast is checked as a LINE, not as text: 3:1 (WCAG 1.4.11).
-   6.2:1 on the light surface, 6.8:1 on the dark one. */
-:where(a, button, input, select, textarea, summary, label:has(input)):focus-visible {
-  outline: 2px solid var(--line-selected);
+   6.2:1 on the light surface, 6.8:1 on the dark one.
+
+   TWO CORRECTIONS AT STEP 6, both of them this file's own and neither of them
+   moving a pixel.
+
+   IT NOW READS --color-focus, WHICH IS THE ROLE FOR A FOCUS RING. It read
+   --line-selected, and two roles were claiming one job: --line-selected's
+   comment in tokens.css listed "the current tab, the pressed tile, the focus
+   ring" while --color-focus was declared for the ring and nothing else. Eight
+   component files already read --color-focus for their own rings; the GLOBAL
+   ring was the one place reading the other role. Both resolve to --petrol in
+   the light theme and --petrol-dark in the dark one, so zero pixels move and
+   the only thing that changes is which role answers for the ring when one of
+   the two is ever repointed. That is the whole argument for a semantic level:
+   the day the current tab and the focus ring part company, this has to already
+   be right.
+
+   `label:has(input)` IS GONE FROM THE LIST BECAUSE IT WAS DEAD, and it looked
+   like the opposite. It reads as somebody solving the switch row, where focus
+   lands on a 20px checkbox inside a 44px row and the ring should be on the row.
+   It cannot: `:focus-visible` here applies to the LABEL, and a label is not
+   focusable, so the row matches `label:has(input)` and never matches
+   `:focus-visible`. Measured on design/settings.html at both viewports with the
+   input focused. The selector that works is `:has(input:focus-visible)` on the
+   row, and it lives in switch-row.css with checkbox.css standing its own ring
+   down, because it is two lines in two files and half of it renders two
+   concentric rings on every preference. */
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
+
+/* ============================================================================
+   THE PRODUCT'S DESKTOP LAYOUT HANGS ON THIS ONE DECLARATION.
+
+   Three of this product's layouts are container queries, not media queries: the
+   tab bar becomes a left rail past 760, the dashboard head exists only past 900,
+   and the groups column set goes to three columns past 1340. Until today the
+   only `container-type: inline-size` in the repository sat on `.stage`, in
+   `wireframes/_wf.css` and `design/kit/kit.css`. `.stage` is the REVIEWER'S
+   FRAME. It travels to no build.
+
+   So the moment a screen stopped loading kit.css and started loading this
+   system, no ancestor would establish a container, every one of those queries
+   would stop matching, and the product would render as one mobile column at
+   every width. Nothing would error and no test that checks scroll or colour
+   would notice. It was recorded as a blocker at the molecule round and is
+   closed here, at the organism round, in front of the shell.
+
+   WHY body AND NOT .app, which was the obvious answer and is wrong. A container
+   query matches an ANCESTOR container, never the element itself, so
+   `container-type` on `.app` cannot style `.app`. Measured rather than reasoned:
+   with it on `.app` the tab bar keeps its column flow and still loses the rail,
+   moving from 240px beside the content to 965px below it. The shell's own
+   two-column layout needs a container ABOVE the shell, and `body` is the only
+   ancestor the system can count on without asking every screen for a wrapper.
+
+   ZERO PIXELS MOVE, and that was checked before the change rather than claimed
+   after it. The container was moved from `.stage` to `body` at 33 widths,
+   walked in 8px steps through all three breakpoint bands (960 to 1040, 1100 to
+   1180, 1540 to 1620), because the two boxes differ by `.stage`'s 32px of
+   padding and that difference can only matter within 32px of a threshold. Tab
+   bar, screen, dashboard head and groups column set were byte-identical at every
+   one.
+
+   `inline-size` and not `size`: block-size containment would stop the page
+   growing with its own content. This contains the inline axis only. */
+body { container-type: inline-size; }
 
 /* Images never overflow their slot, and an image with no dimensions never
    collapses the layout around it while it loads. */

@@ -12,6 +12,13 @@
    nothing else. Tone is the axis that produces all three, and the fourth value
    (error) was already a declared modifier of one of them.
 
+   RENAMED 2026-08-12, step 6, from the map in docs/inventory.md. The block is
+   `.wash` and the tone is a modifier the markup carries: `.wash` neutral,
+   `.wash.attention`, `.wash.error`, `.wash.code`. Nothing else about the object
+   changed in this step and no pixel moved with it, because all four tones
+   already shared one padding, one margin and, since the corner was consolidated,
+   one radius.
+
    Reads
      colour   --bg-callout, --bg-attention, --bg-failure   (the four tone fills)
               --text-primary, --text-body                  (the sentence)
@@ -34,74 +41,37 @@
      radius exists for exactly this.
 
    `p.notice` IS NOT IN THIS FILE, AND ITS ABSENCE IS THE DECISION. kit.css
-   carries `.app p.notice { background: none; border-radius: 0; padding: 0;
-   color: var(--soft) }`, which cancels every declaration below it. One class
+   carried `.app p.notice { background: none; border-radius: 0; padding: 0;
+   color: var(--soft) }`, which cancelled every declaration below it. One class
    meant two opposite things depending on the tag it was written on: a wash as
-   `section.notice`, a plain muted sentence as `p.notice`. Step 2 split them,
-   and the paragraph went to the Muted line atom, where it now lives in
-   design/system/components/muted-line.css. It stands in exactly one place,
-   upgrade.html, and the rename map takes it to `.muted` at step 6.
-   Specificity, not order, is what keeps that working across the split: 0-2-1
-   against this file's 0-2-0, so the atom wins from the atoms layer even though
-   this file is imported below it.
+   `section.notice`, a plain muted sentence as `p.notice`. Step 2 split them and
+   the paragraph went to the Muted line atom. At this step the markup caught up:
+   the one place it stands, upgrade.html, now writes `class="muted"`, so there is
+   no longer a wash declaration for anything to cancel and the three cancelling
+   lines are gone from muted-line.css too. A class that meant two things now has
+   two names and neither needs to undo the other.
 
    NO HEX, NO PIXEL, NO FONT NAME below, apart from three geometry literals that
    are not on either scale and say so where they stand.
 
-   THE CLASS NAMES ARE NOT TOUCHED. All three old selectors are declared here,
-   sharing one rule wherever they share a value, which is what makes the
-   consolidation readable in the file rather than only in a document. The rename
-   to `.wash` plus a tone is step 6, executed from the map in docs/inventory.md
-   together with the markup of the screens.
+   THE LINK'S SELECTORS CARRIED BOTH NAMES FOR ONE STEP, AND THE OLD HALF IS NOW
+   GONE. Step 6's first half repaired two dead hovers and had to write each
+   selector under both the old name and the new one, because deleting the old
+   half then would have stripped the link style off wash specimens on five kit
+   pages that round did not own, and writing only the old half would have put the
+   tie back the day the markup landed. The markup has landed. Every list below
+   names the new class only, at the specificity the pair was written to hold, and
+   the measured result is unchanged: rest as it was, hover taking both the ink
+   and the underline to rgb(28,106,118), and each hover out-specifying its own
+   rest by a whole class rather than by source order.
 
-   THE ORDER OF THE BLOCKS BELOW IS kit.css's ORDER, DELIBERATELY. The inline
-   link's rest and hover are declared BEFORE the wash itself, exactly as they
-   are in kit.css, because two of those rules tie on specificity and are decided
-   by source order. Sorting this file tidily would silently change what a link
-   does under the pointer. The tie is documented at the link block below.
+   THE ORDER OF THE BLOCKS BELOW NO LONGER DECIDES ANYTHING. Step 5 preserved
+   kit.css's order to the line, with the link declared before the wash, because
+   two rules tied at 0-2-1 and source order was all that separated them; the file
+   said so and warned that tidying it would change what a link does under the
+   pointer. Step 6 removed the tie rather than preserving it, so the link now
+   sits where it reads best, after the object it lives inside.
    ============================================================================ */
-
-/* ---- the inline link, part one: rest ------------------------------------
-   kit.css declares one rest rule for ten link families at once, the census
-   finding "thirteen rules for one job" half solved. This file takes the two
-   families that are this molecule's own; the trust block, the muted line and
-   the quiet line take theirs.
-
-   The selectors are copied exactly as kit.css writes them, including the fact
-   that neither carries `.app` in front of it today. Scoping them here would be
-   a selector change wearing the clothes of a tidy-up, and step 6 settles the
-   whole file's scoping in one pass with the markup. */
-.notice a, .attention a {
-  font-size: var(--type-body);
-  color: var(--text-body);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  /* the underline is drawn in the hairline role rather than in the ink: a full
-     strength rule under every link in a calm paragraph reads as emphasis */
-  text-decoration-color: var(--line-container);
-}
-
-/* ---- the inline link, part two: hover ------------------------------------
-   AND HERE IS THE TIE. `.notice a:hover` is 0-2-1. So is `.app .notice a`, 130
-   lines further down this file, and the later declaration wins: the notice
-   link's INK does not change under the pointer today, only its underline does,
-   because the block rule sets a colour and no decoration colour. On
-   `.notice.is-error a` (0-3-1) even the underline stays put.
-
-   `.attention a:hover` is written scoped in kit.css, 0-3-1, so the attention
-   link hovers fully. Two washes, two different hovers, and nothing in either
-   file says so.
-
-   MEASURED, NOT DEDUCED, and carried unchanged. A hover repair is not one of
-   the three legal sources of a visual change at this stage (docs/tokens-audit.md),
-   so the finding is reported and stands on design/kit/wash-block.html with the
-   arithmetic. It is fixed at step 6 with the rename, where the whole selector
-   set is settled at once and a single `.wash a` owns rest and hover. */
-.notice a:hover,
-.app .attention a:hover, .landing .attention a:hover {
-  color: var(--text-action);
-  text-decoration-color: var(--text-action);
-}
 
 /* ---- the 44px floor, and the structure is what decides who gets it --------
    An anchor that is a DIRECT CHILD of the wash is standalone, sitting on its own
@@ -109,30 +79,33 @@
    the sync error measured 15px tall before this rule existed. An anchor inside a
    `p` is running text and is exempt, because enforcing a target height on it
    turns a four line paragraph into a stack of drifting lines. `> a` against
-   `p a`, with no new class and no markup change. */
-.app .notice > a, .landing .notice > a,
-.app .attention > a, .landing .attention > a {
+   `p a`, with no new class and no markup change.
+
+   One selector where the old file needed two, and the fold is what did it: the
+   neutral, error and attention tones are all `.wash` now, and the code tone,
+   which never carries a link and is documented as never carrying one, has no
+   direct-child anchor to catch. */
+.app .wash > a, .landing .wash > a {
   display: inline-flex;
   align-items: center;
   min-height: var(--tap);
 }
 
-/* ---- the wash: one rule, three old class names ---------------------------
-   Everything the three shared. The padding was 12px 14px on all three and folds
-   to one step; the margin was 0 0 22px on all three. The corner is the one
-   declared change: the decoder joins its siblings at --radius-wash.
+/* ---- the wash: one rule, one class, four tones ---------------------------
+   Everything the four share. The padding was 12px 14px on all of them and folds
+   to one step; the margin was 0 0 22px on all of them. The corner is the one
+   declared change: the code tone joins its siblings at --radius-wash.
 
    No border and no shadow, and that is the language rather than an omission.
    DESIGN.md's Flat Paper Rule: a new surface earns a fill and a hairline, never
    a shadow, and here the fill alone is enough because the wash sits INSIDE a
    card that already has the hairline. Fill plus border plus bar would be three
    marks for one message. */
-.app .notice,    .landing .notice,
-.app .attention, .landing .attention,
-.app .decoder,   .landing .decoder {
+.app .wash, .landing .wash {
   padding: var(--space-16);
   margin: var(--space-0) var(--space-0) var(--space-24);
   border-radius: var(--radius-wash);
+  background: var(--bg-callout);
 }
 
 /* ---- tone: the axis, four values -----------------------------------------
@@ -140,35 +113,32 @@
    not the paint: one holds a sentence, the other holds a string copied off a
    bank statement. --bg-callout is the wash inside a card, and it parts from the
    page ground in the dark theme, which is the pair that proves the two roles
-   were worth splitting.
+   were worth splitting. Neutral is the base above, so the code tone declares no
+   fill of its own and inherits the one it always shared.
 
    ATTENTION is amber and never red: a price change is news, not an emergency,
    and the persona closes any app that shows her red.
 
    ERROR is clay, and it is OPT IN. That inversion was a real defect repair at
    stage 07: clay used to be the default here, and three of the five pages that
-   carry `.notice` are not failures at all. Where the clay is spent is settled
-   and narrow, on OUR failure only: the sync error and the could-not-load
+   carry the neutral wash are not failures at all. Where the clay is spent is
+   settled and narrow, on OUR failure only: the sync error and the could-not-load
    screen. A payment that did not go through at the merchant is not our failure
    and not the person's, and that page keeps the neutral wash while its own copy
    says so ("Nothing is wrong with your money"). */
-.app .notice,  .landing .notice,
-.app .decoder, .landing .decoder {
-  background: var(--bg-callout);
-}
-.app .attention, .landing .attention {
+.app .wash.attention, .landing .wash.attention {
   background: var(--bg-attention);
 }
-.app .notice.is-error, .landing .notice.is-error {
+.app .wash.error, .landing .wash.error {
   background: var(--bg-failure);
 }
 
 /* ---- the sentence --------------------------------------------------------
-   Neutral and attention hold a `p` and read at the primary ink: the wash is
-   already the quiet signal, so quietening the words inside it as well would
-   leave a message nobody reads. */
-.app .notice p,    .landing .notice p,
-.app .attention p, .landing .attention p {
+   Neutral, attention and error hold a `p` and read at the primary ink: the wash
+   is already the quiet signal, so quietening the words inside it as well would
+   leave a message nobody reads. The code tone holds no `p` at all, so one
+   selector covers what two did before the fold. */
+.app .wash p, .landing .wash p {
   margin: var(--space-0);
   font-size: var(--type-body);
   color: var(--text-primary);
@@ -178,7 +148,7 @@
    the size and the ink sit on the block. The label reads one tier down from the
    other two tones on purpose, because here the label is not the message. The
    string is. */
-.app .decoder, .landing .decoder {
+.app .wash.code, .landing .wash.code {
   font-size: var(--type-body);
   color: var(--text-body);
 }
@@ -189,7 +159,7 @@
    badly typed sentence. It breaks inside a word rather than overflowing,
    because a bank string has no spaces to break at and the narrow end of this
    product is 360px. */
-.app .decoder .raw, .landing .decoder .raw {
+.app .wash.code .raw, .landing .wash.code .raw {
   display: block;
   margin-top: var(--space-4);
   font-size: var(--type-body);
@@ -198,30 +168,76 @@
   word-break: break-word;
 }
 
-/* ---- the link takes the tone's ink ---------------------------------------
-   The one place the tone reaches past the fill. A neutral wash's link is body
+/* ---- the link: ONE OWNER FOR REST PER TONE, ONE FOR HOVER -----------------
+   FIVE RULES BECAME FOUR ON 2026-08-12, and the dead hover came back with them.
+
+   kit.css declared this link five times: an unscoped `.notice a, .attention a`
+   carrying the rest shared by ten link families, an unscoped `.notice a:hover`
+   beside a scoped `.attention a:hover`, and then three scoped rules 130 lines
+   further down that set the size, the weight and the tone's ink. Rest was split
+   across two rules at two depths, and the hover tied.
+
+   THE ARITHMETIC OF THE TIE, because it is what makes this a repair and not a
+   redesign. `.notice a:hover` was 0-2-1: one class, one pseudo-class, one type.
+   `.app .notice a` was also 0-2-1, and it was written later, so it won. It sets
+   a colour and no decoration colour, so under the pointer the notice link's INK
+   stayed exactly where it was and only the underline went petrol. On
+   `.notice.is-error a`, 0-3-1, even that was lost. Meanwhile `.attention a:hover`
+   was written scoped, 0-3-1, and worked. Two washes, two different hovers, and
+   nothing in either file said so.
+
+   The repair is structural rather than a new value. Every declaration below is
+   one kit.css already wrote; what changed is that each tone's rest has exactly
+   one rule and each tone's hover out-specifies it by a whole class, so no later
+   rule anywhere can quietly take the response away by being written afterwards.
+   Rest runs 0-2-1 for the base and 0-3-1 for the two toned inks; hover runs
+   0-3-1 and 0-4-1 to match, tone for tone. That is why the hover selector list
+   names all three and not just the base: a single `.wash a:hover` would tie with
+   `.wash.error a` all over again.
+
+   THE TONE STILL REACHES PAST THE FILL, at rest. A neutral wash's link is body
    ink, an error's is clay, an attention's is amber: the link never introduces a
    colour the wash has not already established, which is what keeps a two colour
-   object out of a calm screen.
+   object out of a calm screen. Under the pointer all three go to --text-action,
+   which is what kit.css declared for all three and delivered on one: petrol is
+   what a link does in this product when a person points at it, and the muted
+   line's inline link has said so since step 5.
 
-   min-height here is a no-op on an inline anchor and is carried unchanged from
+   min-height stays and is a no-op on an inline anchor, carried unchanged from
    kit.css: only the `> a` rule above adds the inline-flex that makes a height
-   apply. Flagged rather than deleted, because deleting a declaration is a named
-   decision and this file makes exactly one. */
-.app .notice a, .landing .notice a {
+   apply. It is folded into the one rest rule rather than repeated in two. */
+/* everything the four tones' links share, and NOT the ink: the ink is the one
+   thing a tone changes, so it is declared once per tone below and never here.
+   Splitting it out is what lets every override win on specificity instead of on
+   which line it happens to sit on. */
+.app .wash a, .landing .wash a {
   min-height: var(--tap);
   font-size: var(--type-body);
-  color: var(--text-body);
   font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  /* the underline is drawn in the hairline role rather than in the ink: a full
+     strength rule under every link in a calm paragraph reads as emphasis */
+  text-decoration-color: var(--line-container);
 }
-.app .notice.is-error a, .landing .notice.is-error a {
+/* neutral and code, 0-2-1 */
+.app .wash a, .landing .wash a {
+  color: var(--text-body);
+}
+/* error, 0-3-1, so it beats the neutral above without depending on order */
+.app .wash.error a, .landing .wash.error a {
   color: var(--text-failure);
 }
-.app .attention a, .landing .attention a {
-  min-height: var(--tap);
-  font-size: var(--type-body);
+/* attention, 0-3-1, so it beats the neutral above without depending on order */
+.app .wash.attention a, .landing .wash.attention a {
   color: var(--text-attention);
-  font-weight: 600;
+}
+
+.app .wash a:hover, .landing .wash a:hover,
+.app .wash.error a:hover, .landing .wash.error a:hover,
+.app .wash.attention a:hover, .landing .wash.attention a:hover {
+  color: var(--text-action);
+  text-decoration-color: var(--text-action);
 }
 
 /* ---- content: with an arrow, or without ----------------------------------
@@ -232,7 +248,7 @@
    re-runs the thing that failed and goes nowhere.
    Written as content with an empty alternative text, so a screen reader is not
    handed the word "right arrow" in the middle of a sentence. */
-.app .attention a::after, .landing .attention a::after {
+.app .wash.attention a::after, .landing .wash.attention a::after {
   content: "\2192" / "";
   margin-left: var(--space-8);
 }
@@ -241,8 +257,26 @@
    The code tone is the only wash with a loading state: on the detail screen it
    holds two skeleton bars where the label and the string will land. The host
    sets the gap between them, the skeleton bar atom draws the bars. */
-.app .decoder .skel + .skel, .landing .decoder .skel + .skel {
+.app .wash.code .skel + .skel, .landing .wash.code .skel + .skel {
   margin-top: var(--space-8);
+}
+
+/* THE LAST BAR'S BOTTOM MARGIN IS THE HOST'S TO CANCEL, 2026-08-12. `.skel.line`
+   carries `margin: var(--space-4) 0` because a run of bars needs air between
+   them, and the last one in a wash spends that air on nothing: it stacks under
+   the wash's own bottom padding and the block ends 4px lower than the same block
+   ends when it holds a sentence. Measured on subscription-detail-loading before
+   the fix, 3px against kit.css's older padding and --space-4 against this
+   system's.
+
+   Written HERE and not in skeleton-bar.css, and the reason is the ladder. The
+   atom cannot know it is last inside anything, and a `:last-child` rule in the
+   atom's file would be the atom guessing at its hosts. The host knows exactly
+   one thing the atom cannot: where its own padding starts. `> .skel` and not
+   `.skel`, so a bar nested inside something else in a future wash is not caught
+   by a rule about this wash's floor. */
+.app .wash.code > .skel:last-child, .landing .wash.code > .skel:last-child {
+  margin-bottom: var(--space-0);
 }
 
 /* No :focus-visible. base.css draws one ring for the whole system at

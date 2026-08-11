@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dialog sheet - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Dialog sheet</h1>
+    <p class="lead">The three decisions this product asks for on a page of their own. Below a 760px container it is a narrow column with nothing around it; past 760 it becomes a centred card with a hairline, a corner and the only shadow this system owns. It is also the one component that does not do what its name suggests: nothing about it floats, and there is no overlay anywhere in the product.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>3</strong> grey pages</span><span>1 axis, 2 values</span><span>no states</span><span>the one elevation</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One surface and whatever the decision needs: a heading, a sentence, the choices, and a way out that is not a choice. Everything below is drawn by <code>design/system/components/dialog-sheet.css</code> and by the hosted components' own files, through the same entry point a product screen loads.</p>
+    <div class="kit-stage app col">
+      <section class="sheet" aria-label="Add a source">
+        <div class="textblock status">
+          <h1>Add a source</h1>
+          <p>The same two ways in, and you can have both. There is no limit on how many you add.</p>
+        </div>
+        <div class="grid roomy">
+          <a class="door" href="#anatomy">
+            <h2>Connect your bank</h2>
+            <p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p>
+            <span class="pick">Choose this path</span>
+          </a>
+          <a class="door" href="#anatomy">
+            <h2>Add them yourself</h2>
+            <p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p>
+            <span class="pick">Choose this path</span>
+          </a>
+        </div>
+        <p class="quiet"><a href="#anatomy">Not now</a></p>
+      </section>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.sheet</code> <span>the organism itself. A 480px column, centred, with no fill and no edge below a 760 container; a padded card with all three past it. A <code>section</code> with an <code>aria-label</code> on all three pages</span></li>
+      <li><code>max-width: 480px</code> <span>its own measure, narrower than the 620px a column of prose takes. A sheet asks one question, and a narrower column makes that question look like one question</span></li>
+      <li><code>.textblock.status</code> <span><b>a molecule.</b> The <a href="text-block.html">Text block</a> at its status scope, measured here at 20px on the heading and 14px on the sentence, carrying both. This file gives it nothing, and the two rules that once did are named below. It was <code>.state</code> until step 6</span></li>
+      <li><code>.grid.roomy</code> <span><b>an organism.</b> The <a href="grid.html">Grid</a> in its roomy form, one column narrow and two wide. It was <code>.doors</code> until the fold at step 6. The only thing this file writes about it is 16px of margin underneath, and none at all when the door row is the last block in the sheet</span></li>
+      <li><code>.door</code> <span><b>a molecule.</b> The <a href="door.html">Door</a>, with its own edge, its own hover and its own focus ring</span></li>
+      <li><code>.quiet</code> <span><b>an atom.</b> The <a href="quiet-line.html">Quiet line</a>, which is the way out. It is a line and not a button, deliberately: leaving is not one of the choices</span></li>
+      <li><code>box-shadow</code> <span>reads <code>--shadow</code>, and this is its ONLY consumer in the product. It appears past a 760 container and nowhere else</span></li>
+      <li><code>&gt; :last-child { margin-bottom: 0 }</code> <span>the sheet's foot. Whatever ends the sheet brings a bottom margin from its own file for the block that would follow it, and in a sheet nothing follows it. Without this the card was 24px deeper at the foot than at the head</span></li>
+    </ul>
+    <p class="note"><b>The foot was the defect that opened this page, and it was arithmetic rather than taste.</b> Measured here at a 1280 viewport before 2026-08-12: the add-source sheet ran 384px tall, its last block ended at 335, and the gap under it was 49px where the card's padding is 24 and its rule is 1. The <code>--space-24</code> the <a href="quiet-line.html">Quiet line</a> carries was sitting on top of the <code>--space-24</code> of padding. It is drawn twice, once per form: below 760 the sheet has no padding at all, so the same margin hung 24px under the sheet's own box and landed on the screen's foot instead.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis and it is the container, not the content. The same markup renders two ways at the same breakpoint the whole shell turns at, which is deliberate: the sheet becomes a card at exactly the width where the screen behind it becomes a layout with a rail, so it stops being the screen and starts being an object on it.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Form<p class="axis-rule">Set by the CONTAINER and never by the content. Nothing in the markup chooses between these two, and no screen may opt out of either: all three sheets take both forms</p></th>
+            <th class="val">What changes</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Full width</b> <code>.sheet</code>, under container 760</td>
+            <td class="val">no fill<br>no edge<br>no radius<br>no shadow<br>no padding</td>
+            <td>On a phone the sheet IS the screen, so a card drawn around it would be a card drawn around the whole viewport: the screen's own 16px outside it and the card's 24px inside, two frames around one content</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app col"><section class="sheet" aria-label="Delete everything"><div class="textblock status" role="status" aria-live="polite"><h1>Delete everything Tendd holds for you?</h1><p>This deletes your 14 subscriptions, both of your sources, and your account. It cannot be undone, and we keep no copy.</p></div><dl class="pairs"><div><dt>Your subscriptions</dt><dd>deleted, including the 3 you typed</dd></div><div><dt>Your bank connection</dt><dd>disconnected at Chase, and the read access ends</dd></div></dl><div class="actions"><a class="btn" href="#variants">Delete everything</a><a class="btn primary" href="#variants">Keep my data</a></div></section></span></td></tr>
+          <tr>
+            <td><b>Centred card</b> <code>.sheet</code>, from container 760</td>
+            <td class="val">--bg-surface<br>--line-container<br>--radius<br>--shadow<br>--space-24</td>
+            <td>Past 760 the screen behind it has a rail and a wide content pane, and a 480px column alone in that pane reads as a layout accident. The card is what makes it read as a decision placed on the page</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A modal over a dimmed page</td>
+            <td class="kit-empty">-</td>
+            <td><b>Forbidden with a reason rather than missing.</b> There is no overlay, no backdrop, no <code>position: fixed</code>, no <code>&lt;dialog&gt;</code> and no z-index on this component anywhere in the product. Each of these three is a screen a person navigated to and can navigate back from, with a named way out inside it. A modal would trap the one audience this product is built for on the one screen where the stakes are highest</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The stand shows it unbounded, and that is what lets the component set its own width.</b> The stage measure is <code>none</code> here, so the 480px cap the sheet declares for itself is what you see: it is the only component in the system that carries its own measure rather than taking the screen's. Both specimens above are the real width, at both forms.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A dialog sheet is for a decision that <b>deserves a page</b>. Three exist and they are the three moments where a person is being asked to choose rather than to look: "Add a source", which is D2's two equal doors offered again after the first time; "Cancelling can be made deliberately hard, and it is not your fault", which arrives when a cancel did not work; and "Delete everything Tendd holds for you?", which is the one irreversible act in the product.</p>
+    <p class="note"><b>Every one of the three carries a named way out that is not one of the choices.</b> "Not now", "Remind me later", "Keep my data". That is not politeness, it is the consequence of drawing a dialog as a page: with no backdrop there is nothing to click beside, so the escape has to be inside the sheet and it has to be a control a person can see. It is also why <code>voice/docs/microcopy.md</code> gives each sheet its own exit line rather than reusing "Cancel", a word that means the opposite thing on the cancel screens.</p>
+    <p class="note">The delete sheet is the sharpest test of the language and it passes without a red pixel. The destructive action is an outline button and the safe one is filled, so the accent marks the calm door rather than the loud one, and the sheet itself is paper on paper. Nothing about the frame says danger; the sentence says it, in words, once: "It cannot be undone, and we keep no copy."</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A decision on its own page</span>
+        <div class="kit-stage app col"><section class="sheet" aria-label="Could not cancel"><div class="textblock status" role="status" aria-live="polite"><h1>Cancelling can be made deliberately hard, and it is not your fault</h1><p>Netflix is still active. Here is what else to try, and none of it costs you the progress you have made.</p></div><div class="actions"><a class="btn primary" href="#rule">I cancelled it</a><a class="btn" href="#rule">Remind me later</a></div></section></div>
+        <p>One question, one column, and a way out beside the answer. Nothing behind it is dimmed and nothing is trapped, because there is nothing behind it: the sheet is the screen. Three of these in the product and each one is a route a person can leave by going back.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a panel instead</span>
+        <div class="kit-stage app full"><section class="panel" aria-label="Tendd Pro"><div class="gate"><p>The steps above are free and always will be. Tendd Pro adds screenshots for each one and a direct link that skips the retention screens.</p><div class="actions"><a class="btn" href="#rule">See what Pro adds</a><button type="button" class="btn">Maybe later</button></div></div></section></div>
+        <p>An offer that sits <b>underneath</b> something a person came for is the <a href="panel.html">Panel</a> and its gate, not a sheet. The test is whether the screen exists to ask: a sheet exists to ask and has nothing else on it, and a panel is a block inside a screen that is doing something else. Turning a gate into a sheet would put the paywall in front of the free thing, which is the one place D3 says it must never sit.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Let the sheet keep its own measure</span>
+        <div class="kit-stage app col"><section class="sheet" aria-label="Add a source"><div class="textblock status"><h1>Add a source</h1><p>The same two ways in, and you can have both. There is no limit on how many you add.</p></div><div class="grid roomy"><a class="door" href="#rule"><h2>Connect your bank</h2><p>Read-only, through Plaid, and about a minute.</p><span class="pick">Choose this path</span></a><a class="door" href="#rule"><h2>Add them yourself</h2><p>Start with one and add more later.</p><span class="pick">Choose this path</span></a></div></section></div>
+        <p>480px, at every width, and the card that appears past 760 is drawn around that same column rather than around a wider one. The doors inside still answer the container and go two-up, which is the grid's rule and not the sheet's.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never lift anything else</span>
+        <div class="kit-stage app full"><section class="card prose" aria-label="Trends are part of Tendd Pro"><h2>Trends are part of Tendd Pro</h2><p>Your list, your total and your alerts stay free and uncapped.</p></section></div>
+        <p>A <a href="card.html">Card</a>, live, and it does not lift: a hairline and a background change and nothing else. <b>The Flat Paper Rule</b>, and this component is its single exception in the whole system. <code>select.css</code> records the same rule from the inside, which is why a floating select menu has no shadow either: "the one elevation in the system belongs to the dialog sheet alone". The moment two elevations exist inside one screen the eye starts ranking them, and ranking is the work this product takes away from the person.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>No states, and the reason is one line: a sheet is not interactive.</b> It is a <code>section</code> with an <code>aria-label</code> on all three occurrences, with no <code>role</code>, no <code>href</code> and no <code>tabindex</code>, and <code>kit.css</code> declared no pointer response on it. There is also nothing to dismiss: with no backdrop there is nothing to click beside, so each sheet's own way out is a control inside it, and those are <a href="button.html">Buttons</a> and <a href="quiet-line.html">Quiet lines</a> with their own states on their own pages. Faking a state here with a class the product does not carry would document something the product cannot do.</p>
+    <p class="note">The one thing that <b>looks</b> like a state and is not is the card form past a 760 container. It is a second form, not a response: nothing a person does causes it, and it is in the matrix above with the query that fires it.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the card surface, past 760</td><td><code>--bg-surface</code></td><td><code>--paper</code>, and <code>--paper-dark</code> in the dark theme</td></tr>
+          <tr><td>its edge, past 760</td><td><code>--line-container</code></td><td><code>--hairline</code>. Decorative at 1.23:1 light and 1.33:1 dark: nothing about a sheet has to be found by touch, and what a person presses is the button inside</td></tr>
+          <tr><td>its corner</td><td><code>--radius</code></td><td>primitive, straight: a corner has nothing to override</td></tr>
+          <tr><td>its lift</td><td><code>--shadow</code></td><td>primitive, straight, and <b>this file is its only consumer in the product</b>. Two layers, both mixed from the palette's own dark rather than from neutral black, so the lift stays inside the cool world</td></tr>
+          <tr><td>padding and margin</td><td><code>--space-0</code>, <code>--space-16</code>, <code>--space-24</code></td><td>primitive, straight</td></tr>
+          <tr><td>the foot it takes from its last block</td><td><code>--space-0</code></td><td>primitive, straight, and the only property this file sets on a hosted component. A margin is position and position is the host's, so the paint stays with <code>quiet-line.css</code>, <code>action-row.css</code> and <code>grid.css</code>. The door row has to be named a second time at 0-5-0, because <code>.app .sheet &gt; .grid.roomy</code> is 0-4-0 and would otherwise hand its 16px back to a sheet that ends in its doors</td></tr>
+          <tr><td>no ink at all</td><td>none</td><td>by decision. Every word inside a sheet belongs to a Text block, a Pair list, a Button or a Quiet line</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The stacking order this component does not join.</b> The brief for this round expected a z-index here and there is none: grepped across <code>kit.css</code> and <code>wireframes/_wf.css</code>, <code>.sheet</code> carries no <code>z-index</code>, no <code>position</code> and no overlay, and never has. The product's whole stacking order is three literals and all three are elsewhere: <code>1</code> on the currency prefix inside a field (a grid item, <code>text-input.css</code>), <code>5</code> on the app bar, <code>6</code> on the tab bar, with the pair deliberate so the bottom chrome wins where the two meet. The system has no z-index scale and <code>--z-appbar</code> and <code>--z-tabbar</code> were both proposed at stage 07 and deferred to stage 08, which created neither. This component adds nothing to that list, which is the useful answer: the question at step 9 is whether three literals in two files need a scale at all, and the round that was expected to add two added none.</p>
+    <p class="note"><b><code>DESIGN.md</code> and the code disagree about the shadow and the code wins.</b> The design doc calls it "the mobile app frame only" and says its job is to lift the whole mobile frame off the canvas. The stylesheet has shipped it on exactly one selector since stage 07, <code>.app .sheet</code>, and only inside the 760 container: it is a <b>wide</b>-screen shadow and there is no mobile frame anywhere in the CSS. Same finding as the subscription row's three sizes and the tab bar's label, same resolution, and the row belongs in <code>docs/tokens-audit.md</code>.</p>
+    <p class="note"><b>The foot, measured on both sides of the change and at both ends of the range.</b> The four specimens on this page, at a 1280 viewport: 475, 320, 182 and 338 pixels tall, with 49, 41, 16 and 16 under the last block. After: 451, 304, 166 and 322, with 25, 25, 0 and 0. The two that end at 25 are the card form, which is 24 of padding and a 1px rule; the two that end at 0 stand inside a column narrower than 760 and take the narrow form, where the sheet has no padding of its own. At 360 all four take the narrow form and all four go to 0: 488, 270, 303 and 401 become 464, 254, 287 and 385. Nothing else on the page moved at either width.</p>
+    <p class="note"><b>Two rules were dropped a stage ago and are not brought back.</b> <code>wireframes/_wf.css</code> lines 880 and 881 give <code>.sheet h1</code> and <code>.sheet p</code> a size, a line height and an ink. <code>kit.css</code> refused both when the colour layer was built and said why at the line: all three sheets put their heading inside a State message, and the grey rules for those slots were silently restyling it. That is the defect this whole round exists to remove, found once by hand on three pages. It is not reintroduced here.</p>
+    <p class="note">Lives in <code>design/system/components/dialog-sheet.css</code>. Stands on 3 grey pages, <b>none of them coloured yet</b>: <code>wireframes/connections-add-source.html</code>, <code>wireframes/cancel-guide-blocked.html</code>, <code>wireframes/data-privacy-delete-confirm.html</code>. It is the only organism in the system whose wide form has never been rendered in Petrol and Paper on a product screen, so every figure on this page was measured here, on the specimens above.</p>
+    <code class="kit-cmd">&lt;section class="sheet" aria-label="Add a source"&gt;
+  &lt;div class="textblock status"&gt;
+    &lt;h1&gt;Add a source&lt;/h1&gt;
+    &lt;p&gt;The same two ways in, and you can have both. There is no limit on how many you add.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="grid roomy"&gt;
+    &lt;a class="door" href="connect-bank.html"&gt;...&lt;/a&gt;
+    &lt;a class="door" href="add-subscription.html"&gt;...&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p class="quiet"&gt;&lt;a href="connections.html"&gt;Not now&lt;/a&gt;&lt;/p&gt;
+&lt;/section&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/dialog-sheet.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The Flat Paper Rule it is the exception to is in <code>DESIGN.md</code> and at the <code>--shadow</code> primitive in <code>design/system/tokens.css</code>; the consolidation that decided its axis is in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

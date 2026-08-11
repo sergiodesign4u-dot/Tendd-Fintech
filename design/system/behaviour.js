@@ -147,8 +147,21 @@
 (function () {
   'use strict';
 
+  /* THE PRICE SLOT IS `.muted`, AND THIS LINE IS THE SECOND HALF OF A LESSON.
+     It read `.p` until the renaming map folded that class into `.muted` at step
+     6. The failure was silent and it was worse than the container's: with
+     `price` null the typical-price line stayed in the string, so the search
+     matched a person's three letters against "netflix typically $17.99 a month"
+     and returned tiles for anyone who typed a digit. Nothing errored, the
+     filter kept filtering, and it filtered on the wrong text.
+
+     `grid.css` carried a comment warning about exactly this, for the container
+     selector eight lines below, and that one was fixed. This one was in the same
+     file, twelve lines up, and was missed: a warning written about one line does
+     not cover the file. A class name in a behaviour file is a dependency no
+     stylesheet audit greps for. */
   function nameOf(tile) {
-    var price = tile.querySelector('.p');
+    var price = tile.querySelector('.muted');
     var text = tile.textContent || '';
     if (price) text = text.replace(price.textContent, '');
     return text.trim().toLowerCase();
@@ -158,7 +171,20 @@
     var field = e.target;
     if (!field || field.type !== 'search') return;
 
-    var grid = document.querySelector('.tiles');
+    /* THE CONTAINER IS FOUND THROUGH ITS CHILDREN, not by its own class, and
+       that is the lesson of step 6 rather than a preference. This read
+       `.tiles` until the renaming map folded that container into `.grid`, and
+       the failure mode was silent in the worst way: `querySelector` returns
+       null, the listener returns early, and the preset search stops filtering
+       with nothing in the console and nothing on screen to see. A behaviour
+       file naming a class that a rename can move is a dependency nobody greps
+       for, because it is JavaScript and every audit this stage runs reads CSS
+       and HTML.
+
+       `.grid:has(.tile)` names the relationship instead: the grid that holds
+       preset tiles. It survives the container being renamed again, and it
+       cannot pick up the wrong grid on a page that has two. */
+    var grid = document.querySelector('.grid:has(.tile)');
     if (!grid) return;
     var head = grid.previousElementSibling;
     while (head && !head.classList.contains('group-head')) head = head.previousElementSibling;

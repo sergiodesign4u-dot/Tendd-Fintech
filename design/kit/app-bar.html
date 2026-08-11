@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App bar - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>App bar</h1>
+    <p class="lead">The top chrome of every screen in the app, and one of the two components in this product that change <b>form</b> rather than size at a breakpoint. Below a 760px container it is a row across the top; past it, the same markup folds into the head of the left rail and runs as a column. It stands on 54 grey pages, which is every page of the app, and it ties with the App shell for the widest reach of any organism in the system.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>54</strong> grey pages</span><span>1 axis, plus one named opt-out</span><span>3 links, 3 states</span><span>hosts 1 atom</span><span>2 drawn marks</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One row, three slots, and six things that may stand in them. Everything below is drawn by <code>design/system/components/app-bar.css</code> and by the chip's own file, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app bleed full rail" id="live-rest">
+      <header class="appbar">
+        <a class="back" href="#anatomy" id="shot-back">Your subscriptions</a>
+        <span class="wordmark">Tendd</span>
+        <span class="chip">Pro</span>
+      </header>
+    </div>
+    <div class="kit-stage app bleed full rail">
+      <header class="appbar">
+        <a class="close" href="#anatomy" id="shot-close">Close</a>
+        <span class="wordmark">Tendd</span>
+        <span class="chip">Free</span>
+      </header>
+    </div>
+    <p class="note"><b>The stage is <code>bleed</code>, and this component earns it.</b> The app bar has <b>no width of its own in either form</b>: on a phone it takes the whole screen, and past 760 the shell's grid column gives it 240px. It declares neither number. <code>--kit-measure</code> would be a third width the product never uses, so the bound is off and the bar takes the stage, which is the honest way to show a component whose width is always somebody else's decision.</p>
+    <div class="kit-stage app bleed full rail">
+      <header class="appbar">
+        <span class="wordmark">Tendd</span>
+        <a class="acct" href="#anatomy" id="shot-acct" aria-label="Hi Emma, open your account">Hi, Emma</a>
+      </header>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.appbar</code> <span>the organism itself, a <code>header</code>: a three-slot flex row on a paper ground with a hairline under it. It has no <code>href</code>, no hover and no ring, and its states are the three links inside it</span></li>
+      <li><code>.back</code> <span>the way out, on 36 pages. <code>--text-body</code>, a 44px floor and no left padding, so the mark sits on the screen's own margin rather than 8px inside it. It draws a <b>left chevron</b>, 16px, a mask over <code>currentColor</code></span></li>
+      <li><code>.close</code> <span><b>new on 2026-08-12</b>, on the 2 Upgrade screens. A sibling of <code>.back</code> and not a variant of it: same box, same floor, same ink, same states, different mark. It draws the <b>cross</b>, the same one the search field's clear control uses</span></li>
+      <li><code>.wordmark</code> <span>the brand, on all 54. The one place in the product where type tracks OUT, at +0.02em, and the only thing here that is always present</span></li>
+      <li><code>.acct</code> <span>"Hi, Emma", on 10 pages. A greeting and not a label, muted, because the name is not the subject of any screen it appears on</span></li>
+      <li><code>.step</code> <span>"Step 2 of 3", on 11 pages. A marker and never a progress bar: a filled bar on step 1 of 3 tells an avoider the road is long</span></li>
+      <li><code>.plan</code> <span><b>an atom.</b> The Chip, on 9 pages, pushed to the end by a <code>margin-left: auto</code> that lives in <a href="chip.html">chip.css</a> with the other five host placements of that atom. This file does not repeat it</span></li>
+      <li><code>margin-right</code> <span>on the wordmark, and it is load-bearing beside <code>space-between</code>. The detail screens fill only two of the three slots, and without it the brand mark lands in the right rail where every other screen puts the chip: measured at stage 07, 262px of travel on the walk this person does most</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis, and it is not a size. The bar has one type step for each of its parts at every width; what changes past 760 is the <b>direction it runs in</b>. The third row below is an opt-out rather than a third value, and it is named as one.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Form<p class="axis-rule">Chosen by the CONTAINER and never by the screen. No page opts in and no page opts out, except the onboarding chain, which opts out for a stated reason and is the third row</p></th>
+            <th class="val">What changes</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Row</b> <code>.app &gt; .appbar</code></td>
+            <td class="val">position: sticky<br>--space-16 gap<br>--line-divider under</td>
+            <td>Under a 760px container, on all 54 pages. Sticky, so the way out never scrolls away from a person who is lost</td>
+          </tr>
+          <tr>
+            <td><b>Column rail</b> <code>@container 760</code></td>
+            <td class="val">position: static<br>column, flex-start<br>--space-4 gap<br>--line-container right</td>
+            <td>At or past 760, on the 28 pages that are not the onboarding chain. It stops being sticky because there is nothing left to stick to: it is beside the content now, in row 1 of the shell's grid</td>
+          </tr>
+          <tr>
+            <td><b>Row, pinned</b> <code>.app.flow &gt; .appbar</code></td>
+            <td class="val">flex-direction: row<br>border-right: 0</td>
+            <td>26 grey pages, the onboarding chain. <b>An opt-out, and at 360 it does nothing at all:</b> every one of its four declarations is already true at the mobile width. It exists to win at desktop, and it wins on specificity rather than on a query: 0-3-0 against the container rule's 0-2-0. The chain is one centred column with no tab bar, so it has no rail to fold into</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A second size</td>
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. The bar carries one type step per part at every width, and the only size that moves across the breakpoint moves DOWN: the account link drops from <code>--type-body</code> to <code>--type-meta</code> in the rail, because there it is a line of the rail rather than the trailing slot of a bar. A taller or shorter bar would be the screen deciding, and this axis belongs to the container</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The live specimen above shows the form your own window gives it.</b> The query reads the <code>body</code> container, so at this moment you are looking at the row or at the rail, never both. Narrow the window past 760 and the bar you are reading turns over. The measured numbers are in <a href="#tech">the technical half</a>.</p>
+
+    <p class="note"><b>Composition is not an axis, and this is where that gets tested.</b> The five slots combine seven ways across the 54 grey pages, and <b>every one of them is the same class</b>: nothing in <code>.appbar</code> tells them apart, and nothing needs to. The consolidation named one axis for this component and the table below is content, listed so that "six variants" in the stage 07 coverage table is not read as six forms.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What stands in it</th><th class="n">Grey pages</th><th>Which screens</th></tr></thead>
+        <tbody>
+          <tr><td><code>.back</code> + <code>.wordmark</code></td><td class="n">21</td><td>Every detail, alert and connection screen: a way back and a brand mark</td></tr>
+          <tr><td><code>.wordmark</code> + <code>.acct</code></td><td class="n">10</td><td>The calm view and settings. Nothing to go back to, so the trailing slot greets instead</td></tr>
+          <tr><td><code>.back</code> + <code>.wordmark</code> + <code>.step</code></td><td class="n">9</td><td>The onboarding chain, where the marker says how far along you are</td></tr>
+          <tr><td><code>.back</code> or <code>.close</code> + <code>.wordmark</code> + <code>.plan</code></td><td class="n">8</td><td>History and trends, and the upgrade pair: the plan is the thing being decided about. The two Upgrade screens are the whole of <code>.close</code></td></tr>
+          <tr><td><code>.wordmark</code> alone</td><td class="n">3</td><td>Three states with nowhere to go: the transit screen among them</td></tr>
+          <tr><td><code>.wordmark</code> + <code>.step</code></td><td class="n">2</td><td>The two chain steps a person may not step back out of</td></tr>
+          <tr><td><code>.wordmark</code> + <code>.plan</code></td><td class="n">1</td><td>One screen, the current plan</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Seven, and <code>docs/inventory.md</code> says ten.</b> Measured here by reading the children of <code>header.appbar</code> on all 54 grey pages and grouping by class string. The stage 07 coverage table counted "10 compositions rendered" and the difference is almost certainly the label inside <code>.back</code>, which changes wording seven ways and class zero ways. The number is left as measured and the divergence is reported rather than reconciled on this page: the inventory is the parent's file.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A person meets this on every screen after the landing, which is the whole of the product. Its job is the smallest one any component has and the easiest to get wrong: <b>say where you are, and keep the way out visible</b>. It is not a toolbar, it holds no actions, and on the calm view it holds nothing but the brand and a greeting. That emptiness is the design: J-MAIN asks for a view that lowers anxiety, and a top bar full of controls is the shape of an app that wants something from you.</p>
+    <p class="note"><b>Its links are two tiers, used as two tiers.</b> <code>.back</code> and <code>.close</code> read <code>--text-body</code> and <code>.acct</code> reads <code>--text-muted</code>, and the difference is not drift: the way out of a screen is a thing a person actively looks for, and a greeting is not. The Two Tiers Rule at the smallest scale the product has.</p>
+    <p class="note">Every string in it comes from <code>voice/docs/microcopy.md</code>, and the back control <b>says where you land</b> rather than saying "Back": "Your subscriptions" on the six detail states, "Netflix" on the cancel guide, "You" on the two screens behind settings. The exception is the onboarding chain, where "Back" is correct because the previous step is a step and not a place. Voice closed that one on 2026-08-11, after the error state carried one destination under two wordings a screen apart. <b>The mark is no longer part of the string</b>: it is drawn by the class, so a label can be rewritten without anybody remembering to carry a chevron with it.</p>
+    <p class="note"><b>Back and close are different jobs and not two moods of one.</b> <code>.back</code> steps to a place, and the label names the place. <code>.close</code> leaves a thing unfinished and returns to wherever the person came from, so the label is the verb: "Close". That is why they are siblings and why they are two classes rather than one with a modifier. It is also the only reason either mark can be drawn at all, which is the part that took until 2026-08-12 to fix.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The trailing slot is a status</span>
+        <div class="kit-stage app bleed full rail"><header class="appbar"><a class="back" href="#rule">Your subscriptions</a><span class="wordmark">Tendd</span><span class="chip">Free</span></header></div>
+        <p>A chip saying which plan you are on, or a step marker, or a greeting. All three are things a person <b>reads</b>. None of them is pressable and none of them is meant to be: the bar tells you where you are, and the screen under it is where anything happens.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use an action row instead</span>
+        <div class="kit-stage app bleed full"><div class="actions"><a class="btn primary" href="#rule">Start Tendd Pro</a></div></div>
+        <p>The moment the trailing slot should <b>do</b> something, it is not a chip and it is not the bar's job. It is a <a href="button.html">Button</a> in an <a href="action-row.html">Action row</a>, standing in the screen where the person is looking. A commit action hidden in the top right of a bar is the pattern this product was designed against: it puts the loudest decision in the quietest corner, and the audience for this product is the one that does not go looking.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A marker, never a bar</span>
+        <div class="kit-stage app bleed full rail"><header class="appbar"><a class="back" href="#rule">Back</a><span class="wordmark">Tendd</span><span class="step">Step 2 of 3</span></header></div>
+        <p>"Step 2 of 3" as a plain muted count, at <code>--type-meta</code>, carrying no fill and no track. It answers the question and then stops.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never draw the distance</span>
+        <div class="kit-stage app bleed full"><span class="muted">Step 1 of 3, drawn as a third of a track</span></div>
+        <p>A progress bar on step 1 of 3 tells an avoider the road is long, and this is the audience that closes the app rather than finishing. The comment survives verbatim from <code>kit.css</code> because the reason is the whole product. There is no progress component in this system, and its absence is a decision rather than a gap.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Three states, and they exist because <b>three of the seven things in this bar are links</b>. The bar itself is a <code>header</code>: no <code>href</code>, no hover, no ring, and nothing to give it. Each state is a token override rather than a style of its own: no hex and no number appears inside <code>:hover</code>, so the dark theme costs three lines in <code>tokens.css</code> rather than an edit per component.</p>
+    <p class="note"><b>All three hovers change ink and nothing else.</b> No fill arrives, no edge arrives, and nothing moves. A border appearing under the pointer inside a 44px bar would push the entire screen down by a pixel, on every screen in the product, from a mouse passing over a greeting. <b>The two marks come along for free</b>: they are painted in <code>currentColor</code>, so the chevron and the cross darken with their own labels and the hover needs no extra line and no dark theme pair.</p>
+    <p class="note"><b>There is no active and no disabled.</b> <code>kit.css</code> declared neither, and writing one here would be a new decision about how the product answers a press, taken by the person moving a file rather than by the person who owns the product.</p>
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <p class="note">The three links are live and real in <a href="#anatomy">Anatomy</a>, at the top of this page: hover them, tab to them, and read the values off the real thing. Faking a state with <code>.is-hover</code> is the same defect as inventing a role, because it documents something the product cannot do.</p>
+
+    <h3 class="kit-sub-h">The three, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. A value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--text-body</code> on the back control, <code>--text-muted</code> on the greeting and the marker, on <code>--bg-surface</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same three roles, the other half of each pair. The bar is the surface in both themes, and it is the hairline that separates it from the screen rather than the luminance</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--text-primary</code>, on both links, and nothing else changes. The two arrive at the same ink from two different tiers, which is what makes them read as one response</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the same role. The ink goes LIGHTER here and darker in the light theme: a hover moves away from its ground, and the ground swapped ends</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line, at 2px offset so the ring sits outside the link and moves no neighbour</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. The back control is the first stop in the tab order of 38 screens, so this is the first ring a keyboard user ever sees in this product</div></div>
+    </div>
+    <p class="note">The ring is declared in the component's file as well as in <code>base.css</code>, and it moves no pixel: same token, same 2px, same 2px offset. It is re-declared at the component's own specificity so that nothing added to this file later can out-rank the base ring and leave a keyboard user with no mark at all.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the bar's ground</td><td><code>--bg-surface</code></td><td><code>--paper</code>, and <code>--paper-dark</code> in the dark theme</td></tr>
+          <tr><td>its bottom edge</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. A separator inside one surface, decorative, 1.23:1 by decision</td></tr>
+          <tr><td>the rail's right edge, past 760</td><td><code>--line-container</code></td><td><code>--hairline</code>. A container edge and not a divider: two roles, two jobs, one hue</td></tr>
+          <tr><td>the back and close controls</td><td><code>--text-body</code></td><td><code>--slate</code></td></tr>
+          <tr><td>the greeting and the step marker</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
+          <tr><td>all three hovers</td><td><code>--text-primary</code></td><td><code>--ink</code></td></tr>
+          <tr><td>the two marks</td><td>none, and that is the point</td><td><code>currentColor</code> through a mask. The chevron and the cross take the ink of the control they sit in, at rest and on hover, in both themes, so neither has a colour rule and neither can drift from its own label</td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>all three links' floor</td><td><code>--tap</code></td><td>primitive, straight. 44px, the WCAG floor this project holds everywhere</td></tr>
+          <tr><td>the wordmark, the links, the marker</td><td><code>--type-sub</code>, <code>--type-body</code>, <code>--type-meta</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>padding and gap</td><td><code>--space-0</code>, <code>--space-4</code>, <code>--space-8</code>, <code>--space-16</code></td><td>primitive, straight</td></tr>
+          <tr><td>the stacking order</td><td>none</td><td><code>z-index: 5</code>, a literal. <code>--z-appbar</code> was proposed at stage 07 and deferred to stage 08, which did not create it. It sits one under the tab bar's 6, and where the two chromes meet the bottom bar wins</td></tr>
+          <tr><td>the plan chip's placement</td><td>none, and not here</td><td><code>.appbar .plan { margin-left: auto }</code> is in <a href="chip.html">chip.css</a>, with the other five host placements of that atom. Checked before it was written and left where it was</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Two folds moved pixels, both from the founder's review of the foundations, and they move in opposite directions.</b> The gap between the three slots was 12px and folds UP to <code>--space-16</code>, so the slots stand 4px further apart. The vertical padding was 10px and folds DOWN to <code>--space-8</code>, so the bar is 4px shorter. Nobody chose either: the mapping in the audit runs to the nearest step with ties to the larger, and it is applied mechanically to every value in the system. Both are the second of the three legal sources of a visual change.</p>
+    <p class="note"><b>Two characters became two drawn marks on 2026-08-12, and one class doing two jobs is what had blocked both.</b> <code>a.back</code> carried <code>&amp;lsaquo;</code> on 16 of the 18 coloured back controls and <code>&amp;times; Close</code> on 2, and CSS cannot select by the words inside an element, so while they shared a name <b>neither</b> mark could be drawn: a chevron on the word Close is worse than a character on the right word. Splitting <code>.close</code> off unblocks both at once, and it unblocks the most common mark in the product. Neither path is new: the chevron is the one <a href="nav-row.html">nav-row.css</a> draws, mirrored, and the cross is the one <a href="text-input.html">text-input.css</a> draws on the search field's clear control. Same 24 unit cell, same 2 unit stroke, same 16px box, same mask over <code>currentColor</code>. Three marks, one family, one place to change all of them.</p>
+    <p class="note"><b>No gap between the mark and the label, and it was measured rather than chosen.</b> The chevron paints 7 of 24 units, so inside a 16px box it is 4.67px of ink with 5.67px of clearance each side; the character it replaces had a 5.39px advance plus a 3.94px word space, about 5.1px of air. The mask's own clearance already <i>is</i> the gap, to within half a pixel. What does move, and it is named under source 4 in <code>docs/tokens-audit.md</code>: the label's left edge steps right by <b>6.67px</b> on <code>.back</code> and <b>3.73px</b> on <code>.close</code>, because a 16px box is wider than a 9.33px or 12.27px character prefix. It lands on the screens the day the markup does.</p>
+    <p class="note"><b>The markup caught up at step 6 and the two edits were exactly these.</b> The two Close controls, on <code>design/upgrade.html</code> and <code>design/upgrade-payment-failed.html</code>, became <code>&lt;a class="close" href="history-trends-locked.html"&gt;Close&lt;/a&gt;</code>. The sixteen back controls kept <code>class="back"</code> and dropped the leading <code>&amp;lsaquo;&amp;nbsp;</code>. Removing a literal from a coloured screen without touching its frozen grey original was already the renaming map's own precedent, on the two <code>[chart]</code> placeholders, so it needed no new permission. Counted after the sweep: 16 back controls and 2 close controls across the coloured screens, and no <code>&amp;lsaquo;</code> or <code>&amp;times;</code> left in any of them. <code>design/kit/shell.html</code> took the same edit on its one <code>.back</code>.</p>
+    <p class="note"><b>The container is <code>body</code>, and it is declared in <code>base.css</code>, not here.</b> A container query matches an ANCESTOR container and never the element itself, so a second <code>container-type</code> in this file would not let the bar query its own width; it would re-point this query and every other query inside it at a different box, silently. 760 is written as a number because a custom property is not valid inside a <code>@container</code> condition.</p>
+    <p class="note">Lives in <code>design/system/components/app-bar.css</code>. Stands on 54 grey pages, every page in <code>wireframes/</code> except the landing and the stage hub; 28 of them are coloured. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../subscription-detail.html">Subscription detail</a>, <a href="../add-subscription.html">Add a subscription</a>, <a href="../history-trends.html">History and trends</a>, <a href="../upgrade.html">Upgrade</a>, <a href="../settings.html">Settings</a>.</p>
+    <code class="kit-cmd">&lt;header class="appbar"&gt;
+  &lt;a class="back" href="home.html"&gt;Your subscriptions&lt;/a&gt;
+  &lt;span class="wordmark"&gt;Tendd&lt;/span&gt;
+  &lt;span class="chip"&gt;Pro&lt;/span&gt;
+&lt;/header&gt;
+
+&lt;header class="appbar"&gt;
+  &lt;a class="close" href="history-trends-locked.html"&gt;Close&lt;/a&gt;
+  &lt;span class="wordmark"&gt;Tendd&lt;/span&gt;
+  &lt;span class="chip"&gt;Free&lt;/span&gt;
+&lt;/header&gt;
+
+&lt;header class="appbar"&gt;
+  &lt;span class="wordmark"&gt;Tendd&lt;/span&gt;
+  &lt;a class="acct" href="settings.html" aria-label="Hi Emma, open your account"&gt;Hi, Emma&lt;/a&gt;
+&lt;/header&gt;</code>
+    <p class="note">The <code>header</code> element is part of the copy for a reason: the bar is the banner of the screen, it is the first thing in the tab order, and rendering it as a <code>div</code> would take that from a screen reader with nothing visible changing.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/app-bar.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided its axis is in <code>docs/inventory.md</code>; the coverage table that counts its compositions is in the same file, under GC1; the container it queries is declared on <code>body</code> in <code>design/system/base.css</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

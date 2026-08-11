@@ -1,0 +1,328 @@
+/* ============================================================================
+   App bar - organism
+   The top chrome of every screen in the app, and one of the two objects in this
+   product that CHANGE FORM rather than size at a breakpoint. Below a 760px
+   container it is a row across the top of the screen; past it, it folds into
+   the head of the left rail and runs as a column. It hosts the wordmark, the
+   back control, the step marker, the account link and the plan chip, and it
+   paints none of them beyond the ink and the size they already had.
+
+   Reads
+     colour   --bg-surface, --text-body, --text-muted, --line-divider,
+              --line-container
+     states   --text-primary (the hover ink of all three links), --color-focus
+     geometry --tap  (the 44px floor under all three, straight from primitive)
+     type     --type-sub, --type-body, --type-meta
+     spacing  --space-0, --space-4, --space-8, --space-16
+     marks    two, both currentColor through a mask, both 16px: the left chevron
+              on .back and the cross on .close. No colour of their own by
+              construction, in either theme
+   Page      design/kit/app-bar.html
+   Stands on 54 grey pages, which is every page in wireframes/ except the
+   landing (index.html) and the stage hub (overview.html). 28 of them are
+   coloured, so more than half of it renders in Petrol and Paper today.
+
+   IT HOSTS AND POSITIONS, AND IT REPAINTS NOTHING. Seven things stand inside it
+   and this file gives exactly two kinds of them a rule: `.wordmark` (weight,
+   size, tracking and the auto margin that pins it beside the leading slot) and
+   the three links, `.back`, `.close` and `.acct`, which have no component of
+   their own anywhere in the system. The plan chip is the Chip atom and its
+   placement rule,
+   `.appbar .plan { margin-left: auto }`, is ALREADY DECLARED in chip.css beside
+   the other five host placements of that atom. It is left there rather than
+   moved here, on the project's own convention that a host positioning an atom is
+   still the atom's file today. Nothing about it is repeated below.
+
+   `.close` IS DECLARED HERE, 2026-08-12, AND IT UNBLOCKS THE COMMONEST MARK IN
+   THE PRODUCT. One class was doing two jobs: `a.back` carries `&lsaquo;` on 16
+   of the 18 coloured screens and `&times; Close` on 2 (upgrade and
+   upgrade-payment-failed), and CSS cannot select by the words inside an element,
+   so while both wore one name NEITHER mark could be drawn. Drawing the chevron
+   would have put a left arrow on the word Close, which is worse than a character
+   on the right word, and that is why stage 07 and step 5 both left it alone.
+
+   The two are now siblings: identical geometry, identical ink, identical states,
+   and one drawn mark each. Nothing separates them but the mark, because nothing
+   about them IS different except where they take you. Both marks already existed
+   in this system and neither is redrawn: the chevron is nav-row.css's path
+   mirrored, the cross is text-input.css's clear control, both at the same 16px
+   box, the same 24 unit cell, the same stroke width, and the same mask over
+   currentColor. Three marks, one family, one place to change all of them.
+
+   THE MARKUP CAUGHT UP AT STEP 6 and that ordering was deliberate. This file
+   was written one wave ahead of the screens, so for one round nothing below
+   reached them and no pixel moved there. The two edits the screens owed have
+   landed: the two Close controls carry `class="close"` and lost their `&times; `,
+   and the sixteen back controls kept `class="back"` and lost their `&lsaquo; `.
+   Removing a literal from a coloured screen without touching its frozen grey
+   original was already the renaming map's own precedent, on the two `[chart]`
+   placeholders, so it needed no new permission.
+
+   THE OTHER CLASS NAMES ARE NOT TOUCHED. `.appbar`, `.wordmark`, `.acct`,
+   `.back`, `.step` and the `.app.flow` scope stay exactly as the product writes
+   them.
+
+   NO HEX, NO PIXEL, NO FONT NAME below, with two exceptions that are named
+   where they stand: `z-index: 5` and the two border widths. Both are on the list
+   of ten names the stage 07 inventory deferred to stage 08, and stage 08 created
+   neither, so there is nothing correct to read.
+   ============================================================================ */
+
+/* ---- placement in the shell ------------------------------------------------
+   FIRST IN THE FILE BECAUSE kit.css DECLARED IT FIRST (line 783, against 827
+   for the base below), and the two tie at 0-2-0: `.app > .appbar` and
+   `.app .appbar` are both one class plus one class. Nothing they set overlaps
+   today, so the order changes no pixel; it is preserved anyway, because the
+   moment one of them grows a property the other already has, source order is
+   the only thing deciding, and a reordered file makes that decision silently.
+
+   z-index 5 sits one under the tab bar's 6, and the pair is deliberate: where
+   they meet, the bottom chrome wins. `--z-appbar` and `--z-tabbar` were both
+   proposed at stage 07 and both deferred to stage 08, which created neither, so
+   these two are the only literals in the file that are not a border width.
+
+   gap 12px folds UP to --space-16 on the founder's 8px grid, so the three slots
+   of the row stand 4px further apart than they did. It is the second of the
+   three legal sources of a visual change and it is the only spacing move this
+   component makes at the mobile width. */
+.app > .appbar {
+  position: sticky; top: 0; z-index: 5;
+  gap: var(--space-16);
+}
+
+/* ---- the bar itself --------------------------------------------------------
+   A three-slot row: leading, brand, trailing. `justify-content: space-between`
+   with the wordmark's own `margin-right: auto` below, and that pair is
+   load-bearing rather than belt and braces (see the wordmark).
+
+   10px of vertical padding folds DOWN to --space-8, so the bar is 4px shorter
+   than it shipped. Same source, same audit line, opposite direction to the gap
+   above: the mapping is applied mechanically to every value, nearest step, and
+   nobody chose per value which way it should go.
+
+   The bottom edge is --line-divider and not --line-container: it separates the
+   bar from the screen INSIDE one surface, which is what a divider is, and it is
+   the same hairline the rows of a list are separated by. Decorative at 1.23:1
+   light and 1.33:1 dark, deliberately, because raising it outlines the whole
+   product and the language was chosen against that. */
+.app .appbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-8) var(--space-16);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--line-divider);
+}
+
+/* ---- the wordmark ----------------------------------------------------------
+   The one place in the product where type tracks OUT rather than in, at
+   +0.02em, and DESIGN.md names it: at 16px in a bar the letters need air, and a
+   wordmark set solid reads as a word rather than as a mark.
+
+   `margin-right: auto` is not decoration and it is not redundant beside
+   `space-between`. The bar has three slots and the detail screens fill only two,
+   so a space-between row threw the brand mark into the right rail where every
+   other screen puts the plan chip: measured at stage 07, it moved 262px between
+   the list and a subscription, which is the walk this person does most often.
+   `auto` is not on the spacing scale and is not a length; it stays as written. */
+.app .appbar .wordmark {
+  font-weight: 700;
+  font-size: var(--type-sub);
+  letter-spacing: 0.02em;
+  margin-right: auto;
+}
+
+/* ---- the account link ------------------------------------------------------
+   "Hi, Emma" on 10 pages, and it is a greeting rather than a label: the trailing
+   slot of the calm view says who you are, not what the control does. Muted,
+   because the name is not the subject of any screen it appears on.
+
+   --tap and not --row: it is a text link inside a bar, and 44px is the floor
+   this project holds everywhere. 13px folds to --type-body, one pixel up. */
+.app .appbar .acct {
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  padding: var(--space-0) var(--space-4);
+  font-size: var(--type-body);
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.app .appbar .acct:hover { color: var(--text-primary); }
+
+/* ---- the way out: two controls, one rule ------------------------------------
+   The leading slot on 38 pages. `.back` steps one screen back, `.close` leaves a
+   thing unfinished, and they are written together because everything except the
+   mark is the same in both: same box, same floor, same padding, same tier.
+
+   Both read --text-body where the account link reads --text-muted, and the
+   difference is real rather than drift: the way out of a screen is a thing a
+   person looks for, and a greeting is not. Two tiers used as two tiers.
+
+   The right padding is 8 and the left is 0 so the mark sits on the screen's own
+   16px margin rather than 8px inside it. Written out in all four values because
+   the asymmetry is the point. */
+.app .appbar .back,
+.app .appbar .close {
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  padding: var(--space-0) var(--space-8) var(--space-0) var(--space-0);
+  font-size: var(--type-body);
+  color: var(--text-body);
+  text-decoration: none;
+}
+.app .appbar .back:hover,
+.app .appbar .close:hover { color: var(--text-primary); }
+
+/* ---- the two marks ---------------------------------------------------------
+   NEITHER PATH IS NEW. The chevron is the one nav-row.css draws for "there is
+   more this way", mirrored to point back; the cross is the one text-input.css
+   draws on the search field's clear control. Same 24 unit cell, same 2 unit
+   stroke, same round caps and joins, same 16px box, same mask over
+   currentColor. That last one is what makes them free: the mark takes the
+   control's own ink, so it darkens on hover with the label and needs no colour
+   rule, no hover rule and no dark theme pair of its own.
+
+   16px and NOT 22px. The tab bar's four destinations are 22px squares because a
+   destination is a place; these two are directions, and icons.html measures the
+   whole direction group at one size for exactly that reason. The three of them
+   are now one family in the mark census instead of two drawn and two typed.
+
+   NO GAP BETWEEN THE MARK AND THE LABEL, and it is measured rather than left to
+   taste. The chevron paints 7 of 24 units, so inside a 16px box it is 4.67px of
+   ink with 5.67px of clearance on each side; the character it replaces had a
+   5.39px advance plus a 3.94px word space, which is about 5.1px of air after the
+   ink. The mask's own clearance already IS the gap, to within half a pixel, and
+   a gap declared on top of it would open a hole the character never had.
+
+   Pixel move, named: the label's left edge steps right by 6.67px on `.back` and
+   3.73px on `.close`, because a 16px box is wider than a 9.33px or 12.27px
+   character prefix. It lands the day the markup lands, on the screens, and it is
+   the same trade the nav row's chevron already made.
+
+   `content: ""` and not a character: the mark stays out of the accessible tree,
+   where it belongs. "Your subscriptions" and "Close" already say where the
+   control goes, and a screen reader announcing "left angle quotation mark" ahead
+   of them is noise. `flex: none` so it never shrinks when a long label wraps its
+   bar at 360px.
+
+   -webkit- first and unprefixed second, because Safari still answers only to the
+   prefixed property and the unprefixed one has to be able to win where both are
+   understood. Written as longhands, the destination icon's shape, because two
+   marks share the machinery and differ only in the image. */
+.app .appbar .back::before,
+.app .appbar .close::before {
+  content: "";
+  flex: none;
+  width: 16px; height: 16px;
+  background-color: currentColor;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+.app .appbar .back::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 5-7 7 7 7'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 5-7 7 7 7'/%3E%3C/svg%3E");
+}
+.app .appbar .close::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E");
+}
+
+/* ---- the step marker -------------------------------------------------------
+   "Step 2 of 3", and it is A MARKER AND NEVER A PROGRESS BAR. Carried verbatim
+   from kit.css, because the reason is the whole product: a filled bar on step 1
+   of 3 tells an avoider the road is long, and this is the audience that closes
+   the app. A number says the same thing without drawing it.
+
+   It is a `span`, it is not a control, and it therefore has no state below. */
+.app .appbar .step {
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+/* ---- states: token overrides, never a style of their own -------------------
+   Three hovers, and two of them were the whole of this component's state in
+   kit.css; the third is `.close` taking its sibling's, which is the point of
+   declaring them together. All three change ink and nothing else: no fill
+   appears, no edge appears, nothing moves. A border arriving on hover in a bar
+   that is 44px tall would push the whole screen down by a pixel. The marks are
+   painted in currentColor, so they darken with their labels and cost the hover
+   no extra line.
+
+   The focus ring is declared here rather than inherited, and it moves no pixel.
+   base.css already draws one for every anchor inside `:where()`, which holds it
+   at specificity 0, and this re-declares it at the component's own specificity
+   so nothing added later to this file can accidentally out-rank the ring and
+   leave a keyboard user with no mark. It reads --color-focus, the same petrol at
+   the same 2px and the same 2px offset the base ring uses, so the two can never
+   disagree about what a ring is. */
+.app .appbar .back:focus-visible,
+.app .appbar .close:focus-visible,
+.app .appbar .acct:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* NO DISABLED AND NO ACTIVE. kit.css declared neither, and writing one here
+   would be a new decision about how the product answers a press, taken by the
+   person moving a file rather than by the person who owns the product. The bar
+   itself is a `header`: it has no href, no hover and no ring, and its states are
+   the two links inside it. */
+
+/* ---- the flow form: an OPT-OUT, and at the mobile width it does nothing -----
+   The onboarding chain (`.app.flow`, 26 grey pages) is one centred column with
+   no tab bar and no desktop delta, so its app bar stays a row at every width
+   while every other screen's folds into the rail.
+
+   Read the four declarations at 360 and every one of them is already true:
+   `flex-direction: row` is the flex default, `align-items: center` is what the
+   base above sets, and the two grid placements and the right border only exist
+   inside the 760 block below. This rule is entirely a desktop opt-out written in
+   the mobile half of the file, and it wins there on specificity alone: 0-3-0
+   against the 0-2-0 of the container rule, so the query never touches it. It is
+   carried exactly as kit.css wrote it, including the two grid resets that are
+   defensive today, because `.app.flow` never becomes a grid. */
+.app.flow > .appbar {
+  grid-column: auto; grid-row: auto;
+  flex-direction: row; align-items: center;
+  border-right: 0;
+}
+
+/* ============================================================================
+   THE 760 CONTAINER: the bar stops being a bar and becomes the head of a rail.
+
+   THE CONTAINER IS body, DECLARED IN base.css, AND IT IS NOT DECLARED HERE.
+   A container query matches an ANCESTOR container and never the element itself,
+   so a `container-type` in this file would not let the app bar query its own
+   width; it would re-point this query, and every other query inside it, at a
+   different box. Until 2026-08-11 the only `container-type` in the repository
+   sat on `.stage`, the reviewer's frame, which travels to no build: this query
+   and the tab bar's were hours away from silently never matching again.
+
+   760 is written as a number because it has to be: a custom property is not
+   valid inside a `@container` condition. Documented, not tokenized, and the
+   three steps of this product are 760, 900 and 1340.
+
+   `position: static` is the line that matters. The bar stops being sticky
+   because there is nothing left for it to stick to: it is no longer above the
+   scrolling content, it is beside it, in row 1 of the shell's grid with the tab
+   bar under it in row 2. The right border is the rail's outer edge and takes
+   --line-container, a container edge, where the bottom border above takes the
+   divider. Two roles, two jobs, and the surface axis in tokens.css is why they
+   are two tokens at nearly the same value.
+
+   The account link loses its side padding and drops one type step here, and
+   that is the only thing on this component that is smaller on a wide screen
+   than on a narrow one. It is correct: in the rail it is a line of the rail and
+   not the trailing slot of a bar. */
+@container (min-width: 760px) {
+  .app > .appbar {
+    position: static;
+    grid-column: 1; grid-row: 1;
+    flex-direction: column; align-items: flex-start;
+    gap: var(--space-4);
+    border-right: 1px solid var(--line-container);
+  }
+  /* Same specificity as the base rule above, 0-3-0, and later in the file, so it
+     wins by source order. Preserved in kit.css's own order for that reason. */
+  .app .appbar .acct {
+    padding: var(--space-0);
+    font-size: var(--type-meta);
+  }
+}

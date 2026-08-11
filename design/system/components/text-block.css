@@ -24,13 +24,48 @@
    that review produced are recorded centrally in scales.md and are not
    commented line by line here.
 
-   THE CLASS NAMES ARE NOT TOUCHED. `.lede` and `.state` stay exactly as the
-   product writes them today, and both are declared below sharing one rule
-   wherever they share a value, which is what makes the merge readable in the
-   file rather than only in a document. The rename to `.textblock` is step 6,
-   executed from the map in docs/inventory.md together with the markup of the
-   screens: a rename here and a screen there is how a pixel comparison stops
-   proving anything.
+   RENAMED AT STEP 6, from the map in docs/inventory.md, in the same wave as the
+   markup of the screens. `.lede` became `.textblock` and `.state` became
+   `.textblock.status`. Every value below was re-read out of design/kit/kit.css
+   rather than carried across from the version of this file that still spelled
+   the two names apart, because a rename executed from a rename is how a number
+   drifts one step per step and nobody can say when.
+
+   THE MODIFIER IS NOT A SIZE LABEL, and this is the part worth reading. The
+   first draft of the map folded the two names with no modifier at all, on the
+   reading that the type consolidation had made them one size. It has not: the
+   page heading lands on --type-head and the other on --type-title, on the same
+   h1 tag inside the same class, so a blind fold moved 4px on about thirty pages
+   with nothing behind it. The block was measured and the fold was stopped.
+
+   What the modifier names is the JOB, and the markup was already saying it out
+   loud in an attribute nobody had read: `.textblock` opens a screen, and
+   `.textblock.status` announces something that happened inside a screen whose
+   subject is spent elsewhere. On the 28 coloured screens the split is exact.
+   All 8 blocks written `.state` carry role="status" aria-live="polite"; all 10
+   written `.lede` carry neither. The size difference is a CONSEQUENCE of that
+   and not the axis itself: an in-flow announcement is quieter than a page's
+   title because it is not the page's title.
+
+   IT ALSO EXPLAINS THE SHAPE THAT HAD NO EXPLANATION. On
+   subscription-detail-error the block holds no heading at all, only a
+   paragraph, which read as a defect while the axis was thought to be size. It
+   is not: that is exactly what a status message looks like when it has nothing
+   to title.
+
+   THE ROLE AND THE CLASS AGREE ON 26 OF 30 BLOCKS AND THE FOUR THAT DISAGREE
+   ARE ALL GREY, so they belong to the rollout at stage 12 and not here. Stated
+   as measured rather than as the tidy version, because the tidy version is
+   false and the next reader will open one of these four:
+     alerts-loading, alerts-empty, connect-bank-loading   `.lede` that DOES
+       announce. Correct on both counts and not a defect: on those three the
+       page's whole subject IS the status ("All clear", "Syncing your bank"), so
+       it is a title that also announces, and it takes the base.
+     connections-add-source   `.state` that does NOT announce, and the missing
+       role is the tell. It is a sheet titled "Add a source": nothing happened,
+       nothing is being announced, and the class is simply the wrong one. The
+       role found the single mis-class in thirty blocks, which is the argument
+       for reading it as the axis.
 
    NO CONTAINER QUERY AND NO MEDIA QUERY TOUCHES THIS COMPONENT, in kit.css or
    anywhere else. Checked rather than assumed. It is a column of text and it
@@ -40,83 +75,92 @@
 
 /* ---- the block ------------------------------------------------------------
    One margin, shared, and it is the only thing the two names ever had in
-   common at the container level. The gap below is the product's between-blocks
-   step. */
-.app .lede,  .landing .lede,
-.app .state, .landing .state {
+   common at the container level. kit.css wrote 22px on both; the gap below is
+   the product's between-blocks step, which the spacing fold put at 24. */
+.app .textblock, .landing .textblock {
   margin: var(--space-0) var(--space-0) var(--space-24);
 }
 
-/* ---- scope: the axis, and the CONTAINER decides it ------------------------
-   Three values, and the question the axis answers is not "how important is
-   this" but "what does this block name". A heading that names the PAGE is
-   biggest; a heading that names a state which has taken the page over is a step
-   down, because the page already has a subject somewhere; a heading that names
-   a state INSIDE a page whose h1 is spent elsewhere is a step down again.
-
-   All three survived the type consolidation as separate steps, which was worth
-   checking rather than assuming: 24 stays 24 (--type-head), 21 rounds to 20
-   (--type-title), 17 rounds to 16 (--type-sub). Nearest step, ties to the
-   larger, and no two scopes land on the same one. The axis is real after the
-   fold, unlike the button's size axis, which the same review collapsed to
-   nothing.
-
-   The heading level in the markup is NOT the axis. `.state` is written as an h1
-   on 16 grey pages and as an h2 on 2, and the difference is whether the state
-   IS the page subject: on `add-subscription-empty` the page keeps its own h1
-   above and the state's heading is an h2 under it. Document outline first, size
-   second, which is the correct order and the reason the two are separate rules
-   rather than one rule keyed on the tag. */
-
-.app .lede h1,  .landing .lede h1,
-.app .state h1, .landing .state h1,
-.app .state h2, .landing .state h2 {
+/* ---- the heading ----------------------------------------------------------
+   The margin and the ink are shared by every heading the component draws. The
+   two that are listed are the two that exist: an h1 at either scope, and an h2
+   only under `.status`. A `.textblock h2` with no modifier is deliberately not
+   here, because it is not anywhere: zero occurrences across all 83 pages, and
+   kit.css never declared one either. Declaring a rule for it would invent a
+   third scope out of a tag. */
+.app .textblock h1,         .landing .textblock h1,
+.app .textblock.status h2,  .landing .textblock.status h2 {
   margin: var(--space-0) var(--space-0) var(--space-8);
   color: var(--text-primary);
 }
 
-/* page: the subject of the screen, with content below it that still works */
-.app .lede h1, .landing .lede h1 {
+/* The base: the subject of the screen, with content below it that still works.
+   24px, and it stays 24px: it was already on a step and the consolidation left
+   it where it stood. */
+.app .textblock h1, .landing .textblock h1 {
   font-size: var(--type-head);
   line-height: 1.18;
   letter-spacing: -0.015em;
 }
 
-/* block: a state that has taken the page over */
-.app .state h1, .landing .state h1 {
+/* `.status`, on an h1: an announcement that has taken the page over. One step
+   down, because the page already has a subject somewhere.
+
+   THE LETTER-SPACING RESET IS NOT TIDINESS. kit.css tightened the tracking of
+   the 24px heading and leaves the 21px one alone, which is the ordinary
+   optical fact that a large size wants less air between letters and a smaller
+   one does not. Under two class names that happened by itself. Under one name
+   plus a modifier the base reaches the modifier, so the tightening has to be
+   given back explicitly or every status heading in the product silently gains
+   it. Written as `normal` rather than as a value: it is not a decision about
+   how tight this heading should be, it is the removal of a decision that
+   belongs to the size above. */
+.app .textblock.status h1, .landing .textblock.status h1 {
   font-size: var(--type-title);
   line-height: 1.2;
+  letter-spacing: normal;
 }
 
-/* inside a block: a state under a page that keeps its own subject */
-.app .state h2, .landing .state h2 {
+/* `.status`, on an h2: an announcement inside a page that keeps its own
+   subject. The heading level in the markup is NOT the axis, and this rule is
+   the one place that could be mistaken for saying otherwise. It is not the tag
+   that makes this the quietest step, it is the document outline: on
+   add-subscription-empty the page keeps its own h1 above and the status block
+   sits under it as an h2, so the page has one subject and the status is a
+   second thing said inside it. Outline first, size second, which is the correct
+   order and the reason this is a separate rule rather than the same rule keyed
+   on the tag. */
+.app .textblock.status h2, .landing .textblock.status h2 {
   font-size: var(--type-sub);
   line-height: 1.25;
 }
 
 /* ---- the paragraph -------------------------------------------------------
-   THE ONE PLACE THE CONSOLIDATION ACTUALLY FOLDED SOMETHING. The lede's
-   paragraph was 14.5px and the state's was 14px, a half step apart for no
-   stated reason, and both land on --type-body. They are one rule now.
+   THE ONE PLACE THE CONSOLIDATION ACTUALLY FOLDED SOMETHING. kit.css set the
+   lede's paragraph at 14.5px and the state's at 14px, a half step apart for no
+   stated reason, and both land on --type-body. They are one rule now, and the
+   ink and the size are stated once for both.
 
-   What is left apart is the measure and the bottom margin, and both are real.
-   The lede's paragraph is the last thing in its block, so it carries no margin
-   at all and the block's own step does the work; the state's paragraph carries
-   the gap down to what comes after it, and that gap is not decoration: an
-   `.actions` row follows the state block directly on 10 of the 19 grey pages
-   and 4 of the 8 coloured ones. 48ch against 50ch is the same distinction one
-   turn quieter: a lede is read on the way past, a state is read because
-   something stopped. */
-.app .lede p,  .landing .lede p,
-.app .state p, .landing .state p {
+   What stays with `.status` is the measure and the bottom margin, and both were
+   MEASURED before they were kept rather than argued from the source. 48ch and
+   50ch do not land on the same value after the fold: at --type-body they render
+   423.94px and 441.60px, 17.66px apart, at 360 and at 1280 alike. So the
+   measure rides with the modifier.
+
+   Both differences say the same thing one turn quieter than the heading does. A
+   lede's paragraph is the last thing in its block, so it carries no bottom
+   margin and the block's own step does the work; a status block's paragraph
+   carries the gap down to what comes after it, and that gap is not decoration:
+   an `.actions` row follows it directly on 10 of the 19 grey pages and 4 of the
+   8 coloured ones. A page title is read on the way past; an announcement is
+   read because something stopped. */
+.app .textblock p, .landing .textblock p {
+  margin: var(--space-0);
   font-size: var(--type-body);
   color: var(--text-body);
-}
-.app .lede p, .landing .lede p {
-  margin: var(--space-0);
   max-width: 48ch;
 }
-.app .state p, .landing .state p {
+.app .textblock.status p, .landing .textblock.status p {
   margin: var(--space-0) var(--space-0) var(--space-16);
   max-width: 50ch;
 }
@@ -124,18 +168,18 @@
 /* ---- no tone, and it was decided rather than overlooked -------------------
    Carried verbatim from kit.css, because the decision is the component. A
    `.wash` carries a fill because it sits ABOVE content that still works and has
-   to be told apart from it. A `.state` IS the whole screen: there is nothing
-   beside it to be told apart from, the sentence and the Try again button
-   already say what happened, and a wash around a full-screen message is
+   to be told apart from it. A `.textblock.status` IS the whole screen: there is
+   nothing beside it to be told apart from, the sentence and the Try again
+   button already say what happened, and a wash around a full-screen message is
    decoration rather than information. That holds on the error states too, which
    is where the temptation is strongest.
 
-   Left aligned for the same reason, on both names: a centred message mid-flow
-   reads as a stop rather than as a step. */
+   Left aligned for the same reason, with and without the modifier: a centred
+   message mid-flow reads as a stop rather than as a step. */
 
 /* NO STATES. A text block is a heading and a paragraph and it holds no control
    at all: a sweep of every `.lede` and every `.state` on all 55 grey pages and
    28 coloured ones returns ZERO anchors inside either. Nothing here can be
-   hovered, focused or pressed, and the actions that follow a state block are
+   hovered, focused or pressed, and the actions that follow a status block are
    siblings of it rather than children. Writing a :hover here would document
    something the product cannot do. */

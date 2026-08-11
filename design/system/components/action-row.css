@@ -5,37 +5,48 @@
    pixel a person sees inside it belongs to the buttons.
 
    Reads
-     spacing  --space-0, --space-8, --space-16, --space-24
+     spacing  --space-0, --space-8, --space-16
    Hosts     the button atom, and only positions it. There is no rule in this
-             file that touches a button's fill, ink, edge, size or weight, and
-             the one that once did is the clearest example in the whole
-             stylesheet of the defect this stage exists to catch: kit.css added
-             a rule for `.secondary a` at stage 07, and its values came back
-             byte for byte identical to `.btn.compact`. A second button under
-             another name. The screens carry `.btn.compact` instead.
+             file that touches a button's fill, ink, edge, size or weight.
    Page      design/kit/action-row.html
-   Stands on 42 grey pages, 61 rows, and on 21 coloured ones. After the button
-   itself it is the most repeated thing in the product.
+   Stands on 42 grey pages, 62 rows, and on 21 coloured ones, 33 rows. After the
+   button itself it is the most repeated thing in the product.
 
-   THE MERGE. `.actions` and `.secondary` are one component. Step 2 compared
-   them and found them identical but for a margin, and a margin between blocks
-   belongs to the host and not to the thing being spaced. Both selectors are
-   declared here, sharing one rule, and `.secondary` maps to `.actions` in the
-   renaming map at step 6.
+   ONE NAME NOW. `.actions` and `.secondary` were one component under two names.
+   Step 2 compared them and found them identical but for a margin, and step 6
+   took the second name off, from the map in docs/inventory.md, with the markup
+   renamed in the same pass. `.secondary` stood 3 times on the coloured screens
+   (Home, Home error, Home save focus) and twice on the kit page, once as a real
+   row and once inside the code sample.
 
-   The two margins below are the one thing NOT shared, and they are two lines
-   rather than one on purpose. `.actions` sits above what follows it and pushes
-   down; `.secondary` sits under a list and pushes up. Folding them today would
-   move 6 screens by 8 to 16 pixels for no decision anyone has taken, and this
-   stage may not do that. At step 6 the class becomes `.actions` on all 42 and
-   each host states its own spacing, which is where a gap between blocks belongs.
+   THE SECOND BUTTON DISSOLVED INTO THE FIRST, and it took two steps to do it.
+   kit.css once carried a rule for `.secondary a`, and its values came back byte
+   for byte identical to `.btn.compact`: a second button declared under another
+   name. That rule was deleted at step 5 and the screens were moved onto
+   `.btn.compact` instead. The founder's review of the foundations then folded
+   `.btn.compact` into `.btn`, because its two differences, 13.5px against 14px
+   of type and 14px against 18px of side padding, both land on one step of the
+   folded scales. So the anchors that `.secondary a` used to paint are now a
+   plain `.btn` and nothing else. Two named classes, one after the other,
+   resolved into the base atom rather than into a variant of it, and this file
+   ends up styling none of it, which is the whole point of a row that hosts.
+
+   THE MARGIN LEFT THIS FILE, and it is the one thing the rename moves.
+   `.actions` pushed 16px down; `.secondary` pushed 24px up. A margin between
+   blocks belongs to the host and not to the thing being spaced, which is why
+   the two were never folded into one value: folding them would have moved 6
+   screens for no decision anyone had taken. The rename settles it instead. One
+   name means one margin, and the 24px that only ever applied to the Home rows
+   goes to the host that arranges Home, exactly as `.gate .actions`,
+   `.card.prose .actions` and `.rstep .actions` already do. app-shell.css owns it,
+   and it is written there rather than here.
    ============================================================================ */
 
-.app .actions,   .landing .actions,
-.app .secondary, .landing .secondary {
+.app .actions, .landing .actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-8);
+  margin: var(--space-0) var(--space-0) var(--space-16);
 }
 
 /* WRAP AND NOT SCROLL, and not a stack either. Two buttons at 360px is the
@@ -44,24 +55,20 @@
    `white-space: nowrap`: the row is allowed to break between buttons and never
    inside one. */
 
-/* ---- the margin, which is the host's, written here until step 6 ---------- */
-.app .actions, .landing .actions {
-  margin: var(--space-0) var(--space-0) var(--space-16);
-}
-.app .secondary, .landing .secondary {
-  margin: var(--space-24) var(--space-0) var(--space-0);
-}
-
 /* NOT IN THIS FILE, and the list is the argument for why the margin is the
-   host's. Three containers already override it, each in its own file when its
-   own round comes: `.locked .actions` and `.panel .gate .actions` both reset it
-   to zero, because a row that is the last thing in a card must not push the
-   card's own padding open, and `.rstep .actions` gives it a top margin instead,
-   because inside a reveal step the action follows the number rather than
-   leading the block. Two of those three are the same rule written twice under
-   two names, and they were identical before the spacing grid as well as after
-   it: the grid did not cause the duplication and does not fix it. It is one
-   line for the organism round, not four.
+   host's. Four containers override it, each in its own file:
+   `.card.prose .actions` and `.panel .gate .actions` both reset it to zero,
+   because a row that is the last thing in a card must not push the card's own
+   padding open;
+   `.rstep .actions` gives it a top margin instead, because inside a reveal step
+   the action follows the number rather than leading the block; and
+   `.app > .screen > nav.actions` in app-shell.css gives Home its 24px, the
+   margin that used to arrive here under the name `.secondary`.
+
+   Two of those four are the same rule written twice under two names, and they
+   were identical before the spacing grid as well as after it: the grid did not
+   cause the duplication and does not fix it. It is one line for the organism
+   round, not four.
 
    NO STATES. An action row is not interactive: it is a flex container with no
    fill, no edge and no target of its own, and a pointer that appears to be over

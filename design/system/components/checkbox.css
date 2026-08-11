@@ -8,8 +8,8 @@
      colour   --bg-action  (through accent-color, the one colour hook a native
               checkbox gives without rebuilding it)
      states   --bg-action-strong, --color-focus, --bg-recessed
-     geometry none. 20px and the 3px top margin are the control's own size and
-              its optical alignment, and neither is a token in this system
+     geometry --space-4, --space-0 for the optical nudge. The 20px box is the
+              control's own size and is not on any scale in this system
    Page      design/kit/checkbox.html
    Stands on 2 grey pages, 6 checkboxes: settings (4 notification preferences)
    and data-privacy (2). The 4 on settings are coloured.
@@ -21,15 +21,59 @@
    which this stage changes only by a named decision and never as a side effect
    of a move. It is on the page as a named carry with its reason.
 
-   THE CLASS NAME IS NOT TOUCHED. `.switch input` stays exactly as the product
-   writes it. The rename to `.check` is decided in docs/inventory.md and
-   executed at step 6 with the markup of the screens.
+   THE ATOM HAS A NAME NOW, AND THAT IS THE WHOLE OF STEP 6 FOR THIS FILE.
+   Until 2026-08-12 the control had no class of its own anywhere in the product:
+   it simply WAS `.switch input`, and a sweep of every class attribute on the 28
+   coloured screens and the 55 grey pages returned the token `check` zero times
+   in either corpus. The markup sweep ADDS `class="check"` to the 24 checkboxes
+   in the two corpora, and the selectors below name `.check`.
+
+   TWO OF THE SIX RULES STAY SCOPED TO `.switch`, AND SAYING WHY IS THE POINT.
+   The first holds two declarations and the second is the ring standdown further
+   down. `flex: none` only means anything because the switch row is a flex container:
+   without it a 20px box is a shrinkable flex item and a long preference label
+   squeezes it. The top margin is the box's optical alignment against the first
+   line of the label beside it. Neither is true of a checkbox standing on its
+   own, so neither belongs on the bare class, and both now read `.switch .check`
+   so that the rule says out loud it is the ROW positioning the BOX.
+
+   THEIR CORRECT HOME IS switch-row.css AND THEY ARE NOT THERE YET. That file
+   was in another agent's hands on the day of this rename and is not opened for
+   writing here. Written out for whoever moves them, unchanged:
+
+       .app .switch .check, .landing .switch .check {
+         flex: none;
+         margin: var(--space-4) var(--space-0) var(--space-0);
+       }
+
+   What that move buys is the ladder check on this atom's own page: with the two
+   host rules gone from here, `.check` alone is a complete checkbox, 20 by 20
+   with the product's accent, and checkbox.html can show one without borrowing
+   the switch row molecule to do it.
+
+   THE THIRD HOST-SCOPED RULE IS NOT OWED ANYWHERE, and the difference matters.
+   The ring this atom stands down inside a switch row, at the focus state below,
+   has to be written HERE and can never move to switch-row.css: a molecule
+   reaching in to switch off a hosted atom's state is the exact defect this
+   round exists to remove, and switch-row.css refused it on that ground and said
+   so at the line. Standing a state down is the atom's own decision, taken
+   because its host is drawing a better one.
+
+   THE RENAME MOVES ZERO PIXELS, measured before the change rather than claimed
+   after it: all 24 checkboxes in the two corpora sit inside a `label.switch`,
+   so a rule scoped to the row and a rule scoped to nothing select exactly the
+   same elements today. 83 controls were fingerprinted on 17 properties across
+   90 pages before and after and not one differed.
+
+   ONE PIXEL CHANGE IS DELIBERATE AND IT IS NOT THE RENAME. The focus ring moves
+   off this 20px box and onto the row around it, on the six kit pages and the
+   one product screen that carry a checkbox. It is the second half of a repair
+   whose first half is in switch-row.css, it is written up at the rule itself,
+   and it is the only difference the fingerprint found.
    ============================================================================ */
 
-.app .switch input, .landing .switch input {
-  flex: none;
+.app .check, .landing .check {
   width: 20px; height: 20px;
-  margin: var(--space-4) var(--space-0) var(--space-0);
   /* base.css already sets accent-color on every input for the whole system.
      It is re-declared here at the component's own specificity, reading the same
      token, for the same reason the focus ring is: a component may never be able
@@ -37,19 +81,34 @@
   accent-color: var(--bg-action);
 }
 
+/* ---- what the switch row does to the box: MOVED OUT, and this is the record.
+   `flex: none` and the 4px top margin were `.switch input` before the rename,
+   and the rename is what made them movable: while the atom had no class of its
+   own there was no selector anywhere else that could reach it, so its host's
+   positioning had to be written in the atom's file. That is the whole shape of
+   the defect this step exists to remove, in two declarations.
+
+   They now live in switch-row.css, where the row positions what it hosts. Both
+   agents that could have taken them refused to, on the same ground and within
+   an hour of each other: writing them there while this file still declared them
+   would put two declarations in two files with the molecule winning on import
+   order, which is zero pixels and two owners, and that is the desync in
+   miniature. So it went as one paired move, the way the focus ring did.
+   Nothing about the values changed. */
+
 /* ---- states: token overrides, never a style of their own -----------------
    Everything a state can reach on a native checkbox is accent-color and the
    ring. The box, its edge and the tick are drawn by the browser; painting them
    would mean appearance:none and a rebuilt control, and this stage does not
    move a pixel. */
 
-/* AUTHORED. kit.css gives the checkbox no hover, so this is a new state and it
+/* AUTHORED. kit.css gave the checkbox no hover, so this is a new state and it
    is named as one. It follows the filled button exactly: the accent goes one
    step deeper under the pointer, through a token and not a value. The hover of
    the whole ROW is not here, because the row is label.switch, which belongs to
    the Switch row molecule; an atom reaching up into its host is the unnamed
    variant this stage exists to prevent. */
-.app .switch input:hover, .landing .switch input:hover {
+.app .check:hover, .landing .check:hover {
   accent-color: var(--bg-action-strong);
 }
 
@@ -61,9 +120,51 @@
    It matters more here than on a wide control: at 20px there is very little
    edge for a ring to sit against, and the row around the box is not focusable,
    so the ring on this 20px square is the whole of the keyboard's feedback. */
-.app .switch input:focus-visible, .landing .switch input:focus-visible {
+.app .check:focus-visible, .landing .check:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
+}
+
+/* ---- and inside a switch row the atom stands its ring down ----------------
+   Half of a two line repair, 2026-08-12, and the other half is
+   `.app .switch:has(input:focus-visible)` taking the ring in switch-row.css.
+   Neither half may ship alone: this one alone leaves a notification preference
+   with no keyboard feedback at all, and the other one alone draws two
+   concentric petrol rings on every row, which is what the system rendered for
+   the few minutes the two landed apart.
+
+   THE DEFECT IT REPAIRS was measured on design/settings.html at both
+   viewports, and again here: the box is 20 by 20 and the row around it is 798
+   by 74 on the stand and 66 wide on the product. A `label` is not focusable, so
+   focus lands on the box and the ring was drawn around a twentieth of the thing
+   it was describing, at the left edge of a target a click anywhere in toggles.
+   For the person the ring exists for that reads as "this small square" rather
+   than "this preference".
+
+   base.css had `label:has(input)` in its focus-visible list, which looks like
+   somebody meaning to solve exactly this and was dead: the row matches
+   `label:has(input)` and can never match `:focus-visible`, because a label is
+   not focusable. That line is deleted and the working selector, on the row, is
+   what switch-row.css now carries.
+
+   SCOPED TO `.switch` AND TO NOTHING ELSE. A checkbox standing anywhere other
+   than inside a switch row keeps its own ring, because there is no row around
+   it to take one instead, and a keyboard user who lands on a bare checkbox with
+   no ring has been handed nothing. Measured with a bare `.check` appended to
+   the `.app` scope on both stand pages: it keeps 2px solid --color-focus at 2px
+   offset, and the one in the row has none.
+
+   `outline: none` AND NOT A TOKEN, which the state rule above would otherwise
+   forbid. This is not a state painted in a different colour, it is a state
+   moving to the element that should have been carrying it, and there is nothing
+   left on this element to name.
+
+   IT IS A VISUAL CHANGE and it is reported as one. Nothing else about the
+   checkbox moves: the box, the tick, the accent, the hover and the disabled
+   paint are untouched, and the ring is not removed from the product, it changes
+   which rectangle it is drawn around. */
+.app .switch .check:focus-visible, .landing .switch .check:focus-visible {
+  outline: none;
 }
 
 /* AUTHORED, and it moves zero pixels: no checkbox on any page carries the
@@ -72,7 +173,7 @@
    product deliberately leaves it enabled and unchecked rather than locking it.
    Disabled repaints from a role that already exists, which is why there is no
    --opacity-disabled in the system. */
-.app .switch input[disabled], .landing .switch input[disabled] {
+.app .check[disabled], .landing .check[disabled] {
   cursor: default;
   accent-color: var(--bg-recessed);
 }

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reveal step - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Reveal step</h1>
+    <p class="lead">One of the three sections of the Guided Reveal: an eyebrow that says where you are, a heading, a line of context, and one action. Three of them stand on one page divided by a hairline, and they are D1 drawn literally - the count, then the categories, then the total, each step carrying its own action. It is the one component in the system that exists to test a hypothesis rather than to hold content.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>1</strong> grey page</span><span>no axes</span><span>no states, not interactive</span><span>hosts 2 molecules and 4 atoms</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">A section, a heading it owns, a seam under it, and everything else borrowed whole. Everything below is drawn by <code>design/system/components/reveal-step.css</code> and by the hosted components' own files, through the same entry point a product screen loads, so this page cannot drift from the screen: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full wide">
+      <section class="rstep" aria-label="Step one, the count">
+        <span class="k">Step 1 of 3</span>
+        <h1>You're paying for 14 subscriptions</h1>
+        <p class="muted">Found in your Chase account. No total yet, and no verdict.</p>
+        <a class="next" href="#anatomy">See what they are</a>
+      </section>
+      <section class="rstep" aria-label="Step three, the total">
+        <span class="k">Step 3 of 3</span>
+        <h2 class="lbl strong">All together</h2>
+        <p class="total">$192.90</p>
+        <p class="muted">a month, for what you have signed up for</p>
+        <p class="muted">This is what you have signed up for, not what you wasted.</p>
+        <div class="actions">
+          <a class="btn primary" href="#anatomy">See your subscriptions</a>
+        </div>
+      </section>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.rstep</code> <span>the organism itself, and it is a <code>section</code> with an <code>aria-label</code>. It draws one thing, the hairline under it, and takes 24px of padding above that and 24px of margin below, so the seam sits exactly halfway between two steps</span></li>
+      <li><code>:last-of-type</code> <span>the last step drops the rule and reclaims its padding. A hairline under the final block would promise a fourth step that is not coming</span></li>
+      <li><code>.k</code> <span><b>an atom,</b> the <a href="eyebrow.html">Eyebrow</a>. "Step 1 of 3". Its bottom margin inside this host lives in <code>eyebrow.css</code>, not here, merged with two other hosts that fold to the same 8px</span></li>
+      <li><code>h1</code>, <code>h2</code> <span>a BARE heading, and the one thing on this page with no component of its own. That is why this file sets a size and an ink at all, and it is spelled out in the technical half</span></li>
+      <li><code>h2:not(.lbl)</code> <span>the exclusion is the rule of this whole round, written into the selector at stage 07. Step three's heading is <code>&lt;h2 class="lbl strong"&gt;</code>, the <a href="label.html">Label</a> atom, and the host declines to touch it</span></li>
+      <li><code>.total</code> <span><b>an atom,</b> the <a href="big-total.html">Big total</a> at 46px. The One Number Rule: it is the whole point of step three and nothing here resizes it</span></li>
+      <li><code>.muted</code> <span><b>an atom,</b> the <a href="muted-line.html">Muted line</a>, twice. One line says what the number is and the next says how to feel about it, and both bring their own margins. They were <code>.context</code> and <code>.tone</code>, two of the nine names the atom collapsed at step 6</span></li>
+      <li><code>.next</code> <span><b>an atom,</b> the <a href="step-forward-link.html">Step-forward link</a>, the only link in the product that carries a direction, because the next step is further down the same page</span></li>
+      <li><code>.actions</code> <span><b>a molecule,</b> the <a href="action-row.html">Action row</a>. This file gives it a top margin instead of a bottom one and touches nothing else</span></li>
+      <li><code>.rgroup</code> <span><b>a molecule,</b> the <a href="merchant-chip-group.html">Merchant chip group</a>, five of them inside step two. Not shown above, because at five groups the specimen is longer than this page's whole anatomy section; it is on the screen link in the technical half</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>This component has one form and no axes at all</b>, so there is no matrix here: a matrix with one row is a table of one fact dressed as a choice. The three steps on the Guided Reveal are the same section with different content inside it, which is the honest reading of what varies. The one rule that is not shared is <code>:last-of-type</code>, and that is position rather than a variant: any step would take it if it were last.</p>
+    <p class="note"><b>Content is what differs, and the order of it is locked by D1.</b> Step one is the count with no number, step two the real merchant names with no amounts, step three the total. The reveal gives every step its own action, and back never means starting over, which is why the three are sections of one page and not three routes.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>What is NOT an axis<p class="axis-rule">Written down because the absence is a decision. Each of these was available and each was refused for a stated reason</p></th>
+            <th class="val">Why not</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="kit-empty">A step number as a variant</td>
+            <td>The eyebrow says "Step 1 of 3" as text. A CSS counter or a modifier per step would put the same fact in two places, and the one in the stylesheet would be the one nobody updates when a fourth step arrives</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">An "active" or "revealed" state</td>
+            <td>All three steps are on the page at once from the first paint. The reveal is a scroll and an anchor, not a state machine, which is exactly what makes back cost nothing. A <code>.is-current</code> here would be inventing a behaviour the product does not have</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A compact form</td>
+            <td>The screen is a <code>.app.flow</code> column at 620px on every desktop width, so the step has one measure and has never needed a second. Measured on the coloured page: 313px at a 360 viewport and 588px at 1024, 1440 and 1920 alike</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">This component stands in one place and that place is the riskiest thing in the product. <b>H0</b> is the assumption that an avoider who actually looks feels calmer rather than worse, and <code>CLAUDE.md</code> says it is provable only in a prototype. The Guided Reveal is where it is tested, and the reveal step is the unit the test is made of.</p>
+    <p class="note"><b>D1 is what the component draws:</b> gradual reveal with a paired action. Every step ends with one way forward and never a menu, because a set of choices at an emotional peak is a second decision nobody asked for. Step three is the peak, and it carries exactly one button, "See your subscriptions".</p>
+    <p class="note">Reach for it when a screen has to <b>deliver one hard fact at a time, in a fixed order, on one page</b>. Do not reach for it for anything a person can do in any order, and do not reach for it to break a form into parts: a form's steps are a wizard, they need their own routes and their own validation, and this component has neither.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">One step, one fact, one way on</span>
+        <div class="kit-stage app full wide"><section class="rstep"><span class="k">Step 2 of 3</span><h2>Here they are, grouped</h2><p class="muted">Five categories, and the real names behind the charges.</p><a class="next" href="#rule">See the monthly total</a></section></div>
+        <p>The eyebrow places you, the heading is the fact, the muted line qualifies it, and the link goes one way. Nothing on a step competes with the fact it carries: step two deliberately shows the real merchant names and <b>no amounts at all</b>, because the number comes third and never first. That order is D1 and it is not the component's to change.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use the Numbered steps molecule instead</span>
+        <div class="kit-stage app full wide"><span class="muted">1. Pick your bank. 2. Sign in with them. 3. Choose what we can see.</span></div>
+        <p>A list that EXPLAINS a process before a person starts it is <a href="numbered-steps.html">Numbered steps</a> (<code>.steps</code>), a molecule, three lines with a marker each. The names are close enough to be confused and the components are opposites: numbered steps describe what will happen, and a reveal step is the thing happening. One is a paragraph a person reads in four seconds; the other is a screen a person lives through.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The host declines to repaint its atom</span>
+        <div class="kit-stage app full wide"><section class="rstep"><span class="k">Step 3 of 3</span><h2 class="lbl strong">All together</h2><p class="total">$192.90</p><p class="muted">a month, for what you have signed up for</p></section></div>
+        <p>Step three's heading is the <a href="label.html">Label</a> atom in its <code>.strong</code> form, and the host's own heading rule excludes it by hand: <code>h2:not(.lbl)</code>. The grey stylesheet had it the other way round, as <code>.rstep .lbl</code>, and <code>label.css</code> records the repair - the atom grew a declared modifier and the page carries the class. That single <code>:not()</code> is this round's whole rule, written into a selector a year before the round had a name.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never restyle the total to fit the step</span>
+        <div class="kit-stage app full wide"><span class="muted">.rstep .total { font-size: 40px }</span></div>
+        <p>The total is 46px here and 46px on Home, and it is the only thing in the product allowed at that size. A step that shrank it to balance its own block would be a host restyling a child, which is the exact defect this round exists to remove, and it would break the One Number Rule on the one screen the rule was written for. If a number genuinely needs to be smaller, the answer is <a href="big-total.html">Big total</a>'s declared size axis, in the markup.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>No states, and it is structural rather than an omission.</b> A reveal step is a <code>section</code>: it has no <code>href</code>, no button and no pressed element of its own, and it is not a pointer target. Faking one with a class the product does not carry would document something the product cannot do.</p>
+    <p class="note">Its two moving parts are live in the anatomy above and both bring their own states from their own files: the <a href="step-forward-link.html">Step-forward link</a> on steps one and two, which turns petrol under the pointer and takes the arrow with it, and the <a href="button.html">Button</a> on step three. Hover them there and read the value off the real thing.</p>
+    <p class="note">There is no loading form either, and that is a decision rather than a gap. The honest wait belongs to the screen BEFORE this one, connect-bank-loading at node 1.3.2, so a step never renders as a skeleton of itself: by the time a reveal step is on screen, the fact it carries is known.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the step's heading</td><td><code>--text-primary</code></td><td><code>--ink</code>, and <code>--ink-dark</code> in the dark theme</td></tr>
+          <tr><td>its size</td><td><code>--type-head</code></td><td>primitive, straight: 24px, the subject of a page, which is what each step is</td></tr>
+          <tr><td>the seam between two steps</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. A divider inside one surface, decorative, no threshold owed</td></tr>
+          <tr><td>padding, margin, the action's offset</td><td><code>--space-0</code>, <code>--space-8</code>, <code>--space-16</code>, <code>--space-24</code></td><td>primitive, straight</td></tr>
+          <tr><td>line height and tracking</td><td>none: <code>1.15</code> and <code>-0.015em</code></td><td>Written as they are. <code>scales.md</code> puts line heights, letter spacing and weights out of scope for this pass by name, on the ground that folding them would hide what the size change did</td></tr>
+          <tr><td>no fill, no corner, no shadow</td><td>none</td><td>by decision. The Flat Paper Rule: the step earns a hairline and nothing else</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The one place this file sets a size and a colour, and why it is not a repaint.</b> The heading here is a bare <code>h1</code> on step one and a bare <code>h2</code> on step two. It wears no class, it is not a <a href="text-block.html">Text block</a>, not a <a href="label.html">Label</a> and not a <a href="group-head.html">Group head</a>, and no file in <code>design/system/components/</code> styles a bare heading. Left alone it renders at the browser's default, 32px on step one and 24px on step two: two sizes for one job. So this is an organism owning its own content rather than a host repainting a child, and the difference is invisible in the CSS and total in the consequences. The moment a page-heading atom is declared, those three declarations move to it and this file keeps the margin.</p>
+    <p class="note"><b>Not carried, and it has an owner rather than being dropped.</b> <code>.app .rstep .k { margin: 0 0 10px }</code> is already in <code>eyebrow.css</code>, folded to <code>--space-8</code> and merged there with two other hosts that fold to the same value. Writing it again here would be two files owning one declaration, which is how a value moves in one and not the other. <b>Carried, and it was owed to this round:</b> <code>.rstep .actions</code>, which <code>action-row.css</code> names in its header as one of three host overrides waiting for the organism round. The other two belong to the Card and the Panel.</p>
+    <p class="note"><b>No container query, and none was dropped.</b> This component has no rule inside any of the product's three container steps. It stands on a <code>.app.flow</code> screen, whose column is capped at 620px by the shell at every desktop width, so there is no width at which the step's own form changes. Measured on the coloured page: the step renders 313px wide at a 360 viewport and 588px at 1024, 1440 and 1920 alike.</p>
+    <p class="note"><b>The stand shows it at <code>wide</code>, which is 620px, and that is not an approximation.</b> 620 is literally the flow column this screen runs in: <code>.app.flow &gt; .screen</code> is <code>max-width: 620px</code> with 16px of side padding, so the product's own 588px is this stage's 620 minus that padding. The default 440px measure would show the step 148px narrower than it has ever rendered, and <code>bleed</code> would show a component that never spans.</p>
+    <p class="note">Lives in <code>design/system/components/reveal-step.css</code>. Stands on 1 grey page and 1 coloured one, three times over: <a href="../guided-reveal.html">Guided Reveal</a>. Its empty sibling, <a href="../guided-reveal-empty.html">Guided Reveal, nothing found</a>, carries none: with nothing to reveal there is no step to draw, which is the cleanest evidence that this component is content and not chrome.</p>
+    <code class="kit-cmd">&lt;section class="rstep" id="step-1" aria-label="Step one, the count"&gt;
+  &lt;span class="k"&gt;Step 1 of 3&lt;/span&gt;
+  &lt;h1&gt;You're paying for 14 subscriptions&lt;/h1&gt;
+  &lt;p class="muted"&gt;Found in your Chase account. No total yet, and no verdict.&lt;/p&gt;
+  &lt;a class="next" href="#step-2"&gt;See what they are&lt;/a&gt;
+&lt;/section&gt;</code>
+    <p class="note">The <code>aria-label</code> is part of the copy: a screen reader announces "Step one, the count" as a region, so a person moving by landmark hears the same three-part structure a sighted person sees. Step three adds <code>role="status"</code> and <code>aria-live="polite"</code>, because the total is the thing that arrives.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/reveal-step.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided it has no axes is in <code>docs/inventory.md</code>; the decision it draws, D1, is in <code>CLAUDE.md</code> and its ground in <code>docs/decisions.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

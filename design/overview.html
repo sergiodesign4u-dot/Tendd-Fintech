@@ -7,35 +7,60 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
 <style>
-  .wrap { max-width: 1000px; margin: 0 auto; padding: 40px 28px 72px; }
-  .as-head h1 { margin: 0 0 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
-  .as-head .tag { margin: 0 0 18px; color: var(--soft); font-size: 15px; max-width: 60ch; }
+  /* THE HUB'S OWN LOOK, AND IT IS ALL IN ONE NAMESPACE NOW.
+
+     This page is the stage hub, not a product screen, so it is allowed a style
+     block of its own where a screen is not. What it was NOT allowed is the
+     thing it was doing: half of these classes were bare product names.
+     `.card`, `.badge`, `.name`, `.states` and `.pairs` all sat here meaning one
+     thing while the system meant another by the same word, and `.pairs` is a
+     name the renaming map was about to create. Sweeping this page with the
+     other 74 would have rewritten its markup out from under this block, and
+     `badge plan` would have collapsed into a single `chip`, merging two
+     different badges into one.
+
+     That is the `.empty` and the `.app` collision for the third and fourth
+     time: a stand class and a product class sharing a word, harmless right up
+     until the product class is written. The fix is the one the page had already
+     half-adopted, so this finishes it: everything the hub owns is `as-`.
+
+     The colours moved from kit.css's flat names to the system's semantic roles,
+     BY SURFACE and not by value, which is the whole discipline of the token
+     level: `--accent` became `--text-action` where it inks and `--bg-action`
+     where it fills, `--accent-tint` became `--line-action-soft` where it draws
+     a border. One literal went with them: the colour badge inked itself `#fff`,
+     which is now `--text-on-action`, the role that exists for exactly that. */
+
+  .as-wrap { max-width: 1000px; margin: 0 auto; padding: 40px 28px 72px; }
+  .as-head h1 { margin: 0 0 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); }
+  .as-head .as-sub { margin: 0 0 18px; color: var(--text-muted); font-size: 15px; max-width: 60ch; }
   .as-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-  .as-meta span { font-size: 12px; color: var(--mid); background: var(--frame); border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; }
-  .as-meta span strong { color: var(--accent); font-weight: 700; }
-  .as-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 26px; font-size: 12px; color: var(--soft); }
-  .as-legend b { color: var(--ink); font-weight: 600; }
+  .as-meta span { font-size: 12px; color: var(--text-body); background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: 999px; padding: 4px 11px; }
+  .as-meta span strong { color: var(--text-action); font-weight: 700; }
+  .as-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 26px; font-size: 12px; color: var(--text-muted); }
+  .as-legend b { color: var(--text-primary); font-weight: 600; }
 
   .as-group { margin-bottom: 26px; }
-  .as-group > h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--soft); margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .as-group > h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line-container); }
   .as-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
 
-  .card { background: var(--frame); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
-  .card.built { box-shadow: var(--shadow); }
-  .card.planned { background: var(--panel2); border-style: dashed; }
-  .card .name { display: block; font-weight: 600; font-size: 15px; color: var(--ink); text-decoration: none; }
-  .card.built a.name:hover { color: var(--accent); }
-  .card.planned .name { color: var(--soft); }
-  .card .row1 { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
-  .badge { flex: none; font-size: 9px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; }
-  .badge.color { color: #fff; background: var(--accent); }
-  .badge.plan { color: var(--tag-ink); background: var(--tag-bg); }
-  .states { display: flex; flex-wrap: wrap; gap: 6px; }
-  .states a { font-size: 11px; color: var(--mid); text-decoration: none; background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; }
-  .states a:hover { color: var(--accent); border-color: var(--accent-tint); }
-  .card.planned .note { font-size: 12px; color: var(--soft); margin: 0; }
+  .as-card { background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: var(--radius); padding: 16px; }
+  .as-card.as-built { box-shadow: var(--shadow); }
+  .as-card.as-planned { background: var(--bg-recessed); border-style: dashed; }
+  .as-card .as-name { display: block; font-weight: 600; font-size: 15px; color: var(--text-primary); text-decoration: none; }
+  .as-card.as-built a.as-name:hover { color: var(--text-action); }
+  .as-card.as-planned .as-name { color: var(--text-muted); }
+  .as-card .as-row1 { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .as-badge { flex: none; font-size: 9px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; }
+  .as-badge.as-colour { color: var(--text-on-action); background: var(--bg-action); }
+  .as-badge.as-grey { color: var(--text-status); background: var(--bg-status); }
+  .as-states { display: flex; flex-wrap: wrap; gap: 6px; }
+  .as-states a { font-size: 11px; color: var(--text-body); text-decoration: none; background: var(--bg-callout); border: 1px solid var(--line-container); border-radius: var(--radius-xs); padding: 2px 8px; }
+  .as-states a:hover { color: var(--text-action); border-color: var(--line-action-soft); }
+  .as-card.as-planned .as-note { font-size: 12px; color: var(--text-muted); margin: 0; }
 
   .delta-tab { overflow-x: auto; margin: 0 0 22px; }
   .delta-tab table { border-collapse: collapse; table-layout: fixed; width: 100%; min-width: 660px; font-size: 12.5px; }
@@ -44,20 +69,20 @@
   .delta-tab.cols3 table th:nth-child(2) { width: 65%; }
   .delta-tab.cols3 table th:nth-child(3) { width: 20%; }
   .delta-tab td { overflow-wrap: anywhere; }
-  .delta-tab th, .delta-tab td { text-align: left; vertical-align: top; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--line2); }
-  .delta-tab th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); font-weight: 600; border-bottom-color: var(--line); }
-  .delta-tab td:nth-child(2), .delta-tab td:nth-child(3), .delta-tab td:nth-child(4) { font-variant-numeric: tabular-nums; color: var(--mid); white-space: nowrap; }
-  .delta-tab td:last-child { color: var(--soft); }
-  .delta-tab code { font-size: 11.5px; color: var(--mid); }
-  .delta-h { font-size: 13px; font-weight: 600; color: var(--ink); margin: 26px 0 12px; }
-  .pairs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
-  .pairs figure { margin: 0; }
-  .pairs img { display: block; width: 100%; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--frame); }
-  .pairs figcaption { margin: 8px 0 0; font-size: 12.5px; color: var(--soft); line-height: 1.5; }
-  .pairs figcaption b { color: var(--ink); font-weight: 600; }
+  .delta-tab th, .delta-tab td { text-align: left; vertical-align: top; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--line-divider); }
+  .delta-tab th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; border-bottom-color: var(--line-container); }
+  .delta-tab td:nth-child(2), .delta-tab td:nth-child(3), .delta-tab td:nth-child(4) { font-variant-numeric: tabular-nums; color: var(--text-body); white-space: nowrap; }
+  .delta-tab td:last-child { color: var(--text-muted); }
+  .delta-tab code { font-size: 11.5px; color: var(--text-body); }
+  .delta-h { font-size: 13px; font-weight: 600; color: var(--text-primary); margin: 26px 0 12px; }
+  .as-pairs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .as-pairs figure { margin: 0; }
+  .as-pairs img { display: block; width: 100%; border: 1px solid var(--line-container); border-radius: var(--radius-sm); background: var(--bg-surface); }
+  .as-pairs figcaption { margin: 8px 0 0; font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+  .as-pairs figcaption b { color: var(--text-primary); font-weight: 600; }
 
-  footer.as-foot { margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--soft); font-size: 13px; }
-  footer.as-foot a { color: var(--accent); }
+  footer.as-foot { margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--line-container); color: var(--text-muted); font-size: 13px; }
+  footer.as-foot a { color: var(--text-action); }
 </style>
 <link rel="stylesheet" href="../_nav.css">
 </head>
@@ -75,10 +100,10 @@
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<div class="wrap">
+<div class="as-wrap">
   <header class="as-head">
     <h1>Screens in color</h1>
-    <p class="tag">Every Tendd screen in the Petrol and Paper language. What is coloured here is the <b>sample</b>, not the product: seven screens, five chosen because together they carry every level of the kit and the heaviest layouts, a sixth added at step 6 because the strategy check found the first five never showed the moment the whole product is a bet on, and a seventh, the account screen, added last as the saturation test. The rest stay grey on purpose and are coloured in one pass later, once the system has been proved on these. Open a screen to see its states.</p>
+    <p class="as-sub">Every Tendd screen in the Petrol and Paper language. What is coloured here is the <b>sample</b>, not the product: seven screens, five chosen because together they carry every level of the kit and the heaviest layouts, a sixth added at step 6 because the strategy check found the first five never showed the moment the whole product is a bet on, and a seventh, the account screen, added last as the saturation test. The rest stay grey on purpose and are coloured in one pass later, once the system has been proved on these. Open a screen to see its states.</p>
     <div class="as-meta">
       <span>Phase: UI + Visual</span>
       <span>17 screens</span>
@@ -89,24 +114,24 @@
       <span><b>coloured</b> assembled from the kit, with states</span>
       <span><b>grey, waiting</b> still the wireframe, coloured at the rollout</span>
     </div>
-    <p class="tag">Nothing on a coloured page carries a style of its own: every one is assembled from <a href="kit/kit.html">the component kit</a>, and a fix goes into the kit rather than onto a screen.</p>
+    <p class="as-sub">Nothing on a coloured page carries a style of its own: every one is assembled from <a href="kit/overview.html">the design system</a>, and a fix goes into the system rather than onto a screen.</p>
   </header>
 
   <section class="as-group">
     <h2>Core</h2>
     <div class="as-grid">
-      <article class="card built">
-        <div class="row1"><a class="name" href="home.html">Home / Subscription List</a><span class="badge color">Coloured</span></div>
-        <div class="states">
+      <article class="as-card as-built">
+        <div class="as-row1"><a class="as-name" href="home.html">Home / Subscription List</a><span class="as-badge as-colour">Coloured</span></div>
+        <div class="as-states">
           <a href="home-empty.html">empty</a>
           <a href="home-error.html">error</a>
           <a href="home-loading.html">loading</a>
           <a href="home-savefocus.html">save focus</a>
         </div>
       </article>
-      <article class="card built">
-        <div class="row1"><a class="name" href="subscription-detail.html">Subscription Detail</a><span class="badge color">Coloured</span></div>
-        <div class="states">
+      <article class="as-card as-built">
+        <div class="as-row1"><a class="as-name" href="subscription-detail.html">Subscription Detail</a><span class="as-badge as-colour">Coloured</span></div>
+        <div class="as-states">
           <a href="subscription-detail-unrecognized.html">unrecognized</a>
           <a href="subscription-detail-price-change.html">price change</a>
           <a href="subscription-detail-payment-failed.html">payment failed</a>
@@ -120,22 +145,22 @@
   <section class="as-group">
     <h2>Onboarding and Activation</h2>
     <div class="as-grid">
-      <article class="card planned"><div class="row1"><span class="name">Welcome / Value Intro</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Activation Path Choice</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Connect Bank</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card built">
-        <div class="row1"><a class="name" href="add-subscription.html">Add Subscription</a><span class="badge color">Coloured</span></div>
-        <p class="note">The manual path (D2), and the screen that brings the form primitives into the sample</p>
-        <div class="states">
+      <article class="as-card as-planned"><div class="as-row1"><span class="as-name">Welcome / Value Intro</span><span class="as-badge as-grey">Grey, waiting</span></div><p class="as-note">Grey in wireframes</p></article>
+      <article class="as-card as-planned"><div class="as-row1"><span class="as-name">Activation Path Choice</span><span class="as-badge as-grey">Grey, waiting</span></div><p class="as-note">Grey in wireframes</p></article>
+      <article class="as-card as-planned"><div class="as-row1"><span class="as-name">Connect Bank</span><span class="as-badge as-grey">Grey, waiting</span></div><p class="as-note">Grey in wireframes</p></article>
+      <article class="as-card as-built">
+        <div class="as-row1"><a class="as-name" href="add-subscription.html">Add Subscription</a><span class="as-badge as-colour">Coloured</span></div>
+        <p class="as-note">The manual path (D2), and the screen that brings the form primitives into the sample</p>
+        <div class="as-states">
           <a href="add-subscription-empty.html">empty</a>
           <a href="add-subscription-error.html">error</a>
           <a href="add-subscription-loading.html">loading</a>
         </div>
       </article>
-      <article class="card built">
-        <div class="row1"><a class="name" href="guided-reveal.html">Guided Reveal</a><span class="badge color">Coloured</span></div>
-        <p class="note">The screen the riskiest assumption is tested on. It joined the sample at step 6, when the strategy check found the five chosen for component coverage had left H0 with no coloured screen</p>
-        <div class="states">
+      <article class="as-card as-built">
+        <div class="as-row1"><a class="as-name" href="guided-reveal.html">Guided Reveal</a><span class="as-badge as-colour">Coloured</span></div>
+        <p class="as-note">The screen the riskiest assumption is tested on. It joined the sample at step 6, when the strategy check found the five chosen for component coverage had left H0 with no coloured screen</p>
+        <div class="as-states">
           <a href="guided-reveal-empty.html">empty</a>
         </div>
       </article>
@@ -145,35 +170,35 @@
   <section class="as-group">
     <h2>Stay Ahead</h2>
     <div class="as-grid">
-      <article class="card planned"><div class="row1"><span class="name">Alerts / Activity</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="as-card as-planned"><div class="as-row1"><span class="as-name">Alerts / Activity</span><span class="as-badge as-grey">Grey, waiting</span></div><p class="as-note">Grey in wireframes</p></article>
     </div>
   </section>
 
   <section class="as-group">
     <h2>Cut and Celebrate</h2>
     <div class="as-grid">
-      <article class="card planned"><div class="row1"><span class="name">Cancel Guide</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Cancel Win Moment</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Share Snapshot</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="as-card as-planned"><div class="as-row1"><span class="as-name">Cancel Guide</span><span class="as-badge as-grey">Grey, waiting</span></div><p class="as-note">Grey in wireframes</p></article>
+      <article class="as-card as-planned"><div class="as-row1"><span class="as-name">Cancel Win Moment</span><span class="as-badge as-grey">Grey, waiting</span></div><p class="as-note">Grey in wireframes</p></article>
+      <article class="as-card as-planned"><div class="as-row1"><span class="as-name">Share Snapshot</span><span class="as-badge as-grey">Grey, waiting</span></div><p class="as-note">Grey in wireframes</p></article>
     </div>
   </section>
 
   <section class="as-group">
     <h2>Depth (Pro)</h2>
     <div class="as-grid">
-      <article class="card built">
-        <div class="row1"><a class="name" href="history-trends.html">History and Trends</a><span class="badge color">Coloured</span></div>
-        <div class="states">
+      <article class="as-card as-built">
+        <div class="as-row1"><a class="as-name" href="history-trends.html">History and Trends</a><span class="as-badge as-colour">Coloured</span></div>
+        <div class="as-states">
           <a href="history-trends-locked.html">locked</a>
           <a href="history-trends-empty.html">empty</a>
           <a href="history-trends-error.html">error</a>
           <a href="history-trends-loading.html">loading</a>
         </div>
       </article>
-      <article class="card built">
-        <div class="row1"><a class="name" href="upgrade.html">Upgrade / Tendd Pro</a><span class="badge color">Coloured</span></div>
-        <p class="note">The paywall, and the one place the product asks for money</p>
-        <div class="states">
+      <article class="as-card as-built">
+        <div class="as-row1"><a class="as-name" href="upgrade.html">Upgrade / Tendd Pro</a><span class="as-badge as-colour">Coloured</span></div>
+        <p class="as-note">The paywall, and the one place the product asks for money</p>
+        <div class="as-states">
           <a href="upgrade-current-plan.html">current plan</a>
           <a href="upgrade-processing.html">processing</a>
           <a href="upgrade-payment-failed.html">payment failed</a>
@@ -185,22 +210,22 @@
   <section class="as-group">
     <h2>Account and Trust</h2>
     <div class="as-grid">
-      <article class="card planned"><div class="row1"><span class="name">Connections / Accounts</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Data and Privacy</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card built">
-        <div class="row1"><a class="name" href="settings.html">Settings / Profile</a><span class="badge color">Coloured</span></div>
-        <p class="note">The account screen, and the saturation test. It was built after the sample was already closed and needed <b>nothing new in the kit</b>: every class it uses was read out of the wireframes at step 2, when the inventory was taken from the whole product rather than from the coloured sample</p>
-        <div class="states">
+      <article class="as-card as-planned"><div class="as-row1"><span class="as-name">Connections / Accounts</span><span class="as-badge as-grey">Grey, waiting</span></div><p class="as-note">Grey in wireframes</p></article>
+      <article class="as-card as-planned"><div class="as-row1"><span class="as-name">Data and Privacy</span><span class="as-badge as-grey">Grey, waiting</span></div><p class="as-note">Grey in wireframes</p></article>
+      <article class="as-card as-built">
+        <div class="as-row1"><a class="as-name" href="settings.html">Settings / Profile</a><span class="as-badge as-colour">Coloured</span></div>
+        <p class="as-note">The account screen, and the saturation test. It was built after the sample was already closed and needed <b>nothing new in the kit</b>: every class it uses was read out of the wireframes at step 2, when the inventory was taken from the whole product rather than from the coloured sample</p>
+        <div class="as-states">
           <a href="settings-no-account.html">no account</a>
         </div>
       </article>
-      <article class="card planned"><div class="row1"><span class="name">Sign In</span><span class="badge plan">Grey, waiting</span></div><p class="note">Node 1.6, added to the wireframes in round 3</p></article>
+      <article class="as-card as-planned"><div class="as-row1"><span class="as-name">Sign In</span><span class="as-badge as-grey">Grey, waiting</span></div><p class="as-note">Node 1.6, added to the wireframes in round 3</p></article>
     </div>
   </section>
 
   <section class="as-group" id="delta">
     <h2>Was to became</h2>
-    <p class="tag">Critique ran on three instruments and the audit on four, all in one pass over the sample. Every finding was re-read in the current file before anything was touched; what did not hold stayed in the log marked <b>dropped at verification</b>, with the reason. Closed, by class.</p>
+    <p class="as-sub">Critique ran on three instruments and the audit on four, all in one pass over the sample. Every finding was re-read in the current file before anything was touched; what did not hold stayed in the log marked <b>dropped at verification</b>, with the reason. Closed, by class.</p>
 
     <div class="delta-tab">
       <table>
@@ -221,22 +246,22 @@
           <tr><td>Decorative glyph in an accessible name</td><td>5</td><td>5</td><td>0</td><td>Arrows and ticks injected by <code>content:</code> were being read aloud. Twelve feature rows on the paywall each announced a tick first</td></tr>
           <tr><td>Review chrome on top of the product</td><td>3</td><td>3</td><td>0</td><td>The Home destination was laid out underneath the review panel and showed a 4px sliver; the off-canvas panel kept sixteen links in the tab order on a phone; two chrome colours were under AA</td></tr>
           <tr><td>Structural desync with the grey</td><td>12</td><td>12</td><td>0</td><td>Eleven page titles had been rewritten rather than suffixed. The body text of all 28 pages is character-identical to its grey original</td></tr>
-          <tr><td>Placeholder shipped into colour</td><td>3</td><td>3</td><td>0</td><td><code>[ ? ]</code> and two <code>[chart: ...]</code> notes. This stage owns the marks, so they became a drawn mark and a drawn plot</td></tr>
+          <tr><td>Placeholder shipped into colour</td><td>5</td><td>5</td><td>0</td><td><code>[ ? ]</code> and four <code>[chart: ...]</code> notes. <b>This row read 3 and 3 until 2026-08-12 and it was wrong twice over:</b> the count was 5, and stage 07 fixed 3 of them, leaving <code>history-trends-loading</code> and <code>history-trends-empty</code> rendering their bracketed strings into the coloured product for a month. Step 6 drew both, with the Pro gate's own markup and no new component: three gridlines, no path, the box unmoved to the hundredth of a pixel. A row that says 0 carried is the one nobody re-reads</td></tr>
           <tr><td>Copy against microcopy.md</td><td>13</td><td>14</td><td>0</td><td><b>All thirteen were stage 05 misses, not copying errors:</b> the visible text of every coloured page matches its grey original exactly, so the divergence was between the grey and the line inventory. <b>Closed on 2026-08-11</b> as Round 4 of the voice rewrite log, which is the mechanism for exactly this: Voice reopens, the grey changes first, the coloured copies follow. Fourteen rather than thirteen, because the open-question leak turned out to be on the welcome landing too, and the landing is not in the coloured sample</td></tr>
           <tr><td>ARIA and form semantics</td><td>11</td><td>0</td><td>0</td><td><b>Carried by rule.</b> A coloured copy owns the visual layer only, and every one of these is markup: a fieldset with no legend, an aria-label on a paragraph that ARIA discards, section labels repeating their own heading, a form with no required or invalid state. Inventing an ARIA difference between grey and colour is the exact desync this stage tests for</td></tr>
         </tbody>
       </table>
     </div>
 
-    <p class="tag"><b>Where the fixes went: 31 into the kit, 0 onto a screen.</b> That is the number this stage exists to produce, and it is the one worth reading twice. Every style correction landed in <code>design/kit/kit.css</code> and reached 28 pages by itself. The edits that did touch a page were not styles: eleven restored titles, one drawn mark, two drawn plots, and the links repointed at coloured screens as they appeared.</p>
+    <p class="as-sub"><b>Where the fixes went: 31 into the kit, 0 onto a screen.</b> That is the number this stage exists to produce, and it is the one worth reading twice. Every style correction landed in <code>design/kit/kit.css</code> and reached 28 pages by itself. That file no longer exists: step 6 of the next stage split it into <code>design/system/</code> and deleted it, and the sentence is kept in the past tense because where a value came from is the thing this project is most careful about. The edits that did touch a page were not styles: eleven restored titles, one drawn mark, two drawn plots, and the links repointed at coloured screens as they appeared.</p>
 
     <h3 class="delta-h">The seventh screen, and what a screen that adds nothing proves</h3>
-    <p class="tag">The account screen was built after the sample was closed, and it needed <b>nothing new in the kit</b>: not a class, not a value, not a plate in the showcase. That is the saturation signal the stage asks for, and it is only available because the inventory at step 2 was read from every grey page rather than from the screens that were going to be coloured. A kit sized to the sample would have met this screen with four missing components.</p>
-    <p class="tag">It did not arrive empty-handed, though. Assembling it surfaced a defect no page in the sample could show: <b>a reading measure that holds at one width and quietly stops holding at the next.</b> The form column, the Pro gate and the settings column were all declared at a fixed measure and all three lost it past a 900px container, on a rule written for a different screen's layout. Two of those screens had already been walked and accepted. A screen is accepted at every width or it is not accepted, and the width where a defect lives is not always the narrow one.</p>
+    <p class="as-sub">The account screen was built after the sample was closed, and it needed <b>nothing new in the kit</b>: not a class, not a value, not a plate in the showcase. That is the saturation signal the stage asks for, and it is only available because the inventory at step 2 was read from every grey page rather than from the screens that were going to be coloured. A kit sized to the sample would have met this screen with four missing components.</p>
+    <p class="as-sub">It did not arrive empty-handed, though. Assembling it surfaced a defect no page in the sample could show: <b>a reading measure that holds at one width and quietly stops holding at the next.</b> The form column, the Pro gate and the settings column were all declared at a fixed measure and all three lost it past a 900px container, on a rule written for a different screen's layout. Two of those screens had already been walked and accepted. A screen is accepted at every width or it is not accepted, and the width where a defect lives is not always the narrow one.</p>
 
     <h3 class="delta-h">The thirteen copy findings, and how they were closed</h3>
-    <p class="tag">None of these was a colouring error. The visible text of all 28 coloured pages is character-identical to its grey original, so every row was a gap between the frozen grey and <code>voice/docs/microcopy.md</code>. That file ships at Handoff, and a product that has quietly diverged from its own line inventory diverges from it forever.</p>
-    <p class="tag"><b>Closed on 2026-08-11, as Round 4 of the voice rewrite log.</b> The mechanism matters as much as the fix: Voice is the stage that owns product copy, so it reopened, the grey changed first, and the coloured copies followed byte for byte. Colouring a line that the grey does not say is the desync this whole stage exists to prevent, and fixing thirteen of them in colour would have been that desync thirteen times. <b>The count came back fourteen:</b> the open-question leak was on the welcome landing as well as the paywall, and the landing is not in the coloured sample, so this pass never saw it. It was found by grepping the notation across all 55 grey pages instead of fixing only the one that was reported. Two of the fourteen were not screen edits at all: on the home-empty doors the screen was right and the inventory was wrong, and on the locked Pro gate the rule was narrowed rather than the screen changed. The full was-to-became is in <a href="../voice/microcopy.html#rewritelog">the rewrite log</a>.</p>
+    <p class="as-sub">None of these was a colouring error. The visible text of all 28 coloured pages is character-identical to its grey original, so every row was a gap between the frozen grey and <code>voice/docs/microcopy.md</code>. That file ships at Handoff, and a product that has quietly diverged from its own line inventory diverges from it forever.</p>
+    <p class="as-sub"><b>Closed on 2026-08-11, as Round 4 of the voice rewrite log.</b> The mechanism matters as much as the fix: Voice is the stage that owns product copy, so it reopened, the grey changed first, and the coloured copies followed byte for byte. Colouring a line that the grey does not say is the desync this whole stage exists to prevent, and fixing thirteen of them in colour would have been that desync thirteen times. <b>The count came back fourteen:</b> the open-question leak was on the welcome landing as well as the paywall, and the landing is not in the coloured sample, so this pass never saw it. It was found by grepping the notation across all 55 grey pages instead of fixing only the one that was reported. Two of the fourteen were not screen edits at all: on the home-empty doors the screen was right and the inventory was wrong, and on the locked Pro gate the rule was narrowed rather than the screen changed. The full was-to-became is in <a href="../voice/microcopy.html#rewritelog">the rewrite log</a>.</p>
     <div class="delta-tab cols3">
       <table>
         <thead><tr><th>Where</th><th>What was wrong</th><th>Closed as</th></tr></thead>
@@ -255,7 +280,7 @@
     </div>
 
     <h3 class="delta-h">Four pairs, and why there is no fifth</h3>
-    <div class="pairs">
+    <div class="as-pairs">
       <figure>
         <img src="screens/06-reveal-group-heads-was.png" alt="The Guided Reveal with its category headings at browser default size, heavy and black">
         <figcaption><b>Was.</b> Guided Reveal, step two. Every category heading fell through to the browser default, because the group head's typography was bound to <code>h2</code> and here the head is an <code>h3</code>. The loudest thing on the calmest screen in the product was the word "Streaming".</figcaption>

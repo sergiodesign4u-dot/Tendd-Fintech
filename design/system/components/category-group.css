@@ -1,0 +1,105 @@
+/* ============================================================================
+   Category group - organism
+   The section that opens with a head and holds what belongs under it: four
+   subscriptions under "STREAMING (4)", two alerts under "NEEDS YOU", three
+   switches under "WHAT TENDD TELLS YOU ABOUT". It is what turns fourteen rows
+   into five readable groups, and it is the reason Home has no heavy heading
+   anywhere.
+
+   Reads
+     lines    --line-divider  (the hairline between two of its items)
+     spacing  --space-0, --space-24
+   Page      design/kit/category-group.html
+   Stands on 12 grey pages, 32 groups, and on 8 coloured pages, 24 groups. Home
+   alone is five of them.
+
+   THE NAME IS NARROWER THAN THE JOB, and the count is where you see it. Five of
+   the twelve pages group subscriptions by category; the other seven group
+   alerts by urgency (alerts), settings by subject (settings, 3), promises by
+   topic (data-privacy, 3). The class is `.group` on all twelve and the
+   component is one component: a titled section with an optional divided list
+   inside it. The name comes from the screen it was found on, which is how
+   `docs/inventory.md` names everything, and step 9 may widen it.
+
+   IT HOSTS AND IT DOES NOT REPAINT. The head is the Group head molecule, the
+   items are Subscription rows and Alert items, and every one of them is written
+   elsewhere and correct. THIS FILE DRAWS EXACTLY ONE LINE: the hairline between
+   two items. It sets no size, no ink, no fill and no edge on anything it holds.
+
+   THE SEPARATION BELONGS TO THE GROUP, NOT TO THE ITEM, and that is the whole
+   architectural point of the component. subscription-row.css writes `border: 0`
+   and says so in its own comment: a row that drew its own floor would draw a
+   second one everywhere a list did its job, and it would need a `:last-child`
+   rule reaching back into the row to take the last one off. `li + li` needs no
+   such rule, because there is no line after the last item to remove.
+
+   THE CLASS NAME IS NOT TOUCHED. `.group` stays as the product writes it, and
+   the renaming map leaves it alone. The `.app` scope is the one kit.css gave
+   it: no `.landing` twin, because the landing has no groups.
+   ============================================================================ */
+
+/* ---- the block ------------------------------------------------------------
+   A margin and nothing else. No fill, no edge, no radius and no padding: the
+   group is a grouping and not a container, and on Home five of them stack on
+   the page ground with only their heads and their hairlines to tell them apart.
+   That is deliberate and it is the Flat Paper Rule read at the level of a list:
+   five bordered boxes down a phone screen is the compartmented look the visual
+   language was chosen against. */
+.app .group { margin: var(--space-0) var(--space-0) var(--space-24); }
+
+/* ---- the list inside it ---------------------------------------------------
+   The browser's own bullets and its 40px indent, off. Written as `.group ul` and
+   not as a class, because the product writes the list three ways: a bare `<ul>`
+   on Home, `<ul class="alerts">` on Alerts, `<ul class="navrows">` on Settings.
+   The first has no class to hook and the other two are the Divided list
+   organism, which declares the identical rule for itself.
+
+   THE OVERLAP IS REAL AND IT IS DELIBERATE. On alerts.html both this rule and
+   divided-list.css match the same `<ul>`, with the same three declarations and
+   the same value, so nothing renders twice and nothing wins. `docs/inventory.md`
+   recorded it at step 2 in one line: three identical `li + li` divider rules,
+   two of them merge into `.divlist`, "the third belongs to `.group` and stays a
+   usage". It stays because the bare list on Home has nothing else to draw it. */
+.app .group ul {
+  list-style: none;
+  margin: var(--space-0);
+  padding: var(--space-0);
+}
+
+/* ---- the one line this component draws ------------------------------------
+   Between two items and never around them. Decorative, so it owes no contrast
+   threshold: nothing here has to be found by touch, and 1.23:1 in the light
+   theme is the deliberate value that keeps a list of fourteen from reading as a
+   table of fourteen. */
+.app .group ul > li + li { border-top: 1px solid var(--line-divider); }
+
+/* ---- the wide layout, and it is a CONTAINER query -------------------------
+   Past a 900px container the groups run in two columns (three past 1340), and
+   both of those rules belong to the Groups column set, which is the `.groups`
+   wrapper around these. What belongs HERE is the group's own behaviour inside
+   that flow: it must not be split down the middle by a column break, because a
+   category head at the foot of one column with its rows at the head of the next
+   is the one thing a grouped list may not do.
+
+   THE QUERY MATCHES AN ANCESTOR, NEVER THIS ELEMENT. `container-type` is
+   declared once, on `body`, in base.css. Nothing here declares a second one.
+
+   ONE DECLARATION SHORTER THAN kit.css, AND THE FOLD IS WHY. kit.css wrote
+   `{ break-inside: avoid; margin: 0 0 26px }` here. 26px lands on --space-24
+   under the mapping, which is exactly what the base rule above already sets, so
+   the margin half of this override became byte-identical to the rule it was
+   overriding. It is deleted rather than kept as a no-op, on the same ground
+   that deleted `.btn.compact`: a declaration that changes nothing is worse than
+   no declaration, because the next person reads it and spends a minute working
+   out what it does. Measured either side of the step: 24px at an 892px
+   container and 24px at 908px, which is the whole of what was lost. */
+@container (min-width: 900px) {
+  .app .group { break-inside: avoid; }
+}
+
+/* NO STATES, and the reason is one line: a group is not interactive. It is a
+   `<section>` on all 32 occurrences, it holds no anchor, no button and no
+   summary of its own, and it does not collapse: the one disclosure in the app
+   shell is a `details.panel summary` and that is the Panel organism. Everything
+   inside a group that answers a pointer answers it as a Subscription row, an
+   Alert item or a Nav row, each with its own states on its own page. */

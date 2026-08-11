@@ -7,28 +7,49 @@
      colour   --bg-status, --text-status        (quiet, the default)
               --bg-trial, --text-trial          (a free trial)
               --bg-selected, --text-action      (the accent tone)
-              --bg-callout, --text-muted        (cancelled)
-              --bg-attention, --text-attention  (declared, no consumer yet)
-              --bg-failure, --text-failure      (declared, no consumer yet)
      geometry --radius-xs  (straight from primitive: a radius has nothing to
               override. Named on 2026-08-10 for exactly this component, because
               on a 23px chip --radius-sm renders as a pill)
    Page      design/kit/chip.html
-   Stands on 20 grey pages, in 36 places, under four different class names.
+   Stands on 20 grey pages, in 36 places. It carried four different class names
+   until 2026-08-12; it carries one now.
 
    NOT INTERACTIVE. A chip is a label, never a control: no page in the product
    wraps one in an anchor or a button, so this file declares no :hover, no
    :focus-visible and no [disabled]. Inventing a hover here would document
    something the product cannot do.
 
-   THIS FILE IS A FIVE INTO ONE CONSOLIDATION, and four of the five arrive
-   already merged. `kit.css` folded .tag, .badge, .plan-opt .best, .appbar .plan
-   and .locklabel into one base rule at stage 07 while docs/inventory.md was
-   still counting two separate atoms; step 2 of stage 08 brought the inventory to
-   the code rather than the other way round. All four surviving selectors are
-   written out below and share one rule, because renaming them to .chip happens
-   at step 6 together with the markup of the screens. A rename here and a screen
-   there is how a pixel comparison stops proving anything.
+   THIS FILE IS A FIVE INTO ONE CONSOLIDATION, AND ON 2026-08-12 THE FIVE NAMES
+   BECAME ONE. `kit.css` folded .tag, .badge, .plan-opt .best, .appbar .plan and
+   .locklabel into one base rule at stage 07 while docs/inventory.md was still
+   counting two separate atoms; step 2 of stage 08 brought the inventory to the
+   code rather than the other way round; step 6 renamed the four survivors to
+   .chip, here and in the markup of every screen in the same pass. A rename here
+   and a screen there is how a pixel comparison stops proving anything.
+
+   WHAT EACH OF THE FOUR HAD THAT THE OTHERS DID NOT, measured out of
+   `design/kit/kit.css` before the rename, because "they turned out identical" is
+   the sentence that justifies a merge and it has to be checked rather than
+   assumed:
+
+     .tag             two tone modifiers of its own, .tag.trial and
+                      .tag.cancelled, and one placement, .row .tag
+     .badge           three placements, p.badge, .alert .what .badge and
+                      .source .badge. No tone, no paint, no size of its own
+     .plan-opt .best  the accent fill, shared with .tone-accent and .locklabel,
+                      and a placement in plan-option.css. Required its host
+     .appbar .plan    one placement, margin-left: auto. Required its host
+
+   ON EVERY PAINT AND EVERY GEOMETRY PROPERTY THE FOUR WERE BYTE IDENTICAL: one
+   `display`, one `flex`, one padding, one border, one radius, one fill, one ink,
+   one size, one weight, one line height, one tracking, one `text-transform`, one
+   `white-space`, from the single base rule at kit.css:279. Nothing survives the
+   fold as a variant, and that is the finding rather than a convenience. What did
+   survive is two things and neither is a variant of the atom: a TONE, which is a
+   declared modifier and is below, and a PLACEMENT, which is the host's and is at
+   the foot of this file. The two host requirements were the actual defect: a
+   chip lifted out of an app bar or a plan card used to lose its rule silently,
+   and one name is what fixes it.
 
    THE FIFTH IS DELETED. `.locklabel` was declared in the stage 07 base rule and
    in the accent group, and it occurs ZERO times across all 55 grey pages. It is
@@ -36,9 +57,43 @@
    a rule with no markup paints nothing. The same argument had already retired
    `.tone-info` at stage 07, step 6. Recorded in docs/tokens-audit.md under
    "consolidated drift".
+
+   THREE MORE LEFT ON 2026-08-12, on the founder's review of the components, and
+   the ground is the stage's own rule rather than a tidy-up: an empty role is not
+   a reserve for the future, it is noise that the real roles drown in.
+
+     .tone-attention   0 on the 28 coloured screens, 0 on the 55 grey pages
+     .tone-error       0 and 0
+     .tag.cancelled    0 and 0
+
+   Counted twice, by parsing every `class="..."` token in both corpora and again
+   by `querySelectorAll` in a browser on all 83 pages. Nothing moves: a rule with
+   no markup paints nothing.
+
+   The first two were kept at stage 07 as opt-in modifiers for the day a price
+   change or a failed payment became a chip. That day is not coming, and the
+   product already answered the question: both states are a full wash block with
+   a sentence, because neither fits in two words and a chip cannot carry a clause.
+   The third was drawn from the tone axis for a cancelled state that node 2.7 has
+   never rendered; docs/inventory.md records it on 1 grey page and the sweep finds
+   it on none, so the record is wrong and is reported rather than trusted.
+
+   `.tone-accent` STAYS, and it is the one of the four that is now worn under its
+   own name. The renaming map folded `.badge`, `.best` and `.plan` into `.chip`
+   plus a tone, and the accent tone is what `.best` became: the markup reads
+   `class="chip tone-accent"` on the Best value badge. Deleting it would have
+   deleted the one tone this product spends petrol on.
+
+   THREE TOKENS IN THE STAND HAVE NO RULE LEFT, and they are reported rather than
+   restored. `design/kit/kit.html` carries `chip tone-attention` on lines 133 and
+   242, `chip tone-error` on 134 and `chip cancelled` on 136. The three counts
+   above hold for the two corpora they name, the 28 coloured screens and the 55
+   grey pages; the stand is a third corpus and it was not swept. Those four spans
+   render as quiet chips today. `kit.html` is not this file's to edit and the
+   repair is markup, not a rule brought back to serve one page in the stand.
    ============================================================================ */
 
-.app .tag, .landing .tag, .app .badge, .landing .badge, .app .plan-opt .best, .landing .plan-opt .best, .appbar .plan {
+.app .chip, .landing .chip {
   display: inline-block; flex: none; margin: var(--space-0); padding: var(--space-4) var(--space-8);
   border: 0; border-radius: var(--radius-xs);
   background: var(--bg-status); color: var(--text-status);
@@ -61,65 +116,102 @@
    Quiet is the default and 33 of the 36 chips take it. A tone is chosen by what
    the chip IS, never by how much attention it wants:
 
-     quiet      a state of a subscription or a connection, and the plan a person
-                is on. DESIGN.md: "Status is a quiet grey badge. Alarm is not a
-                colour we own"
-     trial      a free trial, the one cool pair in the palette
-     accent     a recommendation the product itself is making, and the one place
-                a chip is allowed to carry petrol
-     cancelled  a subscription that is over: recessed rather than coloured,
-                because nothing is wrong and nothing needs attention
+     quiet   a state of a subscription or a connection, and the plan a person is
+             on. DESIGN.md: "Status is a quiet grey badge. Alarm is not a colour
+             we own"
+     trial   a free trial, the one cool pair in the palette
+     accent  a recommendation the product itself is making, and the one place a
+             chip is allowed to carry petrol
 
-   All six pairs clear 4.5:1, which is the threshold that applies: a 10.5px chip
-   label is text, and 600 weight at 10.5px is nowhere near the 19px bold that
-   would drop it to 3:1. Measured on the light theme: quiet 5.77, trial 6.75,
-   accent 5.26, cancelled 5.17, attention 5.07, failure 4.57. */
+   THREE TONES, AND IT WAS SIX. The axis is now exactly as wide as the product,
+   which is what the review of the components asked of every component: the three
+   that stood on nothing left on 2026-08-12, with their counts in the header.
 
-.app .tag.trial, .landing .tag.trial { background: var(--bg-trial); color: var(--text-trial); }
+   All three pairs clear 4.5:1, which is the threshold that applies: a 10.5px
+   chip label is text, and 600 weight at 10.5px is nowhere near the 19px bold
+   that would drop it to 3:1. Measured on the light theme: quiet 5.77, trial
+   6.75, accent 5.26. */
 
-/* Declared at stage 07 and carried unchanged, with the count said out loud:
-   .tone-attention and .tone-error occur on ZERO of the 55 grey pages. They are
-   NOT deleted the way .locklabel was, and the difference is real. .locklabel sat
-   inside the merged base rule, so it claimed to be one of the chip's names;
-   these two are separate opt-in modifiers whose token pairs already carry the
-   wash block, so they cost the system nothing and they are the forms a price
-   change and a failed payment would take if either ever became a chip. Today
-   both of those states are a full wash block with a sentence, which is the
-   product's answer. Listed as an open row on design/kit/chip.html rather than
-   quietly dropped, and step 9 decides. */
-.app .tone-attention, .landing .tone-attention { background: var(--bg-attention); color: var(--text-attention); }
-.app .tone-error, .landing .tone-error { background: var(--bg-failure); color: var(--text-failure); }
+.app .chip.trial, .landing .chip.trial { background: var(--bg-trial); color: var(--text-trial); }
 
-/* The accent tone. `.plan-opt .best` is its ONLY consumer today, and the chip it
-   paints says "Best value", not "Pro": every chip in the product that says Pro
-   or Free renders quiet grey. That is D3 drawn at the smallest scale the product
-   has. The paywall never shouts, so the plan name is a state like any other, and
-   petrol is spent on the recommendation the product is actually making.
-   `.tone-accent` is the same tone as a free-standing class and has no occurrence
-   on any page; it is kept for the same reason as the two above.
+/* The accent tone, and it is the only one this component keeps that is not worn
+   yet under its own name. The chip it paints says "Best value", not "Pro": every
+   chip in the product that says Pro or Free renders quiet grey. That is D3 drawn
+   at the smallest scale the product has. The paywall never shouts, so the plan
+   name is a state like any other, and petrol is spent on the recommendation the
+   product is actually making.
+
+   `.plan-opt .best` LEFT THIS SELECTOR ON 2026-08-12 and `.tone-accent` is alone
+   as the subject. The two were sharing one rule because the tone had never been
+   given a name of its own: it was a host's private arrangement, one card
+   reaching in to PAINT one child. The renaming map ended that: `.best` became
+   `.chip` plus the tone, and the tone is the thing that survived the fold.
+
+   THIS IS ABOUT PAINT AND NOT ABOUT PLACEMENT, and the two answer to opposite
+   rules. A fill and an ink belong to the tone modifier, because a chip that is
+   petrol is petrol wherever it stands; so `.plan-opt .chip` would be wrong here
+   and the tone class is right. A margin belongs to the host, because where a
+   chip sits is a fact about the thing carrying it and about nothing else; so
+   `.plan-opt .chip { margin... }` is exactly correct, and it is what the
+   placement block at the foot of this file does five more times. The card
+   keeping the alignment while giving up the colour is not a compromise, it is
+   the line drawn where it belongs.
+
+   `.plan-opt .best` LEFT THE BASE RULE TOO, in the same pass that renamed the
+   markup to `class="chip tone-accent"`. The two halves moved together on
+   purpose: the name had been kept in the base rule so that a Best value badge
+   still written the old way read as a quiet chip rather than as an unstyled
+   word, and that carry is spent the moment no page writes the old way.
 
    --bg-selected is read here rather than a role of the chip's own. It is the one
    semantic role on --petrol-tint, and DESIGN.md ties the two places together in
    one sentence: the tint "backs the Pro label and the selected row in the master
    pane, and is the only place the accent appears as a surface". If the two ever
    part company, that is the moment the chip earns a role. */
-.app .tone-accent, .landing .tone-accent, .app .plan-opt .best, .landing .plan-opt .best { background: var(--bg-selected); color: var(--text-action); }
-
-/* Cancelled. Recessed, not coloured: a subscription that is over is not a
-   failure and not a warning, and the calm answer is to let it sink into the
-   callout fill. Declared, and standing on zero pages today: the cancelled state
-   of node 2.7 is one of the seventeen forms docs/census.md lists as existing
-   only in the grey. It is drawn from the tone axis rather than invented later. */
-.app .tag.cancelled, .landing .tag.cancelled { background: var(--bg-callout); color: var(--text-muted); }
+.app .tone-accent, .landing .tone-accent { background: var(--bg-selected); color: var(--text-action); }
 
 /* ---- placement: set by the HOST, never by the chip -----------------------
    Four margins and one auto push. They live here rather than in the four hosts
    because they are all one decision (where a chip sits inside the thing that
    carries it) and splitting them across four component files is how the same
-   rule gets written five times with five values. */
+   rule gets written five times with five values.
 
-.app .row .tag, .landing .row .tag { margin-left: auto; }
-.appbar .plan { margin-left: auto; }
-.app p.badge, .landing p.badge { margin: var(--space-0) var(--space-0) var(--space-24); }
-.app .alert .what .badge, .landing .alert .what .badge { margin: var(--space-0) var(--space-0) var(--space-0) var(--space-4); }
-.app .source .badge, .landing .source .badge { margin: var(--space-0) var(--space-0) var(--space-0) auto; }
+   A SIXTH PLACEMENT IS NOT HERE AND IS NOT COMING IN. The plan card's is
+   written by plan-option.css, now as `.plan-opt .chip`, which makes six host
+   placements of one atom living in two files. That is a real inconsistency and
+   it is on the backlog as one. It is not fixed by this round, because a move
+   should not ride along with a rename: whichever way it settles, it settles
+   once, deliberately, and not as a side effect of somebody else's edit.
+
+   THE APP BAR'S PLACEMENT LOST ITS PAINT AND KEPT ITS PUSH, which is the same
+   line drawn again. `.appbar .plan` used to be BOTH: it was in the base rule
+   because the bar was the only thing that gave that chip a fill, and it was here
+   because the bar is what pushes it to the end of the row. `.app .chip` now
+   paints it, since the bar stands inside `.app`, and `.appbar .chip` below does
+   nothing but push. */
+
+.app .row .chip, .landing .row .chip { margin-left: auto; }
+.appbar .chip { margin-left: auto; }
+.app p.chip, .landing p.chip { margin: var(--space-0) var(--space-0) var(--space-24); }
+.app .alert .what .chip, .landing .alert .what .chip { margin: var(--space-0) var(--space-0) var(--space-0) var(--space-4); }
+/* The card's top row, and the SLOT is what it is scoped to. `.source` folded
+   into `.card` and `.badge` into `.chip`, and the straight rename of this line
+   would have been `.app .card .chip`, which is a different rule wearing the same
+   values: it would push ANY chip in ANY card to the end of its line. Inert the
+   day it is written, because no other card holds a chip, and waiting for the day
+   one does.
+
+   `.top` is the slot, and it is exactly as wide as `.source` was: measured
+   across all three corpora at 4 grey pages, 3 live specimens in the stand and 0
+   coloured, and every one of them is inside what used to be a source card. Every
+   badge in a source is inside a `.top`, checked before this was narrowed, so
+   `.card .top .chip` matches what `.source .badge` matched and nothing more.
+
+   ZERO PIXELS, and it was measured rather than assumed. All 3 live specimens
+   already compute `margin-left: 0px`: the `auto` resolves to zero because their
+   `.top` is a block, not a flex row, so the push has not been doing anything.
+   Setting it to 0 by hand in the browser moved the badge from x=699 to x=699. It
+   is carried anyway, at its declared value, because the day the card's `.top`
+   becomes a flex row again is the day it matters, and a state dropped quietly is
+   a visual change nobody named. */
+.app .card .top .chip, .landing .card .top .chip { margin: var(--space-0) var(--space-0) var(--space-0) auto; }

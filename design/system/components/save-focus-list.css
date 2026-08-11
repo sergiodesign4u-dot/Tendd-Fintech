@@ -1,0 +1,91 @@
+/* ============================================================================
+   Save-focus list - organism
+   The short list of subscriptions a person might not be using, with one line of
+   framing above it. Two entries on the one screen that carries it, never
+   fourteen: this is the product's save-focus state, and a list of everything a
+   person could cancel is a budgeting app, which this is not.
+
+   Reads
+     colour   --text-muted  (the framing line)
+     type     --type-body
+     spacing  --space-0, --space-8, --space-24
+   Page      design/kit/save-focus-list.html
+   Stands on 1 grey page and 1 coloured one: home-savefocus.
+   Hosts     the Save-focus candidate, twice, and positions it by taking the
+             browser's list furniture off the `ul` around it.
+
+   IT DRAWS NO SEPARATOR OF ANY KIND, and that is the unusual half. Every other
+   list container in this system owns the hairline between its items; here the
+   candidate draws its own, the way the switch row does, because a candidate is
+   two controls on one line rather than a single row and the line under it
+   belongs to the pair. save-focus-candidate.css says the same thing from the
+   other side, and the two files agree in writing so that neither grows a second
+   divider later.
+
+   IT HOSTS AND POSITIONS AND IT REPAINTS NOTHING. There is no rule below that
+   touches a candidate's fill, ink, size, weight or edge. The three declarations
+   are a block margin, a framing line, and a list reset.
+
+   THE TENSION IT INHERITS, STATED RATHER THAN FIXED. `.cand` is registered as a
+   MOLECULE in docs/inventory.md while hosting the Subscription row, which is
+   itself a molecule, and the ladder in docs/architecture.md calls a thing that
+   hosts a molecule an ORGANISM. It is a live row in docs/backlog.md, owned by
+   step 9 at the reconcile, and it is left exactly as the inventory has it rather
+   than changed mid round: moving a level changes the @import order, and an
+   @import order changed halfway through a round is how a composite lands above
+   its own parts. This list hosts the candidate as it is registered today.
+
+   NO HEX AND NO FONT NAME below.
+
+   THE CLASS NAME IS NOT TOUCHED. `.candidates` stays as the product writes it,
+   and the rename map in docs/inventory.md leaves it alone. Both scopes are
+   carried, `.app` and `.landing`, exactly as kit.css wrote them.
+   ============================================================================ */
+
+/* ---- the block's gap to what follows -------------------------------------
+   On home-savefocus the list sits in the second slot of the dashboard head and
+   the category list follows it. Nothing else: the framing line and the
+   candidates each carry their own spacing. */
+.app .candidates, .landing .candidates {
+  margin: var(--space-0) var(--space-0) var(--space-24);
+}
+
+/* ---- the framing line -----------------------------------------------------
+   "Two you have not opened in a while. No pressure, just a nudge." It is a
+   `role="status"` paragraph, so a screen reader hears it when the state arrives,
+   and it is the sentence that decides whether this screen reads as help or as an
+   accusation. Muted ink and body size: it frames the list, it is not a heading
+   over it, and the product has exactly two reading tiers.
+
+   `.lead` HERE IS NOT the muted line's `.lead`, and kit.css said so at the line this
+   rule came from: two names, two owners, and neither is allowed to reach the
+   other. The scoping under `.candidates` is what keeps them apart.
+
+   AFTER THE FOLD IT IS THE MUTED LINE ATOM PLUS A HOST MARGIN. 13px goes to
+   --type-body, the ink was already --text-muted, and what is left that is this
+   file's own is the 8px underneath. That makes it a rename candidate exactly
+   like the nine names muted-line.css already collapsed, and docs/inventory.md
+   has no row for `.lead` in the renaming map. Reported rather than renamed here:
+   renaming is step 6, with the markup. */
+.app .candidates .lead, .landing .candidates .lead {
+  margin: var(--space-0) var(--space-0) var(--space-8);
+  font-size: var(--type-body);
+  color: var(--text-muted);
+}
+
+/* ---- the list itself ------------------------------------------------------
+   A `ul` because two subscriptions are a list and a screen reader should say
+   "list, 2 items" before reading them. The three declarations take the browser's
+   bullets and its 40px indent off, and nothing else: without them the candidate
+   list rendered with markers and an indent, which is what kit.css found when it
+   first drew this state. */
+.app .candidates ul, .landing .candidates ul {
+  list-style: none;
+  margin: var(--space-0);
+  padding: var(--space-0);
+}
+
+/* NO STATES. The list is a container with no fill, no edge and no target of its
+   own. Each candidate holds two anchors and each of those has its own hover and
+   its own focus ring, in save-focus-candidate.css and subscription-row.css. A
+   hover written here would land on the gap between two candidates. */

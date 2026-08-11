@@ -1,0 +1,121 @@
+/* ============================================================================
+   Dashboard head - organism
+   The band across the top of Home on a wide screen: the monthly total on the
+   left, the one thing that needs attention on the right, a hairline under both.
+   It is J-MAIN read literally at a width that can hold two things at once, and
+   it is the only thing the desktop layout buys on this screen.
+
+   BELOW CONTAINER 900 THIS COMPONENT DOES NOT EXIST. Not "collapses to one
+   column", not "hides its second slot": there is no rule for `.head` outside the
+   query below, so on a phone it is an unstyled `div` and its two children stack
+   in source order under their own margins. That is the whole axis, and it is why
+   the page's first job is to prove the query fires rather than to show a colour.
+
+   Reads
+     colour   --line-divider  (the rule under the band, decorative, no threshold)
+     spacing  --space-0, --space-24, --space-32, --space-40
+   Page      design/kit/dashboard-head.html
+   Stands on 5 grey pages and 5 coloured ones: every state of Home.
+   Hosts     the Summary molecule always, and in the second slot either the Wash
+             block (attention tone) or the Save-focus list organism, or nothing.
+
+   IT HOSTS AND POSITIONS AND IT REPAINTS NOTHING. There is no rule below that
+   touches a child's fill, ink, size, weight or edge. It does now set ONE
+   property on its slots and it is a position: the bottom margin each of them
+   brings from its own file is a gap to a block underneath, and inside this band
+   there is no block underneath. See the rule at the foot of the query for the
+   measurement, which is the founder's review of the components, 2026-08-12.
+
+   NO HEX AND NO FONT NAME below. Two pixel values survive and both are TRACK
+   MINIMUMS rather than spacing: 250px and 300px are the floors under the two
+   columns, and a width is not a margin, a padding or a gap, so the 8px grid does
+   not govern it. This is the same hole docs/backlog.md records for the numbered
+   steps marker at 26 by 26, under "Holes in the system": --tap and --row are the
+   only size primitives in the system and neither of these is either. Inventing a
+   track primitive for one grid would be a token nobody else reads, and whether
+   the system needs a size scale at all is a step 9 question for the whole
+   system rather than for one band.
+
+   NOT CARRIED, DELIBERATELY: `.app > .screen > .head { order: 1 }` from the same
+   900 block. It is one of four sibling order declarations that only mean
+   anything together (head 1, secondary 2, groups 3, trust 4), it names the
+   shell's own column flow rather than this band, and it belongs to the App
+   shell organism. trust-block.css made the same call for `order: 4` and says so
+   in its header; this is the same decision on the same set. Named here so it
+   cannot be lost between two files.
+
+   NO container-type IS DECLARED HERE. The container is on `body`, in base.css.
+   A second one between `body` and this rule would re-point the query at a
+   different box, and a container on the element itself cannot style the element
+   at all: a container query matches an ANCESTOR. Measured, not reasoned, and the
+   measurement is in base.css at the foot.
+
+   THE CLASS NAME IS NOT TOUCHED. `.head` stays as the product writes it, and the
+   rename map in docs/inventory.md leaves it alone.
+   ============================================================================ */
+
+/* ---- the one rule, and the query it lives inside -------------------------
+   900 is where Home stops being a list and becomes a dashboard. The number
+   cannot become a variable: a custom property is not valid inside a @container
+   condition, so the three steps of this product (760, 900, 1340) are documented
+   rather than tokenized.
+
+   The tracks are not equal and that is the point. 0.85fr against 1.15fr gives
+   the wider half to the thing that needs reading, because the left slot holds a
+   46px figure that is legible at any width and the right slot holds a sentence.
+   align-items: center hangs both off the same optical line rather than off the
+   top, so a one-line wash sits level with the middle of the number instead of
+   floating above it. */
+@container (min-width: 900px) {
+  .app .head {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.85fr) minmax(300px, 1.15fr);
+    gap: var(--space-32) var(--space-40);
+    align-items: center;
+    padding: var(--space-0) var(--space-0) var(--space-24);
+    margin: var(--space-0) var(--space-0) var(--space-24);
+    /* A DIVIDER, NOT A CONTAINER EDGE. Nothing here has to be found by touch, so
+       the hairline owes no 3:1 and reads --line-divider at 1.23:1 light and
+       1.33:1 dark, exactly as every other separator inside one surface does. */
+    border-bottom: 1px solid var(--line-divider);
+  }
+
+  /* ---- the band's foot is its 24px of padding, and both slots sit on it ----
+     `.summary` brings --space-24 under itself, the wash brings --space-24 and
+     the save-focus list brings --space-24, and every one of those is a gap to a
+     block underneath. Inside this band there is nothing underneath: the hairline
+     is, and the padding is what holds it off. Measured on the coloured Home at a
+     1280 viewport before this rule: the band ran 153px tall with 49px under the
+     lower slot where the padding says 24 plus a 1px rule.
+
+     `> *` AND NOT `> :last-child`, AND THAT IS THE WHOLE POINT OF THE RULE. In a
+     grid ROW every item ends at the same line, so "last" names nothing: the row
+     is as tall as the tallest margin box in it. Measured on Home at 1280, the
+     DOM's last child is `.wash.attention` and the item that reaches lowest is
+     `.summary`, so zeroing `:last-child` would have taken 24px off the slot that
+     was not driving the height and moved the band by nothing at all.
+
+     ONLY INSIDE THE QUERY, AND THAT IS NOT TIDINESS EITHER. Below 900 this
+     component has no padding and no border, so a slot's bottom margin is not
+     dead air: it collapses through the band and becomes the gap between the head
+     and the next block on the screen. Measured on home-empty at 360 before this
+     rule: the band ends at y=213 and `.empty` starts at y=233, and those 20px
+     ARE the summary's margin doing its declared job.
+
+     It ties at 0-2-0 with `.app .summary`, `.app .wash` and
+     `.app .candidates`, and it wins on source order because the ladder puts an
+     organism that hosts them below all three in index.css. That is what ordering
+     the imports by level is for, and it is why this rule holds on a tie rather
+     than needing a third class or a weight override. */
+  .app .head > * { margin-bottom: var(--space-0); }
+}
+
+/* NO STATES, and the reason is structural rather than an omission. The dashboard
+   head is a grid container: it has no href, no button, no pressed element and no
+   target of its own on any of the 5 grey pages or the 5 coloured ones. A pointer
+   that appears to be over it is over the summary, over the wash, over a
+   candidate, or over nothing. The states of everything inside it live on those
+   components' own pages, which is where a person looking for them will go.
+
+   NO SECOND FORM EITHER. `.head` has exactly one rule in the whole stylesheet
+   and it is the one above. Below 900 there is nothing to write down. */

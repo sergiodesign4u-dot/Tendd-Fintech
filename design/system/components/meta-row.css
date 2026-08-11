@@ -14,51 +14,85 @@
    NOT INTERACTIVE. It is a row of labels. Nothing in it is a link on any page in
    the product, and no :hover, :focus-visible or [disabled] is declared.
 
-   THE RULED FORM IS DECIDED FROM THE GREY, NOT INVENTED. `.strip` stands on zero
-   coloured pages: it lives on cancel-guide and cancel-guide-no-guide, and
+   THE RULED FORM IS DECIDED FROM THE GREY, NOT INVENTED. The strip stands on
+   zero coloured pages: it lives on cancel-guide and cancel-guide-no-guide, and
    neither has ever been drawn in colour. docs/census.md lists it as one of the
    seventeen forms that exist only in the grey, under the name "Meta strip", and
    names the risk exactly: a form nobody has drawn is a form every later builder
    invents independently, differently each time. Every value below came from
-   wireframes/_wf.css:810-814 with only the colour layer added.
+   wireframes/_wf.css:825-829 with only the colour layer added.
 
-   TWO SELECTORS, ONE COMPONENT. `.axis` and `.strip` share a base rule here and
-   become `.metarow` and `.metarow.ruled` at step 6, from the map in
-   docs/inventory.md. The names are not touched in this file.
+   RENAMED AT STEP 6, from the map in docs/inventory.md. `.axis` became
+   `.metarow` and `.strip` became `.metarow.ruled`. The base rule is now the
+   PLAIN form rather than the pair's common ground, so `.ruled` states its five
+   differences as overrides. They were measured on the kit page before the
+   rename, at a 1440 viewport, and every one of them is real:
+
+     | property        | plain (was .axis) | ruled (was .strip) |
+     |-----------------|-------------------|--------------------|
+     | justify-content | space-between     | normal, so flex-start |
+     | row / column gap| normal, so 0      | 4px / 24px         |
+     | margin-top      | 8px               | 0                  |
+     | padding         | 0                 | 8px 0              |
+     | border top/bot  | none              | 1px --line-divider |
+
+   ONE DIFFERENCE THE OLD COMMENT CLAIMED IS GONE, and the claim was left in the
+   file after it stopped being true. It read "12.5px against the axis's 11px, and
+   the step is the point". The founder's review of the foundations folded the type
+   scale: 11px ties between --type-label and --type-meta and a tie goes to the
+   larger, 12.5px rounds to --type-meta, so both forms measure 12px today and the
+   step no longer exists. Measured on design/kit/meta-row.html, both 12px. The
+   size is therefore in the BASE and `.ruled` does not restate it.
    ============================================================================ */
 
-/* What they share: a wrapping flex row in the single secondary ink tier.
-   flex-wrap matters more than it looks. The ruled form carries a whole sentence
-   in its second label ("Steps for netflix.com, which is how you pay for this
-   one"), and at 360px that sentence has to fall to its own line instead of
-   squeezing the label beside it. */
-.app .axis, .landing .axis, .app .strip, .landing .strip {
+/* PLAIN, the axis under a chart, and the base every meta row starts from.
+   A wrapping flex row in the single secondary ink tier.
+
+   flex-wrap matters more than it looks, and it matters to the ruled form rather
+   than to this one. The ruled form carries a whole sentence in its second label
+   ("Steps for netflix.com, which is how you pay for this one"), and at 360px
+   that sentence has to fall to its own line instead of squeezing the label
+   beside it. It is declared here because both forms are one component.
+
+   space-between rather than a gap, because these labels are not a list: each one
+   names a position on the plot above and has to sit under it. The first label
+   pins left and the last pins right, which is what makes three months or five
+   categories line up with the strokes. --type-meta, the second tier, because the
+   picture is the content and the axis is its caption. The 24px below it is the
+   space that separates it from what comes next; the 8px above is what binds it
+   to the chart. */
+.app .metarow, .landing .metarow {
   display: flex; flex-wrap: wrap;
   color: var(--text-muted);
+  justify-content: space-between;
+  margin: var(--space-8) var(--space-0) var(--space-24);
+  font-size: var(--type-meta);
 }
 
-/* PLAIN, the axis under a chart. space-between rather than a gap, because these
-   labels are not a list: each one names a position on the plot above and has to
-   sit under it. The first label pins left and the last pins right, which is what
-   makes three months or five categories line up with the strokes. 11px, the
-   smallest text the product uses, because the picture is the content and the
-   axis is the caption. The 24px below it is the space that separates it from
-   what comes next; the 6px above is what binds it to the chart. */
-.app .axis, .landing .axis { justify-content: space-between; margin: var(--space-8) var(--space-0) var(--space-24); font-size: var(--type-meta); }
-
 /* RULED, the strip. Same anatomy, and the difference is that it carries a rule
-   above and below. It is not an axis of anything, so its labels are a list and
-   take a real gap: 22px across, 4px down when they wrap.
+   above and below.
+
+   It is not an axis of anything, so its labels are a list and take a real gap
+   instead of the pinned ends: 24px across, 4px down when they wrap.
+   flex-start rather than dropping the declaration, because the base now sets
+   space-between and a modifier that leaves it standing would pin the two labels
+   to opposite edges. `normal` is what the strip computed before the rename and
+   flex-start is what `normal` means on a flex container: measured on the kit
+   page, the two labels start at the same x in both, 0px from the row's content
+   edge.
 
    The two rules are what make it a strip rather than two stray sentences. They
    read as one band of facts about the page, which is the job: how long this will
    take, and where the steps came from. --line-divider, not --line-container: it
    divides content inside a screen and does not enclose anything.
 
-   12.5px against the axis's 11px, and the step is the point. The axis is a
-   caption for a picture; the strip is content a person actually reads. */
-.app .strip, .landing .strip {
-  gap: var(--space-4) var(--space-24); margin: var(--space-0) var(--space-0) var(--space-24); padding: var(--space-8) var(--space-0);
-  font-size: var(--type-meta);
+   margin-top rather than the shorthand, because the bottom margin is the same
+   24px in both forms and only the top differs: the axis is bound to the chart
+   above it and the strip is bound to nothing. */
+.app .metarow.ruled, .landing .metarow.ruled {
+  justify-content: flex-start;
+  gap: var(--space-4) var(--space-24);
+  margin-top: var(--space-0);
+  padding: var(--space-8) var(--space-0);
   border-top: 1px solid var(--line-divider); border-bottom: 1px solid var(--line-divider);
 }

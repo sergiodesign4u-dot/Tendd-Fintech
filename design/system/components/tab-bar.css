@@ -1,0 +1,232 @@
+/* ============================================================================
+   Tab bar - organism
+   The four destinations of the product, and the other object that CHANGES FORM
+   rather than size at a breakpoint. Below a 760px container it is a bar fixed
+   across the bottom of the screen with the mark over the label; past it, it
+   rotates into a left rail with the mark beside the label. Same four anchors,
+   same four classes, two different navigations.
+
+   Reads
+     colour   --bg-surface, --bg-recessed, --text-muted, --text-action,
+              --line-container, --line-selected
+     states   --color-focus  (hover is NOT declared: see the states block)
+     geometry --row  (56px, the anchor's floor at the mobile width)
+     type     --type-meta
+     spacing  --space-0, --space-4, --space-8, --space-24
+   Page      design/kit/tab-bar.html
+   Stands on 28 grey pages, 112 anchors, exactly four on every one of them. The
+   census calls it the one global that came out clean. 18 of the 28 are coloured.
+
+   IT HOSTS THE DESTINATION ICON AND TOUCHES NONE OF IT. `.ic` is an atom with
+   its own file: the 22px square, the four masks, the mask machinery on the
+   pseudo-element and the unread dot all live in destination-icon.css. This file
+   positions the anchor and the row, and gives the icon nothing at all, not even
+   a size. The atom was rescoped from `.app .tabbar a .ic` to `.app .ic` at the
+   molecule round precisely because an ATOM that needs an ORGANISM's markup to
+   render is not an atom, and it is not scoped back here. The current tab's mark
+   turns petrol with no rule anywhere: the mask is painted with currentColor, so
+   it takes the anchor's own ink.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.tabbar`, `.tabbar a` and `.tabbar a.cur`
+   stay exactly as the product writes them. The current tab is marked in the
+   markup with `aria-current="page"` as well, and the census confirmed all 28.
+
+   NO HEX, NO PIXEL, NO FONT NAME below, with three exceptions, each named where
+   it stands: `z-index: 6`, the three border widths, and the rail's `min-height:
+   48px`. All three were proposed as tokens at stage 07 (`--z-tabbar`,
+   `--tap-rail`) and deferred to stage 08, which created neither, so there is
+   nothing correct for them to read.
+   ============================================================================ */
+
+/* ---- placement in the shell ------------------------------------------------
+   FIRST IN THE FILE BECAUSE kit.css DECLARED IT FIRST (lines 814 and 815,
+   against 837 and 847 for the base below), and each pair ties on specificity:
+   `.app > .tabbar` and `.app .tabbar` are both 0-2-0, `.app > .tabbar a` and
+   `.app .tabbar a` are both 0-2-1. Source order is the only thing separating
+   them, and it is what makes the rail win at 760: the container block at the
+   foot of this file writes `.app > .tabbar a` LAST, so its 48px floor beats the
+   56px one here without needing a heavier selector.
+
+   `position: fixed` is the whole mobile form: the four destinations sit on the
+   glass and do not scroll away, which is why every screen's foot clears them
+   with `calc(var(--row) + var(--space-48))` of padding. That padding belongs to
+   the shell, not here.
+
+   THIS IS THE HOST POSITIONING ITS CHILD, WRITTEN IN THE CHILD'S FILE, which is
+   the same convention that leaves `.appbar .plan` in chip.css. It is stated
+   plainly because the App shell is the other organism of this round and could
+   reasonably have claimed these four declarations: they are here, they are not
+   in app-shell.css, and one of the two files has to say so out loud.
+
+   z-index 6 sits one over the app bar's 5. Where the two chromes meet, the
+   bottom bar wins.
+
+   The top edge is --line-container and not --line-divider: it is the outer
+   boundary of a surface that sits over the screen, not a separator inside one.
+   Past 760 it becomes a right border, and the census recorded the artefact that
+   follows so nobody rediscovers it as a bug: `border-top: 0` in the rail resets
+   the colour to currentColor, so a non-current tab reports a border colour of
+   #5a686c at desktop while painting nothing at all. */
+.app > .tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 6;
+  border-top: 1px solid var(--line-container);
+}
+/* --row, not --tap: the destination is a two-line target with a mark over a
+   label, and 56px is the floor the whole product gives a row. It clears the
+   44px minimum by twelve before any padding is counted. */
+.app > .tabbar a { min-height: var(--row); }
+
+/* ---- the bar itself --------------------------------------------------------
+   Two declarations, and that is the entire mobile form of this organism. The
+   four anchors are `flex: 1`, so they divide the width equally however wide the
+   screen is: no track sizes, no minimum, no case for three destinations or
+   five. There are four, there is no fifth, and DESIGN.md says so. */
+.app .tabbar {
+  display: flex;
+  background: var(--bg-surface);
+}
+
+/* ---- a destination ---------------------------------------------------------
+   A column: the mark, then the label. The 2px transparent top border is the
+   slot the current tab's petrol lands in, and it is declared on every anchor at
+   rest so that becoming current adds no height. A border that appears on
+   selection would lift the label of one tab 2px above the other three.
+
+   Two folds, both from the founder's review of the foundations. `padding: 9px
+   4px 10px` becomes `--space-8 --space-4`, because 9 and 10 both fold to the
+   same step and the three-value form collapses honestly into two. And `gap: 3px`
+   becomes --space-4, one pixel of air between the mark and its label.
+
+   12px is the label, --type-meta, and DESIGN.md says 11px. The code has shipped
+   12 on 112 anchors since stage 07 and the code wins, the same way it won on the
+   subscription row's three sizes. The line is already in docs/tokens-audit.md. */
+.app .tabbar a {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+  text-decoration: none;
+  border-top: 2px solid transparent;
+}
+
+/* ---- the current destination -----------------------------------------------
+   Petrol on the ink and petrol on the line, and they are two different tokens
+   at the same value on purpose. --text-action answers 4.5:1 as text and measures
+   6.2:1 light and 6.8:1 dark; --line-selected answers 3:1 as a line under WCAG
+   1.4.11. One role on two surfaces is forbidden in this system even when the
+   value is identical, because a fill or line role placed on a 12px label passes
+   as a surface and fails as text, and nobody declared it text.
+
+   Weight 600, and DESIGN.md says 700. The code has shipped 600 on 28 pages;
+   same finding as the label size above, same resolution, same audit row.
+
+   This is one of petrol's three permitted jobs: the primary action, the current
+   selection, the trust line. Nothing else in the product is allowed to be
+   petrol, and the tab bar spends it on exactly one of four anchors. */
+.app .tabbar a.cur {
+  color: var(--text-action);
+  font-weight: 600;
+  border-top-color: var(--line-selected);
+}
+
+/* ---- states: token overrides, never a style of their own -------------------
+   The anchors are links, so this component IS interactive and it does have a
+   state. It has exactly one, and the missing ones are decisions rather than
+   omissions.
+
+   THERE IS NO HOVER, and adding one would be a visual change on 18 coloured
+   screens with none of stage 08's three named sources behind it. kit.css
+   declared no `.tabbar a:hover` and never had. It is also defensible on its own
+   terms: this is the bottom chrome of a phone-first product where the hover does
+   not exist, the current destination is already marked in three ways at once
+   (ink, weight and a 2px line), and a fourth response on the other three would
+   put movement in the calmest object on the screen. It stays as the product
+   wrote it. If it should change, that is the founder's call and not a side
+   effect of moving a file.
+
+   THERE IS NO ACTIVE AND NO DISABLED. A destination that cannot be reached is
+   not rendered as a dim tab, it is not rendered; all 28 pages carry all four.
+
+   The focus ring is declared here rather than inherited and moves no pixel.
+   base.css draws one for every anchor inside `:where()`, which holds it at
+   specificity 0; this re-declares it at the component's own specificity and
+   reads --color-focus, the same petrol at the same width and the same offset, so
+   the two can never disagree. It earns its place here more than almost anywhere:
+   the tab bar is the last four stops in the tab order of every screen, and it is
+   the only way a keyboard user changes destination. */
+.app .tabbar a:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   THE 760 CONTAINER: the bar rotates and becomes a rail.
+
+   THE CONTAINER IS body, DECLARED IN base.css, AND IT IS NOT DECLARED HERE.
+   A container query matches an ANCESTOR container and never the element itself,
+   so a `container-type` on `.tabbar`, or on `.app` above it, would not let this
+   component query its own width; it would re-point this query at a different box
+   and the rail would quietly stop happening. That is measured rather than
+   argued: with `container-type` on `.app`, the tab bar kept its column flow,
+   lost the rail, and moved from 240px beside the content to 965px below it.
+
+   760 is written as a number because it has to be: a custom property is not
+   valid inside a `@container` condition. Documented, not tokenized.
+
+   WHAT ACTUALLY CHANGES, in the order the eye meets it:
+   - it leaves the glass. `position: static`, and it takes row 2 of the shell's
+     grid, under the app bar in row 1. The 240px width of that column belongs to
+     the shell, not to this file.
+   - the row becomes a column, and `align-content: start` keeps four items at
+     the top of a tall rail instead of spread down it. `overflow: auto` is the
+     honest answer to a short window: the rail scrolls rather than crushing.
+   - the ground changes. --bg-recessed, the panel tint, where the mobile bar is
+     --bg-surface. The rail is a recess beside the content; the bar is a surface
+     over it.
+   - the seam moves from the top edge to the right edge, and the current tab's
+     3px petrol moves with it, from a top border to a left one.
+   - the current tab gains a fill. --bg-surface on the panel tint, which is the
+     one place in the product where a paper fill marks a selection rather than a
+     card.
+
+   `min-height: 48px` is the one literal size in this file. It is neither --tap
+   (44) nor --row (56), the only two size primitives the system has, and a
+   min-height is not a margin, a padding or a gap, so the 8px grid does not
+   govern it. `--tap-rail` was proposed at stage 07 and deferred to stage 08,
+   which did not create it. Left as a literal and reported rather than folded
+   into --space-48, which would read as a spacing and is a different scale. The
+   same hole is already recorded for the numbered-steps marker in
+   docs/backlog.md.
+
+   `padding: 0 20px` folds to --space-24, so each destination sits 4px further
+   in from the rail's edge. The last spacing move this component makes. */
+@container (min-width: 760px) {
+  .app > .tabbar {
+    position: static;
+    grid-column: 1; grid-row: 2;
+    flex-direction: column; align-content: start;
+    overflow: auto;
+    padding: var(--space-8) var(--space-0);
+    background: var(--bg-recessed);
+    border-top: 0;
+    border-right: 1px solid var(--line-container);
+  }
+  .app > .tabbar a {
+    flex: none;
+    min-height: 48px;
+    flex-direction: row; align-items: center; justify-content: flex-start;
+    gap: var(--space-8);
+    padding: var(--space-0) var(--space-24);
+    text-align: left;
+    border-top: 0;
+    border-left: 3px solid transparent;
+  }
+  .app > .tabbar a.cur {
+    border-top: 0;
+    border-left-color: var(--line-selected);
+    background: var(--bg-surface);
+  }
+}

@@ -1,0 +1,119 @@
+/* ============================================================================
+   Reveal step - organism
+   One of the three sections of node 1.5, the Guided Reveal: an eyebrow that says
+   where you are, a heading, a line of context, and one action. Three of them
+   stand on one page, divided by a hairline, and they are D1 drawn literally: the
+   count, then the categories, then the total, each step carrying its own action.
+
+   IT IS THE ONE COMPONENT IN THE SYSTEM THAT EXISTS TO TEST A HYPOTHESIS. H0 is
+   the assumption that an avoider who looks feels calmer, and it is the riskiest
+   thing in CLAUDE.md. Three steps on one page and never three routes, so back
+   never means starting over.
+
+   Reads
+     colour   --text-primary  (the step's heading)
+              --line-divider  (the rule between two steps)
+     type     --type-head
+     spacing  --space-0, --space-8, --space-16, --space-24
+   Page      design/kit/reveal-step.html
+   Stands on 1 grey page and 1 coloured one, three times: guided-reveal.
+   Hosts     the Eyebrow and Label atoms, the Big total and Muted line atoms, the
+             Merchant chip group and Action row molecules, and the Step-forward
+             link atom. It positions two of them and repaints none.
+
+   ONE OCCURRENCE IS NOT A REASON TO WRITE LESS. This component stands in one
+   place in the product and its page is where the next person decides whether to
+   reach for it, so it gets the same six sections as the button on 36 pages.
+
+   THE SELECTOR ALREADY CONTAINS THE RULE OF THIS ROUND, and it was written at
+   stage 07 before the round had a name: `h2:not(.lbl)`. The third step's heading
+   is `<h2 class="lbl strong">All together</h2>`, the Label atom, and excluding it
+   by hand is a host declining to repaint a child. The grey stylesheet had it the
+   other way round, as `.rstep .lbl`, and label.css records the correction: the
+   atom grew a declared `.strong` modifier and the page carries the class.
+
+   NOT CARRIED, and each has an owner rather than being dropped:
+     `.app .rstep .k { margin: 0 0 10px }` is ALREADY IN eyebrow.css, folded to
+     --space-8 and merged with two other hosts that fold to the same value.
+     Writing it again here would be two files owning one declaration, which is
+     how a value moves in one and not the other.
+     `.app .rstep .actions` IS mine and is below: action-row.css names it in its
+     header as one of three host overrides waiting for the organism round, and
+     this is that round.
+
+   NO HEX AND NO FONT NAME below. line-height and letter-spacing are written as
+   they are: scales.md puts both out of scope for this pass by name, on the
+   ground that folding them would hide what the size change did.
+
+   THE CLASS NAME IS NOT TOUCHED. `.rstep` stays as the product writes it, and
+   the rename map in docs/inventory.md leaves it alone. It is `.app` only, with
+   no `.landing` twin, exactly as kit.css wrote it: there is no reveal on the
+   landing page and adding a scope would be a selector change dressed as tidying.
+   ============================================================================ */
+
+/* ---- the step, and the seam between two of them --------------------------
+   The hairline is the only thing this component draws. It is a DIVIDER between
+   two sections of one surface, not the edge of a container: nothing has to be
+   found by touch, so it owes no 3:1 and reads --line-divider at 1.23:1 light and
+   1.33:1 dark. The padding and the margin are equal on purpose, so the rule sits
+   exactly halfway between the step above it and the step below. */
+.app .rstep {
+  padding: var(--space-0) var(--space-0) var(--space-24);
+  margin: var(--space-0) var(--space-0) var(--space-24);
+  border-bottom: 1px solid var(--line-divider);
+}
+
+/* The last step draws no rule and reclaims its padding: a hairline under the
+   final block would promise a fourth step that is not coming, on the one screen
+   whose whole job is to end well. `:last-of-type` and not `:last-child`, because
+   the page ends with the section and the selector has to survive a sibling being
+   added after it. */
+.app .rstep:last-of-type {
+  border-bottom: 0;
+  padding-bottom: var(--space-0);
+}
+
+/* ---- the step's own heading ----------------------------------------------
+   THIS IS THE ONE PLACE THIS FILE SETS A SIZE AND A COLOUR, and the reason is
+   that the element has no component. The heading here is a bare `h1` on step one
+   and a bare `h2` on step two: it wears no class, it is not a Text block, not a
+   Label and not a Group head, and no file in design/system/components/ styles a
+   bare heading. Left alone it renders at the browser's default, 32px black bold
+   on step one and 24px on step two, which is two different sizes for one job.
+
+   So this is an organism owning its own content and not a host repainting a
+   child. It is worth saying out loud because the difference is invisible in the
+   CSS and total in the consequences: the moment a page-heading atom is declared,
+   these three declarations move to it and this file keeps the margin. Until then
+   they have exactly one home and this is it.
+
+   24px is --type-head, the subject of a page, which is what a reveal step is:
+   each of the three is a page's worth of subject shown one at a time. */
+.app .rstep h1,
+.app .rstep h2:not(.lbl) {
+  margin: var(--space-0) var(--space-0) var(--space-8);
+  font-size: var(--type-head);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+/* ---- the action row's placement, which is the host's -----------------------
+   action-row.css writes `margin: 0 0 16px` on every action row in the product
+   and names three containers that override it, each in its own file when its
+   round comes. Two of them reset it to zero because the row is the last thing in
+   a card and must not push the card's own padding open. This one is the third
+   and it is the opposite: inside a reveal step the action FOLLOWS the number
+   rather than leading the block, so it takes a top margin and gives back the
+   bottom one. Spacing only. No fill, no ink, no size, no edge: the button inside
+   is the same button as everywhere else. */
+.app .rstep .actions {
+  margin: var(--space-16) var(--space-0) var(--space-0);
+}
+
+/* NO STATES. A reveal step is a `section`: it has no href, no button and no
+   pressed element of its own, and it is not a target. Its two moving parts are
+   the step-forward link on steps one and two and the primary button on step
+   three, and both bring their own states from step-forward-link.css and
+   button.css. A hover written here would document something the product cannot
+   do. */

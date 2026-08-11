@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grid - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Grid</h1>
+    <p class="lead">A repeated child, laid out in columns that change with the container. Two doors on the empty state, six preset tiles on Add a subscription, three plan cards on Upgrade. It is the only component in this system with two axes that cross, and the reason it is one component rather than three is that the thing varying is the layout and never the child.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>8</strong> grey pages</span><span>2 axes</span><span>no states, not interactive</span><span>reads no colour at all</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">A zone, a gap and a column count. There is no third thing. Everything below is drawn by <code>design/system/components/grid.css</code> and by the files of the children inside it, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full wide">
+      <div class="grid roomy">
+        <a class="door" href="#anatomy">
+          <h3>Connect your bank</h3>
+          <p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p>
+        </a>
+        <a class="door" href="#anatomy">
+          <h3>Add a subscription</h3>
+          <p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p>
+        </a>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.grid, .grid.roomy, .plans</code> <span>the organism itself, and it is a <code>div</code> on all 8 occurrences. Three declarations at most: <code>display: grid</code>, a gap, a column count. Three names, one rule shape, which is the merge. They were <code>.tiles</code>, <code>.doors</code> and <code>.plans</code>, and step 6 folded the first two and left the third alone</span></li>
+      <li><code>gap</code> <span>the only spacing this component owns, and it is set by the <b>size of the child</b>. Written once on the base rule, because nothing about the container enters into it</span></li>
+      <li><code>grid-template-columns</code> <span>the axis that moves. One or two values at the narrow end, two or three past a 760px container</span></li>
+      <li><code>.door</code> <span><b>a molecule.</b> The <a href="door.html">Door</a>, with its own container corner, its own control edge, its own 16px padding and its own hover and focus ring. This file gives it no rule at all</span></li>
+      <li><code>.tile</code> <span><b>a molecule.</b> The <a href="preset-tile.html">Preset tile</a>, the second thing this grid holds, with its own pressed state</span></li>
+      <li><code>.plan-opt</code> <span><b>a molecule.</b> The <a href="plan-option.html">Plan option</a>, the third. Also untouched</span></li>
+      <li><code>margin</code> <span>on the base and on <code>.plans</code> only, and it is the host's rather than the component's: <code>.roomy</code> stands inside an empty block or a dialog sheet that already spaces itself, so it takes the margin back off</span></li>
+    </ul>
+    <p class="note"><b>It reads no colour at all, and on this page that is the thing to check rather than to take on trust.</b> There is not one <code>--bg-*</code>, <code>--text-*</code> or <code>--line-*</code> token in the file, no border, no radius, no <code>font-size</code> and no weight. The component with the most opportunity in this system to repaint its children paints nothing: every edge, corner, fill and word you can see above belongs to the Door.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>Two axes, and they cross.</b> That is rare enough in this product to be worth handling carefully: laid out as a matrix of combinations they would be six cells, most of them empty, and a reader would be left to guess which combinations are legal. They are not combinations. They are <b>two different questions with one answer each</b>, and the matrix below is the two questions rather than their product.</p>
+
+    <h3 class="kit-sub-h">Axis one: columns</h3>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Columns<p class="axis-rule">Decided by the child's NARROW FLOOR: how small the child can get before it stops being readable, asked at both ends of the range. Never by importance, and never by how many children there happen to be</p></th>
+            <th class="val">Narrow / past 760</th>
+            <th>Where it stands, and why that floor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1 to 2</b> <code>.grid.roomy</code></td>
+            <td class="val">1fr<br>1fr 1fr</td>
+            <td>4 grey pages. A door is a heading and two full sentences and cannot halve a 360px screen without the sentence breaking into six lines, so it is one column there and two wide. It was <code>.doors</code> until step 6</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><div class="grid roomy"><a class="door" href="#variants"><h3>Connect your bank</h3><p>Read-only, through Plaid, and about a minute.</p></a><a class="door" href="#variants"><h3>Add a subscription</h3><p>Start with one and add more later.</p></a></div></span></td></tr>
+          <tr>
+            <td><b>2 to 3</b> <code>.grid</code></td>
+            <td class="val">1fr 1fr<br>repeat(3, 1fr)</td>
+            <td>2 grey pages. A tile is a mark and a name and survives 151.5px, measured on <code>add-subscription</code> at 360, so it starts at two. Six presets in one column would be a scroll where the point is a glance</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><div class="grid"><button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="muted">Typically $17.99 a month</span></span></button><button type="button" class="tile"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span>Spotify Premium<span class="muted">Typically $11.99 a month</span></span></button><button type="button" class="tile"><span class="logo"><img src="../visuals/logos/disney-plus.svg" alt=""></span><span>Disney+<span class="muted">Typically $13.99 a month</span></span></button></div></span></td></tr>
+          <tr>
+            <td><b>1 to 3</b> <code>.plans</code></td>
+            <td class="val">1fr<br>repeat(3, 1fr)</td>
+            <td>2 grey pages. A plan card is a price, a sentence, a button and a four-line list, so one at 360; three wide, because three plans that cannot be compared side by side are not a choice. <b>The registry names two column values and the source has three</b>, and this is the third: <code>docs/inventory.md</code> writes the axis as "1 to 2 / 2 to 3" while its own renaming map writes <code>.plans</code> as "1 to 3"</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><div class="plans"><div class="plan-opt"><span class="chip tone-accent">Best value</span><span class="amt">$69<span class="per">a year</span></span><span class="muted">That is $5.75 a month, and it saves about $27 a year versus paying monthly.</span><a class="btn primary" href="#variants">Start Tendd Pro</a></div><div class="plan-opt"><span class="amt">$7.99<span class="per">a month</span></span><span class="muted">Month to month. Cancel any time, no lock-in.</span><a class="btn" href="#variants">Start Tendd Pro</a></div><div class="plan-opt"><span class="amt">Lifetime<span class="per">one payment</span></span><span class="muted">Tendd Pro stays open, for people who would rather never think about a renewal again.</span><span class="q">Not on sale yet. We are still working out the price.</span></div></div></span></td></tr>
+          <tr>
+            <td class="kit-empty">4 or more</td>
+            <td class="kit-empty">-</td>
+            <td><b>Forbidden with a reason rather than missing.</b> Nothing in this product asks a person to compare more than three things at once, and a fourth column at the widths this shell reaches would take every child under 180px. A set that wants four items is a list, and a list is the <a href="divided-list.html">Divided list</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">Axis two: gap</h3>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Gap<p class="axis-rule">Decided by the child's WEIGHT: a bordered card takes air, a chip does not. Nothing about the container enters into it, which is why the gap is written once on the base rule and the 760 block does not touch it</p></th>
+            <th class="val">Value</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Roomy</b> <code>.grid.roomy</code></td>
+            <td class="val">--space-16</td>
+            <td>Two whole cards of equal weight, and D2 says they are equals rather than a path and a fallback. The air between them is what stops the pair reading as one bordered block cut in half</td>
+          </tr>
+          <tr>
+            <td><b>Tight</b> <code>.grid</code>, <code>.plans</code></td>
+            <td class="val">--space-8</td>
+            <td>Six presets read as one catalogue rather than as six decisions, so they sit close</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A gap that changes with the container</td>
+            <td class="kit-empty">-</td>
+            <td><b>Gone, and the fold is what removed it.</b> <code>kit.css</code> gave the door grid 12px narrow and 16px past 760. Both land on <code>--space-16</code>, so the override became byte-identical to the rule it was overriding and is deleted, exactly as <code>.btn.compact</code> was. What is left of that axis is the rule that survived it: a gap answers to the child and not to the width</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-open">
+      <p><b>The fold moved this axis's numbers, and the rule and the values now disagree in one place.</b> <code>kit.css</code> shipped 12px for doors, 10px for tiles and 10px for plans. Under the founder's 8px grid, 12 is a tie between 8 and 16 and goes to the larger; 10 goes down to 8. So a 2px difference between a door and a plan card became an 8px one: <b>doors 16, tiles 8, plans 8</b>.</p>
+      <p>Both a door and a plan card are full bordered cards, so by the stated rule they should take the same air, and they no longer do. It is carried as it folds rather than adjusted, because the mapping is mechanical and the adopted scale is one of this stage's three named sources of a visual change; deciding that a plan row should take a door's air would be a fourth, and nobody has taken it. <b>Whether the plan grid goes to <code>--space-16</code> is a founder's question</b>, and it is one line either way.</p>
+    </div>
+
+    <p class="note"><b>Width is not an axis.</b> Every one of these grids is 100% of the column it stands in, and what caps it is the screen's own reading measure, which belongs to the shell. The one exception is the plan row, which asks for 720px of its own past a 760px container, and it asks because three cards side by side stop being comparable past that, not because the grid has a width. <b>Measured, that cap is already dead past a 900px container</b>: <code>.app .plans</code> is 0-2-0 and so is the shell's blanket <code>.app &gt; .screen &gt; * { max-width: none }</code>, and the shell's rule is declared later, so it wins. On <a href="../upgrade.html">the coloured Upgrade screen</a> at a 1440 viewport the plan row computes <code>max-width: none</code> and renders 728px. It is the same unbinding that took the form column from 560 to 588 and the Pro gate from 560 to 748; those three were tightened to 0-3-0 when they were found and the plan row was not, because it was not in that sample. It is carried unchanged and written down rather than repaired here, because repairing it moves a live coloured screen for a decision nobody has taken.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A grid is for <b>a small set of things a person chooses between by looking at them side by side</b>. That is a different job from a list: a list is walked one item at a time and its order carries meaning, and a grid is scanned as a set and its order carries almost none. If a person will read the items rather than compare them, the container is the <a href="divided-list.html">Divided list</a> or the <a href="category-group.html">Category group</a>.</p>
+    <p class="note">On the path, a person meets it at each of the three moments the product asks them to pick. <b>Two doors</b> is node 1.2 and it is D2 drawn: "Connect your bank" and "Add a subscription" as equals, neither recommended, neither carrying the accent, because two petrol objects on one screen is the One Voice Rule failing. <b>Six preset tiles</b> is node 1.4, and the catalogue is evidence rather than a boast: a blank form is the version people abandon, and tapping a preset turns the form below it into a confirmation instead of data entry. <b>Three plan cards</b> is node 5.13, the one screen that asks for money, where the grid's whole job is to let three prices be compared without scrolling between them.</p>
+    <p class="note">Every string in the specimens above comes from <code>voice/docs/microcopy.md</code>: "Two ways to start", "Read-only, through Plaid, and about a minute", "Most tracked", "Best value", "Start Tendd Pro - $69 a year". The amount is on the plan button because nobody should learn what they are being charged after the tap.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The grid places, and it does not paint</span>
+        <div class="kit-stage app full wide">
+          <div class="grid">
+            <button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="muted">Typically $17.99 a month</span></span></button>
+            <button type="button" class="tile"><span class="logo"><img src="../visuals/logos/nyt.svg" alt=""></span><span>The New York Times<span class="muted">Typically $17.00 a month</span></span></button>
+          </div>
+        </div>
+        <p>The first tile is genuinely pressed, by <code>aria-pressed="true"</code> rather than by a class the product does not carry, and its petrol tint and petrol edge come from <code>preset-tile.css</code>. The grid contributed a gap. Measured on this page: a tile inside the grid is 14px with a 56px floor, a <code>--radius-sm</code> corner and the control edge, which is exactly what it is on <a href="preset-tile.html">its own page</a>.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never let the grid set the child's type</span>
+        <div class="kit-stage app full wide"><span class="muted">.grid .tile { font-size: 13px; border-color: var(--line-container) }</span></div>
+        <p>Two lines that look like a tidy adjustment and are an <b>undeclared variant</b> plus a broken norm: the tile takes <code>--line-control</code> because WCAG 1.4.11 asks 3:1 of the boundary that identifies a control, and a host softening it to the container hairline would drop it to 1.23:1 on the one screen that asks a person to press something. If a child genuinely looks wrong inside a grid, the answer is a declared modifier on the child, in the child's file, with the class in the markup.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a grid</span>
+        <div class="kit-stage app full wide">
+          <div class="grid roomy">
+            <a class="door" href="#rule"><h3>Connect your bank</h3><p>Read-only, through Plaid, and about a minute.</p></a>
+            <a class="door" href="#rule"><h3>Add a subscription</h3><p>Start with one and add more later.</p></a>
+          </div>
+        </div>
+        <p>Two things of equal weight, chosen between by comparison. Side by side past 760 so neither reads as the second option, stacked at 360 because a door cannot halve a phone, and in both forms the same two cards.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a groups column set instead</span>
+        <div class="kit-stage app full wide">
+          <span class="muted">Five category groups, flowing down one column and then down the next, at 900 and again at 1340.</span>
+        </div>
+        <p>When the thing being laid out in columns is <b>a long flow of content rather than a set of choices</b>, the component is the <a href="groups-column-set.html">Groups column set</a>, and it is <code>columns</code> rather than <code>grid</code> on purpose: multi-column flows its content and balances the columns itself, which is right for five groups of unequal length, while a grid would give five equal cells and four of them would be part empty. The test is whether the reader compares the columns (a grid) or reads down them (a column set).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and the reason is one line: a grid is not interactive.</b> It is a <code>&lt;div&gt;</code> on all 8 occurrences, it holds no anchor, no button and no summary of its own, it carries no <code>tabindex</code> and no role, and <code>kit.css</code> gave it no hover, no active and no focus rule. There is nothing here for a pointer to be over: a pointer that looks as though it is over the grid is over a child or over the gap between two.</p>
+    <p class="note">Every target inside it has its states on its own page, and they are live in the specimens above rather than photographed here: the <a href="door.html">Door</a> has hover and focus-visible, the <a href="preset-tile.html">Preset tile</a> has hover, pressed and focus-visible, and the <a href="button.html">Button</a> inside a plan card has its four. Hover a door, tab into a tile, and read the value off the real thing.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the roomy gap</td><td><code>--space-16</code></td><td>primitive, straight. 12px before the fold, a tie that went to the larger</td></tr>
+          <tr><td>the tight gap</td><td><code>--space-8</code></td><td>primitive, straight. 10px before the fold</td></tr>
+          <tr><td>the space under a tile grid</td><td><code>--space-24</code></td><td>primitive, straight. 22px before the fold</td></tr>
+          <tr><td>the space under a plan row</td><td><code>--space-16</code></td><td>primitive, straight. 12px before the fold</td></tr>
+          <tr><td>the plan row's cap, and the landing's</td><td>none: 720px, 780px, 420px</td><td>widths, and a width is not a margin, a padding or a gap, so the 8px grid does not govern it</td></tr>
+          <tr><td>no colour of any kind</td><td>none</td><td>by decision, and it is the whole of this component's argument. Not one role, not one border, not one type step</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>It hosts three molecules and paints none of them.</b> <a href="door.html">Door</a>, <a href="preset-tile.html">Preset tile</a> and <a href="plan-option.html">Plan option</a> get no rule here at all beyond the gap that separates them. The whole file is four base rules and two responsive blocks.</p>
+    <p class="note"><b>One container query, and it is measured on both sides, because a query that never fires looks calm and is the most expensive defect this stage can ship.</b> The columns arrive at a 760px container. It is a CONTAINER query and not a media query, and the difference is not academic: these grids reflow on the width the screen is <i>given</i>, which on a review page is 250px less than the browser, so a media query here would silently change how all 55 screens behave. It needs an ancestor with <code>container-type: inline-size</code>, which <code>base.css</code> declares once on <code>body</code>; nothing in this file declares a second one, because a container between the body and these rules would re-point the query at a different box with no error and no symptom.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Measured on this page</th><th class="n">container 752px</th><th class="n">container 768px</th><th>Reading</th></tr></thead>
+        <tbody>
+          <tr><td><code>.grid.roomy</code> columns</td><td class="n">1</td><td class="n">2</td><td>the query fires</td></tr>
+          <tr><td><code>.grid</code> columns</td><td class="n">2</td><td class="n">3</td><td>the query fires</td></tr>
+          <tr><td><code>.plans</code> columns</td><td class="n">1</td><td class="n">3</td><td>the query fires, and it is the third column value the registry does not name</td></tr>
+          <tr><td><code>.grid.roomy</code> gap</td><td class="n">16px</td><td class="n">16px</td><td class="dec">unchanged, and unchanged on purpose: this is the axis the fold removed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>And one media query, on the landing's copy of the plan row.</b> <code>.lp-plan .plans</code> goes to three columns at a 760px <i>viewport</i>, deliberately and not by oversight: <code>index.html</code> is the only page in the product with no <code>.app</code> shell, its own block runs on media queries throughout, and the landing copy of this rule matches that model rather than introducing a second mechanism on one page. Measured at 752px and 768px viewport: one column, then three.</p>
+    <p class="note">Lives in <code>design/system/components/grid.css</code>. Stands on 8 grey pages: doors on 4 (<code>path-choice</code>, <code>home-empty</code>, <code>connections-empty</code>, <code>connections-add-source</code>), tiles on 2 (<code>add-subscription</code> and its loading state), plans on 2 (<code>upgrade</code> and the landing). Four are coloured: <a href="../home-empty.html">Home, empty</a>, <a href="../add-subscription.html">Add a subscription</a>, <a href="../add-subscription-loading.html">Add a subscription, loading</a>, <a href="../upgrade.html">Upgrade</a>.</p>
+    <code class="kit-cmd">&lt;div class="grid roomy"&gt;
+  &lt;a class="door" href="connect-bank.html"&gt;&lt;h3&gt;Connect your bank&lt;/h3&gt;&lt;p&gt;Read-only, through Plaid.&lt;/p&gt;&lt;/a&gt;
+  &lt;a class="door" href="add-subscription.html"&gt;&lt;h3&gt;Add a subscription&lt;/h3&gt;&lt;p&gt;Start with one.&lt;/p&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;div class="grid"&gt;
+  &lt;button type="button" class="tile" aria-pressed="true"&gt;...&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class="plans"&gt;
+  &lt;div class="plan-opt"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code>
+    <p class="note"><b>The stand's measure, and it is the one number on this page that is a compromise.</b> The specimens stand in <code>.kit-stage app full wide</code>, 620px. Measured at a 1440 viewport on the real screens, the product gives this component 908px for the doors on <code>home-empty</code>, 588px for the tiles on <code>add-subscription</code> and 728px for the plan row on <code>upgrade</code>; at 360 it gives all three 313px. 620 is honest for the tiles and close for the plan row, and it understates the doors by 288px at the widest end. It is still the right choice: <code>.bleed</code> is reserved for a component that genuinely spans the whole screen, which is a shell, an app bar or a tab bar, and 620 is a width the product really does hand a door grid, measured at 620px on <code>connections-empty</code>. Both ends of the axis are visible at both ends of the range, which is what this stage has to be able to show.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/grid.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that merged <code>.doors</code> and <code>.tiles</code> into <code>.grid</code>, and left <code>.plans</code> standing, is in <code>docs/inventory.md</code>; the scale that folded its gaps is recorded in <code>docs/tokens-audit.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

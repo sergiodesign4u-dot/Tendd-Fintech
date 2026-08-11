@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Panel</h1>
+    <p class="lead">A white card with a corner, a quiet band across the top, and a list or a gate under it. It is the one container in the product that clips its content, and that is what lets a full-bleed list reach its own edges without square-cornering the card. Seven of them stand in the product and only one can be pressed.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>7</strong> grey pages</span><span>1 axis, 3 values</span><span>2 states, on 1 of 7</span><span>hosts 4</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One surface, one head slot, and whatever the screen puts under it. Everything below is drawn by <code>design/system/components/panel.css</code> and by the hosted components' own files, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full">
+      <section class="panel" aria-label="Recent charges">
+        <h2>Recent charges</h2>
+        <ul class="charges">
+          <li><span>Jul 7</span><span class="amt">$11.99</span></li>
+          <li><span>Jun 7</span><span class="amt">$11.99</span></li>
+          <li><span>May 7</span><span class="amt">$11.99</span></li>
+        </ul>
+        <div class="gate">
+          <p>Three months are free. Longer history and trends are part of Tendd Pro.</p>
+          <div class="actions">
+            <a class="btn" href="#anatomy">See what Pro adds</a>
+            <button type="button" class="btn">Maybe later</button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.panel</code> <span>the organism itself: paper, a hairline edge, a 14px corner, and 24px under it. Rendered as a <code>section</code> on six of the seven and as a <code>details</code> on the seventh</span></li>
+      <li><code>overflow: hidden</code> <span>load-bearing rather than tidy. It is what clips the list's own corners to the card's, and therefore what lets the list be full-bleed at all</span></li>
+      <li><code>&gt; h2</code> <span>the band. The panel's own slot, not a hosted component: it carries no class on any page. 12px uppercase, muted, with a divider under it</span></li>
+      <li><code>.charges</code> <span><b>a molecule.</b> The <a href="charge-list.html">Charge list</a>, which draws no margin and no padding of its own so its rows reach these edges. This file gives it nothing</span></li>
+      <li><code>.amt</code> <span><b>an atom.</b> The <a href="amount.html">Amount</a>, sized for the charge row by <code>amount.css</code> and never from here</span></li>
+      <li><code>.gate</code> <span>a slot of this organism and not a component: it occurs nowhere outside a panel, five times on five pages. A recessed strip that says what Pro adds</span></li>
+      <li><code>.gate &gt; p</code> <span>the gate's own sentence. No size and no ink of its own: both are inherited from the gate, which is what makes it one declaration instead of four</span></li>
+      <li><code>.gate .actions</code> <span><b>a molecule.</b> The <a href="action-row.html">Action row</a>, and the one rule this file writes onto a hosted component: <code>margin: 0</code>, so the row does not push the gate's bottom padding open to 32</span></li>
+    </ul>
+    <p class="note"><b>The gate sits below what is free and never in front of it.</b> Three months of charges are on the screen, uncapped, and the offer comes after them. That is D3 read literally, and it is the reason the gate is a recess at the foot of a panel rather than a curtain over it.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis, and it has <b>three</b> values rather than the two <code>docs/inventory.md</code> records. Counted by opening all seven: five panels open with a banded <code>h2</code>, one opens with a <code>summary</code>, and one opens with nothing at all. The third is not a defect and not an omission, and the matrix below says what it is for. Size is deliberately <b>not</b> an axis: the panel is 100% of the column it stands in at every width, measured at 430px on <code>design/subscription-detail.html</code> at a 1440 viewport and 313px at 360.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Head<p class="axis-rule">Chosen by whether the content needs a NAME and whether it needs to be closed. A band names, a summary names and closes, and nothing at all is right only where the panel holds one thing that speaks for itself</p></th>
+            <th class="val">Element</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Banded</b> <code>.panel &gt; h2</code></td>
+            <td class="val">section + h2<br>--type-meta<br>--text-muted</td>
+            <td>5 panels on 5 pages, every state of a subscription. The band names a list that is not obvious from its rows: three dates and three amounts need to be told they are charges</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><section class="panel" aria-label="Recent charges, a price change"><h2>Recent charges</h2><ul class="charges"><li class="marked"><span>Aug 3, next</span><span class="amt">$17.99<span class="was">was $15.49</span></span></li><li><span>Jul 3</span><span class="amt">$15.49</span></li><li><span>Jun 3</span><span class="amt">$15.49</span></li></ul></section></span></td></tr>
+          <tr>
+            <td><b>Disclosure</b> <code>.panel &gt; summary</code></td>
+            <td class="val">details + summary<br>--type-body<br>--text-body</td>
+            <td>1 panel on 1 page, the "Older" group on Alerts. The only disclosure in the whole app shell, and the only interactive thing this component has</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><details class="panel"><summary>Older</summary><ul class="divlist inset"><li><a class="alert" href="#variants" aria-label="We could not take your Spotify Premium payment on 28 June. Payment failed from Chase, since gone through."><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span class="body"><span class="what">We could not take your Spotify Premium payment on Jun 28</span><span class="meta">Payment failed &middot; Spotify Premium &middot; $11.99 &middot; from Chase &middot; this one has since gone through</span><span class="go">See Spotify Premium</span></span></a></li></ul></details></span></td></tr>
+          <tr>
+            <td><b>None</b> <code>.panel &gt; .gate:first-child</code></td>
+            <td class="val">section<br>no head rule fires</td>
+            <td>1 panel on 1 page, the Pro callout on cancel-guide. The panel holds one gate and nothing else, so a band would name a paragraph. This is also the case <code>:not(:first-child)</code> exists for: with no head above it, the gate draws no top rule</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><section class="panel" aria-label="Tendd Pro"><div class="gate"><p>The steps above are free and always will be. Tendd Pro adds screenshots for each one and a direct link that skips the retention screens.</p><div class="actions"><a class="btn" href="#variants">See what Pro adds</a><button type="button" class="btn">Maybe later</button></div></div></section></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The stand shows this component at 440px and not at 620px, and that is a measurement rather than a preference.</b> The panel renders 430px wide on <code>design/subscription-detail.html</code> at a 1440 viewport, because it stands in <code>.col2</code> of the detail screen's two-track grid, and 313px at 360. The stand's default measure is 440px, so the specimens above are within 10px of the widest the product ever draws one. <code>.wide</code> would have shown it at 620, half again as wide as any panel in the product, and a charge list stretched that far reads as a sparse table.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A panel is for a <b>named block of evidence</b> that a person meets after the thing it explains. Every one of the seven is on a screen a person reached on purpose: five on a subscription they opened, one on the Alerts screen under the alerts that matter now, one on the cancel guide under the steps. Nothing on Home is a panel, and that is not an accident: Home is a list of rows under category heads and a panel around any of them would put a second frame inside a screen whose job is to look calm.</p>
+    <p class="note"><b>Its recess is where the product asks for money, and the recess is the whole of the ask.</b> The gate reads <code>--bg-recessed</code>, a step down inside a surface, and its buttons are two outline buttons: no filled accent, no badge, no colour that says urgency. D3 puts the paywall at depth and never at basic visibility or at the cancel moment, and this component is what "at depth" looks like: three months of charges are above it, free and uncapped, and the offer is the quietest thing on the card. The lines come from <code>voice/docs/microcopy.md</code> and say what is free before they say what is more: "Three months are free. Longer history and trends are part of Tendd Pro."</p>
+    <p class="note">The disclosure form is for the recent past against the distant past, and it is the only place in the app shell where content is hidden behind a press. Node 3.8 says the recent past is the job of the Alerts screen and the distant past is node 5.12, so "Older" is closed by default and its one line is a summary a person can leave alone.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A band, then rows that reach the edges</span>
+        <div class="kit-stage app full"><section class="panel" aria-label="Recent charges"><h2>Recent charges</h2><ul class="charges"><li><span>Jul 12</span><span class="amt">$14.00</span></li><li><span>Jun 12</span><span class="amt">$14.00</span></li></ul></section></div>
+        <p>The list draws no margin and no padding, the row carries the side inset, and the panel clips the corners. That is why a marked row's amber wash can reach the card's own edge instead of floating inside it as a highlighted rectangle. Take <code>overflow: hidden</code> off and the bottom row squares off both corners of the card.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a card instead</span>
+        <div class="kit-stage app full"><section class="card prose" aria-label="Trends are part of Tendd Pro"><h2>Trends are part of Tendd Pro</h2><p>Your list, your total and your alerts stay free and uncapped. What Pro adds here is the past:</p></section></div>
+        <p>When the content is prose that never reaches the edges, the component is the <a href="card.html">Card</a>. A card is padded on all four sides and holds sentences; a panel is clipped and holds a band that is flush. The two look alike from a distance and the test is one question: does anything inside have to touch the edge. If nothing does, a panel is a card with an unused clip and one more name to learn.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A gate at the foot</span>
+        <div class="kit-stage app full"><section class="panel" aria-label="Tendd Pro"><div class="gate"><p>Three months are free. Longer history and trends are part of Tendd Pro.</p><div class="actions"><a class="btn" href="#rule">See what Pro adds</a><button type="button" class="btn">Maybe later</button></div></div></section></div>
+        <p>The offer comes after the free thing, in a recess, in two outline buttons. Nobody is stopped and nothing is hidden. Five gates in the product and every one of them plays it this way.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a wash block instead</span>
+        <div class="kit-stage app full"><section class="wash attention" role="status" aria-label="Needs your attention"><p>Netflix went up by $2.50, now $17.99 a month.</p><a href="#rule">See what changed</a></section></div>
+        <p>Something that is <b>true right now and needs saying</b> is the <a href="wash-block.html">Wash block</a>, not a panel. A wash is a tinted paragraph inside the flow with no frame and no head; a panel is a framed container with content under a name. The difference is not decoration: a wash carries a tone (attention, error) and a panel never does. A panel with an amber fill would be a card claiming to be an alarm, on the product that refuses alarms.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>This component is interactive on one of its seven pages and nowhere else</b>, which is unusual enough to be the first thing said. The <code>section</code> form has no <code>href</code>, no button and no target of its own; the <code>details</code> form has a <code>summary</code>, which is a control by element rather than by class, and it is the one thing here a person can press. So there are two states and they belong to a single element on a single screen.</p>
+    <p class="note">Each is a token override rather than a style of its own: no hex and no number appears inside <code>:hover</code>. The hover reads <code>--bg-hover</code> and not <code>--bg-recessed</code>, which are one value today and two roles: one is a resting surface and the other is a transient response. Reading the recess here would tie a summary's hover to the gate's ground, and the day a hover wants to be warmer than a rail they would move together and one of the two would be wrong.</p>
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app full" id="live-rest">
+      <details class="panel" id="shot-summary">
+        <summary>Older</summary>
+        <ul class="divlist inset">
+          <li>
+            <a class="alert" href="#states" aria-label="We could not take your Spotify Premium payment on 28 June. Payment failed from Chase, since gone through.">
+              <span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span>
+              <span class="body">
+                <span class="what">We could not take your Spotify Premium payment on Jun 28</span>
+                <span class="meta">Payment failed &middot; Spotify Premium &middot; $11.99 &middot; from Chase &middot; this one has since gone through</span>
+                <span class="go">See Spotify Premium</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </details>
+    </div>
+    <p class="note">A real <code>details</code> with a real <code>summary</code>, which is the only way the states below can be reached at all: hover it, tab to it, press Enter and it opens. Faking a state with <code>.is-hover</code> is the same defect as inventing a role, because it documents something the product cannot do.</p>
+
+    <h3 class="kit-sub-h">The two, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. A value moves, and every picture of it is quietly stale until somebody re-shoots it, which is worse than no picture because it looks checked. What is left is what a picture never carried anyway: the state, and the token it reads. The resting component is live and interactive above, so read the value off the real thing.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--text-body</code> on the label, <code>--bg-surface</code> under it, no fill of its own</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same roles, the other half of each pair. The panel's edge is <code>--line-container</code> at 1.23:1 light and 1.33:1 dark, decorative in both</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-hover</code> and <code>--text-primary</code>. No border, no shift, no size change: a border arriving here would push the alerts below it down by a pixel</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the fill goes LIGHTER here and darker in the light theme: a hover moves away from its ground, and the ground swapped ends. 1.08 against the surface light, 1.11 dark</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line, drawn 2px wide at <code>outline-offset: -2px</code>. <b>The offset is negative and this is the only ring in the system that is</b>, because it is the only control standing inside a box that clips. Measured after the change: 0px lost on all four edges</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1, same width, same negative offset, same 0px lost. At the corners the panel's 13px inner radius trims the ring's square corner, so the ring takes the panel's own curve. Checked at 8x in both themes</div></div>
+    </div>
+    <p class="note"><b>The ring used to be invisible, and "used to be" is the honest wording: it was 100 percent clipped, not partly.</b> The summary's border box sits exactly 1px inside the panel, and the ring was drawn at <code>outline-offset: 2px</code>, so its outer edge stood <b>4px beyond the panel's clip box on every side</b>. <code>overflow: hidden</code> clips to the padding box, so the whole 2px width was cut on the left, the top and the right, every time. And the disclosure ships <b>closed</b>, which is how "Older" stands on the Alerts screen, so the summary is then the panel's only child and its bottom edge is the panel's bottom edge too: the fourth edge went with the other three. Tab onto "Older" and nothing at all appeared. Measured at 360 and at 1280, in both themes, identical in all four, and screenshotted at 4x to be sure it was the clip and not the token.</p>
+    <p class="note"><b>Fixed at the founder's review of the components, 2026-08-12, by turning the ring inward rather than by removing the clip.</b> <code>overflow: hidden</code> is load bearing on this component in a way it is not on a card: it is the only thing holding the gate's <code>--bg-recessed</code> fill to the two bottom corners, the summary's own hover fill to the two top corners, and a marked charge row's amber wash to whichever corner it reaches. Dropping it would mean a matching radius on the first and last child of every panel, which is three new rules keyed by position, a 13px inner corner no geometry primitive carries, and a real risk of a paper sliver at four corners on five coloured screens. The inset ring costs one sign.</p>
+    <p class="note"><b>No active and no disabled.</b> <code>kit.css</code> declared neither, and writing one here would be a new decision about how the product answers a press, taken by the person moving a file. An "Older" group with nothing older in it is not rendered dim; it is not rendered.</p>
+    <p class="note"><b>And the summary now declares its 44px floor.</b> Same review, same date. 16px of padding on a 14px line at line-height 1.5 gives 53px, measured here at 360 and 1280 in both themes, so <code>min-height: var(--tap)</code> never applies and the panel renders byte-identically with the line and without it. That is the point of adding it rather than an argument against: a target big enough by arithmetic shrinks the day its padding or its type step changes and nothing reports it, and a target big enough by declaration cannot. The floor is the primitive, so 44 lives in one place.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the card surface</td><td><code>--bg-surface</code></td><td><code>--paper</code>, and <code>--paper-dark</code> in the dark theme</td></tr>
+          <tr><td>its own edge</td><td><code>--line-container</code></td><td><code>--hairline</code>. Decorative at 1.23:1 light, deliberately: nothing about a panel has to be found by touch</td></tr>
+          <tr><td>under the band, and over a gate</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>, the separator inside one surface</td></tr>
+          <tr><td>the band's label</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
+          <tr><td>the summary and the gate's sentence</td><td><code>--text-body</code></td><td><code>--slate</code></td></tr>
+          <tr><td>the gate's ground</td><td><code>--bg-recessed</code></td><td><code>--panel</code>. A step down inside a surface, the same role the desktop rail reads</td></tr>
+          <tr><td>the summary's hover</td><td><code>--bg-hover</code>, <code>--text-primary</code></td><td><code>--panel</code>, <code>--ink</code>. Same value as the recess and a different role</td></tr>
+          <tr><td>its focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code>. 2px wide at <code>outline-offset: -2px</code>, the one inset ring in the system, because the panel clips</td></tr>
+          <tr><td>the summary's tap floor</td><td><code>--tap</code></td><td>44px, primitive. Declared 2026-08-12 and never reached: the summary measures 53</td></tr>
+          <tr><td>its corner</td><td><code>--radius</code></td><td>primitive, straight: a corner has nothing to override</td></tr>
+          <tr><td>type and spacing</td><td><code>--type-meta</code>, <code>--type-body</code>, <code>--space-0</code> to <code>--space-24</code></td><td>primitive, straight</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The seam was real, it was measured, and it is closed.</b> On <code>design/subscription-detail.html</code>, at 360 and at 1280, the last <code>li</code> of the charge list drew <code>border-bottom: 1px solid rgb(238, 242, 243)</code>, the <code>.gate</code> below it draws <code>border-top</code> of the same value, and the two rectangles touched at exactly <b>0.00px</b>. One seam carried two pixels of <code>--line-divider</code> where every other divider inside that panel carries one. It survived unseen since stage 07 because the gate's recessed fill (<code>rgb(244, 247, 248)</code>) sits one step from the divider's own value, so the doubling read as a slightly firmer line rather than as a fault.</p>
+    <p class="note"><b>Closed on the list's side, not on this one, and that choice is the whole argument for a principle over a patch.</b> Founder's review of the components, 2026-08-12: the last row of a divided list drops its bottom rule, because a divider divides two things and after the last row there is nothing to divide. The rule that moved is <code>.charges li:last-child</code> in <a href="charge-list.html">charge-list.css</a>; the gate keeps its top rule exactly as <code>kit.css</code> wrote it. Taking the rule off the gate instead would have closed this one seam and left the identical one on <a href="../subscription-detail-loading.html">the loading state</a>, where the list is the panel's last child and its final rule sat flush at <b>0.00px</b> on the panel's own hairline: 1px of <code>--line-divider</code> stacked on 1px of <code>--line-container</code>, and nobody had named it. Measured: the panel is <b>1px shorter</b> on all five subscription-detail screens, at both viewports, and nothing else moves.</p>
+    <p class="note"><b>Two rules that could have been written here are not.</b> <code>.app .panel .divlist { padding }</code> lives in <a href="divided-list.html">divided-list.css</a>, because it is a variant of the divided list keyed by this host, written <code>.divlist.inset</code> since step 6 renamed it, and the subject of a rule owns it. And no rule anywhere in this file touches a charge row, an amount, a button or an alert item: the only thing it writes onto a hosted component is <code>margin: 0</code> on the action row, which <a href="action-row.html">action-row.css</a> names and hands here by name.</p>
+    <p class="note">Lives in <code>design/system/components/panel.css</code>. Stands on 7 grey pages, 5 of them coloured: <a href="../subscription-detail.html">Subscription detail</a>, <a href="../subscription-detail-price-change.html">a price change</a>, <a href="../subscription-detail-payment-failed.html">a payment that failed</a>, <a href="../subscription-detail-unrecognized.html">an unrecognised charge</a>, <a href="../subscription-detail-loading.html">loading</a>. The disclosure form and the headless form are still grey, on <code>wireframes/alerts.html</code> and <code>wireframes/cancel-guide.html</code>.</p>
+    <code class="kit-cmd">&lt;section class="panel" aria-label="Recent charges"&gt;
+  &lt;h2&gt;Recent charges&lt;/h2&gt;
+  &lt;ul class="charges"&gt;
+    &lt;li&gt;&lt;span&gt;Jul 7&lt;/span&gt;&lt;span class="amt"&gt;$11.99&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;div class="gate"&gt;
+    &lt;p&gt;Three months are free. Longer history and trends are part of Tendd Pro.&lt;/p&gt;
+    &lt;div class="actions"&gt;
+      &lt;a class="btn" href="upgrade.html"&gt;See what Pro adds&lt;/a&gt;
+      &lt;button type="button" class="btn"&gt;Maybe later&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;details class="panel"&gt;
+  &lt;summary&gt;Older&lt;/summary&gt;
+  &lt;ul class="divlist"&gt;...&lt;/ul&gt;
+&lt;/details&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/panel.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided its axis is in <code>docs/inventory.md</code>, which records two values where the pages carry three. Three rows this component carried in <code>docs/backlog.md</code> closed on 2026-08-12: the two-hairline seam, the clipped focus ring and the missing tap floor. All three are rows in <code>docs/tokens-audit.md</code> under the founder's review of the components.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

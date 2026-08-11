@@ -49,47 +49,18 @@
    which is a positioned pseudo-element and not on either scale.
 
    THE CLASS NAME IS NOT TOUCHED. `.trust` stays as the product writes it; the
-   rename map leaves it alone. The link's selectors stay unscoped exactly as
-   kit.css writes them.
+   rename map leaves it alone, which is why this component's link could be
+   settled at step 6 without waiting for any markup at all.
 
-   THE ORDER OF THE BLOCKS BELOW IS kit.css's ORDER, DELIBERATELY: rest, hover,
-   floor, size, colour, then the block. Two of those rules tie on specificity
-   and are decided by source order, so sorting this file tidily would change
-   what the link does under the pointer. The tie is documented where it happens.
+   THE ORDER OF THE BLOCKS NO LONGER DECIDES ANYTHING, AND THAT IS THE CHANGE.
+   Step 5 kept kit.css's order to the line because two rules tied at 0-2-1 and
+   source order was the only thing separating them; the file said so, and warned
+   that sorting it tidily would change what the link does under the pointer.
+   Step 6 removed the tie instead of preserving it: four rules for one link
+   became two, rest at 0-2-1 and hover at 0-3-1, and the hover now wins on
+   arithmetic. Nothing in this file or any later one can take it away by being
+   written afterwards, which is what "one owner" buys.
    ============================================================================ */
-
-/* ---- the inline link, part one: rest -------------------------------------
-   The shared rest rule kit.css declares for ten link families at once, reduced
-   to this molecule's own family. Copied exactly as written, unscoped, because a
-   selector change dressed as a tidy-up is still a selector change; step 6
-   settles the whole file's scoping in one pass with the markup. Both of the
-   values below are immediately overridden further down, and they are carried
-   anyway: what renders is what this stage may not move. */
-.trust a {
-  font-size: var(--type-body);
-  color: var(--text-body);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--line-container);
-}
-
-/* ---- the inline link, part two: hover, and it does nothing ---------------
-   `.trust a:hover` is 0-2-1. So is `.app .trust a` fourteen lines below, and the
-   later declaration wins on both properties it sets. The ink is petrol at rest
-   and petrol on hover, which is the same petrol; the underline is the tint at
-   rest and the hover's full petrol loses the tie. THE TRUST LINK HAS NO POINTER
-   RESPONSE TODAY, on 9 coloured pages, and no file says so.
-
-   MEASURED, NOT DEDUCED, and carried unchanged. A hover repair is not one of
-   the three legal sources of a visual change at this stage
-   (docs/tokens-audit.md), and this is the product's most-read link: changing
-   what it does belongs in a named decision, not in a migration. Reported, and
-   on design/kit/trust-block.html with the arithmetic. Step 6 owns the fix,
-   where the selector set is settled at once. */
-.trust a:hover {
-  color: var(--text-action);
-  text-decoration-color: var(--text-action);
-}
 
 /* ---- the 44px floor ------------------------------------------------------
    "Data and privacy" is a DIRECT CHILD of the block, on its own line under the
@@ -104,19 +75,51 @@
   min-height: var(--tap);
 }
 
-/* ---- the link's own size and colour --------------------------------------
-   Two adjacent rules in kit.css with an identical selector, merged into one
-   here: same specificity, same position, provably the same result.
+/* ---- the link: ONE OWNER FOR REST, ONE FOR HOVER --------------------------
+   FOUR RULES BECAME TWO ON 2026-08-12, and the dead hover came back with them.
+
+   kit.css declared this link four times: an unscoped `.trust a` for the shared
+   rest of ten link families, an unscoped `.trust a:hover`, and then two adjacent
+   `.app .trust a` rules further down that set the size and the colour again. The
+   first rule's font-size and both of its colours were overridden by the fourth,
+   so two of its three declarations never rendered; and the second tied with the
+   fourth at 0-2-1 and lost on source order, which is how THE PRODUCT'S MOST
+   READ LINK ENDED UP WITH NO POINTER RESPONSE AT ALL on 9 coloured pages.
+
+   Nobody wrote that. It is what four rules for one link produce when two of them
+   happen to weigh the same, and it survived unseen because the ink was already
+   petrol at rest, so the tie only shows in the underline, which is a hairline.
+   The repair is not a new value: every value below is one kit.css already wrote,
+   and the hover is the one it declared and could not deliver.
+
+   The structure that keeps it fixed is arithmetic rather than order. Rest is
+   0-2-1 and hover is 0-3-1, so the hover wins on specificity and no later rule
+   in any file can quietly take it away by being written afterwards. The rest
+   rule is scoped now, which is the same repair one level down: an unscoped
+   `.trust a` would paint a link in the reviewer's chrome.
 
    12px, one step under the sentences it sits beneath, and petrol AT REST. Petrol
    at rest is reserved for three jobs and this is the third of them: a link that
    leads to the full data-and-privacy answer is the trust claim's own proof, and
    it has to look reachable without shouting. Everywhere else in the product the
-   underline carries the affordance and the ink stays neutral. */
+   underline carries the affordance and the ink stays neutral.
+
+   WHAT MOVES, MEASURED: the ink does not, because petrol at rest is already the
+   answer and a link that changed colour here would be spending the accent twice.
+   The underline goes from --line-action-soft to --text-action, which is
+   rgb(231, 237, 238) becoming rgb(28, 106, 118): a 1.18:1 whisper becoming the
+   full petrol at 6.2:1, both figures tokens.css's own. That is the whole
+   response and it is the right size for it: this link is quiet by design, and
+   the pointer confirms it rather than announcing it. */
 .app .trust a, .landing .trust a {
   font-size: var(--type-meta);
   color: var(--text-action);
+  text-decoration: underline;
+  text-underline-offset: 3px;
   text-decoration-color: var(--line-action-soft);
+}
+.app .trust a:hover, .landing .trust a:hover {
+  text-decoration-color: var(--text-action);
 }
 
 /* ---- the block ----------------------------------------------------------
@@ -159,7 +162,7 @@
 
    -webkit- first and unprefixed second, because Safari still answers only to
    the prefixed property and the unprefixed one has to be able to win where both
-   are understood. The shorthand form is what kit.css ships and it is carried as
+   are understood. The shorthand form is what kit.css shipped and it is carried as
    the shorthand: rewriting it into longhands would be a change of declaration
    in a stage that may not move a pixel, and the longhands are the destination
    icon's shape because that component needs one machinery rule and four image

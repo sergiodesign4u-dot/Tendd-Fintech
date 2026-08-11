@@ -61,6 +61,7 @@
     <ul class="kit-callouts">
       <li><code>.charges</code> <span>the list. No margin and no padding at all: it is a full-bleed band inside a panel, so its rows reach the panel's own edges</span></li>
       <li><code>.charges li</code> <span>the row. Baseline aligned rather than centred, which is load bearing: the amount can carry a second line under it</span></li>
+      <li><code>.charges li:last-child</code> <span>and the last row draws no rule. A divider divides two things, and after the last row there is nothing to divide. The panel around it is what closes the list</span></li>
       <li><code>.amt</code> <span>an atom, the <a href="amount.html">Amount</a>, sized for this container by <code>.charges li .amt</code> in <code>amount.css</code>. It is the lightest weight the amount has anywhere, because eleven identical numbers in a column are a texture rather than eleven things to read</span></li>
       <li><code>.was</code> <span>the note under the amount. A second content slot of this row, not a variant of the atom: the atom keeps its size, weight and ink, and this drops a quieter line under it</span></li>
       <li><code>li.marked</code> <span>the amber wash on the one row that needs a second look. A state of the DATA, not of the pointer</span></li>
@@ -126,7 +127,9 @@
       </table>
     </div>
     <p class="note"><b>The old price is not struck through, and that was checked rather than assumed.</b> There is no <code>text-decoration</code> on <code>.was</code>, no <code>&lt;s&gt;</code> and no <code>&lt;del&gt;</code> anywhere in this project. The previous price is announced by the word: "was $15.49". That is the right answer twice over. A line through text is not reliably announced by a screen reader, so a struck price reads aloud as a second, current price sitting next to the real one; and <code>&lt;del&gt;</code> would be a lie, because nothing was deleted, the price changed. The word carries the meaning to everybody in the same order, which is also why the same slot can say "did not go through" without needing a second rule.</p>
-    <p class="note"><b>One backlog line, found by reading the two rules against each other and not yet looked at in a browser.</b> The last row of the list keeps its bottom hairline, unlike the pair list, and the Pro gate that follows it inside the same panel draws a top hairline of its own (<code>kit.css</code>, <code>.panel .gate:not(:first-child)</code>). The two touch, so the seam between the list and the gate is two hairlines thick where every other divider in the panel is one. Both halves are the same colour, so it reads as a single heavy rule rather than as two. Not fixed here: the fix is one line in one of two components and it moves a pixel, which needs a named decision and the panel's owner in the room.</p>
+    <p class="note"><b>The last row draws no rule, and that changed on 2026-08-12.</b> A divider divides two things, and after the last row there is nothing to divide. The founder's review of the components made that a principle of the system rather than a patch on one seam, and this component was the only place in the system it had to be applied: every other ruled list already ended this way (<code>.card.prose li:last-child</code>, <code>.pairs div:last-child</code>, <code>.pairs li:last-child</code>, <code>.cand:last-child</code>, <code>.switch:last-of-type</code>, <code>.rstep:last-of-type</code>), and the two lists built on <code>li + li</code> never drew a last rule at all.</p>
+    <p class="note"><b>It closes two doubled seams, not one, and the second is the reason a principle beats a patch.</b> Measured in a browser at 360 and 1280, before and after. On the four subscription-detail states that carry a Pro gate, the last row's <code>border-bottom: 1px rgb(238, 242, 243)</code> and the gate's own <code>border-top</code> of the same value touched at exactly <b>0.00px</b>, so that seam carried 2px of <code>--line-divider</code> where every other divider in the panel carries 1. On <a href="../subscription-detail-loading.html">the loading state</a> there is no gate: the list is the panel's last child, and the same rule sat flush at <b>0.00px</b> against the panel's own bottom edge, 1px of <code>--line-divider</code> stacked on 1px of <code>--line-container</code>. Nobody had named the second one. Closing the seam by taking the rule off the gate instead would have left it standing.</p>
+    <p class="note"><b>The list still reads as closed, which was checked and not assumed.</b> In the product it is always inside the <a href="panel.html">Panel</a>, and a bordered container closes a list by itself: in the first case the gate's own top rule is still drawn, in the second the panel's own hairline is. No occurrence anywhere in the product relies on its last row to look finished. Measured effect: the panel is <b>1px shorter</b> on all five subscription-detail screens at both viewports, and no other geometry moves.</p>
   </section>
 
   <section class="kit-sec" id="usage">
@@ -146,7 +149,7 @@
       </div>
       <div class="no">
         <span class="hd">Use a wash block instead</span>
-        <div class="kit-stage app full"><span class="consequence">Netflix went up by $2.50 on Jul 28. Your next charge is $17.99 instead of $15.49.</span></div>
+        <div class="kit-stage app full"><span class="muted">Netflix went up by $2.50 on Jul 28. Your next charge is $17.99 instead of $15.49.</span></div>
         <p>The explanation of what happened is a <b>wash block</b> above the list, not a longer line inside it. A charge row has room for a date, an amount and about four words; a sentence squeezed into it would wrap, break the baseline the column depends on, and still say less than the banner does. The list points; the banner explains.</p>
       </div>
     </div>
@@ -158,7 +161,7 @@
       </div>
       <div class="no">
         <span class="hd">Use a subscription row instead</span>
-        <div class="kit-stage app full"><span class="consequence">Spotify Premium &middot; Aug 7 &middot; $11.99 &rsaquo;</span></div>
+        <div class="kit-stage app full"><span class="muted">Spotify Premium &middot; Aug 7 &middot; $11.99 &rsaquo;</span></div>
         <p>When the line IS a way into something, it is a <b>subscription row</b> inside a <b>divided list</b>: 56px tall, the whole row one anchor with one accessible name, a merchant logo at the front. The two look similar in a screenshot and are opposite in what they promise. The test is whether there is a screen behind the line.</p>
       </div>
     </div>
@@ -177,7 +180,7 @@
         <tbody>
           <tr><td>the marked row's wash</td><td><code>--bg-attention</code></td><td><code>--amber-wash</code>, and <code>--amber-wash-dark</code> in the dark theme</td></tr>
           <tr><td>the note under an amount</td><td><code>--text-muted</code></td><td><code>--muted</code>. The single secondary tier, 5.8:1 on the surface light and 6.4:1 dark. On a marked row it sits on the amber wash instead, which is the one pair on this component the token audit measures separately</td></tr>
-          <tr><td>the divider</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. Decorative: nothing here has to be found by touch</td></tr>
+          <tr><td>the divider</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. Decorative: nothing here has to be found by touch. Between rows only, never after the last one</td></tr>
           <tr><td>the row, the note</td><td><code>--type-body</code>, <code>--type-meta</code></td><td>14px and 12px. The row was 13.5, folded by the founder's review of 2026-08-11</td></tr>
           <tr><td>the row's padding and gap</td><td><code>--space-8</code>, <code>--space-16</code></td><td>the 8px grid. 10 and 14 both fold, and the side padding still lines up with the panel head, which was also written as 14</td></tr>
           <tr><td>the skeleton slot</td><td>literal</td><td>56px. A width is not a spacing, and <code>skeleton-bar.css</code> hands this one here by name along with the pair list's two</td></tr>
@@ -194,7 +197,7 @@
   </section>
 
   <footer class="kit-foot">
-    Drawn by <code>design/system/components/charge-list.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its row in the system is in <code>docs/inventory.md</code>. It appears in <code>docs/census.md</code> nowhere at all, and that is the correct result rather than a gap: the census measured controls, and this component has none.
+    Drawn by <code>design/system/components/charge-list.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its row in the system is in <code>docs/inventory.md</code>. It appears in <code>docs/census.md</code> nowhere at all, and that is the correct result rather than a gap: the census measured controls, and this component has none. The two-hairline seam it carried in <code>docs/backlog.md</code> closed on 2026-08-12 and has a row in <code>docs/tokens-audit.md</code> under the founder's review of the components.
   </footer>
 </div>
 

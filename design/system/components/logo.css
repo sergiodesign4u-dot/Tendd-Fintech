@@ -19,9 +19,19 @@
    :hover, no :focus-visible, no [disabled] are declared, and the row's own hover
    is the row's rule.
 
-   THE CLASS NAME IS NOT TOUCHED. `.logo`, `.logo.is-skel` and the host sizes
-   stay exactly as the product writes them. The rename map in docs/inventory.md
-   leaves this one alone: the logo keeps its name.
+   THE CLASS NAME IS NOT TOUCHED. `.logo` and `.logo.is-skel` stay exactly as
+   the product writes them. The rename map in docs/inventory.md leaves this one
+   alone: the logo keeps its name.
+
+   ONE HOST NAME DID MOVE, at step 6. The size rule scoped to a source card was
+   `.app .source .top .logo`; `.source` became `.card`, so it reads
+   `.app .card .top .logo`. That is a wider-looking selector and it is not a
+   wider one, because the middle level does the scoping: `.top` is a slot that
+   exists only inside a source card, counted across all three corpora at 4 in the
+   grey, 3 live in the kit plus one inside a code sample, and 0 in colour, every
+   one of them a direct child of a source. Had the rule been renamed to
+   `.app .card .logo` it WOULD have widened, to every mark inside every card. It
+   was not, and the specificity is unchanged at 0-4-0.
 
    ONE VALUE DISAGREES WITH DESIGN.md AND THE CODE WINS. DESIGN.md's prose calls
    this "a 40px logo tile"; the stylesheet has shipped 36px since stage 07, on
@@ -72,7 +82,12 @@
 .app .hero .logo, .landing .hero .logo { width: 52px; height: 52px; border-radius: var(--radius); }
 .app .alert .logo, .landing .alert .logo { width: 32px; height: 32px; }
 .app .tile .logo, .landing .tile .logo { width: 30px; height: 30px; }
-.app .source .top .logo, .landing .source .top .logo { width: 36px; height: 36px; }
+/* The source card's mark, and it is the one host size that changes nothing: 36px
+   is also the base above. It is kept rather than dropped because it is the host
+   axis written out, and because removing a live declaration is a visual change
+   even when the value is identical. Measured after the rename: 36 by 36, the
+   same square. */
+.app .card .top .logo, .landing .card .top .logo { width: 36px; height: 36px; }
 /* Brought here from the .rgroup block in kit.css, where it sat 436 lines below
    the other four. It is the same axis, it is the logo's own size, and a size of
    this component declared inside another component's file is the shape of a

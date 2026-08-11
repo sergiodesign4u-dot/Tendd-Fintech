@@ -7,7 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
 </head>
 <body>
 
@@ -16,8 +17,8 @@
   It exists because the chart is the slowest thing the product draws, and the wait
   has to keep the frame the numbers will land in rather than cover the screen with
   a spinner. The colour layer owns the visual only; a skeleton logo carries no mark.
-  Assembled from kit classes. This page carries no page-level style block, no
-  style attribute, and no class that kit.css does not define.
+  Assembled from system classes. This page carries no page-level style block, no
+  style attribute, and no class that design/system/ does not define.
   Structure and copy are a verbatim copy of wireframes/history-trends-loading.html.
   Links to screens that are not coloured yet point back into wireframes/.
 -->
@@ -39,14 +40,14 @@
 <div class="app">
 
   <header class="appbar">
-    <a class="back" href="home.html">&lsaquo; Your subscriptions</a>
+    <a class="back" href="home.html">Your subscriptions</a>
     <span class="wordmark">Tendd</span>
-    <span class="plan">Pro</span>
+    <span class="chip">Pro</span>
   </header>
 
   <main class="screen" aria-busy="true">
 
-    <div class="lede">
+    <div class="textblock">
       <h1>Your trends</h1>
       <p role="status" aria-live="polite">Adding up your last few months. This usually takes a moment.</p>
     </div>
@@ -60,11 +61,16 @@
     </div>
 
     <!-- A skeleton in the shape of the chart, never a spinner over the screen:
-         the same rule as every other wait in this product. -->
+         the same rule as every other wait in this product. The frame inside the
+         box is the frame and not the data: three gridlines are true before the
+         numbers arrive and do not move when they land, which is the same reason
+         the range control above is real rather than greyed. The literal [chart]
+         that stood here until 2026-08-12 was the wireframe's placeholder
+         notation reading as a note to the team, printed to the person. -->
     <div aria-hidden="true">
       <span class="skel line w80"></span>
       <span class="skel line w50"></span>
-      <div class="chart">[chart]</div>
+      <div class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g></svg></div>
     </div>
 
     <section class="group" aria-hidden="true">

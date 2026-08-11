@@ -42,7 +42,7 @@
     <h1>Switch row</h1>
     <p class="lead">A preference stated as a sentence a person agrees with, and the checkbox that answers it. Six of them carry every promise this product makes about what it will tell somebody and what it will hold. It is also the component that makes the 20px checkbox acceptable, because the row is the target and the box is not.</p>
     <div class="kit-meta">
-      <span>Molecule</span><span><strong>2</strong> grey pages</span><span>one form</span><span>no state of its own</span><span>hosts 1 atom</span>
+      <span>Molecule</span><span><strong>2</strong> grey pages</span><span>one form</span><span><strong>2</strong> states, both added 2026-08-12</span><span>hosts 1 atom</span>
     </div>
   </header>
 
@@ -52,21 +52,21 @@
     <p class="note">A <code>label</code> wrapping a control and two lines of text. Everything below is drawn by <code>design/system/components/switch-row.css</code> and by <code>checkbox.css</code>, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
     <div class="kit-stage app col">
       <label class="switch">
-        <input type="checkbox" checked>
+        <input class="check" type="checkbox" checked>
         <span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span>
       </label>
       <label class="switch">
-        <input type="checkbox" checked>
+        <input class="check" type="checkbox" checked>
         <span><span class="t">A payment does not go through</span><span class="h">Like "A payment to Amazon Prime did not go through".</span></span>
       </label>
       <label class="switch">
-        <input type="checkbox">
+        <input class="check" type="checkbox">
         <span><span class="t">Weekly email digest</span><span class="h">A calm Sunday summary of what is coming up.</span></span>
       </label>
     </div>
     <ul class="kit-callouts">
       <li><code>label.switch</code> <span>the molecule itself, and it is the <code>label</code>: it <b>wraps</b> the input rather than pointing at it with <code>for</code>, which is what makes the whole row the pointer target. That fact is the whole of the accessibility argument below</span></li>
-      <li><code>input</code> <span><b>an atom.</b> A real <code>input type="checkbox"</code> at 20px, drawn by the browser and tinted by <code>accent-color</code>. Everything about it, including its hover, its ring and its disabled form, is <a href="checkbox.html">checkbox.css</a>. Nothing in this file names <code>input</code></span></li>
+      <li><code>input</code> <span><b>an atom.</b> A real <code>input type="checkbox"</code> at 20px, drawn by the browser and tinted by <code>accent-color</code>. Its box, its tick, its accent, its hover and its disabled form are <a href="checkbox.html">checkbox.css</a>'s. The focus <b>ring</b> is not: from 2026-08-12 it is drawn on the row, because the row is the target. This file names <code>input</code> once, inside <code>:has()</code>, and sets no property of the box</span></li>
       <li><code>span</code>, unclassed <span>the text stack, and it is what the 16px gap separates from the box. Two blocks inside it, so the box aligns to the first line and not to the middle of the pair</span></li>
       <li><code>.t</code> <span>the claim, at <code>--type-body</code> and <code>--text-primary</code>. It is a sentence a person agrees with, not a setting they configure</span></li>
       <li><code>.h</code> <span>the example, at <code>--type-meta</code> and <code>--text-muted</code>, 2px under the claim. It shows what the thing will look like when it happens</span></li>
@@ -104,9 +104,9 @@
         </thead>
         <tbody>
           <tr>
-            <td class="kit-empty">A hover on the row</td>
-            <td>The row is a 44px target that gives no visual response to a pointer, while the subscription row and the nav row both take <code>--bg-hover</code>. That is an inconsistency and it is stated rather than fixed: adding a hover would be a real change to how two screens render, and "the other rows do it" is a design argument, not a consequence of moving a file. It is written out in <code>switch-row.css</code> with both options</td>
-            <td class="val">a line in the backlog<br>step 9 decides</td>
+            <td class="kit-empty">A second ring on the box</td>
+            <td><b>Closed, and the empty cell is now the correct state rather than the finding.</b> Focus lands on the input because a <code>label</code> is not focusable, and until 2026-08-12 that drew a 2px ring around a 20px box at the left edge of a 74px target. <code>base.css</code> carried <code>label:has(input)</code> in its focus-visible list, which looks like somebody meaning to solve exactly this, and it was <b>dead</b>: measured on <a href="../settings.html">Settings</a> at both viewports with the input focused, the row matched <code>label:has(input)</code> and never matched <code>:focus-visible</code>, because a label cannot. It is deleted from <code>base.css</code> now. The ring is the row's, drawn here through <code>:has(input:focus-visible)</code>, and <a href="checkbox.html">checkbox.css</a> stands its own down scoped to <code>.switch</code> so a checkbox anywhere else keeps it. Exactly one ring, measured</td>
+            <td class="val">closed 2026-08-12<br>two lines, two files</td>
           </tr>
           <tr>
             <td class="kit-empty">A locked or Pro variant</td>
@@ -135,7 +135,7 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">A preference that lands here</span>
-        <div class="kit-stage app col"><label class="switch"><input type="checkbox" checked><span><span class="t">Refresh my bank data automatically</span><span class="h">Read-only. Keeps your list current without you asking.</span></span></label></div>
+        <div class="kit-stage app col"><label class="switch"><input class="check" type="checkbox" checked><span><span class="t">Refresh my bank data automatically</span><span class="h">Read-only. Keeps your list current without you asking.</span></span></label></div>
         <p>Two positions, both visible at once, taking effect on the spot with no submit. The person reads the sentence, sees the answer and changes it or does not. Nothing else on the screen has to be touched for it to count.</p>
       </div>
       <div class="no">
@@ -147,12 +147,12 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">Yes or no, and nothing else</span>
-        <div class="kit-stage app col"><label class="switch"><input type="checkbox"><span><span class="t">Use my activity to improve Tendd</span><span class="h">Off by default. We never sell your data either way.</span></span></label></div>
+        <div class="kit-stage app col"><label class="switch"><input class="check" type="checkbox"><span><span class="t">Use my activity to improve Tendd</span><span class="h">Off by default. We never sell your data either way.</span></span></label></div>
         <p>One question with exactly two answers. Several of them stack in a section, each independent of the others, and together they read as a paragraph about what the product will do.</p>
       </div>
       <div class="no">
         <span class="hd">Use a form field instead</span>
-        <div class="kit-stage app full wide"><span class="field"><select id="r-cur" aria-label="Currency"><option>US dollar ($)</option><option>Euro (&euro;)</option><option>British pound (&pound;)</option></select></span></div>
+        <div class="kit-stage app full wide"><span class="field"><select class="select" id="r-cur" aria-label="Currency"><option>US dollar ($)</option><option>Euro (&euro;)</option><option>British pound (&pound;)</option></select></span></div>
         <p>One answer out of three or more, or an answer a person types, is the Form field with a <a href="select.html">Select</a> or a <a href="text-input.html">Text input</a> inside it. Settings carries both shapes on one screen, so the distinction is visible there: "Currency" has three answers, a label above the control and the hint "Every amount in Tendd is shown in this currency"; "A price goes up" has two answers and a sentence beside it. Checkboxes that are secretly exclusive are the oldest bug in forms, because nothing stops a person ticking two and the product then has to undo what they just did. The field's own label and hint are the Form field molecule's and are not built yet, which is why the control above stands bare.</p>
       </div>
     </div>
@@ -160,15 +160,23 @@
 
   <section class="kit-sec" id="states">
     <h2>States</h2>
-    <p class="note"><b>The row has none of its own, and the absence is the finding rather than an omission.</b> It is a pointer target, it is 44px or more, and clicking anywhere in it toggles the preference, but it answers none of that visually: <code>kit.css</code> declares no hover on <code>label.switch</code>, and the focus ring cannot land here either, because a label is not focusable and the focus goes to the input inside it.</p>
-    
-    <p class="note"><b>The hover is an open row and it is not decided here.</b> <code>checkbox.css</code> hands the question over in as many words: if the row should light up under the pointer, that decision belongs to <code>switch-row.css</code> and to the person who owns it. The answer of this file is: not by the person moving it. Adding <code>--bg-hover</code> would take one line, it would make this row consistent with the subscription row and the nav row, and it would also change how Settings and Data and privacy render, which the pixel comparison at step 8 accepts only against one of the three named sources of a visual change. It is stated, both options are written out in the CSS, and step 9 decides.</p>
+    <p class="note"><b>The row has one of its own now, and it took one line.</b> Founder's review of the components, 2026-08-12. The row is a pointer target, it is 44px or more at every occurrence, and clicking anywhere in it toggles the preference; until that line it answered none of that, and a person could not tell that the whole row was the target rather than the 20px box at its edge. Every other row in this product does answer: the subscription row, the nav row, the door and the preset tile all take <code>--bg-hover</code> and nothing else. A settings row that did not was the odd one out, which is why the fix needed no new token and invents nothing.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-hover</code>, measured <code>rgb(244, 247, 248)</code> on the hovered row and nothing on its three neighbours. <code>--bg-hover</code> and not <code>--bg-recessed</code>: one value today, two roles, one a resting surface and the other a transient response</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the same role, the other half of the pair. The fill goes lighter here and darker in the light theme, because a hover moves away from its ground and the ground swapped ends</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code> at 2px and 2px of offset, on the <b>whole row</b> and not on the box. Measured <code>rgb(28, 106, 118)</code> around 328px at 360 and 620px at 1280, exactly one of the four rows carrying it</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok">the same role, the other half of the pair: <code>rgb(107, 176, 186)</code>, same width, same offset, same single ring. The row's height is unchanged at rest and focused, which matters because an outline is painted outside the box and takes no space</div></div>
+    </div>
+    <p class="note"><b>It moves nothing and adds no edge</b>, which matters more here than on a lone control: four of these stack in a column with a divider between them, so a border or a padding change appearing under the pointer would shift the three rows below it. Measured on <a href="../settings.html">Settings</a> at 360 and at 1280: the four rows keep their heights to the hundredth with the pointer over the first one, and the fill runs the full width of the row including its 2px side padding.</p>
     <h3 class="kit-sub-h">The row, live, and there is nothing to snapshot</h3>
     <div class="kit-stage app col" id="live-row">
-      <label class="switch"><input type="checkbox" checked><span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span></label>
-      <label class="switch"><input type="checkbox"><span><span class="t">A free trial is ending soon</span><span class="h">Part of Tendd Pro.</span></span></label>
+      <label class="switch"><input class="check" type="checkbox" checked><span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span></label>
+      <label class="switch"><input class="check" type="checkbox"><span><span class="t">A free trial is ending soon</span><span class="h">Part of Tendd Pro.</span></span></label>
     </div>
-    <p class="note">Live, and worth trying rather than reading: hover the row and nothing happens, hover the box and the accent deepens, press Tab and the ring lands on the box. That is the whole state surface of this component, and the gap between the size of the target and the size of the thing that responds to it is the reason the open row above is open.</p>
+    <p class="note">Live, and worth trying rather than reading: hover the row and the whole row lifts, hover the box and the accent deepens as well, press Tab and the ring lands on the <b>row</b>.</p>
+    <p class="note"><b>The ring is the second half of the same review, and it took two lines in two files.</b> A <code>label</code> is not focusable, so focus goes to the input, and until 2026-08-12 that meant the thing answering the keyboard was a 20px box at the left edge of a 74px target: a third the size of the thing a person aims at. <code>base.css</code> listed <code>label:has(input)</code> among its focus-visible selectors, which looks exactly like somebody meaning to solve this, and it was dead: a label matches it and can never match <code>:focus-visible</code>. Measured on <a href="../settings.html">Settings</a> at both viewports with the input focused, then deleted from <code>base.css</code> with that measurement recorded there. So <code>docs/backlog.md</code> filing this under "both are markup decisions" does not hold: the working selector is <code>:has(input:focus-visible)</code>, and it is CSS.</p>
+    <p class="note"><b>Split across two files so that each one only ever speaks for itself.</b> This file draws the ring on the row; <a href="checkbox.html">checkbox.css</a> stands its own ring down, scoped to <code>.switch</code> so a checkbox anywhere else keeps it. Either half alone is worse than what it replaced: the row's ring on its own renders two concentric petrol rings on every preference, and writing <code>outline: none</code> on the input <i>from here</i> would be a molecule repainting a hosted atom's state, which is the exact defect this round exists to remove. Neither half was written until both were authorised. <code>input</code> appears once in this component's CSS, inside <code>:has()</code>, which is a question about the row rather than a declaration about the box.</p>
+    <p class="note"><b>Measured on <a href="../settings.html">Settings</a> at 360 and 1280, in both themes.</b> The ring is <code>2px solid</code> at <code>2px</code> of offset around the full row, 328px wide at 360 and 620px at 1280; exactly one of the four rows carries it; the four row heights are identical at rest and focused (74 / 92 / 74 / 73 at 360, 74 / 74 / 74 / 73 at 1280) and the document height does not move, because an outline is painted outside the box and takes no space. <code>:has(input:focus-visible)</code> rather than <code>:has(.check:focus-visible)</code> on purpose: the atom was renamed <code>.check</code> the same day and the markup pass that adds the class has not run, and a ring that waits for a markup pass is a ring that is absent for as long as the pass takes.</p>
   </section>
 
   <section class="kit-sec" id="tech">
@@ -182,7 +190,9 @@
           <tr><td>the divider it draws</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. A decorative separator, so no 3:1 applies: nothing here has to be found by touch</td></tr>
           <tr><td>the two text sizes</td><td><code>--type-body</code>, <code>--type-meta</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
           <tr><td>gap, padding, the 2px lift</td><td><code>--space-2</code>, <code>--space-16</code></td><td>primitive, straight</td></tr>
-          <tr><td>the box, its tick, its states</td><td>none</td><td><a href="checkbox.html">checkbox.css</a>. This file names no <code>input</code> at all</td></tr>
+          <tr><td>the row under the pointer</td><td><code>--bg-hover</code></td><td><code>--panel</code>, and <code>--panel-dark</code> in the dark theme. Added 2026-08-12. Same role the subscription row, the nav row, the door and the preset tile read</td></tr>
+          <tr><td>the row under the keyboard</td><td><code>--color-focus</code></td><td><code>--petrol</code>, and <code>--petrol-dark</code> in the dark theme. Added 2026-08-12, 2px at 2px of offset, the same ring <code>base.css</code> draws for the whole system. It lands on the row rather than on the box because the row is the target</td></tr>
+          <tr><td>the box, its tick, its accent</td><td>none</td><td><a href="checkbox.html">checkbox.css</a>. <code>input</code> appears once in this file, inside <code>:has()</code>, and no property of the box is set here</td></tr>
           <tr><td>its target size</td><td>none</td><td>the content and the padding. The row reads neither <code>--tap</code> nor <code>--row</code>, and it clears 44px on both screens that carry it</td></tr>
         </tbody>
       </table>
@@ -196,7 +206,7 @@
   </section>
 
   <footer class="kit-foot">
-    Drawn by <code>design/system/components/switch-row.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The atom it hosts is on <a href="checkbox.html">the checkbox's page</a>, which owns every state this row appears to have. The 20px carry is in <code>docs/decisions.md</code>, 2026-08-11, and in <code>docs/inventory.md</code>.
+    Drawn by <code>design/system/components/switch-row.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The atom it hosts is on <a href="checkbox.html">the checkbox's page</a>, which owns the box and the accent. The 20px carry is in <code>docs/decisions.md</code>, 2026-08-11, and in <code>docs/inventory.md</code>, and this component is why it holds. Both backlog rows this component carried closed on 2026-08-12, the hover and the ring, and both have a row in <code>docs/tokens-audit.md</code> under the founder's review of the components.
   </footer>
 </div>
 

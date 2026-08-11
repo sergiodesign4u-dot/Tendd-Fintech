@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Save-focus list - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Save-focus list</h1>
+    <p class="lead">The short list of subscriptions a person might not be using, with one line of framing above it. Two entries on the one screen that carries it, never fourteen: a list of everything a person could cancel is a budgeting app, and this is not one. It is the container around the Save-focus candidate and it draws no separator of any kind, which is the unusual half.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>1</strong> grey page</span><span>no axes</span><span>no states, not interactive</span><span>hosts 1 molecule, twice</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">A framing line, a list with its furniture taken off, and two candidates. Three declarations in the whole file. Everything below is drawn by <code>design/system/components/save-focus-list.css</code> and by the candidate's and the row's own files, through the same entry point a product screen loads, so this page cannot drift from the screen: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full wide">
+      <section class="candidates" aria-label="Subscriptions you might not be using">
+        <p class="lead" role="status">Two you have not opened in a while. No pressure, just a nudge.</p>
+        <ul>
+          <li class="cand">
+            <a class="row" href="#anatomy" aria-label="Peloton App, $12.99 a month, trial ends in 17 days, on 18 August, not opened in 3 weeks">
+              <span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span>
+              <span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; not opened in 3 weeks</span></span>
+              <span class="amt">$12.99</span>
+            </a>
+            <a class="cut" href="#anatomy" aria-label="Cancel Peloton App">Cancel</a>
+          </li>
+          <li class="cand">
+            <a class="row" href="#anatomy" aria-label="The New York Times, $17.00 a month, next in 10 days, on 11 August, not opened in 6 weeks">
+              <span class="logo"><img src="../visuals/logos/nyt.svg" alt=""></span>
+              <span class="body"><span class="name">The New York Times</span><span class="when">next in 10 days &middot; not opened in 6 weeks</span></span>
+              <span class="amt">$17.00</span>
+            </a>
+            <a class="cut" href="#anatomy" aria-label="Cancel The New York Times">Cancel</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.candidates</code> <span>the organism itself, a <code>section</code> with an <code>aria-label</code>. It owns one margin: the gap to whatever follows it</span></li>
+      <li><code>.lead</code> <span>the framing line, and the sentence that decides whether this screen reads as help or as an accusation. Muted ink at body size, with <code>role="status"</code> so a screen reader hears it when the state arrives</span></li>
+      <li><code>ul</code> <span>a real list, so a screen reader says "list, 2 items" first. The three declarations here take the browser's bullets and its 40px indent off and do nothing else</span></li>
+      <li><code>.cand</code> <span><b>a molecule,</b> the <a href="save-focus-candidate.html">Save-focus candidate</a>, twice. It brings its own flex row, its own gap and its own bottom hairline, and this file touches none of them</span></li>
+      <li><code>.row</code> <span><b>a molecule,</b> the <a href="subscription-row.html">Subscription row</a>, inside each candidate and identical to the row on Home</span></li>
+      <li><code>.cut</code> <span>the second control on the line, drawn by <code>save-focus-candidate.css</code>. It is separately named ("Cancel Peloton App") because a person who means to look and lands on the cancel guide stops trusting the list</span></li>
+    </ul>
+    <p class="note"><b>The list draws no separator, and that is the unusual half.</b> Every other list container in this system owns the hairline between its items; here the candidate draws its own, the way the switch row does and the opposite of the way the category group does for the subscription row. The reason is that a candidate is two controls on one line rather than one row, so the line under it belongs to the pair. <code>save-focus-candidate.css</code> says the same thing from the other side, in writing, so that neither file grows a second divider later.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>This component has one form and no axes at all</b>, so there is no matrix here: a matrix with one row is a table of one fact dressed as a choice. It stands in one place, holds two candidates, and has never been asked for a second form. What varies is the number of candidates, and the number is not a variant.</p>
+    <p class="note"><b>Two, and the cap is a product decision rather than a layout one.</b> The screen shows the two least-used subscriptions and stops. Fourteen candidates would be a list of everything a person could cancel, which is a budgeting app and is out of scope by name in <code>CLAUDE.md</code>; it would also put the loudest possible frame around the whole list on the one screen whose job is calm. The framing line says "Two you have not opened in a while", so the copy and the cap agree, and changing one without the other breaks both.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>What is NOT an axis<p class="axis-rule">Written down because the absence is a decision. Each of these was available and each was refused for a stated reason</p></th>
+            <th class="val">Why not</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="kit-empty">A tone, urgent or destructive</td>
+            <td>D3 puts no paywall at the cancel moment and <code>DESIGN.md</code> spends clay on OUR failure only, never on something a person chose to do. Cancelling is a small win, the product's most important emotional beat, and painting its list red would say the opposite</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A dense form for more entries</td>
+            <td>There is no "more entries". The cap is two, and a form that only exists past a cap that cannot be reached is a rule nobody can check</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">An empty form</td>
+            <td>When there is nothing a person is not using, the section is not rendered rather than rendered empty. An empty save-focus block would say "we looked for waste and found none", which is a sentence about waste on a screen that had none</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">This is J3 read literally: "cancel what I do not use". It stands in the second slot of the <a href="dashboard-head.html">Dashboard head</a> on one state of Home, where the price-change wash usually goes, and it is the only place in the product that puts a cancel control next to a subscription rather than behind it.</p>
+    <p class="note"><b>The framing line does most of the work</b>, and its two sentences were chosen against the persona rather than for brevity. "Two you have not opened in a while" is a fact with a number, and "No pressure, just a nudge" is the product declining to tell a person what to do. <code>voice/docs/voice.md</code> owns both, and the second one is the reason the whole block reads as help: an avoider who is shown two things she is wasting money on, with no permission to ignore them, closes the app.</p>
+    <p class="note">Reach for it when a screen offers <b>a small, capped set of things a person may act on</b>, each with the action beside it. Do not reach for it for the main list: fourteen rows with a cancel button each is a control panel, and the product's main view is a place to look.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The framing line comes first</span>
+        <div class="kit-stage app full wide"><section class="candidates" aria-label="Subscriptions you might not be using"><p class="lead">Two you have not opened in a while. No pressure, just a nudge.</p><ul><li class="cand"><a class="row" href="#rule" aria-label="Peloton App, $12.99 a month, trial ends in 17 days, not opened in 3 weeks"><span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span><span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; not opened in 3 weeks</span></span><span class="amt">$12.99</span></a><a class="cut" href="#rule" aria-label="Cancel Peloton App">Cancel</a></li></ul></section></div>
+        <p>A person meets the sentence before the two cancel buttons, which is the whole difference between a nudge and an accusation. It is muted ink at body size and it is not a heading: a heading over two subscriptions would make the block a section of the screen rather than a note inside the head. 8px under it, and the candidates start.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use the Category group instead</span>
+        <div class="kit-stage app full wide"><span class="muted">Fourteen subscriptions, each with a Cancel button beside it</span></div>
+        <p>The main list is the <a href="overview.html">Category group</a> (<code>.group</code>) inside the <a href="groups-column-set.html">Groups column set</a>, and its rows carry no second control at all: the whole row is one target with one accessible name. Putting a cut on every row turns a place to look into a place to act, which is the opposite of what J-MAIN asks for, and it hands a person fourteen chances to hit the wrong one of two overlapping targets.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The list owns no hairline</span>
+        <div class="kit-stage app full wide"><span class="muted">.candidates: one margin, one framing line, one list reset</span></div>
+        <p>The divider between two candidates belongs to the candidate, not to the list, because a candidate is a pair of controls rather than a row. Written here as well it would draw twice: a hairline under the last candidate and a second one under the block, and nobody would be able to say from either file which one was the mistake. The two files agree in writing so this can never happen quietly.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use the Divided list instead</span>
+        <div class="kit-stage app full wide"><span class="muted">Four alerts, newest first, the container drawing the line between them</span></div>
+        <p>When the container IS the thing that separates its items, the component is the <a href="overview.html">Divided list</a> (<code>.divlist</code>, which was <code>.alerts</code> and <code>.navrows</code> until step 6), which owns the hairline and whose items draw none. The two are mirror images and picking the wrong one gives you either no divider or two. The test is one question: is the item a single row, or a pair of controls sharing a line?</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>No states, and it is structural rather than an omission.</b> The list is a container with no fill, no edge and no target of its own: it holds no anchor, no button and no pressed element. A pointer that appears to be over it is over a row, over a cut, or in the gap between two candidates, which is over nothing. Faking one with a class the product does not carry would document something the product cannot do.</p>
+    <p class="note">The four states it contains are live in the anatomy above and belong to two other files: hover and focus on the row, from <a href="subscription-row.html">subscription-row.css</a>, and hover and focus on the cut, from <a href="save-focus-candidate.html">save-focus-candidate.css</a>. The cut's ring earns its place more than most, because it sits immediately after a full-width row in the tab order and a keyboard user needs to see that focus has moved from "open it" to "end it".</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the framing line</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier. 5.8:1 light, 6.4:1 dark</td></tr>
+          <tr><td>its size</td><td><code>--type-body</code></td><td>primitive, straight: 14px, a sentence</td></tr>
+          <tr><td>the block's gap and the line's gap</td><td><code>--space-24</code>, <code>--space-8</code>, <code>--space-0</code></td><td>primitive, straight</td></tr>
+          <tr><td>no fill, no border, no radius, no divider</td><td>none</td><td>by decision. The candidate draws its own hairline; the list draws nothing</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The framing line is a rename candidate and has no row on the map.</b> <code>kit.css</code> wrote it at 13px, which folds to <code>--type-body</code>, and its ink was already <code>--text-muted</code>: after the fold it is the <a href="muted-line.html">Muted line</a> atom plus a host margin, exactly like the nine names that atom already collapsed. <code>docs/inventory.md</code> has no row for <code>.lead</code> in the renaming map, so step 6 renamed everything around it and left this name standing. The scoping under <code>.candidates</code> is still load-bearing: the muted line has a <code>.lead</code> modifier of its own with a different owner, and <code>kit.css</code> said so at the line this rule came from.</p>
+    <p class="note"><b>A tension it inherits, stated rather than fixed.</b> <code>.cand</code> is registered as a MOLECULE in <code>docs/inventory.md</code> while hosting the Subscription row, which is itself a molecule, and the ladder in <code>docs/architecture.md</code> calls a thing that hosts a molecule an ORGANISM. It is a live row in <code>docs/backlog.md</code>, owned by step 9 at the reconcile. It is left exactly as the inventory has it rather than changed mid round: a level decides the <code>@import</code> order, and an order changed halfway through a round is how a composite lands above its own parts in the cascade. This list hosts the candidate as it is registered today, and its own <code>@import</code> sits below the candidate's either way.</p>
+    <p class="note"><b>No container query, and none was dropped.</b> This component has no rule inside any of the product's three container steps. The one width rule near it belongs to the candidate: under 460px the cut drops to its own line, and that lives in <code>save-focus-candidate.css</code> and <code>subscription-row.css</code>, as a media query rather than a container query, carried exactly as <code>kit.css</code> wrote it.</p>
+    <p class="note"><b>The stand shows it at <code>wide</code>, which is 620px.</b> Measured on the real coloured save-focus screen, the list renders 313px at a 360 viewport, 477px at 1024, 490px at 1440 and 766px at 1920: it is the second slot of the dashboard head, so its width is a fraction of the screen rather than a fixed column. 620 sits inside that range and above the desktop case, which is the honest choice for a component whose real width is a ratio; the default 440 would be under its own desktop measure and <code>bleed</code> would show a component that never spans.</p>
+    <p class="note">Lives in <code>design/system/components/save-focus-list.css</code>. Stands on 1 grey page and 1 coloured one: <a href="../home-savefocus.html">Home, save focus</a>.</p>
+    <code class="kit-cmd">&lt;section class="candidates" aria-label="Subscriptions you might not be using"&gt;
+  &lt;p class="lead" role="status"&gt;Two you have not opened in a while. No pressure, just a nudge.&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li class="cand"&gt;
+      &lt;a class="row" href="subscription-detail.html" aria-label="..."&gt;...&lt;/a&gt;
+      &lt;a class="cut" href="cancel-guide.html" aria-label="Cancel Peloton App"&gt;Cancel&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code>
+    <p class="note">The <code>role="status"</code> on the framing line is part of the copy: the save-focus state arrives after the list is already on screen, so a screen reader is told once, politely, and is not interrupted. The <code>aria-label</code> on the section is what makes the block findable as a region.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/save-focus-list.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided it has no axes is in <code>docs/inventory.md</code>; the level tension it inherits from its own child is a row in <code>docs/backlog.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

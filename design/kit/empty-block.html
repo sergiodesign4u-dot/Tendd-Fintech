@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Empty block - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Empty block</h1>
+    <p class="lead">What a screen says when there is nothing to show yet: a heading, one sentence, and the two doors out. It is the only block in the product whose whole job is to be replaced by content, and the reason it is a component rather than a heading and a paragraph is the tone. An empty state here is never an error, so nothing about it is clay and nothing about it apologises.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>2</strong> grey pages</span><span>no axis</span><span>no states</span><span>one colour, and it is muted</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Three slots and nothing around them. Everything below is drawn by <code>design/system/components/empty-block.css</code> and by the door's own file, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full bleed">
+      <section class="empty">
+        <h2>Two ways to start</h2>
+        <p>See everything you pay for in one calm place. Pick the one that feels right; you can change it later.</p>
+        <div class="grid roomy">
+          <a class="door" href="#anatomy">
+            <h3>Connect your bank</h3>
+            <p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p>
+          </a>
+          <a class="door" href="#anatomy">
+            <h3>Add a subscription</h3>
+            <p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p>
+          </a>
+        </div>
+      </section>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.empty</code> <span>the organism itself, and it is a margin. No fill, no edge, no radius and no padding: an empty state is the screen's own content standing on the page ground, not a box drawn around an absence</span></li>
+      <li><code>&gt; h2</code> <span>the block's own heading slot, at <code>--type-sub</code>. It carries no class on either page. An <code>h2</code> and never an <code>h1</code>: the screen's <code>h1</code> is above it, so an empty block never opens a screen</span></li>
+      <li><code>&gt; p</code> <span>one sentence, <code>--type-body</code>, <code>--text-muted</code>, capped at 52ch. The second tier, used as the second tier</span></li>
+      <li><code>&gt;</code> <span><b>the combinator is the whole architecture of this file.</b> Both rules above are direct-child selectors, because every door inside carries an <code>h3</code> and a <code>p</code> of its own. Written as a descendant, this file would reach and repaint two paragraphs it does not own, on both of its pages</span></li>
+      <li><code>.grid.roomy</code> <span><b>an organism.</b> The <a href="grid.html">Grid</a> in its roomy form, one column at 360 and two past a 760 container. This file gives it nothing at all, not even a margin: the block's own bottom margin is the last gap, so there is nothing left to say. It was <code>.doors</code> until step 6</span></li>
+      <li><code>.door</code> <span><b>a molecule.</b> The <a href="door.html">Door</a>, with its own control edge, its own 16px heading, its own hover and its own focus ring. Not one declaration here touches any of them</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One form, so there is no matrix.</b> Both occurrences are the same three slots at the same three values, and the only thing that differs between them is the words. There is no tone axis, no size axis and no host axis: the block reads one colour, <code>--text-muted</code>, on one of its three parts, and everything else it needs is inherited or belongs to the grid inside it.</p>
+    <p class="note">The two in the product, side by side:</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Page</th><th>Heading</th><th>Sentence</th><th>What is missing</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../home-empty.html">home-empty</a>, coloured</td><td>Two ways to start</td><td>See everything you pay for in one calm place. Pick the one that feels right; you can change it later.</td><td>subscriptions, because none have been found yet</td></tr>
+          <tr><td><code>connections-empty</code>, grey</td><td>No sources yet</td><td>Add one and your subscriptions appear on your list. You can change this later, and you can have both.</td><td>sources, which is what would find them</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-stage app full bleed">
+      <section class="empty">
+        <h2>No sources yet</h2>
+        <p>Add one and your subscriptions appear on your list. You can change this later, and you can have both.</p>
+        <div class="grid roomy">
+          <a class="door" href="#variants">
+            <h3>Connect your bank</h3>
+            <p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p>
+          </a>
+          <a class="door" href="#variants">
+            <h3>Add a subscription</h3>
+            <p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p>
+          </a>
+        </div>
+      </section>
+    </div>
+    <p class="note"><b>The stand shows this one at the full column, and that is a measurement.</b> The default stage measure is 440px and <code>.wide</code> is 620, and both would be wrong here: on <code>design/home-empty.html</code> at a 1440 viewport the block renders <b>908px</b> wide, because it is a direct child of <code>.screen</code> and past a 900 container the shell's blanket 780px measure comes off. At 360 it renders 313px, which is the whole screen inside its own padding. So the block genuinely spans its column at both ends of the range, the stage is unbounded to match, and the sentence is held back not by the stage but by its own 52ch.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">An empty block stands where content will stand, on a screen that has already introduced itself. Home before a bank is connected or a subscription is typed, and Connections before a source exists. Both are the very first thing a person sees after arriving, which is why the tone matters more here than anywhere: this is the audience that closes finance apps, and the first screen has to read as a beginning rather than as a fault.</p>
+    <p class="note"><b>It says what to do, not what is absent, and the wording was corrected once for exactly that.</b> <code>voice/docs/microcopy.md</code> records the change: home-empty's second heading was "Nothing here yet" and became "Two ways to start", because two headings a hundred pixels apart were doing one job and the first already said what was true. The heading says the move; the sentence says the reward and takes the risk out of it ("you can change it later"); the doors are the move itself. On Connections the same shape runs the other way round, because "No sources yet" IS the move's subject there.</p>
+    <p class="note"><b>The two doors are equals and the block never picks one.</b> D2 makes manual entry a real second path rather than a fallback, so neither door is filled, neither is first by emphasis, and the sentence says "Pick the one that feels right" instead of recommending. That is the one rule an empty state in this product could most easily break, and it would break it by making one door louder.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A beginning, on the page ground</span>
+        <div class="kit-stage app full bleed"><section class="empty"><h2>Two ways to start</h2><p>See everything you pay for in one calm place. Pick the one that feels right; you can change it later.</p><div class="grid roomy"><a class="door" href="#rule"><h3>Connect your bank</h3><p>Read-only, through Plaid, and about a minute.</p></a><a class="door" href="#rule"><h3>Add a subscription</h3><p>Start with one and add more later.</p></a></div></section></div>
+        <p>No box, no icon, no illustration and no colour but the muted second tier. The only edges on screen belong to the two doors, which are the thing to press. An empty state that draws its own frame turns an absence into an object, and this is the screen whose job is to make an absence feel like a start.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a text block instead</span>
+        <div class="kit-stage app full bleed"><div class="textblock status" role="status" aria-live="polite"><h1>Still gathering your history</h1><p>Trends need a few months to be worth looking at, and we have less than three so far. Come back in a few weeks and the shape of your spending will be here.</p></div></div>
+        <p>When a screen has nothing to show because it is <b>waiting</b> rather than unstarted, the component is the <a href="text-block.html">Text block</a>. It opens the screen and carries its <code>h1</code>; an empty block sits inside a screen that already has one, and carries an <code>h2</code>. The two are one line apart in the markup and a whole level apart in the heading order, which is how a screen reader tells them apart and how a person does too. History and trends with under three months is the clearest case: nothing is missing that a person could add, so there are no doors and there is no empty block.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Nothing went wrong here</span>
+        <div class="kit-stage app full bleed"><section class="empty"><h2>No sources yet</h2><p>Add one and your subscriptions appear on your list. You can change this later, and you can have both.</p></section></div>
+        <p>The sentence is muted and the heading is plain. There is no tone token in this component at all: no amber, no clay, no wash and no badge. <code>DESIGN.md</code> forbids it by name, and the rule is one line: <b>do not use clay on an empty state, because nothing went wrong in an empty state.</b></p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a wash block instead</span>
+        <div class="kit-stage app full bleed"><section class="wash error" role="status"><p>We could not refresh just now. Showing your last update from today, 9:14 AM.</p><a href="#rule">Try again</a></section></div>
+        <p>When something actually failed, the component is the <a href="wash-block.html">Wash block</a> in its error tone, and that is where the desaturated clay lives. It is a tinted paragraph inside the flow with its own inline link, not a heading and two doors. Reaching for an empty block to carry a failure would make a fault look like a beginning, and dressing an empty block in clay would make a beginning look like a fault. The two mistakes are the same mistake from opposite ends.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>No states, and the reason is one line: an empty block is not interactive.</b> It is a <code>section</code> on both occurrences, it holds no anchor, no button, no summary, no <code>tabindex</code> and no <code>role</code> of its own, and <code>kit.css</code> gave it no pointer response either. What a person presses inside it is a <a href="door.html">Door</a>, and the door has hover and focus-visible on its own page, which is where somebody looking for them will go. Faking a state here with a class the product does not carry would document something the product cannot do.</p>
+    <p class="note">It has no loading form either, and the absence is a decision rather than a gap. A screen that does not yet know whether it is empty shows the loading form of the thing it is waiting for: <code>home-loading</code> renders skeleton rows, not a skeleton empty state. An empty block is what the product says when it <b>knows</b> there is nothing, so a version of it that is still finding out would be a contradiction.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the sentence</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier, and the only colour in the file</td></tr>
+          <tr><td>the heading's size</td><td><code>--type-sub</code></td><td>primitive, straight. 17px folded to 16 at the founder's review of the foundations</td></tr>
+          <tr><td>the sentence's size</td><td><code>--type-body</code></td><td>primitive, straight. 13.5px folded to 14</td></tr>
+          <tr><td>its three margins</td><td><code>--space-8</code>, <code>--space-16</code>, <code>--space-24</code></td><td>primitive, straight. 6 folded up to 8 and 18 folded down to 16</td></tr>
+          <tr><td>no fill, no edge, no radius</td><td>none</td><td>by decision. The doors draw the only edges on the block</td></tr>
+          <tr><td>the reading measure</td><td>52ch</td><td>a character width, which is on neither scale, so it stays the literal it is</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The stand had to clear this component's name before it could be built.</b> <code>_page.css</code> used <code>.empty</code> for the cell that marks a forbidden combination in a matrix, and it was renamed to <code>.kit-empty</code> on 2026-08-11, ahead of this round rather than during it. The collision would have been harmless on the day (no stand cell sits inside an <code>.app</code> scope), and "the code and the stand do not mix" is a rule about NAMES and not only about the cascade: the moment this organism landed, a product rule would have started matching reviewer chrome and nothing would have errored.</p>
+    <p class="note">Lives in <code>design/system/components/empty-block.css</code>. Stands on 2 grey pages, 1 of them coloured: <a href="../home-empty.html">Home, nothing tracked yet</a>. The second, <code>wireframes/connections-empty.html</code>, is still grey.</p>
+    <code class="kit-cmd">&lt;section class="empty"&gt;
+  &lt;h2&gt;Two ways to start&lt;/h2&gt;
+  &lt;p&gt;See everything you pay for in one calm place. Pick the one that feels right; you can change it later.&lt;/p&gt;
+  &lt;div class="grid roomy"&gt;
+    &lt;a class="door" href="connect-bank.html"&gt;
+      &lt;h3&gt;Connect your bank&lt;/h3&gt;
+      &lt;p&gt;Read-only, through Plaid, and about a minute. Tendd cannot move your money.&lt;/p&gt;
+    &lt;/a&gt;
+    &lt;a class="door" href="add-subscription.html"&gt;
+      &lt;h3&gt;Add a subscription&lt;/h3&gt;
+      &lt;p&gt;Start with one and add more later. No bank is involved, and nothing leaves your control.&lt;/p&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/empty-block.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The rule that keeps clay off it is in <code>DESIGN.md</code>; the heading it was corrected to is in <code>voice/docs/microcopy.md</code>; the count it stands on is in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -58,7 +58,7 @@
     </div>
     <ul class="kit-callouts">
       <li><code>.actions</code> <span>the whole component: <code>display: flex</code>, <code>flex-wrap: wrap</code>, an 8px gap and a bottom margin. That is all of it. There is no rule in the file that touches a colour</span></li>
-      <li><code>.secondary</code> <span>the same component under its second name, on 6 pages. It shares this rule and differs only in its margin, and it is renamed to <code>.actions</code> at step 6</span></li>
+      <li><code>nav.actions</code> <span>the same component, on 6 pages, which carried the second name <code>.secondary</code> until step 6. It shares this rule and differs only in its margin, and the element type is what the margin keys off now</span></li>
       <li><code>.btn</code> <span>the <a href="button.html">button atom</a>, which owns every pixel a person sees here: its fill, its edge, its label, its 44px floor and its four states</span></li>
       <li><code>gap</code> <span>reads <code>--space-8</code>. It applies between wrapped lines as well as along the row, which is why a third button dropping to a second line lands at the same distance it would have sat at sideways</span></li>
     </ul>
@@ -66,7 +66,7 @@
 
   <section class="kit-sec" id="variants">
     <h2>Variants and sizes</h2>
-    <p class="note"><b>One form, and that is the finding rather than an empty matrix.</b> The consolidation compared <code>.actions</code> and <code>.secondary</code> declaration by declaration and found them identical but for a margin, so they are one component with one rule. There is no emphasis axis (the buttons carry that), no size axis (the buttons carry that too), no alignment axis and no count axis: a row holds one, two or three buttons and reads the same way each time.</p>
+    <p class="note"><b>One form, and that is the finding rather than an empty matrix.</b> The consolidation compared <code>.actions</code> and <code>.secondary</code> declaration by declaration and found them identical but for a margin, so they are one component with one rule, and step 6 took the second name off. There is no emphasis axis (the buttons carry that), no size axis (the buttons carry that too), no alignment axis and no count axis: a row holds one, two or three buttons and reads the same way each time.</p>
     <p class="note">What follows is therefore not a matrix of variants. It is the margin, which is the one thing the two names do not share, and it is here because the reason it is still two lines is worth reading.</p>
     <div class="kit-matrix">
       <table>
@@ -87,22 +87,22 @@
           </tr>
           <tr><td colspan="3"><div class="kit-stage app full wide"><div class="actions"><a class="btn primary" href="#variants">Try again</a></div></div></td></tr>
           <tr>
-            <td><b>Pushes up</b> <code>.secondary</code></td>
+            <td><b>Pushes up</b> <code>nav.actions</code></td>
             
             <td class="val">24px 0 0</td>
-            <td>6 rows on 6 pages, all of them under a list: Home and its two states, Alerts and its empty state, Data and privacy. Its anchors carry <code>.btn.compact</code>, which is now byte-identical to <code>.btn</code>: the size modifier folded away when the founder adopted the two scales, and it is taken off the markup at step 6</td>
+            <td>6 rows on 6 pages, all of them under a list: Home and its two states, Alerts and its empty state, Data and privacy. Its anchors carried <code>.btn.compact</code>, which had become byte-identical to <code>.btn</code>: the size modifier folded away when the founder adopted the two scales, and step 6 took it off the markup</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><nav class="secondary" aria-label="More"><a class="btn compact" href="#variants">Add a subscription</a><a class="btn compact" href="#variants">See your trends</a></nav></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><nav class="actions" aria-label="More"><a class="btn" href="#variants">Add a subscription</a><a class="btn" href="#variants">See your trends</a></nav></div></td></tr>
           <tr>
             <td class="kit-empty">A third margin</td>
             
             <td class="kit-empty">-</td>
-            <td>Three containers override the margin instead, each in its own file when its round comes: <code>.locked .actions</code> and <code>.panel .gate .actions</code> reset it to zero, because a row that is the last thing in a card must not push the card's own padding open, and <code>.rstep .actions</code> gives it a 16px top margin because inside a reveal step the action follows the number rather than leading the block</td>
+            <td>Three containers override the margin instead, each in its own file: <code>.card.prose .actions</code> and <code>.panel .gate .actions</code> reset it to zero, because a row that is the last thing in a card must not push the card's own padding open, and <code>.rstep .actions</code> gives it a 16px top margin because inside a reveal step the action follows the number rather than leading the block</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="note"><b>Two of those three overrides land on the same step, and it is worth saying that the spacing grid did not cause it.</b> <code>.locked .actions</code> and <code>.panel .gate .actions</code> are both zero, and both were zero before the 8px grid was adopted as well: they are one rule written twice under two names, saying "the last block in a card takes no bottom margin". That is one line for the organism round, not two, and it is the same finding as the merge on this page one level up. The third, <code>.rstep .actions</code>, was 18px and folds to 16px, which is a step away from the other two and stays a step away.</p>
+    <p class="note"><b>Two of those three overrides land on the same step, and it is worth saying that the spacing grid did not cause it.</b> <code>.card.prose .actions</code> and <code>.panel .gate .actions</code> are both zero, and both were zero before the 8px grid was adopted as well: they are one rule written twice under two names, saying "the last block in a card takes no bottom margin". That is one line for the organism round, not two, and it is the same finding as the merge on this page one level up. The third, <code>.rstep .actions</code>, was 18px and folds to 16px, which is a step away from the other two and stays a step away.</p>
     <p class="note"><b>Nothing else in the system needs to know how many buttons are in the row.</b> Wrap and not scroll, and not a forced stack either: two buttons at 360px fit, three do not, and the third drops to a second line at the same gap rather than being squeezed. It is also why the button carries <code>white-space: nowrap</code>. The row is allowed to break between buttons and never inside one.</p>
   </section>
 
@@ -128,9 +128,9 @@
       <div class="no">
         <span class="hd">Never style the anchors inside it</span>
         <div class="kit-stage app full wide">
-          <span class="consequence">.secondary a { padding: 0 14px; border: 1px solid ...; font-size: 13.5px }</span>
+          <span class="muted">.secondary a { padding: 0 14px; border: 1px solid ...; font-size: 13.5px }</span>
         </div>
-        <p>That rule was written at stage 07, and it is the clearest example in the whole stylesheet of the defect this stage exists to catch. The anchors in <code>.secondary</code> rendered as browser links, the reflex was to give the host a rule, and the rule then set padding, border, background, size and colour: not layout, but a second button declared under another name. Its values came back <b>byte for byte identical to <code>.btn.compact</code></b>. The screens carry <code>.btn.compact</code> instead, and the comment on <code>.secondary</code> had said so before the rule was ever written.</p>
+        <p>That rule was written at stage 07, and it is the clearest example in the whole stylesheet of the defect this stage exists to catch. The anchors in <code>.secondary</code> rendered as browser links, the reflex was to give the host a rule, and the rule then set padding, border, background, size and colour: not layout, but a second button declared under another name. Its values came back <b>byte for byte identical to <code>.btn.compact</code></b>. The screens were moved onto <code>.btn.compact</code> instead, and the comment on <code>.secondary</code> had said so before the rule was ever written; the founder's review of the foundations then folded <code>.btn.compact</code> into <code>.btn</code>, so the anchors are a plain button today.</p>
       </div>
     </div>
     <div class="kit-do">
@@ -147,7 +147,7 @@
       <div class="no">
         <span class="hd">Use a wash block instead</span>
         <div class="kit-stage app full wide">
-          <span class="consequence">We could not refresh just now. <a href="#rule">Try again</a></span>
+          <span class="muted">We could not refresh just now. <a href="#rule">Try again</a></span>
         </div>
         <p>A recovery offered inside a calm sentence that is explaining what happened belongs to the <b>wash block</b> and its own inline link, not to an action row holding a button. A filled petrol button inside an explanation shouts over the explanation. And a row of <b>navigation</b> is neither: four destinations that change which screen you are on are the <b>tab bar</b>, which is chrome and is fixed to the viewport.</p>
       </div>
@@ -167,26 +167,26 @@
         <tbody>
           <tr><td>the gap between buttons, and between wrapped lines</td><td><code>--space-8</code></td><td>primitive: a spacing has nothing to override</td></tr>
           <tr><td>the space below the row</td><td><code>--space-16</code></td><td>primitive. <code>.actions</code> only</td></tr>
-          <tr><td>the space above the row</td><td><code>--space-24</code></td><td>primitive. <code>.secondary</code> only, and it is the host's until step 6</td></tr>
+          <tr><td>the space above the row</td><td><code>--space-24</code></td><td>primitive. On <code>nav.actions</code> only, and it moved to <code>app-shell.css</code> at step 6, because a margin between blocks is the host's</td></tr>
           <tr><td>every colour</td><td>none</td><td>the shortest token list in the system, and it is the point of the component. It reads no colour role at all</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note">Lives in <code>design/system/components/action-row.css</code>. Stands on 42 grey pages, 61 rows, and on 21 coloured ones. A sample of the coloured screens carrying it: <a href="../subscription-detail.html">Subscription Detail</a>, <a href="../home.html">Home</a> (as <code>.secondary</code>), <a href="../add-subscription.html">Add a Subscription</a>, <a href="../history-trends-locked.html">the Pro gate</a>, <a href="../upgrade.html">Upgrade</a>, <a href="../guided-reveal.html">Guided Reveal</a>.</p>
+    <p class="note">Lives in <code>design/system/components/action-row.css</code>. Stands on 42 grey pages, 61 rows, and on 21 coloured ones. A sample of the coloured screens carrying it: <a href="../subscription-detail.html">Subscription Detail</a>, <a href="../home.html">Home</a> (as a <code>&lt;nav&gt;</code>), <a href="../add-subscription.html">Add a Subscription</a>, <a href="../history-trends-locked.html">the Pro gate</a>, <a href="../upgrade.html">Upgrade</a>, <a href="../guided-reveal.html">Guided Reveal</a>.</p>
     <code class="kit-cmd">&lt;div class="actions"&gt;
   &lt;a class="btn primary" href="..."&gt;Cancel this subscription&lt;/a&gt;
   &lt;a class="btn" href="..."&gt;See what Pro adds&lt;/a&gt;
 &lt;/div&gt;
 
-&lt;!-- the second name, on 6 pages, renamed to .actions at step 6 --&gt;
-&lt;nav class="secondary" aria-label="More"&gt;
-  &lt;a class="btn compact" href="..."&gt;Add a subscription&lt;/a&gt;
-  &lt;a class="btn compact" href="..."&gt;See your trends&lt;/a&gt;
+&lt;!-- on 6 pages; it wore the second name .secondary until step 6 --&gt;
+&lt;nav class="actions" aria-label="More"&gt;
+  &lt;a class="btn" href="..."&gt;Add a subscription&lt;/a&gt;
+  &lt;a class="btn" href="..."&gt;See your trends&lt;/a&gt;
 &lt;/nav&gt;</code>
   </section>
 
   <footer class="kit-foot">
-    Drawn by <code>design/system/components/action-row.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The merge that made it one component, and the renaming map that finishes it at step 6, are in <code>docs/inventory.md</code>.
+    Drawn by <code>design/system/components/action-row.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The merge that made it one component, and the renaming map that finished it at step 6, are in <code>docs/inventory.md</code>.
   </footer>
 </div>
 

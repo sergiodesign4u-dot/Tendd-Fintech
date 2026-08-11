@@ -1,0 +1,102 @@
+/* ============================================================================
+   Groups column set - organism
+   The container the categorised list runs in. One column on a phone, two from
+   container 900, three from container 1340. It is a multicolumn box and not a
+   grid, which is the decision worth knowing: the groups flow, so five categories
+   fill two columns by height rather than by count, and adding a sixth changes
+   nothing about the CSS.
+
+   Together with the Dashboard head this is the product's whole desktop story.
+   Without these two queries Home at 1440 is a phone screen stretched wide.
+
+   Reads
+     spacing  --space-48  (the gutter between columns)
+   Page      design/kit/groups-column-set.html
+   Stands on 4 grey pages and 4 coloured ones: home, home-error, home-loading,
+   home-savefocus. Not on home-empty, which has no list to group.
+   Hosts     the Category group organism, and only positions it.
+
+   IT READS NO COLOUR AT ALL. No fill, no ink, no edge, no radius: every pixel a
+   person sees inside it belongs to a category group, to a subscription row or to
+   a group head. That is what makes a set of columns a container rather than a
+   card, and it is why this file is four declarations long.
+
+   MEASURED, ON THE PRODUCT, BEFORE THE STAND WAS CHOSEN. At a 1440 viewport the
+   set renders 893px wide in its two-column form and each group 424.5px; at 1600
+   it is 1053px in three columns at 321.7px each; at 1920, 1373px at 428.3px.
+   The stand cannot show the 1053 because design/kit/_page.css caps .kit-wrap at
+   1000px, and the page says so rather than pretending otherwise.
+
+   NOT CARRIED, DELIBERATELY, and there are two.
+
+   `.app > .screen > .groups { order: 3 }` from the same 900 block belongs to the
+   App shell: it is one of four sibling order declarations that only mean
+   anything together (head 1, secondary 2, groups 3, trust 4) and it names the
+   shell's column flow rather than this set. trust-block.css made the same call
+   for `order: 4`.
+
+   `.app .group { margin: 0 0 26px }` from the same block is A NO-OP AFTER THE
+   FOLD and is dropped rather than carried. The base rule kit.css wrote at line
+   889 is `margin: 0 0 24px`, and the founder's spacing grid sends 26px and 24px
+   to the same --space-24, so the override became byte identical to the thing it
+   was overriding. This is the `.btn.compact` story a second time: a modifier
+   that modifies nothing is worse than no modifier, because the next person reads
+   it and spends a minute working out what it does. The margin itself lives in
+   category-group.css, where a category group's own gap to the next one belongs.
+   What DOES survive is the fragmentation rule, below, because that one exists
+   only because of the columns.
+
+   THE 26 TO 24 IS A REAL PIXEL MOVE and it is the founder's review of the
+   foundations, the second of the three legal sources: each group's bottom gap
+   loses 2px at container 900 and above. It is reported for docs/tokens-audit.md
+   rather than claimed to be free.
+
+   NO container-type IS DECLARED HERE. The container is on `body`, in base.css.
+   A second one between `body` and these rules would re-point every query inside
+   it at a different box, silently, and a container on the element itself cannot
+   style the element at all: a container query matches an ANCESTOR.
+
+   THE CLASS NAME IS NOT TOUCHED. `.groups` stays as the product writes it, and
+   the rename map in docs/inventory.md leaves it alone.
+   ============================================================================ */
+
+/* ---- two columns, from container 900 -------------------------------------
+   The three container steps (760, 900, 1340) cannot become variables: a custom
+   property is not valid inside a @container condition. They are documented, not
+   tokenized.
+
+   THE GUTTER FOLDS FROM 44px TO 48px. kit.css wrote `column-gap: 44px`, which
+   scales.md does not list, so the rule is applied as it is written for every
+   other value: nearest step, and a tie goes to the LARGER. 44 sits exactly
+   between --space-40 and --space-48, so it goes up. The consequence is measured
+   and small: at the 893px the product gives this set at a 1440 viewport, each of
+   two columns goes from 424.5px to 422.5px. Reported for docs/tokens-audit.md. */
+@container (min-width: 900px) {
+  .app .groups { columns: 2; column-gap: var(--space-48); }
+
+  /* A GROUP MAY NOT BE CUT IN HALF BY A COLUMN BREAK, and this is the one rule
+     this file writes onto its child. It is fragmentation and not paint: it
+     changes no colour, no size, no weight and no edge, and outside a multicolumn
+     container it does nothing at all, which is exactly why it belongs to the set
+     and not to the group. Without it a category's four subscriptions split
+     across the fold and the group head ends up alone at the bottom of column
+     one, which on the screen whose job is calm reads as a rendering fault. */
+  /* `.app .group { break-inside: avoid }` was written here too and is NOT kept:
+     the subject of the rule is the category group, and the subject owns it.
+     category-group.css declares it, this file relies on it, and one rule in two
+     files is the drift this stage exists to remove. Found by the two builders
+     reporting the same declaration from opposite sides. */
+}
+
+/* ---- three columns, from container 1340 ----------------------------------
+   The gutter does not change, so this is one declaration. Three columns is the
+   widest the set ever goes: a fourth would take a group below the 300px its
+   rows need, and the rows are the product. */
+@container (min-width: 1340px) {
+  .app .groups { columns: 3; }
+}
+
+/* NO STATES. The column set is a container with no fill, no edge and no target
+   of its own: it holds no anchor, no button and no pressed element on any of the
+   4 grey pages or the 4 coloured ones. A pointer that appears to be over it is
+   over a subscription row. Those states live on subscription-row.html. */

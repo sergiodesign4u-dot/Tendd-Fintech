@@ -9,13 +9,14 @@
      states   --text-failure  (reached through :has(), from the control inside)
      spacing  --space-0, --space-4, --space-16
      type     --type-meta
-   Hosts     the text input and the select. It POSITIONS neither and repaints
-             neither: both atoms carry their own border, fill, ink and four
-             states in text-input.css and select.css.
+   Hosts     the text input and the select. It POSITIONS both and repaints
+             neither: the width of the column is the field's to give, and the
+             border, fill, ink and five states of each control are the atom's
+             own, in text-input.css and select.css.
    Page      design/kit/form-field.html
    Stands on 8 grey pages, 20 fields, and on 6 coloured ones.
 
-   IT OWNS THE HINT RULE THE ATOM ROUND DELIBERATELY LEFT BEHIND. kit.css:413 is
+   IT OWNS THE HINT RULE THE ATOM ROUND DELIBERATELY LEFT BEHIND. kit.css:413 was
    `.field:has([aria-invalid="true"]) .hint { color: --clay }`. Read quickly it
    looks like a third invalid rule belonging beside the other two, and both atom
    agents refused it for the same reason and said so in their files: its SUBJECT
@@ -23,15 +24,53 @@
    part of its host is the unnamed variant this stage exists to remove, and a
    rule two files each decline is a rule that quietly disappears. It is here.
 
-   THE CLASS NAMES ARE NOT TOUCHED. `.field`, its `label` and its `.hint` stay
-   exactly as the product writes them. The renaming map in docs/inventory.md
-   renames the two atoms inside (`.field input` to `.input`, `.field select` to
-   `.select`) at step 6 with the markup of the screens; this molecule keeps its
-   name through that step.
+   AND FROM 2026-08-12 IT OWNS THE OTHER HALF OF THAT BARGAIN. When the two
+   atoms had no class of their own they were `.field input` and `.field select`,
+   so every rule about them, including the ones that were really about the
+   field, had to be written in their files: there was no other selector that
+   could reach them. The rename gave them names, and the sorting that followed
+   sent exactly one declaration back here from each atom, `width: 100%`, because
+   the width of a control is the column it stands in and never the control.
+
+   The header of this file used to say "It POSITIONS neither", and that sentence
+   was true and was also the defect: a molecule that positions nothing is a
+   molecule that has handed its layout to its parts. The two rules are one line
+   below and they are the field doing its job.
+
+   THE THIRD CONTROL OF THE SET IS NOT HOSTED HERE, and it is worth writing down
+   so nobody goes looking. The checkbox lives inside `label.switch` on every one
+   of the 24 places it appears in the two corpora and inside a `.field` on none
+   of them, so the switch row positions it and the two rules that do so are in
+   checkbox.css, marked as owed to switch-row.css.
+
+   THE MOLECULE'S OWN NAME IS NOT TOUCHED. `.field`, its `label` and its `.hint`
+   stay exactly as the product writes them, and the renaming map does not move
+   them. What changed on 2026-08-12 is the two atoms inside: `.field input`
+   became `.input` and `.field select` became `.select`, so every selector below
+   that reaches a control names the class rather than the tag.
    ============================================================================ */
 
 .app .field, .landing .field {
   margin: var(--space-0) var(--space-0) var(--space-16);
+}
+
+/* ---- the column, and what it gives the control ----------------------------
+   A field is one control per line, full width, and that is the field's decision
+   rather than the control's: an input is as wide as whatever holds it, the same
+   as the button beside it. Written as `.field .input` and not as `input`, so
+   the rule says out loud that it is the FIELD positioning the INPUT.
+
+   Zero pixels, and it was measured before the move. All 65 text inputs and
+   selects in the two corpora sit inside a `.field`, so the declaration reaches
+   exactly the elements it reached when it lived in the atoms. The one place a
+   bare `.input` would now render narrow is a place no page has.
+
+   It is one rule and not two because the field treats them identically, which
+   is the same decision the grey stylesheet made when it styled both controls in
+   one block (_wf.css:746). */
+.app .field .input, .landing .field .input,
+.app .field .select, .landing .field .select {
+  width: 100%;
 }
 
 /* ---- the label ------------------------------------------------------------
@@ -67,6 +106,12 @@
    a sweep of all 55 grey pages returns no aria-invalid anywhere, so a class
    would have to be added to every screen before the state could ever fire,
    while the native attribute is the one a form already sets.
+
+   BOTH SELECTORS ASK THE CONTROL AND NEITHER NAMES IT, which is why the rename
+   did not touch this rule: `:user-invalid` and `[aria-invalid="true"]` match
+   the input or the select by their own state, not by a class or a tag, so the
+   field hears about invalidity from whichever control is inside it. That was
+   already the right shape and it survived step 6 unchanged.
 
    The hint turns clay and the sentence in it becomes the error message. Nothing
    else in the field moves: the label stays muted and the control repaints

@@ -1,0 +1,156 @@
+/* ============================================================================
+   Tendd - the reviewer's chrome around a coloured screen.
+
+   THIS FILE SHIPS WITH NOTHING. It is the frame a reviewer reads the product
+   through: the roadmap drawer, the toggle that opens it, and the padded stage
+   the screen stands in. Delete it and the product is unchanged; delete
+   design/system/ and there is no product.
+
+   IT EXISTS BECAUSE kit.css IS BEING DELETED, and this material was inside it.
+   Ten classes on all 28 coloured screens (`.layout`, `.stage`, `.stage-app`,
+   `.sidebar` and its five parts, `.nav-toggle`, `.nav-brand`) were declared in
+   `design/kit/kit.css` and nowhere else. The renaming map of step 2 sent them
+   "out of the system, to `_page.css`", and that answer is right about the first
+   half and wrong about the second: `design/kit/_page.css` is the STAND's
+   stylesheet and a product screen does not load it. So the chrome needed a home
+   of its own, next to the script that draws it, and this is it.
+
+   WHY NOT design/system/. Because that folder is liftable whole into a build,
+   and a build has no roadmap drawer. A review affordance inside the shipped
+   package is the same defect as a product class inside the stand, read from the
+   other end.
+
+   VALUES MOVED BYTE FOR BYTE out of kit.css, including the `--c-` chrome
+   palette, which was declared in the same `:root` as the product's tokens and
+   consumed only here. Two things did NOT come with them, and both are named
+   below where they would have been.
+
+   Its sibling in the grey half of the project is `wireframes/_wf.css`, which
+   does the same job for the wireframes. Loaded by every page in `design/`
+   alongside `system/index.css`.
+   ============================================================================ */
+
+:root {
+  /* The review chrome's own palette, sage and cream, from the phase site. It is
+     deliberately NOT the product's palette: a reviewer has to be able to tell at
+     a glance which pixels are Tendd and which are the frame around it.
+
+     `--c-bg` was declared beside these and consumed nowhere; it was dropped at
+     stage 07 step 6 and is not resurrected here.
+
+     Two were darkened at stage 07 step 7 after the audit measured them.
+     `--c-text-muted` was #9b958e, 2.96:1 on white, and it carries the state
+     links and the panel label; `--c-accent` was #5c7a6e, 4.22:1 on its own
+     tint, and it marks the CURRENT page, so the one row that must be readable
+     was the one that failed. Review chrome, but a reviewer reads it on every
+     screen. */
+  --c-surface: #ffffff;
+  --c-border: #e8e4dc;
+  --c-border-light: #f0ede6;
+  --c-text: #2a2724;
+  --c-text-secondary: #6b6560;
+  --c-text-muted: #6f6a63;
+  --c-accent: #4e6a5c;
+  --c-accent-light: #eef4f1;
+  --c-radius-sm: 4px;
+}
+
+/* NOT CARRIED, ONE: the rule that hid the wireframe review annotations,
+   `.zlabel, .zaction, .pane-note, .gc-tag { display: none !important }`. It was
+   written when the coloured screens were copied from the grey ones, to suppress
+   the annotation layer that came across with the markup. Counted before it was
+   dropped: those four classes occur ZERO times across all 28 coloured screens,
+   and neither `design/_nav.js` nor the root `/_nav.js` injects one. The
+   annotations were removed from the markup itself at stage 07 and the rule has
+   been guarding an empty room ever since. It was also the file's only
+   `!important`. */
+
+/* ---------- the roadmap drawer -------------------------------------------
+   visibility, not just transform. Off-canvas by transform alone leaves sixteen
+   chrome links in the tab order and in the accessibility tree, so on a phone a
+   keyboard user tabs through an invisible panel before reaching the product.
+   visibility:hidden takes them out and still animates, because visibility is a
+   transitionable property when it is paired with a duration. */
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0; width: 220px;
+  background: var(--c-surface); border-right: 1px solid var(--c-border);
+  z-index: 200; transform: translateX(-100%); visibility: hidden;
+  transition: transform 0.22s ease, visibility 0.22s;
+  overflow-y: auto; padding-bottom: 32px;
+}
+.sidebar.open { transform: translateX(0); visibility: visible; }
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 150; }
+.sidebar-overlay.open { display: block; }
+.sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 14px; border-bottom: 1px solid var(--c-border-light); }
+.nav-brand { font-weight: 600; font-size: 13.5px; color: var(--c-text); letter-spacing: -0.01em; }
+.sidebar-close { background: none; border: none; font-size: 18px; line-height: 1; color: var(--c-text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--c-radius-sm); }
+
+/* Review chrome, not the product, and it is not allowed to sit on top of the
+   product. Floating it anywhere covers something: at the top it covered the
+   wordmark, above the tab bar it covered the removal note. The grey wireframes
+   already solved this with a strip in normal flow above the screen, so this is
+   the same answer rather than a third guess. Hidden entirely from 840. */
+.nav-toggle {
+  position: static; display: flex; align-items: center; justify-content: flex-start;
+  width: 100%; height: 40px; padding: 0 14px; z-index: 100;
+  background: var(--c-surface); border: 0; border-bottom: 1px solid var(--c-border);
+  border-radius: 0; box-shadow: none; cursor: pointer;
+  color: var(--c-text-secondary); font-size: 13px; text-align: left;
+}
+
+.sidebar-nav { padding: 12px 10px 0; }
+.scr-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-text-muted); padding: 10px 8px 5px; }
+.scr-label.active { color: var(--c-accent); }
+.sidebar-nav .scr-link { display: block; text-decoration: none; color: var(--c-text-secondary); font-size: 13px; padding: 6px 10px; border-radius: var(--c-radius-sm); margin-bottom: 1px; transition: background 0.15s, color 0.15s; }
+.sidebar-nav .scr-link:hover { color: var(--c-text); background: var(--c-border-light); }
+.scr-current { display: block; font-size: 13px; font-weight: 600; color: var(--c-accent); padding: 6px 10px; border-radius: var(--c-radius-sm); background: var(--c-accent-light); margin-bottom: 1px; }
+.sidebar-nav .scr-back { display: block; text-decoration: none; color: var(--c-accent); font-size: 13px; font-weight: 600; padding: 6px 10px; margin-bottom: 6px; border-radius: var(--c-radius-sm); }
+.sidebar-nav .scr-back:hover { background: var(--c-accent-light); }
+.sidebar-nav .scr-back.current { color: var(--c-text-muted); }
+.scr-states { list-style: none; margin: 0 0 8px; padding: 0 0 0 18px; }
+.scr-states li { margin: 0; }
+.scr-states a { display: block; text-decoration: none; color: var(--c-text-muted); font-size: 12px; padding: 3px 10px; border-radius: var(--c-radius-sm); }
+.scr-states a:hover { color: var(--c-text); background: var(--c-border-light); }
+.scr-states a.current { color: var(--c-accent); font-weight: 600; background: var(--c-accent-light); }
+
+/* The last line here is review chrome correcting itself, and it does NOT travel
+   to a build. The product's tab bar is fixed to the viewport, which is right
+   when the product owns the viewport and wrong on these pages, where the review
+   panel takes the first 220px: the Home destination was laid out underneath it
+   and only a 4px sliver showed. The body padding does not reach a fixed
+   element, so the offset is stated once, here, in the chrome's own block rather
+   than on the component. The grey wireframes have the same collision; it is
+   corrected rather than carried.
+
+   NOT CARRIED, TWO: `display: none !important` on the overlay. It was there to
+   beat `.sidebar-overlay.open`, which is 0-2-0 against a bare 0-1-0, and a
+   media query adds no specificity. Naming both selectors in the same rule wins
+   the same argument at the same weight, which is what an `!important` is
+   usually standing in for. */
+@media (min-width: 840px) {
+  .sidebar { transform: translateX(0); visibility: visible; }
+  .sidebar-close { display: none; }
+  .sidebar-overlay, .sidebar-overlay.open { display: none; }
+  .nav-toggle { display: none; }
+  body { padding-left: 220px; }
+  .app > .tabbar { left: 220px; }
+}
+
+/* ---------- the stage the screen stands in --------------------------------
+   `.stage` declares `container-type: inline-size`, and after the migration that
+   is the SECOND container on the page: `base.css` declares one on `body`. That
+   is correct and it is not a duplicate. The nearest ancestor container wins, so
+   on a reviewed page every query reads `.stage`, exactly as it does today, and
+   zero pixels move. `body` is there for the build, where this file does not
+   exist and `.stage` never appears. The two boxes differ by this element's 32px
+   of side padding, which was walked at 33 widths in 8px steps through all three
+   breakpoint bands before the body container was declared. */
+.layout { display: block; }
+.stage { padding: 28px 16px 56px; container-type: inline-size; }
+.stage.stage-app { padding: 0; }
+
+/* The chrome's own motion guard. `base.css` carries the global one for the
+   product; this covers the drawer, which the product does not know about. */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar, .sidebar-nav a { transition: none; }
+}

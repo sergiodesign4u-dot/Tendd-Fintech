@@ -55,26 +55,33 @@
   white-space: nowrap;
 }
 
-/* ---- emphasis: one axis, three values, and only one of them per zone -----
+/* ---- emphasis: one axis, TWO values, and only one of them per zone -------
    Filled is the main action of a zone and there is exactly one. Outline is a
    real alternative rather than a ghost: the two doors of this product are equal
-   by decision, so the second door has to be legible. Inverse exists only where
-   the ground is already petrol. */
+   by decision, so the second door has to be legible.
+
+   INVERSE LEFT ON 2026-08-12, on the founder's review of the components. It was
+   authored rather than extracted at stage 07 (greyscale has no fill to invert,
+   so the census could not return it) and then nothing ever wore it: `.btn.inverse`
+   and `.btn.inverse.primary` occur 0 times on the 28 coloured screens and 0 times
+   on the 55 grey pages, counted by parsing every `class="..."` token in both
+   corpora and again by `querySelectorAll` in a browser on all 83 pages.
+
+   The petrol ground it was written for exists in exactly one place, the landing,
+   and the landing wears `.lp-btn` five times and has never worn this. Two rules
+   and two hovers describing a control the product does not have is four rules a
+   reader has to price before deciding they are not the answer, which is the cost
+   an empty role charges. It re-enters, authored again, the day a petrol band
+   ships with a control on it.
+
+   Nothing moves: a rule with no markup paints nothing. What leaves with it is the
+   only reading of --text-action and --bg-selected this file had, so the token
+   list in the header is now the whole of what the button reads. */
 
 .app .btn.primary, .landing .btn.primary {
   background: var(--bg-action);
   border-color: var(--bg-action);
   color: var(--text-on-action);
-}
-.app .btn.inverse, .landing .btn.inverse {
-  background: transparent;
-  border-color: var(--text-on-action);
-  color: var(--text-on-action);
-}
-.app .btn.inverse.primary, .landing .btn.inverse.primary {
-  background: var(--bg-surface);
-  border-color: var(--bg-surface);
-  color: var(--text-action);
 }
 
 /* ---- size: THE AXIS IS GONE, and the consolidation is what removed it -----
@@ -111,16 +118,6 @@
   border-color: var(--bg-action-strong);
   color: var(--text-on-action);
 }
-.app .btn.inverse:hover, .landing .btn.inverse:hover {
-  background: var(--text-on-action);
-  border-color: var(--text-on-action);
-  color: var(--text-action);
-}
-.app .btn.inverse.primary:hover, .landing .btn.inverse.primary:hover {
-  background: var(--bg-selected);
-  border-color: var(--bg-selected);
-  color: var(--bg-action-strong);
-}
 
 .app .btn:active, .landing .btn:active {
   background: var(--bg-recessed);
@@ -141,16 +138,24 @@
 /* Disabled repaints rather than fading, and every paint lands on a role that
    already exists. That is why there is no --opacity-disabled in the system: it
    would either change how the product renders, which this stage may not do, or
-   sit unread. */
-.app .btn[disabled], .landing .btn[disabled],
-.app .btn.is-disabled, .landing .btn.is-disabled {
+   sit unread.
+
+   `.is-disabled` LEFT ON 2026-08-12, and the attribute stayed. The class half
+   occurs 0 times on the 28 coloured screens and 0 times on the 55 grey pages.
+   The attribute is worn by no `.btn` either, and it is kept anyway, which is not
+   the same argument twice: `disabled` is what a BROWSER sets and what a screen
+   reader reads, so the first real disabled button in this product arrives
+   wearing it whether or not anybody remembered to write a rule. A class that
+   only ever paints one is a second edition of the state that lies to assistive
+   technology while looking right, and checkbox.html already says so in as many
+   words. One state, one spelling, and the spelling is the one with meaning. */
+.app .btn[disabled], .landing .btn[disabled] {
   cursor: default;
   background: var(--bg-recessed);
   border-color: var(--line-divider);
   color: var(--text-muted);
 }
-.app .btn[disabled]:hover, .landing .btn[disabled]:hover,
-.app .btn.is-disabled:hover, .landing .btn.is-disabled:hover {
+.app .btn[disabled]:hover, .landing .btn[disabled]:hover {
   background: var(--bg-recessed);
   border-color: var(--line-divider);
   color: var(--text-muted);

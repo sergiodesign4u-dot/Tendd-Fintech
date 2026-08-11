@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tab bar - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Tab bar</h1>
+    <p class="lead">The four destinations of the product, and the other component that changes <b>form</b> rather than size at a breakpoint. Below a 760px container it is a bar fixed across the foot of the screen with the mark over the label; past it, the same four anchors rotate into a left rail with the mark beside the label. The census calls it the one global that came out clean: exactly four links on all 28 pages, and no drift on any property.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>28</strong> grey pages</span><span><strong>112</strong> anchors</span><span>2 axes</span><span>1 state, both themes</span><span>hosts 1 atom</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One row, four anchors, and inside each one an atom and a word. Everything below is drawn by <code>design/system/components/tab-bar.css</code> and by the icon's own file, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app bleed full rail pinned" id="live-rest">
+      <nav class="tabbar" aria-label="Global navigation">
+        <a class="cur" href="#anatomy" aria-current="page" id="shot-cur"><span class="ic ic-home"></span>Home</a>
+        <a href="#anatomy" id="shot-plain"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
+        <a href="#anatomy"><span class="ic ic-save"></span>Save</a>
+        <a href="#anatomy"><span class="ic ic-you"></span>You</a>
+      </nav>
+    </div>
+    <p class="note"><b>If the box above looks empty, the component is at the foot of your window and that is correct.</b> Under a 760px container the bar is <code>position: fixed</code>, so it leaves the flow of this page exactly as it leaves the flow of a screen: it sits on the glass, over the content, and does not scroll away. Widen the window past 760 and it drops back into the box as a rail. <b>The stand has no class for holding a fixed specimen inside a stage</b>, and that is a gap in <code>_page.css</code> rather than something this page should work around; it is in the report for this round.</p>
+    <p class="note"><b>The stage is <code>bleed</code>, and this component earns it.</b> The tab bar declares <b>no width at all in either form</b>: at the mobile width <code>left: 0; right: 0</code> hands it the whole viewport, and past 760 the shell's grid column hands it 240px. Neither number is in this file. <code>--kit-measure</code> would be a third width the product never gives it, so the bound is off.</p>
+    <ul class="kit-callouts">
+      <li><code>.tabbar</code> <span>the organism itself, a <code>nav</code> with an <code>aria-label</code>: a flex row on a paper ground with a hairline over it. It is fixed to the foot of the screen and sits one z-index over the app bar, so where the two chromes meet the bottom bar wins</span></li>
+      <li><code>.tabbar a</code> <span>a destination. <code>flex: 1</code>, so the four divide the width equally however wide the screen is: no track sizes and no case for three or five. A column: the mark, then the label at <code>--type-meta</code></span></li>
+      <li><code>.ic</code> <span><b>an atom.</b> The Destination icon, 22px, drawn as a CSS mask by <a href="destination-icon.html">destination-icon.css</a>. This file gives it nothing, not even a size. It turns petrol on the current tab with no rule anywhere, because the mask is painted with <code>currentColor</code> and takes the anchor's own ink</span></li>
+      <li><code>.dot</code> <span><b>part of that atom.</b> The unread mark, 7px, overhanging the icon's square by 3 and 4 pixels. It sits on Alerts and nowhere else, and there is never a count: <code>DESIGN.md</code> forbids one by name</span></li>
+      <li><code>.cur</code> <span>the current destination, and it is marked three ways at once: petrol ink, weight 600, and a 2px petrol line. The line's slot is declared transparent on all four anchors at rest, so becoming current adds no height</span></li>
+      <li><code>aria-current</code> <span>on the current anchor, on all 28 pages. The class paints it and this says it, and a screen reader needs the second one</span></li>
+      <li><code>border-top</code> <span>the seam over the bar, <code>--line-container</code>. Past 760 it becomes a right border and the top one is set to <code>0</code>, which is where the census artefact comes from: a non-current tab reports a border colour of <code>#5a686c</code> at desktop and paints nothing at all, because the colour has fallen through to <code>currentColor</code></span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">Two axes. One is chosen by the container and one by where the person is, and neither is a size: the label is <code>--type-meta</code> and the mark is 22px in both forms. What changes past 760 is the <b>direction the bar runs in</b> and which edge carries the seam.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Form<p class="axis-rule">Chosen by the CONTAINER and never by the screen. No page opts in and no page opts out: all 28 behave identically, which is why this is a container query and not a class</p></th>
+            <th class="val">What changes</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Bottom bar</b> <code>.app &gt; .tabbar</code></td>
+            <td class="val">position: fixed<br>row, flex: 1<br>--bg-surface<br>border-top<br>--row floor<br>mark over label</td>
+            <td>Under a 760px container, on all 28 pages. Bottom chrome: it sits on the glass and never scrolls away, which is why every screen's foot padding is <code>calc(var(--row) + var(--space-48))</code></td>
+          </tr>
+          <tr>
+            <td><b>Left rail</b> <code>@container 760</code></td>
+            <td class="val">position: static<br>column, flex: none<br>--bg-recessed<br>border-right<br>48px floor<br>mark beside label</td>
+            <td>At or past 760, on the same 28 pages. It takes row 2 of the shell's grid, under the app bar in row 1, and the current tab gains a paper fill: the one place in the product where a paper fill marks a selection rather than a card</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A collapsed or icon-only form</td>
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. Four labelled destinations is the whole navigation of this product, and a mark with no word is a puzzle. This is the audience that avoids finance apps: the one component they must be able to read at a glance is the one that says where they can go. There is no fifth destination either, and <code>DESIGN.md</code> says so</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>There is no live specimen row in this matrix, and that is deliberate rather than an omission.</b> The two forms are mutually exclusive at any one moment: the query reads the <code>body</code> container, so a second specimen would render in exactly the same form as the first one, and a stand cannot fake a second container without re-pointing every query on the page at a different box. The live component is in <a href="#anatomy">Anatomy</a>, in whichever form your window currently gives it. To see the other one, drag the window across 760. The measured numbers on both sides of that line are in <a href="#tech">the technical half</a>.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Destination state<p class="axis-rule">Chosen by where the person IS, never by importance. One of the four is current and the other three are not; a bar with two current tabs is a bug, not a variant</p></th>
+            <th class="val">Tokens</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Resting</b> <code>.tabbar a</code></td>
+            <td class="val">--text-muted<br>weight 400<br>transparent line</td>
+            <td>84 of the 112 anchors. Three per page, on all 28</td>
+          </tr>
+          <tr>
+            <td><b>Current</b> <code>.tabbar a.cur</code></td>
+            <td class="val">--text-action<br>weight 600<br>--line-selected</td>
+            <td>28 anchors, exactly one per page. Petrol spent on the current selection, which is one of its three permitted jobs in this product</td>
+          </tr>
+          <tr>
+            <td><b>Carrying the dot</b> <code>.ic .dot</code></td>
+            <td class="val">--text-body<br>owned by <a href="destination-icon.html">destination-icon.css</a></td>
+            <td>Alerts, and nowhere else. It combines with either of the two above and is not a third state of the anchor: it is a property of the icon, and the icon is an atom with its own file</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Both axes are declared, and the census found no third.</b> 72 tab bar controls were measured across the coloured sample at two viewports and returned two values on exactly three properties, weight, border colour and ink, all three of them <code>.cur</code>. Nothing else in this component varies anywhere it stands.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">There is one tab bar and it is the whole navigation of the product. A person meets it the moment the guided reveal ends and the calm view begins, and from then on it is on every screen of the app that is not a step in a chain: the onboarding pages have no tab bar at all, because a person in the middle of connecting a bank has one thing to do and four ways out is not kindness.</p>
+    <p class="note"><b>Four destinations, and the number is a decision.</b> Home is the calm view J-MAIN asks for, Alerts is the "never be surprised" job, Save is the cancel job, You is the account. Every job the product claims has a door in this bar, and nothing else does. A fifth would mean a fifth job, and that is a product decision rather than a navigation one.</p>
+    <p class="note">The four labels come from <code>voice/docs/microcopy.md</code> and are one word each: Home, Alerts, Save, You. They are nouns and not verbs, because a destination is a place rather than an action, and "You" rather than "Account" or "Settings" because this product speaks in the second person everywhere else too.</p>
+    <p class="note"><b>The dot is the quietest alarm the product owns.</b> It sits on Alerts when something has happened and it never carries a number: a count invites arithmetic, and the person this product was designed for is already anxious about the numbers. <code>DESIGN.md</code>: "A quiet dot may sit on Alerts; there is never a count."</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A destination goes in the bar</span>
+        <div class="kit-stage app bleed full rail pinned">
+          <nav class="tabbar" aria-label="Global navigation, second specimen">
+            <a class="cur" href="#rule" aria-current="page"><span class="ic ic-home"></span>Home</a>
+            <a href="#rule"><span class="ic ic-alerts"></span>Alerts</a>
+            <a href="#rule"><span class="ic ic-save"></span>Save</a>
+            <a href="#rule"><span class="ic ic-you"></span>You</a>
+          </nav>
+        </div>
+        <p>Four places a person can be, one of them marked. <b>Under 760 this specimen pins itself to the foot of the window on top of the one in Anatomy</b>, which is why this box looks empty at a phone width. It is deliberately the identical bar rather than a second arrangement: two live specimens that superimpose exactly read as one correct bar, and two that differ would show a reader a current destination the paragraph beside it never mentioned. That is also why there are two live tab bars on this page and not five.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a nav row instead</span>
+        <div class="kit-stage app bleed full">
+          <a class="navrow" href="#rule"><span>Your sources<span class="sub">Banks and manual entries you track</span></span><span class="arrow">&rsaquo;</span></a>
+          <a class="navrow" href="#rule"><span>Data and privacy<span class="sub">What we read, and delete everything</span></span><span class="arrow">&rsaquo;</span></a>
+        </div>
+        <p>A place <b>inside</b> a destination is not a destination. "Your sources" and "Data and privacy" live behind You, and they are <a href="nav-row.html">Nav rows</a> on the Settings screen: a line with a sentence saying what is behind it, and a chevron. They never join the bar. The bar answers "where can I go", four times, for the whole product; a nav row answers "what is in here", inside one of the four. Adding a fifth tab to reach one of them would put a leaf of the tree next to its own branches.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">One state, and the component <b>is</b> interactive: the four anchors are real links with real destinations. The missing states are decisions rather than omissions, and each one is named below.</p>
+    <p class="note"><b>There is no hover, and it is not an oversight.</b> <code>kit.css</code> declared no <code>.tabbar a:hover</code> and never had, so adding one here would change how 18 coloured screens render with none of this stage's three named sources behind it. It is also defensible on its own terms: this is the bottom chrome of a phone-first product, where a hover does not exist at all; the current destination is already marked three ways at once; and a fourth response on the other three would put movement into the calmest object on the screen. It stays as the product wrote it, and whether it should change is the founder's call rather than a side effect of moving a file.</p>
+    <p class="note"><b>There is no active and no disabled.</b> A destination that cannot be reached is not rendered dim, it is not rendered, and all 28 pages carry all four.</p>
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <p class="note">The bar is live and real in <a href="#anatomy">Anatomy</a>, at the top of this page: tab into it and read the ring off the real thing. Faking a state with <code>.is-hover</code> is the same defect as inventing a role, because it documents something the product cannot do.</p>
+
+    <h3 class="kit-sub-h">The state, and the selection, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. A value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--text-muted</code> on the label and, through <code>currentColor</code>, on the mask as well. On <code>--bg-surface</code> in the bar and <code>--bg-recessed</code> in the rail</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same roles, the other half of each pair. The rail's ground stays the recessed step in both themes: in the light theme it is darker than the surface and in the dark theme it is lighter, and it is a recess either way</div></div>
+      <div class="kit-state"><div class="cap"><b>Current</b><span>light</span></div><div class="tok"><code>--text-action</code> at 6.2:1, weight 600, and <code>--line-selected</code>. Two tokens on one value, because ink answers to 4.5:1 and a line answers to 3:1</div></div>
+      <div class="kit-state"><div class="cap"><b>Current</b><span>dark</span></div><div class="tok">the same two roles on the lightened petrol, 6.8:1. In the rail it also takes <code>--bg-surface</code> as a fill, which in the dark theme is the paper that is darker than the panel it sits on</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line, at 2px offset so the ring sits outside the anchor and moves no neighbour</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. These are the last four stops in the tab order of every screen and the only way a keyboard user changes destination, so this is the one state on this component that has to survive both themes intact</div></div>
+    </div>
+    <p class="note">The ring is declared in the component's file as well as in <code>base.css</code>, and it moves no pixel: same token, same 2px, same 2px offset. It is re-declared at the component's own specificity so that nothing added to this file later can out-rank the base ring and leave a keyboard user with no mark at all.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the bar's ground</td><td><code>--bg-surface</code></td><td><code>--paper</code>, and <code>--paper-dark</code> in the dark theme</td></tr>
+          <tr><td>the rail's ground, past 760</td><td><code>--bg-recessed</code></td><td><code>--panel</code>. The desktop rail is one of the two things this role was named for</td></tr>
+          <tr><td>the seam: top edge, then right edge</td><td><code>--line-container</code></td><td><code>--hairline</code>. A container edge and not a divider: the bar is a surface over the screen, not a separator inside one</td></tr>
+          <tr><td>a resting destination</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier. The mask takes it too, through <code>currentColor</code></td></tr>
+          <tr><td>the current destination</td><td><code>--text-action</code></td><td><code>--petrol</code>. ink, 4.5:1, measured 6.2:1 light and 6.8:1 dark</td></tr>
+          <tr><td>its 2px line, and its 3px line in the rail</td><td><code>--line-selected</code></td><td><code>--petrol</code>. line, 3:1. The same value as the ink above and a different role, because one is text and one is a boundary</td></tr>
+          <tr><td>the current destination's fill in the rail</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the anchor's floor in the bar</td><td><code>--row</code></td><td>primitive, straight. 56px, twelve over the 44px of <code>--tap</code>, which this file never reads</td></tr>
+          <tr><td>the label</td><td><code>--type-meta</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>padding and gap</td><td><code>--space-0</code>, <code>--space-4</code>, <code>--space-8</code>, <code>--space-24</code></td><td>primitive, straight</td></tr>
+          <tr><td>the anchor's floor in the rail</td><td>none</td><td><code>min-height: 48px</code>, a literal, and the one hole in this file. It is neither <code>--tap</code> (44) nor <code>--row</code> (56), the only two size primitives the system has. <code>--tap-rail</code> was proposed at stage 07 and deferred to stage 08, which did not create it. Not folded into <code>--space-48</code>, which is a spacing and a different scale</td></tr>
+          <tr><td>the stacking order</td><td>none</td><td><code>z-index: 6</code>, a literal. <code>--z-tabbar</code> was proposed and deferred the same way. It sits one over the app bar's 5</td></tr>
+          <tr><td>the icon, the dot, the four masks</td><td>none, and not here</td><td>All of it is <a href="destination-icon.html">destination-icon.css</a>. This file gives the atom nothing, not even a size, and it is not scoped back to <code>.app .tabbar a .ic</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Two folds moved pixels, both from the founder's review of the foundations.</b> The anchor's padding was <code>9px 4px 10px</code> and folds to <code>--space-8 --space-4</code>, because 9 and 10 land on the same step, so the three-value form honestly becomes two. The rail's side padding was 20px and folds up to <code>--space-24</code>, so each destination sits 4px further in from the rail's edge. Nobody chose either: the mapping runs to the nearest step with ties to the larger and is applied mechanically to every value in the system.</p>
+    <p class="note"><b><code>DESIGN.md</code> disagrees with this component in two places and the code wins in both</b>, exactly as it did on the subscription row. The document says the label is 11px and the current tab is weight 700; the stylesheet has shipped 12px and 600 on 112 anchors since stage 07. It matters more than a footnote: 11px folds to <code>--type-label</code> and 12px folds to <code>--type-meta</code>, so believing the document instead of the code would have shrunk every destination label in the product by two pixels. Both rows are in <code>docs/tokens-audit.md</code>.</p>
+    <p class="note"><b>The container is <code>body</code>, and it is declared in <code>base.css</code>, not here.</b> A container query matches an ANCESTOR container and never the element itself, so a <code>container-type</code> on the bar, or on <code>.app</code> above it, would not let this component query its own width; it would re-point the query at a different box. That is measured rather than argued: with <code>container-type</code> on <code>.app</code> the bar kept its column flow, lost the rail, and moved from 240px beside the content to 965px below it. 760 is written as a number because a custom property is not valid inside a <code>@container</code> condition.</p>
+    <p class="note"><b>The shell positions this component and the rule is written here, in the child's file.</b> <code>position: fixed</code>, the two grid coordinates and the 240px column are all the App shell placing its child. Three of the four are in this file, on the same convention that leaves <code>.appbar .plan</code> in <code>chip.css</code>; the fourth, the column width, is <code>.app</code>'s own <code>grid-template-columns</code> and is not repeated here. One of the two files has to say which, and this one does.</p>
+    <p class="note">Lives in <code>design/system/components/tab-bar.css</code>. Stands on 28 grey pages, 112 anchors, exactly four on every one; 18 of the 28 are coloured. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../home-savefocus.html">Home, save focus</a>, <a href="../subscription-detail.html">Subscription detail</a>, <a href="../history-trends.html">History and trends</a>, <a href="../settings.html">Settings</a>, <a href="../settings-no-account.html">Settings, no account</a>.</p>
+    <code class="kit-cmd">&lt;nav class="tabbar" aria-label="Global navigation"&gt;
+  &lt;a class="cur" href="home.html" aria-current="page"&gt;&lt;span class="ic ic-home"&gt;&lt;/span&gt;Home&lt;/a&gt;
+  &lt;a href="alerts.html"&gt;&lt;span class="ic ic-alerts"&gt;&lt;span class="dot" role="img" aria-label="new alerts"&gt;&lt;/span&gt;&lt;/span&gt;Alerts&lt;/a&gt;
+  &lt;a href="home-savefocus.html"&gt;&lt;span class="ic ic-save"&gt;&lt;/span&gt;Save&lt;/a&gt;
+  &lt;a href="settings.html"&gt;&lt;span class="ic ic-you"&gt;&lt;/span&gt;You&lt;/a&gt;
+&lt;/nav&gt;</code>
+    <p class="note">The <code>nav</code> and its <code>aria-label</code> are part of the copy for a reason: this is the global navigation landmark of every screen, and a screen reader needs to be able to jump to it. So is <code>aria-current="page"</code>: <code>.cur</code> paints the current destination and that attribute says it, and the census confirmed both on all 28 pages.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/tab-bar.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided its axes is in <code>docs/inventory.md</code>; the sweep that measured 72 of its controls at two viewports, and the border-colour artefact at desktop, is in <code>docs/census.md</code>; the container it queries is declared on <code>body</code> in <code>design/system/base.css</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

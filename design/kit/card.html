@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Card - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Card</h1>
+    <p class="lead">A white rectangle with a hairline edge and a 14px corner, holding a title, a sentence and whatever else the screen puts in it. It is the plainest object in the system and the one every other raised block is measured against: the Flat Paper Rule says a new surface earns a hairline and a background change, never a shadow, and this is that rule drawn once.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>3</strong> grey pages</span><span>no axis</span><span>no states, not interactive</span><span>hosts 4 components</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Two names, one object. Everything below is drawn by <code>design/system/components/card.css</code> and by the files of the components inside it, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+
+    <h3 class="kit-sub-h">The Pro gate, <code>.card.prose</code></h3>
+    <div class="kit-stage app full wide">
+      <section class="card prose" aria-label="Trends are part of Tendd Pro">
+        <h2>Trends are part of Tendd Pro</h2>
+        <p>Your list, your total and your alerts stay free and uncapped. What Pro adds here is the past:</p>
+        <ul>
+          <li>How your monthly total moved, over 3, 6 or 12 months</li>
+          <li>Which subscriptions went up, which are new, which held steady</li>
+          <li>Your history as a spreadsheet</li>
+        </ul>
+        <div class="actions">
+          <a class="btn primary" href="#anatomy">See what Pro adds</a>
+        </div>
+      </section>
+    </div>
+
+    <h3 class="kit-sub-h">A source, <code>.card</code></h3>
+    <div class="kit-stage app full wide">
+      <section class="card" aria-label="Chase, bank connection">
+        <div class="top">
+          <span class="logo"></span>
+          <span>
+            <h2>Chase</h2>
+            <span class="kind">Bank connection through Plaid</span>
+          </span>
+          <span class="chip">Connected</span>
+        </div>
+        <dl class="pairs">
+          <div><dt>Last checked</dt><dd>today, 9:14 AM</dd></div>
+          <div><dt>Accounts included</dt><dd>Checking</dd></div>
+          <div><dt>Tracking from here</dt><dd>11 subscriptions</dd></div>
+        </dl>
+        <div class="actions">
+          <a class="btn" href="#anatomy">Check now</a>
+          <a class="btn" href="#anatomy">Remove this source</a>
+        </div>
+      </section>
+    </div>
+
+    <ul class="kit-callouts">
+      <li><code>.card, .card.prose</code> <span>the organism itself: paper, a <code>--line-container</code> hairline, the <code>--radius</code> corner and <code>--space-16</code> of padding. One rule carries both forms, which is the merge. They were <code>.source</code> and <code>.locked</code> until step 6</span></li>
+      <li><code>h2</code> <span>the card's own title slot, at <code>--type-sub</code>. It carries no class on any page, so it is not the Group head and not the Eyebrow: it is a heading the card owns</span></li>
+      <li><code>p</code> <span>the card's own sentence, at <code>--type-body</code> in <code>--text-body</code>. Declared on the gate only, and the reason is in the CSS: the source card's paragraph is the Muted line atom and this file may not repaint it</span></li>
+      <li><code>ul, li</code> <span>what the gate holds back, one sentence per line, divided by <code>--line-divider</code> with the last one bare</span></li>
+      <li><code>.actions</code> <span><b>a molecule.</b> The <a href="action-row.html">Action row</a>, and the one thing this file says about it is a <code>margin: 0</code>, so a row that ends a card does not push the card's own padding open</span></li>
+      <li><code>.btn</code> <span><b>an atom.</b> The <a href="button.html">Button</a>, drawn entirely by its own file. Nothing here touches its fill, its ink, its edge or its size</span></li>
+      <li><code>.top</code> <span>the source's first line: a mark, a growing text column, a chip. The middle span carries no class, which is what <code>:not([class])</code> selects, and growing it is what pushes the chip to the end</span></li>
+      <li><code>.logo</code> <span><b>an atom.</b> The <a href="logo.html">Logo</a> at 36px, sized for this host in <code>logo.css</code> and never here. It renders in its <b>placeholder</b> form above, and honestly so: <code>design/visuals/logos/</code> holds fourteen merchant marks and no bank mark, because the source card has never been drawn in colour</span></li>
+      <li><code>.chip</code> <span><b>an atom.</b> The <a href="chip.html">Chip</a>, quiet tone, saying what state the source is in. It was <code>.badge</code> until step 6</span></li>
+      <li><code>.pairs</code> <span><b>a molecule.</b> The <a href="pair-list.html">Pair list</a>. This file gives it no rule at all: it spaces itself and divides itself. It was <code>.facts</code> until step 6</span></li>
+    </ul>
+    <p class="note"><b>No shadow, and that is a rule rather than a taste.</b> There is exactly one elevation in this system and it belongs to the dialog sheet at a wide container. <code>DESIGN.md</code> states it as the Flat Paper Rule: a new surface earns a hairline and a background change, never a shadow, because the moment two elevations exist inside one screen the eye starts ranking them, and ranking is the work this product takes away from the person.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One form, so there is no matrix.</b> A card is paper, a hairline, a corner and padding, and it is the same object on all 5 occurrences across the 3 pages. Drawing a table with one row would suggest an axis exists and is waiting to be filled in, and none does: the two names below are not two variants, they are the same rule found twice under different names, which is what step 2 merged.</p>
+    <p class="note"><b>The merge, and the measured evidence for it.</b> The two names differed on exactly two properties and one of them was already drift.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Property</th><th class="n">was <code>.locked</code></th><th class="n">was <code>.source</code></th><th>After the fold</th></tr></thead>
+        <tbody>
+          <tr><td>fill, edge, corner</td><td class="n">paper, <code>--line</code>, 14px</td><td class="n">paper, <code>--line</code>, 14px</td><td class="ok">identical before the fold as well as after</td></tr>
+          <tr><td>padding</td><td class="n">18px</td><td class="n">16px</td><td>both <code>--space-16</code>. This was the drift the consolidation named, and the 8px grid closes it</td></tr>
+          <tr><td>title</td><td class="n">15px</td><td class="n">15px</td><td>both <code>--type-sub</code></td></tr>
+          <tr><td>bottom margin</td><td class="n">22px</td><td class="n">14px</td><td><code>--space-24</code> and <code>--space-16</code>. It does <b>not</b> fold, so it stays two rules: the base carries 16 and <code>.prose</code> takes 24, which is the one thing the merged name still has to tell apart</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>One responsive rule, and it is the gate's reading measure.</b> Past a 760px container <code>.card.prose</code> stops growing with the screen and holds 560px, because the card is three sentences and a list of three and the line length has to stay readable. It is written <code>.app &gt; .screen &gt; .card.prose</code> at 0-3-0 rather than <code>.app .card.prose</code> at 0-2-0, and the third level is load-bearing: at equal specificity the shell's blanket <code>max-width: none</code> at a 900px container wins on source order, and the gate rendered at 748px on a screen that had already been accepted at 360 and at 760.</p>
+    <p class="note"><b>No size axis and no tone axis, and both absences are checked rather than assumed.</b> There is no small card, no wide card and no accent card anywhere in the 55 grey pages: a block that wants a tone is the <a href="wash-block.html">Wash block</a>, which is a fill with no edge and no corner of the card's size, and a block that wants a head band is the <a href="panel.html">Panel</a>. Adding a tone here would give the product two ways to say the same thing.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A card is for <b>one subject that a person may act on</b>, standing on the page ground beside other things they are not acting on. Both of its occurrences are exactly that shape: the Pro gate is one offer with one button, and a source is one connection with its facts and its two controls. The hairline is doing the only job it has, which is to say where the subject starts and stops.</p>
+    <p class="note">On the path, a person meets it in two places and neither of them is early. The <b>Pro gate</b> is node 5.12, History and trends, and it sits BELOW the free chart frame and never in front of it, which is D3 read literally: the paywall is at depth and never at basic visibility. Its copy comes from <code>voice/docs/microcopy.md</code>: "Trends are part of Tendd Pro", then what Pro adds, then "See what Pro adds". The <b>source card</b> is node 6.14, Your sources, which a person reaches from the trust line under any list, and its copy is "Bank connection through Plaid", with "Last checked" on every card because a silently stale connection makes the whole calm view quietly wrong and the person has no way to know.</p>
+    <p class="note"><b>The manual path gets a card of equal standing</b>, and that is D2 drawn rather than stated. "Added by you" is a source with the same edge, the same corner and the same facts as the bank connection beside it, because a second-class card would say the typed path is the lesser one.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A card holds, and it does not paint</span>
+        <div class="kit-stage app full wide">
+          <section class="card prose">
+            <h2>Trends are part of Tendd Pro</h2>
+            <p>Your list, your total and your alerts stay free and uncapped.</p>
+            <div class="actions"><a class="btn primary" href="#rule">See what Pro adds</a><a class="btn" href="#rule">Maybe later</a></div>
+          </section>
+        </div>
+        <p>The two buttons inside are drawn by <code>button.css</code> and by nothing else. The one rule this file writes about them is a <code>margin: 0</code> on the row they stand in, which is layout and is the host's to give. Measured on this page: the button inside the card is 14px at weight 600 with a 44px floor, which is what it is on <a href="button.html">its own page</a> and on all 104 buttons of the coloured product.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never let the host set the child's type</span>
+        <div class="kit-stage app full wide"><span class="muted">.card.prose .btn { font-size: 15px }</span></div>
+        <p>A rule like that reads as a tidy adjustment inside one card and is an <b>undeclared variant</b>: the product now has two buttons and a class name for only one of them. The same shape is already in <code>docs/backlog.md</code> eight times over, and the closest one to this file is <code>.plan-opt .p</code>, where a card sets the Muted line to body ink and every other host leaves it muted. If a child genuinely looks wrong inside a card, the answer is a declared modifier on the child, in the child's file, with the class in the markup.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a card</span>
+        <div class="kit-stage app full wide">
+          <section class="card">
+            <div class="top">
+              <span class="logo"></span>
+              <span><h2>Added by you</h2><span class="kind">Private, entered by hand</span></span>
+              <span class="chip">Private</span>
+            </div>
+          </section>
+        </div>
+        <p>One subject, its own edge, and something a person can do about it. Four of these stand in a column on Your sources and each is a separate decision, so each needs a boundary.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a panel instead</span>
+        <div class="kit-stage app full wide">
+          <span class="muted">A card around a list of rows draws a second edge inside the first, and the list stops reading as one object.</span>
+        </div>
+        <p>When the subject is a <b>list</b> rather than a statement, the container is the <a href="panel.html">Panel</a>: it has the same paper, the same hairline and the same corner, and it adds the two things a list needs and a card must not have, a banded head and <code>overflow: hidden</code> so the first and last rows inherit the corner. <code>DESIGN.md</code> puts it in one line: rows stack inside one bordered container so a list reads as one object rather than as a stack of cards, and nothing inside that container draws a second edge. A card wrapped around a list gives you both edges at once.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and the reason is one line: a card is not interactive.</b> Neither form is an anchor, a button or a summary on any of the 55 grey pages or the 28 coloured ones, neither carries a <code>tabindex</code> or a role, and <code>kit.css</code> gave neither a hover, an active or a focus rule. What a person presses inside a card is a Button, and its four states are live and hoverable on <a href="button.html">its own page</a>.</p>
+    <p class="note">The absence is worth stating rather than leaving as an empty block, because the neighbouring organism does <b>not</b> share it and the difference is instructive. <code>.plan-opt</code> is also a <code>div</code> holding a button and it <i>does</i> strengthen its edge under the pointer, which is an open row in <code>docs/backlog.md</code>: a hover that promises a click the card does not deliver. This card promises nothing, which is why nothing here had to be decided.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the surface</td><td><code>--bg-surface</code></td><td><code>--paper</code>, and <code>--paper-dark</code> in the dark theme</td></tr>
+          <tr><td>its own edge</td><td><code>--line-container</code></td><td><code>--hairline</code>. Decorative at 1.23:1 by decision, because a card is a surface and not a control</td></tr>
+          <tr><td>the line between two list items</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code></td></tr>
+          <tr><td>the gate's sentence</td><td><code>--text-body</code></td><td><code>--slate</code></td></tr>
+          <tr><td>what kind of source it is</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
+          <tr><td>title, sentence, list line</td><td><code>--type-sub</code>, <code>--type-body</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>padding, margins, the top line's gap</td><td><code>--space-0</code>, <code>--space-8</code>, <code>--space-16</code>, <code>--space-24</code></td><td>primitive, straight</td></tr>
+          <tr><td>the corner</td><td><code>--radius</code></td><td>primitive, straight. 14px, the container corner, not the 10px control one</td></tr>
+          <tr><td>no shadow, no fill change, no tone</td><td>none</td><td>by decision. The Flat Paper Rule, and the one elevation belongs to the dialog sheet</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Four components stand inside it and this file paints none of them.</b> <a href="action-row.html">Action row</a> gets a margin and nothing else; <a href="button.html">Button</a>, <a href="logo.html">Logo</a>, <a href="chip.html">Chip</a> and <a href="pair-list.html">Pair list</a> get no rule at all. The margin is the third of the three container overrides <code>action-row.css</code> names and hands to the containers themselves: <code>.card.prose .actions</code> is here, <code>.panel .gate .actions</code> belongs to the Panel and is byte-identical to it, and <code>.rstep .actions</code> belongs to the Reveal step. The two identical ones are one line for step 9.</p>
+    <p class="note"><b>One selector has a known range, recorded rather than tightened.</b> <code>.app .card h2</code> is a descendant selector at 0-2-1, so it would also reach a Group head written as an <code>h2</code> inside a source card and outrank <code>group-head.css</code> at 0-2-0. No page does that today, checked across all 55 grey pages and 28 coloured ones. Narrowing it would be a change with no defect behind it; step 6 owns the markup and can close it with the rename.</p>
+    <p class="note">Lives in <code>design/system/components/card.css</code>. Stands on 3 grey pages, 5 cards: <code>history-trends-locked</code> (1), <code>connections</code> (2), <code>connections-reconnect</code> (2). One is coloured: <a href="../history-trends-locked.html">History and trends, the Pro gate</a>. The source card has never been rendered in colour, which <code>docs/census.md</code> lists among the nine components with no occurrence in the sample.</p>
+    <code class="kit-cmd">&lt;section class="card prose" aria-label="Trends are part of Tendd Pro"&gt;
+  &lt;h2&gt;Trends are part of Tendd Pro&lt;/h2&gt;
+  &lt;p&gt;Your list, your total and your alerts stay free and uncapped.&lt;/p&gt;
+  &lt;ul&gt;&lt;li&gt;How your monthly total moved, over 3, 6 or 12 months&lt;/li&gt;&lt;/ul&gt;
+  &lt;div class="actions"&gt;&lt;a class="btn primary" href="upgrade.html"&gt;See what Pro adds&lt;/a&gt;&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section class="card" aria-label="Chase, bank connection"&gt;
+  &lt;div class="top"&gt;
+    &lt;span class="logo"&gt;&lt;/span&gt;
+    &lt;span&gt;&lt;h2&gt;Chase&lt;/h2&gt;&lt;span class="kind"&gt;Bank connection through Plaid&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="chip"&gt;Connected&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;dl class="pairs"&gt;&lt;div&gt;&lt;dt&gt;Last checked&lt;/dt&gt;&lt;dd&gt;today, 9:14 AM&lt;/dd&gt;&lt;/div&gt;&lt;/dl&gt;
+&lt;/section&gt;</code>
+    <p class="note">The specimens above stand in <code>.kit-stage app full wide</code>, 620px, because that is what the product gives them: measured at a 1440 viewport, a source card renders 620px on Your sources and the Pro gate renders 560px on History and trends. The stand's default 440px is the row column and would show both narrower than any screen ever does.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/card.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that merged <code>.locked</code> and <code>.source</code> into <code>.card</code> is in <code>docs/inventory.md</code>; the sweep that found the source card unrendered in colour is in <code>docs/census.md</code>; the Flat Paper Rule it is built on is in <code>DESIGN.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

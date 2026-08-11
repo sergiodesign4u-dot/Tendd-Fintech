@@ -1,0 +1,299 @@
+/* ============================================================================
+   Card - organism
+   A white rectangle with a hairline edge and a 14px corner, holding a title, a
+   sentence and whatever else the screen puts in it. It is the plainest object
+   in the system and the one every other raised block is measured against: the
+   Flat Paper Rule says a new surface earns a hairline and a background change,
+   never a shadow, and this is that rule drawn once.
+
+   Reads
+     colour   --bg-surface, --text-body, --text-muted
+     lines    --line-container (its own edge), --line-divider (between the
+              lines of its list)
+     type     --type-sub, --type-body, --type-meta
+     spacing  --space-0, --space-8, --space-16, --space-24
+     geometry --radius  (straight from primitive: a corner has nothing to
+              override, so it needs no role)
+   Page      design/kit/card.html
+   Stands on 3 grey pages, 5 cards: history-trends-locked (1), connections (2),
+   connections-reconnect (2). One of the three is coloured today, the Pro gate
+   on History and trends.
+
+   THE MERGE, and it is the whole reason this component exists. `.locked` and
+   `.source` were two names for one BOX: white, --line-container, --radius,
+   --space-16 of padding. Step 2 put them together and the only difference in the
+   box itself was 18px of padding against 16px, which the 8px grid folds onto
+   --space-16. That much was drift, and after the fold there is nothing left of it.
+
+   THE INSIDES DID NOT MERGE, and step 6 measured them rather than assuming they
+   had. Both specimens were injected into a live kit page, which loads this file
+   through ../system/index.css, and read at a 1440 viewport before the rename.
+   The two names differed in seven places and only one of the seven was the box:
+
+     | what                  | .locked (the Pro gate)  | .source              |
+     |-----------------------|-------------------------|----------------------|
+     | box                   | white, 1px, 14px, 16px  | IDENTICAL            |
+     | margin-bottom         | 24px                    | 16px                 |
+     | h2 size               | 16px                    | 16px, IDENTICAL      |
+     | h2 margin-bottom      | 8px                     | 0                    |
+     | its paragraph         | 14px, --text-body       | 12px, --text-muted   |
+     | its action row        | margin 0                | margin 0 0 16px      |
+     | reading measure       | 560px past a 760 box    | none, rendered 740px |
+
+   So the rename is `.locked` to `.card.prose` and `.source` to `.card`, and the
+   modifier is not decoration: without it, five of those six differences resolve
+   the wrong way and one of them repaints a hosted atom.
+
+   WHAT `.prose` MEANS. This card is a heading, a sentence, a list of three and
+   one action: it is read rather than scanned, which is what the 560px measure at
+   the foot of this file exists for, what makes its paragraph body ink instead of
+   the muted tier, and what gives its list a divider. A card that states a record
+   (a source: a mark, a name, a chip and a pair list) carries none of that and is
+   the plain `.card`. The name says the content form, not the offer, because the
+   next card of sentences and a list will want the same five rules.
+
+   THREE COLLISIONS THE NAIVE RENAME WOULD HAVE SHIPPED, all measured:
+     - `.app .card p` would have reached the source card's
+       `<p class="consequence">` at 0-2-1 against muted-line.css's 0-2-0 and won,
+       taking a hosted Muted line from 12px --text-muted to 14px --text-body. An
+       organism repainting a component it hosts. Three of those paragraphs stand
+       in the grey (connections x2, connections-reconnect x1) and none in colour
+       yet, so it would have fired the day those screens are coloured.
+     - `.app .card h2` written twice with two margins is one selector: the later
+       wins, and the Pro gate's title would have lost its 8px.
+     - `.app .card { margin }` written twice, same story, and the Pro gate would
+       have dropped from 24px to 16px.
+
+   AND THE ONE THE BACKLOG WARNED ABOUT. `.app > .screen > .locked` renamed
+   straight to `.app > .screen > .card` is a WIDER subject: every card that is a
+   direct child of a screen would take the 560px reading measure. In the two
+   corpora that load this file it matches nothing extra today, because no
+   `.source` exists on any coloured screen and no kit page puts a card inside a
+   `.screen`. In the GREY it matches four: both sources on connections.html and
+   both on connections-reconnect.html are direct children of `<main class="screen">`,
+   and the grey is where every coloured screen comes from. Measured in a 1060px
+   screen: the gate holds 560px and a source beside it renders 740px. The rename
+   is therefore to `.card.prose`, which is the declared subject rather than the
+   structural one, and the third structural level is kept for the reason recorded
+   at the rule.
+
+   THE `.landing` SCOPE IS NOW THE UNION, and it had to be. `.locked` carried
+   `.app` and `.landing`, `.source` carried `.app` alone, and one class cannot
+   have two scopes without meaning two things. Measured cost: zero. No page in
+   design/ or design/kit/ carries a `.landing` root at all today.
+
+   IT HOSTS AND IT DOES NOT REPAINT. The action row inside a card, the pair list
+   inside a source, the chip at the end of its top line and the merchant mark
+   beside it are all written elsewhere and are all correct. The one rule this
+   file writes about a hosted component is a MARGIN, and it is named below.
+
+   NO HEX, NO FONT NAME. Every size is a --type-* step and every margin, padding
+   and gap a --space-* step. The 560px reading measure at the foot is a width,
+   which is not on the spacing scale and stays literal.
+   ============================================================================ */
+
+/* ---- the box, and it is the whole of what the two names shared -------------
+   Paper on the page ground, a hairline edge and the container corner. The edge
+   is --line-container and NOT --line-control: a card is a surface, nothing
+   about it has to be found by touch, and WCAG 1.4.11 asks 3:1 of the boundary
+   that identifies a CONTROL. That split was decided on 2026-08-11 and this is
+   one of the five things listed on the "keeps --line" side of it. Raising it
+   would put a hard edge on every card, panel and callout in the product, which
+   is the thing the language was chosen against.
+
+   NO SHADOW. There is exactly one elevation in this system and it belongs to
+   the dialog sheet at a wide container. A card that lifts is a card claiming to
+   be a dialog. */
+.app .card, .landing .card {
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+  padding: var(--space-16);
+}
+
+/* ---- the block gap, which is the host's and rides on the card until the
+        shell round -----------------------------------------------------------
+   22px and 14px landed on --space-24 and --space-16, so the fold did not merge
+   them, and folding them by hand would move two screens by 8px for a decision
+   nobody has taken. A gap between blocks belongs to the block above and below
+   it, not to the thing being spaced; when the App shell is built it may take
+   both, exactly as it must take the four homeless `order` declarations. Until
+   then the plain card carries the common block gap and `.prose` states its own,
+   which keeps the one coloured card in the product at the 24px it renders today. */
+.app .card, .landing .card             { margin: var(--space-0) var(--space-0) var(--space-16); }
+.app .card.prose, .landing .card.prose { margin-bottom: var(--space-24); }
+
+/* ---- the title -----------------------------------------------------------
+   One step, --type-sub, and it is the same on both forms: kit.css wrote 15px
+   twice and 15 folds to 16. It is the card's OWN heading slot and not a hosted
+   component: neither `<h2>Trends are part of Tendd Pro</h2>` nor
+   `<h2>Chase</h2>` carries a class on any page.
+
+   The two margins differ because the two structures do. The prose card's title
+   opens a stack and pushes the sentence under it away; a source's title sits
+   inside a flex row beside a mark and a chip, where a bottom margin would drag
+   the row's baseline. The row form is the base and the stack states the 8px,
+   because a heading with nothing under it is the commoner shape.
+
+   IT IS A DESCENDANT SELECTOR AND THAT IS A KNOWN RANGE, carried over rather
+   than closed. `.app .card h2` would also reach a group head written as an h2 in a
+   card, and at 0-2-1 it would outrank group-head.css at 0-2-0 and repaint it. No
+   page does that today, checked across all 55 grey pages and 28 coloured ones.
+   Recorded rather than tightened: narrowing it is a change with no defect behind
+   it, and it is the same range the two old selectors carried between them. */
+.app .card h2, .landing .card h2             { margin: var(--space-0); font-size: var(--type-sub); }
+.app .card.prose h2, .landing .card.prose h2 { margin-bottom: var(--space-8); }
+
+/* ---- the sentence, on the prose card only --------------------------------
+   `--text-body` and not `--text-muted`: this paragraph is the offer being
+   explained, and the card is the only thing on that part of the screen.
+
+   IT IS SCOPED TO `.prose` AND THAT IS THE POINT OF THE MODIFIER. A source card
+   DOES contain a paragraph, `<p class="consequence">Removing this source deletes
+   the 3 subscriptions you typed</p>` on connections.html, and that paragraph is
+   the Muted line atom. `.app .card p` would set its size and its ink from here
+   and win, which is a host repainting a component that is already written and
+   already correct. kit.css never wrote such a rule, because kit.css had two
+   class names and could not; the merged class can, so the scope says it must
+   not. Measured on the specimen: the muted line holds 12px and --text-muted
+   inside a plain card, and the prose card's own sentence holds 14px and
+   --text-body. */
+.app .card.prose p, .landing .card.prose p {
+  margin: var(--space-0) var(--space-0) var(--space-16);
+  font-size: var(--type-body);
+  color: var(--text-body);
+}
+
+/* ---- the list of what is behind the gate ---------------------------------
+   Three lines, divided by a hairline, the last one bare. It is NOT the Divided
+   list organism and it is NOT the Pair list: those two carry a class each
+   (`.divlist`, `.pairs`) and hold two content slots or a whole molecule per
+   line, and this holds one plain sentence per line and has no class at all on
+   the page. Whether the three collapse into one list component is a naming
+   question for step 9, with every component written; the inventory records it
+   as its own rule today.
+
+   SCOPED TO `.prose` FOR THE SECOND HALF OF THE SAME REASON as the paragraph.
+   `.app .card ul` at 0-2-1 would outrank divided-list.css at 0-2-0 and strip a
+   `ul.divlist` of its own list rules the day one stands inside a card. None does
+   today; the scope means none ever has to be found the hard way.
+
+   The divider is decorative and owes no threshold, exactly like every other
+   internal separator in the product. */
+.app .card.prose ul, .landing .card.prose ul {
+  list-style: none;
+  margin: var(--space-0) var(--space-0) var(--space-16);
+  padding: var(--space-0);
+}
+.app .card.prose li, .landing .card.prose li {
+  padding: var(--space-8) var(--space-0);
+  border-bottom: 1px solid var(--line-divider);
+  font-size: var(--type-body);
+}
+.app .card.prose li:last-child, .landing .card.prose li:last-child { border-bottom: 0; }
+
+/* ---- the one rule this file writes about a hosted component --------------
+   A MARGIN, which is the host's to give, and nothing else: no fill, no ink, no
+   size, no edge on the action row or on the buttons inside it. The row's own
+   file gives it 16px underneath, which is right when a row of actions sits in a
+   column with more below it and wrong when it is the last thing in a card,
+   where it pushes the card's own bottom padding open to 32.
+
+   IT STAYS ON `.prose` RATHER THAN WIDENING TO EVERY CARD, and that is a
+   restraint rather than an oversight. A source card's action row is also its
+   last child, so by the sentence above it should reset too, and dropping the
+   scope would do it in one character. It would also move four grey cards by 16px
+   under no named source of a visual change, on screens nobody has reviewed in
+   colour. It is reported to step 6 for docs/backlog.md instead, for the round
+   that colours Your sources.
+
+   IT BELONGS HERE, and that was decided rather than assumed. action-row.css
+   names three containers that override this margin and hands all three to their
+   own files, because a molecule writing `.card.prose .actions` would be a
+   molecule reaching up into an organism. `.panel .gate .actions` is the second
+   of the three and it is byte-identical to this one, before the 8px grid as well
+   as after; it belongs to the Panel and not here, and the two being one rule
+   written twice is a line for step 9. */
+.app .card.prose .actions, .landing .card.prose .actions { margin: var(--space-0); }
+
+/* ---- a source's top line --------------------------------------------------
+   A mark, a growing text column, and a chip. The middle span carries no class
+   on any page, which is what `:not([class])` selects, and giving it
+   `flex: 1 1 auto` with a `min-width: 0` floor is what pushes the chip to the
+   far end: the chip needs no margin written from here, and chip.css's
+   `.card .chip { margin-left: auto }` is a second answer to a question this
+   rule has already settled. Recorded, not fixed: removing a live declaration is
+   a visual change and none of this stage's four sources asked for one.
+
+   NO MODIFIER, AND IT NEEDS NONE. `.top` is not a card variant, it is a slot
+   that exists only inside a source: counted across all three corpora it stands
+   4 times in the grey, 3 times live in the kit plus once inside a code sample,
+   and 0 times in colour, and every one of them is a direct child of a source
+   card. `.app .card .top` is therefore exactly as wide as `.app .source .top`
+   was, and the same holds for `.kind`, counted the same way.
+
+   The mark is the Logo atom at 36px, sized for this host in logo.css. This file
+   does not touch it. */
+.app .card .top, .landing .card .top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  margin: var(--space-0) var(--space-0) var(--space-16);
+}
+.app .card .top > span:not([class]), .landing .card .top > span:not([class]) { flex: 1 1 auto; min-width: 0; }
+
+/* ---- what kind of source it is -------------------------------------------
+   "Bank connection through Plaid", "Private, entered by hand". The second tier
+   under the source's name, and the single muted role: there is no third grey in
+   this product. */
+.app .card .kind, .landing .card .kind {
+  display: block;
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+/* ---- the reading measure, and it is a CONTAINER query --------------------
+   Past a 760px container the prose card stops growing with the screen and holds
+   560px. It is a reading measure and not a decoration: the card is three
+   sentences and a list of three, and at the 908px a wide screen would otherwise
+   hand it, the lines run past the length an eye tracks back from.
+
+   THE SUBJECT IS `.card.prose` AND NOT `.card`, and that is the one place in
+   this file where the rename could have gone wrong quietly. `.app > .screen >
+   .card` is a wider subject than `.app > .screen > .locked` was: it would bound
+   every card that is a direct child of a screen, and four of them are, all in
+   the grey, all on the two Your sources screens. A source is a record with a
+   mark, a chip and a pair list, not a paragraph, and it renders 740px in a
+   1060px screen today. Clamping it to 560 would be a visual change to four
+   screens carried in on the back of a rename, which is the shape of change this
+   stage exists to stop. The declared subject costs one class and says what it
+   means.
+
+   THE QUERY MATCHES AN ANCESTOR, NEVER THIS ELEMENT. `container-type` is
+   declared once, on `body`, in base.css. Nothing here declares a second one: a
+   container between the body and this rule would silently re-point every query
+   inside it at a different box.
+
+   THE THIRD STRUCTURAL LEVEL IS LOAD-BEARING AND SURVIVES THE RENAME. Written
+   as `.app .card.prose` this ties nothing, but written as `.app .locked` it once
+   tied with the blanket `.app > .screen > * { max-width: none }` the shell
+   declares at a 900 container, lost on source order and unbound with no symptom:
+   the gate rendered at 748px instead of 560 on a screen that had already been
+   accepted at 360 and at 760. The selector is 0-4-0 now against that blanket's
+   0-2-0, so it wins on specificity as well as on structure. Measured after the
+   rename in a 1060px screen: 560px, unchanged.
+
+   IT IS DECLARED HERE AND NOT IN THE SHELL'S FILE, on the same rule that puts
+   the chart's 220px height in chart-placeholder.css: the subject of the rule
+   owns it. Its two neighbours in kit.css were `.form-col` and `.rows-col`, the
+   shell's own columns, which carry no component, so they stay with the shell. */
+@container (min-width: 760px) {
+  .app > .screen > .card.prose { max-width: 560px; }   /* _wf.css:1021 */
+}
+
+/* NO STATES, and the reason is one line: a card is not interactive. Neither
+   form is an anchor, a button or a summary on any of the 55 grey pages or the 28
+   coloured ones, neither carries tabindex or a role, and neither answers a
+   pointer. What a person presses inside a card is a button, and the button has
+   four states of its own on button.html. Faking a hover here with a class the
+   product does not carry would document something the product cannot do. */

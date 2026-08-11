@@ -1,0 +1,106 @@
+/* ============================================================================
+   Empty block - organism
+   What a screen says when there is nothing to show yet: a heading, one sentence,
+   and the two doors out. "Two ways to start" on Home before a source exists, "No
+   sources yet" on Connections. It is the only block in the product whose whole
+   job is to be replaced by content, and the tone is the reason it is a component
+   rather than a heading and a paragraph: an empty state in this product is never
+   an error, so nothing here is clay and nothing here apologises.
+
+   Reads
+     colour   --text-muted  (the sentence, and it is the only colour in the file)
+     type     --type-sub, --type-body
+     spacing  --space-0, --space-8, --space-16, --space-24
+   Page      design/kit/empty-block.html
+   Stands on 2 grey pages, 2 blocks: home-empty and connections-empty. One of the
+   two is coloured today, home-empty.
+   Hosts     the Grid organism (`.grid.roomy`), and gives it nothing at all.
+
+   NO FILL, NO EDGE, NO RADIUS, and that is the whole shape of it. An empty state
+   is not a card and not a callout: it is the screen's own content, standing on
+   the page ground where the list would have stood. Boxing it would make the
+   absence of subscriptions look like an object, and the two doors inside it
+   already draw their own edges.
+
+   THE `>` IS LOAD-BEARING AND IT IS THE ONE THING TO GET RIGHT HERE. Both rules
+   below are direct-child selectors, and the reason is measured rather than
+   stylistic: every door inside `.grid.roomy` carries an `<h3>` and a `<p>` of its own,
+   both of them written and correct in door.css. Written as `.app .empty p` this
+   file would reach two paragraphs it does not own on both of its pages, at
+   0-2-1 against door.css's 0-2-1, and win on source order. That is a host
+   repainting its child, which is the exact defect this stage exists to remove.
+   With the combinator it matches one sentence per page and nothing else.
+
+   THE CLASS NAME IS NOT TOUCHED. `.empty` stays as the product writes it, and
+   the rename map in docs/inventory.md leaves it alone. The stand had a collision
+   on this name and cleared it first: `_page.css` renamed its matrix cell class to
+   `.kit-empty` on 2026-08-11, before this organism landed, rather than debugging
+   it afterwards.
+
+   NO HEX AND NO FONT NAME below. One literal survives: `max-width: 52ch`, a
+   reading measure in character widths, which is not a margin, a padding or a gap
+   and is on no scale this system has.
+   ============================================================================ */
+
+/* ---- the block ------------------------------------------------------------
+   A bottom margin and nothing else. 24px, the gap this product puts between two
+   blocks, and it is the host's margin written here until step 6 exactly as
+   action-row.css and card.css write theirs. */
+.app .empty { margin: var(--space-0) var(--space-0) var(--space-24); }
+
+/* ---- the heading ----------------------------------------------------------
+   "Two ways to start", "No sources yet". It carries no class on either page, so
+   it is the block's own slot and not a hosted component, the same way
+   `.card.prose h2` is the card's own.
+
+   17px folds to --type-sub, one pixel down, which is the founder's review of the
+   foundations and the second of the three legal sources of a visual change. The
+   6px under it folds up to --space-8.
+
+   IT IS AN h2 AND NOT AN h1, on both pages, and that is the IA's decision rather
+   than this file's: on home-empty the screen's h1 is the summary above it, and on
+   connections-empty it is the page title. An empty block never opens a screen. */
+.app .empty > h2 { margin: var(--space-0) var(--space-0) var(--space-8); font-size: var(--type-sub); }
+
+/* ---- the sentence ---------------------------------------------------------
+   One sentence, muted, at a reading measure. "See everything you pay for in one
+   calm place. Pick the one that feels right; you can change it later."
+
+   --text-muted and not --text-body, which is the opposite of the card's
+   paragraph, and the difference is real: the card's sentence IS the offer being
+   explained and is the only thing on that part of the screen, while this one sits
+   under a heading that already said the thing and above two doors that say it
+   again. The single secondary tier, used as the second tier.
+
+   13.5 folds to --type-body and 18px of margin folds down to --space-16. 52ch is
+   a reading measure and stays literal: `ch` is a character width, not a length on
+   the spacing grid, and it is what keeps the sentence from running the full width
+   of a desktop screen. */
+.app .empty > p {
+  margin: var(--space-0) var(--space-0) var(--space-16);
+  font-size: var(--type-body);
+  color: var(--text-muted);
+  max-width: 52ch;
+}
+
+/* ---- what this file does NOT write, and the list is the point --------------
+   `.empty .grid.roomy` has no rule here. The Grid organism owns the door row's
+   columns and its 16px gap, at every width, and grid.css says in its own header
+   that it carries no margin "because the block that holds it (the empty state,
+   the dialog sheet) owns its spacing". This block's spacing under the doors is
+   its own bottom margin above, so there is nothing left for it to say. The
+   dialog sheet DOES write that margin, because its doors are followed by another
+   line; here they are the last thing in the block.
+
+   No rule reaches a door, a door's heading, a door's sentence or its "Choose
+   this path" line. Four selectors would have been easy to write and every one of
+   them would have been this organism repainting a molecule that is already
+   correct. */
+
+/* NO STATES, and the reason is one line: an empty block is not interactive. It
+   is a `<section>` on both occurrences, it holds no anchor, no button and no
+   summary of its own, and kit.css gave it no pointer response either. What a
+   person presses inside it is a Door, and the door has hover and focus-visible on
+   door.html, which is where somebody looking for them will go. Faking a state
+   here with a class the product does not carry would document something the
+   product cannot do. */

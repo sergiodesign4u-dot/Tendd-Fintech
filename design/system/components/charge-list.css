@@ -64,6 +64,45 @@
   font-size: var(--type-body);
 }
 
+/* ---- and the last row does not draw one -----------------------------------
+   THE PRINCIPLE: a divider divides two things, and after the last row there is
+   nothing to divide. Founder's review of the components, 2026-08-12.
+
+   It closes two doubled seams rather than one, and both were measured in a
+   browser at 360 and 1280 before this line was written:
+
+     1. On the four subscription-detail states that carry a Pro gate, the last
+        `li` drew `1px solid rgb(238,242,243)` and the `.gate` under it drew
+        `border-top` of the same value, and the two rectangles touched at
+        exactly 0.00px. One seam with 2px of --line-divider where every other
+        divider in that panel has 1.
+     2. On subscription-detail-loading the list is the LAST child of the panel,
+        so the same rule sat flush at 0.00px against the panel's own bottom
+        edge: 1px of --line-divider (238,242,243) stacked on 1px of
+        --line-container (228,233,234). Nobody had named that one. It is the
+        reason a principle beats a patch: closing the gate seam by hand would
+        have left this one standing.
+
+   THIS COMPONENT WAS THE ONLY HOLD-OUT IN THE SYSTEM, which is what makes the
+   line a consolidation rather than an invention. Every other ruled list already
+   ends this way: `.card.prose li:last-child` in card.css, `.pairs div:last-child`
+   and `.pairs li:last-child` in pair-list.css, `.cand:last-child` in
+   save-focus-candidate.css, `.switch:last-of-type` in switch-row.css,
+   `.rstep:last-of-type` in reveal-step.css. The two lists that use
+   `li + li { border-top }` (the divided list, the category group) never draw a
+   last rule at all, which is the same principle written the other way round.
+
+   `:last-child` and not `:last-of-type`: every child of a `.charges` list is an
+   `li` on all 5 grey pages and all 5 coloured ones, checked, and `:last-child`
+   is the shape the other five components in this system already use.
+
+   THE LIST STILL READS AS CLOSED, and that was checked rather than assumed. In
+   the product it is always inside the Panel, and a bordered container closes a
+   list by itself: in case 1 the gate's own top rule is still there, and in case
+   2 the panel's own hairline is. No occurrence anywhere relies on its last row
+   to look finished. */
+.app .charges li:last-child, .landing .charges li:last-child { border-bottom: 0; }
+
 /* ---- the note under an amount --------------------------------------------
    `.was` is a span INSIDE the `.amt` atom, and it is a second content slot of
    this row rather than a variant of the amount: the atom keeps its own size,

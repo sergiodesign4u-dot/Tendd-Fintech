@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept: The Mark Round - Tendd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- The product's real tokens, loaded rather than copied: this stand must not
+     re-derive a single value. Petrol, paper, canvas, ink and the dark theme all
+     come from design/system/tokens.css (CLAUDE.md, "values migrate"). -->
+<link rel="stylesheet" href="../system/tokens.css">
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    /* artifact-site chrome, the same as concept/directions.html. Separate from
+       the product palette on purpose: the stand is not the product. */
+    --bg: #f8f7f4; --surface: #ffffff; --border: #e8e4dc; --border-light: #f0ede6;
+    --text: #2a2724; --text-secondary: #6b6560; --text-muted: #9b958e;
+    --accent: #5c7a6e; --accent-light: #eef4f1;
+    --radius-sm: 4px; --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Roadmap sidebar (phase-site chrome) ---------- */
+  .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: var(--surface); border-right: 1px solid var(--border); z-index: 200; transform: translateX(-100%); transition: transform 0.22s ease; overflow-y: auto; padding-bottom: 32px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 150; }
+  .sidebar-overlay.open { display: block; }
+  .sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 14px; border-bottom: 1px solid var(--border-light); }
+  .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+  .sidebar-close { background: none; border: none; font-size: 18px; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--radius-sm); }
+  .nav-toggle { position: fixed; top: 14px; left: 16px; z-index: 100; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px; }
+  @media (min-width: 840px) { .sidebar { transform: translateX(0); } .sidebar-close { display: none; } .sidebar-overlay { display: none !important; } .nav-toggle { display: none; } body { padding-left: 220px; } }
+  @media (max-width: 839px) { .wrap { padding-top: 62px; } }
+
+  /* ---------- Page shell ---------- */
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 40px 24px 80px; }
+  .masthead { max-width: 720px; margin: 0 auto 34px; }
+  .kolo { font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
+  .masthead h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; letter-spacing: -0.03em; margin: 10px 0 14px; text-wrap: balance; }
+  .masthead p { font-size: 15.5px; color: var(--text-secondary); }
+  .masthead p + p { margin-top: 10px; }
+  .masthead b { color: var(--text); font-weight: 600; }
+
+  .guards { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 0; }
+  .guard { font-size: 12.5px; font-weight: 500; color: #6a4a12; background: #fbf1dd; border: 1px solid #f1e0bd; padding: 5px 11px; border-radius: 999px; }
+  .guard b { font-weight: 700; }
+
+  /* ---------- Direction blocks ---------- */
+  .dir { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; margin-top: 26px; }
+  .dir-head { padding: 22px 24px 18px; border-bottom: 1px solid var(--border-light); }
+  .dir-no { font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); }
+  .dir-head h2 { font-size: 23px; font-weight: 700; letter-spacing: -0.02em; margin: 6px 0 8px; }
+  .dir-head p { font-size: 14.5px; color: var(--text-secondary); max-width: 68ch; }
+  .dir-head p + p { margin-top: 8px; }
+  .trace { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .tr { font-size: 11.5px; font-weight: 600; padding: 4px 9px; border-radius: 6px; background: var(--accent-light); color: #3f5a4f; }
+  .tr.risk { background: #f6ecec; color: #7b4a44; }
+
+  .plates { display: grid; gap: 1px; background: var(--border-light); grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); }
+  .plate { background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .plate-label { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); }
+  .plate-note { font-size: 12.5px; color: var(--text-secondary); margin-top: auto; }
+  .stage { border-radius: 12px; padding: 22px 18px; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; min-height: 128px; }
+  .stage.on-canvas { background: var(--bg-page); }
+  .stage.on-paper  { background: var(--bg-surface); border: 1px solid var(--line-container); }
+  .stage.on-petrol { background: var(--bg-action); }
+  .stage.on-dark   { background: var(--bg-page); }
+
+  /* ---------- The marks ---------- */
+  /* Height is the size of a mark, never width: direction 1 is taller than it is
+     wide, so a width would silently shrink it beside the other two. */
+  .m { display: block; width: auto; }
+  .m-petrol { color: var(--text-action); }
+  .m-ink    { color: var(--text-primary); }
+  .m-paper  { color: var(--text-on-action); }
+  .icon-petrol { color: var(--bg-action); --glyph: var(--bg-surface); }
+  .icon-ink    { color: var(--text-primary); --glyph: var(--bg-surface); }
+  .icon-dark   { color: var(--bg-surface); --glyph: var(--text-action); }
+
+  /* the size proof: the SAME geometry, walked down to the app bar and the tab */
+  .sizes { display: flex; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
+  .size { display: flex; flex-direction: column; align-items: center; gap: 7px; }
+  .size span { font-size: 10.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+  /* ---------- The lockup ---------- */
+  .lock { display: flex; align-items: center; gap: 10px; }
+  .lock .wm { font-weight: 700; font-size: 26px; color: var(--text-primary); }
+  .lock.tight .wm { letter-spacing: -0.03em; }
+  .lock.wide  .wm { letter-spacing: 0.02em; }
+  .lock.rev .wm { color: var(--text-on-action); }
+  /* nowrap is load-bearing: .stage is a wrapping flex row, and turning it into a
+     column here would let a tall stack wrap into a SECOND COLUMN and hang the app
+     bar outside the plate. Caught in the browser, not in the markup. */
+  .lockrow { display: flex; flex-direction: column; flex-wrap: nowrap; gap: 16px; }
+  .lockrow .bar { max-width: 100%; align-self: stretch; }
+  .lockrow .cap { font-size: 11.5px; color: var(--text-muted); }
+
+  /* ---------- The app bar sample (geometry of kit .appbar, values from tokens) ---------- */
+  .bar {
+    width: 100%; max-width: 320px; height: 56px; border-radius: 12px;
+    background: var(--bg-surface); border: 1px solid var(--line-container);
+    display: flex; align-items: center; gap: 8px; padding: 0 16px;
+  }
+  .bar .wm { font-weight: 700; font-size: 16px; letter-spacing: 0.02em; color: var(--text-primary); margin-right: auto; }
+  .bar .chip { font-size: 12px; color: var(--text-secondary); }
+
+  /* ---------- The tab / favicon proof ---------- */
+  .tabs { display: flex; align-items: center; gap: 10px; background: #dfe3e6; border-radius: 10px 10px 0 0; padding: 8px 8px 0; }
+  .tab { display: flex; align-items: center; gap: 7px; background: var(--bg-surface); border-radius: 8px 8px 0 0; padding: 8px 14px; font-size: 12px; color: var(--text-primary); }
+  .tab.off { background: transparent; color: var(--text-secondary); }
+
+  /* ---------- Round band ---------- */
+  .band { margin: 34px 0 4px; padding: 18px 22px; border-radius: 14px; background: var(--accent-light); border: 1px solid #dfe9e4; }
+  .band h2 { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: #35513f; }
+  .band p { font-size: 14px; color: #4e6455; margin-top: 6px; max-width: 76ch; }
+  .band.past { background: var(--border-light); border-color: var(--border); }
+  .band.past h2 { color: var(--text-secondary); }
+  .band.past p { color: var(--text-muted); }
+
+  /* ---------- The type-only direction ---------- */
+  .wm-big { font-weight: 800; font-size: 46px; letter-spacing: -0.035em; color: var(--text-primary); line-height: 1; }
+  .wm-big .dd { letter-spacing: -0.13em; }
+  .wm-big .hi { color: var(--text-action); }
+  .wm-mid { font-size: 26px; }
+  .wm-rev { color: var(--text-on-action); }
+  .tile-letter {
+    width: 88px; height: 88px; border-radius: 20px; background: var(--bg-action);
+    color: var(--text-on-action); display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 58px; letter-spacing: -0.04em; line-height: 1; padding-bottom: 4px;
+  }
+  .tile-letter.sm { width: 40px; height: 40px; border-radius: 9px; font-size: 27px; padding-bottom: 2px; }
+  .tile-letter.xs { width: 16px; height: 16px; border-radius: 4px; font-size: 11px; padding-bottom: 1px; }
+
+  /* ---------- Round three ---------- */
+  .band.now { background: #10262a; border-color: #10262a; }
+  .band.now h2 { color: #ffffff; font-size: 21px; }
+  .band.now p { color: #a9c2c6; }
+
+  .hero { border-radius: 14px; padding: 34px 22px; display: flex; align-items: center; justify-content: center; min-height: 210px; }
+  .hero.dark { background: #10262a; }
+  .hero.petrol { background: var(--bg-action); }
+  .hero.canvas { background: var(--bg-page); }
+
+  /* the flatline draws itself: one inline path, so CSS can reach it */
+  .draw { stroke-dasharray: 132; stroke-dashoffset: 132; animation: draw 4.2s cubic-bezier(.22,.61,.36,1) infinite; }
+  @keyframes draw {
+    0% { stroke-dashoffset: 132; }
+    45% { stroke-dashoffset: 0; }
+    92% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 132; }
+  }
+  /* the living mark: ticks arrive one at a time, then one of them stays */
+  .tick { opacity: 0.18; animation: land 5s ease-in-out infinite; }
+  @keyframes land { 0%,8% { opacity: 0.18; } 22%,88% { opacity: 1; } 100% { opacity: 0.18; } }
+  .tick.found { animation: found 5s ease-in-out infinite; }
+  @keyframes found { 0%,60% { opacity: 0.18; transform: none; } 74%,88% { opacity: 1; } 100% { opacity: 0.18; } }
+  @media (prefers-reduced-motion: reduce) {
+    .draw, .tick, .tick.found { animation: none; stroke-dashoffset: 0; opacity: 1; }
+  }
+
+  /* ---------- Closing table ---------- */
+  .close { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-top: 26px; }
+  .close h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .close p { font-size: 14.5px; color: var(--text-secondary); max-width: 74ch; }
+  .close p + p { margin-top: 9px; }
+  .close ol { margin: 12px 0 0 20px; font-size: 14.5px; color: var(--text-secondary); }
+  .close li { margin-bottom: 6px; }
+  .close b { color: var(--text); font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); font-weight: 600; }
+  td b { color: var(--text); }
+  .tablescroll { overflow-x: auto; }
+</style>
+</head>
+<body>
+
+<!-- ======================================================================
+     THE MARK LIBRARY
+     One geometry per mark, drawn once on a 32 grid and used at every size, so
+     a 16px proof cannot silently be a different drawing from the 96px one.
+     Shapes inherit `fill` from the <use>, which is how one symbol serves
+     petrol, ink and reversed. Tiles carry the glyph in --glyph.
+     ====================================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+
+    <!-- D1. The doubled d. Two bowls on one rail, the way the letter is built:
+         the bowl is a ring, so the counter stays open and it reads as dd rather
+         than as two dots on a bar. Taller than wide (19 by 32), which is why
+         every use below sets a height and lets the width follow. -->
+    <symbol id="mk-dd" viewBox="0 0 18.3 32">
+      <circle cx="7.6" cy="9.7" r="3.8" fill="none" stroke="currentColor" stroke-width="3.4"/>
+      <rect x="11.8" y="0.8" width="4.4" height="14.4" rx="2.2" fill="currentColor"/>
+      <circle cx="7.6" cy="25.7" r="3.8" fill="none" stroke="currentColor" stroke-width="3.4"/>
+      <rect x="11.8" y="16.8" width="4.4" height="14.4" rx="2.2" fill="currentColor"/>
+    </symbol>
+    <symbol id="ic-dd" viewBox="0 0 32 32">
+      <rect x="0" y="0" width="32" height="32" rx="7.5" fill="currentColor"/>
+      <g transform="translate(9.38,4.42) scale(0.7237)"
+         style="fill:var(--glyph,#fff);stroke:var(--glyph,#fff)">
+        <circle cx="7.6" cy="9.7" r="3.8" fill="none" stroke-width="3.4"/>
+        <rect x="11.8" y="0.8" width="4.4" height="14.4" rx="2.2" stroke="none"/>
+        <circle cx="7.6" cy="25.7" r="3.8" fill="none" stroke-width="3.4"/>
+        <rect x="11.8" y="16.8" width="4.4" height="14.4" rx="2.2" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- D2. The calm tally. Two rows and the sum: the lines shorten downward and
+         the last one thickens, which is the one-big-number rule drawn. -->
+    <symbol id="mk-tally" viewBox="0 0 32 32">
+      <rect x="4" y="5.2" width="24" height="3.4" rx="1.7" fill="currentColor"/>
+      <rect x="4" y="12.4" width="17.5" height="3.4" rx="1.7" fill="currentColor"/>
+      <rect x="4" y="20.6" width="13.5" height="6.8" rx="3.4" fill="currentColor"/>
+    </symbol>
+    <symbol id="mk-tally-b" viewBox="0 0 32 32">
+      <rect x="4" y="5.2" width="24" height="3.4" rx="1.7" fill="currentColor" fill-opacity="0.5"/>
+      <rect x="4" y="12.4" width="17.5" height="3.4" rx="1.7" fill="currentColor" fill-opacity="0.5"/>
+      <rect x="4" y="20.6" width="13.5" height="6.8" rx="3.4" fill="currentColor"/>
+    </symbol>
+    <symbol id="ic-tally" viewBox="0 0 32 32">
+      <rect x="0" y="0" width="32" height="32" rx="7.5" fill="currentColor"/>
+      <g transform="translate(5.1,5.4) scale(0.66)" style="fill:var(--glyph,#fff)">
+        <rect x="4" y="5.2" width="24" height="3.4" rx="1.7"/>
+        <rect x="4" y="12.4" width="17.5" height="3.4" rx="1.7"/>
+        <rect x="4" y="20.6" width="13.5" height="6.8" rx="3.4"/>
+      </g>
+    </symbol>
+
+    <!-- D3. The reveal. Eleven ticks still being counted and one that has become a
+         solid thing: the moment the product is built around (D1, gradual reveal). -->
+    <symbol id="mk-ring" viewBox="0 0 32 32">
+      <g fill="currentColor">
+        <circle cx="21.6" cy="6.3" r="2"/>
+        <circle cx="25.7" cy="10.4" r="2"/>
+        <circle cx="27.2" cy="16" r="2"/>
+        <circle cx="25.7" cy="21.6" r="2"/>
+        <circle cx="21.6" cy="25.7" r="2"/>
+        <circle cx="16" cy="27.2" r="2"/>
+        <circle cx="10.4" cy="25.7" r="2"/>
+        <circle cx="6.3" cy="21.6" r="2"/>
+        <circle cx="4.8" cy="16" r="2"/>
+        <circle cx="6.3" cy="10.4" r="2"/>
+        <circle cx="10.4" cy="6.3" r="2"/>
+      </g>
+      <circle cx="16" cy="4.8" r="3.2" fill="currentColor"/>
+    </symbol>
+    <symbol id="mk-ring-b" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="11.2" fill="none" stroke="currentColor" stroke-width="3"
+              stroke-linecap="round" stroke-dasharray="58 12.4" transform="rotate(-72 16 16)"/>
+      <circle cx="16" cy="4.9" r="2.6" fill="currentColor"/>
+    </symbol>
+    <symbol id="ic-ring" viewBox="0 0 32 32">
+      <rect x="0" y="0" width="32" height="32" rx="7.5" fill="currentColor"/>
+      <g transform="translate(3.15,3.55) scale(0.803)" style="fill:var(--glyph,#fff)">
+        <circle cx="21.6" cy="6.3" r="2"/>
+        <circle cx="25.7" cy="10.4" r="2"/>
+        <circle cx="27.2" cy="16" r="2"/>
+        <circle cx="25.7" cy="21.6" r="2"/>
+        <circle cx="21.6" cy="25.7" r="2"/>
+        <circle cx="16" cy="27.2" r="2"/>
+        <circle cx="10.4" cy="25.7" r="2"/>
+        <circle cx="6.3" cy="21.6" r="2"/>
+        <circle cx="4.8" cy="16" r="2"/>
+        <circle cx="6.3" cy="10.4" r="2"/>
+        <circle cx="10.4" cy="6.3" r="2"/>
+        <circle cx="16" cy="4.8" r="3.2"/>
+      </g>
+    </symbol>
+
+    <!-- ROUND THREE ----------------------------------------------------------
+         Rounds one and two both produced the same species: a small flat glyph
+         that sits politely beside the word. These five are built to be the
+         identity rather than to decorate it. -->
+
+    <!-- D9. The line that stops spiking. -->
+    <symbol id="mk-line" viewBox="0 0 44 32">
+      <path d="M3 16 L7 5.5 L11 26 L15.5 8.5 L19 22 L22.5 13.5 L25.5 17.6 L28 16 H41"
+            fill="none" stroke="currentColor" stroke-width="3.2"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="ic-line" viewBox="0 0 32 32">
+      <rect x="0" y="0" width="32" height="32" rx="7.5" fill="currentColor"/>
+      <g transform="translate(3.26,6.74) scale(0.579)"
+         style="stroke:var(--glyph,#fff)">
+        <path d="M3 16 L7 5.5 L11 26 L15.5 8.5 L19 22 L22.5 13.5 L25.5 17.6 L28 16 H41"
+              fill="none" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </symbol>
+
+    <!-- D10. Two d's that share a wall: the second bowl is threaded onto the
+         first stem, so it is one drawn ligature and not two letters kerned. -->
+    <symbol id="mk-lig" viewBox="0 0 34 32">
+      <circle cx="10.5" cy="20.6" r="6.2" fill="none" stroke="currentColor" stroke-width="4.2"/>
+      <circle cx="23.5" cy="20.6" r="6.2" fill="none" stroke="currentColor" stroke-width="4.2"/>
+      <rect x="14.6" y="3.1" width="4.2" height="25.8" rx="2.1" fill="currentColor"/>
+      <rect x="27.6" y="3.1" width="4.2" height="25.8" rx="2.1" fill="currentColor"/>
+    </symbol>
+    <symbol id="ic-lig" viewBox="0 0 32 32">
+      <rect x="0" y="0" width="32" height="32" rx="7.5" fill="currentColor"/>
+      <g transform="translate(4.1,4.9) scale(0.775)"
+         style="fill:var(--glyph,#fff);stroke:var(--glyph,#fff)">
+        <circle cx="10.5" cy="20.6" r="6.2" fill="none" stroke-width="4.2"/>
+        <circle cx="23.5" cy="20.6" r="6.2" fill="none" stroke-width="4.2"/>
+        <rect x="14.6" y="3.1" width="4.2" height="25.8" rx="2.1" stroke="none"/>
+        <rect x="27.6" y="3.1" width="4.2" height="25.8" rx="2.1" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- D11. The letter is the hole. A petrol field cut by a channel that runs
+         off both edges, and a counter punched beside it. -->
+    <symbol id="ic-cut2" viewBox="0 0 32 32">
+      <path fill="currentColor" fill-rule="evenodd"
+            d="M7.5 0 H24.5 A7.5 7.5 0 0 1 32 7.5 V24.5 A7.5 7.5 0 0 1 24.5 32 H7.5 A7.5 7.5 0 0 1 0 24.5 V7.5 A7.5 7.5 0 0 1 7.5 0 Z
+               M19.2 -2 H23.9 V34 H19.2 Z
+               M6.4 20.8 a5.4 5.4 0 1 0 10.8 0 a5.4 5.4 0 1 0 -10.8 0 Z"/>
+    </symbol>
+
+    <!-- D12. The letter cropped by its own frame: the mark is bigger than the
+         thing that holds it, which is the whole point. -->
+    <symbol id="ic-crop" viewBox="0 0 32 32">
+      <clipPath id="crop-frame"><rect x="0" y="0" width="32" height="32" rx="7.5"/></clipPath>
+      <rect x="0" y="0" width="32" height="32" rx="7.5" fill="currentColor"/>
+      <g clip-path="url(#crop-frame)" style="fill:var(--glyph,#fff);stroke:var(--glyph,#fff)">
+        <circle cx="9" cy="25.5" r="9.5" fill="none" stroke-width="6.5"/>
+        <rect x="22.4" y="-6" width="6.5" height="40" stroke="none"/>
+      </g>
+    </symbol>
+
+    <!-- ROUND TWO ------------------------------------------------------------ -->
+
+    <!-- D4. Four bars at exactly one height. Every money mark rises; this one
+         refuses to. The idea is the flatness itself. -->
+    <symbol id="mk-level" viewBox="0 0 32 32">
+      <g fill="currentColor">
+        <rect x="2.5" y="8" width="7" height="16" rx="3.5"/>
+        <rect x="12.5" y="8" width="7" height="16" rx="3.5"/>
+        <rect x="22.5" y="8" width="7" height="16" rx="3.5"/>
+      </g>
+    </symbol>
+    <symbol id="ic-level" viewBox="0 0 32 32">
+      <rect x="0" y="0" width="32" height="32" rx="7.5" fill="currentColor"/>
+      <g transform="translate(3.55,3.56) scale(0.778)" style="fill:var(--glyph,#fff)">
+        <rect x="2.5" y="8" width="7" height="16" rx="3.5"/>
+        <rect x="12.5" y="8" width="7" height="16" rx="3.5"/>
+        <rect x="22.5" y="8" width="7" height="16" rx="3.5"/>
+      </g>
+    </symbol>
+
+    <!-- D5 is type only and has no symbol: the wordmark is the mark. -->
+
+    <!-- D6. The T of Tendd, where the crossbar is the rule a receipt draws above
+         its total and the stem is the list hanging under it. -->
+    <symbol id="mk-tee" viewBox="0 0 32 32">
+      <g fill="currentColor">
+        <rect x="2.4" y="3.6" width="27.2" height="5.6" rx="2.8"/>
+        <rect x="12.8" y="8" width="6.4" height="9.4" rx="3.2"/>
+        <rect x="12.8" y="19.4" width="6.4" height="9" rx="3.2"/>
+      </g>
+    </symbol>
+    <symbol id="ic-tee" viewBox="0 0 32 32">
+      <rect x="0" y="0" width="32" height="32" rx="7.5" fill="currentColor"/>
+      <g transform="translate(3.65,3.65) scale(0.772)" style="fill:var(--glyph,#fff)">
+        <rect x="2.4" y="3.6" width="27.2" height="5.6" rx="2.8"/>
+        <rect x="12.8" y="8" width="6.4" height="9.4" rx="3.2"/>
+        <rect x="12.8" y="19.4" width="6.4" height="9" rx="3.2"/>
+      </g>
+    </symbol>
+
+    <!-- D7. Something taken out and set down beside it. A true hole, so the mark
+         works on any ground without a second colour. -->
+    <symbol id="mk-cut" viewBox="0 0 32 32">
+      <path fill="currentColor"
+            d="M6 1 H16 A5 5 0 0 1 21 6 V13 H15 A2 2 0 0 0 13 15 V21 H6 A5 5 0 0 1 1 16 V6 A5 5 0 0 1 6 1 Z"/>
+      <rect x="23" y="23" width="8" height="8" rx="2.5" fill="currentColor"/>
+    </symbol>
+    <symbol id="ic-cut" viewBox="0 0 32 32">
+      <rect x="0" y="0" width="32" height="32" rx="7.5" fill="currentColor"/>
+      <g transform="translate(4.8,4.8) scale(0.7)" style="fill:var(--glyph,#fff)">
+        <path d="M6 1 H16 A5 5 0 0 1 21 6 V13 H15 A2 2 0 0 0 13 15 V21 H6 A5 5 0 0 1 1 16 V6 A5 5 0 0 1 6 1 Z"/>
+        <rect x="23" y="23" width="8" height="8" rx="2.5"/>
+      </g>
+    </symbol>
+
+    <!-- D8. Paper, folded. The locked language is called Petrol and Paper, and
+         this is the only mark that says the second half out loud. -->
+    <symbol id="mk-fold" viewBox="0 0 32 32">
+      <path fill="currentColor" fill-rule="evenodd"
+            d="M4.5 1.5 H27.5 A3 3 0 0 1 30.5 4.5 V27.5 A3 3 0 0 1 27.5 30.5 H4.5 A3 3 0 0 1 1.5 27.5 V4.5 A3 3 0 0 1 4.5 1.5 Z
+               M18.6 1.5 L30.5 13.4 V16.4 L15.6 1.5 Z"/>
+    </symbol>
+    <symbol id="ic-fold" viewBox="0 0 32 32">
+      <rect x="0" y="0" width="32" height="32" rx="7.5" fill="currentColor"/>
+      <g transform="translate(4.41,4.41) scale(0.724)" style="fill:var(--glyph,#fff)">
+        <path fill-rule="evenodd"
+              d="M4.5 1.5 H27.5 A3 3 0 0 1 30.5 4.5 V27.5 A3 3 0 0 1 27.5 30.5 H4.5 A3 3 0 0 1 1.5 27.5 V4.5 A3 3 0 0 1 4.5 1.5 Z
+                 M18.6 1.5 L30.5 13.4 V16.4 L15.6 1.5 Z"/>
+      </g>
+    </symbol>
+
+  </defs>
+</svg>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - Concept</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="wrap">
+
+  <header class="masthead" id="brief">
+    <div class="kolo">Concept - the mark round</div>
+    <h1>Tendd has a wordmark. It does not have a mark.</h1>
+    <p>Every one of the 54 coloured pages carries <b>Tendd</b> set in Inter 700 at 16px, tracked
+      out +0.02em, and that is the whole identity. There is no symbol, no app icon and no favicon
+      in the repository, so the product has nothing that survives being 16px tall in a browser tab
+      or square on a phone home screen.</p>
+    <p>This is a directions round, run the same way the visual language was found: drawings live in
+      HTML at real sizes, one gets locked. Thirteen are on the page now: round three at the top,
+      then round two, then the first three at the bottom. Each mark is geometry on a 32 grid, drawn
+      once
+      and used at every size on this page, so a small proof cannot quietly be a different, kinder
+      drawing than the large one. A generated round ran alongside and sits further down, in the
+      same role the brand plate had at Concept: a record of the search, never the file that ships.</p>
+    <p>The colours are not chosen here either: this page loads <b>design/system/tokens.css</b>, so
+      the petrol is the product's petrol and the dark plates are the product's dark theme.</p>
+    <div class="guards">
+      <span class="guard"><b>Guard:</b> no gradient, no glass, no fake 3D</span>
+      <span class="guard"><b>Guard:</b> no coin, no piggy bank, no rising arrow</span>
+      <span class="guard"><b>Guard:</b> no friendly blob</span>
+      <span class="guard"><b>Guard:</b> readable at 16px in one colour</span>
+      <span class="guard"><b>Guard:</b> petrol keeps its three jobs, the mark is the third</span>
+    </div>
+  </header>
+
+  <section class="band now" id="round3">
+    <h2>Round three: stop drawing icons</h2>
+    <p>Rounds one and two produced the same animal eight times: a small flat glyph standing politely
+      to the left of the word. That is the safe species, and safe is what was wrong with them. These
+      five are not icons. One is a drawn letterform, one is a hole, one is bigger than the frame that
+      holds it, one moves, and one is a sentence: the line that stops spiking.</p>
+  </section>
+
+  <!-- ================= D9 ================= -->
+  <section class="dir" id="d9">
+    <div class="dir-head">
+      <div class="dir-no">Direction 9</div>
+      <h2>Flatline</h2>
+      <p>One stroke. It starts as the thing money does to this person, sharp spikes with no pattern,
+        and it ends as a straight line that just keeps going. Every finance mark in the world is a
+        line going up. This is the only interesting thing a line can do in a product whose entire
+        promise is that nothing spikes.</p>
+      <p>It is a story rather than a shape, which means it has a beginning and an end, which means it
+        can move. Watch it draw itself below: that is the product's before and after in two seconds,
+        and it is the same file on the app icon, the loading state and the launch screen.</p>
+      <div class="trace">
+        <span class="tr">A1 calm, not alarming, taken literally</span>
+        <span class="tr">H0, the anxious person feeling calmer, drawn</span>
+        <span class="tr risk">Risk: a heartbeat. Health apps own the spiky line</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The mark, moving</div>
+        <div class="hero dark">
+          <svg width="300" height="100" viewBox="0 0 44 32" style="color:#6bb0ba">
+            <path class="draw" d="M3 16 L7 5.5 L11 26 L15.5 8.5 L19 22 L22.5 13.5 L25.5 17.6 L28 16 H41"
+                  fill="none" stroke="currentColor" stroke-width="3.2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="plate-note">The animation is the identity, not a decoration on it. Static, it is
+          still a complete mark.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Still</div>
+        <div class="stage on-canvas"><svg class="m m-petrol" width="150" height="109"><use href="#mk-line"/></svg></div>
+        <div class="stage on-petrol"><svg class="m m-paper" width="120" height="87"><use href="#mk-line"/></svg></div>
+        <div class="plate-note">Wide by nature: this one wants to sit above the word, not beside it.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">App icon and small</div>
+        <div class="stage on-canvas">
+          <svg class="m icon-petrol" width="88" height="88"><use href="#ic-line"/></svg>
+          <svg class="m icon-ink" width="44" height="44"><use href="#ic-line"/></svg>
+        </div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m m-petrol" width="32" height="23"><use href="#mk-line"/></svg><span>32</span></div>
+          <div class="size"><svg class="m m-petrol" width="24" height="17"><use href="#mk-line"/></svg><span>24</span></div>
+          <div class="size"><svg class="m m-petrol" width="16" height="12"><use href="#mk-line"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">Below 24 the spikes merge into a scribble. The tab needs a reduced
+          cut: two peaks, not five.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In the app bar</div>
+        <div class="stage on-canvas lockrow">
+          <div class="lock tight"><svg class="m m-petrol" width="34" height="25"><use href="#mk-line"/></svg><span class="wm">Tendd</span></div>
+          <div class="bar">
+            <svg class="m m-petrol" width="26" height="19"><use href="#mk-line"/></svg>
+            <span class="wm">Tendd</span><span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">The flat end runs into the word, which is the right way round: the
+          calm end is the one that touches the name.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= D10 ================= -->
+  <section class="dir" id="d10">
+    <div class="dir-head">
+      <div class="dir-no">Direction 10</div>
+      <h2>The ligature</h2>
+      <p>Not an icon of a letter, a drawn letterform. The second d is threaded onto the first d's
+        stem, so the two bowls interlock and the pair becomes one object that cannot be typed. This
+        is the oldest trick in identity and the reason a wordmark ever becomes a monogram: the piece
+        of the name that only this name has, cut out and made into a thing.</p>
+      <p>It is the only direction on this page that could carry an owned typeface later, because it
+        already is one letter of it.</p>
+      <div class="trace">
+        <span class="tr">A4 recognition: the shape is the name</span>
+        <span class="tr">Taste: Monzo and Monarch, character without stiffness</span>
+        <span class="tr risk">Risk: the interlock is illegible below 24px</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The mark</div>
+        <div class="hero canvas"><svg class="m m-petrol" width="170" height="160"><use href="#mk-lig"/></svg></div>
+        <div class="plate-note">Two counters, two ascenders, one shared wall. The overlap is drawn,
+          not kerned.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Reversed and dark</div>
+        <div class="stage on-petrol"><svg class="m m-paper" width="70" height="66"><use href="#mk-lig"/></svg></div>
+        <div class="stage on-dark" data-theme="dark">
+          <svg class="m m-petrol" width="56" height="53"><use href="#mk-lig"/></svg>
+          <svg class="m icon-dark" width="56" height="56"><use href="#ic-lig"/></svg>
+        </div>
+        <div class="plate-note">Heavy enough to survive reversal, which stroked letterforms usually
+          are not.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">App icon and small</div>
+        <div class="stage on-canvas">
+          <svg class="m icon-petrol" width="88" height="88"><use href="#ic-lig"/></svg>
+          <svg class="m icon-ink" width="44" height="44"><use href="#ic-lig"/></svg>
+        </div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m m-petrol" width="34" height="32"><use href="#mk-lig"/></svg><span>32</span></div>
+          <div class="size"><svg class="m m-petrol" width="26" height="24"><use href="#mk-lig"/></svg><span>24</span></div>
+          <div class="size"><svg class="m m-petrol" width="17" height="16"><use href="#mk-lig"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">This is where it is decided, and the honest answer is that the tab
+          gets a single d.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In the app bar</div>
+        <div class="stage on-canvas lockrow">
+          <div class="lock tight"><svg class="m m-petrol" width="30" height="28"><use href="#mk-lig"/></svg><span class="wm">Tendd</span></div>
+          <div class="bar">
+            <svg class="m m-petrol" width="22" height="21"><use href="#mk-lig"/></svg>
+            <span class="wm">Tendd</span><span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">The mark repeats the end of the word, which either reads as
+          deliberate or as a stutter. Look at it twice.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= D11 ================= -->
+  <section class="dir" id="d11">
+    <div class="dir-head">
+      <div class="dir-no">Direction 11</div>
+      <h2>Cut</h2>
+      <p>There is no glyph. There is a petrol field with a channel cut clean through it, running off
+        the top and the bottom, and a counter punched beside the channel. What you read as a letter
+        is the part that was removed. The mark is a hole, and the hole shows whatever is behind it:
+        paper, a photograph, the dark canvas.</p>
+      <p>This one exists as a tile first and everything else second, which is the opposite of how the
+        other twelve were built and is exactly why it does not look like them.</p>
+      <div class="trace">
+        <span class="tr">A2 trust shown: nothing is added, something is taken away</span>
+        <span class="tr">D-Concept: petrol as a field, not as an outline</span>
+        <span class="tr risk">Risk: no standalone mark. Without its field it does not exist</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The mark is the tile</div>
+        <div class="hero canvas"><svg class="m icon-petrol" width="150" height="150"><use href="#ic-cut2"/></svg></div>
+        <div class="plate-note">The channel exits the shape. Nothing here is centred inside a safe
+          margin, which is what makes it look drawn this decade.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">On other grounds</div>
+        <div class="stage on-dark" data-theme="dark"><svg class="m icon-petrol" width="84" height="84"><use href="#ic-cut2"/></svg></div>
+        <div class="stage on-paper"><svg class="m icon-ink" width="64" height="64"><use href="#ic-cut2"/></svg></div>
+        <div class="plate-note">The cut takes the colour of whatever it is standing on, so it is
+          never a knockout file, always the same file.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Small</div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m icon-petrol" width="44" height="44"><use href="#ic-cut2"/></svg><span>44</span></div>
+          <div class="size"><svg class="m icon-petrol" width="32" height="32"><use href="#ic-cut2"/></svg><span>32</span></div>
+          <div class="size"><svg class="m icon-petrol" width="20" height="20"><use href="#ic-cut2"/></svg><span>20</span></div>
+          <div class="size"><svg class="m icon-petrol" width="16" height="16"><use href="#ic-cut2"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">A filled tile at 16px still reads as a tile, which is more than most
+          line marks manage.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In the app bar</div>
+        <div class="stage on-canvas lockrow">
+          <div class="lock tight"><svg class="m icon-petrol" width="30" height="30"><use href="#ic-cut2"/></svg><span class="wm">Tendd</span></div>
+          <div class="bar">
+            <svg class="m icon-petrol" width="22" height="22"><use href="#ic-cut2"/></svg>
+            <span class="wm">Tendd</span><span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">A solid chip beside the word is a heavier presence than any of the
+          line marks above, and the bar can take it.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= D12 ================= -->
+  <section class="dir" id="d12">
+    <div class="dir-head">
+      <div class="dir-no">Direction 12</div>
+      <h2>Crop</h2>
+      <p>The letter is bigger than the thing holding it. The d is scaled past the edges of its own
+        frame and cropped by them, so you get a fragment: a curve, a stem, and a lot of confidence.
+        Nothing is centred and nothing has a polite margin.</p>
+      <p>It is the loudest thing on this page, and the one most likely to be described as modern in a
+        year and dated in five. That trade is worth stating out loud rather than pretending it is
+        neutral.</p>
+      <div class="trace">
+        <span class="tr">Taste: Monzo, character over corporate calm</span>
+        <span class="tr">A4 the letter of the name, at the largest possible size</span>
+        <span class="tr risk">Risk: a fragment is not a letter. Some people will never read a d</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The frame is the mark</div>
+        <div class="hero canvas"><svg class="m icon-petrol" width="150" height="150"><use href="#ic-crop"/></svg></div>
+        <div class="plate-note">Same construction as the ligature above, scaled 2.4 times and cut by
+          the tile. One geometry, two identities.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Inverted and dark</div>
+        <div class="stage on-dark" data-theme="dark"><svg class="m icon-dark" width="84" height="84"><use href="#ic-crop"/></svg></div>
+        <div class="stage on-paper"><svg class="m icon-ink" width="64" height="64"><use href="#ic-crop"/></svg></div>
+        <div class="plate-note">Ink on paper it reads as a poster; petrol on dark it reads as an app.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Small</div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m icon-petrol" width="44" height="44"><use href="#ic-crop"/></svg><span>44</span></div>
+          <div class="size"><svg class="m icon-petrol" width="32" height="32"><use href="#ic-crop"/></svg><span>32</span></div>
+          <div class="size"><svg class="m icon-petrol" width="20" height="20"><use href="#ic-crop"/></svg><span>20</span></div>
+          <div class="size"><svg class="m icon-petrol" width="16" height="16"><use href="#ic-crop"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">The one direction that gets clearer as it shrinks, because a fragment
+          has nothing small to lose.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In the app bar</div>
+        <div class="stage on-canvas lockrow">
+          <div class="lock tight"><svg class="m icon-petrol" width="30" height="30"><use href="#ic-crop"/></svg><span class="wm">Tendd</span></div>
+          <div class="bar">
+            <svg class="m icon-petrol" width="22" height="22"><use href="#ic-crop"/></svg>
+            <span class="wm">Tendd</span><span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">Beside the full word the fragment stops being a puzzle: the word
+          teaches you the letter once, and after that the icon works alone.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= D13 ================= -->
+  <section class="dir" id="d13">
+    <div class="dir-head">
+      <div class="dir-no">Direction 13</div>
+      <h2>The living mark</h2>
+      <p>Not one drawing: a rule. The mark is one tick per recurring payment, and the count is yours.
+        Four subscriptions is a four-tick mark. Twelve is a twelve-tick mark. The one you had
+        forgotten arrives last and stays solid after the others have faded back.</p>
+      <p>The product ships one canonical lockup so the brand is stable, and the system underneath it
+        is alive: the empty state, the reveal, the share card and the year in review can all be the
+        logo, drawn from real numbers. This is an identity, not a logo, and it is the only thing here
+        that no other company can copy without copying the product.</p>
+      <div class="trace">
+        <span class="tr">D1 gradual reveal, the locked decision</span>
+        <span class="tr">Principle 5, the small win, as the brand's own behaviour</span>
+        <span class="tr risk">Risk: a variable mark needs rules, or it becomes twelve inconsistent logos</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The beat</div>
+        <div class="hero dark">
+          <svg width="292" height="96" viewBox="0 0 73 24" style="color:#6bb0ba">
+            <g fill="currentColor">
+              <rect class="tick" style="animation-delay:0s"    x="2"  y="4" width="3" height="16" rx="1.5"/>
+              <rect class="tick" style="animation-delay:.08s"  x="8"  y="4" width="3" height="16" rx="1.5"/>
+              <rect class="tick" style="animation-delay:.16s"  x="14" y="4" width="3" height="16" rx="1.5"/>
+              <rect class="tick" style="animation-delay:.24s"  x="20" y="4" width="3" height="16" rx="1.5"/>
+              <rect class="tick" style="animation-delay:.32s"  x="26" y="4" width="3" height="16" rx="1.5"/>
+              <rect class="tick" style="animation-delay:.40s"  x="32" y="4" width="3" height="16" rx="1.5"/>
+              <rect class="tick" style="animation-delay:.48s"  x="38" y="4" width="3" height="16" rx="1.5"/>
+              <rect class="tick" style="animation-delay:.56s"  x="44" y="4" width="3" height="16" rx="1.5"/>
+              <rect class="tick found" x="50" y="1" width="3" height="22" rx="1.5"/>
+              <rect class="tick" style="animation-delay:.64s"  x="56" y="4" width="3" height="16" rx="1.5"/>
+              <rect class="tick" style="animation-delay:.72s"  x="62" y="4" width="3" height="16" rx="1.5"/>
+              <rect class="tick" style="animation-delay:.80s"  x="68" y="4" width="3" height="16" rx="1.5"/>
+            </g>
+          </svg>
+        </div>
+        <div class="plate-note">Eleven counted, and then the one you had forgotten. The brand does the
+          thing the product does.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Your count, your mark</div>
+        <div class="stage on-canvas" style="flex-direction:column;gap:16px;align-items:flex-start">
+          <svg width="120" height="26" viewBox="0 0 25 24" style="color:var(--text-action)" fill="currentColor">
+            <rect x="2" y="4" width="3" height="16" rx="1.5"/><rect x="8" y="4" width="3" height="16" rx="1.5"/>
+            <rect x="14" y="4" width="3" height="16" rx="1.5"/><rect x="20" y="1" width="3" height="22" rx="1.5"/>
+          </svg>
+          <svg width="180" height="26" viewBox="0 0 49 24" style="color:var(--text-action)" fill="currentColor">
+            <rect x="2" y="4" width="3" height="16" rx="1.5"/><rect x="8" y="4" width="3" height="16" rx="1.5"/>
+            <rect x="14" y="4" width="3" height="16" rx="1.5"/><rect x="20" y="4" width="3" height="16" rx="1.5"/>
+            <rect x="26" y="4" width="3" height="16" rx="1.5"/><rect x="32" y="4" width="3" height="16" rx="1.5"/>
+            <rect x="38" y="4" width="3" height="16" rx="1.5"/><rect x="44" y="1" width="3" height="22" rx="1.5"/>
+          </svg>
+          <svg width="240" height="26" viewBox="0 0 73 24" style="color:var(--text-action)" fill="currentColor">
+            <rect x="2" y="4" width="3" height="16" rx="1.5"/><rect x="8" y="4" width="3" height="16" rx="1.5"/>
+            <rect x="14" y="4" width="3" height="16" rx="1.5"/><rect x="20" y="4" width="3" height="16" rx="1.5"/>
+            <rect x="26" y="4" width="3" height="16" rx="1.5"/><rect x="32" y="4" width="3" height="16" rx="1.5"/>
+            <rect x="38" y="4" width="3" height="16" rx="1.5"/><rect x="44" y="4" width="3" height="16" rx="1.5"/>
+            <rect x="50" y="4" width="3" height="16" rx="1.5"/><rect x="56" y="4" width="3" height="16" rx="1.5"/>
+            <rect x="62" y="4" width="3" height="16" rx="1.5"/><rect x="68" y="1" width="3" height="22" rx="1.5"/>
+          </svg>
+        </div>
+        <div class="plate-note">Four, eight, twelve. Same tick, same gap, same tall last one: the rule
+          is what stays constant, not the picture.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">The canonical one</div>
+        <div class="stage on-canvas">
+          <div class="tile-letter" style="background:var(--bg-action);border-radius:20px">
+            <svg width="46" height="46" viewBox="0 0 24 24" fill="#fff">
+              <rect x="2" y="5" width="3.4" height="14" rx="1.7"/>
+              <rect x="10.3" y="5" width="3.4" height="14" rx="1.7"/>
+              <rect x="18.6" y="2" width="3.4" height="20" rx="1.7"/>
+            </svg>
+          </div>
+          <svg width="90" height="30" viewBox="0 0 25 24" style="color:var(--text-action)" fill="currentColor">
+            <rect x="2" y="4" width="3" height="16" rx="1.5"/><rect x="8" y="4" width="3" height="16" rx="1.5"/>
+            <rect x="14" y="4" width="3" height="16" rx="1.5"/><rect x="20" y="1" width="3" height="22" rx="1.5"/>
+          </svg>
+        </div>
+        <div class="plate-note">Three ticks and the tall one is the fixed mark: the app icon, the
+          favicon and the bar never vary. Only the product's own surfaces count.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In the app bar</div>
+        <div class="stage on-canvas lockrow">
+          <div class="lock tight">
+            <svg width="26" height="26" viewBox="0 0 24 24" style="color:var(--text-action)" fill="currentColor">
+              <rect x="2" y="5" width="3.4" height="14" rx="1.7"/><rect x="10.3" y="5" width="3.4" height="14" rx="1.7"/>
+              <rect x="18.6" y="2" width="3.4" height="20" rx="1.7"/>
+            </svg>
+            <span class="wm">Tendd</span>
+          </div>
+          <div class="bar">
+            <svg width="20" height="20" viewBox="0 0 24 24" style="color:var(--text-action)" fill="currentColor">
+              <rect x="2" y="5" width="3.4" height="14" rx="1.7"/><rect x="10.3" y="5" width="3.4" height="14" rx="1.7"/>
+              <rect x="18.6" y="2" width="3.4" height="20" rx="1.7"/>
+            </svg>
+            <span class="wm">Tendd</span><span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">Three ticks, one taller. Quiet in the bar, and the same rule blows up
+          to the width of a share card.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="round2">
+    <h2>Round two: five that stand further apart</h2>
+    <p>Round one stayed inside one lane: a small flat glyph beside the word. None of it landed, so
+      this round moves the lane instead of the drawing. Two of these are not symbols at all, one
+      refuses the shape every money logo has, one is built out of a hole, and one says the second
+      half of Petrol and Paper out loud. Round one is still on the page below, unedited.</p>
+  </section>
+
+  <!-- ================= D4 ================= -->
+  <section class="dir" id="d4">
+    <div class="dir-head">
+      <div class="dir-no">Direction 4</div>
+      <h2>Level</h2>
+      <p>Three bars at exactly one height. Every mark in this category rises to the right, because
+        every other money product is about growth. Tendd is not: the promise is that nothing spikes,
+        nothing surprises you, and the same amount goes out that went out last month. The mark is
+        that sentence with nothing added to it.</p>
+      <p>It is the boldest shape of the eight and the easiest to recognise at a glance, and its
+        whole meaning is a thing it refuses to do.</p>
+      <div class="trace">
+        <span class="tr">A1 calm, not alarming</span>
+        <span class="tr">The rising-arrow anti-reference, taken head on</span>
+        <span class="tr risk">Risk: an equaliser, or a chart with the data missing</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The mark</div>
+        <div class="stage on-canvas"><svg class="m m-petrol" width="88" height="88"><use href="#mk-level"/></svg></div>
+        <div class="plate-note">Equal height, equal width, equal gaps. The moment one bar differs
+          the idea is gone.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">App icon</div>
+        <div class="stage on-canvas">
+          <svg class="m icon-petrol" width="88" height="88"><use href="#ic-level"/></svg>
+          <svg class="m icon-ink" width="56" height="56"><use href="#ic-level"/></svg>
+        </div>
+        <div class="plate-note">The most confident tile of the eight, because the shape is wide and
+          fills it.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Walk it down</div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m m-petrol" width="32" height="32"><use href="#mk-level"/></svg><span>32</span></div>
+          <div class="size"><svg class="m m-petrol" width="24" height="24"><use href="#mk-level"/></svg><span>24</span></div>
+          <div class="size"><svg class="m m-petrol" width="20" height="20"><use href="#mk-level"/></svg><span>20</span></div>
+          <div class="size"><svg class="m m-petrol" width="16" height="16"><use href="#mk-level"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">Three strokes and two gaps at 16px, and nothing is round, so nothing
+          closes up.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Lockup and the bar</div>
+        <div class="stage on-paper lockrow">
+          <div class="lock tight"><svg class="m m-petrol" width="26" height="26"><use href="#mk-level"/></svg><span class="wm">Tendd</span></div>
+          <div class="bar">
+            <svg class="m m-petrol" width="18" height="18"><use href="#mk-level"/></svg>
+            <span class="wm">Tendd</span><span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">Wide marks need less height beside the word: 18, not 20.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">One colour, and dark</div>
+        <div class="stage on-petrol"><svg class="m m-paper" width="44" height="44"><use href="#mk-level"/></svg></div>
+        <div class="stage on-dark" data-theme="dark">
+          <svg class="m m-petrol" width="40" height="40"><use href="#mk-level"/></svg>
+          <svg class="m icon-dark" width="48" height="48"><use href="#ic-level"/></svg>
+        </div>
+        <div class="plate-note">Nothing to lose in one colour: it was always one colour.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= D5 ================= -->
+  <section class="dir" id="d5">
+    <div class="dir-head">
+      <div class="dir-no">Direction 5</div>
+      <h2>No mark at all</h2>
+      <p>The word, cut. Monzo, Mercury and Ramp do not have a symbol beside the name, and for a
+        product that lives in a 56px bar above a list, a symbol is one more thing competing with
+        the number that matters. Here the identity is the wordmark itself: tighter than today's,
+        heavier, and with the two d's pulled until their bowls touch, which is the one detail the
+        name gives away for free.</p>
+      <p>The favicon problem is solved by the last letter alone, not by inventing a glyph nobody
+        has seen.</p>
+      <div class="trace">
+        <span class="tr">A3 nothing competes with the one big number</span>
+        <span class="tr">Principle 1, calm over clever</span>
+        <span class="tr risk">Risk: no icon means no presence anywhere the name cannot fit</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The wordmark</div>
+        <div class="stage on-canvas" style="flex-direction:column;gap:18px">
+          <div class="wm-big"><span>Ten</span><span class="dd">dd</span></div>
+          <div class="wm-big"><span>Ten</span><span class="dd">d<span class="hi">d</span></span></div>
+        </div>
+        <div class="plate-note">800 weight, tracked to -0.035em, and the pair closed to -0.13em.
+          Below: the second d carries the petrol, which is the accent doing its trust job.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">The favicon and the icon</div>
+        <div class="stage on-canvas">
+          <div class="tile-letter">d</div>
+          <div class="tile-letter sm">d</div>
+          <div class="tile-letter xs">d</div>
+        </div>
+        <div class="plate-note">One letter in a petrol tile, at 88, 40 and 16. It reads at every one
+          of them, which not one of the drawn marks can say.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In the app bar</div>
+        <div class="stage on-canvas">
+          <div class="bar">
+            <span class="wm" style="letter-spacing:-0.02em;font-weight:800">Ten<span style="letter-spacing:-0.09em">dd</span></span>
+            <span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">The whole bar is the brand: nothing else in the leading slot.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">One colour, and dark</div>
+        <div class="stage on-petrol"><div class="wm-big wm-mid wm-rev"><span>Ten</span><span class="dd">dd</span></div></div>
+        <div class="stage on-dark" data-theme="dark">
+          <div class="wm-big wm-mid"><span>Ten</span><span class="dd">d<span class="hi">d</span></span></div>
+        </div>
+        <div class="plate-note">The type is the same type the product already ships, so there is
+          nothing to keep in sync.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">What it costs</div>
+        <div class="stage on-paper" style="justify-content:flex-start">
+          <div style="font-size:13.5px;color:var(--text-secondary)">The cheapest identity on the
+            page and the fastest to ship: one type decision, one tile. It also means Tendd has
+            <b style="color:var(--text)">no shape</b> to put on a share card, a push notification or
+            a partner page. That is the trade, stated plainly.</div>
+        </div>
+        <div class="plate-note">Can be locked now and given a mark later, which is the only
+          direction here that is reversible.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= D6 ================= -->
+  <section class="dir" id="d6">
+    <div class="dir-head">
+      <div class="dir-no">Direction 6</div>
+      <h2>The rule</h2>
+      <p>A T built the way a receipt is built: a heavy rule across the top, and the list hanging
+        under it in two segments. It is the first letter of the name and the last line of a bill at
+        the same time, and it is the only monogram in the set, which makes it the most conventional
+        and the most immediately readable as a brand.</p>
+      <div class="trace">
+        <span class="tr">A3 the total owns the composition</span>
+        <span class="tr">A4 recognition: the letter is the name</span>
+        <span class="tr risk">Risk: a monogram T is the safest thing a brand can do</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The mark</div>
+        <div class="stage on-canvas"><svg class="m m-petrol" width="88" height="88"><use href="#mk-tee"/></svg></div>
+        <div class="plate-note">The break in the stem is what stops it being a plain letter.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">App icon</div>
+        <div class="stage on-canvas">
+          <svg class="m icon-petrol" width="88" height="88"><use href="#ic-tee"/></svg>
+          <svg class="m icon-ink" width="56" height="56"><use href="#ic-tee"/></svg>
+        </div>
+        <div class="plate-note">A letter in a tile is the most familiar app icon there is.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Walk it down</div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m m-petrol" width="32" height="32"><use href="#mk-tee"/></svg><span>32</span></div>
+          <div class="size"><svg class="m m-petrol" width="24" height="24"><use href="#mk-tee"/></svg><span>24</span></div>
+          <div class="size"><svg class="m m-petrol" width="20" height="20"><use href="#mk-tee"/></svg><span>20</span></div>
+          <div class="size"><svg class="m m-petrol" width="16" height="16"><use href="#mk-tee"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">At 16 the stem gap closes and it becomes a plain T. Acceptable: it
+          is still the right letter.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Lockup and the bar</div>
+        <div class="stage on-paper lockrow">
+          <div class="lock tight"><svg class="m m-petrol" width="26" height="26"><use href="#mk-tee"/></svg><span class="wm">Tendd</span></div>
+          <div class="bar">
+            <svg class="m m-petrol" width="20" height="20"><use href="#mk-tee"/></svg>
+            <span class="wm">Tendd</span><span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">A T beside the word Tendd repeats the letter twice. Either the mark
+          stands alone, or the lockup drops it.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">One colour, and dark</div>
+        <div class="stage on-petrol"><svg class="m m-paper" width="44" height="44"><use href="#mk-tee"/></svg></div>
+        <div class="stage on-dark" data-theme="dark">
+          <svg class="m m-petrol" width="40" height="40"><use href="#mk-tee"/></svg>
+          <svg class="m icon-dark" width="48" height="48"><use href="#ic-tee"/></svg>
+        </div>
+        <div class="plate-note">Holds everywhere, which is the argument for it and against it.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= D7 ================= -->
+  <section class="dir" id="d7">
+    <div class="dir-head">
+      <div class="dir-no">Direction 7</div>
+      <h2>Taken out</h2>
+      <p>A solid form with a bite out of its corner, and the bitten piece sitting beside it. The
+        product's best moment is the one where something leaves your month and does not come back,
+        and this is that moment as a shape: not a chart, not a letter, a thing minus a thing.</p>
+      <p>The notch and the loose piece are exactly the same size, which is what makes it subtraction
+        rather than decoration, and the whole thing stays one silhouette in one colour: no knockout
+        version, no second colour, nothing to keep in sync.</p>
+      <div class="trace">
+        <span class="tr">J3 cancel what I do not use</span>
+        <span class="tr">Principle 5, the small win</span>
+        <span class="tr risk">Risk: at 16px the loose piece reads as dirt on the screen</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The mark</div>
+        <div class="stage on-canvas"><svg class="m m-petrol" width="88" height="88"><use href="#mk-cut"/></svg></div>
+        <div class="plate-note">The gap between the piece and the form is the whole drawing. Too
+          close and it is a comma, too far and it is a stray dot.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">App icon</div>
+        <div class="stage on-canvas">
+          <svg class="m icon-petrol" width="88" height="88"><use href="#ic-cut"/></svg>
+          <svg class="m icon-ink" width="56" height="56"><use href="#ic-cut"/></svg>
+        </div>
+        <div class="plate-note">A square with a bite, inside a square. The tile has to be the calmer
+          of the two, so its radius stays the product's.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Walk it down</div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m m-petrol" width="32" height="32"><use href="#mk-cut"/></svg><span>32</span></div>
+          <div class="size"><svg class="m m-petrol" width="24" height="24"><use href="#mk-cut"/></svg><span>24</span></div>
+          <div class="size"><svg class="m m-petrol" width="20" height="20"><use href="#mk-cut"/></svg><span>20</span></div>
+          <div class="size"><svg class="m m-petrol" width="16" height="16"><use href="#mk-cut"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">This is the plate that decides it. Look at 16 first.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Lockup and the bar</div>
+        <div class="stage on-paper lockrow">
+          <div class="lock tight"><svg class="m m-petrol" width="26" height="26"><use href="#mk-cut"/></svg><span class="wm">Tendd</span></div>
+          <div class="bar">
+            <svg class="m m-petrol" width="20" height="20"><use href="#mk-cut"/></svg>
+            <span class="wm">Tendd</span><span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">The loose piece points at the word, which is a happy accident worth
+          keeping.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">One colour, and dark</div>
+        <div class="stage on-petrol"><svg class="m m-paper" width="44" height="44"><use href="#mk-cut"/></svg></div>
+        <div class="stage on-dark" data-theme="dark">
+          <svg class="m m-petrol" width="40" height="40"><use href="#mk-cut"/></svg>
+          <svg class="m icon-dark" width="48" height="48"><use href="#ic-cut"/></svg>
+        </div>
+        <div class="plate-note">Reversed, the missing corner is the ground showing through, so the
+          idea survives every background it lands on.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= D8 ================= -->
+  <section class="dir" id="d8">
+    <div class="dir-head">
+      <div class="dir-no">Direction 8</div>
+      <h2>Paper</h2>
+      <p>The locked language is called Petrol and Paper, and so far only the petrol half has ever
+        been drawn. This is the other half: a sheet with one corner turned back, cut square and
+        modern rather than skeuomorphic, with the fold as a hole instead of a highlight.</p>
+      <p>It is the only mark here that says statement, bill, the thing you were avoiding opening,
+        and turns it into something already handled.</p>
+      <div class="trace">
+        <span class="tr">D-Concept, the name of the locked language</span>
+        <span class="tr">A2 trust shown: a document, not a promise</span>
+        <span class="tr risk">Risk: a file icon. Every operating system owns this shape</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The mark</div>
+        <div class="stage on-canvas"><svg class="m m-petrol" width="88" height="88"><use href="#mk-fold"/></svg></div>
+        <div class="plate-note">The fold is cut, not shaded: one colour, no illusion of depth.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">App icon</div>
+        <div class="stage on-canvas">
+          <svg class="m icon-petrol" width="88" height="88"><use href="#ic-fold"/></svg>
+          <svg class="m icon-ink" width="56" height="56"><use href="#ic-fold"/></svg>
+        </div>
+        <div class="plate-note">A rounded square inside a rounded square is the weakest tile of the
+          eight. If this one wins, the icon is the fold alone.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Walk it down</div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m m-petrol" width="32" height="32"><use href="#mk-fold"/></svg><span>32</span></div>
+          <div class="size"><svg class="m m-petrol" width="24" height="24"><use href="#mk-fold"/></svg><span>24</span></div>
+          <div class="size"><svg class="m m-petrol" width="20" height="20"><use href="#mk-fold"/></svg><span>20</span></div>
+          <div class="size"><svg class="m m-petrol" width="16" height="16"><use href="#mk-fold"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">Survives small better than anything except direction 4, because the
+          silhouette does the work.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Lockup and the bar</div>
+        <div class="stage on-paper lockrow">
+          <div class="lock tight"><svg class="m m-petrol" width="26" height="26"><use href="#mk-fold"/></svg><span class="wm">Tendd</span></div>
+          <div class="bar">
+            <svg class="m m-petrol" width="20" height="20"><use href="#mk-fold"/></svg>
+            <span class="wm">Tendd</span><span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">Reads as an attachment beside a word. That is the honest problem.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">One colour, and dark</div>
+        <div class="stage on-petrol"><svg class="m m-paper" width="44" height="44"><use href="#mk-fold"/></svg></div>
+        <div class="stage on-dark" data-theme="dark">
+          <svg class="m m-petrol" width="40" height="40"><use href="#mk-fold"/></svg>
+          <svg class="m icon-dark" width="48" height="48"><use href="#ic-fold"/></svg>
+        </div>
+        <div class="plate-note">Paper drawn in petrol on a dark ground stops being paper. Worth
+          seeing before choosing it.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band past" id="round1">
+    <h2>Round one, kept on the page</h2>
+    <p>Three drawings that did not land, left exactly as they were. A round that deletes what it did
+      not choose leaves the next person no way to know what was already tried.</p>
+  </section>
+
+  <!-- ================= D1 ================= -->
+  <section class="dir" id="d1">
+    <div class="dir-head">
+      <div class="dir-no">Direction 1</div>
+      <h2>The doubled d</h2>
+      <p>The distinctive thing about the name is the pair of d's, and a lowercase d is already the
+        shape of the product's row: a round mark on the left, a line on the right. Here the two d's
+        share one rail, so the mark is a real ligature rather than a letter placed twice, and the
+        two open counters keep it reading as type instead of as two dots on a bar.</p>
+      <p>It is the only one of the three that could not belong to another product, because it is
+        built out of this name.</p>
+      <div class="trace">
+        <span class="tr">A4 recognition, not codes</span>
+        <span class="tr">The list-first layout (concept.md, Layout)</span>
+        <span class="tr risk">Risk: the counters close below 16px and the bowls go solid</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The mark</div>
+        <div class="stage on-canvas"><svg class="m m-petrol" width="96" height="96"><use href="#mk-dd"/></svg></div>
+        <div class="plate-note">Petrol on the canvas. The rail runs the full height and the bowls
+          bite into it, which is what makes one shape out of two letters.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">App icon</div>
+        <div class="stage on-canvas">
+          <svg class="m icon-petrol" width="88" height="88"><use href="#ic-dd"/></svg>
+          <svg class="m icon-ink" width="56" height="56"><use href="#ic-dd"/></svg>
+        </div>
+        <div class="plate-note">Knocked out of a petrol tile at the product's own corner radius.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Walk it down</div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m m-petrol" width="32" height="32"><use href="#mk-dd"/></svg><span>32</span></div>
+          <div class="size"><svg class="m m-petrol" width="24" height="24"><use href="#mk-dd"/></svg><span>24</span></div>
+          <div class="size"><svg class="m m-petrol" width="20" height="20"><use href="#mk-dd"/></svg><span>20</span></div>
+          <div class="size"><svg class="m m-petrol" width="16" height="16"><use href="#mk-dd"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">20 is the app bar. 16 is the browser tab, and it is where this one
+          is decided.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Lockup</div>
+        <div class="stage on-paper lockrow">
+          <div>
+            <div class="lock tight"><svg class="m m-petrol" width="30" height="30"><use href="#mk-dd"/></svg><span class="wm">Tendd</span></div>
+            <div class="cap">tracking -0.03em</div>
+          </div>
+          <div>
+            <div class="lock wide"><svg class="m m-petrol" width="30" height="30"><use href="#mk-dd"/></svg><span class="wm">Tendd</span></div>
+            <div class="cap">tracking +0.02em, today's wordmark</div>
+          </div>
+        </div>
+        <div class="plate-note">Clear space is the width of the rail on every side.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In the app bar</div>
+        <div class="stage on-canvas">
+          <div class="bar">
+            <svg class="m m-petrol" width="20" height="20"><use href="#mk-dd"/></svg>
+            <span class="wm">Tendd</span>
+            <span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">The real bar: 56 tall, 16 in from the sides, the wordmark pinned
+          left by margin-right auto.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">One colour, and dark</div>
+        <div class="stage on-petrol"><svg class="m m-paper" width="52" height="52"><use href="#mk-dd"/></svg></div>
+        <div class="stage on-dark" data-theme="dark">
+          <svg class="m m-petrol" width="44" height="44"><use href="#mk-dd"/></svg>
+          <svg class="m icon-dark" width="52" height="52"><use href="#ic-dd"/></svg>
+        </div>
+        <div class="plate-note">Reversed on petrol, then the product's dark theme, where the mark
+          takes the lightened petrol like every other accent.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In a tab</div>
+        <div class="stage on-canvas" style="align-items:flex-end;padding-bottom:0">
+          <div class="tabs">
+            <div class="tab"><svg class="m m-petrol" width="16" height="16"><use href="#mk-dd"/></svg> Tendd</div>
+            <div class="tab off">Bank</div>
+          </div>
+        </div>
+        <div class="plate-note">The favicon is the honest test of this direction.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= D2 ================= -->
+  <section class="dir" id="d2">
+    <div class="dir-head">
+      <div class="dir-no">Direction 2</div>
+      <h2>The calm tally</h2>
+      <p>Two lines and a sum. The lines shorten as they go down and the last one thickens, so the
+        mark is the product's first rule drawn in three strokes: the most important number is the
+        biggest thing on screen. It is the quietest of the three and the strongest at small size,
+        because at 16px it is still three clean stripes.</p>
+      <p>It is also the most borrowable: a list of bars belongs to a lot of software. The variant
+        below fades the rows and keeps the total solid, which pushes it away from a menu icon and
+        toward a receipt.</p>
+      <div class="trace">
+        <span class="tr">A3 one big number, not a dashboard</span>
+        <span class="tr">A1 calm, not alarming</span>
+        <span class="tr risk">Risk: reads as a menu or a list icon, not as a brand</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The mark</div>
+        <div class="stage on-canvas"><svg class="m m-petrol" width="96" height="96"><use href="#mk-tally"/></svg></div>
+        <div class="plate-note">Solid: three weights of one voice.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Variant: the sum carries</div>
+        <div class="stage on-canvas"><svg class="m m-petrol" width="96" height="96"><use href="#mk-tally-b"/></svg></div>
+        <div class="plate-note">Rows at half strength. The total is the only thing at full petrol,
+          which is the screen's own hierarchy.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">App icon</div>
+        <div class="stage on-canvas">
+          <svg class="m icon-petrol" width="88" height="88"><use href="#ic-tally"/></svg>
+          <svg class="m icon-ink" width="56" height="56"><use href="#ic-tally"/></svg>
+        </div>
+        <div class="plate-note">The one direction that needs no simplification to sit in a tile.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Walk it down</div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m m-petrol" width="32" height="32"><use href="#mk-tally"/></svg><span>32</span></div>
+          <div class="size"><svg class="m m-petrol" width="24" height="24"><use href="#mk-tally"/></svg><span>24</span></div>
+          <div class="size"><svg class="m m-petrol" width="20" height="20"><use href="#mk-tally"/></svg><span>20</span></div>
+          <div class="size"><svg class="m m-petrol" width="16" height="16"><use href="#mk-tally"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">Nothing closes up: the gaps are wider than the strokes all the way
+          down.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Lockup</div>
+        <div class="stage on-paper lockrow">
+          <div>
+            <div class="lock tight"><svg class="m m-petrol" width="28" height="28"><use href="#mk-tally"/></svg><span class="wm">Tendd</span></div>
+            <div class="cap">tracking -0.03em</div>
+          </div>
+          <div>
+            <div class="lock wide"><svg class="m m-petrol" width="28" height="28"><use href="#mk-tally"/></svg><span class="wm">Tendd</span></div>
+            <div class="cap">tracking +0.02em, today's wordmark</div>
+          </div>
+        </div>
+        <div class="plate-note">The mark's top line and the cap height of the T want to agree.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In the app bar</div>
+        <div class="stage on-canvas">
+          <div class="bar">
+            <svg class="m m-petrol" width="20" height="20"><use href="#mk-tally"/></svg>
+            <span class="wm">Tendd</span>
+            <span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">Quiet enough to sit above the list without competing with it.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">One colour, and dark</div>
+        <div class="stage on-petrol"><svg class="m m-paper" width="52" height="52"><use href="#mk-tally"/></svg></div>
+        <div class="stage on-dark" data-theme="dark">
+          <svg class="m m-petrol" width="44" height="44"><use href="#mk-tally"/></svg>
+          <svg class="m icon-dark" width="52" height="52"><use href="#ic-tally"/></svg>
+        </div>
+        <div class="plate-note">Loses nothing in one colour, which is the cheapest identity to own.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In a tab</div>
+        <div class="stage on-canvas" style="align-items:flex-end;padding-bottom:0">
+          <div class="tabs">
+            <div class="tab"><svg class="m m-petrol" width="16" height="16"><use href="#mk-tally"/></svg> Tendd</div>
+            <div class="tab off">Bank</div>
+          </div>
+        </div>
+        <div class="plate-note">Legible, and generic. Both are true.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= D3 ================= -->
+  <section class="dir" id="d3">
+    <div class="dir-head">
+      <div class="dir-no">Direction 3</div>
+      <h2>The reveal</h2>
+      <p>Twelve things going out every month, and one of them is the one you did not know about.
+        The mark is that count: eleven even dots and a twelfth that has grown. It is the product's
+        most important emotional beat drawn, and the only one of the three with a story attached.</p>
+      <p>It is also the one closest to a cliche. A ring of tapered segments is a progress spinner in
+        every other app, which is why these are round dots at one weight: a spinner fades and turns,
+        a count sits still. The variant below tries the same idea as one broken ring with a bead.</p>
+      <div class="trace">
+        <span class="tr">D1 gradual reveal (the locked decision)</span>
+        <span class="tr">Principle 5, the small win</span>
+        <span class="tr risk">Risk: reads as a loading spinner, which is the opposite of calm</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The mark</div>
+        <div class="stage on-canvas"><svg class="m m-petrol" width="96" height="96"><use href="#mk-ring"/></svg></div>
+        <div class="plate-note">Eleven counted, one found. Same colour, same weight: only the size
+          says which one it is.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Variant: one broken ring</div>
+        <div class="stage on-canvas"><svg class="m m-petrol" width="96" height="96"><use href="#mk-ring-b"/></svg></div>
+        <div class="plate-note">Simpler and calmer, and closer to the spinner. The gap has to carry
+          the whole idea.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">App icon</div>
+        <div class="stage on-canvas">
+          <svg class="m icon-petrol" width="88" height="88"><use href="#ic-ring"/></svg>
+          <svg class="m icon-ink" width="56" height="56"><use href="#ic-ring"/></svg>
+        </div>
+        <div class="plate-note">A round mark in a square tile leaves the most air of the three.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Walk it down</div>
+        <div class="stage on-paper sizes">
+          <div class="size"><svg class="m m-petrol" width="32" height="32"><use href="#mk-ring"/></svg><span>32</span></div>
+          <div class="size"><svg class="m m-petrol" width="24" height="24"><use href="#mk-ring"/></svg><span>24</span></div>
+          <div class="size"><svg class="m m-petrol" width="20" height="20"><use href="#mk-ring"/></svg><span>20</span></div>
+          <div class="size"><svg class="m m-petrol" width="16" height="16"><use href="#mk-ring"/></svg><span>16</span></div>
+        </div>
+        <div class="plate-note">Below 20 the dots stop being countable and the ring becomes texture.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Lockup</div>
+        <div class="stage on-paper lockrow">
+          <div>
+            <div class="lock tight"><svg class="m m-petrol" width="30" height="30"><use href="#mk-ring"/></svg><span class="wm">Tendd</span></div>
+            <div class="cap">tracking -0.03em</div>
+          </div>
+          <div>
+            <div class="lock wide"><svg class="m m-petrol" width="30" height="30"><use href="#mk-ring-b"/></svg><span class="wm">Tendd</span></div>
+            <div class="cap">the variant, tracking +0.02em</div>
+          </div>
+        </div>
+        <div class="plate-note">A circular mark sits optically low next to a cap T: it wants a hair
+          of lift.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In the app bar</div>
+        <div class="stage on-canvas">
+          <div class="bar">
+            <svg class="m m-petrol" width="20" height="20"><use href="#mk-ring"/></svg>
+            <span class="wm">Tendd</span>
+            <span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">Check this one against a screen that is genuinely loading: if the
+          two read alike, the direction is dead.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">One colour, and dark</div>
+        <div class="stage on-petrol"><svg class="m m-paper" width="52" height="52"><use href="#mk-ring"/></svg></div>
+        <div class="stage on-dark" data-theme="dark">
+          <svg class="m m-petrol" width="44" height="44"><use href="#mk-ring"/></svg>
+          <svg class="m icon-dark" width="52" height="52"><use href="#ic-ring"/></svg>
+        </div>
+        <div class="plate-note">The dots hold in one colour. On the dark ground the found one has to
+          stay the thing you see first.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">In a tab</div>
+        <div class="stage on-canvas" style="align-items:flex-end;padding-bottom:0">
+          <div class="tabs">
+            <div class="tab"><svg class="m m-petrol" width="16" height="16"><use href="#mk-ring"/></svg> Tendd</div>
+            <div class="tab off">Bank</div>
+          </div>
+        </div>
+        <div class="plate-note">If it looks like the tab is loading, it is the wrong mark.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GENERATED ================= -->
+  <section class="dir" id="gen">
+    <div class="dir-head">
+      <div class="dir-no">Alongside</div>
+      <h2>The generated sheets</h2>
+      <p>Both rounds were also put through Magnific, as raster brand sheets and as vector, to widen
+        the search faster than a hand can draw. They are a
+        <b>record of the search</b>, not candidates: the colour comes back near petrol but not at
+        <code>#1c6a76</code>, the geometry is not on a grid, and none of it is a file the app bar
+        could load. What they are good for is telling us which shapes inside a family we had not
+        tried.</p>
+      <p>Three things came back worth taking into a redraw: the <b>mirrored pair</b>, two half-bowls
+        facing each other, which is a dd nobody would mistake for a list icon; the <b>overlapping
+        ligature</b>, where the second d sits inside the first; and the <b>funnel</b>, a tally whose
+        lines narrow to a point rather than stopping at a total.</p>
+      <div class="trace">
+        <span class="tr">Same method as the brand plate at Concept: generate as a record</span>
+        <span class="tr risk">Not shippable: colour drift off the token, no grid, raster</span>
+      </div>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">Sheet 1: nine marks, three families</div>
+        <div class="stage on-paper" style="padding:0;overflow:hidden">
+          <img src="assets/logo-gen/gen-sheet-1.jpg" alt="Nine generated logo marks in three rows: single d and dd pairs, descending bar tallies, rings of dots with one larger" style="width:100%;display:block;border-radius:12px">
+        </div>
+        <div class="plate-note">Row 1 the d family, row 2 the tally, row 3 the count. The middle
+          mark of row 1 is the mirrored pair.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Sheet 2: the same brief again</div>
+        <div class="stage on-paper" style="padding:0;overflow:hidden">
+          <img src="assets/logo-gen/gen-sheet-2.jpg" alt="Nine more generated marks: overlapping d ligatures, stacked pyramids, dot rings" style="width:100%;display:block;border-radius:12px">
+        </div>
+        <div class="plate-note">The overlapping ligature is the find here. The tallies grew upward
+          into pyramids, which is the wrong direction for this product.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Vector: the dd brief</div>
+        <div class="stage on-paper"><img src="assets/logo-gen/gen-dd.svg" alt="Generated vector dd ligature, one outlined bowl and one solid" style="width:150px;display:block"></div>
+        <div class="plate-note">A side-by-side dd, one bowl hollow and one solid. The hollow-plus-solid
+          pairing is a real idea and it is in none of the eight drawn above.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Vector: the tally brief</div>
+        <div class="stage on-paper"><img src="assets/logo-gen/gen-tally.svg" alt="Generated vector mark, a folded ribbon shape" style="width:150px;display:block"></div>
+        <div class="plate-note">It did not draw the brief. It drew a folded ribbon, which is
+          handsome and says nothing about money.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Vector: the count brief</div>
+        <div class="stage on-paper"><img src="assets/logo-gen/gen-ring.svg" alt="Generated vector ring of eleven equal dots" style="width:150px;display:block"></div>
+        <div class="plate-note">Eleven dots, all equal: it dropped the one thing the mark is about.
+          The drawn version keeps the found one.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Round two: the line, the T, the bite</div>
+        <div class="stage on-paper" style="padding:0;overflow:hidden">
+          <img src="assets/logo-gen/gen-r2-a.jpg" alt="Nine generated marks: dots above a level line, T monograms, and squares with a corner piece torn off and set beside them" style="width:100%;display:block;border-radius:12px">
+        </div>
+        <div class="plate-note">The bottom right one, a square whose corner has left and is sitting
+          next to it, is where direction 7 came from.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">Round two: paper, holes, rhythm</div>
+        <div class="stage on-paper" style="padding:0;overflow:hidden">
+          <img src="assets/logo-gen/gen-r2-c.jpg" alt="Nine generated marks: folded sheets of paper, solid shapes with a shape cut out of the centre, and rows of equal bars" style="width:100%;display:block;border-radius:12px">
+        </div>
+        <div class="plate-note">Two more sheets from this round sit in the folder unshown. The
+          middle row, a solid form with a clean hole in it, is a lane none of the eight drawings
+          takes yet.</div>
+      </div>
+      <div class="plate">
+        <div class="plate-label">What it changes</div>
+        <div class="stage on-paper" style="justify-content:flex-start">
+          <div style="font-size:13.5px;color:var(--text-secondary)">
+            Nothing yet, by design. If one of the three finds above is worth having, it comes back as
+            <b style="color:var(--text)">geometry in this file</b>, on the same 32 grid, in the token
+            petrol, and it gets the same size walk as the others. Generation searched; the drawing
+            still has to be done.
+          </div>
+        </div>
+        <div class="plate-note">Say the word and the mirrored pair and the overlapping ligature
+          become directions 4 and 5 here.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LOCK ================= -->
+  <section class="close" id="lock">
+    <h2>What a lock costs</h2>
+    <p>The eight are not equal in work, and the honest differences are worth having in front of you
+      before choosing. None of them changes a token: the mark spends petrol on the third of its
+      three permitted jobs, the trust line, and takes nothing away from the primary action.</p>
+    <div class="tablescroll">
+    <table>
+      <thead>
+        <tr><th>Direction</th><th>What it owns</th><th>Where it is weak</th><th>Work after the lock</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>9. Flatline</b></td>
+          <td>The only mark that tells the product's story, and the only one that can move.</td>
+          <td>Nearest neighbour is a heartbeat, and it dies below 24px.</td>
+          <td>A reduced cut for small sizes, and a motion rule saying where it is allowed to animate.</td>
+        </tr>
+        <tr>
+          <td><b>10. The ligature</b></td>
+          <td>A drawn letterform that could not be typed, and the seed of an owned typeface later.</td>
+          <td>The interlock is the first thing lost when it shrinks.</td>
+          <td>Draw the single-d cut for the tab, and settle the lockup, since the mark repeats the
+            end of the word.</td>
+        </tr>
+        <tr>
+          <td><b>11. Cut</b></td>
+          <td>One file on every ground, and the strongest presence at small sizes on the page.</td>
+          <td>It has no standalone mark. Take away the field and there is nothing left.</td>
+          <td>Almost none. It is already an icon, a favicon and a chip.</td>
+        </tr>
+        <tr>
+          <td><b>12. Crop</b></td>
+          <td>The loudest and most contemporary. Gets clearer as it gets smaller.</td>
+          <td>A fragment, not a letter. Most likely of the thirteen to date.</td>
+          <td>A crop rule: which part of the letter the frame keeps, at every ratio.</td>
+        </tr>
+        <tr>
+          <td><b>13. The living mark</b></td>
+          <td>An identity rather than a logo, and the only one nobody can copy without copying the
+            product.</td>
+          <td>Needs governance. Without rules it becomes twelve inconsistent logos.</td>
+          <td>The most work here: the canonical lockup, plus written rules for where the count is
+            allowed to vary.</td>
+        </tr>
+        <tr>
+          <td><b>4. Level</b></td>
+          <td>The loudest silhouette and the clearest idea: a chart that will not rise.</td>
+          <td>Three bars is a shape other software uses. It needs the story told once.</td>
+          <td>Almost none. Same geometry from 88 down to 16, tile included.</td>
+        </tr>
+        <tr>
+          <td><b>5. No mark at all</b></td>
+          <td>Ships tomorrow, reads at every size, and nothing new to maintain.</td>
+          <td>Tendd owns no shape. Anywhere the word will not fit, there is nothing.</td>
+          <td>One type decision plus the letter tile. The only reversible choice here.</td>
+        </tr>
+        <tr>
+          <td><b>6. The rule</b></td>
+          <td>The letter of the name, and the most conventional brand answer on the page.</td>
+          <td>Safe. A T in a tile could belong to any company beginning with T.</td>
+          <td>Decide whether the lockup keeps the mark, since it repeats the letter.</td>
+        </tr>
+        <tr>
+          <td><b>7. Taken out</b></td>
+          <td>The only mark that says what the product does rather than what it is about.</td>
+          <td>Fragile at 16, where the loose piece is a single pixel-ish square.</td>
+          <td>A reduced cut for the favicon: the notch alone, no loose piece.</td>
+        </tr>
+        <tr>
+          <td><b>8. Paper</b></td>
+          <td>Says the second half of the locked language, and holds its silhouette small.</td>
+          <td>The operating system owns this shape. It reads as a file before it reads as a brand.</td>
+          <td>The tile has to become the fold alone, or the icon is a square in a square.</td>
+        </tr>
+        <tr>
+          <td><b>1. The doubled d</b></td>
+          <td>Belongs to this name and to no other product. Two readings from one drawing.</td>
+          <td>The busiest at 16px: two counters to keep open in a tab.</td>
+          <td>A separate small-size cut, either one d instead of two or solid bowls, and a decision
+            about which one the favicon uses.</td>
+        </tr>
+        <tr>
+          <td><b>2. The calm tally</b></td>
+          <td>The product's first rule, drawn. Strongest at every small size, cheapest in one colour.</td>
+          <td>Least distinctive: a list of bars is not ownable on its own.</td>
+          <td>Almost none. The lockup and the favicon are the same geometry.</td>
+        </tr>
+        <tr>
+          <td><b>3. The reveal</b></td>
+          <td>The one with the story: the count and the small win.</td>
+          <td>Nearest to a spinner, and the most fragile below 20px.</td>
+          <td>Prove it against a real loading state, and draw a reduced cut for the favicon: fewer
+            dots, larger.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="margin-top:16px">Once you name one, this is the chain it runs, and it is short because
+      the system already exists:</p>
+    <ol>
+      <li>The mark is added to <b>concept.md</b> under Brand, with the attribute it traces to, so it
+        is a decision and not a drawing that appeared.</li>
+      <li>The SVG lands in <b>design/system/</b> and the lockup becomes a kit component beside
+        <code>.appbar</code>, since the app bar is where it lives on all 54 pages. It reaches every
+        screen through the kit, not by editing screens.</li>
+      <li>The wordmark's tracking is settled in the same step: today's +0.02em is a rule written for
+        a word standing alone, and a lockup may want a different one. One value, one reason.</li>
+      <li>The favicon and the app icon are exported from the same geometry, and the repository stops
+        having no icon at all.</li>
+    </ol>
+    <p>Everything above stays on the page afterwards. A round that deletes the two it did not choose
+      leaves the next person no way to know what was already tried.</p>
+  </section>
+
+</div>
+
+<script>
+  (function () {
+    var sidebar = document.getElementById('sidebar-panel');
+    var overlay = document.getElementById('sidebarOverlay');
+    var toggle = document.getElementById('navToggle');
+    var close = document.getElementById('sidebarClose');
+    function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('open'); }
+    function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+    if (toggle) toggle.addEventListener('click', openSidebar);
+    if (close) close.addEventListener('click', closeSidebar);
+    if (overlay) overlay.addEventListener('click', closeSidebar);
+  })();
+</script>
+
+<link rel="stylesheet" href="../../_nav.css">
+<script>
+  window.NAV_BASE = '../../';
+  window.NAV_ACTIVE = 'design/concept/directions.html';
+  window.NAV_ACTIVE_LABEL = 'The mark round';
+  window.NAV_SECTIONS = [
+    { id:'d9',  label:'9. Flatline' },
+    { id:'d10', label:'10. The ligature' },
+    { id:'d11', label:'11. Cut' },
+    { id:'d12', label:'12. Crop' },
+    { id:'d13', label:'13. The living mark' },
+    { id:'round2', label:'Round two (4 to 8)' },
+    { id:'d4', label:'4. Level' },
+    { id:'d5', label:'5. No mark at all' },
+    { id:'d6', label:'6. The rule' },
+    { id:'d7', label:'7. Taken out' },
+    { id:'d8', label:'8. Paper' },
+    { id:'round1', label:'Round one (1 to 3)' },
+    { id:'gen', label:'The generated sheets' },
+    { id:'lock', label:'What a lock costs' },
+  ];
+</script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

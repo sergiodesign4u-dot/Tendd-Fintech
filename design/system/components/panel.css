@@ -1,0 +1,284 @@
+/* ============================================================================
+   Panel - organism
+   A white card with a corner, a quiet band across the top, and a list or a gate
+   under it. "Recent charges" on every state of a subscription, "Older" on Alerts,
+   and the Pro gate that sits under both. It is the one container in the product
+   that CLIPS its content: `overflow: hidden` is what lets a full-bleed list reach
+   the panel's own edges without square-cornering the card.
+
+   Reads
+     colour   --bg-surface, --bg-recessed, --text-body, --text-muted
+     states   --bg-hover, --text-primary, --color-focus
+     lines    --line-container (its own edge), --line-divider (under the band,
+              and above a gate that follows something)
+     geometry --radius  (straight from primitive: a corner has nothing to
+              override, so it needs no role)
+     type     --type-meta, --type-body
+     spacing  --space-0, --space-8, --space-16, --space-24
+   Page      design/kit/panel.html
+   Stands on 7 grey pages, 7 panels: the five subscription-detail states, alerts,
+   and cancel-guide. Five of the seven are coloured, all of them subscription
+   detail, so the banded form renders in Petrol and Paper today and the disclosure
+   is still grey.
+   Hosts     the Charge list molecule, the Divided list organism, the Action row
+             molecule and the Button atom, and it repaints none of them.
+
+   IT HOSTS AND POSITIONS, AND THE ONE RULE IT WRITES ONTO A HOSTED COMPONENT IS
+   A MARGIN. `.panel .gate .actions { margin: 0 }` is the second of the three
+   host overrides action-row.css names and refuses, and it belongs here: a row of
+   actions that is the last thing inside a gate must not push the gate's own
+   padding open to 32. It is byte-identical to `.card.prose .actions` in card.css,
+   before the 8px grid as well as after, and the two being one rule written twice
+   under two names is a line for step 9, not a merge for this round.
+
+   `.gate` IS A SLOT AND NOT A COMPONENT, and the evidence is that it occurs
+   nowhere outside a panel: 5 gates on 5 pages, every one of them a direct child
+   of a `.panel`. kit.css said so at the line and this file inherits the finding.
+   The gate sits BELOW what is free and never in front of it, which is D3 read
+   literally: three months of charges are on the screen and free, and the offer
+   comes after them.
+
+   NOT MINE, AND NAMED SO IT IS NOT TAKEN TWICE: `.app .panel .divlist { padding }`
+   lives in divided-list.css. It is a variant of the divided list keyed by this
+   host, written `.divlist.inset` since step 6 renamed it, and the subject of a
+   rule owns it. This file does not repeat it, and the indent it writes is why the "Older"
+   disclosure's items line up with the summary above them.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.panel` and `.gate` stay exactly as the
+   product writes them, in the `.app`-only scope kit.css gave them: no `.landing`
+   twin, because the landing has no panel.
+
+   NO HEX AND NO FONT NAME below, and no literal size: the two border widths are
+   the only numbers, and a border width is on neither scale.
+   ============================================================================ */
+
+/* ---- the box --------------------------------------------------------------
+   Paper on the page ground, a hairline edge, the container corner, and 24px
+   under it. 22px folds up to --space-24 on the founder's 8px grid, so the panel
+   stands 2px further off whatever follows it.
+
+   THE EDGE IS --line-container AND NOT --line-control. A panel is a surface;
+   nothing about it has to be found by touch, and WCAG 1.4.11 asks its 3:1 of the
+   boundary that identifies a CONTROL. That split was decided on 2026-08-11 and
+   the panel is named on the "keeps the hairline" side of it, with the card, the
+   plan tile and the divider. Raising it would put a hard edge on every container
+   in the product, which is the thing the visual language was chosen against.
+
+   NO SHADOW. There is exactly one elevation in this system and it belongs to the
+   dialog sheet at a wide container. A panel that lifts is a panel claiming to be
+   a decision.
+
+   `overflow: hidden` IS LOAD-BEARING AND IT IS WHY THE CHARGE LIST CAN BE
+   FULL-BLEED. charge-list.css writes no margin and no padding on the `<ul>` and
+   puts the side inset on the row instead, precisely so a marked row's amber wash
+   reaches the panel's own edges; without the clip here, that wash would square
+   off the two bottom corners of the card. The same clip is what lets the banded
+   head sit flush against the top corners. */
+.app .panel {
+  margin: var(--space-0) var(--space-0) var(--space-24);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+  overflow: hidden;
+}
+
+/* ---- the head, form one: a band -------------------------------------------
+   "Recent charges", on five of the seven panels. Uppercase, tracked out, 12px,
+   muted: the same voice the group head speaks in, because it is doing the same
+   job one level in. It carries no class on any page, so it is the panel's own
+   slot rather than a hosted component, exactly as `.card.prose h2` is the card's own.
+
+   IT IS A DESCENDANT-FREE `>` SELECTOR AND THAT IS DELIBERATE. Written as
+   `.app .panel h2` it would also reach a group head written as an `h2` inside a
+   panel and outrank group-head.css. No page does that today, checked across all
+   55 grey pages and 28 coloured ones, and the combinator means it never can.
+
+   The padding folds from 12 by 14 to one step, 16 by 16, so the band gains 4px of
+   height and its label sits 2px further in. --line-divider under it and not
+   --line-container: it separates the head from the body INSIDE one surface, which
+   is what a divider is. */
+.app .panel > h2 {
+  margin: var(--space-0);
+  padding: var(--space-16);
+  font-size: var(--type-meta);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--line-divider);
+}
+
+/* ---- the head, form two: a disclosure -------------------------------------
+   "Older", on alerts.html, and it is the ONLY disclosure in the whole app shell:
+   `docs/inventory.md` lists `details.panel summary` once, on that page. The panel
+   is a `<details>` there instead of a `<section>`, and the summary replaces the
+   band, which is why this rule is a sibling of the one above and not a variant of
+   it: two forms of one slot, chosen by the element the screen uses.
+
+   It reads --text-body where the band reads --text-muted, and 14px where the band
+   reads 12px, and the difference is real rather than drift: a band is a label and
+   this is a control a person presses. 13px folds up to --type-body and 14px of
+   padding folds up to --space-16.
+
+   THE --tap FLOOR IS DECLARED, and it moves nothing today. Founder's review of
+   the components, 2026-08-12. 16px of padding on a 14px line at line-height 1.5
+   gives 53px, measured on design/kit/panel.html at 360 and at 1280, in both
+   themes, and 53 is over the 44px floor by nine. So `min-height: var(--tap)`
+   never applies at the sizes this control ships with and the panel renders
+   byte-identically with the line and without it, which is the whole point of
+   adding it: a target that is big enough by arithmetic shrinks the day its
+   padding or its type step changes and nothing reports it, and a target that is
+   big enough by declaration cannot. The floor is the primitive and not a number:
+   44 lives in one place. */
+.app .panel > summary {
+  min-height: var(--tap);
+  padding: var(--space-16);
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--text-body);
+  cursor: pointer;
+}
+
+/* ---- the gate -------------------------------------------------------------
+   The recessed strip at the foot of a panel that says what Pro adds. Five of
+   them, on five pages, and every one carries the same sentence pattern: what is
+   free, then what is more. It is a fill and an ink and nothing else, and the
+   recess is the whole of its emphasis: the gate is quieter than the panel it sits
+   in, deliberately, because D3 puts the paywall at depth and never in front of
+   basic visibility.
+
+   --bg-recessed and not --bg-callout: this is a rail-like step down inside a
+   surface, the same role the desktop tab bar and a disabled control read, rather
+   than the callout wash a wash block draws. Both are one value apart in the light
+   theme and they part company in the dark, where a callout has to lift and a
+   recess must not.
+
+   14px of padding folds to --space-16, 13px of type to --type-body. */
+.app .panel .gate {
+  padding: var(--space-16);
+  font-size: var(--type-body);
+  color: var(--text-body);
+  background: var(--bg-recessed);
+}
+
+/* THE SEAM, AND THE GATE IS THE HALF THAT KEEPS ITS RULE.
+   `:not(:first-child)` is right on its own terms: on cancel-guide.html the gate
+   IS the first child of its panel, with no head and no list above it, and a top
+   rule there would draw a line under nothing. On the other four it follows a
+   charge list, and there it draws.
+
+   And on those four the seam WAS two hairlines thick. Measured on
+   design/subscription-detail.html at 360 and 1280: the last `li` of the charge
+   list drew `border-bottom: 1px solid rgb(238, 242, 243)`, this rule draws
+   `border-top` of the same value, and the two rectangles touched at exactly
+   0.00px. One seam carried 2px of --line-divider where every other divider in
+   the panel carries 1. It survived unseen since stage 07 because the gate's
+   recessed fill sits one step from the divider's own value, so the doubling read
+   as a slightly firmer line rather than as a fault.
+
+   CLOSED at the founder's review of the components, 2026-08-12, and closed on
+   the list's side rather than on this one. charge-list.css now drops the bottom
+   rule of its last row, because a divider divides two things and after the last
+   row there is nothing to divide. That is a principle and it closes every list
+   in the product; taking the rule off the gate instead would have closed this
+   one seam and left the identical one on subscription-detail-loading, where the
+   list is the panel's last child and its final rule sat flush on the panel's own
+   hairline. This rule is carried exactly as kit.css wrote it, unchanged. */
+.app .panel .gate:not(:first-child) { border-top: 1px solid var(--line-divider); }
+
+/* ---- the gate's own sentence ----------------------------------------------
+   It carries no class on any of the five pages, so it is the gate's slot and not
+   a hosted component. 10px under it folds down to --space-8. No size and no ink:
+   both are inherited from the gate above, which is what makes this one
+   declaration rather than four. */
+.app .panel .gate > p { margin: var(--space-0) var(--space-0) var(--space-8); }
+
+/* ---- the one rule this file writes onto a hosted component -----------------
+   A MARGIN, which is the host's to give, and nothing else: no fill, no ink, no
+   size, no edge on the action row or on the two buttons inside it. The row's own
+   file gives it 16px underneath, which is right when a row of actions sits in a
+   column with more below it and wrong when it is the last thing in a gate, where
+   it pushes the gate's own bottom padding open to 32 and the panel ends in dead
+   space.
+
+   IT BELONGS HERE, and that was decided rather than assumed. action-row.css names
+   the three containers that override this margin and hands all three to their own
+   files, because a molecule writing `.panel .gate .actions` would be a molecule
+   reaching up into an organism. The other two are `.card.prose .actions` in card.css,
+   which is byte-identical, and `.rstep .actions` in reveal-step.css, which goes
+   the other way. */
+.app .panel .gate .actions { margin: var(--space-0); }
+
+/* ---- states: token overrides, never a style of their own -------------------
+   THE PANEL IS INTERACTIVE ON ONE OF ITS SEVEN PAGES, AND ONLY THERE. The
+   `<section>` form has no href, no button and no target of its own; the
+   `<details>` form has a `<summary>`, which is a control by element rather than
+   by class, and it is the only thing in this component a person can press.
+
+   The hover changes ink and fill and moves nothing. --bg-hover and not
+   --bg-recessed: the two are one value today and different roles, one a resting
+   surface and the other a transient response, and this is a response. Reading the
+   recess here would tie the summary's hover to the gate's ground, so the day a
+   rail wants to be cooler than a hover they would move together and one of the
+   two would be wrong.
+
+   THE RING IS TURNED INWARD, AND THAT IS THE ONE THING THIS COMPONENT DOES
+   DIFFERENTLY FROM EVERY OTHER RING IN THE SYSTEM. Founder's review of the
+   components, 2026-08-12.
+
+   What was wrong, measured on design/kit/panel.html at 360 and at 1280 in both
+   themes, and identical in all four: the summary's border box sits exactly 1px
+   inside the panel (the panel's own border, no padding), and the ring was drawn
+   2px wide at +2px of offset, so its outer edge stood 4px beyond the panel's
+   clip box on every side. `overflow: hidden` clips to the padding box, so the
+   whole 2px width was cut on the left, the top and the right, every time.
+
+   AND WHEN THE DISCLOSURE IS CLOSED, WHICH IS HOW IT SHIPS, THE FOURTH EDGE
+   WENT TOO. Closed, the summary is the panel's only child, so its bottom edge is
+   also the panel's: 4px of overhang there as well, and the ring was 100 percent
+   invisible on all four sides. Screenshotted at 4x before the change to be sure
+   it was the clip and not the token: the specimen shows the panel's own hairline
+   and no petrol anywhere. A person arriving by keyboard pressed Tab onto "Older"
+   and nothing at all happened on screen. Open, three of the four edges were
+   still gone and only the bottom one survived, reading as an underline rather
+   than as focus.
+
+   `outline-offset: -2px` draws the same 2px of --color-focus on the inside of
+   the summary's own box, 2px in, where nothing clips it. Measured after the
+   change: 0px lost on all four edges, closed and open, both themes, both
+   viewports. At the corners the panel's 13px inner radius trims the ring's
+   square corner, and at 8x that renders as the ring taking the panel's own
+   curve rather than as a break, which is the better of the two things it could
+   have looked like.
+
+   THE OTHER HONEST ANSWER WAS REFUSED, and the reason is in the box rule above:
+   `overflow: hidden` is load-bearing here in a way it is not on a card. It is
+   the only thing clipping the gate's --bg-recessed fill to the panel's two
+   bottom corners, the summary's own hover fill to the two top corners, and a
+   marked charge row's amber wash to whichever corner it reaches. Dropping it
+   would mean giving the first and last child of every panel a matching radius,
+   which is three new rules keyed by position, a 13px inner corner the geometry
+   primitives do not carry, and a real risk of a paper sliver at four corners on
+   five coloured screens. A 4px nick at two corners of one ring is the cheaper
+   half by a wide margin.
+
+   The ring stays declared at the component's own specificity for the reason it
+   always was: base.css draws one for every `summary` inside `:where()`, which
+   holds it at specificity 0, and this out-ranks it so nothing added later to
+   this file can leave a keyboard user with no mark. It reads --color-focus at
+   the same width base.css uses. Only the SIGN of the offset differs, and it
+   differs because this is the one control in the system that stands inside a
+   box that clips.
+
+   NO ACTIVE AND NO DISABLED. kit.css declared neither, and writing one here would
+   be a new decision about how the product answers a press, taken by the person
+   moving a file. An "Older" group that has nothing older is not rendered dim; it
+   is not rendered. */
+.app .panel > summary:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+.app .panel > summary:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -2px;
+}

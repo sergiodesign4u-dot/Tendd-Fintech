@@ -1,0 +1,305 @@
+/* ============================================================================
+   Grid - organism
+   A repeated child, laid out in columns that change with the container. Two
+   doors on the empty state, six preset tiles on Add a subscription, three plan
+   cards on Upgrade. It is the only component in this system with TWO axes that
+   cross, and the reason it is one component rather than three is that the thing
+   varying is the layout and never the child.
+
+   Reads
+     spacing  --space-0, --space-8, --space-16, --space-24
+   Page      design/kit/grid.html
+   Stands on 8 grey pages, 8 grids: doors on 4 (path-choice, home-empty,
+   connections-empty, connections-add-source), tiles on 2 (add-subscription and
+   its loading state), plans on 2 (upgrade and the landing). Four of the eight
+   are coloured.
+
+   IT READS NO COLOUR AT ALL, AND THAT IS THE POINT. There is not one --bg-*,
+   --text-* or --line-* token in this file, no border, no radius, no font-size
+   and no weight. A grid is a gap and a column count. Every pixel a person sees
+   inside one belongs to the Door, the Preset tile or the Plan option, all three
+   of which are written elsewhere and already correct, and the one file in the
+   system with the most opportunity to repaint its children paints nothing.
+
+   ============================================================================
+   STEP 6, AND THE FOLD LANDED TWO THIRDS. Read this before changing a name.
+
+   The renaming map sends all three old names to one class: `.doors` to
+   `.grid.roomy`, `.tiles` to `.grid`, `.plans` to `.grid`. Two of them land on
+   the SAME class with DIFFERENT column counts, so the map cannot be executed as
+   written. Measured before touching anything, on two instruments:
+
+                     container 752      container 768
+     .doors          1 column, gap 16   2 columns, gap 16
+     .tiles          2 columns, gap 8   3 columns, gap 8
+     .plans          1 column, gap 8    3 columns, gap 8
+
+   (design/kit/grid.html through this file. The coloured screens agreed at the
+   ends of the range while they were still on kit.css: at a 360 viewport the door row was 1 column of
+   328px, the tile row 2 columns of 159px and the plan row 1 column of 328px; at
+   1440 they are 2 of 446px, 3 of 189.328px and 3 of 236px.)
+
+   THE TWO HALVES OF THE ANSWER, BECAUSE ONLY ONE OF THEM IS A PROBLEM.
+
+   Past 760 the tile row and the plan row are the same rule and not merely a
+   similar one: 3 columns, --space-8, and at a 768 container both compute tracks
+   of 201.328px. That is the measurement that justifies folding three containers
+   into one, and it is why the 760 block below carries one line for both.
+
+   At the narrow end they are not the same rule and no reading of the container
+   queries makes them one: 2 columns against 1, which is the largest difference a
+   grid can have. It is not a container property at all. It is the CHILD's narrow
+   floor, exactly as the axis on the page states it: a tile is a mark and a name
+   and survives 159px, a plan card is a price, a sentence, a button and a
+   four-line list and does not. Two of the three axes this component appears to
+   have are the child's, read off the container.
+
+   SO ONE OF THE TWO NEEDS A MODIFIER THE MAP DOES NOT DECLARE, AND THIS FILE
+   DOES NOT INVENT ONE. Which of the two is settled by reading rather than by
+   taste. `docs/inventory.md` gives this component the axis "columns: 1 to 2 /
+   2 to 3", which names the door row and the tile row and does not name the plan
+   row at all; its own renaming map then writes `.plans` as "1 to 3", a third
+   value the registry never declared. grid.html already carries that
+   contradiction in bold. So the base is the tile row, `.roomy` is the door row,
+   and the plan row is the one with no name.
+
+   `.plans` IS THEREFORE LEFT UNRENAMED, in the scope kit.css gave it, and the
+   markup sweep skipped it. It needs one declaration and one name: one column
+   at the narrow end, the base's `repeat(3, 1fr)` at 760 unchanged, plus the
+   bottom margin and the 720 cap it already has. Naming it is a founder's line,
+   not this round's.
+
+   The landing's `.lp-plan .plans` is untouched for the same reason and for a
+   second one: `.lp-plan` exists only on wireframes/index.html, which is frozen
+   and loads _wf.css, so both rules below it are carried forward for a coloured
+   landing that does not exist yet.
+   ============================================================================ */
+
+/* ---- the zone -------------------------------------------------------------
+   Two columns at the narrow end and a gap, which is the tile row, and it is the
+   base because the registry's axis names it as one of the two. Everything a
+   door does differently is `.roomy` below; everything a plan row does
+   differently is still under its own name.
+
+   THE MARGIN IS THE HOST'S AND IS WRITTEN HERE UNTIL IT HAS A HOST TO GO TO.
+   action-row.css says the same thing about `.actions` and hands its margin to
+   the containers at their own rounds. This one has nowhere to go: measured on
+   design/add-subscription.html, the tile row is a direct child of `.screen` with no
+   organism between, so the only host is the shell, and a shell rule for the
+   space under one component is worse than the line it replaces. It stays, and
+   `.roomy` takes it back off, because a door row DOES have a host: the empty
+   block on 3 pages and the dialog sheet on 1, and both already space it.
+
+   WIDTH IS NOT AN AXIS. Every one of these grids is 100% of the column it
+   stands in; what caps it is the screen's own reading measure, which belongs to
+   the shell. The one exception is the plan row, which asks for 720px of its own
+   below, and it asks because three cards side by side stop being comparable
+   past that and not because the grid has a width. */
+
+.app .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  margin: var(--space-0) var(--space-0) var(--space-24);
+}
+
+/* ---- roomy: the door row, and exactly the four things it had over the base --
+   Nothing here is a new value. Each of the four reproduces what `.app .doors`
+   computed before the rename, measured rather than assumed:
+
+     grid-template-columns  `.doors` declared none, so one implicit column at
+                            100% of the zone: 328px at a 360 viewport. `1fr` is
+                            that same single full-width column said out loud,
+                            and it has to be said out loud because the base now
+                            declares two.
+     gap                    --space-16. The door row's own value, unchanged.
+     margin-bottom          0. `.doors` carried no margin at all; the base now
+                            carries 24 under it, so this takes that one side
+                            back off.
+     (at 760)               two columns rather than three. Below.
+
+   Both `1fr` and the margin are declarations the old rule did not have, and
+   both exist only because the base moved under this component. They move no
+   pixel, and that was checked at four widths rather than reasoned about.
+
+   ONE SIDE AND NOT THE SHORTHAND, AND THE STAND IS WHY. `margin: 0` here would
+   be correct in the product and wrong on the stand. `_page.css` centres a
+   specimen with `.kit-stage.full > * { margin-inline: auto }`, which is 0-2-0
+   and ties with `.app .grid`, and ties go to the file loaded later, which is the
+   stand's. `.app .grid.roomy` is 0-3-0 and breaks that tie: measured on
+   grid.html at a 752 container, the shorthand took the door specimen's side
+   margins from 65px to 0 and pushed it out of the centre of its stage. Taking
+   back only the side the base added leaves the stand's centring where it was.
+
+   GAP IS THE NAME'S ONLY REASON. The page's second axis calls this value Roomy
+   and the other one Tight, and the axis is the child's WEIGHT: two whole
+   bordered cards of equal standing take air, six chips do not. The column count
+   travels with it here because a door and a tile happen to differ on both axes
+   at once; it is not what the word means. */
+.app .grid.roomy {
+  grid-template-columns: 1fr;
+  gap: var(--space-16);
+  margin-bottom: var(--space-0);
+}
+
+/* ---- the plan row, still under its own name -------------------------------
+   Carried byte for byte from before the fold, because folding it needs a name
+   the map does not declare and this file will not invent one. See the header.
+   `.landing` is here because the plan row is the one component in this system
+   with two hosts. */
+.app .plans, .landing .plans {
+  display: grid;
+  gap: var(--space-8);
+  margin: var(--space-0) var(--space-0) var(--space-16);
+}
+
+/* ---- the landing's plan row -----------------------------------------------
+   The same grid on the one page with no `.app` shell. 420px is a width and not
+   a spacing, so the 8px grid does not govern it; the `auto` beside the margin
+   is what centres the single column in a centred section, and `text-align:
+   left` is the landing section's own centring being taken back off, because a
+   plan card reads as a form and not as a poster. Nothing here is a paint. */
+.lp-plan .plans {
+  max-width: 420px;
+  margin: var(--space-0) auto var(--space-16);
+  text-align: left;
+}
+
+/* ============================================================================
+   THE TWO AXES, AND THE RULE FOR CHOOSING ON EACH
+
+   They cross, and they are decided by two different questions. That is why the
+   matrix on the page is two questions with one answer each rather than the six
+   combinations they would otherwise make.
+
+   COLUMNS are decided by the child's NARROW FLOOR: how small the child can get
+   before it stops being readable, asked at both ends of the range. A door is a
+   heading and two sentences and cannot halve a 360px screen, so it is 1 there
+   and 2 wide. A tile is a mark and a name and survives 159px, so it is 2 there
+   and 3 wide. A plan card is a price, a sentence, a button and a four-line
+   list, so it is 1 at 360 and 3 wide, because three plans that cannot be
+   compared side by side are not a choice.
+
+   AND THAT IS WHY THE FOLD CAME UP ONE NAME SHORT. Every one of those three
+   sentences is about the CHILD. The column count is a property of the child
+   read off the container, and a single container class can hold two such
+   properties (a base and one modifier) where the product has three children.
+   The clean expression would be a floor per child,
+   `repeat(auto-fit, minmax(<floor>, 1fr))`, with the floor in the child's own
+   file. It is not taken here, and not only because those files belong to other
+   rounds: `auto-fit` collapses empty tracks, so the column count would start
+   depending on how many children a screen happens to put in the grid, and the
+   component's own page forbids exactly that ("never by how many children there
+   happen to be"). Three children, two names, and the third name is a decision.
+
+   GAP is decided by the child's WEIGHT: a bordered card takes air, a chip does
+   not. Nothing about the container enters into it, which is why the gap is
+   written once on the base rule and the 760 block does not touch it.
+
+   AND THE FOLD MOVED THE SECOND RULE'S NUMBERS, WHICH IS SAID OUT LOUD RATHER
+   THAN QUIETLY APPLIED. kit.css shipped 12px for doors, 10px for tiles and 10px
+   for plans. Under the founder's 8px grid, 12 is a tie between 8 and 16 and
+   goes to the larger, and 10 goes down to 8. So a 2px difference between a door
+   and a plan card becomes an 8px one: doors 16, tiles 8, plans 8. Both are
+   cards, so the stated rule and the resulting values now disagree about the
+   plan row. It is carried as it folds, because the mapping is mechanical and
+   the adopted scale is one of this stage's named sources of a visual change;
+   deciding that a plan row should take a door's air is another, and nobody has
+   taken it. It is on the component's page as an open row, and it is the same
+   open row as the missing name: whoever answers one answers the other.
+   ============================================================================ */
+
+/* ---- columns, past a 760px container -------------------------------------
+   A CONTAINER query and not a media query, and the difference is not academic:
+   these grids reflow on the width the screen is GIVEN, which on a review page
+   is 250px less than the browser. A media query here would silently change how
+   all 55 screens behave.
+
+   THE QUERY MATCHES AN ANCESTOR, NEVER THE GRID ITSELF. `container-type` is
+   declared once, on `body`, in base.css, and once more on `.kit-stage` in the
+   stand's own _page.css so a reviewer can size a specimen. Nothing here
+   declares a third: a container between those and these rules would re-point
+   every query inside it at a different box, with no error and no symptom.
+
+   The three steps (760 / 900 / 1340) cannot become variables, because a custom
+   property is not valid inside a @container condition. They are documented,
+   not tokenized.
+
+   MEASURED ON BOTH SIDES, on design/kit/grid.html through this file, with the
+   stage sized to the two widths that bracket the step:
+
+     container 752   .grid 2 columns of 306px      .grid.roomy 1 column of 620px
+     container 768   .grid 3 columns of 201.328px  .grid.roomy 2 columns of 302px
+
+   and the gap is 8px and 16px respectively on BOTH sides of the step, which is
+   the axis the fold removed rather than an oversight.
+
+   ONE DECLARATION SHORTER THAN kit.css, AND THE FOLD IS WHY. kit.css wrote
+   `.app .doors { grid-template-columns: 1fr 1fr; gap: 16px }` here, and 12px in
+   the base rule above. Both land on --space-16, so the gap half of this
+   override became byte-identical to the rule it was overriding. Deleted rather
+   than kept as a no-op, on the same ground that deleted `.btn.compact`. The
+   door grid's gap is now one value at every width, and the column count is the
+   whole of what the step does.
+
+   THE PLAN ROW'S 720px CAP IS ALREADY DEAD PAST A 900px CONTAINER, and it is
+   carried unchanged rather than repaired. `.app .plans` is 0-2-0 and so is the
+   shell's `.app > .screen > * { max-width: none }` at 900, and the shell's rule
+   is declared later, so it wins: measured on design/upgrade.html at a 1440
+   viewport, the plan row computes `max-width: none` and renders 728px wide.
+   This is the same unbinding that took the form column from 560 to 588 and the
+   Pro gate from 560 to 748, and those three were tightened to 0-3-0 when they
+   were found; the plan row was not, because it was not in that sample. Fixing
+   it here would move a live coloured screen for a decision nobody has taken, so
+   it is written down instead: the cap applies between a 760 and a 900 container
+   and nowhere else. It closes with the name.
+
+   SPECIFICITY, STATED BECAUSE THE MODIFIER NOW DEPENDS ON IT. `.app .grid` is
+   0-2-0 and `.app .grid.roomy` is 0-3-0, in both blocks, so the modifier wins
+   wherever it is written and neither rule needs an order to be true.
+   dialog-sheet.css reaches in one level further at 0-4-0 to give a door row
+   inside a sheet its bottom margin back, which still wins over the 0-3-0
+   `margin` above. */
+@container (min-width: 760px) {
+  .app .grid { grid-template-columns: repeat(3, 1fr); }
+  .app .grid.roomy { grid-template-columns: 1fr 1fr; }
+  .app .plans { grid-template-columns: repeat(3, 1fr); max-width: 720px; }
+}
+
+/* ---- the landing's own step, and it is a MEDIA query ----------------------
+   Deliberately not a container query, and kit.css said why at the line it was
+   written: index.html is the only page with no `.app` shell, its own block runs
+   on media queries throughout, and the landing copy of this rule matches that
+   model rather than introducing a second one on one page. 780px is a width and
+   stays literal. */
+@media (min-width: 760px) {
+  .lp-plan .plans { grid-template-columns: repeat(3, 1fr); max-width: 780px; }
+}
+
+/* TWO THINGS OUTSIDE THIS FILE DEPENDED ON THE NAME `.tiles`, and both would
+   have gone silent rather than loud when it changed. They are named here because
+   a comment in the file that caused the breakage is where the next person will
+   look.
+
+   design/system/behaviour.js ran `document.querySelector('.tiles')` to find the
+   grid the preset search filters, and returned early when it was null. With the
+   markup swept and that line unchanged, typing in the search field on
+   add-subscription would have filtered nothing and thrown nothing. That file now
+   reads `document.querySelector('.grid:has(.tile)')`, which names the
+   relationship rather than the container.
+
+   app-shell.css:155 runs `.app.flow > .screen:has(.plans) { max-width: 760px }`
+   to widen the one step of the onboarding chain that is not prose. `.plans`
+   still exists, so it still holds today. When the plan row is finally named, it
+   must become `:has(.plan-opt)` and NOT `:has(.grid)`: the tile row is also
+   inside `.app.flow`, on add-subscription and its loading state, so `:has(.grid)`
+   would widen those two screens' content column from 588px to 728px. `.plan-opt`
+   occurs on exactly the one screen the rule is for.
+
+   NO STATES, and the reason is one line: a grid is not interactive. `<div>` on
+   all 8 occurrences, no anchor, no button, no tabindex and no role of its own,
+   and kit.css gave it no pointer response either. Every target inside one belongs
+   to a child: the Door has hover and focus-visible on door.html, the Preset
+   tile has hover, pressed and focus-visible on preset-tile.html, and the button
+   inside a plan card has its four on button.html. A hover written here would
+   answer for a child that already answers for itself. */

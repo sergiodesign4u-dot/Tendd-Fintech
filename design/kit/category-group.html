@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Category group - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Category group</h1>
+    <p class="lead">The section that opens with a head and holds what belongs under it: four subscriptions under "Streaming (4)", two alerts under "Needs you", three switches under "What Tendd tells you about". It is what turns fourteen rows into five readable groups, and it is the reason Home has no heavy heading anywhere.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>12</strong> grey pages</span><span>no axis</span><span>no states, not interactive</span><span>draws exactly one line</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">A head, a list, and a hairline between two items. That is the whole component. Everything below is drawn by <code>design/system/components/category-group.css</code> and by the files of the components inside it, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full wide">
+      <section class="group" aria-label="Streaming">
+        <div class="group-head">
+          <h2>Streaming (4)</h2>
+          <span class="subtotal">$54.96 a month</span>
+        </div>
+        <ul>
+          <li><a class="row" href="#anatomy" aria-label="Netflix, $17.99 a month, next in 2 days on 3 August, price changed">
+            <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
+            <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
+            <span class="amt">$17.99</span>
+            <span class="chip">Price changed</span>
+          </a></li>
+          <li><a class="row" href="#anatomy" aria-label="Disney Plus, $13.99 a month, next in 11 days on 12 August">
+            <span class="logo"><img src="../visuals/logos/disney-plus.svg" alt=""></span>
+            <span class="body"><span class="name">Disney+</span><span class="when">in 11 days &middot; Aug 12</span></span>
+            <span class="amt">$13.99</span>
+          </a></li>
+          <li><a class="row" href="#anatomy" aria-label="Hulu, $7.99 a month, next in 24 days on 25 August">
+            <span class="logo"><img src="../visuals/logos/hulu.svg" alt=""></span>
+            <span class="body"><span class="name">Hulu</span><span class="when">in 24 days &middot; Aug 25</span></span>
+            <span class="amt">$7.99</span>
+          </a></li>
+        </ul>
+      </section>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.group</code> <span>the organism itself, and it is a <code>section</code> on all 32 occurrences. Its only declaration of its own is <code>margin: 0 0 24px</code>: no fill, no edge, no radius and no padding</span></li>
+      <li><code>.group-head</code> <span><b>a molecule.</b> The <a href="group-head.html">Group head</a>, with its own 12px uppercase type, its own hairline under it and its own figure at the far end. This file gives it no rule at all</span></li>
+      <li><code>ul</code> <span>the list, with the browser's bullets and its 40px indent taken off. Selected by tag and not by class, because the product writes it three ways: bare on Home, and as a <code>.divlist</code> on Alerts and on Settings, which were <code>.alerts</code> and <code>.navrows</code> until step 6</span></li>
+      <li><code>li + li</code> <span><b>the one line this component draws.</b> A <code>border-top</code> in <code>--line-divider</code>, between two items and never around them. There is no line after the last item, so nothing has to reach back into the item to take one off</span></li>
+      <li><code>.row</code> <span><b>a molecule.</b> The <a href="subscription-row.html">Subscription row</a>, which writes <code>border: 0</code> in its own file precisely so that this hairline is the only one</span></li>
+      <li><code>break-inside</code> <span>past a 900px container the group refuses to be split by a column break, because a head at the foot of one column with its rows at the head of the next is the one thing a grouped list may not do</span></li>
+    </ul>
+    <p class="note"><b>No fill, no edge, no corner, and that is the decision the component is.</b> Five groups stack on Home with only their heads and their hairlines to tell them apart. Five bordered boxes down a phone screen is the compartmented look the visual language was chosen against, and <code>DESIGN.md</code> says so in one line: rows stack inside one bordered container so a list reads as one object rather than as a stack of cards. Where a group does want paper and a corner, the container around it is the <a href="panel.html">Panel</a> and the group is still this.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One form, so there is no matrix.</b> A margin, a list reset and a hairline, and they are the same on all 32 occurrences across the 12 pages. There is no dense group and no bordered group, and a group never changes size: what changes between one group and the next is what is inside it, and everything inside it is a component with a page of its own.</p>
+    <p class="note"><b>The name is narrower than the job, and the count is where you see it.</b> Five of the twelve pages group subscriptions by category, which is the screen the component was named on. The other seven group alerts by urgency (<code>alerts</code>, 2 groups), settings by subject (<code>settings</code>, 3), promises by topic (<code>data-privacy</code>, 3). The class is <code>.group</code> on all twelve and the component is one component: a titled section with an optional divided list inside it. The name comes from where it was found, which is how <code>docs/inventory.md</code> names everything, and step 9 may widen it.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What it holds</th><th class="n">Pages</th><th>And what draws the hairline</th></tr></thead>
+        <tbody>
+          <tr><td>Subscription rows, in a bare <code>ul</code></td><td class="n">5</td><td>this file, and only this file: the list has no class to hook</td></tr>
+          <tr><td>Alert items, in <code>ul.divlist</code></td><td class="n">3</td><td>this file <b>and</b> <a href="divided-list.html">Divided list</a>, with the same declaration and the same token, so nothing renders twice</td></tr>
+          <tr><td>Form fields and switch rows, no list at all</td><td class="n">4</td><td>nothing. The rule matches no element, and the group is a margin and a head</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The overlap in the middle row is deliberate and it is recorded.</b> <code>docs/inventory.md</code> settled it at step 2 in one line: there were three identical <code>li + li</code> divider rules in <code>kit.css</code>, two of them merged into <code>.divlist</code>, and "the third belongs to <code>.group</code> and stays a usage". It stays because the bare list on Home has nothing else to draw it, and it is harmless where the two meet because both read <code>--line-divider</code> at 1px.</p>
+    <p class="note"><b>One responsive rule, and it is not a variant.</b> Past a 900px container the group takes <code>break-inside: avoid</code>, because the <a href="groups-column-set.html">Groups column set</a> around it runs two columns there and three past 1340. The column count belongs to that wrapper; what belongs here is the group's own refusal to be cut in half. <code>kit.css</code> also re-declared the margin in that block at 26px, and that half is <b>deleted</b>: 26 lands on <code>--space-24</code> under the founder's grid, which is what the base rule already sets, so the override became byte-identical to the rule it was overriding. Measured either side of the step: 24px at an 892px container and 24px at 908px. It goes for the same reason <code>.btn.compact</code> went, which is that a declaration changing nothing costs the next reader a minute.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A group is for <b>a set of things that share a reason</b>, with a head that names the reason. J-MAIN reads "I want to see all my recurring charges in one calm view", and the calm comes from the grouping: fourteen rows in one undifferentiated column is a list a person has to read, and five groups of two to four is a list a person can scan. The head carries the count and the subtotal so the group answers its own question before any row is read.</p>
+    <p class="note">On the path a person meets it first on Home, which is the screen the product exists for, and then everywhere a screen has more than one subject: Alerts splits into "Needs you" and "Just so you know", Settings into "Your details", "Your plan" and "What Tendd tells you about", Data and privacy into three plain answers. Every head comes from <code>voice/docs/microcopy.md</code> and every one of them is a phrase rather than a category word: "What Tendd tells you about", not "Notifications".</p>
+    <p class="note"><b>The subtotal is a fact and never a verdict.</b> "$54.96 a month" sits at the far end of the head in the muted tier at the same size as the heading, because it is context for the group and not a second heading. It never carries a colour, an arrow or a comparison: the one number allowed to be loud in this product is the monthly total, and a group subtotal competing with it would break the One Number Rule five times on one screen.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The group separates, the row does not</span>
+        <div class="kit-stage app full wide">
+          <section class="group">
+            <div class="group-head"><h2>Music (2)</h2><span class="subtotal">$14.98 a month</span></div>
+            <ul>
+              <li><a class="row" href="#rule" aria-label="Spotify Premium, $11.99 a month, next in 6 days on 7 August"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span class="body"><span class="name">Spotify Premium</span><span class="when">in 6 days &middot; Aug 7</span></span><span class="amt">$11.99</span></a></li>
+              <li><a class="row" href="#rule" aria-label="Apple Music, $2.99 a month, next in 14 days on 15 August"><span class="logo"><img src="../visuals/logos/apple-music.svg" alt=""></span><span class="body"><span class="name">Apple Music</span><span class="when">in 14 days &middot; Aug 15</span></span><span class="amt">$2.99</span></a></li>
+            </ul>
+          </section>
+        </div>
+        <p>One hairline, between the two rows, and none under the second. The row itself draws <code>border: 0</code>, which is why the last row needs no rule to undo one. Hover either row: the fill changes and the line does not move, because a border appearing under the pointer would shift every row below it by a pixel.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never let the group set the row's type</span>
+        <div class="kit-stage app full wide"><span class="muted">.group .row .name { font-size: 14px }</span></div>
+        <p>The row is written and it is correct: the census measured 47 of them across six coloured pages and found <b>one value on every one of twelve properties</b>, which no other component in the sweep managed. A rule here that changed a name's size would end that, and it would end it invisibly, because the group and the row are never on screen apart. Measured on this page: the merchant name inside the group is 16px at weight 600, which is exactly what it is on <a href="subscription-row.html">its own page</a>.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a group</span>
+        <div class="kit-stage app full wide">
+          <section class="group">
+            <div class="group-head"><h2>Your plan</h2><span class="subtotal">Free</span></div>
+            <p class="muted lead">Unlimited subscriptions and unlimited bank connections. History, trends and advanced alerts are part of Tendd Pro.</p>
+            <div class="actions"><a class="btn" href="#rule">Manage plan</a></div>
+          </section>
+        </div>
+        <p>A section of a screen that has more than one subject, named by its head. It holds no list at all here, and that is a third of its occurrences: the divider rule simply matches nothing, and what is left is a margin and a head, which is exactly what this block needs.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a card instead</span>
+        <div class="kit-stage app full wide">
+          <span class="muted">One subject with its own boundary, standing beside other subjects a person is not acting on.</span>
+        </div>
+        <p>When the section is <b>one thing a person acts on</b> rather than a set of things they scan, the container is the <a href="card.html">Card</a>: paper, a hairline all the way round and a 14px corner. A source on Your sources is a card because each connection is a separate decision; "Streaming (4)" is a group because the four rows under it are four decisions and the head is only telling you what they have in common. The test is the head: a group's head describes what is below it, a card's title <i>is</i> the subject.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and the reason is one line: a group is not interactive.</b> It is a <code>&lt;section&gt;</code> on all 32 occurrences, it holds no anchor, no button and no summary of its own, it carries no <code>tabindex</code> and no role, and it does not collapse: the one disclosure in the app shell is a <code>details.panel summary</code> and that is the <a href="panel.html">Panel</a>. <code>kit.css</code> gave it no hover, no active and no focus rule, and adding one would be inventing behaviour the product does not have.</p>
+    <p class="note">Everything inside a group that answers a pointer answers it as itself, and each is live on its own page: the <a href="subscription-row.html">Subscription row</a> has hover and focus-visible, the <a href="alert-item.html">Alert item</a> has hover and focus-visible, the <a href="nav-row.html">Nav row</a> has both as well. The specimens above are real anchors with real <code>href</code>s, so hover one and the hover you see is the row's own, read off the real thing rather than off a photograph of it.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the line between two items</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>, and <code>--hairline-soft-dark</code> in the dark theme. Decorative, so it owes no threshold: 1.23:1 light is what keeps a list of fourteen from reading as a table</td></tr>
+          <tr><td>the space under the block</td><td><code>--space-24</code></td><td>primitive, straight</td></tr>
+          <tr><td>the list reset</td><td><code>--space-0</code></td><td>primitive, straight. Zero is a real value here and not the absence of one</td></tr>
+          <tr><td>no fill, no edge, no radius, no padding</td><td>none</td><td>by decision. The group is a grouping, not a container</td></tr>
+          <tr><td>no colour and no type of any kind</td><td>none</td><td>the head owns its type, the rows own theirs. This file reads two tokens in total</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>It hosts three molecules and paints none of them.</b> <a href="group-head.html">Group head</a>, <a href="subscription-row.html">Subscription row</a> and <a href="alert-item.html">Alert item</a> get no rule here at all, not even a margin: the head spaces itself, the rows are separated by the one hairline above, and the whole file is four declarations long. It is the shortest organism in the system and that is the point of it.</p>
+    <p class="note"><b>The container query is measured on both sides, because a query that never fires looks calm.</b> <code>break-inside: avoid</code> arrives at a 900px container. It needs an ancestor with <code>container-type: inline-size</code>, which <code>base.css</code> declares once on <code>body</code>; nothing in this file declares a second one, because a container between the body and these rules would re-point the query at a different box with no error and no symptom.</p>
+    <p class="note">Lives in <code>design/system/components/category-group.css</code>. Stands on 12 grey pages, 32 groups, and on 8 coloured ones, 24 groups. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../home-error.html">Home, could not refresh</a>, <a href="../home-savefocus.html">Home, save focus</a>, <a href="../home-loading.html">Home, loading</a>, <a href="../history-trends.html">History and trends</a>, <a href="../settings.html">Settings</a>, <a href="../settings-no-account.html">Settings, no account</a>.</p>
+    <code class="kit-cmd">&lt;section class="group" aria-label="Streaming"&gt;
+  &lt;div class="group-head"&gt;
+    &lt;h2&gt;Streaming (4)&lt;/h2&gt;
+    &lt;span class="subtotal"&gt;$54.96 a month&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a class="row" href="subscription-detail.html" aria-label="..."&gt;...&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class="row" href="subscription-detail.html" aria-label="..."&gt;...&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code>
+    <p class="note">The specimens above stand in <code>.kit-stage app full wide</code>, 620px, because that is a width the product gives them: measured at a 1440 viewport, a group renders 620px on Settings and 424.5px on Home, where two column groups share the screen. The stand's default 440px would be right for Home alone and would crush the Settings form.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/category-group.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that left its divider rule in place while merging the other two is in <code>docs/inventory.md</code>; the sweep that measured 47 rows at zero variation inside it is in <code>docs/census.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -7,7 +7,8 @@
 
    Reads
      colour   --text-primary, --text-muted, --line-divider
-     states   none of its own. See the block at the foot of this file
+     states   --bg-hover and --color-focus, both added 2026-08-12. The ring is
+              the ROW's from that date, and the block at the foot says how
      type     --type-body, --type-meta
      spacing  --space-2, --space-16
    Page      design/kit/switch-row.html
@@ -21,8 +22,14 @@
    implied one.
 
    IT HOSTS ONE ATOM AND REPAINTS NOTHING OF IT. The 20px box, its accent, its
-   hover, its ring and its disabled form are all checkbox.css's, and nothing in
-   this file names `input`. What this row owns is the box AROUND the control.
+   hover and its disabled form are all checkbox.css's. What this row owns is the
+   box AROUND the control, and from 2026-08-12 the focus ring, because the ring
+   belongs to the target a person aims at and that is the row.
+
+   `input` APPEARS EXACTLY ONCE IN THIS FILE, inside `:has()`. That is a question
+   about the row and not a declaration about the box: no property of the checkbox
+   is set, read or reset here. The distinction is the whole reason the ring took
+   two files instead of one.
 
    AND THAT BOX IS WHY THE 20px IS ACCEPTABLE. The checkbox is a native control
    at 20px against the 24px WCAG 2.5.8 asks, carried rather than fixed, recorded
@@ -51,7 +58,7 @@
      to hand the job to. The last one takes it back, below. */
   border-bottom: 1px solid var(--line-divider);
 }
-/* :last-of-type rather than :last-child, carried exactly as kit.css writes it.
+/* :last-of-type rather than :last-child, carried exactly as kit.css wrote it.
    The two are not the same here: the switch rows sit among sibling headings and
    paragraphs, so :last-child would only match if a switch happened to be the
    final element of the section, and on settings it is not. */
@@ -74,24 +81,85 @@
   color: var(--text-muted);
 }
 
-/* ---- states: NONE ON THIS ROW, and the absence is the finding --------------
-   The row is a pointer target, it is 44px or more, and clicking anywhere in it
-   toggles the preference. It gives no visual response to any of that: kit.css
-   declares no :hover on `label.switch`, and the ring cannot land here either,
-   because a label is not focusable and the focus goes to the input inside it.
-   So every state a person can reach on this row is drawn by the atom:
-   checkbox.css owns the hover, the focus-visible ring and the disabled form.
+/* ---- states -----------------------------------------------------------------
+   THE HOVER IS AUTHORISED AND IT IS ONE LINE. Founder's review of the
+   components, 2026-08-12. The row is a pointer target, it is 44px or more at
+   every occurrence, and clicking anywhere in it toggles the preference; until
+   this line it gave no visual answer to any of that, and a person could not tell
+   that the whole row was the target rather than the 20px box at its edge.
 
-   IT IS NOT INVENTED HERE. A hover on this row would be a real change to how
-   Settings and Data and privacy render, and the pixel comparison at step 8
-   accepts a difference only against one of the three named sources: the
-   consolidation, the founder's review of the foundations, or the move onto
-   system classes. "The subscription row and the nav row both light up and this
-   one does not" is an argument, and a good one, but it is a design decision
-   about the product and not a consequence of moving a file.
+   IT IS THE HOUSE PATTERN AND NOT A NEW ONE, which is why it needed no new
+   token and invents nothing. Every other row in this product answers a pointer
+   with exactly `background: var(--bg-hover)` and nothing else: the subscription
+   row, the nav row, the door, the preset tile. A settings row that did not was
+   the odd one out. --bg-hover and not --bg-recessed: the two are one value today
+   and two roles, one a resting surface and the other a transient response, and
+   this is a response.
 
-   checkbox.css hands the question here in as many words: "If the row should
-   light up under the pointer, that decision belongs to switch-row.css and to
-   the person who owns it." The answer of this file is: not by the person moving
-   it. It is on design/kit/switch-row.html as an open row with the two options
-   written out, and step 9 decides. */
+   IT MOVES NOTHING AND ADDS NO EDGE, which matters more here than on a lone
+   control: four of these stack in a column with a divider between them, so a
+   border or a padding change appearing under the pointer would shift the three
+   rows below it. A fill changes no geometry. Measured on design/settings.html at
+   360 and at 1280: the four rows keep their 66.75 / 85.5 / 66.75 / 65.75 and
+   66.75 / 66.75 / 66.75 / 65.75 heights exactly, and the fill runs the full
+   width of the row including its 2px side padding.
+
+   AND THE RING LANDS ON THE ROW, which is the second half of the same review
+   and took two lines in two files. A `label` is not focusable, so focus goes to
+   the input inside it, and until 2026-08-12 that meant a 2px ring drawn around a
+   20px box sitting at the left edge of a 66px target: the thing that answered
+   the keyboard was a third the size of the thing a person aims at.
+
+   base.css carried `label:has(input)` in its focus-visible selector list, which
+   looks exactly like somebody meaning to solve this, and it was DEAD. Measured
+   on design/settings.html at both viewports with the input focused:
+   `label.switch` matches `label:has(input)` and does NOT match `:focus-visible`,
+   because a label never can. It is deleted from base.css now, with that
+   measurement recorded there as the reason. So the finding the backlog files
+   under "both are markup decisions" is not a markup decision at all: the working
+   selector is `:has(input:focus-visible)`, and it is CSS.
+
+   IT IS SPLIT ACROSS TWO FILES SO THAT EACH ONE ONLY EVER SPEAKS FOR ITSELF.
+   The row draws the ring, below. checkbox.css stands its own ring down, scoped
+   to `.switch` so a checkbox anywhere else keeps it. Half of it alone renders
+   two concentric petrol rings on every preference, which is worse than the one
+   it had; and writing `outline: none` on the input FROM THIS FILE would be a
+   molecule repainting a hosted atom's state, which is the exact defect this
+   round exists to remove. Neither half was taken until both were authorised.
+
+   `:has(input:focus-visible)` AND NOT `:has(.check:focus-visible)`, deliberately,
+   even though checkbox.css renamed the atom to `.check` on the same day. The
+   markup sweep that puts `class="check"` on the 24 boxes had not run when this
+   was written, and a ring that waits for a markup pass is a ring that is absent
+   for as long as the pass takes. `input` is true of the element before the sweep
+   and after it. It is also the honest test: what this row responds to is a
+   focused control inside it, whatever that control ends up being called.
+
+   NOTHING HERE PAINTS THE ATOM. `input` appears once, inside `:has()`, which is
+   a question about the row and not a declaration about the box: no property of
+   the checkbox is set, read or reset in this file. */
+
+/* ---- the row positioning the box it hosts --------------------------------
+   MOVED IN from checkbox.css at step 6, unchanged, as one paired move with the
+   deletion on the other side. Both declarations were written `.switch input`
+   there, and the reason they lived in the atom's file is the defect the rename
+   closed: with no class of its own, nothing outside checkbox.css could name the
+   control, so its host's positioning had nowhere else to go.
+
+   `flex: none` only means anything because this row is a flex container, and
+   the 4px top margin aligns the box optically against the first line of the
+   label beside it. Both are true of the box HERE and of nowhere else, which is
+   the test for whether a rule belongs to the host. A checkbox standing outside
+   a switch row must not inherit either. */
+.app .switch .check, .landing .switch .check {
+  flex: none;
+  margin: var(--space-4) var(--space-0) var(--space-0);
+}
+
+.app .switch:hover, .landing .switch:hover {
+  background: var(--bg-hover);
+}
+.app .switch:has(input:focus-visible), .landing .switch:has(input:focus-visible) {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}

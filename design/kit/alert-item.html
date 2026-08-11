@@ -49,7 +49,7 @@
 
   <section class="kit-sec" id="anatomy">
     <h2>Anatomy</h2>
-    <p class="note"><b>Read this page knowing what it is.</b> Every other component in this kit was measured on a coloured screen before it was written down. This one was not, because no coloured screen carries it. Its form here is read off <code>kit.css</code> and off the grey markup on <code>alerts.html</code>, line by line, and nothing in it is invented. What follows is therefore correct and unproven, which is a different thing from correct and checked, and it is worth saying out loud on the page rather than discovering at the rollout.</p>
+    <p class="note"><b>Read this page knowing what it is.</b> Every other component in this kit was measured on a coloured screen before it was written down. This one was not, because no coloured screen carries it. Its form here was read off <code>kit.css</code> and off the grey markup on <code>alerts.html</code>, line by line, and nothing in it is invented. What follows is therefore correct and unproven, which is a different thing from correct and checked, and it is worth saying out loud on the page rather than discovering at the rollout.</p>
     <div class="kit-stage app full">
       <a class="alert" href="#anatomy" aria-label="New. Netflix went up by $2.50, now $17.99 a month. Price change from Chase, Jul 28. See what changed.">
         <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
@@ -69,7 +69,7 @@
       <li><code>.meta</code> <span>the provenance, always the same shape: kind, merchant, date, source. <code>--type-meta</code>, <code>--text-muted</code></span></li>
       <li><code>.prices</code> <span>the old figure beside the new one. Three labels muted, three figures primary, so the numbers are what the eye lands on</span></li>
       <li><code>.go</code> <span>the inline action with its arrow. It stays <b>ink</b> and never petrol, because a list renders eight at once</span></li>
-      <li><code>.badge</code> <span><b>an atom.</b> The Pro chip, on two of the eight items, with its 4px left margin living in <a href="chip.html">chip.css</a> alongside the other host placements of that atom</span></li>
+      <li><code>.chip</code> <span><b>an atom.</b> The Pro chip, on two of the eight items, with its 4px left margin living in <a href="chip.html">chip.css</a> alongside the other host placements of that atom. It was <code>.badge</code> until step 6</span></li>
     </ul>
   </section>
 
@@ -144,19 +144,19 @@
       </div>
       <div class="no">
         <span class="hd">Use a subscription row instead</span>
-        <div class="kit-stage app full"><a class="row" href="#rule" aria-label="Amazon Prime, $14.99 a month, next in 19 days on 20 August, payment failed"><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span class="body"><span class="name">Amazon Prime</span><span class="when">in 19 days &middot; Aug 20</span></span><span class="amt">$14.99</span><span class="tag">Payment failed</span></a></div>
+        <div class="kit-stage app full"><a class="row" href="#rule" aria-label="Amazon Prime, $14.99 a month, next in 19 days on 20 August, payment failed"><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span class="body"><span class="name">Amazon Prime</span><span class="when">in 19 days &middot; Aug 20</span></span><span class="amt">$14.99</span><span class="chip">Payment failed</span></a></div>
         <p>A <b>thing you pay for</b>, standing in a list with its price and its next date, is the <a href="subscription-row.html">Subscription row</a>. The two carry the same merchant and look alike from a distance, and they answer different questions: the row is a state, the alert is an event. The tell is the text. If the line reads as a noun with a number ("Amazon Prime, $14.99"), it is a row; if it reads as a sentence with a verb ("did not go through"), it is an alert. <code>globals.md</code> already caught this confusion once, on the trend row.</p>
       </div>
     </div>
     <div class="kit-do">
       <div class="yes">
         <span class="hd">Several at once, in a list</span>
-        <div class="kit-stage app full"><a class="alert" href="#rule" aria-label="Your Peloton App trial ends soon. Trial ending, part of Tendd Pro."><span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span><span class="body"><span class="what">Your Peloton App trial ends soon <span class="badge">Pro</span></span><span class="meta">Trial ending &middot; Peloton App &middot; Aug 18 &middot; Tendd Pro explains what happens next</span><span class="go">See what Pro adds</span></span></a></div>
+        <div class="kit-stage app full"><a class="alert" href="#rule" aria-label="Your Peloton App trial ends soon. Trial ending, part of Tendd Pro."><span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span><span class="body"><span class="what">Your Peloton App trial ends soon <span class="chip">Pro</span></span><span class="meta">Trial ending &middot; Peloton App &middot; Aug 18 &middot; Tendd Pro explains what happens next</span><span class="go">See what Pro adds</span></span></a></div>
         <p>The component is built for repetition, which is why nothing in it is loud: no fill, no border, no tone, no petrol, one quiet chip. Eight of these read as a list a person can scan and leave.</p>
       </div>
       <div class="no">
         <span class="hd">Use a wash block instead</span>
-        <div class="kit-stage app full"><div class="attention"><p>Netflix went up by $2.50, now $17.99 a month. <a href="#rule">See what changed</a></p></div></div>
+        <div class="kit-stage app full"><div class="wash attention"><p>Netflix went up by $2.50, now $17.99 a month. <a href="#rule">See what changed</a></p></div></div>
         <p>One message standing <b>above content that still works</b>, on a screen that is about something else, is the Wash block: an amber fill for a price change, a clay one for our own failure, and it appears once. That is the attention row on Home, carrying the very same sentence as the first alert on this page. The Wash block molecule is not built yet, which is why the specimen above shows its copy without its amber fill. The difference is the host and not the words: a wash tells a person to look up from what they were doing, and a list of eight things telling you to look up is a screen nobody opens twice.</p>
       </div>
     </div>
@@ -165,7 +165,7 @@
   <section class="kit-sec" id="states">
     <h2>States</h2>
     <p class="note">Three states, and they exist because the item is <b>a link</b>. Each is a token override rather than a style of its own, so the dark theme costs nothing in this file.</p>
-    <p class="note"><b>Three rather than four.</b> There is no disabled alert. Every alert in the product goes somewhere, including the two Pro ones, which lead to the upgrade screen rather than being greyed out. And there is no <code>:active</code>, because <code>kit.css</code> declares none and writing one here would be a new decision about how the product answers a press.</p>
+    <p class="note"><b>Three rather than four.</b> There is no disabled alert. Every alert in the product goes somewhere, including the two Pro ones, which lead to the upgrade screen rather than being greyed out. And there is no <code>:active</code>, because <code>kit.css</code> declared none and writing one here would be a new decision about how the product answers a press.</p>
     
 
     <h3 class="kit-sub-h">Rest, live</h3>

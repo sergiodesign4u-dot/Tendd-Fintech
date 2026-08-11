@@ -1,7 +1,7 @@
 /* ============================================================================
    Select - atom
    The control for a value that comes from a closed list: a billing frequency,
-   a currency. The other half of a rule kit.css writes once for both.
+   a currency. The other half of a rule kit.css wrote once for both.
 
    Reads
      colour   --bg-surface, --text-primary, --bg-recessed,
@@ -16,7 +16,7 @@
    Stands on 4 grey pages, one select each: add-subscription and its empty and
    error states (Billing frequency), settings (Currency). All four are coloured.
 
-   ONE STYLE, TWO ELEMENTS. kit.css declares the select and the text input in a
+   ONE STYLE, TWO ELEMENTS. kit.css declared the select and the text input in a
    single rule block, and the grey stylesheet it was extracted from had already
    settled them that way (_wf.css:746). The pack asks for one file per
    component, so the shared values are written out again here rather than shared
@@ -24,17 +24,34 @@
    files differ in exactly two declarations, the right padding here and the
    ::placeholder there, and both are in the source.
 
-   NO HEX, NO FONT NAME below. The literals that remain, 14px and the two
-   paddings, are a font size and spacings, and the scales for those are still a
-   proposal awaiting the founder. They stay as the values they are today.
+   NO HEX AND NO FONT NAME below. The paragraph that used to stand here said two
+   paddings and a 14px were still literals awaiting the founder's scales. He
+   adopted both on 2026-08-11 and the code moved to --type-body and --space-*;
+   the sentence stayed behind, which is the second time in this pair of files a
+   comment outlived the code it described.
 
-   THE CLASS NAME IS NOT TOUCHED. `.field select` stays exactly as the product
-   writes it. The rename to `.select` is decided in docs/inventory.md and
-   executed at step 6 with the markup of the screens.
+   THE ATOM HAS A NAME NOW, AND THAT IS THE WHOLE OF STEP 6 FOR THIS FILE.
+   Until 2026-08-12 the control had no class of its own anywhere in the product:
+   it simply WAS `.field select`, and a sweep of every class attribute on the 28
+   coloured screens and the 55 grey pages returned the token `select` zero times
+   in either corpus. This file named `.field` 40 times, more than any other atom
+   in the system. The markup sweep ADDS `class="select"` where there was no
+   class attribute at all, and the selectors below name `.select`.
+
+   THE DIFFERENCE IS NOT COSMETIC. `.field select` means "a select, but only
+   inside a form field". `.select` means "a select". One declaration turned out
+   to belong to the host and left: `width: 100%` is the FIELD giving the control
+   its column, so it now reads `.field .select` and lives in form-field.css.
+   Everything else, the closed box and every line of the picker below, is true
+   of this control wherever it stands.
+
+   ZERO PIXELS MOVE, measured before the change rather than claimed after it:
+   all 18 selects in the two corpora sit inside a `.field`, so a rule scoped to
+   the field and a rule scoped to nothing select exactly the same elements
+   today.
    ============================================================================ */
 
-.app .field select, .landing .field select {
-  width: 100%;
+.app .select, .landing .select {
   min-height: var(--tap);
   padding: var(--space-0) var(--space-16);
   border: 1px solid var(--line-control);
@@ -42,16 +59,19 @@
   background: var(--bg-surface);
   color: var(--text-primary);
   font: inherit; font-size: var(--type-body);
+  /* WIDTH IS NOT HERE, for the same reason it is not in text-input.css: it is
+     the field's column and form-field.css states it as `.field .select`. */
 }
 
-/* THE ONE DECLARED DIFFERENCE from the text input. kit.css states the value and
+/* THE ONE DECLARED DIFFERENCE from the text input. kit.css stated the value and
    not a reason; what sits in that 8px is the arrow the browser draws inside the
    right edge, which a text input does not have. The control is otherwise the
    same box, and the computed padding is therefore 0 8px 0 16px, measured in the
-   browser on 2026-08-11. The comment here used to say 0 8px 0 12px, which was a
-   number carried over from the grey stylesheet and never re-measured after the
-   founder's review put spacing on the 8px grid: --space-16 is 16px. */
-.app .field select, .landing .field select { padding-right: var(--space-8); }
+   browser on 2026-08-11 and again on 2026-08-12 after the rename. The comment
+   here used to say 0 8px 0 12px, which was a number carried over from the grey
+   stylesheet and never re-measured after the founder's review put spacing on
+   the 8px grid: --space-16 is 16px. */
+.app .select, .landing .select { padding-right: var(--space-8); }
 
 /* The edge is the whole of this control's identity. Its fill is paper and so is
    the card behind it, so nothing but the border says a control is here, which
@@ -66,7 +86,7 @@
    Each one changes fill, ink or edge colour and nothing else. None of them
    moves the element, changes its size or adds a border where there was none. */
 
-.app .field select:hover, .landing .field select:hover {
+.app .select:hover, .landing .select:hover {
   border-color: var(--line-control-hover);
 }
 
@@ -75,7 +95,7 @@
    whole system inside :where(), which holds it at specificity 0; this
    re-declares it at the component's own specificity so the component wins, and
    reads the same token so the two can never disagree about what a ring is. */
-.app .field select:focus-visible, .landing .field select:focus-visible {
+.app .select:focus-visible, .landing .select:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
@@ -95,33 +115,33 @@
    required field before a person has typed a character, which is a calm product
    shouting at somebody for not having started yet. :user-invalid waits until
    they have interacted and left it wrong. */
-.app .field select:user-invalid, .landing .field select:user-invalid,
-.app .field select[aria-invalid="true"], .landing .field select[aria-invalid="true"] {
+.app .select:user-invalid, .landing .select:user-invalid,
+.app .select[aria-invalid="true"], .landing .select[aria-invalid="true"] {
   border-color: var(--line-failure);
   background: var(--bg-failure);
 }
-.app .field select:user-invalid:focus-visible, .landing .field select:user-invalid:focus-visible,
-.app .field select[aria-invalid="true"]:focus-visible,
-.landing .field select[aria-invalid="true"]:focus-visible {
+.app .select:user-invalid:focus-visible, .landing .select:user-invalid:focus-visible,
+.app .select[aria-invalid="true"]:focus-visible,
+.landing .select[aria-invalid="true"]:focus-visible {
   outline-color: var(--line-failure);
 }
 
 /* The third invalid rule in kit.css, `.field:has([aria-invalid="true"]) .hint`,
    is NOT here. Its subject is the hint, which belongs to the Form field
    molecule, and an atom that repaints a part of its host is the unnamed variant
-   this stage exists to prevent. It travels with field.css. */
+   this stage exists to prevent. It travels with form-field.css. */
 
 /* Disabled repaints rather than fading, on the same three roles the button
    uses. AUTHORED: no select on any page carries the attribute today, so this
    moves zero pixels and exists so that the first screen that needs it does not
    invent it. */
-.app .field select[disabled], .landing .field select[disabled] {
+.app .select[disabled], .landing .select[disabled] {
   cursor: default;
   background: var(--bg-recessed);
   border-color: var(--line-divider);
   color: var(--text-muted);
 }
-.app .field select[disabled]:hover, .landing .field select[disabled]:hover {
+.app .select[disabled]:hover, .landing .select[disabled]:hover {
   border-color: var(--line-divider);
 }
 
@@ -170,21 +190,26 @@
    test never reads a line of this block: the control is byte for byte what it
    was, and the list is the operating system's, which is the better list on a
    phone anyway. Measured as true in Chrome 151, and Edge is the same engine.
+
+   THE RENAME REACHES IN HERE TOO, and it had to be done rule by rule rather
+   than by replacing a string: `.field select option` becomes `.select option`
+   and not `.field .select option`, because an option is a child of the control
+   and has never had anything to do with the field.
    ============================================================================ */
 
 @supports (appearance: base-select) {
 
   /* Both halves, and both are required. The select becomes the button, the
      ::picker becomes an in-page popover we can paint. */
-  .app .field select, .landing .field select {
+  .app .select, .landing .select {
     appearance: base-select;
     align-items: center;
   }
-  .app .field select::picker(select), .landing .field select::picker(select) {
+  .app .select::picker(select), .landing .select::picker(select) {
     appearance: base-select;
   }
 
-  /* THE INDICATOR IS DRAWN, AND IT IS THE SAME url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 9 7 7 7-7'/%3E%3C/svg%3E")RON THE NAV ROW DRAWS.
+  /* THE INDICATOR IS DRAWN, AND IT IS THE SAME CHEVRON THE NAV ROW DRAWS.
      Base appearance swaps Chrome's hairline chevron for its own filled
      disclosure triangle: measured at 360, 10 by 5 px of one pixel stroke becomes
      9 by 8 px filled, in the same corner of the same box. It was first left as
@@ -202,7 +227,7 @@
 
      IT APPLIES ONLY INSIDE @supports, which is the honest boundary: a browser
      without base-select keeps its own arrow, because we cannot reach it. */
-  .app .field select::picker-icon, .landing .field select::picker-icon {
+  .app .select::picker-icon, .landing .select::picker-icon {
     color: var(--text-muted);
     width: 16px; height: 16px;
     background-color: currentColor;
@@ -213,7 +238,7 @@
   }
   /* The glyph the browser puts inside that box goes, or it paints through the
      mask as a second mark. */
-  .app .field select::picker-icon, .landing .field select::picker-icon { font-size: 0; }
+  .app .select::picker-icon, .landing .select::picker-icon { font-size: 0; }
 
   /* The list is a surface, so it is built the way every other surface in this
      product is built: paper, a hairline, a control radius. The Flat Paper Rule
@@ -221,7 +246,7 @@
      menu: the one elevation in the system belongs to the dialog sheet alone. The
      edge is --line-container and not --line-control, because this is the edge of
      a CONTAINER and not the boundary that identifies a control. */
-  .app .field select::picker(select), .landing .field select::picker(select) {
+  .app .select::picker(select), .landing .select::picker(select) {
     padding: var(--space-4);
     border: 1px solid var(--line-container);
     border-radius: var(--radius-sm);
@@ -233,7 +258,7 @@
      one. The browser's own base option is 24px tall with 7px of side padding,
      which is a mouse target on a product that is mostly used on a phone. The
      gap is the space between the checkmark gutter and the label. */
-  .app .field select option, .landing .field select option {
+  .app .select option, .landing .select option {
     min-height: var(--tap);
     padding: var(--space-8) var(--space-16);
     column-gap: var(--space-8);
@@ -243,7 +268,7 @@
     font-size: var(--type-body);
   }
 
-  .app .field select option:hover, .landing .field select option:hover {
+  .app .select option:hover, .landing .select option:hover {
     background: var(--bg-hover);
   }
 
@@ -253,7 +278,7 @@
      product's own rule that the current selection is one of petrol's three
      permitted jobs. The checkmark's box is reserved on every option, so nothing
      shifts sideways when the choice moves. */
-  .app .field select option:checked, .landing .field select option:checked {
+  .app .select option:checked, .landing .select option:checked {
     color: var(--text-action);
   }
 
@@ -262,8 +287,8 @@
      negative: the picker scrolls, so a ring drawn 2px outside the option is
      clipped by the container at the first and last row. Same colour, same
      width, drawn on the inside. */
-  .app .field select option:focus-visible,
-  .landing .field select option:focus-visible {
+  .app .select option:focus-visible,
+  .landing .select option:focus-visible {
     outline: 2px solid var(--color-focus);
     outline-offset: -2px;
   }

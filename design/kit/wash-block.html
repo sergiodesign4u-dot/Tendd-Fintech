@@ -51,13 +51,13 @@
     <h2>Anatomy</h2>
     <p class="note">Two content slots, which is what makes it a molecule rather than an atom: a sentence, and an optional standalone link. Everything below is drawn by <code>design/system/components/wash-block.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
     <div class="kit-stage app full wide">
-      <section class="attention">
+      <section class="wash attention">
         <p>Netflix went up by $2.50, now $17.99 a month.</p>
         <a href="#anatomy">See what changed</a>
       </section>
     </div>
     <ul class="kit-callouts">
-      <li><code>.attention</code> <span>the molecule itself, here on the attention tone. Also written <code>.notice</code>, <code>.notice.is-error</code> and <code>.decoder</code>: four tones, one rule. The renaming map in <code>docs/inventory.md</code> takes all four to <code>.wash</code> plus a modifier at step 6</span></li>
+      <li><code>.wash.attention</code> <span>the molecule itself, here on the attention tone. Also <code>.wash</code>, <code>.wash.error</code> and <code>.wash.code</code>: four tones, one rule. It was <code>.attention</code>, <code>.notice</code>, <code>.notice.is-error</code> and <code>.decoder</code> until 2026-08-12, when the renaming map in <code>docs/inventory.md</code> landed in the CSS and in the markup of all 28 coloured screens in one step</span></li>
       <li><code>p</code> <span>the sentence. No class of its own: the wash has exactly one paragraph slot, so a class here would name a thing that cannot vary. Primary ink on the neutral, attention and error tones</span></li>
       <li><code>&gt; a</code> <span>the standalone link, and it is a <b>direct child</b> rather than part of the sentence. That structural fact is what gives it the 44px target floor, with no class and no markup change: <code>&gt; a</code> against <code>p a</code></span></li>
       <li><code>a::after</code> <span>the arrow, on the attention tone only. It is content with an empty alternative text, so a screen reader is not handed the words "right arrow" mid sentence</span></li>
@@ -69,7 +69,7 @@
 
   <section class="kit-sec" id="variants">
     <h2>Variants and sizes</h2>
-    <p class="note"><b>The consolidation, in one sentence.</b> <code>.attention</code>, <code>.notice</code> and <code>.decoder</code> were three components in <code>kit.css</code> and are one here. Read side by side they were the same object: the same padding, the same margin, the same fill family, differing in the fill token, in one corner, and in nothing else. What follows is the axis matrix that replaces those three declarations, not a list of the places they occurred.</p>
+    <p class="note"><b>The consolidation, in one sentence.</b> <code>.attention</code>, <code>.notice</code> and <code>.decoder</code> were three components in <code>kit.css</code> and are one here. Read side by side they were the same object: the same padding, the same margin, the same fill family, differing in the fill token, in one corner, and in nothing else. What follows is the axis matrix that replaces those three declarations, not a list of the places they occurred. <b>Not one pixel moved at the rename</b>, and the reason is that sentence: all four tones already shared one padding, one margin and, since the corner was consolidated at step 3, one radius, so there was nothing left for a fold to collide over.</p>
     <div class="kit-matrix">
       <table>
         <thead>
@@ -82,37 +82,37 @@
         </thead>
         <tbody>
           <tr>
-            <td><b>Neutral</b> <code>.notice</code></td>
+            <td><b>Neutral</b> <code>.wash</code></td>
             
             <td class="val">--bg-callout<br>--text-primary</td>
             <td>3 pages. The unrecognized charge, the failed merchant payment, and the reconnect notice in the grey. All ordinary facts</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="notice"><p>It repeats like a subscription, but we could not match it to a service.</p></section></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="wash"><p>It repeats like a subscription, but we could not match it to a service.</p></section></div></td></tr>
           <tr>
-            <td><b>Attention</b> <code>.attention</code></td>
+            <td><b>Attention</b> <code>.wash.attention</code></td>
             
             <td class="val">--bg-attention<br>--text-attention</td>
             <td>3 pages. A price change, on Home and on the subscription's own screen. Amber and never red: the persona closes any app that shows her red</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="attention"><p>Netflix went up by $2.50, now $17.99 a month.</p><a href="#variants">See what changed</a></section></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="wash attention"><p>Netflix went up by $2.50, now $17.99 a month.</p><a href="#variants">See what changed</a></section></div></td></tr>
           <tr>
-            <td><b>Error</b> <code>.notice.is-error</code></td>
+            <td><b>Error</b> <code>.wash.error</code></td>
             
             <td class="val">--bg-failure<br>--text-failure</td>
             <td>1 page, and it is opt in. Clay is spent on <b>our</b> failure only: the sync error and the could-not-load screen</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="notice is-error"><p>We could not refresh just now. Showing your last update from today, 9:14 AM.</p><a href="#variants">Try again</a></section></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="wash error"><p>We could not refresh just now. Showing your last update from today, 9:14 AM.</p><a href="#variants">Try again</a></section></div></td></tr>
           <tr>
-            <td><b>Code</b> <code>.decoder</code></td>
+            <td><b>Code</b> <code>.wash.code</code></td>
             
             <td class="val">--bg-callout<br>--text-body + --text-primary</td>
             <td>5 pages, every state of the subscription detail. Two inks rather than one: the label is quiet, the string is not</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="decoder">Appears on your statement as<span class="raw">SPOTIFYAB STOCKHOLM</span></section></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="wash code">Appears on your statement as<span class="raw">SPOTIFYAB STOCKHOLM</span></section></div></td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note"><b>The error tone is opt in, and the inversion was a real repair.</b> Clay used to be the default on <code>.notice</code>, and three of the five pages that carry it are not failures at all. Where the clay is spent is now settled and narrow. A payment that did not go through at the merchant is not our failure and not the person's: it is a fact about the world, its own copy says so in as many words ("Nothing is wrong with your money"), and it keeps the neutral wash.</p>
+    <p class="note"><b>The error tone is opt in, and the inversion was a real repair.</b> Clay used to be the default on <code>.notice</code>, and three of the five pages that carried it are not failures at all. Where the clay is spent is now settled and narrow. A payment that did not go through at the merchant is not our failure and not the person's: it is a fact about the world, its own copy says so in as many words ("Nothing is wrong with your money"), and it keeps the neutral wash.</p>
     <div class="kit-matrix">
       <table>
         <thead>
@@ -130,14 +130,14 @@
             <td class="val">::after, 8px left</td>
             <td>The attention tone only. "See what changed" goes to another screen</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="attention"><p>Netflix went up by $2.50, now $17.99 a month.</p><a href="#variants">See what changed</a></section></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="wash attention"><p>Netflix went up by $2.50, now $17.99 a month.</p><a href="#variants">See what changed</a></section></div></td></tr>
           <tr>
             <td><b>Without</b></td>
             
             <td class="val">-</td>
             <td>Neutral and error. "Try again" re-runs the thing that failed and goes nowhere</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="notice is-error"><p>We could not refresh just now.</p><a href="#variants">Try again</a></section></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="wash error"><p>We could not refresh just now.</p><a href="#variants">Try again</a></section></div></td></tr>
           <tr>
             <td class="kit-empty">Code, with a link</td>
             
@@ -163,19 +163,19 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">The wash IS the container</span>
-        <div class="kit-stage app full wide"><section class="notice"><p>It repeats like a subscription, but we could not match it to a service.</p></section></div>
+        <div class="kit-stage app full wide"><section class="wash"><p>It repeats like a subscription, but we could not match it to a service.</p></section></div>
         <p>One mark for one message: a fill, a corner, and the sentence. No border, no icon, no coloured bar down the left. The grey original drew a border and a 3px bar and both were dropped when colour arrived, because fill plus border plus bar is three marks saying the same thing. This also obeys the Flat Paper Rule in <code>DESIGN.md</code>: a new surface earns a fill and at most a hairline, never a shadow.</p>
       </div>
       <div class="no">
         <span class="hd">Never wrap a whole screen in one</span>
-        <div class="kit-stage app full wide"><section class="state"><h2>We could not load your subscriptions</h2><p>Nothing is lost. Try again in a moment.</p></section></div>
-        <p>When the message is the entire screen, the right component is the <a href="text-block.html">text block</a>, written <code>.state</code> today, with no wash at all. A wash exists to tell a message apart from the content beside it; a full screen message has nothing beside it, the words and the Try again button already say what happened, and a tinted rectangle around the whole viewport is decoration. This was decided rather than overlooked, and it is why the five error screens are untoned.</p>
+        <div class="kit-stage app full wide"><section class="textblock status"><h2>We could not load your subscriptions</h2><p>Nothing is lost. Try again in a moment.</p></section></div>
+        <p>When the message is the entire screen, the right component is the <a href="text-block.html">text block</a>, written <code>.textblock.status</code>, with no wash at all. A wash exists to tell a message apart from the content beside it; a full screen message has nothing beside it, the words and the Try again button already say what happened, and a tinted rectangle around the whole viewport is decoration. This was decided rather than overlooked, and it is why the five error screens are untoned.</p>
       </div>
     </div>
     <div class="kit-do">
       <div class="yes">
         <span class="hd">Use a wash for a recovery link</span>
-        <div class="kit-stage app full wide"><section class="notice is-error"><p>We could not refresh just now. Showing your last update from today, 9:14 AM.</p><a href="#rule">Try again</a></section></div>
+        <div class="kit-stage app full wide"><section class="wash error"><p>We could not refresh just now. Showing your last update from today, 9:14 AM.</p><a href="#rule">Try again</a></section></div>
         <p>Inside a calm sentence that is explaining what happened, "Try again" belongs to the wash and its own inline link. The figures on the screen are still there and still true; the wash is the footnote saying how old they are.</p>
       </div>
       <div class="no">
@@ -192,20 +192,30 @@
 
     <h3 class="kit-sub-h">Rest, live</h3>
     <div class="kit-stage app full wide" id="live-rest">
-      <section class="notice" id="shot-neutral"><p>A payment to Amazon Prime did not go through on Jul 20.</p><a href="#states">Try again</a></section>
-      <section class="notice is-error" id="shot-error"><p>We could not refresh just now. Showing your last update from today, 9:14 AM.</p><a href="#states">Try again</a></section>
-      <section class="attention" id="shot-attention"><p>Netflix went up by $2.50, now $17.99 a month.</p><a href="#states">See what changed</a></section>
+      <section class="wash" id="shot-neutral"><p>A payment to Amazon Prime did not go through on Jul 20.</p><a href="#states">Try again</a></section>
+      <section class="wash error" id="shot-error"><p>We could not refresh just now. Showing your last update from today, 9:14 AM.</p><a href="#states">Try again</a></section>
+      <section class="wash attention" id="shot-attention"><p>Netflix went up by $2.50, now $17.99 a month.</p><a href="#states">See what changed</a></section>
     </div>
     <p class="note">Hover them and tab through them: these are the real components on the real entry point, and the three links measure 44px tall because each one is a direct child of its wash.</p>
+
+    <h3 class="kit-sub-h">The code tone's loading form, live</h3>
+    <p class="note"><b>The one state that belongs to the wash rather than to its link, and this page did not show it until 2026-08-12.</b> On the loading state of the subscription detail the code tone holds two <a href="skeleton-bar.html">skeleton bars</a> where the label and the string will land. The host sets the gap between them; the atom draws the bars. It is the only kit component that ever stands inside a wash.</p>
+    <div class="kit-stage app full wide" id="shot-loading">
+      <section class="wash code" aria-hidden="true">
+        <span class="skel line w60"></span>
+        <span class="skel line w80"></span>
+      </section>
+    </div>
+    <p class="note"><b>A wash that ended lower than its own padding, and the fix is the host's.</b> <code>.skel.line</code> carries <code>margin: var(--space-4) 0</code>, because a run of bars needs air between them. The last bar in the wash spent that air on nothing: it stacked under the wash's own bottom padding, so the block ended <b>4px lower</b> than the same block ends when it holds a sentence. <code>.wash.code &gt; .skel:last-child</code> now zeroes it, written in <code>wash-block.css</code> and not in <code>skeleton-bar.css</code>, and the reason is the ladder: the atom cannot know it is last inside anything, and a <code>:last-child</code> rule in the atom's file would be the atom guessing at its hosts. The host knows exactly one thing the atom cannot, which is where its own padding starts.</p>
 
     <h3 class="kit-sub-h">The link, in both themes</h3>
     <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
     <div class="kit-states">
       <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--text-body</code>, <code>--text-failure</code>, <code>--text-attention</code>, underlined in <code>--line-container</code></div></div>
       <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same tokens, the other half of each pair. <code>--bg-callout</code> is the one role that is NOT mirrored: on dark it lifts off the surface while the page ground stays put</div></div>
-      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--text-action</code> on the underline. The ink is a tie, and the tie is the finding below</div></div>
-      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">petrol climbs the scale in the dark theme rather than descending it, so the underline still moves away from its ground</div></div>
-      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--line-selected</code>, drawn once for the whole system by <code>base.css</code> at specificity 0</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--text-action</code> on the ink <b>and</b> the underline, on all four tones. The ink used to be a tie and lose it; the tie went on 2026-08-12 and the finding below is now a record rather than a defect</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">petrol climbs the scale in the dark theme rather than descending it, so both the ink and the underline still move away from their ground</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, drawn once for the whole system by <code>base.css</code> at specificity 0. It read <code>--line-selected</code> until 2026-08-12, when two roles claiming one job were separated</div></div>
       <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok">the same ring on the lightened petrol. Nothing is declared in this component: a text link has nothing to add to the base ring</div></div>
     </div>
     <code class="kit-cmd">Retake, same recipe as the etalon, because there is no node Playwright in this repo:
@@ -217,8 +227,10 @@
     Tab to the link in #shot-attention, assert :focus-visible
                             -&gt; screenshot #live-rest -&gt; wash-block-focus-&lt;theme&gt;.png</code>
 
-    <p class="note"><b>The hover is not what the file looks like it says, and it was measured rather than deduced.</b> Hovering the neutral link on the real <a href="../home-error.html">home-error</a> screen today returns <code>rgb(154, 88, 66)</code> for the ink, which is the resting clay, and <code>rgb(28, 106, 118)</code> for the underline, which is petrol. Only the underline moves. The arithmetic: <code>.notice a:hover</code> is 0-2-1 and <code>.app .notice a</code> is also 0-2-1, the block rule is written later in the stylesheet, and equal specificity is decided by source order. The block rule sets a colour and no decoration colour, so the ink is pinned and the underline is free. The attention tone's hover is written scoped, 0-3-1, and wins outright: that link goes fully petrol.</p>
-    <p class="note"><b>Carried unchanged, and reported.</b> Repairing a hover is not one of the three legal sources of a visual change at this stage, so this file reproduces exactly what the product renders today, including the source order that produces it. The fix belongs to step 6, where the rename settles the whole selector set at once and a single <code>.wash a</code> owns rest and hover with nothing left to tie against.</p>
+    <p class="note"><b>The hover was dead on two of the three tones, and on 2026-08-12 it came back.</b> It was measured rather than deduced, before and after, on this page and on the product. <b>Before:</b> hovering the neutral and error links returned <code>rgb(154, 88, 66)</code> for the ink, which is the resting clay, and <code>rgb(28, 106, 118)</code> for the underline. Only the underline moved. <b>After:</b> both return <code>rgb(28, 106, 118)</code> for the ink and <code>rgb(28, 106, 118)</code> for the underline, which is what <code>kit.css</code> declared all along and could not deliver. The attention tone is unchanged, because its hover was the one that already worked.</p>
+    <p class="note"><b>The arithmetic of the tie, because it is what makes this a repair and not a redesign.</b> <code>.notice a:hover</code> is 0-2-1: one class, one pseudo-class, one type. <code>.app .notice a</code> is also 0-2-1 and was written 130 lines later, so it won, and it sets a colour and no decoration colour: the ink was pinned and the underline was free. On <code>.notice.is-error a</code>, 0-3-1, even the underline was lost. Meanwhile <code>.attention a:hover</code> happened to be written scoped, 0-3-1, and worked. Two washes, two different hovers, and nothing in either file said so. Nobody wrote that behaviour; it is what five rules for one link produce when two of them weigh the same.</p>
+    <p class="note"><b>What replaced it is arithmetic and not order.</b> The link's shared properties are one rule at 0-2-1, each tone's ink is one rule of its own, and every hover out-specifies its own rest by a whole class: 0-3-1 against 0-2-1 for the base, 0-4-1 against 0-3-1 for the error. Nothing written later in this file or any other can take the response away by being written afterwards, which is what "one owner" buys. Every value is one <code>kit.css</code> already wrote; nothing new was invented.</p>
+    <p class="note"><b>The selectors carried both names for one step, and the old half is now gone.</b> The repair above had to be written under <code>.notice</code> and <code>.wash</code> at once, because deleting the old half then would have stripped the link style off four wash specimens on pages that round did not own, and writing only the old half would have put the tie back the day the markup landed. The markup landed on 2026-08-12. Every list now names the new class only, at the specificity the pair was written to hold, and <b>the repair reaches the product screens in the same breath</b>: they load <code>../system/index.css</code> now, not <code>kit.css</code>. Measured on the real screens rather than on this page: hovering the error link on <a href="../home-error.html">Home, could not refresh</a> and the attention link on <a href="../home.html">Home</a> returns <code>rgb(28, 106, 118)</code> for the ink and the underline on both.</p>
   </section>
 
   <section class="kit-sec" id="tech">
@@ -240,23 +252,23 @@
       </table>
     </div>
     <p class="note"><b>One declared change of appearance, and it is why this is a consolidation rather than three files stapled together.</b> The code tone's corner was <code>--radius-sm</code>, 10px, measured on the real <a href="../subscription-detail.html">subscription detail</a> screen today. It becomes <code>--radius-wash</code>, 12px, on 5 pages. Same fill, same padding, same margin as its siblings and a different corner for no named reason: two washes cannot have two corners, and the wash radius exists for exactly this. The line is in <code>docs/tokens-audit.md</code> under "Consolidated drift", and the pixel comparison at step 8 checks it against that list.</p>
-    <p class="note"><b>One class had two opposite meanings depending on its tag, and that is why it is not in this file.</b> <code>kit.css</code> carries <code>.app p.notice { background: none; border-radius: 0; padding: 0; color: var(--soft) }</code>, which cancels every declaration this component makes. Written on a <code>section</code>, <code>.notice</code> was a wash; written on a <code>p</code>, it was a plain muted sentence. Step 2 split them, the paragraph went to the <a href="muted-line.html">Muted line</a> atom where it now lives, and it stands in exactly one place, <a href="../upgrade.html">Upgrade</a>. Specificity, not order, is what keeps that working across the split: 0-2-1 against this component's 0-2-0, so the atom wins from the atoms layer even though this file is imported below it. The rename map takes <code>p.notice</code> to <code>.muted</code> at step 6.</p>
+    <p class="note"><b>One class had two opposite meanings depending on its tag, and that is why it is not in this file.</b> <code>kit.css</code> carried <code>.app p.notice { background: none; border-radius: 0; padding: 0; color: var(--soft) }</code>, which cancelled every declaration this component makes. Written on a <code>section</code>, <code>.notice</code> was a wash; written on a <code>p</code>, it was a plain muted sentence. Step 2 split them, the paragraph went to the <a href="muted-line.html">Muted line</a> atom where it now lives, and it stands in exactly one place, <a href="../upgrade.html">Upgrade</a>. Specificity, not order, is what keeps that working across the split: 0-2-1 against this component's 0-2-0, so the atom wins from the atoms layer even though this file is imported below it. The rename map took <code>p.notice</code> to <code>.muted</code> on 2026-08-12, and with the wash declaration gone from that paragraph there is no longer anything for the three cancelling lines to undo: they are deleted from <code>muted-line.css</code> too. A class that meant two things now has two names, and neither has to unsay the other.</p>
     <p class="note">Lives in <code>design/system/components/wash-block.css</code>. Stands on 8 grey pages and 7 coloured ones. The inventory's "13" is the sum of the three old classes' page counts: it double counts home-error, which carries two washes, and it counts the one <code>p.notice</code> that is not a wash at all. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../home-error.html">Home, could not refresh</a>, <a href="../subscription-detail.html">Subscription Detail</a>, <a href="../subscription-detail-price-change.html">the price change</a>, <a href="../subscription-detail-payment-failed.html">the failed payment</a>, <a href="../subscription-detail-unrecognized.html">the unrecognized charge</a>, <a href="../subscription-detail-loading.html">the loading state</a>.</p>
-    <code class="kit-cmd">&lt;section class="notice" role="status" aria-label="What happened"&gt;
+    <code class="kit-cmd">&lt;section class="wash" role="status" aria-label="What happened"&gt;
   &lt;p&gt;A payment to Amazon Prime did not go through on Jul 20.&lt;/p&gt;
 &lt;/section&gt;
 
-&lt;section class="attention" role="status" aria-label="Needs your attention"&gt;
+&lt;section class="wash attention" role="status" aria-label="Needs your attention"&gt;
   &lt;p&gt;Netflix went up by $2.50, now $17.99 a month.&lt;/p&gt;
   &lt;a href="subscription-detail-price-change.html"&gt;See what changed&lt;/a&gt;
 &lt;/section&gt;
 
-&lt;section class="notice is-error" role="status"&gt;
+&lt;section class="wash error" role="status"&gt;
   &lt;p&gt;We could not refresh just now.&lt;/p&gt;
   &lt;a href="home-loading.html"&gt;Try again&lt;/a&gt;
 &lt;/section&gt;
 
-&lt;section class="decoder" aria-label="How this appears on your statement"&gt;
+&lt;section class="wash code" aria-label="How this appears on your statement"&gt;
   Appears on your statement as
   &lt;span class="raw"&gt;SPOTIFYAB STOCKHOLM&lt;/span&gt;
 &lt;/section&gt;</code>

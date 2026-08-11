@@ -72,20 +72,20 @@ window.KIT_NAV = {
   ],
 
   organisms: [
-    { name: 'App bar',           cls: '.appbar',       page: null, was: null,                          axes: 'form: row / column rail at container 760', wf: 54 },
-    { name: 'App shell',         cls: '.app',          page: null, was: null,                          axes: 'form: steady / flow / detail',          wf: 54 },
-    { name: 'Card',              cls: '.card',         page: null, was: '.locked, .source',             axes: '-',                                     wf: 3 },
-    { name: 'Category group',    cls: '.group',        page: null, was: null,                          axes: '-',                                     wf: 12 },
-    { name: 'Dashboard head',    cls: '.head',         page: null, was: null,                          axes: 'exists only at container 900',          wf: 5 },
-    { name: 'Dialog sheet',      cls: '.sheet',        page: null, was: null,                          axes: 'full width, then a card at container 760', wf: 3 },
-    { name: 'Divided list',      cls: '.divlist',      page: null, was: '.alerts, .navrows',            axes: 'inset: bare / inside a panel',          wf: 4 },
-    { name: 'Empty block',       cls: '.empty',        page: null, was: null,                          axes: '-',                                     wf: 2 },
-    { name: 'Grid',              cls: '.grid',         page: null, was: '.doors, .tiles, .plans',       axes: 'columns: 1 to 2 / 2 to 3. gap by child size', wf: 8 },
-    { name: 'Groups column set', cls: '.groups',       page: null, was: null,                          axes: 'columns: 2 at 900, 3 at 1340',          wf: 4 },
-    { name: 'Panel',             cls: '.panel',        page: null, was: null,                          axes: 'head: banded h2 / summary disclosure',  wf: 7 },
-    { name: 'Reveal step',       cls: '.rstep',        page: null, was: null,                          axes: '-',                                     wf: 1 },
-    { name: 'Save-focus list',   cls: '.candidates',   page: null, was: null,                          axes: '-',                                     wf: 1 },
-    { name: 'Tab bar',           cls: '.tabbar',       page: null, was: null,                          axes: 'form: bottom bar / left rail at container 760', wf: 28 }
+    { name: 'App bar',           cls: '.appbar',       page: 'app-bar.html', was: null,                          axes: 'form: row / column rail at container 760', wf: 54 },
+    { name: 'App shell',         cls: '.app',          page: 'app-shell.html', was: null,                          axes: 'form: steady / flow / detail',          wf: 54 },
+    { name: 'Card',              cls: '.card',         page: 'card.html', was: '.locked, .source',             axes: '-',                                     wf: 3 },
+    { name: 'Category group',    cls: '.group',        page: 'category-group.html', was: null,                          axes: '-',                                     wf: 12 },
+    { name: 'Dashboard head',    cls: '.head',         page: 'dashboard-head.html', was: null,                          axes: 'exists only at container 900',          wf: 5 },
+    { name: 'Dialog sheet',      cls: '.sheet',        page: 'dialog-sheet.html', was: null,                          axes: 'full width, then a card at container 760', wf: 3 },
+    { name: 'Divided list',      cls: '.divlist',      page: 'divided-list.html', was: '.alerts, .navrows',            axes: 'inset: bare / inside a panel',          wf: 4 },
+    { name: 'Empty block',       cls: '.empty',        page: 'empty-block.html', was: null,                          axes: '-',                                     wf: 2 },
+    { name: 'Grid',              cls: '.grid',         page: 'grid.html', was: '.doors, .tiles, .plans',       axes: 'columns: 1 to 2 / 2 to 3 / 1 to 3. gap by child size', wf: 8 },
+    { name: 'Groups column set', cls: '.groups',       page: 'groups-column-set.html', was: null,                          axes: 'columns: 2 at 900, 3 at 1340',          wf: 4 },
+    { name: 'Panel',             cls: '.panel',        page: 'panel.html', was: null,                          axes: 'head: banded h2 / summary disclosure / headless',  wf: 7 },
+    { name: 'Reveal step',       cls: '.rstep',        page: 'reveal-step.html', was: null,                          axes: '-',                                     wf: 1 },
+    { name: 'Save-focus list',   cls: '.candidates',   page: 'save-focus-list.html', was: null,                          axes: '-',                                     wf: 1 },
+    { name: 'Tab bar',           cls: '.tabbar',       page: 'tab-bar.html', was: null,                          axes: 'form: bottom bar / left rail at container 760', wf: 28 }
   ]
 };
 

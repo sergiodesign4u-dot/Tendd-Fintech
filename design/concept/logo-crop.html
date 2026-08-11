@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The mark: Crop - Tendd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- The product's real tokens, loaded rather than copied. -->
+<link rel="stylesheet" href="../system/tokens.css">
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f8f7f4; --surface: #ffffff; --border: #e8e4dc; --border-light: #f0ede6;
+    --text: #2a2724; --text-secondary: #6b6560; --text-muted: #9b958e;
+    --accent: #5c7a6e; --accent-light: #eef4f1;
+    --radius-sm: 4px; --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased;
+    /* Two roles, and every crop on this page reads them off whatever it is
+       inside. At these windows the letter covers about two thirds of the frame,
+       so the LETTER is the thing that carries petrol and the field is paper.
+       Reversed, the tile would read as a white blob with a petrol edge. */
+    --field: var(--bg-surface);
+    --ink:   var(--text-action);
+  }
+  .inv     { --field: var(--bg-action);   --ink: var(--bg-surface); }
+  .mono    { --field: var(--bg-surface); --ink: var(--text-primary); }
+  .night   { --field: #10262a;   --ink: #6bb0ba; }
+
+  /* ---------- Roadmap sidebar (phase-site chrome) ---------- */
+  .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: var(--surface); border-right: 1px solid var(--border); z-index: 200; transform: translateX(-100%); transition: transform 0.22s ease; overflow-y: auto; padding-bottom: 32px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 150; }
+  .sidebar-overlay.open { display: block; }
+  .sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 14px; border-bottom: 1px solid var(--border-light); }
+  .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--text); letter-spacing: -0.01em; }
+  .sidebar-close { background: none; border: none; font-size: 18px; line-height: 1; color: var(--text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--radius-sm); }
+  .nav-toggle { position: fixed; top: 14px; left: 16px; z-index: 100; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); color: var(--text); font-size: 15px; }
+  @media (min-width: 840px) { .sidebar { transform: translateX(0); } .sidebar-close { display: none; } .sidebar-overlay { display: none !important; } .nav-toggle { display: none; } body { padding-left: 220px; } }
+  @media (max-width: 839px) { .wrap { padding-top: 62px; } }
+
+  /* ---------- Page shell ---------- */
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 40px 24px 80px; }
+  .masthead { max-width: 730px; margin: 0 auto 30px; }
+  .kolo { font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
+  .masthead h1 { font-size: clamp(30px, 4.4vw, 46px); font-weight: 800; letter-spacing: -0.035em; margin: 10px 0 14px; text-wrap: balance; }
+  .masthead p { font-size: 15.5px; color: var(--text-secondary); }
+  .masthead p + p { margin-top: 10px; }
+  .masthead b { color: var(--text); font-weight: 600; }
+  .back { display: inline-block; margin-top: 16px; font-size: 13.5px; color: var(--accent); text-decoration: none; font-weight: 500; }
+  .back:hover { text-decoration: underline; }
+
+  section.blk { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; margin-top: 24px; }
+  .blk-head { padding: 22px 24px 18px; border-bottom: 1px solid var(--border-light); }
+  .blk-head h2 { font-size: 23px; font-weight: 700; letter-spacing: -0.025em; }
+  .blk-head p { font-size: 14.5px; color: var(--text-secondary); max-width: 70ch; margin-top: 8px; }
+  .blk-body { padding: 24px; }
+
+  .plates { display: grid; gap: 1px; background: var(--border-light); grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); }
+  .plate { background: var(--surface); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .plate-label { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); }
+  .plate-note { font-size: 12.5px; color: var(--text-secondary); margin-top: auto; }
+  .stage { border-radius: 12px; padding: 20px 16px; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .on-canvas { background: var(--bg-page); }
+  .on-paper { background: var(--bg-surface); border: 1px solid var(--line-container); }
+  .on-dark { background: var(--bg-page); }
+  .on-night { background: #10262a; }
+
+  .sizes { display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
+  .size { display: flex; flex-direction: column; align-items: center; gap: 7px; }
+  .size span { font-size: 10.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+  .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; padding: 4px 9px; border-radius: 6px; background: var(--accent-light); color: #3f5a4f; }
+  .tag.warn { background: #f6ecec; color: #7b4a44; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+
+  /* the app bar sample */
+  .bar { width: 100%; max-width: 320px; height: 56px; border-radius: 12px; background: var(--bg-surface); border: 1px solid var(--line-container); display: flex; align-items: center; gap: 8px; padding: 0 16px; }
+  .bar .wm { font-weight: 700; font-size: 16px; letter-spacing: 0.02em; color: var(--text-primary); margin-right: auto; }
+  .bar .chip { font-size: 12px; color: var(--text-secondary); }
+  .lock { display: flex; align-items: center; gap: 10px; }
+  .lock .wm { font-weight: 700; font-size: 26px; letter-spacing: -0.03em; color: var(--text-primary); }
+  .col { display: flex; flex-direction: column; flex-wrap: nowrap; gap: 16px; }
+  .col .bar { align-self: stretch; max-width: 100%; }
+
+  .tabs { display: flex; align-items: center; gap: 10px; background: #dfe3e6; border-radius: 10px 10px 0 0; padding: 8px 8px 0; }
+  .tabf { display: flex; align-items: center; gap: 7px; background: var(--bg-surface); border-radius: 8px 8px 0 0; padding: 8px 14px; font-size: 12px; color: var(--text-primary); }
+  .tabf.off { background: transparent; color: var(--text-secondary); }
+
+  /* the share card */
+  .share { width: 100%; max-width: 420px; border-radius: 16px; background: var(--bg-surface); border: 1px solid var(--line-container); overflow: hidden; }
+  .share .top { display: block; width: 100%; }
+  .share .body { padding: 16px 18px 18px; }
+  .share .amt { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+  .share .cap { font-size: 12.5px; color: var(--text-secondary); margin-top: 2px; }
+
+  /* rules list */
+  .rules { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .rule { border: 1px solid var(--border-light); border-radius: 12px; padding: 16px; }
+  .rule h3 { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 6px; }
+  .rule p { font-size: 13px; color: var(--text-secondary); }
+  .rule.no h3 { color: #7b4a44; }
+
+  ol.chain { margin: 4px 0 0 20px; font-size: 14.5px; color: var(--text-secondary); }
+  ol.chain li { margin-bottom: 6px; }
+  ol.chain b { color: var(--text); font-weight: 600; }
+
+  /* ---------- the pan animation ---------- */
+  .pan { transform-box: view-box; transform-origin: 0 0; animation: pan 8s cubic-bezier(.65,0,.35,1) infinite; }
+  @keyframes pan {
+    0%, 18%   { transform: translate(0px, 0px) scale(1); }
+    30%, 48%  { transform: translate(-29.8px, -8.1px) scale(1.353); }
+    60%, 78%  { transform: translate(-56.6px, 24.8px) scale(1.769); }
+    90%, 100% { transform: translate(0px, 0px) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) { .pan { animation: none; } }
+</style>
+</head>
+<body>
+
+<!-- ======================================================================
+     ONE LETTER, ONE HUNDRED UNITS.
+     Everything on this page is this drawing seen through a different window.
+     The shapes carry no colour of their own: they take fill and stroke from
+     whatever <use> pulls them in, which is how one geometry serves petrol,
+     paper, ink and the dark theme without a second file.
+     ====================================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="gd">
+      <circle cx="40" cy="60" r="23" fill="none" stroke-width="15"/>
+      <rect x="64" y="6" width="15" height="84" rx="7.5" stroke="none"/>
+    </g>
+  </defs>
+</svg>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - Concept</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="wrap">
+
+  <header class="masthead" id="brief">
+    <div class="kolo">Concept - the mark, taken to depth</div>
+    <h1>One letter, three windows, and a frame that moves.</h1>
+    <p>Direction 12 out of thirteen. The identity is not a picture of a d: it is <b>one drawn
+      letterform, deliberately larger than anything that will ever hold it</b>, and a frame that
+      keeps a different part of it depending on where it lands. The letter never changes size
+      relative to itself, the frame does.</p>
+    <p>Which means there is no such thing as a wrong crop, only crops that are on the rule and crops
+      that are not. This page sets the rule, cuts the three canonical windows, moves between them,
+      and then puts them into the product.</p>
+    <a class="back" href="logo.html">&#8592; back to all thirteen directions</a>
+  </header>
+
+  <!-- ================= THE SYSTEM ================= -->
+  <section class="blk" id="system">
+    <div class="blk-head">
+      <h2>The letterform, and where the windows sit</h2>
+      <p>The glyph is drawn once on a 100 unit square: a bowl of 23 with a 15 wall, centred at 40 so it
+        runs into the stem rather than touching it, and a stem of 15 from 6 to 90. Three square windows are cut out of it. Everything else on this page
+        is one of those three, at some size, on some ground.</p>
+    </div>
+    <div class="blk-body">
+      <div class="stage on-canvas" style="padding:28px">
+        <svg width="100%" height="auto" viewBox="-6 -4 112 112" style="max-width:520px">
+          <g style="fill:var(--text-action);stroke:var(--text-action)" opacity="0.22">
+            <use href="#gd"/>
+          </g>
+          <g fill="none" stroke="var(--text-primary)" stroke-width="0.9" stroke-dasharray="3 2.4">
+            <rect x="26" y="34" width="46" height="46" rx="10.8"/>
+            <rect x="48" y="40" width="34" height="34" rx="8"/>
+            <rect x="58" y="20" width="26" height="26" rx="6.1"/>
+          </g>
+          <g font-family="Inter, sans-serif" font-size="5.4" font-weight="700" fill="var(--text-primary)">
+            <text x="27.6" y="32">A  THE BOWL</text>
+            <text x="49.6" y="79.4">B  THE JOINT</text>
+            <text x="59.6" y="51.4">C  THE STEM</text>
+          </g>
+        </svg>
+      </div>
+      <p style="font-size:13.5px;color:var(--text-secondary);margin-top:14px;max-width:72ch">
+        The windows get smaller as they move up and to the right, which is the whole system in one
+        sentence: <b style="color:var(--text)">the tighter the crop, the more abstract the mark</b>.
+        A is still a letter. B is a shape with a memory of a letter. C is a brand colour with an
+        edge in it. Each one is the right answer at a different distance from the person.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= THE THREE ================= -->
+  <section class="blk" id="crops">
+    <div class="blk-head">
+      <h2>The three crops</h2>
+      <p>Same glyph, same wall thickness, same corner radius as a share of the frame. Only the window
+        changes. Each is shown on petrol, then walked down to the size it actually has to survive.</p>
+    </div>
+    <div class="plates">
+
+      <div class="plate">
+        <div class="plate-label">A. The bowl - the primary</div>
+        <div class="stage on-canvas">
+          <svg width="180" height="180" viewBox="26 34 46 46">
+            <clipPath id="ca"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+            <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+            <g clip-path="url(#ca)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g>
+          </svg>
+        </div>
+        <div class="stage on-canvas sizes">
+          <div class="size">
+            <svg width="44" height="44" viewBox="26 34 46 46"><clipPath id="ca44"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+              <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+              <g clip-path="url(#ca44)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span>44</span>
+          </div>
+          <div class="size">
+            <svg width="32" height="32" viewBox="26 34 46 46"><clipPath id="ca32"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+              <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+              <g clip-path="url(#ca32)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span>32</span>
+          </div>
+          <div class="size">
+            <svg width="20" height="20" viewBox="26 34 46 46"><clipPath id="ca20"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+              <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+              <g clip-path="url(#ca20)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span>20</span>
+          </div>
+          <div class="size">
+            <svg width="16" height="16" viewBox="26 34 46 46"><clipPath id="ca16"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+              <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+              <g clip-path="url(#ca16)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span>16</span>
+          </div>
+        </div>
+        <div class="plate-note">The one that goes on the phone, the tab and the app bar. It is the
+          only crop where the counter is fully closed, so it is the only one that still reads as a
+          letter to somebody who has never seen the brand.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">B. The joint - the wide surfaces</div>
+        <div class="stage on-canvas">
+          <svg width="180" height="180" viewBox="48 40 34 34">
+            <clipPath id="cb"><rect x="48" y="40" width="34" height="34" rx="8"/></clipPath>
+            <rect x="48" y="40" width="34" height="34" rx="8" style="fill:var(--field)"/>
+            <g clip-path="url(#cb)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g>
+          </svg>
+        </div>
+        <div class="stage on-canvas sizes">
+          <div class="size">
+            <svg width="44" height="44" viewBox="48 40 34 34"><clipPath id="cb44"><rect x="48" y="40" width="34" height="34" rx="8"/></clipPath>
+              <rect x="48" y="40" width="34" height="34" rx="8" style="fill:var(--field)"/>
+              <g clip-path="url(#cb44)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span>44</span>
+          </div>
+          <div class="size">
+            <svg width="32" height="32" viewBox="48 40 34 34"><clipPath id="cb32"><rect x="48" y="40" width="34" height="34" rx="8"/></clipPath>
+              <rect x="48" y="40" width="34" height="34" rx="8" style="fill:var(--field)"/>
+              <g clip-path="url(#cb32)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span>32</span>
+          </div>
+          <div class="size">
+            <svg width="20" height="20" viewBox="48 40 34 34"><clipPath id="cb20"><rect x="48" y="40" width="34" height="34" rx="8"/></clipPath>
+              <rect x="48" y="40" width="34" height="34" rx="8" style="fill:var(--field)"/>
+              <g clip-path="url(#cb20)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span>20</span>
+          </div>
+        </div>
+        <div class="plate-note">Where the bowl runs into the stem. Used big: the share card, the
+          empty state, the launch screen. Not used below 20, where the curve stops being a curve.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">C. The stem - the far end</div>
+        <div class="stage on-canvas">
+          <svg width="180" height="180" viewBox="58 20 26 26">
+            <clipPath id="cc"><rect x="58" y="20" width="26" height="26" rx="6.1"/></clipPath>
+            <rect x="58" y="20" width="26" height="26" rx="6.1" style="fill:var(--field)"/>
+            <g clip-path="url(#cc)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g>
+          </svg>
+        </div>
+        <div class="stage on-canvas sizes">
+          <div class="size">
+            <svg width="44" height="44" viewBox="58 20 26 26"><clipPath id="cc44"><rect x="58" y="20" width="26" height="26" rx="6.1"/></clipPath>
+              <rect x="58" y="20" width="26" height="26" rx="6.1" style="fill:var(--field)"/>
+              <g clip-path="url(#cc44)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span>44</span>
+          </div>
+          <div class="size">
+            <svg width="24" height="24" viewBox="58 20 26 26"><clipPath id="cc24"><rect x="58" y="20" width="26" height="26" rx="6.1"/></clipPath>
+              <rect x="58" y="20" width="26" height="26" rx="6.1" style="fill:var(--field)"/>
+              <g clip-path="url(#cc24)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span>24</span>
+          </div>
+          <div class="size">
+            <svg width="16" height="16" viewBox="58 20 26 26"><clipPath id="cc16"><rect x="58" y="20" width="26" height="26" rx="6.1"/></clipPath>
+              <rect x="58" y="20" width="26" height="26" rx="6.1" style="fill:var(--field)"/>
+              <g clip-path="url(#cc16)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span>16</span>
+          </div>
+        </div>
+        <div class="plate-note">A field with one edge in it. This is the pattern crop, the avatar, the
+          card back, the thing printed at 8mm. Nobody reads a letter here, and that is allowed,
+          because by then the word has already been said elsewhere.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">On other grounds</div>
+        <div class="stage on-night night">
+          <svg width="88" height="88" viewBox="26 34 46 46"><clipPath id="cn"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+            <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+            <g clip-path="url(#cn)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+          <svg width="64" height="64" viewBox="48 40 34 34"><clipPath id="cn2"><rect x="48" y="40" width="34" height="34" rx="8"/></clipPath>
+            <rect x="48" y="40" width="34" height="34" rx="8" style="fill:var(--field)"/>
+            <g clip-path="url(#cn2)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+        </div>
+        <div class="stage on-paper">
+          <span class="mono"><svg width="72" height="72" viewBox="26 34 46 46"><clipPath id="ci"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+            <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+            <g clip-path="url(#ci)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg></span>
+          <span class="inv"><svg width="72" height="72" viewBox="26 34 46 46"><clipPath id="cw"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+            <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)" stroke="var(--line-container)" stroke-width="0.4"/>
+            <g clip-path="url(#cw)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg></span>
+        </div>
+        <div class="plate-note">On the dark canvas the letter takes the lightened petrol and the
+          field takes the ground, the same relationship the accent has everywhere else. Below: ink on
+          paper is the one-colour cut, and beside it the inverse, which is <b>not used</b> and is
+          here to show why the roles are not interchangeable. Swap them and the letter stops being
+          the mark: the counter becomes a dot and the frame becomes the drawing.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= MOTION ================= -->
+  <section class="blk" id="motion">
+    <div class="blk-head">
+      <h2>The frame moves, the letter does not</h2>
+      <p>The three crops are three stops on one continuous move. The letter is fixed in space and the
+        window travels across it, from the bowl to the joint to the stem, tightening as it goes.
+        Watching it once teaches the whole system, which is the only honest job an identity animation
+        has.</p>
+    </div>
+    <div class="blk-body">
+      <div class="stage on-night" style="padding:34px">
+        <svg width="260" height="260" viewBox="0 0 46 46">
+          <clipPath id="panclip"><rect x="0" y="0" width="46" height="46" rx="10.8"/></clipPath>
+          <rect x="0" y="0" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+          <g clip-path="url(#panclip)">
+            <g class="pan">
+              <g transform="translate(-26,-34)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g>
+            </g>
+          </g>
+        </svg>
+        <svg width="132" height="132" viewBox="0 0 46 46">
+          <clipPath id="panclip2"><rect x="0" y="0" width="46" height="46" rx="10.8"/></clipPath>
+          <rect x="0" y="0" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+          <g clip-path="url(#panclip2)">
+            <g class="pan">
+              <g transform="translate(-26,-34)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="rules" style="margin-top:20px">
+        <div class="rule">
+          <h3>Where it is allowed</h3>
+          <p>The launch screen, the first run, the empty state and the share card render. Places a
+            person meets the brand rather than uses the product.</p>
+        </div>
+        <div class="rule no">
+          <h3>Where it is not</h3>
+          <p>Never in the app bar, never on a screen that is loading, never on a repeat visit. A mark
+            that moves while somebody is trying to read a number is the opposite of calm.</p>
+        </div>
+        <div class="rule">
+          <h3>The physics</h3>
+          <p>Eight seconds, one loop, a single easing that starts and ends at rest. It holds on each
+            crop for about a second and a half: long enough that each stop is a composition and not a
+            frame of a video.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FRAMES ================= -->
+  <section class="blk" id="frames">
+    <div class="blk-head">
+      <h2>Not only squares</h2>
+      <p>The rule survives the frame changing shape, which is the part a static logo cannot do. A
+        wide card and a tall story are the same letter with a different window cut out of it, not a
+        squeezed version of the same picture.</p>
+    </div>
+    <div class="blk-body">
+      <div class="stage on-canvas" style="gap:22px;align-items:flex-end">
+        <div>
+          <svg width="320" height="160" viewBox="20 40 64 32">
+            <clipPath id="fw"><rect x="20" y="40" width="64" height="32" rx="7.5"/></clipPath>
+            <rect x="20" y="40" width="64" height="32" rx="7.5" style="fill:var(--field)"/>
+            <g clip-path="url(#fw)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g>
+          </svg>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:8px">2 : 1, the share card</div>
+        </div>
+        <div>
+          <svg width="108" height="192" viewBox="52 12 27 48">
+            <clipPath id="fs"><rect x="52" y="12" width="27" height="48" rx="6.3"/></clipPath>
+            <rect x="52" y="12" width="27" height="48" rx="6.3" style="fill:var(--field)"/>
+            <g clip-path="url(#fs)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g>
+          </svg>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:8px">9 : 16, the story</div>
+        </div>
+        <div>
+          <svg width="120" height="120" viewBox="26 34 46 46">
+            <clipPath id="fc"><circle cx="49" cy="57" r="23"/></clipPath>
+            <circle cx="49" cy="57" r="23" style="fill:var(--field)"/>
+            <g clip-path="url(#fc)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g>
+          </svg>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:8px">the avatar, round</div>
+        </div>
+      </div>
+      <p style="font-size:13.5px;color:var(--text-secondary);margin-top:16px;max-width:72ch">
+        The round frame is the proof that this is a system and not a logo: nothing was redrawn, the
+        window simply stopped having corners. The one rule it obeys is the one below, that the letter
+        must leave the frame on at least two sides.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= IN THE PRODUCT ================= -->
+  <section class="blk" id="product">
+    <div class="blk-head">
+      <h2>In the product</h2>
+      <p>Crop A everywhere a person is working, crop B where the brand is presenting itself. The app
+        bar gets the mark at 22, which is two more than the other directions needed, because a filled
+        chip carries less weight per pixel than a line drawing.</p>
+    </div>
+    <div class="plates">
+      <div class="plate">
+        <div class="plate-label">The app bar and the lockup</div>
+        <div class="stage on-canvas col">
+          <div class="lock">
+            <svg width="30" height="30" viewBox="26 34 46 46"><clipPath id="pl"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+              <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+              <g clip-path="url(#pl)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span class="wm">Tendd</span>
+          </div>
+          <div class="bar">
+            <svg width="22" height="22" viewBox="26 34 46 46"><clipPath id="pb"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+              <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+              <g clip-path="url(#pb)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span class="wm">Tendd</span><span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">Clear space is the frame's own corner radius on every side.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">The tab</div>
+        <div class="stage on-canvas" style="align-items:flex-end;padding-bottom:0">
+          <div class="tabs">
+            <div class="tabf">
+              <svg width="16" height="16" viewBox="26 34 46 46"><clipPath id="pt"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+                <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+                <g clip-path="url(#pt)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+              Tendd
+            </div>
+            <div class="tabf off">Bank</div>
+          </div>
+        </div>
+        <div class="plate-note">A filled 16px tile beats every line mark on this project at the one
+          size that is not negotiable.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">The share card</div>
+        <div class="stage on-canvas" style="padding:18px 12px">
+          <div class="share">
+            <svg class="top" viewBox="20 40 64 20" preserveAspectRatio="none" height="88">
+              <clipPath id="sh"><rect x="20" y="40" width="64" height="20"/></clipPath>
+              <rect x="20" y="40" width="64" height="20" style="fill:var(--field)"/>
+              <g clip-path="url(#sh)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g>
+            </svg>
+            <div class="body">
+              <div class="amt">86.40 a month</div>
+              <div class="cap">14 subscriptions, one you had forgotten</div>
+            </div>
+          </div>
+        </div>
+        <div class="plate-note">The band is a window, not a banner: the letter runs off all four
+          edges and the card owns the rest.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">The home screen</div>
+        <div class="stage on-night" style="gap:18px">
+          <svg width="76" height="76" viewBox="26 34 46 46"><clipPath id="ph"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+            <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+            <g clip-path="url(#ph)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+          <svg width="76" height="76" viewBox="58 20 26 26"><clipPath id="ph2"><rect x="58" y="20" width="26" height="26" rx="6.1"/></clipPath>
+            <rect x="58" y="20" width="26" height="26" rx="6.1" style="fill:var(--field)"/>
+            <g clip-path="url(#ph2)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+        </div>
+        <div class="plate-note">Two candidates for the icon itself. A says the name, C says the brand
+          and holds better next to a screen full of other icons. This is the one open question left.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RULES ================= -->
+  <section class="blk" id="rules">
+    <div class="blk-head">
+      <h2>The rule, written down</h2>
+      <p>A cropping system without rules is a licence to draw anything and call it the logo. Five
+        lines, and any new frame either obeys them or is not the mark.</p>
+    </div>
+    <div class="blk-body">
+      <div class="rules">
+        <div class="rule">
+          <h3>1. The letter is never redrawn</h3>
+          <p>One geometry: bowl 23 with a 15 wall, stem 15 from 6 to 90, on the 100 unit square. A new
+            surface gets a new window, never a new drawing.</p>
+        </div>
+        <div class="rule">
+          <h3>2. It must leave on two sides</h3>
+          <p>Every window has to be crossed. The moment the whole letter fits inside the frame it
+            stops being a crop and becomes a logo in a box, which is the thing this direction exists
+            to avoid.</p>
+        </div>
+        <div class="rule">
+          <h3>3. The corner is the product's</h3>
+          <p>The frame's radius is 23.4 per cent of its short side, which is the same relationship as
+            the app's own <code>--radius</code> on a card. The mark never invents a curve.</p>
+        </div>
+        <div class="rule">
+          <h3>4. Two colours, and one of them is the ground</h3>
+          <p>Letter in petrol, field in paper. At these windows the letter covers about two thirds of
+            the frame, so this is what makes the mark read as petrol. Inverted only on the phone
+            icon. Never a third colour, never an outline.</p>
+        </div>
+        <div class="rule no">
+          <h3>5. Below 16 it is crop A or nothing</h3>
+          <p>B and C are not small marks. At favicon size the counter is the only thing holding the
+            letter together, and only A has it.</p>
+        </div>
+      </div>
+      <div class="tags" style="margin-top:18px">
+        <span class="tag">A4 recognition: the letter of the name at the largest possible size</span>
+        <span class="tag">Taste: Monzo, character without corporate stiffness</span>
+        <span class="tag warn">Open: which crop is the app icon, A or C</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NEXT ================= -->
+  <section class="blk" id="next">
+    <div class="blk-head">
+      <h2>What happens if this is locked</h2>
+    </div>
+    <div class="blk-body">
+      <ol class="chain">
+        <li>The geometry and the five rules go into <b>concept.md</b> under Brand, with the attribute
+          each one traces to, so it is a decision and not a drawing that appeared.</li>
+        <li>The glyph lands in <b>design/system/</b> as one file, and the three crops become three
+          exported assets from it. The lockup joins the kit beside <code>.appbar</code>, so it reaches
+          all 54 screens through the kit and not by editing screens.</li>
+        <li>The favicon and the app icon are cut from crop A, and the repository stops having no icon
+          at all. The one decision still owed is whether the phone icon is A or C.</li>
+        <li>The wordmark's tracking is settled in the same step: today's +0.02em was written for a
+          word standing alone, and this lockup may want less.</li>
+        <li>The motion rule above goes into the animation stage as the first entry, since it is
+          already written and already has a reason.</li>
+      </ol>
+      <p style="font-size:14.5px;color:var(--text-secondary);margin-top:14px">
+        Nothing here touches a token. The mark spends petrol on the third of its three permitted jobs
+        and takes nothing from the primary action.
+      </p>
+      <a class="back" href="logo.html">&#8592; back to all thirteen directions</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  (function () {
+    var sidebar = document.getElementById('sidebar-panel');
+    var overlay = document.getElementById('sidebarOverlay');
+    var toggle = document.getElementById('navToggle');
+    var close = document.getElementById('sidebarClose');
+    if (toggle) toggle.addEventListener('click', function () { sidebar.classList.add('open'); overlay.classList.add('open'); });
+    function shut() { sidebar.classList.remove('open'); overlay.classList.remove('open'); }
+    if (close) close.addEventListener('click', shut);
+    if (overlay) overlay.addEventListener('click', shut);
+  })();
+</script>
+
+<link rel="stylesheet" href="../../_nav.css">
+<script>
+  window.NAV_BASE = '../../';
+  window.NAV_ACTIVE = 'design/concept/directions.html';
+  window.NAV_ACTIVE_LABEL = 'The mark: Crop';
+  window.NAV_SECTIONS = [
+    { id:'system',  label:'The letterform' },
+    { id:'crops',   label:'The three crops' },
+    { id:'motion',  label:'The frame moves' },
+    { id:'frames',  label:'Not only squares' },
+    { id:'product', label:'In the product' },
+    { id:'rules',   label:'The rule' },
+    { id:'next',    label:'If this is locked' },
+  ];
+</script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

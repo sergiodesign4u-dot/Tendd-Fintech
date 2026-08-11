@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App shell - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>App shell</h1>
+    <p class="lead">The root every screen carries, and the thing that decides what a screen IS at a width. On a phone it is a column with the tab bar on the glass; past a 760px container it is a two-track grid with both chromes stacked in a 240px rail; past 900 the content column stops being a column and starts being a layout. It is the last file in the cascade and the only one that contains every other.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>54</strong> grey pages</span><span>3 forms</span><span>no states</span><span>2 container steps</span><span>hosts everything</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note"><b>This anatomy is shown on the screens that hold it and not inside a stage, and that is a measurement rather than a shortcut.</b> The shell declares <code>min-height: 100dvh</code> at every width and <code>height: 100dvh</code> past a 760 container, and below 760 the tab bar inside it is <code>position: fixed</code> to the viewport. A live shell dropped into a stage on this page would therefore be as tall as the window at every width, and at 360 its tab bar would leave the stage entirely and stick to the bottom of this documentation page. An anatomy that only exists inside its own scope is shown on the scene that holds it, so every part below is named against a class and linked to the coloured screen where it can be opened and measured.</p>
+    <ul class="kit-callouts">
+      <li><code>.app</code> <span>the shell itself. A flex column on paper, at least as tall as the viewport. <code>min-height</code> is written twice, <code>100vh</code> then <code>100dvh</code>: the second is correct on a phone whose browser chrome grows and shrinks, the first is the fallback for a browser that does not know it</span></li>
+      <li><code>.appbar</code> <span><b>an organism.</b> The <a href="app-bar.html">App bar</a>. It places itself into the shell's grid from its own file, which is the same convention that leaves <code>.appbar .plan</code> in <code>chip.css</code></span></li>
+      <li><code>.screen</code> <span>the content pane, and the only child the shell sizes directly. <code>flex: 1</code>, so the tab bar sits at the bottom of a short screen instead of floating halfway up</span></li>
+      <li><code>padding-bottom</code> <span>reads <code>calc(var(--row) + var(--space-48))</code>, which is the fixed tab bar's own 56px floor plus 48px of air. Never an arbitrary 104: the value is derived from a component's height and moves when that height moves</span></li>
+      <li><code>&gt; :last-child { margin-bottom: 0 }</code> <span>the foot, and it is what makes the line above true. A block's bottom margin is a gap to a next sibling, and the block that ends the screen has none, so until 2026-08-12 the declared 48px of clearance was 48 on the screens whose last block carried no margin and 72 on the screens whose last block did</span></li>
+      <li><code>.tabbar</code> <span><b>an organism.</b> The <a href="tab-bar.html">Tab bar</a>, fixed to the glass below 760 and static in row 2 of the rail above it</span></li>
+      <li><code>.form-col</code>, <code>.rows-col</code> <span>the shell's own two content columns. They carry no component and never will: they exist to be measured by the shell and to hold whatever the screen puts in them</span></li>
+      <li><code>.col1</code>, <code>.col2</code> <span>the two tracks of the detail form. They carried no rule of any kind in the grey and held only because they were anonymous grid children</span></li>
+      <li><code>min-width: 0</code> <span>on all four. The default minimum of a flex or grid child is <code>auto</code>, and one long unbroken statement string (<code>SPOTIFYAB STOCKHOLM</code> is a real one) widens its own track and pushes the other one off the screen</span></li>
+    </ul>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Open the shell here</th><th>Form</th><th>What to look at</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../home.html">Home</a></td><td><code>.app</code></td><td>the steady form, and the only screen that uses all three of the 900 layouts at once: the dashboard head, the groups column set and the four <code>order</code> declarations</td></tr>
+          <tr><td><a href="../subscription-detail.html">Subscription detail</a></td><td><code>.app.detail</code></td><td>the two-track grid past 900, with <code>.col1</code> and <code>.col2</code> and a 48px gutter</td></tr>
+          <tr><td><a href="../upgrade.html">Upgrade</a></td><td><code>.app.flow</code></td><td>the opt-out: one centred column, no tab bar, and the <code>:has(.plans)</code> widening from 620 to 760</td></tr>
+          <tr><td><a href="../add-subscription.html">Add a subscription</a></td><td><code>.app.flow</code></td><td><code>.form-col</code> holding its 560px measure past a 760 container</td></tr>
+          <tr><td><a href="../settings.html">Settings</a></td><td><code>.app</code></td><td><code>.rows-col</code> holding its 620px measure. One of the two screens where that measure came unbound past 900 and was found by widening the window</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis, three values, and it is chosen by <b>what the screen is for</b> rather than by what it holds. The steady form is a place you are; the flow is a chain you are walking; the detail is one thing seen from two sides. Every one of the 54 pages is exactly one of the three, counted by opening them: 20 steady, 26 flow, 8 detail in the grey, and 12, 10 and 6 in colour.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Form<p class="axis-rule">Chosen by the JOB of the screen. A screen with a destination in the tab bar is steady; a screen that is one step of a chain is flow; a screen about one subscription is detail. Nothing about the content decides it</p></th>
+            <th class="val">Class</th>
+            <th class="val">Pages</th>
+            <th>What the shell does</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Steady</b></td>
+            <td class="val">.app</td>
+            <td class="val">20 grey<br>12 coloured</td>
+            <td>Column on a phone, two-track grid past 760, and past 900 the content column reorders its children: head 1, secondary 2, groups 3, trust 4. Home, Alerts, Settings, Save, and the state pages of each</td>
+          </tr>
+          <tr>
+            <td><b>Flow</b></td>
+            <td class="val">.app.flow</td>
+            <td class="val">26 grey<br>10 coloured</td>
+            <td><b>An opt-out and not a variant.</b> One centred 620px column at every width, no tab bar, and therefore 64px at the foot instead of 104. It overrides the desktop grid rather than inheriting it, at 0-3-0 against the container rule's 0-2-0, so the query never touches it</td>
+          </tr>
+          <tr>
+            <td><b>Detail</b></td>
+            <td class="val">.app.detail</td>
+            <td class="val">8 grey<br>6 coloured</td>
+            <td>Steady up to 900, then <code>.screen</code> becomes a second grid: <code>minmax(300px, 1fr) minmax(320px, 1fr)</code> with a 48px gutter. The mobile order reads left to right, so "what is this" stays in front of "what now"</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A fourth form for the landing</td>
+            <td class="kit-empty">-</td>
+            <td class="kit-empty">-</td>
+            <td><b>Forbidden with a reason rather than missing.</b> <code>index.html</code> is the one page in the project with no shell at all, and it carries 39 classes in its own <code>lp-</code> namespace and runs on media queries throughout. It is a marketing page and not an app screen, and giving it a shell would put a tab bar on a page with no destinations. <code>docs/inventory.md</code> records it as a one-off, entire</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>One screen inside the flow is not prose, and the widening is a named decision from stage 07 rather than drift.</b> A row of three plan cards asks for 720px of its own in <code>grid.css</code> and could never reach it inside 620, so the three were crushed to 185px each and both the button label and "Everything in Tendd Pro" wrapped. <code>.app.flow &gt; .screen:has(.plans)</code> lifts that one screen to 760, which is exactly the 720 the plan row asks for plus the screen's own two 16px margins and no more, so every other step of the chain keeps its reading measure. <code>:has()</code> rather than a class, because the screen that carries a plan row is identifiable by what is inside it.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">There is no choosing here: <b>every screen in the product is inside one</b>, and the only question a builder answers is which of the three forms. That is the point of the component. The shell is where the product's two navigation models live, and <code>DESIGN.md</code> states the swap in one sentence: the tab bar is bottom chrome on mobile, and at a 760px container the whole shell becomes a dashboard, with the tab bar rotated into a 240px left rail on the panel tint, the app bar folded into the top of that rail, and the content taking the remaining width.</p>
+    <p class="note"><b>Container queries and not media queries, and the difference is not academic.</b> A screen reflows on the width it is actually GIVEN rather than on the width of the browser, which on a review page is 250px less. A media query here would silently change how all 55 screens behave. It is also why the container is declared on <code>body</code> in <code>base.css</code> rather than here: a container query matches an ancestor and never the element itself, so a <code>container-type</code> on the shell could not style the shell, and it would re-point every query inside it at a different box.</p>
+    <p class="note"><b>The 900 step is where the product stops being a phone screen stretched wide.</b> Three components exist only past it and none of them is in this file: the <a href="dashboard-head.html">Dashboard head</a> puts the total beside the one thing that needs attention, the <a href="groups-column-set.html">Groups column set</a> runs the categories in two columns and then three, and the detail form splits into two tracks. What the shell contributes is the flex column that lets them be reordered and the removal of the blanket 780px measure that would otherwise hold them all to one width.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Order the siblings from the shell</span>
+        <code class="kit-cmd">.app &gt; .screen &gt; .head       { order: 1 }
+.app &gt; .screen &gt; nav.actions { order: 2 }
+.app &gt; .screen &gt; .groups     { order: 3 }
+.app &gt; .screen &gt; .trust      { order: 4 }
+
+measured at a 908px container: 1, 2, 3, 4
+measured at a 892px container: 0, 0, 0, 0</code>
+        <p><b>Four declarations that only mean anything together.</b> The DOM keeps the mobile-first order, where the add action sits after the list because the job of Home is to look and not to add; on a dashboard that same order puts the action under the shorter of two columns, where it reads as leftovers rather than as the way on. Three of the four were correctly <b>refused</b> by the component that owns the element they name: <code>trust-block.css</code> made the call first for <code>order: 4</code> and named it, <code>dashboard-head.css</code> did the same for <code>order: 1</code>, <code>groups-column-set.css</code> for <code>order: 3</code>. Ordering siblings is the parent's job. Lose any one of them and the screen reads in source order with nothing erroring.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never take the third reading measure</span>
+        <code class="kit-cmd">.app &gt; .screen &gt; .form-col   { max-width: 560px }   app-shell.css
+.app &gt; .screen &gt; .rows-col   { max-width: 620px }   app-shell.css
+.app &gt; .screen &gt; .card.prose { max-width: 560px }   card.css</code>
+        <p>The three sat side by side in <code>kit.css</code> and they do not have one owner. <code>.form-col</code> and <code>.rows-col</code> carry no component, so they are the shell's. <code>.card.prose</code> is a <a href="card.html">Card</a>, and the subject of a rule owns it, so <code>card.css</code> declares that one. Taking all three would give one measure two owners, and the pair would drift apart the day either moved. This is the same call <code>chart-placeholder.css</code> makes about its own 220px height inside the same container block.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Bind a measure through the child combinator</span>
+        <code class="kit-cmd">@container (min-width: 760px) { .app &gt; .screen &gt; .form-col { max-width: 560px } }   0-3-0, holds
+@container (min-width: 900px) { .app &gt; .screen &gt; *         { max-width: none  } }   0-2-0, loses
+
+measured at a 908px container: .form-col 560px, .rows-col 620px, everything else none</code>
+        <p>Written as <code>.app .form-col</code> the measure ties at 0-2-0 with the blanket <code>max-width: none</code> in the 900 block, loses on source order, and unbinds with <b>no symptom anybody would look for</b>: the form ran at 588 instead of 560, the settings column at 733 instead of 620, and the Pro gate at 748 instead of 560. Two of those were on screens the stage had already accepted at 360 and at 760. A measure that holds at one width and silently stops holding at a wider one is why a desktop viewport is its own acceptance pass.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never read the DOM for the foot past 900</span>
+        <code class="kit-cmd">@container (width &lt; 900px)  { .app &gt; .screen &gt; :last-child                     { margin-bottom: 0 } }
+@container (min-width: 900px) { .app &gt; .screen:not(:has(&gt; .head)) &gt; :last-child { margin-bottom: 0 } }
+
+home-empty, measured at 1280:
+  .empty  order 0   renders at y=30
+  .head   order 1   renders at y=245</code>
+        <p><b>One rule split across the 900 step, because past it the DOM's last child is not the screen's last block.</b> The four <code>order</code> declarations above are what does it: on home-empty the empty state carries no order and renders first, the head carries order 1 and renders last, so zeroing <code>:last-child</code> there would close a real 24px gap between two blocks instead of a foot. <code>:has(&gt; .head)</code> marks a reordered screen exactly, because <code>.head</code> is the only ordered element a screen can carry on its own. On the four Home states that are not empty the ordered-last block is <code>.trust</code> or <code>.groups</code>, and both already carry no bottom margin, so the guard costs nothing measurable at either width.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The padding is the foot</span>
+        <code class="kit-cmd">.app &gt; .screen { padding-bottom: calc(var(--row) + var(--space-48)) }
+
+add-subscription at 360, before: screen 1138px, 80px under .actions
+add-subscription at 360, after:  screen 1122px, 64px under it
+guided-reveal   at 1280, before: screen 1100px, 88px under .rstep
+guided-reveal   at 1280, after:  screen 1076px, 64px under it</code>
+        <p>A block's bottom margin is a gap to a next sibling, and the block that ends the screen has none: it lands on the padding instead and the foot silently becomes two numbers added together. <b>The 104 is the argument, not the 64.</b> The foot of a steady screen reads "the tab bar, and 48px of air over it", and a child's margin turned that 48 into 72 on the screens whose last block happened to carry one, so one declared clearance was two distances across one product. The rule is written here and not in the child's file because a block cannot know that it is last, and a margin is position rather than paint.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never declare a container here</span>
+        <code class="kit-cmd">.app { container-type: inline-size }
+
+measured, 2026-08-11:
+  tab bar without it   240px, a rail beside the content
+  tab bar with it      965px, a block below it
+  and nothing errors, in either case</code>
+        <p><b>The trap of the whole round, and it is measured rather than reasoned.</b> A container query matches an ancestor and never the element itself, so <code>container-type</code> here could not let the shell query its own width; it would re-point the tab bar's 760, the dashboard head's 900 and the column set's 1340 at a different box, silently. With it on <code>.app</code> the tab bar keeps its column flow and still loses its rail. The container is declared once, on <code>body</code>, in <code>base.css</code>, with the reasoning and a 33-width verification at the foot of that file.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>No states, and the reason is structural rather than an omission.</b> The shell is a <code>div</code> on all 54 pages. It has no <code>href</code>, no button, no summary, no <code>tabindex</code> and no <code>role</code> of its own, and <code>kit.css</code> gave it no pointer response either. Every target inside it belongs to something else: the app bar's two links, the tab bar's four anchors, and every control on the screen between them, each with its own states on its own page. A hover written here would answer for fifty components that already answer for themselves.</p>
+    <p class="note">The three things that <b>look</b> like states and are not are the two container steps and the flow's opt-out. None of them is caused by anything a person does; all three are in the matrix above with the query that fires them, and both queries are verified on both sides in the technical half below.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the shell's own ground</td><td><code>--bg-surface</code></td><td><code>--paper</code>, and <code>--paper-dark</code> in the dark theme. <b>The only colour in the file:</b> no ink, no line, no radius anywhere below it</td></tr>
+          <tr><td>the foot that clears the tab bar</td><td><code>--row</code> inside a <code>calc</code></td><td>primitive, straight. 56px, the same anchor floor <code>tab-bar.css</code> reads, so the two can never disagree</td></tr>
+          <tr><td>the screen's padding</td><td><code>--space-16</code>, then <code>--space-32</code> / <code>--space-40</code> / <code>--space-48</code> past 760</td><td>primitive, straight</td></tr>
+          <tr><td>the flow column's padding</td><td><code>--space-24</code>, <code>--space-16</code>, <code>--space-64</code></td><td>primitive, straight</td></tr>
+          <tr><td>the detail grid's gutter</td><td><code>--space-48</code></td><td>primitive, straight</td></tr>
+          <tr><td>the secondary's margin past 900</td><td><code>--space-24</code></td><td>primitive, straight. A host margin, exactly as <code>.gate .actions</code> and <code>.card.prose .actions</code> are, and it sets no fill, ink, size or edge on the action row</td></tr>
+          <tr><td>the foot it takes from the last block</td><td><code>--space-0</code></td><td>primitive, straight. The only property this file sets on a hosted component, and it is a position. The paint stays with <code>action-row.css</code>, <code>quiet-line.css</code>, <code>reveal-step.css</code>, <code>category-group.css</code> and <code>empty-block.css</code>, and every one of those five classes keeps its own margin everywhere else it stands</td></tr>
+          <tr><td>the rail track, the reading measures, the two track minimums</td><td>240 / 780 / 620 / 560 / 300 / 320</td><td>WIDTHS, which are on neither scale. <code>--tap</code> and <code>--row</code> are the only size primitives the system has and none of these is either. The same hole <code>dashboard-head.css</code> records for its own two tracks</td></tr>
+          <tr><td>the viewport</td><td>100vh, 100dvh</td><td>viewport units, on no scale. Written twice on purpose: <code>dvh</code> is right on a phone and <code>vh</code> is the fallback</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Both container queries, verified on both sides, driving the real container rather than the viewport.</b> The container is <code>body</code> and on a page with a docked panel that is 268px narrower than the window, so a probe that sets a viewport width measures the wrong box. Driven to the exact container width and read back on a real shell: at a <b>752px</b> container the shell computes <code>display: flex</code>, <code>grid-template-columns: none</code> and the screen's padding is <code>16px 16px 104px</code>; at <b>768px</b> it computes <code>display: grid</code>, <code>grid-template-columns: 240px 528px</code>, <code>overflow: auto</code> and the padding is <code>32px 40px 48px</code>. At <b>892px</b> the screen is still <code>display: block</code>, its children carry the blanket <code>max-width: 780px</code>, and all four <code>order</code> values read 0; at <b>908px</b> the screen is <code>display: flex</code>, the children compute <code>max-width: none</code> except <code>.form-col</code> at 560 and <code>.rows-col</code> at 620, and the four orders read 1, 2, 3, 4. The exact edges hold too: 759 is still the narrow form and 760 is already the wide one.</p>
+    <p class="note"><b>The foot, measured on both sides of the change and at both ends of the range, on all 28 coloured screens.</b> Four screens move and the rest do not, and the reason the rest do not is worth as much as the reason the four do. At 360: add-subscription 1138 to 1122, guided-reveal 1351 to 1327, upgrade-current-plan 758 to 739. At 1280: add-subscription 1197 to 1181, guided-reveal 1100 to 1076. Everywhere else the screen is either <b>stretched</b> by <code>flex: 1</code> because its content is shorter than the viewport, or it is the scroll pane past 760 and its content does not overflow, so the margin was invisible and removing it moves nothing on screen. upgrade-current-plan is the honest case: the margin was 24px and the page only lost 19, because at 19 the screen hit the stretch floor. <b>The change is an improvement rather than a smaller number in five places and a correction on paper everywhere else</b>, and both halves were measured rather than argued.</p>
+    <p class="note"><b>What this file does not write, and the list is the argument for where a rule lives.</b> <code>.app &gt; .appbar</code> and <code>.app &gt; .tabbar</code>, at both widths, live in <a href="app-bar.html">app-bar.css</a> and <a href="tab-bar.html">tab-bar.css</a>: a host positioning its child is written in the child's file today, and <code>tab-bar.css</code> says so out loud at the line precisely because this file could reasonably have claimed those four declarations. <code>.app.detail .muted</code> lives in <code>muted-line.css</code> on the same rule from the other side. And <code>.app .head</code>, <code>.app .groups</code>, <code>.app .group</code> and <code>.app .chart</code> all sat inside the same two container blocks in <code>kit.css</code> and not one of them is here: they are four other components. What the shell keeps is only what names its own boxes.</p>
+    <p class="note">Lives in <code>design/system/components/app-shell.css</code>, and it is the last <code>@import</code> in <code>design/system/index.css</code>: the ladder puts a part above the thing that contains it, and this contains every part there is. Stands on 54 grey pages, which is every page in <code>wireframes/</code> except the landing and the stage hub, and 28 of them are coloured.</p>
+    <code class="kit-cmd">&lt;div class="app"&gt;
+  &lt;header class="appbar"&gt;...&lt;/header&gt;
+  &lt;main class="screen"&gt;
+    ...
+  &lt;/main&gt;
+  &lt;nav class="tabbar" aria-label="Global navigation"&gt;...&lt;/nav&gt;
+&lt;/div&gt;
+
+&lt;div class="app flow"&gt;      one centred column, no tab bar
+&lt;div class="app detail"&gt;    two tracks past a 900 container</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/app-shell.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The container it queries is declared on <code>body</code> in <code>design/system/base.css</code>, with the measurement that put it there; the four <code>order</code> declarations were held for this component in <code>docs/backlog.md</code> and named in three other component files before it existed.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

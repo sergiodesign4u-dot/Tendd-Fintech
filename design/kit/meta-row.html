@@ -51,12 +51,12 @@
     <h2>Anatomy</h2>
     <p class="note">One zone and a repeated content slot, and nothing from the kit inside it, which is what keeps it an atom. Everything below is drawn by <code>design/system/components/meta-row.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from. Both specimens carry real product copy.</p>
     <div class="kit-stage app col">
-      <p class="axis"><span>May</span><span>Jun</span><span>Jul</span></p>
-      <p class="strip"><span>About five minutes</span><span>Steps for netflix.com, which is how you pay for this one</span></p>
+      <p class="metarow"><span>May</span><span>Jun</span><span>Jul</span></p>
+      <p class="metarow ruled"><span>About five minutes</span><span>Steps for netflix.com, which is how you pay for this one</span></p>
     </div>
     <ul class="kit-callouts">
-      <li><code>.axis</code> <span>the plain form: a wrapping flex row in the single secondary ink tier, at 11px, with its labels pushed apart by <code>space-between</code></span></li>
-      <li><code>.strip</code> <span>the ruled form: the same row at 12.5px, with a rule above and a rule below, and a real gap instead of <code>space-between</code></span></li>
+      <li><code>.metarow</code> <span>the plain form: a wrapping flex row in the single secondary ink tier, at 11px, with its labels pushed apart by <code>space-between</code>. It was <code>.axis</code> until step 6</span></li>
+      <li><code>.metarow.ruled</code> <span>the ruled form: the same row at 12.5px, with a rule above and a rule below, and a real gap instead of <code>space-between</code>. It was <code>.strip</code></span></li>
       <li><code>&gt; span</code> <span>the labels. Plain <code>span</code> elements with no class of their own: the row positions them, and nothing styles them individually</span></li>
       <li><code>flex-wrap</code> <span><code>wrap</code> on both, and it does more work than it looks. The ruled form's second label is a whole sentence, and at 360px it has to fall to its own line rather than squeeze the label beside it</span></li>
       <li><code>border-top</code>, <code>border-bottom</code> <span>the only declarations that separate the two forms structurally. Both read <code>--line-divider</code>, the softer of the two line tokens</span></li>
@@ -79,19 +79,19 @@
         </thead>
         <tbody>
           <tr>
-            <td><b>Plain</b> <code>.axis</code></td>
+            <td><b>Plain</b> <code>.metarow</code></td>
             
             <td class="val">11px<br>space-between<br>6px 0 24px</td>
             <td>3 places, all of them directly under a <a href="chart-placeholder.html">chart placeholder</a>. <code>space-between</code> rather than a gap, because these labels are not a list: each one names a position on the plot above and has to sit under it. The first pins left, the last pins right, and that is what makes three months or five categories line up with the strokes</td>
           </tr>
-          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="axis"><span>May</span><span>Jun</span><span>Jul</span></span></span></td></tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="metarow"><span>May</span><span>Jun</span><span>Jul</span></span></span></td></tr>
           <tr>
-            <td><b>Ruled</b> <code>.strip</code></td>
+            <td><b>Ruled</b> <code>.metarow.ruled</code></td>
             
             <td class="val">12.5px<br>gap 4px 22px<br>10px padding<br>2 &times; --line-divider</td>
             <td>2 places, both on a cancel guide. Its labels <b>are</b> a list, so they take a real gap: how long this will take, and where the steps came from. The two rules are what turn two stray sentences into one band of facts about the page</td>
           </tr>
-          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="strip"><span>About five minutes</span><span>The general path, because we have no tailored steps for this service yet</span></span></span></td></tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="metarow ruled"><span>About five minutes</span><span>The general path, because we have no tailored steps for this service yet</span></span></span></td></tr>
           <tr>
             <td class="kit-empty">A third form</td>
             
@@ -102,8 +102,8 @@
       </table>
     </div>
     <p class="note"><b>The step from 11px to 12.5px is the point, not drift.</b> The plain form is a caption for a picture and is read only by somebody following the plot; the ruled form is content a person actually reads before deciding whether to start. Two jobs, two sizes, and the size follows the job rather than the host.</p>
-    <p class="note"><b>The ruled form is decided from the grey, not invented here.</b> <code>.strip</code> stands on <b>zero</b> coloured pages: it lives on <a href="../../wireframes/cancel-guide.html">cancel-guide</a> and <a href="../../wireframes/cancel-guide-no-guide.html">cancel-guide-no-guide</a>, and neither has ever been drawn in colour. <code>docs/census.md</code> lists it under "Meta strip" as one of the seventeen forms that exist only in the grey, and names the risk exactly: a form nobody has drawn is a form every later builder invents independently, differently each time. Every value above came from <code>wireframes/_wf.css:810-814</code> with only the colour layer added, so stage 12 has something to match rather than something to guess.</p>
-    <p class="note"><b>Two selectors, one component, and the names are not touched here.</b> <code>.axis</code> becomes <code>.metarow</code> and <code>.strip</code> becomes <code>.metarow.ruled</code> at step 6, executed from the map in <code>docs/inventory.md</code> together with the markup of the screens. A rename here and a screen there is how a pixel comparison stops proving anything.</p>
+    <p class="note"><b>The ruled form is decided from the grey, not invented here.</b> The ruled form stands on <b>zero</b> coloured pages: it lives on <a href="../../wireframes/cancel-guide.html">cancel-guide</a> and <a href="../../wireframes/cancel-guide-no-guide.html">cancel-guide-no-guide</a>, and neither has ever been drawn in colour. <code>docs/census.md</code> lists it under "Meta strip" as one of the seventeen forms that exist only in the grey, and names the risk exactly: a form nobody has drawn is a form every later builder invents independently, differently each time. Every value above came from <code>wireframes/_wf.css:810-814</code> with only the colour layer added, so stage 12 has something to match rather than something to guess.</p>
+    <p class="note"><b>Two selectors, one component, and step 6 took the second name off.</b> <code>.axis</code> became <code>.metarow</code> and <code>.strip</code> became <code>.metarow.ruled</code>, executed from the map in <code>docs/inventory.md</code> together with the markup of the screens. A rename here and a screen there is how a pixel comparison stops proving anything, so both moved in one pass.</p>
   </section>
 
   <section class="kit-sec" id="usage">
@@ -118,24 +118,24 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">Use a meta row</span>
-        <div class="kit-stage app full wide"><span class="strip"><span>About five minutes</span><span>Steps for netflix.com, which is how you pay for this one</span></span></div>
+        <div class="kit-stage app full wide"><span class="metarow ruled"><span>About five minutes</span><span>Steps for netflix.com, which is how you pay for this one</span></span></div>
         <p>Two or three short facts that belong together and belong to nothing else on the page. They read across, not down, so they cost one line of vertical space and stay skippable for the person who does not need them.</p>
       </div>
       <div class="no">
         <span class="hd">Use a pair list instead</span>
-        <div class="kit-stage app full wide"><span class="consequence">How long it takes &middot; about five minutes &nbsp;&nbsp; Where the steps came from &middot; netflix.com</span></div>
+        <div class="kit-stage app full wide"><span class="muted">How long it takes &middot; about five minutes &nbsp;&nbsp; Where the steps came from &middot; netflix.com</span></div>
         <p>The moment each fact needs a <b>label of its own</b>, the row is the wrong object: it has no place to put one, and adding it inline turns the row into a paragraph of run-together phrases. That job belongs to the <b>pair list</b>, <code>.pairs</code>, which gives every fact a label and a value on their own line, divided by a hairline. The test is simple: if a reader has to be told what a value <i>is</i>, use the pair list; if the value says what it is, use this.</p>
       </div>
     </div>
     <div class="kit-do">
       <div class="yes">
         <span class="hd">Let the rules fence a row of labels</span>
-        <div class="kit-stage app full wide"><span class="strip"><span>About five minutes</span><span>The general path, because we have no tailored steps for this service yet</span></span></div>
+        <div class="kit-stage app full wide"><span class="metarow ruled"><span>About five minutes</span><span>The general path, because we have no tailored steps for this service yet</span></span></div>
         <p>A rule above and a rule below, around several labels sitting side by side. The band is the unit, and the two lines are what make the eye read it as one.</p>
       </div>
       <div class="no">
         <span class="hd">Use a ruled muted line instead</span>
-        <div class="kit-stage app full wide"><span class="consequence">Tendd never moves money and never has access to your account.</span></div>
+        <div class="kit-stage app full wide"><span class="muted">Tendd never moves money and never has access to your account.</span></div>
         <p>One paragraph with a rule above it is a different component: the <b>muted line</b> in its ruled form, <code>.muted.ruled</code>, which is what the legal footnote is on seven grey pages. The two look similar in a screenshot and are not the same object, and the difference is the anatomy rather than the styling: this component is a <b>row of several labels</b>, that one is a <b>single block of prose</b>. Using the ruled meta row for one sentence gives it a second rule underneath that fences off nothing.</p>
       </div>
     </div>
@@ -159,9 +159,9 @@
       </table>
     </div>
     <p class="note">Lives in <code>design/system/components/meta-row.css</code>. Stands on 5 grey pages in 5 places. Coloured screens carrying it, all three of them the plain form: <a href="../history-trends.html">History and trends</a>, <a href="../history-trends-locked.html">the Pro gate</a>, <a href="../history-trends-empty.html">empty</a>. The ruled form stands on none, and its two grey homes are named in the matrix above.</p>
-    <code class="kit-cmd">&lt;p class="axis"&gt;&lt;span&gt;May&lt;/span&gt;&lt;span&gt;Jun&lt;/span&gt;&lt;span&gt;Jul&lt;/span&gt;&lt;/p&gt;
+    <code class="kit-cmd">&lt;p class="metarow"&gt;&lt;span&gt;May&lt;/span&gt;&lt;span&gt;Jun&lt;/span&gt;&lt;span&gt;Jul&lt;/span&gt;&lt;/p&gt;
 
-&lt;p class="strip"&gt;
+&lt;p class="metarow ruled"&gt;
   &lt;span&gt;About five minutes&lt;/span&gt;
   &lt;span&gt;Steps for netflix.com, which is how you pay for this one&lt;/span&gt;
 &lt;/p&gt;
@@ -171,7 +171,7 @@ the component is the pair list, not this.</code>
   </section>
 
   <footer class="kit-foot">
-    Drawn by <code>design/system/components/meta-row.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The box the plain form captions is the <a href="chart-placeholder.html">chart placeholder</a>. The consolidation that merged <code>.axis</code> and <code>.strip</code> is in <code>docs/inventory.md</code>; the ruled form's absence from the coloured sample is counted in <code>docs/census.md</code>.
+    Drawn by <code>design/system/components/meta-row.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The box the plain form captions is the <a href="chart-placeholder.html">chart placeholder</a>. The consolidation that merged <code>.axis</code> and <code>.strip</code> into <code>.metarow</code> is in <code>docs/inventory.md</code>; the ruled form's absence from the coloured sample is counted in <code>docs/census.md</code>.
   </footer>
 </div>
 

@@ -11,11 +11,11 @@
      spacing  --space-0, --space-2, --space-8, --space-16, --space-24
      geometry --radius, --tap
      type     --type-body, --type-meta
-   Hosts     the chip (`.best`), the amount (the price), the eyebrow (the
-             "Everything in Tendd Pro" label) and the button. Every one of those
-             four is drawn by its own file, including the three host-scoped
-             sizes: `.plan-opt .best` is in chip.css, `.plan-opt .amt` in
-             amount.css, `.plan-opt .incl .k` in eyebrow.css. This file
+   Hosts     the chip (the Best value badge), the amount (the price), the
+             eyebrow (the "Everything in Tendd Pro" label) and the button. Every
+             one of those four is drawn by its own file: the chip's accent paint
+             is `.tone-accent` in chip.css, worn by the markup, `.plan-opt .amt`
+             is in amount.css and `.plan-opt .incl .k` in eyebrow.css. This file
              positions them and nothing more.
    Page      design/kit/plan-option.html
    Stands on 2 grey pages, 6 cards, and on 1 coloured one.
@@ -30,10 +30,11 @@
    TWO THINGS WERE CARRIED RATHER THAN SETTLED, and both are on the page with
    the same words. Neither was the builder's to decide alone and neither was
    silently changed, because this stage may not move a pixel that no decision
-   asked for. The first has since been closed by the parent, in the place marked
-   below; the second is still open:
+   asked for. BOTH ARE NOW CLOSED, the first by the parent and the second by the
+   founder's review of the components on 2026-08-12, and each is marked at the
+   rule it belongs to:
 
-   1. THE HOVER HAD NO TOKEN. kit.css hovers this card by strengthening its edge
+   1. THE HOVER HAD NO TOKEN. kit.css hovered this card by strengthening its edge
       from --hairline to --hairline-strong. --hairline-strong is the one light
       primitive in tokens.css serving no role at all, and `.plan-opt:hover` is
       its only consumer left in the product. There is no semantic role at that
@@ -49,11 +50,20 @@
       role. The hover is back at kit.css's value, zero pixels moved. See the
       rule.
 
-   2. THE PARAGRAPH REPAINTS AN ATOM. `.plan-opt .p` sets the muted line to body
-      ink. See the rule.
+   2. THE PARAGRAPH REPAINTED AN ATOM. `.plan-opt .p` set the muted line to body
+      ink where the atom gives muted ink everywhere else.
+      CLOSED at the founder's review of the components, 2026-08-12, by the second
+      of the two answers that were on the page: the card accepts muted ink like
+      every other card in the product. See the rule for the argument and for the
+      measured before and after.
 
-   THE CLASS NAMES ARE NOT TOUCHED. `.plan-opt` and its five slots stay as the
-   product writes them, on both hosts.
+   THE NAMES MOVED ONTO THE SYSTEM AT STEP 6, from the renaming map in
+   docs/inventory.md, and this file's selectors were renamed in the same wave as
+   the markup of the screens. Two of the card's slots changed name: the badge
+   is `.chip` (plus `.tone-accent`, which the markup now carries) where it was
+   `.best`, and the sentence under the price is `.muted` where it was `.p`.
+   `.plan-opt` itself and its three own slots (`.per`, `.q`, `.incl`) keep their
+   names on both hosts.
    ============================================================================ */
 
 /* ONE RULE, TWO HOSTS. `.app` for the paywall and `.landing` for the welcome
@@ -74,8 +84,26 @@
 /* ---- positioning the atoms it hosts, and nothing else -------------------- */
 
 /* The badge shrinks to its text instead of stretching across a column child,
-   and it is the only card in the set that carries one. */
-.app .plan-opt .best, .landing .plan-opt .best {
+   and it is the only card in the set that carries one.
+
+   RENAMED AT STEP 6, and the selector is `.chip` rather than `.tone-accent` on
+   purpose. What this rule states is where a chip SITS in this card, which is a
+   fact about the card and not about the tone: a quiet chip standing here one day
+   would want the same flex-start and the same 8px, and keying placement to the
+   accent would silently drop both. The paint stays where it belongs, on
+   `.tone-accent` in chip.css, worn by the markup.
+
+   chip.css says at its accent rule that the replacement for `.plan-opt .best` is
+   NOT `.plan-opt .chip`, and that is right about the half it is talking about.
+   That sentence is about PAINT: a host reaching in to colour a child is the
+   defect, and the tone had to stop being one card's private arrangement. This
+   rule paints nothing. It sets an alignment and a margin, which is exactly what
+   chip.css's own placement block calls the host's job, and it is host-scoped for
+   the same reason the five placements in that block are. The one difference is
+   that this one is written in the host's file rather than in the chip's, and it
+   was written there before this wave: the rename kept it where it stood rather
+   than moving a rule and renaming it in the same breath. */
+.app .plan-opt .chip, .landing .plan-opt .chip {
   align-self: flex-start;
   margin: var(--space-0) var(--space-0) var(--space-8);
 }
@@ -102,22 +130,46 @@
   color: var(--text-muted);
 }
 
-/* CARRIED, NOT SETTLED: this rule changes the ink of an atom it hosts. `.p` is
-   the muted line, and muted-line.css gives it --text-muted at every size; here
-   the host steps it up to --text-body. That is a host restyling an atom, which
-   is the defect this round exists to remove, and it is not removed here for two
-   reasons: dropping it changes three paragraphs on a live coloured screen with
-   no decision behind the change, and the fix is not this file's to choose. The
-   two honest answers are an emphasis modifier on the muted line, or the card
-   accepting muted ink like every other card in the product. Reported, and on
-   the page.
-   `flex: 1 1 auto` is the part that is unambiguously this file's: it makes the
-   sentence absorb the height difference between three cards of unequal copy, so
-   the three buttons land on one line. */
-.app .plan-opt .p, .landing .plan-opt .p {
+/* SETTLED, and the repaint is gone. This rule used to set `color: --text-body`
+   on the muted line, where muted-line.css gives that atom --text-muted at every
+   size and in every other place it stands. A host restyling an atom is the exact
+   defect this round exists to remove, so it was carried rather than fixed until
+   somebody could choose between the two honest answers: an emphasis modifier
+   declared on the muted line, or the card accepting muted ink like every other
+   card. The founder's review of the components, 2026-08-12, took the second, on
+   three grounds:
+
+     The paragraph is not the decision. Under a price the size of this one, the
+     sentence is the supporting line that explains it, and the product's Two
+     Tiers Rule puts a supporting line in the secondary tier. Body ink here was
+     saying "read this as hard as you read the price", which is not true of "Month
+     to month. Cancel any time, no lock-in."
+
+     Every other card in this product lets its supporting line be muted. There is
+     nothing about a card that asks for money that makes it the exception, and
+     making it one is how the paywall starts shouting.
+
+     An emphasis modifier would have had exactly one consumer. A variant declared
+     for a single place is the shape this stage has spent the week deleting, and
+     the file next door already deleted three tones on that ground.
+
+   MEASURED, on design/upgrade.html, the one coloured screen in the product that
+   carries a plan card, at 360 and at 1280 and in both themes: three paragraphs,
+   all three going from --text-body to --text-muted. On the light card surface
+   that is 10.16:1 down to 5.78:1; on the dark one 10.44:1 down to 6.40:1. Both
+   after figures clear the 4.5:1 an ink role owes at this size, in both themes,
+   and that was the condition the decision was taken under: this is a step down in
+   emphasis and it may never be a step down into unreadable. Nothing else moves,
+   because the size was never this rule's: --type-body reaches the line from the
+   atom's own base. design/upgrade-current-plan.html was checked too and carries
+   no plan card at all, so its four muted lines are untouched.
+
+   `flex: 1 1 auto` is the part that is unambiguously this file's, and it stays:
+   it makes the sentence absorb the height difference between three cards of
+   unequal copy, so the three buttons land on one line. */
+.app .plan-opt .muted, .landing .plan-opt .muted {
   flex: 1 1 auto;
   margin: var(--space-8) var(--space-0) var(--space-16);
-  color: var(--text-body);
 }
 
 /* The third card has no button: the lifetime plan is not on sale yet, and it
@@ -190,7 +242,7 @@
 
    RESOLVED BY THE PARENT, the first of the two: --line-container-hover is
    declared, with --hairline-strong-dark computed for the pair, and this file
-   reads it. The hover is back at exactly the value kit.css draws today, which is
+   reads it. The hover is back at exactly the value kit.css drew, which is
    what "carried" had to mean: dropping a state IS a visual change, and none of
    the stage's three named sources asked for one. What is still open is narrower
    and stays in backlog.md, which is whether a card that cannot be clicked should

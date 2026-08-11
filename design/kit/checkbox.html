@@ -52,20 +52,20 @@
     <p class="note">One box and one value, which is what makes it an atom. Everything below is drawn by <code>design/system/components/checkbox.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
     <div class="kit-stage app col">
       <label class="switch">
-        <input type="checkbox" checked>
+        <input class="check" type="checkbox" checked>
         <span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span>
       </label>
       <label class="switch">
-        <input type="checkbox">
+        <input class="check" type="checkbox">
         <span><span class="t">Weekly email digest</span><span class="h">A calm Sunday summary of what is coming up.</span></span>
       </label>
     </div>
     <ul class="kit-callouts">
-      <li><code>.switch input</code> <span>the atom itself: a real <code>input type="checkbox"</code> at 20px by 20px. There is no custom switch anywhere in the 55 grey pages and none is proposed</span></li>
+      <li><code>.check</code> <span>the atom itself: a real <code>input type="checkbox"</code> at 20px by 20px, wearing the class step 6 gave it. There is no custom switch anywhere in the 55 grey pages and none is proposed</span></li>
       <li><code>accent-color</code> <span>reads <code>--bg-action</code>. It is the one colour hook a native checkbox gives, and it paints the fill of the checked box and the tick inside it</span></li>
       <li><code>flex: none</code> <span>so the row's flex box cannot stretch the control when the label beside it wraps to two lines</span></li>
       <li><code>margin: 3px 0 0</code> <span>drops the box onto the first line of the label text beside it instead of the top of the text stack</span></li>
-      <li><code>label.switch</code> <span><b>not this atom.</b> It is the Switch row molecule, which is not built yet, which is why the two rows above render bare. It is also the real pointer target, and that matters below</span></li>
+      <li><code>label.switch</code> <span><b>not this atom.</b> It is the Switch row molecule, written in <a href="switch-row.html">switch-row.css</a>, which is where the rows above get their 16px of vertical padding and the hairline between them. It is also the real pointer target, and that matters below</span></li>
     </ul>
     <p class="note">The box, its edge, its corner and its tick are drawn by the <b>browser</b>. Nothing in <code>tokens.css</code> reaches them except through <code>accent-color</code>, and reaching them properly means <code>appearance: none</code> and rebuilding the control out of a pseudo-element, which is a redraw and not a move. This stage does not move a pixel.</p>
   </section>
@@ -102,7 +102,7 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">Use a checkbox</span>
-        <div class="kit-stage app full wide"><label class="switch"><input type="checkbox" checked><span><span class="t">A payment does not go through</span><span class="h">Like "A payment to Amazon Prime did not go through".</span></span></label></div>
+        <div class="kit-stage app full wide"><label class="switch"><input class="check" type="checkbox" checked><span><span class="t">A payment does not go through</span><span class="h">Like "A payment to Amazon Prime did not go through".</span></span></label></div>
         <p>A preference with two states, both of them visible at once, that takes effect where it stands and needs no submit. The person reads the sentence, sees the answer, and changes it or does not.</p>
       </div>
       <div class="no">
@@ -114,12 +114,12 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">Several answers at once</span>
-        <div class="kit-stage app col"><label class="switch"><input type="checkbox" checked><span><span class="t">A price goes up</span></span></label><label class="switch"><input type="checkbox"><span><span class="t">A free trial is ending soon</span></span></label></div>
+        <div class="kit-stage app col"><label class="switch"><input class="check" type="checkbox" checked><span><span class="t">A price goes up</span></span></label><label class="switch"><input class="check" type="checkbox"><span><span class="t">A free trial is ending soon</span></span></label></div>
         <p>Four independent yes or no questions on Settings, each answerable without touching the others. Stacked in a divided list, they read as a paragraph about what the product will say to you.</p>
       </div>
       <div class="no">
         <span class="hd">Use a select instead</span>
-        <div class="kit-stage app full wide"><span class="field"><select id="r-no" aria-label="Currency"><option>US dollar ($)</option><option>Euro (&euro;)</option><option>British pound (&pound;)</option></select></span></div>
+        <div class="kit-stage app full wide"><span class="field"><select class="select" id="r-no" aria-label="Currency"><option>US dollar ($)</option><option>Euro (&euro;)</option><option>British pound (&pound;)</option></select></span></div>
         <p>One answer out of three or more is the <b>Select</b>. Checkboxes that are secretly exclusive are the oldest bug in forms: nothing stops a person ticking two, so the product has to untick one for them, and an interface that undoes what a person just did is the opposite of calm.</p>
       </div>
     </div>
@@ -128,14 +128,14 @@
   <section class="kit-sec" id="states">
     <h2>States</h2>
     <p class="note">Four states, and they exist because the checkbox is <b>interactive</b>. Each one is a token override rather than a style of its own, and on this control the overrides are unusually thin: everything a state can reach on a native checkbox is <code>accent-color</code> and the focus ring, because the box and the tick are the browser's.</p>
-    <p class="note"><b>Two of the four are authored, and both move zero pixels today.</b> <code>kit.css</code> gives the checkbox no hover and no disabled rule. Hover follows the filled button exactly, one step deeper into the accent through a token; disabled repaints from <code>--bg-recessed</code>, the same role the disabled button uses. No page carries a disabled checkbox, so nothing on any screen changes. The one place that looks like it should is "A free trial is ending soon" on Settings, which is a Pro feature on a Free account, and the product deliberately leaves it enabled and unchecked rather than locking a person out of reading it.</p>
+    <p class="note"><b>Two of the four are authored, and both move zero pixels today.</b> <code>kit.css</code> gave the checkbox no hover and no disabled rule. Hover follows the filled button exactly, one step deeper into the accent through a token; disabled repaints from <code>--bg-recessed</code>, the same role the disabled button uses. No page carries a disabled checkbox, so nothing on any screen changes. The one place that looks like it should is "A free trial is ending soon" on Settings, which is a Pro feature on a Free account, and the product deliberately leaves it enabled and unchecked rather than locking a person out of reading it.</p>
     <p class="note"><b>The hover is on the control, not on the row.</b> The row is <code>label.switch</code> and belongs to the Switch row molecule; an atom that repaints its host is the unnamed variant this stage exists to prevent. If the row should light up under the pointer, that decision belongs to <code>switch-row.css</code> and to the person who owns it.</p>
 
     <h3 class="kit-sub-h">Rest, live</h3>
     <div class="kit-stage app col" id="live-rest">
-      <label class="switch"><input type="checkbox" checked id="shot-on"><span><span class="t">A price goes up</span></span></label>
-      <label class="switch"><input type="checkbox" id="shot-off"><span><span class="t">Weekly email digest</span></span></label>
-      <label class="switch"><input type="checkbox" checked disabled id="shot-disabled"><span><span class="t">A free trial is ending soon</span></span></label>
+      <label class="switch"><input class="check" type="checkbox" checked id="shot-on"><span><span class="t">A price goes up</span></span></label>
+      <label class="switch"><input class="check" type="checkbox" id="shot-off"><span><span class="t">Weekly email digest</span></span></label>
+      <label class="switch"><input class="check" type="checkbox" checked disabled id="shot-disabled"><span><span class="t">A free trial is ending soon</span></span></label>
     </div>
     <p class="note">The third one is genuinely disabled, by the attribute rather than by a class the product does not carry. Faking a state with <code>.is-disabled</code> on a native control would document something the product cannot do, and it would also lie to a screen reader, which reads the attribute and not the class.</p>
 

@@ -1,0 +1,384 @@
+/* ============================================================================
+   App shell - organism
+   The root every screen in the product carries, and the thing that decides what
+   a screen IS at a width. On a phone it is a column: the app bar on top, the
+   content between, the tab bar fixed to the glass. Past a 760px container it is a
+   two-track grid, with the app bar and the tab bar stacked in a 240px rail on the
+   left and the whole screen scrolling in the right track. Past 900 the content
+   column stops being a column and starts being a layout.
+
+   It is the last file in the cascade and the only one that contains every other:
+   nothing in the system is outside an `.app` except the landing page.
+
+   Reads
+     colour   --bg-surface  (the shell's own ground, and the only colour in the
+              file: no ink, no line, no radius anywhere below)
+     geometry --row  (inside the foot's calc, which is what clears the fixed tab
+              bar. Straight from primitive)
+     spacing  --space-0, --space-16, --space-24, --space-32, --space-40,
+              --space-48, --space-64
+   Page      design/kit/app-shell.html
+   Stands on 54 grey pages, which is every page in wireframes/ except the landing
+   (index.html) and the stage hub (overview.html). 28 of them are coloured. The
+   three forms split 20 steady, 26 flow and 8 detail in the grey, and 12, 10 and 6
+   in colour.
+   Hosts     the App bar, the Tab bar, and through `.screen` every organism in the
+             system. It gives them placement and nothing else.
+
+   ------------------------------------------------------------------------------
+   DO NOT DECLARE container-type ON `.app`. THIS IS THE TRAP OF THE WHOLE ROUND
+   AND IT IS MEASURED, NOT REASONED.
+
+   A container query matches an ANCESTOR container and never the element itself.
+   So `container-type` here could not let the shell query its own width; it would
+   silently re-point every query inside it, the tab bar's rail at 760, the
+   dashboard head at 900 and the groups column set at 1340, at a different box.
+   Measured on 2026-08-11: with `container-type` on `.app` the tab bar keeps its
+   column flow and still loses its rail, moving from 240px beside the content to
+   965px below it. Nothing errors and nothing looks obviously wrong on a
+   screenshot.
+
+   The container is declared once, on `body`, in base.css, with the reasoning and
+   the 33-width verification at the foot of that file. `body` is the only ancestor
+   the system can count on without asking every screen for a wrapper.
+   ------------------------------------------------------------------------------
+
+   THE FOUR SIBLING `order` DECLARATIONS ARE HERE AND THEY ONLY MEAN ANYTHING
+   TOGETHER. head 1, the action row 2, groups 3, trust 4. Three of the four were
+   correctly REFUSED by the component that owns the element they name, because
+   ordering siblings is the parent's job: trust-block.css made the call first for
+   `order: 4` and named it in its header, dashboard-head.css did the same for
+   `order: 1` and groups-column-set.css for `order: 3`. Taken separately each one
+   looks like a stray line; taken together they are the desktop reading order of
+   Home. Lose any one and the screen reads in source order with nothing erroring.
+
+   THE READING MEASURES ARE SPLIT, AND TWO OF THE THREE ARE MINE. `.form-col` and
+   `.rows-col` are the shell's own columns and carry no component, so they are
+   below. `.card.prose` is NOT: card.css already declares
+   `.app > .screen > .card.prose { max-width: 560px }` because the card is the
+   subject of that rule, and repeating it here would give one measure two owners.
+   Read and confirmed in card.css before this file was written.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.app`, `.app.flow`, `.app.detail`, `.screen`,
+   `.form-col`, `.rows-col`, `.col1` and `.col2` stay exactly as the product
+   writes them, and the rename map in docs/inventory.md leaves every one of them
+   alone.
+
+   NO HEX AND NO FONT NAME below. Every literal that survives is a WIDTH or a
+   VIEWPORT UNIT, neither of which is on the spacing scale: 240px is a grid track,
+   780 / 620 / 560 are reading measures, 300px and 320px are track minimums, 760
+   is a container step that cannot be a variable at all, and 100vh / 100dvh are
+   the viewport.
+   ============================================================================ */
+
+/* ---- the shell, and its mobile form is three lines -------------------------
+   A column that is at least as tall as the viewport, on paper. `min-height` twice
+   is not a mistake: `100dvh` is the correct answer on a phone, where the browser
+   chrome grows and shrinks as you scroll, and `100vh` is the fallback for a
+   browser that does not know `dvh`. The second declaration overrides the first
+   where it is understood, which is the standard two-line form and is carried
+   exactly as kit.css wrote it.
+
+   --bg-surface, so the shell is paper and the page under it is canvas. That is
+   the one place in the product where the ground of a screen is white rather than
+   off-white, and it is what makes the phone frame read as a sheet on a desk: on a
+   narrow screen the canvas is invisible behind it, and on a wide one it shows
+   around the frame. */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg-surface);
+}
+
+/* ---- the screen, and the foot that clears the tab bar ----------------------
+   `flex: 1` is what pushes the tab bar to the bottom of a short screen instead of
+   letting it float halfway up.
+
+   THE FOOT IS NOT AN ARBITRARY NUMBER AND NEVER WAS. 104px is the fixed tab bar's
+   own 56px floor plus 48px of air, so the last row of a list clears it instead of
+   sitting under it. scales.md maps it to `calc(var(--row) + var(--space-48))`
+   rather than to a step, which is the only honest fold: the value is derived from
+   a component's height and must move when that height moves. `--row` is read here
+   and the tab bar reads it for the same anchor, so the two can never disagree.
+
+   18px of side-and-top padding folds down to --space-16, so the screen's top gap
+   loses 2px. The founder's review of the foundations, the second of the three
+   legal sources of a visual change. */
+.app > .screen {
+  flex: 1;
+  padding: var(--space-16) var(--space-16) calc(var(--row) + var(--space-48));
+}
+
+/* ---- the flow form: an OPT-OUT from the desktop layout ---------------------
+   The onboarding chain, `.app.flow`, 26 grey pages and 10 coloured. One centred
+   column, no tab bar, and therefore nothing to clear at the foot: 64px instead of
+   104. It overrides the desktop grid rather than inheriting it, because onboarding
+   has no desktop delta at all, and the four resets that do the overriding
+   (`grid-column: auto`, `grid-row: auto`, `overflow: visible`, `width: 100%`) are
+   no-ops at the mobile width and only bite past the 760 block below. They are
+   carried exactly as kit.css wrote them.
+
+   It wins there on specificity alone: 0-3-0 against the 0-2-0 of the container
+   rule, so the query never touches it. The app bar makes the same opt-out in
+   app-bar.css with the same shape.
+
+   620px is the reading measure of a column of prose. 26px of top padding folds
+   down to --space-24 and 64 stays 64. */
+.app.flow { display: flex; flex-direction: column; height: auto; }
+.app.flow > .screen {
+  grid-column: auto; grid-row: auto;
+  overflow: visible;
+  width: 100%;
+  max-width: 620px;
+  margin: var(--space-0) auto;
+  padding: var(--space-24) var(--space-16) var(--space-64);
+}
+
+/* THE ONE SCREEN IN THE CHAIN THAT IS NOT PROSE, and the widening is a named
+   decision from stage 07 rather than drift. A row of three plan cards asks for
+   720px of its own in grid.css and could never reach it inside 620, so the three
+   were crushed to 185px each and both the button label and "Everything in Tendd
+   Pro" wrapped. 760 is exactly the 720 the plan row asks for plus the screen's own
+   two 16px margins, and no more, so every other step of the chain keeps its
+   reading measure. `:has()` rather than a class, because the screen that carries a
+   plan row is identifiable by what is inside it and adding a class would be
+   markup on a product screen.
+
+   WHOEVER FOLDS `.plans` LATER MUST WRITE `:has(.plan-opt)` AND NEVER
+   `:has(.grid)`. The tile row also lives inside `.app.flow`, on add-subscription
+   and add-subscription-loading, so `:has(.grid)` would widen both of those from
+   620 to 760 and their content column from 588 to 728. Both measured. `.plans`
+   is NOT renamed this round, because the plan row is one column at the narrow end
+   where the tile row is two and the two cannot share a base. */
+.app.flow > .screen:has(.plans) { max-width: 760px; }
+
+/* ---- the screen's own action row, and this is the margin that left action-row.css
+   One name means one margin, and a margin between blocks belongs to the host.
+   `.secondary` folded into `.actions` at step 6, so the 24px that used to stand
+   above the two secondary buttons is written here, on the type that identifies
+   the row: without it the three Home screens lose 24px above the row and gain
+   16px below it at the base width. The 900 block below turns the same selector
+   into `order: 2` and moves the margin under it, which is the same margin read
+   at the other layout. */
+.app > .screen > nav.actions { margin: var(--space-24) var(--space-0) var(--space-0); }
+
+/* ---- the shell's own columns, and the floor a shrinkable track needs -------
+   Four classes that carry no component and never will: `.form-col` and
+   `.rows-col` are the two content columns a screen can ask for, and `.col1` and
+   `.col2` are the two tracks of the detail layout. They exist to be sized by the
+   shell and to hold whatever the screen puts in them.
+
+   `min-width: 0` is the floor. The default minimum of a flex or grid child is
+   `auto`, which means "as wide as my content refuses to get narrower than", and
+   one long unbroken statement string (`SPOTIFYAB STOCKHOLM` is a real one, on the
+   detail screen) widens its own track and pushes the other one off the screen.
+   `.col1` and `.col2` carried NO rule of any kind in the grey and held only
+   because they were anonymous grid children; naming them in colour is what made
+   the floor necessary. */
+.app .form-col, .app .rows-col { min-width: 0; }
+.app.detail .col1, .app.detail .col2 { min-width: 0; }
+
+/* ---- the foot is the padding, and the last block adds nothing to it --------
+   THE DEFECT, and it is arithmetic rather than taste. The bottom margin of a
+   block is a gap to a next sibling. The block that ENDS the screen has no next
+   sibling, so its margin lands on top of the padding and the foot silently
+   becomes two numbers added together. Measured on the coloured screens with this
+   stylesheet in place, at a 360 and a 1280 viewport: `.actions` ended
+   add-subscription 16px below the declared 64, `.quiet` ended three flow screens
+   24px below it, `.rstep` ended guided-reveal 24px below it, and `.group` and
+   `.empty` put the last block of a steady screen 24px further from the fixed tab
+   bar than the calc above says. The founder's review of the components,
+   2026-08-12.
+
+   THE 104 IS THE ARGUMENT, NOT THE 64. The foot of a steady screen is
+   `calc(var(--row) + var(--space-48))`, which reads "the tab bar, and 48px of air
+   over it". A child's margin turns that 48 into 72 on the screens whose last
+   block happens to carry one and leaves it at 48 on the screens whose last block
+   does not, so the same clearance is two different distances across one product.
+   The number is not too big, it is not the number the file declares.
+
+   IT IS WRITTEN HERE AND NOT IN THE CHILD'S FILE. A block cannot know that it is
+   last, and a margin is position rather than paint, so the host owns it. Every
+   one of those five classes keeps its own margin everywhere else it stands, and
+   this sets one property on one child per screen: no fill, no ink, no size and
+   no edge moves.
+
+   `:last-child` IS ONLY TRUE WHILE THE SCREEN IS IN NORMAL FLOW, WHICH IS WHY
+   THIS RULE IS SPLIT ACROSS THE 900 STEP INSTEAD OF BEING WRITTEN ONCE AT THE
+   TOP. Past 900 the screen is a flex column and the four `order` declarations
+   below decide which block ends it. Measured on home-empty at a 1280 viewport:
+   `.empty` carries no order and renders at y=30, `.head` carries order 1 and
+   renders at y=245, so the DOM's last child is the screen's FIRST block and
+   zeroing its margin would close a real 24px gap between two blocks rather than
+   a foot. `.head` is the only ordered element a screen can carry on its own, so
+   `:has(> .head)` marks a reordered screen exactly; on the four Home states that
+   are not empty the ordered-last block is `.trust` or `.groups`, and both already
+   carry no bottom margin, so the guard costs nothing measurable at either width.
+
+   `(width < 900px)` AND NOT `(max-width: 899px)`. A container width is not an
+   integer, and 899.5 would fall between the two halves of the rule and be
+   answered by neither. The step is still 900, read from the other side. */
+@container (width < 900px) {
+  .app > .screen > :last-child { margin-bottom: var(--space-0); }
+}
+
+/* ============================================================================
+   THE 760 CONTAINER: the column becomes a two-track grid.
+
+   THE CONTAINER IS body, IN base.css, AND IT IS NOT DECLARED HERE. See the header.
+
+   760 is written as a number because it has to be: a custom property is not valid
+   inside a `@container` condition. Documented, not tokenized, and the three steps
+   of this product are 760, 900 and 1340.
+
+   WHAT ACTUALLY CHANGES. The shell stops being a flex column and becomes a grid
+   of two columns and two rows: a 240px rail on the left holding the app bar in row
+   1 and the tab bar in row 2, and the screen on the right spanning both rows. The
+   240px is a track width and stays literal; the placement of the two chromes into
+   that rail lives in their own files, which is the same convention that leaves
+   `.appbar .plan` in chip.css, and this file declares only the track they land in.
+
+   `height` and not `min-height`, which is the one property that changes meaning
+   rather than value: the shell becomes exactly the viewport, and the screen
+   scrolls inside it with `overflow: auto` while the rail stays put. On a phone the
+   page scrolls and the tab bar is fixed to the glass; here nothing is fixed and
+   the content pane is its own scroller. Two different mechanisms for one
+   behaviour, and the breakpoint is where they swap.
+
+   The foot drops from 104 to 48 in the same rule, because there is no longer a
+   fixed bar under the content to clear. 30px and 36px fold up to --space-32 and
+   --space-40, so the screen gains 2px of top padding and 4px on each side.
+
+   THE THREE READING MEASURES ARE BOUND THROUGH `> .screen >` DELIBERATELY, AND
+   THAT IS NOT TIDINESS. Written as `.app .form-col` they tie at 0-2-0 with the
+   blanket `.app > .screen > * { max-width: none }` in the 900 block below, lose
+   on source order, and unbind with no symptom anybody would look for: the form ran
+   at 588 instead of 560, the settings column at 733 instead of 620, and the Pro
+   gate at 748 instead of 560. Two of those were on screens the stage had already
+   accepted at 360 and at 760. A measure that holds at one width and silently stops
+   holding at a wider one is the reason a desktop viewport is its own acceptance
+   pass. Every one of these classes is a direct child of `.screen` on every page of
+   both folders, checked before the binding was tightened. Values unchanged.
+
+   THE THIRD MEASURE IS NOT HERE. `.app > .screen > .card.prose { max-width:
+   560px }` is declared in card.css, because the card is the subject of that rule
+   and the subject owns it. Its two neighbours in kit.css were these two, which carried no
+   component, so they stay with the shell. Taking all three would give one measure
+   two owners, and the pair would then drift apart the day one of them moved. */
+@container (min-width: 760px) {
+  .app {
+    display: grid;
+    height: 100vh;
+    height: 100dvh;
+    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+  .app > .screen {
+    grid-column: 2; grid-row: 1 / -1;
+    overflow: auto;
+    padding: var(--space-32) var(--space-40) var(--space-48);
+  }
+  .app > .screen > * { max-width: 780px; }
+  .app > .screen > .form-col { max-width: 560px; }
+  .app > .screen > .rows-col { max-width: 620px; }
+}
+
+/* ============================================================================
+   THE 900 CONTAINER: the content column stops being a column.
+
+   Two things happen and they are not the same thing. The blanket 780px measure
+   comes off, because past here a screen is allowed to use the width rather than
+   read down a column; and `.screen` becomes an explicit flex column so that its
+   children can be REORDERED.
+
+   THE FOUR `order` DECLARATIONS ARE PLACEMENT AND NEVER LOOK. The DOM keeps the
+   mobile-first order, where the add action sits AFTER the list, because the job of
+   Home is to look and not to add. On a dashboard that same order puts the action
+   under the shorter of two columns, where it reads as leftovers rather than as the
+   way on. So the head goes first, the screen's own action row second, the groups
+   third and the trust line last, and the markup never changes.
+
+   The row's margin comes with it, and it is the host's margin exactly as
+   `.gate .actions` and `.card.prose .actions` are: without it the two secondary
+   buttons sat on top of the first group heading. 26px folds down to --space-24.
+   It sets no fill, no ink, no size and no edge on the action row, which is the
+   test this round exists to apply.
+
+   `nav.actions` AND NOT A BARE `.actions`, AND THE TYPE IS LOAD-BEARING. The
+   action row folded at step 6 and `.secondary` became `.actions`, which is one
+   name for what used to be two. A bare `.app > .screen > .actions` matches 3
+   elements today and 13 after the sweep, and measured at 1280 with `order: 2`
+   and the 24px on the ten newcomers, 7 of the 9 non-Home screens move, by 6 to
+   440px; the worst is add-subscription-error, whose "Try again" row drops 440px
+   below the rest of the screen. The type is exact rather than lucky: every
+   former `.secondary` is a `<nav>` on 10 of 10 occurrences and every `.actions`
+   is a `<div>` on 106 of 106.
+
+   THE DETAIL FORM IS THE SECOND LAYOUT THIS STEP BUYS. `.app.detail > .screen`
+   becomes a two-track grid with a 48px gutter, and the mobile order reads left to
+   right, so "what is this" stays in front of "what now". `align-content: start`
+   keeps both columns at the top of a tall pane rather than spreading them down it.
+   The two track minimums, 300px and 320px, are WIDTHS and not spacings, so the 8px
+   grid does not govern them and they stay literal. That is the same hole
+   dashboard-head.css records for its own two tracks and backlog.md records for the
+   numbered steps marker: --tap and --row are the only size primitives the system
+   has and neither of these is either, and whether the system needs a size scale at
+   all is a step 9 question for the whole system rather than for one grid.
+
+   `.app.detail > .screen > * { max-width: none }` is written a second time
+   deliberately. It is 0-3-0 where the blanket above is 0-2-0, and it is what stops
+   a later rule at three levels from re-capping a detail column. Carried as kit.css
+   wrote it. */
+@container (min-width: 900px) {
+  .app > .screen > * { max-width: none; }
+  .app > .screen { display: flex; flex-direction: column; }
+
+  /* the same foot as above, minus the screens this block reorders. See the long
+     note at the rule below the columns for why the guard is `:has(> .head)` and
+     what it measured. */
+  .app > .screen:not(:has(> .head)) > :last-child { margin-bottom: var(--space-0); }
+
+  .app > .screen > .head       { order: 1; }
+  .app > .screen > nav.actions { order: 2; margin: var(--space-0) var(--space-0) var(--space-24); }
+  .app > .screen > .groups     { order: 3; }
+  .app > .screen > .trust      { order: 4; }
+
+  .app.detail > .screen {
+    display: grid;
+    grid-template-columns: minmax(300px, 1fr) minmax(320px, 1fr);
+    gap: var(--space-0) var(--space-48);
+    align-content: start;
+  }
+  .app.detail > .screen > * { max-width: none; }
+  .app.detail .col1 { grid-column: 1; }
+  .app.detail .col2 { grid-column: 2; }
+}
+
+/* ---- what this file does NOT write ----------------------------------------
+   `.app > .appbar` and `.app > .tabbar`, at both widths, live in app-bar.css and
+   tab-bar.css. tab-bar.css states the convention out loud at the line, because
+   this file could reasonably have claimed those four declarations: a host
+   positioning its child is written in the child's file today, the same rule that
+   leaves `.appbar .chip` in chip.css and `.panel .divlist` in divided-list.css.
+   One of the two files had to say so, and both do.
+
+   `.app.detail .muted { margin }` lives in muted-line.css, on the same rule from
+   the other side: the subject of that margin is the muted line, and the detail
+   shell is only where it stands.
+
+   `.app .head`, `.app .groups`, `.app .group` and `.app .chart` all had rules
+   inside the same 900 and 760 blocks in kit.css and NOT ONE of them is here.
+   They are the Dashboard head, the Groups column set, the Category group and the
+   Chart placeholder, each in its own file. What the shell keeps from those blocks
+   is only what names the shell's own boxes: its grid, its screen, its columns and
+   the order of its children. */
+
+/* NO STATES, and the reason is structural rather than an omission. The shell is a
+   `<div>` on all 54 pages. It has no href, no button, no summary, no tabindex and
+   no role of its own, and kit.css gave it no pointer response either. Every target
+   inside it belongs to something else: the app bar's two links, the tab bar's four
+   anchors, and every control on the screen between them, each with its own states
+   on its own page. A hover written here would answer for fifty components that
+   already answer for themselves. */

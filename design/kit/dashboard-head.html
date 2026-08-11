@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard head - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Dashboard head</h1>
+    <p class="lead">The band across the top of Home on a wide screen: the monthly total on the left, the one thing that needs attention on the right, a hairline under both. Below container 900 it does not exist, and that is not a figure of speech: there is no rule for it outside one query, so on a phone it is an unstyled box and its children stack.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>5</strong> grey pages</span><span>1 axis, and it is the container</span><span>no states, not interactive</span><span>hosts 2 molecules and 1 organism</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One grid, two slots, and a rule underneath. Everything below is drawn by <code>design/system/components/dashboard-head.css</code> and by the hosted components' own files, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <p class="note"><b>What you see here depends on how wide this page is.</b> The query reads the container declared on <code>body</code> in <code>base.css</code>, not the width of the box below, so at a narrow window the specimen is correctly a stack and from a container of 900 it is correctly a band. Both are the component. The measured numbers are in the technical half.</p>
+    <div class="kit-stage app full bleed past-900">
+      <div class="head">
+        <section class="summary">
+          <h1>You're paying for 14 subscriptions</h1>
+          <p class="total" aria-label="monthly total, $192.90">$192.90</p>
+          <p class="muted">a month, for what you have signed up for</p>
+        </section>
+        <section class="wash attention" role="status" aria-label="Needs your attention">
+          <p>Netflix went up by $2.50, now $17.99 a month.</p>
+          <a href="#anatomy">See what changed</a>
+        </section>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.head</code> <span>the organism itself, and it is a plain <code>div</code>: a grid from container 900 and nothing at all below it. It draws one hairline and no fill, no edge and no corner</span></li>
+      <li><code>grid-template-columns</code> <span><code>minmax(250px, 0.85fr) minmax(300px, 1.15fr)</code>. The wider half goes to the slot that has to be READ, because the left slot holds a 46px figure that is legible at any width</span></li>
+      <li><code>align-items</code> <span><code>center</code>, so a one-line wash sits level with the middle of the number rather than floating above it</span></li>
+      <li><code>border-bottom</code> <span>reads <code>--line-divider</code>. A divider inside one surface, not a container edge: nothing has to be found by touch, so it owes no 3:1</span></li>
+      <li><code>.summary</code> <span><b>a molecule,</b> and the left slot on all five pages. It brings its own heading and its own 46px total from <a href="summary.html">summary.css</a>, and this file touches neither. The one thing it does take is the slot's bottom margin, below</span></li>
+      <li><code>&gt; * { margin-bottom: 0 }</code> <span>the band's foot, inside the query only. Every slot brings <code>--space-24</code> under itself for the block that would follow it, and inside this band nothing follows it: the padding holds the hairline off. <code>&gt; *</code> and not <code>&gt; :last-child</code>, because in a grid <b>row</b> every item ends on the same line and "last" names nothing</span></li>
+      <li><code>.wash.attention</code> <span><b>a molecule,</b> the Wash block in its attention tone, drawn by <a href="wash-block.html">wash-block.css</a>. It is the right slot on Home and on Home, could not refresh, and it was <code>.attention</code> until step 6</span></li>
+      <li><code>.candidates</code> <span><b>an organism,</b> the <a href="save-focus-list.html">Save-focus list</a>, and it is the right slot on the save-focus state instead of the wash. Shown in the matrix below</span></li>
+    </ul>
+    <p class="note"><b>The band's foot is 24px, and until 2026-08-12 it was 24 plus whichever margin the taller slot happened to bring.</b> Measured on the coloured Home at a 1280 viewport, the band ran 153px tall with 49px under the lower slot where the padding says 24 and the rule says 1. Every slot carries <code>--space-24</code> under itself for the block that follows it on a phone, and inside this band there is no block that follows it. The founder's review of the components. It is still the only thing this file takes from a child, and it is a position: no rule here touches a slot's fill, ink, size, weight or edge.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis, and it is the container. There is no size axis, no emphasis axis and no tone: the band is the same band on all five pages and only its second slot changes, which is content rather than form. The two tables below are those two facts, in that order.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Form<p class="axis-rule">Chosen by the CONTAINER and never by the page. A screen does not opt in: it writes the same markup at every width and the query decides. That is why there is no <code>.head.is-wide</code> anywhere in this product</p></th>
+            <th class="val">What is declared</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Under container 900</b> <code>.head</code></td>
+            <td class="val">nothing</td>
+            <td>Not "one column": <b>no rule at all</b>. The box is a plain block, the two sections stack in source order, and every pixel of the result belongs to the sections. Measured at container 892: <code>display: block</code>, zero padding, zero margin, no border</td>
+          </tr>
+          <tr>
+            <td><b>From container 900</b> <code>.head</code></td>
+            <td class="val">display: grid<br>--space-32 / --space-40<br>--space-24<br>--line-divider<br>--space-0 on the slots</td>
+            <td>Two slots side by side, 0.85fr against 1.15fr, with the hairline under them. Measured at container 908: <code>display: grid</code>, 24px of bottom padding and margin, a 1px bottom border, and no bottom margin on either slot</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full bleed past-900"><div class="head"><section class="summary"><h1>You're paying for 14 subscriptions</h1><p class="total" aria-label="monthly total, $192.90">$192.90</p><p class="muted">a month, for what you have signed up for</p></section><section class="wash attention" aria-label="Needs your attention"><p>Netflix went up by $2.50, now $17.99 a month.</p><a href="#variants">See what changed</a></section></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>The second slot<p class="axis-rule">Chosen by what is TRUE, never by what would look balanced. The right half is empty on two of the five pages and that is correct: an attention row on a screen with nothing wrong is the anxiety this product exists to remove</p></th>
+            <th class="val">Which component</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>A price change</b> <code>.wash.attention</code></td>
+            <td class="val">wash-block.css</td>
+            <td>2 pages, home and home-error. Calm amber and never red: the persona closes any app that shows her red</td>
+          </tr>
+          <tr>
+            <td><b>Two you may not be using</b> <code>.candidates</code></td>
+            <td class="val">save-focus-list.css</td>
+            <td>1 page, home-savefocus. The one place an organism sits inside this one</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full bleed past-900"><div class="head"><section class="summary"><h1>You're paying for 14 subscriptions</h1><p class="total" aria-label="monthly total, $192.90">$192.90</p><p class="muted">a month, for what you have signed up for</p></section><section class="candidates" aria-label="Subscriptions you might not be using"><p class="lead">Two you have not opened in a while. No pressure, just a nudge.</p><ul><li class="cand"><a class="row" href="#variants" aria-label="Peloton App, $12.99 a month, trial ends in 17 days, not opened in 3 weeks"><span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span><span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; not opened in 3 weeks</span></span><span class="amt">$12.99</span></a><a class="cut" href="#variants" aria-label="Cancel Peloton App">Cancel</a></li></ul></section></div></div></td></tr>
+          <tr>
+            <td><b>Nothing</b> <code>.head</code> with one child</td>
+            <td class="val">-</td>
+            <td>2 pages, home-loading and home-empty. The summary takes the left track and the right track stays empty. It is NOT centred and NOT stretched: the number holds the position it holds on the other three pages, so nothing jumps when the attention row arrives</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full bleed past-900"><div class="head"><section class="summary"><h1>Nothing to add up yet</h1><p class="muted">Connect your bank or add a subscription, and your monthly total appears here as the biggest thing on screen.</p></section></div></div></td></tr>
+          <tr>
+            <td class="kit-empty">A third slot</td>
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. Two tracks are declared and a third child would wrap onto a second row under a 32px row gap, which is why that gap is declared at all. A dashboard head with three things across the top is a screen answering three questions, and the One Number Rule says it may answer one</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The empty right track is the interesting cell of both tables.</b> Read together they say the band is a fixed frame and the content is what varies, which is the opposite of how a dashboard is usually built. That is deliberate: the total is in the same place on every state of Home, including while it is still a skeleton.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">This band exists on exactly one screen and it is the screen the product exists for. J-MAIN reads "I want to see all my recurring charges in one calm view", and on a phone that view is a column: the total, then anything wrong, then the list. On a desktop the same column would leave two thirds of the screen empty and push the list below the fold for no reason. The head is what the width buys, and it buys exactly one thing: the total and the one thing that needs attention, readable at the same moment.</p>
+    <p class="note"><b>It is a placement decision and not a visual one</b>, which is why the file is one rule long. <code>DESIGN.md</code> puts the monthly total at the top of the One Number Rule, and nothing in this component competes with it: no fill, no card, no corner, no shadow. The Flat Paper Rule holds here too, so the band is separated from the list by a hairline and by nothing else.</p>
+    <p class="note">Reach for it when a screen has <b>one number that is the answer</b> and <b>at most one thing that needs saying about it</b>. If the second slot would hold a menu, a filter or a set of controls, this is not the component: that is a screen with a toolbar, and this product has none.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The same markup at every width</span>
+        <div class="kit-stage app full bleed"><div class="head"><section class="summary"><h1>You're paying for 14 subscriptions</h1><p class="total" aria-label="monthly total, $192.90">$192.90</p><p class="muted">a month, as of your last update</p></section><section class="wash attention" aria-label="Needs your attention"><p>Netflix went up by $2.50, now $17.99 a month.</p><a href="#rule">See what changed</a></section></div></div>
+        <p>One <code>div class="head"</code> holding two sections, written once, on all five pages. The container decides the rest. No page carries a state class, no page has a mobile block and a desktop block, and nothing has to be kept in sync. This is why the axis is a container query rather than two markup paths: a second path is a second edition of the screen that nobody declared.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use the Grid organism instead</span>
+        <div class="kit-stage app full bleed"><span class="muted">Three cards across the top, each one a thing to choose between</span></div>
+        <p>The moment the top of a screen holds <b>a set of equal things</b> rather than one number and one message, the component is the <a href="overview.html">Grid</a> (<code>.grid</code>, <code>.grid.roomy</code> and the still unrenamed <code>.plans</code>), which repeats one child at equal widths. The dashboard head's tracks are deliberately unequal and its two slots hold different components. Building a row of tiles out of it gives you two tiles of different widths and a hairline you did not want.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The right slot may be empty</span>
+        <div class="kit-stage app full bleed"><div class="head"><section class="summary"><h1>Getting your subscriptions</h1><p class="muted">This usually takes a moment.</p><span class="skel total" aria-hidden="true"></span></section></div></div>
+        <p>The loading state writes one child and stops. The left track keeps its position, the skeleton holds the number's place, and when the figure lands nothing moves sideways. Two of the five pages do this and neither of them fills the space with something to look at.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never fill it to balance the row</span>
+        <div class="kit-stage app full bleed"><span class="muted">Everything looks fine! You are all caught up.</span></div>
+        <p>A reassurance in the attention slot is the one thing this product may not do. The slot means "something is true and you should see it", so filling it when nothing is true teaches a person to stop reading it, and the next time a payment actually fails they will skim past. <code>voice/docs/voice.md</code> forbids the exclamation mark as well, but the real fault here is structural: a slot that is always full carries no information.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Take the foot from every slot, not from the last one</span>
+        <code class="kit-cmd">@container (min-width: 900px) {
+  .app .head &gt; * { margin-bottom: 0 }
+}
+
+measured on Home at 1280, before: band 153px, 49px under the lower slot
+measured on Home at 1280, after:  band 129px, 25px under it</code>
+        <p>In a grid <b>row</b> there is no last child: both items end on the same line and the row is as tall as the tallest margin box in it. On Home the DOM's last child is <code>.wash.attention</code> and the item that reaches lowest is <code>.summary</code>, so <code>:last-child</code> would have zeroed the slot that was not driving the height and moved the band by nothing at all. This is the same reason the shell's own foot rule is written against <code>:last-child</code> and this one is not: one is a column and one is a row.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never take it below 900</span>
+        <div class="kit-stage app full bleed"><div class="head"><section class="summary"><h1>Nothing to add up yet</h1><p class="muted">Connect your bank or add a subscription, and your monthly total appears here.</p></section></div></div>
+        <p>Down here the band has no padding and no border, so a slot's bottom margin is not dead air: it collapses through the band and becomes the gap between the head and the next block on the screen. Zeroing it at every width would look like tidying and would close a real gap on all five pages. The rule sits inside the query for the same reason every other rule in this file does: below 900 this component does not exist.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>No states, and it is structural rather than an omission.</b> The dashboard head is a grid container: it has no <code>href</code>, no button and no pressed element of its own on any of the 5 grey pages or the 5 coloured ones, and it is not a pointer target. A pointer that appears to be over it is over the summary, over the wash, over a candidate, or over nothing. Faking one with a class the product does not carry would document something the product cannot do.</p>
+    <p class="note">The states of everything inside it are on those components' own pages, live and hoverable: <a href="wash-block.html">Wash block</a> for the attention row's link, <a href="subscription-row.html">Subscription row</a> and <a href="save-focus-candidate.html">Save-focus candidate</a> for the save-focus slot. <a href="summary.html">Summary</a> has none either, for the same reason this one does not.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the rule under the band</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>, and <code>--hairline-soft-dark</code> in the dark theme</td></tr>
+          <tr><td>the row and column gaps</td><td><code>--space-32</code>, <code>--space-40</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>the bottom padding and margin</td><td><code>--space-24</code>, <code>--space-0</code></td><td>primitive, straight</td></tr>
+          <tr><td>the foot it takes from its slots</td><td><code>--space-0</code></td><td>primitive, straight, and the one property this file sets on a child. A margin is position and position is the host's; the paint stays with <code>summary.css</code>, <code>wash-block.css</code> and <code>save-focus-list.css</code>. It ties with all three at 0-2-0 and wins on source order, because the ladder imports an organism below the parts it hosts</td></tr>
+          <tr><td>the two track floors</td><td>none: <code>250px</code> and <code>300px</code></td><td>Written as literals. A width is not a margin, a padding or a gap, so the 8px grid does not govern it, and <code>--tap</code> and <code>--row</code> are the only size primitives the system has. Same hole <code>docs/backlog.md</code> records for the numbered-steps marker at 26 by 26, owned by step 9</td></tr>
+          <tr><td>no fill, no corner, no shadow</td><td>none</td><td>by decision. The Flat Paper Rule: a new surface earns a hairline and a background change, never a shadow, and this band earns only the hairline</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The container query, measured on this page at both sides of the breakpoint.</b> The container is <code>body</code>, declared in <code>base.css</code>, and this component declares none of its own: a second container between <code>body</code> and this rule would re-point the query at a different box, and a container on the element itself cannot style the element at all, because a container query matches an ancestor.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Container</th><th>Viewport that produces it</th><th><code>.head</code> display</th><th>Bottom border</th><th>Padding-bottom</th></tr></thead>
+        <tbody>
+          <tr><td class="n">892px</td><td class="n">1175</td><td><code>block</code></td><td class="n">0px</td><td class="n">0px</td></tr>
+          <tr><td class="n">908px</td><td class="n">1191</td><td><code>grid</code></td><td class="n">1px</td><td class="n">24px</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The viewport figures are this stand's arithmetic and not a property of the component: on a kit page <code>body</code> carries 268px of left padding from 1100 up, plus a 15px scrollbar, so the container is the viewport minus 283. On a product screen the same query fires off the screen's own width.</p>
+    <p class="note"><b>The stand shows it at <code>bleed</code>, and that is measured rather than preferred.</b> This band spans the whole screen column and never anything narrower: on the real coloured Home it renders 893px wide at a 1440 viewport, 1053px at 1600 and 1373px at 1920. At the default 440px measure the grid's own floors (250 + 300 + 40) would overflow the stage by 150px, and at <code>wide</code>'s 620 it would sit 273px under its narrowest real width. The stand's own <code>.kit-wrap</code> caps a specimen at 900px, which is within 7px of the product's 893.</p>
+    <p class="note"><b>The foot, measured on both sides of the change and at both ends of the range.</b> Driving the container past 900 on the five coloured Home states at a 1280 viewport, the band was 153px tall on Home and on Home could not refresh, 195 on save focus, 160 on loading and 123 on empty, with 49px under the lower slot in all five. After: 129, 129, 171, 136 and 99, with 25px under it, which is the 24px of padding and the 1px rule and nothing else. Below 900 nothing moved, on any of the five, at either end: measured at 360, the slots keep their 24px because down there the band has no padding to sit on and that margin is the gap between the head and the next block on the screen.</p>
+    <p class="note"><b>Not carried, deliberately:</b> <code>.app &gt; .screen &gt; .head { order: 1 }</code> from the same 900 block. It is one of four sibling <code>order</code> declarations that only mean anything together (head 1, secondary 2, groups 3, trust 4), it names the shell's own column flow rather than this band, and it belongs to the App shell organism. <code>trust-block.css</code> made the same call for <code>order: 4</code> and says so in its header.</p>
+    <p class="note">Lives in <code>design/system/components/dashboard-head.css</code>. Stands on 5 grey pages and 5 coloured ones: <a href="../home.html">Home</a>, <a href="../home-error.html">Home, could not refresh</a>, <a href="../home-savefocus.html">Home, save focus</a>, <a href="../home-loading.html">Home, loading</a>, <a href="../home-empty.html">Home, nothing yet</a>.</p>
+    <code class="kit-cmd">&lt;div class="head"&gt;
+  &lt;section class="summary"&gt;
+    &lt;h1&gt;You're paying for 14 subscriptions&lt;/h1&gt;
+    &lt;p class="total" aria-label="monthly total, $192.90"&gt;$192.90&lt;/p&gt;
+    &lt;p class="muted"&gt;a month, for what you have signed up for&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;section class="wash attention" role="status" aria-label="Needs your attention"&gt;
+    &lt;p&gt;Netflix went up by $2.50, now $17.99 a month.&lt;/p&gt;
+    &lt;a href="subscription-detail-price-change.html"&gt;See what changed&lt;/a&gt;
+  &lt;/section&gt;
+&lt;/div&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/dashboard-head.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided its axes is in <code>docs/inventory.md</code>; the container it depends on is declared and argued at the foot of <code>design/system/base.css</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

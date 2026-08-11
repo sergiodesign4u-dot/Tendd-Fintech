@@ -104,34 +104,34 @@
             <td><code>--radius</code></td>
             <td class="n">14px</td>
             <td>&ldquo;containers: the list, cards, the sheet&rdquo;</td>
-            <td class="n">8</td>
-            <td>.door, .plan-opt, .locked, .sharecard, .panel, .source, .sheet, the 52px hero logo</td>
+            <td class="n">7</td>
+            <td>.door, .plan-opt, .card in both of its forms, .sharecard, .panel, .sheet, the 52px hero logo</td>
           </tr>
           <tr>
             <td><code>--radius-wash</code></td>
             <td class="n">12px</td>
             <td>&ldquo;origin: the alert banner. Washes and callouts&rdquo;</td>
-            <td class="n">2</td>
-            <td>.notice and .attention, the two washes that carry a sentence</td>
+            <td class="n">1</td>
+            <td>.wash, one rule serving all four tones. It was two rules, .notice and .attention, until the fold</td>
           </tr>
           <tr>
             <td><code>--radius-sm</code></td>
             <td class="n">10px</td>
             <td>&ldquo;controls: buttons, fields, rows, tiles&rdquo;</td>
-            <td class="n">9</td>
-            <td>.btn, .field input and select, .tile, .range button, .cand .cut, .logo, .chart, .decoder, .rgroup</td>
+            <td class="n">10</td>
+            <td>.btn, .input, .select and its picker surface, .tile, .range button, .cand .cut, .logo, .chart, .rgroup li</td>
           </tr>
           <tr>
             <td><code>--radius-xs</code></td>
             <td class="n">6px</td>
             <td>&ldquo;origin: the chip and the skeleton, written inline twice in kit.css before it was named&rdquo;</td>
-            <td class="n">3</td>
-            <td>.tag and .badge, .skel, the 22px logo inside a radio row</td>
+            <td class="n">4</td>
+            <td>.chip, .skel, the select's option rows, the 22px logo inside a radio row</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="note">The consumer counts are the ones the step 1 audit recorded (8 / 9 / 3 / 2 in <code>docs/tokens-audit.md</code>) and they still hold in the file. Note what the list does <b>not</b> contain: a list row has no radius of its own. Rows stack inside one 14px container and the first and last inherit its corners, so a list reads as one object instead of a stack of cards.</p>
+    <p class="note">The step 1 audit recorded 8 / 9 / 3 / 2 in <code>docs/tokens-audit.md</code>, and the counts above are re-measured in <code>design/system/components/</code> after step 6: 7 / 10 / 4 / 1. Not one radius moved. What moved is how many rules ask for each: the card's two names became one, the two washes became one, and the select's picker surface and option rows arrived with two rules of their own. Note what the list does <b>not</b> contain: a list row has no radius of its own. Rows stack inside one 14px container and the first and last inherit its corners, so a list reads as one object instead of a stack of cards.</p>
     <p class="note"><b>Carried, not fixed here.</b> The Shapes section of the root <code>DESIGN.md</code> still says &ldquo;Three radii and no more&rdquo;. The token block higher up the same file already lists <code>rounded.wash: 12px</code>, and the system carries four. The prose is one decision behind; correcting it belongs to <code>DESIGN.md</code>, not to this page. The 12px itself does not move: it was named by a decision on 2026-08-10, and a value changes only by another one.</p>
   </section>
 
@@ -153,11 +153,11 @@
         <figcaption>--row 56px, .row</figcaption>
       </figure>
     </div>
-    <p class="note"><code>kit.css</code> writes <b>min-height: 44px twelve times</b> and <b>min-height: 56px four times</b>. The four are the objects a person actually aims at down a list: <code>.row</code>, <code>.navrow</code>, <code>.tile</code> and a tab in the tab bar. On the desktop rail the tab drops to 48px, which is under the row and still clear of the floor.</p>
-    <p class="note"><b>The floor has one exemption, and it was found by breaking something.</b> The 44px was first put on the base link atom, which turned every link inside a sentence into a 44px inline-flex box: the comment at <code>kit.css</code> line 227 records a four-line paragraph on the trends screen measuring 100px instead of 75, with the lines drifting apart. The paragraphs carrying inline links are the privacy and trust sentences, so the copy whose only job is to reassure was the copy that looked broken. A link inside a block of text is exempt, precisely because enforcing the minimum deforms the text it lives in. Every standalone control in the product is a button, a row or a tab, and all of those clear 44px measured.</p>
+    <p class="note"><code>kit.css</code> wrote <b>min-height: 44px twelve times</b> and <b>min-height: 56px four times</b>. The four are the objects a person actually aims at down a list: <code>.row</code>, <code>.navrow</code>, <code>.tile</code> and a tab in the tab bar. On the desktop rail the tab drops to 48px, which is under the row and still clear of the floor.</p>
+    <p class="note"><b>The floor has one exemption, and it was found by breaking something.</b> The 44px was first put on the base link atom, which turned every link inside a sentence into a 44px inline-flex box: the comment at <code>kit.css</code> line 227 recorded a four-line paragraph on the trends screen measuring 100px instead of 75, with the lines drifting apart. The paragraphs carrying inline links are the privacy and trust sentences, so the copy whose only job is to reassure was the copy that looked broken. A link inside a block of text is exempt, precisely because enforcing the minimum deforms the text it lives in. Every standalone control in the product is a button, a row or a tab, and all of those clear 44px measured.</p>
 
     <h3 class="kit-sub-h">The one elevation</h3>
-    <p class="note"><code>--shadow</code> is the only elevation in the system and it has <b>exactly one consumer</b>: <code>.app .sheet</code>, at <code>kit.css</code> line 978. Even there it does not work alone, it arrives with a background change, a hairline and a 14px radius. The rule it obeys is named in <code>DESIGN.md</code>: &ldquo;<b>The Flat Paper Rule.</b> A new surface earns a hairline and a background change, never a shadow. The moment two elevations exist inside one screen, the eye starts ranking them, and ranking is the work this product takes away from the person.&rdquo;</p>
+    <p class="note"><code>--shadow</code> is the only elevation in the system and it has <b>exactly one consumer</b>: <code>.app .sheet</code>, which was <code>kit.css</code> line 978 and is now <code>dialog-sheet.css</code>. Even there it does not work alone, it arrives with a background change, a hairline and a 14px radius. The rule it obeys is named in <code>DESIGN.md</code>: &ldquo;<b>The Flat Paper Rule.</b> A new surface earns a hairline and a background change, never a shadow. The moment two elevations exist inside one screen, the eye starts ranking them, and ranking is the work this product takes away from the person.&rdquo;</p>
     <p class="note"><b>Carried, not fixed here.</b> The Shadow Vocabulary in <code>DESIGN.md</code> names the consumer as &ldquo;the mobile app frame only&rdquo;. That frame was deleted on 2026-08-05 and the block that styled it went at stage 07 step 5 (<code>kit.css</code> line 1027). <code>tokens.css</code> already says the dialog sheet alone, which is what the code does. The <code>DESIGN.md</code> line is stale.</p>
   </section>
 
@@ -221,7 +221,7 @@
 
     <p class="note"><b>No value in the product moves by more than 4px</b>, and eight of the twenty-seven do not move at all. The four-pixel moves are all the same thing: a value sitting exactly halfway between two steps, taken upward by the rule rather than argued over one at a time.</p>
 
-    <p class="note"><b>The 104px foot is now written as what it is.</b> <code>kit.css</code> line 765 gives every screen <code>padding: 18px 16px 104px</code> with a comment saying the foot clears the fixed tab bar, and the number itself never said so: 104 is the 56px tab bar plus 48px of air. It is now <code>calc(var(--row) + var(--space-48))</code>, which computes to the same 104 and cannot silently break when the row height changes. A foot is clearance, not rhythm, so it stays out of the grid rather than being folded into 104's nearest multiple of eight.</p>
+    <p class="note"><b>The 104px foot is now written as what it is.</b> <code>kit.css</code> line 765 gave every screen <code>padding: 18px 16px 104px</code> with a comment saying the foot clears the fixed tab bar, and the number itself never said so: 104 is the 56px tab bar plus 48px of air. It is now <code>calc(var(--row) + var(--space-48))</code>, which computes to the same 104 and cannot silently break when the row height changes. A foot is clearance, not rhythm, so it stays out of the grid rather than being folded into 104's nearest multiple of eight.</p>
 
     <p class="note"><b>Twenty-seven values is the honest count, and it is larger than the twenty-two this page showed before.</b> The old ladder counted only the px numbers written in a <code>margin</code> or a <code>padding</code> in <code>kit.css</code>, with the reviewer's chrome excluded and <code>gap</code> counted as a separate scale. The adopted mapping covers every spacing value the product wrote, gaps included, plus 0. Same file, wider basis.</p>
 

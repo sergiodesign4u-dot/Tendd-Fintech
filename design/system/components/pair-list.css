@@ -15,30 +15,40 @@
      type     --type-body
      spacing  --space-0, --space-4, --space-8, --space-16, --space-24
    Page      design/kit/pair-list.html
-   Stands on 18 grey pages and 7 coloured ones (19 and 8 occurrences: on
-   upgrade-current-plan the two markups stand on the same page).
+   Stands on 18 grey pages, 21 occurrences, and on 7 coloured ones, 8
+   occurrences: on upgrade-current-plan the two markups stand on the same page.
+   Counted by class attribute across both corpora on 2026-08-12; the 19 the
+   previous edition of this header gave for the grey corpus was two short,
+   because connections and connections-reconnect each carry the list twice.
+
+   ONE NAME NOW. Step 6 executes the rename from the map in docs/inventory.md:
+   `.facts` becomes `.pairs`, `.facts.sentences` becomes `.pairs.sentences`, and
+   `.unlocks` becomes `.pairs` as well, with the markup renamed in the same pass.
+
+   THE TWO MARKUPS ARE STILL TWO, AND THE ELEMENT IS WHAT TELLS THEM APART.
+   That is what makes one class safe. `.facts` was a `dl` on all 41 of its
+   occurrences across the three corpora and `.unlocks` was a `ul` on all 3, so
+   every rule below that has to reach one markup and not the other keys off
+   `div`/`dt`/`dd` against `li`, which it already did. No modifier was invented
+   for the merge and none was needed.
 
    NO HEX, NO FONT NAME. Sizes and spacings are tokens; the two skeleton slot
    widths at the bottom are pixels on purpose and say why.
-
-   THE CLASS NAMES ARE NOT TOUCHED. `.facts`, `.facts.sentences` and `.unlocks`
-   stay exactly as the product writes them, and they share one rule wherever
-   they share a value. The rename to `.pairs` is step 6, from the map in
-   docs/inventory.md, executed together with the markup of the screens.
 
    NO CONTAINER QUERY AND NO MEDIA QUERY TOUCHES THIS COMPONENT. Checked. Two
    columns of text pushed apart by space-between reflow by themselves.
    ============================================================================ */
 
-/* ---- the block -----------------------------------------------------------
-   The two names take the same bottom margin and differ only in what their
-   element brings with it: a `dl` needs its margin reset, a `ul` needs its
-   bullets and its indent taken away as well. That is the element, not the
-   component, which is exactly why this is one component. */
-.app .facts, .landing .facts {
-  margin: var(--space-0) var(--space-0) var(--space-24);
-}
-.app .unlocks, .landing .unlocks {
+/* ---- the block: ONE rule where there were two -----------------------------
+   The two names took the same bottom margin and differed only in what their
+   element brought with it: a `dl` needs its margin reset, a `ul` needs its
+   bullets and its indent taken away as well. Under one class the rule states
+   all three and lets the element ignore what does not apply to it, which costs
+   nothing: a `dl` has no padding to remove and none of its descendants is a
+   list item, so `list-style` and `padding` are inert on it. Measured on all 6
+   kit pages and all 7 coloured ones that carry the list: every descendant box
+   of every `dl` is unchanged to the pixel. */
+.app .pairs, .landing .pairs {
   list-style: none;
   margin: var(--space-0) var(--space-0) var(--space-24);
   padding: var(--space-0);
@@ -54,8 +64,8 @@
    inside one block rather than drawing the edge of anything, so it is
    decorative and owes no contrast threshold. The last line is bare, which is
    what stops the list from looking like a table with a stray rule under it. */
-.app .facts div,  .landing .facts div,
-.app .unlocks li, .landing .unlocks li {
+.app .pairs div, .landing .pairs div,
+.app .pairs li,  .landing .pairs li {
   display: flex;
   justify-content: space-between;
   gap: var(--space-16);
@@ -63,8 +73,8 @@
   border-bottom: 1px solid var(--line-divider);
   font-size: var(--type-body);
 }
-.app .facts div:last-child,  .landing .facts div:last-child,
-.app .unlocks li:last-child, .landing .unlocks li:last-child {
+.app .pairs div:last-child, .landing .pairs div:last-child,
+.app .pairs li:last-child,  .landing .pairs li:last-child {
   border-bottom: 0;
 }
 
@@ -84,15 +94,15 @@
 
    The dt/dd half is declared below. The span half is not declared at all, and
    that is the point: the left span inherits --text-primary from `body` in
-   base.css, and the right one is a `.p`, which is the Muted line atom and
+   base.css, and the right one is a `.muted`, which is the Muted line atom and
    brings its own colour with it. A rule here setting the ink of that span would
    be this host repainting an atom, which is the exact defect this stage exists
    to remove. */
 
-.app .facts dt, .landing .facts dt {
+.app .pairs dt, .landing .pairs dt {
   color: var(--text-muted);
 }
-.app .facts dd, .landing .facts dd {
+.app .pairs dd, .landing .pairs dd {
   margin: var(--space-0);
   text-align: right;
   color: var(--text-primary);
@@ -112,11 +122,12 @@
 
    Five grey pages carry it (sign-in, sign-in-sent, cancel-guide,
    cancel-guide-no-guide, upgrade-payment-failed) and one coloured page does
-   (upgrade-payment-failed). It is a content variant, declared, not drift. */
-.app .facts.sentences div, .landing .facts.sentences div {
+   (upgrade-payment-failed). It is a content variant, declared, not drift, and
+   it survives the rename at exactly the two values it had. */
+.app .pairs.sentences div, .landing .pairs.sentences div {
   display: block;
 }
-.app .facts.sentences dd, .landing .facts.sentences dd {
+.app .pairs.sentences dd, .landing .pairs.sentences dd {
   text-align: left;
   margin: var(--space-4) var(--space-0) var(--space-0);
 }
@@ -127,26 +138,35 @@
    by name: "the host owns the slot, this file owns the bar". They stay pixels,
    like every other width in the system, because a width is not a spacing and
    the 8px grid does not govern it. Two different widths on purpose: a column of
-   identical bars reads as a progress meter, and loading is not progress. */
-.app .facts .skel,    .landing .facts .skel    { width: 84px; }
-.app .facts dd .skel, .landing .facts dd .skel { width: 110px; }
+   identical bars reads as a progress meter, and loading is not progress.
 
-/* NO STATES. A pair list is a table of facts read once: a sweep of every
-   `.facts` and every `.unlocks` on all 55 grey pages and 28 coloured ones
-   returns ZERO anchors inside either, and no row is hoverable, focusable or
-   pressable. Where a fact needs an action, the action is a sibling below the
-   list (the detail screen's "Edit the details"), never a target inside it.
+   The first selector widens from `.facts .skel` to `.pairs .skel` and therefore
+   now reaches the span markup as well. Nothing is behind it: a sweep of the
+   three corpora returns zero `.skel` inside any `ul` that carried `.unlocks`,
+   and the one screen that loads a pair list as a skeleton is the subscription
+   detail, which is dt/dd. */
+.app .pairs .skel,    .landing .pairs .skel    { width: 84px; }
+.app .pairs dd .skel, .landing .pairs dd .skel { width: 110px; }
 
-   `.app .unlocks .p { text-align: right }` is the one rule of this component
-   that is NOT in this file. It lives in muted-line.css, which carried it at the
-   atom round with a comment offering it back. It is left there rather than
-   duplicated: a rule that belongs to two files ends up in neither, and moving
-   it means editing both files in one step. Flagged for the parent, not fixed
-   here. */
+/* THE ONE RULE THAT NEEDED THINKING ABOUT AT THE RENAME, and the element is
+   what saves it. It arrived here from muted-line.css at the atom round: right
+   aligning a child is the HOST doing its job, not the atom doing its own, and a
+   rule whose subject is "this atom, but only inside me" belongs to the me, or
+   the atom grows a variant for every host it ever stands in.
 
-/* Moved here from muted-line.css. `.unlocks .p` right-aligns the muted atom that
-   carries the value half of a pair, and right-aligning a child is the HOST doing
-   its job, not the atom doing its own. The atom's file offered it back and this
-   file takes it: a rule whose subject is "this atom, but only inside me" belongs
-   to the me, or the atom grows a variant for every host it ever stands in. */
-.app .unlocks .p, .landing .unlocks .p { text-align: right; }
+   It used to be scoped by class, `.unlocks .p`, and the class it was scoped by
+   has just stopped existing separately. Scoped to `.pairs .muted` it would
+   reach into the dt/dd markup too, where the value half is a `dd` that is
+   already right aligned above and the label half is a `dt` that must not be.
+   Nothing carries a muted line inside a `dt` today, so the loose selector would
+   have moved nothing and waited. `li` is the discriminator the markup already
+   has: it selects the same 4 elements on upgrade-current-plan that
+   `.unlocks .p` selected, and it cannot reach a `dl`. Same pixels, and the rule
+   now says which of the two markups it is about. */
+.app .pairs li .muted, .landing .pairs li .muted { text-align: right; }
+
+/* NO STATES. A pair list is a table of facts read once: a sweep of every list
+   on all 55 grey pages and 28 coloured ones returns ZERO anchors inside one,
+   and no row is hoverable, focusable or pressable. Where a fact needs an
+   action, the action is a sibling below the list (the detail screen's "Edit the
+   details"), never a target inside it. */

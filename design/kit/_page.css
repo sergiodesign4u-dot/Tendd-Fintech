@@ -513,15 +513,163 @@
 
    --kit-measure carries the number. The default is the product's row column;
    .wide and .bleed are the two exceptions, each used where a component genuinely
-   spans further, and each says so on its page. */
+   spans further, and each says so on its page.
+
+   THE STAGE IS THE QUERY CONTAINER, AND ON A STAND THAT IS THE WHOLE POINT.
+
+   Ten components in this system change FORM and not size at a container query:
+   the tab bar, the app bar, the dialog sheet, the card, the grid, the chart
+   placeholder and the shell itself at 760, the dashboard head, the category
+   group and the shell again at 900, and the groups column set at 900 and again
+   at 1340. base.css puts `container-type: inline-size` on `body`, which is right
+   for the product and is not changed here: a screen is handed the window and
+   asks the window its width.
+
+   Its consequence on the STAND was missed. Until 2026-08-12 this rule
+   deliberately declared no container so that `body` stayed the nearest one, and
+   the comment that stood here argued the choice by name. So every specimen asked
+   the BROWSER WINDOW its width instead of the box it was standing in, and at a
+   1280 window every specimen rendered its desktop form however narrow its stage
+   was. Measured on tab-bar.html before the change, at a 1280 window: the 944px
+   stage rendered `position: static`, `flex-direction: column`, 898x208 with
+   `border-right: 1px`, which is the rail and is correct; the 435px stage
+   rendered the same rail at 389x208. A page built to show a component's two
+   forms was showing one of them twice.
+
+   The founder read that as three separate complaints in one sitting: "this does
+   not look like a tab bar", "the logo jumps between the two specimens and the
+   panel is very wide" on the app bar, and "boring" on the dialog sheet, which
+   was its desktop card four times over with its mobile full-bleed form nowhere
+   on the page.
+
+   RE-POINTING THE QUERY AT THE STAGE IS NOT A SIDE EFFECT TO BE AVOIDED HERE, IT
+   IS THE INSTRUMENT. The stage is the box the reviewer sizes, so the stage is
+   the box the specimen has to ask. The same declaration on `.app` in the PRODUCT
+   would still be wrong, for the reason app-shell.css and tab-bar.css both state
+   at their own lines, and nothing in design/system/ moves for this.
+
+   Measured after, same page, same window: the 435px stage flipped to
+   `position: fixed`, `flex-direction: row`, 433x63 with `border-top: 1px` and a
+   --bg-surface ground, which is the real phone bottom bar.
+
+   `contain: layout` IS STILL NEEDED AND `container-type` DOES NOT REPLACE IT,
+   and that was measured rather than read off a spec. With `container-type:
+   inline-size` alone the 435px stage fired the query correctly and the fixed bar
+   still landed at x 0, width 1280, at the foot of the browser window: in
+   Chromium today the query container and the containing block for a fixed
+   descendant are two different things, and only `contain: layout` gives the
+   second. With both declared the same bar measured x 318, width 433, inside its
+   own stage. Neither declaration is decoration and neither covers for the other.
+
+   ON THE BASE RULE AND NOT ON A MODIFIER. `.kit-stage.pinned` carried
+   `contain: layout` from an earlier round and was never written onto a single
+   stage: 63 pages, zero uses, and tab-bar.html carried a paragraph asking for
+   the class rather than using it. A stand has no case where a specimen SHOULD
+   escape to the window, so the containing block belongs to every stage, and the
+   modifier keeps only the part that is a choice, which is the room. */
 .kit-stage {
   --kit-measure: 440px;
+  container-type: inline-size;
+  contain: layout;
   display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
   padding: 28px 22px; margin: 0 0 14px;
   background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: var(--radius);
 }
 .kit-stage.wide  { --kit-measure: 620px; }   /* nav rows, forms, plan cards */
-.kit-stage.bleed { --kit-measure: none; }
+.kit-stage.bleed { --kit-measure: none; }    /* bands that really do span: a shell, a rail */
+
+/* THE RAIL IS 240px IN THE PRODUCT AND THE STAGE HAS TO SAY SO.
+
+   app-shell.css gives the desktop shell `grid-template-columns: 240px minmax(0,
+   1fr)`, so the app bar and the tab bar in their rail form are 240px wide on
+   every coloured screen. The stand has no shell grid, so the rail simply took
+   the stage: measured at 898px on tab-bar.html and 898px on app-bar.html at a
+   1280 window. That is the founder's "the panel is very wide", and it is also
+   why the app bar's wordmark sat in a different place in each of its two
+   specimens: at 898px the column had room the product never gives it.
+
+   THE BOUND GOES ON THE CHILD AND THE STAGE STAYS WIDE, and the order matters
+   now that the stage is the query container: narrowing the stage to 240 would
+   drop the container under 760 and the component would render its MOBILE form
+   instead. Wide stage, narrow specimen, and the query still fires.
+
+   Inside the 760 query because the same stage renders the mobile form at a phone
+   width, where both chromes span the full width. A 240px cap centred in the box
+   down there would be a third form the product never draws. It rides
+   --kit-measure rather than writing its own max-width, so a stage still has one
+   lever for how wide its specimen is allowed to be. */
+@container (min-width: 760px) {
+  .kit-stage.rail.full > * { --kit-measure: 240px; }
+}
+
+/* THE STAND'S SCOPE IS NOT THE SHELL, and from this round it has to say so.
+
+   `.app` is two things at once: the class every product screen carries as its
+   scope, and the App shell ORGANISM. The stand puts the scope on the stage
+   element itself, `class="kit-stage app"`, on 403 stages across 50 pages. The
+   moment app-shell.css is imported, every one of them inherits the shell's
+   `min-height: 100dvh`, its column flow and, past container 760, `height: 100dvh`.
+   Measured before this line: button.html's first stage 900px tall at 1280 by 900
+   with its specimens stacked in a column instead of a row, subscription-row.html
+   900 against a correct 174, divided-list.html 900 against 330.
+
+   This is the `.empty` collision again, exactly: a stand class and a product
+   class sharing a name, harmless until the product class is written. That one
+   was renamed ahead of this round and this one was not checked, because I looked
+   for cascade collisions and a NAME is the thing to look for. */
+.kit-stage.app { flex-direction: row; min-height: 0; height: auto; }
+
+/* A STAGE THAT HOLDS A PINNED SPECIMEN NEEDS ROOM, and giving it room is all
+   this modifier does now. A fixed child leaves the flow, so its stage collapses
+   onto its own padding: measured at 58px on tab-bar.html with a 63px bar in it,
+   which left the bar 7px proud of the box that is supposed to be holding it.
+   Three --row floors is 168px, so the bar gets its own 56px row and two more
+   above it and the stage reads as the foot of a screen, which is the only place
+   this form of the component ever stands. --row is the product's row floor and
+   the tab bar's own minimum, so the height is the component's number rather than
+   the stand's taste.
+
+   IT IS WRITTEN AFTER `.kit-stage.app` AND NOT BEFORE IT, and that is not
+   tidiness. Both selectors are 0-2-0, `.kit-stage.app` sets `min-height: 0` to
+   undo the shell's `100dvh`, and source order is the only thing separating them.
+   Written above it the modifier lost and measured 58px, which is the exact bug
+   it exists to fix. */
+.kit-stage.pinned { min-height: calc(var(--row) * 3); }
+
+/* A STAGE THAT HAS TO CROSS THE PRODUCT'S SECOND STEP, 900.
+
+   Now that the stage is the query container, a query only fires if the STAGE is
+   wide enough, and the stand's widest stage is not. Measured across all 63 pages
+   at a 1280 window, the stage inner widths this stand produces are 228, 258,
+   389, 578, 882 and 898. 760 is crossed on every page that has stages, so the
+   six components that change form there can show both. 900 is crossed nowhere,
+   by two pixels.
+
+   The cost was real and it was measured: dashboard-head.html lost its two-track
+   head, 364x493 becoming one 898px block, and groups-column-set.html lost its
+   two columns, 425 each becoming one 898px column. Both had been rendering their
+   wide form only because they were borrowing the window, which is the same
+   borrowing that made every narrow stage lie.
+
+   The room comes out of the stage's own side padding, 22px becoming 8px, which
+   takes the inner width from 898 to 926. The column itself is not widened: at a
+   1280 window the wrap already has 1000px of the 1012px the body gives it beside
+   the panel, so widening it would move the reading measure of all 63 pages to
+   buy 12px, and this buys 28px without touching a page that does not ask.
+
+   THE 26px OF HEADROOM IS LOAD-BEARING, not slack. A classic 15px scrollbar
+   takes the body to 1265 and the inner width to 923, still over. At the old 22px
+   padding the same window would have measured 895 and the step would have fired
+   on one machine and not on another, which is the quietest possible defect.
+
+   1340 IS OUT OF REACH AND IS NOT REACHED HERE. The wrap is capped at 1000, so
+   the widest stage this stand can build is 926 at any window size, and the
+   groups column set's three-column form cannot be shown on its page. Before this
+   round it appeared at a window of about 1608 and wider, which is outside the
+   two widths this stage accepts at. Reaching it would need a stage allowed to
+   leave the reading column entirely, and that is a decision about the stand's
+   layout rather than a modifier. Reported, not smuggled in. */
+.kit-stage.past-900 { padding-inline: 8px; }
 
 /* The four destination squares in a line on the icons page. A stand class and
    not a product one: nothing in the product ever puts the four side by side
@@ -570,9 +718,18 @@
 .kit-state .tok { padding: 8px 12px 11px; font-size: 11.5px; color: var(--text-muted); }
 .kit-state .tok code { color: var(--text-action); }
 
+/* THE COPYABLE MARKUP BLOCK, and `white-space: pre` is not a nicety here.
+   Without it every multi-line sample on every component page collapsed its
+   newlines and indentation into one run-on line: the block that exists so a
+   person can copy the markup was showing markup nobody could read, on 55 pages,
+   since the day the stand was built. Found on 2026-08-12 by an agent measuring
+   something else. `pre` and not `pre-wrap`, because `overflow-x: auto` is
+   already declared and a sample that wraps mid-attribute is the same defect
+   with softer edges. */
 .kit-cmd { display: block; padding: 10px 12px; margin: 12px 0 0; font-size: 11.5px;
   background: var(--bg-recessed); border: 1px solid var(--line-divider); border-radius: var(--radius-xs);
-  color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x: auto; }
+  color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  white-space: pre; overflow-x: auto; }
 
 .kit-do { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 0 0 8px; }
 .kit-do > div { border: 1px solid var(--line-container); border-radius: var(--radius-sm); padding: 14px; background: var(--bg-surface); }

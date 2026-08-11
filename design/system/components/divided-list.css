@@ -1,0 +1,155 @@
+/* ============================================================================
+   Divided list - organism
+   A stack of whole molecules with a hairline between them and no line top or
+   bottom: eight alerts on the Alerts screen, four destinations on Settings. It
+   is the container that lets a row draw no edge of its own, which is what makes
+   a list read as one object rather than as a stack of cards.
+
+   Reads
+     lines    --line-divider  (the hairline between two items)
+     spacing  --space-0, --space-8, --space-16, --space-24
+   Page      design/kit/divided-list.html
+   Stands on 4 grey pages, 7 lists: alerts (3), alerts-loading (2),
+   settings (1), settings-no-account (1). Two of the four are coloured, both of
+   them Settings, so the nav rows render in Petrol and Paper today and the
+   alerts are still grey.
+
+   THE MERGE. `.alerts` and `.navrows` were two names for one rule. Step 2 put
+   them together on the evidence: `list-style: none`, no margin except at the
+   foot, no padding, and `> li + li { border-top }` written twice with the same
+   token. The third copy of that divider rule stays with the Category group,
+   because the bare `<ul>` on Home has no class to hook and needs it.
+
+   IT HOSTS AND IT DOES NOT REPAINT. Every item is a whole molecule, written
+   elsewhere and already correct: the Alert item owns its 14px sentence, its
+   12px meta line, its own hover and its own focus ring; the Nav row owns its
+   56px floor, its chevron and its inherited ink. THIS FILE DRAWS EXACTLY ONE
+   LINE. It sets no size, no ink, no fill and no edge on anything it holds, and
+   the inset variant below moves the list's own padding and touches nothing
+   inside it.
+
+   ONE NAME NOW. `.alerts` and `.navrows` became `.divlist` on 2026-08-12, here
+   and in the markup of every screen in the same pass, in the `.app`-only scope
+   kit.css gave them. WHAT EACH HAD THAT THE OTHER DID NOT, measured out of
+   `design/kit/kit.css` at lines 917 to 921 before the rename:
+
+     .alerts    the reset and the divider, and one container-keyed variant,
+                `.panel .alerts { padding: 0 14px 6px }`
+     .navrows   the reset and the divider, and `margin: 0 0 22px`
+
+   The reset and the divider came back byte identical under both names, which is
+   the merge. Two differences survive and each is written below under its own
+   name: the inset, which the map declares, and the bottom gap, which it does
+   not. Neither is a difference in what the list DRAWS; both are about the
+   container it stands in.
+
+   THE LAST-ROW PRINCIPLE WAS ALREADY THIS COMPONENT'S SHAPE, and 2026-08-12
+   made it the system's. The founder's review of the components ruled that the
+   last row of a divided list draws no bottom rule, because a divider divides two
+   things and after the last row there is nothing to divide. NOTHING CHANGES
+   HERE: `li + li { border-top }` below has never drawn a line after the last
+   item, which is the same principle written the other way round, and it is why
+   the seam docs/backlog.md recorded was never this list's. The rule that had to
+   move was `.charges li` in charge-list.css, the one ruled list in the system
+   that still closed itself; the Panel's `.gate:not(:first-child)` keeps its top
+   rule. Both are measured and written up in those two files.
+   ============================================================================ */
+
+/* ---- the list -------------------------------------------------------------
+   The browser's bullets and its 40px indent, off, and nothing else. No fill, no
+   edge, no radius: on Alerts the list sits inside a Category group on the page
+   ground, and on Settings it stands on the ground on its own. Where it wants a
+   white surface and a corner, the surface is the Panel around it and not a
+   property of the list. */
+.app .divlist {
+  list-style: none;
+  margin: var(--space-0);
+  padding: var(--space-0);
+}
+
+/* ---- the gap after it, which is the host's, and the map has no row for it ---
+   One of the two old names carried a bottom margin and the other did not, and
+   the difference was the host rather than the component: `.alerts` is the last
+   thing inside a Category group that already spaces itself, `.navrows` is the
+   last block on Settings with a tab bar under it. One name cannot carry two
+   margins, so the gap is keyed to the container instead, which is the same shape
+   as the inset below and the convention app-shell.css states in its own words:
+   it "leaves `.appbar .chip` in chip.css and `.panel .divlist` in
+   divided-list.css", so a container-keyed rule about this list lives in this
+   list's file.
+
+   `.rows-col` IS THE CONTAINER AND IT IS THE SHELL'S, not a class the list can
+   read off itself. It is the content column on Settings and on Settings with no
+   account, the only two coloured screens that carry a divided list, and it sets
+   no gap of its own: app-shell.css gives it `min-width: 0` and nothing else, so
+   every block inside it states its own bottom gap and this list is one of them.
+
+   THIS IS THE ONE ROW THE RENAMING MAP DOES NOT HAVE, and it is reported rather
+   than folded away. Two other shapes would serve and both cost an edit outside
+   this file: a declared `.divlist.spaced` modifier, which needs a token added to
+   two product screens and collides with muted-line's `.spaced`, where the word
+   means a margin above; or a rule in app-shell.css, which is what action-row.css
+   did with its own 24px in this same round. Whichever wins, it is one line and
+   it replaces this one. Written here today because the alternative is losing
+   22px off two screens with nobody having decided to.
+
+   22px lands on --space-24, measured: the nav list computed
+   `margin-bottom: 22px` on both Settings screens at 360 and at 1280 before the
+   fold, in design/kit/screens/pixel-before.json. */
+.app .rows-col > .divlist { margin-bottom: var(--space-24); }
+
+/* ---- the one line this component draws ------------------------------------
+   Between two items and never around them. `li + li` and not `li:not(:last)`,
+   because there is then no line after the last item to take off, and no rule
+   reaching back into the item to remove one. The two names share one rule here
+   where kit.css wrote it twice, which is the merge itself: two identical
+   declarations under two selectors is what step 2 was looking for.
+
+   Decorative, so it owes no contrast threshold. Eight alerts separated at
+   1.23:1 read as one object; the same eight at 3:1 read as a table. */
+.app .divlist > li + li { border-top: 1px solid var(--line-divider); }
+
+/* ---- the axis: inset ------------------------------------------------------
+   ONE AXIS AND TWO VALUES: bare, or inside a panel. Bare is the default and it
+   is what a list does when its own container is the page: the items reach the
+   full column and the group's head sits above them.
+
+   INSIDE A PANEL THE LIST INDENTS. The panel is a white card with a corner and
+   a banded head, and its head is padded by 16px; a list running to the panel's
+   own edges would put its items 16px to the left of the head above them, which
+   reads as a broken column rather than as a full-bleed band. So the inset form
+   pads the list to match the head and lifts it 8px off the panel's bottom edge.
+
+   THE RULE FOR CHOOSING is the container and never emphasis: a list inside a
+   `.panel` takes the inset, a list anywhere else does not. It renders in one
+   place today, the "Older" disclosure on alerts.html, and that is the only
+   `.panel` in the product that holds a divided list.
+
+   AND THE CHARGE LIST IS DELIBERATELY THE OTHER ANSWER. It also sits inside a
+   panel and it does NOT indent: it is a full-bleed band, because a marked row's
+   amber wash has to reach the panel's own edges or the wash reads as a
+   highlighted rectangle floating inside a card. Two lists, one host, two
+   answers, and the difference is whether an item can be filled.
+
+   IT IS DECLARED HERE AND NOT IN THE PANEL'S FILE, on the same rule that puts
+   an atom's host sizes in the atom's own file: this is a variant of the divided
+   list, and the map gives it the name `inset`.
+
+   TWO SUBJECTS ON ONE RULE, AND THE SECOND IS TRANSITIONAL. `.divlist.inset` is
+   the declared modifier and it is the one the map names. `.panel .divlist` is
+   the container-keyed form the product still writes: the markup sweep matches on
+   a tag and a class list and cannot see a parent, so it could not add the token,
+   and the three specimens that need it, all in the stand, still read
+   `class="divlist"` inside a `.panel`. Both are on this rule so that nothing
+   renders wrong for a day, and the second line goes the moment the token lands.
+   The exact edits are in the step 6 report; there are three and no product
+   screen is among them, because no coloured screen holds a panelled list. */
+.app .divlist.inset, .app .panel .divlist { padding: var(--space-0) var(--space-16) var(--space-8); }
+
+/* NO STATES, and the reason is one line: a list is not interactive. `<ul>` on
+   all 7 occurrences, no anchor, no button, no tabindex and no role of its own,
+   and kit.css gave it no pointer response either. Every target inside it belongs
+   to an item: the Alert item has hover and focus-visible on alert-item.html,
+   the Nav row has hover and focus-visible on nav-row.html, and both were
+   written so that neither moves its neighbours by a pixel, which is exactly the
+   promise a divided list of eight depends on. */

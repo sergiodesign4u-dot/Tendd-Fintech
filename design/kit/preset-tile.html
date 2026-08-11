@@ -51,8 +51,8 @@
     <h2>Anatomy</h2>
     <p class="note">Two atoms in one target, which is what makes it a molecule. Everything below is drawn by <code>design/system/components/preset-tile.css</code> and the atom files it hosts, through the same entry point a product screen loads.</p>
     <div class="kit-stage app">
-      <button type="button" class="tile"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span>Spotify Premium<span class="p">Typically $11.99 a month</span></span></button>
-      <button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="p">Typically $17.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span>Spotify Premium<span class="muted">Typically $11.99 a month</span></span></button>
+      <button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="muted">Typically $17.99 a month</span></span></button>
     </div>
     <ul class="kit-callouts">
       <li><code>.tile</code> <span>the molecule: a <code>button</code>, 56px tall, with a control edge and a control corner. It sets <code>text-align: left</code> and <code>color: inherit</code> because a button that says nothing centres its text and takes the browser's ink</span></li>
@@ -84,14 +84,14 @@
             <td class="val">--bg-surface<br>--line-control</td>
             <td>11 of the 12. The catalogue as it arrives</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app"><button type="button" class="tile"><span class="logo"><img src="../visuals/logos/disney-plus.svg" alt=""></span><span>Disney+<span class="p">Typically $13.99 a month</span></span></button></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app"><button type="button" class="tile"><span class="logo"><img src="../visuals/logos/disney-plus.svg" alt=""></span><span>Disney+<span class="muted">Typically $13.99 a month</span></span></button></div></td></tr>
           <tr>
             <td><b>Chosen</b> <code>[aria-pressed="true"]</code></td>
             
             <td class="val">--bg-selected<br>--line-selected</td>
             <td>1 of the 12. The current selection, which is the second of the three jobs the One Voice Rule lets petrol do</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app"><button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="p">Typically $17.99 a month</span></span></button></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app"><button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="muted">Typically $17.99 a month</span></span></button></div></td></tr>
           <tr>
             <td class="kit-empty">Chosen, with a petrol name</td>
             
@@ -118,7 +118,7 @@
             <td class="val">none in the CSS</td>
             <td>6 tiles on Add a Subscription. Real targets, in the tab order, with <code>aria-pressed</code></td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app"><button type="button" class="tile"><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span>Amazon Prime<span class="p">Typically $14.99 a month</span></span></button></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app"><button type="button" class="tile"><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span>Amazon Prime<span class="muted">Typically $14.99 a month</span></span></button></div></td></tr>
           <tr>
             <td><b>span</b>, holding skeletons</td>
             
@@ -144,14 +144,14 @@
       <div class="yes">
         <span class="hd">Selection is an attribute</span>
         <div class="kit-stage app">
-          <button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="p">Typically $17.99 a month</span></span></button>
+          <button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="muted">Typically $17.99 a month</span></span></button>
         </div>
         <p><code>aria-pressed="true"</code> is both the state a screen reader announces and the selector the tint is painted from. One fact, one place. It is also why this component and the range picker are hooked the same way: two selections in one product should not be built two different ways.</p>
       </div>
       <div class="no">
         <span class="hd">Never a class the assistive tree cannot see</span>
         <div class="kit-stage app">
-          <span class="consequence">&lt;button class="tile is-selected"&gt;</span>
+          <span class="muted">&lt;button class="tile is-selected"&gt;</span>
         </div>
         <p>A <code>.is-selected</code> class paints the tile and tells nobody. The two would then have to be kept in step by hand forever, and the first screen that forgets the attribute is a screen where a person using a screen reader chooses a preset and hears nothing change. The rule is not "prefer ARIA": it is that the visible state and the announced state must be the same fact, and only the attribute can be both.</p>
       </div>
@@ -160,7 +160,7 @@
       <div class="yes">
         <span class="hd">Use a preset tile</span>
         <div class="kit-stage app">
-          <button type="button" class="tile"><span class="logo"><img src="../visuals/logos/nyt.svg" alt=""></span><span>The New York Times<span class="p">Typically $17.00 a month</span></span></button>
+          <button type="button" class="tile"><span class="logo"><img src="../visuals/logos/nyt.svg" alt=""></span><span>The New York Times<span class="muted">Typically $17.00 a month</span></span></button>
         </div>
         <p>A catalogue entry a person picks from a set they can see all of at once, where picking it fills something in rather than going somewhere. The mark carries the recognition and the price line carries the reassurance.</p>
       </div>
@@ -168,7 +168,7 @@
         <span class="hd">Use a subscription row instead</span>
         <div class="kit-stage app">
           <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
-          <span class="consequence">Netflix &nbsp; $17.99 &nbsp; Next payment Aug 3</span>
+          <span class="muted">Netflix &nbsp; $17.99 &nbsp; Next payment Aug 3</span>
         </div>
         <p>Something a person already has, standing in a list, is the <b>subscription row</b>: no edge, no fill and no corner, because rows stack inside one bordered container and a list of cards is a list nobody can scan. The tile is bordered precisely because it is <b>not</b> a list: it is a set of offers in a grid, and each one has to look like a thing you can press. The row is a molecule of its own and is not built yet, so what stands here is its content drawn by the logo and muted line atoms alone.</p>
       </div>
@@ -182,8 +182,8 @@
 
     <h3 class="kit-sub-h">Rest and chosen, live</h3>
     <div class="kit-stage app" id="live-rest">
-      <button type="button" class="tile" aria-pressed="true" id="shot-pressed"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="p">Typically $17.99 a month</span></span></button>
-      <button type="button" class="tile" id="shot-rest"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span>Spotify Premium<span class="p">Typically $11.99 a month</span></span></button>
+      <button type="button" class="tile" aria-pressed="true" id="shot-pressed"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="muted">Typically $17.99 a month</span></span></button>
+      <button type="button" class="tile" id="shot-rest"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span>Spotify Premium<span class="muted">Typically $11.99 a month</span></span></button>
     </div>
     <p class="note">Both are real buttons with real attributes. Hover the second one, then tab to it: the ring is the only thing that tells a keyboard user which of six identical boxes they are standing on, because the tiles carry no other position marker.</p>
 
@@ -229,10 +229,10 @@ person actually comes to this page to compare against rest.</code>
         </tbody>
       </table>
     </div>
-    <p class="note">Lives in <code>design/system/components/preset-tile.css</code>. Stands on 2 grey pages and both of their coloured copies: <a href="../add-subscription.html">Add a Subscription</a> and <a href="../add-subscription-loading.html">its loading state</a>. The grid around it (<code>.tiles</code>, two columns and then three) is the Grid organism and is not built yet.</p>
+    <p class="note">Lives in <code>design/system/components/preset-tile.css</code>. Stands on 2 grey pages and both of their coloured copies: <a href="../add-subscription.html">Add a Subscription</a> and <a href="../add-subscription-loading.html">its loading state</a>. The grid around it (<code>.grid</code>, two columns and then three) is the <a href="grid.html">Grid organism</a>, and it was <code>.tiles</code> until step 6.</p>
     <code class="kit-cmd">&lt;button type="button" class="tile" aria-pressed="true"&gt;
   &lt;span class="logo"&gt;&lt;/span&gt;
-  &lt;span&gt;Netflix&lt;span class="p"&gt;Typically $17.99 a month&lt;/span&gt;&lt;/span&gt;
+  &lt;span&gt;Netflix&lt;span class="muted"&gt;Typically $17.99 a month&lt;/span&gt;&lt;/span&gt;
 &lt;/button&gt;
 
 &lt;!-- the loading form: a span, inside an aria-hidden grid --&gt;

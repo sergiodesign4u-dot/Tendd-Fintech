@@ -1,7 +1,7 @@
 /* ============================================================================
    Text input - atom
    The control a person types into: a name, an amount, a date, an email, a
-   search. One of the two halves of a rule kit.css writes once for both.
+   search. One of the two halves of a rule kit.css wrote once for both.
 
    Reads
      colour   --bg-surface, --text-primary, --text-muted, --bg-recessed,
@@ -15,7 +15,7 @@
    connect-bank, settings, settings-no-account, sign-in. 14 of them are coloured.
    Three of the sixteen are the Amount field and carry .affix.
 
-   ONE STYLE, TWO ELEMENTS. kit.css declares the input and the select in a
+   ONE STYLE, TWO ELEMENTS. kit.css declared the input and the select in a
    single rule block, and the grey stylesheet it was extracted from had already
    settled them that way (_wf.css:746). The pack asks for one file per
    component, so the shared values are written out again in select.css rather
@@ -31,14 +31,32 @@
    comment that describes the file it sits in has to be reread when the file
    changes, and this one was not.
 
-   THE CLASS NAME IS NOT TOUCHED. `.field input` stays exactly as the product
-   writes it. The rename to `.input` is decided in docs/inventory.md and
-   executed at step 6 with the markup of the screens, because a rename here and
-   a screen there is how a pixel comparison stops proving anything.
+   THE ATOM HAS A NAME NOW, AND THAT IS THE WHOLE OF STEP 6 FOR THIS FILE.
+   Until 2026-08-12 the control had no class of its own anywhere in the product:
+   it simply WAS `.field input`, and a sweep of every class attribute on the 28
+   coloured screens and the 55 grey pages returned the token `input` zero times
+   in either corpus. So the markup sweep ADDS `class="input"` where there was no
+   class attribute at all, and the selectors below name `.input` and no longer
+   name `.field`.
+
+   THE DIFFERENCE IS NOT COSMETIC. `.field input` means "an input, but only
+   inside a form field". `.input` means "an input". The second is a component
+   and the first was a fragment of its host, and every rule in this file had to
+   be re-read to decide which of the two it was really about. One declaration
+   turned out to belong to the host and left: `width: 100%` is the FIELD giving
+   the control its column, so it now reads `.field .input` and lives in
+   form-field.css, where the host's own material is. Everything else is true of
+   this control wherever it stands, and stands here on the bare class.
+
+   ZERO PIXELS MOVE, and it was measured before the change rather than claimed
+   after it: all 83 controls in the two corpora sit inside their expected host
+   (every text input and select inside `.field`, every checkbox inside
+   `.switch`), so a rule scoped to `.field` and a rule scoped to nothing select
+   exactly the same elements today. The rename buys the atom its independence
+   without spending a pixel for it.
    ============================================================================ */
 
-.app .field input, .landing .field input {
-  width: 100%;
+.app .input, .landing .input {
   min-height: var(--tap);
   padding: var(--space-0) var(--space-16);
   border: 1px solid var(--line-control);
@@ -46,6 +64,10 @@
   background: var(--bg-surface);
   color: var(--text-primary);
   font: inherit; font-size: var(--type-body);
+  /* WIDTH IS NOT HERE. It is the field's, and form-field.css states it as
+     `.field .input`. An input is as wide as whatever holds it, exactly like the
+     button beside it, and an atom that declares itself full width can never be
+     put in a row with anything. */
 }
 
 /* The edge is the whole of this control's identity. Its fill is paper and so is
@@ -53,7 +75,7 @@
    is why it reads --line-control (3.46:1 on paper) rather than the container
    hairline (1.23:1). Founder's decision, 2026-08-11, in docs/decisions.md. */
 
-.app .field input::placeholder, .landing .field input::placeholder {
+.app .input::placeholder, .landing .input::placeholder {
   color: var(--text-muted);
 }
 
@@ -66,6 +88,16 @@
    switches it back: type="number" adds spinner arrows, lets the wheel change an
    amount while a person scrolls past the field, and rejects the comma as a
    decimal separator in some locales. On money that is a known trap.
+
+   IT IS A DECLARED VARIANT AND IT KEEPS ITS HOST DELIBERATELY. `.affix` is a
+   class the markup already carries on the FIELD, on 8 fields across both
+   corpora, so it is not one of the contextual overrides step 6 exists to
+   remove: nothing here changes how the control looks according to where it
+   happens to stand, it changes how it looks according to a modifier somebody
+   wrote down. The three rules below therefore keep `.field` in their selectors,
+   because the field really is their subject: it is the field that becomes a
+   grid, the field that owns the `.cur` slot, and the input that is pushed clear
+   of the sign the field drew.
 
    THE BOX DOES NOT CHANGE. The sign is painted inside the input's own left
    padding, so the edge, the radius, the 44px floor and the focus ring are still
@@ -103,7 +135,7 @@
   user-select: none;              /* and a copy of the field returns the number */
 }
 
-.app .field.affix > input, .landing .field.affix > input {
+.app .field.affix > .input, .landing .field.affix > .input {
   grid-row: 2; grid-column: 1;
   padding-left: calc(var(--space-16) + var(--space-8) + var(--space-4));
   /* the field's own padding, then the sign, then the air after it. The sign
@@ -119,7 +151,7 @@
    moves the element, changes its size or adds a border where there was none:
    a border appearing on hover shifts every neighbour by a pixel. */
 
-.app .field input:hover, .landing .field input:hover {
+.app .input:hover, .landing .input:hover {
   border-color: var(--line-control-hover);
 }
 
@@ -128,7 +160,7 @@
    whole system inside :where(), which holds it at specificity 0; this
    re-declares it at the component's own specificity so the component wins, and
    reads the same token so the two can never disagree about what a ring is. */
-.app .field input:focus-visible, .landing .field input:focus-visible {
+.app .input:focus-visible, .landing .input:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
@@ -148,21 +180,21 @@
    required field before a person has typed a character, which is a calm product
    shouting at somebody for not having started yet. :user-invalid waits until
    they have interacted and left it wrong. */
-.app .field input:user-invalid, .landing .field input:user-invalid,
-.app .field input[aria-invalid="true"], .landing .field input[aria-invalid="true"] {
+.app .input:user-invalid, .landing .input:user-invalid,
+.app .input[aria-invalid="true"], .landing .input[aria-invalid="true"] {
   border-color: var(--line-failure);
   background: var(--bg-failure);
 }
-.app .field input:user-invalid:focus-visible, .landing .field input:user-invalid:focus-visible,
-.app .field input[aria-invalid="true"]:focus-visible,
-.landing .field input[aria-invalid="true"]:focus-visible {
+.app .input:user-invalid:focus-visible, .landing .input:user-invalid:focus-visible,
+.app .input[aria-invalid="true"]:focus-visible,
+.landing .input[aria-invalid="true"]:focus-visible {
   outline-color: var(--line-failure);
 }
 
 /* The third invalid rule in kit.css, `.field:has([aria-invalid="true"]) .hint`,
    is NOT here. Its subject is the hint, which belongs to the Form field
    molecule, and an atom that repaints a part of its host is the unnamed variant
-   this stage exists to prevent. It travels with field.css. */
+   this stage exists to prevent. It travels with form-field.css. */
 
 /* Disabled repaints rather than fading, on the same three roles the button
    uses, which is why there is no --opacity-disabled in the system: it would
@@ -170,13 +202,13 @@
    unread. AUTHORED: no input on any page carries the attribute today, so this
    moves zero pixels and exists so that the first screen that needs it does not
    invent it. */
-.app .field input[disabled], .landing .field input[disabled] {
+.app .input[disabled], .landing .input[disabled] {
   cursor: default;
   background: var(--bg-recessed);
   border-color: var(--line-divider);
   color: var(--text-muted);
 }
-.app .field input[disabled]:hover, .landing .field input[disabled]:hover {
+.app .input[disabled]:hover, .landing .input[disabled]:hover {
   border-color: var(--line-divider);
 }
 
@@ -198,6 +230,15 @@
    --text-muted from the field, so it is the second tier of the control and not
    a second action competing with the primary one.
 
+   ITS SELECTOR FOLLOWS THE RENAME AND NOTHING ELSE ABOUT IT CHANGES.
+   `.field input[type="search"]::-webkit-search-cancel-button` became
+   `.input[type="search"]::-webkit-search-cancel-button` on 2026-08-12: the type
+   attribute stays, because a clear control belongs to a search input and not to
+   every input, and the host went, because it never belonged to the field. Path,
+   viewBox, stroke width, 16px box and --text-muted are untouched, so the close
+   control being drawn from this same path in the same round stays byte for byte
+   the same mark.
+
    WEBKIT AND BLINK ONLY, and that is the honest boundary rather than an
    oversight: Firefox renders no clear control on a search input at all, so
    there is nothing there to restyle. A person on Firefox clears the field the
@@ -205,10 +246,11 @@
 
    THE SAME GLYPH IS OWED ELSEWHERE. `a.back` carries `&times; Close` twice on
    Upgrade, and it is still a character because that class does two jobs and CSS
-   cannot tell them apart. When step 6 splits `.back` and `.close`, the close
-   control reads this path and the last character mark in the product goes. */
-.app .field input[type="search"]::-webkit-search-cancel-button,
-.landing .field input[type="search"]::-webkit-search-cancel-button {
+   cannot tell them apart. The step 6 map splits `.back` and `.close`, and the
+   close control reads this path, so the last character mark in the product
+   goes. */
+.app .input[type="search"]::-webkit-search-cancel-button,
+.landing .input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;
   width: 16px;

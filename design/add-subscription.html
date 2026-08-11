@@ -7,7 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
   <script src="system/behaviour.js" defer></script>
 </head>
 <body>
@@ -17,8 +18,8 @@
   shell: .app.flow, which is the onboarding chain and carries NO tab bar.
   This is the screen that brings the form primitives into the sample: search,
   text input, select, hint, fieldset, and the preset tile.
-  Assembled from kit classes. This page carries no page-level style block, no
-  style attribute, and no class that kit.css does not define.
+  Assembled from system classes. This page carries no page-level style block, no
+  style attribute, and no class that design/system/ does not define.
   Structure and copy are a verbatim copy of wireframes/add-subscription.html.
   Links to screens that are not coloured yet point back into wireframes/.
 -->
@@ -40,14 +41,14 @@
 <div class="app flow">
 
   <header class="appbar">
-    <a class="back" href="../wireframes/path-choice.html">&lsaquo; Back</a>
+    <a class="back" href="../wireframes/path-choice.html">Back</a>
     <span class="wordmark">Tendd</span>
     <span class="step">Step 2 of 3</span>
   </header>
 
   <main class="screen">
 
-    <div class="lede">
+    <div class="textblock">
       <h1>Add a subscription</h1>
       <p>Pick from 400+ services, or add your own. Nothing leaves your control.</p>
     </div>
@@ -56,20 +57,20 @@
          three letters. The tiles below are for the person who would rather look. -->
     <form class="field" role="search" onsubmit="return false">
       <label for="preset-search">Find a service</label>
-      <input id="preset-search" type="search" placeholder="Search 400+ services" autofocus>
+      <input class="input" id="preset-search" type="search" placeholder="Search 400+ services" autofocus>
     </form>
 
     <!-- The catalogue as evidence rather than as a boast. A blank form is the
          version people abandon; tapping one of these makes the form below a
          confirmation instead of data entry. -->
     <h2 class="group-head plain"><span>Most tracked</span></h2>
-    <div class="tiles">
-      <button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="p">Typically $17.99 a month</span></span></button>
-      <button type="button" class="tile"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span>Spotify Premium<span class="p">Typically $11.99 a month</span></span></button>
-      <button type="button" class="tile"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span><span>Disney+<span class="p">Typically $13.99 a month</span></span></button>
-      <button type="button" class="tile"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span><span>Amazon Prime<span class="p">Typically $14.99 a month</span></span></button>
-      <button type="button" class="tile"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span><span>Adobe Creative Cloud<span class="p">Typically $22.99 a month</span></span></button>
-      <button type="button" class="tile"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span><span>The New York Times<span class="p">Typically $17.00 a month</span></span></button>
+    <div class="grid">
+      <button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="muted">Typically $17.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span>Spotify Premium<span class="muted">Typically $11.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span><span>Disney+<span class="muted">Typically $13.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span><span>Amazon Prime<span class="muted">Typically $14.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span><span>Adobe Creative Cloud<span class="muted">Typically $22.99 a month</span></span></button>
+      <button type="button" class="tile"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span><span>The New York Times<span class="muted">Typically $17.00 a month</span></span></button>
     </div>
 
     <p class="quiet">Can't find it? <a href="add-subscription-empty.html">Add it by hand</a> and fill the details yourself.</p>
@@ -81,16 +82,16 @@
       <fieldset>
         <div class="field">
           <label for="sub-name">Name</label>
-          <input id="sub-name" type="text" value="Netflix">
+          <input class="input" id="sub-name" type="text" value="Netflix">
         </div>
         <div class="field affix">
           <label for="sub-amount">Amount</label>
           <span class="cur" aria-hidden="true">$</span>
-          <input id="sub-amount" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" value="17.99">
+          <input class="input" id="sub-amount" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" value="17.99">
         </div>
         <div class="field">
           <label for="sub-freq">Billing frequency</label>
-          <select id="sub-freq">
+          <select class="select" id="sub-freq">
             <option>Monthly</option>
             <option>Every 4 weeks</option>
             <option>Quarterly</option>
@@ -100,7 +101,7 @@
         </div>
         <div class="field">
           <label for="sub-next">Next payment date</label>
-          <input id="sub-next" type="text" value="Aug 3, 2026">
+          <input class="input" id="sub-next" type="text" value="Aug 3, 2026">
           <p class="hint">For example, Aug 3, 2026</p>
         </div>
       </fieldset>
@@ -113,7 +114,7 @@
 
     <!-- The one-at-a-time loop has to be cheap, and stopping has to be safe, or
          the manual path ends at the first entry. This is the anti-abandon block. -->
-    <p class="consequence">Saved as you go: 3 added so far. Your list is saved, so you can stop and come back any time.</p>
+    <p class="muted">Saved as you go: 3 added so far. Your list is saved, so you can stop and come back any time.</p>
 
     <div class="actions">
       <a class="btn primary" href="guided-reveal.html">See your subscriptions</a>

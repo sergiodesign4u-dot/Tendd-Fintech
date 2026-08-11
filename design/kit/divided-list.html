@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Divided list - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Divided list</h1>
+    <p class="lead">A stack of whole molecules with a hairline between them and no line top or bottom: eight alerts on the Alerts screen, four destinations on Settings. It is the container that lets a row draw no edge of its own, which is what makes a list read as one object rather than as a stack of cards.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>4</strong> grey pages</span><span>1 axis</span><span>no states, not interactive</span><span>draws exactly one line</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">A list reset and a hairline between two items. That is the whole component, and everything a person actually looks at inside it belongs to the item. Everything below is drawn by <code>design/system/components/divided-list.css</code> and by the files of the items inside it, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full wide">
+      <ul class="divlist">
+        <li><a class="navrow" href="#anatomy"><span>Your sources<span class="sub">Banks and manual entries you track</span></span><span class="arrow">&rsaquo;</span></a></li>
+        <li><a class="navrow" href="#anatomy"><span>Data and privacy<span class="sub">What we read, and delete everything</span></span><span class="arrow">&rsaquo;</span></a></li>
+        <li><a class="navrow" href="#anatomy"><span>Help and support<span class="sub">Guides and how to reach us</span></span><span class="arrow">&rsaquo;</span></a></li>
+        <li><a class="navrow" href="#anatomy"><span>Sign out</span><span class="arrow">&rsaquo;</span></a></li>
+      </ul>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.divlist</code> <span>the organism itself, and it is a <code>ul</code> on all 7 occurrences. Bullets and the browser's 40px indent off, no fill, no edge, no radius. It was <code>.alerts</code> and <code>.navrows</code> until 2026-08-12, and both already took one rule, which is what made the merge a rename rather than a decision</span></li>
+      <li><code>li + li</code> <span><b>the one line this component draws.</b> A <code>border-top</code> in <code>--line-divider</code>, between two items and never around them. There is no line after the last item, so nothing has to reach back into the item to take one off</span></li>
+      <li><code>.navrow</code> <span><b>a molecule.</b> The <a href="nav-row.html">Nav row</a>, with its own 56px floor, its own drawn chevron, its own inherited ink and its own hover and focus ring. This file gives it no rule at all</span></li>
+      <li><code>.alert</code> <span><b>a molecule.</b> The <a href="alert-item.html">Alert item</a>, the other thing this list holds. Also untouched by this file</span></li>
+      <li><code>margin</code> <span><code>--space-24</code> under the list, and it is the host's rather than the component's: the nav list is the last block on Settings and has a tab bar under it. Written <code>.rows-col &gt; .divlist</code>, keyed to the column it stands in, because one name cannot carry two margins and the other list never had one</span></li>
+    </ul>
+    <p class="note"><b>No edge and no corner, and that is what makes the item able to have none either.</b> Four nav rows and eight alerts stack with three hairlines and seven, and not one of them is drawn by the item. <code>nav-row.css</code> and <code>alert-item.css</code> both write no border at all, exactly as <code>subscription-row.css</code> does, and the reason is the same in all three: an item that drew its own floor would draw a second one everywhere a list did its job.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One axis, two values, and the rule for choosing is the container.</b> The axis is not emphasis and not density: it is whether the list stands on the page or inside a panel, and the answer is read off the markup rather than decided by anyone.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Inset<p class="axis-rule">Set by the CONTAINER and never by importance. A list inside a <code>.panel</code> takes the inset because the panel's own head is padded by 16px and the list has to line up with it; a list anywhere else does not</p></th>
+            <th class="val">What changes</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Bare</b> <code>.divlist</code></td>
+            <td class="val">--space-0<br>on all four sides</td>
+            <td>6 of the 7 lists. The items reach the full column, and the head above them belongs to the Category group rather than to a container</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><ul class="divlist"><li><a class="navrow" href="#variants"><span>Your sources<span class="sub">Banks and manual entries you track</span></span><span class="arrow">&rsaquo;</span></a></li><li><a class="navrow" href="#variants"><span>Data and privacy<span class="sub">What we read, and delete everything</span></span><span class="arrow">&rsaquo;</span></a></li></ul></span></td></tr>
+          <tr>
+            <td><b>Inside a panel</b> <code>.divlist.inset</code></td>
+            <td class="val">padding<br>0 --space-16 --space-8</td>
+            <td>1 list in the product, the "Older" disclosure on <code>alerts.html</code>, and it is the only <code>.panel</code> that holds a divided list. The rule also still answers to <code>.panel .divlist</code>, and that second subject is transitional: see the note under this table</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><details class="panel" open><summary>Older</summary><ul class="divlist inset"><li><a class="alert" href="#variants" aria-label="We could not take your Spotify Premium payment on 28 June. Payment failed from Chase, since gone through."><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span class="body"><span class="what">We could not take your Spotify Premium payment on Jun 28</span><span class="meta">Payment failed &middot; Spotify Premium &middot; $11.99 &middot; from Chase &middot; this one has since gone through</span><span class="go">See Spotify Premium</span></span></a></li><li><a class="alert" href="#variants" aria-label="Apple Music charged $2.99 on 15 July. Coming up from Chase."><span class="logo"><img src="../visuals/logos/apple-music.svg" alt=""></span><span class="body"><span class="what">Apple Music charged $2.99 on Jul 15</span><span class="meta">Charged &middot; Apple Music &middot; $2.99 &middot; Jul 15 &middot; from Chase</span><span class="go">See Apple Music</span></span></a></li></ul></details></span></td></tr>
+          <tr>
+            <td class="kit-empty">Bordered, or striped</td>
+            <td class="kit-empty">-</td>
+            <td><b>Forbidden with a reason rather than missing.</b> An edge around the list is the <a href="panel.html">Panel</a>'s and a fill on one item is the <a href="charge-list.html">Charge list</a>'s <code>.marked</code>, which is a domain state and not a stripe. Alternating fills would rank the items, and ranking is the work this product takes away from the person</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The inset has a declared name and no markup wearing it yet, and that is reported rather than worked around.</b> The rename sweep matches on a tag and a class list and cannot see a parent, so it could not tell a list inside a <code>.panel</code> from a list on the page, and no page writes <code>class="divlist inset"</code> today. Three specimens need the token, all of them in the stand and none on a product screen, because no coloured screen holds a panelled list: <code>divided-list.html</code> line 95, and <code>panel.html</code> lines 107 and 164. Until they get it, <code>divided-list.css</code> carries <code>.panel .divlist</code> as a second subject on the same rule, so nothing renders wrong for a day. Measured in a browser at 360 and at 1280, all three compute <code>padding: 0px 16px 8px</code>, which is what <code>.panel .alerts</code> computed before the rename once the spacing grid had moved 14 to 16 and 6 to 8.</p>
+    <p class="note"><b>One difference between the two old names has no row in the renaming map, and it is the margin.</b> <code>.navrows</code> carried <code>margin: 0 0 22px</code> and <code>.alerts</code> carried none, because the nav list is the last block on Settings with a tab bar under it while the alert list sits inside a Category group that already spaces itself. One name cannot carry two margins. It is written <code>.rows-col &gt; .divlist</code>, keyed to the shell's content column, which is the same shape as the inset above and follows the convention <code>app-shell.css</code> states in its own words: a container-keyed rule about this list lives in this list's file. Two other shapes would serve and both cost an edit outside this component: a declared <code>.divlist.spaced</code> modifier, which needs a token on two product screens and collides with <code>muted-line.css</code>'s <code>.spaced</code>, where the word means a margin above; or a rule in <code>app-shell.css</code>, which is what <code>action-row.css</code> did with its own 24px in this same round. Measured after the rename: 24px under the list on both Settings screens at 360 and at 1280, and 0 on every other list in the product and the stand.</p>
+    <p class="note"><b>The charge list is deliberately the other answer to the same question</b>, and the pair is worth reading together. It also sits inside a panel and it does <b>not</b> indent: it is a full-bleed band, because a marked row's amber wash has to reach the panel's own edges or the wash reads as a highlighted rectangle floating inside a card. Two lists, one host, two answers, and the difference is whether an item can be filled.</p>
+    <p class="note"><b>No size axis.</b> The list has no type, no padding on its items and no height of its own; a nav row is 56px because <code>nav-row.css</code> says so and an alert is as tall as its own three lines. What changes between a list of four and a list of eight is the number of items.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A divided list is for <b>a set of whole objects a person moves through one at a time</b>: four destinations on Settings, eight events on Alerts. Every item is a link, every item is one target with one accessible name, and the hairline between them is the only thing the container contributes. If the items are not each a whole thing a person can go to, this is the wrong container.</p>
+    <p class="note">On the path, a person meets it in the two places where the product stops being a list of money and becomes a list of choices. <b>Settings</b>, node 6.16, is four nav rows whose second lines come from <code>voice/docs/microcopy.md</code> and answer "what is behind this" in the person's own words: "Data and privacy" carries "What we read, and delete everything", not a category name. <b>Alerts</b>, node 3.8, is eight alert items split into two groups by urgency, and the inset form holds the older ones behind a disclosure so the screen opens on what needs the person now.</p>
+    <p class="note"><b>Trust through transparency is what the second line is for</b>, and it is why this list never collapses to a single word per row. "Your sources" alone is a destination; "Your sources / Banks and manual entries you track" is a promise about what a person will find there, and on a screen whose job is to make an avoider willing to look, that second line is the component's whole reason to be two tiers rather than one.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The list separates, the item does not</span>
+        <div class="kit-stage app full wide">
+          <ul class="divlist">
+            <li><a class="navrow" href="#rule"><span>Your sources<span class="sub">Banks and manual entries you track</span></span><span class="arrow">&rsaquo;</span></a></li>
+            <li><a class="navrow" href="#rule"><span>Help and support<span class="sub">Guides and how to reach us</span></span><span class="arrow">&rsaquo;</span></a></li>
+          </ul>
+        </div>
+        <p>One hairline, between the two rows, and none above the first or below the second. Hover either row and the fill changes while the line stays exactly where it was: <code>nav-row.css</code> declares its hover as a fill and nothing else for this reason, because a border appearing under the pointer inside a stack of four shifts the three below it by a pixel.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never let the list set the item's type</span>
+        <div class="kit-stage app full wide"><span class="muted">.divlist .navrow { font-size: 15px; font-weight: 600 }</span></div>
+        <p>The item is written and it is correct: the census measured all 8 nav rows at <b>one value on every property</b>. A rule here that changed a destination's size or weight would be an <b>undeclared variant</b>, and it would be invisible, because the list and the row are never on screen apart. Measured on this page: the destination inside the list is 14px at weight 400 with a 56px floor, which is exactly what it is on <a href="nav-row.html">its own page</a>.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a divided list</span>
+        <div class="kit-stage app full wide">
+          <ul class="divlist">
+            <li><a class="alert" href="#rule" aria-label="New. Netflix went up by $2.50, now $17.99 a month. Price change from Chase, 28 July."><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span class="body"><span class="what"><span class="newdot" aria-hidden="true"></span>Netflix went up by $2.50, now $17.99 a month</span><span class="meta">Price change &middot; Netflix &middot; Jul 28 &middot; from Chase</span><span class="go">See what changed</span></span></a></li>
+            <li><a class="alert" href="#rule" aria-label="iCloud Plus charges $2.99 tomorrow. Coming up from Chase, 2 August."><span class="logo"><img src="../visuals/logos/icloud.svg" alt=""></span><span class="body"><span class="what">iCloud+ charges $2.99 tomorrow</span><span class="meta">Coming up &middot; iCloud+ &middot; Aug 2 &middot; from Chase</span><span class="go">See iCloud+</span></span></a></li>
+          </ul>
+        </div>
+        <p>Two whole molecules, each a link, separated by one line. The list is holding events that happened on dates, and each one goes somewhere.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a pair list instead</span>
+        <div class="kit-stage app full wide">
+          <dl class="pairs">
+            <div><dt>Last checked</dt><dd>today, 9:14 AM</dd></div>
+            <div><dt>Accounts included</dt><dd>Checking</dd></div>
+          </dl>
+        </div>
+        <p>When each line is a <b>label and a value</b> rather than a whole object, the component is the <a href="pair-list.html">Pair list</a>. The two look alike from a distance and answer different questions: a divided list is a set of destinations, a pair list is the facts about one thing. Read the difference in the markup and not in the CSS. A divided list's item is an anchor with an accessible name; a pair list's line is a <code>dt</code> and a <code>dd</code> and goes nowhere. Building facts out of nav row markup would give a person four targets that lead nowhere.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and the reason is one line: a list is not interactive.</b> It is a <code>&lt;ul&gt;</code> on all 7 occurrences, it holds no anchor, no button and no summary of its own, it carries no <code>tabindex</code> and no role, and neither <code>kit.css</code> before the rename nor <code>divided-list.css</code> after it gave it a hover, an active or a focus rule. There is nothing here for a pointer to be over: a pointer that looks as though it is over the list is over an item or over the gap between two.</p>
+    <p class="note">Every target inside it has its states on its own page, and both were written so that neither moves its neighbours: the <a href="nav-row.html">Nav row</a> has hover and focus-visible, the <a href="alert-item.html">Alert item</a> has hover and focus-visible, and both change a fill or paint a ring outside the box. That promise is what a stack of eight depends on, and it is why the divider stays put while a row lights up. The specimens above are real anchors with real <code>href</code>s, so hover one and tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the line between two items</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>, and <code>--hairline-soft-dark</code> in the dark theme. Decorative, so it owes no threshold: eight alerts separated at 1.23:1 read as one object, and the same eight at 3:1 read as a table. Between two items and never after the last, which is <code>li + li</code> rather than a <code>:last-child</code> reset</td></tr>
+          <tr><td>the list reset</td><td><code>--space-0</code></td><td>primitive, straight. Zero is a real value here and not the absence of one</td></tr>
+          <tr><td>the space under the nav list</td><td><code>--space-24</code></td><td>primitive, straight. 22px before the fold, measured at 24px after it on both Settings screens at both viewports. Keyed to <code>.rows-col</code>, the shell's content column, and it is the one difference between the two old names that the renaming map has no row for</td></tr>
+          <tr><td>the inset, inside a panel</td><td><code>--space-16</code>, <code>--space-8</code></td><td>primitive, straight. 16 to line up with the panel's own head, 8 to lift the last item off the panel's bottom edge</td></tr>
+          <tr><td>no fill, no edge, no radius, no type</td><td>none</td><td>by decision. The items own everything a person reads</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>It hosts two molecules and paints neither.</b> <a href="nav-row.html">Nav row</a> and <a href="alert-item.html">Alert item</a> get no rule here at all, not even a margin. The whole file is four declarations long, and the third of them is the inset variant, which moves the list's own padding and touches nothing inside it.</p>
+    <p class="note"><b>No container query and no media query touches it. Checked.</b> The list is the same object at 360 and at 1440; what changes with the width is the column it stands in, and that belongs to the shell. What it does have is the third copy of its divider rule living elsewhere: the <a href="category-group.html">Category group</a> declares the same <code>li + li</code> border for the bare <code>&lt;ul&gt;</code> on Home, which has no class to hook. <code>docs/inventory.md</code> recorded that at step 2 and it is a usage rather than a duplicate.</p>
+    <div class="kit-open">
+      <p><b>The last-row principle was already this component's shape, and on 2026-08-12 it became the system's.</b> The founder's review of the components ruled that the last row of a divided list draws no bottom rule, because a divider divides two things and after the last row there is nothing to divide. <b>Nothing changed here, and the rename did not change it either.</b> <code>li + li</code> has never drawn a line after the last item, which is the same principle written the other way round, and it is why the seam <code>docs/backlog.md</code> recorded was never this list's. Re-measured after the rename, on every list in the product and the stand at 360 and at 1280: the first item computes <code>border-top: 0px</code>, every later item <code>1px</code>, and every item without exception <code>border-bottom: 0px</code>.</p>
+      <p><b>The seam held and it is closed.</b> Measured on <code>design/subscription-detail.html</code> at 360 and at 1280: the last charge row computed <code>border-bottom: 1px rgb(238, 242, 243)</code>, the gate below it computes <code>border-top: 1px rgb(238, 242, 243)</code>, and the two rectangles touched at exactly <b>0.00px</b>. That one seam carried <b>2px</b> of <code>--line-divider</code> where every other divider in the panel carries 1. It survived unnoticed because the gate's own fill is <code>--bg-recessed</code>, which is a near neighbour of the divider colour, so the doubled line read as a slightly heavier edge rather than as an obvious defect.</p>
+      <p><b>The rule that moved is the charge list's, not the gate's.</b> <a href="charge-list.html">charge-list.css</a> now resets the bottom border on <code>li:last-child</code>; the <a href="panel.html">Panel</a>'s <code>.gate:not(:first-child)</code> keeps its top rule unchanged. That direction was chosen because the other one closes only this seam: on the loading state there is no gate, the charge list is the panel's last child, and its final rule sat flush at <b>0.00px</b> against the panel's own hairline. A principle closes both, a patch closes one.</p>
+    </div>
+    <p class="note">Lives in <code>design/system/components/divided-list.css</code>. Stands on 4 grey pages, 7 lists: <code>alerts</code> (3), <code>alerts-loading</code> (2), <code>settings</code> (1), <code>settings-no-account</code> (1). Two are coloured, both of them Settings: <a href="../settings.html">Settings</a> and <a href="../settings-no-account.html">Settings, no account</a>. The alert lists have never been drawn in colour, which <code>docs/census.md</code> lists among the nine components with no occurrence in the sample, so the alert specimens on this page are its first rendering in Petrol and Paper.</p>
+    <code class="kit-cmd">&lt;ul class="divlist"&gt;
+  &lt;li&gt;&lt;a class="navrow" href="connections.html"&gt;&lt;span&gt;Your sources&lt;span class="sub"&gt;Banks and manual entries you track&lt;/span&gt;&lt;/span&gt;&lt;span class="arrow"&gt;&amp;rsaquo;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul class="divlist"&gt;
+  &lt;li&gt;&lt;a class="alert" href="subscription-detail-price-change.html" aria-label="..."&gt;...&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;details class="panel"&gt;&lt;summary&gt;Older&lt;/summary&gt;
+  &lt;ul class="divlist inset"&gt;...&lt;/ul&gt;
+&lt;/details&gt;</code>
+    <p class="note">The specimens above stand in <code>.kit-stage app full wide</code>, 620px, because that is what the product gives them: measured at a 1440 viewport, the nav list renders 620px on Settings and an alert list 620px on Alerts. The stand's default 440px is the row column on Home and would show both narrower than either screen ever does.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/divided-list.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that merged <code>.alerts</code> and <code>.navrows</code> and left the third divider rule with the Category group is in <code>docs/inventory.md</code>. The seam it measured is closed, on 2026-08-12, in <code>charge-list.css</code> and not here, with a row in <code>docs/tokens-audit.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

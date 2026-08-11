@@ -192,7 +192,7 @@ nobody can reconstruct what `.decoder` was folded into.
 | `.badge`, `.best`, `.plan` | `.chip` plus tone | 14 | 21 |
 | `.tag` | `.chip` (quiet) | 12 | 15 |
 | `.tag.trial` | `.chip.trial` | 0 | 1 |
-| `.tag.cancelled` | `.chip.cancelled` | 0 | 1 |
+| `.tag.cancelled` | **deleted at step 6, not renamed** | 0 | **0**, this row said 1 |
 | `.axis` | `.metarow` | 3 | 3 |
 | `.strip` | `.metarow.ruled` | 0 | 2 |
 | `.attention` | `.wash.attention` | 3 | 3 |
@@ -217,7 +217,7 @@ nobody can reconstruct what `.decoder` was folded into.
 | `.field select` | `.select` | 4 | 4 |
 | `.switch input` | `.check` | 1 | 2 |
 | `.num` | `.k` | 0 | 1 |
-| `.btn` on `add-subscription-error` | `.btn.primary` | 1 | 1 |
+| `.btn` on `add-subscription-error` | **refused at step 6, stays `.btn`** | 1 | 1 |
 | `[chart]` literal on `history-trends-loading` | a drawn frame, as on the other three | 1 | - |
 | `[chart: waiting for a third month]` literal on `history-trends-empty` | a drawn frame, keeping its accessible name | 1 | - |
 | `.layout`, `.stage`, `.stage-app` | leave the system, to `_page.css` | 28 | 55 |
@@ -375,7 +375,7 @@ more than one, and 20 of the 55 have none.
 
 | GC | Classes | Pages | Verdict |
 |---|---|---|---|
-| GC1 App Header | `.appbar` + `.wordmark` `.acct` `.back` `.step` `.plan`, plus the flow and rail forms | **54** (all but the landing) | 6 variants named, 10 compositions rendered, only 3 tellable apart by class |
+| GC1 App Header | `.appbar` + `.wordmark` `.acct` `.back` `.step` `.plan`, plus the flow and rail forms | **54** (all but the landing) | 6 variants named, **7** compositions rendered (recorded as 10 until 2026-08-11, corrected by reading the children of `header.appbar` on all 54 grey pages: 21 / 10 / 9 / 8 / 3 / 2 / 1), only 3 tellable apart by class |
 | GC2 Tab Bar | `.tabbar` + `a.cur` `.ic` `.dot`, rail form | **28** | Clean. Exactly four links on all 28 |
 | GC3 Summary Strip | `.summary` + h1 + `.total` + `.context` | **5** | Three implementations, zero shared classes |
 | GC4 List Item | `.row` + logo/body/name/when/amt/tag | **8** | Two named variants never render, one rendered variant the node forbids |

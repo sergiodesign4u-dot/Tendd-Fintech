@@ -49,76 +49,63 @@
 
   <section class="kit-sec" id="anatomy">
     <h2>Anatomy</h2>
-    <p class="note">One zone and one text slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/muted-line.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from. The class names on this page are the ones the product writes <b>today</b>; the rename to <code>.muted</code> happens at step 6, with the markup.</p>
+    <p class="note">One zone and one text slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/muted-line.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from. <b>The rename landed on 2026-08-12.</b> Nine class names became <code>.muted</code> in the CSS and in the markup of all 28 coloured screens in the same step, because a rename that lands in two halves is a screen that renders unstyled with nothing erroring.</p>
     <div class="kit-stage app">
       <div>
-        <p class="context">a month, for what you have signed up for</p>
-        <p class="consequence">Nothing is missing and nothing failed. Your list, your total and your alerts are all working as usual.</p>
-        <p class="legal">US banks connect through Plaid. More regions soon. <a href="#anatomy">What we read</a></p>
+        <p class="muted">a month, for what you have signed up for</p>
+        <p class="muted">Nothing is missing and nothing failed. Your list, your total and your alerts are all working as usual.</p>
+        <p class="muted ruled">US banks connect through Plaid. More regions soon. <a href="#anatomy">What we read</a></p>
       </div>
     </div>
     <ul class="kit-callouts">
-      <li><code>color</code> <span>reads <code>--text-muted</code> on all nine names. It is the whole of what they had in common, and the reason one atom could replace them</span></li>
-      <li><code>font-size</code> <span>set by the CONTAINER: 12, 12.5 or 13px, and 11.5px inside a preset tile. Never by importance</span></li>
-      <li><code>.legal</code> <span>the ruled variant: a hairline above it and a 52ch measure. The only member that draws anything</span></li>
-      <li><code>.removal p</code> <span>the sentence lives in its own paragraph so the link beside it is a sibling and not running text</span></li>
-      <li><code>&gt; a</code> <span>a standalone link, direct child of the block, takes the 44px floor from <code>--tap</code>. A link inside a <code>p</code> is running text and is exempt</span></li>
+      <li><code>color</code> <span>reads <code>--text-muted</code> on every one of the nine names it replaced. It is the whole of what they had in common, and the reason one atom could replace them</span></li>
+      <li><code>font-size</code> <span>set by the CONTAINER: <code>--type-body</code> as the base, <code>--type-meta</code> on the ruled variant and inside a preset tile. Never by importance</span></li>
+      <li><code>margin</code> <span><b>none.</b> A gap is a relationship between two things and only the container knows it. The hosts position this atom, and the three that had been living off the atom's margin now say so</span></li>
+      <li><code>.ruled</code> <span>the one variant that draws anything: a hairline above it, a step of padding under it, and the quieter size</span></li>
+      <li><code>.muted p</code> <span>the block form. The sentence lives in its own paragraph so the link beside it is a sibling and not running text, and it takes the 52ch reading measure</span></li>
+      <li><code>&gt; p ~ a</code> <span>a standalone link, the sibling that follows the paragraph, takes the 44px floor from <code>--tap</code>. A link in the middle of a sentence is running text and is exempt</span></li>
     </ul>
   </section>
 
   <section class="kit-sec" id="variants">
     <h2>Variants and sizes</h2>
-    <p class="note">Two axes and no third, and each one carries the rule for choosing on it. The matrix below is the consolidation itself: every old class name appears in the row of the size it renders at, so the question "what was <code>.pitch</code>" has an answer on this page rather than in four files. There is deliberately <b>no emphasis axis</b>: a muted line that wants to be louder is a different component.</p>
+    <p class="note">Two axes and no third, and each one carries the rule for choosing on it. The matrix below is the consolidation itself: every old class name appears in the row of the size it now renders at, so the question "what was <code>.pitch</code>" has an answer on this page rather than in four files. There is deliberately <b>no emphasis axis</b>: a muted line that wants to be louder is a different component.</p>
     <div class="kit-matrix">
       <table>
         <thead>
           <tr>
-            <th>Size<p class="axis-rule">Set by the CONTAINER, never by importance. The same sentence is 13px under a monthly total and 11.5px inside a preset tile because the tile is tighter, not because the sentence matters less</p></th>
-            
+            <th>Size<p class="axis-rule">Set by the CONTAINER, never by importance. The same sentence is <code>--type-body</code> under a monthly total and <code>--type-meta</code> inside a preset tile because the tile is tighter, not because the sentence matters less</p></th>
+
             <th class="val">Old names it carries</th>
             <th>Where it stands</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><b>13px</b></td>
-            
-            <td class="val">.context<br>.tone<br>.removal<br>.pitch<br>.p</td>
-            <td>The line under a figure, and the line under an action. 13 coloured pages, the widest of the three</td>
+            <td><b>14px</b> <code>--type-body</code></td>
+
+            <td class="val">.context<br>.tone<br>.removal<br>.pitch<br>.p<br>.bycat<br>.consequence<br>.freshness<br>p.notice</td>
+            <td>The base, and after the fold it is nine of the ten old names. The line under a figure, the line under an action, and the consequence of the thing a person just did</td>
           </tr>
-          <tr><td colspan="3"><span class="kit-stage app"><span class="context">a month, for what you have signed up for</span></span></td></tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="muted">a month, for what you have signed up for</span></span></td></tr>
           <tr>
-            <td><b>12.5px</b></td>
-            
-            <td class="val">.consequence</td>
-            <td>9 coloured pages and 16 grey ones. The consequence of the thing a person is about to do, or has just done</td>
+            <td><b>12px</b> <code>--type-meta</code></td>
+
+            <td class="val">.legal, as <code>.ruled</code><br>.p inside a <a href="preset-tile.html">preset tile</a></td>
+            <td>The two places a container asks for the quieter step: the footnote at the foot of a screen, and the second line of a preset tile. Both have a token to hold the step, which is what let them keep it</td>
           </tr>
-          <tr><td colspan="3"><span class="kit-stage app"><span class="consequence">Saved as you go: 3 added so far.</span></span></td></tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="muted ruled">The full privacy policy is at tendd.com/privacy.</span></span></td></tr>
           <tr>
-            <td><b>12px</b></td>
-            
-            <td class="val">.legal<br>.freshness</td>
-            <td>9 grey pages and <b>no coloured page at all</b>: the footnote and the freshness stamp both live on screens the colour sample never reached, which is recorded in <code>docs/census.md</code></td>
-          </tr>
-          <tr><td colspan="3"><span class="kit-stage app"><span class="freshness">These general steps were last checked on Jul 24.</span></span></td></tr>
-          <tr>
-            <td><b>11.5px</b></td>
-            
-            <td class="val">.tile .p</td>
-            <td>Six preset tiles on Add a Subscription, and nowhere else. A half-step the consolidation's axis does not name and the product does render, so it is carried at its measured value rather than rounded up</td>
-          </tr>
-          <tr><td colspan="3"><span class="kit-stage app"><span class="p">Typically $17.99 a month</span></span></td></tr>
-          <tr>
-            <td class="kit-empty">Browser default</td>
-            
-            <td class="val">p.notice</td>
-            <td><b>Backlog, not a variant.</b> The notice written as a bare paragraph declares no size of its own, so it inherits the browser's, which makes it the largest body text on Upgrade. The renaming map is the only row with no size beside it. Step 6 assigns one, with the markup</td>
+            <td class="kit-empty">The step that had no token</td>
+
+            <td class="val">.consequence<br>.freshness<br>p.notice</td>
+            <td><b>The one thing the fold could not carry, and it is recorded rather than hidden.</b> These three rendered a step below the rest, and the markup they now wear has nothing on it to say so: <code>.consequence</code> is a bare <code>&lt;p class="muted"&gt;</code> exactly like the caption under a total. So they take the base and GROW. Measured out of <code>kit.css</code>: <code>.consequence</code> 12.5px and <code>.freshness</code> 12px, both to 14px, on 11 coloured places and 2 grey ones; <code>p.notice</code> declared no size at all and inherited the browser's 16px, so on Upgrade it goes the other way, 16px down to 14px. What is owed is a declared size modifier plus the class in the markup, which is <code>docs/backlog.md</code> line 56 word for word. None is invented here: a modifier no element wears is a rule that documents a decision nobody took</td>
           </tr>
           <tr>
             <td class="kit-empty">12.5px in a row</td>
-            
-            <td class="val">.row .p</td>
-            <td><b>Backlog.</b> Declared, and matched by no markup on any of the 55 grey pages or the 28 coloured ones. Carried rather than deleted here, because deleting a rule is a named decision and this file makes none</td>
+
+            <td class="kit-empty"><code>.app .row .p</code>, deleted 2026-08-12</td>
+            <td><b>The backlog line closed, and the count is why.</b> Re-counted before it was cut, on both corpora and both instruments: <code>querySelectorAll('.row .p')</code> returns <b>0 on all 28 coloured screens and 0 on all 55 grey pages</b>, with <code>.row</code> standing 57 and 63 times and <code>.p</code> 13 and 17. The two families never meet. Nothing moved: a rule with no markup paints nothing. It was carried at step 5 because deleting a rule is a named decision and that round made none; the decision now exists, and a rule left standing outlives everyone who understood why. A subscription row's second line is <code>.when</code>, which the row's own file owns</td>
           </tr>
         </tbody>
       </table>
@@ -140,14 +127,14 @@
             <td class="val">--text-muted</td>
             <td>Eight of the nine names. The default, and the one a new line should reach for</td>
           </tr>
-          <tr><td colspan="3"><span class="kit-stage app"><span class="pitch">Pays for itself with the first subscription you cancel.</span></span></td></tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="muted">Pays for itself with the first subscription you cancel.</span></span></td></tr>
           <tr>
-            <td><b>Ruled</b> <code>.legal</code></td>
-            
+            <td><b>Ruled</b> <code>.ruled</code></td>
+
             <td class="val">--line-divider<br>52ch</td>
-            <td>7 grey pages. The hairline is a divider and carries no contrast threshold: nothing here has to be found by touch</td>
+            <td>7 grey pages, and it was <code>.legal</code>. The hairline is a divider and carries no contrast threshold: nothing here has to be found by touch. <b>The rule is the modifier's and the measure is the base's</b>: only this variant draws a line, but 52ch is the atom's reading measure and the two members that carried one carried the same number</td>
           </tr>
-          <tr><td colspan="3"><span class="kit-stage app"><span class="legal">The full privacy policy is at <a href="#variants">tendd.com/privacy</a>.</span></span></td></tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="muted ruled">The full privacy policy is at <a href="#variants">tendd.com/privacy</a>.</span></span></td></tr>
           <tr>
             <td class="kit-empty">Toned</td>
             
@@ -157,7 +144,7 @@
         </tbody>
       </table>
     </div>
-    <p class="note"><b>The margins stay where they are, and they are the one thing the consolidation says out loud is wrong.</b> Nine names differ in almost nothing but the gap above or below them, and a gap belongs to the host. They are carried to the pixel anyway: a value moves only by its own named decision, and that decision is step 6's, taken with the markup so the pixel comparison can see it.</p>
+    <p class="note"><b>The margins have gone, and that was the consolidation's whole finding.</b> Nine names differed in almost nothing but the gap above or below them, and a gap is a relationship between two things, which is knowledge only the container has. The atom now carries none. Six hosts position it instead: the screen column, the summary under a total, the guided-reveal step, the detail shell, the preset tile and the share card. Three of the six had been living off the atom's margin without saying so, and they say so now. The pixels are the proof: <b>34 of the 38 muted lines on the coloured screens keep the exact gap they had</b>, against 22 if the base had simply taken the commonest margin instead. The four that moved are in <code>docs/tokens-audit.md</code>, each with the file that owes it a rule.</p>
   </section>
 
   <section class="kit-sec" id="usage">
@@ -172,8 +159,8 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">The line under a number</span>
-        <div class="kit-stage app"><div><p class="total">$192.90</p><p class="context">a month, for what you have signed up for</p></div></div>
-        <p>This is the job the component exists for: a figure never appears without saying what it is. The number is 46px and the line under it is 13px, so the pair reads as one object with a caption rather than as two claims. Four coloured screens play it exactly this way.</p>
+        <div class="kit-stage app"><div><p class="total">$192.90</p><p class="muted">a month, for what you have signed up for</p></div></div>
+        <p>This is the job the component exists for: a figure never appears without saying what it is. The number is 46px and the line under it is 14px, eight of the grid below it, so the pair reads as one object with a caption rather than as two claims. Five coloured screens play it exactly this way, and that eight is the tightest gap in the whole family: it is why <code>.summary</code> takes the atom's positioning back rather than letting the caption drift out to a full step.</p>
       </div>
       <div class="no">
         <span class="hd">Use a readout instead</span>
@@ -184,7 +171,7 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">The footnote that carries a link</span>
-        <div class="kit-stage app"><p class="legal">US banks connect through Plaid. More regions soon. <a href="#rule">What we read</a></p></div>
+        <div class="kit-stage app"><p class="muted ruled">US banks connect through Plaid. More regions soon. <a href="#rule">What we read</a></p></div>
         <p>Small print with a way to read more, ruled off from the screen above it and held to 52 characters. The link is ink with a hairline underline, not petrol: petrol at rest is spent on the primary action, the current selection and the trust line, and small print is none of the three.</p>
       </div>
       <div class="no">
@@ -203,14 +190,15 @@
     <h3 class="kit-sub-h">Rest, live</h3>
     <div class="kit-stage app" id="live-rest">
       <div>
-        <p class="legal">US banks connect through Plaid. More regions soon. <a href="#states" id="shot-inline">What we read</a></p>
-        <div class="removal">
+        <p class="muted ruled">US banks connect through Plaid. More regions soon. <a href="#states" id="shot-inline">What we read</a></p>
+        <div class="muted">
           <p>This one came from Chase, so removing it hides the row rather than deleting it. If the charge appears again, Tendd will show it again.</p>
           <a href="#states" id="shot-standalone">Remove from your list</a>
         </div>
       </div>
     </div>
-    <p class="note">The two anchors are the two cases, and the difference between them is structural rather than a class. The first is inside a paragraph, so it is running text and stays the height of its line. The second is a direct child of its block, so it is standalone and takes the 44px floor: it is the destructive action on five detail screens, and before the floor existed it measured 15px tall.</p>
+    <p class="note">The two anchors are the two cases, and the difference between them is structural rather than a class. The first ends the footnote's own sentence and belongs to the ruled variant, which has a token in the markup. The second is the sibling that <b>follows the block's paragraph</b>, which is standalone, and takes the 44px floor: it is the destructive action on five detail screens, and before the floor existed it measured 15px tall.</p>
+    <p class="note"><b>The structure had to be said more precisely than <code>&gt; a</code> at the rename, and it is the one place the fold changed what a selector means.</b> <code>kit.css</code> named <code>.removal &gt; a</code> and <code>.legal &gt; a</code> and left <code>.consequence a</code> out, and that arithmetic worked only because the three had different class names. They do not any more. Left as <code>&gt; a</code>, the rule would have handed a 44px inline box to the two running-text links on History and Trends and on the Pro lock, which is the exact defect the floor is written to avoid. Measured after the change: five removal links at 44px, the footnote link at 44px, and the two running-text links still 17px, the height of their line.</p>
 
     <h3 class="kit-sub-h">The three, in both themes</h3>
     <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
@@ -219,7 +207,7 @@
       <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same three tokens, the other half of each pair. The muted tier goes UP the scale here, 6.4:1 against 5.8:1 light</div></div>
       <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--text-action</code>, on the ink and on the underline together</div></div>
       <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok"><code>--text-action</code> again, and in the dark theme it is the LIGHTER petrol: contrast runs against the opposite ground, so the accent climbs the scale rather than descending it</div></div>
-      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--line-selected</code>, from <code>base.css</code> at specificity 0. 6.2:1 as a line</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, from <code>base.css</code> at specificity 0. 6.2:1 as a line. It read <code>--line-selected</code> until 2026-08-12, when two roles claiming one job were separated</div></div>
       <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok">6.8:1. This component declares no ring of its own: the base ring is written with <code>:where()</code> at specificity 0 precisely so a text link never has to repeat it</div></div>
     </div>
     <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this
@@ -244,27 +232,30 @@ and a frozen snapshot is worse than none: it looks checked.</code>
         <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
         <tbody>
           <tr><td>the line itself, all nine names</td><td><code>--text-muted</code></td><td><code>--muted</code>, and <code>--muted-dark</code> in the dark theme</td></tr>
+          <tr><td>the base size</td><td><code>--type-body</code></td><td>primitive. 14px, and after the fold it is nine of the ten old names</td></tr>
+          <tr><td>the ruled variant, and the preset tile's line</td><td><code>--type-meta</code></td><td>primitive. 12px, the two places a container asks for the quieter step</td></tr>
+          <tr><td>the gap above or below</td><td>not declared here</td><td>the host's. Six containers position this atom and the atom carries no margin of its own</td></tr>
           <tr><td>the inline link at rest</td><td><code>--text-body</code></td><td><code>--slate</code></td></tr>
           <tr><td>the link under the pointer</td><td><code>--text-action</code></td><td><code>--petrol</code></td></tr>
           <tr><td>the underline at rest</td><td><code>--line-container</code></td><td><code>--hairline</code>. A line role on a text decoration, deliberately: a full strength rule under every link in a calm paragraph reads as emphasis</td></tr>
-          <tr><td>the rule above <code>.legal</code></td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. Decorative, so it owes no threshold</td></tr>
+          <tr><td>the rule above <code>.muted.ruled</code></td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. Decorative, so it owes no threshold</td></tr>
           <tr><td>the standalone link's floor</td><td><code>--tap</code></td><td>primitive, straight: a size has nothing to override</td></tr>
           <tr><td>the focus ring</td><td>not declared here</td><td><code>base.css</code> draws one ring for the system at specificity 0</td></tr>
         </tbody>
       </table>
     </div>
     <p class="note">Lives in <code>design/system/components/muted-line.css</code>. Stands on 36 of the 55 grey pages and 22 of the 28 coloured ones. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../guided-reveal.html">Guided Reveal</a>, <a href="../subscription-detail.html">Subscription Detail</a>, <a href="../add-subscription.html">Add a Subscription</a>, <a href="../upgrade.html">Upgrade</a>, <a href="../history-trends.html">History and Trends</a>, <a href="../settings.html">Settings</a>.</p>
-    <code class="kit-cmd">&lt;p class="context"&gt;a month, for what you have signed up for&lt;/p&gt;
-&lt;p class="consequence"&gt;Nothing is missing and nothing failed.&lt;/p&gt;
-&lt;p class="legal"&gt;US banks connect through Plaid. More regions soon. &lt;a href="..."&gt;What we read&lt;/a&gt;&lt;/p&gt;
-&lt;div class="removal"&gt;
+    <code class="kit-cmd">&lt;p class="muted"&gt;a month, for what you have signed up for&lt;/p&gt;
+&lt;p class="muted"&gt;Nothing is missing and nothing failed.&lt;/p&gt;
+&lt;p class="muted ruled"&gt;US banks connect through Plaid. More regions soon. &lt;a href="..."&gt;What we read&lt;/a&gt;&lt;/p&gt;
+&lt;div class="muted"&gt;
   &lt;p&gt;This one came from Chase, so removing it hides the row rather than deleting it.&lt;/p&gt;
   &lt;a href="..."&gt;Remove from your list&lt;/a&gt;
 &lt;/div&gt;</code>
   </section>
 
   <footer class="kit-foot">
-    Drawn by <code>design/system/components/muted-line.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that turned nine names into this atom, and the renaming map that executes it at step 6, are in <code>docs/inventory.md</code>; the measured forms it had before the system are in <code>docs/census.md</code>.
+    Drawn by <code>design/system/components/muted-line.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that turned nine names into this atom is in <code>docs/inventory.md</code>, and the renaming map that executed it landed on 2026-08-12; every pixel it moved is in <code>docs/tokens-audit.md</code> under "Moved onto system classes"; the measured forms it had before the system are in <code>docs/census.md</code>.
   </footer>
 </div>
 

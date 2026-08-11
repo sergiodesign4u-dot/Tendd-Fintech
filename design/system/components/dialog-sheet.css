@@ -1,0 +1,173 @@
+/* ============================================================================
+   Dialog sheet - organism
+   The three decisions this product asks for on a page of their own: "Add a
+   source", "Cancelling can be made deliberately hard, and it is not your fault",
+   "Delete everything Tendd holds for you?". Below a 760px container it is a
+   narrow column with nothing around it; past 760 it becomes a centred card with
+   a hairline, a corner and the one shadow this system owns.
+
+   Reads
+     colour   --bg-surface
+     lines    --line-container  (its edge, past a 760 container)
+     geometry --radius, --shadow  (both straight from primitive: a corner and an
+              elevation have nothing to override, so neither needs a role)
+     spacing  --space-0, --space-16, --space-24
+   Page      design/kit/dialog-sheet.html
+   Stands on 3 grey pages, 3 sheets: connections-add-source, cancel-guide-blocked,
+   data-privacy-delete-confirm. NONE of the three is coloured today, so this is
+   the one organism in the system whose wide form has never been rendered in
+   Petrol and Paper on a product screen. Everything measured below was measured on
+   its own page.
+   Hosts     the Text block molecule (the heading and the sentence), and on one of
+             the three the Grid organism. It repaints neither.
+
+   IT IS THE ONLY CONSUMER OF --shadow IN THE PRODUCT, AND THAT IS THE FLAT PAPER
+   RULE READ FROM THE OTHER END. select.css records the rule from the inside ("the
+   one elevation in the system belongs to the dialog sheet alone", which is why a
+   floating select menu has none) and tokens.css records it at the token. This is
+   where it is spent: one declaration, one selector, one breakpoint. Grepped
+   rather than assumed - `var(--shadow)` appeared exactly once in kit.css, at line
+   994, and nowhere in design/system/ until this file.
+
+   IT DOES NOT FLOAT, AND NOTHING IN THE PRODUCT DOES. There is no overlay, no
+   backdrop, no `position: fixed`, no `<dialog>` element and NO z-index anywhere
+   on this component, in kit.css or in wireframes/_wf.css. kit.css said why at the
+   line it was written: "A dialog is its own page, drawn as what it is: full width
+   narrow, a centred card wide." So the shadow here is not a stacking cue and does
+   not rank anything: it is what makes a page-wide decision read as a sheet on a
+   desk at a width where the column alone would look lost. The system's whole
+   stacking order is therefore three literals and none of them is here: `1` on the
+   currency prefix inside a field (a grid item, text-input.css), `5` on the app
+   bar, `6` on the tab bar.
+
+   THE CLASS NAME IS NOT TOUCHED. `.sheet` stays as the product writes it, in the
+   `.app`-only scope kit.css gave it, and the rename map in docs/inventory.md
+   leaves it alone.
+
+   NO HEX AND NO FONT NAME below. Two literals survive and both are WIDTHS rather
+   than spacings: 480px is the sheet's own measure and 760 is a container step,
+   which cannot be a variable at all because a custom property is not valid inside
+   a @container condition.
+   ============================================================================ */
+
+/* ---- the narrow form ------------------------------------------------------
+   A 480px column, centred, and nothing else: no fill, no edge, no radius, no
+   padding. On a phone the sheet IS the screen, so a card drawn around it would
+   be a card drawn around the whole viewport, with the screen's own 16px of
+   padding outside it and the card's 24px inside. Two frames, one content.
+
+   480px is a width and not a spacing, so the 8px grid does not govern it and it
+   stays literal, exactly as the plan row's 720 and the reading measures do. It is
+   under the 620 the flow column takes, which is deliberate: a sheet asks one
+   question and a narrower column makes that question look like one question.
+
+   `auto` is not a length and is not on the spacing scale; it stays as written. */
+.app .sheet { max-width: 480px; margin: var(--space-0) auto; }
+
+/* ---- the door row inside it, and this is a MARGIN and nothing more ---------
+   grid.css writes no margin on the door row and says why in its own header: "the
+   block that holds it (the empty state, the dialog sheet) owns its spacing". This
+   is the dialog sheet owning it. 18px folds down to --space-16.
+
+   `.doors` FOLDED INTO `.grid.roomy` AT STEP 6 and this selector followed it, as
+   the comment that stood here predicted it would. It renders on ONE of the three
+   pages, connections-add-source, which is the only sheet with a door row; the
+   other two carry a numbered step list and a pair list. A gap between two blocks
+   belongs to the blocks and not to the thing being spaced. No fill, no column
+   count and no gap is touched here: those are the grid's, at every width. */
+.app .sheet > .grid.roomy { margin: var(--space-0) var(--space-0) var(--space-16); }
+
+/* ---- the sheet's foot, and this is the defect the founder opened this page on
+   Measured here, at a 1280 viewport, before this rule: the sheet ran 384px tall,
+   its last block ended at 335, and the gap under it was 49px where the card's
+   padding is 24 and its rule is 1. The 24px bottom margin `.quiet` carries was
+   sitting on top of the 24px of padding, so the card was 24px deeper at the foot
+   than at the head and read as a block that had lost its last line.
+
+   IT IS A GAP TO A NEXT BLOCK, AND THE LAST BLOCK HAS NO NEXT BLOCK. Every one
+   of the three sheets ends in something that brings a margin from its own file:
+   `.quiet` 24 on connections-add-source, `.actions` 16 on the other two. None of
+   the three keeps it anywhere else; this rule reaches into a child's margin, and
+   that is legal exactly because a margin is position and position is the host's.
+
+   AT BOTH FORMS AND NOT ONLY AT THE CARD. Below 760 the sheet has no padding at
+   all, so the same margin hangs 24px below the sheet's own box and lands on the
+   screen's foot instead. Measured on this page at 360 before this rule: the
+   add-source specimen ran 504px tall against 480 of content. One defect, drawn
+   twice.
+
+   THE SECOND SELECTOR IS NOT A DUPLICATE AND IT WAS ADDED BY MEASUREMENT. The
+   door row rule above is `.app .sheet > .grid.roomy` at 0-4-0, and this rule is
+   0-3-0, so on the one specimen that ENDS in its door row the 16px came straight
+   back, source order or not. Naming the row again at 0-5-0 is the only form that
+   holds, and it is the cost of a host writing a margin for a component it hosts:
+   the moment the component's own name gains a class, the foot has to gain one
+   too. A sheet that ends in its door row takes the foot like any other, and the
+   16px above stays the gap between the doors and the way out on the sheet that
+   has one. */
+.app .sheet > :last-child,
+.app .sheet > .grid.roomy:last-child { margin-bottom: var(--space-0); }
+
+/* ============================================================================
+   THE 760 CONTAINER: the column becomes a card.
+
+   THE CONTAINER IS body, DECLARED IN base.css, AND IT IS NOT DECLARED HERE. A
+   container query matches an ANCESTOR container and never the element itself, so
+   a `container-type` on `.sheet` would not let this component query its own
+   width; it would re-point this query, and every other query inside it, at a
+   different box, with no error and no symptom. Measured rather than argued, on
+   the shell: with `container-type` on `.app` the tab bar kept its column flow,
+   lost its rail, and moved from 240px beside the content to 965px below it.
+
+   760 is written as a number because it has to be. Documented, not tokenized,
+   and the three steps of this product are 760, 900 and 1340.
+
+   WHAT CHANGES, and every one of the five is a surface property: the paper fill,
+   the hairline edge, the container corner, the elevation, and 24px of padding to
+   hold the content off that new edge. The 24px top margin lifts the card off the
+   screen's own padding so it reads as an object placed on the page rather than as
+   the page's first block.
+
+   THE EDGE IS --line-container AND NOT --line-control. Nothing about a sheet has
+   to be found by touch: WCAG 1.4.11 asks 3:1 of the boundary that IDENTIFIES a
+   control, and what a person presses here is the button inside. That split was
+   decided on 2026-08-11 and the sheet is on the "keeps the hairline" side of it
+   with the card, the panel and the plan tile.
+
+   AND THE SHADOW IS THE EXCEPTION TO THE RULE IT PROVES. Everywhere else a new
+   surface earns a hairline and a background change and never a lift. Here it
+   earns all three, once, on the one object that is a whole decision rather than a
+   block inside one. DESIGN.md describes the same shadow as belonging to "the
+   mobile app frame only", which the code has never done: it has exactly one
+   consumer and that consumer appears at a WIDE container, not a narrow one. The
+   code wins, the same way it won on the subscription row's three sizes and the
+   tab bar's label, and the row belongs in docs/tokens-audit.md. */
+@container (min-width: 760px) {
+  .app .sheet {
+    margin-top: var(--space-24);
+    padding: var(--space-24);
+    border: 1px solid var(--line-container);
+    border-radius: var(--radius);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow);
+  }
+}
+
+/* ---- what this file does NOT write ----------------------------------------
+   `.app .sheet h1` and `.app .sheet p` are in wireframes/_wf.css (lines 880 and
+   881) and were deliberately dropped when the colour layer was built. kit.css
+   said why at the line: "Its own h1/p slots are NOT carried: all three sheets put
+   their heading inside a State message, and the grey rules for those slots were
+   silently restyling it." That State message is the Text block molecule, written
+   and correct in text-block.css. The drop is a year older than this stage and it
+   is exactly the rule this round exists to apply, which is worth knowing: the
+   defect was found once, by hand, on three pages. It is not reintroduced here. */
+
+/* NO STATES, and the reason is one line: a sheet is not interactive. It is a
+   `<section>` on all three occurrences, with an `aria-label` and no `role`, no
+   `href` and no `tabindex`, and kit.css declared no pointer response on it. There is
+   also nothing to dismiss: each sheet's own way out is a control inside it ("Not
+   now", "Remind me later", "Keep my data"), and those are Buttons and Quiet lines
+   with their own states on their own pages. A sheet with no backdrop cannot be
+   dismissed by clicking beside it, which is a property of drawing a dialog as a
+   page and is the reason every one of the three carries a named way back. */

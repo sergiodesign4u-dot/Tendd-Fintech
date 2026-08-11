@@ -55,7 +55,7 @@
         <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
         <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
         <span class="amt">$17.99</span>
-        <span class="tag">Price changed</span>
+        <span class="chip">Price changed</span>
       </a>
       <a class="row" href="#anatomy" aria-label="Disney Plus, $13.99 a month, next in 11 days on 12 August, active">
         <span class="logo"><img src="../visuals/logos/disney-plus.svg" alt=""></span>
@@ -70,7 +70,7 @@
       <li><code>.name</code> <span>the merchant, in the person's own words. <code>--type-sub</code>, weight 600, <code>--text-primary</code>. It is what the eye scans for</span></li>
       <li><code>.when</code> <span>when it happens next. <code>--type-meta</code>, <code>--text-muted</code>. The second tier, and there is no third</span></li>
       <li><code>.amt</code> <span><b>an atom.</b> The price, at <code>--type-body</code> and tabular, sized for this host by <a href="amount.html">amount.css</a></span></li>
-      <li><code>.tag</code> <span><b>an atom.</b> The status chip, pushed to the end by a <code>margin-left: auto</code> that lives in <a href="chip.html">chip.css</a> with the other four host placements of that atom</span></li>
+      <li><code>.chip</code> <span><b>an atom.</b> The status chip, pushed to the end by a <code>margin-left: auto</code> that lives in <a href="chip.html">chip.css</a> with the other four host placements of that atom. It was <code>.tag</code> until step 6</span></li>
       <li><code>aria-label</code> <span>on the anchor, and it is load-bearing: it reads the subscription as one sentence, so a screen reader says "Netflix, $17.99 a month, next in 2 days" rather than five fragments</span></li>
     </ul>
     <p class="note"><b>The row draws no divider and no edge</b>, and that is what makes a list read as one object rather than a stack of cards. The hairline between two rows belongs to the Category group organism, and the 14px corner around all of them belongs to its container. A row that drew its own line would draw a second one everywhere a list did its job.</p>
@@ -141,7 +141,7 @@
         </tbody>
       </table>
     </div>
-    <p class="note"><b>The candidate host is a position and not a restyle, and it was checked rather than assumed.</b> <code>kit.css</code> writes three declarations there: <code>flex: 1</code> and <code>min-width: 0</code>, which are layout and legitimate, and <code>border-bottom: 0</code>, which turns out to be a no-op. The row's base already writes <code>border: 0</code>, so there was no bottom border to remove; that line is a survival from <code>wireframes/_wf.css</code>, where the grey row did draw one. It painted nothing in colour and it is not carried. <b>No colour, no size and no weight is touched by the host</b>, which is the test this round exists to apply.</p>
+    <p class="note"><b>The candidate host is a position and not a restyle, and it was checked rather than assumed.</b> <code>kit.css</code> wrote three declarations there: <code>flex: 1</code> and <code>min-width: 0</code>, which are layout and legitimate, and <code>border-bottom: 0</code>, which turns out to be a no-op. The row's base already writes <code>border: 0</code>, so there was no bottom border to remove; that line is a survival from <code>wireframes/_wf.css</code>, where the grey row did draw one. It painted nothing in colour and it is not carried. <b>No colour, no size and no weight is touched by the host</b>, which is the test this round exists to apply.</p>
   </section>
 
   <section class="kit-sec" id="usage">
@@ -169,7 +169,7 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">A thing you pay for</span>
-        <div class="kit-stage app full"><a class="row" href="#rule" aria-label="Amazon Prime, $14.99 a month, next in 19 days on 20 August, payment failed"><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span class="body"><span class="name">Amazon Prime</span><span class="when">in 19 days &middot; Aug 20</span></span><span class="amt">$14.99</span><span class="tag">Payment failed</span></a></div>
+        <div class="kit-stage app full"><a class="row" href="#rule" aria-label="Amazon Prime, $14.99 a month, next in 19 days on 20 August, payment failed"><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span class="body"><span class="name">Amazon Prime</span><span class="when">in 19 days &middot; Aug 20</span></span><span class="amt">$14.99</span><span class="chip">Payment failed</span></a></div>
         <p>A standing commitment, with its next date and its price. The chip says what state it is in. The row answers "what am I paying for", which is a question about the present.</p>
       </div>
       <div class="no">
@@ -183,7 +183,7 @@
   <section class="kit-sec" id="states">
     <h2>States</h2>
     <p class="note">Three states, and they exist because the row is <b>a link</b>. Each is a token override rather than a style of its own: no hex and no number appears inside <code>:hover</code>, so the dark theme costs three lines in <code>tokens.css</code> rather than an edit per component.</p>
-    <p class="note"><b>Three rather than four, and the missing one is not an omission.</b> There is no disabled row: a subscription that cannot be opened is not rendered dim, it is not rendered. The loading form above is not a disabled row either, it is a <code>div</code> with no <code>href</code> at all. And there is no <code>:active</code>, because <code>kit.css</code> declares none, and writing one here would be a new decision about how the product answers a press, taken by the person moving a file.</p>
+    <p class="note"><b>Three rather than four, and the missing one is not an omission.</b> There is no disabled row: a subscription that cannot be opened is not rendered dim, it is not rendered. The loading form above is not a disabled row either, it is a <code>div</code> with no <code>href</code> at all. And there is no <code>:active</code>, because <code>kit.css</code> declared none, and writing one here would be a new decision about how the product answers a press, taken by the person moving a file.</p>
     
 
     <h3 class="kit-sub-h">Rest, live</h3>
@@ -192,7 +192,7 @@
         <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
         <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
         <span class="amt">$17.99</span>
-        <span class="tag">Price changed</span>
+        <span class="chip">Price changed</span>
       </a>
       <a class="row" href="#states" id="shot-row-2" aria-label="iCloud Plus, $2.99 a month, next tomorrow on 2 August">
         <span class="logo"><img src="../visuals/logos/icloud.svg" alt=""></span>
@@ -252,7 +252,7 @@ snapshot is worse than none: it looks checked.</code>
   &lt;span class="logo"&gt;&lt;img src="visuals/logos/netflix.svg" alt=""&gt;&lt;/span&gt;
   &lt;span class="body"&gt;&lt;span class="name"&gt;Netflix&lt;/span&gt;&lt;span class="when"&gt;in 2 days &amp;middot; Aug 3&lt;/span&gt;&lt;/span&gt;
   &lt;span class="amt"&gt;$17.99&lt;/span&gt;
-  &lt;span class="tag"&gt;Price changed&lt;/span&gt;
+  &lt;span class="chip"&gt;Price changed&lt;/span&gt;
 &lt;/a&gt;&lt;/li&gt;</code>
     <p class="note">The <code>li</code> is part of the copy for a reason: on every list page the row is a list item inside a <code>ul</code> that the Category group organism owns, and that organism is what draws the hairline between two of them. The row on its own, as it stands on this page, is deliberately shown without one.</p>
   </section>

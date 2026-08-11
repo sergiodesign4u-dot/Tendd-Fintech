@@ -54,14 +54,14 @@
       <section class="summary">
         <h1>You're paying for 14 subscriptions</h1>
         <p class="total">$192.90</p>
-        <p class="context">a month, for what you have signed up for</p>
+        <p class="muted">a month, for what you have signed up for</p>
       </section>
     </div>
     <ul class="kit-callouts">
       <li><code>.summary</code> <span>the molecule. It owns one thing only: the gap between itself and whatever comes next. Everything inside brings its own spacing</span></li>
       <li><code>h1</code> <span>the heading, and the only slot this file styles directly. It is an <code>h1</code> because it is the subject of the page for a screen reader and for a search engine, and it is quiet because on screen it is a caption</span></li>
       <li><code>.total</code> <span>an atom, the <a href="big-total.html">Big total</a>. 46px, weight 700, tabular figures, and no margin of its own by design: the blocks above and below own the rhythm. This file does not touch it</span></li>
-      <li><code>.context</code> <span>an atom, the <a href="muted-line.html">Muted line</a>. It brings its own size, its own muted ink and its own 8px top margin. This file does not touch it either</span></li>
+      <li><code>.muted</code> <span>an atom, the <a href="muted-line.html">Muted line</a>. It brings its own size, its own muted ink and its own 8px top margin. This file does not touch it either. It was <code>.context</code> until step 6</span></li>
       <li><code>:not(:has(.total))</code> <span>the switch. It reads whether the number is present and promotes the heading when it is not. No state class anywhere, so no screen can forget to carry one</span></li>
     </ul>
   </section>
@@ -86,14 +86,14 @@
             <td class="val">16px / 600<br>--text-body</td>
             <td>4 of the 5 pages: Home, its error state, its save-focus state, and the loading state</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="summary"><h1>You're paying for 14 subscriptions</h1><p class="total">$192.90</p><p class="context">a month, for what you have signed up for</p></section></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="summary"><h1>You're paying for 14 subscriptions</h1><p class="total">$192.90</p><p class="muted">a month, for what you have signed up for</p></section></div></td></tr>
           <tr>
             <td><b>Without</b> <code>.summary:not(:has(.total))</code></td>
             
             <td class="val">20px / 700<br>--text-primary</td>
             <td>1 page, the empty state. It is the only screen in the product where this block has no figure in it</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="summary"><h1>Nothing to add up yet</h1><p class="context">Connect your bank or add a subscription, and your monthly total appears here as the biggest thing on screen.</p></section></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><section class="summary"><h1>Nothing to add up yet</h1><p class="muted">Connect your bank or add a subscription, and your monthly total appears here as the biggest thing on screen.</p></section></div></td></tr>
           <tr>
             <td class="kit-empty">A second number</td>
             
@@ -107,7 +107,7 @@
     <div class="kit-stage app full wide">
       <section class="summary" role="status">
         <h1>Getting your subscriptions</h1>
-        <p class="context">This usually takes a moment.</p>
+        <p class="muted">This usually takes a moment.</p>
         <span class="skel total" aria-hidden="true"></span>
       </section>
     </div>
@@ -126,19 +126,19 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">The caption is quieter than the number</span>
-        <div class="kit-stage app full wide"><section class="summary"><h1>You're paying for 14 subscriptions</h1><p class="total">$192.90</p><p class="context">a month, for what you have signed up for</p></section></div>
+        <div class="kit-stage app full wide"><section class="summary"><h1>You're paying for 14 subscriptions</h1><p class="total">$192.90</p><p class="muted">a month, for what you have signed up for</p></section></div>
         <p>16px over 46px, and both of them over 14px. Three sizes, one hierarchy, and the eye lands on the figure first from across a room. A caption set any louder makes a person read the sentence before the number, which is the opposite of what this screen is for.</p>
       </div>
       <div class="no">
         <span class="hd">Never promote it by hand</span>
-        <div class="kit-stage app"><span class="consequence">A screen writing its own heading size because that page "needs a stronger title"</span></div>
+        <div class="kit-stage app"><span class="muted">A screen writing its own heading size because that page "needs a stronger title"</span></div>
         <p>The promotion is a rule in the component, selected structurally from the presence of the number. A screen that sets its own heading size is a <b>host restyling its content</b>, which is the defect class this stage exists to remove: it looks finished, and it is a second edition of the component that nobody declared. If a screen genuinely needs a page title above this block, that title is a <b>text block</b>, <code>.textblock</code>, and it is a different object.</p>
       </div>
     </div>
     <div class="kit-do">
       <div class="yes">
         <span class="hd">Use a summary for the whole answer</span>
-        <div class="kit-stage app full wide"><section class="summary"><h1>You're paying for 14 subscriptions</h1><p class="total">$192.90</p><p class="context">a month, for what you have signed up for</p></section></div>
+        <div class="kit-stage app full wide"><section class="summary"><h1>You're paying for 14 subscriptions</h1><p class="total">$192.90</p><p class="muted">a month, for what you have signed up for</p></section></div>
         <p>One block, at the top of a screen, holding the number the screen exists to show and nothing else.</p>
       </div>
       <div class="no">
@@ -174,12 +174,12 @@
     <code class="kit-cmd">&lt;section class="summary"&gt;
   &lt;h1&gt;You're paying for 14 subscriptions&lt;/h1&gt;
   &lt;p class="total" aria-label="monthly total, $192.90"&gt;$192.90&lt;/p&gt;
-  &lt;p class="context"&gt;a month, for what you have signed up for&lt;/p&gt;
+  &lt;p class="muted"&gt;a month, for what you have signed up for&lt;/p&gt;
 &lt;/section&gt;
 
 &lt;section class="summary"&gt;
   &lt;h1&gt;Nothing to add up yet&lt;/h1&gt;
-  &lt;p class="context"&gt;Connect your bank or add a subscription.&lt;/p&gt;
+  &lt;p class="muted"&gt;Connect your bank or add a subscription.&lt;/p&gt;
 &lt;/section&gt;</code>
   </section>
 
