@@ -24,8 +24,8 @@
     <p class="kit-sub">tokens and components</p>
     <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
     <div class="kit-theme" role="group" aria-label="Theme">
-      <button type="button" data-theme="light" aria-pressed="true">Light</button>
-      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
     </div>
   </div>
   <nav id="kit-nav" aria-label="The system"></nav>
@@ -42,7 +42,7 @@
     <h1>Colour</h1>
     <p class="lead">Two levels and a pair of themes. The values below are what the product has been painted with since Concept; the roles are what stage 08 read out of where each value actually stands. Nothing here is new except the dark ramp, which had nothing to be carried from.</p>
     <div class="kit-meta">
-      <span><strong>22</strong> primitives, light</span><span><strong>21</strong> primitives, dark</span><span><strong>25</strong> roles, all paired</span><span>0 failing pairs</span>
+      <span><strong>22</strong> primitives, light</span><span><strong>22</strong> primitives, dark</span><span><strong>27</strong> roles + <strong>4</strong> state tokens, all paired</span><span>0 failing pairs</span>
     </div>
   </header>
 
@@ -75,7 +75,7 @@
         <div class="kit-sw"><i class="c--teal-ink"></i><b>--teal-ink</b><span>#185862</span></div>
     </div>
     <h3 class="kit-sub-h">The dark ramp</h3>
-    <p class="note">Twenty-one values, and these ARE new: <code>kit.css</code> had no dark theme, so there was nothing to carry. Derived from the same hues and measured against the dark grounds. One of them is a joke the palette made by itself: <code>--ink-dark</code> is <code>#eef3f4</code>, the light canvas, folded back.</p>
+    <p class="note">Twenty-two values, and these ARE new: <code>kit.css</code> had no dark theme, so there was nothing to carry. Derived from the same hues and measured against the dark grounds. One of them is a joke the palette made by itself: <code>--ink-dark</code> is <code>#eef3f4</code>, the light canvas, folded back.</p>
     <div class="kit-swatches">
         <div class="kit-sw"><i class="c--paper-dark"></i><b>--paper-dark</b><span>#161f21</span></div>
         <div class="kit-sw"><i class="c--canvas-dark"></i><b>--canvas-dark</b><span>#0e1517</span></div>
@@ -85,6 +85,7 @@
         <div class="kit-sw"><i class="c--muted-dark"></i><b>--muted-dark</b><span>#96a2a6</span></div>
         <div class="kit-sw"><i class="c--hairline-dark"></i><b>--hairline-dark</b><span>#2a3538</span></div>
         <div class="kit-sw"><i class="c--hairline-soft-dark"></i><b>--hairline-soft-dark</b><span>#212b2e</span></div>
+        <div class="kit-sw"><i class="c--hairline-strong-dark"></i><b>--hairline-strong-dark</b><span>#303c3f</span></div>
         <div class="kit-sw"><i class="c--edge-dark"></i><b>--edge-dark</b><span>#7f9296</span></div>
         <div class="kit-sw"><i class="c--skeleton-dark"></i><b>--skeleton-dark</b><span>#202b2d</span></div>
         <div class="kit-sw"><i class="c--petrol-dark"></i><b>--petrol-dark</b><span>#6bb0ba</span></div>
@@ -103,7 +104,7 @@
 
   <section class="kit-sec" id="roles">
     <h2>Semantic: the roles, both themes at once</h2>
-    <p class="note">Twenty-five roles. Each one points at a primitive through <code>var()</code> and each one is written twice, in <code>:root</code> and in <code>[data-theme="dark"]</code>, at the moment it is declared. <b>The pair is a property of the level, not an event.</b> A role without a pair does not exist, because the way to notice a missing one is to switch the theme, which is to say never.</p>
+    <p class="note">Twenty-seven roles and four state tokens, thirty-one pairs, and the count was <b>25</b> here until 2026-08-12: <code>--line-failure</code> and <code>--line-action-soft</code> were added by the component rounds at step 5 and the sentence above them was not. Counted off the file rather than off memory, and the table at the foot of this page has carried all thirty-one rows the whole time. Each one points at a primitive through <code>var()</code> and each one is written twice, in <code>:root</code> and in <code>[data-theme="dark"]</code>, at the moment it is declared. <b>The pair is a property of the level, not an event.</b> A role without a pair does not exist, because the way to notice a missing one is to switch the theme, which is to say never.</p>
     <p class="note">Both themes are shown side by side deliberately, whatever the theme of this page. The pairs are material, not the state of a toggle. <b>The pair is not mirrored:</b> contrast runs against the opposite ground, so on dark the accent climbs the scale rather than reusing the same primitive, and three roles visibly disagree with their light halves. The loudest is <code>--text-on-action</code>: white on the lightened petrol would measure 1.9:1, so on dark it takes the dark canvas instead.</p>
     <div class="kit-roles">
       <div class="kit-role">
@@ -346,6 +347,26 @@
         </tbody>
       </table>
     </div>
+  </section>
+
+  <section class="kit-sec" id="stress">
+    <h2>The stress test, and what a theme is actually for</h2>
+    <p class="note">A rebrand would have worked on the flat sheet of values stage 07 shipped: swap the hex and everything follows. <b>A rebrand therefore proves nothing about two levels.</b> Only a theme does, because the ground inverts while "the action" stays the action, and the only layer that can hold that is a semantic one. On 2026-08-12 the dark half was walked across the whole showcase and all 28 coloured screens at once, and the walk was the point: the defect it looks for cannot be seen on a single component. Two surfaces that separated in light and merged in dark. Two roles that converged on one value. A border visible in one theme and gone in the other. Nothing broken, every role read correctly, and the system still not readable.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What was measured</th><th class="n">Figure</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td>renders walked, both themes and both viewports</td><td class="n">368</td><td>92 pages, computed background, ink, four borders, outline, shadow and stroke on every element, collected twice and paired by document index</td></tr>
+          <tr><td>component files edited for the theme</td><td class="n">0</td><td><b>The headline.</b> A theme that needs component edits is a theme sitting on a system that only looks like one. Grepped across 55 component files and <code>base.css</code>: zero reads of a colour primitive, zero hex, zero <code>rgb()</code> outside prose</td></tr>
+          <tr><td>coloured screens edited</td><td class="n">0</td><td>The step is not a fourth source of appearance change, and this is the proof rather than the claim. The pixel comparison runs in the light theme and nothing here is inside the corpus it measures</td></tr>
+          <tr><td>roles missing a dark pair</td><td class="n">0</td><td>31 of 31 written twice, at the moment each was declared</td></tr>
+          <tr><td>neighbourhood and contrast findings</td><td class="n">10</td><td>Every one of them in a seam: the reviewer chrome, the stand's own pages, the switch itself. Listed in <code>docs/tokens-audit.md</code></td></tr>
+          <tr><td>findings dropped at verification</td><td class="n">5</td><td>Including three roles that converge on one value in the dark theme and never once touch on screen, and one that was the instrument catching a CSS transition mid-flight</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The switch was the first thing the switch broke.</b> Its two buttons carried <code>data-theme="light"</code> and <code>data-theme="dark"</code> to tell the script what to do, and <code>tokens.css</code> declares <code>[data-theme="dark"]</code> unscoped on purpose so that a theme can be pinned to a subtree, which is exactly what makes the pairs above stand side by side on this page. So each button was also announcing that it <i>is</i> that theme, and painted itself in the wrong palette in both. Measured before the fix: the Dark button's label at <b>1.92:1 on the white panel</b>, unreadable in the theme everybody opens by default, since step 4. One attribute name doing two jobs. The handle is <code>data-set-theme</code> now, because scoping the stylesheet instead would have cured this one page and killed the pinned samples on it.</p>
+    <p class="note"><b>And this page was the second.</b> The chips above pin their theme so a pair can be read whatever the page is doing, and they painted no ground of their own, so with the page in dark every light specimen stood on the dark surface: <code>--text-primary</code> at 1.04:1, <code>--bg-surface</code> merged at 1.000. The page that exists to prove both halves of every pair was showing one of them. Giving the chip a ground was half a fix and made it briefly worse, which is the more useful half of the lesson: pinning changes what <code>var()</code> <i>resolves to</i>, and it does not change what <code>color</code> <i>inherits</i>, because inheritance walks the DOM and the DOM runs out of the chip and into the page.</p>
   </section>
 
   <section class="kit-sec" id="rules">

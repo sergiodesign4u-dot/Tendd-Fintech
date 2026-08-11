@@ -7,6 +7,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- NO PRE-PAINT SCRIPT HERE, AND THE HUB IS THE ONE PAGE IN THIS FOLDER THAT
+     GETS NONE. The 28 screens load design/_nav.js, which draws the design panel
+     and the theme switch inside it. This page loads the ROOT ../_nav.js instead,
+     because it is the hub and it carries the project roadmap: every stage,
+     including the grey ones. That chrome is deliberately theme-blind and stays
+     that way (CLAUDE.md: the root registry is not touched), so a hub that took
+     the dark theme would invert the product half of the page and leave the
+     roadmap at #1c1c1c on a dark ground, measured at 1.00:1. A page with no
+     switch has no business remembering a choice made on another one. -->
 <link rel="stylesheet" href="system/index.css">
 <link rel="stylesheet" href="_screen.css">
 <style>
@@ -42,6 +51,15 @@
   .as-meta span strong { color: var(--text-action); font-weight: 700; }
   .as-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 26px; font-size: 12px; color: var(--text-muted); }
   .as-legend b { color: var(--text-primary); font-weight: 600; }
+
+  /* Two classless links in the prose of this page, "the design system" and "the
+     rewrite log", were taking the browser's default #0000EE. It reads as a link
+     on white at 8.4:1 and measures 1.96:1 on the dark surface. Same finding as
+     the 993 on the stand's pages, same fix, and it is written here rather than in
+     base.css because the product's 28 screens carry no classless anchor at all:
+     this is a hub, and a hub owns its own prose. 2026-08-12. */
+  .as-wrap a:not([class]) { color: var(--text-action); }
+  .as-wrap a:not([class]):hover { color: var(--text-primary); }
 
   .as-group { margin-bottom: 26px; }
   .as-group > h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line-container); }

@@ -519,3 +519,80 @@ to do when it turns out otherwise is to say so rather than to make the code fit 
 | `.removal > a`, `.legal > a` | the 44px floor by direct-child structure | `.muted > p ~ a` and `.muted.ruled > a` | **The one place the fold changed what a selector means**, and it had to be caught rather than renamed. `kit.css` gave the floor to `.removal > a` and `.legal > a` and left `.consequence a` out, and that arithmetic worked only because the three had different names. They are all `.muted > a` now: the removal block is a `div` wrapping a `p` and an `a`, the footnote is a `p` whose link ends its sentence, the consequence line is a `p` with a link in the MIDDLE of one. Left as `> a` the rule would have handed a 44px inline box to the two running-text links on History and Trends and on the Pro lock. Measured after: five removal links at 44px, the footnote link at 44px, the two running-text links at 17px, all three unchanged |
 | `.muted.spaced` | `margin-top: 18px` against `.consequence`'s 12 | byte identical to the base after step 4 folded both to `--space-16` | The `.btn.compact` finding a second time, and it is **not** deleted the way `.compact` was: `.compact` is a row of the renaming map and this is not, so removing it means taking the class off `upgrade-processing.html`, which that step did not own. Zero pixels either way. It is a row the map owes |
 | `.notice`, `.notice.is-error`, `.attention`, `.decoder` | four names, one object | `.wash`, `.wash.error`, `.wash.attention`, `.wash.code` | **Zero pixels, and the consolidation is why**: all four already shared one padding, one margin and, since the corner was consolidated at step 3, one radius, so the fold had nothing to collide over. The old half of every link selector list is deleted in the same edit, and the repair it protected survives exactly: rest unchanged per tone, hover taking ink and underline to `rgb(28, 106, 118)` on all four, each hover out-specifying its own rest by a whole class. Measured on the product and not only on the stand, on `design/home.html` and `design/home-error.html`. Selector count in `wash-block.css`: 48 naming an old class and 14 naming a new one, to 34 naming only the new |
+
+---
+
+## The dark theme as a stress test (step 7)
+
+**It is not a fourth named source of appearance change, and the ledger below proves it rather
+than asserting it.** Every fix this step made landed in `design/kit/_page.css`, `design/_screen.css`,
+`design/_nav.js`, `design/kit/_nav.js`, three stand pages and the hub. **Zero edits in
+`design/system/`. Zero edits on the 28 coloured screens.** The pixel comparison runs in the light
+theme, and nothing this step touched is inside the corpus it measures, so the three lists above
+stay closed.
+
+That is also the step's headline finding. The pack warns that a theme needing component edits
+means a component reads a primitive directly or has a value written into it. Grepped across all
+55 component files plus `base.css`: **zero reads of a colour primitive, zero hex, zero rgb()
+outside prose comments.** The theme was carried entirely by the semantic layer, which is the one
+thing two token levels exist to buy, and it is the only proof of it the project will ever get.
+
+### How it was measured
+
+92 pages x 2 viewports x 2 themes = **368 renders**, walked by a browser, every element's
+computed background, ink, four border colours, outline, shadow and SVG stroke collected TWICE
+and paired by document index. A finding is therefore always a pair: *fine in light, wrong in
+dark*, or *identical in both while the ground inverted*. Five classes, and the fifth is the one
+a single-component look cannot produce:
+
+| Class | What it looks for | Found | Left |
+|---|---|---|---|
+| INK | text under 4.5:1 (3:1 large) in dark that passed in light | 16 shapes | 0 |
+| MERGE | a fill that separated from its ground in light and stopped in dark, with no border taking over | 1 | 0 |
+| SHADOW | a surface told apart by its shadow, which a dark ground does not show | 0 | 0 |
+| BORDER | a border visible in light and gone in dark | 1 | 0 |
+| LINE | a control edge over 3:1 in light and under it in dark | 1 shape, 61 pages | 0 |
+| FROZEN | a painted value byte-identical in both themes while its ground inverted | 112 shapes, 5 real | 0 |
+
+### The findings, in the order they were found
+
+| # | Where | What | Measured | Fixed in |
+|---|---|---|---|---|
+| 1 | the theme switch itself, 61 stand pages | The buttons carried `data-theme="light"` / `data-theme="dark"` as a JS handle. `tokens.css` and `_page.css` both declare `[data-theme="dark"]` **unscoped on purpose**, so a subtree can be pinned, so each button was also telling the stylesheet it IS that theme and painted itself in the wrong palette in both themes | the Dark button's label **1.92:1 on the white panel** - unreadable in the DEFAULT theme since step 4 - and its border 1.35:1 on the dark one | renamed the handle to `data-set-theme` in `_nav.js` + 122 buttons. Scoping the CSS to `:root[data-theme]` would have fixed the instance and killed the pinned samples on `color.html` |
+| 2 | `color.html`, 62 chips | The pinned-theme chips painted no ground of their own, so every light specimen stood on the page's dark surface | `--text-primary` sample at **1.04:1**, `--bg-surface` sample merged at **1.000** | `.kit-chip { background: var(--bg-surface) }`. Because the chip pins the theme, the var resolves inside it |
+| 2b | the same chips, one round later | A ground without an ink. Pinning changes what `var()` RESOLVES to; it does not change what `color` INHERITS, and inheritance walks the DOM out of the chip and into the page | label and value at **1.12:1 on the white they now stood on** | `color: var(--text-primary)` beside it. A pinned subtree needs both halves or it is pinned in name only |
+| 3 | 56 stand pages + the hub | **993 classless anchors** taking the browser's `#0000EE`: a value belonging to no theme, no token and no file we own | 8.40:1 on white, **1.96:1** on the dark surface | `.kit-body a:not([class])` in `_page.css`, the same two lines in `kit.html` and in the hub's own block. NOT in `base.css`: the product carries zero classless anchors and the isolation rule forbids bending the shipped package for the stand |
+| 4 | `shell.html` | Loaded `_page.css` and `../../_nav.css` but not `../_screen.css`, where `.scr-link` and `.scr-back` are declared. The drawer had its box and unstyled rows | 8.40:1 light, **1.81:1** dark | added the third link. The step 6 repair fixed the box and stopped |
+| 5 | `save-focus-candidate.html` | A `.cut` specimen standing outside `.cand`, and all six of the component's rules are scoped `.app .cand .cut`, so it matched none of them | 1.78:1 dark. Its own caption said "outline, 400 weight, no tone" and it was showing none of the three | wrapped it in `.cand`. A specimen outside its scope is not a specimen |
+| 6 | 28 coloured screens | The product's reviewer chrome had no dark pair while the stand's has had one since step 4. **A neighbourhood finding in its purest form:** the panel's ground is chrome and fixed, its ink is not all its own - `.sidebar` sets `--c-surface` and inherits `color` from `body`, which reads the product's `--text-primary` | **1.09:1**, near-white on white. Every row inside happens to declare a `--c-` colour and stayed readable, so it measured rather than showed. One added row away from showing | `[data-theme="dark"]` in `_screen.css`, `--kn-` values name for name. Two reviewer panels disagreeing about their own colour would be a new drift invented to cure an old one |
+| 7 | both switchers | The unpressed button read the decorative panel border. A panel outline is decoration; a control's edge is the only thing marking where it begins, and 1.4.11 asks 3:1 of that | **1.27:1 light, 1.35:1 dark** - the one control this step depends on was below the threshold in both | `--c-control-edge` / `--kn-control-edge`, paired: `#8f887e` at 3.51:1 light, `#6b7578` at 3.60:1 dark |
+| 8 | `color.html`, 8 swatches | `.b--line-control` and its seven siblings set `border-color` and nothing set a width or a style, so the initial `border-style: none` stood | border-top-width **0px**, style **none**, colour rgb(123,141,145): the value was there the whole time with nothing to paint. **All eight LINE roles have rendered as an empty box since the page was written**, in both themes | `border-style: solid; border-width: 3px` on the attribute selector, so `border-color` stays with the `.b--` class |
+| 9 | `color.html`, 43 primitive swatches | The swatch plate's rule read `--line-container`, and two of the forty-three primitives ARE that hairline | the `--hairline-dark` swatch drew rgb(42,53,56) on rgb(42,53,56), **1.00:1**: the primitive that IS the divider had no divider | `--line-control` on `.kit-sw i`. A frame has to hold against every value it may be asked to frame, which makes it a control edge and not a decorative one |
+| 10 | `design/overview.html` | It is the only page in `design/` that loads the ROOT `../_nav.js`, because it is the hub and carries the project roadmap for every stage including the grey ones. That chrome is deliberately theme-blind | the roadmap's rows at **1.00:1** with the page forced dark | the hub gets **no** pre-paint script and no switch. A page with no switch has no business remembering a choice made on another one |
+| 11 | `color.html`, the dark ramp | `--hairline-strong-dark` had no swatch and no `.c--` class. It was declared at the molecule round beside `--line-container-hover` and neither followed | the page's own chip read **21 primitives, dark** against **22** in the file | added both. Found by counting the file against the page, which is the only way this gap is ever found: a missing swatch looks exactly like a complete palette |
+| 12 | `color.html`, the roles section | The heading count read **25 roles** where the file has 27 plus 4 state tokens. `--line-failure` and `--line-action-soft` were added at step 5 and the sentence above them was not | the pairs rendered below it: **31**. The contrast table at the foot of the same page: **31 rows**. Only the sentence was stale | recounted off the file, and the correction is written into the sentence rather than swapped silently: a number that was wrong for two steps is worth one clause |
+
+### Measured and dropped, with the reason
+
+| Finding | Verdict |
+|---|---|
+| `--bg-recessed`, `--bg-callout` and `--bg-hover` all resolve to `#1d282a` in dark, where in light the callout differs from the other two | **Real in the file, absent on screen.** Queried directly: zero elements in 368 renders have their own fill and their ground both landing on that value. The three roles never touch. Recorded rather than cured, because inventing a divergence to satisfy a grep would move pixels no one can see |
+| `--bg-page` and `--text-on-action` both resolve to `#0e1517` in dark | Deliberate and documented. Different surfaces, never adjacent: the ink always stands on `--bg-action` |
+| `.kit-cmd`, `.as-card.as-planned` and `.tr` separate from their ground by only 1.04 in light | **The dark theme improves them**, 1.04 to 1.22. Flagged by a first reading of the data and dropped on measurement |
+| `a.scr-link` reading 3.42 to 4.49:1 in dark across the product panel | **Instrument artifact.** `.scr-link` declares `transition: color 0.15s` and the walk sampled 30ms after the switch, catching the value mid-flight; the colour varied per page, which is what gave it away. Re-walked at 260ms: 8.86:1, and the class emptied |
+| `svg`, `g` and `svg.kit-icg` carrying `fill: rgb(0,0,0)` in both themes | The `fill` property's initial value on an element that paints nothing with it. The first scan reported it on 8000+ elements because it read `fill` on HTML tags too; made SVG-aware, 112 shapes remained and five were real |
+
+### The snapshot item, answered
+
+Step 7 asks for the state snapshots to be re-taken in dark. **There are none to re-take**, and
+that is a decision rather than an omission: the founder removed the snapshot strip on 2026-08-11,
+120 images across 18 pages, and the states are described with their tokens beside a live,
+interactive resting specimen instead. The argument was that a value moves and every picture of it
+is quietly stale until somebody re-shoots it, and a stale picture is worse than none because it
+looks checked.
+
+Answering the item surfaced the decision's own residue: **nine component pages still closed their
+retake recipe with "Step 9 checks these files for a byte shift"**, naming eight or six PNGs that
+were deliberately never taken. Written before the decision and outlived it, which is the same
+freeze the sentence was warning about, in prose. Corrected on all nine: the recipe stays as a
+recipe, the promise is gone, and step 9 is no longer sent hunting for phantom files.

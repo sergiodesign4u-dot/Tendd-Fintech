@@ -7,6 +7,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- THE THEME BEFORE THE FIRST PAINT. Three lines, inline, above the stylesheet
+     on purpose: a switch that runs on DOMContentLoaded leaves one frame of white
+     on every load in the dark theme, and a flash is the most visible thing a dark
+     theme can get wrong. design/_nav.js draws the control and owns the same key.
+     It is in the SHELL and not only in the copies, because this file is the
+     template: a screen made from it tomorrow gets the behaviour without being
+     told, which is the same reason the switch is drawn by the script. -->
+<script>(function(){try{if(localStorage.getItem('tendd-screen-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <link rel="stylesheet" href="../system/index.css">
 <!-- The stand's own look and the roadmap chrome. This page linked the system and
      nothing else, which was survivable while kit.css declared the drawer, and
@@ -17,6 +25,15 @@
      system alone, and these two files own the reviewer chrome only. -->
 <link rel="stylesheet" href="_page.css">
 <link rel="stylesheet" href="../../_nav.css">
+<!-- AND THE THIRD ONE, added 2026-08-12 by the dark stress test. The panel this
+     page draws is the PRODUCT's panel, not the stand's: it loads ../_nav.js, so
+     the rows come out as `.scr-link` and `.scr-back`, and those two classes are
+     declared in design/_screen.css alone. Linking _page.css gave the drawer its
+     box and left its rows unstyled, which in the light theme is the browser's
+     #0000EE at 8.4:1 and looks like a plain list of links. In the dark theme the
+     same rows measure 1.81:1. A copy of this file in design/ loads _screen.css
+     as `_screen.css`; from here the path is one level up. -->
+<link rel="stylesheet" href="../_screen.css">
 </head>
 <body>
 

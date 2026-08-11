@@ -47,13 +47,53 @@
   --c-surface: #ffffff;
   --c-border: #e8e4dc;
   --c-border-light: #f0ede6;
-  --c-text: #2a2724;
-  --c-text-secondary: #6b6560;
-  --c-text-muted: #6f6a63;
-  --c-accent: #4e6a5c;
+  --c-text: #2a2724;            /* 14.85:1 on --c-surface */
+  --c-text-secondary: #6b6560;  /*  5.74:1 */
+  --c-text-muted: #6f6a63;      /*  5.36:1 */
+  --c-accent: #4e6a5c;          /*  5.93:1 on --c-surface, 5.32:1 on --c-accent-light */
   --c-accent-light: #eef4f1;
+  --c-control-edge: #8f887e;    /*  3.51:1 on --c-surface. See the dark half for why */
   --c-radius-sm: 4px;
 }
+
+/* THE CHROME HAS A DARK PAIR, added 2026-08-12 by the dark stress test, and the
+   finding that produced it is a NEIGHBOURHOOD one: nothing in this file was
+   broken and nothing in the system was broken, and together they were wrong.
+
+   The panel's ground is chrome and fixed; the panel's ink is not all its own.
+   `.sidebar` sets `background: var(--c-surface)` and inherits `color` from
+   `body`, which reads the product's `--text-primary`. In the dark theme that
+   resolves to #eef3f4 on a #ffffff panel: 1.09:1. Every row inside happens to
+   declare a --c- colour of its own and so stayed readable, which is why the
+   defect measured rather than showed, and it is one added row away from showing.
+
+   THE VALUES ARE design/kit/_page.css's --kn- SET, name for name. That file is
+   the same sage and cream chrome doing the same job on the stand, and it has
+   carried a dark pair since step 4. Two reviewer panels disagreeing about their
+   own colour would be a new drift invented to cure an old one. Contrast measured
+   on --c-surface dark; the light figures stand next to the light values above,
+   so a pair is read on one line. */
+[data-theme="dark"] {
+  --c-surface: #171d1f;
+  --c-border: #2b3538;
+  --c-border-light: #222b2e;
+  --c-text: #e6edee;            /* 14.38:1 on --c-surface */
+  --c-text-secondary: #b1bdc0;  /*  8.86:1 */
+  --c-text-muted: #94a1a4;      /*  6.41:1 */
+  --c-accent: #8fc2ac;          /*  8.51:1 on --c-surface, 7.46:1 on --c-accent-light */
+  --c-accent-light: #1b2a25;
+  --c-control-edge: #6b7578;    /*  3.60:1 on --c-surface */
+}
+
+/* --c-control-edge IS ITS OWN NAME, and one control needs it. --c-border draws
+   the panel's outline and the rules between its parts, where it is decoration:
+   1.27:1 light, 1.35:1 dark, and both are correct for what they do. The theme
+   switch's unpressed button is a different job. It is a CONTROL, its edge is the
+   only thing that says where it starts, and 1.4.11 asks 3:1 of exactly that.
+   Reusing --c-border would have put the switch at 1.35:1 on the dark panel and
+   1.27:1 on the light one, which is the same mistake the product's own palette
+   made and corrected on 2026-08-11 when --edge was split off the hairline. Two
+   jobs, two names, and the pair is written at the moment the name is declared. */
 
 /* NOT CARRIED, ONE: the rule that hid the wireframe review annotations,
    `.zlabel, .zaction, .pane-note, .gc-tag { display: none !important }`. It was
@@ -99,6 +139,23 @@
 }
 
 .sidebar-nav { padding: 12px 10px 0; }
+
+/* THE THEME SWITCH. Drawn by design/_nav.js at the top of the panel, so a screen
+   added tomorrow gets it without being told. It is chrome and reads --c- values
+   only: a control for looking at the product is not part of the product, and a
+   switch painted in the theme it is switching cannot be told apart from the thing
+   it switches. The pressed state repaints, it does not add a border, so nothing
+   under it moves by a pixel when the choice changes. */
+.scr-theme { display: flex; gap: 6px; margin: 0 0 10px; }
+.scr-theme button {
+  flex: 1; min-height: 32px; padding: 0; border: 1px solid var(--c-control-edge);
+  border-radius: var(--c-radius-sm); background: none; font: inherit; font-size: 12px;
+  color: var(--c-text-secondary); cursor: pointer;
+}
+.scr-theme button:hover { background: var(--c-border-light); color: var(--c-text); }
+.scr-theme button[aria-pressed="true"] { background: var(--c-accent-light); border-color: var(--c-accent); color: var(--c-accent); font-weight: 600; }
+.scr-theme button:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+
 .scr-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-text-muted); padding: 10px 8px 5px; }
 .scr-label.active { color: var(--c-accent); }
 .sidebar-nav .scr-link { display: block; text-decoration: none; color: var(--c-text-secondary); font-size: 13px; padding: 6px 10px; border-radius: var(--c-radius-sm); margin-bottom: 1px; transition: background 0.15s, color 0.15s; }

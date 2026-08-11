@@ -23,6 +23,16 @@
      measure, the labels, the specimen plate. Nothing here styles a component.
      A product screen carries none of this and no style of its own at all. */
   body { background: var(--bg-page); }
+  /* The six classless links in this page's prose took the browser's #0000EE:
+     8.4:1 on the light canvas, 1.96:1 on the dark one. _page.css cures the same
+     993 anchors across the rest of the folder through `.kit-body a:not([class])`,
+     and this page and shell.html are the only two here with a bare <body>, which
+     is on purpose: shell.html is copied up into design/ and must not carry a
+     stand class into the product, and this page is the frozen stage 07 smoke test
+     whose chrome predates .kit-body. So the rule is repeated here rather than the
+     class added. Same role, same measurement. 2026-08-12. */
+  a:not([class]) { color: var(--text-action); }
+  a:not([class]):hover { color: var(--text-primary); }
   .kv-wrap { max-width: 1080px; margin: 0 auto; padding: 40px 24px 90px; }
   /* THE DRAWER'S WIDTH IS NOT A NUMBER THIS PAGE OWNS. It was written 220 here
      while /_nav.css, which owns the roadmap's look, declares --nav-w: 240px, so

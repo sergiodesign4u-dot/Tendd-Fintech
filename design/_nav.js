@@ -34,9 +34,45 @@
 
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
 
+  /* THE THEME SWITCH, and it lives here rather than in the markup of 29 pages
+     for the same reason the screen list does: one source, and a screen added
+     tomorrow gets it without being told.
+
+     THE ATTRIBUTE IS data-set-theme, NOT data-theme. `data-theme` is the STYLE
+     hook: tokens.css declares `[data-theme="dark"]` unscoped on purpose, so a
+     theme can be pinned to a subtree. A button that used the same name to tell
+     this script what to do would also be telling the stylesheet that the button
+     IS a dark subtree, and it would paint itself in the wrong theme's values in
+     both themes. That is not hypothetical: it is exactly what the stand's
+     switcher did from step 4 until 2026-08-12, where its label measured 1.92:1
+     in the DEFAULT theme and nobody saw it.
+
+     ITS OWN STORAGE KEY, separate from the stand's `tendd-kit-theme`. Two
+     surfaces, two questions: a reviewer who put the stand in dark to check one
+     component has not asked for every product screen to open dark afterwards.
+
+     THE FIRST PAINT IS NOT THIS SCRIPT'S JOB. Each screen carries a three line
+     inline script in its <head> that reads the same key and stamps <html> before
+     the stylesheet paints. A toggle that runs on DOMContentLoaded shows the
+     wrong theme for one frame on every load, and a flash of white is the single
+     most visible thing a dark theme can do wrong. */
+  var KEY = 'tendd-screen-theme';
+
+  function setTheme(t) {
+    if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.removeAttribute('data-theme');
+    try { localStorage.setItem(KEY, t); } catch (e) {}
+    var bs = document.querySelectorAll('.scr-theme button');
+    for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-pressed', String(bs[i].dataset.setTheme === t));
+  }
+
   function build() {
     var here = current();
     var html = '';
+    html += '<div class="scr-theme" role="group" aria-label="Theme">' +
+            '<button type="button" data-set-theme="light" aria-pressed="true">Light</button>' +
+            '<button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>' +
+            '</div>';
     html += '<a class="scr-back' + (here === 'overview.html' ? ' current' : '') +
             '" href="overview.html">&#8592; All screens</a>';
     html += '<div class="scr-label active">UI + Visual</div>';
@@ -65,6 +101,13 @@
     var el = document.getElementById('ui-screen-nav');
     if (!el) return;
     el.innerHTML = build();
+    el.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('button[data-set-theme]') : null;
+      if (b) setTheme(b.dataset.setTheme);
+    });
+    var stored = 'light';
+    try { stored = localStorage.getItem(KEY) || 'light'; } catch (e) {}
+    setTheme(stored);
   }
 
   if (document.readyState === 'loading') {

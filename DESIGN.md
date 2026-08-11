@@ -221,6 +221,79 @@ deliberately desaturated so that no state in the product can shout.
 - **Skeleton** (#e2e9ea): loading placeholders, pulsing at 1.4s and stopped entirely under
   `prefers-reduced-motion`.
 
+### The dark theme, and the contrast of every role in both
+
+The dark half is not a feature decision, it is the proof that the semantic level is real. A
+rebrand would have worked on a flat sheet of values: swap the hex and everything follows. Only a
+theme separates the two levels, because the ground inverts while "the action" stays the action.
+**The pair is a property of the level, not an event:** every role is written twice, in `:root`
+and in `[data-theme="dark"]`, at the moment it is declared, and a role without a pair does not
+exist. 31 roles, 31 pairs, none missing.
+
+**It is not a mirror.** Contrast runs against the opposite ground, so five pairs deliberately
+disagree with their light halves, and each disagreement is marked in `tokens.css`:
+
+| Role | Light | Dark | Why it inverts |
+|---|---|---|---|
+| `--bg-action-strong` | darkens under the pointer | lightens | a hover moves away from its ground, and the ground swapped ends |
+| `--bg-hover` | darker than the surface | lighter | the same reason, on the state token |
+| `--line-container-hover` | darker than the plain hairline | lighter | the same reason, on a card edge |
+| `--bg-callout` | shares one value with `--bg-page` | parts from it | a wash on a dark surface has to lift while the page ground stays put |
+| `--text-on-action` | white | the dark canvas | white on the lightened petrol measures **1.9:1**; this one would have shipped broken |
+
+**Three surfaces, three thresholds.** Ink answers to 4.5:1 (3:1 from 24px or 19px bold), fill and
+line answer to 3:1 under WCAG 1.4.11. Twelve fills and four lines are marked decorative by a
+named decision of 2026-08-11: a card edge and a wash separate two surfaces that nothing has to
+find by touch, and raising them outlines the whole product, which is what this language was
+chosen against. The boundary that *identifies* a control is a separate role and carries its 3:1.
+
+| Role | Paints | Against | Light | Dark | Needs |
+|---|---|---|---|---|---|
+| `--bg-surface` | fill | `--bg-page` | 1.12 | 1.10 | decorative |
+| `--bg-recessed` | fill | `--bg-surface` | 1.08 | 1.11 | decorative |
+| `--bg-callout` | fill | `--bg-surface` | 1.12 | 1.11 | decorative |
+| `--bg-selected` | fill | `--bg-surface` | 1.18 | 1.20 | decorative |
+| `--bg-attention` | fill | `--bg-surface` | 1.14 | 1.08 | decorative |
+| `--bg-failure` | fill | `--bg-surface` | 1.19 | 1.11 | decorative |
+| `--bg-status` | fill | `--bg-surface` | 1.17 | 1.20 | decorative |
+| `--bg-trial` | fill | `--bg-surface` | 1.19 | 1.24 | decorative |
+| `--bg-placeholder` | fill | `--bg-surface` | 1.23 | 1.15 | decorative |
+| `--bg-action` | fill | `--bg-surface` | 6.23 | 6.82 | 3.0 |
+| `--bg-action-strong` | fill | `--bg-surface` | 7.83 | 7.91 | 3.0 |
+| `--text-primary` | ink | `--bg-surface` | 17.44 | 14.98 | 4.5 |
+| `--text-body` | ink | `--bg-surface` | 10.16 | 10.44 | 4.5 |
+| `--text-muted` | ink | `--bg-surface` | 5.78 | 6.40 | 4.5 |
+| `--text-action` | ink | `--bg-surface` | 6.23 | 6.82 | 4.5 |
+| `--text-on-action` | ink | `--bg-action` | 6.23 | 7.51 | 4.5 |
+| `--text-attention` | ink | `--bg-attention` | 5.07 | 7.17 | 4.5 |
+| `--text-failure` | ink | `--bg-failure` | 4.57 | 6.67 | 4.5 |
+| `--text-status` | ink | `--bg-status` | 5.77 | 6.69 | 4.5 |
+| `--text-trial` | ink | `--bg-trial` | 6.75 | 7.36 | 4.5 |
+| `--line-control` | line | `--bg-surface` | 3.46 | 5.15 | 3.0 |
+| `--line-control-hover` | line | `--bg-surface` | 5.78 | 6.40 | 3.0 |
+| `--line-selected` | line | `--bg-surface` | 6.23 | 6.82 | 3.0 |
+| `--line-failure` | line | `--bg-surface` | 5.46 | 7.40 | 3.0 |
+| `--color-focus` | line | `--bg-surface` | 6.23 | 6.82 | 3.0 |
+| `--line-container` | line | `--bg-surface` | 1.23 | 1.33 | decorative |
+| `--line-divider` | line | `--bg-surface` | 1.13 | 1.16 | decorative |
+| `--line-container-hover` | line | `--bg-surface` | 1.47 | 1.47 | decorative |
+| `--line-action-soft` | line | `--bg-surface` | 1.18 | 1.20 | decorative, a hint under text that already carries 4.8:1 |
+
+The four state tokens are in that table because a state is a token and not a style: nothing
+inside a `:hover` or a `:focus-visible` block is a hex or a number anywhere in this system, which
+is why the dark theme cost three lines rather than forty edits. `--color-focus` is the one that
+would have failed silently: left unpaired it would have drawn the light petrol on the dark
+surface at **1.9:1** - present in the file, invisible on screen, keyboard navigation blind in one
+theme and perfect in the other.
+
+**What the theme found that a single component never could.** The dark half was walked across the
+whole showcase and all 28 screens at once, because the defect it looks for is a *neighbourhood*
+one: two surfaces that separated in light and merged in dark, two roles that converged on one
+value, a border visible in one theme and gone in the other. Not one component was broken and not
+one role was read wrongly; the findings were all in the seams. Zero of them landed in a component
+file, which is the result the step exists to produce: a theme that needs component edits is a
+theme sitting on a system that only looks like one.
+
 ### Named Rules
 **The One Voice Rule.** Petrol appears on the primary action, the current selection and the trust
 line. Anywhere else it is decoration, and decoration in this palette is a bug. A screen with two

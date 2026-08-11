@@ -105,13 +105,27 @@ window.KIT_NAV = {
   /* THE THEME LIVES ON <html>, and it is chosen before first paint by an inline
      script in the page head, not here: a toggle that runs after the stylesheet
      has painted shows the wrong theme for one frame on every load. This function
-     only switches and remembers. */
+     only switches and remembers.
+
+     THE BUTTONS SAY data-set-theme AND NOT data-theme, and the rename is the
+     first fix of the dark stress test rather than a preference. `data-theme` is
+     a STYLE HOOK: tokens.css and _page.css both declare `[data-theme="dark"]`
+     unscoped, on purpose, so a theme can be pinned to a SUBTREE and color.html
+     can stand both themes side by side. A button carrying `data-theme="dark"`
+     to tell this function what to do therefore also told the stylesheet that
+     the button IS a dark subtree, and it took the dark chrome palette in both
+     themes: measured before the fix, the Dark button's label was #b1bdc0 on the
+     white panel at 1.92:1, unreadable in the DEFAULT theme since step 4, and its
+     border 1.35:1 on the dark panel. One attribute name, two meanings, and the
+     one control the whole theme depends on was the one it broke. Scoping the CSS
+     to `:root[data-theme]` would have fixed this instance and killed the pinned
+     samples on color.html; renaming the handle fixes the class. */
   function setTheme(t) {
     if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
     else document.documentElement.removeAttribute('data-theme');
     try { localStorage.setItem('tendd-kit-theme', t); } catch (e) {}
     var bs = document.querySelectorAll('.kit-theme button');
-    for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-pressed', String(bs[i].dataset.theme === t));
+    for (var i = 0; i < bs.length; i++) bs[i].setAttribute('aria-pressed', String(bs[i].dataset.setTheme === t));
   }
   window.KIT_SET_THEME = setTheme;
 
@@ -154,8 +168,8 @@ window.KIT_NAV = {
     }
     var t = document.querySelector('.kit-theme');
     if (t) t.addEventListener('click', function (e) {
-      var b = e.target.closest ? e.target.closest('button[data-theme]') : null;
-      if (b) setTheme(b.dataset.theme);
+      var b = e.target.closest ? e.target.closest('button[data-set-theme]') : null;
+      if (b) setTheme(b.dataset.setTheme);
     });
     var stored = 'light';
     try { stored = localStorage.getItem('tendd-kit-theme') || 'light'; } catch (e) {}
