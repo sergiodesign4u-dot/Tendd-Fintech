@@ -13,6 +13,8 @@ colors:
   panel: "#f4f7f8"
   hairline: "#e4e9ea"
   hairline-soft: "#eef2f3"
+  control-edge: "#7b8d91"
+  control-edge-hover: "#5a686c"
   skeleton: "#e2e9ea"
   amber: "#8a5c0c"
   amber-wash: "#f6efe0"
@@ -90,10 +92,11 @@ components:
     minHeight: "44px"
     fontSize: "14px"
     fontWeight: 600
-    border: "1px solid {colors.hairline}"
+    border: "1px solid {colors.control-edge}"
   button-secondary-hover:
     backgroundColor: "{colors.panel}"
     textColor: "{colors.ink}"
+    border: "1px solid {colors.control-edge-hover}"
   card:
     backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
@@ -211,6 +214,10 @@ deliberately desaturated so that no state in the product can shout.
 - **Canvas** (#eef3f4): the ground the paper sits on, and the callout fill.
 - **Panel** (#f4f7f8): the row hover and the desktop rail.
 - **Hairline** (#e4e9ea) and **Hairline Soft** (#eef2f3): container edges and inner dividers.
+- **Control Edge** (#7b8d91), hover **#5a686c**: the boundary of a control, and nothing else. It
+  exists because WCAG 1.4.11 asks 3:1 of the edge that identifies a control and the hairline is
+  1.23:1 on paper. It is the lightest value on the hairline family that clears 3:1 on all three
+  grounds a control sits on: paper 3.46, canvas 3.10, panel 3.22.
 - **Skeleton** (#e2e9ea): loading placeholders, pulsing at 1.4s and stopped entirely under
   `prefers-reduced-motion`.
 
@@ -295,10 +302,17 @@ Three radii and no more: 14px on containers (the list, cards, the nudge), 10px o
 (buttons, rows, the logo tile, callouts), 6px on badges. Crisper than the rounded-blob reflex the
 taste rejected by name, softer than a hard financial ledger.
 
-Borders are hairlines at 1px and they do real work: the list container is bordered, the rows
+Borders are 1px and they do real work: the list container is bordered, the rows
 inside it are divided by the softer hairline, and the first and last row inherit the container's
 corners so the seam disappears. There are no dashed borders, no double borders, and no border
 that exists to decorate a block that would read fine without one.
+
+**A border has two jobs and therefore two values, and the split is the whole rule.** A control is
+identified BY its edge, so a field, a select, a secondary button, a preset tile, a door and a
+segment take the control edge and are perceivable at 3:1. A card, a panel, a plan tile, a list
+container and a divider are not controls: nothing about them has to be found by touch, so they
+keep the hairline and the surface stays as quiet as the language was chosen to be. Reaching for
+the control edge on a container is how a calm interface turns into a wireframe of boxes.
 
 ## Components
 
@@ -306,9 +320,11 @@ that exists to decorate a block that would read fine without one.
 - **Shape:** control radius (10px), 10px by 16px padding, 13.5px at weight 600.
 - **Primary:** petrol fill, white label, no border of its own. One per zone, and its presence is
   what makes the zone's main action findable.
-- **Hover / Focus:** primary darkens to petrol deep; secondary shifts its border to #cdd7d9 and its
-  fill to panel. No lift, no scale, no glow.
-- **Secondary:** paper fill, hairline border, ink label. It is a real alternative, not a ghost:
+- **Hover / Focus:** primary darkens to petrol deep; secondary darkens its edge to control-edge
+  hover (#5a686c) and its fill to panel. No lift, no scale, no glow. The hover value has to be
+  DARKER than the resting edge, which is why it is not the old #cdd7d9: that would have made the
+  boundary weaker under the pointer.
+- **Secondary:** paper fill, control edge, ink label. It is a real alternative, not a ghost:
   the two doors of this product are equal by decision, so the second door is legible.
 
 ### Cards / Containers

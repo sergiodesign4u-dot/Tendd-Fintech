@@ -305,16 +305,24 @@ no punctuation, no sentence.
 calm line tied to the context, and make it dismissible. One offer, never a nag,
 and never across the relief moment: cancelling stays free (strategy §4, the
 Emma-problem upsell ban).
-- Yes: "History and trends are part of Tendd Pro." with "Maybe later" always
-  present.
+- Yes: "History and trends are part of Tendd Pro." with a real exit always
+  present: "Maybe later" beside an inline gate, and the screen's own way back when
+  the gate IS the screen. Narrowed on 2026-08-11: the full-screen gate on node
+  5.12.4 has the appbar chevron as its exit, and a second control one line under it
+  going to the same place is chrome, not kindness. What "always" protects is that
+  no gate is a dead end, and a chevron protects that too.
 - No: "Upgrade now!", a Pro wall on the cancel step, repeated prompts.
 
 ### By state tone
 
 **Empty.** Say why it is empty and give the way out. Never a bare "nothing here";
 every empty page has a real action into a flow.
-- Yes: "Nothing here yet" / "See everything you pay for in one calm place." /
-  "Connect your bank" / "Add a subscription" (home-empty).
+- Yes: "Two ways to start" / "See everything you pay for in one calm place. Pick
+  the one that feels right; you can change it later." / "Connect your bank" /
+  "Add a subscription" (home-empty). Rewritten on 2026-08-11: the heading here used
+  to be "Nothing here yet", which repeated "Nothing to add up yet" from the summary
+  strip a hundred pixels above it. The first heading says what is true, the second
+  says what to do, and neither says the other's job twice.
 - No: "No data", with no action.
 
 **Error.** Say what happened and what to do, name who, and if it is a money screen,

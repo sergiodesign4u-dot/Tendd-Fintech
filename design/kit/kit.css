@@ -49,10 +49,31 @@
      and no existing value moved. Ground: docs/decisions.md. */
   --radius-xs: 6px;          /* origin: the chip and the skeleton, written inline twice in this file */
   --radius-wash: 12px;       /* origin: .alert-banner in this file; DESIGN.md names it rounded.wash */
-  --line-strong: #cdd7d9;    /* origin: .btn:hover in this file; DESIGN.md states it in prose */
+  --line-strong: #cdd7d9;    /* origin: .btn:hover in this file. It stopped being the control hover
+                                on 2026-08-11: it is LIGHTER than --line-control, so keeping it
+                                there would have weakened the boundary under the pointer. Its one
+                                remaining consumer is .plan-opt:hover, a card and not a control,
+                                where strengthening a hairline is exactly the job. */
   --on-accent: #ffffff;      /* origin: the label on a petrol ground, written as --frame. Equal to
                                 --frame today and a different ROLE: --frame is the card surface,
                                 this is text on the accent. They part company at the dark theme. */
+
+  /* Named at the founder's non-text contrast decision, 2026-08-11. WCAG 1.4.11 asks
+     3:1 of the boundary that identifies a control, and --line is 1.23:1 on white.
+     SCOPED TO CONTROLS ONLY, which is the decision: a field, a select, a button, a
+     preset tile, a door and a segment are identified BY their edge and take this;
+     a card, a panel, a plan tile and a separator are not controls, keep the
+     hairline, and the calm surface the language was chosen for is untouched.
+     Ground: docs/decisions.md, 2026-08-11. */
+  --line-control: #7b8d91;   /* the lightest value on the --line-strong hue that clears 3:1
+                                on all three grounds a control sits on: #ffffff 3.46,
+                                --page 3.10, --panel2 3.22 */
+  --line-control-hover: #5a686c;  /* equal to --soft today and a different ROLE, the way
+                                     --on-accent is equal to --frame: --soft is muted text,
+                                     this is a control's edge under the pointer. A resting
+                                     edge that darkens on hover has to darken, and
+                                     --line-strong is LIGHTER than --line-control, so the
+                                     old hover would have weakened the boundary. */
 }
 
 * { box-sizing: border-box; }
@@ -183,11 +204,11 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
 .app .btn, .landing .btn {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 44px; padding: 0 18px;
-  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  border: 1px solid var(--line-control); border-radius: var(--radius-sm);
   background: var(--frame); color: var(--mid);
   font: inherit; font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer;
 }
-.app .btn:hover, .landing .btn:hover { border-color: var(--line-strong); background: var(--panel2); color: var(--ink); }
+.app .btn:hover, .landing .btn:hover { border-color: var(--line-control-hover); background: var(--panel2); color: var(--ink); }
 .app .btn.primary, .landing .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .app .btn.primary:hover, .landing .btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); color: var(--on-accent); }
 .app .btn.compact, .landing .btn.compact { min-height: 44px; padding: 0 14px; font-size: 13.5px; }
@@ -377,12 +398,12 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
    settled. Focus comes from the shared ring above. */
 .app .field input, .landing .field input, .app .field select, .landing .field select {
   width: 100%; min-height: 44px; padding: 0 12px;
-  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  border: 1px solid var(--line-control); border-radius: var(--radius-sm);
   background: var(--frame); color: var(--ink); font: inherit; font-size: 14px;
 }
 .app .field select, .landing .field select { padding-right: 8px; }
 .app .field input::placeholder, .landing .field input::placeholder { color: var(--soft); }
-.app .field input:hover, .landing .field input:hover, .app .field select:hover, .landing .field select:hover { border-color: var(--soft); }
+.app .field input:hover, .landing .field input:hover, .app .field select:hover, .landing .field select:hover { border-color: var(--line-control-hover); }
 /* AUTHORED. A sweep of all 55 pages returns no aria-invalid, no required and no
    error class, so the kit would otherwise inherit an input that cannot be
    invalid. Clay, never red. The hook is the native attribute, so no page needs
@@ -544,10 +565,10 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
 .app .cand .row, .landing .cand .row { flex: 1; min-width: 0; border-bottom: 0; }
 .app .cand .cut, .landing .cand .cut {
   flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
-  border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--frame);
+  border: 1px solid var(--line-control); border-radius: var(--radius-sm); background: var(--frame);
   font-size: 13px; color: var(--mid); text-decoration: none;
 }
-.app .cand .cut:hover, .landing .cand .cut:hover { border-color: var(--line-strong); color: var(--ink); }
+.app .cand .cut:hover, .landing .cand .cut:hover { border-color: var(--line-control-hover); color: var(--ink); }
 
 .app .charges, .landing .charges { list-style: none; margin: 0; padding: 0; }
 .app .charges li, .landing .charges li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line2); font-size: 13.5px; }
@@ -581,8 +602,8 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
 
 /* Two equal choices (D2), so neither is recommended and NEITHER gets petrol:
    two petrol objects on one screen is the One Voice Rule failing. */
-.app .door, .landing .door { display: block; border: 1px solid var(--line); border-radius: var(--radius); background: var(--frame); padding: 16px; text-decoration: none; color: inherit; }
-.app .door:hover, .landing .door:hover { border-color: var(--line-strong); background: var(--panel2); }
+.app .door, .landing .door { display: block; border: 1px solid var(--line-control); border-radius: var(--radius); background: var(--frame); padding: 16px; text-decoration: none; color: inherit; }
+.app .door:hover, .landing .door:hover { border-color: var(--line-control-hover); background: var(--panel2); }
 .app .door h2, .landing .door h2, .app .door h3, .landing .door h3 { margin: 0 0 4px; font-size: 16px; color: var(--ink); }
 .app .door p, .landing .door p { margin: 0; font-size: 13px; color: var(--soft); }
 .app .door .pick, .landing .door .pick { display: block; margin-top: 10px; font-size: 13px; color: var(--mid); font-weight: 600; }
@@ -611,8 +632,8 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
    action, its width is set by the group, and its selected state is a petrol
    TINT, which .btn.primary (a petrol FILL) cannot express. */
 .app .range, .landing .range { display: flex; gap: 8px; margin: 0 0 20px; }
-.app .range button, .landing .range button { flex: 1; min-height: 44px; /* was 40, the only product control in the set under the tap floor */ border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--frame); font: inherit; font-size: 13px; color: var(--mid); cursor: pointer; }
-.app .range button:hover, .landing .range button:hover { border-color: var(--line-strong); background: var(--panel2); }
+.app .range button, .landing .range button { flex: 1; min-height: 44px; /* was 40, the only product control in the set under the tap floor */ border: 1px solid var(--line-control); border-radius: var(--radius-sm); background: var(--frame); font: inherit; font-size: 13px; color: var(--mid); cursor: pointer; }
+.app .range button:hover, .landing .range button:hover { border-color: var(--line-control-hover); background: var(--panel2); }
 .app .range button[aria-pressed="true"], .landing .range button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-tint); color: var(--accent); font-weight: 600; }
 .app .range button[disabled], .landing .range button[disabled] { cursor: default; color: var(--soft); background: var(--panel2); border-color: var(--line2); }
 
@@ -643,8 +664,8 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
 
 /* The catalogue is the evidence that the manual path is not a punishment, so it
    is shown rather than counted. Pressed is a current selection, so petrol. */
-.app .tile, .landing .tile { display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--frame); font: inherit; font-size: 13.5px; color: inherit; text-align: left; cursor: pointer; }
-.app .tile:hover, .landing .tile:hover { border-color: var(--line-strong); background: var(--panel2); }
+.app .tile, .landing .tile { display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 10px; border: 1px solid var(--line-control); border-radius: var(--radius-sm); background: var(--frame); font: inherit; font-size: 13.5px; color: inherit; text-align: left; cursor: pointer; }
+.app .tile:hover, .landing .tile:hover { border-color: var(--line-control-hover); background: var(--panel2); }
 .app .tile .logo, .landing .tile .logo { flex: none; }
 .app .tile > span:last-child, .landing .tile > span:last-child { flex: 1 1 auto; min-width: 0; }
 .app .tile[aria-pressed="true"], .landing .tile[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-tint); }

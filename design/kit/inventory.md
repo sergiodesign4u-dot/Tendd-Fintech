@@ -631,3 +631,50 @@ was always 560; it had simply stopped being applied at the width nobody re-check
 not accepted. The narrow end gets walked because that is where breakage is loud; this defect lived
 at the wide end, looked entirely calm, and survived a triple critique and a four-instrument audit
 because at 360 and at 760 the rule still held.
+
+---
+
+## The control edge: the non-text contrast decision, and why it is two values
+
+Carried out of step 6 as the one finding the audit was not allowed to fix, decided by the founder
+on 2026-08-11: **scope the darker edge to controls, leave every surface alone.**
+
+WCAG 1.4.11 asks 3:1 of the visual information that identifies a user interface component. A
+control in this system is identified by its edge, because its fill is paper and so is the card
+behind it. `--line` measures **1.23:1 on paper**, so the requirement was missed on every one of
+them.
+
+**Two new values, and no existing value moved:**
+
+| Token | Value | On paper | On canvas | On panel |
+|---|---|---|---|---|
+| `--line-control` | `#7b8d91` | 3.46 | 3.10 | 3.22 |
+| `--line-control-hover` | `#5a686c` | 5.78 | 5.17 | 5.37 |
+
+`--line-control` is the lightest value on the `--line-strong` hue that clears 3:1 on all three
+grounds a control can sit on, so the edge is exactly as dark as the norm requires and not a shade
+darker. `--line-control-hover` is equal to `--soft` today and is a different **role**, the same way
+`--on-accent` is equal to `--frame`: `--soft` is muted text, this is a control's edge under the
+pointer. They part company at the dark theme.
+
+**Six rules take it, and the list is the decision written as code:**
+
+| Takes `--line-control` | Keeps `--line` | Why |
+|---|---|---|
+| `.btn` (outline form) | `.btn.primary` | The petrol fill identifies it at 6.23:1 already |
+| `.field input`, `.field select` | `.btn[disabled]` | A disabled control is exempt from 1.4.11 |
+| `.tile` | `.plan-opt` | A `div` holding a button. The button is the control, the tile is a card |
+| `.door` | `.locked`, `.panel`, `.source`, `.sharecard` | Surfaces. Nothing has to be found by touch |
+| `.range button` | `.logo` placeholder | Not interactive |
+| `.cand .cut` | dividers, the tab bar seam, `.promises` rule | Separators, not boundaries |
+
+**The rejected option is the one worth recording.** Raising `--line` itself to 3:1 would have been
+one line and would have satisfied any checker, and it would have put a hard edge on every card,
+panel, list and callout in the product. The language was chosen for a person who avoids finance
+apps; a screen of boxed compartments is the thing it was chosen against. The norm asks for the
+edge of a control to be findable, not for every surface to be outlined, and the split follows the
+norm rather than the convenience of one variable.
+
+**Carried, still:** the checkbox inside `.switch` is a native control at 20px against the 24px
+WCAG 2.5.8 asks. Its wrapping label is the real pointer target at 44px or more, and its edge is
+drawn by the browser rather than by this file.

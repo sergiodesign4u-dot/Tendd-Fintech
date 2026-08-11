@@ -7,6 +7,91 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-11 - Voice Round 4: a copy defect is fixed in the grey, never in the colour
+
+UI + Visual compared all 28 coloured pages against `voice/docs/microcopy.md` and found thirteen
+divergences. **None was a colouring error:** the visible text of every coloured page is
+character-identical to its grey original, so each one was a gap between the frozen grey and the
+line inventory, opened before colour existed. They were carried out of stage 07 unfixed on
+purpose, and closed on the founder's call before stage 08.
+
+**The mechanism is the decision.** Voice is the stage that owns product copy, so Voice reopened:
+the line inventory changed, the grey wireframe changed, and the coloured copy followed byte for
+byte. Fixing them in colour would have made the coloured page say something the grey does not,
+which is the exact grey-to-colour desync stage 07 exists to test for, thirteen times over.
+
+**The count came back fourteen.** The worst finding, the project's own open-question notation
+printed as product copy ("Not on sale yet. `[? D4, the lifetime price, $99 to $139, is still
+being decided]`"), was on the welcome landing as well as on the paywall. The landing is not in the
+coloured sample, so the stage-07 pass could not have seen it. It was found by grepping the
+notation across all 55 grey pages instead of fixing only the screen that was reported. Both now
+read "Not on sale yet. We are still working out the price." The question itself is not closed and
+did not move: it lives in node 5.13's Status, where a question belongs.
+
+**Two of the fourteen were not screen edits at all, and that is the point of verifying first:**
+
+- On the home-empty doors the screen was right and the document was wrong. The inventory still
+  carried "we can never move your money", the exact form D7 retired. Shipping `microcopy.md` in
+  that state would have shipped a banned variant.
+- On the full-screen Pro gate, `voice.md` said "Maybe later" is **always** present. The rule was
+  narrowed rather than the screen changed: the appbar chevron is that gate's exit, and a second
+  control one line under it going to the same place is chrome, not kindness. What "always"
+  protects is that no gate is a dead end, and a chevron protects that too.
+
+**Rejected:** deferring all of it to Handoff. The arithmetic decides it. Fixing a line today costs
+two places, the grey and its coloured copy. After stage 12 colours the remaining ten screens it
+costs the same two places for 55 pages instead of 28, and a line inventory that ships out of step
+with the product it inventories is wrong for whoever builds from it.
+
+**One thing this round did not touch:** the eleven ARIA and form-semantics findings from the same
+pass. Those are markup, not copy, and they belong to the stage that owns structure.
+
+The full was-to-became is Round 4 of the rewrite log in `voice/docs/microcopy.md`. The published
+page was rebuilt with it, and its line inventory is now regenerated from the file rather than
+hand-maintained: the two had already drifted apart on the upgrade screen before this round.
+
+---
+
+## 2026-08-11 - The control edge: 3:1 on controls, the hairline everywhere else
+
+Founder's call on the one finding stage 07 carried without fixing. WCAG 1.4.11 asks 3:1 of the
+visual information that identifies a user interface component. A control in this system is
+identified by its edge, because its fill is paper and so is the card behind it, and `--line`
+measures **1.23:1 on paper**. Every field, select, secondary button, preset tile, door and segment
+missed the requirement.
+
+**The decision is the scope, not the number.** The darker edge goes on controls only:
+`.btn` in its outline form, `.field input`, `.field select`, `.tile`, `.door`, `.range button`,
+`.cand .cut`. Cards, panels, plan tiles, list containers, the tab bar seam and every divider keep
+the hairline. Two new values, and **no existing value moved**:
+
+- `--line-control: #7b8d91` - the lightest value on the `--line-strong` hue that clears 3:1 on all
+  three grounds a control can sit on (paper 3.46, canvas 3.10, panel 3.22). As dark as the norm
+  requires and not a shade darker.
+- `--line-control-hover: #5a686c` - equal to `--soft` today and a different role, the way
+  `--on-accent` is equal to `--frame`. It exists because the old hover value `--line-strong`
+  (#cdd7d9) is **lighter** than the new resting edge, so keeping it would have made the boundary
+  weaker under the pointer, which is the opposite of what a hover is for.
+
+**Rejected: raising `--line` itself to 3:1.** One line, satisfies any checker, and puts a hard
+edge on every card, panel, list and callout in the product. The language was chosen for a person
+who avoids finance apps, and a screen of boxed compartments is the thing it was chosen against.
+The norm asks for the edge of a control to be findable, not for every surface to be outlined.
+
+**Rejected: leaving it as a recorded debt.** It was already recorded once, at step 6, and a debt
+that survives a stage boundary is a debt that ships. The cost of fixing it is two variables and
+one comment; the cost of shipping it is an accessibility claim the product cannot make.
+
+`.plan-opt` is the one case worth naming, because it looks like a control and is not: it is a
+`div` holding a button, so the button takes the edge and the tile keeps the hairline. It is also
+what keeps `--line-strong` alive, as the only consumer left.
+
+**Still carried:** the checkbox inside `.switch` is a native control at 20px against the 24px WCAG
+2.5.8 asks. Its wrapping label is the real pointer target at 44px or more, and its edge is drawn
+by the browser rather than by our stylesheet.
+
+---
+
 ## 2026-08-11 - A seventh screen, added as the saturation test, and what it found at the wide end
 
 Founder's call after the stage closed: colour the account screen before answering the open

@@ -145,7 +145,7 @@ together.
 | cancel-guide-no-guide | detail-head (data fix) | $4.25 / month, you can always resubscribe later | $17.00 / month, you can always resubscribe later | Data fixture: The New York Times is $17.00/month in the canonical dataset. |
 
 Consistency judgments (resolved, no change):
-- subscription-detail base/empty/loading appbar "back to Home" chevron: kept. It is the back-nav chevron to the parent (the Home tab keeps its nav label per D3), uniform across all four detail states; the error state's "Back to your subscriptions" is the separate content-recovery button. Two patterns by design, not a drift.
+- subscription-detail base/empty/loading appbar "back to Home" chevron: kept. It is the back-nav chevron to the parent (the Home tab keeps its nav label per D3), uniform across all four detail states; the error state's "Back to your subscriptions" is the separate content-recovery button. Two patterns by design, not a drift. **Closed on 2026-08-11:** this exemption rested on the chevron saying "Home", and a later round changed all six detail chevrons to "Your subscriptions", so the error page carried one destination under two wordings a screen apart. The button is now "Your subscriptions" too.
 - subscription-detail-unrecognized "We could not identify this": kept. Active voice with the actor, and the next sentence names the object ("match it to a service").
 
 Coverage additions (lines on screen but missing from the Step 1 inventory, now recorded so nothing ships outside this file):
@@ -355,6 +355,30 @@ not as a signup.
 
 ---
 
+### Round 4: the copy latch after UI + Visual (2026-08-11)
+
+Stage 07 compared every coloured page against this file and found thirteen divergences. **None
+was a colouring error:** the visible text of all 28 coloured pages is character-identical to its
+grey original, so every one of them was a gap between the frozen grey and this inventory, opened
+before colour existed. Voice reopens for exactly that, and closes them here.
+
+| Where | Was | Became | Why |
+|---|---|---|---|
+| upgrade AND the welcome landing, lifetime card | "Not on sale yet. [? D4, the lifetime price, $99 to $139, is still being decided]" | "Not on sale yet. We are still working out the price." | **The worst of the thirteen, and it was on two screens rather than one.** The project's own open-question notation was printed as product copy, and this file carried the bracket verbatim on both, so the inventory blessed the leak. Stage 07 only saw it on the paywall, because the landing is not in the coloured sample; the twin was found by grepping for the notation across all 55 grey pages before fixing the one that was reported. The question is not closed; it lives where a question belongs, in node 5.13's Status and in `docs/decisions.md` |
+| upgrade, plan cards | one feature list inventoried, two rendered | `feature-list-compact` declared beside `feature-list` | The four lines appear three times inside the plan row and once, alone, on current-plan. Inside a card the label carries it; standing alone it earns its parenthetical. One list, two authored forms, and the form is now named instead of being a silent difference |
+| upgrade, yearly card | "That is $5.75 a month. Our calmest option, and it saves about $27 a year..." | "That is $5.75 a month, and it saves about $27 a year..." | The screen had already dropped it. "Our calmest option" is an adjective about ourselves next to a figure that argues better than it does |
+| upgrade | four strings shipped and never inventoried | "Everything in Tendd Pro", "Start Tendd Pro - $7.99 a month", "one payment", the rewritten lifetime sentence | A shipped line that is in no inventory is a line nobody owns |
+| home-empty, second heading | "Nothing here yet" | "Two ways to start" | Two headings a hundred pixels apart doing one job. The first says what is true, the second says what to do. Logged at the wireframes critique and never closed |
+| home-empty, body | "Pick the way that feels right" | "Pick the one that feels right" | "Two ways to start" above it already said ways |
+| home-empty, the two doors | this file carried a retired trust line and a door blurb neither screen has | the shipped lines | **Here the screen was right and the document was wrong.** The inventory still held "we can never move your money", the exact form D7 retired. Shipping this file yesterday would have shipped a banned variant |
+| home-savefocus, both candidate rows | "Trial ends: Aug 18", "Next: Aug 11" | "trial ends in 17 days", "next in 10 days" | Every other row in the product leads with the days, and the group list on the same screen says "trial ends in 17 days" for the same subscription. The date stays in the accessible name, where it is useful and costs no width |
+| subscription-detail-error | button "Back to your subscriptions" | "Your subscriptions" | One destination, two wordings, one screen apart. The documented exemption rested on the chevron saying "Home", which a later round changed |
+| add-subscription | one rendering inventoried | the pattern, marked as a pattern | Six "Typically $X a month" strings are six renderings of one authored line. Low severity, and an inventory that lists one of six teaches the wrong thing about the other five |
+| history-trends-locked | no "Maybe later" | **the rule narrowed, the screen unchanged** | `voice.md` said "Maybe later" is always present on a Pro gate. On the full-screen gate the appbar chevron is the exit, and a second control one line under it going to the same place is chrome, not kindness. What "always" protects is that no gate is a dead end; a chevron protects that too. Recorded as a decision either way, and this is the way |
+
+**What this round did not do.** It did not touch the eleven ARIA and form-semantics findings from
+the same pass. Those are markup, not copy, and they belong to the stage that owns structure.
+
 ## Canonical subscription dataset (product fixtures, not authored copy)
 
 The 14-subscription sample that repeats across Home, its states, and the
@@ -443,8 +467,13 @@ list". Total: `$192.90 / month`.
 | welcome | price | $7.99 a month | heading |
 | welcome | price | Month to month. Cancel any time, no lock-in. | body |
 | welcome | price | Lifetime | heading |
-| welcome | price | One payment, and Tendd Pro stays open. For people who would rather never think about a renewal again. | body |
-| welcome | price | [? D4, the lifetime price, $99 to $139, is still being decided] | body |
+| welcome | price | one payment | body |
+| welcome | price | Tendd Pro stays open, for people who would rather never think about a renewal again. | body |
+| welcome | price | Not on sale yet. We are still working out the price. | body |
+| welcome | plan-card | Everything in Tendd Pro | field-label |
+| welcome | feature-list-compact | History and trends / Advanced alerts / Full cancel guides / Export | body |
+| welcome | primary-action | Start Tendd Pro - $69 a year | button |
+| welcome | primary-action | Start Tendd Pro - $7.99 a month | button |
 | welcome | pricing | The whole calm view is free. Tendd Pro, $7.99 a month or $69 a year, adds history, trends, and advanced alerts. | body |
 | welcome | pricing | No cap on subscriptions and no cap on banks in Free. Cancelling is free, always. | body |
 | welcome | faq | Questions people ask first | heading |
@@ -537,7 +566,7 @@ list". Total: `$192.90 / month`.
 | add-subscription | field | Search 400+ services | hint |
 | add-subscription | presets | Most tracked | heading |
 | add-subscription | presets | Netflix / Spotify Premium / Disney+ / Amazon Prime / Adobe Creative Cloud / The New York Times | body |
-| add-subscription | presets | Typically $17.99 a month | body |
+| add-subscription | presets | Typically $AMOUNT a month | body (PATTERN, once per preset tile) |
 | add-subscription | custom-fallback | Can't find it? | body |
 | add-subscription | custom-fallback | Add it by hand | link |
 | add-subscription | custom-fallback | and fill the details yourself. | body |
@@ -644,12 +673,12 @@ same either way, and the mail that arrives is the one that fits.
 | home | tab-bar | Home / Alerts / Save / You | nav |
 | home-empty | summary-strip | Nothing to add up yet | body |
 | home-empty | summary-strip | Connect your bank or add a subscription, and your monthly total appears here as the biggest thing on screen. | body |
-| home-empty | state-message | Nothing here yet | heading |
-| home-empty | state-message | See everything you pay for in one calm place. Pick the way that feels right; you can change it later. | body |
+| home-empty | state-message | Two ways to start | heading |
+| home-empty | state-message | See everything you pay for in one calm place. Pick the one that feels right; you can change it later. | body |
 | home-empty | state-message | Connect your bank | button |
-| home-empty | state-message | Fast and automatic. Read-only, we can never move your money. | body |
+| home-empty | state-message | Read-only, through Plaid, and about a minute. Tendd cannot move your money. | body |
 | home-empty | state-message | Add a subscription | button |
-| home-empty | state-message | Private. Pick from 400+ services, nothing leaves your control. | body |
+| home-empty | state-message | Start with one and add more later. No bank is involved, and nothing leaves your control. | body |
 | home-error | state-message | We could not refresh just now. Showing your last update from today, 9:14 AM. | state-message |
 | home-error | state-message | Try again | button |
 | home-error | summary-strip | a month, as of your last update | body |
@@ -659,8 +688,8 @@ same either way, and the mail that arrives is the one that fits.
 | home-savefocus | summary-strip | a month. You could save up to $29.99 a month by cutting 2 you might not be using. | body |
 | home-savefocus | trust-line | (the GC6 lines as on home) | body |
 | home-savefocus | cancel-candidates | Two you have not opened in a while. No pressure, just a nudge. | body |
-| home-savefocus | cancel-candidates | Trial ends: Aug 18 · not opened in 3 weeks | body |
-| home-savefocus | cancel-candidates | Next: Aug 11 · not opened in 6 weeks | body |
+| home-savefocus | cancel-candidates | trial ends in 17 days · not opened in 3 weeks | body |
+| home-savefocus | cancel-candidates | next in 10 days · not opened in 6 weeks | body |
 | home-savefocus | cancel-candidates | Cancel | button |
 
 ### subscription-detail (+ price-change, payment-failed, unrecognized, loading, error)
@@ -709,7 +738,7 @@ same either way, and the mail that arrives is the one that fits.
 | subscription-detail-loading | state-message | Getting the details. This usually takes a moment. | state-message |
 | subscription-detail-error | state-message | We could not load the rest of this subscription. This is usually temporary, and nothing about your money changed. | state-message |
 | subscription-detail-error | primary-action | Try again | button |
-| subscription-detail-error | primary-action | Back to your subscriptions | button |
+| subscription-detail-error | secondary-action | Your subscriptions | button |
 | subscription-detail-error | trust-line | Your sources | link |
 
 ---
@@ -898,19 +927,22 @@ below.
 | upgrade | header | Free | status |
 | upgrade | header | Pay less per month than most of the subscriptions you will cancel. | body |
 | upgrade | context | You came here from Your trends. History and trends are part of Tendd Pro. | body |
-| upgrade | feature-list | History and trends (3, 6 and 12 month views) | body |
-| upgrade | feature-list | Advanced alerts (Trial ending, unusual, duplicate) | body |
-| upgrade | feature-list | Full cancel guides (Step by step, with the direct link) | body |
-| upgrade | feature-list | Export (Your history as a spreadsheet) | body |
+| upgrade | plan-card | Everything in Tendd Pro | field-label |
+| upgrade | feature-list-compact | History and trends | body |
+| upgrade | feature-list-compact | Advanced alerts | body |
+| upgrade | feature-list-compact | Full cancel guides | body |
+| upgrade | feature-list-compact | Export | body |
 | upgrade | price | $69 a year | heading |
-| upgrade | price | That is $5.75 a month. Our calmest option, and it saves about $27 a year versus paying monthly. | body |
+| upgrade | price | That is $5.75 a month, and it saves about $27 a year versus paying monthly. | body |
 | upgrade | price | Best value | status |
 | upgrade | price | $7.99 a month | heading |
 | upgrade | price | Month to month. Cancel any time, no lock-in. | body |
 | upgrade | price | Lifetime | heading |
-| upgrade | price | One payment, and Tendd Pro stays open. For people who would rather never think about a renewal again. | body |
-| upgrade | price | [? D4, the lifetime price, $99 to $139, is still being decided] | body |
+| upgrade | price | one payment | body |
+| upgrade | price | Tendd Pro stays open, for people who would rather never think about a renewal again. | body |
+| upgrade | price | Not on sale yet. We are still working out the price. | body |
 | upgrade | primary-action | Start Tendd Pro - $69 a year | button |
+| upgrade | primary-action | Start Tendd Pro - $7.99 a month | button |
 | upgrade | primary-action | Maybe later | button |
 | upgrade | primary-action | Pays for itself with the first subscription you cancel. | body |
 | upgrade-processing | state-message | Setting up your Pro plan | heading |
