@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Step-forward link - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Step-forward link</h1>
+    <p class="lead">The only control in the product that points down. It carries a person from one step of the guided reveal to the next, and the next step is further down the same page rather than on another one. Two instances, one screen, and that screen is the one the whole product exists to deliver.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>1</strong> grey page</span><span>one form</span><span>3 states, both themes</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone, one label and one glyph, which is what makes it an atom. Everything below is drawn by <code>design/system/components/step-forward-link.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app">
+      <a class="next" href="#anatomy">See what they are</a>
+      <a class="next" href="#anatomy">See the monthly total</a>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.next</code> <span>the atom itself: an inline-flex box with a 44px floor, body ink and an underline. Always an <code>a</code> with an <code>href</code>, because it goes somewhere</span></li>
+      <li><code>::after</code> <span>the arrow, <code>content: "\2193" / ""</code>. The string is the glyph, the empty second half is its alternative text</span></li>
+      <li><code>min-height</code> <span>reads <code>--tap</code>, the 44px floor. This is a standalone link, so the floor applies; the exemption is for a link inside a running sentence</span></li>
+      <li><code>text-decoration-color</code> <span>reads <code>--line-container</code> at rest, so the underline is quieter than the words above it, and <code>--text-action</code> on hover, where it joins the ink</span></li>
+      <li><code>margin-top</code> <span>12px, its own, because the gap to the block it follows belongs to the link rather than to the reveal step around it</span></li>
+    </ul>
+
+    <h3 class="kit-sub-h">The empty alt slot, and why it is the most useful line in this file</h3>
+    <p class="note"><code>content: "\2193" / ""</code> is a string and then an alternative text, and the alternative is deliberately empty. Without it the arrow is part of the generated content and lands in the accessible name, so a screen reader announces "See what they are, down arrow". The arrow is a picture of the direction, not a word of the sentence, and a person who cannot see it gains nothing from hearing it named. The empty slot is the one place in CSS that can say "decorative" about generated content, and this system says it here and once more on the alert's forward arrow.</p>
+    <p class="note">How it degrades is worth knowing rather than guessing at. A browser that does not parse the alt slot drops the <b>whole</b> declaration, because an invalid declaration is discarded entirely: the link keeps its label, its underline, its floor and its target, and loses only the arrow. That is the right thing to lose, and it is the reason the arrow is a decoration in the stylesheet rather than a character in the markup, where nothing could have been done about it.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>The step-forward link has one form, so there is no matrix to draw.</b> Both instances render identically: 13.5px, body ink, a 44px floor, a hairline underline at a 3px offset and a muted arrow 6px after the label. The census measured <code>.next</code> as one of the sixteen families with a single value on every property, at both viewports.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>What could vary, and does not<p class="axis-rule">Each empty cell is a prohibition with its reason rather than a form nobody has drawn yet. This control has one job on one screen, and every axis it might grow is an axis that would make it a different component</p></th>
+            
+            <th class="val">Values</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>The one form</b> <code>.next</code></td>
+            
+            <td class="val">13.5px / 44px<br>&darr; 6px after</td>
+            <td>guided-reveal, twice: after the count and after the categories. Both are coloured</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><a class="next" href="#variants">See what they are</a></span></td></tr>
+          <tr>
+            <td class="kit-empty">a direction axis</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason. The arrow points down because the destination <b>is</b> down, on the same page. A right-pointing version would be a link to another screen, which is a different promise, and the product already has one: the alert item's own forward arrow</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">an emphasis axis</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason, and it is the One Voice Rule. Petrol is spent on the primary action, the current selection and the trust line. A filled step-forward link would be a fourth claim, and on the reveal it would compete with the monthly total, which is the largest thing on that screen by decision</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">a size axis</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason. Size is set by the container everywhere in this system, and this control has exactly one container: a reveal step. One container, one size</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">This is <b>D1 drawn</b>: gradual reveal with a paired action, count first, then the categories, then the total. The decision is that a person meets their subscriptions one step at a time and that every step has its own way on, so that nothing arrives before they asked for it. The link is what "asked for it" looks like. It is small on purpose: the step above it is the event, and the way forward is a quiet offer under it rather than a second thing competing for the same attention.</p>
+    <p class="note">Its two labels are in <code>voice/docs/microcopy.md</code> and are typed there as <b>links</b>, while every committing action on the same screen is typed as a button: "See what they are", "See the monthly total". Both are second-person Tendd labels naming what will appear, not what the person will do to the interface. The voice round changed the first one from "Show me what they are" for exactly that reason: "Show me" is the person speaking, and the product reserves that voice for the share card alone.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a step-forward link</span>
+        <div class="kit-stage app"><a class="next" href="#rule">See the monthly total</a></div>
+        <p>The destination is further down the page a person is already on, and the tap reveals rather than commits. Nothing is saved, nothing is sent, nothing is charged, and nothing is left behind: the two steps above stay where they are and can be read again.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a button instead</span>
+        <div class="kit-stage app"><a class="btn primary" href="#rule">See your subscriptions</a></div>
+        <p>When the step <b>leaves the screen</b>, it is a <b>Button</b>. The reveal itself shows the line: two step-forward links between the three steps, then a filled button at the end, because that one goes to Home. The comment in the markup says why the last one is alone: "A menu of next steps at the emotional peak is a second decision nobody asked for."</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Standalone, and it takes the floor</span>
+        <div class="kit-stage app"><a class="next" href="#rule">See what they are</a></div>
+        <p>It stands on its own line as the action of its step, so the 44px target applies to it in full, and it has it. The census found 21 links across 10 pages that fall under 44px because nobody remembered; this one was written with the floor in it.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never inside a sentence</span>
+        <div class="kit-stage app"><span>Can't find it? <a href="#rule">Add it by hand</a> and fill the details yourself.</span></div>
+        <p>A link inside running copy is the <b>quiet inline link</b>, which is exempt from the floor because a 44px box inside a paragraph would tear the line spacing apart. Putting this component there would put a 44px inline-flex box and a downward arrow in the middle of a sentence, and the arrow would be pointing at the rest of the sentence.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Three states, and they exist because the link is <b>interactive</b>. Each one is a token override rather than a style of its own: no hex and no number appears inside <code>:hover</code>, so the dark theme costs three lines in <code>tokens.css</code> rather than forty edits across the components.</p>
+    <p class="note"><b>The fourth state does not exist, and its absence is a decision.</b> This is an <code>a</code> with an <code>href</code> to an anchor on the same page, and an anchor has no disabled attribute. A step of the reveal a person may not reach yet is not drawn dim, it is not drawn: the reveal renders the steps it has. Faking it with a class the product does not carry would document something the product cannot do, which is the same defect as inventing a variant.</p>
+    
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app" id="live-rest">
+      <a class="next" href="#states" id="shot-rest">See what they are</a>
+      <a class="next" href="#states" id="shot-second">See the monthly total</a>
+    </div>
+
+    <h3 class="kit-sub-h">The three, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--text-body</code> on the label, <code>--text-muted</code> on the arrow, <code>--line-container</code> under both</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same three tokens, the other half of each pair. The label holds 10.4:1 on the dark surface against 10.2:1 on the light one</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--text-action</code>, and it takes the label, the arrow and the underline at once. Three declarations, one token</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">petrol climbs the scale in the dark theme rather than mirroring, so the hover is lighter here and darker on light: a hover moves away from its ground, and the ground swapped ends</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line. The ring wraps the whole 44px box, not the text, because the box is the target</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. Had the pair been left for later this ring would have been the light petrol at 1.9:1: in the file, invisible on screen</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo and a
+command that does not run is worse than no command:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/step-forward-link.html
+    move the pointer away  -&gt; screenshot #live-rest
+                           -&gt; screens/step-forward-link-rest-&lt;theme&gt;.png
+    hover #shot-rest       -&gt; screenshot #live-rest
+                           -&gt; screens/step-forward-link-hover-&lt;theme&gt;.png
+    focus #shot-rest, press Tab, assert :focus-visible -&gt; screenshot #live-rest
+                           -&gt; screens/step-forward-link-focus-&lt;theme&gt;.png
+
+  Six files and not eight: there is no disabled state to shoot, for the reason above.
+
+The states are reached the way a person reaches them: a real pointer and a real Tab. Step 9
+checks these files for a byte shift, because a snapshot nobody re-takes freezes silently, and
+a frozen snapshot is worse than none: it looks checked.</code>
+    <p class="note"><b>Visited is not styled and will not be.</b> Both targets are anchors on the page a person is already reading, so every one of them is visited within seconds of arriving, and a visited colour would turn the reveal grey behind a person as they walk down it. The one screen this component stands on is the screen whose whole job is that walking down it feels good.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>its label</td><td><code>--text-body</code></td><td><code>--slate</code></td></tr>
+          <tr><td>the arrow</td><td><code>--text-muted</code></td><td><code>--muted</code>. One tier down from the label: the glyph is a hint about direction, not a word</td></tr>
+          <tr><td>the underline at rest</td><td><code>--line-container</code></td><td><code>--hairline</code>. Decorative, so it carries no threshold, which is exactly why it may be this quiet</td></tr>
+          <tr><td>label, arrow and underline on hover</td><td><code>--text-action</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the floor</td><td><code>--tap</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>One judgement in this file, named rather than buried.</b> On hover the underline reads <code>--text-action</code>, an ink role, and not a line role. At rest it is quieter than the text above it, so it is decoration and takes <code>--line-container</code>; on hover the product paints it with exactly the same petrol as the label, so it stops being a separate line and travels with the ink. The only petrol line role in the system is <code>--line-selected</code>, whose declared job is the current selection, and a hovered link is not a selection. The value is identical either way, so the name is the whole difference. <b>It is not a local call.</b> Every link in this product underlines the same way, hairline at rest and the ink colour on hover, including the thirteen rules the census found doing one job, so the quiet inline link component meets this same question when it is built and should answer it the same way.</p>
+    <p class="note">Lives in <code>design/system/components/step-forward-link.css</code>. Stands on 1 grey page, twice. Coloured screen carrying it: <a href="../guided-reveal.html">Guided Reveal</a>. The registry's count of 2 is the number of links, not of pages.</p>
+    <code class="kit-cmd">&lt;a class="next" href="#step-2"&gt;See what they are&lt;/a&gt;
+&lt;a class="next" href="#step-3"&gt;See the monthly total&lt;/a&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/step-forward-link.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. <code>docs/inventory.md</code> lists it as one of the twelve controls with no family and keeps it as an atom of its own rather than folding it into the quiet inline link, because it is standalone and carries the 44px floor. Its host is the Reveal step organism, and its reason is <b>D1</b> in <code>CLAUDE.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

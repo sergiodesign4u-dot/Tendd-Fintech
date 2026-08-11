@@ -1,0 +1,78 @@
+/* ============================================================================
+   Form field - molecule
+   The unit a person fills in: the label that names it, the control they type
+   into, and the hint underneath. Three slots around one atom, which is what
+   makes it a molecule rather than a wrapper.
+
+   Reads
+     colour   --text-muted
+     states   --text-failure  (reached through :has(), from the control inside)
+     spacing  --space-0, --space-4, --space-16
+     type     --type-meta
+   Hosts     the text input and the select. It POSITIONS neither and repaints
+             neither: both atoms carry their own border, fill, ink and four
+             states in text-input.css and select.css.
+   Page      design/kit/form-field.html
+   Stands on 8 grey pages, 20 fields, and on 6 coloured ones.
+
+   IT OWNS THE HINT RULE THE ATOM ROUND DELIBERATELY LEFT BEHIND. kit.css:413 is
+   `.field:has([aria-invalid="true"]) .hint { color: --clay }`. Read quickly it
+   looks like a third invalid rule belonging beside the other two, and both atom
+   agents refused it for the same reason and said so in their files: its SUBJECT
+   is the hint, and the hint is a slot of this molecule. An atom that repaints
+   part of its host is the unnamed variant this stage exists to remove, and a
+   rule two files each decline is a rule that quietly disappears. It is here.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.field`, its `label` and its `.hint` stay
+   exactly as the product writes them. The renaming map in docs/inventory.md
+   renames the two atoms inside (`.field input` to `.input`, `.field select` to
+   `.select`) at step 6 with the markup of the screens; this molecule keeps its
+   name through that step.
+   ============================================================================ */
+
+.app .field, .landing .field {
+  margin: var(--space-0) var(--space-0) var(--space-16);
+}
+
+/* ---- the label ------------------------------------------------------------
+   Block, so the control starts on its own line: a label beside its field is how
+   a form stops working the moment a translation makes the label longer. It is
+   muted rather than body ink because the thing a person reads on this screen is
+   what they have typed, not what the field is called; the label is there to be
+   found, not to be read through. It is also a real target through `for`, and it
+   takes no visual state of its own: clicking it focuses the CONTROL, and the
+   control is what lights up. */
+.app .field label, .landing .field label {
+  display: block;
+  margin: var(--space-0) var(--space-0) var(--space-4);
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+/* ---- the hint -------------------------------------------------------------
+   The same size and the same ink as the label, under the control instead of
+   over it: "For example, Aug 3, 2026" is the same tier of information as "Next
+   payment date", and giving it a tier of its own would need a third grey the
+   Two Tiers Rule does not have. It is optional: 8 of the 20 fields carry one. */
+.app .field .hint, .landing .field .hint {
+  margin: var(--space-4) var(--space-0) var(--space-0);
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+/* ---- the one state this molecule has, and it is not a pointer state -------
+   Validity. The field itself is never hovered, never focused and never pressed;
+   what can be invalid is the control inside it, and `:has()` is what lets the
+   hint hear about it without the markup gaining a class. That matters here:
+   a sweep of all 55 grey pages returns no aria-invalid anywhere, so a class
+   would have to be added to every screen before the state could ever fire,
+   while the native attribute is the one a form already sets.
+
+   The hint turns clay and the sentence in it becomes the error message. Nothing
+   else in the field moves: the label stays muted and the control repaints
+   itself from its own file. One message, one place to look. */
+.app .field:has(:user-invalid) .hint, .landing .field:has(:user-invalid) .hint,
+.app .field:has([aria-invalid="true"]) .hint,
+.landing .field:has([aria-invalid="true"]) .hint {
+  color: var(--text-failure);
+}

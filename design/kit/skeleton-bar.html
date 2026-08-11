@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skeleton bar - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Skeleton bar</h1>
+    <p class="lead">The grey bar that stands where a line of content will be. It is the only thing in this product that moves on its own, and the keyframe it moves on deliberately lives somewhere else.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>8</strong> grey pages</span><span><strong>89</strong> places</span><span>1 axis: width</span><span>no states, not interactive</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and no content slot at all, which makes it the simplest atom in the system: it is a rectangle with a corner, a fill and a pulse. Everything below is drawn by <code>design/system/components/skeleton-bar.css</code> through the same entry point a product screen loads.</p>
+    <div class="kit-stage app col">
+      <span class="skel line w60"></span>
+      <span class="skel line w90"></span>
+      <span class="skel line short"></span>
+      <span class="skel total"></span>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.skel</code> <span>the atom itself: an <code>inline-block</code>, 12px tall, in the placeholder fill, with the pulse on it. Every skeleton in the product carries this class</span></li>
+      <li><code>.line</code> <span>the common case: a bar standing in for a line of text. It steps to <code>display: block</code> and 11px so it can stack, with 3px above and below</span></li>
+      <li><code>.w60</code> <span>the width modifier, one of six. The set is uneven on purpose, see below</span></li>
+      <li><code>.total</code> <span>the one bar that is not a line: 44px by 190, standing in for the monthly total</span></li>
+      <li><code>border-radius</code> <span>reads <code>--radius-xs</code>, 6px, the same primitive the chip named on 2026-08-10</span></li>
+      <li><code>animation</code> <span><code>pulse 1.4s ease-in-out infinite</code>, and the keyframe is in <code>base.css</code></span></li>
+    </ul>
+
+    <h3 class="kit-sub-h">The motion, and why the keyframe is not in this file</h3>
+    <p class="note">The bars above are animating: opacity 1 to 0.55 and back, over 1.4 seconds, easing at both ends. It is a breath rather than a sweep, and there is no shimmer travelling across it, because a moving highlight is a progress claim and nothing here knows how far along the request is.</p>
+    <p class="note"><b><code>@keyframes pulse</code> lives in <code>design/system/base.css</code> and must stay there.</b> It belongs to no single component, and putting it in here would tie a shared animation to this file's lifetime. That is not a hypothetical failure mode. At stage 07 the keyframe lived only inside the July <code>.phone</code> block while this atom referenced it, and deleting that block on schedule would have stopped every skeleton in the product from animating, silently and with no error anywhere. It was migrated out first, and the incident is written up in <code>docs/inventory.md</code>. <b>Read the code before repeating the summary:</b> <code>base.css</code> names two carriers, the skeleton bar and the logo placeholder, and in the stylesheet today exactly one rule declares <code>animation: pulse</code>, the one on this page. <code>.logo.is-skel</code> takes the same fill token and sits still. Shared in intent, single in fact, and either way the keyframe stays where it is.</p>
+    <p class="note"><b>The reduced-motion guard is not in this file either, for a stronger reason:</b> a person who asks the operating system for no motion asks the whole product, not one component. <code>base.css</code> guards <code>*, *::before, *::after</code>. At stage 07 the guard was written as a bare <code>.skel</code> at specificity 0-1-0 against a scoped <code>.app .skel</code> at 0-2-0, lost the cascade and did nothing at all: every skeleton on five loading states pulsed forever for somebody who had asked for none. It looked correct in the file. A universal selector cannot lose that way. DESIGN.md lists it among the Do's: "Do stop the skeleton pulse under <code>prefers-reduced-motion</code>; it is already wired."</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis, <b>width</b>, and it is set two different ways depending on whether the width is known. There is no tone axis and no emphasis axis: a skeleton has one fill everywhere, because a loading state that ranks its own placeholders is asking a person to read something that is not there yet.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>How the width is set<p class="axis-rule">If the real content has a known width, the HOST sets it in pixels. If it does not, the element takes one of the six percentages. Never both, and never a new number</p></th>
+            
+            <th class="val">Class or rule</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>On the element</b>, in percent</td>
+            
+            <td class="val">.w40 .w50 .w60<br>.w70 .w80 .w90</td>
+            <td>44 places. Prose of unknown length: a merchant name, a date line, a sentence in a card. The set is uneven on purpose, because a column of identical bars reads as a progress meter and a loading state is not progress</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app col"><span class="skel line w40"></span><span class="skel line w70"></span></span></td></tr>
+          <tr>
+            <td><b>By the host</b>, in pixels</td>
+            
+            <td class="val">.facts .skel 84<br>.facts dd .skel 110<br>.group-head .skel 104 / 90<br>.charges .skel 56</td>
+            <td>Five rules, and they live with their hosts rather than here: a pair list saying how wide its own label column is, a group head saying how wide its heading is. This file owns the bar, the host owns the slot</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="skel"></span></span></td></tr>
+          <tr>
+            <td><b>Short</b> <code>.line.short</code></td>
+            
+            <td class="val">width: 40%</td>
+            <td>A second name for 40%, kept because it is what the last line of a paragraph is, rather than a number somebody picked</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="skel line short"></span></span></td></tr>
+          <tr>
+            <td><b>The amount</b> <code>.amt-skel</code></td>
+            
+            <td class="val">56 by 13, flex: none</td>
+            <td>10 places, all of them the figure at the end of a row. <code>flex: none</code> so it holds its width while the name beside it takes the slack, exactly as the real amount does</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="skel amt-skel"></span></span></td></tr>
+          <tr>
+            <td><b>The total</b> <code>.total</code></td>
+            
+            <td class="val">44 by 190</td>
+            <td>3 places, and the one bar with a height of its own. It stands in for the largest object on any screen in the product, and a placeholder that does not reserve the full height lets the whole page jump when the figure lands</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="skel total"></span></span></td></tr>
+          <tr>
+            <td class="kit-empty">A tone, or a second fill</td>
+            
+            <td class="kit-empty">-</td>
+            <td><b>Forbidden with a reason rather than missing.</b> One fill, <code>--bg-placeholder</code>, on every skeleton in the product. A darker bar for "the important one" would be a hierarchy invented out of nothing: at this moment nobody knows which line matters, least of all the interface</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Two neighbours in this file are not the bar itself, and both were folded in at step 2 rather than counted as one-offs.</b> <code>.skel-list</code> is the 26px of air above a stack of skeleton rows, which the real list gets from its group head. <code>.row.is-skel</code> takes the pointer away from a row that is temporarily not a link: in all 13 places in the grey the row is written as a <code>div</code> rather than an anchor, so the rule only removes the cursor a real row sets.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A skeleton says <b>"this is coming, and here is the shape of it"</b>, and it exists on exactly eight screens, all of them a loading state. The wireframes state the rule in their own comment: "a skeleton in the shape of the content, never a spinner over it". A spinner tells a person that something is happening to them; a skeleton tells them what is about to arrive, and on a screen built for somebody who is anxious about money that difference is the whole point.</p>
+    <p class="note"><b>The shape has to be the real shape.</b> Five bars where five rows will be, one 44px block where the monthly total will be, a 56px bar where each amount will be. When the content lands, nothing moves: no reflow, no jump, no second reading of a screen a person has already started to read. That is why <code>.total</code> carries a height rather than inheriting one, and why the amount skeleton is <code>flex: none</code>.</p>
+    <p class="note">Where a person meets it: the first few seconds of Home while the list is fetched, the same on a subscription detail, on Add a subscription while the presets load, on History and trends, and on <a href="../upgrade-processing.html">Upgrade, processing</a>, which is the one screen in the product with no way out on purpose.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a skeleton</span>
+        <div class="kit-stage app col"><span class="skel line w60"></span><span class="skel line w80"></span></div>
+        <p>Content is on its way and we know its shape. The bars sit exactly where the text will, so the screen a person starts reading is the screen they finish reading.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use an empty block instead</span>
+        <div class="kit-stage app full wide"><span class="consequence">No subscriptions here yet. Connect a bank, or add one yourself.</span></div>
+        <p>Nothing is coming, and pretending otherwise is the worst thing this component can do: a skeleton that never resolves is the interface lying about the future. When there is genuinely nothing, the object is the <b>empty block</b>, <code>.empty</code>, which says so in a sentence and offers the way on. The two are one word apart and opposite in meaning: a skeleton says "wait", an empty state says "there is none, and here is what to do".</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Let the host set a known width</span>
+        <div class="kit-stage app full wide"><span class="skel amt-skel"></span></div>
+        <p>An amount is 56px because the real amount is. A pair list's label is 84px because the real label is. The host knows its own slot, and a skeleton that borrows that number cannot drift away from the content it stands in for.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never add a seventh percentage</span>
+        <div class="kit-stage app full wide"><span class="skel line w50"></span></div>
+        <p>Six values are enough to look unplanned, which is the entire job of the set. A <code>.w65</code> added for one screen is a value nobody can justify a second time, and by stage 12 there are nine of them and no rule. If the six do not fit, the width is known, and the answer is a host rule in pixels instead.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and that is a decision rather than an omission.</b> A skeleton is a placeholder: nothing about it can be hovered, focused or pressed, and <code>.row.is-skel</code> exists precisely to take the pointer away from a row that is temporarily not a link. <code>skeleton-bar.css</code> declares no <code>:hover</code>, no <code>:focus-visible</code> and no <code>[disabled]</code>. The pulse is a <b>behaviour</b>, not a state: it is not reached by an interaction, it is on from the first frame, and its off switch is the operating system's reduced-motion setting rather than anything the interface does. It is documented in the anatomy above, where it belongs.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the bar</td><td><code>--bg-placeholder</code></td><td><code>--skeleton</code>. 1.23:1 against the surface in the light theme and 1.15:1 in the dark: a placeholder is not content, and a bar that measured like text would read as content that had failed to load rather than as content on its way</td></tr>
+          <tr><td>the corner</td><td><code>--radius-xs</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>the pulse</td><td><code>@keyframes pulse</code> in <code>base.css</code></td><td>not a token, and not in this file. Stage 11 owns motion and will put the duration behind one</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/skeleton-bar.css</code>. Stands on 8 grey pages in 89 places, and on 5 coloured ones: <a href="../home-loading.html">Home, loading</a>, <a href="../subscription-detail-loading.html">Subscription Detail, loading</a>, <a href="../add-subscription-loading.html">Add a Subscription, loading</a>, <a href="../history-trends-loading.html">History and trends, loading</a>, <a href="../upgrade-processing.html">Upgrade, processing</a>.</p>
+    <code class="kit-cmd">&lt;span class="skel line w60"&gt;&lt;/span&gt;
+&lt;span class="skel line short"&gt;&lt;/span&gt;
+&lt;span class="skel amt-skel"&gt;&lt;/span&gt;
+&lt;span class="skel total"&gt;&lt;/span&gt;
+
+a loading row, in full, from home-loading:
+&lt;div class="row is-skel"&gt;
+  &lt;span class="logo is-skel"&gt;&lt;/span&gt;
+  &lt;span class="body"&gt;&lt;span class="skel line w60"&gt;&lt;/span&gt;&lt;span class="skel line w80"&gt;&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="skel amt-skel"&gt;&lt;/span&gt;
+&lt;/div&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/skeleton-bar.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The keyframe it animates on is in <code>design/system/base.css</code> and the reason it is there is in <code>docs/inventory.md</code>; the consolidation that folded <code>.w90</code> and <code>.skel-list</code> into this component is in the same file.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

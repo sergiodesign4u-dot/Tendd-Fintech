@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geometry - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Geometry</h1>
+    <p class="lead">Four radii, two control sizes, one elevation, and <b>an 8px spacing grid with 4, 2 and 0 under it</b>. The grid was adopted at the founder's review of the foundations on 2026-08-11 and it replaces 27 loose values that had no variable behind any of them. <b>Geometry gets no semantic level.</b> A radius and a spacing have nothing to override: no theme and no rebrand moves them, they simply repeat. So a component reads them straight from primitive, and colour stays the only thing in this system that carries a role.</p>
+    <div class="kit-meta">
+      <span><strong>4</strong> radii, all tokens</span>
+      <span><strong>11</strong> spacing steps, all tokens</span>
+      <span>was <strong>27</strong> values, <strong>0</strong> tokens</span>
+      <span><strong>2</strong> control sizes</span>
+      <span><strong>1</strong> elevation, 1 consumer</span>
+      <span>the grid is <strong>8</strong></span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="no-level">
+    <h2>Why there is no role level here</h2>
+    <p class="note">The comment above the geometry block in <code>design/system/tokens.css</code> states the rule in the file itself: &ldquo;GEOMETRY gets no semantic level. A radius and a spacing have nothing to override: no theme and no rebrand moves them, they simply repeat. Components read them straight from primitive.&rdquo;</p>
+    <p class="note">The test is whether a value could ever need to point somewhere else. <code>--bg-action</code> and <code>--text-action</code> hold the same petrol today and part company the moment the theme changes, so each one earns a role. <b>A 14px corner is 14px in both themes and on every rebrand of this product.</b> Wrapping it in <code>--radius-container: var(--radius-14)</code> would add a level of indirection that nothing will ever use, and a level nobody uses is a level nobody keeps correct.</p>
+    <p class="note">Until 2026-08-11 one half of this page was named and the other was not: the radii and the two sizes were tokens and the spacing was 27 literals. <b>The spacing is now eleven primitives beside them, and it did not gain a role level on the way in.</b> Naming is not the same as adding a level, and the whole of geometry still sits at primitive, where a component reads it directly.</p>
+  </section>
+
+  <section class="kit-sec" id="radii">
+    <h2>Radii, shown as themselves</h2>
+    <p class="note">Four values, four names, and each square below actually carries the corner it is labelled with. Three of them sit on a 4px step (6, 10, 14). The fourth, the 12px wash, sits off that step because it was measured off one object rather than picked off a ladder.</p>
+    <p class="note"><b>The 8px grid does not apply here, and nobody should fold these into it later.</b> This is a corner scale, not a spacing scale: a radius answers to the size of the object it wraps, and rounding 14 to 16 or 6 to 8 would change how a card and a chip read while fixing nothing. The founder's review named the radii among the things it does not touch.</p>
+    <div class="kit-radii">
+      <figure>
+        <svg width="76" height="76" aria-hidden="true">
+          <rect class="t--bg-selected" x="0.5" y="0.5" width="75" height="75" rx="13.5" fill="currentColor"></rect>
+          <rect class="t--line-control" x="0.5" y="0.5" width="75" height="75" rx="13.5" fill="none" stroke="currentColor"></rect>
+        </svg>
+        <figcaption>--radius 14px</figcaption>
+      </figure>
+      <figure>
+        <svg width="76" height="76" aria-hidden="true">
+          <rect class="t--bg-selected" x="0.5" y="0.5" width="75" height="75" rx="11.5" fill="currentColor"></rect>
+          <rect class="t--line-control" x="0.5" y="0.5" width="75" height="75" rx="11.5" fill="none" stroke="currentColor"></rect>
+        </svg>
+        <figcaption>--radius-wash 12px</figcaption>
+      </figure>
+      <figure>
+        <svg width="76" height="76" aria-hidden="true">
+          <rect class="t--bg-selected" x="0.5" y="0.5" width="75" height="75" rx="9.5" fill="currentColor"></rect>
+          <rect class="t--line-control" x="0.5" y="0.5" width="75" height="75" rx="9.5" fill="none" stroke="currentColor"></rect>
+        </svg>
+        <figcaption>--radius-sm 10px</figcaption>
+      </figure>
+      <figure>
+        <svg width="76" height="76" aria-hidden="true">
+          <rect class="t--bg-selected" x="0.5" y="0.5" width="75" height="75" rx="5.5" fill="currentColor"></rect>
+          <rect class="t--line-control" x="0.5" y="0.5" width="75" height="75" rx="5.5" fill="none" stroke="currentColor"></rect>
+        </svg>
+        <figcaption>--radius-xs 6px</figcaption>
+      </figure>
+    </div>
+
+    <h3 class="kit-sub-h">Where each one came from, in its own words</h3>
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>Token</th><th class="n">Value</th><th>Origin, quoted from tokens.css</th><th class="n">Consumers</th><th>The objects</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>--radius</code></td>
+            <td class="n">14px</td>
+            <td>&ldquo;containers: the list, cards, the sheet&rdquo;</td>
+            <td class="n">8</td>
+            <td>.door, .plan-opt, .locked, .sharecard, .panel, .source, .sheet, the 52px hero logo</td>
+          </tr>
+          <tr>
+            <td><code>--radius-wash</code></td>
+            <td class="n">12px</td>
+            <td>&ldquo;origin: the alert banner. Washes and callouts&rdquo;</td>
+            <td class="n">2</td>
+            <td>.notice and .attention, the two washes that carry a sentence</td>
+          </tr>
+          <tr>
+            <td><code>--radius-sm</code></td>
+            <td class="n">10px</td>
+            <td>&ldquo;controls: buttons, fields, rows, tiles&rdquo;</td>
+            <td class="n">9</td>
+            <td>.btn, .field input and select, .tile, .range button, .cand .cut, .logo, .chart, .decoder, .rgroup</td>
+          </tr>
+          <tr>
+            <td><code>--radius-xs</code></td>
+            <td class="n">6px</td>
+            <td>&ldquo;origin: the chip and the skeleton, written inline twice in kit.css before it was named&rdquo;</td>
+            <td class="n">3</td>
+            <td>.tag and .badge, .skel, the 22px logo inside a radio row</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The consumer counts are the ones the step 1 audit recorded (8 / 9 / 3 / 2 in <code>docs/tokens-audit.md</code>) and they still hold in the file. Note what the list does <b>not</b> contain: a list row has no radius of its own. Rows stack inside one 14px container and the first and last inherit its corners, so a list reads as one object instead of a stack of cards.</p>
+    <p class="note"><b>Carried, not fixed here.</b> The Shapes section of the root <code>DESIGN.md</code> still says &ldquo;Three radii and no more&rdquo;. The token block higher up the same file already lists <code>rounded.wash: 12px</code>, and the system carries four. The prose is one decision behind; correcting it belongs to <code>DESIGN.md</code>, not to this page. The 12px itself does not move: it was named by a decision on 2026-08-10, and a value changes only by another one.</p>
+  </section>
+
+  <section class="kit-sec" id="sizes">
+    <h2>Control sizes, at true size</h2>
+    <p class="note">Two values, both tokens, both drawn below at the size they actually are, and <b>neither of them moved</b>. <code>--tap: 44px</code> is &ldquo;the floor a pointer target may not go under&rdquo;. <code>--row: 56px</code> is &ldquo;the list row, comfortably over the floor&rdquo;. The 12px gap between them is not decoration: it is what a finger gets on a row that also has to carry a logo, a name, an amount and a date.</p>
+    <p class="note"><b>44 is a WCAG floor and it is not ours to round.</b> 56 happens to be a multiple of eight and 44 does not, and that is not an argument for touching it: the number comes from WCAG 2.5.5 rather than from this product's rhythm, and a grid that reached it would be a grid overruling an accessibility minimum. The founder's review named both sizes among the things it does not change.</p>
+    <div class="kit-radii">
+      <figure>
+        <svg width="140" height="44" aria-hidden="true">
+          <rect class="t--bg-action" x="0" y="0" width="140" height="44" rx="10" fill="currentColor"></rect>
+        </svg>
+        <figcaption>--tap 44px, .btn</figcaption>
+      </figure>
+      <figure>
+        <svg width="240" height="56" aria-hidden="true">
+          <rect class="t--line-divider" x="0.5" y="0.5" width="239" height="55" fill="none" stroke="currentColor"></rect>
+        </svg>
+        <figcaption>--row 56px, .row</figcaption>
+      </figure>
+    </div>
+    <p class="note"><code>kit.css</code> writes <b>min-height: 44px twelve times</b> and <b>min-height: 56px four times</b>. The four are the objects a person actually aims at down a list: <code>.row</code>, <code>.navrow</code>, <code>.tile</code> and a tab in the tab bar. On the desktop rail the tab drops to 48px, which is under the row and still clear of the floor.</p>
+    <p class="note"><b>The floor has one exemption, and it was found by breaking something.</b> The 44px was first put on the base link atom, which turned every link inside a sentence into a 44px inline-flex box: the comment at <code>kit.css</code> line 227 records a four-line paragraph on the trends screen measuring 100px instead of 75, with the lines drifting apart. The paragraphs carrying inline links are the privacy and trust sentences, so the copy whose only job is to reassure was the copy that looked broken. A link inside a block of text is exempt, precisely because enforcing the minimum deforms the text it lives in. Every standalone control in the product is a button, a row or a tab, and all of those clear 44px measured.</p>
+
+    <h3 class="kit-sub-h">The one elevation</h3>
+    <p class="note"><code>--shadow</code> is the only elevation in the system and it has <b>exactly one consumer</b>: <code>.app .sheet</code>, at <code>kit.css</code> line 978. Even there it does not work alone, it arrives with a background change, a hairline and a 14px radius. The rule it obeys is named in <code>DESIGN.md</code>: &ldquo;<b>The Flat Paper Rule.</b> A new surface earns a hairline and a background change, never a shadow. The moment two elevations exist inside one screen, the eye starts ranking them, and ranking is the work this product takes away from the person.&rdquo;</p>
+    <p class="note"><b>Carried, not fixed here.</b> The Shadow Vocabulary in <code>DESIGN.md</code> names the consumer as &ldquo;the mobile app frame only&rdquo;. That frame was deleted on 2026-08-05 and the block that styled it went at stage 07 step 5 (<code>kit.css</code> line 1027). <code>tokens.css</code> already says the dialog sheet alone, which is what the code does. The <code>DESIGN.md</code> line is stale.</p>
+  </section>
+
+  <section class="kit-sec" id="spacing">
+    <h2>Spacing, an 8px grid</h2>
+    <p class="note"><b>Eleven steps, and every one of them a primitive in <code>tokens.css</code>.</b> The grid is 8, with 4 and 2 below it for the places where 8 is too much, and <b>0 as a real value rather than the absence of a value</b>. Above 32 the steps stay multiples of 8, because that is where the page frame lives. Each bar below is drawn at the width of its own value.</p>
+    <div class="kit-scale">
+      <div class="kit-bar"><span class="val">0</span><span class="use"><code>--space-0</code></span></div>
+      <div class="kit-bar"><span class="val">2px</span><svg class="t--bg-action" width="2" height="14" aria-hidden="true"><rect width="2" height="14" rx="2" fill="currentColor" fill-opacity="0.7"></rect></svg><span class="use"><code>--space-2</code></span></div>
+      <div class="kit-bar"><span class="val">4px</span><svg class="t--bg-action" width="4" height="14" aria-hidden="true"><rect width="4" height="14" rx="2" fill="currentColor" fill-opacity="0.7"></rect></svg><span class="use"><code>--space-4</code></span></div>
+      <div class="kit-bar"><span class="val">8px</span><svg class="t--bg-action" width="8" height="14" aria-hidden="true"><rect width="8" height="14" rx="2" fill="currentColor" fill-opacity="0.7"></rect></svg><span class="use"><code>--space-8</code></span></div>
+      <div class="kit-bar"><span class="val">16px</span><svg class="t--bg-action" width="16" height="14" aria-hidden="true"><rect width="16" height="14" rx="2" fill="currentColor" fill-opacity="0.7"></rect></svg><span class="use"><code>--space-16</code></span></div>
+      <div class="kit-bar"><span class="val">24px</span><svg class="t--bg-action" width="24" height="14" aria-hidden="true"><rect width="24" height="14" rx="2" fill="currentColor" fill-opacity="0.7"></rect></svg><span class="use"><code>--space-24</code></span></div>
+      <div class="kit-bar"><span class="val">32px</span><svg class="t--bg-action" width="32" height="14" aria-hidden="true"><rect width="32" height="14" rx="2" fill="currentColor" fill-opacity="0.7"></rect></svg><span class="use"><code>--space-32</code></span></div>
+      <div class="kit-bar"><span class="val">40px</span><svg class="t--bg-action" width="40" height="14" aria-hidden="true"><rect width="40" height="14" rx="2" fill="currentColor" fill-opacity="0.7"></rect></svg><span class="use"><code>--space-40</code></span></div>
+      <div class="kit-bar"><span class="val">48px</span><svg class="t--bg-action" width="48" height="14" aria-hidden="true"><rect width="48" height="14" rx="2" fill="currentColor" fill-opacity="0.7"></rect></svg><span class="use"><code>--space-48</code></span></div>
+      <div class="kit-bar"><span class="val">56px</span><svg class="t--bg-action" width="56" height="14" aria-hidden="true"><rect width="56" height="14" rx="2" fill="currentColor" fill-opacity="0.7"></rect></svg><span class="use"><code>--space-56</code></span></div>
+      <div class="kit-bar"><span class="val">64px</span><svg class="t--bg-action" width="64" height="14" aria-hidden="true"><rect width="64" height="14" rx="2" fill="currentColor" fill-opacity="0.7"></rect></svg><span class="use"><code>--space-64</code></span></div>
+    </div>
+
+    <p class="note"><b>The first row has no bar, and that is the point:</b> <code>--space-0</code> is a value a component can ask for, not a gap somebody forgot to write. The rest carry the purpose <code>tokens.css</code> gives them next to the value: <code>--space-2</code> is &ldquo;a hair: the gap under a row's second line&rdquo;, <code>--space-8</code> is &ldquo;the unit&rdquo;, <code>--space-16</code> is &ldquo;the screen's side padding, the common block gap&rdquo;, <code>--space-24</code> is &ldquo;between blocks&rdquo; and <code>--space-32</code> is &ldquo;between sections&rdquo;. The four above 32 carry no note, because above the section gap a number is page frame rather than rhythm.</p>
+
+    <h3 class="kit-sub-h">Every old value, and what it becomes</h3>
+    <p class="note"><b>The rule, and it was applied mechanically:</b> every old value goes to the <b>nearest step</b>, and a <b>tie goes to the larger</b>. Nobody decided value by value, which is the same rule the type scale took, so the two halves of the foundations were folded the same way rather than each to its own taste.</p>
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th class="n">Was</th><th class="n">Becomes</th><th class="n">Move</th><th>Token</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="n">0</td><td class="n">0</td><td class="dec">none</td><td><code>--space-0</code></td></tr>
+          <tr><td class="n">1px</td><td class="n"><b>2px</b></td><td class="n">+1px</td><td><code>--space-2</code></td></tr>
+          <tr><td class="n">2px</td><td class="n">2px</td><td class="dec">none</td><td><code>--space-2</code></td></tr>
+          <tr><td class="n">3px</td><td class="n"><b>4px</b></td><td class="n">+1px</td><td><code>--space-4</code>, a tie taken upward</td></tr>
+          <tr><td class="n">4px</td><td class="n">4px</td><td class="dec">none</td><td><code>--space-4</code></td></tr>
+          <tr><td class="n">5px</td><td class="n"><b>4px</b></td><td class="n">-1px</td><td><code>--space-4</code></td></tr>
+          <tr><td class="n">6px</td><td class="n"><b>8px</b></td><td class="n">+2px</td><td><code>--space-8</code>, a tie taken upward</td></tr>
+          <tr><td class="n">7px</td><td class="n"><b>8px</b></td><td class="n">+1px</td><td><code>--space-8</code></td></tr>
+          <tr><td class="n">8px</td><td class="n">8px</td><td class="dec">none</td><td><code>--space-8</code></td></tr>
+          <tr><td class="n">9px</td><td class="n"><b>8px</b></td><td class="n">-1px</td><td><code>--space-8</code></td></tr>
+          <tr><td class="n">10px</td><td class="n"><b>8px</b></td><td class="n">-2px</td><td><code>--space-8</code></td></tr>
+          <tr><td class="n">12px</td><td class="n"><b>16px</b></td><td class="n">+4px</td><td><code>--space-16</code>, a tie taken upward</td></tr>
+          <tr><td class="n">14px</td><td class="n"><b>16px</b></td><td class="n">+2px</td><td><code>--space-16</code></td></tr>
+          <tr><td class="n">16px</td><td class="n">16px</td><td class="dec">none</td><td><code>--space-16</code></td></tr>
+          <tr><td class="n">18px</td><td class="n"><b>16px</b></td><td class="n">-2px</td><td><code>--space-16</code></td></tr>
+          <tr><td class="n">20px</td><td class="n"><b>24px</b></td><td class="n">+4px</td><td><code>--space-24</code>, a tie taken upward</td></tr>
+          <tr><td class="n">22px</td><td class="n"><b>24px</b></td><td class="n">+2px</td><td><code>--space-24</code></td></tr>
+          <tr><td class="n">24px</td><td class="n">24px</td><td class="dec">none</td><td><code>--space-24</code></td></tr>
+          <tr><td class="n">26px</td><td class="n"><b>24px</b></td><td class="n">-2px</td><td><code>--space-24</code></td></tr>
+          <tr><td class="n">28px</td><td class="n"><b>32px</b></td><td class="n">+4px</td><td><code>--space-32</code>, a tie taken upward</td></tr>
+          <tr><td class="n">30px</td><td class="n"><b>32px</b></td><td class="n">+2px</td><td><code>--space-32</code></td></tr>
+          <tr><td class="n">32px</td><td class="n">32px</td><td class="dec">none</td><td><code>--space-32</code></td></tr>
+          <tr><td class="n">36px</td><td class="n"><b>40px</b></td><td class="n">+4px</td><td><code>--space-40</code>, a tie taken upward</td></tr>
+          <tr><td class="n">48px</td><td class="n">48px</td><td class="dec">none</td><td><code>--space-48</code></td></tr>
+          <tr><td class="n">56px</td><td class="n">56px</td><td class="dec">none</td><td><code>--space-56</code></td></tr>
+          <tr><td class="n">64px</td><td class="n">64px</td><td class="dec">none</td><td><code>--space-64</code></td></tr>
+          <tr><td class="n">104px</td><td><code>calc(var(--row) + var(--space-48))</code></td><td class="dec">none</td><td>the screen foot, and it is not a step</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note"><b>No value in the product moves by more than 4px</b>, and eight of the twenty-seven do not move at all. The four-pixel moves are all the same thing: a value sitting exactly halfway between two steps, taken upward by the rule rather than argued over one at a time.</p>
+
+    <p class="note"><b>The 104px foot is now written as what it is.</b> <code>kit.css</code> line 765 gives every screen <code>padding: 18px 16px 104px</code> with a comment saying the foot clears the fixed tab bar, and the number itself never said so: 104 is the 56px tab bar plus 48px of air. It is now <code>calc(var(--row) + var(--space-48))</code>, which computes to the same 104 and cannot silently break when the row height changes. A foot is clearance, not rhythm, so it stays out of the grid rather than being folded into 104's nearest multiple of eight.</p>
+
+    <p class="note"><b>Twenty-seven values is the honest count, and it is larger than the twenty-two this page showed before.</b> The old ladder counted only the px numbers written in a <code>margin</code> or a <code>padding</code> in <code>kit.css</code>, with the reviewer's chrome excluded and <code>gap</code> counted as a separate scale. The adopted mapping covers every spacing value the product wrote, gaps included, plus 0. Same file, wider basis.</p>
+
+    <p class="note"><b>What the missing tokens had already cost is visible in the docs.</b> The root <code>DESIGN.md</code> records the rhythm as 16px screen padding, 18px between blocks and 20px before a new section, and lists <code>spacing.row-y: 11px</code>, a value written nowhere in <code>kit.css</code>. The gap that actually carried a block was 22px and the one before a section was 26px. A scale with no token cannot be checked, so it drifted from its own documentation and nothing complained. There are eleven names now, and correcting <code>DESIGN.md</code> against them belongs to <code>DESIGN.md</code>.</p>
+
+    <p class="note"><b>One piece of geometry here can never become a token, and it says so.</b> The three container steps, 760, 900 and 1340, are documented rather than tokenized because a custom property is not valid inside a <code>@container</code> condition. That is a language limit, not an omission, and it is the one place where a number staying a literal is the correct answer.</p>
+  </section>
+
+  <section class="kit-sec" id="frame">
+    <h2>The page frame</h2>
+    <p class="note">Before a component draws anything, <code>design/system/base.css</code> has set the ground. The test for that file is narrow: a rule earns a place in it only if removing it would break every component at once. This is what it sets, and the geometry inside it is small: a zero margin, a 1.5 line height, a 2px ring at a 2px offset, and a ceiling of 100% on an image.</p>
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>What</th><th>Value</th><th>Why, from base.css</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>box sizing</td><td class="n">border-box</td><td>the first line of the file, and it was missing from the first draft: the same <code>.btn</code> measured 44px on a product screen and 46px on a component page, one pixel of border on each side, and nothing about the file looked wrong</td></tr>
+          <tr><td>body margin</td><td class="n">0</td><td>the page owns its own gutters, the browser gives none. It is a literal zero today, and the grid now has <code>--space-0</code> for the components that need to say zero on purpose</td></tr>
+          <tr><td>body background</td><td><code>var(--bg-page)</code></td><td>the canvas, so a screen never has to paint the ground it sits on</td></tr>
+          <tr><td>body colour</td><td><code>var(--text-primary)</code></td><td>the reading colour, inherited rather than declared per block</td></tr>
+          <tr><td>font family</td><td>Inter, then the system stack</td><td>one family for the whole product and no second one. A display face and a mono face for numbers are forbidden by name: a second family is how a calm interface starts sounding like two products</td></tr>
+          <tr><td>line height</td><td class="n">1.5</td><td>the reading default, and the only ratio in this file. Line heights were out of scope for the founder's review, so this one is where it always was</td></tr>
+          <tr><td>text size adjust</td><td class="n">100%</td><td>the type does not resize itself when a phone turns</td></tr>
+          <tr><td>tabular numerals</td><td><code>table, .amt, .total</code></td><td>numerals line up in a column or this is not a money product. Applied where figures stack rather than globally, so prose keeps proportional digits</td></tr>
+          <tr><td>accent colour</td><td><code>var(--bg-action)</code></td><td>the native marks of a control, the checkbox tick and the progress fill, take petrol rather than the browser's blue</td></tr>
+          <tr><td>focus ring</td><td class="n">2px, offset 2px</td><td>one ring for the whole system, on <code>:focus-visible</code> rather than <code>:focus</code>: the ring is for the person arriving by keyboard and is noise for the person who just clicked. It is measured as a line at 3:1, not as text, and it holds 6.2:1 light and 6.8:1 dark. Written inside <code>:where()</code> so specificity stays at 0 and any component can override it without <code>!important</code></td></tr>
+          <tr><td>images</td><td class="n">max-width 100%</td><td>an image never overflows its slot, and one with no dimensions never collapses the layout while it loads</td></tr>
+          <tr><td>the one keyframe</td><td><code>pulse</code></td><td>two components carry it, the skeleton bar and the logo placeholder, so it belongs to neither. Deleting one cannot stop the other from animating, silently and with no error, which is not hypothetical: it happened at stage 07</td></tr>
+          <tr><td>reduced motion</td><td class="n">0.01ms</td><td>at the same specificity as the rule it guards. Written as a bare class once, it lost the cascade and every skeleton pulsed forever for a person who had asked the operating system for no motion. A person who asks for no motion asks the whole product, not one component</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The focus ring's 2px width and 2px offset are literals, and they stay literals: there is one ring, in one place, and a token for a value with a single consumer is a name to keep correct with nothing to gain. That is the test the whole page runs on. <b>A value that repeats needs a name, a value that happens once needs a comment.</b> The radii passed it from the start, the spacing failed it for one stage and passes it now, and this ring is the one thing here that is correctly still a number.</p>
+  </section>
+
+  <footer class="kit-foot">
+    The radii, the two control sizes and the eleven spacing steps live in the primitive half of <code>design/system/tokens.css</code>; the page frame is <code>design/system/base.css</code>. The spacing grid and its mapping were adopted at the founder's review of the foundations on 2026-08-11, and the radii and the control sizes were named there among the things it does not touch. The consumer counts behind the radii are in <code>docs/tokens-audit.md</code>; the named rules they answer to are in the root <code>DESIGN.md</code>. The screens this geometry was measured off are in <a href="../overview.html">UI + Visual</a>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

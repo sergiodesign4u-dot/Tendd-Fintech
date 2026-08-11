@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Select - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Select</h1>
+    <p class="lead">The control for a value that comes from a closed list. Four of them exist in the whole product, and both questions they ask, a billing frequency and a currency, are questions the product has to understand rather than merely store.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>4</strong> grey pages</span><span>one form</span><span>6 states, both themes</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one value, which is what makes it an atom. Everything below is drawn by <code>design/system/components/select.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app col">
+      <div class="field">
+        <label for="a-freq">Billing frequency</label>
+        <select id="a-freq">
+          <option>Monthly</option>
+          <option>Every 4 weeks</option>
+          <option>Quarterly</option>
+          <option>Yearly</option>
+          <option>Custom</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="a-cur">Currency</label>
+        <select id="a-cur">
+          <option>US dollar ($)</option>
+          <option>Euro (&euro;)</option>
+          <option>British pound (&pound;)</option>
+        </select>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.field select</code> <span>the atom itself: a full width box with a 44px floor, a control radius and a one pixel edge. The same box as the Text input, by a decision the grey CSS had already made</span></li>
+      <li><code>padding-right</code> <span>8px against the input's 12px, and the only declaration that separates the two files. What sits in the difference is the arrow</span></li>
+      <li>the arrow <span><b>ours, and it is the same chevron the nav row draws</b>. <code>appearance: none</code> and a hand-built control are still refused; what the picker block does instead is take the browser's own base drawing and then replace the mark on it. Base appearance swaps Chrome's hairline chevron for a filled disclosure triangle, 9 by 8 against 10 by 5, and that triangle is the <i>browser's</i> mark in a control we had just taken over. The founder settled the principle on 2026-08-11 on a different component: the nav row's <code>&amp;rsaquo;</code> went because punctuation doing an icon's job reads as a font fallback next to real marks. This is the identical 16 by 16 path, rotated a quarter turn, on <code>currentColor</code> at <code>--text-muted</code>, so the two marks in this product that mean "there is more this way" are one shape and change in one place. Inside <code>@supports</code> only: a browser without base-select keeps its own arrow, because we cannot reach it.</td>
+    </ul>
+  </section>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+
+    <p class="note"><b>One form, and no axis at all.</b> The registry records this component's axes as a dash, and the corpus agrees: a sweep of all 55 grey pages finds <b>four</b> selects, on four pages, and every one of them renders the same box. There is no emphasis axis, no size axis and no content axis, so there is no matrix to draw. A matrix with one row would say a component varies when it does not.</p>
+
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Where it stands<p class="axis-rule">A select is used where the answer is one of a SHORT closed set the product already knows. Where the set is open, or long, the answer is a text input and a catalogue, which is why the preset search is not a select</p></th>
+            <th class="val">Options</th>
+            <th>The question it asks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>The one form</b> <code>.field select</code></td>
+            <td class="val">14px / 44px<br>0 8px 0 16px</td>
+            <td>4 grey pages, one select each: add-subscription with its empty and error states, and settings</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">multiple</td>
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. A <code>multiple</code> select is a list box a person has to know to ctrl-click, and this product is built for someone with low financial confidence who is already braced for the interface to be clever at them. Several choices at once are checkboxes in a Switch row</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">optgroup</td>
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason. Neither list is long enough to group: five frequencies and three currencies. A grouped list is a sign the question is two questions</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">a drawn dropdown</td>
+            <td class="kit-empty">-</td>
+            <td><b>Refused, and the refusal is what made the styled picker possible.</b> A custom listbox is script, focus management and a keyboard contract, and it would be the first component in the system that stops working when JavaScript does. <code>appearance: base-select</code> takes the other road: the browser keeps the keys, the roles and the phone's own sheet, and the list takes our surface. See <b>States</b> below for what is ours and what is not</td>
+          </tr>
+          <tr>
+            <td><b>Billing frequency</b> <code>#sub-freq</code></td>
+            <td class="val">5</td>
+            <td>Monthly, Every 4 weeks, Quarterly, Yearly, Custom. On Add a subscription and on its empty and error states, so three of the four occurrences are one question asked at three moments</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="field"><label for="v-freq">Billing frequency</label><select id="v-freq"><option>Monthly</option><option>Every 4 weeks</option><option>Quarterly</option><option>Yearly</option><option>Custom</option></select></div></div></td></tr>
+          <tr>
+            <td><b>Currency</b> <code>#currency</code></td>
+            <td class="val">3</td>
+            <td>US dollar, Euro, British pound. On Settings, and only there. D5 defers the EU, so two of the three are shipped against a market the product has not opened yet</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="field"><label for="v-cur">Currency</label><select id="v-cur"><option>US dollar ($)</option><option>Euro (&euro;)</option><option>British pound (&pound;)</option></select></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note"><b>Two things vary and neither is a variant.</b> The number of options is <i>content</i>: five and three draw the identical control, and a component whose only difference is what is inside it has one form. Invalid and disabled are <i>states</i>, and they live in the States block below with the token each one reads. Calling either a variant would put a matrix row in front of the reader that no decision stands behind.</p>
+
+    <p class="note"><b>There is no size axis, and that is the same rule the text input follows.</b> The control's height is the 44px tap floor, and 44 is a WCAG minimum rather than a value this system chose, so it is not ours to make smaller in a tighter container. A select in a narrow column gets narrower and never shorter.</p>
+
+    <p class="note"><b>THIS SECTION WAS REBUILT ON 2026-08-11, and the reason is worth leaving on the page.</b> It went missing in two steps, and only the second was the bulk pass. An earlier edit of mine replaced a run of text by index and swallowed the close of the callouts list, the end of the Anatomy section and the head of this one, which left this table's rows orphaned INSIDE Anatomy. The browser then closed <code>.kit-wrap</code> at the first unbalanced <code>&lt;/div&gt;</code>, so five of the six sections fell out of the page measure and ran the full width of the window. The rows themselves were never lost and are back above, in their own words: the measured values, and the three forms this component refuses. The sweep that ran afterwards checked scroll, broken images, table spans and theme pairs on 256 views and passed every one, because <b>none of those checks asked whether a page still had all five of its blocks</b>. The founder found it by opening the page. The structural check now runs with the rest.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A select asks for a value the product has to <b>understand</b>, not merely keep. Billing frequency decides what "a month" means for that subscription and therefore what the monthly total says, and the monthly total is the number the whole product is built around. Currency decides what every amount on every screen is printed in. Both would be unusable as free text: "monthly-ish" cannot be turned into a projection, and a product that rejects a person's typing on the manual path has made the manual path expensive, which is exactly what D2 forbids.</p>
+    <p class="note">The option strings come from <code>voice/docs/microcopy.md</code> and are written the way a person would say them: "Monthly", "Every 4 weeks", "Quarterly", "Yearly", "Custom"; "US dollar ($)", "Euro", "British pound". Not "MONTHLY", not "P1M". The hint under the currency select says what changes when the answer changes: "Every amount in Tendd is shown in this currency."</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a select</span>
+        <div class="kit-stage app full"><span class="field"><select id="r-yes" aria-label="Currency"><option>US dollar ($)</option><option>Euro (&euro;)</option><option>British pound (&pound;)</option></select></span></div>
+        <p>Three values, all of them known to the product, and the answer changes how every amount in the app is printed. A closed list, asked once, on a screen a person visits rarely.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a text input instead</span>
+        <div class="kit-stage app full"><span class="field"><input id="r-no" type="text" value="Cerebro Cloud" aria-label="Name"></span></div>
+        <p>An open value belongs to the <b>Text input</b>. "Cerebro Cloud" is the real string on add-subscription-empty, the state that exists because a service is not in the preset catalogue of 400+. A select of 400+ services is a scroll, not a choice, and the product already answers that question better with a search field and preset tiles.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Three or more values</span>
+        <div class="kit-stage app full"><span class="field"><select id="r-yes2" aria-label="Billing frequency"><option>Monthly</option><option>Every 4 weeks</option><option>Quarterly</option><option>Yearly</option><option>Custom</option></select></span></div>
+        <p>Five frequencies, one line, and the reading order stays the reading order. A radio group of five would take five rows of a form whose whole argument is that it is short.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Not for on or off</span>
+        <div class="kit-stage app full"><label class="switch"><input type="checkbox" checked><span><span class="t">A price goes up</span></span></label></div>
+        <p>Two values, and one of them is "no", is the <b>Checkbox</b> in a Switch row. It shows both states at once instead of hiding one behind a tap, it reads as a sentence a person agrees with, and it needs no submit. A select of Yes and No is one more tap for a fact the eye could already have had.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Six states, and they exist because the select is <b>interactive</b>, not because the template has cells to fill. Each one is a token override rather than a style of its own: no hex and no number appears inside <code>:hover</code> or <code>[aria-invalid]</code>, so the dark theme costs three lines in <code>tokens.css</code> rather than forty edits across the components.</p>
+
+    <p class="note"><b>Open is one of the six now, and it was not before.</b> Founder's decision, 2026-08-11: the option list stops looking like an operating system menu, a grey panel with a blue highlight, and takes the product's language. The mechanism is <code>appearance: base-select</code> behind an <code>@supports</code> guard, it is CSS only, and it retires the line this page used to carry, that the open list "is not a state and cannot be one".</p>
+
+    <p class="note"><b>Why the browser's picker and not a listbox of our own, and the accessibility argument comes first.</b> Base appearance keeps the browser's keyboard contract, its ARIA roles, its type-ahead and the phone's native sheet, so none of that has to be re-implemented and none of it can be re-implemented wrong. A scripted listbox would also be the first component in this system that stops working when JavaScript does, in a product built for someone anxious about money who is steadied by a control that behaves like every other control on their phone.</p>
+
+    <p class="note"><b>What is ours and what is not, plainly.</b> Ours: the list's surface, its edge and its corner, the height of an option and its padding, the fill under the pointer, the ink on the chosen one, the ring the keyboard leaves. Not ours: the arrow, which stays the browser's own drawing and takes a colour role and nothing else; where the list is placed and how it scrolls; every key that operates it. Measured in Chrome 151 on 2026-08-11, where <code>CSS.supports('appearance', 'base-select')</code> answers true, and Edge is the same engine. Safari and Firefox answer false today, and there <b>nothing changes at all</b>: the guard misses, the control is what it has always been, and the list is the operating system's, which is the better list on a phone anyway. If either ships it later this block starts applying with no edit.</p>
+
+    <p class="note"><b>The closed control does not move, and that was measured rather than trusted.</b> At 360 and at 1280, in both themes, before and after: 44px tall, <code>0 8px 0 16px</code>, a 1px <code>--line-control</code> edge, a 10px corner, 14px, <code>--bg-surface</code>, <code>--text-primary</code>. Two things inside it do move, and both are base appearance replacing Chrome's private interior with the one this file declares. The value text needs <code>align-items: center</code> or it lands 11px too high, and it starts 4px further left, because the native control adds a private 4px inset the system never asked for and 16px is what the system says. The arrow changes with it: Chrome's hairline chevron, 10 by 5 px, becomes base appearance's own triangle, 9 by 8 px, in the same corner of the same box, and <code>--text-muted</code> is what brings its weight back down to the hairline's.</p>
+    <p class="note"><b>The invalid state is authored, not extracted.</b> A sweep of all 55 grey pages returns no <code>aria-invalid</code>, no <code>required</code> and no error class, and <code>kit.css</code> says so in the comment above the rule: "AUTHORED. A sweep of all 55 pages returns no aria-invalid, no required and no error class, so the kit would otherwise inherit an input that cannot be invalid. Clay, never red. The hook is the native attribute, so no page needs a new class." The state is real, it is in the system, and <b>no screen uses it yet</b>. It is waiting for the markup that stage 09 or the rollout will give it, and until then it moves zero pixels.</p>
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app col" id="live-rest">
+      <span class="field"><select id="shot-rest" aria-label="Billing frequency"><option>Monthly</option><option>Every 4 weeks</option><option>Quarterly</option><option>Yearly</option><option>Custom</option></select></span>
+      <span class="field"><select id="shot-invalid" aria-invalid="true" aria-label="Billing frequency, invalid"><option>Custom</option></select></span>
+      <span class="field"><select id="shot-disabled" disabled aria-label="Currency"><option>US dollar ($)</option></select></span>
+    </div>
+    <p class="note">The second one is genuinely invalid and the third genuinely disabled, both by native attributes rather than by classes the product does not carry. Faking a state with <code>.is-invalid</code> would document something the product cannot do. <b>Open is live here too</b>, in a browser that has it: click the first control, or tab to it and press the down arrow, and the list that opens is the one described below, drawn by the same file the product loads.</p>
+
+    <h3 class="kit-sub-h">The six, in both themes</h3>
+    
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--line-control</code>, <code>--bg-surface</code>, <code>--text-primary</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same tokens, the other half of each pair. The browser's arrow follows <code>color</code>, so it inverts with the theme without a rule</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--line-control-hover</code>, the edge alone</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the edge STRENGTHENS in both themes, 3.46 to 5.78 on light and 5.15 to 6.40 on dark. The value this replaced was lighter than the resting edge, so the boundary used to weaken under the pointer</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. The ring is 2px at 2px offset and sits OUTSIDE the box, so focusing a select moves no neighbour</div></div>
+      <div class="kit-state"><div class="cap"><b>Open</b><span>light</span></div><div class="tok"><code>--bg-surface</code> on the list and <code>--line-container</code> on its edge, <code>--radius-sm</code>, an option 44px tall, <code>--bg-hover</code> under the pointer, <code>--text-action</code> and the browser's checkmark on the chosen one</div></div>
+      <div class="kit-state"><div class="cap"><b>Open</b><span>dark</span></div><div class="tok">the same roles, the other half of each pair, measured: rgb(22,31,33) on the list, rgb(42,53,56) on its edge, rgb(29,40,42) under the pointer, rgb(107,176,186) on the chosen one. There is no shadow under it in either theme: the Flat Paper Rule holds for a floating surface too, and the one elevation in the system belongs to the dialog sheet</div></div>
+      <div class="kit-state"><div class="cap"><b>Invalid</b><span>light</span></div><div class="tok"><code>--bg-failure</code> and <code>--line-failure</code>. Never red: the persona closes any app that shows her red</div></div>
+      <div class="kit-state"><div class="cap"><b>Invalid</b><span>dark</span></div><div class="tok">the wash and the edge both swap to the dark clay pair, and the focus ring turns clay with them, so a keyboard person is not told two different things at once</div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>light</span></div><div class="tok"><code>--bg-recessed</code>, <code>--line-divider</code>, <code>--text-muted</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>dark</span></div><div class="tok">the same three roles the disabled button and the disabled input repaint from, so every disabled control in the system looks like one decision rather than three</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo and a
+command that does not run is worse than no command:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/select.html
+    move the pointer away  -&gt; screenshot #live-rest   -&gt; screens/select-rest-&lt;theme&gt;.png
+    hover #shot-rest       -&gt; screenshot #live-rest   -&gt; screens/select-hover-&lt;theme&gt;.png
+    focus #shot-rest, press Tab, assert :focus-visible -&gt; screenshot #live-rest
+                                                      -&gt; select-focus-&lt;theme&gt;.png
+    blur, screenshot #live-rest  -&gt; invalid and disabled are both already in frame,
+                                    so the same shot serves as
+                                    select-invalid-&lt;theme&gt;.png and
+                                    select-disabled-&lt;theme&gt;.png
+    click #shot-rest, hover the third option, screenshot the VIEWPORT around the
+    control (the picker is a popover and sits outside #live-rest's own box)
+                                                      -&gt; select-open-&lt;theme&gt;.png
+
+  The open shot is only shootable in a browser that has base-select: there the list is
+  in the page and the capture holds it. In Safari or Firefox the same click opens the
+  operating system's own window, which lands outside the page and photographs as nothing,
+  and that is the fallback rather than a broken shot.
+
+The states are reached the way a person reaches them: a real pointer, a real Tab, a real
+attribute. Step 9 checks these files for a byte shift, because a snapshot nobody re-takes
+freezes silently, and a frozen snapshot is worse than none: it looks checked.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>its fill</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the chosen option</td><td><code>--text-primary</code></td><td><code>--ink</code></td></tr>
+          <tr><td>the edge that identifies it</td><td><code>--line-control</code></td><td><code>--edge</code></td></tr>
+          <tr><td>the edge under the pointer</td><td><code>--line-control-hover</code></td><td><code>--muted</code></td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the invalid wash</td><td><code>--bg-failure</code></td><td><code>--clay-wash</code></td></tr>
+          <tr><td>the invalid edge, and its ring while invalid</td><td><code>--line-failure</code></td><td><code>--clay</code>, and <code>--clay-dark</code> in the dark theme. 5.46:1 on the light surface and 7.40:1 on the dark, both over the 3:1 a line owes. It did not exist when this component was written: clay had a role as an ink and a role as a fill and none as a line, so the hole was reported rather than invented, and nothing moved when it was filled</td></tr>
+          <tr><td>disabled</td><td><code>--bg-recessed</code>, <code>--line-divider</code>, <code>--text-muted</code></td><td>three roles that already existed</td></tr>
+          <tr><td>corner and floor</td><td><code>--radius-sm</code>, <code>--tap</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>the arrow</td><td><code>--text-muted</code>, and nothing else</td><td>the browser still draws it. One colour role, no size and no shape: <code>appearance: none</code> and a hand-built arrow are still refused</td></tr>
+          <tr><td>the list's surface and edge</td><td><code>--bg-surface</code>, <code>--line-container</code></td><td><code>--paper</code>, <code>--hairline</code>. The edge of a container rather than of a control, so the decorative hairline is the right role and the 3:1 one is not. No shadow: the Flat Paper Rule</td></tr>
+          <tr><td>the list's corner and inset</td><td><code>--radius-sm</code>, <code>--space-4</code></td><td>the same corner the control has, so the two read as one object opening</td></tr>
+          <tr><td>an option</td><td><code>--tap</code>, <code>--space-8</code>, <code>--space-16</code>, <code>--radius-xs</code>, <code>--type-body</code>, <code>--text-primary</code></td><td>the browser's own base option is 24px tall with 7px of side padding, which is a mouse target. An option is a thing a finger lands on, so it takes the 44px floor the project holds everywhere</td></tr>
+          <tr><td>an option under the pointer</td><td><code>--bg-hover</code></td><td><code>--panel</code>, the same fill the row, the tile and the outline button take</td></tr>
+          <tr><td>the chosen option</td><td><code>--text-action</code></td><td><code>--petrol</code>, one of its three permitted jobs. NOT colour alone: the browser's <code>::checkmark</code> stays, inherits that ink and keeps its box reserved on every option, so nothing shifts when the choice moves and WCAG 1.4.1 is answered by a mark rather than by a hue</td></tr>
+          <tr><td>the ring on an option</td><td><code>--color-focus</code></td><td>the same token and the same 2px as everywhere else. The offset is -2px and that is the one difference: the list scrolls, so a ring drawn outside the option is clipped at the first and last row</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/select.css</code>. Stands on 4 grey pages, one select each, and all four are coloured: <a href="../add-subscription.html">Add a Subscription</a>, <a href="../add-subscription-empty.html">its empty state</a>, <a href="../add-subscription-error.html">its error state</a>, <a href="../settings.html">Settings</a>.</p>
+    <p class="note"><b>Where the picker is not yet, and it is worth saying out loud.</b> Those four coloured screens still load <code>kit/kit.css</code>, the flat stage 07 kit, and not <code>system/index.css</code>: opened today their select computes <code>appearance: auto</code> and <code>0 8px 0 12px</code>, so it keeps the operating system's list. The picker reaches them at the step that moves the product onto system classes, and it reaches them by that step alone. Nothing was patched onto a screen to make it look done here.</p>
+    <code class="kit-cmd">&lt;div class="field"&gt;
+  &lt;label for="sub-freq"&gt;Billing frequency&lt;/label&gt;
+  &lt;select id="sub-freq"&gt;
+    &lt;option&gt;Monthly&lt;/option&gt;
+    &lt;option&gt;Every 4 weeks&lt;/option&gt;
+    &lt;option&gt;Quarterly&lt;/option&gt;
+    &lt;option&gt;Yearly&lt;/option&gt;
+    &lt;option&gt;Custom&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/div&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/select.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its twin is the <a href="text-input.html">Text input</a>: one style, two elements, and two declarations of difference. The consolidation is in <code>docs/inventory.md</code>; the measured forms are in <code>docs/census.md</code>, where <code>.field select</code> is one of the sixteen families with a single value on every property.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

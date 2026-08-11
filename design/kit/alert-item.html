@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alert item - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Alert item</h1>
+    <p class="lead">One thing worth knowing about, said in a sentence that names who did it. It is the object the whole Alerts screen is made of, it is GC5 in the globals, and until this page it had <b>never been rendered in colour</b>: zero of the 28 coloured screens carry it, which makes it the largest hole in the sample.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>2</strong> grey pages</span><span>2 content variants</span><span>3 states, both themes</span><span>0 coloured pages</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note"><b>Read this page knowing what it is.</b> Every other component in this kit was measured on a coloured screen before it was written down. This one was not, because no coloured screen carries it. Its form here is read off <code>kit.css</code> and off the grey markup on <code>alerts.html</code>, line by line, and nothing in it is invented. What follows is therefore correct and unproven, which is a different thing from correct and checked, and it is worth saying out loud on the page rather than discovering at the rollout.</p>
+    <div class="kit-stage app full">
+      <a class="alert" href="#anatomy" aria-label="New. Netflix went up by $2.50, now $17.99 a month. Price change from Chase, Jul 28. See what changed.">
+        <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
+        <span class="body">
+          <span class="what"><span class="newdot" aria-hidden="true"></span>Netflix went up by $2.50, now $17.99 a month</span>
+          <span class="meta">Price change &middot; Netflix &middot; Jul 28 &middot; from Chase</span>
+          <span class="prices"><span>Was <b>$15.49</b></span><span>Now <b>$17.99</b></span><span>Difference <b>$2.50</b></span></span>
+          <span class="go">See what changed</span>
+        </span>
+      </a>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.alert</code> <span>the molecule itself, and it is the <code>a</code>: the whole item is one target with one accessible name, exactly like the subscription row. It draws no floor, because every alert carries at least three lines and clears 44px on content alone</span></li>
+      <li><code>.logo</code> <span><b>an atom.</b> The merchant's mark at 32px, sized for this host by <a href="logo.html">logo.css</a> and never by this file</span></li>
+      <li><code>.newdot</code> <span>the unread mark, 7px, quiet, and <b>never a count</b>. It sits inside the sentence rather than at the edge, so it reads as part of the line and not as a badge</span></li>
+      <li><code>.what</code> <span>the sentence, and it is the alert. <code>--type-body</code>, weight 600, <code>--text-primary</code>. It names the actor: "Netflix went up by $2.50", not "a price change has been detected"</span></li>
+      <li><code>.meta</code> <span>the provenance, always the same shape: kind, merchant, date, source. <code>--type-meta</code>, <code>--text-muted</code></span></li>
+      <li><code>.prices</code> <span>the old figure beside the new one. Three labels muted, three figures primary, so the numbers are what the eye lands on</span></li>
+      <li><code>.go</code> <span>the inline action with its arrow. It stays <b>ink</b> and never petrol, because a list renders eight at once</span></li>
+      <li><code>.badge</code> <span><b>an atom.</b> The Pro chip, on two of the eight items, with its 4px left margin living in <a href="chip.html">chip.css</a> alongside the other host placements of that atom</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One form and two <b>content</b> variants, which is what the consolidation recorded: <code>.prices</code> and <code>.newdot</code>, both optional slots inside the filled item. Neither changes the shape of the alert, and both exist on exactly one page. Size is not an axis: there is one alert and it is one size everywhere.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Content<p class="axis-rule">Chosen by what is TRUE of the alert, never by how much attention it wants. The dot means unread; the price pair means a number changed and the old one is worth showing</p></th>
+            
+            <th class="val">Where it stands</th>
+            <th>The rule</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Plain</b> <code>.alert</code></td>
+            
+            <td class="val">5 of 8 items<br>alerts.html</td>
+            <td>The default. Sentence, provenance, action, and nothing else</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><a class="alert" href="#variants" aria-label="iCloud Plus charges $2.99 tomorrow. Coming up from Chase, 2 August."><span class="logo"><img src="../visuals/logos/icloud.svg" alt=""></span><span class="body"><span class="what">iCloud+ charges $2.99 tomorrow</span><span class="meta">Coming up &middot; iCloud+ &middot; Aug 2 &middot; from Chase</span><span class="go">See iCloud+</span></span></a></span></td></tr>
+          <tr>
+            <td><b>Unread</b> <code>.newdot</code></td>
+            
+            <td class="val">3 of 8 items<br>1 grey page</td>
+            <td>New since the last visit, and the screen's own copy says so: "A quiet dot marks what is new since your last visit". <code>aria-hidden</code> on the dot, and the word "New" at the front of the item's accessible name instead, because a dot cannot be read aloud</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><a class="alert" href="#variants" aria-label="New. Tendd found a new subscription, Strava, $11.99 a month. New subscription from Chase, found 29 July."><span class="logo"><img src="../visuals/logos/strava.svg" alt=""></span><span class="body"><span class="what"><span class="newdot" aria-hidden="true"></span>Tendd found a new subscription, Strava, $11.99 a month</span><span class="meta">New subscription &middot; Strava &middot; found Jul 29 &middot; from Chase</span><span class="go">See Strava</span></span></a></span></td></tr>
+          <tr>
+            <td><b>With the price pair</b> <code>.prices</code></td>
+            
+            <td class="val">1 of 8 items<br>1 grey page</td>
+            <td>Only where a figure moved. Every product shows the new number; the old one beside it is what turns a surprise into an explanation, and that is the whole reason this slot exists</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><a class="alert" href="#variants" aria-label="New. Netflix went up by $2.50, now $17.99 a month."><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span class="body"><span class="what"><span class="newdot" aria-hidden="true"></span>Netflix went up by $2.50, now $17.99 a month</span><span class="meta">Price change &middot; Netflix &middot; Jul 28 &middot; from Chase</span><span class="prices"><span>Was <b>$15.49</b></span><span>Now <b>$17.99</b></span><span>Difference <b>$2.50</b></span></span><span class="go">See what changed</span></span></a></span></td></tr>
+          <tr>
+            <td><b>Loading</b> <code>div.alert</code></td>
+            
+            <td class="val">4 items<br>alerts-loading.html</td>
+            <td>Rendered as a <code>div</code> and not an anchor, with two skeleton lines and a skeleton square. It needs no rule of its own at all: the alert's box does the work and <a href="skeleton-bar.html">skeleton-bar.css</a> draws the bars</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><span class="alert"><span class="logo is-skel"></span><span class="body"><span class="skel line w70"></span><span class="skel line w50"></span></span></span></span></td></tr>
+          <tr>
+            <td class="kit-empty">A tone: attention, or failure</td>
+            
+            <td class="kit-empty">-</td>
+            <td><b>Forbidden with a reason rather than missing.</b> Eight alerts stand on one screen and three of them are about money that did not move. An amber or clay wash on each would turn the screen into a wall of coloured blocks, which is the thing this product exists not to be. Tone belongs to the Wash block, which appears once per screen above content that still works. Here the sentence is the alert, and the chip beside it carries the only label the item needs</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Both content variants are grey-only.</b> <code>.prices</code> and <code>.newdot</code> are two of the seventeen forms <code>docs/census.md</code> lists as existing in the wireframes and nowhere else, and this page is the first time either has been drawn in Petrol and Paper. That is also why they are drawn from the grey markup rather than designed here: a variant invented at step 5 and a variant invented again at the rollout are two variants.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">An alert item is <b>something that happened, on a date</b>. Eight of them stand on node 3.8 under headings that do the sorting for a person: two under "Needs you", five under "Just so you know", and one older item inside a disclosure. A price went up, a payment did not go through, a charge is coming, a subscription was found, a trial is ending, a charge looked unusual. That is the whole set, and the screen's own line frames it: "The few things worth knowing about."</p>
+    <p class="note"><b>It carries mechanism 1, active voice, and that is a strategic decision rather than a style preference.</b> "Netflix went up by $2.50, now $17.99 a month" names who did the thing and by how much. "A price change has been detected" names nobody, and for a person who is anxious about money the missing actor is filled in with something worse than the truth. The same sentence appears as the attention row on Home, which <code>wireframes/docs/screens.md</code> names as one of the three elements carrying trust and first-time clarity.</p>
+    <p class="note">Nothing here shouts. The dot is quiet and there is never a count; the inline action stays ink rather than petrol, because eight petrol links on one screen is the One Voice Rule failing by repetition; and the two Pro alerts are <b>shown rather than hidden</b>, with no blur over the text, because a blur pretends something is being withheld and an anxious person fills the gap in with the worst thing they can imagine. Every line comes from <code>voice/docs/microcopy.md</code>.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">An event, with its date</span>
+        <div class="kit-stage app full"><a class="alert" href="#rule" aria-label="A payment to Amazon Prime did not go through. Payment failed from Chase, Jul 20, $14.99."><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span class="body"><span class="what">A payment to Amazon Prime did not go through</span><span class="meta">Payment failed &middot; Amazon Prime &middot; $14.99 &middot; Jul 20 &middot; from Chase</span><span class="go">What to do</span></span></a></div>
+        <p>Something occurred, it has a date, and there is one thing to do about it. The sentence names the actor, the meta line says where the fact came from, and the action goes to the screen that explains it.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a subscription row instead</span>
+        <div class="kit-stage app full"><a class="row" href="#rule" aria-label="Amazon Prime, $14.99 a month, next in 19 days on 20 August, payment failed"><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span class="body"><span class="name">Amazon Prime</span><span class="when">in 19 days &middot; Aug 20</span></span><span class="amt">$14.99</span><span class="tag">Payment failed</span></a></div>
+        <p>A <b>thing you pay for</b>, standing in a list with its price and its next date, is the <a href="subscription-row.html">Subscription row</a>. The two carry the same merchant and look alike from a distance, and they answer different questions: the row is a state, the alert is an event. The tell is the text. If the line reads as a noun with a number ("Amazon Prime, $14.99"), it is a row; if it reads as a sentence with a verb ("did not go through"), it is an alert. <code>globals.md</code> already caught this confusion once, on the trend row.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Several at once, in a list</span>
+        <div class="kit-stage app full"><a class="alert" href="#rule" aria-label="Your Peloton App trial ends soon. Trial ending, part of Tendd Pro."><span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span><span class="body"><span class="what">Your Peloton App trial ends soon <span class="badge">Pro</span></span><span class="meta">Trial ending &middot; Peloton App &middot; Aug 18 &middot; Tendd Pro explains what happens next</span><span class="go">See what Pro adds</span></span></a></div>
+        <p>The component is built for repetition, which is why nothing in it is loud: no fill, no border, no tone, no petrol, one quiet chip. Eight of these read as a list a person can scan and leave.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a wash block instead</span>
+        <div class="kit-stage app full"><div class="attention"><p>Netflix went up by $2.50, now $17.99 a month. <a href="#rule">See what changed</a></p></div></div>
+        <p>One message standing <b>above content that still works</b>, on a screen that is about something else, is the Wash block: an amber fill for a price change, a clay one for our own failure, and it appears once. That is the attention row on Home, carrying the very same sentence as the first alert on this page. The Wash block molecule is not built yet, which is why the specimen above shows its copy without its amber fill. The difference is the host and not the words: a wash tells a person to look up from what they were doing, and a list of eight things telling you to look up is a screen nobody opens twice.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Three states, and they exist because the item is <b>a link</b>. Each is a token override rather than a style of its own, so the dark theme costs nothing in this file.</p>
+    <p class="note"><b>Three rather than four.</b> There is no disabled alert. Every alert in the product goes somewhere, including the two Pro ones, which lead to the upgrade screen rather than being greyed out. And there is no <code>:active</code>, because <code>kit.css</code> declares none and writing one here would be a new decision about how the product answers a press.</p>
+    
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app full" id="live-rest">
+      <a class="alert" href="#states" id="shot-alert" aria-label="New. Netflix went up by $2.50, now $17.99 a month. Price change from Chase, Jul 28. See what changed.">
+        <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
+        <span class="body">
+          <span class="what"><span class="newdot" aria-hidden="true"></span>Netflix went up by $2.50, now $17.99 a month</span>
+          <span class="meta">Price change &middot; Netflix &middot; Jul 28 &middot; from Chase</span>
+          <span class="prices"><span>Was <b>$15.49</b></span><span>Now <b>$17.99</b></span><span>Difference <b>$2.50</b></span></span>
+          <span class="go">See what changed</span>
+        </span>
+      </a>
+      <a class="alert" href="#states" id="shot-alert-2" aria-label="ChatGPT Plus charges $20.00 in 4 days. Coming up from Chase, 5 August.">
+        <span class="logo"><img src="../visuals/logos/chatgpt.svg" alt=""></span>
+        <span class="body">
+          <span class="what">ChatGPT Plus charges $20.00 in 4 days</span>
+          <span class="meta">Coming up &middot; ChatGPT Plus &middot; Aug 5 &middot; from Chase</span>
+          <span class="go">See ChatGPT Plus</span>
+        </span>
+      </a>
+    </div>
+    <p class="note">Real anchors with a real <code>href</code>, which is the only way the states below can be reached. The divider a person sees between two alerts is not here: it belongs to the Divided list organism, which is not built yet.</p>
+
+    <h3 class="kit-sub-h">The three, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok">no fill of its own, <code>--text-primary</code> on the sentence and the figures, <code>--text-muted</code> on the provenance and the labels</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same roles, the other half of each pair. The unread dot reads <code>--text-body</code>, an ink role rather than a fill role, because a 7px mark is a glyph and not a surface</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-hover</code>, and nothing else: no border, no shift, no size change. Eight items stack and a border under the pointer would move the seven below it</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the fill goes LIGHTER here and darker in the light theme: a hover moves away from its ground, and the ground swapped ends</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line, at 2px offset so the ring sits outside the item</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. The ring wraps the whole item, including the inline action inside it, which is correct: <code>.go</code> is a span and not a second target</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo and a
+command that does not run is worse than no command:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/alert-item.html
+    move the pointer away -&gt; screenshot #live-rest -&gt; screens/alert-item-rest-&lt;theme&gt;.png
+    hover #shot-alert     -&gt; screenshot #live-rest -&gt; screens/alert-item-hover-&lt;theme&gt;.png
+    focus #shot-alert by Tab, assert :focus-visible
+                          -&gt; screenshot #live-rest -&gt; screens/alert-item-focus-&lt;theme&gt;.png
+
+These six are the FIRST colour record of this component, so shoot them before the rollout
+colours node 3.8 and not after: a snapshot taken from a screen is a check, a snapshot taken
+from the kit is the reference the screen is checked against.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the sentence, the figures, the action</td><td><code>--text-primary</code></td><td><code>--ink</code></td></tr>
+          <tr><td>the provenance and the price labels</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
+          <tr><td>the unread dot</td><td><code>--text-body</code></td><td><code>--slate</code>. An INK role painting a drawn mark: <code>tokens.css</code> puts icon glyphs on the ink side with the text, and a 7px dot is a glyph and not a surface</td></tr>
+          <tr><td>hover fill</td><td><code>--bg-hover</code></td><td><code>--panel</code>, and <code>--panel-dark</code> in the dark theme, which is lighter and not darker</td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the two text sizes</td><td><code>--type-body</code>, <code>--type-meta</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>gap, padding, the lifts</td><td><code>--space-0</code>, <code>--space-4</code>, <code>--space-8</code>, <code>--space-16</code></td><td>primitive, straight</td></tr>
+          <tr><td>the 40px on the inline action</td><td>none, and not <code>--tap</code></td><td>a literal, and it is a line box rather than a target: <code>.go</code> is a <code>span</code> inside the anchor, so the target is the whole item</td></tr>
+          <tr><td>the dot's 7px, the mark's 32px</td><td>none / <a href="logo.html">logo.css</a></td><td>a diameter and a host size, neither of them a spacing</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Two of its parts are atoms and this file paints neither.</b> <a href="logo.html">Logo</a> owns the 32px square, <a href="chip.html">Chip</a> owns the Pro label and its 4px left margin, and <a href="skeleton-bar.html">Skeleton bar</a> owns the loading form. Three declarations of <code>kit.css</code> were dropped because they repeat what those files already say, and each one is named in the CSS where it would have gone.</p>
+    <p class="note"><b>One figure in the sources does not hold, and the code and the markup win.</b> <code>docs/census.md</code> reports "Alert item at twelve grey pages is the largest hole". Twelve is the number of <b>items</b>, not pages: <code>class="alert"</code> occurs 12 times across <b>2</b> grey pages, 8 on <code>alerts.html</code> and 4 on <code>alerts-loading.html</code>, which is what <code>docs/inventory.md</code> and <code>_nav.js</code> both record as its page count. The finding underneath is unchanged and is the important half: <b>zero coloured pages</b>, so it remains the largest hole in the sample by a distance.</p>
+    <p class="note">Lives in <code>design/system/components/alert-item.css</code>. Stands on 2 grey pages, 12 items: <code>wireframes/alerts.html</code> (8: two under "Needs you", five under "Just so you know", one inside the "Older" disclosure) and <code>wireframes/alerts-loading.html</code> (4 skeletons). <b>No coloured screen carries it</b>, so there is nothing to link to here, and node 3.8 arrives with the rollout at stage 12.</p>
+    <code class="kit-cmd">&lt;li&gt;&lt;a class="alert" href="subscription-detail-price-change.html"
+       aria-label="New. Netflix went up by $2.50, now $17.99 a month. Price change from Chase, Jul 28. See what changed."&gt;
+  &lt;span class="logo"&gt;&lt;img src="visuals/logos/netflix.svg" alt=""&gt;&lt;/span&gt;
+  &lt;span class="body"&gt;
+    &lt;span class="what"&gt;&lt;span class="newdot" aria-hidden="true"&gt;&lt;/span&gt;Netflix went up by $2.50, now $17.99 a month&lt;/span&gt;
+    &lt;span class="meta"&gt;Price change &amp;middot; Netflix &amp;middot; Jul 28 &amp;middot; from Chase&lt;/span&gt;
+    &lt;span class="prices"&gt;&lt;span&gt;Was &lt;b&gt;$15.49&lt;/b&gt;&lt;/span&gt;&lt;span&gt;Now &lt;b&gt;$17.99&lt;/b&gt;&lt;/span&gt;&lt;span&gt;Difference &lt;b&gt;$2.50&lt;/b&gt;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="go"&gt;See what changed&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/a&gt;&lt;/li&gt;</code>
+    <p class="note">The <code>aria-label</code> starts with the word "New" because the dot carries <code>aria-hidden</code> and a 7px circle cannot be read aloud. It ends with the action text for the same reason the subscription row's does: the item is one target, so it needs one sentence.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/alert-item.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its axes are in <code>docs/inventory.md</code>, which folds <code>.newdot</code>, <code>.what</code>, <code>.go</code> and <code>.prices</code> into it rather than counting them as one-offs; the hole this component sits in is in <code>docs/census.md</code>, part 3.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

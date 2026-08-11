@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typography - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Typography</h1>
+    <p class="lead">One family, <b>eight steps, and no half values.</b> The eight are primitives in <code>design/system/tokens.css</code>, adopted at the founder's review of the foundations on 2026-08-11. The product they correct shipped <b>21 sizes and no variable behind any of them</b>, five of those sizes half steps that existed for no stated reason. This page shows the eight at size in real product copy, and then where every one of the 21 lands.</p>
+    <div class="kit-meta">
+      <span>Foundation</span>
+      <span><strong>1</strong> family</span>
+      <span><strong>8</strong> steps, all tokens</span>
+      <span>was <strong>21</strong> sizes, <strong>0</strong> tokens</span>
+      <span><strong>5</strong> half steps, gone</span>
+      <span><strong>3</strong> weights, untouched</span>
+      <span>nearest step, ties to the larger</span>
+    </div>
+  </header>
+
+  <!-- ==================================================================
+       1. THE FAMILY
+       ================================================================== -->
+  <section class="kit-sec" id="family">
+    <h2>The family</h2>
+
+    <p class="note">One declaration sets it and nothing overrides it: <code>design/system/base.css</code> line 34, on <code>body</code>. There is no second family anywhere in the product. <b>DESIGN.md names the two that will not exist</b>, a display face and a mono face for numbers, and the reason is in its Character line: the personality is in the size jump, not in the letterforms. Figures still line up in a column, because <code>base.css</code> turns tabular numerals on for <code>table</code>, <code>.amt</code> and <code>.total</code>, which is everywhere figures stack.</p>
+
+    <p class="note">The monospace you can see on this page belongs to the stand, from <code>design/kit/_page.css</code>. It marks a measurement. The product never ships it.</p>
+
+    <div class="kit-spec">
+      <p class="meta"><span>font-family</span><span>1 declaration</span><span>base.css:34</span><span>the whole product</span></p>
+      <p class="sample sp-title">'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif</p>
+    </div>
+
+    <p class="note"><b>Three weights, and this pass did not touch them.</b> 400, 600 and 700, exactly as the product already carries them. The scale below is a scale of sizes: a step says how big, and the place says how heavy. What that leaves open is written at the foot of this page, because it is worth leaving open on purpose rather than by omission.</p>
+  </section>
+
+  <!-- ==================================================================
+       2. THE EIGHT STEPS, LIVE
+       ================================================================== -->
+  <section class="kit-sec" id="scale">
+    <h2>The eight steps</h2>
+
+    <p class="note"><b>Eight steps and no half values.</b> Each one is a job a reader can name, with a perceptible gap between neighbours, and each is a primitive in <code>tokens.css</code> that a component reads through <code>var()</code>. Every line below is real product copy from <code>voice/docs/microcopy.md</code>, set at that step's size.</p>
+
+    <p class="note">Size is the whole of what a step declares. The weight, line height and tracking on each specimen are what the product already gives that place, and they are not part of this pass; the section at the foot says why they were left alone. Colour is left out on purpose, and the reason matters: colour is where the product's real second tier lives, not size.</p>
+
+    <p class="note"><b>Each specimen below reads its own token</b>, through <code>var(--type-display)</code> and its seven neighbours: change a value in <code>tokens.css</code> and this ladder moves with it. <b>The ladder further down does not</b>, and must not. That one is a record of the sizes the product used to carry, so it is drawn from literals and stays where it was even if every token in the file changes. A page that documents a scale without reading it can quietly disagree with the scale.</p>
+
+    <div class="kit-spec">
+      <p class="meta"><span>--type-display</span><span>46px</span><span>the monthly total, and nothing else on a screen</span><span>folds in: 46</span></p>
+      <p class="sample sp-display">$192.90</p>
+    </div>
+
+    <div class="kit-spec">
+      <p class="meta"><span>--type-figure</span><span>32px</span><span>a subscription's own amount, a plan price</span><span>folds in: 40, 32, 30</span></p>
+      <p class="sample sp-figure">$11.99</p>
+    </div>
+
+    <div class="kit-spec">
+      <p class="meta"><span>--type-head</span><span>24px</span><span>the subject of a page</span><span>folds in: 24</span></p>
+      <p class="sample sp-head">Add a subscription</p>
+    </div>
+
+    <div class="kit-spec">
+      <p class="meta"><span>--type-title</span><span>20px</span><span>the subject of a block inside a page</span><span>folds in: 21, 20</span></p>
+      <p class="sample sp-title">Spotify Premium</p>
+    </div>
+
+    <div class="kit-spec">
+      <p class="meta"><span>--type-sub</span><span>16px</span><span>a merchant name, a door, the reading line</span><span>folds in: 17, 16, 15</span></p>
+      <p class="sample sp-sub">Connect your bank</p>
+    </div>
+
+    <div class="kit-spec">
+      <p class="meta"><span>--type-body</span><span>14px</span><span>sentences, button labels</span><span>folds in: 14.5, 14, 13.5, 13</span></p>
+      <p class="sample sp-body">See your subscriptions</p>
+    </div>
+
+    <div class="kit-spec">
+      <p class="meta"><span>--type-meta</span><span>12px</span><span>labels, hints, the second tier</span><span>folds in: 12.5, 12, 11.5, 11</span></p>
+      <p class="sample sp-meta">Read-only. Tendd cannot move your money.</p>
+    </div>
+
+    <div class="kit-spec">
+      <p class="meta"><span>--type-label</span><span>10px</span><span>badges and the eyebrow</span><span>folds in: 10.5, 8</span></p>
+      <p class="sample sp-label">Active</p>
+    </div>
+
+    <p class="note"><b>The namespace is <code>--type-</code> and not <code>--text-</code>, and that is not a preference.</b> <code>--text-</code> already belongs to the ink roles, and the first draft of this block called the body step <code>--text-body</code>, which is the name of a colour three hundred lines further down the same file. The later declaration wins, so every component asking for the body ink would have been handed <code>14px</code>. It was caught by reading the file back before anything was wired to it. Two things called the same name are one thing.</p>
+  </section>
+
+  <!-- ==================================================================
+       3. WHAT FOLDED INTO WHAT
+       ================================================================== -->
+  <section class="kit-sec" id="mapping">
+    <h2>What folded into what</h2>
+
+    <p class="note"><b>The rule, and it was applied mechanically:</b> every old size goes to the <b>nearest step</b>, and a <b>tie goes to the larger</b>, which is the direction a product for anxious readers should round in. Nobody decided value by value. <b>One exception, and it is named:</b> 40px is nearer 46 than 32, but 46 is exclusive to the monthly total under the One Number Rule, so the share card's total goes down to 32 rather than up.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th class="n">Was</th><th class="n">Becomes</th><th class="n">Move</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td class="n">46px</td><td class="n">46px</td><td class="dec">none</td><td><code>--type-display</code></td></tr>
+          <tr><td class="n">40px</td><td class="n"><b>32px</b></td><td class="n">-8px</td><td><code>--type-figure</code>, the named exception</td></tr>
+          <tr><td class="n">32px</td><td class="n">32px</td><td class="dec">none</td><td><code>--type-figure</code></td></tr>
+          <tr><td class="n">30px</td><td class="n"><b>32px</b></td><td class="n">+2px</td><td><code>--type-figure</code></td></tr>
+          <tr><td class="n">24px</td><td class="n">24px</td><td class="dec">none</td><td><code>--type-head</code></td></tr>
+          <tr><td class="n">21px</td><td class="n"><b>20px</b></td><td class="n">-1px</td><td><code>--type-title</code></td></tr>
+          <tr><td class="n">20px</td><td class="n">20px</td><td class="dec">none</td><td><code>--type-title</code></td></tr>
+          <tr><td class="n">17px</td><td class="n"><b>16px</b></td><td class="n">-1px</td><td><code>--type-sub</code></td></tr>
+          <tr><td class="n">16px</td><td class="n">16px</td><td class="dec">none</td><td><code>--type-sub</code></td></tr>
+          <tr><td class="n">15px</td><td class="n"><b>16px</b></td><td class="n">+1px</td><td><code>--type-sub</code>, a tie taken upward</td></tr>
+          <tr><td class="n">14.5px</td><td class="n"><b>14px</b></td><td class="n">-0.5px</td><td><code>--type-body</code></td></tr>
+          <tr><td class="n">14px</td><td class="n">14px</td><td class="dec">none</td><td><code>--type-body</code></td></tr>
+          <tr><td class="n">13.5px</td><td class="n"><b>14px</b></td><td class="n">+0.5px</td><td><code>--type-body</code></td></tr>
+          <tr><td class="n">13px</td><td class="n"><b>14px</b></td><td class="n">+1px</td><td><code>--type-body</code>, a tie taken upward</td></tr>
+          <tr><td class="n">12.5px</td><td class="n"><b>12px</b></td><td class="n">-0.5px</td><td><code>--type-meta</code></td></tr>
+          <tr><td class="n">12px</td><td class="n">12px</td><td class="dec">none</td><td><code>--type-meta</code></td></tr>
+          <tr><td class="n">11.5px</td><td class="n"><b>12px</b></td><td class="n">+0.5px</td><td><code>--type-meta</code></td></tr>
+          <tr><td class="n">11px</td><td class="n"><b>12px</b></td><td class="n">+1px</td><td><code>--type-meta</code>, a tie taken upward</td></tr>
+          <tr><td class="n">10.5px</td><td class="n"><b>10px</b></td><td class="n">-0.5px</td><td><code>--type-label</code></td></tr>
+          <tr><td class="n">8px</td><td class="n"><b>10px</b></td><td class="n">+2px</td><td><code>--type-label</code>, below the smallest step</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note"><b>One size moves by more than two pixels, and it is the one with a name on it.</b> Every other line in the table moves by two pixels or less, and eight of the twenty do not move at all. That is what a mechanical rule buys: the argument happens once, over the rule, instead of twenty times over twenty values.</p>
+
+    <p class="note"><b>Three values are not in the table, and each is out for its own reason.</b> <b>22px</b> on <code>.plan-opt .amt</code> is dead: the identical selector at <code>kit.css</code> line 680 sets 30px at the same specificity and wins, so the 22px rule at line 307 has never been seen by anybody. It is deleted rather than folded. <b>18px</b> and <b>10px</b>, on <code>.sidebar-close</code> and <code>.scr-label</code>, were never the product: they are the reviewer's chrome, and they leave with it to <code>_page.css</code>. The scale's own 10px arrives from the badge, not from them.</p>
+  </section>
+
+  <!-- ==================================================================
+       4. THE LADDER THIS REPLACES
+       ================================================================== -->
+  <section class="kit-sec" id="was">
+    <h2>The ladder this replaces</h2>
+
+    <p class="note">This section is the evidence, and it is short on purpose. <b>Twenty-three sizes in <code>kit.css</code>, 111 declarations, and no variable behind any of them.</b> Two of the twenty-three are the reviewer's chrome, so the product shipped twenty-one, and one of those twenty-one rendered nowhere. A size was written where it was used, so changing one changed exactly one place and nothing else.</p>
+
+    <p class="note"><b>Five of them were half steps:</b> 14.5, 13.5, 12.5, 11.5 and 10.5. No rule in the file said why any of them was half a pixel from its neighbour, because there was no rule. They are the clearest thing the eight steps remove, and describing them proves nothing, so each one is below beside the step it folded into.</p>
+
+    <p class="note"><b>Read each pair left to right, in one string of copy so the words cannot take the blame.</b> The left half is the half step and it is frozen on a literal size, because it is a record of what the product used to carry and must not move when a token does. The right half is the step it became and it reads <code>tokens.css</code>. If you cannot tell them apart, that is the argument: the counts are the number of places in <code>kit.css</code> that stood on the half step, counted in the file rather than taken from the audit.</p>
+
+    <div class="kit-spec">
+      <p class="meta"><span>14.5px</span><span>became 14px</span><span>3 places</span><span>.lede p</span><span>.alert .what</span><span>.navrow</span></p>
+      <p class="sample"><span class="sample sp-17">Data and privacy</span>&nbsp;&nbsp;<span class="sample sp-body">Data and privacy</span></p>
+    </div>
+
+    <p class="note">That pair is the one place a weight gets in the way, and it is worth saying rather than hiding: the 14.5px rule on <code>.alert .what</code> is 600 and the body step is 400, so the left half is heavier as well as half a pixel larger. Weights are not part of this pass. The other four pairs match in weight and differ in size alone.</p>
+
+    <div class="kit-spec">
+      <p class="meta"><span>13.5px</span><span>became 14px</span><span>15 places, 14 of them the product</span><span>.charges li</span><span>.tile</span><span>.next</span><span>and 11 more</span></p>
+      <p class="sample"><span class="sample sp-19">See what they are</span>&nbsp;&nbsp;<span class="sample sp-body">See what they are</span></p>
+    </div>
+
+    <div class="kit-spec">
+      <p class="meta"><span>12.5px</span><span>became 12px</span><span>9 places</span><span>.row .when</span><span>.alert .meta</span><span>.switch .h</span><span>and 6 more</span></p>
+      <p class="sample"><span class="sample sp-21">in 10 days &middot; Aug 11</span>&nbsp;&nbsp;<span class="sample sp-meta">in 10 days &middot; Aug 11</span></p>
+    </div>
+
+    <div class="kit-spec">
+      <p class="meta"><span>11.5px</span><span>became 12px</span><span>1 place</span><span>.tile .p</span></p>
+      <p class="sample"><span class="sample sp-23">Typically $11.99 a month</span>&nbsp;&nbsp;<span class="sample sp-meta">Typically $11.99 a month</span></p>
+    </div>
+
+    <div class="kit-spec">
+      <p class="meta"><span>10.5px</span><span>became 10px</span><span>1 rule, 5 selectors</span><span>.badge</span><span>.tag</span><span>.plan-opt .best</span><span>and 2 more</span></p>
+      <p class="sample"><span class="sample sp-25">Active</span>&nbsp;&nbsp;<span class="sample sp-label">Active</span></p>
+    </div>
+
+    <p class="note">One of the five counts needed its rule stated. <b>13.5px is written fifteen times in <code>kit.css</code> and only fourteen of them are the product:</b> the fifteenth is <code>.nav-brand</code> at line 106, the reviewer's chrome, which <code>_page.css</code> now owns and which travels to no build. The other four counts hold exactly as measured: 3, 9, 1 and 1.</p>
+
+    <p class="note"><b>The sharpest evidence was inside a single row.</b> <code>.row .name</code> was 15px and <code>.row .amt</code> was 14px: the two halves of the same line, one pixel apart, for no reason anybody wrote down. Under the scale the name is 16px and the amount is 14px, which is a difference a reader can name, or both sit on one step if the row wants them level. Either is a decision. One pixel was not.</p>
+
+    <p class="note"><b>And the largest group was one pixel from two others.</b> 13px carried 29 declarations, with 13.5px on 15 above it and 12.5px on 9 below: fifty-three places on three sizes covering a range of a single pixel. All of 13.5, 13 and 14 now sit on <code>--type-body</code>, and 12.5 sits on <code>--type-meta</code> beside 12.</p>
+  </section>
+
+  <!-- ==================================================================
+       5. WHAT DID NOT CHANGE
+       ================================================================== -->
+  <section class="kit-sec" id="unchanged">
+    <h2>What did not change, and why</h2>
+
+    <p class="note"><b>Line heights, letter spacing and weights are out of scope for this pass.</b> Eleven line heights, nine tracking values and three weights are still exactly where the product left them. They were never the complaint, and folding them at the same time would hide what the size change did: if a line moves and its size, its weight and its leading all changed at once, nothing about the move can be attributed to anything. One axis at a time is how a change stays readable afterwards.</p>
+
+    <p class="note"><b>Colour did not move either.</b> Twenty-two primitives and twenty-nine roles, all paired across both themes, untouched by this review. Nothing on this page changes what any line is coloured, and the second tier of information is still carried by <code>--text-muted</code> rather than by a size.</p>
+
+    <p class="note"><b>The open question this leaves, stated so it is not discovered later.</b> Nine heading rules in <code>kit.css</code> set a size and no weight, so they render at the browser's <code>bold</code> rather than at a chosen one, and <code>body</code> declares no weight either. The scale does not settle that, because the scale is sizes. It is the next thing to decide about type, and it belongs to whoever writes the heading component rather than to this page.</p>
+
+    <p class="note"><b>One thing the scale does not fix.</b> All eight steps are in px, so none of them answers a browser text-size setting. Changing that is a rem question and it belongs to Responsive, stage 10. It is written here so it is not discovered there.</p>
+  </section>
+
+  <footer class="kit-foot">
+    The eight steps live in the primitive half of <code>design/system/tokens.css</code>, adopted at the founder's review of the foundations on 2026-08-11; the mapping above is the one that review fixed, applied to every size the product carried. The sizes, weights, line heights and declaration counts of the old ladder were measured in <code>design/kit/kit.css</code> at stage 08, with CSS comments excluded from the count. Every specimen line is real product copy from <code>voice/docs/microcopy.md</code>. The screens these sizes render on are in <a href="../overview.html">UI + Visual</a>, and the rest of the system is in <a href="overview.html">the design system</a>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

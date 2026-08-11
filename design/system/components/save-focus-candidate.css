@@ -1,0 +1,127 @@
+/* ============================================================================
+   Save-focus candidate - molecule
+   A subscription a person might not be using, standing next to the one control
+   that ends it. Two targets on one line, and telling them apart is the whole
+   design: the row goes to the subscription, the cut goes to the cancel guide,
+   and confusing the two is what costs the cancellation.
+
+   Reads
+     colour   --bg-surface, --text-body, --line-control, --line-divider
+     states   --line-control-hover, --text-primary, --color-focus
+     geometry --tap, --radius-sm
+     type     --type-body
+     spacing  --space-0, --space-4, --space-8, --space-16
+   Page      design/kit/save-focus-candidate.html
+   Stands on 1 grey page, 2 candidates: home-savefocus. Both are coloured, so
+   the whole component renders in Petrol and Paper today.
+
+   IT HOSTS THE SUBSCRIPTION ROW AND REPAINTS NOTHING OF IT. The row inside a
+   candidate is the same row as on Home: same class, same markup, same single
+   accessible name. Its two host rules (`flex: 1; min-width: 0` at rest and
+   `flex: 1 1 100%` under 460) live in subscription-row.css, with the cascade
+   reason written there: this file imports BEFORE that one alphabetically, so a
+   `.cand .row` rule written here would lose to the row's own at equal
+   specificity and the narrow reflow would silently stop happening.
+
+   `.cut` IS NEARLY THE BUTTON NOW, AND THE FOLD IS WHAT DID IT. The inventory
+   already recorded that `a.cut` is dimensionally identical to `nav.secondary a`
+   and gave it no family. After the founder's review of the foundations the gap
+   to `.btn` itself is down to two things: weight 400 against 600, and a hover
+   that changes the edge and the ink without changing the fill. Everything else
+   folded, because 13px and 14px are both --type-body and 14px and 18px of side
+   padding are both --space-16. It is NOT merged here: renaming is step 6, and a
+   merge at step 5 would leave the pixel comparison with nothing to prove. It is
+   on the component's page as an open row with the two remaining differences
+   named, which is what puts it in front of the person who decides.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.cand` and `.cand .cut` stay exactly as the
+   product writes them.
+   ============================================================================ */
+
+.app .cand, .landing .cand {
+  display: flex; align-items: center;
+  gap: var(--space-8);
+  /* The candidate draws its own divider rather than a list drawing it, the same
+     way the switch row does and the opposite of the subscription row. The list
+     around it (`.candidates`, an organism, not built yet) carries no separator
+     rule of any kind. */
+  border-bottom: 1px solid var(--line-divider);
+}
+.app .cand:last-child, .landing .cand:last-child { border-bottom: 0; }
+
+/* ---- the cut: a SECOND control, named separately on purpose ---------------
+   The row keeps its whole-row target and this is not part of it. Two anchors on
+   one line, each with its own accessible name ("Cancel Peloton App"), because a
+   person who means to look at a subscription and lands on the cancel guide
+   stops trusting the list, and a person who means to cancel and lands on the
+   detail screen gives up.
+
+   It reads --line-control rather than --line-container: this is a boundary that
+   IDENTIFIES a control, which WCAG 1.4.11 asks 3:1 of, and the founder's
+   contrast decision of 2026-08-11 names `.cand .cut` in the six rules that take
+   the darker edge. --tap and not --row: it is a button-shaped control standing
+   inside a 56px line, and 44px is its own floor. */
+.app .cand .cut, .landing .cand .cut {
+  flex: none;
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  padding: var(--space-0) var(--space-16);
+  border: 1px solid var(--line-control);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  font-size: var(--type-body);
+  color: var(--text-body);
+  text-decoration: none;
+}
+
+/* ---- states: token overrides, never a style of their own ------------------
+   The cut is a link and has them. The candidate itself is an `li` holding two
+   anchors: it has no href, no hover and no ring, and its states are the two
+   controls inside it, one of which belongs to subscription-row.css.
+
+   THE HOVER CHANGES EDGE AND INK AND NOT THE FILL, which is the one place this
+   control still differs from `.btn` besides its weight. It is carried exactly
+   as kit.css writes it rather than aligned to the button, because aligning it
+   would be a visual change with no line in any of the three lists that are
+   allowed to produce one. The edge STRENGTHENS under the pointer: 3.46:1 at
+   rest on the light surface and 5.78:1 here, which is what a hover is for. */
+.app .cand .cut:hover, .landing .cand .cut:hover {
+  border-color: var(--line-control-hover);
+  color: var(--text-primary);
+}
+
+/* focus-visible, not focus: the ring is for the person arriving by keyboard and
+   is noise for the person who just clicked. base.css declares one ring for the
+   whole system inside :where(), which holds it at specificity 0; this
+   re-declares it at the component's own specificity so the component wins, and
+   reads the same token so the two can never disagree about what a ring is. It
+   earns its place on this control more than on most: the cut sits immediately
+   after a full-width row in the tab order, and a keyboard user needs to see
+   that the focus has moved from "open it" to "end it". */
+.app .cand .cut:focus-visible, .landing .cand .cut:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* NO DISABLED STATE. A candidate that cannot be cancelled is not listed as a
+   candidate. And no destructive tone: D3 puts no paywall at the cancel moment
+   and DESIGN.md spends clay on OUR failure only, never on a thing a person
+   chose to do. Cancelling is a small win, which is the product's most important
+   emotional beat, and painting its control red would say the opposite. */
+
+/* ---- the narrow reflow ---------------------------------------------------
+   Under 460 the cut drops to its own line and pushes itself to the end. A
+   merchant name, an amount and a second control do not share 360px without the
+   name wrapping into the amount, and the name is the thing being decided about.
+   The third rule of this block, `.cand .row { flex: 1 1 100% }`, is in
+   subscription-row.css for the cascade reason in this file's header.
+
+   `.app` ONLY, carried exactly as kit.css writes it. Every other rule of this
+   component names both hosts; this block names one, so on the landing the
+   candidate would not reflow. Selectors are not touched at step 5, precisely so
+   the pixel comparison at step 8 has nothing to explain away, and it is fixed
+   at step 6 with the rename. */
+@media (max-width: 460px) {
+  .app .cand { flex-wrap: wrap; padding: var(--space-4) var(--space-0) var(--space-8); }
+  .app .cand .cut { margin-left: auto; }
+}

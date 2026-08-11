@@ -1,0 +1,720 @@
+/* design/kit/_page.css - the stand's own look, and NOTHING the product ships.
+
+   The split this file enforces: design/system/ is the code a product loads,
+   design/kit/ is how a person looks at it. A product class in here, or a stand
+   style in a component file, is a defect either way.
+
+   It is also the home of the reviewer's chrome. `.layout`, `.stage`, `.sidebar`
+   and the eight --c-* variables lived in kit.css alongside the product and were
+   counted as an organism on 55 pages. They never travelled to a build and never
+   should: stage 08 takes them out of the system and puts them here.
+
+   ISOLATION RULE. base.css comes onto every stand page on purpose: the stand
+   must show the product's own reset and reading defaults, not a private set.
+   Where the product frame and the stand disagree, the stand yields. Nothing in
+   design/system/ is ever bent to make this page look better; the material is
+   shown inside a scene of the stand's own instead. */
+
+:root {
+  --kn-surface: #ffffff;
+  --kn-border: #e8e4dc;
+  --kn-border-light: #f0ede6;
+  --kn-text: #2a2724;
+  --kn-text-secondary: #6b6560;
+  --kn-text-muted: #6f6a63;
+  --kn-accent: #4e6a5c;
+  --kn-accent-light: #eef4f1;
+  --kn-radius: 6px;
+}
+[data-theme="dark"] {
+  --kn-surface: #171d1f;
+  --kn-border: #2b3538;
+  --kn-border-light: #222b2e;
+  --kn-text: #e6edee;
+  --kn-text-secondary: #b1bdc0;
+  --kn-text-muted: #94a1a4;
+  --kn-accent: #8fc2ac;
+  --kn-accent-light: #1b2a25;
+}
+
+.kit-body { min-height: 100vh; }
+
+/* ---------- the panel ---------- */
+
+.kit-panel {
+  position: fixed; top: 0; left: 0; bottom: 0; width: 268px; z-index: 200;
+  display: flex; flex-direction: column;
+  background: var(--kn-surface); border-right: 1px solid var(--kn-border);
+  transform: translateX(-100%); visibility: hidden;
+  transition: transform 0.22s ease, visibility 0.22s;
+}
+.kit-panel.open { transform: translateX(0); visibility: visible; }
+.kit-panel-head { padding: 16px 16px 12px; border-bottom: 1px solid var(--kn-border-light); }
+.kit-panel-head .r1 { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.kit-badge {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--kn-accent); background: var(--kn-accent-light);
+  border-radius: 999px; padding: 3px 9px;
+}
+.kit-sub { margin: 6px 0 0; font-size: 12px; color: var(--kn-text-muted); }
+.kit-allsys {
+  display: block; margin: 12px 0 0; padding: 7px 10px; border-radius: var(--kn-radius);
+  font-size: 12.5px; text-decoration: none; color: var(--kn-accent); background: var(--kn-accent-light);
+}
+.kit-panel-close, .kit-toggle {
+  background: var(--kn-surface); border: 1px solid var(--kn-border); border-radius: var(--kn-radius);
+  color: var(--kn-text); font: inherit; cursor: pointer;
+}
+.kit-panel-close { border: 0; background: none; font-size: 18px; line-height: 1; color: var(--kn-text-muted); padding: 4px 6px; }
+.kit-toggle { position: fixed; top: 12px; left: 12px; z-index: 210; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; font-size: 13px; }
+.kit-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 190; }
+.kit-overlay.open { display: block; }
+
+#kit-nav { flex: 1; overflow-y: auto; padding: 10px 10px 20px; }
+.kn-group { margin: 0 0 2px; }
+.kn-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%;
+  padding: 8px 10px; border: 0; background: none; border-radius: var(--kn-radius);
+  font: inherit; font-size: 10.5px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--kn-text-muted); cursor: pointer; text-align: left;
+}
+.kn-head:hover { background: var(--kn-border-light); }
+.kn-head .kn-count { font-weight: 600; letter-spacing: 0; }
+.kn-head .kn-caret { transition: transform 0.18s ease; }
+.kn-group.is-open .kn-head .kn-caret { transform: rotate(90deg); }
+.kn-list { list-style: none; margin: 0 0 8px; padding: 0; display: none; }
+.kn-group.is-open .kn-list { display: block; }
+.kn-list a, .kn-list .kn-pending {
+  display: block; padding: 6px 10px 6px 20px; border-radius: var(--kn-radius);
+  font-size: 13px; text-decoration: none; color: var(--kn-text-secondary);
+}
+.kn-list a:hover { background: var(--kn-border-light); color: var(--kn-text); }
+.kn-list a.current { background: var(--kn-accent-light); color: var(--kn-accent); font-weight: 600; }
+.kn-pending { color: var(--kn-text-muted); opacity: 0.6; cursor: default; }
+
+.kit-panel-foot { border-top: 1px solid var(--kn-border-light); padding: 12px 10px 14px; }
+.kit-panel-foot a {
+  display: block; padding: 6px 10px; border-radius: var(--kn-radius);
+  font-size: 12.5px; text-decoration: none; color: var(--kn-text-muted);
+}
+.kit-panel-foot a:hover { background: var(--kn-border-light); color: var(--kn-text); }
+
+.kit-theme { display: flex; gap: 6px; margin: 10px 0 0; padding: 0 10px; }
+.kit-theme button {
+  flex: 1; min-height: 32px; border: 1px solid var(--kn-border); background: none;
+  border-radius: var(--kn-radius); font: inherit; font-size: 12px; color: var(--kn-text-secondary); cursor: pointer;
+}
+.kit-theme button[aria-pressed="true"] { background: var(--kn-accent-light); border-color: var(--kn-accent); color: var(--kn-accent); font-weight: 600; }
+
+@media (min-width: 1100px) {
+  .kit-panel { transform: translateX(0); visibility: visible; }
+  .kit-toggle, .kit-panel-close { display: none; }
+  .kit-overlay { display: none !important; }
+  /* THE PADDING FOLLOWS THE PANEL THAT IS ACTUALLY ON THE PAGE, and :has() is
+     what makes that possible. Two different chromes live in this file and both
+     are fixed to the left edge: this one, the component kit's panel at 268px
+     docking at 1100, and `.sidebar`, the roadmap's at 220px docking at 840. No
+     page carries both, and until 2026-08-11 neither rule knew that.
+     `body.kit-body { padding-left: 220px }` from the roadmap block reached
+     every component page, because its subject is the BODY and not the sidebar,
+     and at 0-1-1 it also outranked the 0-1-0 written here. The result was
+     invisible to every check that looked for horizontal scroll, because there
+     was none: between 840 and 1099 a component page reserved 220px for a panel
+     that was off-canvas, and from 1100 up the 268px panel covered the first
+     48px of its own content. Found by the founder, on screen, at a width the
+     sweep never ran. */
+  body.kit-body:has(aside.kit-panel) { padding-left: 268px; }
+}
+
+/* ---------- the page ---------- */
+
+.kit-wrap { max-width: 1000px; margin: 0 auto; padding: 40px 28px 80px; }
+.kit-head h1 { margin: 0 0 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
+.kit-head .lead { margin: 0 0 18px; max-width: 66ch; font-size: 15px; color: var(--text-muted); }
+.kit-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 26px; }
+.kit-meta span {
+  font-size: 12px; color: var(--text-body); background: var(--bg-surface);
+  border: 1px solid var(--line-container); border-radius: 999px; padding: 4px 11px;
+}
+.kit-meta span strong { color: var(--text-action); font-weight: 700; }
+
+.kit-sec { margin: 36px 0 0; }
+.kit-sec > h2 {
+  margin: 0 0 4px; padding: 0 0 8px; border-bottom: 1px solid var(--line-container);
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted);
+}
+.kit-sec > .note { margin: 12px 0 18px; max-width: 74ch; font-size: 13.5px; color: var(--text-muted); }
+.kit-sec > .note b { color: var(--text-primary); }
+.kit-sub-h { margin: 26px 0 10px; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+
+/* cards, for the hub */
+.kit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.kit-card { background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: var(--radius-sm); padding: 14px; }
+.kit-card.is-pending { background: var(--bg-recessed); border-style: dashed; }
+.kit-card .r1 { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 0 0 6px; }
+.kit-card .nm { font-size: 14.5px; font-weight: 600; color: var(--text-primary); text-decoration: none; }
+.kit-card a.nm:hover { color: var(--text-action); }
+.kit-card .cls { font-size: 11.5px; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.kit-card .ax { margin: 0; font-size: 12px; color: var(--text-muted); }
+.kit-card .was { margin: 6px 0 0; font-size: 11.5px; color: var(--text-muted); }
+.kit-card .was b { color: var(--text-body); font-weight: 600; }
+.kit-card .cnt { flex: none; font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.kit-thumb { display: flex; align-items: center; gap: 4px; height: 34px; margin: 10px 0 0; overflow: hidden; }
+.kit-thumb i { display: block; flex: 1; height: 100%; border-radius: 3px; }
+
+/* tables */
+.kit-tab { overflow-x: auto; margin: 0 0 20px; }
+.kit-tab table { border-collapse: collapse; width: 100%; min-width: 600px; font-size: 13px; }
+.kit-tab th, .kit-tab td { text-align: left; vertical-align: top; padding: 9px 14px 9px 0; border-bottom: 1px solid var(--line-divider); }
+.kit-tab th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; border-bottom-color: var(--line-container); }
+.kit-tab td:last-child { color: var(--text-muted); }
+.kit-tab code, .kit-code { font-size: 11.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text-body); }
+.kit-tab .n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kit-tab .ok { color: var(--text-action); font-weight: 600; }
+.kit-tab .dec { color: var(--text-muted); }
+
+/* colour: primitive tiles */
+.kit-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.kit-sw { border: 1px solid var(--line-container); border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-surface); }
+.kit-sw i { display: block; height: 56px; border-bottom: 1px solid var(--line-container); }
+.kit-sw b { display: block; padding: 8px 10px 2px; font-size: 12px; font-weight: 600; color: var(--text-primary); }
+.kit-sw span { display: block; padding: 0 10px 9px; font-size: 11px; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* colour: a role shown in both themes side by side, whatever the page theme is */
+.kit-roles { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+.kit-role { border: 1px solid var(--line-container); border-radius: var(--radius-sm); padding: 12px; background: var(--bg-surface); }
+.kit-role .rn { display: block; font-size: 12.5px; font-weight: 600; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text-primary); }
+.kit-role .rs { display: block; margin: 2px 0 8px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); }
+.kit-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.kit-chip { border: 1px solid var(--line-divider); border-radius: var(--radius-xs); padding: 8px; font-size: 11px; }
+.kit-chip .lbl { display: block; margin: 0 0 6px; font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.7; }
+.kit-chip .val { display: block; margin-top: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; opacity: 0.75; }
+.kit-chip .demo { display: flex; align-items: center; justify-content: center; height: 34px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+.kit-role .why { margin: 9px 0 0; font-size: 11.5px; color: var(--text-muted); }
+.kit-role .why b { color: var(--text-body); font-weight: 600; }
+
+/* typography: live specimens */
+.kit-spec { padding: 14px 0; border-bottom: 1px solid var(--line-divider); }
+.kit-spec:last-child { border-bottom: 0; }
+.kit-spec .meta { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 8px; font-size: 11px; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.kit-spec .sample { margin: 0; color: var(--text-primary); }
+
+/* geometry: spacing and radius shown as themselves */
+.kit-scale { display: flex; flex-direction: column; gap: 8px; }
+.kit-bar { display: flex; align-items: center; gap: 12px; }
+.kit-bar .val { flex: none; width: 62px; font-size: 11.5px; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.kit-bar i { display: block; height: 14px; border-radius: 2px; background: var(--bg-action); opacity: 0.7; }
+.kit-bar .use { font-size: 11.5px; color: var(--text-muted); }
+.kit-radii { display: flex; flex-wrap: wrap; gap: 14px; }
+.kit-radii figure { margin: 0; text-align: center; }
+.kit-radii i { display: block; width: 76px; height: 76px; background: var(--bg-selected); border: 1px solid var(--line-control); }
+.kit-radii figcaption { margin: 6px 0 0; font-size: 11.5px; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+/* icons */
+.kit-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.kit-icon { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 8px; border: 1px solid var(--line-container); border-radius: var(--radius-sm); background: var(--bg-surface); }
+.kit-icon .glyph { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; color: var(--text-body); }
+.kit-icon .glyph img, .kit-icon .glyph svg { width: 100%; height: 100%; }
+.kit-icon .nm { font-size: 11px; color: var(--text-muted); text-align: center; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.kit-icon .mask { width: 24px; height: 24px; background: currentColor; }
+
+.kit-foot { margin: 44px 0 0; padding: 16px 0 0; border-top: 1px solid var(--line-container); font-size: 13px; color: var(--text-muted); }
+.kit-foot a { color: var(--text-action); }
+
+/* ---------- generated from design/system/tokens.css ----------
+   One class per primitive and one per role, so a swatch can be painted from the
+   stand stylesheet rather than from a style attribute on the tile. Regenerate these
+   whenever tokens.css gains or loses a name; nothing else in this file is generated. */
+.c--paper { background: var(--paper); }
+.c--canvas { background: var(--canvas); }
+.c--panel { background: var(--panel); }
+.c--ink { background: var(--ink); }
+.c--slate { background: var(--slate); }
+.c--muted { background: var(--muted); }
+.c--hairline { background: var(--hairline); }
+.c--hairline-soft { background: var(--hairline-soft); }
+.c--hairline-strong { background: var(--hairline-strong); }
+.c--edge { background: var(--edge); }
+.c--skeleton { background: var(--skeleton); }
+.c--petrol { background: var(--petrol); }
+.c--petrol-deep { background: var(--petrol-deep); }
+.c--petrol-tint { background: var(--petrol-tint); }
+.c--amber { background: var(--amber); }
+.c--amber-wash { background: var(--amber-wash); }
+.c--clay { background: var(--clay); }
+.c--clay-wash { background: var(--clay-wash); }
+.c--stone { background: var(--stone); }
+.c--stone-ink { background: var(--stone-ink); }
+.c--teal-wash { background: var(--teal-wash); }
+.c--teal-ink { background: var(--teal-ink); }
+.c--paper-dark { background: var(--paper-dark); }
+.c--canvas-dark { background: var(--canvas-dark); }
+.c--panel-dark { background: var(--panel-dark); }
+.c--ink-dark { background: var(--ink-dark); }
+.c--slate-dark { background: var(--slate-dark); }
+.c--muted-dark { background: var(--muted-dark); }
+.c--hairline-dark { background: var(--hairline-dark); }
+.c--hairline-soft-dark { background: var(--hairline-soft-dark); }
+.c--edge-dark { background: var(--edge-dark); }
+.c--skeleton-dark { background: var(--skeleton-dark); }
+.c--petrol-dark { background: var(--petrol-dark); }
+.c--petrol-deep-dark { background: var(--petrol-deep-dark); }
+.c--petrol-tint-dark { background: var(--petrol-tint-dark); }
+.c--amber-dark { background: var(--amber-dark); }
+.c--amber-wash-dark { background: var(--amber-wash-dark); }
+.c--clay-dark { background: var(--clay-dark); }
+.c--clay-wash-dark { background: var(--clay-wash-dark); }
+.c--stone-dark { background: var(--stone-dark); }
+.c--stone-ink-dark { background: var(--stone-ink-dark); }
+.c--teal-wash-dark { background: var(--teal-wash-dark); }
+.c--teal-ink-dark { background: var(--teal-ink-dark); }
+.f--bg-page { background: var(--bg-page); }
+.t--bg-page { color: var(--bg-page); }
+.b--bg-page { border-color: var(--bg-page); }
+.f--bg-surface { background: var(--bg-surface); }
+.t--bg-surface { color: var(--bg-surface); }
+.b--bg-surface { border-color: var(--bg-surface); }
+.f--bg-recessed { background: var(--bg-recessed); }
+.t--bg-recessed { color: var(--bg-recessed); }
+.b--bg-recessed { border-color: var(--bg-recessed); }
+.f--bg-callout { background: var(--bg-callout); }
+.t--bg-callout { color: var(--bg-callout); }
+.b--bg-callout { border-color: var(--bg-callout); }
+.f--bg-selected { background: var(--bg-selected); }
+.t--bg-selected { color: var(--bg-selected); }
+.b--bg-selected { border-color: var(--bg-selected); }
+.f--bg-attention { background: var(--bg-attention); }
+.t--bg-attention { color: var(--bg-attention); }
+.b--bg-attention { border-color: var(--bg-attention); }
+.f--bg-failure { background: var(--bg-failure); }
+.t--bg-failure { color: var(--bg-failure); }
+.b--bg-failure { border-color: var(--bg-failure); }
+.f--bg-status { background: var(--bg-status); }
+.t--bg-status { color: var(--bg-status); }
+.b--bg-status { border-color: var(--bg-status); }
+.f--bg-trial { background: var(--bg-trial); }
+.t--bg-trial { color: var(--bg-trial); }
+.b--bg-trial { border-color: var(--bg-trial); }
+.f--bg-placeholder { background: var(--bg-placeholder); }
+.t--bg-placeholder { color: var(--bg-placeholder); }
+.b--bg-placeholder { border-color: var(--bg-placeholder); }
+.f--bg-action { background: var(--bg-action); }
+.t--bg-action { color: var(--bg-action); }
+.b--bg-action { border-color: var(--bg-action); }
+.f--bg-action-strong { background: var(--bg-action-strong); }
+.t--bg-action-strong { color: var(--bg-action-strong); }
+.b--bg-action-strong { border-color: var(--bg-action-strong); }
+.f--text-primary { background: var(--text-primary); }
+.t--text-primary { color: var(--text-primary); }
+.b--text-primary { border-color: var(--text-primary); }
+.f--text-body { background: var(--text-body); }
+.t--text-body { color: var(--text-body); }
+.b--text-body { border-color: var(--text-body); }
+.f--text-muted { background: var(--text-muted); }
+.t--text-muted { color: var(--text-muted); }
+.b--text-muted { border-color: var(--text-muted); }
+.f--text-action { background: var(--text-action); }
+.t--text-action { color: var(--text-action); }
+.b--text-action { border-color: var(--text-action); }
+.f--text-on-action { background: var(--text-on-action); }
+.t--text-on-action { color: var(--text-on-action); }
+.b--text-on-action { border-color: var(--text-on-action); }
+.f--text-attention { background: var(--text-attention); }
+.t--text-attention { color: var(--text-attention); }
+.b--text-attention { border-color: var(--text-attention); }
+.f--text-failure { background: var(--text-failure); }
+.t--text-failure { color: var(--text-failure); }
+.b--text-failure { border-color: var(--text-failure); }
+.f--text-status { background: var(--text-status); }
+.t--text-status { color: var(--text-status); }
+.b--text-status { border-color: var(--text-status); }
+.f--text-trial { background: var(--text-trial); }
+.t--text-trial { color: var(--text-trial); }
+.b--text-trial { border-color: var(--text-trial); }
+.f--line-control { background: var(--line-control); }
+.t--line-control { color: var(--line-control); }
+.b--line-control { border-color: var(--line-control); }
+.f--line-container { background: var(--line-container); }
+.t--line-container { color: var(--line-container); }
+.b--line-container { border-color: var(--line-container); }
+.f--line-divider { background: var(--line-divider); }
+.t--line-divider { color: var(--line-divider); }
+.b--line-divider { border-color: var(--line-divider); }
+.f--line-selected { background: var(--line-selected); }
+.t--line-selected { color: var(--line-selected); }
+.b--line-selected { border-color: var(--line-selected); }
+
+/* The four roles and states the foundations page had to grow a swatch for. Two
+   were declared after step 4 built this block (--line-failure at the atom round,
+   --line-action-soft at the molecule round) and three had been declared since
+   step 3 and were never drawn: --bg-hover, --line-control-hover, --color-focus.
+   A token nobody can see on the foundations page is a token nobody can check. */
+.b--line-failure { border-color: var(--line-failure); }
+.b--line-action-soft { border-color: var(--line-action-soft); }
+.f--bg-hover { background: var(--bg-hover); }
+.b--line-control-hover { border-color: var(--line-control-hover); }
+.b--line-container-hover { border-color: var(--line-container-hover); }
+.b--color-focus { border-color: var(--color-focus); }
+
+/* ---------- the five frozen half steps ----------
+   What is left of the generated ladder. Twenty two of the twenty seven classes went
+   when the eight step scale was adopted: the ladder they drew is now drawn by
+   var(--type-*), which is the point of a scale.
+
+   These five stay, and they stay LITERAL on purpose. They are the half steps the
+   founder removed, and typography.html shows each one beside the step it folded
+   into so a reader can see that 13.5 next to 14 is not a difference. A record of
+   what a value WAS must not follow the token that replaced it, or the evidence
+   quietly rewrites itself. */
+.kit-spec .sample.sp-17 { font-size:14.5px; font-weight:600; }
+.kit-spec .sample.sp-19 { font-size:13.5px; font-weight:400; }
+.kit-spec .sample.sp-21 { font-size:12.5px; font-weight:400; }
+.kit-spec .sample.sp-23 { font-size:11.5px; font-weight:400; }
+.kit-spec .sample.sp-25 { font-size:10.5px; font-weight:600; line-height:1.6; }
+
+/* ============================================================================
+   THE REVIEWER CHROME, moved here at step 4 and not before.
+
+   These rules lived in design/kit/kit.css beside the product, where the stage 07
+   inventory counted them as an organism called "Review page frame" standing on 55
+   pages. They travel to no build. Step 2 decided they leave the system; this is the
+   move itself, and it was owed the moment the hub stopped loading kit.css: the hub
+   went on declaring .sidebar and nothing styled it, so the roadmap rendered as a
+   plain stack above the page. Documenting a move is not making one.
+
+   kit.css keeps its copy until step 8, because the 28 coloured product screens still
+   load it and still need this chrome. That file is deleted at step 8 and the
+   duplicate dies with it, so the two copies never outlive the migration.
+
+   Written against the stand's own --kn-* variables rather than the product's roles:
+   chrome must not change when the product's palette does.
+   ============================================================================ */
+
+.sidebar {
+  /* ONE NUMBER FOR THE DRAWER, and it is the roadmap's own. --nav-w lives in
+     /_nav.css, which owns the roadmap's look project-wide, and it is 240px.
+     This file used to hardcode 220 and that disagreement was 20px wide: the
+     injected #sidebar takes `width: 100%` at an ID's specificity, so the drawer
+     rendered 240 while the body reserved 220 and the panel covered the first
+     20px of the page under it. /_nav.css already carried a comment about
+     exactly those 20px, describing them as hosts built to 220 that a fixed 240
+     overflowed, and the workaround was to cap the nav rather than agree on the
+     number. Two owners for one measurement is the fault; the cap was the patch.
+     The fallback is the old value, for any page that shows this drawer without
+     loading /_nav.css. */
+  position: fixed; top: 0; left: 0; bottom: 0; width: var(--nav-w, 220px); z-index: 200;
+  overflow-y: auto; padding-bottom: 32px;
+  background: var(--kn-surface); border-right: 1px solid var(--kn-border);
+  /* visibility, not transform alone: off-canvas by transform leaves every chrome
+     link in the tab order, so on a phone a keyboard user tabs through an invisible
+     panel before reaching the page. visibility still animates when it is paired
+     with a duration. */
+  transform: translateX(-100%); visibility: hidden;
+  transition: transform 0.22s ease, visibility 0.22s;
+}
+.sidebar.open { transform: translateX(0); visibility: visible; }
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 150; }
+.sidebar-overlay.open { display: block; }
+.sidebar-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 16px 14px; border-bottom: 1px solid var(--kn-border-light);
+}
+.nav-brand { font-weight: 600; font-size: 13.5px; color: var(--kn-text); letter-spacing: -0.01em; }
+.sidebar-close {
+  background: none; border: none; font-size: 18px; line-height: 1;
+  color: var(--kn-text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--kn-radius);
+}
+/* In normal flow above the page rather than floating over it. Floated, it covers
+   something at every position that was tried. Hidden entirely from 840. */
+.nav-toggle {
+  position: static; display: flex; align-items: center; justify-content: flex-start;
+  width: 100%; height: 40px; padding: 0 14px; z-index: 100;
+  background: var(--kn-surface); border: 0; border-bottom: 1px solid var(--kn-border);
+  border-radius: 0; box-shadow: none; cursor: pointer;
+  color: var(--kn-text-secondary); font-size: 13px; text-align: left;
+}
+@media (min-width: 840px) {
+  .sidebar { transform: translateX(0); visibility: visible; }
+  .sidebar-close, .nav-toggle { display: none; }
+  .sidebar-overlay { display: none !important; }
+  body.kit-body:has(.sidebar) { padding-left: var(--nav-w, 220px); }
+}
+/* The hub carries BOTH panels, so its theme switch belongs to the roadmap panel and
+   has to sit inside the drawer rather than stretching across the page. */
+.sidebar .kit-theme { padding: 12px 12px 0; }
+
+/* The roadmap panel in the dark theme.
+
+   /_nav.css is a PROJECT-WIDE file: it draws the roadmap on every page of every
+   stage and it has one palette, designed for a light ground. The stand is the only
+   place in the project with a theme switch, so it is the stand's job to make the
+   chrome survive it, not that file's. Forking a shared stylesheet for one page
+   would be the wrong repair, and leaving it alone would leave the roadmap at
+   roughly 1.5:1 on the dark ground: present, and unreadable.
+
+   Only the four variables /_nav.css already reads are redefined. No selector of
+   its own is overridden, so it stays the single owner of how the roadmap looks. */
+[data-theme="dark"] .sidebar {
+  --nav-fg: var(--kn-text);
+  --nav-muted: var(--kn-text-muted);
+  --nav-active: var(--kn-accent);
+  --nav-rule: var(--kn-border);
+  --nav-badge: var(--kn-accent);
+}
+[data-theme="dark"] .nav-badge-next { color: var(--kn-surface); }
+
+/* ---------- the stage account on overview.html ----------
+   The roadmap leads here, so this page answers "what did this stage do" before it
+   answers "what is in the system". Long measure, dense prose, a step reference on
+   every section: the reader is a person catching up, not a person browsing. */
+
+.kit-eyebrow {
+  margin: 0 0 10px; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+}
+.kit-head h1.big { font-size: 44px; line-height: 1.04; letter-spacing: -0.03em; margin: 0 0 20px; }
+.kit-prose { max-width: 68ch; }
+.kit-prose p { margin: 0 0 18px; font-size: 15.5px; line-height: 1.62; color: var(--text-body); }
+.kit-prose p.first { font-size: 17px; line-height: 1.55; }
+.kit-prose b, .kit-prose strong { color: var(--text-primary); font-weight: 700; }
+.kit-prose code { font-size: 14px; }
+
+.kit-step { margin: 40px 0 0; padding: 26px 0 0; border-top: 1px solid var(--line-container); }
+.kit-step > h2 {
+  margin: 0 0 16px; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-muted);
+  border: 0; padding: 0;
+}
+.kit-step > h2 .no { color: var(--text-action); }
+.kit-step .kit-tab { margin: 20px 0; }
+
+.kit-open { border-left: 3px solid var(--line-selected); padding: 2px 0 2px 16px; margin: 0 0 18px; max-width: 68ch; }
+.kit-open p { margin: 0 0 6px; font-size: 14.5px; line-height: 1.55; color: var(--text-body); }
+.kit-open b { color: var(--text-primary); }
+
+/* ---------- a component page: the five blocks ----------
+   Anatomy, variants and sizes, when to use, rule and anti-rule, states.
+   The stand gives the component a scene to stand on and never a style: the
+   component is drawn by its own file in design/system/components/. */
+
+/* THE STAGE SHOWS A COMPONENT AT THE WIDTH THE PRODUCT GIVES IT, and that is a
+   correction rather than a preference. Measured at a 1440 viewport on the real
+   coloured screens: a subscription row renders at 425px on Home, a charge list
+   at 428px on Subscription detail, a nav row at 620px on Settings, an attention
+   wash at 490px on Home error. The stage was handing all of them 898px.
+
+   At more than double its real width a row stops being a row: the merchant name
+   and the amount sit 800px apart, four dates in a column read as a sparse table
+   rather than as evidence, and a hover fill spans a distance the product never
+   asks it to span. Every one of those looks like a dull component and is in fact
+   a stand measuring wrong. This is the same class of error as the reading measure
+   that came unbound past 900px on two accepted screens: nobody widens the window
+   to check, so the mistake is quiet.
+
+   --kit-measure carries the number. The default is the product's row column;
+   .wide and .bleed are the two exceptions, each used where a component genuinely
+   spans further, and each says so on its page. */
+.kit-stage {
+  --kit-measure: 440px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
+  padding: 28px 22px; margin: 0 0 14px;
+  background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: var(--radius);
+}
+.kit-stage.wide  { --kit-measure: 620px; }   /* nav rows, forms, plan cards */
+.kit-stage.bleed { --kit-measure: none; }
+
+/* The four destination squares in a line on the icons page. A stand class and
+   not a product one: nothing in the product ever puts the four side by side
+   outside the tab bar, and the tab bar is an organism that draws its own row. */
+.kit-icrow { display: flex; align-items: center; gap: 28px; color: var(--text-muted); }    /* bands that really do span: the trust line, a screen shell */
+
+/* The bound goes on the CHILD and not on the stage, so the stage keeps drawing
+   the full-width surface a component stands on while the component itself takes
+   the product's measure. Centred, because a specimen off to one side reads as a
+   layout bug rather than as a measurement. */
+.kit-stage.full > * { max-width: var(--kit-measure); margin-inline: auto; }
+
+/* A component's own bottom margin belongs to its place in a screen's flow, not
+   to the component: standing alone in a stage it renders as dead air under the
+   specimen, on top of the stage's own 28px. Suppressed on the last child only,
+   so a stage holding two specimens still shows the gap BETWEEN them, which is
+   real. The callouts still name the margin where it matters. */
+.kit-stage > :last-child { margin-bottom: 0; }
+.kit-stage.on-page { background: var(--bg-page); }
+.kit-stage.on-accent { background: var(--bg-action); }
+.kit-callouts { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 8px; }
+.kit-callouts li { display: grid; grid-template-columns: 128px 1fr; gap: 12px; align-items: baseline; font-size: 13px; color: var(--text-muted); }
+.kit-callouts code { color: var(--text-action); }
+
+.kit-matrix { overflow-x: auto; margin: 0 0 8px; }
+.kit-matrix table { border-collapse: collapse; width: 100%; min-width: 640px; }
+.kit-matrix th, .kit-matrix td { text-align: left; vertical-align: top; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line-divider); }
+.kit-matrix th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; border-bottom-color: var(--line-container); }
+.kit-matrix .axis-rule { margin: 4px 0 0; font-size: 12px; color: var(--text-muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
+.kit-matrix td.val { font-size: 12.5px; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
+/* RENAMED FROM .empty, 2026-08-11. The Empty block organism is registered on the
+   class `.empty` and is not built yet. Today the collision is harmless, because no
+   stand cell sits inside an `.app` scope, but "the code and the stand do not mix" is
+   a rule about NAMES and not only about cascade: the moment the organism lands, a
+   product rule starts matching a reviewer chrome cell and nothing errors. Removed
+   before the organism round rather than debugged during it. */
+.kit-matrix td.kit-empty { color: var(--text-muted); font-style: italic; }
+
+.kit-states { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.kit-state { border: 1px solid var(--line-container); border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-surface); }
+.kit-state .cap { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 9px 12px; border-bottom: 1px solid var(--line-divider); }
+.kit-state .cap b { font-size: 12.5px; color: var(--text-primary); }
+.kit-state .cap span { font-size: 10.5px; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.kit-state .live { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 20px 14px; }
+.kit-state img { display: block; width: 100%; }
+.kit-state .tok { padding: 8px 12px 11px; font-size: 11.5px; color: var(--text-muted); }
+.kit-state .tok code { color: var(--text-action); }
+
+.kit-cmd { display: block; padding: 10px 12px; margin: 12px 0 0; font-size: 11.5px;
+  background: var(--bg-recessed); border: 1px solid var(--line-divider); border-radius: var(--radius-xs);
+  color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow-x: auto; }
+
+.kit-do { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 0 0 8px; }
+.kit-do > div { border: 1px solid var(--line-container); border-radius: var(--radius-sm); padding: 14px; background: var(--bg-surface); }
+.kit-do .hd { display: block; margin: 0 0 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+.kit-do .yes .hd { color: var(--text-action); }
+.kit-do .no .hd { color: var(--text-failure); }
+.kit-do p { margin: 10px 0 0; font-size: 13px; color: var(--text-muted); }
+
+/* A stage that gives its content the full column.
+
+   .kit-stage is a content-width flex row, which is right for a button and wrong
+   for a form control: an input declares width:100% and renders at its ~180px
+   intrinsic width inside a shrink-to-fit row, so the stand would show it narrower
+   than any screen ever does. Reported by the atom round rather than worked around
+   on the page, which is the correct order: a missing stand class is the stand's
+   problem and never the component's. */
+.kit-stage.full { display: block; }
+.kit-stage.full > * { width: 100%; }
+.kit-stage.col { flex-direction: column; align-items: stretch; }
+
+/* The callout list at a narrow width.
+
+   `.kit-callouts li` is a two column grid, 128px and the rest. A grid item's
+   default min-width is auto, so a long label refuses to shrink below its content
+   and pushes the row past the viewport: the chart placeholder page overflowed by
+   26px at 360 and nothing in its markup was wrong. Two fixes, both here in the
+   stand's own stylesheet: let the second column shrink, and drop to one column
+   where 128px plus a sentence stops fitting. */
+.kit-callouts li > * { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 560px) {
+  .kit-callouts li { grid-template-columns: 1fr; gap: 2px; }
+}
+
+/* ============================================================================
+   icons.html: the module grid, the anatomy cell and the measured audit.
+
+   Everything below is prefixed .kit-icg. It draws ONE thing the rest of the
+   stand cannot draw: a glyph standing on its own 24 by 24 module grid, with the
+   safe area and the measured painted bounds laid over it, so a rule about the
+   set can be read off the picture instead of taken on trust.
+
+   Colour comes from the product's semantic roles rather than the stand's --kn-*
+   set, because these marks ARE the product and the diagram has to survive the
+   theme switch the same way they do. Geometry stays on the markup as SVG
+   presentation attributes (stroke-width, d, transform), which is how every other
+   inline mark on that page is already written; only the paint is class-driven,
+   so a role rename reaches the diagram.
+   ============================================================================ */
+
+/* the anatomy block: the drawn cell beside the numbered rules */
+.kit-icg-lay {
+  display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 24px; align-items: start; margin: 0 0 20px;
+}
+@media (max-width: 720px) { .kit-icg-lay { grid-template-columns: 1fr; } }
+
+/* the cell itself. width:100% with height:auto, so it shrinks with the column
+   and never becomes the reason the page scrolls sideways at 360. */
+.kit-icg {
+  display: block; width: 100%; height: auto;
+  background: var(--bg-surface);
+  border: 1px solid var(--line-container); border-radius: var(--radius-sm);
+}
+.kit-icg .mod   { fill: none; stroke: var(--line-divider); }
+.kit-icg .cell  { fill: none; stroke: var(--line-container); }
+.kit-icg .safe  { fill: none; stroke: var(--text-action); }
+.kit-icg .box   { fill: none; stroke: var(--text-muted); }
+.kit-icg .paint { fill: none; stroke: var(--text-body); }
+/* the centreline, drawn in the surface colour ON TOP of the paint: the hairline
+   cut through the middle of a stroke is the whole of rule 3 in one picture. */
+.kit-icg .curve { fill: none; stroke: var(--bg-surface); }
+.kit-icg .node  { fill: var(--text-action); stroke: none; }
+/* one shape in the set is a FILL rather than a stroke (the dot of the unmatched
+   merchant mark), and it sits inside a group the rules above have set to
+   fill:none, so it needs to say so on itself. */
+.kit-icg .kit-icg-solid { fill: var(--text-body); stroke: none; }
+
+.kit-icg-key { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 8px 0 0; font-size: 11.5px; color: var(--text-muted); }
+.kit-icg-key span { display: inline-flex; align-items: center; gap: 6px; }
+.kit-icg-key i { display: block; width: 14px; height: 0; border-top: 2px solid currentColor; }
+.kit-icg-key .k-safe  { color: var(--text-action); }
+.kit-icg-key .k-box   { color: var(--text-muted); }
+.kit-icg-key .k-paint { color: var(--text-body); }
+
+.kit-icg-cap { margin: 8px 0 0; font-size: 11.5px; line-height: 1.55; color: var(--text-muted); }
+.kit-icg-cap b { color: var(--text-body); font-weight: 600; }
+
+.kit-icg-rules { margin: 0; padding: 0 0 0 22px; display: grid; gap: 14px; }
+.kit-icg-rules li { font-size: 13.5px; line-height: 1.55; color: var(--text-muted); overflow-wrap: anywhere; }
+.kit-icg-rules li b { color: var(--text-primary); }
+.kit-icg-rules li code { color: var(--text-action); }
+
+/* the measured set: one figure per glyph, the numbers under the picture */
+.kit-icg-set { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; margin: 0 0 18px; }
+/* On a phone auto-fill drops to ONE column, and one cell per row turns a
+   comparison into a slideshow: the whole point of this block is that the five
+   glyphs are seen next to each other. Two forced columns at 137px still render
+   the module grid and the two rectangles legibly, and they keep the section on
+   one screen and a half instead of five. */
+@media (max-width: 560px) { .kit-icg-set { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+.kit-icg-fig { margin: 0; min-width: 0; }
+.kit-icg-fig figcaption { margin: 8px 0 0; font-size: 11px; line-height: 1.55; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.kit-icg-fig figcaption b { display: block; margin: 0 0 2px; font-size: 11.5px; font-weight: 600; color: var(--text-primary); }
+.kit-icg-fig figcaption em { display: block; margin: 2px 0 0; font-style: normal; color: var(--text-attention); }
+
+/* ink weight, as a bar per glyph */
+.kit-icg-bar { display: grid; grid-template-columns: 104px minmax(0, 1fr) 128px; gap: 12px; align-items: center; margin: 0 0 8px; font-size: 12px; }
+.kit-icg-bar .nm { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text-body); }
+.kit-icg-bar .tr { height: 12px; border-radius: 2px; background: var(--bg-recessed); }
+.kit-icg-bar .tr i { display: block; height: 100%; border-radius: 2px; background: var(--bg-action); }
+.kit-icg-bar .v { text-align: right; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+@media (max-width: 480px) {
+  .kit-icg-bar { grid-template-columns: 1fr; gap: 3px; margin: 0 0 12px; }
+  .kit-icg-bar .v { text-align: left; }
+}
+/* One class per measured value, exactly as the type ladder above does it: the
+   number is a MEASUREMENT and it belongs in the stylesheet with its arithmetic
+   beside it, not in a style attribute on the markup. Ink coverage of the 24x24
+   cell, normalised to the heaviest glyph in the set (.ic-save at 26.73%). */
+.kit-icg-bar i.g-save   { width: 100%; }   /* 26.73 / 26.73 */
+.kit-icg-bar i.g-home   { width: 78.6%; }  /* 21.02 / 26.73 */
+.kit-icg-bar i.g-alerts { width: 57.9%; }  /* 15.47 / 26.73 */
+.kit-icg-bar i.g-you    { width: 48.5%; }  /* 12.97 / 26.73 */
+
+/* the carried finding: a closed defect, stated once, not a running list */
+.kit-icg-carry { border-left: 3px solid var(--line-selected); padding: 2px 0 2px 16px; margin: 0 0 18px; max-width: 74ch; }
+.kit-icg-carry p { margin: 0 0 8px; font-size: 13.5px; line-height: 1.55; color: var(--text-muted); }
+.kit-icg-carry p:last-child { margin-bottom: 0; }
+.kit-icg-carry b { color: var(--text-primary); }
+
+/* ---------- the type ladder, driven by the tokens themselves ----------
+   The eight specimens on typography.html were rendering through the generated
+   .sp-N classes, which carry the size as a literal. That page documents the
+   scale, so a page whose ladder does not READ the scale can quietly disagree
+   with it: change --type-body in tokens.css and the ladder would go on showing
+   14px forever. Same principle as a component page loading the component's own
+   css rather than a copy of it. */
+.kit-spec .sample.sp-display { font-size: var(--type-display); font-weight: 700; line-height: 1.02; letter-spacing: -0.025em; }
+.kit-spec .sample.sp-figure  { font-size: var(--type-figure);  font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; }
+.kit-spec .sample.sp-head    { font-size: var(--type-head);    font-weight: 700; line-height: 1.18; letter-spacing: -0.015em; }
+.kit-spec .sample.sp-title   { font-size: var(--type-title);   font-weight: 700; line-height: 1.2; }
+.kit-spec .sample.sp-sub     { font-size: var(--type-sub);     font-weight: 600; line-height: 1.3; }
+.kit-spec .sample.sp-body    { font-size: var(--type-body);    font-weight: 400; line-height: 1.5; }
+.kit-spec .sample.sp-meta    { font-size: var(--type-meta);    font-weight: 400; line-height: 1.5; }
+.kit-spec .sample.sp-label   { font-size: var(--type-label);   font-weight: 600; line-height: 1.4; }

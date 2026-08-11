@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text input - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+  <script src="../system/behaviour.js" defer></script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Text input</h1>
+    <p class="lead">The control a person types into: a name, an amount, a date, an email, a search. It is where the manual path lives, and the manual path is a locked decision rather than a fallback, so this is not a second-class control.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>8</strong> grey pages</span><span>2 axes</span><span>5 states, both themes</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one value, which is what makes it an atom. Everything below is drawn by <code>design/system/components/text-input.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app col">
+      <div class="field">
+        <label for="a-name">Name</label>
+        <input id="a-name" type="text" value="Netflix">
+      </div>
+      <div class="field">
+        <label for="a-search">Find a service</label>
+        <input id="a-search" type="search" placeholder="Search 400+ services">
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.field input</code> <span>the atom itself: a full width box with a 44px floor, a control radius and a one pixel edge. It is a real <code>input</code>, never a styled span</span></li>
+      <li><code>border-color</code> <span>reads <code>--line-control</code>. This edge is the whole of the control's identity: the fill is paper and so is the card behind it, so nothing else says a control is here</span></li>
+      <li><code>min-height</code> <span>reads <code>--tap</code>, the 44px floor the project holds everywhere. Never overridden downward</span></li>
+      <li><code>::placeholder</code> <span>reads <code>--text-muted</code>. It is a hint about the format, never the label: a placeholder that carries the label disappears the moment a person starts typing</span></li>
+      <li><code>[aria-invalid]</code> <span>the authored invalid state, hooked on the native attribute so no screen needs a new class</span></li>
+      <li><code>label</code>, <code>.hint</code> <span><b>not this atom.</b> They belong to the Form field molecule, which is not built yet, which is why they render bare above. When <code>field.css</code> lands they take their 12px muted form and nothing here changes</span></li>
+    </ul>
+    <p class="note">The money field carries one more thing inside the same box, the currency sign, and that is a <b>variant</b> rather than a second anatomy: the box, the edge, the radius, the floor and the ring are the ones above, unchanged and measured. It is <code>.affix</code>, below.</p>
+    <p class="note">The control is <code>width: 100%</code> of its field, so its width is always the column's. On a product screen that column is the 560px form measure; the stage above is <code>.kit-stage.col</code>, which hands the field the same whole width. A component that carries no width of its own is a component that cannot be wrong about one.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">Two axes, and they are different in kind. <b>Type</b> changes no pixel at all: it changes the keyboard a phone offers and what the browser will autofill. <b>The sign</b> changes exactly one measurement, the left padding, and it is the only variant of this atom a person can see. <b>There is no size axis:</b> every input in the product is 44px tall at 14px, on all 8 grey pages and all 14 coloured ones, and the census measured that as one value on every property. Width is deliberately not an axis either: 100% against auto is layout, so the email field on Settings and the amount field in a form column are the same input.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Type<p class="axis-rule">Set by what is being typed, never by how it should look. It changes the keyboard a phone offers and what the browser will autofill, and it changes nothing about the paint. Getting it wrong costs a person keystrokes on the one screen where typing is the whole job</p></th>
+            
+            <th class="val">Count</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>text</b> <code>type="text"</code></td>
+            
+            <td class="val">9 of 16</td>
+            <td>Name, Amount and Next payment date, on add-subscription and on its empty and error states. The default, and the one to reach for when nothing more specific is true. Three of the nine are the Amount field, which is this type plus <code>inputmode</code> and the sign: see money, below</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><span class="field"><input id="v-text" type="text" value="Netflix" aria-label="Name"></span></span></td></tr>
+          <tr>
+            <td><b>email</b> <code>type="email"</code></td>
+            
+            <td class="val">4 of 16</td>
+            <td>connect-bank, sign-in, settings, settings-no-account. Every one of the four is the same question, "Email", asked at a different moment</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><span class="field"><input id="v-email" type="email" value="emma@example.com" aria-label="Email"></span></span></td></tr>
+          <tr>
+            <td><b>search</b> <code>type="search"</code></td>
+            
+            <td class="val">3 of 16</td>
+            <td>The preset search on add-subscription and its loading and empty states, and only there. It is the one input whose host is a <code>form</code> with <code>role="search"</code> rather than a <code>div</code>, which is the Form field molecule's host axis</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><span class="field"><input id="v-search" type="search" placeholder="Search 400+ services" aria-label="Find a service"></span></span></td></tr>
+          <tr>
+            <td><b>money</b> <code>inputmode="decimal"</code></td>
+            
+            <td class="val">3 of the 9</td>
+            <td><b>Built 2026-08-11</b>, on the founder's decision, and it is a refinement of <b>text</b> rather than a fourth type: the element stays <code>type="text"</code> and <code>inputmode</code> is what brings up the number pad. The value is digits only and the sign is drawn by <code>.affix</code>, in the second matrix below. The Amount field on add-subscription and on its empty and error states. Until that day the field held the string "$17.99", which is a value no numeric field can carry</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><span class="field affix"><span class="cur" aria-hidden="true">$</span><input id="v-money" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" value="17.99" aria-label="Amount"></span></span></td></tr>
+          <tr>
+            <td class="kit-empty">date</td>
+            
+            <td class="kit-empty">-</td>
+            <td><b>In the backlog, not forbidden.</b> Next payment date is <code>type="text"</code> holding "Aug 3, 2026" with the hint "For example, Aug 3, 2026", which is a format taught in prose because the control cannot teach it. <code>docs/inventory.md</code> recorded a money input and a date input as owed; the money half was paid on 2026-08-11 and this is the half still standing</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">number</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Absent on all 55 grey pages, and now forbidden on money rather than merely missing. It adds spinner arrows, it lets the wheel change an amount while a person scrolls past the field, and it rejects the comma as a decimal separator in some locales. The keyboard it would have been reached for is what <code>inputmode="decimal"</code> gives without any of the three, which is why the money row above is where this was solved</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>The sign<p class="axis-rule">Set by the UNIT of the value, and there is one unit in this product that goes inside the box: money. A currency sign belongs to the amount itself, so it stands where the amount stands and a person never types it. Any other unit is prose about the field and belongs to the label or the hint above and below it</p></th>
+            
+            <th class="val">Left padding</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>None</b> <code>.field</code></td>
+            
+            <td class="val">16px</td>
+            <td>13 of 16. Everything a person answers in words, a date or an address</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><span class="field"><input id="s-none" type="text" value="Netflix" aria-label="Name"></span></span></td></tr>
+          <tr>
+            <td><b>Currency</b> <code>.field.affix</code> + <code>.cur</code></td>
+            
+            <td class="val">28px</td>
+            <td>3 of 16, all of them Amount. The sign is painted inside the input's own left padding, so <b>the box does not change</b>: same 44px floor, same edge, same radius, and the focus ring still wraps the sign because the ring is the input's own. 28px is the field's 16px plus the 8.98px sign plus the air, which measures 4.02px on the page</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><span class="field affix"><span class="cur" aria-hidden="true">$</span><input id="s-affix" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" value="17.99" aria-label="Amount"></span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The sign is not a control and is not a second value.</b> It carries <code>aria-hidden="true"</code>, it is not in the tab order, and it takes <code>pointer-events: none</code>, so a click on it lands on the input underneath and the caret goes where the person aimed. The accessible name of the field is still "Amount", from the label, and a screen reader is not told "dollar" twice.</p>
+    <p class="note"><b>There is no textarea in this product</b>, on any of the 55 pages, so it is not a variant of this atom and it is not a hole in it. Nothing in Tendd asks a person to write a paragraph. If a screen ever does, that is a new component with its own decisions about height and resizing, and it is authored rather than extracted, the same way the invalid state below was.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A text input is where a person tells the product something it <b>cannot know</b>: the name of a service that is not in the catalogue, an amount, the date of the next payment, the email an account hangs on. It is the whole of D2, the locked decision that manual entry is an equal second path and not a punishment for refusing a bank connection. That is why the form is short: four fields on add-subscription, two on Settings, one on sign-in. Every extra field on that screen is a reason to close the tab, and the category field was cut for exactly that reason.</p>
+    <p class="note"><b>What a person types is the value and nothing else.</b> The Amount field asks for digits, so it takes digits: the currency sign is ours to draw, the decimal point is theirs to type, and a person is never asked to know which of "$17.99", "17.99 USD" or "17,99" we were hoping for. That is the whole of the <code>.affix</code> variant, and it is the reason it exists on this atom rather than as a formatter somewhere later.</p>
+    <p class="note">Labels come from <code>voice/docs/microcopy.md</code> and are plain nouns in the person's words: "Name", "Amount", "Billing frequency", "Next payment date", "Email", "Find a service". The hint underneath teaches a format by example ("For example, Aug 3, 2026") and never scolds. A label is never inside the box: a placeholder carrying the label vanishes the moment typing starts, and the person who most needs it is the person who paused.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a text input</span>
+        <div class="kit-stage app full"><span class="field"><input id="r-yes" type="text" value="Cerebro Cloud" aria-label="Name"></span></div>
+        <p>An open value the product cannot predict. "Cerebro Cloud" is the real string on add-subscription-empty, the state that exists precisely because a service is not in the preset catalogue of 400+. Anything a person might type and we could not have listed belongs here.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a select instead</span>
+        <div class="kit-stage app full"><span class="field"><select id="r-no" aria-label="Billing frequency"><option>Monthly</option><option>Every 4 weeks</option><option>Quarterly</option><option>Yearly</option><option>Custom</option></select></span></div>
+        <p>A value from a closed list is the <b>Select</b>, not this. Billing frequency has five values and the product has to understand every one of them, so typing "monthly-ish" has to fail, and a control that lets a person write it is a control that has to reject them afterwards. Rejecting a person is expensive on the one screen whose job is to make the manual path feel cheap.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Ask once, in a field</span>
+        <div class="kit-stage app full"><span class="field"><input id="r-yes2" type="email" value="emma@example.com" aria-label="Email"></span></div>
+        <p>The email on Settings, asked as a field with a label above it and nothing else in the row. One question, one control, one line of copy underneath if the answer needs a format.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Not for a yes or no</span>
+        <div class="kit-stage app full"><label class="switch"><input type="checkbox" checked><span><span class="t">A price goes up</span></span></label></div>
+        <p>A preference that is on or off is the <b>Checkbox</b> inside a Switch row. It reads as a sentence a person agrees with, it needs no typing and no submit, and it cannot be filled in wrongly. A field asking "notify me? (yes/no)" is a question the interface already knows how to ask better.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A currency sign goes inside the box</span>
+        <div class="kit-stage app full"><span class="field affix"><span class="cur" aria-hidden="true">$</span><input id="r-yes3" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" value="17.99" aria-label="Amount"></span></div>
+        <p>The sign is part of the amount rather than a question about it, so it stands where the number stands and the person types digits only. Reach for <code>.affix</code> whenever the value is money, and only then. It is one class on the field and one span, and the box it draws is the same box every other field draws.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Any other unit stays outside it</span>
+        <div class="kit-stage app full"><div class="field"><input id="r-no3" type="text" value="Aug 3, 2026" aria-label="Next payment date"><p class="hint">For example, Aug 3, 2026</p></div></div>
+        <p>"a month", "in days", the shape of a date: none of these is part of the value, so none of them goes in the box. They belong to the <b>label</b> above or the <b>hint</b> below, where they can be a sentence a person reads once and where they do not eat the room the value needs at 360. A glyph inside the box is for a unit a person would otherwise have to type, and money is the only one this product has.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>The sign adds no sixth state and changes none of the five.</b> It cannot be hovered, focused or disabled, it repaints on nothing, and the ring that arrives on focus is the input's own and already wraps it. The states below are the states of a money field too.</p>
+    <p class="note">Five states, and they exist because the input is <b>interactive</b>, not because the template has cells to fill. Each one is a token override rather than a style of its own: no hex and no number appears inside <code>:hover</code> or <code>[aria-invalid]</code>, so the dark theme costs three lines in <code>tokens.css</code> rather than forty edits across the components.</p>
+    <p class="note"><b>The invalid state is authored, and it is the reason this component was worth writing carefully.</b> A sweep of all 55 grey pages returns no <code>aria-invalid</code>, no <code>required</code> and no error class, and <code>kit.css</code> says so in the comment above the rule: "AUTHORED. A sweep of all 55 pages returns no aria-invalid, no required and no error class, so the kit would otherwise inherit an input that cannot be invalid. Clay, never red. The hook is the native attribute, so no page needs a new class." So the state is real, it is in the system, and <b>no screen uses it yet</b>. It is waiting for markup, which stage 09 or the rollout will give it, and until then it moves zero pixels.</p>
+    
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app col" id="live-rest">
+      <span class="field"><input id="shot-rest" type="text" value="Netflix" aria-label="Name"></span>
+      <span class="field"><input id="shot-invalid" type="text" value="17,99" aria-invalid="true" aria-label="Amount"></span>
+      <span class="field"><input id="shot-disabled" type="text" value="US dollar" disabled aria-label="Currency"></span>
+    </div>
+    <p class="note">The second one is genuinely invalid, by the native attribute, and the third is genuinely disabled, by the attribute rather than by a class the product does not carry. Faking a state with <code>.is-invalid</code> would document something the product cannot do.</p>
+
+    <h3 class="kit-sub-h">The five, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--line-control</code>, <code>--bg-surface</code>, <code>--text-primary</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same tokens, the other half of each pair. The edge goes to <code>--edge-dark</code> at 5.15:1, higher than the 3.46:1 it holds on paper</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--line-control-hover</code>, the edge alone</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the edge STRENGTHENS in both themes, 3.46 to 5.78 on light and 5.15 to 6.40 on dark. The value this replaced was lighter than the resting edge, so the boundary used to weaken under the pointer</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. The ring is 2px at 2px offset and sits OUTSIDE the box, so focusing a field moves no neighbour</div></div>
+      <div class="kit-state"><div class="cap"><b>Invalid</b><span>light</span></div><div class="tok"><code>--bg-failure</code> and <code>--line-failure</code>. Never red: the persona closes any app that shows her red</div></div>
+      <div class="kit-state"><div class="cap"><b>Invalid</b><span>dark</span></div><div class="tok">the wash and the edge both swap to the dark clay pair. The focus ring turns clay too, so a keyboard person is not told two different things at once</div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>light</span></div><div class="tok"><code>--bg-recessed</code>, <code>--line-divider</code>, <code>--text-muted</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>dark</span></div><div class="tok">the same three roles the disabled button repaints from, so the two disabled controls in the system look like one decision. No opacity token: all three paints land on roles that already exist</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo and a
+command that does not run is worse than no command:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/text-input.html
+    move the pointer away  -&gt; screenshot #live-rest   -&gt; screens/text-input-rest-&lt;theme&gt;.png
+    hover #shot-rest       -&gt; screenshot #live-rest   -&gt; screens/text-input-hover-&lt;theme&gt;.png
+    focus #shot-rest, press Tab, assert :focus-visible -&gt; screenshot #live-rest
+                                                      -&gt; text-input-focus-&lt;theme&gt;.png
+    blur, screenshot #live-rest  -&gt; invalid and disabled are both already in frame,
+                                    so the same shot serves as
+                                    text-input-invalid-&lt;theme&gt;.png and
+                                    text-input-disabled-&lt;theme&gt;.png
+
+The states are reached the way a person reaches them: a real pointer, a real Tab, a real
+attribute. Step 9 checks these files for a byte shift, because a snapshot nobody re-takes
+freezes silently, and a frozen snapshot is worse than none: it looks checked.</code>
+    <p class="note"><b>Active is not a state of this control</b>, and that is not an omission. A person does not press a field, they land in it, so the meaningful moment is focus and the browser's own caret. There is no <code>:active</code> rule in <code>kit.css</code> and none is added here.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>its fill</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the value a person typed</td><td><code>--text-primary</code></td><td><code>--ink</code></td></tr>
+          <tr><td>the placeholder</td><td><code>--text-muted</code></td><td><code>--muted</code></td></tr>
+          <tr><td>the edge that identifies it</td><td><code>--line-control</code></td><td><code>--edge</code></td></tr>
+          <tr><td>the edge under the pointer</td><td><code>--line-control-hover</code></td><td><code>--muted</code></td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the invalid wash</td><td><code>--bg-failure</code></td><td><code>--clay-wash</code></td></tr>
+          <tr><td>the invalid edge, and its ring while invalid</td><td><code>--line-failure</code></td><td><code>--clay</code>, and <code>--clay-dark</code> in the dark theme. 5.46:1 on the light surface and 7.40:1 on the dark, both over the 3:1 a line owes. It did not exist when this component was written: clay had a role as an ink and a role as a fill and none as a line, so the hole was reported rather than invented, and nothing moved when it was filled</td></tr>
+          <tr><td>disabled</td><td><code>--bg-recessed</code>, <code>--line-divider</code>, <code>--text-muted</code></td><td>three roles that already existed</td></tr>
+          <tr><td>corner and floor</td><td><code>--radius-sm</code>, <code>--tap</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>the currency sign, <code>.affix</code></td><td><code>--text-muted</code>, <code>--type-body</code></td><td><code>--muted</code>. The same secondary tier the placeholder takes, and for the same reason: it is the unit, not the answer</td></tr>
+          <tr><td>the room the sign stands in</td><td><code>--space-16</code> + <code>--space-8</code> + <code>--space-4</code></td><td>primitive, straight. The field's own padding, the 8.98px sign, and the air after it</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/text-input.css</code>. Stands on 8 grey pages and 16 inputs, 14 of them coloured. Coloured screens carrying it: <a href="../add-subscription.html">Add a Subscription</a>, <a href="../add-subscription-empty.html">its empty state</a>, <a href="../add-subscription-error.html">its error state</a>, <a href="../add-subscription-loading.html">its loading state</a>, <a href="../settings.html">Settings</a>, <a href="../settings-no-account.html">Settings, no account</a>.</p>
+    <code class="kit-cmd">&lt;div class="field affix"&gt;
+  &lt;label for="sub-amount"&gt;Amount&lt;/label&gt;
+  &lt;span class="cur" aria-hidden="true"&gt;$&lt;/span&gt;
+  &lt;input id="sub-amount" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" value="17.99"&gt;
+&lt;/div&gt;
+
+&lt;div class="field"&gt;
+  &lt;label for="sub-next"&gt;Next payment date&lt;/label&gt;
+  &lt;input id="sub-next" type="text" value="Aug 3, 2026"&gt;
+  &lt;p class="hint"&gt;For example, Aug 3, 2026&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;form class="field" role="search"&gt;
+  &lt;label for="preset-search"&gt;Find a service&lt;/label&gt;
+  &lt;input id="preset-search" type="search" placeholder="Search 400+ services"&gt;
+&lt;/form&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/text-input.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided its axes is in <code>docs/inventory.md</code>; the measured forms it had before the system are in <code>docs/census.md</code>, where <code>.field input</code> is one of the sixteen families with a single value on every property. Its twin is the <a href="select.html">Select</a>, one style and two elements.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

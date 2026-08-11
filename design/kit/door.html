@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Door - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Door</h1>
+    <p class="lead">One of the two ways into this product, drawn as a card that is a link. They always come in pairs, they are always the same size, and neither of them is petrol: D2 makes the manual path an equal second door and not a fallback, so the product may not recommend one.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>4</strong> grey pages</span><span><strong>8</strong> doors</span><span>2 axes</span><span>3 states, both themes</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Three content slots in one unit, and <b>no atom inside it at all</b>. That is worth saying, because it means this molecule qualifies on the first clause of the rule rather than the second: a molecule is two or more slots in one unit, OR a host of an atom. Its heading is a bare <code>h2</code> or <code>h3</code> and its sentence is a bare <code>p</code>, not the eyebrow and not the muted line. Everything below is drawn by <code>design/system/components/door.css</code> through the same entry point a product screen loads.</p>
+    <div class="kit-stage app full wide">
+      <a class="door" href="#anatomy">
+        <h2>Connect your bank</h2>
+        <p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p>
+        <span class="pick">Choose this path</span>
+      </a>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.door</code> <span>the molecule: an <code>a</code> set to <code>display: block</code>, with the container corner, the control edge and 16px of padding. The whole card is one link with one accessible name, so a screen reader reads one destination and not a heading followed by a stray sentence</span></li>
+      <li><code>.door h2</code> / <code>h3</code> <span>the path's name, at 16px in primary ink. BOTH levels are declared, because a component whose typography depends on which heading the document happened to need is not a component</span></li>
+      <li><code>.door p</code> <span>what the path costs you, in muted ink. One sentence, and it is always a fact rather than a promise: "Read-only, through Plaid, and about a minute"</span></li>
+      <li><code>.pick</code> <span>the declared variant, on 4 of the 8 doors. Body ink at weight 600 with an arrow, and deliberately not the accent</span></li>
+      <li><code>border-radius</code> <span>reads <code>--radius</code> and not <code>--radius-sm</code>, which is the one place a control-edged object in this system takes the container corner. A door is a card the size of a card</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">Two axes, and neither is size: every door in the product is the same object, and its width comes from the grid it stands in, one column at 360px and two past a 760px container. What varies is whether the door carries a pick line, and which heading level the page had left.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Content<p class="axis-rule">The pick line is present when the CHOICE is the whole screen, and absent when the doors are the empty state of a list that has other things on it. If a screen exists to ask which path, every door says which path it is</p></th>
+            
+            <th class="val">Values</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>With a pick line</b> <code>.pick</code></td>
+            
+            <td class="val">+ 8px<br>14px / 600<br>--text-body</td>
+            <td>4 doors on 2 pages: the path choice at the start, and adding a second source later. Both are screens whose only question is which path</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><a class="door" href="#variants"><h2>Add them yourself</h2><p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p><span class="pick">Choose this path</span></a></div></td></tr>
+          <tr>
+            <td><b>Without</b> <code>.door</code></td>
+            
+            <td class="val">heading<br>+ 4px<br>sentence</td>
+            <td>4 doors on 2 pages, both of them empty states: Home with nothing in it yet, and the sources list with nothing in it yet. The screen has already asked its question in the block above</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><a class="door" href="#variants"><h3>Add a subscription</h3><p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p></a></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Heading level<p class="axis-rule">Set by the DOCUMENT and never by the component: <code>h2</code> when the door is a top-level thing on the page, <code>h3</code> when it sits inside a section whose own heading is already an <code>h2</code>. Both render identically, on purpose</p></th>
+            
+            <th class="val">Values</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>h2</b></td>
+            
+            <td class="val">16px, the<br>browser's own bold<br>--text-primary</td>
+            <td>4 doors, on the two screens whose subject is the choice itself</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><a class="door" href="#variants"><h2>Connect your bank</h2><p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p></a></div></td></tr>
+          <tr>
+            <td><b>h3</b></td>
+            
+            <td class="val">identical</td>
+            <td>4 doors, inside the two empty states. Identical by declaration and not by luck: the group head in this same system broke twice for exactly this reason before the rule was bound to the class</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><a class="door" href="#variants"><h3>Connect your bank</h3><p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p></a></div></td></tr>
+          <tr>
+            <td class="kit-empty">A recommended door</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. D2 makes the two paths equal, so neither door gets petrol, a heavier edge, a badge or more height. Two petrol objects on one screen is the One Voice Rule failing; one petrol object here would be the product answering the question it promised to leave open</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Doors are never alone.</b> All 8 stand in pairs, in a grid that gives them equal tracks, and the pair is the component's real unit. A single door on a screen would be a card with a link in it, which is a different thing and would be built as one.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A person meets a pair of doors at the moment the product asks the only question it is allowed to ask before it has earned anything: connect a bank, or add subscriptions by hand. That question is D2, one of the locked decisions, and the whole design of this component is that decision drawn. The audience is 22 to 42 and sceptical about connecting a bank; a screen that leaned on the bank path would lose the people it was built for, and a screen that hid it would be a different product.</p>
+    <p class="note">Its copy is a fact and never a pitch, from <code>voice/docs/microcopy.md</code>: "Read-only, through Plaid, and about a minute. Tendd cannot move your money" against "Start with one and add more later. No bank is involved, and nothing leaves your control." Both sentences answer the same question, which is what a person is giving up, and the second door's answer is deliberately as strong as the first's.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Two doors, exactly equal</span>
+        <div class="kit-stage app col">
+          <a class="door" href="#rule"><h2>Connect your bank</h2><p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p><span class="pick">Choose this path</span></a>
+          <a class="door" href="#rule"><h2>Add them yourself</h2><p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p><span class="pick">Choose this path</span></a>
+        </div>
+        <p>Same edge, same corner, same padding, same heading size, same pick line. What identifies them as choices is the control edge at 3.46:1, which is the same edge a field and an outline button carry. Nothing marks one as the answer, because the product does not have one.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never make one of them the answer</span>
+        <div class="kit-stage app full wide">
+          <a class="door" href="#rule"><h2>Connect your bank</h2><p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p><span class="pick">Choose this path</span></a>
+          <p class="consequence">Or add them yourself</p>
+        </div>
+        <p>The moment the second path becomes a line under the first, D2 is gone and so is the audience it was locked for. If one action genuinely IS the recommendation, it is not a door at all: it is a filled <b>button</b> in an <b>action row</b>, which is the component that exists to say "this one".</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a door</span>
+        <div class="kit-stage app full wide">
+          <a class="door" href="#rule"><h3>Add a subscription</h3><p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p></a>
+        </div>
+        <p>A branch: two ways to reach the same outcome, where the difference between them is worth a sentence and the person has to understand both before choosing. The card is what buys that sentence its space.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a nav row instead</span>
+        <div class="kit-stage app full wide">
+          <span class="consequence">Data and privacy &nbsp; &rsaquo;</span>
+        </div>
+        <p>Going somewhere that needs no explanation is the <b>nav row</b>: a line with a label and an arrow, stacked with its siblings inside one container, no edge and no corner of its own. Settings is eight of those and not eight doors. A door costs a person a decision, so a screen that has nothing to decide must not draw one.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Three states, and they exist because a door is an <code>a</code>. Each one is a token override rather than a style of its own, and each one changes fill and edge colour and nothing else. <b>No lift, no scale, no shadow</b>: the Flat Paper Rule holds under the pointer as well as at rest, and a card that rises when you touch it is exactly the ranking this product takes away from the person.</p>
+    <p class="note"><b>There is no disabled form and that is a decision.</b> None of the 8 doors is ever unavailable. Greying one of two equal choices would answer the question D2 exists to leave open, so a path that cannot be taken right now is not a grey door: it is a screen that says what happened and offers the other one.</p>
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app col" id="live-rest">
+      <a class="door" href="#states" id="shot-door"><h2>Connect your bank</h2><p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p><span class="pick">Choose this path</span></a>
+      <a class="door" href="#states"><h2>Add them yourself</h2><p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p><span class="pick">Choose this path</span></a>
+    </div>
+    <p class="note">Both are real anchors. Hover either one, then tab to it: the ring wraps the whole card, because the whole card is the target. That is also the answer to why the pick line is not a button. A button inside a link is not a control a browser can express.</p>
+
+    <h3 class="kit-sub-h">The three, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--bg-surface</code>, <code>--line-control</code>, <code>--text-primary</code> and <code>--text-muted</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same roles, the other half of each pair. The control edge is 5.15:1 here against 3.46:1 in the light theme, which is the ramp doing its job rather than a different decision</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-hover</code>, <code>--line-control-hover</code>. The edge STRENGTHENS: 3.46:1 at rest, 5.78:1 here</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the fill goes LIGHTER here and darker in the light theme: a hover moves away from its ground, and the ground swapped ends</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line, offset 2px so it never sits on the door's own edge</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. The ring is the full card, which is what tells a keyboard user that the sentence is part of the target</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/door.html
+    move the pointer away -&gt; screenshot #live-rest -&gt; screens/door-rest-&lt;theme&gt;.png
+    hover #shot-door      -&gt; screenshot #live-rest -&gt; screens/door-hover-&lt;theme&gt;.png
+    focus #shot-door, press Tab, assert :focus-visible -&gt; screens/door-focus-&lt;theme&gt;.png
+
+Three states and not four: there is no disabled door in this product, and a fourth cell
+would document something it cannot do.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the card fill</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the edge</td><td><code>--line-control</code></td><td><code>--edge</code>. A door is identified BY its edge, and DESIGN.md names it on the control side of that split</td></tr>
+          <tr><td>the heading</td><td><code>--text-primary</code></td><td><code>--ink</code></td></tr>
+          <tr><td>the sentence</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
+          <tr><td>the pick line</td><td><code>--text-body</code></td><td><code>--slate</code>. NOT the accent: two petrol objects on one screen is the One Voice Rule failing</td></tr>
+          <tr><td>hover fill and edge</td><td><code>--bg-hover</code>, <code>--line-control-hover</code></td><td><code>--panel</code>, <code>--muted</code></td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the padding, the gaps</td><td><code>--space-16</code>, <code>--space-8</code>, <code>--space-4</code></td><td>primitive: a spacing has nothing to override</td></tr>
+          <tr><td>the corner</td><td><code>--radius</code></td><td>primitive, and the container corner rather than the control one</td></tr>
+          <tr><td>the heading size</td><td><code>--type-sub</code></td><td>primitive, the 16px step: a door is on the reading line, beside a merchant name</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/door.css</code>. Stands on 4 grey pages and 1 coloured one, <a href="../home-empty.html">Home with nothing in it yet</a>, which carries the pair without the pick line. The pick line has no coloured render at all yet, so its form on this page is read from the grey. The grid around it (<code>.doors</code>, one column and then two) is the Grid organism and is not built yet.</p>
+    <code class="kit-cmd">&lt;div class="doors"&gt;
+  &lt;a class="door" href="connect-bank.html"&gt;
+    &lt;h2&gt;Connect your bank&lt;/h2&gt;
+    &lt;p&gt;Read-only, through Plaid, and about a minute. Tendd cannot move your money.&lt;/p&gt;
+    &lt;span class="pick"&gt;Choose this path&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a class="door" href="add-subscription.html"&gt;
+    &lt;h2&gt;Add them yourself&lt;/h2&gt;
+    &lt;p&gt;Start with one and add more later. No bank is involved, and nothing leaves your control.&lt;/p&gt;
+    &lt;span class="pick"&gt;Choose this path&lt;/span&gt;
+  &lt;/a&gt;
+&lt;/div&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/door.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. D2 is in <code>CLAUDE.md</code> and its ground is in <code>docs/decisions.md</code>; the border split that gives this card a control edge is in <code>docs/inventory.md</code> and in <code>DESIGN.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Group head - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Group head</h1>
+    <p class="lead">The small uppercase line that opens a section, with an optional figure at the far end. It is the second most repeated structure in the product after the subscription row, and it is what lets a screen carry twenty sections without a single heavy heading anywhere.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>16</strong> grey pages</span><span>1 axis, 2 values</span><span>no states</span><span>bound to the <strong>class</strong>, not the tag</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Two content slots, a heading and an optional figure, which is what makes it a molecule. Everything below is drawn by <code>design/system/components/group-head.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens.</p>
+    <div class="kit-stage app full wide">
+      <div class="group-head">
+        <h2>Streaming (4)</h2>
+        <span class="subtotal">$54.96 a month</span>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.group-head</code> <span>the molecule: a baseline-aligned flex row, space between, with a hairline under it. Written as a <code>div</code> wrapping a heading, or written <b>on</b> the heading itself</span></li>
+      <li><code>:where(h1,h2,h3,h4)</code> <span>the heading slot, matched at any level. 12px, weight 600, uppercase, tracked out by 0.06em, in the muted tier. <code>:where()</code> contributes no specificity, which is what keeps this rule from outranking anything</span></li>
+      <li><code>.subtotal</code> <span>the figure at the far end. Same size and same tier as the heading, tabular, and never wrapping</span></li>
+      <li><code>.plain</code> <span>the modifier that takes the rule off and stands the block further from what follows</span></li>
+      <li><code>border-bottom</code> <span><code>--line-divider</code>, decorative: it separates rather than identifies, so it owes no contrast threshold</span></li>
+      <li><code>align-items</code> <span><code>baseline</code>, so a 12px word and a 12px number sit on one optical line rather than on two</span></li>
+    </ul>
+    <p class="note"><b>It hosts no atom, and the figure is deliberately not one.</b> <code>.subtotal</code> looks like a place for the <a href="amount.html">Amount</a> and is not: it never takes the amount's weight or its primary ink, because here the money is a fact about the group rather than the subject of the line. Two things that would be the same object at the same value are still two objects when their jobs differ, which is the naming rule in <code>docs/architecture.md</code> applied one level up from tokens.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One axis, and it is about what stands underneath.</b> Banded is the default and draws a rule; plain takes the rule off. The choice is made by the thing below the head, never by the importance of the section.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Rule<p class="axis-rule">Banded when what follows is a bare list or a set of fields, which have no edges of their own and need the head to close off the section above. Plain when what follows already draws its own edges, a grid of tiles or a row of chips: a hairline above a bordered grid is two lines saying one thing</p></th>
+            
+            <th class="val">Measured</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Banded</b> <code>.group-head</code></td>
+            
+            <td class="val">8px padding<br>2px margin<br>1px --line-divider</td>
+            <td>24 of the 31 coloured occurrences, and every one of them a <code>div</code> wrapping a heading. Category groups on Home, the field groups and the plan line on Settings</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="group-head"><h2>Streaming (4)</h2><span class="subtotal">$54.96 a month</span></div></div></td></tr>
+          <tr>
+            <td><b>Plain</b> <code>.group-head.plain</code></td>
+            
+            <td class="val">0 padding<br>16px margin<br>no border</td>
+            <td>7 coloured occurrences, and every one of them is written directly on a heading: two <code>h2</code> on Add a Subscription and its loading state, five <code>h3</code> on the guided reveal. Which is exactly the pair of screens that broke it</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><h2 class="group-head plain">Most tracked</h2></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Content<p class="axis-rule">The figure appears when the group has one number that describes it. It is not "a total for every section": a section of fields or switches has nothing to sum, and an empty far end is correct there</p></th>
+            
+            <th class="val">Measured</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>With a figure</b></td>
+            
+            <td class="val">12px, tabular, nowrap</td>
+            <td>Home's category groups, and Settings, where the far end holds a plan name rather than a sum</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="group-head"><h2>Software (4)</h2><span class="subtotal">$53.98 a month</span></div></div></td></tr>
+          <tr>
+            <td><b>Without</b></td>
+            
+            <td class="val">-</td>
+            <td>Settings' field groups. The heading takes the whole width and the row is still a flex row, so adding a figure later moves nothing else</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="group-head"><h2>Your details</h2></div></div></td></tr>
+          <tr>
+            <td><b>Loading</b></td>
+            
+            <td class="val">104px and 90px</td>
+            <td>The loading states. The host owns the slot widths and the <a href="skeleton-bar.html">skeleton bar</a> draws the bars. Two different widths on purpose: a column of identical bars reads as a progress meter, and a loading state is not progress</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="group-head"><span class="skel"></span><span class="skel"></span></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>There is no size axis and there must not be one.</b> The head is 12px on every screen at every width, and that is what makes a group head recognisable as a group head from across a long page. A larger one is a page subject, which is the <a href="text-block.html">text block</a>, and a smaller one is an <a href="eyebrow.html">eyebrow</a>.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A group head opens a <b>section of like things</b>: four streaming subscriptions, three preset tiles, the fields that make up your details. It is the quietest possible way to say "a new kind of thing starts here", and quiet is the requirement rather than a preference: Home carries five of them in a column and a person is meant to scan past four of them to find the one they came for.</p>
+    <p class="note">Uppercase at 12px with tracking does the work a heavier weight would otherwise do. It is small caps behaviour without a second typeface, which matters because <code>DESIGN.md</code> forbids a display face by name: one family for the whole product, and a second family is how a calm interface starts sounding like two products.</p>
+    <p class="note">The figure at the far end is context, in the plain money language sense: "Streaming (4)" and "$54.96 a month" together say what the group is and what it costs, and neither is useful alone. On Settings the same slot holds the word "Free", which is the same job with no arithmetic in it.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Any heading level, one look</span>
+        <div class="kit-stage app full wide"><h2 class="group-head plain">Most tracked</h2><h3 class="group-head plain">Streaming (4)</h3></div>
+        <p>An <code>h2</code> and an <code>h3</code>, identical on screen. The document picks the level from the outline it needs, the component picks the look from the class, and the two never have to agree. This is what <code>:where(h1,h2,h3,h4).group-head</code> buys, and it costs no specificity at all.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never bind the look to a tag</span>
+        <div class="kit-stage app full wide"><h3>Streaming (4)</h3></div>
+        <p>That is what this component used to be, and the picture above is what it looked like when it broke: a browser-default heading, 24px and black, next to 12px uppercase muted everywhere else. It broke twice for the same reason, once on the form screen where the <code>h2</code> IS the head, and again on the guided reveal where the head is an <code>h3</code> inside a group, and both times on a screen that had already been accepted. <b>A component whose typography depends on which heading level the document happened to need is not a component.</b></p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a group head to open a section</span>
+        <div class="kit-stage app full wide"><div class="group-head"><h2>Music (2)</h2><span class="subtotal">$22.98 a month</span></div></div>
+        <p>A label on a set of like things, with the one number that describes the set. It repeats down a screen without ever competing with the content it introduces.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a text block for the page's subject</span>
+        <div class="kit-stage app full wide"><section class="state"><h2>We could not load your subscriptions</h2><p>Nothing is lost. Try again in a moment.</p></section></div>
+        <p>When the heading is what the screen is <b>about</b> rather than a divider inside it, the component is the <a href="text-block.html">text block</a>, written <code>.state</code> or <code>.lede</code> today. The tell: a group head is followed by items, a text block is followed by an action. Setting a page subject in 12px uppercase muted would leave a screen with no subject at all, which is exactly what a person arriving on an error state cannot afford.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and it was checked rather than assumed.</b> A group head is a label on a section: it holds no anchor, no button and no disclosure on any of the 55 grey pages or the 28 coloured ones, and the sections it opens are not collapsible in this product. The one disclosure the app shell does have is a <code>details.panel summary</code> on the alerts screen, which is the <b>panel</b> organism and a different component with its own indicator. The loading form in the matrix above is content, not state: it is what the block holds while the figures arrive, and it belongs to the <a href="skeleton-bar.html">skeleton bar</a>.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the heading and the figure</td><td><code>--text-muted</code></td><td><code>--muted</code>, 5.8:1 light and 6.4:1 dark. One tier for both, because they are one line</td></tr>
+          <tr><td>the rule underneath</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>, decorative: 1.23:1 light is deliberate</td></tr>
+          <tr><td>the type step</td><td><code>--type-meta</code></td><td>primitive, straight: a size has nothing to override</td></tr>
+          <tr><td>gap, padding, margins</td><td><code>--space-16</code>, <code>--space-8</code>, <code>--space-2</code>, <code>--space-0</code></td><td>primitive, straight</td></tr>
+          <tr><td>the two skeleton slots</td><td>104px and 90px, literal</td><td>slot widths, which are not on the spacing scale. The host owns the slot, <code>skeleton-bar.css</code> owns the bar, and that file names these two rules as belonging here</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Three values moved and none was re-decided.</b> The gap was 12px and is 16, the padding under the heading was 6px and is 8, the plain form's bottom margin was 12px and is 16. Nearest step, ties to the larger, straight from the founder's review of the foundations. Everything else measured identical before and after on the real <a href="../home.html">Home</a> screen: 12px, weight 600, 0.72em-equivalent tracking, the muted ink, the 2px bottom margin and the divider colour.</p>
+    <p class="note"><b>One rule of this component lives in another file, and it is named in both.</b> <code>.app .rgroup .group-head { margin: 0 0 8px }</code> belongs to the <a href="merchant-chip-group.html">merchant chip group</a>, because it is that molecule positioning this one. It ties with <code>.group-head.plain</code> at 0-3-0 and is decided by source order, which the <code>@import</code> order settles by itself: alphabetically inside the molecule level, <code>group-head.css</code> comes before <code>merchant-chip-group.css</code>, so the host wins. Measured on this system: 8px, as the product renders today.</p>
+    <p class="note">Lives in <code>design/system/components/group-head.css</code>. Stands on 16 grey pages and 11 coloured ones, in 31 places on the colour and 36 on the grey. Coloured screens carrying it: <a href="../home.html">Home</a> and three of its states, <a href="../add-subscription.html">Add a Subscription</a> and its loading state, <a href="../guided-reveal.html">Guided Reveal</a>, <a href="../history-trends.html">History and Trends</a> and its loading state, <a href="../settings.html">Settings</a>, <a href="../settings-no-account.html">Settings with no account</a>.</p>
+    <code class="kit-cmd">&lt;div class="group-head"&gt;
+  &lt;h2&gt;Streaming (4)&lt;/h2&gt;
+  &lt;span class="subtotal"&gt;$54.96 a month&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;h2 class="group-head plain"&gt;Most tracked&lt;/h2&gt;
+
+&lt;div class="group-head"&gt;
+  &lt;span class="skel"&gt;&lt;/span&gt;&lt;span class="skel"&gt;&lt;/span&gt;
+&lt;/div&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/group-head.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The two breakages that moved its typography onto the class are written up in <code>docs/inventory.md</code>; the values that folded are in <code>docs/tokens-audit.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

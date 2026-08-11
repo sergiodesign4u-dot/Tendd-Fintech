@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meta row - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Meta row</h1>
+    <p class="lead">A row of short muted labels, side by side. Two names in the product today and one anatomy: the axis under a chart, and the ruled strip that says how long something will take and where its instructions came from.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>5</strong> grey pages</span><span><strong>5</strong> places</span><span>1 axis: rule</span><span>no states, not interactive</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and a repeated content slot, and nothing from the kit inside it, which is what keeps it an atom. Everything below is drawn by <code>design/system/components/meta-row.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from. Both specimens carry real product copy.</p>
+    <div class="kit-stage app col">
+      <p class="axis"><span>May</span><span>Jun</span><span>Jul</span></p>
+      <p class="strip"><span>About five minutes</span><span>Steps for netflix.com, which is how you pay for this one</span></p>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.axis</code> <span>the plain form: a wrapping flex row in the single secondary ink tier, at 11px, with its labels pushed apart by <code>space-between</code></span></li>
+      <li><code>.strip</code> <span>the ruled form: the same row at 12.5px, with a rule above and a rule below, and a real gap instead of <code>space-between</code></span></li>
+      <li><code>&gt; span</code> <span>the labels. Plain <code>span</code> elements with no class of their own: the row positions them, and nothing styles them individually</span></li>
+      <li><code>flex-wrap</code> <span><code>wrap</code> on both, and it does more work than it looks. The ruled form's second label is a whole sentence, and at 360px it has to fall to its own line rather than squeeze the label beside it</span></li>
+      <li><code>border-top</code>, <code>border-bottom</code> <span>the only declarations that separate the two forms structurally. Both read <code>--line-divider</code>, the softer of the two line tokens</span></li>
+    </ul>
+    <p class="note"><b>Measured on this page:</b> the plain form renders at 11px with <code>justify-content: space-between</code> and 6px above, 24px below; the ruled form at 12.5px with a 4px by 22px gap, 10px of padding inside its two rules and 22px below. Both sit in <code>--text-muted</code>, 5.78:1 on the surface in the light theme and 6.40:1 in the dark.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis, and it is <b>rule</b>: whether the row carries a line above and below it. Everything else follows from that one choice, because the two forms are answering different questions and the rules are what say so. Values stand next to each other below, because the question is comparative.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Rule<p class="axis-rule">Plain when the labels belong to the thing directly above them. Ruled when they are facts about the whole page and belong to nothing in particular. A rule is a boundary, so it is only earned by content that needs to be fenced off from what surrounds it</p></th>
+            
+            <th class="val">Values</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Plain</b> <code>.axis</code></td>
+            
+            <td class="val">11px<br>space-between<br>6px 0 24px</td>
+            <td>3 places, all of them directly under a <a href="chart-placeholder.html">chart placeholder</a>. <code>space-between</code> rather than a gap, because these labels are not a list: each one names a position on the plot above and has to sit under it. The first pins left, the last pins right, and that is what makes three months or five categories line up with the strokes</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="axis"><span>May</span><span>Jun</span><span>Jul</span></span></span></td></tr>
+          <tr>
+            <td><b>Ruled</b> <code>.strip</code></td>
+            
+            <td class="val">12.5px<br>gap 4px 22px<br>10px padding<br>2 &times; --line-divider</td>
+            <td>2 places, both on a cancel guide. Its labels <b>are</b> a list, so they take a real gap: how long this will take, and where the steps came from. The two rules are what turn two stray sentences into one band of facts about the page</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="strip"><span>About five minutes</span><span>The general path, because we have no tailored steps for this service yet</span></span></span></td></tr>
+          <tr>
+            <td class="kit-empty">A third form</td>
+            
+            <td class="kit-empty">-</td>
+            <td><b>Forbidden with a reason rather than missing.</b> There is no emphasis axis and no tone axis: every label in both forms is <code>--text-muted</code>. A meta row that could highlight one of its own labels would be ranking them, and ranking is the work this product takes away from the person. If one fact matters more than the others, it is not a label, it is a sentence, and it belongs to a different component</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The step from 11px to 12.5px is the point, not drift.</b> The plain form is a caption for a picture and is read only by somebody following the plot; the ruled form is content a person actually reads before deciding whether to start. Two jobs, two sizes, and the size follows the job rather than the host.</p>
+    <p class="note"><b>The ruled form is decided from the grey, not invented here.</b> <code>.strip</code> stands on <b>zero</b> coloured pages: it lives on <a href="../../wireframes/cancel-guide.html">cancel-guide</a> and <a href="../../wireframes/cancel-guide-no-guide.html">cancel-guide-no-guide</a>, and neither has ever been drawn in colour. <code>docs/census.md</code> lists it under "Meta strip" as one of the seventeen forms that exist only in the grey, and names the risk exactly: a form nobody has drawn is a form every later builder invents independently, differently each time. Every value above came from <code>wireframes/_wf.css:810-814</code> with only the colour layer added, so stage 12 has something to match rather than something to guess.</p>
+    <p class="note"><b>Two selectors, one component, and the names are not touched here.</b> <code>.axis</code> becomes <code>.metarow</code> and <code>.strip</code> becomes <code>.metarow.ruled</code> at step 6, executed from the map in <code>docs/inventory.md</code> together with the markup of the screens. A rename here and a screen there is how a pixel comparison stops proving anything.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A meta row carries <b>facts nobody came for but everybody wants before they commit</b>, in the fewest words the product can manage. It never carries the answer to the question the screen exists to answer: it carries the small print that makes the answer trustworthy, and it does it at the smallest sizes in the system so it can sit there without competing.</p>
+    <p class="note">The plain form is a caption for a picture: three months under a trend line, or the person's own five category names under an empty frame behind the Pro gate. It only exists where a chart does, which is why it stands on the same screens and nowhere else.</p>
+    <p class="note">The ruled form is the answer to "what am I in for", right before a person starts a cancel guide: <b>"About five minutes"</b> beside <b>"Steps for netflix.com, which is how you pay for this one"</b>. Both lines come from <code>voice/docs/microcopy.md</code>, and both exist because the category asks for a cancellation with no statement of effort and no statement of source. Stating the effort is what makes the guide feel like help rather than like a task; stating the source is Trust through transparency, applied to instructions instead of to figures. On the screen with no tailored steps the second label changes to <b>"The general path, because we have no tailored steps for this service yet"</b>, which is the same sentence being honest about a gap.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a meta row</span>
+        <div class="kit-stage app full wide"><span class="strip"><span>About five minutes</span><span>Steps for netflix.com, which is how you pay for this one</span></span></div>
+        <p>Two or three short facts that belong together and belong to nothing else on the page. They read across, not down, so they cost one line of vertical space and stay skippable for the person who does not need them.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a pair list instead</span>
+        <div class="kit-stage app full wide"><span class="consequence">How long it takes &middot; about five minutes &nbsp;&nbsp; Where the steps came from &middot; netflix.com</span></div>
+        <p>The moment each fact needs a <b>label of its own</b>, the row is the wrong object: it has no place to put one, and adding it inline turns the row into a paragraph of run-together phrases. That job belongs to the <b>pair list</b>, <code>.pairs</code>, which gives every fact a label and a value on their own line, divided by a hairline. The test is simple: if a reader has to be told what a value <i>is</i>, use the pair list; if the value says what it is, use this.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Let the rules fence a row of labels</span>
+        <div class="kit-stage app full wide"><span class="strip"><span>About five minutes</span><span>The general path, because we have no tailored steps for this service yet</span></span></div>
+        <p>A rule above and a rule below, around several labels sitting side by side. The band is the unit, and the two lines are what make the eye read it as one.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a ruled muted line instead</span>
+        <div class="kit-stage app full wide"><span class="consequence">Tendd never moves money and never has access to your account.</span></div>
+        <p>One paragraph with a rule above it is a different component: the <b>muted line</b> in its ruled form, <code>.muted.ruled</code>, which is what the legal footnote is on seven grey pages. The two look similar in a screenshot and are not the same object, and the difference is the anatomy rather than the styling: this component is a <b>row of several labels</b>, that one is a <b>single block of prose</b>. Using the ruled meta row for one sentence gives it a second rule underneath that fences off nothing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and that is a decision rather than an omission.</b> It is a row of labels: nothing in it is a link, a button or a field on any page in the product, and <code>meta-row.css</code> declares no <code>:hover</code>, no <code>:focus-visible</code> and no <code>[disabled]</code>. Inventing a hover on a label is the same defect as inventing a role, because it documents something the product cannot do.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>every label, in both forms</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier, and there is no third. 5.78:1 on the surface light, 6.40:1 dark. The grey ran a fourth tone here and it collapsed onto this one at stage 07: on 11px text that fourth grey measured about 2.85:1, under AA</td></tr>
+          <tr><td>the two rules of the ruled form</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. Decorative, and deliberately the softer of the two line tokens: it divides content inside a screen and does not enclose anything, so it is not a container edge</td></tr>
+          <tr><td>geometry</td><td>no primitive</td><td>this component has no corner and no fixed size. The sizes and margins stay the literals they are today, because the spacing and type scales are still a proposal awaiting the founder</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/meta-row.css</code>. Stands on 5 grey pages in 5 places. Coloured screens carrying it, all three of them the plain form: <a href="../history-trends.html">History and trends</a>, <a href="../history-trends-locked.html">the Pro gate</a>, <a href="../history-trends-empty.html">empty</a>. The ruled form stands on none, and its two grey homes are named in the matrix above.</p>
+    <code class="kit-cmd">&lt;p class="axis"&gt;&lt;span&gt;May&lt;/span&gt;&lt;span&gt;Jun&lt;/span&gt;&lt;span&gt;Jul&lt;/span&gt;&lt;/p&gt;
+
+&lt;p class="strip"&gt;
+  &lt;span&gt;About five minutes&lt;/span&gt;
+  &lt;span&gt;Steps for netflix.com, which is how you pay for this one&lt;/span&gt;
+&lt;/p&gt;
+
+The labels carry no class. If one of them needs a name of its own,
+the component is the pair list, not this.</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/meta-row.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The box the plain form captions is the <a href="chart-placeholder.html">chart placeholder</a>. The consolidation that merged <code>.axis</code> and <code>.strip</code> is in <code>docs/inventory.md</code>; the ruled form's absence from the coloured sample is counted in <code>docs/census.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

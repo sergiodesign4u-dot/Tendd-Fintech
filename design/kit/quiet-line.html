@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiet line - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Quiet line</h1>
+    <p class="lead">The exit. The small paragraph under a screen's main action that offers the way out: "Do this later", "Can't find it? Add it by hand", "Use a different email". It looks like a muted line and it is not one, and the difference is the point of this page.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>12</strong> grey pages</span><span>1 form, no axes</span><span>3 states, both themes</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one text slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/quiet-line.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens. The class name is the one the product writes today and it does not change at step 6: <code>.quiet</code> is one of the few names the consolidation kept.</p>
+    <div class="kit-stage app">
+      <div>
+        <p class="quiet">Can't find it? <a href="#anatomy">Add it by hand</a> and fill the details yourself.</p>
+        <p class="quiet"><a href="#anatomy">Do this later</a></p>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.quiet</code> <span>13px, and <b>no colour declaration at all</b>. It inherits the body ink from <code>base.css</code>, so it renders at <code>--text-primary</code>, one tier ABOVE the muted family</span></li>
+      <li><code>margin</code> <span><code>0 0 22px</code>, the gap to whatever follows, which on most of its screens is the end of the screen</span></li>
+      <li><code>.quiet a</code> <span>the way onward, ink with a hairline underline. Every quiet line in the product contains one</span></li>
+      <li><code>no &gt; a rule</code> <span>the 44px target floor is deliberately absent here, and the reason is in the states block below</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One form and no axes.</b> The inventory records none, the stylesheet declares none, and the census measured four instances of <code>.quiet a</code> with one value on every property. There is no matrix to draw: a component that says the same thing on twelve screens is finished, and drawing an empty grid for it would suggest the variants are missing rather than unnecessary.</p>
+    <p class="note">What DOES vary is the markup a screen wraps around it, and it is worth a table because it changes the size of the target rather than the look of the line.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Markup shape</th><th>Grey pages</th><th>What the anchor measures</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td><code>&lt;p class="quiet"&gt;</code> sentence with a link inside it</td><td class="n">4</td><td class="n">the height of its line</td><td>Running text. A 44px box forced into a sentence pulls the paragraph's lines apart, measured at 100px against 75px on a four line paragraph</td></tr>
+          <tr><td><code>&lt;p class="quiet"&gt;&lt;a&gt;</code> paragraph that IS the link</td><td class="n">8</td><td class="n">the same, and it should not</td><td>A standalone control under the target floor, on 8 of the 12 grey pages and 2 of the 4 coloured ones. CSS cannot tell it from a sentence that happens to contain a link, so the fix is markup and it belongs to a step that touches markup</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>No size axis, and that is a decision rather than an absence.</b> Every quiet line in the product is 13px, on a phone and on a dashboard, inside a flow column and at the foot of a settings screen. It is the last thing a person reads before leaving a screen, and a smaller one would be a smaller door.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A quiet line is where a person <b>declines</b>. It stands under the action a screen is asking for, and it says that not doing it is allowed: "Do this later" under Connect your bank, "Not now" under Add a source, "Use a different email" under a sign-in link that did not arrive. The product's audience is described in one line as skeptical about connecting a bank, and this component is that sentence's home. Twelve grey pages carry one, and every one of them is a screen where a person could get stuck.</p>
+    <p class="note"><b>It renders at ink, not muted, and that is the whole decision.</b> A person who is stuck is the person least able to read small print, so the exit is never in the second tier. It sits one line away from a muted line on several screens (<a href="../add-subscription.html">Add a Subscription</a> has both), and the step between the two inks is the only thing telling a reader which of the two sentences is for them. Nothing else about the pair differs: the same 13px, the same family, the same underline under the link.</p>
+    <p class="note">Its copy comes from <code>voice/docs/microcopy.md</code>, where "Do this later" is a single canonical line used on four screens rather than four variations of the same thought. It never apologises, never says "skip", and never asks a question the screen has already asked.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The way out, under the way on</span>
+        <div class="kit-stage app"><div><a class="btn primary" href="#rule">Connect your bank</a><p class="quiet"><a href="#rule">Do this later</a></p></div></div>
+        <p>One filled action and one quiet exit under it. The pair is the product's answer to a person who is not ready: the door stays open and nothing on the screen argues with them. Four grey screens carry exactly this pair, a filled button with a link-only quiet line under it.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a button instead</span>
+        <div class="kit-stage app"><div><a class="btn primary" href="#rule">Start Tendd Pro</a><a class="btn" href="#rule">Maybe later</a></div></div>
+        <p>When the two choices are genuinely equal, or when declining is itself a commitment the person will be asked to confirm, both are <b>buttons</b>. "Maybe later" is a button on the upgrade pair because it sits beside a purchase and closes a paid flow. A quiet line is the smaller of two unequal doors, not the second of two equal ones.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A sentence with the way onward in it</span>
+        <div class="kit-stage app"><p class="quiet">Want a copy first? <a href="#rule">Download my data</a> is free and takes a moment.</p></div>
+        <p>On the delete confirmation, the quiet line is the one thing on the screen offering something other than deletion. Ink, because it has to be read; a link rather than a button, because the screen already has its two buttons and a third would flatten the difference between them.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a muted line instead</span>
+        <div class="kit-stage app"><p class="consequence">Nothing about your plan or your data changed. If it keeps happening, tell us and we will look at it.</p></div>
+        <p>A sentence ABOUT the screen rather than a way off it belongs to the <b>muted line</b>, at the second ink tier. The test is whether the sentence offers a destination. Reassurance, consequence, provenance and small print are all muted; only the exit is ink. Getting this backwards is how a screen ends up with its footnote louder than its escape hatch.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">The line itself has none: it is text and not a target. <b>Its link does</b>, and the link is the reason the component exists, so it is a real state surface rather than a template cell. Three states rather than four: there is no disabled link in this product, because a link that cannot be followed is not rendered.</p>
+    
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app" id="live-rest">
+      <div>
+        <p class="quiet">Can't find it? <a href="#states" id="shot-inline">Add it by hand</a> and fill the details yourself.</p>
+        <p class="quiet"><a href="#states" id="shot-alone">Do this later</a></p>
+      </div>
+    </div>
+    <p class="note"><b>The second one is the open defect, shown rather than described.</b> Tab to it and measure it: it is the height of its own line, not 44px, because <code>.quiet &gt; a</code> is absent from the target-size rule in <code>kit.css</code> while <code>.trust &gt; a</code>, <code>.removal &gt; a</code>, <code>.notice &gt; a</code>, <code>.attention &gt; a</code> and <code>.legal &gt; a</code> are all in it. That is not an oversight in this file: adding the floor here would put a 44px inline-flex box inside the first specimen's sentence and pull its lines apart. The two cases are told apart by structure everywhere else in the system (<code>&gt; a</code> against <code>p a</code>), and this is the one shape the structure cannot reach, because a paragraph whose only content is a link is indistinguishable from a sentence that contains one. It is logged here rather than papered over, and it is closed with markup.</p>
+
+    <h3 class="kit-sub-h">The three, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok">the line inherits <code>--text-primary</code>, the link reads <code>--text-body</code>, the underline <code>--line-container</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same three roles, the other half of each pair. The line stays a full tier above the muted family in both themes, which is the component's whole claim</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--text-action</code>, on the ink and the underline together</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok"><code>--text-action</code> again, and here it is the LIGHTER petrol: contrast runs against the opposite ground, so the accent climbs the scale instead of descending it</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--line-selected</code>, from <code>base.css</code> at specificity 0. 6.2:1 as a line</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok">6.8:1. The ring is the only thing that finds this link for a keyboard user, which is exactly why the missing target floor above matters and is logged</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this
+repo and a command that does not run is worse than no command:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/quiet-line.html
+    move the pointer away  -&gt; screenshot #live-rest -&gt; screens/quiet-line-rest-&lt;theme&gt;.png
+    hover #shot-inline     -&gt; screenshot #live-rest -&gt; screens/quiet-line-hover-&lt;theme&gt;.png
+    focus #shot-alone by Tab, assert :focus-visible
+                           -&gt; screenshot #live-rest -&gt; screens/quiet-line-focus-&lt;theme&gt;.png
+
+Reached the way a person reaches them: a real pointer and a real Tab. Step 9 checks
+these six files for a byte shift, because a snapshot nobody re-takes freezes silently,
+and a frozen snapshot is worse than none: it looks checked.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the line itself</td><td>none of its own</td><td>inherited from <code>base.css</code>, which sets <code>--text-primary</code> on <code>body</code>. Declaring it here would look tidier and would be a new declaration in a stage whose one promise is that the product does not move</td></tr>
+          <tr><td>the link at rest</td><td><code>--text-body</code></td><td><code>--slate</code></td></tr>
+          <tr><td>the link under the pointer</td><td><code>--text-action</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the underline at rest</td><td><code>--line-container</code></td><td><code>--hairline</code>. A line role on a text decoration, deliberately: a full strength rule under a link in a calm paragraph reads as emphasis</td></tr>
+          <tr><td>the focus ring</td><td>not declared here</td><td><code>base.css</code> draws one ring for the system at specificity 0, with <code>:where()</code>, precisely so a text link never repeats it</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/quiet-line.css</code>. Stands on 12 grey pages and 4 coloured ones. Coloured screens carrying it: <a href="../add-subscription.html">Add a Subscription</a>, <a href="../add-subscription-loading.html">its loading state</a>, <a href="../guided-reveal-empty.html">Guided Reveal, empty</a>, <a href="../upgrade-current-plan.html">Your current plan</a>.</p>
+    <code class="kit-cmd">&lt;p class="quiet"&gt;Can't find it? &lt;a href="..."&gt;Add it by hand&lt;/a&gt; and fill the details yourself.&lt;/p&gt;
+&lt;p class="quiet"&gt;&lt;a href="..."&gt;Do this later&lt;/a&gt;&lt;/p&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/quiet-line.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its place in the consolidation is in <code>docs/inventory.md</code>, where it is one of the atoms that stayed its own component rather than folding into the muted line; the four instances the browser measured before the system existed are in <code>docs/census.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

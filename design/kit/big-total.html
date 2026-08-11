@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Big total - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Big total</h1>
+    <p class="lead">The monthly total, set in Display: 46px, weight 700, tracked in by -0.025em over a 1.02 leading. It is the number the person came for, the last beat of the guided reveal, and the loudest object in the product. There is exactly one of it per screen, ever.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>8</strong> grey pages</span><span>1 axis, 2 sizes</span><span>no states</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one content slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/big-total.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens. The class name is the one the product writes today and it survives step 6 unchanged.</p>
+    <div class="kit-stage app">
+      <div>
+        <p class="total">$192.90</p>
+        <p class="context">a month, for what you have signed up for</p>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.total</code> <span>the atom: 46px, weight 700, tabular figures, in <code>--text-primary</code>. Display, and the only object in the system set at this size</span></li>
+      <li><code>letter-spacing</code> <span><code>-0.025em</code>, the tightest tracking in the product. Inter at 46px set at normal tracking reads as a spreadsheet cell; pulled in over a 1.02 leading it reads as one object</span></li>
+      <li><code>line-height</code> <span><code>1.02</code>. Set solid, because the number is one line and the space around it belongs to the blocks above and below</span></li>
+      <li><code>margin</code> <span><code>0</code>, deliberately. It sits inside a summary strip or a reveal step, and the host owns the spacing: that is what lets the same number work under a 21px heading on Home and under a 15px caption on the reveal</span></li>
+      <li><code>aria-label</code> <span>on the element in the product markup ("monthly total, $192.90"), because "$192.90" alone read out of context is a price and not a total</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis and no second: <b>size, set by the container</b>. There is no emphasis axis and no tone axis. A total that rose and a total that fell are the same ink at the same size, and what changed is said in words beside it: colouring this number would put the product's alarm on the one object the whole screen is built around.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Size<p class="axis-rule">Set by the CONTAINER. A screen gives the number the full 46px; a card that will be sent to somebody else gives it 40px, because inside the card it has to clear the card's own padding rather than the screen's</p></th>
+            
+            <th class="val">Values</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>46px</b> <code>.total</code></td>
+            
+            <td class="val">46px / 700<br>1.02 / -0.025em</td>
+            <td>5 grey pages and 4 coloured ones: Home and two of its states, and the third step of the Guided Reveal. The default, and the one a screen should reach for</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="total">$192.90</span></span></td></tr>
+          <tr>
+            <td><b>40px</b> <code>.sharecard .total</code></td>
+            
+            <td class="val">40px / 700<br>1.05, margin 2px 0 0</td>
+            <td>1 grey page and no coloured one: the share snapshot, one of the components the colour sample never reached, which is recorded in <code>docs/census.md</code>. It keeps the weight and the tracking, so it is the same object one step down rather than a second one</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="sharecard"><span class="total">$174.91</span></span></span></td></tr>
+          <tr>
+            <td class="kit-empty">A second on one screen</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. <b>The One Number Rule</b>: exactly one object on a screen is set in Display, and it is the number the person came for. If a second number wants that size, the screen is answering two questions and should be two screens. No page in either folder renders two</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A smaller step</td>
+            
+            <td class="kit-empty">-</td>
+            <td>There is no 32px or 30px form of this component, and the gap is deliberate: those two sizes belong to the <b>amount</b>, and the distance between 32 and 46 is what keeps a price and a total readable as different kinds of number</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The 40px form is not "the total, small".</b> It is the total inside an image a person sends to somebody else, and everything in that card scales together: a 12px caption over a 20px count over this number. Reaching for it anywhere else would be a size chosen by importance, which is the one thing the axis rule forbids.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">This is the number the product exists to show. The primary job is stated in one sentence in <code>CLAUDE.md</code>: when I suspect I am paying for things I forgot about, I want to see all my recurring charges in one calm view. The total is the answer to that sentence, and it is the last of the three beats of the gradual reveal (D1): the count, then the categories, then this. On the guided reveal it arrives under "All together", which is the emotional peak the whole product is built to test.</p>
+    <p class="note"><b>The One Number Rule</b>, from <code>DESIGN.md</code>, is the rule that governs it: exactly one object on a screen is set in Display, and it is the number the person came for. If a second number wants that size, the screen is answering two questions and should be two screens. That is why this atom is separate from the amount rather than being its largest size. They are not one figure at two scales: a total is a figure that owns a screen, and an amount is a figure among others. The personality of this product lives in that jump, which is also why there is no second typeface anywhere in the system.</p>
+    <p class="note">It never appears without a muted line under it saying what it is ("a month, for what you have signed up for"), because a figure in this product never appears without its context. On Home the heading above it is the count in plain words, "You're paying for 14 subscriptions", so the pair reads as a sentence with a number in the middle rather than as a dashboard tile.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">One number, with its caption and its context</span>
+        <div class="kit-stage app"><div><h2 class="lbl strong">All together</h2><p class="total">$192.90</p><p class="context">a month, for what you have signed up for</p></div></div>
+        <p>Three lines and one object: what this is, the number, and what the number means. 15px, 46px, 13px, so the eye lands on the figure and reads outwards from it in both directions. Four coloured screens play it exactly this way.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use an amount instead</span>
+        <div class="kit-stage app"><span class="hero"><span class="amt">$11.99</span></span></div>
+        <p>A price, even the one a whole detail screen is about, is an <b>amount</b> and stops at 32px. Setting a second figure in Display is the One Number Rule broken, and the cost is not stylistic: two objects at 46px on one screen means a person has to decide which of the two they came for, which is exactly the work this product takes away from them.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The same number, one step down in a card</span>
+        <div class="kit-stage app"><span class="sharecard"><span class="total">$174.91</span></span></div>
+        <p>Inside the share snapshot the figure drops to 40px and keeps its weight and its tracking, because the card is a smaller world and everything in it scales together. Same component, same relationship to its caption, one container narrower.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a skeleton bar instead</span>
+        <div class="kit-stage app"><span class="skel total"></span></div>
+        <p>While the number is still arriving, what stands in its place is a <b>skeleton bar</b> wearing this atom's class: <code>&lt;span class="skel total"&gt;</code> on three grey loading screens. It is painted by the skeleton at a higher specificity, and this component gives it nothing visible, because an empty span has no text to set. That is deliberate rather than accidental: the reveal keeps its exact shape while it waits, so nothing on the screen jumps when the figure lands.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and it was checked rather than assumed.</b> A total is a figure: it is not a link, not a button and not pressed on any of the 55 grey pages or the 28 coloured ones, and it contains no anchor anywhere in either folder. Drawing four empty cells would document something the product cannot do. The loading form above is not a state of this component either, it is the skeleton bar borrowing the class, and the summary strip reads that same class from the other side: <code>.summary:not(:has(.total))</code> is how the empty state knows to promote its own heading, since with no number there is nothing to caption.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the figure</td><td><code>--text-primary</code></td><td><code>--ink</code>, and <code>--ink-dark</code> in the dark theme. 17.4:1 on the light surface, 15.0:1 on the dark one</td></tr>
+          <tr><td>the two sizes, the leading and the tracking</td><td>literals</td><td>46px and 40px, 1.02 and 1.05, -0.025em. The type scale is still a proposal awaiting the founder, so they stay exactly as they are</td></tr>
+          <tr><td>tabular figures</td><td>declared twice, on purpose</td><td><code>base.css</code> sets it for <code>:where(table, .amt, .total)</code> at specificity 0, as the floor that catches a figure written without this class; the component says the same thing at its own specificity so a host cannot un-align it</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/big-total.css</code>. Stands on 8 grey pages, 5 of them rendering the number and 3 rendering the skeleton that holds its place. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../home-error.html">Home, error</a>, <a href="../home-savefocus.html">Home, save focus</a>, <a href="../guided-reveal.html">Guided Reveal</a>.</p>
+    <code class="kit-cmd">&lt;p class="total" aria-label="monthly total, $192.90"&gt;$192.90&lt;/p&gt;
+&lt;p class="context"&gt;a month, for what you have signed up for&lt;/p&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/big-total.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It was one of the seven slot names the stage 07 audit found with no base rule at all, sized only by its hosts; its row and its two sizes are in <code>docs/inventory.md</code>, and the taste decision behind the size jump is in <code>design/concept/docs/concept.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

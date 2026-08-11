@@ -1,0 +1,93 @@
+/* ============================================================================
+   Skeleton bar - atom
+   The grey bar that stands where a line of content will be. It is the only thing
+   in this product that moves on its own.
+
+   Reads
+     colour   --bg-placeholder
+     geometry --radius-xs  (straight from primitive)
+     motion   @keyframes pulse, from design/system/base.css. NOT declared here,
+              and the reason is below.
+   Page      design/kit/skeleton-bar.html
+   Stands on 8 grey pages, in 89 places. All eight are loading states.
+
+   NOT INTERACTIVE. A skeleton is a placeholder, not a control: nothing can be
+   hovered, focused or pressed, and `.row.is-skel` below exists precisely to take
+   the pointer away from a row that is temporarily not a link. No :hover, no
+   :focus-visible.
+
+   THE KEYFRAME IS DELIBERATELY NOT IN THIS FILE, and it is not tidiness. It sits
+   in base.css because it belongs to no single component, and moving it in here
+   would tie a shared animation to this file's lifetime. That is not a
+   hypothetical failure mode: at stage 07 `@keyframes pulse` lived only inside
+   the July `.phone` block while this atom referenced it, and deleting that block
+   on schedule would have stopped every skeleton in the product from animating,
+   silently and with no error anywhere. It was migrated out first. The whole
+   incident is written up in docs/inventory.md.
+
+   Read the code before repeating base.css's own summary of this: base.css says
+   two components carry the keyframe, the skeleton bar and the logo placeholder.
+   In the stylesheet today exactly ONE rule declares `animation: pulse`, the one
+   below. `.logo.is-skel` takes the same fill token and sits still. The keyframe
+   is shared in intent and single in fact, and either way it stays where it is.
+
+   THE REDUCED-MOTION GUARD IS ALSO NOT HERE, for a stronger reason: a person who
+   asks the operating system for no motion asks the whole product, not one
+   component. base.css guards `*, *::before, *::after`. At stage 07 the guard was
+   written as a bare `.skel` at specificity 0-1-0 against a scoped `.app .skel` at
+   0-2-0, lost the cascade, and did nothing at all: every skeleton on five loading
+   states pulsed forever for someone who had asked for none. It looked correct in
+   the file. The universal selector in base.css cannot lose that way.
+   ============================================================================ */
+
+/* The base bar, and the one line-height in the file that is a height. 12px is
+   the resting bar; `.line` immediately steps it to 11 because a bar standing in
+   for a line of text is the common case and it stacks. Both are literals, and
+   they stay literals: the spacing scale is still a proposal awaiting the
+   founder.
+
+   `.skel.line` IS UNSCOPED IN kit.css AND IS CARRIED HERE UNCHANGED, together
+   with `.skel.w50`, `.skel.w60`, `.skel.w80` and `.skel.w90` below. Their four
+   siblings (`.w40`, `.w70`) carry `.app` and `.landing`. Selectors are not
+   touched at step 5, so the inconsistency travels as it is and is fixed at
+   step 6 with the rename: the whole point of moving byte for byte is that the
+   pixel comparison at step 8 has nothing to explain away. Flagged, not fixed. */
+.app .skel, .landing .skel {
+  display: inline-block; height: 12px;
+  background: var(--bg-placeholder);
+  border-radius: var(--radius-xs);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.skel.line { display: block; height: 11px; margin: var(--space-4) var(--space-0); }
+
+/* ---- width: the axis, and it is set two different ways -------------------
+   ON THE ELEMENT, by one of the six percent classes below, when the skeleton is
+   standing in for a line of prose whose length is unknown. The uneven set
+   (40 / 50 / 60 / 70 / 80 / 90) is deliberate: a column of identical bars reads
+   as a progress meter, and a loading state is not progress.
+
+   BY THE HOST, in fixed pixels, when the skeleton is standing in for something
+   whose width IS known: 84px for a label in a pair list, 110px for its value,
+   104 and 90 in a group head, 56px in a charge list. Those five rules live with
+   their hosts, not here, because they are the host saying how wide its own slot
+   is. This file owns the bar; the host owns the slot. */
+
+.app .skel.line.short, .landing .skel.line.short { width: 40%; }
+/* The one that is not a line. 44px tall and 190 wide: it stands in for the
+   monthly total, the largest object on any screen in the product, and a skeleton
+   that does not reserve its full height lets the page jump when the figure
+   lands. */
+.app .skel.total, .landing .skel.total { height: 44px; width: 190px; margin: var(--space-8) var(--space-0) var(--space-0); }
+/* The amount at the end of a row. flex: none so it holds its 56px while the name
+   beside it takes the slack. */
+.app .skel.amt-skel, .landing .skel.amt-skel { flex: none; width: 56px; height: 13px; }
+.app .skel.w40, .landing .skel.w40 { width: 40%; } .skel.w50 { width: 50%; } .skel.w60 { width: 60%; }
+.app .skel.w70, .landing .skel.w70 { width: 70%; } .skel.w80 { width: 80%; } .skel.w90 { width: 90%; }
+
+/* The gap above a list of skeleton rows, which the real list gets from its group
+   head. Folded into this component at step 2 rather than counted as a one-off. */
+.app .skel-list, .landing .skel-list { margin-top: var(--space-24); }
+/* The row that is not a link yet. It is rendered as a div rather than an anchor
+   on all eight loading pages, so this only removes the pointer a `.row` sets;
+   it is here rather than with the row because it exists solely for this state. */
+.app .row.is-skel, .landing .row.is-skel { cursor: default; }

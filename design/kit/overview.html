@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System - Tendd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="../../_nav.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<!--
+  The roadmap leads here, so this page is an ACCOUNT of the stage first and an index
+  of the material second. A person arriving from the sidebar wants to know what was
+  done and what it cost; the material itself is one click away in the kit's own
+  panel, and the index at the foot of this page repeats it.
+
+  Two registries load here on purpose: the project roadmap from /_nav.js and the
+  system's own from _nav.js. Every other stand page carries only the second.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
+  <div class="kit-theme" role="group" aria-label="Theme">
+    <button type="button" data-theme="light" aria-pressed="true">Light</button>
+    <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+  </div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <p class="kit-eyebrow">Stage 08 &middot; Tokens + Components</p>
+    <h1 class="big">The design system</h1>
+    <div class="kit-prose">
+      <p class="first">The same look as UI + Visual, a different architecture. The flat kit of stage 07 splits into <b>two levels of tokens</b> and <b>one file per component</b>, and the product does not move by a pixel. Four of the nine steps are done: the audit, the consolidation, the tokens, and these foundations.</p>
+      <p>The code of the system lives in <code>design/system/</code> and a product loads it with one link. The stand is here, and a person looks at it. The split is simple: <code>design/system/</code> can be lifted into another project whole, and this stand stays behind.</p>
+    </div>
+    <div class="kit-meta">
+      <span><strong>55</strong> components, was 68</span>
+      <span><strong>25</strong> roles, every one paired to a dark theme</span>
+      <span><strong>0</strong> failing contrast pairs</span>
+      <span>Foundations awaiting review</span>
+    </div>
+  </header>
+
+  <section class="kit-step" id="audit">
+    <h2>What the flat kit actually contained <span class="no">Step 1</span></h2>
+    <div class="kit-prose">
+      <p>Facts before decisions, taken on <b>two instruments independently</b>: a parse of the stylesheet against all 28 coloured pages, and Codex read-only over the same corpus. Where the two disagreed, the place was re-read in the file rather than voted on.</p>
+      <p>The stylesheet came out clean on the thing it was most likely to be dirty about: <b>zero hex literals inside any rule</b>, zero radius literals where a radius variable already held that value, zero literals of any kind on the 28 product screens. The stage 07 rule that a screen carries no style of its own held.</p>
+      <p>What it was not clean about is the half nobody had tokenised. <b>23 font sizes and 27 spacing values are in use and not one of them is a variable.</b> That is not a defect of stage 07; it is the shape of the work here. One orphan variable, <code>--success</code>, was declared and read by nothing.</p>
+      <p>The second half of the step measured the product in a browser rather than reading it: <code>getComputedStyle</code> on every control of every coloured page, in two viewports, <b>594 records</b>. It found what a file cannot show. <b>"Try again" is played in three different weights on four error screens</b>: a filled petrol button on two, a plain outline button on a third, and a quiet clay link inside a wash on the fourth. A person who learns the loud button on one error screen meets a quiet link on the next, doing the same job.</p>
+      <p>It also found a form nobody had named: behind the Pro gate, a disabled range button keeps the bold weight of the selected state and loses its petrol, so the chosen range is half-signalled.</p>
+      <p>Codex found the most valuable thing of the step, and it was in a document rather than in the code. <b><code>DESIGN.md</code> disagrees with the stylesheet it was generated from in twelve places</b>: it states a headline of 18px where the product ships 21, a merchant name of 14.5px where the product ships 15, a button of 13.5px where the product ships 14. Stage 07 had corrected six values in that file and corrected only the machine-readable half, so the document now disagrees with itself as well as with the code. Three more were found at step 4, on the geometry page. Fifteen in total, and they matter because <code>DESIGN.md</code> is a named input of this stage.</p>
+    </div>
+  </section>
+
+  <section class="kit-step" id="consolidation">
+    <h2>What exists as a unit of the system <span class="no">Step 2</span></h2>
+    <div class="kit-prose">
+      <p>The quietest step of the stage and the only one that writes no code. Step 1 counted what exists; this one decided what exists <b>as a unit</b>. Without it the split into files would carry every piece of drift across intact, and fourteen contextual overrides of the button would land in <code>button.css</code> looking like variants somebody intended.</p>
+      <p>The only criterion allowed was <b>anatomy</b>: the set of zones and their order. "Looks different" is not a criterion, it is the definition of a variant. <b>68 components became 55.</b></p>
+    </div>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Level</th><th class="n">Was</th><th class="n">Became</th><th>What merged, and on what ground</th></tr></thead>
+        <tbody>
+          <tr><td>Atoms</td><td class="n">21</td><td class="n"><b>18</b></td>
+            <td>Four muted lines are one atom at three sizes, and <code>.removal</code>, <code>.pitch</code>, <code>.p</code> and a paragraph wearing <code>.notice</code> joined them. Five chip look-alikes were already one rule in the code and two rows in the inventory. <b>Two atoms were added</b>: the eyebrow and the label had rules, occurrences, and no row anywhere</td></tr>
+          <tr><td>Molecules</td><td class="n">28</td><td class="n"><b>23</b></td>
+            <td><code>.attention</code> and <code>.notice</code> are byte-identical apart from their tone token, and <code>.decoder</code> is the same wash with a different corner. <code>.actions</code> and <code>.secondary</code> differ only by a margin, which belongs to the host. <code>.lede</code> and <code>.state</code> are one text block at three scopes</td></tr>
+          <tr><td>Organisms</td><td class="n">19</td><td class="n"><b>14</b></td>
+            <td>Three identical divided lists, three grids differing only by column count, two padded cards. The reviewer's page frame left the system altogether: it stands on 55 pages and travels to no build</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-prose">
+      <p>The step also produced the <b>renaming map</b>, 39 rows of "old class to new class and variant". It is executed at step 6 and read again by the rollout at stage 12, and without it nobody four steps later can reconstruct what <code>.decoder</code> was folded into.</p>
+      <p><b>Three things change how the product looks, and all three are named.</b> The decoder's corner goes from 10px to 12px, because two washes with the same fill, the same padding and different corners is drift and not a variant. The Pro gate's padding goes from 18px to 16px, to match the card it turned out to be. And on one error screen "Try again" becomes the filled button it already is on five others. Everything else is a refactor, and the pixel comparison at step 8 has to prove it.</p>
+    </div>
+  </section>
+
+  <section class="kit-step" id="tokens">
+    <h2>Two levels, and a pair of themes from the first line <span class="no">Step 3</span></h2>
+    <div class="kit-prose">
+      <p><b>Primitive</b> answers what value, <b>semantic</b> answers why this colour here, and there is no third level. A component token is created case by case and only where a state lands on no role at all. Geometry gets no semantic level: a radius has nothing to override, so components read it straight from primitive.</p>
+      <p>The finding that decided how many roles exist is the <b>surface axis</b>. A role declares what it paints, and there are three: ink, fill, line. Ink answers to 4.5:1, fill and line to 3:1. One role on two surfaces is forbidden even at the same value, because a fill role placed on a 12px bold caption passes as a surface and fails as text, and a table of text-on-background pairs never catches it: nobody declared it text. Petrol alone became three roles for exactly this reason.</p>
+      <p><b>Every role is written twice at the moment it is declared</b>, in <code>:root</code> and in <code>[data-theme="dark"]</code>. 27 roles and 4 state tokens, 31 pairs, none missing. The pair is not mirrored, and three places show why. The action darkens under the pointer in the light theme and <b>lightens</b> in the dark one, because the hover has to move away from the ground and the ground swapped ends. The callout shares one value with the page in the light theme and must not in the dark. And the label on a filled action is white in the light theme; on the lightened petrol of the dark theme white measures <b>1.9:1</b>, so it takes the dark canvas at 7.5:1 instead. That last one would have shipped broken had the pair been left for later.</p>
+      <p>21 dark primitives are the only new values in the file. They had to be new, because the flat kit had no dark theme to carry.</p>
+    </div>
+  </section>
+
+  <section class="kit-step" id="foundations-step">
+    <h2>The material, shown before a single component <span class="no">Step 4</span></h2>
+    <div class="kit-prose">
+      <p>Colour, typography, geometry and icons are material too, and they are shown now rather than at the end. This is the cheapest place in the stage to change a scale: one file, and it reaches everything through <code>var()</code>. After the components are built the same change costs thirty component files plus thirty pages that already show the old value.</p>
+      <p>Two of the four carry a <b>proposal rather than a change</b>. Typography proposes seven steps for the 23 sizes on screen, with five named exceptions; geometry proposes six steps for the 27 spacings, with the screen foot kept as a family and 104px expressed as the tab bar plus air. <b>Nothing in <code>design/system/</code> has been changed by either.</b> They are the founder's call, and they are why this page says the foundations are awaiting review.</p>
+    </div>
+    <div class="kit-grid" id="grid-foundations"></div>
+  </section>
+
+  <section class="kit-step" id="open">
+    <h2>What this stage has not closed <span class="no">Open</span></h2>
+    <div class="kit-open">
+      <p><b>The two proposed scales.</b> Typography and spacing were never tokenised, and both pages propose a scale. Until one is accepted the system has colour and radius as tokens and the rest as literals.</p>
+    </div>
+    <div class="kit-open">
+      <p><b>Fifteen divergences in <code>DESIGN.md</code>.</b> The decision is made, the document moves to the code, and the edit waits for the scale that step 4 proposes: writing today's 23 sizes into it would replace one wrong description with a longer one.</p>
+    </div>
+    <div class="kit-open">
+      <p><b>One project-wide contrast defect, and it is not this stage's.</b> The SOON badge in the roadmap is <code>#9aa0a2</code> on white, <b>2.65:1</b> against 4.5:1. It lives in the root <code>_nav.css</code> and therefore on every page of the project, from Foundation Research to Handoff. Fixing it is one line and changes every stage, so it is named here rather than changed quietly.</p>
+    </div>
+    <div class="kit-open">
+      <p><b>Nine heading rules set a size and no weight.</b> They render at the browser's bold rather than at a decision. Found on the typography page and carried, because it is a component question and the components are step 5.</p>
+    </div>
+  </section>
+
+  <section class="kit-step" id="honesty">
+    <h2>Where this stage caught itself <span class="no">Corrections</span></h2>
+    <div class="kit-prose">
+      <p>Two of the numbers on this page were wrong when they were first written, and both were caught by a second instrument rather than by the person who wrote them. It is worth recording, because it is the argument for the second instrument existing at all.</p>
+      <p><b>The spacing census said 24 values and the real figure is 27.</b> It was taken with a pattern that matched the <code>margin:</code> and <code>padding:</code> shorthand and not one longhand, so every <code>margin-top</code> and <code>padding-left</code> was invisible to it: three values were missed entirely and ten were undercounted. A census taken by pattern is only as complete as the pattern.</p>
+      <p><b>The reviewer chrome was documented as moved and had not been moved.</b> The comment at the top of the stand's stylesheet said the frame had left the system; the rules were still in the old file, and when the hub stopped loading that file the roadmap rendered as a plain stack with no panel. Documenting a move is not making one.</p>
+    </div>
+  </section>
+
+  <section class="kit-step" id="material">
+    <h2>The material itself <span class="no">Index</span></h2>
+    <div class="kit-prose">
+      <p>The system's own panel on the left of every stand page is the way to browse this. The index below is the same registry, laid out flat. A component with no page yet is shown quiet: <b>0 of 55 are built</b>, and step 5 builds them in rounds from the bottom of the ladder up.</p>
+    </div>
+    <h3 class="kit-sub-h">Atoms</h3>
+    <div class="kit-grid" id="grid-atoms"></div>
+    <h3 class="kit-sub-h">Molecules</h3>
+    <div class="kit-grid" id="grid-molecules"></div>
+    <h3 class="kit-sub-h">Organisms</h3>
+    <div class="kit-grid" id="grid-organisms"></div>
+  </section>
+
+  <footer class="kit-foot">
+    The audit is in <code>docs/tokens-audit.md</code>, the measured control forms in <code>docs/census.md</code>, the component list and the renaming map in <code>docs/inventory.md</code>, the rules in <a href="architecture.html">Architecture</a>. The coloured screens this system is proved against are in <a href="../overview.html">UI + Visual</a>, and the grey structure contract in <a href="../../wireframes/overview.html">wireframes/</a>.
+  </footer>
+</div>
+
+<script>
+(function(){
+  var s=document.getElementById('sidebar-panel'), o=document.getElementById('sidebarOverlay'),
+      t=document.getElementById('navToggle'), c=document.getElementById('sidebarClose');
+  function op(){s.classList.add('open');o.classList.add('open');}
+  function cl(){s.classList.remove('open');o.classList.remove('open');}
+  if(t)t.addEventListener('click',op); if(c)c.addEventListener('click',cl); if(o)o.addEventListener('click',cl);
+})();
+</script>
+<script>
+  window.NAV_BASE = '../../';
+  window.NAV_SECTIONS = [
+    { id:'audit',            label:'Step 1, the audit' },
+    { id:'consolidation',    label:'Step 2, the consolidation' },
+    { id:'tokens',           label:'Step 3, the tokens' },
+    { id:'foundations-step', label:'Step 4, the foundations' },
+    { id:'open',             label:'What is still open' },
+    { id:'honesty',          label:'Corrections' },
+    { id:'material',         label:'The material' },
+  ];
+</script>
+<script src="../../_nav.js"></script>
+<script src="_nav.js"></script>
+<script>
+(function(){
+  var N = window.KIT_NAV;
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function fileOf(it){ return it.file || (it.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') + '.html'); }
+  var THUMB = { 'Colour': ['--paper','--canvas','--petrol','--petrol-tint','--amber','--clay','--muted','--ink'] };
+  function thumb(name){
+    var t = THUMB[name];
+    if (!t) return '';
+    return '<div class="kit-thumb">' + t.map(function(c){ return '<i class="c'+c+'"></i>'; }).join('') + '</div>';
+  }
+  function card(it){
+    var pending = it.page === null;
+    var nm = pending ? '<span class="nm">'+esc(it.name)+'</span>'
+                     : '<a class="nm" href="'+fileOf(it)+'">'+esc(it.name)+'</a>';
+    var h = '<article class="kit-card'+(pending?' is-pending':'')+'">';
+    h += '<div class="r1">'+nm+(it.wf!==undefined?'<span class="cnt">'+it.wf+' pages</span>':'')+'</div>';
+    if (it.cls)  h += '<div class="cls">'+esc(it.cls)+'</div>';
+    if (it.axes && it.axes !== '-') h += '<p class="ax">'+esc(it.axes)+'</p>';
+    if (it.note) h += '<p class="ax">'+esc(it.note)+'</p>';
+    if (it.was)  h += '<p class="was"><b>was</b> '+esc(it.was)+'</p>';
+    h += thumb(it.name);
+    h += '</article>';
+    return h;
+  }
+  ['foundations','atoms','molecules','organisms'].forEach(function(k){
+    var el = document.getElementById('grid-'+k);
+    if (el && N[k]) el.innerHTML = N[k].map(card).join('');
+  });
+})();
+</script>
+</body>
+</html>

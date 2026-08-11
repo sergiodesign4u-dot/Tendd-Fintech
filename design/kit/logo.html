@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Logo</h1>
+    <p class="lead">The square a merchant's mark sits in. It is the only saturated object in a subscription row, and it is the one thing on a screen that is data rather than chrome: it is the person's own Netflix, rendered as Netflix.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>21</strong> grey pages</span><span><strong>111</strong> places</span><span>5 sizes, 3 contents</span><span>no states, not interactive</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one content slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/logo.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app">
+      <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
+      <span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span>
+      <span class="logo">[ ? ]</span>
+      <span class="logo is-skel"></span>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.logo</code> <span>the atom itself: a fixed 36px square, centred, with a control corner and no border. It is a <code>flex</code> box with <code>flex: none</code>, so the row beside it takes the slack and the square never squeezes</span></li>
+      <li><code>.logo img</code> <span>the mark, at 100% by 100% of the square. It never bleeds past it, so the row's geometry does not change per merchant. <code>alt=""</code> on every one, because the whole row is a single link with a single accessible name</span></li>
+      <li><code>overflow: hidden</code> <span>the containment rule made mechanical. A mark that overshoots is clipped by the corner rather than allowed to break the row</span></li>
+      <li><code>.logo.is-skel</code> <span>loading. The same square in the placeholder fill</span></li>
+      <li><code>:not(.is-skel):not(:has(img))</code> <span>unmatched. Selected structurally, because the grey has no class to hook and the wireframes are frozen. This is the one form that adds a border</span></li>
+      <li><code>font-size: 8px</code> <span>not a typography decision: it is the size at which the string standing in for a missing mark fits a 36px square</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">Two axes. <b>Size</b> is set by the container and never by importance: the same Netflix mark is 52px on a detail hero and 22px in the reveal's chip group because the host is bigger, not because that subscription matters more. <b>Content</b> is what we know about the merchant, and its three values are three different sentences.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Size<p class="axis-rule">Set by the HOST. A logo never carries a size class of its own, and there is no <code>.logo.large</code>: if a square is the wrong size, the host is what changes</p></th>
+            
+            <th class="val">Corner</th>
+            <th>Its host</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>52</b> <code>.hero .logo</code></td>
+            
+            <td class="val">--radius, 14px</td>
+            <td>the subscription detail hero. Past 36px the square stops reading as a control and becomes a container, so it takes the container corner</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="hero"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span></span></span></td></tr>
+          <tr>
+            <td><b>36</b> <code>.logo</code></td>
+            
+            <td class="val">--radius-sm, 10px</td>
+            <td>the base, and the list row: the object the whole product is made of. Also the source card. 89 of the 111 places</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span></span></td></tr>
+          <tr>
+            <td><b>32</b> <code>.alert .logo</code></td>
+            
+            <td class="val">--radius-sm</td>
+            <td>an alert item, where the mark yields a little to the sentence beside it</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="alert"><span class="logo"><img src="../visuals/logos/notion.svg" alt=""></span></span></span></td></tr>
+          <tr>
+            <td><b>30</b> <code>.tile .logo</code></td>
+            
+            <td class="val">--radius-sm</td>
+            <td>a preset tile on Add a subscription, where the mark is the whole point of the tile</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="tile"><span class="logo"><img src="../visuals/logos/icloud.svg" alt=""></span></span></span></td></tr>
+          <tr>
+            <td><b>22</b> <code>.rgroup li .logo</code></td>
+            
+            <td class="val">--radius-xs, 6px</td>
+            <td>the reveal's chip group, where marks run in a line as evidence rather than as rows. At 22px a control corner reads as a pill, which is the same argument that named <code>--radius-xs</code> for the chip</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">20</td>
+            
+            <td class="kit-empty">-</td>
+            <td>The grey draws the reveal's group at 20px (<code>wireframes/_wf.css:623</code>) and the colour layer has shipped 22 since stage 07. The inventory's "20 / 22 / 30 / 32 / 36 / 52" counts both files; only five of those six sizes render anywhere today. Listed so the sixth is not re-derived from the grey at stage 12</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Content<p class="axis-rule">Three values, and each says something different about what we know. Do not use one to stand in for another: a loading square that never resolves is a lie, and an unmatched square that pulses says we are still trying</p></th>
+            
+            <th class="val">Tokens</th>
+            <th>What it says</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>A mark</b> <code>.logo &gt; img</code></td>
+            
+            <td class="val">--bg-callout</td>
+            <td>we know the merchant. 14 marks cover the whole canonical dataset; the fill behind them is the callout wash, so a mark with transparency still has a square</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="logo"><img src="../visuals/logos/adobe-cc.svg" alt=""></span></span></td></tr>
+          <tr>
+            <td><b>Unmatched</b> <code>.logo</code>, no image</td>
+            
+            <td class="val">--bg-callout<br>--line-container<br>--text-muted</td>
+            <td>we looked and could not name it. Node 2.7's unrecognized state is the whole reason that screen exists, and the grey writes "[ ? ]" where a mark would go. The one form with a border</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="logo">[ ? ]</span></span></td></tr>
+          <tr>
+            <td><b>Loading</b> <code>.logo.is-skel</code></td>
+            
+            <td class="val">--bg-placeholder</td>
+            <td>we do not know yet. It takes the skeleton fill so it reads as part of the loading row, and it does <b>not</b> pulse: only <code>.skel</code> animates. See <a href="skeleton-bar.html">Skeleton bar</a></td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="logo is-skel"></span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Four of the five sizes are shown live above and the fifth is not, for a reason worth naming.</b> The hosts of the 52, 32 and 30 forms are plain classes, so a bare <code>&lt;span class="hero"&gt;</code> is enough to reach them here. The 22px form is selected as <code>.app .rgroup li .logo</code>, and the <code>li</code> in the middle is an <b>element</b> rather than a class: it can only be reached by building a real list, which would drag a browser list marker onto this page and say nothing true about the component. It is live on <a href="../guided-reveal.html">Guided Reveal</a>. This is the same finding the chip page records about <code>.appbar .plan</code>, and the same repair closes both: step 6's rename moves the size onto the square rather than onto the path to it.</p>
+    <p class="note"><b>Solid, not dashed, and this is the one place the colour layer departs from the wireframe convention on purpose.</b> The grey draws every logo square with a dashed border (<code>wireframes/_wf.css:311</code> for the row, <code>:638</code> for the hero) because that is what "we have nothing to show" means in a wireframe. DESIGN.md forbids a dashed border outright: "There are no dashed borders, no double borders, and no border that exists to decorate a block that would read fine without one." The container hairline plus the callout fill says the same thing in this language.</p>
+    <p class="note"><b>One number here disagrees with DESIGN.md, and the code wins.</b> Its prose calls this "a 40px logo tile"; the stylesheet has shipped 36 since stage 07, on 111 places across 21 pages. Step 3 decided the document moves to the code and not the other way round, and the row is on the correction checklist in <code>docs/tokens-audit.md</code>. Nothing in this component is 40.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A person recognises their own subscriptions by their marks before they read a single word, and that is the whole job: on Home the fourteen squares are what turn a list of amounts into <i>my</i> list. DESIGN.md sets the rule that makes it work: <b>a real name and a real mark wherever the merchant is known</b>, never a cryptic bank code, never stock art, never an illustration standing in for a company. The founder's decision on 2026-08-10 was full colour real logos, and zero photography anywhere in the product.</p>
+    <p class="note"><b>The containment rules are binding, and they are what let a brand colour into a calm screen at all.</b> The mark is the only saturated thing in its row: the amount, the name and the date stay ink and muted, and a row never tints its background, its border or its text to match the brand. Petrol never sits inside the square, so the one accent and the brand colour never touch, and no brand colour appears anywhere outside the square. The One Voice Rule survives fourteen logos because of exactly those two sentences.</p>
+    <p class="note">Where a person meets it: on Home in every group, on a subscription detail as the 52px hero mark, on Add a subscription inside the preset tiles, on Alerts beside each sentence, and on the guided reveal as a line of small marks that is the evidence for the number above it.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a logo</span>
+        <div class="kit-stage app"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span></div>
+        <p>A merchant, in a row that is about that merchant. The mark is data: it identifies the thing the row is about, so it belongs to the content and not to the interface.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a destination icon instead</span>
+        <div class="kit-stage app"><span class="consequence">Home &middot; Alerts &middot; Save &middot; You</span></div>
+        <p>A place inside the product is not a merchant, and it takes the <b>destination icon</b>, <code>.ic-*</code>: a mask painted in <code>currentColor</code>, with no brand colour and no fill behind it. The tell is ownership. A logo belongs to somebody else and is allowed to be saturated; a destination mark belongs to Tendd and therefore inherits the one voice. Putting a merchant mark in the tab bar, or a masked glyph in a subscription row, breaks the rule in both directions at once.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Say we could not name it</span>
+        <div class="kit-stage app"><span class="logo">[ ? ]</span></div>
+        <p>An unmatched charge gets the bordered empty square and the plain question mark. It is honest and it is quiet, and the screen beside it says what to do about it in a sentence.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a wash block instead, and only if something failed</span>
+        <div class="kit-stage app"><span class="consequence">We could not refresh just now.</span></div>
+        <p>An unmatched merchant is <b>not an error</b>, so it never takes clay and never takes an error tone. DESIGN.md: clay is scoped to a genuine failure, and "Don't use clay on an empty state. Nothing went wrong in an empty state." When something really did fail, the object is the <b>wash block</b>, <code>.wash.error</code>, carrying a sentence and a way to retry. The square stays neutral either way.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and that is a decision rather than an omission.</b> The square is never the tap target: on every screen the whole subscription row is one link with one accessible name, so a screen reader reads the subscription and not five fragments, and a pointer that hovers the mark is hovering the row. <code>logo.css</code> therefore declares no hover, no focus and no disabled, and the row's own hover is the row's rule. The three forms above are <b>content</b>, not state: they say what we know about the merchant, and none of them is reachable by an interaction.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the square behind a mark</td><td><code>--bg-callout</code></td><td><code>--canvas</code>. The same role the unmatched square takes: both are a wash inside a card, and in the dark theme they lift off the surface together</td></tr>
+          <tr><td>the loading square</td><td><code>--bg-placeholder</code></td><td><code>--skeleton</code></td></tr>
+          <tr><td>the unmatched border</td><td><code>--line-container</code></td><td><code>--hairline</code>. Decorative, not a control edge: nothing about this square has to be found by touch</td></tr>
+          <tr><td>the "[ ? ]"</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier. 5.17:1 on the callout fill</td></tr>
+          <tr><td>the three corners</td><td><code>--radius</code>, <code>--radius-sm</code>, <code>--radius-xs</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/logo.css</code>. The fourteen marks themselves are files in <code>design/visuals/logos/</code> and are catalogued, with their fidelity debt, on <a href="icons.html">Icons and marks</a>. Stands on 21 grey pages in 111 places. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../subscription-detail.html">Subscription Detail</a>, <a href="../subscription-detail-unrecognized.html">the unrecognized state</a>, <a href="../home-loading.html">Home, loading</a>, <a href="../add-subscription.html">Add a Subscription</a>, <a href="../guided-reveal.html">Guided Reveal</a>.</p>
+    <code class="kit-cmd">&lt;span class="logo"&gt;&lt;img src="visuals/logos/netflix.svg" alt=""&gt;&lt;/span&gt;
+&lt;span class="logo"&gt;[ ? ]&lt;/span&gt;
+&lt;span class="logo is-skel"&gt;&lt;/span&gt;
+
+the size comes from the host, never from a class on the square:
+&lt;div class="hero"&gt;&lt;span class="logo"&gt;...&lt;/span&gt;&lt;/div&gt;   52px
+&lt;li class="alert"&gt;&lt;span class="logo"&gt;...&lt;/span&gt;&lt;/li&gt;    32px</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/logo.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided its axes is in <code>docs/inventory.md</code>; the measured forms it had before the system are in <code>docs/census.md</code>; the disagreement with DESIGN.md's prose is row five of the twelve in <code>docs/tokens-audit.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

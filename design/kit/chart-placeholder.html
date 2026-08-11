@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chart placeholder - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Chart placeholder</h1>
+    <p class="lead">The framed box the trend plot is drawn inside. The box is this component; the line inside it is markup. On two of the four screens it stopped being a placeholder at stage 07, and the name it keeps is the one the registry knows it by.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>4</strong> grey pages</span><span><strong>4</strong> places</span><span>1 axis: what is inside it</span><span>no states, not interactive</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one content slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/chart-placeholder.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from. The SVG in the box is the markup from <a href="../history-trends.html">History and trends</a>, copied without a change except the two token names, which the screens still write in <code>kit.css</code>'s vocabulary until step 6.</p>
+    <div class="kit-stage app col">
+      <div class="chart" role="img" aria-label="Line chart of your monthly total from May to July, the same figures as the sentence above"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g><path d="M18 76 L150 51 L282 26" fill="none" stroke="var(--text-body)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></div>
+      <p class="axis"><span>May</span><span>Jun</span><span>Jul</span></p>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.chart</code> <span>the atom itself: a 168px box with a control corner, the recessed fill and the softer of the two line tokens. It is a centring <code>flex</code> box, and the centring exists for the fallback string rather than for the plot</span></li>
+      <li><code>.chart &gt; svg</code> <span>the plot, stretched to the full box. A direct-child selector, so an icon dropped in the box some day does not silently become the chart</span></li>
+      <li><code>overflow: hidden</code> <span>holds a stroke that reaches the edge inside the corner</span></li>
+      <li><code>vector-effect</code> <span>on every stroke in the markup, set to <code>non-scaling-stroke</code>. The reason is under this list</span></li>
+      <li><code>.axis</code> <span>not this component. The labels underneath are the <a href="meta-row.html">meta row</a>, and the x positions of the three points line up with them, which is the only thing that makes the two read as one object</span></li>
+    </ul>
+    <p class="note"><b>Why every stroke carries <code>vector-effect="non-scaling-stroke"</code>.</b> The SVG is written with <code>preserveAspectRatio="none"</code>, so the 300 by 100 viewBox is stretched unevenly to fill whatever width the box is given. Without the effect the stroke stretches with it, and a gridline that is one pixel at 360px is a different thickness at 1280. With it, the geometry scales and the ink does not.</p>
+    <p class="note"><b>Measured on this page:</b> the box renders 168px tall with a 10px corner and a 1px frame, and the SVG inside it fills 100% by 100% of the content box. The label text sits at 11px in the muted tier, 5.37:1 on the recessed fill in the light theme and 5.77:1 in the dark.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">There is no modifier class on this component: one box, one fill, one frame, everywhere. What differs between the four places it stands is <b>what is inside it</b>, and that is markup rather than CSS, because the data is different on every screen and a shape cannot live in a stylesheet. The matrix below is therefore read from the four pages rather than from the file, and it is the honest inventory of what a person actually sees.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>What is in the box<p class="axis-rule">Draw the frame honestly, and put in it only what is true. An empty frame is a real answer; a decorative line that stands for nothing is not</p></th>
+            
+            <th class="val">The markup</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>A drawn plot</b></td>
+            
+            <td class="val">3 gridlines<br>+ 1 path, 3 points</td>
+            <td><a href="../history-trends.html">History and trends</a>. <b>Drawn at stage 07</b>, because the grey renders <code>[chart: monthly total, May to Jul]</code> as literal text, and a build note printed on a coloured screen is the wireframe convention outliving its stage. The three points are the same three figures the sentence above the box states in words</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g><path d="M18 76 L150 51 L282 26" fill="none" stroke="var(--text-body)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span></span></td></tr>
+          <tr>
+            <td><b>The frame alone</b></td>
+            
+            <td class="val">3 gridlines<br>no path</td>
+            <td><a href="../history-trends-locked.html">the Pro gate</a>, and it is <b>not the same object one state later</b>. The gridlines are there and the line is not, above the person's own five category labels. Every source in the references blurs a decorative chart behind its paywall; a blur is a lie about our own product, and an honest empty frame persuades better (node 5.12.4)</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g></svg></span></span></td></tr>
+          <tr>
+            <td class="kit-empty">A literal string</td>
+            
+            <td class="val">[chart: ...]</td>
+            <td><b>A line in the backlog, found by opening all four.</b> <a href="../history-trends-empty.html">History and trends, empty</a> still renders <code>[chart: waiting for a third month]</code> and <a href="../history-trends-loading.html">History and trends, loading</a> still renders <code>[chart]</code>, both as visible text in the coloured product. Stage 07 drew the two above and left these two, and the box centres its content precisely because the fallback exists. Neither is a defect in this component: the fix is markup on two screens, and it belongs to the same step that moves the screens onto system classes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 class="kit-sub-h">The two, at full width</h3>
+    <p class="note">The matrix shows them at the width of a table cell, which is enough to tell them apart and not enough to read. Here is the same box on the two screens that carry a drawn one, at the width a screen gives it. Read them as a pair: the gate is not the plot with something taken away from it visually, it is the plot with <b>the data absent</b>, and everything that is true without the data is still on screen.</p>
+    <div class="kit-stage app col">
+      <div class="chart" role="img" aria-label="Line chart of your monthly total from May to July"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g><path d="M18 76 L150 51 L282 26" fill="none" stroke="var(--text-body)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></div>
+      <p class="axis"><span>May</span><span>Jun</span><span>Jul</span></p>
+    </div>
+    <p class="note"><b>History and trends,</b> Pro. Three gridlines and a three point path. The x positions of the points line up with the three month labels underneath.</p>
+    <div class="kit-stage app col">
+      <div class="chart" role="img" aria-label="An empty chart frame with your own category labels, showing where your trends would be drawn"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g></svg></div>
+      <p class="axis"><span>Streaming</span><span>Software</span><span>Music</span><span>Fitness</span><span>News</span></p>
+    </div>
+    <p class="note"><b>The Pro gate,</b> and the labels under it are the person's own five categories rather than a sample. Same frame, same gridlines, no path. Nothing is blurred, nothing is faked, and the sentence beside it says what Pro adds.</p>
+
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Height<p class="axis-rule">Set by the width the SCREEN is given, never by the importance of the data. There is no tall variant and no short one</p></th>
+            <th class="val">Value</th>
+            <th>Where</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Mobile and narrow</b></td><td class="val">168px</td><td>the base, and the height every one of the four boxes has at 360px</td></tr>
+          <tr><td><b>Past a 760 container</b></td><td class="val">220px</td><td>a container query, not a media query: the box grows when the screen it stands on is given the width, which on a review page is 250px less than the browser. The three container steps cannot become variables, because a custom property is not valid inside a <code>@container</code> condition, so they are documented rather than tokenized</td></tr>
+          <tr><td class="kit-empty">On this page</td><td class="kit-empty">168px always</td><td>Said out loud rather than hidden: the container query above needs an ancestor with <code>container-type: inline-size</code>, and the product declares that on the stage wrapping a screen. A component page has no size container, so the boxes here stay at their mobile height however wide the window is. Honest, and not patched: a stand page never bends the system to look better</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The line is not petrol, and that is the decision worth keeping.</b> It is <code>--text-body</code>, the same ink as a sentence. Petrol is spent on exactly three jobs in this product, the primary action, the current selection and the trust line, and a data line would be a fourth claim on the one raised voice this system allows. The gridlines are quieter still, at <code>--line-container</code>: they exist to let the eye read a slope, not to be looked at.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">This component exists on one screen and its four states, and that is the point. DESIGN.md names the reflex the whole visual language was chosen to refuse: red numbers, alarm badges, dark dashboards, <b>"a chart where a sentence would do"</b>. So the chart never arrives alone and never arrives first. On History and trends the <b>readout</b> stands above the box and says it in words: "Your monthly total went from $172.90 in May to $192.90 in July, up about $20 across three months." A person who does not read charts still leaves with the answer, and the picture is the same three figures for a person who does.</p>
+    <p class="note">Where a person meets it: only behind <a href="../history-trends.html">History and trends</a>, which is Pro, and on <a href="../history-trends-locked.html">its gate</a>, which is the one view of that screen the canonical person on Free can have. It never appears on Home. The calm view answers "what is going out" with one number, and a trend line on that screen would turn a fact into a verdict.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Draw the frame honestly</span>
+        <div class="kit-stage app full wide"><span class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g></svg></span></div>
+        <p>Behind the gate the frame is real, the category labels under it are the person's own, and the line is simply absent. Nothing is blurred and nothing is invented. What Pro adds is stated in a sentence beside it, which is a claim that can be checked, unlike a smudge.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a readout instead</span>
+        <div class="kit-stage app full wide"><span class="consequence">Your monthly total went from $172.90 in May to $192.90 in July, up about $20 across three months.</span></div>
+        <p>When the answer is a number, a picture of the number is decoration. The object is the <b>readout</b>, <code>.readout</code>, a 15px sentence at a 46ch measure, or the <b>big total</b>, <code>.total</code>, when the number is the whole screen. Reach for the chart only when the shape of the change is the content, and even then the sentence goes first: on the one screen that has both, the readout is above the box, not under it.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Let the box own the height</span>
+        <div class="kit-stage app full wide"><span class="chart">[chart: waiting for a third month]</span></div>
+        <p>Empty, waiting or drawn, the box is 168px tall. The frame reserves its space from the first paint, so the page does not jump when the data lands and does not shrink when there is none. The centring is what makes the fallback string sit properly in the middle of it.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never let a build note ship</span>
+        <div class="kit-stage app full wide"><span class="consequence">[chart: monthly total, May to Jul]</span></div>
+        <p>A bracketed string is the <b>wireframe placeholder convention</b>, and it is correct in <code>wireframes/</code> and wrong the moment the screen is in colour: it reads as a note to the team, printed to the person. Two of the four coloured pages still carry one, which is why it is in the matrix above as a backlog line rather than as a footnote. The rule is the same one that governs the merchant marks: filling a slot the grey wrote as text is the one thing a colour copy is allowed to add.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and that is a decision rather than an omission.</b> Nothing in this box can be hovered, tapped or focused: there is no tooltip, no crosshair, no legend and no point to select, and <code>chart-placeholder.css</code> declares no <code>:hover</code>, no <code>:focus-visible</code> and no <code>[disabled]</code>. The box carries <code>role="img"</code> with the full sentence as its label, so it is one object to a screen reader rather than a field of unreadable geometry. What looks like state here, drawn against empty against loading, is <b>content</b>: it is what is inside the frame, and it is decided by the screen.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the fill</td><td><code>--bg-recessed</code></td><td><code>--panel</code>. The box sits back from the card it stands on rather than forward off it, which is what stops a picture from becoming the loudest thing on the screen</td></tr>
+          <tr><td>the frame</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>, and it is the softer of the two line tokens on purpose. This box is not a card and not a control: nothing about it has to be found by touch, so the 3:1 a control's edge owes does not apply</td></tr>
+          <tr><td>the fallback string</td><td><code>--text-muted</code></td><td><code>--muted</code>. 5.37:1 on the recessed fill light, 5.77:1 dark</td></tr>
+          <tr><td>the corner</td><td><code>--radius-sm</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>the plot, in the markup</td><td><code>--text-body</code> for the line, <code>--line-container</code> for the gridlines</td><td><code>--slate</code> and <code>--hairline</code>. Not petrol, and the reason is in the matrix above</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/chart-placeholder.css</code>. Stands on 4 grey pages in 4 places, and on all four coloured ones: <a href="../history-trends.html">History and trends</a>, <a href="../history-trends-locked.html">the Pro gate</a>, <a href="../history-trends-empty.html">empty</a>, <a href="../history-trends-loading.html">loading</a>.</p>
+    <code class="kit-cmd">&lt;div class="chart" role="img" aria-label="Line chart of your monthly total from May to July,
+     the same figures as the sentence above"&gt;
+  &lt;svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"&gt;
+    &lt;g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"&gt;
+      &lt;line x1="0" y1="22" x2="300" y2="22"/&gt;
+      &lt;line x1="0" y1="50" x2="300" y2="50"/&gt;
+      &lt;line x1="0" y1="78" x2="300" y2="78"/&gt;
+    &lt;/g&gt;
+    &lt;path d="M18 76 L150 51 L282 26" fill="none" stroke="var(--text-body)" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/&gt;
+  &lt;/svg&gt;
+&lt;/div&gt;
+&lt;p class="axis"&gt;&lt;span&gt;May&lt;/span&gt;&lt;span&gt;Jun&lt;/span&gt;&lt;span&gt;Jul&lt;/span&gt;&lt;/p&gt;
+
+The gate is the same block with the &lt;path&gt; removed. Nothing else changes.</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/chart-placeholder.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The labels under the box are the <a href="meta-row.html">meta row</a>. The consolidation that decided this component has no axis of its own is in <code>docs/inventory.md</code>; the reason the plot is not petrol is the One Voice Rule in <code>DESIGN.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

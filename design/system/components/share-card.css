@@ -1,0 +1,89 @@
+/* ============================================================================
+   Share card - molecule
+   The picture a person sends to somebody else after a cancellation: a caption,
+   a count, the monthly total, a line of context, and the win that prompted it.
+   Centred, which nothing else in this product is, because it is not a screen
+   element pretending to be a card - it is the card, and it will be looked at
+   outside the app.
+
+   An image built from two numbers, which is what makes it safe by construction
+   rather than safe by memory: there is no slot on it for an account number, a
+   bank name or a list of what a person pays for, so no bank data can reach it
+   even by accident. The copy beside it names the three things that are on it,
+   which is proof rather than a promise.
+
+   Reads
+     colour   --bg-surface, --text-primary, --text-body, --line-container,
+              --line-divider
+     spacing  --space-0, --space-8, --space-16, --space-24
+     geometry --radius
+     type     --type-title, --type-body
+   Hosts     the label (the caption), the big total, the muted line and, in the
+             loading form, six skeleton bars. It repaints none of them. Two
+             host-scoped rules that look like this file's are already elsewhere
+             and stay there: `.sharecard .total` is in big-total.css, because a
+             40px total folding to 32px is the Big total's own size axis and the
+             one named exception in the whole scale mapping, and `.sharecard .p`
+             is in muted-line.css, which offers it back in writing. A rule that
+             belongs to two files ends up in neither, so it is left in one.
+   Page      design/kit/share-card.html
+   Stands on 2 grey pages and ZERO coloured ones, so its form is read from the
+   grey rather than from a colour render. It is one of the nine components the
+   census found with no occurrence in the coloured sample at all.
+
+   NOT INTERACTIVE. It is a `div` with `role="img"` and a full accessible name;
+   there is no anchor, no button and no target anywhere inside it. The controls
+   that act on it ("Share", "Back to your subscriptions") stand in an action row
+   underneath and are buttons. No states, and that is a finding rather than a
+   gap.
+
+   ONE RULE WAS DROPPED, and it is the only thing here that is not a straight
+   carry. kit.css declares `.sharecard .lbl { display: block; font-size: 12px;
+   color: --soft }`, which is the Label atom's base rule restated word for word:
+   same display, same size, same ink, and the atom's own `margin: 0` was not
+   even overridden. A host repeating an atom is not a variant, it is a second
+   copy that will not be updated when the first one is. Deleting it moves zero
+   pixels, which was checked against label.css before it went.
+
+   THE CLASS NAME IS NOT TOUCHED. `.sharecard` and its slots stay as the product
+   writes them.
+   ============================================================================ */
+
+.app .sharecard, .landing .sharecard {
+  padding: var(--space-24) var(--space-16);
+  margin: var(--space-0) var(--space-0) var(--space-8);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+  text-align: center;
+}
+
+/* The container hairline and not the control edge: nothing here has to be found
+   by touch. It is the same card as every other card in the product, and the
+   only reason it looks different is that its contents are centred. */
+
+/* ---- the count ----------------------------------------------------------
+   "13 subscriptions", set at title size under a 12px caption and over the 32px
+   total. It is the second number on the card and it is deliberately smaller
+   than the first: the total is the thing being shared, the count is what makes
+   the total mean something. */
+.app .sharecard .count, .landing .sharecard .count {
+  margin: var(--space-8) var(--space-0) var(--space-0);
+  font-size: var(--type-title);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ---- the win line -------------------------------------------------------
+   "Just cancelled Netflix and freed up $17.99 a month." The one sentence on the
+   card, separated from the figures by a divider rather than by a second card,
+   because the Flat Paper Rule gives a new surface a hairline and never a
+   shadow. Body ink and not muted: this is the sentence the card exists to say,
+   and the person sending it is proud of it. */
+.app .sharecard .win-line, .landing .sharecard .win-line {
+  margin: var(--space-16) var(--space-0) var(--space-0);
+  padding-top: var(--space-16);
+  border-top: 1px solid var(--line-divider);
+  font-size: var(--type-body);
+  color: var(--text-body);
+}

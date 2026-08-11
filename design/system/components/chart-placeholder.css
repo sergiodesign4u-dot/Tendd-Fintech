@@ -1,0 +1,75 @@
+/* ============================================================================
+   Chart placeholder - atom
+   The framed box the trend plot is drawn inside. It is a frame and a fallback,
+   not a chart: the box is this component, the line inside it is markup.
+
+   Reads
+     colour   --bg-recessed     the fill
+              --line-divider    the frame
+              --text-muted      the fallback string, when there is one
+     geometry --radius-sm  (straight from primitive)
+   Page      design/kit/chart-placeholder.html
+   Stands on 4 grey pages, in 4 places, all four of them History and trends.
+
+   NOT INTERACTIVE. Nothing in this box can be hovered, tapped or focused: there
+   is no tooltip, no crosshair, no legend and no point to select. DESIGN.md names
+   the reflex this refuses: "a chart where a sentence would do". The sentence is
+   `.readout`, and it stands ABOVE the box carrying the same three figures, so a
+   person who does not read charts still leaves with the answer.
+
+   THE NAME IS NOW HALF WRONG, AND THE NAME IS NOT CHANGED HERE. On two of the
+   four coloured pages this stopped being a placeholder at stage 07: the box
+   holds a real SVG. It is still called the chart placeholder because that is
+   what docs/inventory.md and design/kit/_nav.js call it and the registry is the
+   name of record. See the page for what each of the four actually contains.
+
+   IT IS NOT PETROL, AND THAT IS THE DECISION WORTH KEEPING. The plotted line is
+   --text-body. Petrol is spent on the primary action, the current selection and
+   the trust line, and a data line would be a fourth claim on the one raised
+   voice this system allows.
+   ============================================================================ */
+
+/* The frame takes --line-divider rather than --line-container, and it is the
+   softer of the two on purpose: this box is not a card and it is not a control.
+   Nothing in it has to be found by touch, so the 3:1 a control's edge owes does
+   not apply, and a heavier frame would draw the eye to the picture rather than
+   to the sentence above it.
+
+   The flex centring is for the fallback string, not for the plot: an SVG child
+   is stretched to the full box by the rule below and is not affected by it.
+   overflow: hidden holds a stroke that reaches the edge inside the corner. */
+.app .chart, .landing .chart {
+  display: flex; align-items: center; justify-content: center;
+  height: 168px; overflow: hidden;
+  border: 1px solid var(--line-divider);
+  border-radius: var(--radius-sm);
+  background: var(--bg-recessed);
+  font-size: var(--type-meta); color: var(--text-muted);
+}
+
+/* The plot fills the frame. It is a direct-child selector so that an icon
+   dropped inside the box some day does not silently become the chart.
+
+   The SVG is MARKUP, not CSS, and that is deliberate: the data is different on
+   every page, so the shape cannot live in a stylesheet. What this rule
+   guarantees is that whatever is drawn stretches to the box the component owns.
+   The stroke work belongs with the markup and is stated on the page: every
+   stroke carries vector-effect="non-scaling-stroke", so a line stays one pixel
+   at 360 and at 1280 rather than being scaled by preserveAspectRatio="none"; and
+   the x positions of the points line up with the meta row's labels underneath,
+   which is the only thing that makes the two read as one object. */
+.app .chart > svg, .landing .chart > svg { display: block; width: 100%; height: 100%; }
+
+/* The one responsive rule this component owns. It is a CONTAINER query, not a
+   media query: the box grows when the screen it stands on is given the width,
+   which on a review page is 250px less than the browser. The three container
+   steps (760 / 900 / 1340) cannot become variables, because a custom property is
+   not valid inside a @container condition; they are documented, not tokenized.
+
+   This needs an ancestor with `container-type: inline-size` to fire. The product
+   declares it on the stage that wraps a screen. On a component page there is no
+   size container, so the box below renders at its mobile 168px whatever the
+   window is doing, and that is honest rather than broken. */
+@container (min-width: 760px) {
+  .app .chart { height: 220px; }
+}

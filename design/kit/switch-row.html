@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Switch row - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Switch row</h1>
+    <p class="lead">A preference stated as a sentence a person agrees with, and the checkbox that answers it. Six of them carry every promise this product makes about what it will tell somebody and what it will hold. It is also the component that makes the 20px checkbox acceptable, because the row is the target and the box is not.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>2</strong> grey pages</span><span>one form</span><span>no state of its own</span><span>hosts 1 atom</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">A <code>label</code> wrapping a control and two lines of text. Everything below is drawn by <code>design/system/components/switch-row.css</code> and by <code>checkbox.css</code>, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app col">
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span>
+      </label>
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span><span class="t">A payment does not go through</span><span class="h">Like "A payment to Amazon Prime did not go through".</span></span>
+      </label>
+      <label class="switch">
+        <input type="checkbox">
+        <span><span class="t">Weekly email digest</span><span class="h">A calm Sunday summary of what is coming up.</span></span>
+      </label>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>label.switch</code> <span>the molecule itself, and it is the <code>label</code>: it <b>wraps</b> the input rather than pointing at it with <code>for</code>, which is what makes the whole row the pointer target. That fact is the whole of the accessibility argument below</span></li>
+      <li><code>input</code> <span><b>an atom.</b> A real <code>input type="checkbox"</code> at 20px, drawn by the browser and tinted by <code>accent-color</code>. Everything about it, including its hover, its ring and its disabled form, is <a href="checkbox.html">checkbox.css</a>. Nothing in this file names <code>input</code></span></li>
+      <li><code>span</code>, unclassed <span>the text stack, and it is what the 16px gap separates from the box. Two blocks inside it, so the box aligns to the first line and not to the middle of the pair</span></li>
+      <li><code>.t</code> <span>the claim, at <code>--type-body</code> and <code>--text-primary</code>. It is a sentence a person agrees with, not a setting they configure</span></li>
+      <li><code>.h</code> <span>the example, at <code>--type-meta</code> and <code>--text-muted</code>, 2px under the claim. It shows what the thing will look like when it happens</span></li>
+      <li><code>border-bottom</code> <span>the row draws its own divider and <code>:last-of-type</code> takes it back. That is the opposite of the subscription row, and the reason is structural: switch rows are written straight into a section with no list around them, so there is no container to hand the job to</span></li>
+    </ul>
+    <p class="note"><b>The name is a name and not a control.</b> There is no switch in this product, native or drawn. The class says <code>.switch</code> and what it holds is a checkbox, which is worth knowing before somebody builds a toggle because the class implied one.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>The switch row has one form, so there is no matrix to draw.</b> All six instances render identically, and the census measured both <code>.switch</code> and <code>.switch input</code> among the sixteen families with a single value on every property, at both viewports. Checked against unchecked is not a variant either: it is the control's value, drawn by the browser out of <code>accent-color</code>, and on an unchecked box no token of ours is visible at all.</p>
+
+    <h3 class="kit-sub-h">The 20px checkbox, and why this row is the answer to it</h3>
+    <p class="note"><b>The control is 20px and WCAG 2.5.8 asks 24px.</b> It is a named carry, recorded twice in <code>docs/decisions.md</code> on 2026-08-11, and it belongs on this page rather than only on the atom's, because <b>this row is the thing that makes it acceptable</b>. The atom cannot make that argument about itself.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>The question</th><th>The answer, and where it is written</th></tr></thead>
+        <tbody>
+          <tr><td>What does 2.5.8 measure?</td><td>The <b>target</b>, meaning the whole area a pointer may land on to operate the control. The <code>label</code> wraps the input, so a click anywhere in this row toggles it. The 20px box is not the target a person hits</td></tr>
+          <tr><td>How big is the real target?</td><td><b>44px or more</b>, per the decision of 2026-08-11. This row carries two lines of text and <code>--space-16</code> of padding top and bottom, so it stands well clear of the floor before the text is counted</td></tr>
+          <tr><td>Why not just set the box to 24px?</td><td>Because 20px is a kit value, and this stage changes a value only by a named decision, never as a side effect of moving a component into a file. A resize would move pixels on Settings and on Data and privacy, and the pixel comparison at step 8 would report a difference with no line in any of the three lists allowed to produce one</td></tr>
+          <tr><td>So what closes it?</td><td>A founder decision, at the responsive stage or before it, with a number and a reason. Until then it stands here, on <a href="checkbox.html">the checkbox's page</a>, in <code>docs/decisions.md</code> and in <code>docs/inventory.md</code>, in the same words in all four places</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>What is NOT here</th>
+            <th>Why the cell is empty</th>
+            <th class="val">Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="kit-empty">A hover on the row</td>
+            <td>The row is a 44px target that gives no visual response to a pointer, while the subscription row and the nav row both take <code>--bg-hover</code>. That is an inconsistency and it is stated rather than fixed: adding a hover would be a real change to how two screens render, and "the other rows do it" is a design argument, not a consequence of moving a file. It is written out in <code>switch-row.css</code> with both options</td>
+            <td class="val">a line in the backlog<br>step 9 decides</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A locked or Pro variant</td>
+            <td><b>Forbidden with a reason rather than missing.</b> "A free trial is ending soon" is a Pro feature shown to a person on Free, and the product deliberately leaves it enabled and unchecked rather than locking it or greying it. D3 puts the paywall at depth and never in front of basic visibility, and a preference a person can read and cannot touch is a paywall wearing a preference's clothes</td>
+            <td class="val">prohibited</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A destructive tone</td>
+            <td><b>Forbidden with a reason.</b> Turning a preference off is not a failure and not a warning. <code>DESIGN.md</code> spends clay on our failure only, and a switch that turns red when a person declines something is the product arguing with them. The two positions are equal and the row says so by looking the same either way</td>
+            <td class="val">prohibited</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A switch row carries a preference that is <b>on or off and takes effect where it stands</b>. All six in the product answer one of two questions. What may Tendd tell you about: "A price goes up", "A payment does not go through", "A free trial is ending soon", "Weekly email digest", the four on Settings. And what may Tendd do with your data: "Refresh my bank data automatically", "Use my activity to improve Tendd", the two on Data and privacy.</p>
+    <p class="note"><b>The claim is a sentence and the line under it is an example, not a hint.</b> "A price goes up" is followed by "Like 'Netflix went up by $2.50'.", which shows a person the actual thing they are agreeing to receive. A preference screen that states a rule without showing its consequence asks somebody to imagine it, and this product's audience imagines the worst version. That is why the second tier exists and why it is written in the product's own voice rather than as a setting description.</p>
+    <p class="note"><b>Both positions have to be real.</b> The grey original of Data and privacy states the rule in its own comment: two real toggles and no theatre. There is no advertising switch and no personalisation switch, because we do neither, and offering a control with only one legal position implies we could. A switch row is a claim that off is available, and offering one that turns off nothing spends the trust this product is built on to look configurable.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A preference that lands here</span>
+        <div class="kit-stage app col"><label class="switch"><input type="checkbox" checked><span><span class="t">Refresh my bank data automatically</span><span class="h">Read-only. Keeps your list current without you asking.</span></span></label></div>
+        <p>Two positions, both visible at once, taking effect on the spot with no submit. The person reads the sentence, sees the answer and changes it or does not. Nothing else on the screen has to be touched for it to count.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a nav row instead</span>
+        <div class="kit-stage app full wide"><a class="navrow" href="#rule"><span>Data and privacy<span class="sub">What we read, and delete everything</span></span><span class="arrow">&rsaquo;</span></a></div>
+        <p>A line that <b>leaves the screen</b> is the <a href="nav-row.html">Nav row</a>. The two stand within a few hundred pixels of each other on Settings and they are opposites: one changes something without going anywhere, the other goes somewhere without changing anything. The chevron is the difference a person reads, and putting a chevron on a preference or a checkbox on a destination breaks the only signal that tells them apart.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Yes or no, and nothing else</span>
+        <div class="kit-stage app col"><label class="switch"><input type="checkbox"><span><span class="t">Use my activity to improve Tendd</span><span class="h">Off by default. We never sell your data either way.</span></span></label></div>
+        <p>One question with exactly two answers. Several of them stack in a section, each independent of the others, and together they read as a paragraph about what the product will do.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a form field instead</span>
+        <div class="kit-stage app full wide"><span class="field"><select id="r-cur" aria-label="Currency"><option>US dollar ($)</option><option>Euro (&euro;)</option><option>British pound (&pound;)</option></select></span></div>
+        <p>One answer out of three or more, or an answer a person types, is the Form field with a <a href="select.html">Select</a> or a <a href="text-input.html">Text input</a> inside it. Settings carries both shapes on one screen, so the distinction is visible there: "Currency" has three answers, a label above the control and the hint "Every amount in Tendd is shown in this currency"; "A price goes up" has two answers and a sentence beside it. Checkboxes that are secretly exclusive are the oldest bug in forms, because nothing stops a person ticking two and the product then has to undo what they just did. The field's own label and hint are the Form field molecule's and are not built yet, which is why the control above stands bare.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>The row has none of its own, and the absence is the finding rather than an omission.</b> It is a pointer target, it is 44px or more, and clicking anywhere in it toggles the preference, but it answers none of that visually: <code>kit.css</code> declares no hover on <code>label.switch</code>, and the focus ring cannot land here either, because a label is not focusable and the focus goes to the input inside it.</p>
+    
+    <p class="note"><b>The hover is an open row and it is not decided here.</b> <code>checkbox.css</code> hands the question over in as many words: if the row should light up under the pointer, that decision belongs to <code>switch-row.css</code> and to the person who owns it. The answer of this file is: not by the person moving it. Adding <code>--bg-hover</code> would take one line, it would make this row consistent with the subscription row and the nav row, and it would also change how Settings and Data and privacy render, which the pixel comparison at step 8 accepts only against one of the three named sources of a visual change. It is stated, both options are written out in the CSS, and step 9 decides.</p>
+    <h3 class="kit-sub-h">The row, live, and there is nothing to snapshot</h3>
+    <div class="kit-stage app col" id="live-row">
+      <label class="switch"><input type="checkbox" checked><span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span></label>
+      <label class="switch"><input type="checkbox"><span><span class="t">A free trial is ending soon</span><span class="h">Part of Tendd Pro.</span></span></label>
+    </div>
+    <p class="note">Live, and worth trying rather than reading: hover the row and nothing happens, hover the box and the accent deepens, press Tab and the ring lands on the box. That is the whole state surface of this component, and the gap between the size of the target and the size of the thing that responds to it is the reason the open row above is open.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the claim</td><td><code>--text-primary</code></td><td><code>--ink</code></td></tr>
+          <tr><td>the example under it</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
+          <tr><td>the divider it draws</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. A decorative separator, so no 3:1 applies: nothing here has to be found by touch</td></tr>
+          <tr><td>the two text sizes</td><td><code>--type-body</code>, <code>--type-meta</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>gap, padding, the 2px lift</td><td><code>--space-2</code>, <code>--space-16</code></td><td>primitive, straight</td></tr>
+          <tr><td>the box, its tick, its states</td><td>none</td><td><a href="checkbox.html">checkbox.css</a>. This file names no <code>input</code> at all</td></tr>
+          <tr><td>its target size</td><td>none</td><td>the content and the padding. The row reads neither <code>--tap</code> nor <code>--row</code>, and it clears 44px on both screens that carry it</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/switch-row.css</code>. Stands on 2 grey pages, 6 rows: <a href="../settings.html">Settings</a>, four of them and all four coloured, and Data and privacy, two of them, still grey and arriving with the rollout.</p>
+    <code class="kit-cmd">&lt;label class="switch"&gt;
+  &lt;input type="checkbox" checked&gt;
+  &lt;span&gt;&lt;span class="t"&gt;A price goes up&lt;/span&gt;&lt;span class="h"&gt;Like "Netflix went up by $2.50".&lt;/span&gt;&lt;/span&gt;
+&lt;/label&gt;</code>
+    <p class="note">The input has no <code>id</code> and the label no <code>for</code>, and that is correct rather than sloppy: the label <b>wraps</b> the control, which associates them and makes the whole row the target. It is also what the 20px carry rests on, so it is not a detail a later refactor may tidy away.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/switch-row.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The atom it hosts is on <a href="checkbox.html">the checkbox's page</a>, which owns every state this row appears to have. The 20px carry is in <code>docs/decisions.md</code>, 2026-08-11, and in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+/* ============================================================================
+   Big total - atom
+   The monthly total, set in Display: 46px, weight 700, tracked in by -0.025em,
+   on a 1.02 leading. It is the number the person came for, the last beat of the
+   guided reveal, and the loudest object in the product.
+
+   THE ONE NUMBER RULE. Exactly one object on a screen is set at this size, and
+   it is this one. If a second number wants it, the screen is answering two
+   questions and should be two screens. That rule is why this atom is separate
+   from the amount instead of being its largest size: they are not the same
+   thing at different scales, they are one figure that owns a screen and every
+   other figure on it.
+
+   Reads
+     colour   --text-primary
+   Page      design/kit/big-total.html
+   Stands on 8 grey pages, 5 of them rendering the number and 3 rendering the
+   skeleton that holds its place. 4 coloured pages carry the number.
+
+   NO HEX AND NO FONT NAME. The sizes, the leading and the tracking are the
+   literals they are today; the type scale is still a proposal.
+
+   THE CLASS NAME IS NOT TOUCHED. `.total` stays as the product writes it.
+   ============================================================================ */
+
+/* The tracking is the whole character of this number. Inter at 46px set solid
+   at normal tracking reads as a spreadsheet cell; pulled in by -0.025em over a
+   1.02 line height it reads as one object, which is what lets the personality
+   of this product live in a size jump rather than in a second typeface.
+
+   No margin of its own by design: it sits inside the summary strip or a reveal
+   step, and the block above and below it owns the spacing. That is what makes
+   the same number work on Home, where a heading is directly above it, and on
+   the guided reveal, where a 15px caption is. */
+.app .total, .landing .total {
+  margin: var(--space-0);
+  font-size: var(--type-display);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+/* ---- size: set by the CONTAINER -----------------------------------------
+   One step down, and one container asks for it. The share card is an image a
+   person sends to somebody else: a centred card holding a caption, a count and
+   this number inside 18px of side padding, and at 46px the number reaches that
+   padding at the narrow end of the range.
+   It keeps its 700 weight and its tracking, so it is the same object rather
+   than a second one, and it takes a 2px top margin because inside the card the
+   caption above it is a `.lbl` with no bottom margin of its own.
+   It renders on ONE grey page and on no coloured page yet: the share card is
+   one of the components the coloured sample never reached, which is recorded in
+   docs/census.md. */
+.app .sharecard .total, .landing .sharecard .total {
+  margin: var(--space-2) var(--space-0) var(--space-0);
+  font-size: var(--type-figure);
+  line-height: 1.05;
+}
+
+/* No states. A total is a figure and never a target: it is not a link, not a
+   button and not pressed on any page in either folder.
+
+   The loading state is NOT a state of this component and it is worth saying so
+   here, because the class is shared. On the three loading screens the markup is
+   `<span class="skel total">`: a skeleton bar wearing this atom's class so that
+   the reveal keeps its shape while the number is still arriving. What paints it
+   is the skeleton, in skeleton.css, at 0-3-0 over this file's 0-2-0. What THIS
+   file gives it is nothing visible, because an empty span has no text to set.
+   The summary strip reads the same class from the other side: `.summary:not(
+   :has(.total))` is how the empty state knows to promote its own heading, since
+   with no number there is nothing to caption. */

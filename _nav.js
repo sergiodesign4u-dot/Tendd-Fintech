@@ -51,8 +51,15 @@ window.NAV = [
       { label:'Concept',    page:'design/concept/concept.html',    done:true },
   ]},
   { label:'UI + Visual',         page:'design/overview.html',     done:true },
-  { label:'Tokens + Components', page:'design/kit/overview.html', done:false },
-  { label:'Design System',       page:'design/kit/why.html',      done:false },
+  // Tokens + Components and Design System were two rows until 2026-08-11 and are one now.
+  // They were never two destinations: both led into design/kit/, one to the tokens and one to
+  // the reasons behind them, and a roadmap row whose page is a section of another row's page is
+  // a second entrance to one room. The stages behind it stay two (tokens and components here,
+  // patterns next); what the sidebar shows is the one place they live. The component list is
+  // NOT in this registry: it is the kit's own panel, design/kit/_nav.js, on the same two-level
+  // pattern as wireframes/ and design/. A roadmap that listed 55 components would stop being a
+  // roadmap.
+  { label:'Design System',       page:'design/kit/overview.html', done:false, ready:true },
   { label:'Responsive',          page:null, done:false },
   { label:'Animation',           page:null, done:false },
   { label:'Handoff',             page:null, done:false },
@@ -117,9 +124,12 @@ window.NAV = [
     var doneCount = pages.filter(function(p){ return p.done; }).length;
     var fullyDone = pages.length > 0 && doneCount === pages.length;
     var isActive  = contains(item, activePage);
-    // the top link points at the first READY page of the stage, so it never points at a file
-    // that does not exist yet; with none ready, but us inside the stage, it points at the current page
-    var target = pages.filter(function(p){ return p.done; })[0] || (isActive ? (activePage || pages[0]) : null);
+    // the top link points at the first REACHABLE page of the stage, so it never points at a file
+    // that does not exist yet; with none reachable, but us inside the stage, it points at the current page.
+    // `ready:true` means the page exists while the stage is still running: done drives the badge and the
+    // state class, ready drives the link. Without the split a live hub is unreachable from the roadmap
+    // for the whole length of its own stage, which is exactly when it is most worth opening.
+    var target = pages.filter(function(p){ return p.done || p.ready; })[0] || (isActive ? (activePage || pages[0]) : null);
 
     var li = document.createElement('li');
     li.className = 'nav-item ' + (isActive ? 'is-active' : fullyDone ? 'is-done' : doneCount ? 'is-partial' : 'is-soon');

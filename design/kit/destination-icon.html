@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Destination icon - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Destination icon</h1>
+    <p class="lead">Four destinations, four marks, and no fifth. It is the only icon set the product owns, it is painted with <code>currentColor</code>, and the one thing it must never do is clip the unread dot that lives inside it.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>28</strong> grey pages</span><span><strong>112</strong> places</span><span>4 values, one per destination</span><span>no states, not interactive</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone, one mark, and one optional child. Everything below is drawn by <code>design/system/components/destination-icon.css</code> through the same entry point a product screen loads. The mark itself is a CSS mask over a solid fill, so a screen carries nothing but the class: the kit owns the shape.</p>
+
+    <h3 class="kit-sub-h">The mask does not render on a bare demo, and it is not faked here</h3>
+    <p class="note"><b>Measured on this page:</b> a bare <code>&lt;span class="ic ic-home"&gt;</code> inside a stand scene reports <code>content: none</code> on its <code>::before</code>, and the element itself measures 0 by 0. That is correct rather than broken. The box (22px) and the mask machinery (<code>content</code>, <code>position</code>, the <code>currentColor</code> fill) are both selected as <code>.app .tabbar a .ic</code>, so they need a tab bar link in the ancestor chain; only the mask <i>image</i> is on <code>.app .ic-home</code>, and an image with nothing to paint on paints nothing. <a href="icons.html">Icons and marks</a> hit the same wall and answered it the same way, so this page answers it twice: once with the shapes, and once with the real markup.</p>
+
+    <h3 class="kit-sub-h">The four shapes, drawn as inline SVG at 22px</h3>
+    <p class="note">Not the component: the same path data as the four masks, drawn in <code>currentColor</code> at the size the product uses. What you see is the shape the mask cuts. Painting a solid square instead would have said nothing.</p>
+    <div class="kit-icons">
+      <span class="kit-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3.5l9 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.75 20v-5.5h4.5V20"/></svg>
+        <span class="nm">.ic-home</span>
+      </span>
+      <span class="kit-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 10a6 6 0 0 1 12 0c0 3.5.8 5 1.6 6H4.4C5.2 15 6 13.5 6 10Z"/><path d="M10 19.5a2.2 2.2 0 0 0 4 0"/></svg>
+        <span class="nm">.ic-alerts</span>
+      </span>
+      <span class="kit-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8.5h16V20H4z"/><path d="M3 4.5h18v4H3z"/><path d="M12 8.5V20"/></svg>
+        <span class="nm">.ic-save</span>
+      </span>
+      <span class="kit-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20c.6-3.6 3.6-5.6 7.2-5.6s6.6 2 7.2 5.6"/></svg>
+        <span class="nm">.ic-you</span>
+      </span>
+    </div>
+
+    <h3 class="kit-sub-h">The component itself, live, with the mask actually cutting</h3>
+    <div class="kit-stage app wide">
+      <span class="ic ic-home"></span>
+      <span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>
+      <span class="ic ic-save"></span>
+      <span class="ic ic-you"></span>
+    </div>
+    <p class="note">Four real <code>.ic</code> boxes, cut by the four real masks, drawn by <code>destination-icon.css</code> through the same entry point a product screen loads. They take the muted ink of the text around them, because the whole colour story of this component is <code>currentColor</code> and it names no token.</p>
+    <p class="note"><b>This block used to show a bare <code>&lt;nav class="tabbar"&gt;</code>, and it rendered as four blue underlined links.</b> The reason was in the CSS, not on the page: the base rules were chained to <code>.app .tabbar a .ic</code> while the four mask modifiers needed only <code>.app</code>, so an atom could not render without the markup of an organism that is not built yet. The page imported that markup, the tab bar's own CSS did not exist to style it, and a paragraph here argued the result was proof rather than a defect. It was a defect. The selector is now <code>.app .ic</code>, verified against all 72 occurrences in the corpus so that zero pixels move, and the component stands on its own because an atom should.</p>
+    <p class="note"><b>The live instance in its real host belongs to the Tab bar organism</b>, which is not built yet. When it is, this page links to it rather than rebuilding the scene: an anatomy that exists only inside its own scope is shown on the scene that holds it, never on a canvas faked here.</p>
+
+    <ul class="kit-callouts">
+      <li><code>.ic</code> <span>the box: 22px square, <code>position: relative</code>, and the host of everything else. It is the same 22px in the bottom bar and in the desktop rail</span></li>
+      <li><code>.ic::before</code> <span>the mask, on a pseudo-element and never on the element. <code>inset: 0</code> over a <code>background-color: currentColor</code></span></li>
+      <li><code>.ic-home</code> <span>the modifier, and it adds exactly one thing: the mask image. A fifth destination would be one declaration, not six</span></li>
+      <li><code>.ic .dot</code> <span>the unread mark: 7px, absolutely positioned at <code>top: -3px, right: -4px</code>, so it deliberately overhangs the square</span></li>
+      <li><code>currentColor</code> <span>the whole colour story of this component. It names no token and it never will</span></li>
+    </ul>
+
+    <h3 class="kit-sub-h">The lesson, and it cost a screen once</h3>
+    <p class="note">Quoted from <code>kit.css</code>, unchanged: <b>"The mask sits on a pseudo-element, not on .ic itself. A mask clips its own children, and .ic hosts the unread dot, so masking the element erased the one thing GC2 has to be able to show."</b> GC2 is the global tab bar. A mask establishes a clip on the element it is applied to, so the dot, which overhangs the square by 3 and 4 pixels, was cut away entirely. The screen still looked right, because a tab bar with no unread alerts is the normal case: the defect appeared only on the one state the component exists to be able to show. Moving the mask down one level to <code>::before</code> leaves the element itself unmasked, and the dot survives.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis, four values, and the axis is <b>which destination</b>. There is no tone axis, no size axis and no emphasis axis: everything a person would expect those to do is done by inheritance from the link, which is what makes this component four declarations long instead of sixteen.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Destination<p class="axis-rule">One icon per destination in the tab bar, and the tab bar is the only place they appear. An icon that is not a destination is not this component</p></th>
+            <th>The mark</th>
+            <th class="val">Class</th>
+            <th>What else it carries</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Home</b>, the calm view</td>
+            <td><span class="kit-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3.5l9 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.75 20v-5.5h4.5V20"/></svg></span></td>
+            <td class="val">.ic-home</td>
+            <td>a roof over a doorway. Nothing else</td>
+          </tr>
+          <tr>
+            <td><b>Alerts</b></td>
+            <td><span class="kit-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 10a6 6 0 0 1 12 0c0 3.5.8 5 1.6 6H4.4C5.2 15 6 13.5 6 10Z"/><path d="M10 19.5a2.2 2.2 0 0 0 4 0"/></svg></span></td>
+            <td class="val">.ic-alerts</td>
+            <td>a bell with a clapper, and the only one that hosts <code>.dot</code>. DESIGN.md: "A quiet dot may sit on Alerts; there is never a count"</td>
+          </tr>
+          <tr>
+            <td><b>Save</b></td>
+            <td><span class="kit-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 8.5h16V20H4z"/><path d="M3 4.5h18v4H3z"/><path d="M12 8.5V20"/></svg></span></td>
+            <td class="val">.ic-save</td>
+            <td>a lidded box, split down the middle. Nothing else</td>
+          </tr>
+          <tr>
+            <td><b>You</b>, settings and account</td>
+            <td><span class="kit-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20c.6-3.6 3.6-5.6 7.2-5.6s6.6 2 7.2 5.6"/></svg></span></td>
+            <td class="val">.ic-you</td>
+            <td>a head and shoulders. Nothing else</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A fifth destination</td>
+            <td class="kit-empty">forbidden</td>
+            <td class="kit-empty">-</td>
+            <td><b>A prohibition with its reason.</b> The tab bar is four destinations because four is what a thumb reaches and what a person can hold. A fifth is not an icon problem, it is a navigation model changing, and that is a decision for <code>ia/docs/sitemap.md</code> and not for this file. Adding the class first is how a system ends up with an icon nobody can say the destination of</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>There is no size axis, and the desktop is the proof.</b> Past a 760px container the tab bar becomes a 240px left rail and lays the same square beside its label instead of above it. The square stays 22px. Nothing about this component changes with the viewport, which is why it carries no responsive rule at all.</p>
+    <p class="note"><b>There is no colour axis either, and that is the same fact stated twice.</b> The mask is filled with <code>currentColor</code> and the encoded SVG's own <code>stroke='%23000'</code> is ignored, because a mask reads alpha and not hue. The current tab turns petrol because its <i>link</i> turns petrol. Give this component a colour of its own and that stops being true, silently, in exactly one state.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A destination icon marks <b>a place inside the product</b>, and it appears in exactly one object: the global tab bar, on 28 of the 55 screens. Its job is recognition rather than explanation, which is why it always has its label under it and never replaces one: DESIGN.md describes the bar as "four destinations with an icon over an 11px label", and a bar of unlabelled glyphs is a small memory test given to a person who came here to stop thinking about money.</p>
+    <p class="note"><b>Authored, not extracted, and that is unusual enough to record.</b> The grey wireframes draw <code>.ic</code> as an empty 18px bordered box on purpose, because greyscale cannot express a mark. This set could not be extracted from them and was drawn at stage 07; it is one of the five authored things listed in <code>docs/inventory.md</code>, alongside the filled button and the invalid field. The 112 places in the grey are 112 empty boxes waiting for it.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a destination icon</span>
+        <div class="kit-stage app"><span class="consequence">a place in the product, in the tab bar, with its label under it</span></div>
+        <p>Four marks for four destinations, each one a mask in <code>currentColor</code>, each one over its own word. The mark carries no colour, no fill and no border of its own, so it costs the One Voice Rule nothing.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a logo instead</span>
+        <div class="kit-stage app"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span></div>
+        <p>A merchant is not a destination, and it takes the <b>logo</b>, <code>.logo</code>: a real mark, in full brand colour, inside a fixed square with a fill behind it. The tell is ownership. A destination mark belongs to Tendd, so it inherits the one voice; a merchant mark belongs to somebody else, so it is allowed to be saturated and is contained instead. Masking a merchant's logo to <code>currentColor</code> would turn the person's own Netflix into interface furniture.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Let the dot say there is something new</span>
+        <div class="kit-stage app"><span class="consequence">a 7px dot, overhanging the bell, and never a number</span></div>
+        <p>One dot, no count. A number on a bell is a debt a person is being asked to clear, and this product does not hand out homework. The dot is why the mask sits on the pseudo-element, so the two decisions are really one.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a wash block instead</span>
+        <div class="kit-stage app"><span class="consequence">Netflix went up by $2.50 on Jul 28.</span></div>
+        <p>When there is something to say, say it. An icon on a banner is forbidden by DESIGN.md outright ("Don't put an icon on a banner. The sentence carries it"), and the object that carries the sentence is the <b>wash block</b>, <code>.wash.attention</code>. This component never illustrates a message, never sits inside a button and never stands next to a heading: it marks a place, and that is its whole vocabulary.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and the reason is the most interesting thing about this component.</b> The icon is not the control: the tab bar's anchor is, and the anchor owns hover, focus and the current destination. What looks like a state here, the mark going petrol on the tab a person is standing in, is <b>inheritance</b>: the link takes <code>--text-action</code> and the mask fills with <code>currentColor</code>. Declaring a state on the icon would either duplicate the link's rule or quietly disagree with it, and the second is the kind of bug that shows up in one theme only. <code>destination-icon.css</code> therefore declares no <code>:hover</code>, no <code>:focus-visible</code> and no <code>[disabled]</code>.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the mark itself</td><td><code>currentColor</code>, no token</td><td>the link it stands in. This is the only component in the system that reads no colour token at all, and it is the reason the current tab needs no second rule</td></tr>
+          <tr><td>the unread dot</td><td><code>--text-body</code></td><td><code>--slate</code>. <b>An open hole, named rather than papered over:</b> this is an ink role painting a fill, which the architecture forbids even at an identical value, because ink and fill answer to different thresholds. The system has no fill role on <code>--slate</code>. It would have two consumers, not one, since <code>.newdot</code> on the alert item is byte-identical geometry under another owner</td></tr>
+          <tr><td>the box and the dot</td><td>no primitive: 22px and 7px are literals</td><td>the geometry scale is still a proposal awaiting the founder, so both stay as they are written today</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/destination-icon.css</code>. The four path definitions are also catalogued on <a href="icons.html">Icons and marks</a>, together with the fourteen merchant files. Stands on 28 grey pages in 112 places, and on 18 coloured ones: <a href="../home.html">Home</a>, <a href="../home-empty.html">Home, empty</a>, <a href="../history-trends.html">History and trends</a>, <a href="../settings.html">Settings</a>, <a href="../subscription-detail.html">Subscription Detail</a>.</p>
+    <code class="kit-cmd">&lt;nav class="tabbar" aria-label="Global navigation"&gt;
+  &lt;a class="cur" href="home.html" aria-current="page"&gt;&lt;span class="ic ic-home"&gt;&lt;/span&gt;Home&lt;/a&gt;
+  &lt;a href="alerts.html"&gt;&lt;span class="ic ic-alerts"&gt;&lt;span class="dot" role="img" aria-label="new alerts"&gt;&lt;/span&gt;&lt;/span&gt;Alerts&lt;/a&gt;
+  &lt;a href="home-savefocus.html"&gt;&lt;span class="ic ic-save"&gt;&lt;/span&gt;Save&lt;/a&gt;
+  &lt;a href="settings.html"&gt;&lt;span class="ic ic-you"&gt;&lt;/span&gt;You&lt;/a&gt;
+&lt;/nav&gt;
+
+The span is empty on purpose. The screen carries the class and nothing else:
+the shape, the fill and the box all belong to the kit.</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/destination-icon.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The four marks and their fidelity are catalogued on <a href="icons.html">Icons and marks</a>; the reason this set was authored rather than extracted is in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

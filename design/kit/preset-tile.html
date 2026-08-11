@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preset tile - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Preset tile</h1>
+    <p class="lead">One entry of the service catalogue on Add a Subscription: a merchant mark, the name, and what people usually pay. Tapping one turns the form underneath from data entry into a confirmation, which is the whole reason the catalogue is shown rather than counted.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>2</strong> grey pages</span><span><strong>12</strong> tiles</span><span>2 axes</span><span>3 states, both themes</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Two atoms in one target, which is what makes it a molecule. Everything below is drawn by <code>design/system/components/preset-tile.css</code> and the atom files it hosts, through the same entry point a product screen loads.</p>
+    <div class="kit-stage app">
+      <button type="button" class="tile"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span>Spotify Premium<span class="p">Typically $11.99 a month</span></span></button>
+      <button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="p">Typically $17.99 a month</span></span></button>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.tile</code> <span>the molecule: a <code>button</code>, 56px tall, with a control edge and a control corner. It sets <code>text-align: left</code> and <code>color: inherit</code> because a button that says nothing centres its text and takes the browser's ink</span></li>
+      <li><code>.logo</code> <span>the merchant mark, the <a href="logo.html">logo atom</a> at its 30px tile size. That size lives in <code>logo.css</code>, not here: it is the atom's own size-by-container axis</span></li>
+      <li><code>span:last-child</code> <span>the text column, and the only thing allowed to shrink. <code>min-width: 0</code> is load-bearing: without it "Adobe Creative Cloud" pushes the tile wider than its grid track instead of wrapping inside it</span></li>
+      <li><code>.p</code> <span>the price line, the <a href="muted-line.html">muted line atom</a> at its 12px tile size, also declared in the atom's own file</span></li>
+      <li><code>[aria-pressed]</code> <span>which preset is chosen. The attribute is the selector, so what a screen reader announces and what the stylesheet paints are one fact</span></li>
+      <li><code>min-height</code> <span>reads <code>--row</code>, not <code>--tap</code>: a tile is a row-sized object standing in a grid beside other row-sized objects</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">Two axes and no size axis: every tile in the product is 56px tall and its width comes from the grid it stands in, two columns at 360px and three past a 760px container. The second axis is the one the inventory does not list, and it is real: the loading state renders the same tile as a <code>span</code>.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Selection<p class="axis-rule">Exactly one preset can be chosen, because choosing one fills the form below it. Nothing in the product renders two pressed tiles, and a second one would mean two different subscriptions were being added at once</p></th>
+            
+            <th class="val">Tokens</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Not chosen</b> <code>.tile</code></td>
+            
+            <td class="val">--bg-surface<br>--line-control</td>
+            <td>11 of the 12. The catalogue as it arrives</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app"><button type="button" class="tile"><span class="logo"><img src="../visuals/logos/disney-plus.svg" alt=""></span><span>Disney+<span class="p">Typically $13.99 a month</span></span></button></div></td></tr>
+          <tr>
+            <td><b>Chosen</b> <code>[aria-pressed="true"]</code></td>
+            
+            <td class="val">--bg-selected<br>--line-selected</td>
+            <td>1 of the 12. The current selection, which is the second of the three jobs the One Voice Rule lets petrol do</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app"><button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="p">Typically $17.99 a month</span></span></button></div></td></tr>
+          <tr>
+            <td class="kit-empty">Chosen, with a petrol name</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing: the selection paints the fill and the edge and leaves the ink alone. Turning the merchant name petrol would spend the accent on a name rather than on the choice, and the six tiles would then read as six different kinds of thing</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Element<p class="axis-rule">A <code>button</code> when there is something to press, a <code>span</code> when there is not. The CSS is one rule for both, because a skeleton tile has to occupy exactly the space the real one will or the catalogue jumps when it arrives</p></th>
+            
+            <th class="val">Difference</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>button</b></td>
+            
+            <td class="val">none in the CSS</td>
+            <td>6 tiles on Add a Subscription. Real targets, in the tab order, with <code>aria-pressed</code></td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app"><button type="button" class="tile"><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span>Amazon Prime<span class="p">Typically $14.99 a month</span></span></button></div></td></tr>
+          <tr>
+            <td><b>span</b>, holding skeletons</td>
+            
+            <td class="val">none in the CSS</td>
+            <td>6 tiles on the loading state, inside an <code>aria-hidden</code> grid. Not targets, not in the tab order, and nothing announced: there is nothing to choose yet</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app"><span class="tile"><span class="logo"></span><span><span class="skel line w60"></span><span class="skel line w90"></span></span></span></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The skeleton form keeps <code>cursor: pointer</code>, and that is the one thing about it worth fixing later.</b> It comes from the shared rule and the element cannot be pressed, so the pointer promises something for the length of a load. It is left alone here because this stage may not move a pixel, and a cursor is on the page as a backlog line rather than corrected quietly.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A person meets this at the top of <b>Add a Subscription</b>, which is the manual path D2 makes an equal second door. The catalogue is there as evidence rather than as a boast: a blank form is the version people abandon, and six recognisable marks say "this will take a moment, not an evening". The quiet exit under it says the rest out loud: "Can't find it? Add it by hand and fill the details yourself."</p>
+    <p class="note">Its copy is a name and a fact, never a pitch. "Netflix" and "Typically $17.99 a month", from <code>voice/docs/microcopy.md</code>. The price is the one people usually pay and it is labelled "Typically" for exactly that reason: the tile is a shortcut into a form, and every value it fills in stays editable.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Selection is an attribute</span>
+        <div class="kit-stage app">
+          <button type="button" class="tile" aria-pressed="true"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="p">Typically $17.99 a month</span></span></button>
+        </div>
+        <p><code>aria-pressed="true"</code> is both the state a screen reader announces and the selector the tint is painted from. One fact, one place. It is also why this component and the range picker are hooked the same way: two selections in one product should not be built two different ways.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never a class the assistive tree cannot see</span>
+        <div class="kit-stage app">
+          <span class="consequence">&lt;button class="tile is-selected"&gt;</span>
+        </div>
+        <p>A <code>.is-selected</code> class paints the tile and tells nobody. The two would then have to be kept in step by hand forever, and the first screen that forgets the attribute is a screen where a person using a screen reader chooses a preset and hears nothing change. The rule is not "prefer ARIA": it is that the visible state and the announced state must be the same fact, and only the attribute can be both.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a preset tile</span>
+        <div class="kit-stage app">
+          <button type="button" class="tile"><span class="logo"><img src="../visuals/logos/nyt.svg" alt=""></span><span>The New York Times<span class="p">Typically $17.00 a month</span></span></button>
+        </div>
+        <p>A catalogue entry a person picks from a set they can see all of at once, where picking it fills something in rather than going somewhere. The mark carries the recognition and the price line carries the reassurance.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a subscription row instead</span>
+        <div class="kit-stage app">
+          <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
+          <span class="consequence">Netflix &nbsp; $17.99 &nbsp; Next payment Aug 3</span>
+        </div>
+        <p>Something a person already has, standing in a list, is the <b>subscription row</b>: no edge, no fill and no corner, because rows stack inside one bordered container and a list of cards is a list nobody can scan. The tile is bordered precisely because it is <b>not</b> a list: it is a set of offers in a grid, and each one has to look like a thing you can press. The row is a molecule of its own and is not built yet, so what stands here is its content drawn by the logo and muted line atoms alone.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Three states, and they exist because a tile is a real <code>button</code>. Each one is a token override rather than a style of its own. <b>There is no disabled form</b>: no tile on any page in either folder carries the attribute, and authoring one would document something the product cannot do. If a preset ever becomes unavailable, that is a new decision and it takes the range picker's disabled paint, which already exists.</p>
+    <p class="note"><b>Hover is declared before selection, and that order is the decision.</b> Both rules are the same specificity, so the later one wins on a tile that is both, and the chosen tile does not repaint under the pointer. The pointer is asking what happens if I press this, and for the chosen preset the answer is nothing new.</p>
+
+    <h3 class="kit-sub-h">Rest and chosen, live</h3>
+    <div class="kit-stage app" id="live-rest">
+      <button type="button" class="tile" aria-pressed="true" id="shot-pressed"><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span><span>Netflix<span class="p">Typically $17.99 a month</span></span></button>
+      <button type="button" class="tile" id="shot-rest"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span>Spotify Premium<span class="p">Typically $11.99 a month</span></span></button>
+    </div>
+    <p class="note">Both are real buttons with real attributes. Hover the second one, then tab to it: the ring is the only thing that tells a keyboard user which of six identical boxes they are standing on, because the tiles carry no other position marker.</p>
+
+    <h3 class="kit-sub-h">The four cells, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--bg-surface</code>, <code>--line-control</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same roles, the other half of each pair</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-hover</code>, <code>--line-control-hover</code>. The edge STRENGTHENS: 3.46:1 at rest, 5.78:1 here</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the fill goes LIGHTER here and darker in the light theme: a hover moves away from its ground</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. Offset by 2px so it never sits on the tile's own edge</div></div>
+      <div class="kit-state"><div class="cap"><b>Chosen</b><span>light</span></div><div class="tok"><code>--bg-selected</code>, <code>--line-selected</code>, and the ink deliberately unchanged</div></div>
+      <div class="kit-state"><div class="cap"><b>Chosen</b><span>dark</span></div><div class="tok">the tint is a DEEP petrol here rather than a near-white one: a tint has to sit on its own ground, so it is not the light value reused</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/preset-tile.html
+    move the pointer away -&gt; screenshot #live-rest -&gt; screens/preset-tile-rest-&lt;theme&gt;.png
+    hover #shot-rest      -&gt; screenshot #live-rest -&gt; screens/preset-tile-hover-&lt;theme&gt;.png
+    focus #shot-rest, press Tab, assert :focus-visible -&gt; preset-tile-focus-&lt;theme&gt;.png
+    blur, crop #shot-pressed                          -&gt; preset-tile-pressed-&lt;theme&gt;.png
+
+Chosen is a variant rather than a state and it is shot anyway, because it is the cell a
+person actually comes to this page to compare against rest.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the resting fill</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the resting edge</td><td><code>--line-control</code></td><td><code>--edge</code>. A tile is identified BY its edge, so it owes 3:1 and gets 3.46:1. DESIGN.md names the preset tile on the control side of that split</td></tr>
+          <tr><td>the chosen fill and edge</td><td><code>--bg-selected</code>, <code>--line-selected</code></td><td><code>--petrol-tint</code>, <code>--petrol</code></td></tr>
+          <tr><td>hover fill and edge</td><td><code>--bg-hover</code>, <code>--line-control-hover</code></td><td><code>--panel</code>, <code>--muted</code></td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the gap and the padding</td><td><code>--space-8</code></td><td>primitive: a spacing has nothing to override</td></tr>
+          <tr><td>corner and height</td><td><code>--radius-sm</code>, <code>--row</code></td><td>primitive, straight</td></tr>
+          <tr><td>the ink</td><td>none: <code>color: inherit</code></td><td>the merchant name takes the page's own primary ink, so the tile has no ink role of its own</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/preset-tile.css</code>. Stands on 2 grey pages and both of their coloured copies: <a href="../add-subscription.html">Add a Subscription</a> and <a href="../add-subscription-loading.html">its loading state</a>. The grid around it (<code>.tiles</code>, two columns and then three) is the Grid organism and is not built yet.</p>
+    <code class="kit-cmd">&lt;button type="button" class="tile" aria-pressed="true"&gt;
+  &lt;span class="logo"&gt;&lt;/span&gt;
+  &lt;span&gt;Netflix&lt;span class="p"&gt;Typically $17.99 a month&lt;/span&gt;&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- the loading form: a span, inside an aria-hidden grid --&gt;
+&lt;span class="tile"&gt;
+  &lt;span class="logo"&gt;&lt;/span&gt;
+  &lt;span&gt;&lt;span class="skel line w60"&gt;&lt;/span&gt;&lt;span class="skel line w90"&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/span&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/preset-tile.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its two host-scoped atom sizes live with the atoms, in <code>logo.css</code> and <code>muted-line.css</code>. The consolidation that decided its axes is in <code>docs/inventory.md</code>; the measured forms it had before the system are in <code>docs/census.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

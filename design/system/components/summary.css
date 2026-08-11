@@ -1,0 +1,82 @@
+/* ============================================================================
+   Summary - molecule
+   The top of Home: a heading that says how many, the monthly total, and one
+   line of context under it. GC3 in the IA. It is the first thing a person sees
+   after the reveal and the answer to J-MAIN read literally, which is why the
+   number is the biggest thing on the screen and the words around it are the
+   smallest thing that can still be read.
+
+   It hosts two atoms and restyles neither: the Big total (`.total`) brings its
+   own 46px and its own tabular figures, the Muted line (`.context`) brings its
+   own size, ink and top margin. This file owns the block's margin, the heading,
+   and the one rule that reads the presence of the number.
+
+   Reads
+     colour   --text-body     (the caption over a number)
+              --text-primary  (the heading when there is no number)
+   Page      design/kit/summary.html
+   Stands on 5 grey pages and 5 coloured ones: every state of Home.
+
+   TWO FORMS, AND THE DIFFERENCE IS CONTENT RATHER THAN DRIFT. With a total the
+   h1 is a CAPTION and is deliberately quiet; without a total there is nothing
+   to caption, so the h1 becomes the subject of the block and is promoted.
+   Selected structurally with :has(), so no page needs a state class and no
+   screen can forget to carry one.
+
+   NO HEX AND NO FONT NAME. Every size is a --type-* step and every margin a
+   --space-* step.
+
+   THE CLASS NAME IS NOT TOUCHED. `.summary` stays as the product writes it, and
+   the rename map leaves it alone.
+   ============================================================================ */
+
+/* The block's own gap to whatever follows, which on Home is the attention wash
+   and on the empty state the two doors. Nothing else: the heading, the number
+   and the context line each carry their own spacing, and the number carries
+   none at all by design, so the block above and below it owns the rhythm. */
+.app .summary, .landing .summary {
+  margin: var(--space-0) var(--space-0) var(--space-24);
+}
+
+/* ---- form one: with a total. The h1 is a caption -------------------------
+   "You're paying for 14 subscriptions" over $192.90. It is an h1 because it is
+   the subject of the page for a screen reader and for a search engine; it is
+   16px and weight 600 because on screen it is the label on a 46px number, and a
+   caption that competes with its own figure breaks the One Number Rule from
+   above rather than from beside.
+   letter-spacing: 0 is written out because the heading defaults of this product
+   track in, and a caption at this size does not want it. */
+.app .summary h1, .landing .summary h1 {
+  margin: var(--space-0) var(--space-0) var(--space-4);
+  font-size: var(--type-sub);
+  font-weight: 600;
+  color: var(--text-body);
+  letter-spacing: 0;
+}
+
+/* ---- form two: no total. The h1 is the subject ---------------------------
+   A STATE VARIANT, NOT A HOST OVERRIDE, and the distinction is the whole reason
+   this rule is in this file rather than on a page. On the empty state
+   ("Nothing to add up yet") there is no number to caption, and the quiet
+   caption then sat at caption size above a full size paragraph, telling the
+   person that the second sentence mattered more than the first.
+
+   IT IS THE PRESENCE OF THE NUMBER THAT SWITCHES IT, not the state of the
+   screen, and the loading page is the proof that this is the right hook: it
+   renders `<span class="skel total">`, a skeleton wearing the total's class to
+   hold the number's place, so `:has(.total)` matches and the heading correctly
+   stays a caption. One of the five Home pages takes this rule, and it is
+   home-empty. Written any other way, the loading state would have promoted its
+   heading and then demoted it again when the figure landed. */
+.app .summary:not(:has(.total)) h1, .landing .summary:not(:has(.total)) h1 {
+  font-size: var(--type-title);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+/* No states. The summary is a readout: it holds no anchor, no button and no
+   pressed element on any of the 55 grey pages or the 28 coloured ones, and it
+   is not itself a target. Checked rather than assumed. Its one moving part is
+   the skeleton inside it while the number arrives, and that belongs to the
+   skeleton bar. */

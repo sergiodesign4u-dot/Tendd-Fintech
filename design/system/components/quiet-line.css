@@ -1,0 +1,81 @@
+/* ============================================================================
+   Quiet line - atom
+   The exit line: the small paragraph under a screen's main action that offers
+   the way out. "Do this later", "Can't find it? Add it by hand", "Use a
+   different email". One zone, one text slot, and always a way onward.
+
+   IT IS NOT A MUTED LINE, and that is the decision this file exists to record.
+   It sets a size and no colour at all, so it inherits the body ink from
+   base.css and renders at --text-primary, one tier ABOVE the muted family. A
+   line that offers a person the way out of a screen they are stuck on is not a
+   footnote, and the product has been saying so in CSS since the wireframes.
+
+   Reads
+     colour   (none of its own: the ink is inherited from base.css)
+              --text-body, --text-action for the inline link, at rest and under
+              the pointer
+     lines    --line-container (the link's underline at rest)
+   Page      design/kit/quiet-line.html
+   Stands on 12 grey pages and 4 coloured ones.
+
+   NO HEX AND NO FONT NAME. The size and the margin are written as the literals
+   they are today, because those two scales are still a proposal.
+
+   THE CLASS NAME IS NOT TOUCHED. `.quiet` stays exactly as the product writes
+   it, and its link selector stays unscoped exactly as kit.css writes it.
+   ============================================================================ */
+
+/* ---- the line ------------------------------------------------------------
+   Deliberately no `color`. Declaring --text-primary here would look tidier and
+   would change nothing on any screen the product has today, and it would still
+   be a new declaration in a stage whose one promise is that the product does
+   not move: the moment a quiet line lands inside a host that sets an ink, the
+   two files would disagree about which one wins. The inheritance is the
+   behaviour, so the inheritance is what is kept.
+   The 22px below is the gap to whatever follows, which is usually the end of
+   the screen. */
+.app .quiet, .landing .quiet {
+  margin: var(--space-0) var(--space-0) var(--space-24);
+  font-size: var(--type-body);
+}
+
+/* ---- the inline link, and it is the whole point of the component ---------
+   Every quiet line in the product contains one. Copied byte for byte from
+   kit.css including the missing scope: `.quiet a` carries no `.app` in front of
+   it today, and adding one here would be a selector change dressed as a
+   tidy-up. Step 6 settles the file's scoping in one pass, with the markup.
+
+   Ink at rest, petrol under the pointer. Petrol at rest is reserved for the
+   primary action, the current selection and the trust line, and an exit link is
+   none of those; the underline carries the affordance instead. */
+.quiet a {
+  font-size: var(--type-body);
+  color: var(--text-body);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  /* the hairline role, not the ink: a full strength rule under every link in a
+     calm paragraph reads as emphasis */
+  text-decoration-color: var(--line-container);
+}
+.quiet a:hover {
+  color: var(--text-action);
+  text-decoration-color: var(--text-action);
+}
+
+/* NO 44px FLOOR, and it is not an oversight: `.quiet > a` is absent from the
+   target-size rule in kit.css, where `.trust > a`, `.removal > a`, `.notice > a`,
+   `.attention > a` and `.legal > a` all appear. The reason is that a quiet
+   line's link is normally inside a sentence ("Can't find it? Add it by hand and
+   fill the details yourself"), and forcing a 44px inline-flex box into running
+   text pulls the lines of the paragraph apart: measured at stage 07, a four
+   line paragraph came out 100px instead of 75.
+   ONE CASE THE STRUCTURE CANNOT REACH, and it is logged rather than papered
+   over: `<p class="quiet"><a>Do this later</a></p>` is a paragraph whose only
+   content is the link, which is a standalone control under the floor. It stands
+   that way on 8 of the 12 grey screens and on 2 of the 4 coloured ones, under
+   four different labels. CSS cannot tell it from a sentence that
+   happens to contain a link, so the fix is markup, and it belongs to the step
+   that touches markup.
+
+   No :focus-visible either: base.css draws one ring for the whole system at
+   specificity 0, and a text link has nothing to add to it. */

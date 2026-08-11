@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Range picker - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Range picker</h1>
+    <p class="lead">The segmented control over the trends chart: 3 months, 6 months, 12 months. A selection and not an action, which is why it is not three buttons. It is also the one component in the system with a form nobody named until the browser was asked what it actually renders.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>3</strong> grey pages</span><span><strong>9</strong> segments</span><span>1 axis, 4 values</span><span>4 states, both themes</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">A group and its segments: two levels and nothing else. Everything below is drawn by <code>design/system/components/range-picker.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens.</p>
+    <div class="kit-stage app full wide">
+      <div class="range" role="group" aria-label="Choose a time range">
+        <button type="button" aria-pressed="true">3 months</button>
+        <button type="button" aria-pressed="false">6 months</button>
+        <button type="button" aria-pressed="false">12 months</button>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.range</code> <span>the group: a flex row with an 8px gap and a bottom margin. It carries <code>role="group"</code> and the accessible name, so a screen reader announces "Choose a time range" once instead of three unrelated buttons</span></li>
+      <li><code>.range button</code> <span>the segment. <code>flex: 1</code>, so the three divide whatever width the screen gives them and "12 months" is exactly as wide as "3 months". A real <code>button</code>, never a link: nothing here navigates</span></li>
+      <li><code>[aria-pressed]</code> <span>which one is current. The attribute IS the selector: there is no <code>.is-selected</code> class anywhere, so the state a screen reader announces and the state the stylesheet paints are one fact</span></li>
+      <li><code>[disabled]</code> <span>the native attribute, set on all three behind the Pro gate. It also takes the segment out of the tab order, which a class could not do</span></li>
+      <li><code>min-height</code> <span>reads <code>--tap</code>. It was 40px in the grey, the only product control in the whole set under the floor, and it was raised at stage 07</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis and no size axis at all: a segment's width comes from the group and its height is the 44px floor everywhere. But the axis is a <b>cross</b> rather than a list, and drawing it as a list is exactly how the fourth form went unnamed for a stage. Availability has two values and selection has two, so there are four cells, and all four render in the product today.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Availability &times; selection<p class="axis-rule">Availability is carried by COLOUR, selection by WEIGHT. Two axes on two different properties is what keeps both readable when they are true at once</p></th>
+            
+            <th class="val">Tokens</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Available, not selected</b> <code>[aria-pressed="false"]</code></td>
+            
+            <td class="val">--bg-surface<br>--line-control<br>--text-body</td>
+            <td>4 of the 9. The offer: a range you could look at</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="range" role="group" aria-label="Available, not selected"><button type="button" aria-pressed="false">6 months</button></div></div></td></tr>
+          <tr>
+            <td><b>Available, selected</b> <code>[aria-pressed="true"]</code></td>
+            
+            <td class="val">--bg-selected<br>--line-selected<br>--text-action<br>weight 600</td>
+            <td>2 of the 9. The current selection, which is the second of the three jobs the One Voice Rule lets petrol do</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="range" role="group" aria-label="Available, selected"><button type="button" aria-pressed="true">3 months</button></div></div></td></tr>
+          <tr>
+            <td><b>Unavailable, not selected</b> <code>[disabled]</code></td>
+            
+            <td class="val">--bg-recessed<br>--line-divider<br>--text-muted</td>
+            <td>2 of the 9, both on the Pro gate. Repainted rather than faded: there is no opacity token in this system</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="range" role="group" aria-label="Unavailable, not selected"><button type="button" aria-pressed="false" disabled>6 months</button></div></div></td></tr>
+          <tr>
+            <td><b>Unavailable, selected</b> <code>[disabled][aria-pressed="true"]</code></td>
+            
+            <td class="val">--bg-recessed<br>--line-divider<br>--text-muted<br>weight 600</td>
+            <td>1 of the 9, on the Pro gate. <b>The form nobody named.</b> Grey like its neighbours and bold like a selection, because behind the gate both facts are true: the control cannot be used, and 3 months is still the range the empty frame below is drawn for</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="range" role="group" aria-label="Unavailable and selected"><button type="button" aria-pressed="true" disabled>3 months</button></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The fourth cell was found by measuring, not by reading.</b> The census walked the rendered product and reported that on <code>history-trends-locked</code> the "3 months" segment is disabled AND bold: <code>[aria-pressed="true"]</code> sets the weight, <code>[disabled]</code> overrides colour, fill and border and leaves the weight alone, and the two attributes sit at the same specificity so source order decided it. Nobody chose that. Step 2 decided it is the right answer anyway and that it becomes a declared form, so the rule now exists at its own specificity with its reason attached. <b>Not one pixel moves</b>: the declaration writes down what the cascade was already producing.</p>
+    <p class="note"><b>Width is deliberately not an axis</b>, and neither is count. Three segments is what the product has, and a fourth would fit by arithmetic alone; what it would cost is legibility at 360px, where the three already measure 99px each on the coloured Your trends screen as it renders today.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A person meets this on <b>Your trends</b>, which is a Pro screen, and most of them meet it behind the gate first: the canonical person in this product is on Free, so the locked view is the only view of that screen she can have. That is why the disabled forms matter more here than they would anywhere else. They are not an edge case, they are the majority of the renders.</p>
+    <p class="note">Its job is to re-frame what is already on the screen, never to fetch a different screen. "How your monthly total has moved over time. Nothing to act on here, just the shape of it." The picker changes the window on that sentence and nothing about the sentence's job, which is why it is a selection and not an action, and why choosing a range is not something a person can get wrong.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Behind the gate, selection survives</span>
+        <div class="kit-stage app full wide">
+          <div class="range" role="group" aria-label="Choose a time range, part of Tendd Pro">
+            <button type="button" aria-pressed="true" disabled>3 months</button>
+            <button type="button" aria-pressed="false" disabled>6 months</button>
+            <button type="button" aria-pressed="false" disabled>12 months</button>
+          </div>
+        </div>
+        <p>All three grey, one of them bold. The colour says the control is not yours yet; the weight says which range the frame under it is drawn for. A person on Free is looking at their own five category labels on an empty chart, and "3 months" is what that frame means.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never flatten it to one grey</span>
+        <div class="kit-stage app full wide">
+          <div class="range" role="group" aria-label="What flattening it would look like">
+            <button type="button" aria-pressed="false" disabled>3 months</button>
+            <button type="button" aria-pressed="false" disabled>6 months</button>
+            <button type="button" aria-pressed="false" disabled>12 months</button>
+          </div>
+        </div>
+        <p>Resetting the weight would have been the tidy fix, and it deletes information: three identical grey segments say the frame belongs to none of them. Keeping the petrol tint instead would be the opposite mistake, because a control that looks live and does nothing is worse than one that says so.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a range picker</span>
+        <div class="kit-stage app full wide">
+          <div class="range" role="group" aria-label="Choose a time range">
+            <button type="button" aria-pressed="true">3 months</button>
+            <button type="button" aria-pressed="false">6 months</button>
+            <button type="button" aria-pressed="false">12 months</button>
+          </div>
+        </div>
+        <p>Two or more mutually exclusive views of the same data, all of them visible at once, none of them destructive, and the current one legible without a tap. The person is adjusting a window, not making a decision.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a button instead</span>
+        <div class="kit-stage app"><a class="btn primary" href="#rule">Export as CSV</a></div>
+        <p>The moment a choice <b>does</b> something rather than re-framing what is already on screen, it is a <b>button</b>: it commits, it can fail, and it gets the one filled accent of its zone. "Export as CSV" sits two blocks below this picker on the same screen and is deliberately not a fourth segment. And a choice that changes which screen you are on is neither: that is the <b>tab bar</b>, which is navigation and lives in the chrome.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Four states, and they exist because a segment is a real <code>button</code>. Each one is a token override rather than a style of its own: no hex and no number appears inside <code>:hover</code>, so the dark theme costs three lines in <code>tokens.css</code> rather than a rewrite here.</p>
+    <p class="note"><b>Hover is declared before selection, and that order is the decision.</b> The two rules are the same specificity, so the later one wins on a segment that is both, and the selected segment therefore does not repaint under the pointer. That is right rather than accidental: the pointer is asking "what happens if I press this", and for the current range the answer is nothing you have not already got.</p>
+
+    <h3 class="kit-sub-h">Rest and disabled, live</h3>
+    <div class="kit-stage app full col wide" id="live-rest">
+      <div class="range" role="group" aria-label="Choose a time range">
+        <button type="button" aria-pressed="true" id="shot-pressed">3 months</button>
+        <button type="button" aria-pressed="false" id="shot-rest">6 months</button>
+        <button type="button" aria-pressed="false">12 months</button>
+      </div>
+      <div class="range" role="group" aria-label="Choose a time range, part of Tendd Pro">
+        <button type="button" aria-pressed="true" disabled>3 months</button>
+        <button type="button" aria-pressed="false" disabled>6 months</button>
+        <button type="button" aria-pressed="false" disabled>12 months</button>
+      </div>
+    </div>
+    <p class="note">The second group is genuinely disabled, by the attribute rather than by a class the product does not carry. Tab through both: the first group takes three stops and the second takes none, which is the attribute doing a job no class could do.</p>
+
+    <h3 class="kit-sub-h">The four, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--line-control</code>, <code>--bg-surface</code>, and <code>--bg-selected</code> on the current one</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same roles, the other half of each pair. The tint goes from a near-white petrol to a deep one, because a tint has to sit on its own ground</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-hover</code>, <code>--line-control-hover</code>. The edge must STRENGTHEN: 3.46:1 at rest, 5.78:1 here</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the fill goes LIGHTER here and darker in the light theme: a hover moves away from its ground, and the ground swapped ends</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line. focus-visible and not focus</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. The ring is the only thing telling a keyboard user which of three identical boxes they are on</div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>light</span></div><div class="tok"><code>--bg-recessed</code>, <code>--line-divider</code>, <code>--text-muted</code>, and weight 600 on the first</div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>dark</span></div><div class="tok">no opacity token: all three paints land on roles that already exist, so inventing one would either move pixels or sit unread</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/range-picker.html
+    move the pointer away  -&gt; screenshot the FIRST .range in #live-rest  -&gt; range-picker-rest-&lt;theme&gt;.png
+    hover #shot-rest       -&gt; screenshot the FIRST .range               -&gt; range-picker-hover-&lt;theme&gt;.png
+    focus #shot-pressed, press Tab, assert :focus-visible                -&gt; range-picker-focus-&lt;theme&gt;.png
+    blur, screenshot the SECOND .range in #live-rest                     -&gt; range-picker-disabled-&lt;theme&gt;.png
+
+The disabled shot is the one to check twice: it is the only picture in the system of two
+axes crossing, and the thing to look for is that exactly one of the three is bold.</code>
+    <p class="note"><b>Active is not shown and that is not an omission.</b> The component declares none: pressing a segment selects it, so what a person sees on release is the selected form, and a separate pressed paint between the two would be a third appearance in a quarter of a second.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the resting fill</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the resting edge</td><td><code>--line-control</code></td><td><code>--edge</code>. A segment is identified BY its edge, so it owes 3:1 and gets 3.46:1</td></tr>
+          <tr><td>the resting label</td><td><code>--text-body</code></td><td><code>--slate</code></td></tr>
+          <tr><td>the selected fill, edge and ink</td><td><code>--bg-selected</code>, <code>--line-selected</code>, <code>--text-action</code></td><td><code>--petrol-tint</code> and <code>--petrol</code> twice: three roles on two values, three thresholds</td></tr>
+          <tr><td>hover fill and edge</td><td><code>--bg-hover</code>, <code>--line-control-hover</code></td><td><code>--panel</code>, <code>--muted</code></td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>disabled, in both forms</td><td><code>--bg-recessed</code>, <code>--line-divider</code>, <code>--text-muted</code></td><td>three roles that already existed</td></tr>
+          <tr><td>the gap and the block spacing</td><td><code>--space-8</code>, <code>--space-24</code></td><td>primitive: a spacing has nothing to override</td></tr>
+          <tr><td>corner and floor</td><td><code>--radius-sm</code>, <code>--tap</code></td><td>primitive, straight</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/range-picker.css</code>. Stands on 3 grey pages and all three of their coloured copies: <a href="../history-trends.html">Your trends</a>, <a href="../history-trends-locked.html">the Pro gate</a>, <a href="../history-trends-loading.html">its loading state</a>. It has no class name of its own and is selectable only as <code>.range button</code>, which the census filed as a control with no family; that is corrected at step 6 with the markup, not here.</p>
+    <code class="kit-cmd">&lt;div class="range" role="group" aria-label="Choose a time range"&gt;
+  &lt;button type="button" aria-pressed="true"&gt;3 months&lt;/button&gt;
+  &lt;button type="button" aria-pressed="false"&gt;6 months&lt;/button&gt;
+  &lt;button type="button" aria-pressed="false"&gt;12 months&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- behind the Pro gate: disabled on every segment, aria-pressed unchanged --&gt;
+&lt;div class="range" role="group" aria-label="Choose a time range, part of Tendd Pro"&gt;
+  &lt;button type="button" aria-pressed="true" disabled&gt;3 months&lt;/button&gt;
+  ...
+&lt;/div&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/range-picker.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The fourth form was found by the browser sweep in <code>docs/census.md</code> and named by the consolidation in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

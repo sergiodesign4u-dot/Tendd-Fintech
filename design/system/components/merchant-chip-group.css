@@ -1,0 +1,100 @@
+/* ============================================================================
+   Merchant chip group - molecule
+   One category, its group head, and the merchants inside it as a wrapping row
+   of small bordered chips, each carrying a 22px mark and a real name. It is
+   step two of the guided reveal, node 1.5, and it is the moment
+   SPOTIFYAB STOCKHOLM becomes Spotify Premium.
+
+   THE NEWEST MOLECULE IN THE PRODUCT. It was authored at stage 07, not
+   extracted: it exists on exactly one screen, and that screen joined the
+   coloured sample last, after the stage's own strategy check found that the
+   riskiest assumption H0 had no coloured page at all. Recognition is the
+   mechanism H0 is tested through, so this is the object the product's whole
+   argument runs on.
+
+   IT CARRIES NO AMOUNTS, EVER, AND THAT IS THE COMPONENT. The reveal is a count,
+   then the names, then the total, each step paired with its own action (D1). At
+   this step the person is being asked to recognise, not to add up, and a price
+   beside a name would move the whole screen a beat forward into the thing the
+   avoider came here afraid of. There is no amount slot below and there is no
+   backlog line asking for one.
+
+   It hosts two components and restyles neither. The Group head is the same
+   `.group-head.plain` the list screens carry, positioned tighter here and not
+   otherwise touched. The Logo is the atom, at the one size in the product where
+   it renders 22px with the extra-small corner; that size is the atom's own
+   size-by-container axis and it is declared in logo.css, not here.
+
+   Reads
+     colour   --bg-surface     (the chip's paper ground)
+     lines    --line-divider   (the chip's edge)
+     geometry --radius-sm  (straight from primitive)
+   Page      design/kit/merchant-chip-group.html
+   Stands on 1 grey page and 1 coloured one, which is the smallest footprint of
+   anything in the system that is not a form primitive.
+
+   ONE NAMED DECISION CARRIED FROM STAGE 07: the grey draws a square 1px box and
+   the chip takes --radius-sm, the same corner every other control-sized object
+   in the kit uses. It was a decision then and it is not re-opened here.
+
+   NO HEX AND NO FONT NAME. Every size is a --type-* step and every margin,
+   padding and gap a --space-* step.
+
+   THE CLASS NAME IS NOT TOUCHED. `.rgroup` stays as the product writes it, and
+   the rename map leaves it alone.
+   ============================================================================ */
+
+.app .rgroup, .landing .rgroup {
+  margin: var(--space-16) var(--space-0) var(--space-0);
+}
+
+/* Positioning the group head, not restyling it: the chips underneath already
+   have their own edges, so the head sits closer to them than it does above a
+   bare list. Only the margin is touched, and this rule must stay LOWER in the
+   cascade than group-head.css's own `.plain` margin, which it ties with at
+   0-3-0. The @import order does that by itself: g comes before m inside the
+   molecule group, which is the alphabetical rule the architecture already
+   states. */
+.app .rgroup .group-head, .landing .rgroup .group-head {
+  margin: var(--space-0) var(--space-0) var(--space-8);
+}
+
+/* The row wraps rather than scrolls. A horizontal scroller would hide half the
+   category behind an edge, and the whole point of this step is that a person
+   sees everything they are paying for at once and recognises it. */
+.app .rgroup ul, .landing .rgroup ul {
+  list-style: none;
+  margin: var(--space-0);
+  padding: var(--space-0);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+/* The chip. Asymmetric padding: less on the left, where the mark sits and
+   brings its own visual weight, more on the right, where only the name ends.
+   A hairline edge rather than a fill, because a wall of filled chips reads as a
+   wall of buttons and none of these is pressable.
+
+   The edge is --line-divider and NOT --line-control, and that is the contrast
+   decision applied rather than overlooked: 1.4.11 asks 3:1 of the boundary that
+   IDENTIFIES a control. This is not a control. Nothing here has to be found by
+   touch. */
+.app .rgroup li, .landing .rgroup li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-4) var(--space-16) var(--space-4) var(--space-8);
+  border: 1px solid var(--line-divider);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  font-size: var(--type-body);
+}
+
+/* No states, and it is the strongest "no" in this round. Every chip is a plain
+   `li`: no anchor, no button, no aria-pressed, nothing to tab to. The step's
+   one control is the "See the monthly total" link underneath it, which is the
+   Step-forward link and its own component. Making a merchant chip hoverable
+   would promise a destination the reveal deliberately does not have: at this
+   step the person is meant to read the list and move on, not to start
+   exploring. */

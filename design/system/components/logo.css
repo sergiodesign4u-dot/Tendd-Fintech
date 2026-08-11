@@ -1,0 +1,109 @@
+/* ============================================================================
+   Logo - atom
+   The square a merchant's mark sits in. It is the only saturated object in a
+   subscription row, and it is DATA rather than chrome: it is the person's own
+   Netflix, rendered as Netflix.
+
+   Reads
+     colour   --bg-callout      (the empty square, and the square behind a mark)
+              --bg-placeholder  (the same square while the row is loading)
+              --line-container  (the edge of the square when there is no mark)
+              --text-muted      (the "[ ? ]" that stands in for a name)
+     geometry --radius-sm, --radius, --radius-xs  (straight from primitive)
+   Page      design/kit/logo.html
+   Stands on 21 grey pages, in 111 places, across 14 merchants.
+
+   NOT INTERACTIVE. The square is never the tap target: the whole subscription
+   row is one link with one accessible name, and the mark inside it carries
+   alt="" so a screen reader reads the subscription and not five fragments. No
+   :hover, no :focus-visible, no [disabled] are declared, and the row's own hover
+   is the row's rule.
+
+   THE CLASS NAME IS NOT TOUCHED. `.logo`, `.logo.is-skel` and the host sizes
+   stay exactly as the product writes them. The rename map in docs/inventory.md
+   leaves this one alone: the logo keeps its name.
+
+   ONE VALUE DISAGREES WITH DESIGN.md AND THE CODE WINS. DESIGN.md's prose calls
+   this "a 40px logo tile"; the stylesheet has shipped 36px since stage 07, on
+   111 places across 21 pages. Step 3 decided the document moves to the code and
+   not the other way round, and the row is on the checklist in
+   docs/tokens-audit.md. Nothing here is 40.
+   ============================================================================ */
+
+.app .logo, .landing .logo {
+  flex: none; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border: 0; border-radius: var(--radius-sm);
+  background: var(--bg-callout);
+  overflow: hidden;
+  /* WAS 8px, and the comment here used to say 8 was the size at which the grey's
+     placeholder string ("[logo]", "[ ? ]") fits a 36px square without clipping.
+     The consolidation takes it to 10, two steps up, and the agent applying the
+     mapping stopped to ask whether that clips. Checked rather than assumed: no
+     coloured page renders the text at all. Every mark in the product is a real
+     SVG, and the one slot that had no merchant got a DRAWN question mark at stage
+     07 rather than the words. The string survives only in the grey, which is on
+     its own stylesheet and is not this system's.
+
+     So the fold is safe, and the rule underneath it is the one worth keeping: if a
+     coloured slot ever has no mark, the answer is to draw one, not to shrink type
+     until the words fit. The mark, not the text, is the content. */
+  font-size: var(--type-label); color: var(--text-muted);
+}
+
+/* The mark fills the square edge to edge and never bleeds past it, so the row's
+   geometry does not change per merchant. Declared for both an inline svg and a
+   file, because the product uses files and the kit page uses both. */
+.app .logo svg, .landing .logo svg, .app .logo img, .landing .logo img { display: block; width: 100%; height: 100%; }
+
+/* ---- size: set by the CONTAINER, never by importance ---------------------
+   Five sizes in the coloured product, each one belonging to a host rather than
+   to a kind of merchant: the same Netflix mark is 52px on the detail hero, 36 in
+   a list row, 32 in an alert, 30 in a preset tile and 22 in the reveal's chip
+   group. The corner moves with the size, and only twice: past 36px the square is
+   a container and takes --radius, at 22px a control corner would read as a pill
+   and it takes --radius-xs.
+
+   The grey draws the reveal's group at 20px (wireframes/_wf.css:623). 22 is what
+   the colour layer has shipped since stage 07 and it is what renders; the
+   inventory's "20 / 22 / 30 / 32 / 36 / 52" counts both files, and only five of
+   those six sizes exist in the product today. */
+
+.app .hero .logo, .landing .hero .logo { width: 52px; height: 52px; border-radius: var(--radius); }
+.app .alert .logo, .landing .alert .logo { width: 32px; height: 32px; }
+.app .tile .logo, .landing .tile .logo { width: 30px; height: 30px; }
+.app .source .top .logo, .landing .source .top .logo { width: 36px; height: 36px; }
+/* Brought here from the .rgroup block in kit.css, where it sat 436 lines below
+   the other four. It is the same axis, it is the logo's own size, and a size of
+   this component declared inside another component's file is the shape of a
+   later disagreement. Nothing moves: three classes deep either way. */
+.app .rgroup li .logo, .landing .rgroup li .logo { width: 22px; height: 22px; border-radius: var(--radius-xs); }
+
+/* ---- the two empty forms, and they say different things ------------------ */
+
+/* LOADING. We do not know yet. The square takes the placeholder fill so it reads
+   as part of the skeleton, and the pulse is NOT declared here: only .skel
+   animates, and this square sits still. See design/kit/skeleton-bar.html. */
+.app .logo.is-skel, .landing .logo.is-skel { background: var(--bg-placeholder); }
+
+/* UNMATCHED. We looked and we could not name the merchant. Node 2.7's
+   unrecognized state is the whole reason that screen exists, and the grey writes
+   "[ ? ]" where a mark would go. Selected structurally because the grey has no
+   class to hook and the wireframes are frozen.
+
+   SOLID, NOT DASHED, and this is the one place the colour layer deliberately
+   departs from the wireframe convention. The grey draws every logo square dashed
+   (wireframes/_wf.css:311 for the row, :638 for the hero) because that is what
+   "we have nothing to show" means in a wireframe; DESIGN.md forbids a dashed
+   border outright ("There are
+   no dashed borders, no double borders"). The container hairline plus the
+   callout fill says the same thing in this language. */
+.app .logo:not(.is-skel):not(:has(img)), .landing .logo:not(.is-skel):not(:has(img)) {
+  border: 1px solid var(--line-container);
+  background: var(--bg-callout);
+  color: var(--text-muted);
+}
+/* On the detail hero the square is 52px and the "[ ? ]" inside it is the only
+   thing on screen standing in for the subscription's identity, so it is read at
+   11px rather than at 8. */
+.app .hero .logo:not(.is-skel):not(:has(img)), .landing .hero .logo:not(.is-skel):not(:has(img)) { font-size: var(--type-meta); }

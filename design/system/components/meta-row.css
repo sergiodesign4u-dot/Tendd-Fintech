@@ -1,0 +1,64 @@
+/* ============================================================================
+   Meta row - atom
+   A row of short muted labels, side by side. Two forms of one thing: the axis
+   under a chart, and the ruled strip that states how long something takes and
+   where its instructions came from.
+
+   Reads
+     colour   --text-muted   the labels
+              --line-divider the two rules of the ruled form
+     geometry no primitive: this component has no corner and no fixed size
+   Page      design/kit/meta-row.html
+   Stands on 5 grey pages, in 5 places: 3 axes and 2 strips.
+
+   NOT INTERACTIVE. It is a row of labels. Nothing in it is a link on any page in
+   the product, and no :hover, :focus-visible or [disabled] is declared.
+
+   THE RULED FORM IS DECIDED FROM THE GREY, NOT INVENTED. `.strip` stands on zero
+   coloured pages: it lives on cancel-guide and cancel-guide-no-guide, and
+   neither has ever been drawn in colour. docs/census.md lists it as one of the
+   seventeen forms that exist only in the grey, under the name "Meta strip", and
+   names the risk exactly: a form nobody has drawn is a form every later builder
+   invents independently, differently each time. Every value below came from
+   wireframes/_wf.css:810-814 with only the colour layer added.
+
+   TWO SELECTORS, ONE COMPONENT. `.axis` and `.strip` share a base rule here and
+   become `.metarow` and `.metarow.ruled` at step 6, from the map in
+   docs/inventory.md. The names are not touched in this file.
+   ============================================================================ */
+
+/* What they share: a wrapping flex row in the single secondary ink tier.
+   flex-wrap matters more than it looks. The ruled form carries a whole sentence
+   in its second label ("Steps for netflix.com, which is how you pay for this
+   one"), and at 360px that sentence has to fall to its own line instead of
+   squeezing the label beside it. */
+.app .axis, .landing .axis, .app .strip, .landing .strip {
+  display: flex; flex-wrap: wrap;
+  color: var(--text-muted);
+}
+
+/* PLAIN, the axis under a chart. space-between rather than a gap, because these
+   labels are not a list: each one names a position on the plot above and has to
+   sit under it. The first label pins left and the last pins right, which is what
+   makes three months or five categories line up with the strokes. 11px, the
+   smallest text the product uses, because the picture is the content and the
+   axis is the caption. The 24px below it is the space that separates it from
+   what comes next; the 6px above is what binds it to the chart. */
+.app .axis, .landing .axis { justify-content: space-between; margin: var(--space-8) var(--space-0) var(--space-24); font-size: var(--type-meta); }
+
+/* RULED, the strip. Same anatomy, and the difference is that it carries a rule
+   above and below. It is not an axis of anything, so its labels are a list and
+   take a real gap: 22px across, 4px down when they wrap.
+
+   The two rules are what make it a strip rather than two stray sentences. They
+   read as one band of facts about the page, which is the job: how long this will
+   take, and where the steps came from. --line-divider, not --line-container: it
+   divides content inside a screen and does not enclose anything.
+
+   12.5px against the axis's 11px, and the step is the point. The axis is a
+   caption for a picture; the strip is content a person actually reads. */
+.app .strip, .landing .strip {
+  gap: var(--space-4) var(--space-24); margin: var(--space-0) var(--space-0) var(--space-24); padding: var(--space-8) var(--space-0);
+  font-size: var(--type-meta);
+  border-top: 1px solid var(--line-divider); border-bottom: 1px solid var(--line-divider);
+}

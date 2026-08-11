@@ -1,0 +1,77 @@
+/* ============================================================================
+   Detail hero - molecule
+   The head of a subscription's own screen: the merchant's mark, its name, its
+   price and the word for how often. It is the answer to "what is this and what
+   does it cost me", given in one glance before anything else on the page.
+
+   It hosts two atoms and restyles neither. The Logo brings its own 52px square
+   and its own --radius, declared in logo.css on the `.hero .logo` axis; the
+   Amount brings its own 32px figure, declared in amount.css on the same axis.
+   Both are the atom's own size-by-container axis and both live with the atom.
+   This file owns the row, the heading and the cycle word.
+
+   Reads
+     colour   --text-primary  (the merchant name)
+              --text-muted    (the cycle word)
+   Page      design/kit/detail-hero.html
+   Stands on 6 grey pages and 6 coloured ones: every state of Subscription
+   Detail, including the loading one and the unrecognized one.
+
+   IT IS THE ONE MOLECULE THAT NEVER CHANGES ITS SHAPE. All six states put the
+   same three slots in the same order; what varies is what the slots contain
+   (a real mark or a drawn question mark, a name or a raw statement string), and
+   content is not an axis. That is stated as a sentence on the page rather than
+   drawn as an empty matrix.
+
+   NO HEX AND NO FONT NAME. Every size is a --type-* step and every margin and
+   gap a --space-* step.
+
+   THE CLASS NAME IS NOT TOUCHED. `.hero` stays as the product writes it, and
+   the rename map leaves it alone.
+   ============================================================================ */
+
+/* Baseline is deliberately NOT used: align-items is flex-start, so the 52px
+   square sits level with the top of the name rather than with its first
+   baseline. A logo baseline-aligned to a 20px heading hangs below the block and
+   drags the two lines under it with it. */
+.app .hero, .landing .hero {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-16);
+  margin: var(--space-0) var(--space-0) var(--space-8);
+}
+
+/* Positioning an atom, not repainting it: the square must not shrink when the
+   name beside it is long. It is already `flex: none` on the atom's own base in
+   logo.css, so this rule changes nothing today. Carried rather than deleted,
+   because deleting a declaration is a named decision and this file makes none;
+   it is a backlog line on the component's page so the deletion happens once,
+   out loud, with the markup. */
+.app .hero .logo, .landing .hero .logo { flex: none; }
+
+/* The merchant name. 20px, and NOT the 24px a page subject takes elsewhere:
+   the loudest thing on this screen is the price under it, and a name set at
+   page-subject size would compete with the number a person came to check.
+   No font-weight of its own, so it keeps the browser's bold for an h1, which is
+   what the product renders today. */
+.app .hero h1, .landing .hero h1 {
+  margin: var(--space-0) var(--space-0) var(--space-2);
+  font-size: var(--type-title);
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+/* "a month". Plain money language: the cycle is a word beside the figure and
+   never a slash and an abbreviation, which is the difference between $11.99 a
+   month and $11.99/mo. It is muted and it is not a Muted line: it has no margin,
+   it sits inline after the amount, and it is a slot of this molecule rather
+   than a paragraph in its own right. */
+.app .hero .cycle, .landing .hero .cycle {
+  font-size: var(--type-body);
+  color: var(--text-muted);
+}
+
+/* No states. The hero is a readout: it holds no anchor and no button on any of
+   the 6 grey pages or the 6 coloured ones, it is not itself a target, and its
+   logo is explicitly not one either (logo.css says so and says why). Checked
+   rather than assumed. */

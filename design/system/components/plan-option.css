@@ -1,0 +1,206 @@
+/* ============================================================================
+   Plan option - molecule
+   One plan on the screen that asks for money: a badge, the price, one sentence
+   about what that price means, the action, and what the plan includes. Three of
+   them stand side by side and the decision is a comparison, which is why the
+   price is the card's one big thing and everything else is quiet.
+
+   Reads
+     colour   --bg-surface, --text-body, --text-muted, --line-container,
+              --line-container-hover, --line-divider
+     spacing  --space-0, --space-2, --space-8, --space-16, --space-24
+     geometry --radius, --tap
+     type     --type-body, --type-meta
+   Hosts     the chip (`.best`), the amount (the price), the eyebrow (the
+             "Everything in Tendd Pro" label) and the button. Every one of those
+             four is drawn by its own file, including the three host-scoped
+             sizes: `.plan-opt .best` is in chip.css, `.plan-opt .amt` in
+             amount.css, `.plan-opt .incl .k` in eyebrow.css. This file
+             positions them and nothing more.
+   Page      design/kit/plan-option.html
+   Stands on 2 grey pages, 6 cards, and on 1 coloured one.
+
+   IT IS NOT A CONTROL, and that is the reason it keeps the container hairline
+   while the door beside it in this round takes the control edge. It is a `div`
+   holding a `button`: the card cannot be focused, cannot be pressed and has no
+   accessible role, so there is nothing about the card itself that has to be
+   found by touch. The control is the button inside it. DESIGN.md states the
+   split by name and lists the plan tile on the hairline side of it.
+
+   TWO THINGS WERE CARRIED RATHER THAN SETTLED, and both are on the page with
+   the same words. Neither was the builder's to decide alone and neither was
+   silently changed, because this stage may not move a pixel that no decision
+   asked for. The first has since been closed by the parent, in the place marked
+   below; the second is still open:
+
+   1. THE HOVER HAD NO TOKEN. kit.css hovers this card by strengthening its edge
+      from --hairline to --hairline-strong. --hairline-strong is the one light
+      primitive in tokens.css serving no role at all, and `.plan-opt:hover` is
+      its only consumer left in the product. There is no semantic role at that
+      value, and a component may not read a primitive: --hairline-strong had no
+      dark pair, so a card hovered in the dark theme would have drawn the light
+      theme's pale grey edge on a near-black surface, which is a hole that only
+      shows up on the day somebody switches the theme. It was written below
+      reading --line-container, the role whose SURFACE is right (a container
+      edge) and whose value is the RESTING one, so the hover rendered as no
+      change and the loss was visible rather than silent.
+      CLOSED: the parent declared --line-container-hover on --hairline-strong and
+      computed --hairline-strong-dark for its pair, and this file now reads the
+      role. The hover is back at kit.css's value, zero pixels moved. See the
+      rule.
+
+   2. THE PARAGRAPH REPAINTS AN ATOM. `.plan-opt .p` sets the muted line to body
+      ink. See the rule.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.plan-opt` and its five slots stay as the
+   product writes them, on both hosts.
+   ============================================================================ */
+
+/* ONE RULE, TWO HOSTS. `.app` for the paywall and `.landing` for the welcome
+   page, decided at stage 07 and kept: the landing carries a real plan card, not
+   an `lp-` copy of one, and it is the pattern that retires the seven twins.
+   `position: relative` is for the badge, which is in the flow today and is
+   given an anchor for the day it is not. */
+.app .plan-opt, .landing .plan-opt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-16);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+}
+
+/* ---- positioning the atoms it hosts, and nothing else -------------------- */
+
+/* The badge shrinks to its text instead of stretching across a column child,
+   and it is the only card in the set that carries one. */
+.app .plan-opt .best, .landing .plan-opt .best {
+  align-self: flex-start;
+  margin: var(--space-0) var(--space-0) var(--space-8);
+}
+
+/* Full width, so the three actions line up across the row of cards. This is the
+   whole of what a host may do to a button. */
+.app .plan-opt .btn, .landing .plan-opt .btn {
+  align-self: stretch;
+}
+
+/* ---- the card's own slots ------------------------------------------------ */
+
+/* The cadence under the price: "a year", "a month", "one payment". It lives
+   INSIDE the amount and the amount atom does not declare it, so it is this
+   card's slot: it resets the weight, the tracking and the ink that the 32px
+   figure around it sets, which is what stops "$69 a year" from reading as one
+   32px phrase. */
+.app .plan-opt .per, .landing .plan-opt .per {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--type-body);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--text-muted);
+}
+
+/* CARRIED, NOT SETTLED: this rule changes the ink of an atom it hosts. `.p` is
+   the muted line, and muted-line.css gives it --text-muted at every size; here
+   the host steps it up to --text-body. That is a host restyling an atom, which
+   is the defect this round exists to remove, and it is not removed here for two
+   reasons: dropping it changes three paragraphs on a live coloured screen with
+   no decision behind the change, and the fix is not this file's to choose. The
+   two honest answers are an emphasis modifier on the muted line, or the card
+   accepting muted ink like every other card in the product. Reported, and on
+   the page.
+   `flex: 1 1 auto` is the part that is unambiguously this file's: it makes the
+   sentence absorb the height difference between three cards of unequal copy, so
+   the three buttons land on one line. */
+.app .plan-opt .p, .landing .plan-opt .p {
+  flex: 1 1 auto;
+  margin: var(--space-8) var(--space-0) var(--space-16);
+  color: var(--text-body);
+}
+
+/* The third card has no button: the lifetime plan is not on sale yet, and it
+   says so instead of offering a control that would not work. `--tap` is read
+   here as a geometric FLOOR and not as a target, and the floor is all it is: it
+   stops the slot collapsing below the height of the two real buttons beside it
+   when its sentence is short. Measured on the coloured Upgrade screen the
+   sentence wraps to two lines at every width the product has, so the slot
+   actually renders taller than a button. What keeps the three `.incl` blocks on
+   one line is not this rule, it is `flex: 1 1 auto` on `.p` above, which
+   absorbs the difference. */
+.app .plan-opt .q, .landing .plan-opt .q {
+  display: block;
+  align-self: stretch;
+  min-height: var(--tap);
+  padding: var(--space-16) var(--space-0) var(--space-0);
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+/* ---- what the plan includes ---------------------------------------------
+   Below the action, never above it: the price and the button are the decision,
+   the list is the reassurance a person reads after they have made it. The rule
+   above it is a DIVIDER inside a container and takes --line-divider, not the
+   container's own edge. */
+.app .plan-opt .incl, .landing .plan-opt .incl {
+  margin: var(--space-16) var(--space-0) var(--space-0);
+  padding: var(--space-16) var(--space-0) var(--space-0);
+  border-top: 1px solid var(--line-divider);
+}
+.app .plan-opt .incl ul, .landing .plan-opt .incl ul {
+  list-style: none;
+  margin: var(--space-0);
+  padding: var(--space-0);
+}
+.app .plan-opt .incl li, .landing .plan-opt .incl li {
+  position: relative;
+  padding: var(--space-0) var(--space-0) var(--space-8) var(--space-24);
+  font-size: var(--type-body);
+  color: var(--text-body);
+}
+.app .plan-opt .incl li:last-child, .landing .plan-opt .incl li:last-child {
+  padding-bottom: var(--space-0);
+}
+/* The tick is MUTED and not petrol, and the count is why. Twelve of them across
+   three cards carried the accent at stage 07, so on the one screen that asks
+   for money the colour meaning "this is the safe thing to press" was smeared
+   over twelve ornaments and the actual button stopped being the loudest thing
+   on the page. A tick in a feature list is not the primary action, not the
+   current selection and not the trust line, which is the whole of the One Voice
+   Rule. Drawn with an empty alternative text, so it is never spoken. */
+.app .plan-opt .incl li::before, .landing .plan-opt .incl li::before {
+  content: "\2713" / "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--text-muted);
+}
+
+/* ---- the hover, and the token it was waiting for ------------------------
+   CARRIED AT BUILD, CLOSED BY THE PARENT. See point 1 of the header. As built,
+   this rule read --line-container, the role with the right surface and the
+   RESTING value, so it rendered no difference and the card's hover was gone
+   until a decision was taken. It was kept as a rule rather than deleted because
+   deleting it is itself a decision, and because this line is where the answer
+   lands: one word changes if a
+   --line-container-hover role is declared at --hairline-strong (zero pixels
+   move, the hover comes back exactly as it was), and the rule goes if the
+   founder would rather drop a hover that a card cannot act on anyway.
+
+   RESOLVED BY THE PARENT, the first of the two: --line-container-hover is
+   declared, with --hairline-strong-dark computed for the pair, and this file
+   reads it. The hover is back at exactly the value kit.css draws today, which is
+   what "carried" had to mean: dropping a state IS a visual change, and none of
+   the stage's three named sources asked for one. What is still open is narrower
+   and stays in backlog.md, which is whether a card that cannot be clicked should
+   respond to a pointer at all.
+
+   The alternative that was NOT taken is --line-control-hover: it exists, it is a
+   hover, and it is a CONTROL edge. DESIGN.md forbids it on a container by name
+   ("reaching for the control edge on a container is how a calm interface turns
+   into a wireframe of boxes"), and at 5.78:1 it would draw a hard dark line
+   around a card whose whole job is to be quiet. */
+.app .plan-opt:hover, .landing .plan-opt:hover {
+  border-color: var(--line-container-hover);
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkbox - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Checkbox</h1>
+    <p class="lead">The product's only on and off control, and it is a native input rather than a drawn switch. It carries the four preferences on Settings and the two on Data and privacy, which is to say it carries every promise this product makes about what it will tell a person and what it will hold.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>2</strong> grey pages</span><span>one form</span><span>4 states, both themes</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One box and one value, which is what makes it an atom. Everything below is drawn by <code>design/system/components/checkbox.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app col">
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span>
+      </label>
+      <label class="switch">
+        <input type="checkbox">
+        <span><span class="t">Weekly email digest</span><span class="h">A calm Sunday summary of what is coming up.</span></span>
+      </label>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.switch input</code> <span>the atom itself: a real <code>input type="checkbox"</code> at 20px by 20px. There is no custom switch anywhere in the 55 grey pages and none is proposed</span></li>
+      <li><code>accent-color</code> <span>reads <code>--bg-action</code>. It is the one colour hook a native checkbox gives, and it paints the fill of the checked box and the tick inside it</span></li>
+      <li><code>flex: none</code> <span>so the row's flex box cannot stretch the control when the label beside it wraps to two lines</span></li>
+      <li><code>margin: 3px 0 0</code> <span>drops the box onto the first line of the label text beside it instead of the top of the text stack</span></li>
+      <li><code>label.switch</code> <span><b>not this atom.</b> It is the Switch row molecule, which is not built yet, which is why the two rows above render bare. It is also the real pointer target, and that matters below</span></li>
+    </ul>
+    <p class="note">The box, its edge, its corner and its tick are drawn by the <b>browser</b>. Nothing in <code>tokens.css</code> reaches them except through <code>accent-color</code>, and reaching them properly means <code>appearance: none</code> and rebuilding the control out of a pseudo-element, which is a redraw and not a move. This stage does not move a pixel.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>The checkbox has one form, so there is no matrix to draw.</b> All six instances in the product render identically at 20px, and the census measured <code>.switch input</code> as one of the sixteen families with a single value on every property, at both viewports. Checked against unchecked is not a variant: it is the control's value, and the difference is drawn by the browser out of <code>accent-color</code>. On an unchecked box no token of ours is visible at all.</p>
+
+    <h3 class="kit-sub-h">The 20px, and why it is not being fixed here</h3>
+    <p class="note"><b>The control is 20px and WCAG 2.5.8 asks 24px.</b> This is a named carry, recorded twice in <code>docs/decisions.md</code> on 2026-08-11, and it is on this page for the same reason it is in that file: a defect that is carried silently is a defect that ships.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>The question</th><th>The answer, and where it is written</th></tr></thead>
+        <tbody>
+          <tr><td>What does 2.5.8 measure?</td><td>The <b>target</b>, meaning the whole area a pointer may land on to operate the control. Here the control sits inside <code>label.switch</code>, and a click anywhere in that label toggles it</td></tr>
+          <tr><td>How big is the real target?</td><td><b>44px or more</b>, per the decision of 2026-08-11. The Settings rows carry two lines of text, a 12px top and bottom padding and a divider, so they stand well clear of it. The raw 20px box is not the target a person hits</td></tr>
+          <tr><td>Why not simply set it to 24px?</td><td>Because 20px is a kit value, and this stage changes a value only by a named decision, never as a side effect of moving a component into a file. A resize here would move pixels on Settings and on Data and privacy, and the pixel comparison at step 8 would report a difference with no line in any of the three lists that are allowed to produce one</td></tr>
+          <tr><td>So what closes it?</td><td>A founder decision, at the responsive stage or before it, with a number and a reason. Until then it stands here, in <code>docs/decisions.md</code> and in <code>docs/inventory.md</code>, in the same words in all three places</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>There is no switch component in this product</b>, native or drawn, and the class name <code>.switch</code> on the row is a name rather than a control: the row is called a switch row and what it holds is a checkbox. That is worth knowing before somebody builds a toggle because the class implied one.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A checkbox carries a preference that is <b>on or off and takes effect where it stands</b>. All six in the product answer one of two questions. What may Tendd tell you about: "A price goes up", "A payment does not go through", "A free trial is ending soon", "Weekly email digest", the four on Settings. And what may Tendd do with your data: "Refresh my bank data automatically", "Use my activity to improve Tendd", the two on Data and privacy. Each is a sentence a person agrees with rather than a setting they configure, which is why the row shows the sentence and a plain-language example underneath it.</p>
+    <p class="note"><b>Both positions have to be real.</b> The grey original of Data and privacy states the rule in its own comment: "Two real toggles and no theatre. There is no advertising switch and no personalisation switch, because we do neither, and offering a control with only one legal position implies we could." A checkbox is a claim that off is available. Offering one that cannot be turned off, or that turns off nothing, spends the trust this product is built on to look configurable.</p>
+    <p class="note">Nothing about it shouts. The tick takes petrol, which is one of the accent's three permitted jobs read as a current selection, and the row around it is a hairline divider and two tiers of grey text. There is no count, no red, no "recommended" badge and no default marked as better than the other: a preference screen that argues with a person is a preference screen they stop trusting, and this product's whole claim is that it says what it does with the data every time.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a checkbox</span>
+        <div class="kit-stage app full wide"><label class="switch"><input type="checkbox" checked><span><span class="t">A payment does not go through</span><span class="h">Like "A payment to Amazon Prime did not go through".</span></span></label></div>
+        <p>A preference with two states, both of them visible at once, that takes effect where it stands and needs no submit. The person reads the sentence, sees the answer, and changes it or does not.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a button instead</span>
+        <div class="kit-stage app"><a class="btn primary" href="#rule">Send a sign-in link</a></div>
+        <p>An action that <b>commits</b> or leaves the screen belongs to the <b>Button</b>. A checkbox that means "yes, do the thing" is a control whose state is a promise the product has not kept yet, and a person then hunts for the button that makes it real. If ticking it starts something, it was never a preference.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Several answers at once</span>
+        <div class="kit-stage app col"><label class="switch"><input type="checkbox" checked><span><span class="t">A price goes up</span></span></label><label class="switch"><input type="checkbox"><span><span class="t">A free trial is ending soon</span></span></label></div>
+        <p>Four independent yes or no questions on Settings, each answerable without touching the others. Stacked in a divided list, they read as a paragraph about what the product will say to you.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a select instead</span>
+        <div class="kit-stage app full wide"><span class="field"><select id="r-no" aria-label="Currency"><option>US dollar ($)</option><option>Euro (&euro;)</option><option>British pound (&pound;)</option></select></span></div>
+        <p>One answer out of three or more is the <b>Select</b>. Checkboxes that are secretly exclusive are the oldest bug in forms: nothing stops a person ticking two, so the product has to untick one for them, and an interface that undoes what a person just did is the opposite of calm.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Four states, and they exist because the checkbox is <b>interactive</b>. Each one is a token override rather than a style of its own, and on this control the overrides are unusually thin: everything a state can reach on a native checkbox is <code>accent-color</code> and the focus ring, because the box and the tick are the browser's.</p>
+    <p class="note"><b>Two of the four are authored, and both move zero pixels today.</b> <code>kit.css</code> gives the checkbox no hover and no disabled rule. Hover follows the filled button exactly, one step deeper into the accent through a token; disabled repaints from <code>--bg-recessed</code>, the same role the disabled button uses. No page carries a disabled checkbox, so nothing on any screen changes. The one place that looks like it should is "A free trial is ending soon" on Settings, which is a Pro feature on a Free account, and the product deliberately leaves it enabled and unchecked rather than locking a person out of reading it.</p>
+    <p class="note"><b>The hover is on the control, not on the row.</b> The row is <code>label.switch</code> and belongs to the Switch row molecule; an atom that repaints its host is the unnamed variant this stage exists to prevent. If the row should light up under the pointer, that decision belongs to <code>switch-row.css</code> and to the person who owns it.</p>
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app col" id="live-rest">
+      <label class="switch"><input type="checkbox" checked id="shot-on"><span><span class="t">A price goes up</span></span></label>
+      <label class="switch"><input type="checkbox" id="shot-off"><span><span class="t">Weekly email digest</span></span></label>
+      <label class="switch"><input type="checkbox" checked disabled id="shot-disabled"><span><span class="t">A free trial is ending soon</span></span></label>
+    </div>
+    <p class="note">The third one is genuinely disabled, by the attribute rather than by a class the product does not carry. Faking a state with <code>.is-disabled</code> on a native control would document something the product cannot do, and it would also lie to a screen reader, which reads the attribute and not the class.</p>
+
+    <h3 class="kit-sub-h">The four, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--bg-action</code> through <code>accent-color</code>, and on the unchecked box nothing of ours at all</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the accent climbs the scale in the dark theme rather than mirroring, so the tick stays legible against a dark box</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-action-strong</code>. AUTHORED, and visible only on a checked box: an empty box has no fill of ours to deepen</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the same token, and its direction inverts with the theme: petrol deepens on light and lightens on dark, because a hover moves away from its ground</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line. It matters more here than on a wide control: the row is not focusable, so this 2px ring on a 20px square is the whole of the keyboard's feedback</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. The ring is 2px at 2px offset and sits outside the box, so a focused checkbox moves no neighbour and the row does not jump</div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>light</span></div><div class="tok"><code>--bg-recessed</code>, the same role the disabled button fills with. AUTHORED, and used by no screen</div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>dark</span></div><div class="tok">no opacity token, here or anywhere: the paint lands on a role that already exists, and an opacity token would either move the product or sit unread</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo and a
+command that does not run is worse than no command:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/checkbox.html
+    move the pointer away  -&gt; screenshot #live-rest  -&gt; screens/checkbox-rest-&lt;theme&gt;.png
+    hover #shot-on         -&gt; screenshot #live-rest  -&gt; screens/checkbox-hover-&lt;theme&gt;.png
+    focus #shot-on, press Tab, assert :focus-visible -&gt; screenshot #live-rest
+                                                     -&gt; checkbox-focus-&lt;theme&gt;.png
+    blur, screenshot #live-rest  -&gt; the disabled one is already in frame
+                                 -&gt; screens/checkbox-disabled-&lt;theme&gt;.png
+
+  Shoot the frame at 2x or the 20px box arrives as mush and the states cannot be told apart.
+
+The states are reached the way a person reaches them: a real pointer, a real Tab, a real
+disabled attribute. Step 9 checks these files for a byte shift, because a snapshot nobody
+re-takes freezes silently, and a frozen snapshot is worse than none: it looks checked.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the checked fill and its tick</td><td><code>--bg-action</code>, through <code>accent-color</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the same under the pointer</td><td><code>--bg-action-strong</code></td><td><code>--petrol-deep</code>, and <code>--petrol-deep-dark</code> in the dark theme, which is lighter and not darker</td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>disabled</td><td><code>--bg-recessed</code></td><td><code>--panel</code>, a role that already existed</td></tr>
+          <tr><td>the box, its edge, its corner, its tick shape</td><td>none</td><td>the browser. <code>accent-color</code> is the whole surface this system has on a native checkbox</td></tr>
+          <tr><td>its size</td><td>none</td><td>20px, a literal and a named carry against the 24px of WCAG 2.5.8. See the block above</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/checkbox.css</code>. Stands on 2 grey pages and 6 checkboxes: settings, four of them, and data-privacy, two. Coloured screens carrying it: <a href="../settings.html">Settings</a>, which holds all four. Data and privacy is still grey, so its two arrive with the rollout.</p>
+    <code class="kit-cmd">&lt;label class="switch"&gt;
+  &lt;input type="checkbox" checked&gt;
+  &lt;span&gt;&lt;span class="t"&gt;A price goes up&lt;/span&gt;&lt;span class="h"&gt;Like "Netflix went up by $2.50".&lt;/span&gt;&lt;/span&gt;
+&lt;/label&gt;</code>
+    <p class="note">The input has no <code>id</code> and the label has no <code>for</code>, and that is correct rather than sloppy: the label <b>wraps</b> the control, which associates them and makes the whole row the target. It is also what the 20px carry rests on.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/checkbox.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its host is the Switch row molecule, which owns the divider, the two text tiers and the target the 20px carry depends on. The carry itself is in <code>docs/decisions.md</code>, 2026-08-11, and in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

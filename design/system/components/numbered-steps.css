@@ -1,0 +1,112 @@
+/* ============================================================================
+   Numbered steps - molecule
+   The ordered instructions on the cancel guide: four steps, each numbered by a
+   CSS counter, each numeral in a bordered box down the left margin. It is the
+   only component in the product whose content is a procedure a person follows
+   somewhere else, on the merchant's site, with this screen open beside it.
+
+   Reads
+     colour   --text-primary (the step), --text-muted (the numeral)
+     lines    --line-container (the numeral's box)
+     type     --type-body, --type-meta
+     spacing  --space-0, --space-4, --space-16, --space-24, --space-40
+   Page      design/kit/numbered-steps.html
+   Stands on 3 grey pages (cancel-guide, cancel-guide-no-guide,
+   cancel-guide-blocked) and ZERO coloured ones. Its form therefore comes from
+   the grey, which docs/census.md names as one of the nine components with no
+   occurrence in the coloured sample at all. Nothing below is invented; every
+   value is carried from kit.css and put through the mapping.
+
+   Contains nothing from the kit. It is a molecule because each item has two
+   content slots, the generated numeral and the instruction.
+
+   NO HEX AND NO FONT NAME. Two pixel values remain and both say why: the 1px of
+   the box's border, which is a border width and not on the spacing scale, and
+   the 26px of the box itself, which is a SIZE the system has no primitive for.
+   Reported rather than invented, and reported rather than quietly rounded to
+   --space-24: rounding it would shrink the box by 2px, which is a pixel move
+   with no named decision behind it, and a width is not a spacing anyway.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.steps` stays as the product writes it.
+   Not merged at step 2, and it keeps its name through step 6.
+
+   NO CONTAINER QUERY AND NO MEDIA QUERY TOUCHES IT. Checked.
+   ============================================================================ */
+
+/* ---- the list ------------------------------------------------------------
+   `counter-reset` here and `counter-increment` on the marker below: that pair
+   is the whole argument for this component existing rather than being three
+   paragraphs with digits typed into them. The numbers are GENERATED, so they
+   cannot drift from the order. The landing page proves the alternative: its
+   `.snum` writes "1", "2", "3" by hand into the markup (wireframes/index.html,
+   lines 90, 95, 100), and the day a step is inserted in the middle, the numbers
+   are wrong and nothing in the code says so. */
+.app .steps, .landing .steps {
+  counter-reset: s;
+  list-style: none;
+  margin: var(--space-0) var(--space-0) var(--space-24);
+  padding: var(--space-0);
+}
+
+/* ---- the step ------------------------------------------------------------
+   The left padding is the gutter the numeral stands in. It was 36px, which is
+   not on the 8px grid; the mapping sends it to --space-40, nearest step. THAT
+   MOVES A PIXEL AND IT IS EXPECTED: the numeral's box stays 26px wide at left
+   zero, so the gap between the box and the text opens from 10px to 14px and
+   every line of every step shifts 4px right. It is the second of the three
+   legal sources of a visual change on this stage, it is recorded centrally in
+   scales.md, and it is stated on this component's page rather than absorbed
+   silently. Nothing else about the block moves.
+
+   Full ink, not muted. Every other list in this product is reference material
+   read once; this one is read a line at a time while a person is doing
+   something else on another screen, and the second tier is the wrong place for
+   an instruction being followed. */
+.app .steps li, .landing .steps li {
+  position: relative;
+  padding: var(--space-4) var(--space-0) var(--space-16) var(--space-40);
+  font-size: var(--type-body);
+  color: var(--text-primary);
+}
+
+/* ---- the numeral ---------------------------------------------------------
+   A SQUARE, not a circle, and kit.css states the reason on the rule: the system
+   owns three radii and a circle is not one of them, so the box takes no radius
+   at all. It is worth saying out loud because a numbered step is drawn as a
+   circle nearly everywhere else, and the next person to open this file will
+   assume the radius was forgotten.
+
+   Quiet on purpose: the numeral is --text-muted inside a hairline box while the
+   instruction beside it is full ink. The number is an index, the sentence is
+   the content, and a marker louder than the thing it marks is the same defect
+   as a badge shouting on a calm row.
+
+   `left` and `top` are position offsets rather than spacings, so they stay as
+   literals, which is how destination-icon.css already writes its own offsets.
+   The 26px box has no token: --tap and --row are the only size primitives and
+   this is neither. Carried at its measured value and reported. */
+.app .steps li::before, .landing .steps li::before {
+  counter-increment: s;
+  content: counter(s);
+  position: absolute; left: 0; top: 0;
+  display: flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px;
+  border: 1px solid var(--line-container);
+  font-size: var(--type-meta);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* NO STATES. A step is an instruction and never a target: a sweep of every
+   `.steps` list on all three grey pages returns ZERO anchors inside one, even
+   where the text names a destination ("Go to netflix.com and sign in"). The way
+   off this screen is the filled button in the action row below the list, "Open
+   netflix.com and cancel", so the procedure can be read to the end without a
+   target inside it to leave by.
+
+   ONE THING THIS FILE CANNOT FIX AND DOES NOT HIDE: `list-style: none` on an
+   `ol` removes the list role in Safari with VoiceOver, so the ordering that the
+   `ol` element carries is announced on some combinations and not others, and
+   the generated numeral is the only order left. It is the same line every list
+   in this system writes and it is not this component's to decide alone. On the
+   page as a backlog line. */

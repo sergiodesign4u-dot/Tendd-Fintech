@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Readout - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Readout</h1>
+    <p class="lead">The sentence that says in words what a chart says in a shape. It stands above the plot it describes, in full ink at 15px, and it is the only sentence-shaped atom in the system that is not muted.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>2</strong> grey pages</span><span>1 form, no axes</span><span>no states</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one text slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/readout.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens. The class name is the one the product writes today and it survives step 6 unchanged.</p>
+    <div class="kit-stage app">
+      <p class="readout">Your monthly total went from <strong>$172.90 in May</strong> to <strong>$192.90 in July</strong>, up about <strong>$20</strong> across three months.</p>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.readout</code> <span>the atom: 15px over a 1.45 leading, in <code>--text-primary</code>. Full ink, and the only quiet-looking sentence in the system that takes it</span></li>
+      <li><code>max-width</code> <span>46ch, a reading measure and not a layout width. Past about 50 characters the eye starts losing the start of the next line</span></li>
+      <li><code>strong</code> <span>the figures inside the sentence. The emphasis is the voice's decision and lives in the markup, not a variant of this component</span></li>
+      <li><code>margin</code> <span><code>0 0 16px</code>, the gap down to the chart it is describing. Tighter than the 22px most blocks take, because the two are one object</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One form and no axes.</b> The inventory records none and the stylesheet declares none: there is one readout size, one ink and one measure, and both pages that carry it render the same thing. There is no matrix to draw, and drawing an empty one would suggest variants are missing rather than unnecessary.</p>
+    <p class="note">The two sentences it renders are worth putting side by side, though, because they are the same component doing two different jobs on the same screen: one states a trend, the other states the absence of one. The empty state is not a variant, it is the same atom with different words, and that is the whole argument for a sentence rather than a chart annotation.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Screen</th><th>What it says</th><th>What is under it</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../history-trends.html">History and Trends</a></td><td>Your monthly total went from $172.90 in May to $192.90 in July, up about $20 across three months.</td><td>The chart, drawing exactly what the sentence states and nothing more</td></tr>
+          <tr><td><a href="../history-trends-empty.html">History and Trends, empty</a></td><td>Two months so far. Your first trend line appears once September closes.</td><td>Nothing yet, and the sentence is the whole screen. It names the month the wait ends rather than saying "not enough data"</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A readout is the <b>finding</b>. It exists because this product does not ask a person to read a shape and work out what happened: the chart is the evidence and the sentence is the answer, in that order on the page and in that order of importance. Somebody who never looks at the plot has still been told the whole thing, and somebody using a screen reader gets the same sentence in the same place rather than a table of coordinates.</p>
+    <p class="note">That is the product's own rule about numbers, applied to a chart. Plain money language, numbers always in context: "up about $20 across three months" rather than "+11.6% MoM". The word "about" is doing real work, because the exact figure is already in the sentence twice and a third decimal helps nobody.</p>
+    <p class="note">It is full ink for the same reason it is a sentence: on History and Trends it is the loudest text on the screen after the figures inside it, and the muted line under the chart ("Streaming is up $6 since March") is the footnote to it. Reach for it only where there is a finding to state. A sentence that merely qualifies a number is a <b>muted line</b>, and one that offers a way off the screen is a <b>quiet line</b>.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The finding, above the evidence</span>
+        <div class="kit-stage app"><p class="readout">Two months so far. Your first trend line appears once <strong>September</strong> closes.</p></div>
+        <p>The empty state of the trends screen, and the sentence IS the screen. It says how much history exists, when the wait ends, and nothing else. A chart placeholder with "no data" in it would have said less in more space.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a muted line instead</span>
+        <div class="kit-stage app"><p class="context">Streaming is up $6 since March. Everything else held steady.</p></div>
+        <p>A detail that qualifies the finding is a <b>muted line</b> at the second ink tier, and on the trends screen it sits directly under the chart. Setting it as a readout would put two full ink sentences of the same size around one chart, and a person would have to work out which of the two is the answer. Exactly one readout per screen, for the same reason there is exactly one Display number.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Every figure in the sentence</span>
+        <div class="kit-stage app"><p class="readout">Your monthly total went from <strong>$172.90 in May</strong> to <strong>$192.90 in July</strong>, up about <strong>$20</strong> across three months.</p></div>
+        <p>Three figures marked with <code>strong</code>, so the sentence can be skimmed for numbers and read for meaning, and both give the same answer. The 46ch measure keeps it to three lines on a phone.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a big total instead</span>
+        <div class="kit-stage app"><div><p class="total">$192.90</p><p class="context">a month, for what you have signed up for</p></div></div>
+        <p>When the answer is one number rather than a change between two, it belongs to the <b>big total</b> with a muted line under it. A readout that reduces to "Your monthly total is $192.90" is a Display number that has been written out in words and made quieter, which is the One Number Rule broken from the other direction.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and it was checked rather than assumed.</b> A readout is a sentence: it holds no anchor on either of the two pages that carry it, in either folder, and nothing about it is hovered, pressed or focused. The loading state of that screen replaces it with skeleton bars rather than fading it, which belongs to the skeleton bar. Drawing four empty cells here would document something the product cannot do.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the sentence</td><td><code>--text-primary</code></td><td><code>--ink</code>, and <code>--ink-dark</code> in the dark theme. 17.4:1 on the light surface, 15.0:1 on the dark one</td></tr>
+          <tr><td>size, leading and measure</td><td>literals</td><td>15px, 1.45, 46ch. The type scale is still a proposal awaiting the founder, and a measure has never been tokenized: <code>--measure</code> is on the deferred list in <code>docs/inventory.md</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/readout.css</code>. Stands on 2 grey pages and 2 coloured ones, both of them History and Trends: <a href="../history-trends.html">the screen</a> and <a href="../history-trends-empty.html">its empty state</a>.</p>
+    <code class="kit-cmd">&lt;p class="readout"&gt;Your monthly total went from &lt;strong&gt;$172.90 in May&lt;/strong&gt; to
+  &lt;strong&gt;$192.90 in July&lt;/strong&gt;, up about &lt;strong&gt;$20&lt;/strong&gt; across three months.&lt;/p&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/readout.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its row in the system, and the reason a two-page component is in the kit at all, are in <code>docs/inventory.md</code>: two occurrences enter, one is a one-off, and the decision is visible rather than silent.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

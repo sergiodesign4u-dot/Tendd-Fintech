@@ -1,0 +1,45 @@
+/* ============================================================================
+   Readout - atom
+   The sentence that says in words what a chart says in a shape: "Your monthly
+   total went from $172.90 in May to $192.90 in July, up about $20 across three
+   months." One zone, one text slot, and it stands ABOVE the plot it describes.
+
+   It is the answer to the product's own rule that a figure never appears
+   without its context. The chart is the evidence; this is the finding. A person
+   who never looks at the plot has still been told the whole thing, and a person
+   using a screen reader gets the same sentence in the same place rather than a
+   table of coordinates.
+
+   Reads
+     colour   --text-primary
+   Page      design/kit/readout.html
+   Stands on 2 grey pages and 2 coloured ones, both of them History and Trends.
+
+   NO HEX AND NO FONT NAME. The size, the line height, the measure and the
+   margin are the literals they are today.
+
+   THE CLASS NAME IS NOT TOUCHED. `.readout` stays as the product writes it.
+   ============================================================================ */
+
+/* Full ink, not muted, and it is the only sentence-shaped atom in the system
+   that takes --text-primary. It is a finding rather than a footnote: it is the
+   loudest text on the screen after the numbers inside it, and the muted line
+   directly under it ("Streaming is up $6 since March") is the footnote.
+
+   46ch is a reading measure and not a layout width. The line is a paragraph a
+   person reads once, at 15px over a 1.45 leading, and past about 50 characters
+   the eye starts losing the start of the next line. It is narrower than the
+   52ch the removal block and the ruled footnote take, because those are read as
+   small print and this one is read as a sentence. */
+.app .readout, .landing .readout {
+  margin: var(--space-0) var(--space-0) var(--space-16);
+  font-size: var(--type-sub);
+  line-height: 1.45;
+  max-width: 46ch;
+  color: var(--text-primary);
+}
+
+/* No states. A readout is a sentence: it holds no link on either of the two
+   pages that carry it, in either folder, and nothing about it is pressed or
+   hovered. The figures inside it are marked with `strong` in the markup, which
+   is the voice's decision about emphasis and not a variant of this component. */

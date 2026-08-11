@@ -41,112 +41,186 @@ The count is a class count, not a component count: `.row`, `.row .name`, `.row .
 
 ---
 
-# Part 1. Components, by level
+# Part 1. The system after consolidation
 
-The level was assigned mechanically, in this order, and every borderline call was settled by
-opening the CSS and reading containment:
+**55 components: 18 atoms, 23 molecules, 14 organisms.** Before the consolidation of stage 08
+step 2 the same material was 68 rows, and the pre-consolidation tables are not reproduced here:
+they were a list of what the product draws, and this is a list of what the system HAS. The
+ledgers further down record how the count moved, screen by screen and stage by stage.
 
-- **atom** - one visual element, one content slot, hosts no other kit component.
-- **molecule** - two or more content slots in one unit, or hosts a kit atom.
-- **organism** - hosts a kit molecule, or is a screen shell or a container of repeated units.
+**One row per component, never per occurrence.** A row that appeared on eleven screens was
+eleven lines of evidence at stage 07 and is one unit here. The `Axes` column carries the matrix
+that replaces those lines: what actually varies, and by what rule.
 
-`Pages` counts the pages whose markup carries the component's root class.
+**The level is read, not re-derived.** atom (contains nothing else from the kit) to molecule
+(two or more content slots, or hosts an atom) to organism (hosts a molecule, or is a screen
+shell, or is a container of repeated units). It decides four orders downstream: the build
+rounds, the `@import` order in `system/index.css`, the groups of the stand, and the rollout
+rounds at stage 12.
 
-**21 atoms, 28 molecules, 19 organisms. 68 components.** Step 6 added three, all from the
-Guided Reveal: the step-forward link `.next`, the merchant chip group `.rgroup`, and the reveal
-step `.rstep`. Two more things the reveal wanted were reconciliations rather than additions and
-are not counted: its `.num` eyebrow turned out to be the `.k` atom at a hair different tracking,
-and its `.tone` line turned out to be `.context` with more space above it.
+**`design/kit/_nav.js` is the live registry** and renders both this system's hub cards and its
+side panel. The tables below and that file are generated from the same decisions; if they ever
+disagree, the registry is the one the pages actually read.
 
-Before that, step 5 moved the count twice: the
-destination icon joined the atoms and the radio left them, since the radios were deleted from the
-grey when the plan cards became click targets; and two organisms, the save-focus candidate list
-and the Pro gate card, were promoted out of the one-off list, because a one-off has no home in a
-system where a screen may carry no CSS of its own.
+**Two axes recur and are worth stating once.** SIZE is set by the **container**, never by
+importance: the same button is 14px in a page action row and 13.5px in a compact one because
+the row is tighter, not because the action matters less. GAP in a grid is set by the **size of
+the child**: doors are full cards and take air, tiles are chips and do not.
 
-## Atoms (21)
+## Atoms (18)
 
-| Component | Classes | Pages | Variants | Note |
+| Component | Class | Axes and their values | Pages in the product | Was |
 |---|---|---|---|---|
-| Button | `.btn` | 36 | `.btn.primary` (33) | `_wf.css:579`. Rendered as both `a` and `button`; no size variants |
-| Step-forward link | `.next` | 1 | - | `:615`. A one-off by the counting rule, and it lives in the kit anyway because a screen may carry no CSS of its own. The only link in the product with a direction |
-| Consequence line | `.consequence` | 16 | `.lead`, `.spaced` | `:838`. One sentence stating what a control will do |
-| Quiet line | `.quiet` | 12 | - | `:589`. Sentence with an inline exit; the `a` rule only sets the 44px target |
-| Amount | `.amt` | 11 | four host-scoped sizes | **No base rule exists.** Same name, four sizes, four owners |
-| Logo placeholder | `.logo` | 21 | `.is-skel`; six host-scoped sizes, 20 to 52px | Same: no base rule, sized only by its host |
-| Skeleton bar | `.skel` and its width set | 8 | `.line`, `.short`, `.total`, `.amt-skel`, six percent widths | `:456-483` |
-| Big total | `.total` | 8 | three host-scoped sizes (46 / 46 / 40px) | Also no base rule |
-| Legal line | `.legal` | 7 | - | `:592` |
-| Context line | `.context` | 7 | three host-scoped rules | `:274, :614, :646` |
-| Status badge | `.badge` | 7 | position-only overrides in `.alert` and `.source` | `:651` |
-| Row status tag | `.tag` | 5 | `.tag.trial` | `:325`. **`.trial` has no CSS rule anywhere** |
-| Chart placeholder | `.chart` | 4 | 168 to 220px at container 760 | `:905` |
-| Text input | `.field input` | 8 | text / email / search, plus `:focus` | `:746` |
-| Select | `.field select` | 4 | `:focus` | Shares one rule block with the input: the CSS already settled that these are one style, two elements |
-| Range labels | `.axis` | 3 | - | `:909` |
-| Meta strip | `.strip` | 2 | - | `:810`. Same shape as `.axis`, different owner, no shared base |
-| Readout | `.readout` | 2 | - | `:904` |
-| Freshness line | `.freshness` | 2 | - | `:815` |
-| Checkbox | `.switch input` | 2 | - | `:857`. A real checkbox, 20px |
-| ~~Radio~~ | - | **0** | - | **Stale row, corrected at step 5.** `_wf.css:936` is no longer a rule, it is the comment recording that the radios were deleted from the grey when the plan cards became click targets. Nothing in the product carries a radio, so nothing is owed to the kit. The form-control exception stands for the primitives that do exist |
-| Destination icon | `.ic-home` `.ic-alerts` `.ic-save` `.ic-you` | 55 | one per GC2 destination | **Authored at step 5, not extracted.** The grey draws `.ic` as an empty bordered box on purpose (`_wf.css:355`), so this is one of the atoms greyscale could not express. Masks painted with `currentColor`, which is what turns the current tab petrol with no second rule; the mask sits on a pseudo-element because a mask clips its own children and `.ic` hosts the unread dot |
+| Amount | `.amt` | size by container: 13.5 / 14 / 30 / 32 | 69 | - |
+| Big total | `.total` | size by container: 46 / 40 | 8 | - |
+| Button | `.btn` | emphasis: fill / outline / inverse. size: default / compact | 85 | - |
 
-## Molecules (28)
+**Built.** `design/system/components/button.css` + `design/kit/button.html`. The etalon of step 5,
+and the first component through the five-thing gate: css, page, registry row, inventory line,
+`@import` in its own level group.
+| Chart placeholder | `.chart` | - | 4 | - |
+| Checkbox | `.check` | - | 2 | `.switch input` |
+| Chip | `.chip` | tone: quiet / trial / pro / cancelled | 36 | `.tag`, `.badge`, `.best`, `.plan` |
+| Destination icon | `.ic-*` | one per destination | 112 | - |
+| Eyebrow | `.k` | - | 4 | `.num` |
+| Label | `.lbl` | weight: quiet 12 / strong 15 | 3 | - |
+| Logo | `.logo` | size by container: 20 / 22 / 30 / 32 / 36 / 52 | 111 | - |
+| Meta row | `.metarow` | rule: plain / ruled | 5 | `.axis`, `.strip` |
+| Muted line | `.muted` | size: 12 / 12.5 / 13. rule: plain / ruled | 48 | `.consequence`, `.context`, `.tone`, `.legal`, `.freshness`, `.removal`, `.pitch`, `p.notice`, `.p` |
+| Quiet line | `.quiet` | - | 12 | - |
+| Readout | `.readout` | - | 2 | - |
+| Select | `.select` | - | 4 | `.field select` |
+| Skeleton bar | `.skel` | width set, and one height for the total | 89 | - |
+| Step-forward link | `.next` | - | 2 | - |
+| Text input | `.input` | type: text / email / search | 8 | `.field input` |
 
-| Component | Classes | Pages | Variants | Note |
+## Molecules (23)
+
+| Component | Class | Axes and their values | Pages in the product | Was |
 |---|---|---|---|---|
-| Action row | `.actions` | 36 | margin overrides in four hosts | `:578`. Flex row hosting Button atoms |
-| Merchant chip group | `.rgroup` | 1 | - | `:619`. Hosts the Logo atom and the Group head; the one place the mark is 22px. No amounts, ever |
-| Lede | `.lede` + h1 + p | 25 | - | `:547` |
-| State message | `.state` + h1/h2 + p | 19 | h1 form (page subject) against h2 form (state inside a page) | `:598` |
-| Fact list | `.facts` + div/dt/dd | 18 | `.facts.sentences` (5) | `:565`. The pair has no class of its own, so it cannot be split out |
-| Group head | `.group-head` + h2 + `.subtotal` | 16 | `.plain` (4) | `:288`. `.plain` drops the band to a bare title |
-| Trust block | `.trust` + p + a | 11 | - | `:341` |
-| Removal note | `.removal` + p + a | 8 | - | `:677` |
-| Subscription row | `.row` + body/name/when/amt/tag/logo | 8 | `.is-skel` (4), `.cand .row` | `:300`. Hosts the logo, amount and tag atoms |
-| Form field | `.field` + label + `.hint` | 8 | `form.field` (the search) | `:744`. Wraps the input or select atom |
-| Detail hero | `.hero` + logo/h1/amt/cycle | 6 | - | `:636` |
-| Secondary link bar | `.secondary` + a | 6 | - | `:331`. Its `a` is **a second button geometry that does not use `.btn`** |
-| Notice | `.notice` + p + a | 5 | - | `:433`. Kept apart from `.attention` by an explicit comment: amber against clay at Concept |
-| Charge list | `.charges` + li + amt + `.was` | 5 | `li.marked` (2) | `:666` |
-| Decoder line | `.decoder` + `.raw` | 5 | - | `:656` |
-| Summary | `.summary` + h1 + total + context | 5 | - | `:271`. Hosts the big-total atom |
-| Door | `.door` + h2/h3 + p + `.pick` | 4 | `.pick` on 2 of 4 | `:446` |
-| Attention row | `.attention` + p + a | 3 | - | `:278` |
-| Promise list | `.promises` + li + strong | 3 | - | `:559`. Twin of the landing's trust list, **not shared** |
-| Numbered steps | `.steps` + li + counter | 3 | - | `:802` |
-| Range picker | `.range` + button | 3 | `[aria-pressed]`, `[disabled]` | `:894`. Its button is **a third button geometry** |
-| Alert item | `.alert` + logo/body/what/meta/go/newdot/prices/badge | 2 | `.prices`, `.newdot` in the filled state only | `:778` |
-| Nav row | `.navrow` + `.sub` + `.arrow` | 2 | - | `:845` |
-| Switch row | `.switch` + `.t` + `.h` | 2 | - | `:855`. Hosts the checkbox atom |
-| Preset tile | `.tile` + logo + `.p` | 2 | `[aria-pressed="true"]` | `:757` |
-| Plan option | `.plan-opt` + amt/p/q/best/input | 2 | `:has(input:checked)`, `.landing .plan-opt` | One rule, two hosts, by the decision of 2026-08-10 |
-| Unlock list | `.unlocks` + li + `.p` | 2 | - | `:941` |
-| Share card | `.sharecard` + lbl/count/total/p/win-line | 2 | - | `:949` |
+| Action row | `.actions` | - | 42 | `.secondary` |
+| Alert item | `.alert` | content: with prices / with unread dot | 2 | - |
+| Charge list | `.charges` | state: marked | 5 | - |
+| Detail hero | `.hero` | - | 6 | - |
+| Door | `.door` | content: with a pick line / without | 4 | - |
+| Form field | `.field` | host: div / form (the search) | 8 | - |
+| Group head | `.group-head` | rule: banded / plain | 16 | - |
+| Merchant chip group | `.rgroup` | - | 1 | - |
+| Nav row | `.navrow` | - | 2 | - |
+| Numbered steps | `.steps` | - | 3 | - |
+| Pair list | `.pairs` | markup: dt/dd / span. content: values / sentences | 19 | `.facts`, `.unlocks` |
+| Plan option | `.plan-opt` | host: app / landing | 2 | - |
+| Preset tile | `.tile` | state: pressed | 2 | - |
+| Promise list | `.promises` | - | 3 | - |
+| Range picker | `.range` | availability x selection: rest / pressed / disabled / disabled+pressed | 3 | - |
+| Save-focus candidate | `.cand` | - | 1 | - |
+| Share card | `.sharecard` | - | 2 | - |
+| Subscription row | `.row` | state: skeleton. host: list / candidate | 8 | - |
+| Summary | `.summary` | content: with a total / without | 5 | - |
+| Switch row | `.switch` | - | 2 | - |
+| Text block | `.textblock` | scope: page 24 / block 21 / inset 17 | 44 | `.lede`, `.state` |
+| Trust block | `.trust` | - | 11 | - |
+| Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without | 13 | `.attention`, `.notice`, `.decoder` |
 
-## Organisms (19)
+## Organisms (14)
 
-| Component | Classes | Pages | Variants | Note |
+| Component | Class | Axes and their values | Pages in the product | Was |
 |---|---|---|---|---|
-| App bar | `.appbar` + wordmark/acct/back/step/plan | 54 | row form in the flow shell, column form at container 760 | Laid out by the `.app` grid itself |
-| Reveal step | `.rstep` | 1 | last-of-type drops its rule | `:608`. Hosts the chip group, the Display and the Action row. Three on one page, never three routes: D1 drawn |
-| App shell | `.app` + `.screen` + the column sets | 54 | `.app.flow` (26), `.app.detail` (8) | Three container breakpoints: 760 / 900 / 1340 |
-| Tab bar | `.tabbar` + a + `.ic` + `.dot` + `.cur` | 28 | left rail at container 760 | `:346` |
-| Category group | `.group` + ul + li | 12 | `break-inside: avoid` in columns | `:287`. Hosts Group head and Subscription row; on Settings it hosts Form field and Switch row instead |
-| Panel | `.panel` + h2 + summary + `.alerts` + `.gate` | 7 | `section` form against `details` disclosure form | `:661`. `.gate` never occurs outside it, so it is folded in |
-| Dashboard head | `.head` | 5 | exists only as a grid at container 900 | Hosts Summary and Attention row |
-| Groups column set | `.groups` | 4 | 2 columns at 900, 3 at 1340 | Hosts Category groups |
-| Doors pair | `.doors` | 4 | 2-up at container 760 | `:445` |
-| Dialog sheet | `.sheet` + h1 + p + doors | 3 | framed and centred at container 760 | `:864` |
-| Alert list | `.alerts` | 2 | inset inside `.panel` | Hosts Alert items |
-| Nav row list | `.navrows` | 2 | - | `:844` |
-| Tile grid | `.tiles` | 2 | 2-col to 3-col at container 760 | `:756` |
-| Plan grid | `.plans` | 2 | `.landing` host, 3-col at 760 | Hosts Plan options |
-| Empty block | `.empty` + h2 + p | 2 | - | `:442` |
-| Source card | `.source` + top/h2/kind/badge/actions | 2 | - | `:829` |
-| Review page frame | `.layout`, `.stage`, `.stage-app`, `.stage-flush` | 55 | - | **Not product.** It is the wireframe review scaffolding that hosts the `_nav.js` panel, and it does not migrate to the kit |
-| Save-focus candidate list | `.candidates` + `.lead` + `.cand` + `.cut` | 1 | 460px reflow, where the cut drops to its own line | `:487-498, :507-511`. **Promoted out of the one-off list at step 5.** Hosts the subscription row molecule and a second, separately named control beside it: confusing the two is what costs the cancellation |
-| Pro gate card | `.locked` + h2 + p + ul + `.actions` | 1 | 560px cap at container 760 | `:915-921, :1021`. **Promoted at step 5.** Took the radius and the card surface its siblings `.sharecard` and `.panel` already carry, by named decision: a card that is a card everywhere else is not a rectangle only here |
+| App bar | `.appbar` | form: row / column rail at container 760 | 54 | - |
+| App shell | `.app` | form: steady / flow / detail | 54 | - |
+| Card | `.card` | - | 3 | `.locked`, `.source` |
+| Category group | `.group` | - | 12 | - |
+| Dashboard head | `.head` | exists only at container 900 | 5 | - |
+| Dialog sheet | `.sheet` | full width, then a card at container 760 | 3 | - |
+| Divided list | `.divlist` | inset: bare / inside a panel | 4 | `.alerts`, `.navrows` |
+| Empty block | `.empty` | - | 2 | - |
+| Grid | `.grid` | columns: 1 to 2 / 2 to 3. gap by child size | 8 | `.doors`, `.tiles`, `.plans` |
+| Groups column set | `.groups` | columns: 2 at 900, 3 at 1340 | 4 | - |
+| Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - |
+| Reveal step | `.rstep` | - | 1 | - |
+| Save-focus list | `.candidates` | - | 1 | - |
+| Tab bar | `.tabbar` | form: bottom bar / left rail at container 760 | 28 | - |
+
+## What the consolidation removed, and on what ground
+
+| Level | Merged into one | Ground |
+|---|---|---|
+| atom | `.consequence`, `.context`, `.tone`, `.legal`, `.freshness`, `.removal`, `.pitch`, `p.notice`, `.p` to **`.muted`** | One zone, one text slot, muted ink. Three sizes and one ruled variant. Margins belonged to the host all along |
+| atom | `.tag`, `.badge`, `.best`, `.plan`, `.locklabel` to **`.chip`** | The code merged them into one base rule at stage 07; the inventory still counted two |
+| atom | `.axis`, `.strip` to **`.metarow`** | A row of labels, with and without rules |
+| molecule | `.attention`, `.notice`, `.decoder` to **`.wash`** | Same fill token family, same padding, same margin. Tone is an axis, and the decoder's 10px corner was drift |
+| molecule | `.actions`, `.secondary` to **`.actions`** | Identical but for a margin |
+| molecule | `.lede`, `.state` to **`.textblock`** | Verified by markup: neither contains anything from the kit. Heading plus paragraph at three scopes |
+| molecule | `.facts`, `.unlocks` to **`.pairs`** | Label and value per line, divided by a hairline, last one bare |
+| organism | `.alerts`, `.navrows` to **`.divlist`** | Three identical `li + li` divider rules; the third belongs to `.group` and stays a usage |
+| organism | `.doors`, `.tiles`, `.plans` to **`.grid`** | One zone: a repeated child. Columns are the axis |
+| organism | `.locked`, `.source` to **`.card`** | White, `--line`, `--radius`, padded content. The 18 against 16 padding was drift |
+
+**Two atoms were ADDED, not removed.** The eyebrow (`.k`, 4 pages) and the label (`.lbl`, 3
+pages) each have a base rule in `kit.css` and occurrences in the product, and neither had a row
+in the stage-07 tables. The inventory's own prose calls `.k` "the `.k` atom" twice while the
+atom table does not list it. Found by reading the stylesheet against the tables rather than
+trusting either.
+
+**One organism left the system rather than merging.** The reviewer's page frame (`.layout`,
+`.stage`, `.stage-app`, `.sidebar`, `.nav-toggle` and the eight `--c-*` variables) stands on 55
+pages and travels to no build. It is not a component of the product, so it moved to the stand's
+own `design/kit/_page.css`, where the four literals Codex found also get fixed by the move.
+
+**Three rows are deleted outright**, each with its proof: `--success` (declared, read nowhere,
+founder decision on 2026-08-11), `.locklabel` (declared in the chip base, zero occurrences on
+all 55 grey pages), and `.app .plan-opt .amt { font-size: 22px }` (a dead declaration overridden
+by 30px 373 lines later, which renders and is what the plan price actually is).
+
+## The renaming map
+
+Decided here, executed at step 6 when the product moves onto system classes, and read again by
+the rollout at stage 12 for the screens that are still grey. Without it, four steps later
+nobody can reconstruct what `.decoder` was folded into.
+
+| Old class or selector | New class and variant | design/ | wireframes/ |
+|---|---|---|---|
+| `.consequence` | `.muted` (12.5px) | 11 | 21 |
+| `.context`, `.tone` | `.muted` (13px) | 9 | 10 |
+| `.legal` | `.muted.ruled` (12px) | 0 | 7 |
+| `.freshness` | `.muted` (12px) | 0 | 2 |
+| `.removal` | `.muted` (13px, 52ch) | 5 | 8 |
+| `.pitch` | `.muted` (13px) | 1 | 1 |
+| `p.notice` | `.muted` | 1 | 1 |
+| `.p` | `.muted` (13px) | 13 | 5 |
+| `.lbl` | `.lbl`, kept, with `.strong` | 1 | 3 |
+| `.badge`, `.best`, `.plan` | `.chip` plus tone | 14 | 21 |
+| `.tag` | `.chip` (quiet) | 12 | 15 |
+| `.tag.trial` | `.chip.trial` | 0 | 1 |
+| `.tag.cancelled` | `.chip.cancelled` | 0 | 1 |
+| `.axis` | `.metarow` | 3 | 3 |
+| `.strip` | `.metarow.ruled` | 0 | 2 |
+| `.attention` | `.wash.attention` | 3 | 3 |
+| `.notice` | `.wash` | 4 | 5 |
+| `.notice.is-error` | `.wash.error` | 1 | 1 |
+| `.decoder` | `.wash.code` | 5 | 5 |
+| `.secondary` | `.actions` | 3 | 6 |
+| `.lede` | `.textblock` (24px) | 10 | 25 |
+| `.state` | `.textblock` (21px) | 8 | 19 |
+| `.facts` | `.pairs` (dt/dd) | 7 | 18 |
+| `.facts.sentences` | `.pairs.sentences` | 1 | 5 |
+| `.unlocks` | `.pairs` (span) | 1 | 1 |
+| `.alerts` | `.divlist` | 0 | 2 |
+| `.panel .alerts` | `.divlist.inset` | 0 | 2 |
+| `.navrows` | `.divlist` | 2 | 2 |
+| `.doors` | `.grid.roomy` (1 to 2) | 1 | 4 |
+| `.tiles` | `.grid` (2 to 3) | 2 | 2 |
+| `.plans` | `.grid` (1 to 3) | 1 | 2 |
+| `.locked` | `.card` | 1 | 1 |
+| `.source` | `.card` | 0 | 2 |
+| `.field input` | `.input` | 6 | 8 |
+| `.field select` | `.select` | 4 | 4 |
+| `.switch input` | `.check` | 1 | 2 |
+| `.num` | `.k` | 0 | 1 |
+| `.btn` on `add-subscription-error` | `.btn.primary` | 1 | 1 |
+| `[chart]` literal on `history-trends-loading` | a drawn frame, as on the other three | 1 | - |
+| `[chart: waiting for a third month]` literal on `history-trends-empty` | a drawn frame, keeping its accessible name | 1 | - |
+| `.layout`, `.stage`, `.stage-app` | leave the system, to `_page.css` | 28 | 55 |
 
 ## One-offs: built once, not in the kit
 
@@ -322,7 +396,7 @@ GC1 **marketing variant** is named by node 1.1 although the landing has no `.app
 
 ## Six things a page renders and no node names
 
-A **close** control (`× Close` reusing the `.back` class) on the upgrade pair. The **step marker**,
+A **close** control (`× Close` reusing the `.back` class) on the upgrade pair. **This is now blocking, not merely untidy** (found 2026-08-11 at the mark census): `a.back` carries `&lsaquo;` 36 times and `&times;` twice, and CSS cannot tell them apart because nothing distinguishes them but the words inside. So neither mark can be drawn while they share a class, and the back arrow is the single most common mark in the product. The renaming map owes a split: `.back` and `.close`. The **step marker**,
 on 11 pages, when GC1's content list has three slots and none of them is a step. The **trend row**,
 which `globals.md` says is "not GC4, a different component" and which is built from GC4 markup
 exactly. The **preset tile**, claimed by node 1.4 as a GC4 variant and built as its own button
@@ -371,7 +445,10 @@ that cannot be invalid, so **the invalid state is authored, not extracted**, alo
 and inverse buttons.
 
 Also worth carrying: the amount field and the date field are both `input[type=text]`, so a money
-input and a date input are owed. And the product's toggle is a checkbox inside `label.switch`;
+input and a date input are owed. **The money half was paid on 2026-08-11**, on the founder's
+decision: the Amount field holds digits only, takes `inputmode="decimal"` and wears the `.affix`
+variant of the text input, which draws the currency sign inside the box. The date half is still
+owed. And the product's toggle is a checkbox inside `label.switch`;
 there is no native and no custom switch anywhere.
 
 ## The landing: seven components carried twice

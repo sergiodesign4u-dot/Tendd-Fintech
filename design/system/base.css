@@ -1,0 +1,104 @@
+/* ============================================================================
+   Tendd design system - base
+   Stage 08, step 3. What belongs to no component: the reset, the font, the
+   reading defaults, the focus ring, the one keyframe and its guard.
+
+   The test for this file is narrow: a rule earns a place here only if removing
+   it would break EVERY component at once. Anything a single component owns
+   lives in its own file under components/, and anything the stand owns lives in
+   design/kit/_page.css. This file ships; the stand does not.
+
+   It reads tokens.css and declares nothing of its own. index.css imports
+   tokens first, then this, then components by level, and it does not exist yet:
+   it arrives at step 5 with the first component.
+   ============================================================================ */
+
+/* The border-box reset, and it is the first line of the file for a reason.
+
+   It was MISSING from the first draft of base.css and the etalon caught it inside
+   a minute: the same `.btn` rendered 44px on a product screen, where kit.css sets
+   this, and 46px on the component page, where nothing did. A one pixel border on
+   each side, on every bordered control in the system, and nothing about the file
+   looked wrong.
+
+   That is the whole argument for building one component completely before the
+   other fifty four. A missing reset found here costs one line; found at the pixel
+   comparison of step 8 it costs a day of hunting a two pixel difference across
+   twenty eight screens, and every explanation on the way is plausible. */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: var(--space-0);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-page);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* One family for the whole product, and no second one. DESIGN.md forbids a
+   display face and a mono face for numbers by name: a second family is how a
+   calm interface starts sounding like two products. */
+
+/* Numerals line up in a column or they are not a money product. Applied where
+   figures stack rather than globally, so prose keeps proportional digits. */
+:where(table, .amt, .total) { font-variant-numeric: tabular-nums; }
+
+/* The form controls take the accent for their own native marks (the checkbox
+   tick, the progress fill) rather than the browser's blue. */
+input, select, textarea, button, progress { accent-color: var(--bg-action); }
+
+/* A fieldset groups fields for a screen reader and draws nothing. Left at the
+   browser's default it puts a bevelled rectangle around the four fields of Add
+   a subscription, which is the only rectangle on that screen that means
+   nothing, and the semantics are worth keeping while the box is not.
+
+   IT IS HERE RATHER THAN IN A COMPONENT, and the reason is the one thing a
+   component round can lose. It sat in kit.css beside `.field` and belonged to
+   no component's brief: the form field is one field and this governs the group
+   around several, so every builder correctly left it alone and it would have
+   been dropped on the day kit.css is deleted. A reset of a browser default has
+   exactly one right home and this is it, next to box-sizing. Unscoped, where
+   kit.css scoped it to `.app` and `.landing`: a UA reset has nothing to scope
+   to, and no fieldset exists in this system outside a screen. */
+fieldset { border: 0; margin: 0; padding: 0; }
+
+/* ONE focus ring for the whole system, and it is focus-visible rather than
+   focus: the ring is for the person arriving by keyboard and is noise for the
+   person who just clicked. :where() holds specificity at 0 so any component can
+   still override it without reaching for !important.
+
+   Contrast is checked as a LINE, not as text: 3:1 (WCAG 1.4.11).
+   6.2:1 on the light surface, 6.8:1 on the dark one. */
+:where(a, button, input, select, textarea, summary, label:has(input)):focus-visible {
+  outline: 2px solid var(--line-selected);
+  outline-offset: 2px;
+}
+
+/* Images never overflow their slot, and an image with no dimensions never
+   collapses the layout around it while it loads. */
+img, svg { max-width: 100%; }
+
+/* The one keyframe in the system. It belongs to no component because two carry
+   it (the skeleton bar and the logo placeholder), and it is here rather than in
+   either of them so that deleting one cannot stop the other from animating,
+   silently and with no error. That is not hypothetical: it happened once at
+   stage 07 and is written up in docs/inventory.md. */
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+/* And its guard, at the same specificity as the rule it guards. Written as a
+   bare `.skel` against a scoped `.app .skel` it lost the cascade and did
+   nothing at all: every skeleton pulsed forever for a person who had asked the
+   operating system for no motion. It looked correct in the file. Stage 11 owns
+   motion and will put durations behind tokens; this guard stays here, because a
+   person who asks for no motion asks the whole product, not one component. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

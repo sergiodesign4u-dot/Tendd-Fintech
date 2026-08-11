@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trust block - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Trust block</h1>
+    <p class="lead">The three lines under a screen of figures that say where the figures came from, what we can and cannot do with the account, and when we last looked. Plus one link to the full answer. GC6 in the IA, and one of only three places in this product where petrol is allowed at rest.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>11</strong> grey pages</span><span>1 content axis, 3 values</span><span>3 states, both themes</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One to three text slots and one link slot, plus a mark drawn by the component itself. Everything below is drawn by <code>design/system/components/trust-block.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens.</p>
+    <div class="kit-stage app full bleed">
+      <section class="trust" aria-label="Where these figures come from">
+        <p>From Chase, 11 subscriptions, and 3 you added yourself.</p>
+        <p>Read-only. Tendd cannot move your money.</p>
+        <p>Last checked today, 9:14 AM.</p>
+        <a href="#anatomy">Data and privacy</a>
+      </section>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.trust</code> <span>the molecule: a hairline above, 24px of left padding to make room for the mark, and the muted tier throughout. No fill and no card, because a boxed trust claim reads as an advert for itself</span></li>
+      <li><code>.trust::before</code> <span>the shield. A CSS mask over a solid petrol fill, on a pseudo-element, so a screen carries nothing but the class and the mark never enters the accessible tree</span></li>
+      <li><code>p</code> <span>one line per promise: the source, the read-only claim, the freshness. Separate paragraphs and not one sentence, because they are separate promises and a reader checks them one at a time. A screen that cannot keep one of them drops the paragraph</span></li>
+      <li><code>&gt; a</code> <span>the way to the full answer. A <b>direct child</b>, which is what earns it the 44px target floor: an anchor inside a <code>p</code> would be running text and exempt</span></li>
+      <li><code>border-top</code> <span>the only line it draws. <code>--line-divider</code>, decorative, no contrast threshold owed: nothing here has to be found by touch</span></li>
+    </ul>
+    <p class="note"><b>It hosts no atom, and that is worth stating on a molecule page.</b> Everything inside it is a bare <code>p</code> or a bare <code>a</code>: the three lines are not <a href="muted-line.html">muted lines</a> and the link is not a quiet line's link, because both are sized and coloured by this block rather than by themselves. It is a molecule by the first half of the definition, four content slots in one unit.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>No CSS axis, and one content axis that needs no class.</b> Every page draws the same block: the same rule, the same padding, the same shield, the same 12px muted tier. What changes is <b>how many promises there are</b>, and the product gets that by writing fewer paragraphs. Counted rather than assumed, across both folders: three lines on 3 pages, two lines on 8, one line on 1. A component that compresses by holding less content is not a component with a size modifier, and giving it one would be a class that says what the markup already says.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Content<p class="axis-rule">One line per promise the screen can actually keep. The source, the read-only claim and the freshness are three promises; a screen that has no source yet drops the source rather than inventing one. Never drop the read-only line: it is the one every form of this block carries</p></th>
+            
+            <th class="val">Measured</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Three lines</b></td>
+            
+            <td class="val">3 &times; p + a</td>
+            <td>Home and two of its states. The source line counts the list above it, so it earns a line of its own</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full bleed"><section class="trust"><p>From Chase, 11 subscriptions, and 3 you added yourself.</p><p>Read-only. Tendd cannot move your money.</p><p>Last checked today, 9:14 AM.</p><a href="#variants">Data and privacy</a></section></div></td></tr>
+          <tr>
+            <td><b>Two lines</b></td>
+            
+            <td class="val">2 &times; p + a</td>
+            <td>8 pages: every subscription detail state, and the alerts error in the grey. One account rather than a list, so the source folds into the read-only sentence</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full bleed"><section class="trust"><p>From Chase, read-only. Tendd cannot move your money.</p><p>Last checked today, 9:14 AM.</p><a href="#variants">Data and privacy</a></section></div></td></tr>
+          <tr>
+            <td><b>One line</b></td>
+            
+            <td class="val">1 &times; p + a</td>
+            <td>1 page, sign-in, still grey. There is no bank yet, so there is no source and no freshness, and the one promise left is about what we hold at all</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full bleed"><section class="trust"><p>Tendd holds an email and a currency, and nothing else.</p><a href="#variants">What we read</a></section></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>What the IA says about this, and what the markup answers.</b> <code>docs/inventory.md</code> records that GC6's compressed form has <b>four names</b>: five node files call it "short", <code>globals.md</code> calls it "one line", node 1.1 calls it "long-form". The markup settles it: there is no short <i>variant</i>, there is a block that carries between one and three promises, and the two nodes that name a short form on a page, 1.3 and 6.15, have no <code>.trust</code> on the page at all. Four names for a thing the CSS never needed is a documentation defect and it is logged as one, not fixed with a modifier.</p>
+    <p class="note"><b>There is no size axis either.</b> The block is 12px throughout, one step under the body, on every screen and at every width. That is deliberate and it is the reason the component survives being read: it is a footing, and a footing that grows with the screen stops being one.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">The trust block goes at the <b>bottom of any screen showing money that came out of a bank</b>. It is the fourth design principle drawn rather than claimed: say what happens with the data, every time, and show the source of every figure. <code>research/docs/benchmark.md</code> names trust and first-time clarity as the one dimension that decides this product, and <code>wireframes/docs/screens.md</code> names this block as one of the three elements on the etalon screen that carry it.</p>
+    <p class="note">It answers three questions in the order a sceptical person asks them. Where did this come from ("From Chase, 11 subscriptions, and 3 you added yourself"). What can you do with my account ("Read-only. Tendd cannot move your money"). How old is this ("Last checked today, 9:14 AM"). Then it offers the whole answer, because a claim with no way to check it is a slogan. On a screen that cannot keep one of the three, that line is dropped rather than softened. The read-only wording is locked in <code>voice/docs/microcopy.md</code> as dictionary entry D7 and the firm verb is deliberate: <b>cannot</b>, not "can never" and not "will not".</p>
+    <p class="note"><b>Petrol at rest, twice, and this is the third of the accent's three permitted jobs.</b> D-Concept spends the accent on the primary action, the current selection, and the trust line. The shield marks the block rather than one line, because all three lines are the claim; the link takes the same petrol because it is the claim's own proof. Everywhere else in this product a resting link is ink and the underline carries the affordance.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A hairline, and nothing else</span>
+        <div class="kit-stage app full bleed"><section class="trust"><p>From Chase, 11 subscriptions, and 3 you added yourself.</p><p>Read-only. Tendd cannot move your money.</p><p>Last checked today, 9:14 AM.</p><a href="#rule">Data and privacy</a></section></div>
+        <p>No fill, no border, no card, no shadow. It is the footing of a screen and not a panel on it, and it earns its separation with one divider, which is what the Flat Paper Rule in <code>DESIGN.md</code> asks for. The only saturated thing in it is a 15px shield.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never a card, never a badge</span>
+        <div class="kit-stage app"><span class="consequence">A boxed, filled, iconned trust panel: three marks for one quiet claim</span></div>
+        <p>A trust claim inside a bordered, filled box reads as a badge the product awarded itself. The louder the frame, the less the sentence is believed, which is the opposite of what this block is for. If a screen genuinely needs a raised surface for something, that is the <b>card</b>, <code>.card</code>, and a trust claim is not what goes in it.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use it for the source of figures</span>
+        <div class="kit-stage app full bleed"><section class="trust"><p>From Chase, read-only. Tendd cannot move your money.</p><p>Last checked today, 9:14 AM.</p><a href="#rule">Data and privacy</a></section></div>
+        <p>Anywhere the screen shows a number that came from a bank. The block says where, what we may do, and how fresh, in that order, and it holds as many of the three as the screen can honestly keep.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a promise list before the connection</span>
+        <div class="kit-stage app"><span class="consequence">Read-only, through Plaid, and about a minute. Tendd cannot move your money.</span></div>
+        <p>Before a bank is connected there is no source and no freshness, so two of the three lines have nothing to say. The component for a claim about what <i>will</i> happen is the <b>promise list</b>, <code>.promises</code>, which is a list of undertakings rather than a report on data. Confusing the two is how the connect screen ended up with a trust block asserting a last-checked time for an account that did not exist yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>Three, and they belong to the link.</b> The block is not a target: it is not an anchor, not a button and not pressed on any of the 11 grey pages or the 9 coloured ones, and the shield is a pseudo-element that cannot be reached at all. The link has rest, hover and focus visible. No disabled: a trust claim is never unavailable.</p>
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app full bleed" id="live-rest">
+      <section class="trust" id="shot-trust" aria-label="Where these figures come from">
+        <p>From Chase, 11 subscriptions, and 3 you added yourself.</p>
+        <p>Read-only. Tendd cannot move your money.</p>
+        <p>Last checked today, 9:14 AM.</p>
+        <a href="#states" id="shot-link">Data and privacy</a>
+      </section>
+    </div>
+    <p class="note"><b>The shield renders here, and it was checked rather than assumed.</b> The four tab bar masks do <i>not</i> render on a stand page, and <a href="destination-icon.html">their own page</a> says so and shows the shapes another way: their machinery is selected as <code>.app .tabbar a .ic</code> and needs a whole ancestor chain no stand scene has. This one is selected as <code>.app .trust::before</code>, the scene above carries <code>.app</code>, and that is the whole difference. Measured on this page: <code>content: ""</code>, a 15 by 15 box at <code>left: 0; top: 16px</code>, <code>background-color: rgb(28, 106, 118)</code>, and a mask image that decodes. Nothing is faked and nothing is drawn inline.</p>
+
+    <h3 class="kit-sub-h">The link, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--text-action</code> on the ink and on the shield, <code>--line-divider</code> on the rule above</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">petrol climbs the scale rather than descending it: <code>--text-action</code> resolves to the lightened petrol at 6.8:1 on the dark surface</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok">identical to rest, and that is the measurement rather than a missing snapshot. The arithmetic is below</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">identical to rest in this theme too, for the same reason: a specificity tie decided by source order</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--line-selected</code>, drawn once for the whole system by <code>base.css</code> at specificity 0</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok">the ring is the one state this component demonstrably has in both themes, and it is the one it declares nothing for</div></div>
+    </div>
+    <code class="kit-cmd">Retake, same recipe as the etalon, because there is no node Playwright in this repo:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/trust-block.html
+    move the pointer away  -&gt; screenshot #live-rest -&gt; screens/trust-block-rest-&lt;theme&gt;.png
+    hover #shot-link       -&gt; screenshot #live-rest -&gt; screens/trust-block-hover-&lt;theme&gt;.png
+    Tab to #shot-link, assert :focus-visible
+                           -&gt; screenshot #live-rest -&gt; screens/trust-block-focus-&lt;theme&gt;.png
+
+The hover pair is expected to be byte identical to the rest pair. That is the point of
+taking it: a snapshot that proves an absence is the only way the absence stays checked.</code>
+
+    <p class="note"><b>The hover does nothing, on the product's most read link, and nothing in either file said so.</b> Measured on the real <a href="../home.html">Home</a> screen today: at rest the link is <code>rgb(28, 106, 118)</code> with an underline in <code>rgb(231, 237, 238)</code>, and under the pointer it is <code>rgb(28, 106, 118)</code> with an underline in <code>rgb(231, 237, 238)</code>. The arithmetic: <code>.trust a:hover</code> is 0-2-1 and <code>.app .trust a</code> is also 0-2-1, the second is written later in the stylesheet, and equal specificity is settled by source order. The ink was already petrol, so the tie costs nothing there; the underline is where it shows, and it stays the tint.</p>
+    <p class="note"><b>Carried unchanged, and reported.</b> Repairing a hover is not one of the three legal sources of a visual change at this stage, and this is not the link to change quietly. The order of the rules in <code>trust-block.css</code> is <code>kit.css</code>'s order for exactly this reason, and the file says so where it happens: sorting that file tidily would change what the link does under the pointer. The fix belongs to step 6, with the rename.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the three lines</td><td><code>--text-muted</code></td><td><code>--muted</code>. The single secondary tier, and there is no third</td></tr>
+          <tr><td>the shield, and the link at rest</td><td><code>--text-action</code></td><td><code>--petrol</code>. An INK role on the shield, because the architecture counts an icon glyph as ink and not as a fill</td></tr>
+          <tr><td>the link's underline</td><td><code>--line-action-soft</code></td><td><code>--petrol-tint</code>. Declared for this, see below</td></tr>
+          <tr><td>the rule above the block</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>, decorative, no threshold owed</td></tr>
+          <tr><td>the target floor</td><td><code>--tap</code></td><td>primitive, straight: a size has nothing to override</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The hole was reported rather than invented, and is now filled.</b> The link's resting underline is the petrol <i>tint</i>, and the system had no line role on that value. It had <code>--bg-selected</code>, which is a <b>fill</b>, and the architecture forbids one role on two surfaces even at an identical value. So this component read a fill for a line, with a comment saying so, exactly as the text input read <code>--text-failure</code> before <code>--line-failure</code> existed, and the parent then declared <code>--line-action-soft</code> at the same value. Nothing moved when the loan was repaid. <b>Declared against the rule that one usage is not yet a role</b>, and the exception is named rather than quietly taken: that rule guards against palette inflation, while the surface axis forbids outright what the alternative was.</p>
+    <p class="note"><b>It was measured before the hole was claimed</b>, because a reported hole that turns out to be fine costs more than no report at all. The tint underline is <b>1.18:1</b> on the light surface and its dark pair is <b>1.20:1</b> on the dark one: consistent, deliberate, and a whisper in both themes, which is the right answer here because the ink is petrol and carries the affordance by itself. So this is a <b>naming</b> defect and not a contrast one. The value is correct; the role it is read through is not.</p>
+    <p class="note"><b>The shield is a mask and not an inline SVG, and it sits on a pseudo-element.</b> That means a screen carries nothing but the class, and it means the mark is not in the accessible tree: the three sentences already say what the shield says, and a screen reader reading it twice would be worse than one never reading it. It cannot take <code>currentColor</code> the way the <a href="destination-icon.html">destination icons</a> do, because the block's own colour is <code>--text-muted</code> and the shield has to be petrol. The encoded SVG's own <code>stroke='%23000'</code> is dead weight either way: a mask reads alpha and never hue. The prefixed <code>-webkit-mask</code> is declared before the unprefixed one, because Safari still answers only to the prefixed property and the unprefixed one has to be able to win where both are understood.</p>
+    <p class="note"><b>One rule is deliberately not in this file.</b> <code>.app &gt; .screen &gt; .trust { order: 4 }</code>, from the 900px container block, is one of four sibling order declarations that only mean anything together and it names the shell's grid rather than this block. It belongs to the App shell organism, and it is named here and in the component's header comment so it cannot be lost between two files.</p>
+    <p class="note">Lives in <code>design/system/components/trust-block.css</code>. Stands on 11 grey pages and 9 coloured ones. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../home-error.html">Home, could not refresh</a>, <a href="../home-savefocus.html">Home, save focus</a>, <a href="../subscription-detail.html">Subscription Detail</a> and its four states, <a href="../subscription-detail-error.html">the error state</a>.</p>
+    <code class="kit-cmd">&lt;section class="trust" aria-label="Where these figures come from"&gt;
+  &lt;p&gt;From Chase, 11 subscriptions, and 3 you added yourself.&lt;/p&gt;
+  &lt;p&gt;Read-only. Tendd cannot move your money.&lt;/p&gt;
+  &lt;p&gt;Last checked today, 9:14 AM.&lt;/p&gt;
+  &lt;a href="data-privacy.html"&gt;Data and privacy&lt;/a&gt;
+&lt;/section&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/trust-block.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. GC6 and the four names its unbuilt short form has are in <code>docs/inventory.md</code>; the measured forms it had before the system are in <code>docs/census.md</code>, where <code>.trust a</code> is one of the sixteen families with one value on every property.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

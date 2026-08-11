@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail hero - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Detail hero</h1>
+    <p class="lead">The head of a subscription's own screen: the merchant's mark, its name, its price and the word for how often. It answers "what is this and what does it cost me" in one glance, before anything else on the page has been read.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>6</strong> grey pages</span><span>one form, no axis</span><span>no states</span><span>hosts <strong>2</strong> atoms</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Four content slots, two of them atoms this component hosts and does not restyle. Everything below is drawn by <code>design/system/components/detail-hero.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens.</p>
+    <div class="kit-stage app full wide">
+      <div class="hero">
+        <span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span>
+        <span>
+          <h1>Spotify Premium</h1>
+          <span class="amt">$11.99</span>
+          <span class="cycle">a month</span>
+        </span>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.hero</code> <span>the molecule: a flex row with a 16px gap, aligned to the top rather than to a baseline, and one 8px margin under it</span></li>
+      <li><code>.logo</code> <span>an atom, the <a href="logo.html">Logo</a>, at its largest size in the product: 52px with the container corner. The size belongs to the atom's own size-by-container axis and is declared in <code>logo.css</code>, not here</span></li>
+      <li><code>h1</code> <span>the merchant name, 20px. The only slot this file styles directly besides the cycle word</span></li>
+      <li><code>.amt</code> <span>an atom, the <a href="amount.html">Amount</a>, at 32px weight 700, which is its largest size and the closest anything in this product gets to the monthly total. Declared in <code>amount.css</code></span></li>
+      <li><code>.cycle</code> <span>"a month". This molecule's own slot, muted, sitting inline after the figure. It is not a Muted line: it has no margin and it is not a paragraph</span></li>
+      <li><code>align-items</code> <span><code>flex-start</code> and deliberately not <code>baseline</code>: a 52px square baseline-aligned to a 20px heading hangs below the block and drags the two lines under it with it</span></li>
+    </ul>
+    <p class="note"><b>It positions its atoms and repaints neither.</b> The only rule this file writes about the logo is <code>flex: none</code>, which is layout, and the atom already declares it: the rule is carried unchanged from <code>kit.css</code> rather than deleted, because deleting a declaration is a named decision and this file makes none. It is a backlog line so the deletion happens once, out loud, with the markup.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One form, and this is the one component in the round that genuinely has no axis.</b> All six states of the subscription detail put the same four slots in the same order at the same sizes. What varies is what the slots <b>contain</b>, and content is not an axis: a real mark or a drawn question mark, a merchant name or the raw statement string, a price or a skeleton. Drawing a matrix of that would be drawing a matrix of the product's data.</p>
+    <p class="note">The three forms below are the same component, three times, to show that claim rather than assert it. Read them as evidence, not as variants.</p>
+    <div class="kit-stage app full wide">
+      <div class="hero">
+        <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
+        <span>
+          <h1>Netflix</h1>
+          <span class="amt">$17.99</span>
+          <span class="cycle">a month</span>
+        </span>
+      </div>
+    </div>
+    <p class="note">A named merchant. The mark is the person's own Netflix, in full brand colour: it is <b>data</b> rather than chrome, which is why it is the only saturated object on the screen and why it is contained in a square instead of being masked to the interface colour.</p>
+    <div class="kit-stage app full wide">
+      <div class="hero">
+        <span class="logo"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true" focusable="false"><path d="M20.4 20.6a5.6 5.6 0 1 1 5.6 5.6v3.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="26" cy="34.4" r="1.6" fill="currentColor"/></svg></span>
+        <span>
+          <h1>SQ *BLUEBOTTLE 8890</h1>
+          <span class="amt">$14.00</span>
+          <span class="cycle">seen monthly</span>
+        </span>
+      </div>
+    </div>
+    <p class="note">The unmatched charge, node 2.7. The name slot holds the raw statement string because that is all we have, and the square holds a drawn question mark rather than a mark. It is <b>quiet and not clay</b>: an unnamed charge is an ordinary gap in the data, not a failure, so it takes the recessed square and the muted tier. The empty square and its drawn mark belong to the <a href="logo.html">Logo</a> atom, which selects that form structurally because the grey has no class to hook.</p>
+    <p class="note"><b>There is no loading form, and its absence is the most interesting thing about this component.</b> On <a href="../subscription-detail-loading.html">the loading state</a> every other block on the screen is skeletonised, the facts, the code wash and the charge list, and the hero renders <b>complete</b>, with the real mark, the real name and the real price. The grey original says why in its own comment: the list the person tapped already knew the name and the amount, and blanking out what they had a moment ago is the thing that state must not do. So this molecule has three content forms and not four, and the fourth is absent by decision rather than by omission.</p>
+    <p class="note"><b>No size axis, and no emphasis axis.</b> The hero is one size because there is one of it per screen and it is always the subject of that screen. A hero at a second size would be a hero that is not the subject, which is a different screen.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">Once, at the top of a subscription's own screen, and nowhere else. It is the object that closes the loop the guided reveal opened: a person recognised the name in a chip group, tapped the row on Home, and this is where the thing they tapped identifies itself with a mark, a name and a price.</p>
+    <p class="note">The order of the slots is the order of the questions. What is it (the mark, then the name). What does it cost (the figure). How often (the word). "a month" is written as a word beside the number and never as a slash and an abbreviation, which is the plain money language principle in one detail: <b>$11.99 a month</b>, never <b>$11.99/mo</b>.</p>
+    <p class="note">The name is 20px and not the 24px a page subject takes elsewhere in the product, and that is deliberate: the loudest thing on this screen is the price under it, and a name set at page-subject size would compete with the number a person came to check.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The mark keeps its square</span>
+        <div class="kit-stage app full wide"><div class="hero"><span class="logo"><img src="../visuals/logos/disney-plus.svg" alt=""></span><span><h1>Disney+</h1><span class="amt">$13.99</span> <span class="cycle">a month</span></span></div></div>
+        <p>52 by 52, a container corner, and the mark filling it edge to edge with <code>alt=""</code>. The name beside it is the accessible name; a screen reader reads one subscription and not two fragments. The square never shrinks when the name is long, which is what <code>flex: none</code> is for.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never let the mark set the row</span>
+        <div class="kit-stage app"><span class="consequence">A 52px logo baseline-aligned to a 20px heading, hanging below the block</span></div>
+        <p>The row is aligned to the top of its content, not to a text baseline. Baseline alignment lets the tallest child decide where everything sits, and here the tallest child is a picture: the name and the price would drift down the screen by however tall the square happened to be. This is layout the molecule owns, and it is the reason the molecule exists at all rather than being three elements in a row.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a hero for the subject of a screen</span>
+        <div class="kit-stage app full wide"><div class="hero"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span><h1>Spotify Premium</h1><span class="amt">$11.99</span> <span class="cycle">a month</span></span></div></div>
+        <p>One subscription, identifying itself at the top of its own page. The figure is 32px because on this screen it is the number the page is about.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a subscription row in a list</span>
+        <div class="kit-stage app full wide"><a class="row" href="subscription-row.html"><span class="logo"><img src="../visuals/logos/disney-plus.svg" alt=""></span><span class="body"><span class="name">Disney+</span><span class="when">in 11 days &middot; Aug 12</span></span><span class="amt">$13.99</span></a></div>
+        <p>The same three facts inside a list are the <a href="subscription-row.html">subscription row</a>, <code>.row</code>: a 36px mark, a 15px name, a 14px figure at the far end, and the whole row is one link with one accessible name. The tell is whether the person is scanning or has arrived. A hero inside a list would give every item a 32px price and turn a calm list into a column of shouting numbers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and it was checked rather than assumed.</b> The hero is a readout: it holds no anchor and no button on any of the 6 grey pages or the 6 coloured ones, and it is not itself a target. Its logo is explicitly not one either, and <code>logo.css</code> says so and says why: on a list screen the whole row is the link, and on this screen the actions are in an action row further down. The three forms in the matrix above are <b>content</b>, and none of them is reachable by an interaction.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the merchant name</td><td><code>--text-primary</code></td><td><code>--ink</code>, 17.4:1 light and 15.0:1 dark</td></tr>
+          <tr><td>the cycle word</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
+          <tr><td>the name's size</td><td><code>--type-title</code></td><td>primitive, straight: a size has nothing to override</td></tr>
+          <tr><td>the cycle's size</td><td><code>--type-body</code></td><td>primitive, straight</td></tr>
+          <tr><td>the row gap and the block margin</td><td><code>--space-16</code>, <code>--space-8</code>, <code>--space-2</code></td><td>primitive, straight</td></tr>
+          <tr><td>the mark</td><td>nothing here</td><td>the <a href="logo.html">Logo</a> atom, in <code>logo.css</code>, at the <code>.hero .logo</code> size</td></tr>
+          <tr><td>the price</td><td>nothing here</td><td>the <a href="amount.html">Amount</a> atom, in <code>amount.css</code>, at the <code>.hero .amt</code> size</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Three values moved and none was re-decided.</b> The gap was 14px and is 16, the block margin was 6px and is 8, the name was 21px and is 20. Nearest step, ties to the larger, straight from the founder's review of the foundations. The atoms inside are untouched: the square is still 52px with the 14px corner and the figure is still 32px, both measured on the real <a href="../subscription-detail.html">subscription detail</a> screen before and after.</p>
+    <p class="note"><b>One duplicate declaration was dropped and nothing moves.</b> <code>kit.css</code> writes <code>.app .hero .amt { display: block }</code> twice, 214 lines apart, and the first of the two also carries the atom's size. The size half went to <code>amount.css</code> with the rest of that atom's size axis; the bare repeat is not carried here, because a rule whose whole content is a property another file already sets at the same specificity is a second edition of that file.</p>
+    <p class="note">Lives in <code>design/system/components/detail-hero.css</code>. Stands on 6 grey pages and 6 coloured ones. Coloured screens carrying it: <a href="../subscription-detail.html">Subscription Detail</a>, <a href="../subscription-detail-price-change.html">the price change</a>, <a href="../subscription-detail-payment-failed.html">the failed payment</a>, <a href="../subscription-detail-unrecognized.html">the unrecognized charge</a>, <a href="../subscription-detail-loading.html">the loading state</a>, <a href="../subscription-detail-error.html">the error state</a>.</p>
+    <code class="kit-cmd">&lt;div class="hero"&gt;
+  &lt;span class="logo"&gt;&lt;img src="visuals/logos/spotify.svg" alt=""&gt;&lt;/span&gt;
+  &lt;span&gt;
+    &lt;h1&gt;Spotify Premium&lt;/h1&gt;
+    &lt;span class="amt"&gt;$11.99&lt;/span&gt;
+    &lt;span class="cycle"&gt;a month&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/detail-hero.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its two atoms and their size axes are in <code>docs/inventory.md</code>; the values that folded are in <code>docs/tokens-audit.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

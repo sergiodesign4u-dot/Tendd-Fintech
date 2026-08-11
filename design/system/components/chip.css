@@ -1,0 +1,125 @@
+/* ============================================================================
+   Chip - atom
+   The micro-label that says what state a thing is in, or which plan a person is
+   on. One base rule, one axis, and that axis is TONE.
+
+   Reads
+     colour   --bg-status, --text-status        (quiet, the default)
+              --bg-trial, --text-trial          (a free trial)
+              --bg-selected, --text-action      (the accent tone)
+              --bg-callout, --text-muted        (cancelled)
+              --bg-attention, --text-attention  (declared, no consumer yet)
+              --bg-failure, --text-failure      (declared, no consumer yet)
+     geometry --radius-xs  (straight from primitive: a radius has nothing to
+              override. Named on 2026-08-10 for exactly this component, because
+              on a 23px chip --radius-sm renders as a pill)
+   Page      design/kit/chip.html
+   Stands on 20 grey pages, in 36 places, under four different class names.
+
+   NOT INTERACTIVE. A chip is a label, never a control: no page in the product
+   wraps one in an anchor or a button, so this file declares no :hover, no
+   :focus-visible and no [disabled]. Inventing a hover here would document
+   something the product cannot do.
+
+   THIS FILE IS A FIVE INTO ONE CONSOLIDATION, and four of the five arrive
+   already merged. `kit.css` folded .tag, .badge, .plan-opt .best, .appbar .plan
+   and .locklabel into one base rule at stage 07 while docs/inventory.md was
+   still counting two separate atoms; step 2 of stage 08 brought the inventory to
+   the code rather than the other way round. All four surviving selectors are
+   written out below and share one rule, because renaming them to .chip happens
+   at step 6 together with the markup of the screens. A rename here and a screen
+   there is how a pixel comparison stops proving anything.
+
+   THE FIFTH IS DELETED. `.locklabel` was declared in the stage 07 base rule and
+   in the accent group, and it occurs ZERO times across all 55 grey pages. It is
+   dropped here with that proof, alongside its `margin-left: 6px`. Nothing moves:
+   a rule with no markup paints nothing. The same argument had already retired
+   `.tone-info` at stage 07, step 6. Recorded in docs/tokens-audit.md under
+   "consolidated drift".
+   ============================================================================ */
+
+.app .tag, .landing .tag, .app .badge, .landing .badge, .app .plan-opt .best, .landing .plan-opt .best, .appbar .plan {
+  display: inline-block; flex: none; margin: var(--space-0); padding: var(--space-4) var(--space-8);
+  border: 0; border-radius: var(--radius-xs);
+  background: var(--bg-status); color: var(--text-status);
+  font-size: var(--type-label); font-weight: 600; line-height: 1.6;
+  /* SENTENCE CASE, and the two declarations that hold it are not decoration.
+     The grey wireframes shout their badges in uppercase with tracking; DESIGN.md
+     forbids both by name ("Don't uppercase or letter-space a badge to make it
+     look designed"), and on a screen whose whole job is to lower anxiety a
+     shouted status is not a calm one. Written as explicit resets rather than
+     left to the default, because .badge in wireframes/_wf.css:651 sets both and
+     a colour copy that only overrode the fill would still shout. */
+  letter-spacing: 0; text-transform: none;
+  /* A chip never wraps. Every label in the product is one or two words, and a
+     chip that folds stops reading as one small object pushed to the end of a
+     row: it grows the row's height and the list stops lining up. */
+  white-space: nowrap;
+}
+
+/* ---- tone: the one axis, and the rule for choosing on it -----------------
+   Quiet is the default and 33 of the 36 chips take it. A tone is chosen by what
+   the chip IS, never by how much attention it wants:
+
+     quiet      a state of a subscription or a connection, and the plan a person
+                is on. DESIGN.md: "Status is a quiet grey badge. Alarm is not a
+                colour we own"
+     trial      a free trial, the one cool pair in the palette
+     accent     a recommendation the product itself is making, and the one place
+                a chip is allowed to carry petrol
+     cancelled  a subscription that is over: recessed rather than coloured,
+                because nothing is wrong and nothing needs attention
+
+   All six pairs clear 4.5:1, which is the threshold that applies: a 10.5px chip
+   label is text, and 600 weight at 10.5px is nowhere near the 19px bold that
+   would drop it to 3:1. Measured on the light theme: quiet 5.77, trial 6.75,
+   accent 5.26, cancelled 5.17, attention 5.07, failure 4.57. */
+
+.app .tag.trial, .landing .tag.trial { background: var(--bg-trial); color: var(--text-trial); }
+
+/* Declared at stage 07 and carried unchanged, with the count said out loud:
+   .tone-attention and .tone-error occur on ZERO of the 55 grey pages. They are
+   NOT deleted the way .locklabel was, and the difference is real. .locklabel sat
+   inside the merged base rule, so it claimed to be one of the chip's names;
+   these two are separate opt-in modifiers whose token pairs already carry the
+   wash block, so they cost the system nothing and they are the forms a price
+   change and a failed payment would take if either ever became a chip. Today
+   both of those states are a full wash block with a sentence, which is the
+   product's answer. Listed as an open row on design/kit/chip.html rather than
+   quietly dropped, and step 9 decides. */
+.app .tone-attention, .landing .tone-attention { background: var(--bg-attention); color: var(--text-attention); }
+.app .tone-error, .landing .tone-error { background: var(--bg-failure); color: var(--text-failure); }
+
+/* The accent tone. `.plan-opt .best` is its ONLY consumer today, and the chip it
+   paints says "Best value", not "Pro": every chip in the product that says Pro
+   or Free renders quiet grey. That is D3 drawn at the smallest scale the product
+   has. The paywall never shouts, so the plan name is a state like any other, and
+   petrol is spent on the recommendation the product is actually making.
+   `.tone-accent` is the same tone as a free-standing class and has no occurrence
+   on any page; it is kept for the same reason as the two above.
+
+   --bg-selected is read here rather than a role of the chip's own. It is the one
+   semantic role on --petrol-tint, and DESIGN.md ties the two places together in
+   one sentence: the tint "backs the Pro label and the selected row in the master
+   pane, and is the only place the accent appears as a surface". If the two ever
+   part company, that is the moment the chip earns a role. */
+.app .tone-accent, .landing .tone-accent, .app .plan-opt .best, .landing .plan-opt .best { background: var(--bg-selected); color: var(--text-action); }
+
+/* Cancelled. Recessed, not coloured: a subscription that is over is not a
+   failure and not a warning, and the calm answer is to let it sink into the
+   callout fill. Declared, and standing on zero pages today: the cancelled state
+   of node 2.7 is one of the seventeen forms docs/census.md lists as existing
+   only in the grey. It is drawn from the tone axis rather than invented later. */
+.app .tag.cancelled, .landing .tag.cancelled { background: var(--bg-callout); color: var(--text-muted); }
+
+/* ---- placement: set by the HOST, never by the chip -----------------------
+   Four margins and one auto push. They live here rather than in the four hosts
+   because they are all one decision (where a chip sits inside the thing that
+   carries it) and splitting them across four component files is how the same
+   rule gets written five times with five values. */
+
+.app .row .tag, .landing .row .tag { margin-left: auto; }
+.appbar .plan { margin-left: auto; }
+.app p.badge, .landing p.badge { margin: var(--space-0) var(--space-0) var(--space-24); }
+.app .alert .what .badge, .landing .alert .what .badge { margin: var(--space-0) var(--space-0) var(--space-0) var(--space-4); }
+.app .source .badge, .landing .source .badge { margin: var(--space-0) var(--space-0) var(--space-0) auto; }

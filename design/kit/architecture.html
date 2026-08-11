@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Architecture - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Architecture</h1>
+    <p class="lead">The rules of the system, and they are short on purpose: a rule that needs a paragraph to state is usually two rules that disagree. Read this first. Everything else on this stand is material; this is what holds it together.</p>
+    <div class="kit-meta">
+      <span>2 token levels</span><span>3 component levels</span><span>3 surfaces</span><span>5 things to add a component</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="ladders">
+    <h2>Two ladders, and they are not the same ladder</h2>
+    <p class="note">Both use the word "level" and they answer different questions. Confusing them is the most common way a design system goes wrong, so they are written apart.</p>
+
+    <h3 class="kit-sub-h">The token ladder: where a value comes from</h3>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Rung</th><th>Answers</th><th>Example</th><th>Overridden by a theme</th></tr></thead>
+        <tbody>
+          <tr><td><b>primitive</b></td><td>what value</td><td><code>--petrol: #1c6a76</code>, <code>--radius-sm: 10px</code></td><td>never</td></tr>
+          <tr><td><b>semantic</b></td><td>why this colour here</td><td><code>--bg-action</code>, <code>--text-muted</code>, <code>--line-control</code></td><td>always, and the pair is written the same moment the role is</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>There is no third rung, and a component level is not created wholesale.</b> <code>--button-bg</code> and <code>--card-radius</code> would be a third layer of renaming: changing the colour of a button would mean opening three files instead of one. A component token is created case by case, and only where a state lands on no semantic role at all. The hover of a card and the hover of a list row are one <code>--bg-hover</code>; the hover of a destructive button has to darken from the danger colour rather than from the surface, and there it earns its name.</p>
+    <p class="note"><b>Geometry gets no semantic rung.</b> A radius and a spacing have nothing to override: no theme and no rebrand moves them, they repeat. Components read them straight from primitive. This is where stage 08 makes stage 07's rule more precise rather than repeating it: "no value written directly in a component" becomes "colour goes through a role, geometry goes through a primitive".</p>
+
+    <h3 class="kit-sub-h">The component ladder: what contains what</h3>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Rung</th><th>Test</th><th class="n">In this system</th></tr></thead>
+        <tbody>
+          <tr><td><b>atoms</b></td><td>contains nothing else from the kit. One visual element, one content slot</td><td class="n">18</td></tr>
+          <tr><td><b>molecules</b></td><td>two or more content slots in one unit, or hosts an atom</td><td class="n">23</td></tr>
+          <tr><td><b>organisms</b></td><td>hosts a molecule, or is a screen shell, or is a container of repeated units. <b>This is the ceiling:</b> anything containing an organism is still an organism, and inside the group the ones that contain nothing else come first</td><td class="n">14</td></tr>
+          <tr><td>patterns</td><td>settled compositions. A new shelf in the same cupboard from stage 09, not a rebuild</td><td class="n">-</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Grouping by purpose is forbidden.</b> By purpose a button and a sign-in dialog are both "forms", and they end up side by side while one lives inside the other. The cost is not cosmetic: alphabetical <code>@import</code> puts <code>dialog.css</code> above <code>field.css</code>, so a composite lands higher in the cascade than its own parts, and every contextual fix starts reaching for <code>!important</code>.</p>
+  </section>
+
+  <section class="kit-sec" id="reads">
+    <h2>What a component reads</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>It needs</th><th>It reads</th><th>Never</th></tr></thead>
+        <tbody>
+          <tr><td>a colour</td><td>a semantic role: <code>var(--text-muted)</code></td><td>a primitive, and never a literal</td></tr>
+          <tr><td>a radius, a spacing, a size</td><td>a primitive: <code>var(--radius-sm)</code></td><td>a literal</td></tr>
+          <tr><td>a state</td><td>a state token: <code>var(--bg-hover)</code>, <code>var(--color-focus)</code></td><td>a hex or a number written into <code>:hover</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">A component reading a colour primitive directly is a hole the first theme finds. A hex inside <code>:hover</code> is the same hole one layer down: the dark theme would need forty edits instead of three lines, twenty components would each hover slightly differently, and stage 11 would begin by collecting states that should already exist.</p>
+  </section>
+
+  <section class="kit-sec" id="naming">
+    <h2>Naming, and the three questions that decide a role</h2>
+    <p class="note">Role names are <b>read out of the product</b>, not taken from another system's vocabulary. <code>--color-primary</code> and <code>--surface-2</code> are somebody else's names. Ours come from where each value actually stands and from <code>DESIGN.md</code>.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Axis</th><th>The question</th><th>What it decides</th></tr></thead>
+        <tbody>
+          <tr><td><b>Purpose</b></td><td>could these two places ever move apart</td><td>Two purposes are two tokens even at the same value today. The petrol fill of a button and the petrol ink of a trust link can part company, so they are two</td></tr>
+          <tr><td><b>Repetition</b></td><td>has it happened more than once</td><td>A colour standing in exactly one place has not proved it is a role. It stays primitive and goes on a list to be looked at again</td></tr>
+          <tr><td><b>Surface</b></td><td>ink, fill or line</td><td>One role on two surfaces is forbidden even at the same value, because the thresholds differ: ink 4.5:1 (3:1 from 24px or 19px bold), fill and line 3:1. A fill role on a 12px bold caption passes as a surface and fails as text, and nobody catches it, because nobody declared it text</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="folders">
+    <h2>Two folders, two jobs</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Folder</th><th>What is in it</th><th>Who loads it</th></tr></thead>
+        <tbody>
+          <tr><td><code>design/system/</code></td><td><code>tokens.css</code>, <code>base.css</code>, <code>index.css</code>, <code>components/</code>. <code>patterns/</code> joins at stage 09 with no move</td><td>the product, and the stand</td></tr>
+          <tr><td><code>design/kit/</code></td><td>the registry, the stand's own look, the hub, a page per component, <code>docs/</code></td><td>a person in a browser. It ships nothing</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">A product class in the stand, or a stand style in a component file, is a defect either way. <code>design/system/</code> can be lifted into another project whole; the stand stays here. <b><code>@import</code> runs by level, never alphabetically:</b> all atoms, then molecules, then organisms, alphabetical inside each level, and inside organisms the ones that contain no other organism first. A composite must sit lower in the cascade than its own parts.</p>
+  </section>
+
+  <section class="kit-sec" id="adding">
+    <h2>Adding a component: five things, and four is not enough</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th class="n">#</th><th>What</th><th>Why it is on the list</th></tr></thead>
+        <tbody>
+          <tr><td class="n">1</td><td><code>design/system/components/&lt;name&gt;.css</code></td><td>the component itself</td></tr>
+          <tr><td class="n">2</td><td><code>design/kit/&lt;name&gt;.html</code></td><td>five blocks: anatomy, variants and sizes, when to use, the rule and the anti-rule, states</td></tr>
+          <tr><td class="n">3</td><td>a row in <code>design/kit/_nav.js</code>, <b>in its own level group</b></td><td>the registry draws both the hub card and the panel link. No row, no component</td></tr>
+          <tr><td class="n">4</td><td>a row in <code>docs/inventory.md</code>, <b>with its level</b></td><td>the level decides four orders downstream</td></tr>
+          <tr><td class="n">5</td><td>an <code>@import</code> in <code>index.css</code>, <b>into its level group and not at the end</b></td><td>appended at the end it looks harmless, and that is exactly how the ladder comes apart</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The last two are the ones that get skipped, and they matter most for a component added <i>after</i> the first build: at the consolidation of step 6, at a new screen, at the rollout of stage 12.</p>
+  </section>
+
+  <section class="kit-sec" id="fixes">
+    <h2>Where a correction goes</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What is wrong</th><th>Where the fix goes</th></tr></thead>
+        <tbody>
+          <tr><td>a colour is wrong everywhere</td><td>the semantic role in <code>tokens.css</code></td></tr>
+          <tr><td>a value is wrong everywhere</td><td>the primitive in <code>tokens.css</code></td></tr>
+          <tr><td>a component is wrong everywhere it stands</td><td>its file in <code>components/</code></td></tr>
+          <tr><td>the markup of a component is wrong</td><td>its page in <code>design/kit/</code>, then every screen that carries it</td></tr>
+          <tr><td>one screen looks wrong</td><td>almost never the screen. Work out which of the four above it really is</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>A fix applied on one screen is a desync.</b> It looks finished, and it is a second edition of the component that nobody declared.</p>
+  </section>
+
+  <section class="kit-sec" id="promise">
+    <h2>The one thing this stage promises</h2>
+    <p class="note">The product does not move by a pixel. There are exactly <b>three</b> legal sources of a visual change, all named in <code>docs/tokens-audit.md</code>, and the pixel comparison at step 8 checks every difference against them: consolidated drift at step 3, the founder's review of these foundations at step 4, and moving the product onto system classes at step 6. A difference with no line in one of those three lists is a defect, and it is fixed in <code>tokens.css</code> or in a component file. Never on the screen.</p>
+  </section>
+
+  <footer class="kit-foot">
+    The same rules in plain text, for reading rather than browsing: <code>design/kit/docs/architecture.md</code>. The inventory they apply to is <code>docs/inventory.md</code>, the audit under them is <code>docs/tokens-audit.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

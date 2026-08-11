@@ -1,0 +1,84 @@
+/* ============================================================================
+   Step-forward link - atom
+   The only control in the product that points DOWN. It carries a person from
+   one step of the guided reveal to the next, and the next step is further down
+   the same page rather than on another one. It is D1 drawn: the reveal gives
+   every step its own action.
+
+   Reads
+     colour   --text-body, --text-muted, --line-container
+     states   --text-action, --color-focus
+     geometry --tap  (straight from primitive: a floor has nothing to override)
+   Page      design/kit/step-forward-link.html
+   Stands on 1 grey page, twice: guided-reveal, "See what they are" and "See the
+   monthly total". Both are coloured.
+
+   THE CLASS NAME IS NOT TOUCHED. `.next` stays exactly as the product writes
+   it. It is one of the twelve controls the census found with no family, and it
+   keeps its own name: docs/inventory.md registers it as an atom rather than
+   folding it into the quiet inline link, because it is standalone and carries
+   the 44px floor, where a link inside a sentence does not.
+   ============================================================================ */
+
+.app .next, .landing .next {
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  margin-top: var(--space-16);
+  font-size: var(--type-body);
+  color: var(--text-body);
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: var(--line-container);
+}
+
+/* THE GLYPH, AND THE EMPTY ALT SLOT AFTER IT.
+   `content: "\2193" / ""` is a string and then an alternative text, and the
+   alternative is deliberately empty. Without it the arrow lands in the
+   accessible name and a screen reader announces "See what they are, down
+   arrow": the arrow is a picture of the direction, not a word of the sentence,
+   and a person who cannot see it gains nothing from hearing it. The empty slot
+   says decorative in the one place that can say it.
+
+   How it degrades is worth knowing rather than guessing at: a browser that does
+   not parse the alt slot drops the whole declaration, so the link keeps its
+   label, its underline and its target and loses only the arrow. That is the
+   right thing to lose. */
+.app .next::after, .landing .next::after {
+  content: "\2193" / "";
+  color: var(--text-muted);
+  margin-left: var(--space-8);
+}
+
+/* ---- states: token overrides, never a style of their own -----------------
+   Hover changes ink and the underline; nothing moves, nothing resizes. */
+
+.app .next:hover, .landing .next:hover {
+  color: var(--text-action);
+  /* The underline reads the INK role rather than a line role, and that is the
+     one judgement in this file. At rest it is quieter than the text it sits
+     under, so it is decoration and takes --line-container. On hover kit.css
+     paints it with exactly the same petrol as the label, so it stops being a
+     separate line and travels with the ink. The only petrol line role in the
+     system is --line-selected, whose declared job is the current selection, and
+     a hovered link is not a selection. Identical value either way; the name is
+     the whole difference. */
+  text-decoration-color: var(--text-action);
+}
+.app .next:hover::after, .landing .next:hover::after {
+  color: var(--text-action);
+}
+
+/* focus-visible, not focus: the ring is for the person arriving by keyboard and
+   is noise for the person who just clicked. base.css declares one ring for the
+   whole system inside :where(), which holds it at specificity 0; this
+   re-declares it at the component's own specificity so the component wins, and
+   reads the same token so the two can never disagree about what a ring is. */
+.app .next:focus-visible, .landing .next:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* THERE IS NO DISABLED STATE, and its absence is a decision rather than a gap.
+   This is an `a` with an href to an anchor on the same page. An anchor has no
+   disabled attribute, and a step of the reveal that a person may not reach yet
+   is not rendered dim: it is not rendered. Faking it with a class the product
+   does not carry would document something the product cannot do. */

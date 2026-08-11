@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subscription row - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Subscription row</h1>
+    <p class="lead">The object the whole product is made of. A line in a list, not a card in a stack: no fill, no radius, no border of its own, and the whole row is one link with one accessible name. Home is fourteen of them, and the census measured forty-seven with <b>zero variation across twelve properties</b>, which no other component in the sweep managed.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>8</strong> grey pages</span><span>2 axes</span><span>3 states, both themes</span><span>hosts 3 atoms</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One anchor, four slots and three atoms inside it. Everything below is drawn by <code>design/system/components/subscription-row.css</code> and by the atoms' own files, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full">
+      <a class="row" href="#anatomy" aria-label="Netflix, $17.99 a month, next in 2 days on 3 August, price changed">
+        <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
+        <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
+        <span class="amt">$17.99</span>
+        <span class="tag">Price changed</span>
+      </a>
+      <a class="row" href="#anatomy" aria-label="Disney Plus, $13.99 a month, next in 11 days on 12 August, active">
+        <span class="logo"><img src="../visuals/logos/disney-plus.svg" alt=""></span>
+        <span class="body"><span class="name">Disney+</span><span class="when">in 11 days &middot; Aug 12</span></span>
+        <span class="amt">$13.99</span>
+      </a>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.row</code> <span>the molecule itself, and it is the <code>a</code>: the anchor wraps every part below, so a subscription is one target and not five. Its floor is <code>--row</code>, 56px</span></li>
+      <li><code>.logo</code> <span><b>an atom.</b> The merchant's own mark at 36px, sized for this host by <a href="logo.html">logo.css</a> and never by this file</span></li>
+      <li><code>.body</code> <span>the text pair, and the only part of the row this file gives a width: <code>flex: 1 1 160px</code> with <code>min-width: 0</code>, so the name gets a floor and the chip yields</span></li>
+      <li><code>.name</code> <span>the merchant, in the person's own words. <code>--type-sub</code>, weight 600, <code>--text-primary</code>. It is what the eye scans for</span></li>
+      <li><code>.when</code> <span>when it happens next. <code>--type-meta</code>, <code>--text-muted</code>. The second tier, and there is no third</span></li>
+      <li><code>.amt</code> <span><b>an atom.</b> The price, at <code>--type-body</code> and tabular, sized for this host by <a href="amount.html">amount.css</a></span></li>
+      <li><code>.tag</code> <span><b>an atom.</b> The status chip, pushed to the end by a <code>margin-left: auto</code> that lives in <a href="chip.html">chip.css</a> with the other four host placements of that atom</span></li>
+      <li><code>aria-label</code> <span>on the anchor, and it is load-bearing: it reads the subscription as one sentence, so a screen reader says "Netflix, $17.99 a month, next in 2 days" rather than five fragments</span></li>
+    </ul>
+    <p class="note"><b>The row draws no divider and no edge</b>, and that is what makes a list read as one object rather than a stack of cards. The hairline between two rows belongs to the Category group organism, and the 14px corner around all of them belongs to its container. A row that drew its own line would draw a second one everywhere a list did its job.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">Two axes, and neither of them is size. <b>Size is not an axis of this component at all</b>, which is the unusual thing about it: the census measured 47 rows at two viewports across six coloured pages and found one value on every one of twelve properties. The row that carries fourteen subscriptions on Home is the same row, to the pixel, as the one standing beside a Cancel control on the save-focus state.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>State<p class="axis-rule">Chosen by what the product KNOWS, never by emphasis. There are two answers only: we have the subscription, or we are still fetching it</p></th>
+            
+            <th class="val">Owned by</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Loaded</b> <code>a.row</code></td>
+            
+            <td class="val">subscription-row.css</td>
+            <td>50 rows on 5 grey pages. An anchor, always</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><a class="row" href="#variants" aria-label="Spotify Premium, $11.99 a month, next in 6 days on 7 August"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span class="body"><span class="name">Spotify Premium</span><span class="when">in 6 days &middot; Aug 7</span></span><span class="amt">$11.99</span></a></span></td></tr>
+          <tr>
+            <td><b>Loading</b> <code>div.row.is-skel</code></td>
+            
+            <td class="val">skeleton-bar.css</td>
+            <td>13 rows on 3 grey pages. Rendered as a <code>div</code> and not an anchor, so the one rule it needs is <code>cursor: default</code>, and it lives with the skeleton because it exists only for that state</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><span class="row is-skel"><span class="logo is-skel"></span><span class="body"><span class="skel line w60"></span><span class="skel line short"></span></span><span class="skel amt-skel"></span></span></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Host<p class="axis-rule">Set by the CONTAINER, and it changes the row's box and nothing else. A host may place an atom or a molecule; the moment it repaints one, it has declared a variant nobody named</p></th>
+            
+            <th class="val">What actually changes</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>In a list</b> <code>.group .row</code></td>
+            
+            <td class="val">nothing</td>
+            <td>The default, on 5 pages. The group around it owns the divider and the container owns the corner</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><a class="row" href="#variants" aria-label="Hulu, $7.99 a month, next in 24 days on 25 August"><span class="logo"><img src="../visuals/logos/hulu.svg" alt=""></span><span class="body"><span class="name">Hulu</span><span class="when">in 24 days &middot; Aug 25</span></span><span class="amt">$7.99</span></a></span></td></tr>
+          <tr>
+            <td><b>In a candidate</b> <code>.cand .row</code></td>
+            
+            <td class="val">flex: 1<br>min-width: 0</td>
+            <td>2 rows on 1 page, home-savefocus. It shares its line with a second control, so it stops being the whole width and is told it may shrink. See <a href="save-focus-candidate.html">Save-focus candidate</a></td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app full"><span class="cand"><a class="row" href="#variants" aria-label="Peloton App, $12.99 a month, trial ends in 17 days, not opened in 3 weeks"><span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span><span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; not opened in 3 weeks</span></span><span class="amt">$12.99</span></a><a class="cut" href="#variants" aria-label="Cancel Peloton App">Cancel</a></span></span></td></tr>
+          <tr>
+            <td class="kit-empty">Unrecognized, and cancelled</td>
+            
+            <td class="kit-empty">-</td>
+            <td><b>A backlog line, not a prohibition.</b> Two node files name these as GC4 variants and neither has ever been drawn: <code>docs/inventory.md</code> lists them under the nine variants a node names and no page renders. The product answers both today with the chip's tone axis and, for an unmatched charge, with the logo's own empty form on the detail screen. If either becomes a row variant it is drawn from those, not invented</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The candidate host is a position and not a restyle, and it was checked rather than assumed.</b> <code>kit.css</code> writes three declarations there: <code>flex: 1</code> and <code>min-width: 0</code>, which are layout and legitimate, and <code>border-bottom: 0</code>, which turns out to be a no-op. The row's base already writes <code>border: 0</code>, so there was no bottom border to remove; that line is a survival from <code>wireframes/_wf.css</code>, where the grey row did draw one. It painted nothing in colour and it is not carried. <b>No colour, no size and no weight is touched by the host</b>, which is the test this round exists to apply.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">This is the row a person meets on the screen the product exists for. J-MAIN reads "I want to see all my recurring charges in one calm view", and this is the view: fourteen of these under five category heads, with the monthly total above them. Everything else in the product is a way to get here or a way to act on one of these lines.</p>
+    <p class="note"><b>It is one of the three elements that carry the strategic dimension</b>, and it is named as such in <code>wireframes/docs/screens.md</code>. <code>benchmark.md</code> calls trust and first-time clarity the one dimension that decides this product, an activation requirement rather than a nice-to-have, and on Home it is not a general feeling: it is the row (the transaction clarity layer), the attention row above it, and the trust line under it. The row's share of that is the mark, the real merchant name, the amount, and "in 2 days, Aug 3", which together answer "what is this and when does it happen" before a person has to ask.</p>
+    <p class="note"><b>The raw statement string is deliberately not here.</b> <code>SPOTIFYAB STOCKHOLM</code> is what a bank actually sends, and it appears on node 2.7 as the decoder line, on the screen that exists to answer "what is this charge". Putting it in the row would put the cryptic thing back into the calm view and undo the one piece of translation the product performs. The row shows what a person recognises; the detail screen shows what the bank said.</p>
+    <p class="note">The status chip appears <b>only when the state is not the plain default</b>. Fourteen "Active" tags in a column is noise on the one screen whose job is calm, so eleven of the fourteen rows on Home carry no chip at all, and the three that do are saying something: a price changed, a payment failed, a trial is running. Every line in the row comes from <code>voice/docs/microcopy.md</code>, and the amount is never a range and never an estimate: <code>docs/bank-connection.md</code> holds where each figure comes from.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">One row, one target, one name</span>
+        <div class="kit-stage app full"><a class="row" href="#rule" aria-label="Notion, $8.00 a month, next in 8 days on 9 August"><span class="logo"><img src="../visuals/logos/notion.svg" alt=""></span><span class="body"><span class="name">Notion</span><span class="when">in 8 days &middot; Aug 9</span></span><span class="amt">$8.00</span></a></div>
+        <p>The anchor wraps the mark, the name, the date, the amount and the chip, and the <code>aria-label</code> reads them as one sentence. A list of fourteen is fourteen targets, not fifty-six. Every part inside is a <code>span</code>, and the two atoms that could have been links (the mark and the amount) declare no states of their own for exactly this reason.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a save-focus candidate instead</span>
+        <div class="kit-stage app full"><span class="cand"><a class="row" href="#rule" aria-label="The New York Times, $17.00 a month, next in 10 days, not opened in 6 weeks"><span class="logo"><img src="../visuals/logos/nyt.svg" alt=""></span><span class="body"><span class="name">The New York Times</span><span class="when">next in 10 days &middot; not opened in 6 weeks</span></span><span class="amt">$17.00</span></a><a class="cut" href="#rule" aria-label="Cancel The New York Times">Cancel</a></span></div>
+        <p>When a second action belongs on the line, it does <b>not</b> go inside the row. The <a href="save-focus-candidate.html">Save-focus candidate</a> is the component for that: it puts the cut beside the row as a separately named control with its own accessible name, so the row keeps its whole-row target. A button nested inside an anchor is invalid HTML, and the version that "works" (a link inside a link) hands a person two overlapping targets on the one decision that costs them money if they hit the wrong one.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A thing you pay for</span>
+        <div class="kit-stage app full"><a class="row" href="#rule" aria-label="Amazon Prime, $14.99 a month, next in 19 days on 20 August, payment failed"><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span class="body"><span class="name">Amazon Prime</span><span class="when">in 19 days &middot; Aug 20</span></span><span class="amt">$14.99</span><span class="tag">Payment failed</span></a></div>
+        <p>A standing commitment, with its next date and its price. The chip says what state it is in. The row answers "what am I paying for", which is a question about the present.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use an alert item instead</span>
+        <div class="kit-stage app full"><a class="alert" href="#rule" aria-label="A payment to Amazon Prime did not go through. Payment failed from Chase, Jul 20, $14.99."><span class="logo"><img src="../visuals/logos/amazon-prime.svg" alt=""></span><span class="body"><span class="what">A payment to Amazon Prime did not go through</span><span class="meta">Payment failed &middot; Amazon Prime &middot; $14.99 &middot; Jul 20 &middot; from Chase</span><span class="go">What to do</span></span></a></div>
+        <p>Something that <b>happened</b>, on a date, is the <a href="alert-item.html">Alert item</a>. The two look alike from a distance and answer different questions: the row is a thing, the alert is an event. Read the difference in the text and not in the CSS. A row says "Amazon Prime, $14.99, in 19 days"; an alert says "A payment to Amazon Prime did not go through" and names who did it. Building an alert out of row markup is the mistake <code>globals.md</code> already caught once, on the trend row.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Three states, and they exist because the row is <b>a link</b>. Each is a token override rather than a style of its own: no hex and no number appears inside <code>:hover</code>, so the dark theme costs three lines in <code>tokens.css</code> rather than an edit per component.</p>
+    <p class="note"><b>Three rather than four, and the missing one is not an omission.</b> There is no disabled row: a subscription that cannot be opened is not rendered dim, it is not rendered. The loading form above is not a disabled row either, it is a <code>div</code> with no <code>href</code> at all. And there is no <code>:active</code>, because <code>kit.css</code> declares none, and writing one here would be a new decision about how the product answers a press, taken by the person moving a file.</p>
+    
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app full" id="live-rest">
+      <a class="row" href="#states" id="shot-row" aria-label="Netflix, $17.99 a month, next in 2 days on 3 August, price changed">
+        <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
+        <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
+        <span class="amt">$17.99</span>
+        <span class="tag">Price changed</span>
+      </a>
+      <a class="row" href="#states" id="shot-row-2" aria-label="iCloud Plus, $2.99 a month, next tomorrow on 2 August">
+        <span class="logo"><img src="../visuals/logos/icloud.svg" alt=""></span>
+        <span class="body"><span class="name">iCloud+</span><span class="when">tomorrow &middot; Aug 2</span></span>
+        <span class="amt">$2.99</span>
+      </a>
+    </div>
+    <p class="note">Both are real anchors with a real <code>href</code>, which is the only way the states above can be reached at all. Faking a state with <code>.is-hover</code> is the same defect as inventing a role: it documents something the product cannot do.</p>
+
+    <h3 class="kit-sub-h">The three, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok">no fill of its own, <code>--text-primary</code> on the name, <code>--text-muted</code> on the date</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same roles, the other half of each pair. The merchant mark does not swap: it is DATA and it is the person's own Netflix in both themes</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-hover</code>, and nothing else: no border, no shift, no size change. A border appearing here would move the thirteen rows below it by a pixel</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the fill goes LIGHTER here and darker in the light theme: a hover moves away from its ground, and the ground swapped ends. 1.08 against the surface light, 1.11 dark, the same small step</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line, at 2px offset so the ring sits outside the row and moves no neighbour</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. This is the ring a keyboard user walks a list of fourteen with, so it is the one state on this component that has to survive both themes intact</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo and a
+command that does not run is worse than no command:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/subscription-row.html
+    move the pointer away -&gt; screenshot #live-rest -&gt; screens/subscription-row-rest-&lt;theme&gt;.png
+    hover #shot-row       -&gt; screenshot #live-rest -&gt; screens/subscription-row-hover-&lt;theme&gt;.png
+    focus #shot-row by Tab, assert :focus-visible
+                          -&gt; screenshot #live-rest -&gt; screens/subscription-row-focus-&lt;theme&gt;.png
+
+Reached the way a person reaches them: a real pointer and a real Tab. Step 9 checks these six
+files for a byte shift, because a snapshot nobody re-takes freezes silently, and a frozen
+snapshot is worse than none: it looks checked.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the merchant name</td><td><code>--text-primary</code></td><td><code>--ink</code></td></tr>
+          <tr><td>the next date</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
+          <tr><td>hover fill</td><td><code>--bg-hover</code></td><td><code>--panel</code>, and <code>--panel-dark</code> in the dark theme, which is lighter and not darker</td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>its floor</td><td><code>--row</code></td><td>primitive, straight. 56px, twelve over the 44px of <code>--tap</code>, which this file never reads</td></tr>
+          <tr><td>name and date sizes</td><td><code>--type-sub</code>, <code>--type-meta</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>gap and padding</td><td><code>--space-4</code>, <code>--space-8</code>, <code>--space-16</code></td><td>primitive, straight</td></tr>
+          <tr><td>no fill, no border, no radius</td><td>none</td><td>by decision. The group owns the divider, the container owns the corner</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Three of its parts are atoms and this file paints none of them.</b> <a href="logo.html">Logo</a> owns the 36px square, <a href="amount.html">Amount</a> owns the 14px figure, <a href="chip.html">Chip</a> owns the status label and the <code>margin-left: auto</code> that pushes it to the end, and <a href="skeleton-bar.html">Skeleton bar</a> owns the loading form. Five declarations of <code>kit.css</code> were dropped because they repeat what those four files already say, and each one is named in the CSS where it would have gone.</p>
+    <p class="note"><b><code>DESIGN.md</code> disagrees with this component in three places and the code wins in all three.</b> The design doc says the merchant name is 14.5px, the amount 12.5px and the row padding 11px by 12px; the stylesheet has shipped 15px, 14px and 10px by 4px since stage 07, on 47 rendered rows, and all three rows are already in <code>docs/tokens-audit.md</code>. It matters more than a footnote: 14.5 folds to <code>--type-body</code> and 15 folds to <code>--type-sub</code>, so believing the document instead of the code would have shrunk the merchant name by two pixels on every row in the product.</p>
+    <p class="note">Lives in <code>design/system/components/subscription-row.css</code>. Stands on 8 grey pages: 50 rows plus 13 in the loading form. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../home-error.html">Home, could not refresh</a>, <a href="../home-savefocus.html">Home, save focus</a>, <a href="../home-loading.html">Home, loading</a>, <a href="../history-trends.html">History and trends</a>, <a href="../history-trends-loading.html">History and trends, loading</a>.</p>
+    <code class="kit-cmd">&lt;li&gt;&lt;a class="row" href="subscription-detail.html"
+       aria-label="Netflix, $17.99 a month, next in 2 days on 3 August, price changed"&gt;
+  &lt;span class="logo"&gt;&lt;img src="visuals/logos/netflix.svg" alt=""&gt;&lt;/span&gt;
+  &lt;span class="body"&gt;&lt;span class="name"&gt;Netflix&lt;/span&gt;&lt;span class="when"&gt;in 2 days &amp;middot; Aug 3&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="amt"&gt;$17.99&lt;/span&gt;
+  &lt;span class="tag"&gt;Price changed&lt;/span&gt;
+&lt;/a&gt;&lt;/li&gt;</code>
+    <p class="note">The <code>li</code> is part of the copy for a reason: on every list page the row is a list item inside a <code>ul</code> that the Category group organism owns, and that organism is what draws the hairline between two of them. The row on its own, as it stands on this page, is deliberately shown without one.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/subscription-row.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided its axes is in <code>docs/inventory.md</code>; the sweep that measured 47 of them at zero variation is in <code>docs/census.md</code>; the three elements it shares the strategic dimension with are named in <code>wireframes/docs/screens.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text block - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Text block</h1>
+    <p class="lead">A heading and a paragraph, and the container decides how loud both are. Two class names in the product, <code>.lede</code> and <code>.state</code>, and one anatomy: they were read markup first across every page in both folders, and neither contains a single thing from the kit.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>42</strong> grey pages</span><span>1 axis, 3 values</span><span>no states, and the reason is below</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Two content slots in one unit, which is what makes it a molecule rather than an atom: a heading that names the thing and a paragraph that says the one sentence about it. Everything below is drawn by <code>design/system/components/text-block.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full wide">
+      <div class="lede">
+        <h1>Add a subscription</h1>
+        <p>Pick from 400+ services, or add your own. Nothing leaves your control.</p>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.lede</code> <span>the block at page scope. Its heading names the screen, and there is content below it that still works</span></li>
+      <li><code>.state</code> <span>the same anatomy at block scope. Its heading names a condition the screen is in: nothing found, nothing loaded, nothing there yet</span></li>
+      <li><code>h1</code> / <code>h2</code> <span>the heading slot. Which tag it is answers the document outline, not the size: see the axis below</span></li>
+      <li><code>p</code> <span>the sentence slot. It reads <code>--text-body</code>, one tier under the heading, and it is capped by a measure rather than by a layout width</span></li>
+      <li><code>max-width</code> <span>48ch on the lede, 50ch on the state. A reading measure: past about 50 characters the eye starts losing the start of the next line</span></li>
+      <li>no atoms <span>the callouts above name every part there is. No button, no chip, no muted line, no link, on any of the 42 grey pages or the 17 coloured ones. That is the evidence the merge was made from</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One axis, scope, and three values that survived the type consolidation as three separate steps.</b> That was checked rather than assumed, because the same founder review collapsed the button's size axis to nothing: 24 stays 24, 21 rounds to 20, 17 rounds to 16, nearest step and ties to the larger. No two scopes land on the same one, so every row below is a real difference on screen.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Scope<p class="axis-rule">The CONTAINER decides, and the question is not "how important is this" but "what does this block name". A page, a state that has taken the page over, or a state inside a page whose subject is spent elsewhere</p></th>
+            
+            <th class="val">Tokens</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Page</b> <code>.lede h1</code></td>
+            
+            <td class="val">--type-head<br>--text-primary</td>
+            <td>25 grey pages, 10 coloured. Always an <code>h1</code>, on every one of them: a lede names the screen and a screen has one subject</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="lede"><h1>Tendd Pro</h1><p>Pay less per month than most of the subscriptions you will cancel.</p></div></div></td></tr>
+          <tr>
+            <td><b>Block</b> <code>.state h1</code></td>
+            
+            <td class="val">--type-title<br>--text-primary</td>
+            <td>16 grey pages, 6 coloured. The state IS the page: History and Trends with nothing to plot yet, the reveal with nothing found, a payment that did not go through</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="state"><h1>Still gathering your history</h1><p>Trends need a few months to be worth looking at, and we have less than three so far. Come back in a few weeks and the shape of your spending will be here.</p></div></div></td></tr>
+          <tr>
+            <td><b>Inside a block</b> <code>.state h2</code></td>
+            
+            <td class="val">--type-sub<br>--text-primary</td>
+            <td>2 grey pages, 1 coloured. The page keeps its own <code>h1</code> above ("Add a subscription") and this names a condition under it</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="state"><h2>No match for "Cerebro Cloud"</h2><p>Not every service is in our list yet. You can add it by hand below, and it will sit alongside the rest.</p></div></div></td></tr>
+          <tr>
+            <td><b>No heading</b> <code>.state p</code> alone</td>
+            
+            <td class="val">--type-body<br>--text-body</td>
+            <td>1 grey page, 1 coloured, both of them <a href="../subscription-detail-error.html">the detail error</a>. The screen already names the subscription in its hero, so a second heading would name it twice. A form, not an omission</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="state"><p>We could not load the rest of this subscription. This is usually temporary, and nothing about your money changed.</p></div></div></td></tr>
+          <tr>
+            <td class="kit-empty">A lede at the inset scope</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. A lede is the block that names the SCREEN, and a screen has one subject: a second one further down is either a group head or a state. If a page seems to want two ledes, it is two pages, which is the same argument the One Number Rule makes about figures</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The heading level is not the axis, and reading it as one is the mistake this table exists to prevent.</b> <code>.state</code> is written as an <code>h1</code> on 16 grey pages and as an <code>h2</code> on 2, and what decides is the document outline: on <code>add-subscription-empty</code> the page keeps its own <code>h1</code>, so the state's heading has to be an <code>h2</code> under it. Outline first, size second. The two are separate rules rather than one rule keyed on the tag, which is the same lesson the group head learned the expensive way, twice, before it was bound to its class.</p>
+    <p class="note"><b>The one thing the consolidation actually folded is the paragraph.</b> The lede's was 14.5px and the state's was 14px, a half step apart for no stated reason, and both land on <code>--type-body</code>. They are one rule now. What stays apart is the measure and the bottom margin, and both are real: a lede's paragraph is the last thing in its block, a state's is followed by an action row on 10 of the 19 grey pages and 4 of the 8 coloured ones.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">This is the block a person <b>reads before doing anything</b>. At page scope it is the first thing under the app bar on Upgrade, Add a Subscription, Settings and History and Trends: it says what the screen is for in one heading and one sentence, and then gets out of the way. At block scope it is what a screen says when it has nothing to show, which in this product is most of the interesting moments: no history yet, no match for what you typed, nothing loaded, a payment that did not arrive.</p>
+    <p class="note">Both jobs are the same job at different volumes, which is why they are one component. The product's own rule is that every screen lowers anxiety, and an empty or failed screen is where that is hardest: <code>voice/docs/microcopy.md</code> writes these lines to say what happened and what is true now, in that order. "Still gathering your history" rather than "No data". "Not every service is in our list yet" rather than "No results". A heading here never carries an exclamation mark and never apologises twice.</p>
+    <p class="note"><b>It is deliberately untoned, including on the error states, and that was decided rather than overlooked.</b> A <b>wash block</b> carries a fill because it sits above content that still works and has to be told apart from it. A text block at state scope IS the screen: there is nothing beside it to be told apart from, the sentence and the Try again button below already say what happened, and a wash around a full-screen message is decoration rather than information. Left aligned for the same reason, at both scopes: a centred message mid-flow reads as a stop rather than as a step.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A heading and one sentence</span>
+        <div class="kit-stage app full wide"><div class="lede"><h1>You</h1><p>Your details, your plan, and the two screens that hold everything about your data.</p></div></div>
+        <p>Settings, at page scope. The heading is the destination's own name, the sentence says what is behind it, and the whole block is three lines on a phone. The 48ch measure is what keeps it two: the same sentence set to the full width of a desktop column would run to one very long line and read as a paragraph rather than as a caption.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a muted line instead</span>
+        <div class="kit-stage app full wide"><p class="context">Streaming is up $6 since March. Everything else held steady.</p></div>
+        <p>A sentence with no heading over it, qualifying something above it, is a <b>muted line</b> and sits at the second ink tier. Setting it as a text block would put a full ink paragraph mid-screen with nothing naming it, and the eye would read it as the start of a new section that never arrives.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A state block, plain</span>
+        <div class="kit-stage app full wide"><div class="state"><h1>That payment did not go through</h1><p>Your bank did not approve it, so nothing was charged. This happens most often with a card that has expired or a bank that wants to confirm a new payment.</p></div></div>
+        <p>The failure state on Upgrade. No fill, no border, no icon, no clay: the words carry it. This is the calmest thing a payment failure can look like, and it is the whole reason the block has no tone axis.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a wash block instead</span>
+        <div class="kit-stage app full wide"><p class="consequence">Netflix went up by $2.50 on Jul 28. Your next charge is $17.99 instead of $15.49.</p></div>
+        <p>When the message sits ABOVE content that still works, it needs to be told apart from it, and that is the <b>wash block</b>: an amber fill on the price change banner, a clay one on our own failure. The test is not how serious the news is, it is whether there is anything else on the screen for the message to be confused with. A wash around a full screen message is decoration; a plain block above a working screen is invisible.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and it was checked rather than assumed.</b> A text block is a heading and a paragraph: a sweep of every <code>.lede</code> and every <code>.state</code> on all 55 grey pages and 28 coloured ones returns zero anchors inside either. Nothing here can be hovered, focused or pressed, and the actions that follow a state block are siblings of it rather than children. Drawing four empty cells would document something the product cannot do.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the heading, all three scopes</td><td><code>--text-primary</code></td><td><code>--ink</code>, and <code>--ink-dark</code> in the dark theme. 17.4:1 on the light surface, 15.0:1 on the dark one</td></tr>
+          <tr><td>the paragraph</td><td><code>--text-body</code></td><td><code>--slate</code>. 10.2:1 light, 10.4:1 dark</td></tr>
+          <tr><td>page scope</td><td><code>--type-head</code></td><td>24px, straight from primitive: type has nothing to override</td></tr>
+          <tr><td>block scope</td><td><code>--type-title</code></td><td>20px. Was 21px, folded by the founder's review of 2026-08-11</td></tr>
+          <tr><td>inset scope</td><td><code>--type-sub</code></td><td>16px. Was 17px, same review</td></tr>
+          <tr><td>both paragraphs</td><td><code>--type-body</code></td><td>14px. The lede's was 14.5 and the state's 14, and this is where they became one rule</td></tr>
+          <tr><td>the block gap, the heading gap, the state paragraph's gap</td><td><code>--space-24</code>, <code>--space-8</code>, <code>--space-16</code></td><td>the 8px grid. 22 to 24 and 18 to 16 are folds, recorded centrally</td></tr>
+          <tr><td>the measure</td><td>literal</td><td>48ch and 50ch. A measure has never been tokenized and <code>--measure</code> is on the deferred list in <code>docs/inventory.md</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/text-block.css</code>. Stands on 42 distinct grey pages and 17 coloured ones. A sample of the coloured screens carrying it: <a href="../add-subscription.html">Add a Subscription</a>, <a href="../upgrade.html">Tendd Pro</a>, <a href="../settings.html">Settings</a>, <a href="../history-trends.html">History and Trends</a> and <a href="../history-trends-empty.html">its empty state</a>, <a href="../add-subscription-empty.html">the no-match state</a> (which carries both scopes at once), <a href="../upgrade-payment-failed.html">the failed payment</a>, <a href="../subscription-detail-error.html">the detail error</a>.</p>
+    <code class="kit-cmd">&lt;div class="lede"&gt;
+  &lt;h1&gt;Add a subscription&lt;/h1&gt;
+  &lt;p&gt;Pick from 400+ services, or add your own. Nothing leaves your control.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class="state" role="status" aria-live="polite"&gt;
+  &lt;h1&gt;Still gathering your history&lt;/h1&gt;
+  &lt;p&gt;Trends need a few months to be worth looking at, and we have less than three so far.&lt;/p&gt;
+&lt;/div&gt;</code>
+    <p class="note">The <code>role="status"</code> and <code>aria-live="polite"</code> on the state block are markup rather than CSS, and they stand on 26 of the 27 state blocks across both folders: the block appears after something has been tried, so it has to be announced rather than found. Carried into the copyable markup above so it is not lost the next time somebody writes one from memory. The one without it is <code>wireframes/connections-add-source.html</code>, which is still grey and is a backlog line for the rollout rather than a change made here.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/text-block.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that made <code>.lede</code> and <code>.state</code> one component, and the renaming map that takes both to <code>.textblock</code> at step 6, are in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

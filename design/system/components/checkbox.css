@@ -1,0 +1,78 @@
+/* ============================================================================
+   Checkbox - atom
+   The product's only on/off control. It is a native input, not a drawn switch:
+   there is no custom switch anywhere in the 55 grey pages, and the tick and the
+   box are the browser's own.
+
+   Reads
+     colour   --bg-action  (through accent-color, the one colour hook a native
+              checkbox gives without rebuilding it)
+     states   --bg-action-strong, --color-focus, --bg-recessed
+     geometry none. 20px and the 3px top margin are the control's own size and
+              its optical alignment, and neither is a token in this system
+   Page      design/kit/checkbox.html
+   Stands on 2 grey pages, 6 checkboxes: settings (4 notification preferences)
+   and data-privacy (2). The 4 on settings are coloured.
+
+   THE CONTROL IS 20px AND WCAG 2.5.8 ASKS 24px, AND THAT IS CARRIED RATHER THAN
+   FIXED. Recorded twice in docs/decisions.md on 2026-08-11. The wrapping
+   label.switch is the pointer target a person actually hits and it measures
+   44px or more, so the raw box is not the target; and the 20px is a kit value,
+   which this stage changes only by a named decision and never as a side effect
+   of a move. It is on the page as a named carry with its reason.
+
+   THE CLASS NAME IS NOT TOUCHED. `.switch input` stays exactly as the product
+   writes it. The rename to `.check` is decided in docs/inventory.md and
+   executed at step 6 with the markup of the screens.
+   ============================================================================ */
+
+.app .switch input, .landing .switch input {
+  flex: none;
+  width: 20px; height: 20px;
+  margin: var(--space-4) var(--space-0) var(--space-0);
+  /* base.css already sets accent-color on every input for the whole system.
+     It is re-declared here at the component's own specificity, reading the same
+     token, for the same reason the focus ring is: a component may never be able
+     to disagree with the system about a value it also states. */
+  accent-color: var(--bg-action);
+}
+
+/* ---- states: token overrides, never a style of their own -----------------
+   Everything a state can reach on a native checkbox is accent-color and the
+   ring. The box, its edge and the tick are drawn by the browser; painting them
+   would mean appearance:none and a rebuilt control, and this stage does not
+   move a pixel. */
+
+/* AUTHORED. kit.css gives the checkbox no hover, so this is a new state and it
+   is named as one. It follows the filled button exactly: the accent goes one
+   step deeper under the pointer, through a token and not a value. The hover of
+   the whole ROW is not here, because the row is label.switch, which belongs to
+   the Switch row molecule; an atom reaching up into its host is the unnamed
+   variant this stage exists to prevent. */
+.app .switch input:hover, .landing .switch input:hover {
+  accent-color: var(--bg-action-strong);
+}
+
+/* focus-visible, not focus: the ring is for the person arriving by keyboard and
+   is noise for the person who just clicked. base.css declares one ring for the
+   whole system inside :where(), which holds it at specificity 0; this
+   re-declares it at the component's own specificity so the component wins, and
+   reads the same token so the two can never disagree about what a ring is.
+   It matters more here than on a wide control: at 20px there is very little
+   edge for a ring to sit against, and the row around the box is not focusable,
+   so the ring on this 20px square is the whole of the keyboard's feedback. */
+.app .switch input:focus-visible, .landing .switch input:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* AUTHORED, and it moves zero pixels: no checkbox on any page carries the
+   attribute. The one place that looks like it should is the "A free trial is
+   ending soon" preference on settings, which is Pro on a Free account, and the
+   product deliberately leaves it enabled and unchecked rather than locking it.
+   Disabled repaints from a role that already exists, which is why there is no
+   --opacity-disabled in the system. */
+.app .switch input[disabled], .landing .switch input[disabled] {
+  cursor: default;
+  accent-color: var(--bg-recessed);
+}

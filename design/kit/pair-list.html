@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pair list - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Pair list</h1>
+    <p class="lead">A label and a value on one line, a hairline between the lines, the last one bare. Two class names in the product, <code>.facts</code> and <code>.unlocks</code>, and after the spacing consolidation they are byte identical at the line level. They differ in exactly one thing: the markup that carries the pair.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>18</strong> grey pages</span><span>2 axes</span><span>no states, and the reason is below</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Two content slots per line and several lines in one unit, which makes it a molecule. Everything below is drawn by <code>design/system/components/pair-list.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens.</p>
+    <div class="kit-stage app full wide">
+      <dl class="facts">
+        <div><dt>Next charge</dt><dd>in 6 days, Aug 7</dd></div>
+        <div><dt>Billing cycle</dt><dd>Monthly</dd></div>
+        <div><dt>Charged to</dt><dd>Chase checking</dd></div>
+        <div><dt>Category</dt><dd>Music</dd></div>
+        <div><dt>Paid so far</dt><dd>$143.88 since Aug 2025</dd></div>
+      </dl>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.facts</code> <span>the block in <code>dt/dd</code> markup: a definition list, because the left column names the right one</span></li>
+      <li><code>.facts div</code> <span>the line. A wrapper is needed because a <code>dl</code> cannot take a <code>dt</code> and a <code>dd</code> into one flex row without one. This is the rule the two markups share</span></li>
+      <li><code>dt</code> <span>the label, in <code>--text-muted</code></span></li>
+      <li><code>dd</code> <span>the value, in <code>--text-primary</code> with tabular figures, pushed right by <code>space-between</code></span></li>
+      <li><code>border-bottom</code> <span>reads <code>--line-divider</code>: it separates rows inside one block rather than drawing an edge, so it is decorative and owes no contrast threshold. The last line is bare</span></li>
+      <li><code>.unlocks li .p</code> <span>the only atom this component ever hosts, and only in the span markup: the value there is a <b>muted line</b>. This file positions it and never repaints it</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>Two axes: markup, and content.</b> They are independent and they answer different questions. Markup asks what kind of pair this is; content asks how long the right hand side is. The line rule itself has no variants at all, which is the point of the merge: one declaration serves both markups, because after the founder's review the 12px gap and the 16px gap fold onto one step and the 10px padding was already shared.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Markup<p class="axis-rule">Semantic before visual. A definition list when the left column NAMES the right one. Two spans when the two halves are a feature and its explanation rather than a term and its definition</p></th>
+            
+            <th class="val">Where the ink is</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>dt / dd</b> <code>.facts</code></td>
+            
+            <td class="val">label --text-muted<br>value --text-primary</td>
+            <td>18 grey pages, 7 coloured. The subscription detail and its four states, the connection screens, the cancel guide, sign-in</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><dl class="facts"><div><dt>Billing cycle</dt><dd>Monthly</dd></div><div><dt>Charged to</dt><dd>Chase checking</dd></div></dl></div></td></tr>
+          <tr>
+            <td><b>span / span</b> <code>.unlocks</code></td>
+            
+            <td class="val">label inherits --text-primary<br>value --text-muted, via the atom</td>
+            <td>1 grey page and 1 coloured, both <a href="../upgrade-current-plan.html">Upgrade, current plan</a>: what being on Pro already gets you</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><ul class="unlocks"><li><span>History and trends</span><span class="p">3, 6 and 12 month views</span></li><li><span>Advanced alerts</span><span class="p">Trial ending, unusual, duplicate</span></li></ul></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The emphasis inverts along that axis, and it is deliberate rather than drift.</b> In <code>dt/dd</code> the label is muted and the value is ink, because the value is the fact you came for: "Next charge" is the question, "in 6 days, Aug 7" is the answer. In the span markup it is the other way round, because the label is the feature and the value is the sentence explaining it: "History and trends" is the thing, "3, 6 and 12 month views" is the footnote. Neither ink is declared on the span half. The left one inherits, and the right one is a <b>muted line</b> that brings its own colour. A rule here setting it would be a host repainting an atom.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Content<p class="axis-rule">Set by the LENGTH of the value, not by its kind. A value sits opposite its label; a sentence stacks under it, because opposite a label a sentence wraps into a ragged right-aligned column two words wide</p></th>
+            
+            <th class="val">Difference</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Values</b> <code>.facts</code></td>
+            
+            <td class="val">flex, right aligned</td>
+            <td>13 grey pages, 6 coloured</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><dl class="facts"><div><dt>Seen</dt><dd>3 times, monthly since May</dd></div><div><dt>Last charge</dt><dd>Jul 12</dd></div></dl></div></td></tr>
+          <tr>
+            <td><b>Sentences</b> <code>.facts.sentences</code></td>
+            
+            <td class="val">block, left aligned<br>4px above the value</td>
+            <td>5 grey pages (sign-in, sign-in-sent, the two cancel guides, upgrade-payment-failed) and 1 coloured, <a href="../upgrade-payment-failed.html">the failed payment</a></td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><dl class="facts sentences"><div><dt>What arrives</dt><dd>A link you tap. There is no code to copy out</dd></div><div><dt>How long it works</dt><dd>Once, and then it expires. You can send another at any time</dd></div></dl></div></td></tr>
+          <tr>
+            <td class="kit-empty">Sentences in the span markup</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Not forbidden, just unbuilt: the one screen using spans has short values on every line. If a Pro feature ever needs a sentence, this is the cell it lands in, and the rule it would need is the one <code>.sentences</code> already declares. A backlog line, not a prohibition</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Loading is not an axis and it is not a state of this component.</b> Both markups can hold <b>skeleton bars</b> instead of text, and the two widths that reserve the slots, 84px for a label and 110px for its value, live in this file because <code>skeleton-bar.css</code> hands them here by name: that file owns the bar, the host owns the slot. Two different widths on purpose, because a column of identical bars reads as a progress meter and loading is not progress.</p>
+    <div class="kit-stage app full wide">
+      <dl class="facts" aria-hidden="true">
+        <div><dt><span class="skel line"></span></dt><dd><span class="skel line"></span></dd></div>
+        <div><dt><span class="skel line"></span></dt><dd><span class="skel line"></span></dd></div>
+        <div><dt><span class="skel line"></span></dt><dd><span class="skel line"></span></dd></div>
+      </dl>
+    </div>
+    <p class="note">Copied from <a href="../subscription-detail-loading.html">the loading state</a> exactly, including <code>aria-hidden="true"</code> on the list: a screen reader is told the page is loading by the state block above it, and reading out ten empty bars underneath would be worse than silence.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A pair list is where the product <b>answers the questions a person actually has</b> about one thing, in the order they ask them. On a subscription's own screen that is five lines and no more: when the next charge is, how often, from which account, what kind of thing it is, and what it has cost so far. Nothing on that list is an opinion and nothing on it is an action, which is why the whole block is readable in about four seconds and why nothing in it is a target.</p>
+    <p class="note">It is the plainest expression of the product's own rule about numbers: plain money language, and every number in context. "$143.88 since Aug 2025" rather than "$143.88". "in 6 days, Aug 7" rather than "2026-08-07", and days first because a person thinks in days and checks the date second. Those are decisions from <code>voice/docs/microcopy.md</code> and <code>wireframes/docs/conventions.md</code>, and this component's job is to put them where they can be scanned as a column.</p>
+    <p class="note">The <code>.sentences</code> variant is what happens when the honest answer is not a value. On the failed payment screen the two questions are "what was charged" and "what is my plan now", and both answers are sentences: "Nothing. There is no payment to reverse", "Still Free, and everything free is still working". Squeezing those opposite a label would make them look like data. Stacked under it, they read as what they are.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Facts about one thing</span>
+        <div class="kit-stage app full wide"><dl class="facts"><div><dt>Next charge</dt><dd>in 6 days, Aug 7</dd></div><div><dt>Charged to</dt><dd>Chase checking</dd></div><div><dt>Paid so far</dt><dd>$143.88 since Aug 2025</dd></div></dl></div>
+        <p>One subject, several attributes of it, right aligned so the answers form a column the eye can run down. The dividers separate lines of the same block, and the last line is bare so the list does not look like a table with a stray rule under it.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a subscription row instead</span>
+        <div class="kit-stage app full wide"><span class="consequence">Spotify Premium &middot; $11.99 &middot; Aug 7</span></div>
+        <p>Several different things, each with a name and an amount, is a list of <b>subscription rows</b> inside a <b>divided list</b>, not a pair list. The difference is what the left column is: in a pair list it is a label, always the same kind of word; in a row it is the merchant's own name, and the whole row is one link with one accessible name. Setting a list of subscriptions as pairs would strip every one of them of its target.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A sentence gets the whole measure</span>
+        <div class="kit-stage app full wide"><dl class="facts sentences"><div><dt>What was charged</dt><dd>Nothing. There is no payment to reverse</dd></div><div><dt>Your plan</dt><dd>Still Free, and everything free is still working</dd></div></dl></div>
+        <p>When the answer is a sentence, <code>.sentences</code> drops the line out of flex and stacks the pair. Same component, same divider, same rhythm; the only thing that changes is that the answer gets the full width to be a sentence in.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a promise list instead</span>
+        <div class="kit-stage app full wide"><ul class="promises"><li><strong>What Tendd can never do</strong>Read-only. Tendd cannot move your money.</li></ul></div>
+        <p>A short heading over a sentence looks like the same shape and is a different component. A <b>promise list</b> is a claim the product is making about itself, marked by a rule down its left side, and it is read once before a decision. A pair list is a fact about the person's own data, divided by hairlines, and it is read every time they come back. The rule is the mark of a claim; the hairline is the mark of a record.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and it was checked rather than assumed.</b> A pair list is a table of facts read once: a sweep of every <code>.facts</code> and every <code>.unlocks</code> on all 55 grey pages and 28 coloured ones returns zero anchors inside either, and no line is hoverable, focusable or pressable. Where a fact needs an action, the action is a sibling below the list, which is how the detail screen's "Edit the details" is written. Drawing four empty cells would document something the product cannot do.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the label, dt/dd markup</td><td><code>--text-muted</code></td><td><code>--muted</code>. The single secondary tier, 5.8:1 light and 6.4:1 dark</td></tr>
+          <tr><td>the value, dt/dd markup</td><td><code>--text-primary</code></td><td><code>--ink</code>. 17.4:1 light, 15.0:1 dark</td></tr>
+          <tr><td>the divider</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. Decorative: nothing here has to be found by touch, so 1.23:1 is deliberate</td></tr>
+          <tr><td>the line's size</td><td><code>--type-body</code></td><td>14px. Was 13.5 on both names, folded by the founder's review of 2026-08-11</td></tr>
+          <tr><td>the gap, the padding, the block</td><td><code>--space-16</code>, <code>--space-8</code>, <code>--space-24</code></td><td>the 8px grid. The 12 and 16 of the two gaps folded onto one step, which is what made the two names one rule</td></tr>
+          <tr><td>the sentence offset</td><td><code>--space-4</code></td><td>3px, rounded up by the same review</td></tr>
+          <tr><td>the skeleton slots</td><td>literals</td><td>84px and 110px. A width is not a spacing and the 8px grid does not govern it, which is how <code>skeleton-bar.css</code> writes its own widths too</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/pair-list.css</code>. Stands on 18 grey pages and 7 coloured ones. The coloured screens carrying it: <a href="../subscription-detail.html">Subscription Detail</a> and its <a href="../subscription-detail-price-change.html">price change</a>, <a href="../subscription-detail-payment-failed.html">payment failed</a>, <a href="../subscription-detail-unrecognized.html">unrecognized</a> and <a href="../subscription-detail-loading.html">loading</a> states, <a href="../upgrade-current-plan.html">Upgrade, current plan</a> (the only page carrying both markups), and <a href="../upgrade-payment-failed.html">the failed payment</a>, which is the only coloured page carrying <code>.sentences</code>.</p>
+    <code class="kit-cmd">&lt;dl class="facts"&gt;
+  &lt;div&gt;&lt;dt&gt;Next charge&lt;/dt&gt;&lt;dd&gt;in 6 days, Aug 7&lt;/dd&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;dt&gt;Billing cycle&lt;/dt&gt;&lt;dd&gt;Monthly&lt;/dd&gt;&lt;/div&gt;
+&lt;/dl&gt;
+
+&lt;dl class="facts sentences"&gt;
+  &lt;div&gt;&lt;dt&gt;What was charged&lt;/dt&gt;&lt;dd&gt;Nothing. There is no payment to reverse&lt;/dd&gt;&lt;/div&gt;
+&lt;/dl&gt;
+
+&lt;ul class="unlocks"&gt;
+  &lt;li&gt;&lt;span&gt;History and trends&lt;/span&gt;&lt;span class="p"&gt;3, 6 and 12 month views&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;</code>
+    <p class="note"><b>One rule of this component is not in this file, and that is on purpose.</b> <code>.app .unlocks .p { text-align: right }</code> lives in <code>muted-line.css</code>, which carried it at the atom round with a comment offering it back to whichever host claimed it. Moving it means deleting it there and declaring it here in the same step, and a rule that belongs to two files ends up in neither. Flagged for the parent rather than duplicated.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/pair-list.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that made <code>.facts</code> and <code>.unlocks</code> one component, and the renaming map that takes both to <code>.pairs</code> at step 6, are in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+/* ============================================================================
+   Nav row - molecule
+   The line that takes a person somewhere else. Two content slots and a mark:
+   a destination, an optional sentence saying what is behind it, and a chevron.
+   It is the whole of the Settings screen's navigation, and it is the one place
+   in the product where a person browses rather than acts.
+
+   Reads
+     colour   --text-muted
+     states   --bg-hover, --color-focus
+     geometry --row  (56px, its own floor, comfortably over --tap)
+     type     --type-body, --type-meta
+     spacing  --space-2, --space-16
+   Page      design/kit/nav-row.html
+   Stands on 2 grey pages, 8 rows: settings (4) and settings-no-account (4).
+   Both are coloured, so all 8 render in Petrol and Paper today.
+
+   ITS INK IS INHERITED, NOT DECLARED. The row writes `color: inherit` and takes
+   --text-primary from the body, so the destination name has no colour rule of
+   its own; only the second line and the chevron are painted, and both take the
+   single muted tier. Two tiers and no third, which is the Two Tiers Rule read
+   at the smallest scale the product has.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.navrow`, `.navrow .sub` and
+   `.navrow .arrow` stay exactly as the product writes them. The renaming map in
+   docs/inventory.md leaves this one alone: the nav row keeps its name.
+   ============================================================================ */
+
+.app .navrow, .landing .navrow {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-16);
+  /* --row, not --tap, for the same reason as the subscription row: the anchor
+     is the target, it sets its own 56px floor and clears the 44px minimum by
+     twelve before any padding is counted. The census measured all 8 at one
+     value on every property. */
+  min-height: var(--row);
+  padding: var(--space-16);
+  font-size: var(--type-body);
+  text-decoration: none; color: inherit;
+}
+
+/* The second line. It is not a label and not a hint: it answers "what is behind
+   this" in the person's own words, which is why "Data and privacy" carries
+   "What we read, and delete everything" rather than a category name. Weight 400
+   is written explicitly because the row above it may be a heading in some
+   future host and a sub-line that inherits 600 stops reading as the quieter
+   half of the pair. */
+.app .navrow .sub, .landing .navrow .sub {
+  display: block;
+  font-size: var(--type-meta); font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* The chevron is a text glyph and not an icon from the set, which is correct
+   rather than an oversight: it is a direction, not a destination, and the four
+   destination masks in destination-icon.css are the tab bar's. flex:none so it
+   never shrinks when the sentence beside it wraps. */
+/* THE url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 5 7 7-7 7'/%3E%3C/svg%3E")RON IS DRAWN, AND THE MARKUP IS NOT TOUCHED. The product writes
+   `<span class="arrow">&rsaquo;</span>`, a single right angle quotation mark set
+   in Inter, and it reads as a typographic character because that is what it is.
+   Every other mark in this product is drawn: the four destinations are CSS masks
+   and the merchant marks are real SVG. This one was punctuation doing an icon's
+   job, and next to a drawn mark it looks like a font fallback.
+
+   IT IS FIXED IN CSS RATHER THAN IN THE MARKUP, deliberately. `wireframes/` is
+   the frozen structure contract and a coloured page may differ from its grey
+   original by STYLING only, so removing the character from both would be a
+   structural edit to a frozen file for a purely visual reason. `font-size: 0`
+   collapses the glyph and the mask paints a real chevron over the same box, so
+   the grey and the colour keep identical markup and the character survives as
+   the fallback if the mask ever fails to load.
+
+   The size is 16 by 16 and not 22: this is a direction, not a destination, and
+   the tab bar's 22px squares are the destinations. currentColor, so it takes the
+   row's own muted ink and needs no colour rule of its own. */
+.app .navrow .arrow, .landing .navrow .arrow {
+  flex: none;
+  color: var(--text-muted);
+  font-size: 0;
+  width: 16px; height: 16px;
+  background-color: currentColor;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 5 7 7-7 7'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 5 7 7-7 7'/%3E%3C/svg%3E");
+}
+
+/* ---- states: token overrides, never a style of their own ------------------
+   The row is a link, so it has states. Both change fill or paint a ring outside
+   the box, and neither moves the row or adds a border: four nav rows stack in a
+   divided list, and a border appearing under the pointer shifts the three
+   below it. */
+
+.app .navrow:hover, .landing .navrow:hover {
+  background: var(--bg-hover);
+}
+
+/* focus-visible, not focus: the ring is for the person arriving by keyboard and
+   is noise for the person who just clicked. base.css declares one ring for the
+   whole system inside :where(), which holds it at specificity 0; this
+   re-declares it at the component's own specificity so the component wins, and
+   reads the same token so the two can never disagree about what a ring is. */
+.app .navrow:focus-visible, .landing .navrow:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* NO DISABLED STATE. A destination a person may not reach is not rendered dim,
+   it is not rendered: settings-no-account carries four nav rows and not five
+   greyed ones, and its fourth is "Sign in" where the account version says
+   "Sign out". Faking the state with a class the product does not carry would
+   document something the product cannot do.
+
+   NO VARIANT FOR "SIGN OUT" EITHER, and that is a carry rather than a decision.
+   The control census lists it as case 9 of the twelve controls with no family:
+   a session-ending action wearing the same class as three navigation rows, with
+   no modifier saying it is not navigation. Naming a modifier here would either
+   change how Settings renders, which this stage may not do, or add a class the
+   product does not carry. It is on the component's page as an open row and step
+   9 decides it. */

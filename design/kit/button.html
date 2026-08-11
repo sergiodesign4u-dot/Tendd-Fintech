@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Button</h1>
+    <p class="lead">The etalon of the system: the first component written and the template every other one follows. It stands on more pages than anything else in the product, it is the loudest object after the monthly total, and it is the reason the state tokens exist.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>36</strong> grey pages</span><span>2 axes</span><span>4 states, both themes</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one content slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/button.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app">
+      <a class="btn primary" href="#anatomy">Connect your bank</a>
+      <a class="btn" href="#anatomy">Add them yourself</a>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.btn</code> <span>the atom itself: an inline-flex box with a 44px floor, a control radius and a one pixel edge. Rendered as an <code>a</code> or a <code>button</code>, and the two are identical by design</span></li>
+      <li><code>.primary</code> <span>the emphasis modifier that fills it with the accent</span></li>
+      <li><code>.compact</code> <span>the size modifier, set by the container it stands in</span></li>
+      <li><code>min-height</code> <span>reads <code>--tap</code>, the 44px floor the project holds everywhere. Never overridden downward</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">Two axes and no third. Each one carries the rule for choosing on it, because a matrix without a rule is a table of facts from which everybody invents a reason again. Width is deliberately <b>not</b> an axis: 100% against auto is layout, so the button in a card and the button in a plan panel are the same button.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Emphasis<p class="axis-rule">One filled accent per zone, and it is the zone's main action. If two want to be filled, the screen is asking two questions</p></th>
+            
+            <th class="val">Tokens</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Filled</b> <code>.btn.primary</code></td>
+            
+            <td class="val">--bg-action<br>--text-on-action</td>
+            <td>33 grey pages. The one action a zone is for</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><a class="btn primary" href="#variants">Start Tendd Pro</a></span></td></tr>
+          <tr>
+            <td><b>Outline</b> <code>.btn</code></td>
+            
+            <td class="val">--bg-surface<br>--line-control<br>--text-body</td>
+            <td>46 grey pages. A real alternative, not a ghost: the two doors of this product are equal by decision, so the second door has to be legible</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><a class="btn" href="#variants">Maybe later</a></span></td></tr>
+          <tr>
+            <td><b>Inverse</b> <code>.btn.inverse</code></td>
+            
+            <td class="val">--text-on-action<br>transparent fill</td>
+            <td>2 grey pages, and only where the ground is already petrol. On any other ground it is unreadable, which is the reason it exists at all</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app on-accent"><a class="btn inverse" href="#variants">See what Pro adds</a></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Size<p class="axis-rule">Set by the CONTAINER, never by importance. The same action is 14px in a page-level action row and 13.5px in a tighter one because the row is tighter, not because the action matters less</p></th>
+            
+            <th class="val">Values</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Default</b> <code>.btn</code></td>
+            
+            <td class="val">14px / 0 18px</td>
+            <td>46 places: the page action row, the empty state, the gate</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><a class="btn" href="#variants">Add a subscription</a></span></td></tr>
+          <tr>
+            <td><b>Compact</b> <code>.btn.compact</code></td>
+            
+            <td class="val">13.5px / 0 14px</td>
+            <td>6 places, all of them the secondary bar under a dense list</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><a class="btn compact" href="#variants">Add a subscription</a></span></td></tr>
+          <tr>
+            <td class="kit-empty">Large</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing: nothing in this product is more important than the monthly total, and a button competing with it at that scale is the One Number Rule broken. If a screen seems to need one, the screen is answering two questions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Filled and inverse do not combine into a fourth emphasis.</b> <code>.btn.inverse.primary</code> exists and is not a third variant: it is the inverse's own filled form, for a petrol ground, and it is the one place where paper becomes a fill rather than a surface.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A button is where a person <b>commits</b>: connects a bank, adds a subscription, starts Pro, retries after a failure. It is the loudest object the product owns after the monthly total, which is why the accent may fill exactly one per zone. On a screen whose job is to look rather than to act, there is no filled button at all, and Home is exactly that screen: it carries two compact outline buttons and nothing louder.</p>
+    <p class="note">Labels come from <code>voice/docs/microcopy.md</code> and say what will happen, in the person's words: "Connect your bank", "Add a subscription", "Start Tendd Pro - $69 a year". The amount is on the button because nobody should learn what they are being charged after the tap. A button never says "Submit", "OK" or "Manage", and never carries an exclamation mark.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A label stays on one line</span>
+        <div class="kit-stage app"><a class="btn primary" href="#rule">Start Tendd Pro - $69 a year</a></div>
+        <p>The longest label in the product, 279px at 360, and it does not fold. A button broken over two lines stops reading as one thing to press: the eye has to reassemble it, and it breaks the 44px floor upward into an odd 65 or 86 so a row of them stops lining up. <code>.btn</code> carries <code>white-space: nowrap</code> for exactly this.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never let it fold</span>
+        <div class="kit-stage app"><span class="consequence">Start<br>Tendd<br>Pro</span></div>
+        <p>Three lines, three different widths, and a control that no longer looks like a control. If a label cannot fit its container the answer is a <b>shorter label</b>, which is a question for <code>voice/docs/microcopy.md</code>, or a wider container. It is never a folded button. Stage 07 paid for this once already: the onboarding column was widened from 620 to 760 because the plan button wrapped, and that was the layout paying for something the component should have guaranteed.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a button</span>
+        <div class="kit-stage app"><a class="btn primary" href="#rule">Try again</a></div>
+        <p>The recovery action of an error state, standing alone in an action row. It commits: it re-runs the thing that failed. Five error screens in this product play it exactly this way.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a wash block instead</span>
+        <div class="kit-stage app"><span class="consequence">We could not refresh just now. <a href="#rule">Try again</a></span></div>
+        <p>Inside a calm sentence that is explaining what happened, the same job belongs to the <b>wash block</b> and its own inline link, not to a button. A filled petrol button inside an explanation shouts over the explanation. That is the one place in this product where "Try again" is deliberately not a button, and the census found it playing three different ways before this rule was written down.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Four states, and they exist because the button is <b>interactive</b>, not because the template has four cells. Each one is a token override rather than a style of its own: no hex and no number appears inside <code>:hover</code>, so the dark theme costs three lines in <code>tokens.css</code> rather than forty edits across the components.</p>
+    
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app" id="live-rest">
+      <a class="btn primary" href="#states" id="shot-primary">Start Tendd Pro</a>
+      <a class="btn" href="#states" id="shot-outline">Maybe later</a>
+      <button class="btn" type="button" id="shot-disabled" disabled>Try again</button>
+    </div>
+    <p class="note">The third one is genuinely disabled, by the attribute rather than by a class the product does not carry. Faking a state with <code>.is-hover</code> is the same defect as inventing a role: it documents something the product cannot do.</p>
+
+    <h3 class="kit-sub-h">The four, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--bg-action</code>, <code>--line-control</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same tokens, the other half of each pair</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-hover</code>, <code>--line-control-hover</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the fill goes LIGHTER here and darker in the light theme: a hover moves away from its ground, and the ground swapped ends</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. Had the pair been left for later this ring would have been the light petrol at 1.9:1: in the file, invisible on screen</div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>light</span></div><div class="tok"><code>--bg-recessed</code>, <code>--line-divider</code>, <code>--text-muted</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>dark</span></div><div class="tok">the same frame as the other three, so the four are comparable. No opacity token: all three paints land on roles that already exist, so inventing one would either move pixels or sit unread</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo and a
+command that does not run is worse than no command:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/button.html
+    move the pointer away  -&gt; screenshot #live-rest      -&gt; screens/button-rest-&lt;theme&gt;.png
+    hover #shot-outline    -&gt; screenshot #live-rest      -&gt; screens/button-hover-&lt;theme&gt;.png
+    focus #shot-primary, press Tab, assert :focus-visible -&gt; screenshot #live-rest  -&gt; button-focus-&lt;theme&gt;.png
+    blur, screenshot #live-rest                          -&gt; screens/button-disabled-&lt;theme&gt;.png
+
+The states are reached the way a person reaches them: a real pointer, a real Tab, a real
+disabled attribute. Step 9 checks these eight files for a byte shift, because a snapshot
+nobody re-takes freezes silently, and a frozen snapshot is worse than none: it looks checked.</code>
+    
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the filled ground</td><td><code>--bg-action</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>its label</td><td><code>--text-on-action</code></td><td><code>--paper</code>, and <code>--canvas-dark</code> in the dark theme</td></tr>
+          <tr><td>the outline ground</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the outline edge</td><td><code>--line-control</code></td><td><code>--edge</code></td></tr>
+          <tr><td>the outline label</td><td><code>--text-body</code></td><td><code>--slate</code></td></tr>
+          <tr><td>hover fill and edge</td><td><code>--bg-hover</code>, <code>--line-control-hover</code></td><td><code>--panel</code>, <code>--muted</code></td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>disabled</td><td><code>--bg-recessed</code>, <code>--line-divider</code>, <code>--text-muted</code></td><td>three roles that already existed</td></tr>
+          <tr><td>corner and floor</td><td><code>--radius-sm</code>, <code>--tap</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/button.css</code>. Stands on 36 grey pages, more than any other component in the product. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../add-subscription.html">Add a Subscription</a>, <a href="../upgrade.html">Upgrade</a>, <a href="../guided-reveal.html">Guided Reveal</a>, <a href="../history-trends-locked.html">the Pro gate</a>, <a href="../settings-no-account.html">Settings, no account</a>.</p>
+    <code class="kit-cmd">&lt;a class="btn primary" href="..."&gt;Connect your bank&lt;/a&gt;
+&lt;a class="btn" href="..."&gt;Add them yourself&lt;/a&gt;
+&lt;button class="btn compact" type="button"&gt;Add a subscription&lt;/button&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/button.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided its axes is in <code>docs/inventory.md</code>; the measured forms it had before the system are in <code>docs/census.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

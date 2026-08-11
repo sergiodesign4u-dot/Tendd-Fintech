@@ -1,0 +1,117 @@
+/* ============================================================================
+   Door - molecule
+   One of the two ways into this product, drawn as a card that is a link: a
+   heading, a sentence of what it costs you, and on two screens a line that says
+   which one you are choosing. "Connect your bank" and "Add them yourself",
+   always together, always the same size.
+
+   D2 read literally. The manual path is an EQUAL second door and not a
+   fallback, so neither door is recommended and neither gets petrol: two petrol
+   objects on one screen is the One Voice Rule failing, and one petrol object
+   here would be the product answering a question it promised to leave open.
+   What tells a person these are the choices is the control edge, which is the
+   same edge a field and a button carry.
+
+   Reads
+     colour   --bg-surface, --text-primary, --text-body, --text-muted,
+              --line-control
+     states   --bg-hover, --line-control-hover, --color-focus
+     spacing  --space-0, --space-4, --space-8, --space-16
+     geometry --radius
+     type     --type-sub, --type-body
+   Hosts     nothing from the kit. Three content slots in one unit, which is the
+             FIRST clause of the molecule rule rather than the second: a
+             molecule is two or more slots in one unit, OR a host of an atom,
+             and this one qualifies on slots alone. Its heading and its
+             paragraph are bare elements, not the eyebrow and not the muted line.
+   Page      design/kit/door.html
+   Stands on 4 grey pages, 8 doors, and on 1 coloured one.
+
+   --radius AND NOT --radius-sm, which is the one place it differs from every
+   other control-edged object in the system. A door is a card the size of a
+   card, and it takes the container corner its neighbours take; the control edge
+   on it is about being findable, not about being small.
+
+   THE HEADING IS BOUND TO THE COMPONENT AND NOT TO THE TAG. `h2` on the two
+   full-screen choices, `h3` on the two that sit inside an empty state whose h2
+   is spent elsewhere. Both are declared, because a component whose typography
+   depends on which heading level the document happened to need is not a
+   component. That exact defect cost the group head two separate repairs at
+   stage 07.
+
+   THE CLASS NAME IS NOT TOUCHED. `.door` and `.pick` stay as the product writes
+   them; only the grid around them (`.doors`) is renamed at step 6.
+   ============================================================================ */
+
+.app .door, .landing .door {
+  display: block;
+  padding: var(--space-16);
+  border: 1px solid var(--line-control);
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+  text-decoration: none;
+  color: inherit;
+}
+
+/* `display: block` and `text-decoration: none` because this is an `a`: the
+   whole card is one link with one accessible name, so a screen reader reads
+   "Connect your bank, read-only, through Plaid" as one destination and not as a
+   heading followed by a stray sentence. */
+
+.app .door h2, .landing .door h2,
+.app .door h3, .landing .door h3 {
+  margin: var(--space-0) var(--space-0) var(--space-4);
+  font-size: var(--type-sub);
+  color: var(--text-primary);
+}
+
+.app .door p, .landing .door p {
+  margin: var(--space-0);
+  font-size: var(--type-body);
+  color: var(--text-muted);
+}
+
+/* ---- the pick line: a declared variant, on 2 of the 4 pages --------------
+   "Choose this path", with an arrow. It exists where the screen's whole job is
+   the choice (path-choice, and adding a second source), and it is absent where
+   the doors are the empty state of a list that already has other things on it.
+   Body ink and weight 600 rather than the accent: it is the loudest line in the
+   door, and it still must not become a primary action, because the door beside
+   it is its equal. */
+.app .door .pick, .landing .door .pick {
+  display: block;
+  margin-top: var(--space-8);
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--text-body);
+}
+/* The arrow is content of the pseudo-element with an EMPTY alternative text, so
+   it is drawn and never spoken: "Choose this path right-arrow" is not a
+   sentence anybody needs to hear. */
+.app .door .pick::after, .landing .door .pick::after {
+  content: "\2192" / "";
+  margin-left: var(--space-8);
+}
+
+/* ---- states: token overrides, never a style of their own -----------------
+   A door is a link, so it is interactive and it gets them. Each one changes
+   fill and edge colour and nothing else: no lift, no scale, no shadow. The Flat
+   Paper Rule holds under the pointer as well as at rest, and a card that rises
+   when you touch it is exactly the ranking this product takes away from the
+   person. */
+
+.app .door:hover, .landing .door:hover {
+  border-color: var(--line-control-hover);
+  background: var(--bg-hover);
+}
+
+.app .door:focus-visible, .landing .door:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* NO DISABLED FORM, and it is a decision rather than an omission. None of the 8
+   doors in the product is ever unavailable, and greying one of two equal
+   choices would answer the question D2 exists to leave open. A path that cannot
+   be taken right now is not a grey door; it is a screen that says what happened
+   and offers the other one. */

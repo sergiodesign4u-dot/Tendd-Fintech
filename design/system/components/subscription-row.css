@@ -1,0 +1,166 @@
+/* ============================================================================
+   Subscription row - molecule
+   The object the whole product is made of. A line in a list, not a card in a
+   stack: no fill of its own, no radius, no border. The whole row is one link
+   with one accessible name, so a screen reader reads the subscription and not
+   five fragments.
+
+   Reads
+     colour   --text-primary, --text-muted
+     states   --bg-hover, --color-focus
+     geometry --row  (56px, its own floor, comfortably over --tap)
+     type     --type-sub, --type-meta
+     spacing  --space-0, --space-4, --space-16
+   Page      design/kit/subscription-row.html
+   Stands on 8 grey pages: 50 rows plus 13 in the loading form. Six of the 28
+   coloured pages carry it, where the census measured 47 and found ZERO
+   variation across twelve properties, the only component in the sweep that
+   managed it.
+
+   IT HOSTS THREE ATOMS AND REPAINTS NONE OF THEM. The logo, the amount and the
+   chip are already written and already correct, and each of them already
+   carries its own rule for this host: the 36px square is in logo.css, the 14px
+   figure is in amount.css, the margin-left:auto that pushes the status chip to
+   the end is in chip.css. Five declarations of kit.css are therefore NOT
+   carried into this file, and each one says so where it would have gone, so
+   that the next person looking for it finds the owner rather than the gap.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.row`, `.row .body`, `.row .name` and
+   `.row .when` stay exactly as the product writes them today. Renaming is step
+   6, executed from the map in docs/inventory.md together with the markup of the
+   screens, because a rename here and a screen there is how a pixel comparison
+   stops proving anything.
+
+   DESIGN.md DISAGREES WITH THIS COMPONENT IN THREE PLACES AND THE CODE WINS IN
+   ALL THREE. The design doc says the merchant name is 14.5px, the amount 12.5px
+   and the row padding 11px by 12px; the stylesheet has shipped 15px, 14px and
+   10px by 4px since stage 07, on 47 rendered rows. All three rows are already
+   in docs/tokens-audit.md under "DESIGN.md disagrees with the code it was
+   generated from". It matters here rather than being a footnote: 14.5 folds to
+   --type-body and 15 folds to --type-sub, so believing the document instead of
+   the code would have shrunk the merchant name by two pixels on every row in
+   the product.
+   ============================================================================ */
+
+.app .row, .landing .row {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: var(--space-4) var(--space-16);
+  /* --row, not --tap. The row sets its own floor at 56px and clears the 44px
+     target by twelve, which is why nothing in this file reads --tap: the target
+     is the whole row, and it is comfortably over the minimum before any padding
+     is counted. The anchor wraps the mark, the name, the date, the amount and
+     the chip, so there is exactly one target per subscription and not five. */
+  min-height: var(--row);
+  margin: var(--space-0);
+  padding: var(--space-8) var(--space-16);
+  /* No border and no fill. The GROUP owns the separation between its items and
+     the container owns the edge, which is what removes the li:last-child rule
+     that used to reach back into the row from outside it. A row that drew its
+     own hairline would draw a second one wherever a list did its job. */
+  border: 0; background: none;
+  text-decoration: none; color: inherit;
+}
+
+/* NOT CARRIED, 1 of 5: `.app .row .logo { flex: none }`. logo.css declares
+   flex:none on the atom's base rule, unconditionally, so this repeated it. The
+   36px size for this host is also logo.css's, under "size is set by the
+   CONTAINER". Nothing moves by dropping it.
+
+   NOT CARRIED, 2 of 5: `.app .row .amt { flex: none; white-space: nowrap }`.
+   Both halves are already in amount.css: nowrap on the atom's base, flex:none
+   on its own `.row .amt` rule beside the 14px. kit.css declared this component
+   twice, 202 lines apart, and the two declarations agreed.
+
+   NOT CARRIED, 3 of 5: `.app .row .tag { margin-left: auto }`. It lives in
+   chip.css, in the placement block, with the other four host margins of that
+   atom. They are one decision (where a chip sits inside what carries it) and
+   splitting them across four component files is how the same rule gets written
+   five times with five values.
+
+   NOT CARRIED, 4 of 5: `.app .row.is-skel { cursor: default }`. It is in
+   skeleton-bar.css, which says why: it exists solely for the loading state, and
+   all it does is take back the pointer the anchor's href gives. On all eight
+   loading pages the row is rendered as a div rather than an anchor, so the
+   skeleton form is not a disabled link, it is not a link at all.
+
+   NOT CARRIED, 5 of 5: `.app .row .p { font-size: 12.5px }`. Declared and dead:
+   a `.p` inside a `.row` matches no markup on any of the 55 grey pages. It is
+   carried in muted-line.css with that proof, because `.p` is that atom's. */
+
+.app .row .body, .landing .row .body {
+  /* 160px is a flex BASIS and not a spacing, so it stays a literal: the name
+     and the date get a 160px floor and the status chip yields, which is what
+     stops a merchant name breaking into two lines to make room for a status
+     word. min-width:0 is the other half of it, because a flex item's default
+     minimum is its content and a long name would otherwise refuse to shrink. */
+  flex: 1 1 160px; min-width: 0;
+}
+.app .row .name, .landing .row .name {
+  display: block;
+  font-size: var(--type-sub); font-weight: 600;
+  color: var(--text-primary);
+}
+.app .row .when, .landing .row .when {
+  display: block;
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+/* ---- host: the same row inside the save-focus candidate -------------------
+   The second value of the host axis, and it is the same row: same class, same
+   markup, same accessible name, standing inside `li.cand` next to a second
+   control. Only its box changes, which is what a host is allowed to do.
+
+   `border-bottom: 0` from kit.css is NOT carried, and this is the third
+   declaration in this file that turns out to be a no-op. The base above already
+   writes `border: 0`, so there was no bottom border to remove; the line is a
+   survival from wireframes/_wf.css, where the grey row did draw one. It painted
+   nothing in colour and it paints nothing here. */
+.app .cand .row, .landing .cand .row { flex: 1; min-width: 0; }
+
+/* ---- states: token overrides, never a style of their own ------------------
+   The row is a link, so it has states, and they exist for that reason and not
+   because the template has cells to fill. Both change fill or paint a ring
+   outside the box; neither moves the row, changes its height or adds a border
+   where there was none, because a row that grew a border under the pointer
+   would shift every row under it by a pixel on a list of fourteen. */
+
+.app .row:hover, .landing .row:hover {
+  background: var(--bg-hover);
+}
+
+/* focus-visible, not focus: the ring is for the person arriving by keyboard and
+   is noise for the person who just clicked. base.css declares one ring for the
+   whole system inside :where(), which holds it at specificity 0; this
+   re-declares it at the component's own specificity so the component wins, and
+   reads the same token so the two can never disagree about what a ring is. */
+.app .row:focus-visible, .landing .row:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* THERE IS NO DISABLED STATE and no active state, and neither absence is a gap.
+   A row is a link to a subscription that exists; a subscription that cannot be
+   opened is not rendered dim, it is not rendered. And kit.css declares no
+   :active on the row, so writing one here would be a new decision about how the
+   product responds to a press, taken by the person moving a file. */
+
+/* ---- the narrow reflow of the candidate host -----------------------------
+   The row takes the whole width and the second control drops under it. This
+   half of the 460px block lives here rather than in save-focus-candidate.css,
+   and the reason is the cascade rather than tidiness: `.app .cand .row` is
+   0-3-0 either way, a media query adds no specificity, and molecules import
+   alphabetically, so save-focus-candidate.css is read BEFORE this file. Written
+   over there, `flex: 1 1 100%` would have lost to the `flex: 1` above on source
+   order alone and the reflow would have silently stopped happening at 460.
+   The other two rules of that block are `.cand`'s own and stay in its file.
+
+   THE SELECTOR IS `.app` ONLY, and that is carried rather than corrected. Every
+   other rule of this component is written for both hosts; this one block in
+   kit.css is not, so on the landing the candidate would not reflow. Selectors
+   are not touched at step 5, exactly so that the pixel comparison at step 8 has
+   nothing to explain away. It is fixed at step 6 with the rename, and the same
+   inconsistency is already flagged on four width classes in skeleton-bar.css. */
+@media (max-width: 460px) {
+  .app .cand .row { flex: 1 1 100%; }
+}

@@ -1,0 +1,123 @@
+/* ============================================================================
+   Destination icon - atom
+   Four destinations, four marks, and no fifth. The mark over the label in the
+   global tab bar, and the only icon set the product owns.
+
+   Reads
+     colour   currentColor, and that is the point (see below)
+              --text-body   for the unread dot, and it is the wrong SURFACE.
+                            Reported at step 5: the system has no fill role on
+                            --slate, and two components want one
+     geometry no primitive: a 22px square and a 7px dot, both literals today
+   Page      design/kit/destination-icon.html
+   Stands on 28 grey pages, in 112 places.
+
+   NOT INTERACTIVE. The icon is not the control: the tab bar's anchor is, and the
+   anchor owns :hover, :focus-visible and the current state. No state is declared
+   here, and none should be. What looks like a state on this component is
+   inheritance, which is the whole lesson below.
+
+   AUTHORED, NOT EXTRACTED. The grey wireframes draw `.ic` as an empty 18px
+   bordered box on purpose (wireframes/_wf.css:355), so greyscale had nothing to
+   give and this set was drawn at stage 07. It is one of the five authored things
+   listed in docs/inventory.md.
+
+   THE MASK IS PAINTED WITH currentColor, and that is what makes the current tab
+   turn petrol with no second rule anywhere. The link is petrol when it carries
+   `.cur`; its icon is petrol because the mask fills with the link's own colour.
+   The encoded SVG's own stroke='%23000' is ignored: a mask reads alpha, not hue.
+
+   THE MASK SITS ON A PSEUDO-ELEMENT, NOT ON THE ELEMENT, and this is a real
+   trap rather than a style preference. Quoted from kit.css, unchanged:
+
+     "The mask sits on a pseudo-element, not on .ic itself. A mask clips its own
+      children, and .ic hosts the unread dot, so masking the element erased the
+      one thing GC2 has to be able to show."
+
+   GC2 is the global tab bar. The screen still looked right after the mistake,
+   because a tab bar with no unread alerts is the normal case: the defect only
+   appears on the one state the component exists to be able to show.
+   ============================================================================ */
+
+/* The positioning context for the dot. Declared apart from the box below
+   because that is how kit.css carries it, and the two are 42 lines apart there
+   for no reason worth preserving beyond byte parity at step 8. */
+/* WHY THE SELECTOR IS `.app .ic` AND NOT `.app .tabbar a .ic`, corrected at the
+   molecule round after the founder opened this page and saw four blue underlined
+   links where four marks should be.
+
+   The base rules (the box, the 22px square, the dot) were chained to `.tabbar a`
+   while the four mask modifiers needed only `.app`. Inside one file, for one
+   component, two different depths. The consequence is not cosmetic: this
+   component is registered as an ATOM, an atom contains nothing else from the
+   kit, and yet it could not render at all without the markup of an ORGANISM that
+   is not built yet. Its own page therefore had to import a bare `<nav class=
+   "tabbar">` to make it appear, the tab bar's CSS did not exist to style it, and
+   the page rendered as unstyled anchors and then argued in a paragraph that this
+   was proof rather than a defect. A page that needs a paragraph explaining why it
+   looks broken is showing the wrong thing.
+
+   ZERO PIXELS MOVE, and that was checked before the change rather than asserted:
+   all 72 occurrences of `class="ic ic-*"` across `wireframes/` and `design/` sit
+   inside an open `<nav class="tabbar">`, so the narrower selector never matched
+   anything the wider one does not. Specificity drops from 0-3-1 to 0-2-0, and
+   nothing else in the system targets `.ic`, so there is no rule left to lose to.
+   This is a scope correction, not a rename: `.ic` and its four modifiers keep
+   their names, and the renaming map at step 6 is untouched. */
+.app .ic { position: relative; }
+
+/* The unread dot. 7px, top right, deliberately OUTSIDE the 22px square: it
+   overhangs by 3 and 4 pixels, which is why masking .ic itself cut it off.
+   DESIGN.md: "A quiet dot may sit on Alerts; there is never a count."
+
+   --text-body is an INK role and this paints a FILL. It is used because it is
+   the only semantic role on --slate, which is the value the dot has shipped at
+   since stage 07, and a component may not read a primitive. The architecture
+   forbids one role on two surfaces even at the same value, so this is a hole and
+   it is named rather than papered over: the system owes a fill role on --slate.
+   It would have two consumers, not one, since `.newdot` on the alert item is
+   byte-identical geometry under another owner (docs/inventory.md, finding 3). */
+.app .ic .dot {
+  position: absolute; top: -3px; right: -4px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--text-body);
+}
+
+/* The box. 22px, and it is the icon's own size rather than the tab bar's: the
+   rail at container 760 lays the same square beside the label instead of above
+   it and does not resize it. */
+.app .ic { display: block; width: 22px; height: 22px; }
+
+/* The mask machinery, once, on the pseudo-element. Every ::before below adds
+   nothing but the image, so a fifth destination is one declaration and not six.
+   -webkit- first and unprefixed second in every pair, because Safari still
+   answers only to the prefixed property and the unprefixed one has to be able to
+   win where both are understood. */
+.app .ic::before {
+  content: ""; position: absolute; inset: 0;
+  background-color: currentColor;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+
+/* Home, the calm view: a roof over a doorway. */
+.app .ic-home::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5 12 3.5l9 7'/%3E%3Cpath d='M5.5 9.5V20h13V9.5'/%3E%3Cpath d='M9.75 20v-5.5h4.5V20'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5 12 3.5l9 7'/%3E%3Cpath d='M5.5 9.5V20h13V9.5'/%3E%3Cpath d='M9.75 20v-5.5h4.5V20'/%3E%3C/svg%3E");
+}
+/* Alerts: a bell with a clapper. The only one that hosts the dot. */
+.app .ic-alerts::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 10a6 6 0 0 1 12 0c0 3.5.8 5 1.6 6H4.4C5.2 15 6 13.5 6 10Z'/%3E%3Cpath d='M10 19.5a2.2 2.2 0 0 0 4 0'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 10a6 6 0 0 1 12 0c0 3.5.8 5 1.6 6H4.4C5.2 15 6 13.5 6 10Z'/%3E%3Cpath d='M10 19.5a2.2 2.2 0 0 0 4 0'/%3E%3C/svg%3E");
+}
+/* Save: a lidded box, split down the middle. */
+.app .ic-save::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5h16V20H4z'/%3E%3Cpath d='M3 4.5h18v4H3z'/%3E%3Cpath d='M12 8.5V20'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5h16V20H4z'/%3E%3Cpath d='M3 4.5h18v4H3z'/%3E%3Cpath d='M12 8.5V20'/%3E%3C/svg%3E");
+}
+/* You, settings and account: a head and shoulders. */
+.app .ic-you::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='3.6'/%3E%3Cpath d='M4.8 20c.6-3.6 3.6-5.6 7.2-5.6s6.6 2 7.2 5.6'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='3.6'/%3E%3Cpath d='M4.8 20c.6-3.6 3.6-5.6 7.2-5.6s6.6 2 7.2 5.6'/%3E%3C/svg%3E");
+}

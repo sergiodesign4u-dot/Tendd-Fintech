@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Share card - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Share card</h1>
+    <p class="lead">The picture a person sends to somebody else after a cancellation. It is the only centred thing in the product, and the only object built to be looked at outside the app. An image made of two numbers, which is what makes it safe by construction rather than safe by memory.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>2</strong> grey pages</span><span><strong>0</strong> coloured</span><span>1 form</span><span>no states</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Five slots, four of which are atoms, inside one card that is deliberately dumb: it has no behaviour, no target and no data path to anything except a count and a total. Everything below is drawn by <code>design/system/components/share-card.css</code> and the atom files it hosts, through the same entry point a product screen loads.</p>
+    <div class="kit-stage app full wide">
+      <div class="sharecard" role="img" aria-label="Your share card: on Tendd, keeping an eye on 13 subscriptions, 174 dollars 91 a month, just cancelled Netflix and freed up 17 dollars 99 a month">
+        <span class="lbl">On Tendd, I am keeping an eye on</span>
+        <p class="count">13 subscriptions</p>
+        <p class="total">$174.91</p>
+        <p class="p">a month, all in one calm place</p>
+        <p class="win-line">Just cancelled <strong>Netflix</strong> and freed up $17.99 a month.</p>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.sharecard</code> <span>the molecule: a <code>div</code> with <code>role="img"</code> and a full accessible name, the container hairline, the container corner and centred text. The <code>role</code> is what makes a screen reader read the card as one picture rather than as five orphaned fragments</span></li>
+      <li><code>.lbl</code> <span>the caption, the <a href="label.html">label atom</a> in its quiet form. This file declares NOTHING about it: <code>kit.css</code> restated the atom's base rule here word for word, and the copy was deleted</span></li>
+      <li><code>.count</code> <span>the card's own slot: "13 subscriptions" at 20px, the second number and deliberately smaller than the first</span></li>
+      <li><code>.total</code> <span>the <a href="big-total.html">big total atom</a> at its 32px share size, declared in <code>big-total.css</code>. It is the one place in the product where the total is not 46px, and that step down is the single named exception in the whole scale mapping</span></li>
+      <li><code>.p</code> <span>"a month, all in one calm place", the <a href="muted-line.html">muted line atom</a>. Its 4px top margin lives in <code>muted-line.css</code></span></li>
+      <li><code>.win-line</code> <span>the card's other own slot: the sentence the card exists to say, separated by a divider rather than by a second card</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One form.</b> The inventory records no axis for this component and the browser sweep agrees: there is one rule, one size, one fill, one corner, and every share card in the product is the same object. What changes between the two pages it stands on is not the card but what has been put inside it, and the CSS does not know the difference.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Content<p class="axis-rule">Not an axis of the component. The card is identical in both rows; the second one is holding skeleton bars instead of numbers, because the card has to occupy exactly the space the real one will or the screen jumps when it arrives</p></th>
+            
+            <th class="val">Difference in the CSS</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Made</b></td>
+            
+            <td class="val">none</td>
+            <td>1 page, Share this win. It carries <code>role="img"</code> and the whole card spoken as one sentence</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="sharecard" role="img" aria-label="Your share card: on Tendd, keeping an eye on 13 subscriptions, 174 dollars 91 a month, just cancelled Netflix and freed up 17 dollars 99 a month"><span class="lbl">On Tendd, I am keeping an eye on</span><p class="count">13 subscriptions</p><p class="total">$174.91</p><p class="p">a month, all in one calm place</p><p class="win-line">Just cancelled <strong>Netflix</strong> and freed up $17.99 a month.</p></div></div></td></tr>
+          <tr>
+            <td><b>Being made</b></td>
+            
+            <td class="val">none</td>
+            <td>1 page, the loading state. It carries <code>aria-hidden</code> instead of a role, because a picture that does not exist yet has nothing to describe, and the state message beside it does the talking</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="sharecard" aria-hidden="true"><span class="skel line w60"></span><span class="skel total"></span><span class="skel line w50"></span></div></div></td></tr>
+          <tr>
+            <td class="kit-empty">A failed form</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. When the card cannot be made, the screen does not draw a broken card: it replaces it entirely with a text block, "We could not create the card. Nothing is wrong with your account, and your cancel win is saved. This is only the picture." A greyed or crossed-out card would suggest the win itself had failed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Its form is read from the grey, because there is no colour render of it at all.</b> It is one of the nine components the census found with no occurrence in the coloured sample, so every value on this page comes from <code>kit.css</code> and from the two grey pages, and the first colour render of it will be the place to check this page against.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">Once, at the one genuinely good moment this product has. A person has cancelled something they had forgotten they were paying for, and the design principle that covers it says so out loud: the moment a forgotten subscription is found is the product's most important emotional beat. The card is what lets them tell somebody. Everything about it is built so that telling somebody costs nothing: "Here is the card, exactly as it will look. Nothing is shared until you tap Share."</p>
+    <p class="note"><b>Safe by construction is the design, not a policy.</b> There is no slot on this card for an account number, a bank name or a list of what a person pays for, so no bank data can reach it even by accident. The block under it names the three things that are on it, which is proof rather than a promise: "The number of subscriptions, the monthly total, and the one you just cancelled. No account numbers, no bank details, and no list of what you pay for."</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The card is a picture, and says so</span>
+        <div class="kit-stage app full wide">
+          <div class="sharecard" role="img" aria-label="Your share card: on Tendd, keeping an eye on 13 subscriptions, 174 dollars 91 a month, just cancelled Netflix and freed up 17 dollars 99 a month">
+            <span class="lbl">On Tendd, I am keeping an eye on</span>
+            <p class="count">13 subscriptions</p>
+            <p class="total">$174.91</p>
+            <p class="p">a month, all in one calm place</p>
+            <p class="win-line">Just cancelled <strong>Netflix</strong> and freed up $17.99 a month.</p>
+          </div>
+        </div>
+        <p><code>role="img"</code> with the whole card written out as one accessible name. A person using a screen reader hears what the picture says, in the order it says it, instead of five disconnected fragments in a card they cannot see.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never make it a target</span>
+        <div class="kit-stage app full wide">
+          <span class="consequence">&lt;a class="sharecard" href="..."&gt; or &lt;button class="sharecard"&gt;</span>
+        </div>
+        <p>The card is not the Share button. It is a preview, and a preview that can be tapped is a preview that will be tapped by somebody who meant to look at it first. The action stands underneath it in an <b>action row</b>, where "Share" is a filled button and "Back to your subscriptions" is an outline one, and the sentence above the card says the tap is the only thing that shares anything.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a share card</span>
+        <div class="kit-stage app full wide">
+          <div class="sharecard" role="img" aria-label="Your share card: on Tendd, keeping an eye on 13 subscriptions, 174 dollars 91 a month, just cancelled Netflix and freed up 17 dollars 99 a month"><span class="lbl">On Tendd, I am keeping an eye on</span><p class="count">13 subscriptions</p><p class="total">$174.91</p><p class="p">a month, all in one calm place</p></div>
+        </div>
+        <p>Something the person will look at outside Tendd. Centred, self-contained, and readable with no chrome around it: it has to survive being a picture in a message thread.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a summary strip instead</span>
+        <div class="kit-stage app full wide">
+          <span class="lbl">All together</span>
+          <p class="total">$192.90</p>
+          <p class="p">a month, for what you have signed up for</p>
+        </div>
+        <p>The same numbers <b>inside</b> the app, at the top of Home, are the <b>summary strip</b>: left aligned, no card, no edge, and the total at its full 46px, because there it is the one thing the screen exists for. The share card is the same information dressed for somebody who has never used Tendd, which is why it is smaller, boxed and centred. Two components, and the difference between them is who is looking.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and that is a finding rather than a gap.</b> The card is a <code>div</code> with <code>role="img"</code>: no anchor, no button, no target of any kind anywhere inside it, on either of the two pages it stands on. It is never hovered, never focused, never pressed and never disabled. Drawing four cells would document something the product cannot do, and making it hoverable would be the anti-rule above. The controls that act on it are buttons in an action row underneath, and their four states are on <a href="button.html">button.html</a>.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the card fill</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the card edge</td><td><code>--line-container</code></td><td><code>--hairline</code>. Not the control edge: nothing here has to be found by touch</td></tr>
+          <tr><td>the divider over the win line</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. The Flat Paper Rule: a new surface earns a hairline, never a shadow</td></tr>
+          <tr><td>the count</td><td><code>--text-primary</code></td><td><code>--ink</code></td></tr>
+          <tr><td>the win line</td><td><code>--text-body</code></td><td><code>--slate</code>. Body and not muted: this is the sentence the card exists to say</td></tr>
+          <tr><td>the padding and the gaps</td><td><code>--space-8</code>, <code>--space-16</code>, <code>--space-24</code></td><td>primitive: a spacing has nothing to override</td></tr>
+          <tr><td>the corner</td><td><code>--radius</code></td><td>primitive, the container corner</td></tr>
+          <tr><td>the caption, the total, the context line</td><td>none, here</td><td>they are atoms and are drawn by <code>label.css</code>, <code>big-total.css</code> and <code>muted-line.css</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>One rule was dropped and it is the only thing here that is not a straight carry.</b> <code>kit.css</code> declares <code>.sharecard .lbl</code> with the same display, the same size and the same ink the Label atom already gives it, and it did not even override the atom's margin. A host repeating an atom is not a variant, it is a second copy that will not be updated when the first one is. Deleting it moves zero pixels, checked against <code>label.css</code> before it went.</p>
+    <p class="note"><b>Two rules that look like this file's are deliberately not in it.</b> <code>.sharecard .total</code> lives in <code>big-total.css</code>, because a 40px total folding to 32px is the atom's own size axis and the one named exception in the scale mapping; <code>.sharecard .p</code> lives in <code>muted-line.css</code>, which offers it back in writing. A rule that belongs to two files ends up in neither, so it is left in one, and the day the split is revisited it moves in a single step rather than in two.</p>
+    
+    <code class="kit-cmd">&lt;div class="sharecard" role="img" aria-label="Your share card: on Tendd, keeping an eye on
+     13 subscriptions, 174 dollars 91 a month, just cancelled Netflix and freed up
+     17 dollars 99 a month"&gt;
+  &lt;span class="lbl"&gt;On Tendd, I am keeping an eye on&lt;/span&gt;
+  &lt;p class="count"&gt;13 subscriptions&lt;/p&gt;
+  &lt;p class="total"&gt;$174.91&lt;/p&gt;
+  &lt;p class="p"&gt;a month, all in one calm place&lt;/p&gt;
+  &lt;p class="win-line"&gt;Just cancelled &lt;strong&gt;Netflix&lt;/strong&gt; and freed up $17.99 a month.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- while it is being made: aria-hidden, and skeletons in the same three places --&gt;
+&lt;div class="sharecard" aria-hidden="true"&gt;
+  &lt;span class="skel line w60"&gt;&lt;/span&gt;&lt;span class="skel total"&gt;&lt;/span&gt;&lt;span class="skel line w50"&gt;&lt;/span&gt;
+&lt;/div&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/share-card.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its four atoms are drawn by <code>label.css</code>, <code>big-total.css</code>, <code>muted-line.css</code> and <code>skeleton-bar.css</code>. The list of components with no coloured render is in <code>docs/census.md</code>; the 40px to 32px exception is in <code>docs/tokens-audit.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

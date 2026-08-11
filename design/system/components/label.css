@@ -1,0 +1,56 @@
+/* ============================================================================
+   Label - atom
+   The caption over a number: "All together" above the monthly total, "A small
+   win" above what a cancellation freed, "On Tendd, I am keeping an eye on"
+   above a share card's count. One zone, one text slot, and it always has a
+   figure directly under it.
+
+   Two weights, and the axis is EMPHASIS rather than size. The quiet form sits
+   over a 20px count inside a card. The strong form sits over the 46px Display
+   on the guided reveal, where the number is the whole screen and its caption
+   has to be legible from the same distance a person reads the number from.
+
+   Reads
+     colour   --text-muted (quiet), --text-body (strong)
+   Page      design/kit/label.html
+   Stands on 3 grey pages and 1 coloured one.
+
+   NO HEX AND NO FONT NAME. The sizes and the margins are the literals they are
+   today, because the type and spacing scales are still a proposal.
+
+   THE CLASS NAME IS NOT TOUCHED. `.lbl` and `.lbl.strong` stay as the product
+   writes them. `.strong` is a real modifier and not a host override: the grey
+   stylesheet wrote it as `.rstep .lbl`, a container restyling an atom, which is
+   the defect class this stage exists to prevent. It was declared as a modifier
+   at stage 07 and the reveal page carries the class.
+   ============================================================================ */
+
+.app .lbl, .landing .lbl {
+  display: block;
+  margin: var(--space-0);
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+/* ---- emphasis: quiet, and strong -----------------------------------------
+   Strong is not "bigger for importance". It is bigger because the number it
+   captions is bigger: the same caption sits at 12px over a 20px count and at
+   15px over the 46px total, and the ratio between the two is what stays
+   constant. It also steps UP an ink tier, from muted to body, because at 15px
+   and weight 600 a muted grey starts reading as a heading that has been
+   switched off.
+   letter-spacing: 0 is load-bearing rather than decorative. The strong form is
+   written as an `h2` on the reveal, where the step's own heading rule tracks
+   its headings in by -0.015em; the reset stops a caption from inheriting a
+   headline's tracking because of the tag it happens to use. */
+.app .lbl.strong, .landing .lbl.strong {
+  margin: var(--space-0) var(--space-0) var(--space-4);
+  font-size: var(--type-sub);
+  font-weight: 600;
+  color: var(--text-body);
+  letter-spacing: 0;
+}
+
+/* No states. A label is a caption over a figure: never a link, never a target,
+   never pressed, on any page in either folder. Faking one would document
+   something the product cannot do. */

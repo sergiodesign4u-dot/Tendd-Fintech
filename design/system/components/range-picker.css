@@ -1,0 +1,125 @@
+/* ============================================================================
+   Range picker - molecule
+   The segmented control over the trends chart: 3 months, 6 months, 12 months.
+   Three equal segments in one group, sharing one accessible name, and exactly
+   one of them selected at a time.
+
+   A selection and not an action, which is why it is not a row of buttons. Its
+   width is set by the group rather than by its label, and its selected state is
+   a petrol TINT, which the filled button (a petrol FILL) cannot express without
+   claiming to be the main action of the screen.
+
+   Reads
+     colour   --bg-surface, --text-body, --line-control
+     select   --bg-selected, --line-selected, --text-action
+     states   --bg-hover, --line-control-hover, --color-focus,
+              --bg-recessed, --line-divider, --text-muted
+     spacing  --space-0, --space-8, --space-24
+     geometry --radius-sm, --tap
+     type     --type-body
+   Page      design/kit/range-picker.html
+   Stands on 3 grey pages, 9 segments, and on 3 coloured ones.
+
+   FOUR FORMS, AND THE FOURTH IS DECLARED HERE FOR THE FIRST TIME. The census
+   measured the rendered control and found what the file did not say out loud:
+   on history-trends-locked the "3 months" segment renders disabled AND bold,
+   because `[aria-pressed="true"]` sets the weight and `[disabled]` overrides
+   colour, fill and border and leaves the weight alone. Two attributes at the
+   same specificity, source order deciding, and nobody chose the result.
+
+   Step 2 decided it IS a form rather than a bug, and no value changes. The axis
+   is availability crossed with selection, and behind the Pro gate both facts
+   are true at once: the control cannot be used, and 3 months is still the range
+   the frame below is drawn for. The weight is what carries the second fact once
+   the colour has been spent on the first. Declared explicitly at 0-4-1 so it is
+   a decision and not an accident of the cascade; the pixels are identical to
+   what the product renders today.
+
+   THE CLASS NAMES ARE NOT TOUCHED. The census's note that this control has no
+   class name at all is true and stays true until step 6: it is selectable only
+   as `.range button`, which is exactly how kit.css writes it.
+   ============================================================================ */
+
+.app .range, .landing .range {
+  display: flex;
+  gap: var(--space-8);
+  margin: var(--space-0) var(--space-0) var(--space-24);
+}
+
+/* `flex: 1` and not a width: the three segments divide whatever the screen
+   gives them, so "12 months" and "3 months" are the same size and the group
+   reads as one object rather than as three buttons of different lengths. */
+.app .range button, .landing .range button {
+  flex: 1;
+  min-height: var(--tap);
+  border: 1px solid var(--line-control);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  color: var(--text-body);
+  font: inherit;
+  font-size: var(--type-body);
+  cursor: pointer;
+}
+
+/* ---- states and selection, in the order kit.css declares them -------------
+   The order is load-bearing and is preserved to the line. `:hover` and
+   `[aria-pressed="true"]` are both 0-3-1, so the later one wins on a segment
+   that is both: hovering the SELECTED segment shows the selection, not the
+   hover. That is right rather than accidental. The pointer is asking "what
+   happens if I press this", and the answer for the current range is "nothing
+   you have not already got". */
+
+.app .range button:hover, .landing .range button:hover {
+  border-color: var(--line-control-hover);
+  background: var(--bg-hover);
+}
+
+/* Selection is an ATTRIBUTE and not a class, and that is the right hook rather
+   than a convenient one. `aria-pressed` is what tells a screen reader which
+   range is current; a `.is-selected` class would tell the stylesheet and tell
+   nobody else, and the two would then have to be kept in step by hand forever.
+   Styling the attribute makes the accessible state and the visible state the
+   same fact, so one cannot drift from the other.
+   Three tokens, one selection: the tint fills, the accent draws the edge, the
+   accent inks the label. This is the "current selection", the second of the
+   three jobs the One Voice Rule lets petrol do. */
+.app .range button[aria-pressed="true"], .landing .range button[aria-pressed="true"] {
+  border-color: var(--line-selected);
+  background: var(--bg-selected);
+  color: var(--text-action);
+  font-weight: 600;
+}
+
+/* Disabled repaints rather than fading, on the three roles that already exist,
+   which is why there is no --opacity-disabled in the system. Declared after
+   hover on purpose: a disabled segment under the pointer keeps the disabled
+   paint. */
+.app .range button[disabled], .landing .range button[disabled] {
+  cursor: default;
+  background: var(--bg-recessed);
+  border-color: var(--line-divider);
+  color: var(--text-muted);
+}
+
+/* THE FOURTH FORM. Disabled and selected together, one segment on one page.
+   Every value here is what the cascade already produces; writing it down is the
+   whole change. Availability is carried by colour, selection by weight, and the
+   two axes stay legible because they are spent on different properties. */
+.app .range button[disabled][aria-pressed="true"],
+.landing .range button[disabled][aria-pressed="true"] {
+  background: var(--bg-recessed);
+  border-color: var(--line-divider);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* focus-visible, not focus: the ring is for the person arriving by keyboard and
+   is noise for the person who just clicked. base.css declares one ring for the
+   whole system inside :where(), at specificity 0; this re-declares it at the
+   component's own specificity so the component wins, and reads the same token
+   so the two can never disagree. Outline touches no property above it, so its
+   position in this file changes nothing. */
+.app .range button:focus-visible, .landing .range button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}

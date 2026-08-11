@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nav row - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Nav row</h1>
+    <p class="lead">The line that takes a person somewhere else: a destination, a sentence saying what is behind it, and a chevron. It is the whole of the Settings screen's navigation and the one place in this product where a person browses rather than acts.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>2</strong> grey pages</span><span>one form</span><span>3 states, both themes</span><span>hosts no atom</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One anchor, three slots and one of them unnamed. Everything below is drawn by <code>design/system/components/nav-row.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full wide">
+      <a class="navrow" href="#anatomy"><span>Your sources<span class="sub">Banks and manual entries you track</span></span><span class="arrow">&rsaquo;</span></a>
+      <a class="navrow" href="#anatomy"><span>Data and privacy<span class="sub">What we read, and delete everything</span></span><span class="arrow">&rsaquo;</span></a>
+      <a class="navrow" href="#anatomy"><span>Sign out</span><span class="arrow">&rsaquo;</span></a>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.navrow</code> <span>the molecule itself, and it is the <code>a</code>: the whole line is one target, with its floor at <code>--row</code>, 56px. Its ink is <b>inherited</b>, not declared, which is why the destination has no colour rule of its own</span></li>
+      <li><code>span</code>, unclassed <span>the pair holder, and it is load-bearing: it groups the destination with its sentence so that <code>justify-content: space-between</code> has two children to push apart and the chevron lands at the end. Remove it and the chevron sits between the two lines of text</span></li>
+      <li><code>.sub</code> <span>the second line, at <code>--type-meta</code> and <code>--text-muted</code>, weight 400 written explicitly. It answers "what is behind this" in the person's words, not a category name</span></li>
+      <li><code>.arrow</code> <span>the chevron, <code>flex: none</code> so it never shrinks when the sentence beside it wraps. A text glyph and <b>not</b> one of the four destination masks: it is a direction, not a destination</span></li>
+    </ul>
+    <p class="note"><b>It hosts no atom</b>, which makes it the plainest molecule in this group: two text slots and a mark, and every one of them is its own. It is a molecule rather than an atom because it holds more than one content slot in one unit, which is the line the component ladder draws.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>The nav row has one form, so there is no matrix to draw.</b> All eight instances in the product render identically, and the census measured <code>.navrow</code> as one of the sixteen families with a single value on every property, at both viewports. The third specimen above shows the one thing that varies, and it is content and not a variant: <code>.sub</code> is an optional slot, present on three of the four rows and absent on "Sign out", because there is nothing to say about signing out that the words do not already say.</p>
+    <p class="note">Size is not an axis either. The row's floor is <code>--row</code> and the two text tiers are <code>--type-body</code> and <code>--type-meta</code> on every page, so a nav row on Settings is the same object as a nav row on the account-less variant of it.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>What is NOT here</th>
+            <th>Why the cell is empty</th>
+            <th class="val">Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="kit-empty">A destructive or session-ending modifier</td>
+            <td>"Sign out" wears exactly the same class as three navigation rows, with no modifier saying it is not navigation. <code>docs/census.md</code> lists it as case 9 of the twelve controls with no family. Naming a modifier here would either change how Settings renders, which this stage may not do, or add a class the product does not carry</td>
+            <td class="val">a line in the backlog<br>step 9 decides</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A current or selected state</td>
+            <td><b>Forbidden with a reason rather than missing.</b> A nav row never marks where a person is. Marking the current destination is the tab bar's job, it is drawn in petrol and a left border on the desktop rail, and a second component claiming the same signal would give one screen two answers to "where am I". A nav row is always a way out of the screen it stands on</td>
+            <td class="val">prohibited</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">An icon in front of the label</td>
+            <td><b>Forbidden with a reason.</b> The four destination masks in <a href="destination-icon.html">destination-icon.css</a> are the tab bar's whole set, and a row of four leading icons on Settings would make four ordinary lines look like four decisions. The chevron at the end is the whole affordance the row needs</td>
+            <td class="val">prohibited</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A nav row is for a destination that has <b>somewhere to go and something to explain</b>. All eight in the product sit on the two Settings screens and lead to the places a person visits rarely and needs to trust completely: "Your sources", "Data and privacy", "Help and support", and the door out of the account. Each carries a plain sentence underneath, because a person who is one tap from deleting everything they hold should know what is behind the tap before they take it.</p>
+    <p class="note">The second line is where the voice does its work. "Data and privacy" is followed by "What we read, and delete everything", not by "Privacy settings": the sentence states the promise and the escape hatch in six words, which is principle 4 read at the smallest scale the product has. On the account-less variant of Settings the same row says "3 subscriptions you typed, and nothing connected", so the row describes what is actually true for that person rather than what the screen is called.</p>
+    <p class="note">It is a way <b>out</b> of a screen and never a way around inside one. The product has exactly four destinations and they live in the tab bar; a nav row is what a destination offers once a person is already there. If a screen grows a list of nav rows that lead back into itself, the screen is a hub and wants a different structure.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A destination, with what is behind it</span>
+        <div class="kit-stage app full wide"><a class="navrow" href="#rule"><span>Help and support<span class="sub">Guides and how to reach us</span></span><span class="arrow">&rsaquo;</span></a></div>
+        <p>Tapping it changes the screen and nothing else. Nothing is saved, nothing is sent, nothing is undone. The chevron says so, and it points the way a page turns.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a button instead</span>
+        <div class="kit-stage app"><a class="btn" href="#rule">Download my data</a></div>
+        <p>An action that <b>commits</b>, sends, ends a session or cannot be undone belongs to the <a href="button.html">Button</a>. A chevron is a promise that the next screen is a place, and a row that quietly signs a person out or deletes something has broken that promise. This is a live open row rather than a hypothetical: "Sign out" is a nav row on Settings today, and the census flagged it as a control with no family. It is carried, not fixed here, because fixing it would change how the product renders.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Somewhere to go</span>
+        <div class="kit-stage app full wide"><a class="navrow" href="#rule"><span>Your sources<span class="sub">Banks and manual entries you track</span></span><span class="arrow">&rsaquo;</span></a></div>
+        <p>The answer lives on another screen, so the row leads there. Four of these stack in a divided list and read as a short table of contents for everything a person owns.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a switch row instead</span>
+        <div class="kit-stage app col"><label class="switch"><input type="checkbox" checked><span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span></label></div>
+        <p>A preference that is on or off and <b>takes effect where it stands</b> is the <a href="switch-row.html">Switch row</a>. The two look alike on Settings and they are opposites: one leaves the screen, one changes something without leaving it. A person who taps a nav row expecting to arrive somewhere and instead flips a setting has lost the thread of what they just did, and on a screen about their bank data that is expensive.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note">Three states, and they exist because the row is <b>a link</b>. Each is a token override rather than a style of its own, so the dark theme costs nothing in this file.</p>
+    <p class="note"><b>Three rather than four.</b> There is no disabled nav row: a destination a person may not reach is not rendered dim, it is not rendered. Settings without an account carries four rows and not five greyed ones, and its fourth says "Sign in" where the account version says "Sign out". And there is no <code>:active</code>, because <code>kit.css</code> declares none and writing one here would be a new decision about how the product answers a press.</p>
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app full wide" id="live-rest">
+      <a class="navrow" href="#states" id="shot-navrow"><span>Your sources<span class="sub">Banks and manual entries you track</span></span><span class="arrow">&rsaquo;</span></a>
+      <a class="navrow" href="#states" id="shot-navrow-2"><span>Data and privacy<span class="sub">What we read, and delete everything</span></span><span class="arrow">&rsaquo;</span></a>
+    </div>
+    <p class="note">Real anchors with a real <code>href</code>, which is the only way the states below can be reached at all. The divider a person sees between two of these on Settings is not here: it belongs to the Divided list organism, which is not built yet.</p>
+
+    <h3 class="kit-sub-h">The three, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok">no fill of its own, the destination inherits <code>--text-primary</code>, the sentence and the chevron read <code>--text-muted</code></div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same two tiers, the other half of each pair. The gap between them holds in both themes, which is what keeps the sentence readable as the quieter half</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-hover</code>, and nothing else: no border, no shift, no size change. Four rows stack in a divided list and a border under the pointer would move the three below it</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the fill goes LIGHTER here and darker in the light theme: a hover moves away from its ground, and the ground swapped ends</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line, at 2px offset so the ring sits outside the row</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. On Settings this ring is what tells a keyboard user they are on "Sign out" rather than on "Help and support", which is the argument for the open row above</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo and a
+command that does not run is worse than no command:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/nav-row.html
+    move the pointer away  -&gt; screenshot #live-rest -&gt; screens/nav-row-rest-&lt;theme&gt;.png
+    hover #shot-navrow     -&gt; screenshot #live-rest -&gt; screens/nav-row-hover-&lt;theme&gt;.png
+    focus #shot-navrow by Tab, assert :focus-visible
+                           -&gt; screenshot #live-rest -&gt; screens/nav-row-focus-&lt;theme&gt;.png
+
+Reached the way a person reaches them: a real pointer and a real Tab. Step 9 checks these six
+files for a byte shift, because a snapshot nobody re-takes freezes silently, and a frozen
+snapshot is worse than none: it looks checked.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the destination</td><td>none, it inherits</td><td><code>--text-primary</code> from the body. The row writes <code>color: inherit</code>, so there is nothing here to disagree with the page</td></tr>
+          <tr><td>the sentence and the chevron</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
+          <tr><td>hover fill</td><td><code>--bg-hover</code></td><td><code>--panel</code>, and <code>--panel-dark</code> in the dark theme, which is lighter and not darker</td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>its floor</td><td><code>--row</code></td><td>primitive, straight. 56px, twelve over the 44px of <code>--tap</code>, which this file never reads</td></tr>
+          <tr><td>the two text sizes</td><td><code>--type-body</code>, <code>--type-meta</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>gap and padding</td><td><code>--space-2</code>, <code>--space-16</code></td><td>primitive, straight</td></tr>
+          <tr><td>the divider between two rows</td><td>none</td><td>the Divided list organism. The row draws no line of its own</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/nav-row.css</code>. Stands on 2 grey pages, 8 rows, and both of them are coloured, so every nav row in the product renders in Petrol and Paper today: <a href="../settings.html">Settings</a> and <a href="../settings-no-account.html">Settings, no account</a>.</p>
+    <code class="kit-cmd">&lt;li&gt;&lt;a class="navrow" href="connections.html"&gt;
+  &lt;span&gt;Your sources&lt;span class="sub"&gt;Banks and manual entries you track&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="arrow"&gt;&amp;rsaquo;&lt;/span&gt;
+&lt;/a&gt;&lt;/li&gt;</code>
+    <p class="note">The unclassed <code>span</code> is part of the copy and not an accident of the markup: it is what gives <code>space-between</code> two children instead of three. The <code>li</code> is there for the same reason as on the subscription row, because the divider between two nav rows belongs to the list around them.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/nav-row.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its axes are in <code>docs/inventory.md</code>, the measurement that found one value on every property is in <code>docs/census.md</code>, and the open row about "Sign out" is case 9 of the twelve controls with no family in the same file.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

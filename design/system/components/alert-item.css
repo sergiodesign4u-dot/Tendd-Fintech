@@ -1,0 +1,169 @@
+/* ============================================================================
+   Alert item - molecule
+   One thing worth knowing about, said in a sentence that names who did it: a
+   price that went up, a payment that did not go through, a charge that is
+   coming, a subscription we just found. It is the object the whole Alerts
+   screen is made of, and it is GC5 in the globals.
+
+   Reads
+     colour   --text-primary, --text-body, --text-muted
+     states   --bg-hover, --color-focus
+     type     --type-body, --type-meta
+     spacing  --space-0, --space-4, --space-8, --space-16
+   Page      design/kit/alert-item.html
+   Stands on 2 grey pages, 12 items: alerts (8) and alerts-loading (4).
+
+   IT HAS NEVER BEEN RENDERED IN COLOUR, and that is the largest hole in the
+   coloured sample. Zero of the 28 coloured pages carry it, so the census
+   measured it not once. Everything below is read off kit.css and off the grey
+   markup, and nothing in it is invented: the two variants (the unread dot and
+   the price pair) exist in the grey only, and the first time this component is
+   seen in Petrol and Paper will be on its own page in this kit. A reader should
+   know that, because it is the difference between a component that has been
+   looked at 47 times and one that has been looked at none.
+
+   IT HOSTS TWO ATOMS AND REPAINTS NEITHER. The 32px merchant square is the
+   logo's own host size and lives in logo.css; the Pro chip and its 4px left
+   margin are the chip's and live in chip.css. Three declarations of kit.css are
+   therefore not carried here, each named where it would have gone.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.alert` and its five slots stay exactly as
+   the product writes them. docs/inventory.md folds `.newdot`, `.what`, `.go`
+   and `.prices` into this component rather than counting them as one-offs, and
+   all four are declared below.
+   ============================================================================ */
+
+.app .alert, .landing .alert {
+  display: flex;
+  gap: var(--space-16);
+  padding: var(--space-16);
+  text-decoration: none; color: inherit;
+}
+
+/* NOT CARRIED, 1 of 3: `.app .alert .logo { flex: none }`. logo.css declares
+   flex:none on the atom's base rule, and the 32px this host asks for is in that
+   file too, under "size is set by the CONTAINER".
+
+   NOT CARRIED, 2 of 3: `.app .alert .what .badge { margin: 0 0 0 4px }`. It is
+   in chip.css with the other four host margins of that atom, which are one
+   decision and not four.
+
+   NOT CARRIED, 3 of 3: no min-height. The alert draws no floor at all, unlike
+   the subscription row and the nav row, and that is right rather than missed:
+   every alert carries at least three lines of content, so the shortest one in
+   the product measures well past 44px on its own. A floor here would be a
+   number that never applies. */
+
+.app .alert .body, .landing .alert .body { flex: 1; min-width: 0; }
+
+/* The sentence. It is the alert, and it is the only thing in this component set
+   at reading weight: "Netflix went up by $2.50, now $17.99 a month" names the
+   actor, the amount and the new figure in one line, which is mechanism 1 of the
+   strategic dimension. No icon stands in front of it and no colour is spent on
+   it. A tone would be the fourth claim on an accent this system allows three. */
+.app .alert .what, .landing .alert .what {
+  display: block;
+  font-size: var(--type-body); font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* The provenance line, and it is always the same shape: what kind of alert,
+   which merchant, when, and which source it came from. Muted, because a person
+   reads the sentence first and comes back for this only if they doubt it. */
+.app .alert .meta, .landing .alert .meta {
+  display: block;
+  margin: var(--space-4) var(--space-0) var(--space-0);
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+/* ---- content variant 1: the price pair, one grey page ---------------------
+   Was, Now, Difference, side by side. Every product shows the new number; the
+   old one beside it is what turns a surprise into an explanation, and it is the
+   reason this variant exists at all. It renders on exactly one alert in the
+   product, the Netflix price change on alerts.html, and it has never been seen
+   in colour. The three labels take the muted tier and the three figures take
+   primary, so the numbers are what the eye lands on and the words around them
+   are scaffolding. */
+.app .alert .prices, .landing .alert .prices {
+  display: flex; flex-wrap: wrap;
+  gap: var(--space-4) var(--space-16);
+  margin: var(--space-8) var(--space-0) var(--space-0);
+  font-size: var(--type-meta);
+}
+.app .alert .prices span, .landing .alert .prices span { color: var(--text-muted); }
+.app .alert .prices b, .landing .alert .prices b { font-weight: 600; color: var(--text-primary); }
+
+/* The inline action, and it STAYS INK. An alert list renders six at once and
+   six petrol links is the One Voice Rule failing by repetition, so the accent
+   is not spent here even though this is the thing a person taps. The arrow
+   carries the affordance instead.
+
+   The 40px is a line box and not a target, which is why it does not read --tap.
+   The target is the whole `.alert` anchor wrapped around it: `.go` is a span,
+   it has no href of its own, and giving it a 44px floor would only push the
+   bottom of an item that already clears the minimum. The control census counts
+   40px as one of its five target heights, and this is the row of that table
+   that is not a target. */
+.app .alert .go, .landing .alert .go {
+  display: inline-flex; align-items: center;
+  min-height: 40px;
+  font-size: var(--type-body); font-weight: 600;
+  color: var(--text-primary);
+}
+.app .alert .go::after, .landing .alert .go::after {
+  content: "\2192" / "";
+  margin-left: var(--space-8);
+}
+
+/* ---- content variant 2: the unread dot, one grey page ---------------------
+   Quiet, and never a count. Three of the six alerts carry it on alerts.html and
+   it marks what is new since the last visit; a number in a red circle is the
+   thing this product exists not to be, and the screen's own copy says so: "A
+   quiet dot marks what is new since your last visit."
+
+   THE FILL READS AN INK ROLE, deliberately. A 7px dot is a drawn mark rather
+   than a surface, and tokens.css puts icon glyphs on the ink side with the
+   text: `--text-body` is the same --slate the kit wrote here as --mid, so the
+   value is unchanged and the surface it is declared on is the one it paints.
+   The 7px is a diameter, not a spacing, so it stays a literal.
+
+   It is declared UNSCOPED FROM `.alert` exactly as kit.css writes it, because
+   the dot is not nested under the alert in the selector even though it is in
+   the markup. Selectors are not touched at step 5. docs/inventory.md also
+   records that this dot and the tab bar's `.tabbar .ic .dot` are byte-identical
+   geometry under two owners; the merge, if there is one, is step 9's. */
+.app .newdot, .landing .newdot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--text-body);
+  margin-right: var(--space-8);
+  vertical-align: middle;
+}
+
+/* ---- states: token overrides, never a style of their own ------------------
+   The item is a link, so it has states. Both change fill or paint a ring
+   outside the box; neither moves the item or adds a border, because six alerts
+   stack in a divided list and a border under the pointer shifts the five
+   below it. */
+
+.app .alert:hover, .landing .alert:hover {
+  background: var(--bg-hover);
+}
+
+/* focus-visible, not focus: the ring is for the person arriving by keyboard and
+   is noise for the person who just clicked. base.css declares one ring for the
+   whole system inside :where(), which holds it at specificity 0; this
+   re-declares it at the component's own specificity so the component wins, and
+   reads the same token so the two can never disagree about what a ring is. */
+.app .alert:focus-visible, .landing .alert:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* NO DISABLED STATE. Every alert in the product goes somewhere, including the
+   two Pro ones: they are shown rather than hidden and they lead to the upgrade
+   screen, with no blur over the text, because a blur pretends there is
+   something being withheld and an anxious person fills it in with the worst
+   thing they can think of. The grey page says this in its own comment. */

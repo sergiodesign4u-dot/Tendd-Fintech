@@ -1,0 +1,210 @@
+/* ============================================================================
+   Muted line - atom
+   The second reading tier of the product, and the largest consolidation in the
+   system: NINE class names in kit.css are one atom, at three sizes, with one
+   ruled variant. One zone, one text slot, muted ink. Nothing else was ever
+   different about them except the margin, and a margin belongs to the host.
+
+   Reads
+     colour   --text-muted (the line itself)
+              --text-body, --text-action (the inline link, at rest and under
+              the pointer)
+     lines    --line-container (the link's underline at rest)
+              --line-divider   (the hairline above the ruled variant)
+     geometry --tap  (straight from primitive: the 44px target floor on a
+              standalone link. A size has nothing to override, so it needs no
+              role)
+   Page      design/kit/muted-line.html
+   Stands on 36 of the 55 grey pages and 22 of the 28 coloured ones. After the
+   button and the subscription row it is the most repeated thing in the product.
+
+   NO HEX AND NO FONT NAME appears below. The font SIZES and the MARGINS are
+   written as the literals they are today: those two scales are still a proposal
+   awaiting the founder, so a --space-* invented here would freeze a guess into
+   fifty rules and be unpickable afterwards.
+
+   THE CLASS NAMES ARE NOT TOUCHED. All nine old names are declared below, and
+   they share one rule wherever they share a value, which is what makes the
+   consolidation readable in the file rather than only in a document. The rename
+   to `.muted` is step 6, executed from the map in docs/inventory.md together
+   with the markup of the screens: a rename here and a screen there is how a
+   pixel comparison stops proving anything.
+   ============================================================================ */
+
+/* ---- the ink: the one thing all nine names share -------------------------
+   --text-muted is the largest role in the system at 59 usages, and it is the
+   ONLY secondary tier there is. The Two Tiers Rule in DESIGN.md forbids a
+   third, lighter grey by name, and the arithmetic agrees with the taste: the
+   grey stylesheet's --faint measured about 2.85:1 on the 11 to 12px text it was
+   spent on, under AA. This tier holds 5.8:1 in the light theme and 6.4:1 in the
+   dark, at every size below, which is the whole reason the family could be
+   collapsed instead of tiered. */
+.app .consequence, .landing .consequence,
+.app .context,     .landing .context,
+.app .tone,        .landing .tone,
+.app .legal,       .landing .legal,
+.app .freshness,   .landing .freshness,
+.app .removal,     .landing .removal,
+.app .pitch,       .landing .pitch,
+.app p.notice,     .landing p.notice,
+.app .p,           .landing .p {
+  color: var(--text-muted);
+}
+
+/* ---- size: set by the CONTAINER, never by importance ---------------------
+   Three sizes and a half-step below them, and the same sentence is 13px under a
+   number and 11.5px inside a preset tile because the tile is tighter, not
+   because the sentence matters less. There is no emphasis axis here at all: a
+   muted line that wants to be louder is a different component (see the readout
+   and the label). */
+
+.app .context,   .landing .context,
+.app .tone,      .landing .tone,
+.app .removal,   .landing .removal,
+.app .pitch,     .landing .pitch,
+.app .p,         .landing .p {
+  font-size: var(--type-body);
+}
+
+.app .consequence, .landing .consequence {
+  font-size: var(--type-meta);
+}
+
+.app .legal,     .landing .legal,
+.app .freshness, .landing .freshness {
+  font-size: var(--type-meta);
+}
+
+/* The two containers that size the slot line themselves. .tile is a 11.5px
+   half-step the consolidation's axis does not name and the product does render,
+   on six preset tiles; it is carried at its measured value rather than rounded
+   up to 12, because this stage may not move a pixel.
+   .row is DECLARED AND DEAD: a `.p` inside a `.row` matches no markup on any of
+   the 55 grey pages or the 28 coloured ones (docs/inventory.md, "Dead CSS").
+   It is carried rather than deleted because deleting a rule is a named decision
+   and this file makes none; it is on the page as a backlog line so the deletion
+   happens once, out loud, with the markup. */
+.app .tile .p, .landing .tile .p { font-size: var(--type-meta); }
+.app .row .p,  .landing .row .p  { font-size: var(--type-meta); }
+
+/* ---- the block, and the margins ------------------------------------------
+   The consolidation's finding is that these margins belong to the host all
+   along: nine names differ in almost nothing else. They are kept exactly where
+   kit.css has them, to the pixel, because a value moves only by its own named
+   decision and the move is step 6's, taken with the markup. */
+
+.app .p, .landing .p { display: block; margin: var(--space-0); }
+
+.app .consequence, .landing .consequence { margin: var(--space-16) var(--space-0) var(--space-0); }
+/* Two spacing modifiers on the same name, and they are the reason .consequence
+   survived as its own class for so long: the same line sits above its subject
+   on one screen and below it on another. */
+.app .consequence.lead,   .landing .consequence.lead   { margin: var(--space-0) var(--space-0) var(--space-16); }
+.app .consequence.spaced, .landing .consequence.spaced { margin-top: var(--space-16); }
+
+.app .context, .landing .context,
+.app .tone,    .landing .tone { margin: var(--space-8) var(--space-0) var(--space-0); }
+/* .tone stands further off than .context, and that gap is the only difference
+   between the two names in the whole stylesheet. They are kept apart because
+   the JOBS are apart: .context says what the number is, .tone says how to feel
+   about it, and a role is assigned from the job. */
+.app .tone, .landing .tone { margin: var(--space-24) var(--space-0) var(--space-0); }
+
+.app .pitch,     .landing .pitch     { margin: var(--space-16) var(--space-0) var(--space-0); }
+.app .freshness, .landing .freshness { margin: var(--space-0) var(--space-0) var(--space-24); }
+.app .removal,   .landing .removal   { margin: var(--space-0) var(--space-0) var(--space-24); }
+
+/* The removal block holds its sentence in a paragraph of its own so that the
+   standalone link below it is a sibling and not part of the running text. 52ch
+   is the reading measure, the same one the ruled variant takes. */
+.app .removal p, .landing .removal p { margin: var(--space-0); max-width: 52ch; }
+
+/* ---- the ruled variant ---------------------------------------------------
+   One member draws something: .legal carries a hairline above it and a 52ch
+   measure, because it is the footnote at the bottom of a screen and needs to be
+   separated from the content it is a footnote to. The line is a DIVIDER, not a
+   container edge: it reads --line-divider at 1.23:1 and owes no threshold,
+   since nothing has to be found by touch. */
+.app .legal, .landing .legal {
+  margin: var(--space-24) var(--space-0) var(--space-0);
+  padding: var(--space-16) var(--space-0) var(--space-0);
+  border-top: 1px solid var(--line-divider);
+  max-width: 52ch;
+}
+
+/* ---- p.notice: the wash written as prose ---------------------------------
+   upgrade.html writes the notice as a bare paragraph, which is a line of prose
+   and not a wash at all, so the element-qualified selector strips the fill, the
+   corner and the padding back off it. It is the one member of this family with
+   NO size of its own, and it therefore renders at the browser default: that is
+   what the product does today and it is on the page as a backlog line rather
+   than corrected here.
+   Specificity, not order, is what keeps this working after the split: 0-2-1
+   against the wash block's 0-2-0, so it wins from the atoms layer even though
+   the wash is imported below it. */
+.app p.notice, .landing p.notice {
+  background: none;
+  border-radius: 0;
+  padding: var(--space-0);
+}
+
+/* ---- host positioning, carried so that nothing is lost in the split ------
+   Three rules where a container adjusts this atom's SPACING rather than its
+   look. Two of them (.unlocks, .sharecard) kit.css declares inside its own atom
+   block; the third is written beside the detail shell. By the ladder they
+   belong to their containers, and they are carried here because a rule that
+   belongs to two files ends up in neither. If the pair list, the share card and
+   the app shell take them back, they are deleted here in the same step, never
+   in two. */
+.app.detail .context { margin: var(--space-0) var(--space-0) var(--space-24); }
+.app .sharecard .p, .landing .sharecard .p { margin: var(--space-4) var(--space-0) var(--space-0); }
+
+/* ---- the inline link: the one interactive surface a muted line has -------
+   kit.css declares ONE rule for ten link families at once, which is the census
+   finding "thirteen rules for one job" half solved. This file takes the three
+   families that are this atom's own and leaves `.trust a`, `.notice a` and
+   `.attention a` to the trust block and the wash block, where their hosts live.
+
+   The selectors are copied exactly as kit.css writes them, including the fact
+   that `.removal a` and `.legal a` carry no `.app` in front of them today.
+   Scoping them here would be a selector change wearing the clothes of a
+   tidy-up, and step 6 is where the whole file's scoping is settled at once.
+
+   The link is INK at rest and petrol under the pointer: petrol at rest belongs
+   to the trust line, which is one of its three permitted jobs, and a muted
+   sentence is not one of them. The underline carries the affordance instead. */
+.removal a, .legal a,
+.app .consequence a, .landing .consequence a {
+  font-size: var(--type-body);
+  color: var(--text-body);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  /* the underline is drawn in the hairline role rather than in the ink: a full
+     strength rule under every link in a calm paragraph reads as emphasis */
+  text-decoration-color: var(--line-container);
+}
+.removal a:hover, .legal a:hover,
+.app .consequence a:hover, .landing .consequence a:hover {
+  color: var(--text-action);
+  text-decoration-color: var(--text-action);
+}
+/* The footnote's link is a step quieter still, at the size of the footnote. */
+.app .legal a, .landing .legal a { font-size: var(--type-meta); }
+
+/* The 44px floor, and the structure is what decides who gets it. An anchor that
+   is a DIRECT CHILD of the block is standalone, sitting on its own line beside
+   the paragraph, and the floor is exactly right for it: "Remove from your list"
+   is a destructive action and measured 15px tall before this rule existed. An
+   anchor inside a `p` is running text and is exempt, because enforcing a target
+   height on it turns a four line paragraph into a 100px stack of drifting
+   lines. `> a` against `p a`, with no new class and no markup change. */
+.app .removal > a, .landing .removal > a,
+.app .legal > a,   .landing .legal > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+}
+
+/* No :focus-visible here on purpose. base.css draws one ring for the whole
+   system at specificity 0, and a text link has nothing to add to it: the button
+   re-declares the ring only because it needed to win against its own fill. */

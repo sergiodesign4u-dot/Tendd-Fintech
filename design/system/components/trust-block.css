@@ -1,0 +1,180 @@
+/* ============================================================================
+   Trust block - molecule
+   The three lines under a screen of figures that say where the figures came
+   from, what we can and cannot do with the account, and when we last looked.
+   Plus one link to the full answer. GC6 in the IA, and the signature block of
+   the whole product: benchmark.md names trust and first-time clarity as the one
+   dimension that decides this product, and this is the object that carries it.
+
+   IT IS ONE OF THE THREE JOBS PETROL IS ALLOWED TO DO. D-Concept spends the
+   accent on the primary action, the current selection, and the trust line, and
+   nowhere else. This block spends it twice: on the shield and on the link. The
+   sentences themselves stay muted, because the claim is quiet by design.
+
+   Reads
+     colour   --text-muted     (the three lines)
+              --text-action    (the shield, and the link at rest)
+              --line-action-soft (the link's underline)
+     lines    --line-divider   (the hairline above the block)
+     geometry --tap  (straight from primitive: the 44px target floor on the
+              standalone link. A size has nothing to override, so no role)
+   Page      design/kit/trust-block.html
+   Stands on 11 grey pages and 9 coloured ones.
+
+   THE UNDERLINE'S ROLE WAS REPORTED, NOT INVENTED, AND IS NOW REPAID. The
+   link's resting underline is the petrol TINT, and the system had no line role
+   on that value: it had --bg-selected, which is a fill. The architecture forbids
+   one role on two surfaces even at an identical value, so reading a fill for a
+   line is wrong, and inventing --line-trust here would have been a component
+   quietly writing tokens.css. It was read on loan with a comment, exactly as the
+   field read --text-failure before --line-failure existed, and the parent then
+   declared --line-action-soft at the same value. Same value, so nothing
+   moves when the loan is repaid, and what the system owes is a line role on
+   --petrol-tint.
+
+   MEASURED BEFORE THE HOLE WAS CLAIMED, because a hole that turns out to be
+   fine is worse than no report: the tint underline is 1.18:1 on the light
+   surface and its dark pair is 1.20:1 on the dark one. Consistent, deliberate,
+   and a whisper in both themes, which is right here because the INK is petrol
+   and carries the affordance by itself. So this is a naming defect and not a
+   contrast one: the value is correct and the role it is read through is not.
+
+   NOT CARRIED, DELIBERATELY: `.app > .screen > .trust { order: 4 }` from the
+   900px container block in kit.css. It is one of four sibling order
+   declarations that only mean anything together, it names the shell's grid
+   rather than this block, and it belongs to the App shell organism. Named here
+   so it cannot be lost between two files.
+
+   NO HEX, NO PIXEL, NO FONT NAME below, apart from the shield's own geometry,
+   which is a positioned pseudo-element and not on either scale.
+
+   THE CLASS NAME IS NOT TOUCHED. `.trust` stays as the product writes it; the
+   rename map leaves it alone. The link's selectors stay unscoped exactly as
+   kit.css writes them.
+
+   THE ORDER OF THE BLOCKS BELOW IS kit.css's ORDER, DELIBERATELY: rest, hover,
+   floor, size, colour, then the block. Two of those rules tie on specificity
+   and are decided by source order, so sorting this file tidily would change
+   what the link does under the pointer. The tie is documented where it happens.
+   ============================================================================ */
+
+/* ---- the inline link, part one: rest -------------------------------------
+   The shared rest rule kit.css declares for ten link families at once, reduced
+   to this molecule's own family. Copied exactly as written, unscoped, because a
+   selector change dressed as a tidy-up is still a selector change; step 6
+   settles the whole file's scoping in one pass with the markup. Both of the
+   values below are immediately overridden further down, and they are carried
+   anyway: what renders is what this stage may not move. */
+.trust a {
+  font-size: var(--type-body);
+  color: var(--text-body);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--line-container);
+}
+
+/* ---- the inline link, part two: hover, and it does nothing ---------------
+   `.trust a:hover` is 0-2-1. So is `.app .trust a` fourteen lines below, and the
+   later declaration wins on both properties it sets. The ink is petrol at rest
+   and petrol on hover, which is the same petrol; the underline is the tint at
+   rest and the hover's full petrol loses the tie. THE TRUST LINK HAS NO POINTER
+   RESPONSE TODAY, on 9 coloured pages, and no file says so.
+
+   MEASURED, NOT DEDUCED, and carried unchanged. A hover repair is not one of
+   the three legal sources of a visual change at this stage
+   (docs/tokens-audit.md), and this is the product's most-read link: changing
+   what it does belongs in a named decision, not in a migration. Reported, and
+   on design/kit/trust-block.html with the arithmetic. Step 6 owns the fix,
+   where the selector set is settled at once. */
+.trust a:hover {
+  color: var(--text-action);
+  text-decoration-color: var(--text-action);
+}
+
+/* ---- the 44px floor ------------------------------------------------------
+   "Data and privacy" is a DIRECT CHILD of the block, on its own line under the
+   three sentences, so it is a standalone control and takes the floor. An anchor
+   inside a `p` would be running text and exempt, because a 44px inline-flex box
+   inside a paragraph pulls its lines apart. There is no such anchor in this
+   block on any page; the rule is written by structure so there never has to be
+   a class for it. */
+.app .trust > a, .landing .trust > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+}
+
+/* ---- the link's own size and colour --------------------------------------
+   Two adjacent rules in kit.css with an identical selector, merged into one
+   here: same specificity, same position, provably the same result.
+
+   12px, one step under the sentences it sits beneath, and petrol AT REST. Petrol
+   at rest is reserved for three jobs and this is the third of them: a link that
+   leads to the full data-and-privacy answer is the trust claim's own proof, and
+   it has to look reachable without shouting. Everywhere else in the product the
+   underline carries the affordance and the ink stays neutral. */
+.app .trust a, .landing .trust a {
+  font-size: var(--type-meta);
+  color: var(--text-action);
+  text-decoration-color: var(--line-action-soft);
+}
+
+/* ---- the block ----------------------------------------------------------
+   A hairline above and nothing else: no fill, no border, no card. It is the
+   footing of a screen, not a panel on it, and a boxed trust claim reads as an
+   advert for itself. The left padding is the shield's room.
+
+   The padding folds from 14/20 to one step (16/24) at the founder's review, so
+   the gap between the shield and the first word grows from 5px to 9px. That is
+   the mapping applied mechanically and it is recorded centrally; it is stated
+   here because it is the one place in this component where the fold is
+   visible. */
+.app .trust, .landing .trust {
+  position: relative;
+  margin: var(--space-24) var(--space-0) var(--space-0);
+  padding: var(--space-16) var(--space-0) var(--space-0) var(--space-24);
+  border-top: 1px solid var(--line-divider);
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+.app .trust p, .landing .trust p {
+  margin: var(--space-0) var(--space-0) var(--space-4);
+}
+
+/* ---- the shield ---------------------------------------------------------
+   A CSS mask over a solid fill, on a pseudo-element, so a screen carries
+   nothing but the class and the mark is never in the accessible tree: the three
+   sentences already say what the shield says, and a screen reader that read it
+   twice would be worse than one that never read it.
+
+   PAINTED WITH AN INK ROLE, NOT A FILL ROLE, and that is not a slip. The
+   architecture calls ink "text and icon glyphs", and this is a glyph. It cannot
+   take currentColor the way the destination icons do, because the block's own
+   colour is --text-muted and the shield has to be petrol: it marks the BLOCK
+   rather than one line, since all three lines are the claim.
+
+   The encoded SVG's stroke='%23000' is dead weight, exactly as it is on the
+   destination icons: a mask reads alpha and never hue.
+
+   -webkit- first and unprefixed second, because Safari still answers only to
+   the prefixed property and the unprefixed one has to be able to win where both
+   are understood. The shorthand form is what kit.css ships and it is carried as
+   the shorthand: rewriting it into longhands would be a change of declaration
+   in a stage that may not move a pixel, and the longhands are the destination
+   icon's shape because that component needs one machinery rule and four image
+   rules. This one has a single image.
+
+   15px and top:16px are geometry of a positioned pseudo-element: neither is a
+   margin, a padding or a gap, so neither is on the spacing scale. They stay the
+   literals they are, exactly as the unread dot's 7px does. */
+.app .trust::before, .landing .trust::before {
+  content: ""; position: absolute; left: 0; top: 16px; width: 15px; height: 15px;
+  background-color: var(--text-action);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* No :focus-visible. base.css draws one ring for the whole system at
+   specificity 0 and this link has nothing to add to it. No [disabled]: a trust
+   claim is never unavailable. */

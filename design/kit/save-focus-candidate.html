@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Save-focus candidate - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Save-focus candidate</h1>
+    <p class="lead">A subscription a person might not be using, standing next to the one control that ends it. Two targets on one line, and telling them apart is the whole design: the row goes to the subscription, the cut goes to the cancel guide, and confusing the two is what costs the cancellation.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>1</strong> grey page</span><span>one form</span><span>3 states, both themes</span><span>hosts the subscription row</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">A list item holding two anchors and a divider. Everything below is drawn by <code>design/system/components/save-focus-candidate.css</code> and by <code>subscription-row.css</code>, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <div class="kit-stage app full">
+      <div class="cand">
+        <a class="row" href="#anatomy" aria-label="Peloton App, $12.99 a month, trial ends in 17 days, on 18 August, not opened in 3 weeks">
+          <span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span>
+          <span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; not opened in 3 weeks</span></span>
+          <span class="amt">$12.99</span>
+        </a>
+        <a class="cut" href="#anatomy" aria-label="Cancel Peloton App">Cancel</a>
+      </div>
+      <div class="cand">
+        <a class="row" href="#anatomy" aria-label="The New York Times, $17.00 a month, next in 10 days, on 11 August, not opened in 6 weeks">
+          <span class="logo"><img src="../visuals/logos/nyt.svg" alt=""></span>
+          <span class="body"><span class="name">The New York Times</span><span class="when">next in 10 days &middot; not opened in 6 weeks</span></span>
+          <span class="amt">$17.00</span>
+        </a>
+        <a class="cut" href="#anatomy" aria-label="Cancel The New York Times">Cancel</a>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.cand</code> <span>the molecule itself, and it is an <code>li</code>, not a link: it holds two anchors and has no target of its own. In the product it lives inside <code>.candidates</code>, an organism that is not built yet, which is why the pair above stands bare</span></li>
+      <li><code>.row</code> <span><b>the subscription row</b>, unchanged. Same class, same markup, same single accessible name as on Home. Its two host rules live in <a href="subscription-row.html">subscription-row.css</a>, and they are position only: <code>flex: 1</code> and <code>min-width: 0</code></span></li>
+      <li><code>.cut</code> <span>the second control, and the only thing this file draws from scratch. Its own <code>href</code>, its own accessible name ("Cancel Peloton App"), its own 44px floor from <code>--tap</code></span></li>
+      <li><code>border-bottom</code> <span>the candidate draws its own divider, the way the switch row does and the opposite of the subscription row. <code>:last-child</code> takes it back, because the list around it carries no separator rule of any kind</span></li>
+      <li><code>.when</code> <span>the row's second line, carrying different content here: "trial ends in 17 days &middot; not opened in 3 weeks". The reason for the candidacy goes in the row's own slot rather than in a new one</span></li>
+    </ul>
+    <p class="note"><b>Its level is read and not re-derived, and there is a tension in it worth naming.</b> <code>docs/inventory.md</code> records this as a molecule, and this page follows it. By the letter of the component ladder in <code>docs/architecture.md</code> a thing that hosts a molecule is an organism, and what this hosts is the subscription row. Nothing here depends on the answer, since the level decides only the <code>@import</code> group and the shelf on the hub, and both are correct today either way: the candidate is imported among the molecules, above nothing that contains it. It is written down rather than quietly settled, and step 9 owns it.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>The candidate has one form, so there is no matrix to draw.</b> Both instances in the product render identically, and the census measured <code>.cut</code> among the sixteen families with a single value on every property, at both viewports. What it does have is a width behaviour, which is not a variant: below 460px the cut leaves the row's line and takes the end of its own.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Width</th><th>What happens</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td class="n">460px and up</td><td>row and cut share one line, the row taking the slack</td><td>The natural shape: the name is on the left, the decision is on the right</td></tr>
+          <tr><td class="n">under 460px</td><td><code>.cand</code> wraps, the row takes the full width, the cut drops beneath it and pushes itself to the end</td><td>A merchant name, an amount and a second control do not share 360px without the name wrapping into the amount, and the name is the thing being decided about</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>That reflow is written in two files, and the reason is the cascade rather than tidiness.</b> Two of its three rules are here; the third, <code>.cand .row { flex: 1 1 100% }</code>, is in <code>subscription-row.css</code>, because both rules about the row are 0-3-0, a media query adds no specificity, and molecules import alphabetically, so this file is read <i>before</i> that one. Written here, the reflow would have lost to the row's own <code>flex: 1</code> on source order alone and would have silently stopped happening at 460, on the one screen in the product where two controls share a line.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>What is NOT here</th>
+            <th>Why the cell is empty</th>
+            <th class="val">Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="kit-empty">A destructive tone on the cut</td>
+            <td><b>Forbidden with a reason rather than missing.</b> <code>DESIGN.md</code> spends clay on OUR failure only, never on a thing a person chose to do, and D3 puts no paywall and no friction at the cancel moment. Cancelling is a small win, which the product's own principles call its most important emotional beat; a red button would tell a person they are doing something wrong at the exact moment they are doing something good</td>
+            <td class="val">prohibited</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A disabled cut</td>
+            <td><b>Forbidden with a reason.</b> A subscription that cannot be cancelled is not listed as a candidate. Where the guide itself is unavailable, the product says so on the next screen with its own state, which is why <code>cancel-guide-blocked</code> exists as a page rather than as a greyed control here</td>
+            <td class="val">prohibited</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A merge of <code>.cut</code> into <code>.btn</code></td>
+            <td>The inventory already recorded <code>a.cut</code> as a control with no family, dimensionally identical to <code>nav.secondary a</code>. After the founder's review of the foundations the gap to the <a href="button.html">Button</a> itself is down to <b>two things</b>, because 13px and 14px are both <code>--type-body</code> and 14px and 18px of side padding are both <code>--space-16</code>. It is not merged at step 5: renaming happens at step 6 together with the markup of the screens, and a merge here would leave the pixel comparison with nothing to prove</td>
+            <td class="val">a line in the backlog<br>step 9 decides</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>The two differences that are left</th><th><code>.btn</code></th><th><code>.cut</code></th></tr></thead>
+        <tbody>
+          <tr><td>font-weight</td><td class="n">600</td><td class="n">400, inherited</td></tr>
+          <tr><td>hover</td><td>fill, edge and ink all change</td><td>edge and ink change, the fill does not</td></tr>
+          <tr><td>everything else</td><td colspan="2"><code>--tap</code>, <code>--space-0 --space-16</code>, <code>--line-control</code>, <code>--radius-sm</code>, <code>--bg-surface</code>, <code>--type-body</code>, <code>--text-body</code>: identical after the fold</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Both rows above are read from the <b>rendered</b> page rather than from the first declaration in the CSS: <code>getComputedStyle</code> on the cut in the specimen and on the button in the anti-rule below returns <code>min-height: 44px</code>, <code>padding: 0px 16px</code> and <code>font-size: 14px</code> for each of them, and <code>font-weight</code> 400 against 600. That is the whole remaining gap, measured.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">This is J3 drawn: cancel what I do not use. It stands on one screen, the save-focus state of Home, under the line "Two you have not opened in a while. No pressure, just a nudge." Everything about the component is built around that sentence. Two candidates and not ten, so it is a nudge and not a purge. No urgency, no countdown, no saving shown as a loss. And the row keeps its ordinary shape, so a person can still just look at the subscription without deciding anything.</p>
+    <p class="note"><b>The second control is separately named because the cost of confusing the two is asymmetric.</b> A person who meant to open a subscription and lands on a cancel guide has been startled by their money app, which is the one thing this product exists not to do. A person who meant to cancel and lands on the detail screen gives up. So there are two anchors with two accessible names, "Peloton App, $12.99 a month, trial ends in 17 days" and "Cancel Peloton App", rather than one row with an ambiguous target.</p>
+    <p class="note"><b>The cut is a way in, not the act itself.</b> It opens node 4.9, the cancel guide, where the real commit lives as a filled button ("Open netflix.com and cancel"). Nothing is cancelled from Home. That is why the control here is quiet, outline and 400 weight: it asks a question, and the screen it opens answers it.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Two controls, two names</span>
+        <div class="kit-stage app full"><div class="cand"><a class="row" href="#rule" aria-label="Peloton App, $12.99 a month, trial ends in 17 days, not opened in 3 weeks"><span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span><span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; not opened in 3 weeks</span></span><span class="amt">$12.99</span></a><a class="cut" href="#rule" aria-label="Cancel Peloton App">Cancel</a></div></div>
+        <p>The row keeps its whole-row target and the cut sits beside it as a sibling. Two anchors, two <code>href</code>s, two accessible names, and a keyboard user reaches them in that order: open it, then end it.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a plain subscription row instead</span>
+        <div class="kit-stage app full"><a class="row" href="#rule" aria-label="The New York Times, $17.00 a month, next in 10 days on 11 August"><span class="logo"><img src="../visuals/logos/nyt.svg" alt=""></span><span class="body"><span class="name">The New York Times</span><span class="when">in 10 days &middot; Aug 11</span></span><span class="amt">$17.00</span></a></div>
+        <p>Where there is no second action, the <a href="subscription-row.html">Subscription row</a> is the whole component and this one is not needed. Do not reach for the candidate to get a slightly different list: the only thing it adds is the cut, and a candidate with nothing beside the row is a row wearing an extra divider. And never nest the cut inside the row to save a line: a link inside a link is invalid, and the version browsers accept gives a person two overlapping targets on the one decision that costs them money if they hit the wrong one.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A quiet way in</span>
+        <div class="kit-stage app"><a class="cut" href="#rule">Cancel</a></div>
+        <p>One word, outline, 400 weight, no tone. It opens the guide and commits to nothing, which is exactly what it should look like on a screen a person came to in order to look rather than to act.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a button instead</span>
+        <div class="kit-stage app"><a class="btn primary" href="#rule">Open netflix.com and cancel</a></div>
+        <p>The act itself belongs to the <a href="button.html">Button</a>, on the screen that explains what will happen. That is the filled action on node 4.9, and it says the result rather than the URL. Making the cut louder would move the commitment onto Home, where a person has not yet been told what cancelling does to their billing period, and D3 already forbids putting the paywall at that moment for the same underlying reason: nothing about cancelling is allowed to be a trap.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>The candidate itself has none.</b> It is an <code>li</code> holding two anchors: no <code>href</code>, no hover, no ring. Its states are the two controls inside it, and one of them is not this component's: the row's hover and focus are in <a href="subscription-row.html">subscription-row.css</a> and are documented on that page.</p>
+    <p class="note"><b>The cut has three</b>, and they exist because it is a link. Three rather than four: there is no disabled cut, for the reason in the matrix above. Each state is a token override rather than a style of its own.</p>
+    <p class="note"><b>Its hover changes the edge and the ink and not the fill</b>, which is the one place this control still differs from the button besides its weight. It is carried exactly as <code>kit.css</code> writes it rather than aligned to the button, because aligning it would be a visual change with no line in any of the three lists allowed to produce one. The edge strengthens under the pointer, 3.46:1 at rest on the light surface against 5.78:1 hovered, which is what a hover is for.</p>
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app full" id="live-rest">
+      <div class="cand">
+        <a class="row" href="#states" aria-label="Peloton App, $12.99 a month, trial ends in 17 days, not opened in 3 weeks">
+          <span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span>
+          <span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; not opened in 3 weeks</span></span>
+          <span class="amt">$12.99</span>
+        </a>
+        <a class="cut" href="#states" id="shot-cut" aria-label="Cancel Peloton App">Cancel</a>
+      </div>
+    </div>
+    <p class="note">Tab through it: the row takes focus first and the cut second, which is the order a person thinks in. Both are real anchors with a real <code>href</code>, which is the only way the states below can be reached at all.</p>
+
+    <h3 class="kit-sub-h">The three, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--bg-surface</code> fill, <code>--line-control</code> edge, <code>--text-body</code> label, <code>--line-divider</code> under the pair</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same four roles, the other half of each pair. The control edge is 3.46:1 on the light surface and 5.15:1 on the dark one, both over the 3:1 that WCAG 1.4.11 asks of a boundary that identifies a control</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--line-control-hover</code> and <code>--text-primary</code>. The fill does <b>not</b> change, which is the remaining difference from the button</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the edge strengthens in the dark theme too: 5.15:1 at rest against 6.40:1 hovered. The value it replaced was lighter than the resting edge, so the boundary used to weaken under the pointer</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line, at 2px offset</div></div>
+      <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. It earns its place here more than on most controls: the cut sits immediately after a full-width row in the tab order, and a keyboard user has to see that focus moved from "open it" to "end it"</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo and a
+command that does not run is worse than no command:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/save-focus-candidate.html
+    move the pointer away -&gt; screenshot #live-rest
+                          -&gt; screens/save-focus-candidate-rest-&lt;theme&gt;.png
+    hover #shot-cut       -&gt; screenshot #live-rest
+                          -&gt; screens/save-focus-candidate-hover-&lt;theme&gt;.png
+    focus #shot-cut by Tab (twice: the row takes focus first), assert :focus-visible
+                          -&gt; screenshot #live-rest
+                          -&gt; screens/save-focus-candidate-focus-&lt;theme&gt;.png
+
+  Also shoot the frame at 400px wide once, to record the reflow: two rules of it live here
+  and the third lives in subscription-row.css, so it is the one behaviour on this page that
+  no single file can be checked against on its own.
+
+Reached the way a person reaches them: a real pointer and a real Tab. Step 9 checks these six
+files for a byte shift, because a snapshot nobody re-takes freezes silently, and a frozen
+snapshot is worse than none: it looks checked.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the cut's fill</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the cut's edge</td><td><code>--line-control</code></td><td><code>--edge</code>. The boundary that IDENTIFIES a control, 3:1 required, and <code>.cand .cut</code> is named in the six rules of the founder's contrast decision of 2026-08-11</td></tr>
+          <tr><td>the cut's label</td><td><code>--text-body</code></td><td><code>--slate</code></td></tr>
+          <tr><td>hover edge and ink</td><td><code>--line-control-hover</code>, <code>--text-primary</code></td><td><code>--muted</code>, <code>--ink</code></td></tr>
+          <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the divider under the pair</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. Decorative, so no threshold applies</td></tr>
+          <tr><td>the cut's floor and corner</td><td><code>--tap</code>, <code>--radius-sm</code></td><td>primitive, straight. <code>--tap</code> and not <code>--row</code>: it is a button-shaped control standing inside a 56px line</td></tr>
+          <tr><td>label size, gaps, padding</td><td><code>--type-body</code>, <code>--space-0</code>, <code>--space-4</code>, <code>--space-8</code>, <code>--space-16</code></td><td>primitive, straight</td></tr>
+          <tr><td>the row inside it</td><td>none</td><td><a href="subscription-row.html">subscription-row.css</a>, both at rest and in the 460 reflow</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/save-focus-candidate.css</code>. Stands on 1 grey page and 2 candidates, and that page is coloured, so the whole component renders in Petrol and Paper today: <a href="../home-savefocus.html">Home, save focus</a>.</p>
+    <code class="kit-cmd">&lt;li class="cand"&gt;
+  &lt;a class="row" href="subscription-detail.html"
+     aria-label="Peloton App, $12.99 a month, trial ends in 17 days, not opened in 3 weeks"&gt;
+    &lt;span class="logo"&gt;&lt;img src="visuals/logos/peloton.svg" alt=""&gt;&lt;/span&gt;
+    &lt;span class="body"&gt;&lt;span class="name"&gt;Peloton App&lt;/span&gt;&lt;span class="when"&gt;trial ends in 17 days &amp;middot; not opened in 3 weeks&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="amt"&gt;$12.99&lt;/span&gt;
+  &lt;/a&gt;
+  &lt;a class="cut" href="cancel-guide.html" aria-label="Cancel Peloton App"&gt;Cancel&lt;/a&gt;
+&lt;/li&gt;</code>
+    <p class="note">The two <code>aria-label</code>s are the component, more than the CSS is. Each control says what it does to which subscription, so a screen reader announces "Cancel Peloton App" rather than "Cancel", which on a list of two is the difference between a decision and a guess. The specimens on this page are written as <code>div</code> rather than <code>li</code> because the Save-focus list organism that supplies the <code>ul</code> is not built yet; the class does the styling either way.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/save-focus-candidate.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The row it hosts is on <a href="subscription-row.html">its own page</a> and owns both of the rules that place it here. The open row about <code>.cut</code> and the button is in <code>docs/inventory.md</code>, counter-check 2, case 1.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

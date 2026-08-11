@@ -1,0 +1,122 @@
+/* ============================================================================
+   Charge list - molecule
+   The three months of past charges on a subscription's own screen: a date on
+   the left, the amount on the right, one row per charge. It is the evidence
+   under every other number on that page, and it is the only list in the product
+   that can mark a single row.
+
+   Reads
+     colour   --text-muted (the note under an amount)
+     fills    --bg-attention (the marked row)
+     lines    --line-divider (between rows, decorative)
+     type     --type-body, --type-meta
+     spacing  --space-0, --space-8, --space-16, --space-24
+   Page      design/kit/charge-list.html
+   Stands on 5 grey pages and 5 coloured ones, the same five: the subscription
+   detail screen and its four states. Every occurrence sits inside the Panel
+   organism, which is where the row's side padding comes from and why it has
+   any.
+
+   HOSTS TWO ATOMS AND REPAINTS NEITHER. The amount is the Amount atom, sized
+   for this container by `.charges li .amt` in amount.css, and the loading bar
+   is the Skeleton bar atom. This file gives the skeleton the width of the slot
+   it stands in, which is the host's job by skeleton-bar.css's own instruction,
+   and touches nothing else about either.
+
+   NO HEX, NO FONT NAME. Sizes and spacings are tokens; the skeleton slot width
+   is a pixel and says why.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.charges`, `.charges li.marked` and
+   `.charges li .was` stay exactly as the product writes them. This component
+   was not merged with anything at step 2 and keeps its name through step 6.
+
+   NO CONTAINER QUERY AND NO MEDIA QUERY TOUCHES IT. Checked.
+   ============================================================================ */
+
+/* ---- the list ------------------------------------------------------------
+   No margin and no padding at all, and that is not an oversight: it is a
+   full-bleed band inside a panel. The rows have to reach the panel's own edges
+   so that a marked row's wash reaches them too, and the panel clips the corners
+   with overflow: hidden. That is also why the side padding is on the ROW rather
+   than on the list. */
+.app .charges, .landing .charges {
+  list-style: none;
+  margin: var(--space-0);
+  padding: var(--space-0);
+}
+
+/* ---- the row -------------------------------------------------------------
+   Baseline alignment, not centre, and it is load bearing: the amount can carry
+   a second line under it (see `.was` below) and centring would drag the date
+   opposite it down to the middle of a two line box.
+
+   The side padding lines the rows up with the panel's own head. Both were
+   written as 14px in kit.css, by two people writing the same number, and both
+   land on --space-16 under the mapping, so the alignment survives the fold and
+   becomes a consequence of the grid rather than of a coincidence. */
+.app .charges li, .landing .charges li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-8) var(--space-16);
+  border-bottom: 1px solid var(--line-divider);
+  font-size: var(--type-body);
+}
+
+/* ---- the note under an amount --------------------------------------------
+   `.was` is a span INSIDE the `.amt` atom, and it is a second content slot of
+   this row rather than a variant of the amount: the atom keeps its own size,
+   weight and ink, and this drops a quieter line under it.
+
+   IT IS NOT A STRIKETHROUGH, and that was checked rather than assumed. There is
+   no text-decoration here, no `<s>` and no `<del>` anywhere in the project. The
+   old price is announced by the WORD: "was $15.49". That is the right answer
+   twice over. A line-through is not reliably announced by a screen reader, so a
+   struck price reads aloud as a second, current price; and `<del>` would be a
+   lie, since nothing was deleted, the price changed. The word carries the
+   meaning to everyone in the same order, which is also why the same slot can
+   say "did not go through" on the payment-failed state without needing a
+   different rule.
+
+   It inherits `white-space: nowrap` from the atom it sits inside. Both strings
+   the product puts here fit on one line at 360px inside the panel; a longer one
+   would overflow rather than wrap, which is loud and gets noticed, and the
+   answer to it is a shorter string in voice/docs/microcopy.md. */
+.app .charges li .was, .landing .charges li .was {
+  display: block;
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+/* ---- the one state, and it is a DOMAIN state ------------------------------
+   `.marked` is not an interaction. Nothing about it responds to a pointer or a
+   keyboard: it is the product saying this row is the one you came to look at.
+   It carries two events, and both are visible in the coloured set: a price
+   change (Aug 3, next, $17.99, was $15.49) and a payment that did not go
+   through (Jul 20, $14.99, did not go through).
+
+   Amber, and never red. A price going up is news rather than an emergency, and
+   the colour has to say that before the sentence does (the No Red Rule in
+   DESIGN.md, which exists because the persona closes any app that shows her
+   red). --bg-attention is the wash and nothing else changes: no border, no
+   icon, no weight. One mark for one message. */
+.app .charges li.marked, .landing .charges li.marked {
+  background: var(--bg-attention);
+}
+
+/* ---- the skeleton slot, which belongs to the HOST ------------------------
+   56px, the width this row reserves for a charge while it loads.
+   skeleton-bar.css hands it here by name along with the pair list's two and the
+   group head's two: that file owns the bar, the host owns the slot. It stays a
+   pixel, like every other width in the system, because a width is not a spacing
+   and the 8px grid does not govern it. */
+.app .charges .skel, .landing .charges .skel { width: 56px; }
+
+/* NO STATES, in the interaction sense. A charge is a fact and never a target: a
+   sweep of every `.charges` list on all 55 grey pages and 28 coloured ones
+   returns ZERO anchors inside one. On the detail screen the row that IS a link
+   is the subscription row in the master list, not a charge in the history, and
+   that separation is deliberate: a past charge has nowhere to go. `.marked`
+   above is a state of the data, which is why it is declared with the variants
+   and not here. */

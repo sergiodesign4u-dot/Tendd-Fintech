@@ -1,0 +1,457 @@
+/* ============================================================================
+   Tendd design system - tokens
+   Stage 08, step 3. Two levels and no third.
+
+   PRIMITIVE answers "what value". It carries no opinion about purpose, it is
+   never overridden by a theme, and every line of it arrived here from
+   design/kit/kit.css with its origin comment intact. That chain runs
+   design/_theme.css (Concept) into kit.css (UI + Visual) into this file, and
+   the origin is the last link back to the plate pixel it was picked from. Lose
+   it here and it cannot be recovered from anywhere.
+
+   SEMANTIC answers "why this colour here". Every role points at a primitive
+   through var(), carries the count of usages it grew from, and declares the one
+   SURFACE it paints. Three surfaces, three different thresholds:
+       ink   text and icon glyphs      4.5:1  (3:1 from 24px, or 19px bold)
+       fill  page, card, band, wash    3:1    (WCAG 1.4.11)
+       line  border, divider, ring     3:1    (WCAG 1.4.11)
+   One role on two surfaces is forbidden even when the value is identical,
+   because a fill role placed on a 12px bold caption passes as a surface and
+   fails as text, and a table of text-on-background pairs never sees it: nobody
+   declared it text. Ink roles carry the -text suffix; measured figures for BOTH
+   themes stand next to each role.
+
+   GEOMETRY gets no semantic level. A radius and a spacing have nothing to
+   override: no theme and no rebrand moves them, they simply repeat. Components
+   read them straight from primitive.
+
+   THE DARK PAIR IS A PROPERTY OF THE LEVEL, NOT AN EVENT. Every semantic role
+   is written twice, here and in [data-theme="dark"], at the moment it is
+   declared. A role without a pair does not exist. The pair is NOT mirrored:
+   contrast is measured against the opposite ground, so on dark the action goes
+   LIGHTER up the scale rather than reusing the same primitive.
+
+   NO NEW VALUES. Nothing in the light half of this file is absent from
+   kit.css, apart from three consolidations decided at step 2 and listed in
+   docs/tokens-audit.md. The dark half is necessarily new: kit.css has no dark
+   theme, and the values below were derived from the same hues and measured.
+
+   State tokens (hover, focus, disabled) are NOT here. They arrive at step 5
+   with the first component that actually carries them, and in both themes.
+   ============================================================================ */
+
+/* `:root, [data-theme="light"]` rather than `:root` alone, so a theme can be pinned to a
+   SUBTREE and not only to the document. Without it a page cannot show both themes at once:
+   a light sample inside a dark page inherits the dark values and quietly renders the same
+   colour twice, which is what the colour page did before this line. No value changes. */
+:root, [data-theme="light"] {
+
+  /* ==========================================================================
+     PRIMITIVE - colour
+     Petrol and Paper, from concept.md (D-Concept, July 2026). The block comment
+     is the origin for every value under it that arrived from Concept; the four
+     named on 2026-08-10 and the two named on 2026-08-11 carry their own.
+     ========================================================================== */
+
+  --paper:            #ffffff;   /* the content surface: cards, rows, the app bar */
+  --canvas:           #eef3f4;   /* the ground the paper sits on */
+  --panel:            #f4f7f8;   /* the recessed step: row hover, the desktop rail */
+
+  --ink:              #141b1d;   /* near-black, the primary reading colour */
+  --slate:            #384349;   /* the body step */
+  --muted:            #5a686c;   /* the single secondary tier. There is no third */
+
+  --hairline:         #e4e9ea;   /* container edges */
+  --hairline-soft:    #eef2f3;   /* dividers inside a container */
+  --hairline-strong:  #cdd7d9;   /* origin: .btn:hover in kit.css. It reads through
+                                    --line-container-hover, declared at the molecule
+                                    round: see that role for why one consumer was
+                                    enough here and is not enough in general */
+  --edge:             #7b8d91;   /* origin: the founder's non-text contrast decision,
+                                    2026-08-11. The lightest value on the hairline hue
+                                    that clears 3:1 on all three grounds a control sits on */
+
+  --skeleton:         #e2e9ea;   /* loading placeholders */
+
+  --petrol:           #1c6a76;   /* THE accent. One voice, spent three ways and no more */
+  --petrol-deep:      #175a64;   /* the same voice under the pointer */
+  --petrol-tint:      #e7edee;   /* the selected wash */
+
+  --amber:            #8a5c0c;   /* a price change. Desaturated on purpose: the persona
+                                    closes any app that shows her red */
+  --amber-wash:       #f6efe0;
+  --clay:             #9a5842;   /* a genuine failure, ours and never the merchant's */
+  --clay-wash:        #f3e9e5;
+
+  --stone:            #e9eeef;   /* the quiet status chip */
+  --stone-ink:        #4f5e62;
+  --teal-wash:        #dfeef0;   /* the trial chip, the one cool pair */
+  --teal-ink:         #185862;
+
+  /* ==========================================================================
+     PRIMITIVE - colour, the dark ramp
+     NEW VALUES, and the only new ones in this file. kit.css has no dark theme,
+     so there was nothing to carry. Derived from the same hues and measured
+     against the dark grounds; every figure is written next to the role that
+     uses it, below. Primitives are never overridden by a theme, so the dark
+     values live here as their own names rather than as redefinitions.
+     ========================================================================== */
+
+  --paper-dark:       #161f21;   /* the surface. 1.10 against the dark canvas, which is
+                                    the same relationship white has to the light canvas
+                                    (1.12): the hairline does the separating, not the
+                                    luminance. The Flat Paper Rule, in the dark */
+  --canvas-dark:      #0e1517;
+  --panel-dark:       #1d282a;
+
+  --ink-dark:         #eef3f4;   /* the light canvas, folded back. The palette reuses
+                                    itself rather than growing a value */
+  --slate-dark:       #c3ced1;
+  --muted-dark:       #96a2a6;
+
+  --hairline-dark:      #2a3538;
+  --hairline-soft-dark: #212b2e;
+  --hairline-strong-dark: #303c3f;  /* LIGHTER than --hairline-dark, where in the light
+                                    theme strong is DARKER than plain. Computed rather
+                                    than picked: 1.47:1 on the dark surface, the same
+                                    step the light pair makes (1.23 to 1.47), so the
+                                    container edge gains the same amount under the
+                                    pointer in both themes. Added at the molecule round
+                                    with --line-container-hover */
+  --edge-dark:          #7f9296;
+
+  --skeleton-dark:    #202b2d;
+
+  --petrol-dark:      #6bb0ba;   /* LIGHTER, not darker. Contrast runs against the
+                                    opposite ground, so the accent climbs the scale */
+  --petrol-deep-dark: #7fbcc5;   /* and the pointer state climbs further, where in the
+                                    light theme it descends */
+  --petrol-tint-dark: #123037;
+
+  --amber-dark:       #d6a951;
+  --amber-wash-dark:  #2e2204;
+  --clay-dark:        #d0a292;
+  --clay-wash-dark:   #38201a;
+
+  --stone-dark:       #232e31;
+  --stone-ink-dark:   #a9b6b9;
+  --teal-wash-dark:   #10333a;
+  --teal-ink-dark:    #8fc9d2;
+
+  /* ==========================================================================
+     PRIMITIVE - geometry. No roles, no theme, no dark pair: nothing here has
+     anything to override. Components read these directly.
+     ========================================================================== */
+
+  --radius:      14px;   /* containers: the list, cards, the sheet */
+  --radius-wash: 12px;   /* origin: the alert banner. Washes and callouts */
+  --radius-sm:   10px;   /* controls: buttons, fields, rows, tiles */
+  --radius-xs:    6px;   /* origin: the chip and the skeleton, written inline twice
+                            in kit.css before it was named */
+
+  --shadow: 0 1px 3px rgba(10,30,35,0.05), 0 8px 24px -12px rgba(10,30,35,0.12);
+                         /* the ONE elevation in the system, and it belongs to the
+                            dialog sheet alone. The Flat Paper Rule: a new surface
+                            earns a hairline and a background change, never a shadow */
+
+  --tap:   44px;         /* the floor a pointer target may not go under */
+  --row:   56px;         /* the list row, comfortably over the floor */
+
+  /* ==========================================================================
+     PRIMITIVE - the type scale
+     Adopted at the founder's review of the foundations, 2026-08-11, and this IS
+     a change of appearance: it is the second of the three legal sources, and
+     every fold is a line in docs/tokens-audit.md.
+
+     The product shipped 21 sizes and no variable for any of them, including five
+     half steps (14.5, 13.5, 12.5, 11.5, 10.5) that existed for no stated reason.
+     Eight steps replace them. The mapping was not chosen value by value: every
+     old size goes to the NEAREST step, and a tie goes to the LARGER, which is the
+     direction a product for anxious readers should round in. One exception, and
+     it is named: 40px is nearer 46 than 32, and 46 is exclusive to the monthly
+     total under the One Number Rule, so the share card's total goes down to 32.
+
+     NAMED --type-*, NOT --text-*. The --text- prefix already belongs to the ink
+     roles, and the first draft of this block called the scale --text-body, which
+     collides head on with the colour role of the same name: the later declaration
+     wins, so every component asking for the body ink would have been handed 14px.
+     Caught by reading the file back before anything was wired to it. A namespace
+     is not decoration; two things called the same name are one thing.
+     ========================================================================== */
+
+  --type-display: 46px;  /* the monthly total, and nothing else on the screen */
+  --type-figure:  32px;  /* a subscription's own amount, a plan price */
+  --type-head:    24px;  /* the subject of a page */
+  --type-title:   20px;  /* the subject of a block inside a page */
+  --type-sub:     16px;  /* a merchant name, a door, the reading line */
+  --type-body:    14px;  /* sentences, button labels */
+  --type-meta:    12px;  /* labels, hints, the second tier of information */
+  --type-label:   10px;  /* badges and the eyebrow */
+
+  /* ==========================================================================
+     PRIMITIVE - the spacing scale, an 8px grid
+     Same review, same rule, same audit trail. The product shipped 27 spacing
+     values and no variable for any of them, among them 1, 3, 5, 7 and 9, which
+     are not a rhythm but the absence of one.
+
+     The grid is 8, with 4 and 2 below it for the places where 8 is too much, and
+     0 as a real value rather than the absence of a value. Above 32 the steps stay
+     multiples of 8 because that is where the page frame lives. Nearest step, ties
+     to the larger, exactly as the type scale.
+     ========================================================================== */
+
+  --space-0:   0;
+  --space-2:   2px;      /* a hair: the gap under a row's second line */
+  --space-4:   4px;
+  --space-8:   8px;      /* the unit */
+  --space-16: 16px;      /* the screen's side padding, the common block gap */
+  --space-24: 24px;      /* between blocks */
+  --space-32: 32px;      /* between sections */
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+
+  /* ==========================================================================
+     SEMANTIC - fills
+     ========================================================================== */
+
+  --bg-page:      var(--canvas);
+      /* the ground under every screen: all 28 coloured pages (home, subscription-detail,
+         settings). fill, 3:1 not applicable, nothing sits behind it */
+  --bg-surface:   var(--paper);
+      /* card, row, app bar, tab bar: 25 usages in kit.css (.app, .appbar, .panel).
+         fill. 1.12 against --bg-page in both themes, by design: the hairline separates */
+  --bg-recessed:  var(--panel);
+      /* row hover, the desktop rail, a disabled control: 14 usages (.row:hover,
+         .tabbar at 760, .btn[disabled]). fill */
+  --bg-callout:   var(--canvas);
+      /* the wash inside a card: 5 usages (.wash, the logo placeholder, .chip.cancelled).
+         SAME VALUE as --bg-page today, different role: a page ground and a raised
+         block's fill can part company, and in the dark half below they already have */
+  --bg-selected:  var(--petrol-tint);
+      /* the current choice: 8 usages (.tile[aria-pressed], .range button[aria-pressed],
+         .trust a). fill. taste: attribute "calm" */
+  --bg-attention: var(--amber-wash);
+      /* a price change: 4 usages (.wash.attention, .charges li.marked). fill */
+  --bg-failure:   var(--clay-wash);
+      /* OUR failure, never the merchant's: 3 usages (.wash.error, the invalid field).
+         fill */
+  --bg-status:    var(--stone);
+      /* the quiet chip: 1 rule, and it is the chip base every status badge in the
+         product shares, so it repeats on 36 pages. fill */
+  --bg-trial:     var(--teal-wash);
+      /* the trial chip: 1 rule on 1 page. Kept because a chip tone is a domain state
+         and the pair (--bg-trial, --text-trial) is what makes it one. fill */
+  --bg-placeholder: var(--skeleton);
+      /* loading: 2 usages on 89 grey pages (.skel, .logo.is-skel). fill */
+  --bg-action:    var(--petrol);
+      /* the ONE filled action of a zone: 33 buttons across the product.
+         fill. taste: the primary action is one of petrol's three permitted jobs */
+  --bg-action-strong: var(--petrol-deep);
+      /* the same action under the pointer: 3 usages (.btn.primary:hover). fill */
+
+  /* ==========================================================================
+     SEMANTIC - inks. Threshold 4.5:1, or 3:1 from 24px / 19px bold.
+     ========================================================================== */
+
+  --text-primary: var(--ink);
+      /* headings, merchant names, amounts: 36 usages, all 28 pages. ink.
+         17.4:1 on surface light, 15.0:1 on surface dark */
+  --text-body:    var(--slate);
+      /* sentences and button labels: 30 usages (.btn, .textblock p, .promises li). ink.
+         10.2:1 light, 10.4:1 dark */
+  --text-muted:   var(--muted);
+      /* the single secondary tier, and there is no third: 59 usages, the largest role
+         in the system (.muted, .row .when, .field label). ink.
+         5.8:1 light, 6.4:1 dark. taste: the Two Tiers Rule */
+  --text-action:  var(--petrol);
+      /* the trust link and the current destination: 9 ink usages (.trust a,
+         .tabbar a.cur, .next:hover). ink, and the SAME VALUE as --bg-action with a
+         different role and a different threshold: one is a fill at 3:1, this is text
+         at 4.5:1. 6.2:1 light, 6.8:1 dark */
+  --text-on-action: var(--paper);
+      /* the label standing ON a filled action: 6 usages (.btn.primary, .btn.inverse).
+         ink. 6.2:1 light. In the dark theme it is NOT paper: a white label on the
+         lightened petrol would fail, so it takes the dark canvas at 7.5:1 */
+  --text-attention: var(--amber);
+      /* the price-change sentence: 3 usages. ink. 5.1:1 on its own wash light,
+         7.2:1 dark */
+  --text-failure: var(--clay);
+      /* the failure sentence and the invalid hint: 5 usages. ink. 4.6:1 on its own
+         wash light, which is the tightest pair in the system, 7.3:1 dark */
+  --text-status:  var(--stone-ink);
+      /* the quiet chip's label: 1 rule, 36 pages. ink. 5.8:1 on --bg-status light,
+         6.7:1 dark */
+  --text-trial:   var(--teal-ink);
+      /* the trial chip's label: 1 rule, 1 page. ink. 6.8:1 light, 7.4:1 dark */
+
+  /* ==========================================================================
+     SEMANTIC - lines. Threshold 3:1 for anything that identifies a control;
+     a decorative separator carries no threshold and says so.
+     ========================================================================== */
+
+  --line-control:  var(--edge);
+      /* the boundary that IDENTIFIES a control: 6 usages (.input, .select, .btn,
+         .tile, .door, .range button). line, 3:1 required.
+         3.46:1 on surface light, 3.10:1 on canvas light; 5.15:1 dark */
+  --line-container: var(--hairline);
+      /* the edge of a card, panel or list: 26 usages. line, DECORATIVE: nothing has
+         to be found by touch, so 1.23:1 light is deliberate and 1.33:1 dark matches it.
+         Raising this was rejected on 2026-08-11: it outlines the whole product */
+  --line-divider:  var(--hairline-soft);
+      /* between rows inside one container: 26 usages. line, decorative */
+  --line-failure: var(--clay);
+      /* the edge of an invalid field, and its focus ring while invalid: 2 usages
+         (.field input[aria-invalid], .field select[aria-invalid]). line, 3:1.
+         5.46:1 on the light surface, 7.40:1 on the dark one.
+         ADDED at step 5 by the atom round rather than at step 3, and the gap is
+         instructive: clay had a role as ink and a role as a fill and none as a
+         line, so an invalid border had nothing correct to read. The agent
+         building the field did not invent one; it read --text-failure on loan
+         with a comment saying so, and reported the hole. Same value, so nothing
+         moves when the loan is repaid here */
+  --line-selected: var(--petrol);
+      /* the current tab, the pressed tile, the focus ring: 8 line usages.
+         line, 3:1 required. 6.2:1 light, 6.8:1 dark. THIRD role on the same value:
+         a fill, an ink and a line, three thresholds, three tokens */
+  --line-action-soft: var(--petrol-tint);
+      /* the underline under a petrol link, and nothing else: 1 usage
+         (.trust a, on 11 grey pages and 9 coloured ones). line, and NOT governed by
+         1.4.11: it decorates text that already carries 4.8:1 of its own, so the
+         underline is a hint and not a boundary. 1.18:1 light, 1.20:1 dark, which is
+         the same hint in both.
+         ADDED at the molecule round against the rule that one usage is not yet a
+         role, and the exception is named rather than quietly taken. The rule guards
+         against palette inflation; the surface axis forbids outright what the
+         alternative was, which is --bg-selected, a FILL, painting a line. One of the
+         two had to give, and a role that is honest about its surface costs one line
+         of this file while a fill on a line costs the next theme its underline */
+
+  /* ==========================================================================
+     STATE TOKENS
+     Added at step 5 with the etalon, the first component that actually carries
+     them, and each one in both themes at the moment it is declared. A state
+     written as a value inside :hover is the same hole as a component reading a
+     primitive: the dark theme would need forty edits instead of three lines,
+     twenty components would each hover differently, and stage 11 would begin by
+     collecting states that ought to already exist.
+
+     THERE IS NO --opacity-disabled, and its absence is a decision. The product
+     already draws a disabled control by repainting it, and all three of those
+     paints land exactly on roles that exist: --text-muted, --bg-recessed,
+     --line-divider. Adding an opacity token would either change how every
+     disabled control renders, which this stage is not allowed to do, or sit in
+     the file unread. An unread token is the shape of a system that documents
+     itself rather than the product.
+     ========================================================================== */
+
+  --bg-hover: var(--panel);
+      /* the fill a control takes under the pointer: the outline button, the row,
+         the nav row, the tile, the door, the segment. fill.
+         SAME VALUE as --bg-recessed today and a different role: one is a resting
+         surface, this is a transient response, and they part company the moment
+         a hover wants to be warmer than a rail */
+  --line-control-hover: var(--muted);
+      /* the control edge under the pointer, and it must STRENGTHEN: the resting
+         edge is 3.46:1 on the light surface and this is 5.78:1. line.
+         The value it replaced (--hairline-strong) was LIGHTER than the resting
+         edge, so the boundary weakened under the pointer, which is the opposite
+         of what a hover is for. Found at the contrast decision, 2026-08-11 */
+  --line-container-hover: var(--hairline-strong);
+      /* the edge of a CARD under the pointer: 1 usage (.plan-opt:hover). line,
+         decorative, exactly as --line-container is: 1.23:1 rest to 1.47:1 hover
+         light, 1.33:1 to 1.47:1 dark.
+         Two roles rather than one because a container edge and a control edge do
+         different jobs: a control's edge is how the control is FOUND, so its hover
+         has to clear 3:1, and a card's edge is decoration, so its hover only has to
+         be visible as a change. --line-control-hover was rejected for this on that
+         ground, not on the value.
+         ADDED at the molecule round for a mechanical reason worth stating: without
+         it the plan card's hover has nothing correct to read, and the agent building
+         it correctly refused to invent a token, so the hover rendered as no change
+         at all. Dropping a state IS a visual change, and this stage has three named
+         sources of visual change and this is none of them. Carrying it unchanged was
+         the only move that needed no permission. Whether the hover should exist at
+         all is a separate question and stays with the founder in backlog.md */
+  --color-focus: var(--petrol);
+      /* the focus ring, and focus-visible rather than focus: the ring is for the
+         person arriving by keyboard and is noise for the person who clicked.
+         line, 3:1 required by WCAG 1.4.11 because a ring is a line and not text.
+         6.23:1 on the light surface, 5.56:1 on the light canvas */
+}
+
+/* ============================================================================
+   DARK
+   Semantic only. Primitives are never touched: the dark values are their own
+   names above, and a role simply points at a different one. Not mirrored, and
+   the three places it visibly is not are marked.
+   ============================================================================ */
+
+[data-theme="dark"] {
+
+  /* fills */
+  --bg-page:      var(--canvas-dark);
+  --bg-surface:   var(--paper-dark);
+  --bg-recessed:  var(--panel-dark);
+  --bg-callout:   var(--panel-dark);
+      /* NOT MIRRORED. In the light theme a callout and the page ground share one
+         value; here they must not, because a wash on a dark surface has to lift and
+         the page ground has to stay put. This is the pair that proves the two roles
+         were worth splitting */
+  --bg-selected:  var(--petrol-tint-dark);
+  --bg-attention: var(--amber-wash-dark);
+  --bg-failure:   var(--clay-wash-dark);
+  --bg-status:    var(--stone-dark);
+  --bg-trial:     var(--teal-wash-dark);
+  --bg-placeholder: var(--skeleton-dark);
+  --bg-action:    var(--petrol-dark);
+  --bg-action-strong: var(--petrol-deep-dark);
+      /* NOT MIRRORED. The light theme darkens under the pointer, this one lightens:
+         the hover has to move AWAY from the ground, and the ground swapped ends */
+
+  /* inks */
+  --text-primary: var(--ink-dark);
+  --text-body:    var(--slate-dark);
+  --text-muted:   var(--muted-dark);
+  --text-action:  var(--petrol-dark);
+  --text-on-action: var(--canvas-dark);
+      /* NOT MIRRORED, and this is the one that would have shipped broken. In the
+         light theme the label on a filled action is white; on the lightened petrol
+         of the dark theme white measures 1.9:1. It takes the dark canvas instead,
+         at 7.5:1 */
+  --text-attention: var(--amber-dark);
+  --text-failure: var(--clay-dark);
+  --text-status:  var(--stone-ink-dark);
+  --text-trial:   var(--teal-ink-dark);
+
+  /* lines */
+  --line-control:  var(--edge-dark);
+  --line-container: var(--hairline-dark);
+  --line-divider:  var(--hairline-soft-dark);
+  --line-failure: var(--clay-dark);
+  --line-selected: var(--petrol-dark);
+  --line-action-soft: var(--petrol-tint-dark);
+      /* 1.20:1 against the dark surface, against 1.18:1 light. The one place in this
+         file where the pair is nearly mirrored, and it is allowed to be because the
+         role is a hint rather than a threshold */
+
+  /* states, and the direction of two of the three inverts */
+  --bg-hover: var(--panel-dark);
+      /* NOT MIRRORED in direction. The light theme's hover is DARKER than the
+         surface it lifts off; this one is LIGHTER, because the ground swapped
+         ends and a hover has to move away from its ground either way.
+         1.08 against the surface light, 1.11 dark: the same small step */
+  --line-control-hover: var(--muted-dark);
+      /* the resting edge is 5.15:1 here and this is 6.40:1, so the boundary
+         strengthens in the dark theme too */
+  --line-container-hover: var(--hairline-strong-dark);
+      /* 1.33:1 rest to 1.47:1 hover, against 1.23 to 1.47 light. The DIRECTION
+         inverts: the light value is darker than the plain hairline and this one is
+         lighter, because the ground swapped ends */
+  --color-focus: var(--petrol-dark);
+      /* 6.82:1 on the dark surface, 7.51:1 on the dark canvas. Both over the 3:1
+         a line owes. Had this been left for step 7, the ring would have been the
+         light petrol at 1.9:1 on the dark surface: present in the file, invisible
+         on screen, and keyboard navigation blind in one theme */
+}

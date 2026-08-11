@@ -1,0 +1,97 @@
+/* ============================================================================
+   Switch row - molecule
+   A preference stated as a sentence a person agrees with, with the checkbox
+   that answers it. Two text tiers, a divider, and the control it hosts. It is
+   what carries every promise this product makes about what it will tell a
+   person and what it will hold.
+
+   Reads
+     colour   --text-primary, --text-muted, --line-divider
+     states   none of its own. See the block at the foot of this file
+     type     --type-body, --type-meta
+     spacing  --space-2, --space-16
+   Page      design/kit/switch-row.html
+   Stands on 2 grey pages, 6 rows: settings (4 notification preferences) and
+   data-privacy (2). The 4 on settings are coloured; the other 2 arrive with the
+   rollout.
+
+   THE NAME IS A NAME AND NOT A CONTROL. There is no switch in this product,
+   native or drawn. The class says `.switch` and what it holds is a checkbox,
+   which is worth knowing before somebody builds a toggle because the class
+   implied one.
+
+   IT HOSTS ONE ATOM AND REPAINTS NOTHING OF IT. The 20px box, its accent, its
+   hover, its ring and its disabled form are all checkbox.css's, and nothing in
+   this file names `input`. What this row owns is the box AROUND the control.
+
+   AND THAT BOX IS WHY THE 20px IS ACCEPTABLE. The checkbox is a native control
+   at 20px against the 24px WCAG 2.5.8 asks, carried rather than fixed, recorded
+   twice in docs/decisions.md on 2026-08-11. 2.5.8 measures the TARGET, meaning
+   the whole area a pointer may land on to operate the control, and the label
+   below wraps the input: a click anywhere in this row toggles it. With two
+   lines of text, 16px of padding top and bottom and a divider, the row stands
+   well clear of 44px, so the raw box is not the target a person hits. This
+   component is the reason the carry holds, which is why the fact is written
+   here and not only next to the atom. THE 20px IS NOT TO BE CHANGED FROM THIS
+   FILE, or from any other, except by a founder decision with a number and a
+   reason.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.switch`, `.switch .t` and `.switch .h`
+   stay exactly as the product writes them. Renaming is step 6.
+   ============================================================================ */
+
+.app .switch, .landing .switch {
+  display: flex;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--space-2);
+  /* The divider between preferences, and the row draws it rather than a list
+     doing it. That is the opposite of the subscription row, where the group
+     owns the separation, and the difference is real: switch rows are written
+     straight into a section with no `ul` around them, so there is no container
+     to hand the job to. The last one takes it back, below. */
+  border-bottom: 1px solid var(--line-divider);
+}
+/* :last-of-type rather than :last-child, carried exactly as kit.css writes it.
+   The two are not the same here: the switch rows sit among sibling headings and
+   paragraphs, so :last-child would only match if a switch happened to be the
+   final element of the section, and on settings it is not. */
+.app .switch:last-of-type, .landing .switch:last-of-type { border-bottom: 0; }
+
+/* The claim, and the example under it. Two tiers and no third: the sentence is
+   what a person agrees to and the line beneath shows them what it will look
+   like when it happens ("Like 'Netflix went up by $2.50'."). A preference
+   screen that states a rule without an example asks a person to imagine the
+   consequence, and this product's audience imagines the worst one. */
+.app .switch .t, .landing .switch .t {
+  display: block;
+  font-size: var(--type-body);
+  color: var(--text-primary);
+}
+.app .switch .h, .landing .switch .h {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+}
+
+/* ---- states: NONE ON THIS ROW, and the absence is the finding --------------
+   The row is a pointer target, it is 44px or more, and clicking anywhere in it
+   toggles the preference. It gives no visual response to any of that: kit.css
+   declares no :hover on `label.switch`, and the ring cannot land here either,
+   because a label is not focusable and the focus goes to the input inside it.
+   So every state a person can reach on this row is drawn by the atom:
+   checkbox.css owns the hover, the focus-visible ring and the disabled form.
+
+   IT IS NOT INVENTED HERE. A hover on this row would be a real change to how
+   Settings and Data and privacy render, and the pixel comparison at step 8
+   accepts a difference only against one of the three named sources: the
+   consolidation, the founder's review of the foundations, or the move onto
+   system classes. "The subscription row and the nav row both light up and this
+   one does not" is an argument, and a good one, but it is a design decision
+   about the product and not a consequence of moving a file.
+
+   checkbox.css hands the question here in as many words: "If the row should
+   light up under the pointer, that decision belongs to switch-row.css and to
+   the person who owns it." The answer of this file is: not by the person moving
+   it. It is on design/kit/switch-row.html as an open row with the two options
+   written out, and step 9 decides. */

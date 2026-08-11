@@ -1,0 +1,111 @@
+/* ============================================================================
+   Group head - molecule
+   The small uppercase line that opens a section, with an optional figure at the
+   far end: "STREAMING (4)" against "$54.96 a month", "YOUR PLAN" against
+   "Free". It is the second most repeated structure in the product after the
+   subscription row, and it is what makes a long list readable without a single
+   heavy heading anywhere.
+
+   Reads
+     colour   --text-muted     (the heading and the figure alike)
+     lines    --line-divider   (the hairline under the banded form)
+   Page      design/kit/group-head.html
+   Stands on 16 grey pages and 11 coloured ones.
+
+   THE LOOK IS BOUND TO THE CLASS, NOT TO THE TAG, AND THAT IS THE WHOLE STORY
+   OF THIS COMPONENT. It was written as `h2` only, and it broke twice for the
+   same reason: once on the form screen, where the h2 IS the head
+   (`<h2 class="group-head plain">Most tracked</h2>`), and again on the guided
+   reveal, where the head is an h3 inside a group
+   (`<h3 class="group-head plain">Streaming (4)</h3>`). Both times the heading
+   fell through to the browser default and rendered 24px black next to 12px
+   uppercase muted everywhere else, on a screen that had already been accepted.
+
+   A component whose typography depends on which heading level the document
+   happened to need is not a component. The rule below matches h1 to h4 through
+   :where(), at the class, in both of the two shapes the product writes:
+   the heading IS the head, or the heading is INSIDE the head beside a figure.
+
+   :where() CONTRIBUTES NO SPECIFICITY, which is what makes that safe: the
+   typographic rule stays at 0-2-0, the same weight as the flex rule above it,
+   so the `.plain` modifier at 0-3-0 still wins on both and any host can still
+   position the block without a fight.
+
+   NO HEX AND NO FONT NAME. Every size is a --type-* step and every margin,
+   padding and gap a --space-* step. The two skeleton widths are slot widths,
+   not spacings, and stay literal.
+
+   THE CLASS NAME IS NOT TOUCHED. `.group-head` stays as the product writes it,
+   and the rename map leaves it alone.
+   ============================================================================ */
+
+/* ---- the banded form, and it is the default ------------------------------
+   A flex row with the heading at one end and the figure at the other, baseline
+   aligned so a 12px word and a 12px number sit on one line rather than on two
+   optical ones. The hairline underneath is a DIVIDER and owes no contrast
+   threshold: nothing here has to be found by touch. */
+.app .group-head, .landing .group-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-0) var(--space-0) var(--space-8);
+  margin: var(--space-0) var(--space-0) var(--space-2);
+  border-bottom: 1px solid var(--line-divider);
+}
+
+/* ---- the heading, at whatever level the document needed ------------------
+   Uppercase at 12px with 0.06em of tracking, in the muted tier. Small caps
+   behaviour without a second font: the size and the case do the work that a
+   heavier weight would otherwise do, which is how a product with twenty
+   sections on one screen stays quiet.
+   Two selectors because the product writes the head two ways, and the component
+   has to be the same object either way. */
+.app :where(h1,h2,h3,h4).group-head, .landing :where(h1,h2,h3,h4).group-head,
+.app .group-head :where(h1,h2,h3,h4), .landing .group-head :where(h1,h2,h3,h4) {
+  margin: var(--space-0);
+  font-size: var(--type-meta);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+/* ---- the figure at the far end -------------------------------------------
+   Same size and same tier as the heading, on purpose: it is the group's
+   subtotal or its plan name, and it is a fact about the group rather than a
+   second heading. Tabular figures so a column of group heads lines up, and
+   nowrap so "$54.96 a month" never folds under a long category name. It is NOT
+   the Amount atom: it never carries the amount's weight or its ink, because
+   here the money is context and not the subject. */
+.app .group-head .subtotal, .landing .group-head .subtotal {
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---- the plain form ------------------------------------------------------
+   The rule comes off and the block stands further from what follows it. Used
+   where the thing underneath already has its own edges (a grid of preset tiles,
+   a row of merchant chips): a hairline above a bordered grid is two lines
+   saying one thing. */
+.app .group-head.plain, .landing .group-head.plain {
+  border: 0;
+  padding: var(--space-0);
+  margin: var(--space-0) var(--space-0) var(--space-16);
+}
+
+/* ---- the loading form ----------------------------------------------------
+   The host owns the slot, the skeleton bar draws the bar. Two fixed widths
+   rather than percentages, because a group head's two ends have known lengths
+   and unequal bars are what stop a loading list from reading as a progress
+   meter. 104 and 90 are slot widths, which are not on the spacing scale. */
+.app .group-head .skel, .landing .group-head .skel { width: 104px; margin: var(--space-0); }
+.app .group-head .skel + .skel, .landing .group-head .skel + .skel { width: 90px; }
+
+/* No states. A group head is a label on a section: it holds no anchor, no
+   button and no disclosure on any of the 55 grey pages or the 28 coloured ones,
+   and the sections it opens are not collapsible in this product. Checked rather
+   than assumed, including against the one disclosure the app shell does have,
+   which is a `details.panel summary` and a different component. */

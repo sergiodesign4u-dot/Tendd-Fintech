@@ -174,7 +174,7 @@ body {
    also retires the lp- twins.
    Four values were named on 2026-08-10 (--radius-xs, --radius-wash, --line-strong,
    --on-accent), all of them literals this file already wrote. The ten that are
-   still literals are listed in inventory.md and belong to stage 08.
+   still literals are listed in docs/inventory.md and belong to stage 08.
    ============================================================ */
 
 /* Migrated OUT of the July block at step 5, before that block is deleted. The
@@ -265,7 +265,7 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
 .app .consequence.lead, .landing .consequence.lead { margin: 0 0 12px; }
 .app .consequence.spaced, .landing .consequence.spaced { margin-top: 18px; }
 .app .quiet, .landing .quiet { margin: 0 0 22px; font-size: 13px; }
-/* From _wf.css:1005. Filed as a one-off in inventory.md while the sample
+/* From _wf.css:1005. Filed as a one-off in docs/inventory.md while the sample
    excluded upgrade.html; that decision expired the moment upgrade entered the
    sample, because a screen in design/ may carry no CSS of its own. Without it
    the closing line under the plan cards comes back as an ordinary browser
@@ -403,6 +403,22 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
 }
 .app .field select, .landing .field select { padding-right: 8px; }
 .app .field input::placeholder, .landing .field input::placeholder { color: var(--soft); }
+/* The money field. Founder's decision, 2026-08-11: Amount holds digits only and
+   the interface draws the currency sign, because a numeric field cannot hold a
+   "$" inside its value. The sign is painted inside the input's own left padding,
+   so the box, the edge, the radius and the focus ring are unchanged and the ring
+   still wraps the sign; the field becomes a grid so the two share one row with no
+   wrapper. The same rule as design/system/components/text-input.css says, in this
+   file's vocabulary: 12px is what a field pads with here, and 24px is that padding
+   plus the 8.98px sign plus the air after it. Measured on add-subscription at 360:
+   the sign ends 20.98px in, the value starts 25px in, 4.02px between them. */
+.app .field.affix, .landing .field.affix { display: grid; grid-template-columns: 1fr; }
+.app .field.affix > .cur, .landing .field.affix > .cur {
+  grid-row: 2; grid-column: 1; z-index: 1; align-self: center; justify-self: start;
+  padding-left: 12px; font-size: 14px; color: var(--soft);
+  pointer-events: none; user-select: none;
+}
+.app .field.affix > input, .landing .field.affix > input { grid-row: 2; grid-column: 1; padding-left: 24px; }
 .app .field input:hover, .landing .field input:hover, .app .field select:hover, .landing .field select:hover { border-color: var(--line-control-hover); }
 /* AUTHORED. A sweep of all 55 pages returns no aria-invalid, no required and no
    error class, so the kit would otherwise inherit an input that cannot be
@@ -497,7 +513,7 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
    into two lines to make room for a status word. The row draws NO floor of its
    own: the list separates its items, which is what removes the need for a
    li:last-child rule reaching back into the row. */
-.app .row, .landing .row { display: flex; align-items: center; gap: 4px 12px; flex-wrap: wrap; min-height: 56px; margin: 0; padding: 10px 4px; border: 0; background: none; text-decoration: none; color: inherit; }
+.app .row, .landing .row { display: flex; align-items: center; gap: 4px 12px; flex-wrap: wrap; min-height: 56px; margin: 0; padding: 10px 16px; border: 0; background: none; text-decoration: none; color: inherit; }
 .app .row:hover, .landing .row:hover { background: var(--panel2); }
 .app .row .logo, .landing .row .logo { flex: none; }
 .app .row .body, .landing .row .body { flex: 1 1 160px; min-width: 0; }
@@ -640,7 +656,7 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
 /* GC5. The inline action stays ink, not petrol: an alert list renders several
    at once, and several petrol links is the One Voice Rule failing by
    repetition. The dot is quiet and never a red count. */
-.app .alert, .landing .alert { display: flex; gap: 12px; padding: 14px 4px; text-decoration: none; color: inherit; }
+.app .alert, .landing .alert { display: flex; gap: 12px; padding: 14px 16px; text-decoration: none; color: inherit; }
 .app .alert:hover, .landing .alert:hover { background: var(--panel2); }
 .app .alert .logo, .landing .alert .logo { flex: none; }
 .app .alert .body, .landing .alert .body { flex: 1; min-width: 0; }
@@ -652,10 +668,10 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
 .app .alert .go, .landing .alert .go { display: inline-flex; align-items: center; min-height: 40px; font-size: 13px; color: var(--ink); font-weight: 600; }
 .app .alert .go::after, .landing .alert .go::after { content: "\2192" / ""; margin-left: 6px; }
 
-.app .navrow, .landing .navrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; padding: 12px 2px; text-decoration: none; color: inherit; font-size: 14.5px; }
+.app .navrow, .landing .navrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; padding: 12px 16px; text-decoration: none; color: inherit; font-size: 14.5px; }
 .app .navrow:hover, .landing .navrow:hover { background: var(--panel2); }
 .app .navrow .sub, .landing .navrow .sub { display: block; font-size: 12.5px; color: var(--soft); font-weight: 400; }
-.app .navrow .arrow, .landing .navrow .arrow { flex: none; color: var(--soft); }
+.app .navrow .arrow, .landing .navrow .arrow { flex: none; color: var(--soft); font-size: 0; width: 16px; height: 16px; background-color: currentColor; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 5 7 7-7 7'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 5 7 7-7 7'/%3E%3C/svg%3E"); }
 
 .app .switch, .landing .switch { display: flex; gap: 12px; padding: 12px 2px; border-bottom: 1px solid var(--line2); }
 .app .switch:last-of-type, .landing .switch:last-of-type { border-bottom: 0; }
@@ -1031,3 +1047,100 @@ input, select, textarea, button, progress { accent-color: var(--accent); }
    @keyframes pulse every skeleton in the product animates on, and the
    reduced-motion guard beside it. Deleting it before that would have stopped
    every skeleton silently, with no error anywhere. */
+
+/* ============================================================================
+   FOUNDER'S REVIEW OF THE COMPONENTS, 2026-08-11, mirrored here on purpose.
+
+   The product screens load THIS file; the component pages load
+   design/system/index.css. Until step 8 moves the screens across, the two are
+   two stylesheets, and a decision that lands in only one of them is a decision
+   the product does not actually have. Four changes were mirrored: the side inset
+   of .row, .alert and .navrow, all folded onto one value, and the nav row's
+   chevron, which stops being the character &rsaquo; and becomes a drawn mark.
+
+   The VERTICAL values here are deliberately left alone. They are pre-fold: the
+   8px grid the founder adopted lives in the system and arrives on the product at
+   step 8 with everything else. Mirroring one half of a scale would make the
+   pixel comparison at step 8 prove nothing.
+   ============================================================================ */
+
+/* The search field's clear button, mirrored from the system. See the note in
+   design/system/components/text-input.css: it was the browser's own glyph in
+   the operating system's blue until 2026-08-11. The product loads THIS file
+   until step 8, so a decision that lands only in the system is a decision the
+   product does not have. */
+.app .field input[type="search"]::-webkit-search-cancel-button,
+.landing .field input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none; appearance: none;
+  width: 16px; height: 16px; cursor: pointer;
+  background-color: currentColor; color: var(--soft);
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E");
+}
+
+/* ============================================================================
+   THE SELECT'S OPEN LIST, mirrored from design/system/components/select.css.
+
+   The product screens load THIS file and the component pages load the system,
+   so a decision that lands in only one of them is a decision the product does
+   not have. The picker was styled in the system on 2026-08-11 and the product
+   went on opening the operating system's own menu, a grey panel with a blue
+   highlight, on the one screen that asks a person for money. The founder saw it
+   there, which is where it should have been visible from the first hour.
+
+   Same mechanism, same values, kit.css's own variable names: `--soft` for the
+   muted tier, `--line` for a container edge, `--frame` for paper, `--ink` for
+   the reading colour, `--panel2` for the hovered fill, `--accent` for petrol.
+   The literals are the pre-fold numbers this file still carries; the 8px grid
+   arrives on the product at step 8 with everything else, and folding half a
+   scale here would make that comparison prove nothing.
+
+   Chrome and Edge get this. Safari and Firefox keep exactly what they render
+   today, because @supports is the honest boundary rather than a fallback we
+   pretend to have tested. */
+@supports (appearance: base-select) {
+  .app .field select, .landing .field select {
+    appearance: base-select;
+    align-items: center;
+  }
+  .app .field select::picker(select), .landing .field select::picker(select) {
+    appearance: base-select;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--frame);
+    color: var(--ink);
+  }
+  /* The mark is ours and it is the chevron the nav row draws, a quarter turn on.
+     Base appearance would otherwise put its own filled triangle here, which is
+     the browser's glyph in a control we just took over. */
+  .app .field select::picker-icon, .landing .field select::picker-icon {
+    color: var(--soft);
+    font-size: 0;
+    width: 16px; height: 16px;
+    background-color: currentColor;
+    -webkit-mask-position: center; mask-position: center;
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 9 7 7 7-7'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 9 7 7 7-7'/%3E%3C/svg%3E");
+  }
+  /* 44px, because an option is a tap target on a product used mostly on a phone.
+     The browser's own base option is 24px tall with 7px of side padding. */
+  .app .field select option, .landing .field select option {
+    min-height: 44px;
+    padding: 8px 16px;
+    column-gap: 8px;
+    border-radius: 6px;
+    background: var(--frame);
+    color: var(--ink);
+    font-size: 14px;
+  }
+  .app .field select option:hover, .landing .field select option:hover { background: var(--panel2); }
+  .app .field select option:checked, .landing .field select option:checked { color: var(--accent); }
+  .app .field select option:focus-visible, .landing .field select option:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+}

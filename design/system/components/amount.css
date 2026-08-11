@@ -1,0 +1,101 @@
+/* ============================================================================
+   Amount - atom
+   Every figure of money in the product that is not THE monthly total: the price
+   in a subscription row, the price on a detail screen, a past charge in a list,
+   a plan's price on the upgrade screen. 69 of them across 11 grey pages and 66
+   across 10 coloured ones, which makes it the most repeated piece of text in
+   the product.
+
+   One zone, one content slot, four sizes, and the size is set by the container
+   every time. Tabular figures always: a money product whose numbers do not line
+   up in a column is asking a person to compare things by eye that the type
+   could have compared for them.
+
+   Reads
+     colour   --text-primary
+   Page      design/kit/amount.html
+   Stands on 11 grey pages and 10 coloured ones.
+
+   NO HEX AND NO FONT NAME. The sizes and the tracking are the literals they are
+   today; the type scale is still a proposal awaiting the founder.
+
+   THE CLASS NAME IS NOT TOUCHED. `.amt` and its four host sizes stay exactly as
+   the product writes them.
+
+   ONE DECLARATION WAS DROPPED, and it is the only thing in this file that is
+   not a straight carry. `.plan-opt .amt` was declared TWICE in kit.css, 22px at
+   line 307 and 30px at line 680, both at 0-3-0 and both outside any container
+   query, so the later one wins and the 22px rendered nowhere. The dead half is
+   gone and the live half is below, unchanged. Recorded as one of the three
+   outright deletions in docs/inventory.md, and on the component's page.
+   ============================================================================ */
+
+/* ---- the base ------------------------------------------------------------
+   No size here on purpose: the base carries only what is true of an amount
+   everywhere, which is the alignment of the digits, the weight, and the fact
+   that a price never breaks across two lines. A wrapped amount stops reading as
+   one number, and in a row it takes the merchant name's space with it.
+   font-variant-numeric is also declared in base.css at specificity 0, for
+   `:where(table, .amt, .total)`. Both are kept: the base one is the floor that
+   catches a figure written without this class, this one is the component saying
+   the same thing at its own specificity so a host cannot un-align it. */
+.app .amt, .landing .amt {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+/* ---- size, set by the CONTAINER, never by importance ---------------------
+   The four hosts, smallest to largest, and every step has a reason that is
+   about the container rather than about the money:
+
+   13.5 / 400  a past charge in a list. It is history, it is identical to the
+               row above it, and it is deliberately the lightest weight in the
+               component: a column of eleven identical numbers is a texture, not
+               eleven things to read.
+   14   / 600  the price in a subscription row. It sits beside a 15px merchant
+               name and must not out-shout it: the name is what a person scans
+               for, the amount is what they check once they have found it.
+   30   / 700  a plan's price on the upgrade screen, where the number IS the
+               card and the decision is a comparison between three of them.
+   32   / 700  the price on a subscription's own detail screen, where it is the
+               subject of the whole page.
+
+   None of them reaches 46px, which belongs to the monthly total and to nothing
+   else (the One Number Rule). The detail screen's 32px is the closest anything
+   in this product gets to it, and that gap is what keeps the two readable as
+   different kinds of number. */
+
+.app .row .amt, .landing .row .amt {
+  flex: none;
+  font-size: var(--type-body);
+}
+
+.app .charges li .amt, .landing .charges li .amt {
+  font-size: var(--type-body);
+  font-weight: 400;
+}
+
+.app .plan-opt .amt, .landing .plan-opt .amt {
+  display: block;
+  font-size: var(--type-figure);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.app .hero .amt, .landing .hero .amt {
+  display: block;
+  font-size: var(--type-figure);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+/* No states. An amount is a figure and never a target: on every screen that
+   carries one it is either inside a link the ROW owns (the whole row is one
+   anchor with one accessible name, which is what stops a list of subscriptions
+   from being a list of four targets per line) or inside a card that has its own
+   button. Hovering the number itself does nothing, and a hover written here
+   would document something the product cannot do. */

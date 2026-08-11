@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Merchant chip group - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Merchant chip group</h1>
+    <p class="lead">One category, its head, and the merchants inside it as a wrapping row of small chips, each carrying a 22px mark and a real name. It is step two of the guided reveal, and it is the moment <b>SPOTIFYAB STOCKHOLM</b> becomes Spotify Premium. The newest molecule in the product, and the one the riskiest assumption is tested through.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>1</strong> grey page</span><span>one form, no axis</span><span>no states</span><span>never carries an amount</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Two content slots, a head and a list, and the list's items host an atom. Everything below is drawn by <code>design/system/components/merchant-chip-group.css</code> through the same entry point a product screen loads, so this page cannot drift from the screen.</p>
+    <div class="kit-stage app full">
+      <div class="rgroup">
+        <h3 class="group-head plain">Streaming (4)</h3>
+        <ul>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/netflix.svg" alt=""></span>Netflix</li>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/disney-plus.svg" alt=""></span>Disney+</li>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/amazon-prime.svg" alt=""></span>Amazon Prime</li>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/hulu.svg" alt=""></span>Hulu</li>
+        </ul>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.rgroup</code> <span>the molecule: one category, top margin only. Five of them stack on the reveal, so it owns the gap above itself and nothing below</span></li>
+      <li><code>.group-head.plain</code> <span>a molecule this one hosts, the <a href="group-head.html">group head</a> in its plain form. Positioned tighter here, by margin alone, and not otherwise touched: the chips underneath draw their own edges, so the head has no rule to add</span></li>
+      <li><code>ul</code> <span>a flex row that <b>wraps</b>, with an 8px gap. Not a scroller: a horizontal scroller would hide half the category behind an edge, and seeing all of it is the whole point of this step</span></li>
+      <li><code>li</code> <span>the chip. Asymmetric padding, 8px on the left where the mark sits and 16px on the right where only the name ends, a hairline edge and a control corner</span></li>
+      <li><code>.logo</code> <span>an atom, the <a href="logo.html">Logo</a>, at 22px with <code>--radius-xs</code>. This is the only place in the product it renders at that size, and the size belongs to the atom's own axis in <code>logo.css</code>, not to this file</span></li>
+    </ul>
+    <p class="note"><b>There is no amount slot, and there never will be one.</b> The chip carries a mark and a name and nothing else. That is not a gap in the component, it is the component: at this step the person is being asked to <b>recognise</b>, and a price beside each name would move the screen a beat forward into the thing they came here afraid of. The number arrives at step three, once, at 46px.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One form, no axis, and this is the smallest footprint in the system.</b> One grey page and one coloured page, five instances on each, all identical: same head, same wrapping row, same chip. There is nothing to draw a matrix of, so none is drawn.</p>
+    <p class="note">What varies between the five instances is the category name, the count in the head, and how many chips are in the row, which is data. The row below is the shortest category on the reveal and the one above is the longest; they are the same component at two content lengths.</p>
+    <div class="kit-stage app full">
+      <div class="rgroup">
+        <h3 class="group-head plain">Music (2)</h3>
+        <ul>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/spotify.svg" alt=""></span>Spotify Premium</li>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/apple-music.svg" alt=""></span>Apple Music</li>
+        </ul>
+      </div>
+      <div class="rgroup">
+        <h3 class="group-head plain">Software (4)</h3>
+        <ul>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/adobe-cc.svg" alt=""></span>Adobe Creative Cloud</li>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/chatgpt.svg" alt=""></span>ChatGPT Plus</li>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/icloud.svg" alt=""></span>iCloud+</li>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/notion.svg" alt=""></span>Notion</li>
+        </ul>
+      </div>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Not axes<p class="axis-rule">Three things that look like they should vary here and do not. Each is a prohibition with its reason, which is the honest form of an empty cell</p></th>
+            <th>Why not</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="kit-empty">An amount on the chip</td>
+            <td>Forbidden, and it is the component's whole reason. D1 locks the reveal as count, then categories, then total, each step with its own action. Money on this step is money one beat too early</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A pressed or selected chip</td>
+            <td>Forbidden. Nothing here is a control (see States below). A selectable chip would make the reveal a task, and the reveal is a thing that is shown to a person, not a form they fill in</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A second size</td>
+            <td>Does not exist and is not needed: there is one instance of this molecule in the product, on one screen, at one width band. If a second host ever appears, the size question is asked then, with a container that justifies it</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The 22px mark is the one measurement worth stating twice.</b> Everywhere else the logo is 30, 32, 36 or 52. Here it is 22 with the extra-small corner, because at 22px a control corner reads as a pill and a chip is not a pill. It is small enough that a row of four fits at 360px and large enough that a person recognises the mark without reading the word, which is the mechanism this whole step runs on.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">Once, on node 1.5, the guided reveal, at step two of three. The person has just been told how many recurring charges there are; this is where those charges stop being a number and become a list of things they recognise. <code>voice/docs/microcopy.md</code> gives the step its two lines: "Here they are, grouped" and "Five categories, and the real names behind the charges."</p>
+    <p class="note"><b>It is the object H0 is tested through, and that is why it was built at all.</b> The riskiest assumption of this product is that an avoidant person shown their whole recurring spend in one calm frame completes the reveal and reports relief rather than stress. Half the charges on a bank statement are unreadable codes; naming them is mechanism three of the strategic dimension doing its work at the emotional peak. The stage 07 strategy check found that this screen had no coloured page at all, which is how it came to be the sixth screen in the sample and how this molecule came to exist.</p>
+    <p class="note">Everything about the chip is calm on purpose. A hairline rather than a fill, because a wall of filled chips reads as a wall of buttons. The merchant's own mark in full colour, because it is <b>data</b> and not chrome: it is the person's own Netflix, and that recognition is the product working.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Names only, and they wrap</span>
+        <div class="kit-stage app full"><div class="rgroup"><h3 class="group-head plain">Fitness (2)</h3><ul><li><span class="logo" aria-hidden="true"><img src="../visuals/logos/peloton.svg" alt=""></span>Peloton App</li><li><span class="logo" aria-hidden="true"><img src="../visuals/logos/strava.svg" alt=""></span>Strava</li></ul></div></div>
+        <p>A mark, a name, and the row wrapping onto as many lines as it needs. At 360px a four-chip category becomes two lines and stays entirely visible, which is what a person is being asked to look at.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never add the price here</span>
+        <div class="kit-stage app"><span class="consequence">Netflix $17.99 &middot; Disney+ $13.99 &middot; Amazon Prime $14.99 &middot; Hulu $7.99</span></div>
+        <p>Adding the amounts turns a moment of recognition into a column of arithmetic, on the screen whose entire job is to be survivable by someone who avoids finance apps. It also breaks the reveal's own structure: step three exists to deliver the total, and a person who has already added it up in their head arrives there with nothing left to feel. If a screen genuinely needs names <b>and</b> amounts, that screen exists and it is Home, built from the <a href="subscription-row.html">subscription row</a>.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a chip group to show recognition</span>
+        <div class="kit-stage app full"><div class="rgroup"><h3 class="group-head plain">News (2)</h3><ul><li><span class="logo" aria-hidden="true"><img src="../visuals/logos/nyt.svg" alt=""></span>The New York Times</li><li><span class="logo" aria-hidden="true"><img src="../visuals/logos/economist.svg" alt=""></span>The Economist</li></ul></div></div>
+        <p>A set of things a person should recognise at a glance and then move past. Nothing in it is tappable, so nothing in it invites a detour.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a subscription row for a list you act on</span>
+        <div class="kit-stage app full"><a class="row" href="subscription-row.html"><span class="logo"><img src="../visuals/logos/nyt.svg" alt=""></span><span class="body"><span class="name">The New York Times</span><span class="when">in 10 days &middot; Aug 11</span></span><span class="amt">$17.00</span></a></div>
+        <p>When each item is something the person can open, the component is the <a href="subscription-row.html">subscription row</a>, <code>.row</code>: a 36px mark, a name, a date, an amount, and the whole row is one link with one accessible name. The tell is whether the list is a destination or a view. Making a chip tappable would promise the reveal has somewhere to go, and at step two it deliberately does not.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and it is the strongest "no" in this round.</b> Every chip is a plain <code>li</code>: no anchor, no button, no <code>aria-pressed</code>, nothing to tab to, checked across the one grey page and the one coloured page. The step's only control is the "See the monthly total" link underneath it, which is the <a href="step-forward-link.html">step-forward link</a> and its own component. A hover on a chip would promise a destination this step does not have, and drawing one here would document something the product cannot do.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the chip's ground</td><td><code>--bg-surface</code></td><td><code>--paper</code>, and <code>--paper-dark</code> in the dark theme</td></tr>
+          <tr><td>the chip's edge</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. Decorative, and deliberately <b>not</b> <code>--line-control</code>: WCAG 1.4.11 asks 3:1 of the boundary that identifies a control, and a chip is not one</td></tr>
+          <tr><td>the name</td><td>nothing here</td><td>inherited from <code>base.css</code> at <code>--text-primary</code>, exactly as the product renders it</td></tr>
+          <tr><td>the chip's corner</td><td><code>--radius-sm</code></td><td>primitive, straight. A named decision at stage 07: the grey drew a square 1px box and the chip takes the same corner every other control-sized object in the kit uses</td></tr>
+          <tr><td>the type step</td><td><code>--type-body</code></td><td>primitive, straight</td></tr>
+          <tr><td>margins, padding, gaps</td><td><code>--space-16</code>, <code>--space-8</code>, <code>--space-4</code>, <code>--space-0</code></td><td>primitive, straight</td></tr>
+          <tr><td>the 22px mark</td><td>nothing here</td><td>the <a href="logo.html">Logo</a> atom, in <code>logo.css</code>. Its rule was moved out of this component's block at the atom round, because a size of one component declared inside another component's file is the shape of a later disagreement</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Two values moved and none was re-decided.</b> The chip's vertical padding was 5px and is 4, its left padding was 6px and is 8, its right padding was 12px and is 16, and the block's top margin was 14px and is 16. Nearest step, ties to the larger, straight from the founder's review of the foundations. The chip's measured height goes from 32px to 30px as a result, which is the mark plus its padding and nothing else: the mark itself is untouched at 22px, and it is what sets the floor.</p>
+    <p class="note"><b>One rule of this file positions another component, and both files say so.</b> <code>.app .rgroup .group-head { margin: 0 0 8px }</code> ties with the group head's own <code>.plain</code> margin at 0-3-0, so source order decides it, and the <code>@import</code> order settles that by itself: alphabetically inside the molecule level, <code>group-head.css</code> comes before <code>merchant-chip-group.css</code>, so the host wins. Measured on this system at 8px, which is what the product renders today. Nothing else about the head is touched: a host positions the components it holds and never repaints them.</p>
+    <p class="note">Lives in <code>design/system/components/merchant-chip-group.css</code>. Stands on 1 grey page and 1 coloured one, five times each. The coloured screen carrying it: <a href="../guided-reveal.html">Guided Reveal</a>.</p>
+    <code class="kit-cmd">&lt;div class="rgroup"&gt;
+  &lt;h3 class="group-head plain"&gt;Streaming (4)&lt;/h3&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span class="logo" aria-hidden="true"&gt;&lt;img src="visuals/logos/netflix.svg" alt=""&gt;&lt;/span&gt;Netflix&lt;/li&gt;
+    &lt;li&gt;&lt;span class="logo" aria-hidden="true"&gt;&lt;img src="visuals/logos/disney-plus.svg" alt=""&gt;&lt;/span&gt;Disney+&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/merchant-chip-group.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Why the guided reveal became the sixth screen of the stage 07 sample, and what that cost, is in <code>docs/inventory.md</code> under the step 6 ledger.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

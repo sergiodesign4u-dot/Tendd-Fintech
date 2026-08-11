@@ -1,0 +1,82 @@
+/* ============================================================================
+   Promise list - molecule
+   Three facts about what this product does with a person's money, each one a
+   short heading and a sentence, each one marked by a rule down its left side.
+   It is GC6 in the block bank and it is the block that has to be believed
+   before a bank gets connected.
+
+   Reads
+     colour   --text-primary (the heading), --text-body (the sentence)
+     lines    --line-container (the left rule)
+     type     --type-body
+     spacing  --space-0, --space-2, --space-16, --space-24
+   Page      design/kit/promise-list.html
+   Stands on 3 grey pages (connect-bank, data-privacy, settings-no-account) and
+   1 coloured one (settings-no-account).
+
+   Contains nothing from the kit: the heading is a bare `strong` and the
+   sentence is the li's own text. It is a molecule because it has two content
+   slots per item, not because it hosts an atom.
+
+   NO HEX, NO PIXEL EXCEPT ONE, NO FONT NAME. The 3px of the left rule is a
+   BORDER WIDTH, which is not on the spacing scale and does not move: the
+   founder's review folded margins, paddings and gaps onto an 8px grid and left
+   border widths, radii, --tap, --row, line heights, tracking and weights
+   exactly where they were. Rounding a 3px rule to 4 would be this file
+   inventing a decision the review did not take.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.promises` stays as the product writes it.
+   This component was not merged at step 2 and keeps its name through step 6.
+
+   NO CONTAINER QUERY AND NO MEDIA QUERY TOUCHES IT. Checked.
+   ============================================================================ */
+
+.app .promises, .landing .promises {
+  list-style: none;
+  margin: var(--space-0) var(--space-0) var(--space-24);
+  padding: var(--space-0);
+}
+
+/* ---- the item: a rule, not a bullet and not a divider --------------------
+   THE RULE IS HAIRLINE AND STAYS HAIRLINE, and that is the decision this
+   component exists to hold. --line-container, the same value the edge of a card
+   takes, at 1.23:1 in the light theme and 1.33:1 in the dark: decorative,
+   owing no contrast threshold, because nothing here has to be found by touch.
+
+   Petrol was rejected by name. Three accent bars beside a primary button is
+   four petrol objects on one screen, and the One Voice Rule allows the accent
+   exactly three jobs: the primary action, the current selection, and the trust
+   line's shield. A promise is none of the three. The block already carries the
+   shield if it needs one; the bars are structure.
+
+   A rule rather than a bullet, because these are three claims and not three
+   items in an inventory. A rule rather than a divider between them, because a
+   divider would say they are parts of one statement and each of these stands
+   on its own. */
+.app .promises li, .landing .promises li {
+  margin: var(--space-0) var(--space-0) var(--space-16);
+  padding: var(--space-2) var(--space-0) var(--space-2) var(--space-16);
+  border-left: 3px solid var(--line-container);
+  font-size: var(--type-body);
+  color: var(--text-body);
+}
+
+/* ---- the heading: a block, so the pair reads as a pair -------------------
+   `display: block` on an inline element is what turns "What Tendd can see" and
+   the sentence after it into two lines rather than one run-on. It steps up one
+   ink tier, from body to primary, and gains weight; it does NOT gain size. The
+   type stays --type-body throughout the item, which is why three promises read
+   as one calm block instead of as three sub-headings on a page that already has
+   a heading. */
+.app .promises li strong, .landing .promises li strong {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* NO STATES. A promise is a statement and never a target: a sweep of every
+   `.promises` list on all 55 grey pages and 28 coloured ones returns ZERO
+   anchors inside one. What follows the block on connect-bank is an `.actions`
+   row, a sibling and not a child, and that separation is the reason three
+   claims read as a statement rather than as a menu. */

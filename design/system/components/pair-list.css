@@ -1,0 +1,152 @@
+/* ============================================================================
+   Pair list - molecule
+   A label and a value on one line, hairline between the lines, the last one
+   bare. This is the consolidation of `.facts` and `.unlocks`, decided at step 2
+   because after the spacing fold the two are BYTE IDENTICAL at the line level:
+   same flex, same space-between, same gap, same padding, same divider, same
+   size. They differ in exactly one thing, and it is the markup that carries the
+   pair.
+
+   Reads
+     colour   --text-muted (the label in dt/dd markup), --text-primary (the
+              value in dt/dd markup)
+     lines    --line-divider (between lines, decorative: nothing has to be
+              found by touch)
+     type     --type-body
+     spacing  --space-0, --space-4, --space-8, --space-16, --space-24
+   Page      design/kit/pair-list.html
+   Stands on 18 grey pages and 7 coloured ones (19 and 8 occurrences: on
+   upgrade-current-plan the two markups stand on the same page).
+
+   NO HEX, NO FONT NAME. Sizes and spacings are tokens; the two skeleton slot
+   widths at the bottom are pixels on purpose and say why.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.facts`, `.facts.sentences` and `.unlocks`
+   stay exactly as the product writes them, and they share one rule wherever
+   they share a value. The rename to `.pairs` is step 6, from the map in
+   docs/inventory.md, executed together with the markup of the screens.
+
+   NO CONTAINER QUERY AND NO MEDIA QUERY TOUCHES THIS COMPONENT. Checked. Two
+   columns of text pushed apart by space-between reflow by themselves.
+   ============================================================================ */
+
+/* ---- the block -----------------------------------------------------------
+   The two names take the same bottom margin and differ only in what their
+   element brings with it: a `dl` needs its margin reset, a `ul` needs its
+   bullets and its indent taken away as well. That is the element, not the
+   component, which is exactly why this is one component. */
+.app .facts, .landing .facts {
+  margin: var(--space-0) var(--space-0) var(--space-24);
+}
+.app .unlocks, .landing .unlocks {
+  list-style: none;
+  margin: var(--space-0) var(--space-0) var(--space-24);
+  padding: var(--space-0);
+}
+
+/* ---- the line: ONE rule for both markups ---------------------------------
+   This is the consolidation itself, and it is worth reading as one rule rather
+   than as two that agree. Before the founder's review these were 12px and 16px
+   of gap and 10px of vertical padding written twice; the 8px grid folds the two
+   gaps onto one step and the rule becomes single.
+
+   The divider is --line-divider and not --line-container: it separates rows
+   inside one block rather than drawing the edge of anything, so it is
+   decorative and owes no contrast threshold. The last line is bare, which is
+   what stops the list from looking like a table with a stray rule under it. */
+.app .facts div,  .landing .facts div,
+.app .unlocks li, .landing .unlocks li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-8) var(--space-0);
+  border-bottom: 1px solid var(--line-divider);
+  font-size: var(--type-body);
+}
+.app .facts div:last-child,  .landing .facts div:last-child,
+.app .unlocks li:last-child, .landing .unlocks li:last-child {
+  border-bottom: 0;
+}
+
+/* ---- markup: the axis, and the EMPHASIS INVERTS along it -----------------
+   `dt/dd` against `span/span`, and the choice is semantic before it is visual:
+   a definition list is right when the left column NAMES the right one, which is
+   what "Next charge / in 6 days, Aug 7" is. Two spans are right when the two
+   halves are a feature and its explanation rather than a term and its
+   definition, which is what "History and trends / 3, 6 and 12 month views" is.
+
+   The consequence is that the two markups put the ink on opposite halves, and
+   this is deliberate rather than drift:
+
+     dt/dd    label MUTED, value INK       the value is the fact you came for
+     spans    label INK, value MUTED       the label is the feature, the value
+                                           is the sentence explaining it
+
+   The dt/dd half is declared below. The span half is not declared at all, and
+   that is the point: the left span inherits --text-primary from `body` in
+   base.css, and the right one is a `.p`, which is the Muted line atom and
+   brings its own colour with it. A rule here setting the ink of that span would
+   be this host repainting an atom, which is the exact defect this stage exists
+   to remove. */
+
+.app .facts dt, .landing .facts dt {
+  color: var(--text-muted);
+}
+.app .facts dd, .landing .facts dd {
+  margin: var(--space-0);
+  text-align: right;
+  color: var(--text-primary);
+  /* Figures line up in a column or this is not a money product. "$143.88 since
+     Aug 2025" and "in 6 days, Aug 7" sit above each other on the detail screen
+     and the digits have to agree. */
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- content: values against sentences -----------------------------------
+   The second axis, and it is about the LENGTH of the value rather than about
+   its kind. "Monthly" is a value and sits opposite its label. "A link you tap.
+   There is no code to copy out" is a sentence, and opposite its label it would
+   wrap into a ragged right-aligned column two words wide. `.sentences` drops
+   the row out of flex and stacks the pair, so the sentence gets the full
+   measure and reads as prose.
+
+   Five grey pages carry it (sign-in, sign-in-sent, cancel-guide,
+   cancel-guide-no-guide, upgrade-payment-failed) and one coloured page does
+   (upgrade-payment-failed). It is a content variant, declared, not drift. */
+.app .facts.sentences div, .landing .facts.sentences div {
+  display: block;
+}
+.app .facts.sentences dd, .landing .facts.sentences dd {
+  text-align: left;
+  margin: var(--space-4) var(--space-0) var(--space-0);
+}
+
+/* ---- the skeleton slots, which belong to the HOST ------------------------
+   84px for a label and 110px for its value. These are the host saying how wide
+   its own slot is while the content loads, and skeleton-bar.css hands them here
+   by name: "the host owns the slot, this file owns the bar". They stay pixels,
+   like every other width in the system, because a width is not a spacing and
+   the 8px grid does not govern it. Two different widths on purpose: a column of
+   identical bars reads as a progress meter, and loading is not progress. */
+.app .facts .skel,    .landing .facts .skel    { width: 84px; }
+.app .facts dd .skel, .landing .facts dd .skel { width: 110px; }
+
+/* NO STATES. A pair list is a table of facts read once: a sweep of every
+   `.facts` and every `.unlocks` on all 55 grey pages and 28 coloured ones
+   returns ZERO anchors inside either, and no row is hoverable, focusable or
+   pressable. Where a fact needs an action, the action is a sibling below the
+   list (the detail screen's "Edit the details"), never a target inside it.
+
+   `.app .unlocks .p { text-align: right }` is the one rule of this component
+   that is NOT in this file. It lives in muted-line.css, which carried it at the
+   atom round with a comment offering it back. It is left there rather than
+   duplicated: a rule that belongs to two files ends up in neither, and moving
+   it means editing both files in one step. Flagged for the parent, not fixed
+   here. */
+
+/* Moved here from muted-line.css. `.unlocks .p` right-aligns the muted atom that
+   carries the value half of a pair, and right-aligning a child is the HOST doing
+   its job, not the atom doing its own. The atom's file offered it back and this
+   file takes it: a rule whose subject is "this atom, but only inside me" belongs
+   to the me, or the atom grows a variant for every host it ever stands in. */
+.app .unlocks .p, .landing .unlocks .p { text-align: right; }

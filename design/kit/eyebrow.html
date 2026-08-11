@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eyebrow - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Eyebrow</h1>
+    <p class="lead">The small uppercase mark that names the block under it: "Step 2 of 3", "Everything in Tendd Pro", "By category". It is the only place in this product where type is set in capitals, and it is the smallest text in the system.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>4</strong> grey pages</span><span>1 form</span><span>4 gaps, set by the host</span><span>no states</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one text slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/eyebrow.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens. The class name is the one the product writes today; the grey stylesheet's <code>.num</code> folds into it at step 6, from the map in <code>docs/inventory.md</code>.</p>
+    <div class="kit-stage app">
+      <div>
+        <span class="k">Step 2 of 3</span>
+        <p class="context">Five categories, and the real names behind the charges.</p>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.k</code> <span>the atom itself: a block-level mark at 11px, uppercase, tracked out by 0.06em, in muted ink</span></li>
+      <li><code>display: block</code> <span>it is a line of its own, never a prefix sitting on the same line as the heading it introduces</span></li>
+      <li><code>letter-spacing</code> <span>0.06em. Capitals set at normal tracking close up into a block, and this is the one place in the system where tracking is loosened rather than tightened</span></li>
+      <li><code>margin-bottom</code> <span>the gap to the block below, and the only thing that varies: 4px by default, and 6, 8 or 10px where a container asks</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One form, and no size axis at all.</b> Every eyebrow in the product is 11px uppercase muted, on a phone and on a dashboard, above a reveal step and inside a plan card. The inventory records no axes and the stylesheet declares none, so there is no matrix of looks to draw: a smaller one would be unreadable and a larger one would be a heading, which is a different component.</p>
+    <p class="note">What does vary is the gap under it, and it is a rhythm rather than four exceptions: the space grows with the size of the block the eyebrow introduces. The base is the smallest of the four rather than the average, so a container that says nothing gets the tightest pairing.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Gap below<p class="axis-rule">Set by the CONTAINER, and it scales with what the eyebrow is introducing: a line, a list, a card's list, a whole step of a screen</p></th>
+            
+            <th class="val">Selector</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>4px</b>, the base</td>
+            
+            <td class="val">.k</td>
+            <td>The footnote line on History and Trends, where one muted sentence follows</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="k">By category</span></span></td></tr>
+          <tr>
+            <td><b>6px</b></td>
+            
+            <td class="val">.oncard .k</td>
+            <td>The share snapshot's own explanation of what it contains. One grey page, no coloured page yet</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="k">What is on this card</span></span></td></tr>
+          <tr>
+            <td><b>8px</b></td>
+            
+            <td class="val">.plan-opt .incl .k</td>
+            <td>Above the feature list inside each of the three plan cards on Upgrade</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="k">Everything in Tendd Pro</span></span></td></tr>
+          <tr>
+            <td><b>10px</b></td>
+            
+            <td class="val">.rstep .k</td>
+            <td>The guided reveal, where the eyebrow introduces an entire step of the screen and the heading under it is 24px</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="k">Step 3 of 3</span></span></td></tr>
+          <tr>
+            <td class="kit-empty">A second colour</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. A petrol or amber eyebrow would spend a raised voice on a label, and the accent has exactly three jobs: the primary action, the current selection and the trust line. A marker that needs to be noticed more is a <b>chip</b>, which has a fill to carry the tone</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Three of those four margins belong to their containers by the ladder</b>, and they are carried in this file so that the split cannot lose one. Specificity decides which wins, not import order, so nothing about the rendering depends on where they finally live: if the plan option and the reveal step take theirs back, they are deleted here in the same step.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">An eyebrow answers "where am I" before a person reads anything else in a block. On the guided reveal it is the whole of the product's promise that a person is never lost in a process: "Step 1 of 3" over the count, "Step 2 of 3" over the categories, "Step 3 of 3" over the total. That is D1 drawn, and the marker is deliberately a marker rather than a progress bar, because a filled bar at step one tells an anxious person the road is long.</p>
+    
+    <p class="note">Its copy comes from <code>voice/docs/microcopy.md</code> and it is plain: "Step 2 of 3" and not "STEP TWO", "By category" and not "BREAKDOWN". Uppercase is applied by <code>text-transform</code>, so the markup carries a sentence and a screen reader is never handed an acronym.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A marker over a block</span>
+        <div class="kit-stage app"><div><span class="k">Step 3 of 3</span><h2 class="lbl strong">All together</h2><p class="total">$192.90</p></div></div>
+        <p>Three objects, three sizes, one reading order: where you are, what this is, and the number. The eyebrow is the smallest and the first, which is exactly the job. This is the last beat of the guided reveal, the screen the product exists to prove.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a group head instead</span>
+        <div class="kit-stage app"><div><span class="k">Streaming</span><p class="p">$46.97 a month, four subscriptions</p></div></div>
+        <p>The same mark naming a section of a list, and it cannot do the job. That belongs to the <b>group head</b>: 12px uppercase, a subtotal on the SAME line, and a hairline under it. The eyebrow is a block with no second slot and no rule, so the subtotal drops to a line of its own and the section boundary disappears. Every category heading on Home would come apart this way.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">One per block, at the top</span>
+        <div class="kit-stage app"><div><span class="k">Everything in Tendd Pro</span><ul><li>History and trends</li><li>Advanced alerts</li><li>Full cancel guides</li><li>Export</li></ul></div></div>
+        <p>Inside a plan card, the eyebrow separates what you are buying from what it costs, so the price above it and the list below it are never read as one column of similar things. The list itself is drawn by the plan option and is bare here on purpose: this page shows one component and borrows nothing it does not own.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a chip instead</span>
+        <div class="kit-stage app"><span class="k">Cancelled</span></div>
+        <p>A status wearing the eyebrow, and the case alone tells you it is wrong. A mark that carries a STATUS rather than a name is a <b>chip</b>: it has a fill, a corner and a tone axis, and it is set in sentence case at 10.5px, because a shouted status on a calm row is the same defect as a red one. The eyebrow labels a block; the chip labels a thing. "Trial" and "Cancelled" are chips, "Everything in Tendd Pro" is an eyebrow.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and that is a finding rather than a gap.</b> An eyebrow is a caption: it is never a link, never a target and never pressed, on any of the 55 grey pages or the 28 coloured ones. It contains no anchor anywhere in either folder, so unlike the muted line and the quiet line it has no interactive surface hidden inside it. Drawing four empty cells here would document something the product cannot do, which is the same defect as inventing a variant.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the mark itself</td><td><code>--text-muted</code></td><td><code>--muted</code>, and <code>--muted-dark</code> in the dark theme. 5.8:1 light and 6.4:1 dark, which 11px text needs every bit of</td></tr>
+          <tr><td>size, case and tracking</td><td>literals</td><td>11px, uppercase, 0.06em. The type scale is still a proposal awaiting the founder, and there is no tracking scale at all, so these stay as they are</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/eyebrow.css</code>. Stands on 4 grey pages and 3 coloured ones. Coloured screens carrying it: <a href="../guided-reveal.html">Guided Reveal</a>, <a href="../upgrade.html">Upgrade</a>, <a href="../history-trends.html">History and Trends</a>.</p>
+    <code class="kit-cmd">&lt;span class="k"&gt;Step 2 of 3&lt;/span&gt;
+&lt;span class="k"&gt;Everything in Tendd Pro&lt;/span&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/eyebrow.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It is one of the two atoms the consolidation ADDED rather than removed: it had a base rule in <code>kit.css</code> and occurrences in the product, and no row in the stage 07 tables. The merge with <code>.num</code> is in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

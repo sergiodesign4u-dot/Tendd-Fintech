@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chip - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Chip</h1>
+    <p class="lead">The smallest thing the product says out loud: a state, or the plan a person is on. It is the component the consolidation compressed hardest, five class names into one rule, and its axis is tone rather than importance.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>20</strong> grey pages</span><span><strong>36</strong> places</span><span>1 axis, 4 tones</span><span>no states, not interactive</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one content slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/chip.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from. Every chip on this page carries a label that a real screen carries.</p>
+    <div class="kit-stage app">
+      <span class="tag">Price changed</span>
+      <span class="tag">Payment failed</span>
+      <span class="badge">Connected</span>
+      <span class="tag trial">Trial</span>
+      <span class="plan-opt"><span class="best">Best value</span></span>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.tag</code> <span>the atom itself, in its most common host: the status at the end of a subscription row. An <code>inline-block</code> with <code>flex: none</code>, so a flex host cannot squeeze it</span></li>
+      <li><code>.badge</code> <span>the same rule under a second name, on a heading or beside a sentence. Identical in every declared property</span></li>
+      <li><code>.trial</code> <span>the tone modifier. The only axis this component has</span></li>
+      <li><code>border-radius</code> <span>reads <code>--radius-xs</code>, 6px, which was named on 2026-08-10 for this component: at 22.8px tall the control radius renders as a pill</span></li>
+      <li><code>text-transform</code> <span>declared as <code>none</code> and <code>letter-spacing</code> as <code>0</code>, on purpose rather than by default. The grey wireframes shout their badges, and both resets are what silence them</span></li>
+      <li><code>white-space</code> <span><code>nowrap</code>. A chip that folds grows the row it is pushed to the end of, and the list stops lining up</span></li>
+    </ul>
+    <p class="note"><b>Measured on this page rather than read from the file:</b> every chip above renders 22.8px tall, 10.5px at weight 600, line height 16.8px, padding 3px by 9px, corner 6px. There is no size axis and no second size anywhere in the product.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis, and it is <b>tone</b>. It is chosen by what the chip <i>is</i>, never by how much attention it wants: a tone is a fact about the thing, and a chip that picks its colour by urgency is the finance-app reflex this language was chosen to refuse. Values stand next to each other below, because the question is always comparative.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Tone<p class="axis-rule">Quiet unless the chip names something quiet cannot say. Quiet is not the fallback, it is the answer for every state of a subscription, a connection and a plan</p></th>
+            
+            <th class="val">Tokens</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Quiet</b> <code>.tag</code>, <code>.badge</code></td>
+            
+            <td class="val">--bg-status<br>--text-status</td>
+            <td>33 of the 36. DESIGN.md: "Status is a quiet grey badge. Alarm is not a colour we own." 5.77:1, well over the 4.5 a 10.5px label owes</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="tag">Active</span></span></td></tr>
+          <tr>
+            <td><b>Trial</b> <code>.tag.trial</code></td>
+            
+            <td class="val">--bg-trial<br>--text-trial</td>
+            <td>1 place, and it is the one cool pair in the whole palette. A trial is not a warning and not a failure: it is a clock, and the tone says so before the word does. 6.75:1</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="tag trial">Trial</span></span></td></tr>
+          <tr>
+            <td><b>Accent</b> <code>.plan-opt .best</code></td>
+            
+            <td class="val">--bg-selected<br>--text-action</td>
+            <td>2 places, and the label is <b>"Best value"</b>, not "Pro". Every chip in the product that says Pro or Free renders grey. That is D3 at the smallest scale the product has: petrol marks the recommendation the product is making, never the paywall. 5.26:1</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="plan-opt"><span class="best">Best value</span></span></span></td></tr>
+          <tr>
+            <td><b>Cancelled</b> <code>.tag.cancelled</code></td>
+            
+            <td class="val">--bg-callout<br>--text-muted</td>
+            <td>0 places today, and drawn from the axis rather than invented later. The cancelled state of node 2.7 is one of the seventeen forms <code>docs/census.md</code> lists as existing only in the grey. Recessed rather than coloured: a subscription that is over is not a failure. 5.17:1</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="tag cancelled">Cancelled</span></span></td></tr>
+          <tr>
+            <td class="kit-empty"><code>.tone-attention</code>, <code>.tone-error</code></td>
+            
+            <td class="val">--bg-attention / --bg-failure</td>
+            <td><b>A backlog line, not a prohibition.</b> Both are declared in <code>chip.css</code> and occur on zero of the 55 grey pages. They are kept where <code>.locklabel</code> was deleted because they are opt-in modifiers rather than names inside the merged base rule, and their token pairs already carry the wash block. Today a price change and a failed payment are a full wash block with a sentence, which is the product's answer. Step 9 decides whether a chip ever plays that job</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">The other half of the matrix: four names, one rule</h3>
+    <p class="note">This component is a <b>five into one consolidation</b>, and four of the five arrived already merged. <code>kit.css</code> folded <code>.tag</code>, <code>.badge</code>, <code>.plan-opt .best</code>, <code>.appbar .plan</code> and <code>.locklabel</code> into a single base rule at stage 07, while <code>docs/inventory.md</code> was still counting two separate atoms. Step 2 of this stage brought the inventory to the code rather than the other way round. The names are <b>not</b> renamed here: that is step 6, executed together with the markup of the screens, because a rename here and a screen there is how a pixel comparison stops proving anything.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Name today<p class="axis-rule">Read from the rendered page, not from the first declaration in the CSS</p></th>
+            <th>Needs a host</th>
+            <th class="val">Places</th>
+            <th>Becomes at step 6</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.tag</code></td><td>no, it renders anywhere inside <code>.app</code></td><td class="val">15</td><td><code>.chip</code>, quiet</td></tr>
+          <tr><td><code>.badge</code></td><td>no</td><td class="val">10</td><td><code>.chip</code>, quiet</td></tr>
+          <tr><td><code>.appbar .plan</code></td><td><b>yes</b>, <code>.appbar</code>. Outside one it renders as plain 16px text with no fill, measured on this page</td><td class="val">9</td><td><code>.chip</code>, quiet</td></tr>
+          <tr><td><code>.plan-opt .best</code></td><td><b>yes</b>, <code>.plan-opt</code></td><td class="val">2</td><td><code>.chip.pro</code></td></tr>
+          <tr><td class="kit-empty"><code>.locklabel</code></td><td class="kit-empty">deleted</td><td class="val">0</td><td><b>Deleted with its proof:</b> declared in the stage 07 base rule and on zero of the 55 grey pages. Nothing moves, because a rule with no markup paints nothing. The same argument retired <code>.tone-info</code> at stage 07</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Two of the four cannot stand on their own,</b> and that is a real finding rather than a curiosity: <code>.appbar .plan</code> and <code>.plan-opt .best</code> are host-scoped selectors, so a chip lifted out of its host loses its rule silently. That is exactly what the rename to <code>.chip</code> fixes, and it is why the rename is on the step 6 list rather than deferred.</p>
+    <p class="note"><b>Size is deliberately not an axis.</b> One size, everywhere, on every host: 10.5px at weight 600, 22.8px tall. A chip that grew with its host would compete with the merchant name beside it, and the row already has one thing that is allowed to be big.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A chip answers <b>"what state is this in"</b> in one or two words, at the end of a row or beside a heading. It is the quietest thing the product can say, and that is why it is allowed to appear at all on a screen whose job is calm. DESIGN.md sets the bar: <b>show it only when the state is not the plain default.</b> Fourteen "Active" chips down a column is noise on the one screen the person came to for reassurance, so Home shows a chip only on the rows where something is actually different.</p>
+    <p class="note">Every label comes from <code>voice/docs/microcopy.md</code>, and there are fourteen distinct ones in the whole product: Active, Trial, Price changed, Payment failed, Higher, New, Steady, Not identified, Connected, Reconnect needed, Private, Free, Pro, Best value. All of them are a state or a name, none of them is an instruction, and none carries a number: a chip that says "3" is a count, and a count is the thing this product will not do to a person.</p>
+    <p class="note">Where a person meets it: on Home at the end of the two rows that are not ordinary, on a subscription detail beside the heading, on Connections against each bank, in the app bar as the plan they are on, and on Upgrade as the one petrol chip in the product.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a chip</span>
+        <div class="kit-stage app"><span class="tag">Price changed</span></div>
+        <p>Two words at the end of a row, naming a state that is not the default. It is scannable down a column, it costs no vertical space, and it does not ask to be read: the eye either needs it or skips it.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a wash block instead</span>
+        <div class="kit-stage app"><span class="consequence">Netflix went up by $2.50 on Jul 28. Your next charge is $17.99 instead of $15.49.</span></div>
+        <p>The moment the state needs a sentence, the chip is the wrong object: it cannot carry a clause and it cannot carry the old price beside the new one, which is what turns a surprise into an explanation. That job belongs to the <b>wash block</b>, <code>.wash.attention</code>, which is the amber banner on the detail screen. DESIGN.md is explicit that the banner carries no icon either: the sentence is the alert.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Sentence case, at 10.5px</span>
+        <div class="kit-stage app"><span class="badge">Reconnect needed</span></div>
+        <p>"Reconnect needed", not "RECONNECT NEEDED". The base rule declares <code>text-transform: none</code> and <code>letter-spacing: 0</code> as explicit resets, because the grey wireframe it was copied from sets both the other way. DESIGN.md forbids the shout by name: "Don't uppercase or letter-space a badge to make it look designed."</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use an eyebrow instead</span>
+        <div class="kit-stage app"><span class="consequence">WHAT IS ON THIS CARD</span></div>
+        <p>Uppercase and tracked out is a real thing in this system, and it is a different component: the <b>eyebrow</b>, <code>.k</code>, the small label that names the section under it. It is 11px, muted, with 0.06em of tracking, and it carries no fill at all. If a label wants to be uppercase, it is not a chip, it is an eyebrow, and the fill is the tell: a chip is a coloured object about one thing, an eyebrow is a caption over a group.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and that is a decision rather than an omission.</b> A chip is a label: no page in the product wraps one in an anchor or a button, so it has no hover, no focus and no disabled, and <code>chip.css</code> declares none. Inventing a hover on a badge is the same defect as inventing a role, because it documents something the product cannot do. Where a chip sits inside something that <i>is</i> interactive, the subscription row on Home, the state belongs to the row and the chip simply travels with it.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the quiet fill and its label</td><td><code>--bg-status</code>, <code>--text-status</code></td><td><code>--stone</code>, <code>--stone-ink</code></td></tr>
+          <tr><td>the trial pair</td><td><code>--bg-trial</code>, <code>--text-trial</code></td><td><code>--teal-wash</code>, <code>--teal-ink</code>, the one cool pair</td></tr>
+          <tr><td>the accent tone</td><td><code>--bg-selected</code>, <code>--text-action</code></td><td><code>--petrol-tint</code>, <code>--petrol</code>. The chip has no role of its own here: <code>--bg-selected</code> is the one semantic role on the tint, and DESIGN.md ties the two places together in one sentence</td></tr>
+          <tr><td>the cancelled tone</td><td><code>--bg-callout</code>, <code>--text-muted</code></td><td><code>--canvas</code>, <code>--muted</code></td></tr>
+          <tr><td>the two declared, unused tones</td><td><code>--bg-attention</code> / <code>--text-attention</code>, <code>--bg-failure</code> / <code>--text-failure</code></td><td><code>--amber</code> and <code>--clay</code> and their washes</td></tr>
+          <tr><td>the corner</td><td><code>--radius-xs</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/chip.css</code>. Stands on 20 grey pages in 36 places. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../subscription-detail.html">Subscription Detail</a>, <a href="../subscription-detail-price-change.html">the price change state</a>, <a href="../history-trends.html">History and trends</a>, <a href="../upgrade.html">Upgrade</a>, <a href="../upgrade-current-plan.html">the current plan</a>.</p>
+    <code class="kit-cmd">&lt;span class="tag"&gt;Price changed&lt;/span&gt;
+&lt;span class="tag trial"&gt;Trial&lt;/span&gt;
+&lt;span class="tag cancelled"&gt;Cancelled&lt;/span&gt;
+&lt;span class="badge"&gt;Connected&lt;/span&gt;
+
+both of these need their host, until step 6 renames them:
+&lt;header class="appbar"&gt;... &lt;span class="plan"&gt;Free&lt;/span&gt;&lt;/header&gt;
+&lt;div class="plan-opt"&gt;&lt;span class="best"&gt;Best value&lt;/span&gt; ...&lt;/div&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/chip.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The consolidation that decided its axis is in <code>docs/inventory.md</code>; the measured forms it had before the system are in <code>docs/census.md</code>; the deletion of <code>.locklabel</code> is recorded in <code>docs/tokens-audit.md</code> under "consolidated drift".
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

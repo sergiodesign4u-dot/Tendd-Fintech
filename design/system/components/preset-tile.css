@@ -1,0 +1,95 @@
+/* ============================================================================
+   Preset tile - molecule
+   One entry of the service catalogue on Add a Subscription: a merchant mark, the
+   service name, and the price people usually pay for it. Tapping one turns the
+   form below from data entry into a confirmation, which is the whole reason the
+   catalogue is shown rather than counted.
+
+   Reads
+     colour   --bg-surface, --line-control
+     select   --bg-selected, --line-selected
+     states   --bg-hover, --line-control-hover, --color-focus
+     spacing  --space-8
+     geometry --radius-sm, --row
+     type     --type-body
+   Hosts     the logo atom and the muted line. It positions both (`flex: none`
+             on the mark, a shrinkable last column for the text) and repaints
+             neither: the mark's 30px size lives in logo.css and the price
+             line's size in muted-line.css, because both are the ATOM's own
+             size-by-container axis and not this host's opinion.
+   Page      design/kit/preset-tile.html
+   Stands on 2 grey pages, 12 tiles, and on both of their coloured copies.
+
+   TWO FORMS OF THE ELEMENT ITSELF, and it is worth knowing which is which. Six
+   tiles are `button` with `aria-pressed`, on add-subscription. Six are `span`
+   holding skeleton bars, on add-subscription-loading, where nothing is
+   pressable yet. The CSS is one rule for both: a skeleton tile has to occupy
+   exactly the space the real one will, or the catalogue jumps when it arrives.
+
+   THE CLASS NAME IS NOT TOUCHED. `.tile` stays as the product writes it, and it
+   is not renamed at step 6 either.
+   ============================================================================ */
+
+.app .tile, .landing .tile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--row);
+  padding: var(--space-8);
+  border: 1px solid var(--line-control);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  font: inherit;
+  font-size: var(--type-body);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* `--row` and not `--tap`: a tile is a row-sized object standing in a grid
+   beside other row-sized objects, and 56px is what the list rows use. It clears
+   the 44px floor with room, which is the point of having two sizes rather than
+   one. `text-align: left` and `color: inherit` are there because this is a
+   `button`, and a button that does not say otherwise centres its text and takes
+   the browser's own ink. */
+
+/* ---- positioning the atoms, and nothing else -----------------------------
+   The mark keeps its size and yields nothing; the text column takes the rest
+   and is allowed to shrink. `min-width: 0` is load-bearing: a flex item's
+   default minimum is its content, so "Adobe Creative Cloud" would push the tile
+   wider than its grid track instead of wrapping inside it. */
+.app .tile .logo, .landing .tile .logo { flex: none; }
+.app .tile > span:last-child, .landing .tile > span:last-child { flex: 1 1 auto; min-width: 0; }
+
+/* ---- states, in the order kit.css declares them --------------------------
+   `:hover` and `[aria-pressed="true"]` are both 0-3-0, so the later one wins on
+   a tile that is both: the pointer does not repaint the chosen tile, because
+   the answer to "what happens if I press this" is that it is already chosen. */
+
+.app .tile:hover, .landing .tile:hover {
+  border-color: var(--line-control-hover);
+  background: var(--bg-hover);
+}
+
+/* Selection is an ATTRIBUTE and not a class, for the same reason it is on the
+   range picker: `aria-pressed` is what a screen reader reads, so styling it
+   makes the visible state and the announced state one fact rather than two that
+   have to be kept in step by hand.
+   Tint and accent edge, and NO ink change: the merchant name is already primary
+   ink and turning it petrol would put the accent on a name rather than on the
+   choice. The selected tile is the "current selection", which is the second of
+   the three jobs the One Voice Rule allows. */
+.app .tile[aria-pressed="true"], .landing .tile[aria-pressed="true"] {
+  border-color: var(--line-selected);
+  background: var(--bg-selected);
+}
+
+/* focus-visible, not focus: the ring is for the person arriving by keyboard.
+   Declared at the component's own specificity so it wins over the base ring,
+   and reading the same token so the two can never disagree. It matters more
+   here than on most controls: the catalogue is six targets in a grid, and a
+   keyboard user moving through it has nothing else to tell them where they are. */
+.app .tile:focus-visible, .landing .tile:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}

@@ -7,7 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit.css">
+<link rel="stylesheet" href="../system/index.css">
+  <!-- The stand's own look and the roadmap chrome. Added 2026-08-11: this page
+       loaded ONLY ../system/index.css, which is right for the COMPONENTS it
+       smoke-tests and wrong for the navigation it renders. /_nav.js injects a
+       roadmap sidebar here and nothing styled it, so it laid out as a static
+       full-width block in the flow and the body reserved 220px beside it for
+       nothing. The smoke test is not weakened: the kit is still drawn by the
+       system alone, and these two files own the reviewer chrome only. -->
+  <link rel="stylesheet" href="_page.css">
+  <link rel="stylesheet" href="../../_nav.css">
 <style>
   /* SHOWCASE CHROME ONLY. This is a document about the kit, not a product
      screen, so it carries the scaffolding that frames the specimens: the page
@@ -15,7 +24,12 @@
      A product screen carries none of this and no style of its own at all. */
   body { background: var(--page); }
   .kv-wrap { max-width: 1080px; margin: 0 auto; padding: 40px 24px 90px; }
-  @media (min-width: 840px) { body { padding-left: 220px; } }
+  /* THE DRAWER'S WIDTH IS NOT A NUMBER THIS PAGE OWNS. It was written 220 here
+     while /_nav.css, which owns the roadmap's look, declares --nav-w: 240px, so
+     the drawer rendered 240 and this page reserved 220 and the panel covered the
+     first 20px of the kit under it. Three files carried the same measurement and
+     two of them were wrong; now there is one, and this reads it. */
+  @media (min-width: 840px) { body { padding-left: var(--nav-w, 220px); } }
   .kv-head { margin: 0 0 34px; }
   .kv-head h1 { margin: 0 0 8px; font-size: 30px; letter-spacing: -0.02em; color: var(--ink); }
   .kv-head p { margin: 0 0 6px; max-width: 66ch; font-size: 14.5px; color: var(--mid); }
@@ -53,6 +67,7 @@
   .kv-new { display: inline-block; border: 0; border-radius: 6px; background: var(--accent-tint); color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; }
   .kv-lit { display: inline-block; border: 0; border-radius: 6px; background: var(--amber-tint); color: var(--amber); font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; }
 </style>
+  <script src="../system/behaviour.js" defer></script>
 </head>
 <body>
 
@@ -142,9 +157,10 @@
           <input id="k-a" type="email" value="emma@example.com">
           <p class="hint">The address your list is kept under.</p>
         </div>
-        <div class="field">
+        <div class="field affix">
           <label for="k-b">Amount</label>
-          <input id="k-b" type="text" value="17.99" aria-invalid="true">
+          <span class="cur" aria-hidden="true">$</span>
+          <input id="k-b" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" value="17.99" aria-invalid="true">
           <p class="hint">Enter an amount, like 17.99.</p>
         </div>
       </div>
@@ -473,7 +489,7 @@
     <div class="kv-plate app">
       <p class="kv-note"><span class="kv-new">authored</span> <strong>The filled button, the inverse button, the invalid field.</strong> The first exists in grey only as a heavier border, the second exists on no page at all, and the third has no hook anywhere: a sweep of the 55 pages returns no <code>aria-invalid</code>, no <code>required</code> and no error class. Two smaller ones join them: a focus ring, because the grey draws exactly one and only on the field, and the chip tones, because four look-alikes render fourteen states through markup that carries a class for none of them.</p>
       <p class="kv-note"><strong>Retired.</strong> Thirteen rules for one quiet link became one atom, and the five sizes became two. Five chip rules became one base and five tones. Seven slot names got the base they never had, and twenty-one host rules became seven bases plus modifiers. The landing's <code>lp-btn</code> twin is gone, and with it the one rule it had already lost: the 44px floor.</p>
-      <p class="kv-note"><span class="kv-lit">literal</span> <strong>Ten places still carry a literal value</strong>, each marked <code>LIT</code> in <code>kit.css</code>. Fourteen variables are proposed in <a href="inventory.md">inventory.md</a> and none was added: a value enters this system by a named decision, never as a side effect of an extract. Four of the fourteen are pure naming of a literal the file already writes; one is a real 8px difference between the kit's rail and the grey's, and it needs a decision rather than a merge.</p>
+      <p class="kv-note"><span class="kv-lit">literal</span> <strong>Ten places still carry a literal value</strong>, each marked <code>LIT</code> in <code>kit.css</code>. Fourteen variables are proposed in <a href="docs/inventory.md">docs/inventory.md</a> and none was added: a value enters this system by a named decision, never as a side effect of an extract. Four of the fourteen are pure naming of a literal the file already writes; one is a real 8px difference between the kit's rail and the grey's, and it needs a decision rather than a merge.</p>
     </div>
   </div>
 

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amount - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Amount</h1>
+    <p class="lead">Every figure of money in the product that is not THE monthly total: the price in a row, the price on a detail screen, a past charge in a list, a plan's price on the upgrade screen. 69 of them across the grey product, which makes it the most repeated piece of text there is.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>11</strong> grey pages</span><span><strong>69</strong> uses</span><span>1 axis, 4 sizes</span><span>no states</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one content slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/amount.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens. The host classes in the markup below (<code>.row</code>, <code>.hero</code>, <code>.charges</code>, <code>.plan-opt</code>) carry no styling on this page and are not borrowed: they are the hooks the size hangs on, and nothing else about them is shown here.</p>
+    <div class="kit-stage app">
+      <span class="hero"><span class="amt">$11.99</span></span>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.amt</code> <span>the atom: tabular figures, weight 600, and a price that never wraps. It carries no size of its own</span></li>
+      <li><code>font-variant-numeric</code> <span><code>tabular-nums</code>. A column of prices that does not line up is a money product asking a person to compare by eye what the type could have compared for them</span></li>
+      <li><code>white-space: nowrap</code> <span>an amount broken across two lines stops reading as one number, and inside a row it takes the merchant name's space with it</span></li>
+      <li><code>.hero .amt</code> <span>the size, set by the container. Four of them, and this is the largest</span></li>
+      <li><code>.per</code> <span>the "a year" inside a plan price is a slot of the plan option, not of this atom. The amount holds one figure and nothing else</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis and no second: <b>size, set by the container</b>. There is no emphasis axis and there is no tone axis, and both absences are decisions. An amount is never coloured to say a price went up (that is the wash block's amber, on the sentence, not on the number) and never coloured to say a payment failed. The number stays the same number wherever it stands; only the room it is standing in changes.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Size<p class="axis-rule">Set by the CONTAINER, never by importance. Every step below has a reason that is about the room rather than about the money, and the weight moves with it</p></th>
+            
+            <th class="val">Values</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>13.5px</b> <code>.charges li .amt</code></td>
+            
+            <td class="val">13.5px / 400</td>
+            <td>A past charge, on 5 coloured detail pages. The one place the weight drops to 400: a column of eleven identical numbers is a texture and not eleven things to read</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><ul class="charges"><li><span class="amt">$11.99</span></li></ul></span></td></tr>
+          <tr>
+            <td><b>14px</b> <code>.row .amt</code></td>
+            
+            <td class="val">14px / 600</td>
+            <td>The price in a subscription row. 14 of them on Home alone, and it sits beside a 15px merchant name that must stay the thing a person scans for</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="row"><span class="amt">$17.99</span></span></span></td></tr>
+          <tr>
+            <td><b>30px</b> <code>.plan-opt .amt</code></td>
+            
+            <td class="val">30px / 700<br>-0.02em</td>
+            <td>A plan's price on Upgrade, three of them side by side. The number IS the card, because the decision on that screen is a comparison</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="plan-opt"><span class="amt">$69</span></span></span></td></tr>
+          <tr>
+            <td><b>32px</b> <code>.hero .amt</code></td>
+            
+            <td class="val">32px / 700<br>-0.02em</td>
+            <td>The price on a subscription's own detail screen, where it is the subject of the page. 6 coloured pages, the largest this atom goes</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="hero"><span class="amt">$11.99</span></span></span></td></tr>
+          <tr>
+            <td class="kit-empty">46px</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. 46px is the <b>big total</b> and belongs to the monthly total alone: the One Number Rule says exactly one object on a screen is set in Display, and it is the number the person came for. The 32px detail price is the closest anything gets, and that gap is what keeps the two readable as different kinds of number</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">22px</td>
+            
+            <td class="kit-empty">removed</td>
+            <td><b>A dead declaration, deleted here with its proof.</b> <code>.plan-opt .amt</code> was declared twice in <code>kit.css</code>, 22px at line 307 and 30px at line 680, at the same specificity and both outside any container query, so the later one won and the 22px rendered on no screen at any width. Its <code>-0.015em</code> tracking was dead for the same reason. One of the three outright deletions recorded in <code>docs/inventory.md</code>, and the only thing in this component's file that is not a straight carry</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The 30px and the 32px are the pair worth reading twice.</b> They are two pixels apart and they are not drift: one is a price among three being compared, the other is a price with a whole screen to itself. The census measured every amount in the product at both viewports and found no third value between them, which is what makes them a size axis rather than two accidents.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">An amount is what a person is checking. On Home there are fourteen of them in one column, and the whole design of that screen is built so a person can run down the list without reading it: same weight, same alignment, tabular figures, and the merchant name doing the identifying. On a detail screen there is one, and it is the subject.</p>
+    <p class="note">It is always <code>--text-primary</code>, and the calm of the product depends on that not changing. A price that went up is announced by an amber wash block with a sentence in it, and the number in the row underneath stays ink. A payment that failed is a clay wash, and the number stays ink. Colouring the figure itself would put the product's alarm in the one place a person looks fourteen times on one screen, and the audience for this product closes any app that shows them red.</p>
+    <p class="note">Money is written the way <code>voice/docs/microcopy.md</code> writes it: "$17.99", "$69", and "Typically $17.99 a month" where the figure is an estimate rather than a fact. The cycle ("a month", "a year") is never inside the amount: on a row it is the <code>.when</code> line, on a detail screen the <code>.cycle</code>, on a plan card the <code>.per</code>. This atom holds one figure.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">One figure, never wrapped</span>
+        <div class="kit-stage app"><span class="hero"><span class="amt">$11.99</span></span></div>
+        <p>The price on a subscription's detail screen: one number, 32px, tracked in, tabular. It never breaks and it never carries its own cycle, so the same markup works at 360px and on a two column dashboard without a single width rule.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a big total instead</span>
+        <div class="kit-stage app"><div><p class="total">$192.90</p><p class="context">a month, for what you have signed up for</p></div></div>
+        <p>The number the whole screen exists for is the <b>big total</b>: 46px, its own component, one per screen ever. The two are not one atom at different sizes. A total is a figure that owns a screen; an amount is a figure among others. When an amount starts wanting Display size, the screen is answering two questions and should be two screens.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Ink, whatever the news is</span>
+        <div class="kit-stage app"><span class="row"><span class="amt">$17.99</span></span></div>
+        <p>The same ink for a price that rose, a price that fell and a payment that failed. What changed is said in words, above the row, and the figure stays the thing a person can scan without bracing for it.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a wash block instead</span>
+        <div class="kit-stage app"><p class="p">Netflix went up by $2.50 on Jul 28. Your next charge is $17.99 instead of $15.49.</p></div>
+        <p>The news about a price belongs to the <b>wash block</b>: an amber fill with the sentence inside it, sitting above the row it is about. Tone lives on the container and never on the number, which is what lets one row component render an ordinary charge, a risen price and a failed payment with no variants at all.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and it was checked rather than assumed.</b> An amount is a figure and never a target. On every screen that carries one it is either inside a link the ROW owns (the whole row is one anchor with one accessible name, which is what stops a list of subscriptions from being a list of four targets per line) or inside a card that has its own button. Hovering the number does nothing, focusing it is impossible, and a hover written here would document something the product cannot do.</p>
+    <p class="note">The loading form is not a state of this component either. On the four loading screens the markup is <code>&lt;span class="skel amt-skel"&gt;</code>, a skeleton bar sized to an amount, and it belongs to the skeleton bar.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the figure</td><td><code>--text-primary</code></td><td><code>--ink</code>, and <code>--ink-dark</code> in the dark theme. 17.4:1 on the light surface, 15.0:1 on the dark one</td></tr>
+          <tr><td>the four sizes and the tracking</td><td>literals</td><td>13.5, 14, 30, 32px. The type scale is still a proposal awaiting the founder, so they stay as they are</td></tr>
+          <tr><td>tabular figures</td><td>declared twice, on purpose</td><td><code>base.css</code> sets it for <code>:where(table, .amt, .total)</code> at specificity 0, as the floor that catches a figure written without this class; the component says the same thing at its own specificity so a host cannot un-align it</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/amount.css</code>. Stands on 11 grey pages and 10 coloured ones, 66 uses on the coloured set. Coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../home-savefocus.html">Home, save focus</a>, <a href="../subscription-detail.html">Subscription Detail</a>, <a href="../subscription-detail-price-change.html">its price change state</a>, <a href="../upgrade.html">Upgrade</a>.</p>
+    <code class="kit-cmd">&lt;span class="amt"&gt;$17.99&lt;/span&gt;                       inside a row       14px
+&lt;span class="amt"&gt;$11.99&lt;/span&gt;                       inside a hero      32px
+&lt;span class="amt"&gt;$11.99&lt;/span&gt;                       inside a charge    13.5px
+&lt;span class="amt"&gt;$69&lt;span class="per"&gt;a year&lt;/span&gt;&lt;/span&gt;  inside a plan card 30px</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/amount.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It was one of the seven slot names the stage 07 audit found with no base rule at all, sized only by its four hosts; the base, and the dead 22px declaration removed with it, are recorded in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

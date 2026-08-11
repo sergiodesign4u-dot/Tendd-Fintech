@@ -750,6 +750,21 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 }
 .app .field input:focus, .app .field select:focus { outline: 2px solid var(--soft); outline-offset: -1px; }
 .app .field .hint { margin: 5px 0 0; font-size: 12px; color: var(--faint); }
+/* The money field, node 1.4. Founder's decision, 2026-08-11: Amount holds digits
+   only and the interface draws the currency sign, because a numeric field cannot
+   hold a "$" inside its value. Structure, so it belongs here and the coloured copy
+   only restyles it. The sign is painted inside the input's own left padding, so the
+   box and the focus ring are unchanged and the ring still wraps the sign; the field
+   becomes a grid so the sign and the input share one row with no wrapper. 24px is
+   the field's 12px padding plus the sign plus the air after it: measured at 360,
+   the sign ends 20.67px in and the value starts 25px in. */
+.app .field.affix { display: grid; grid-template-columns: 1fr; }
+.app .field.affix > .cur {
+  grid-row: 2; grid-column: 1; z-index: 1; align-self: center; justify-self: start;
+  padding-left: 12px; font-size: 14px; color: var(--soft);
+  pointer-events: none; user-select: none;
+}
+.app .field.affix > input { grid-row: 2; grid-column: 1; padding-left: 24px; }
 
 /* The most tracked services, as tiles. The catalogue is evidence that the
    manual path is not a punishment, so it is shown rather than counted. */

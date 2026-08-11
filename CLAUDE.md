@@ -128,7 +128,7 @@ of its own**: no page-level style block, no style attribute, no class the kit do
 A correction therefore goes to the value in `kit.css` (it reaches every screen by itself), to
 the markup in `kit.html` (carry it to every screen that holds the component), and to the reason
 in `DESIGN.md`. A fix applied on one screen is a desync, and a missing detail enters the kit
-first (`kit.css` + `kit.html` + `inventory.md`) and the screen second. A contextual override
+first (`kit.css` + `kit.html` + `docs/inventory.md`) and the screen second. A contextual override
 (`.host .btn{font-size:15px}`) is an undeclared variant, not a tidy adjustment: declare the
 modifier and put the class in the markup.
 
@@ -170,8 +170,21 @@ wireframes/                      the grey clickable prototype: index.html (home)
                                  overview.html (hub), screens and states, docs/
 voice/                           voice.md, microcopy.md and their pages
 design/                          the whole visual half: concept/ (how the language was
-                                 found), kit/ (kit.css, shell.html, kit.html,
-                                 inventory.md), visuals/ (logos, README), screens/
-                                 (was / became pairs), the colored screens flat in
-                                 the root, overview.html as the hub
+                                 found), visuals/ (logos, README), screens/ (was /
+                                 became pairs), the colored screens flat in the root,
+                                 overview.html as the hub
+design/system/                   the CODE of the design system, liftable whole:
+                                 tokens.css, base.css, index.css, components/
+design/kit/                      the STAND that shows it: _nav.js is the component
+                                 registry and draws both the hub cards and the side
+                                 panel, _page.css is the stand's own look and the home
+                                 of the reviewer chrome, overview.html the hub,
+                                 docs/ (inventory, tokens-audit, census)
 ```
+
+**Two registries, and the roadmap is not one of them.** `/_nav.js` lists STAGES; the material
+of a stage lists itself in the stage's own registry (`wireframes/_nav.js`, `design/_nav.js`,
+`design/kit/_nav.js`). A roadmap that listed 55 components would stop being a roadmap. One
+consequence, decided 2026-08-11: **Tokens + Components and Design System are one row**, because
+both led into `design/kit/` and a row whose page is a section of another row's page is a second
+entrance to one room.

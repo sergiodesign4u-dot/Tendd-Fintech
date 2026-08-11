@@ -1,0 +1,157 @@
+/* ============================================================================
+   Button - atom
+   The etalon of the system: the first component written, and the template every
+   other one follows.
+
+   Reads
+     colour   --bg-action, --bg-action-strong, --text-on-action, --text-body,
+              --text-primary, --text-muted, --bg-surface, --bg-recessed,
+              --line-control, --line-divider
+     states   --bg-hover, --line-control-hover, --color-focus
+     geometry --radius-sm, --tap  (straight from primitive: a radius has nothing
+              to override, so it needs no role)
+   Page      design/kit/button.html
+   Stands on 36 grey pages, more than any other component in the product.
+
+   NO HEX, NO PIXEL, NO FONT NAME appears below. A literal here is the hole the
+   first theme finds, and the way to see it is to switch the theme rather than to
+   read the file: in the light theme a stray #fff looks perfect.
+
+   THE CLASS NAMES ARE NOT TOUCHED. `.btn`, `.btn.primary`, `.btn.compact` stay
+   exactly as the product writes them today. Renaming is step 6, executed from the
+   map in docs/inventory.md together with the markup of the screens, because a
+   rename here and a screen there is how a pixel comparison stops proving
+   anything.
+   ============================================================================ */
+
+.app .btn, .landing .btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: var(--tap);
+  padding: var(--space-0) var(--space-16);
+  border: 1px solid var(--line-control);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  color: var(--text-body);
+  font: inherit; font-size: var(--type-body); font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  /* A LABEL NEVER WRAPS. A button broken over two lines stops reading as one
+     thing to press: the eye has to reassemble it, and on a screen whose job is to
+     lower anxiety that is the last object that should ask for work. It also
+     breaks the 44px floor upward into an odd 65 or 86, so a row of buttons stops
+     lining up.
+
+     Zero pixels move today. All 104 buttons on the 28 coloured pages measure
+     exactly 44px, so not one of them is wrapping and none is being held narrower
+     than its label: a non-wrapping button that already fits keeps its width. What
+     this line removes is the luck. Stage 07 had already paid for the absence of
+     it once, when the onboarding column had to be widened from 620 to 760 because
+     the plan button and its list wrapped; that was fixed in the layout, and this
+     is the same fix one level down, where it belongs.
+
+     The consequence is deliberate: a label too long for its container now
+     overflows instead of folding, which is loud and gets noticed. A quiet wrap is
+     how a two line button survives to production. If a label cannot fit, the
+     label is too long, and that is a question for voice/docs/microcopy.md. */
+  white-space: nowrap;
+}
+
+/* ---- emphasis: one axis, three values, and only one of them per zone -----
+   Filled is the main action of a zone and there is exactly one. Outline is a
+   real alternative rather than a ghost: the two doors of this product are equal
+   by decision, so the second door has to be legible. Inverse exists only where
+   the ground is already petrol. */
+
+.app .btn.primary, .landing .btn.primary {
+  background: var(--bg-action);
+  border-color: var(--bg-action);
+  color: var(--text-on-action);
+}
+.app .btn.inverse, .landing .btn.inverse {
+  background: transparent;
+  border-color: var(--text-on-action);
+  color: var(--text-on-action);
+}
+.app .btn.inverse.primary, .landing .btn.inverse.primary {
+  background: var(--bg-surface);
+  border-color: var(--bg-surface);
+  color: var(--text-action);
+}
+
+/* ---- size: THE AXIS IS GONE, and the consolidation is what removed it -----
+   `.btn.compact` existed as exactly two differences: 13.5px against 14px, and
+   14px of side padding against 18px. The founder's review of the foundations
+   removed half steps from the type scale and put spacing on an 8px grid, so both
+   differences fold: 13.5 and 14 are both --type-body, 14 and 18 are both
+   --space-16. The modifier became byte identical to the base.
+
+   It is deleted rather than kept as a no-op. A modifier that modifies nothing is
+   worse than no modifier: the next person reads the markup, sees `.btn.compact`,
+   and spends a minute working out what it does. `.btn.compact` maps to `.btn` in
+   the renaming map, and step 6 takes it off the six places that carry it.
+
+   What is left of the axis is the rule that survived it: a button's size is set
+   by its container. With one type step and one padding step in the range a button
+   lives in, that rule now has one answer, which is the honest outcome. If a
+   genuinely tighter control is ever needed, it needs a container that justifies
+   it and a step that exists, not a class that shaves half a pixel. */
+
+
+/* ---- states: token overrides, never a style of their own -----------------
+   hover and active change fill, ink and edge. They do not move the element, do
+   not change its size and do not add a border where there was none: a border
+   appearing on hover shifts every neighbour by a pixel, and that is the jump. */
+
+.app .btn:hover, .landing .btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--line-control-hover);
+  color: var(--text-primary);
+}
+.app .btn.primary:hover, .landing .btn.primary:hover {
+  background: var(--bg-action-strong);
+  border-color: var(--bg-action-strong);
+  color: var(--text-on-action);
+}
+.app .btn.inverse:hover, .landing .btn.inverse:hover {
+  background: var(--text-on-action);
+  border-color: var(--text-on-action);
+  color: var(--text-action);
+}
+.app .btn.inverse.primary:hover, .landing .btn.inverse.primary:hover {
+  background: var(--bg-selected);
+  border-color: var(--bg-selected);
+  color: var(--bg-action-strong);
+}
+
+.app .btn:active, .landing .btn:active {
+  background: var(--bg-recessed);
+}
+.app .btn.primary:active, .landing .btn.primary:active {
+  background: var(--bg-action-strong);
+}
+
+/* focus-visible, not focus: the ring is for the person arriving by keyboard and
+   is noise for the person who just clicked. Declared here at the component's own
+   specificity so it wins over the base ring, and reading the same token, so the
+   two can never disagree. */
+.app .btn:focus-visible, .landing .btn:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Disabled repaints rather than fading, and every paint lands on a role that
+   already exists. That is why there is no --opacity-disabled in the system: it
+   would either change how the product renders, which this stage may not do, or
+   sit unread. */
+.app .btn[disabled], .landing .btn[disabled],
+.app .btn.is-disabled, .landing .btn.is-disabled {
+  cursor: default;
+  background: var(--bg-recessed);
+  border-color: var(--line-divider);
+  color: var(--text-muted);
+}
+.app .btn[disabled]:hover, .landing .btn[disabled]:hover,
+.app .btn.is-disabled:hover, .landing .btn.is-disabled:hover {
+  background: var(--bg-recessed);
+  border-color: var(--line-divider);
+  color: var(--text-muted);
+}

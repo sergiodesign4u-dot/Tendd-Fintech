@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Promise list - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Promise list</h1>
+    <p class="lead">Three facts about what this product does with a person's money, each one a short heading and a sentence, each one marked by a rule down its left side. It is GC6 in the block bank, and it is the block that has to be believed before a bank gets connected.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>3</strong> grey pages</span><span>1 form, no axes</span><span>no states, and the reason is below</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Two content slots per item, which is what makes it a molecule; it hosts no atom at all, so nothing here is positioning something that belongs to another file. Everything below is drawn by <code>design/system/components/promise-list.css</code> through the same entry point a product screen loads.</p>
+    <div class="kit-stage app full wide">
+      <ul class="promises">
+        <li><strong>What Tendd can see</strong>The charges that repeat on your account, and nothing else you do with your money.</li>
+        <li><strong>What Tendd can never do</strong>Read-only. Tendd cannot move your money.</li>
+        <li><strong>What you can undo</strong>Disconnect at any time, and your bank data goes with it.</li>
+      </ul>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.promises</code> <span>the block. Bullets and the browser's indent are taken off, because these are three claims and not three items in an inventory</span></li>
+      <li><code>.promises li</code> <span>one claim. The heading and the sentence are one element with one border, so the rule spans both and marks the pair rather than the line</span></li>
+      <li><code>border-left</code> <span>3px, reading <code>--line-container</code>. A BORDER WIDTH, not a spacing: the founder's review folded margins, paddings and gaps onto an 8px grid and left border widths exactly where they were, so 3 stays 3</span></li>
+      <li><code>li strong</code> <span>the claim in three or four words, set to <code>display: block</code> so the sentence starts a line under it. It steps up an ink tier and gains weight, and it does not gain size</span></li>
+      <li>the sentence <span>the li's own text, in <code>--text-body</code>. There is no wrapper around it, which is why <code>strong</code> has to be a block for the pair to read as a pair</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One form and no axes.</b> The inventory records none and the stylesheet declares none: one rule width, one ink pair, one size, and all three pages render the same thing. There is no matrix to draw here, and drawing an empty one would suggest variants are missing rather than unnecessary.</p>
+    <p class="note">What is worth putting side by side is the same component on its three screens, because it changes its subject completely while changing nothing about its form. That is the argument for it being one component rather than three blocks that look alike.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Screen</th><th>What it claims</th><th>Why it is there</th></tr></thead>
+        <tbody>
+          <tr><td>Connect your bank</td><td>What Tendd can see / What Tendd can never do / What you can undo</td><td>Directly above the button that opens Plaid. The audience is skeptical about connecting a bank by definition, so the three lines answer the three questions in the order they are asked</td></tr>
+          <tr><td>Data and privacy</td><td>We read your recurring charges / We can never move your money / We do not sell your data</td><td>The same three claims restated as the page's whole content, for somebody who came looking for them rather than meeting them on the way past</td></tr>
+          <tr><td><a href="../settings-no-account.html">Settings, no account</a></td><td>Your list follows you / What we tell you about can reach you / What we would hold</td><td>The only coloured page carrying it. A different subject entirely, an account rather than a bank, and the same form: what you gain, what changes, what we would hold</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The rule is hairline and stays hairline, and that is the decision this component exists to hold.</b> It reads <code>--line-container</code>, the same value the edge of a card takes: decorative, owing no contrast threshold, because nothing here has to be found by touch. Petrol was rejected by name in <code>kit.css</code>. Three accent bars beside a primary button is four petrol objects on one screen, and the One Voice Rule allows the accent exactly three jobs: the primary action, the current selection, and the trust line's shield. A promise is none of the three. The block already carries the shield if it needs one, and the bars are structure.</p>
+    <p class="note"><b>A fourth implementation exists and is deliberately not in this component.</b> The landing page carries <code>.lp-trust li</code> in <code>wireframes/_wf.css</code> with the same 3px rule and the same 14px inset, at 15px and 14px instead of one size, in a two column grid instead of a stack. The inventory calls the pair one of seven components the landing carries twice. It is not folded in here because the landing is a one-off in its own <code>lp-</code> namespace and is out of the coloured product; it is named here so the next person to touch it knows what it is a copy of.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A promise list is the product <b>saying what it will and will not do, before it is asked to do it</b>. It stands at exactly the moments where trust is the thing being spent: above the Connect your bank button, as the whole of the Data and privacy screen, and directly under the "Send a sign-in link" action on Settings, where the thing being asked for is an email and the thing being offered is a list that stops living in one browser. All three are places where somebody who is skeptical by disposition has to hand something over.</p>
+    <p class="note">The shape is fixed because the job is fixed. Three claims, no more: two reads as an incomplete answer, four reads as a legal notice, and the third design principle says plain money language and the fourth says say what happens with the data, every time. Each claim is three or four words that could be a question a person actually asks, and the sentence under it answers that question and stops. "What Tendd can never do" then "Read-only. Tendd cannot move your money." Nothing in the block hedges, and nothing in it is longer than two lines on a phone.</p>
+    <p class="note">It reads at one size throughout, which is what keeps three claims looking like one calm block rather than three sub-headings on a page that already has a heading. The heading slot gains ink and weight, not size. That is the same restraint the Two Tiers Rule asks for one step up: emphasis by tier, never by scale.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A claim, then the sentence that proves it</span>
+        <div class="kit-stage app full wide"><ul class="promises"><li><strong>We do not sell your data</strong>Not to advertisers, not to anyone, on any plan.</li></ul></div>
+        <p>The heading is the promise in the person's own words and the sentence closes every door the promise leaves open. "On any plan" is doing real work there: it answers the question the reader was about to ask, which is whether the free tier is the product.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a pair list instead</span>
+        <div class="kit-stage app full wide"><dl class="facts"><div><dt>Charged to</dt><dd>Chase checking</dd></div><div><dt>Category</dt><dd>Music</dd></div></dl></div>
+        <p>A label and a value about the person's own data is a <b>pair list</b>, divided by hairlines. The two blocks look similar and mean opposite things: a promise is a claim the product makes about itself and is read once before a decision; a pair is a record about the person and is read every time they come back. The rule down the side is the mark of a claim, the hairline between the lines is the mark of a record.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Three, and they are the block</span>
+        <div class="kit-stage app full wide"><ul class="promises"><li><strong>Your list follows you</strong>Right now it lives in this browser only. Clear it, or open Tendd on your phone, and the list is not there.</li><li><strong>What we tell you about can reach you</strong>A price change or a payment that did not go through can be sent to you, instead of waiting here until you look.</li><li><strong>What we would hold</strong>An email and a currency. Nothing is read from a bank, because you have not connected one.</li></ul></div>
+        <p>Settings with no account, and the subject is not the bank at all. Same three-claim shape, same rule, same size: what you gain, what changes, what we would hold. That the form carries a different subject without a single change is the reason this is one component.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a trust block instead</span>
+        <div class="kit-stage app full wide"><span class="consequence">From Chase, read-only. Tendd cannot move your money. Last checked today, 9:14 AM.</span></div>
+        <p>The same guarantee restated at the FOOT of a working screen, small and quiet under a hairline with a petrol shield beside it, is a <b>trust block</b>. It stands on 11 grey pages because it is a reminder rather than an argument. Reach for the promise list where a decision is being asked for, and the trust block where one has already been made.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and it was checked rather than assumed.</b> A promise is a statement and never a target: a sweep of every <code>.promises</code> list on all 55 grey pages and 28 coloured ones returns zero anchors inside one. What follows the block on Connect your bank is an action row, a sibling and not a child, and that separation is the reason three claims read as a statement rather than as a menu. Drawing four empty cells would document something the product cannot do.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the claim</td><td><code>--text-primary</code></td><td><code>--ink</code>. 17.4:1 on the light surface, 15.0:1 on the dark one</td></tr>
+          <tr><td>the sentence</td><td><code>--text-body</code></td><td><code>--slate</code>. 10.2:1 light, 10.4:1 dark</td></tr>
+          <tr><td>the left rule</td><td><code>--line-container</code></td><td><code>--hairline</code>. Decorative at 1.23:1 light and 1.33:1 dark, and raising it was rejected on 2026-08-11 because it outlines the whole product</td></tr>
+          <tr><td>both slots</td><td><code>--type-body</code></td><td>14px. Was 13.5, folded by the founder's review of 2026-08-11. One size throughout, on purpose</td></tr>
+          <tr><td>the gaps</td><td><code>--space-24</code>, <code>--space-16</code>, <code>--space-2</code></td><td>the 8px grid. The block's 22 goes to 24, the gap between claims goes 12 to 16, the inset from the rule goes 14 to 16</td></tr>
+          <tr><td>the rule's width</td><td>literal</td><td>3px. A border width, explicitly outside both scales: rounding it to 4 would be this file inventing a decision the founder's review did not take</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/promise-list.css</code>. Stands on 3 grey pages (connect-bank, data-privacy, settings-no-account) and 1 coloured one: <a href="../settings-no-account.html">Settings, no account</a>. The other two screens are still grey, which is why the block's own inventory row was written from the grey rather than from a colour sample.</p>
+    <code class="kit-cmd">&lt;ul class="promises"&gt;
+  &lt;li&gt;&lt;strong&gt;What Tendd can see&lt;/strong&gt;The charges that repeat on your account, and nothing else you do with your money.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;What Tendd can never do&lt;/strong&gt;Read-only. Tendd cannot move your money.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;What you can undo&lt;/strong&gt;Disconnect at any time, and your bank data goes with it.&lt;/li&gt;
+&lt;/ul&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/promise-list.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its row in the system is in <code>docs/inventory.md</code>, which also records it as one of the four implementations of GC6 that the level pass found under three variant names.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan option - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Plan option</h1>
+    <p class="lead">One plan on the screen that asks for money. Three of them stand side by side and the decision is a comparison, which is why the price is the card's one big thing and everything else is deliberately quiet. It is also the component that carries the two open questions of this round.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>2</strong> grey pages</span><span><strong>6</strong> cards</span><span>1 axis, 2 hosts</span><span>1 state, and it needs a decision</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Five slots and four atoms, which makes it the densest molecule in the round. Everything below is drawn by <code>design/system/components/plan-option.css</code> and the atom files it hosts, through the same entry point a product screen loads. <b>Three of the sizes you can see here are not in this file</b>, and that is the point: the badge is <code>chip.css</code>, the price is <code>amount.css</code>, the "Everything in Tendd Pro" label is <code>eyebrow.css</code>, and this file only says where they go.</p>
+    <div class="kit-stage app full wide">
+      <div class="plan-opt">
+        <span class="best">Best value</span>
+        <span class="amt">$69<span class="per">a year</span></span>
+        <span class="p">That is $5.75 a month, and it saves about $27 a year versus paying monthly.</span>
+        <a class="btn primary" href="#anatomy">Start Tendd Pro - $69 a year</a>
+        <div class="incl">
+          <span class="k">Everything in Tendd Pro</span>
+          <ul>
+            <li>History and trends</li>
+            <li>Advanced alerts</li>
+            <li>Full cancel guides</li>
+            <li>Export</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.plan-opt</code> <span>the molecule: a <code>div</code> in a flex column, with the container hairline and the container corner. NOT a control, which is why it keeps the hairline while the door keeps the control edge</span></li>
+      <li><code>.best</code> <span>the <a href="chip.html">chip atom</a> in its accent tone, on one of the three cards. This file only sets <code>align-self</code> and its bottom margin</span></li>
+      <li><code>.amt</code> <span>the <a href="amount.html">amount atom</a> at its 32px plan size, declared in <code>amount.css</code>. The card's one big thing</span></li>
+      <li><code>.per</code> <span>the cadence, "a year" or "a month", and it is this card's own slot: it lives INSIDE the amount and the amount atom does not declare it. It resets the weight, the tracking and the ink so "$69 a year" does not read as one 32px phrase</span></li>
+      <li><code>.p</code> <span>the sentence about what the price means. <code>flex: 1 1 auto</code>, so it absorbs the height difference between three cards of unequal copy. It is what keeps the three actions and the three includes lists on one line, measured at 360 and at 1100</span></li>
+      <li><code>.btn</code> <span>the <a href="button.html">button atom</a>, stretched to the card. One filled, one outline, and the third card has none</span></li>
+      <li><code>.q</code> <span>what stands where the button would be on the card that has none. It reads <code>--tap</code> as a geometric FLOOR rather than as a target: it stops the slot collapsing below a button's height when its sentence is short. It does not do the aligning, <code>.p</code> does</span></li>
+      <li><code>.incl</code> <span>what the plan includes, under a divider, below the action and never above it: the price and the button are the decision, the list is the reassurance a person reads after making it</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis, and it produces no visual difference at all: the card is declared once for two hosts. What looks like a second axis, "with a button" against "with a question line", is not a variant of the card but a fact about the plan, and it is in the second table because a person reading this page will look for it.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Host<p class="axis-rule">ONE rule, two hosts, and this is the pattern that retires the seven <code>lp-</code> twins. A component that appears on the landing and in the app is one component, and the scope list is where that is said</p></th>
+            
+            <th class="val">Difference</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>In the app</b> <code>.app .plan-opt</code></td>
+            
+            <td class="val">none</td>
+            <td>3 cards on the Upgrade screen, which is the one place in the product that asks for money</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="plan-opt"><span class="amt">$7.99<span class="per">a month</span></span><span class="p">Month to month. Cancel any time, no lock-in.</span><a class="btn" href="#variants">Start Tendd Pro - $7.99 a month</a></div></div></td></tr>
+          <tr>
+            <td><b>On the landing</b> <code>.landing .plan-opt</code></td>
+            
+            <td class="val">none</td>
+            <td>3 cards on the welcome page, which has no <code>.app</code> shell at all. The markup is identical apart from where the buttons go, and the grid around it is narrower</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage landing full wide"><div class="plan-opt"><span class="amt">$7.99<span class="per">a month</span></span><span class="p">Month to month. Cancel any time, no lock-in.</span><a class="btn" href="#variants">Start Tendd Pro - $7.99 a month</a></div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>The action slot<p class="axis-rule">A card offers a button when the plan can be bought, and a sentence when it cannot. It never offers a disabled button: a control that looks live and does nothing is worse than one that says so in words</p></th>
+            
+            <th class="val">Values</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>A button</b> <code>.btn</code></td>
+            
+            <td class="val">--tap floor<br>align-self: stretch</td>
+            <td>4 of the 6 cards. One filled per screen and one outline, which is the zone rule: the yearly plan is the recommendation and says so once</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="plan-opt"><span class="best">Best value</span><span class="amt">$69<span class="per">a year</span></span><span class="p">That is $5.75 a month, and it saves about $27 a year versus paying monthly.</span><a class="btn primary" href="#variants">Start Tendd Pro - $69 a year</a></div></div></td></tr>
+          <tr>
+            <td><b>A question line</b> <code>.q</code></td>
+            
+            <td class="val">--tap floor<br>--type-meta<br>--text-muted</td>
+            <td>2 of the 6, the lifetime card on both hosts. Measured on the coloured Upgrade screen its sentence wraps to two lines at every width the product has, so it renders 4px taller than a button rather than exactly its height. That costs nothing, because <code>.p</code> absorbs the difference</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="plan-opt"><span class="amt">Lifetime<span class="per">one payment</span></span><span class="p">Tendd Pro stays open, for people who would rather never think about a renewal again.</span><span class="q">Not on sale yet. We are still working out the price.</span></div></div></td></tr>
+          <tr>
+            <td class="kit-empty">A disabled button</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. The lifetime plan has no price yet and the honest form of that is a sentence, not a grey control: "Not on sale yet. We are still working out the price." That line replaced a version of this screen that printed the project's own open-question notation as product copy, on two screens rather than one</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The price is 32px and not 46px</b>, and the gap is the One Number Rule. 46px belongs to the monthly total and to nothing else in the product; a plan price at that size on a screen that is not about the person's own money would be the loudest thing they have ever seen in Tendd, on the screen where they trust it least.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A person meets three of these on <b>Upgrade</b> and on the <b>welcome page</b>, and nowhere else. The card exists because a price is a comparison: three prices in three identical frames is the only shape in which $69 a year and $7.99 a month can be read against each other, and D4 fixed both numbers. The screen sits at depth and never in front of basic visibility, which is D3: the list, the total and the alerts are free and uncapped, and this card sells history, trends, advanced alerts, cancel guides and the analytical export.</p>
+    <p class="note">Its copy does the arithmetic for the person, from <code>voice/docs/microcopy.md</code>: "That is $5.75 a month, and it saves about $27 a year versus paying monthly." The button carries the amount as well as the verb ("Start Tendd Pro - $69 a year"), because nobody should learn what they are being charged after the tap.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The tick is muted</span>
+        <div class="kit-stage app full wide">
+          <div class="plan-opt">
+            <span class="amt">$69<span class="per">a year</span></span>
+            <a class="btn primary" href="#rule">Start Tendd Pro - $69 a year</a>
+            <div class="incl">
+              <span class="k">Everything in Tendd Pro</span>
+              <ul><li>History and trends</li><li>Advanced alerts</li><li>Full cancel guides</li><li>Export</li></ul>
+            </div>
+          </div>
+        </div>
+        <p>One petrol object per card, and it is the button. The four ticks are muted, so the eye lands on the thing to press rather than on the ornaments beside it.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never twelve accent ticks</span>
+        <div class="kit-stage app full wide">
+          <span class="consequence">&#10003; &#10003; &#10003; &#10003; &nbsp; &times;3 cards &nbsp; = twelve petrol marks around one petrol button</span>
+        </div>
+        <p>That is what this screen shipped at stage 07. Twelve ticks across three cards carried the accent, so on the one screen that asks for money the colour meaning "this is the safe thing to press" was smeared over twelve ornaments and the actual button stopped being the loudest thing on the page. A tick in a feature list is not the primary action, not the current selection and not the trust line, which is the whole of the One Voice Rule.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a plan option</span>
+        <div class="kit-stage app full wide">
+          <div class="plan-opt"><span class="amt">$7.99<span class="per">a month</span></span><span class="p">Month to month. Cancel any time, no lock-in.</span><a class="btn" href="#rule">Start Tendd Pro - $7.99 a month</a></div>
+        </div>
+        <p>Two or more offers with a <b>number</b> to compare, standing side by side, each with its own action. The card is what makes the numbers comparable, and the numbers are what make the card necessary.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a door instead</span>
+        <div class="kit-stage app full wide">
+          <a class="door" href="#rule"><h3>Add them yourself</h3><p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p></a>
+        </div>
+        <p>A choice between two ways to reach the same outcome, with no price and nothing to compare arithmetically, is the <b>door</b>: same corner, control edge instead of a hairline, and no action inside it because the whole card is the action. The two components look alike on purpose and differ in one thing that matters. A door <b>is</b> the target; a plan option <b>contains</b> one.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>One state, and it is the open question of this round.</b> The card is not a control: it is a <code>div</code> holding a <code>button</code>, it cannot be focused, it cannot be pressed and it has no accessible role, which is exactly why the consolidation refused to treat it as one and why it keeps the container hairline. The four states a person actually uses on this screen belong to the button inside it and are on <a href="button.html">button.html</a>.</p>
+    <p class="note">What it does have is a pointer response: <code>kit.css</code> strengthens the card's edge on hover, from the hairline to a darker hairline. <b>That value has no role in the system.</b> <code>--hairline-strong</code> is the one light primitive in <code>tokens.css</code> serving no semantic role at all, and this rule is its only consumer left in the product. A component may not read a primitive, and here that rule is not bureaucracy: <code>--hairline-strong</code> has no dark pair, so a card hovered in the dark theme would draw a near-white edge on a near-black surface.</p>
+    <p class="note"><b>What was written at build, and why it changed.</b> As built, the rule read <code>--line-container</code>, the role whose surface is right (a container edge) and whose value is the RESTING one, so the hover rendered no difference at all. It was kept as a rule rather than deleted because deleting it is itself a decision, and because that one line is where the answer lands. <b>The parent took the first of the two answers below</b>, on a mechanical ground rather than a matter of taste: dropping a state is a visual change, this stage has three named sources of visual change, and none of them asked for one. So the role is declared, this rule reads it, and the hover is back at the value <code>kit.css</code> draws today. What remains open is smaller and sits in the backlog: whether a card nobody can click should answer a pointer at all. The two answers, kept for the record:</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>The option</th><th>What it costs</th><th>What it buys</th></tr></thead>
+        <tbody>
+          <tr><td>Declare <code>--line-container-hover</code> at <code>--hairline-strong</code>, with a dark pair</td><td>one role, and the primitive finally gets a consumer with a name</td><td>the hover comes back exactly as it was, zero pixels move, and the system gains the container-hover role it will need again the first time a card is hoverable</td></tr>
+          <tr><td>Drop the hover</td><td>the card stops responding to the pointer</td><td>an honest simplification: the card is not a target, so a person who hovers it and then clicks it gets nothing. It would also let <code>--hairline-strong</code> leave the palette, which is the step 9 list it is already on</td></tr>
+          <tr><td class="kit-empty">Read <code>--line-control-hover</code></td><td class="kit-empty">rejected</td><td>It exists, it is a hover, and it is a CONTROL edge. <code>DESIGN.md</code> forbids it on a container by name, and at 5.78:1 it would draw a hard dark line around a card whose whole job is to be quiet</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">Rest, live</h3>
+    <div class="kit-stage app full wide" id="live-rest">
+      <div class="plan-opt">
+        <span class="best">Best value</span>
+        <span class="amt">$69<span class="per">a year</span></span>
+        <span class="p">That is $5.75 a month, and it saves about $27 a year versus paying monthly.</span>
+        <a class="btn primary" href="#states">Start Tendd Pro - $69 a year</a>
+        <div class="incl">
+          <span class="k">Everything in Tendd Pro</span>
+          <ul><li>History and trends</li><li>Advanced alerts</li><li>Full cancel guides</li><li>Export</li></ul>
+        </div>
+      </div>
+    </div>
+    <p class="note">Hover the card and then hover the button inside it. The button responds and the card does not, which is the whole of the open question above in one gesture.</p>
+
+    <h3 class="kit-sub-h">Rest, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--bg-surface</code>, <code>--line-container</code>, <code>--line-divider</code> under the action</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same roles, the other half of each pair. The hairline is 1.33:1 here and 1.23:1 in the light theme, deliberately: raising it would outline the whole product</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/plan-option.html
+    move the pointer away -&gt; screenshot #live-rest -&gt; screens/plan-option-rest-&lt;theme&gt;.png
+
+TWO PICTURES AND NOT EIGHT, on purpose. Hover renders identically to rest until the role
+above is decided, and a picture of it would be a picture proving there is no difference.
+When the decision lands, this block gains a hover pair and this recipe gains a line.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the card fill</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the card edge</td><td><code>--line-container</code></td><td><code>--hairline</code>. NOT the control edge: a plan card is a container, and DESIGN.md names it on the hairline side of that split</td></tr>
+          <tr><td>the divider over the includes list</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code></td></tr>
+          <tr><td>the cadence, the question line, the tick</td><td><code>--text-muted</code></td><td><code>--muted</code></td></tr>
+          <tr><td>the includes list</td><td><code>--text-body</code></td><td><code>--slate</code></td></tr>
+          <tr><td>the sentence about the price</td><td><code>--text-body</code></td><td><code>--slate</code>, and this one is <b>carried rather than settled</b>: <code>.p</code> is the muted line atom, which is <code>--text-muted</code> everywhere else in the product. See the note below</td></tr>
+          <tr><td>the hover edge</td><td><code>--line-container-hover</code></td><td><code>--hairline-strong</code>, with <code>--hairline-strong-dark</code> #303c3f computed for the pair. Declared for this. See States</td></tr>
+          <tr><td>the padding and the gaps</td><td><code>--space-2</code>, <code>--space-8</code>, <code>--space-16</code>, <code>--space-24</code></td><td>primitive: a spacing has nothing to override</td></tr>
+          <tr><td>the corner, and the action slot's floor</td><td><code>--radius</code>, <code>--tap</code></td><td>primitive, straight. <code>--tap</code> is a floor here rather than a target: nothing in the question line can be pressed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The second carried question, said plainly.</b> <code>.plan-opt .p</code> paints the muted line atom in body ink. That is a host restyling an atom, which is the defect this round exists to remove, and it is carried rather than fixed for two reasons: dropping it changes three paragraphs on a live coloured screen with no decision behind the change, and the fix is not this file's to pick. The two answers are an emphasis modifier declared on the muted line, or this card accepting muted ink the way every other card in the product does. Recorded here, in the component's own file, and in the report of this round.</p>
+    <p class="note">Lives in <code>design/system/components/plan-option.css</code>. Stands on 2 grey pages and 1 coloured one, <a href="../upgrade.html">Upgrade</a>. The landing's three cards are still grey, so that host's render is read from the grey. The grid around it (<code>.plans</code>, one column and then three) is the Grid organism and is not built yet.</p>
+    <code class="kit-cmd">&lt;div class="plan-opt"&gt;
+  &lt;span class="best"&gt;Best value&lt;/span&gt;
+  &lt;span class="amt"&gt;$69&lt;span class="per"&gt;a year&lt;/span&gt;&lt;/span&gt;
+  &lt;span class="p"&gt;That is $5.75 a month, and it saves about $27 a year versus paying monthly.&lt;/span&gt;
+  &lt;a class="btn primary" href="..."&gt;Start Tendd Pro - $69 a year&lt;/a&gt;
+  &lt;div class="incl"&gt;
+    &lt;span class="k"&gt;Everything in Tendd Pro&lt;/span&gt;
+    &lt;ul&gt;&lt;li&gt;History and trends&lt;/li&gt;&lt;li&gt;Advanced alerts&lt;/li&gt;&lt;li&gt;Full cancel guides&lt;/li&gt;&lt;li&gt;Export&lt;/li&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- the card with no price yet: a sentence where the button would be --&gt;
+&lt;span class="q"&gt;Not on sale yet. We are still working out the price.&lt;/span&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/plan-option.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. Its four atoms are drawn by <code>chip.css</code>, <code>amount.css</code>, <code>eyebrow.css</code> and <code>button.css</code>. The border split that gives this card a hairline rather than a control edge is in <code>docs/inventory.md</code> and in <code>DESIGN.md</code>; <code>--hairline-strong</code> and its missing role are in <code>docs/tokens-audit.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

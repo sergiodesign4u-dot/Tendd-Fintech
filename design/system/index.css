@@ -1,0 +1,86 @@
+/* ============================================================================
+   Tendd design system - the single entry point.
+
+   A product loads THIS and nothing else. One link, and the whole system arrives:
+   the tokens first, the base second, then every component in the order of the
+   component ladder.
+
+   THE ORDER IS BY LEVEL AND NEVER ALPHABETICAL, and the reason is mechanical
+   rather than tidy. Alphabetically `dialog.css` comes before `field.css` and
+   `form.css` before `input.css`, which puts a composite HIGHER in the cascade
+   than its own parts. The first time a container needs to correct something
+   inside it, the only tool left is !important, and a system carries that for
+   years. Sorted by level the problem cannot arise: a part is always declared
+   before the thing that contains it.
+
+   Inside organisms there is one more turn of the same screw. The ladder has
+   three rungs and no fourth, but an organism can contain an organism (the shell
+   holds the app bar, the panel holds a divided list). So inside that group the
+   ones that contain no other organism come first, and the ones that do come
+   last.
+
+   ADDING A COMPONENT: put its @import in ITS OWN LEVEL GROUP, not at the end of
+   this file. Appended at the end it looks harmless and it is exactly how the
+   ladder comes apart. The other four things a component needs are listed in
+   design/kit/docs/architecture.md.
+
+   Stage 09 adds a patterns/ shelf below organisms, with no move.
+   ============================================================================ */
+
+@import url("tokens.css");
+@import url("base.css");
+
+/* ---------------------------------------------------------------- atoms ---
+   Contains nothing else from the kit. One visual element, one content slot.
+   18 in the system; the rest arrive in the atom rounds of step 5. */
+
+@import url("components/amount.css");
+@import url("components/big-total.css");
+@import url("components/button.css");
+@import url("components/chart-placeholder.css");
+@import url("components/checkbox.css");
+@import url("components/chip.css");
+@import url("components/destination-icon.css");
+@import url("components/eyebrow.css");
+@import url("components/label.css");
+@import url("components/logo.css");
+@import url("components/meta-row.css");
+@import url("components/muted-line.css");
+@import url("components/quiet-line.css");
+@import url("components/readout.css");
+@import url("components/select.css");
+@import url("components/skeleton-bar.css");
+@import url("components/step-forward-link.css");
+@import url("components/text-input.css");
+
+/* ------------------------------------------------------------ molecules ---
+   Two or more content slots in one unit, or hosts an atom. 23 in the system. */
+
+@import url("components/action-row.css");
+@import url("components/alert-item.css");
+@import url("components/charge-list.css");
+@import url("components/detail-hero.css");
+@import url("components/door.css");
+@import url("components/form-field.css");
+@import url("components/group-head.css");
+@import url("components/merchant-chip-group.css");
+@import url("components/nav-row.css");
+@import url("components/numbered-steps.css");
+@import url("components/pair-list.css");
+@import url("components/plan-option.css");
+@import url("components/preset-tile.css");
+@import url("components/promise-list.css");
+@import url("components/range-picker.css");
+@import url("components/save-focus-candidate.css");
+@import url("components/share-card.css");
+@import url("components/subscription-row.css");
+@import url("components/summary.css");
+@import url("components/switch-row.css");
+@import url("components/text-block.css");
+@import url("components/trust-block.css");
+@import url("components/wash-block.css");
+
+/* ------------------------------------------------------------ organisms ---
+   Hosts a molecule, or is a screen shell, or is a container of repeated units.
+   14 in the system. Those containing no other organism first, then those that
+   do: app shell, panel, dialog sheet, empty block. */

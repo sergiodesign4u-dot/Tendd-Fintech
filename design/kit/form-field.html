@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form field - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+  <script src="../system/behaviour.js" defer></script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Form field</h1>
+    <p class="lead">The unit a person fills in: the label that names it, the control they type into, and the hint underneath. It draws almost nothing of its own, and the one rule that matters most in it is a colour it hands to the hint when the control goes invalid.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>8</strong> grey pages</span><span><strong>20</strong> fields</span><span>2 axes</span><span>1 state of its own</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Three slots around one atom, and that is what makes it a molecule rather than a wrapper. Everything below is drawn by <code>design/system/components/form-field.css</code> and the atom files it hosts, through the same entry point a product screen loads, so this page cannot drift from the screens.</p>
+    <div class="kit-stage app full wide">
+      <div class="field">
+        <label for="a-next">Next payment date</label>
+        <input id="a-next" type="text" value="Aug 3, 2026">
+        <p class="hint">For example, Aug 3, 2026</p>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.field</code> <span>the molecule: a block with a bottom margin and nothing else. No fill, no edge, no padding of its own. Rendered as a <code>div</code> on 17 fields and as a <code>form</code> on 3</span></li>
+      <li><code>label</code> <span>the name of the field, block-level and muted, bound to the control by <code>for</code>. It is a real target: clicking it focuses the control, and the control is what lights up</span></li>
+      <li><code>input</code> / <code>select</code> <span>the atom inside, drawn entirely by <a href="text-input.html">text-input.css</a> or <a href="select.html">select.css</a>. Its border, fill, ink and four states are its own. This molecule does not touch them</span></li>
+      <li><code>.hint</code> <span>the optional line under the control, same size and same ink as the label. 8 of the 20 fields carry one. This is the slot that turns clay when the control is invalid</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">Two axes, and neither of them changes a value: one is which element hosts the field, the other is whether a hint is present. There is no size axis, because a form field has no size of its own. Its height is the control's 44px floor plus a 12px label and, sometimes, a 12px hint.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Host<p class="axis-rule">A <code>form</code> when submitting the field IS the action, which is only the catalogue search. A <code>div</code> everywhere else, because the four fields of Add a Subscription are one form together and not four</p></th>
+            <th class="val">Difference</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>div</b> <code>&lt;div class="field"&gt;</code></td>
+            <td class="val">none</td>
+            <td>17 fields on 7 pages: Add a Subscription and its empty and error states, Connect your bank, Settings, Settings with no account, Sign in</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="field"><label for="v-name">Name</label><input id="v-name" type="text" value="Netflix"></div></div></td></tr>
+          <tr>
+            <td><b>form</b> <code>&lt;form class="field" role="search"&gt;</code></td>
+            <td class="val">none</td>
+            <td>3 fields, all of them the preset search on Add a Subscription and its empty and loading states</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><form class="field" role="search" onsubmit="return false"><label for="v-search">Find a service</label><input id="v-search" type="search" placeholder="Search 400+ services"></form></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Content<p class="axis-rule">A hint answers a question the label cannot answer in two words. If it repeats the label it is deleted; if it is the only way to know what to type, it is not optional</p></th>
+            <th class="val">Values</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Without a hint</b></td>
+            <td class="val">12px label<br>4px gap<br>44px control</td>
+            <td>12 of the 20. The default: a field whose label is enough</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="field affix"><label for="c-amount">Amount</label><span class="cur" aria-hidden="true">$</span><input id="c-amount" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" value="17.99"></div></div></td></tr>
+          <tr>
+            <td><b>With a hint</b> <code>.hint</code></td>
+            <td class="val">+ 4px<br>+ 12px hint</td>
+            <td>8 fields on 6 pages. The longest is the email hint on Connect your bank, which explains why an email is being asked for at all</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="field"><label for="c-next">Next payment date</label><input id="c-next" type="text" value="Aug 3, 2026"><p class="hint">For example, Aug 3, 2026</p></div></div></td></tr>
+          <tr>
+            <td class="kit-empty">Inline error text</td>
+            <td class="kit-empty">does not exist</td>
+            <td>Forbidden with a reason rather than missing. When the control is invalid the HINT turns clay and its sentence becomes the message: one line under the field, in one place, whether it is explaining or correcting. A second line that appears only on failure makes the field jump downward at the moment a person is already annoyed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The search field is not a search component.</b> It is this field with a <code>form</code> around it and <code>type="search"</code> on the input, and it looks identical because it is identical. A separate search component would be a second field that drifts.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A person meets this component at the two places where the product asks them for something instead of showing them something: adding a subscription by hand, which is the equal second path D2 protects, and giving an email so their list has somewhere to live. Both are moments where an anxious person is most likely to leave, so the field is deliberately plain. There is no asterisk, no "required", no character counter and no live validation as you type.</p>
+    <p class="note">Labels and hints come from <code>voice/docs/microcopy.md</code> and are the person's own words: "Name", "Amount", "Billing frequency", "Next payment date", "For example, Aug 3, 2026". The hint on Connect your bank is the longest string in the component and it earns its length, because it answers the question the field provokes: "Bank data needs somewhere that is yours: a place you can sign back into, and a place you can tell us to delete."</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">One line under the field, always the same line</span>
+        <div class="kit-stage app full wide">
+          <div class="field">
+            <label for="r-amount">Amount</label>
+            <input id="r-amount" type="text" value="$9.99" aria-invalid="true">
+            <p class="hint">Enter an amount, like $9.99</p>
+          </div>
+        </div>
+        <p>The hint is the error message. Same element, same position, same size: it changes colour and it changes its sentence, and nothing moves. The field is exactly as tall while it is wrong as it was while it was right, which is the difference between a correction and a shove.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never a message that appears from nowhere</span>
+        <div class="kit-stage app full wide">
+          <div class="field">
+            <label for="r-bad">Amount</label>
+            <input id="r-bad" type="text" value="$9.99">
+          </div>
+          <p class="consequence">Enter an amount, like $9.99</p>
+        </div>
+        <p>A message inserted below a field on failure makes the field taller than it was a moment ago and moves everything under it down, at exactly the moment a person is already annoyed. On a form of four fields the layout shifts under their hand. If a field can be wrong, it carries its hint before it is wrong, and the hint changes colour rather than the form changing shape.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Use a form field</span>
+        <div class="kit-stage app full wide">
+          <div class="field">
+            <label for="r-freq">Billing frequency</label>
+            <select id="r-freq"><option>Monthly</option><option>Every 4 weeks</option><option>Quarterly</option><option>Yearly</option></select>
+          </div>
+        </div>
+        <p>A value the person supplies, whether they type it or pick it. The label names it, the control takes it, and the field is what holds the two together and spaces them from the next one.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a switch row instead</span>
+        <div class="kit-stage app full wide">
+          <label class="switch"><input type="checkbox" checked><span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span></label>
+        </div>
+        <p>A preference that is on or off is not a field. It is the <b>switch row</b>, where the control sits to the left of the sentence rather than under a label, and where changing it takes effect at once instead of waiting for a Save. Putting a checkbox inside a form field would tell a person their choice has not been recorded yet. The switch row is a molecule of its own and is not built yet, so what stands here is its real markup drawn by the checkbox atom alone.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>One state, and it is not a pointer state.</b> The field itself is never hovered, never focused and never pressed: it has no fill, no edge and no target. What it has is <b>validity</b>, and the field hears about it from the control inside through <code>:has([aria-invalid="true"])</code>. The hint turns clay and nothing else moves. The four pointer states of the control are the control's own and are on <a href="text-input.html">text-input.html</a> and <a href="select.html">select.html</a>, where a person looking for them will go anyway.</p>
+    <p class="note"><b>The hook is the native attribute and not a class</b>, and that is not a preference. A sweep of all 55 grey pages returns no <code>aria-invalid</code>, no <code>required</code> and no error class: the invalid form is authored rather than extracted. A class would have to be added to every screen before the state could ever fire, and it would say nothing to a screen reader. The attribute is the one a form already sets, and it announces the field as invalid at the same moment it repaints it.</p>
+
+    <h3 class="kit-sub-h">Both states, live</h3>
+    <div class="kit-stage app full col wide" id="live-rest">
+      <div class="field">
+        <label for="s-ok">Amount</label>
+        <input id="s-ok" type="text" value="Netflix">
+        <p class="hint">Enter an amount, like $9.99</p>
+      </div>
+      <div class="field">
+        <label for="s-bad">Amount</label>
+        <input id="s-bad" type="text" value="seventeen ninety nine" aria-invalid="true">
+        <p class="hint">Enter an amount, like $9.99</p>
+      </div>
+    </div>
+    <p class="note">The second one is genuinely invalid, by the attribute rather than by a class the product does not carry. Tab into either input to see the ring, and note that the ring on the invalid one is clay rather than petrol: that is <code>select.css</code> and <code>text-input.css</code> reading <code>--line-failure</code>, not this file.</p>
+
+    <h3 class="kit-sub-h">The two, in both themes</h3>
+    <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
+    <div class="kit-states">
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--text-muted</code> on the label and the hint</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same role, the other half of the pair. 6.4:1 against the dark surface</div></div>
+      <div class="kit-state"><div class="cap"><b>Invalid</b><span>light</span></div><div class="tok"><code>--text-failure</code>, 4.6:1 on its own wash, the tightest pair in the system</div></div>
+      <div class="kit-state"><div class="cap"><b>Invalid</b><span>dark</span></div><div class="tok"><code>--text-failure</code> at 7.3:1. Clay and never red: the persona closes any app that shows her red, and that is a recorded quote</div></div>
+    </div>
+    <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo:
+
+  serve the repo, then for theme in (none, data-theme="dark" on &lt;html&gt;):
+    goto /design/kit/form-field.html
+    screenshot the FIRST .field in #live-rest   -&gt; screens/form-field-rest-&lt;theme&gt;.png
+    screenshot the SECOND .field in #live-rest  -&gt; screens/form-field-invalid-&lt;theme&gt;.png
+
+Both are reached the way the product reaches them: a real aria-invalid attribute on a
+real control, no class the screens do not carry.</code>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the label and the hint</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
+          <tr><td>the hint when the control is invalid</td><td><code>--text-failure</code></td><td><code>--clay</code>. Ink, so it answers to 4.5:1 and not to the 3:1 the invalid border answers to</td></tr>
+          <tr><td>the gap under the label, and above the hint</td><td><code>--space-4</code></td><td>primitive: a spacing has nothing to override</td></tr>
+          <tr><td>the gap to the next field</td><td><code>--space-16</code></td><td>primitive</td></tr>
+          <tr><td>the label and hint size</td><td><code>--type-meta</code></td><td>primitive, the 12px step</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/form-field.css</code>. It reads no fill, no edge and no radius at all, which is the shortest token list of any molecule in the system: everything a person sees inside it belongs to the control. Coloured screens carrying it: <a href="../add-subscription.html">Add a Subscription</a>, <a href="../add-subscription-empty.html">its empty state</a>, <a href="../add-subscription-error.html">its error state</a>, <a href="../add-subscription-loading.html">its loading state</a>, <a href="../settings.html">Settings</a>, <a href="../settings-no-account.html">Settings, no account</a>.</p>
+    <code class="kit-cmd">&lt;div class="field"&gt;
+  &lt;label for="sub-next"&gt;Next payment date&lt;/label&gt;
+  &lt;input id="sub-next" type="text" value="Aug 3, 2026"&gt;
+  &lt;p class="hint"&gt;For example, Aug 3, 2026&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;form class="field" role="search" onsubmit="return false"&gt;
+  &lt;label for="preset-search"&gt;Find a service&lt;/label&gt;
+  &lt;input id="preset-search" type="search" placeholder="Search 400+ services"&gt;
+&lt;/form&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/form-field.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The hint rule it carries was declined in writing by <code>text-input.css</code> and <code>select.css</code>, both of which name this file. The consolidation that decided its axes is in <code>docs/inventory.md</code>; the measured forms it had before the system are in <code>docs/census.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

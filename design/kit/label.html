@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Label - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Label</h1>
+    <p class="lead">The caption over a number: "All together" above the monthly total, "A small win" above what a cancellation freed. It always has a figure directly under it, and its two weights exist because the figures do not.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>3</strong> grey pages</span><span>1 axis, 2 values</span><span>no states</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One zone and one text slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/label.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens. The class name is the one the product writes today and it survives step 6 unchanged, with its modifier.</p>
+    <div class="kit-stage app">
+      <div>
+        <h2 class="lbl strong">All together</h2>
+        <p class="total">$192.90</p>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.lbl</code> <span>the atom: a block-level caption at 12px in muted ink, with no margin of its own</span></li>
+      <li><code>.strong</code> <span>the emphasis modifier: 15px, weight 600, and one ink tier up. It is a declared modifier and not a host override, which is the whole point of it</span></li>
+      <li><code>letter-spacing</code> <span><code>0</code> on the strong form, and load-bearing: the reveal writes the caption as an <code>h2</code>, and the reset stops it inheriting the step's headline tracking because of the tag it happens to use</span></li>
+      <li><code>margin</code> <span>none on the quiet form, 4px under the strong one. The number below is what the gap is measured against</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One axis, two values, and the axis is <b>emphasis</b> rather than size. That distinction is the rule for choosing on it: the caption is not bigger because it matters more, it is bigger because the number it captions is bigger, and what stays constant between the two forms is the ratio between the caption and its figure.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Emphasis<p class="axis-rule">Read the figure, not the words. A 20px count takes the quiet caption; the 46px Display takes the strong one, because at that distance a 12px muted line under it disappears</p></th>
+            
+            <th class="val">Tokens</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Quiet</b> <code>.lbl</code></td>
+            
+            <td class="val">--text-muted<br>12px / 400</td>
+            <td>2 grey pages, both of them share cards, where the caption sits over a 20px count inside a bordered card</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="lbl">On Tendd, I am keeping an eye on</span></span></td></tr>
+          <tr>
+            <td><b>Strong</b> <code>.lbl.strong</code></td>
+            
+            <td class="val">--text-body<br>15px / 600</td>
+            <td>The last step of the guided reveal, over the 46px monthly total. 1 grey page and 1 coloured one, and it is the emotional beat the whole product is built to test</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><span class="lbl strong">All together</span></span></td></tr>
+          <tr>
+            <td class="kit-empty">A third weight</td>
+            
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. There are exactly two figure sizes in this product that need a caption, so a third caption weight would have no number to belong to. If one appears, the question to ask first is whether the screen has grown a second Display number, which the One Number Rule already forbids</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The strong form steps up an ink tier as well as a size, and that pairing is deliberate.</b> At 15px and weight 600 a muted grey stops reading as a caption and starts reading as a heading somebody switched off. It takes <code>--text-body</code> and stays one clear step under the ink of the number itself.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">A label is the words a number is answering. "All together" over $192.90 is the whole of the guided reveal's third step: the figure a person came for, with the least possible said about it. On the share card it is "On Tendd, I am keeping an eye on" over a count, which is the same shape at a smaller scale.</p>
+    <p class="note">The test for reaching for it is narrow: <b>is there a figure directly below</b>. If there is not, the label is captioning prose, and prose introduces itself. If the thing below is a list rather than a figure, it is an <b>eyebrow</b>. If it is a form control, it is the field's own <code>label</code> element, which belongs to the form field and carries a <code>for</code> attribute that this component does not.</p>
+    <p class="note">Its copy comes from <code>voice/docs/microcopy.md</code> and is a phrase rather than a heading: "All together", "A small win". Plain money language, and never a term of art. The strong form on the reveal is set as an <code>h2</code> because it genuinely heads that step of the page, which is why the letter-spacing reset in the CSS is not cosmetic.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">A caption directly over its figure</span>
+        <div class="kit-stage app"><div><h2 class="lbl strong">All together</h2><p class="total">$192.90</p><p class="context">a month, for what you have signed up for</p></div></div>
+        <p>Three lines and one object: what this is, the number, and what the number means. The caption is 15px, the number 46px and the line under it 13px, so the eye lands on the figure and reads outwards from it in both directions.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use a muted line instead</span>
+        <div class="kit-stage app"><div><p class="total">$192.90</p><p class="context">a month, for what you have signed up for</p></div></div>
+        <p>The line UNDER a number is a <b>muted line</b>, not a label, even though the two are one sentence apart in meaning. A label says what the number is before you read it; a muted line qualifies it after. Setting the qualifier as a label would put two captions of near equal weight around one figure and make the person choose which one to believe.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The quiet form inside a card</span>
+        <div class="kit-stage app"><span class="lbl">On Tendd, I am keeping an eye on</span></div>
+        <p>Inside the share card the figure under this caption is a 20px count, so the caption itself drops to 12px muted. Same component, same relationship, one size down: the card is a smaller world and everything inside it scales together. The count is drawn by the share card, so it is not borrowed onto this page.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Use an eyebrow instead</span>
+        <div class="kit-stage app"><div><span class="k">Everything in Tendd Pro</span><ul><li>History and trends</li><li>Advanced alerts</li><li>Full cancel guides</li><li>Export</li></ul></div></div>
+        <p>When what follows is a list or a block rather than a figure, the mark above it is an <b>eyebrow</b>: 11px, uppercase, tracked out. The two look similar at a glance and answer different questions. A label says "this number is X"; an eyebrow says "you are here". A list under a label reads as though the first item is the value of the caption.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and that is a finding rather than a gap.</b> A label is a caption over a figure: it is never a link, never a target and never pressed, on any page in either folder, and it contains no anchor anywhere. Drawing four empty cells would document something the product cannot do. Note that this component is not the form's <code>label</code> element either, which does have an interactive life through its control and lives with the form field.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the quiet caption</td><td><code>--text-muted</code></td><td><code>--muted</code>, and <code>--muted-dark</code> in the dark theme. 5.8:1 light, 6.4:1 dark</td></tr>
+          <tr><td>the strong caption</td><td><code>--text-body</code></td><td><code>--slate</code>. 10.2:1 light, 10.4:1 dark</td></tr>
+          <tr><td>sizes and the tracking reset</td><td>literals</td><td>12px, 15px, weight 600, <code>letter-spacing: 0</code>. The type scale is still a proposal awaiting the founder</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/label.css</code>. Stands on 3 grey pages and 1 coloured one. Coloured screen carrying it: <a href="../guided-reveal.html">Guided Reveal</a>. The other two are the share card and the cancel win, both of them screens the colour sample never reached, which is recorded in <code>docs/census.md</code>.</p>
+    <code class="kit-cmd">&lt;h2 class="lbl strong"&gt;All together&lt;/h2&gt;
+&lt;span class="lbl"&gt;On Tendd, I am keeping an eye on&lt;/span&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/label.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It is one of the two atoms the consolidation ADDED rather than removed, and its modifier is the repair of a real defect: the grey stylesheet wrote the strong form as <code>.rstep .lbl</code>, a container restyling an atom. Both are in <code>docs/inventory.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>
