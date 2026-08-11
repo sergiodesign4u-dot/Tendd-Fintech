@@ -57,10 +57,10 @@ Founder, June 14 2026 (ground in `research/docs/strategy.md` section 6):
 - **D5** US and Plaid first, EU deferred.
 - **D-Free** (July 2026) No cap on subscriptions and no cap on bank connections in Free: a
   cap is a visibility cap, and it would break the reveal.
-- **D-Concept** (July 2026) The visual language is Petrol and Paper: white canvas, Inter,
-  petrol #1c6a76 spent only on the primary action, the current selection and the trust
-  line; status is a quiet gray badge, never red; a price change is calm amber, a genuine
-  error desaturated clay.
+- **D-Concept** (July 2026) The visual language is Petrol and Paper: off-white canvas with
+  white cards, Inter, petrol #1c6a76 spent only on the primary action, the current selection
+  and the trust line; status is a quiet gray badge, never red; a price change is calm amber,
+  a genuine error desaturated clay.
 
 ## Design principles
 
@@ -118,12 +118,19 @@ put a visible "updated after publishing" note on it and say so out loud.
 `voice/docs/microcopy.md`; the IA node states what information the place needs, not the
 wording. No product line exists in two editions. All product copy obeys `voice/docs/voice.md`.
 
-**Values migrate, they are never re-derived.** One line of CSS values runs
-`design/_theme.css` (Concept) into `design/kit/kit.css` (UI + Visual, git mv, the `:root`
-block byte for byte) into `design/system/tokens.css` (Tokens + Components, split into
+**Values migrate, they are never re-derived, and a fix lives in the kit.** One line of CSS
+values runs `design/_theme.css` (Concept) into `design/kit/kit.css` (UI + Visual, git mv, the
+`:root` block byte for byte) into `design/system/tokens.css` (Tokens + Components, split into
 primitive and semantic). Each step adds a level; a value changes only by a named decision
 ("variable, value, why"), never as a side effect of an extract or a refactor. Every value
-carries its origin in a comment next to it.
+carries its origin in a comment next to it. From UI + Visual on, a **screen carries no style
+of its own**: no page-level style block, no style attribute, no class the kit does not define.
+A correction therefore goes to the value in `kit.css` (it reaches every screen by itself), to
+the markup in `kit.html` (carry it to every screen that holds the component), and to the reason
+in `DESIGN.md`. A fix applied on one screen is a desync, and a missing detail enters the kit
+first (`kit.css` + `kit.html` + `inventory.md`) and the screen second. A contextual override
+(`.host .btn{font-size:15px}`) is an undeclared variant, not a tidy adjustment: declare the
+modifier and put the class in the markup.
 
 **Critique runs on two instruments.** Claude and Codex (read-only, see `AGENTS.md`), taken
 independently and merged afterwards, with a "who found it" column. Codex owns what is
@@ -132,9 +139,12 @@ the code, a broken link, a rule violation); "breaks at 360px" and pixel checks s
 Claude in a browser. Verify a finding by re-reading the place before fixing it; a finding
 that does not hold stays in the log marked "dropped at verification", with the reason.
 
-**Acceptance happens on screen.** Where a stage produces a screen or text on a screen, open
-it in a browser, walk every state, narrow to 360px, and only then call it done. Ask for the
-fix with a prompt, not by hand editing the file: a hand edit does not survive the next clone.
+**Acceptance happens on screen, at BOTH ends of the range.** Where a stage produces a screen
+or text on a screen, open it in a browser, walk every state, narrow to 360px AND widen to a
+desktop viewport, and only then call it done. The narrow end gets walked because breakage
+there is loud; a measure that silently stops being applied at a wider container looks calm and
+is why two accepted screens shipped wrong. Ask for the fix with a prompt, not by hand editing
+the file: a hand edit does not survive the next clone.
 
 **Zone rules live in their own docs, this file only points at them:**
 `wireframes/docs/conventions.md` (the grey contract), `voice/docs/voice.md` (the voice) and
@@ -150,6 +160,7 @@ no attribute is an invention).
 /_nav.js /_nav.css /index.html   the project registry, its look, the entry page
 CLAUDE.md  README.md  AGENTS.md  rules, status index, entry for the Codex critic
 docs/decisions.md                decision log, never loaded
+docs/bank-connection.md          where every figure on a screen comes from, never loaded
 DESIGN-artifacts.md              draft design doc from the brand (Concept); DESIGN.md
                                  is produced from the code at UI + Visual
 research/                        stages 01, 02 and 02+ together: research.html,
@@ -159,6 +170,8 @@ wireframes/                      the grey clickable prototype: index.html (home)
                                  overview.html (hub), screens and states, docs/
 voice/                           voice.md, microcopy.md and their pages
 design/                          the whole visual half: concept/ (how the language was
-                                 found), _theme.css, the colored screens flat in the
-                                 root, overview.html as the hub
+                                 found), kit/ (kit.css, shell.html, kit.html,
+                                 inventory.md), visuals/ (logos, README), screens/
+                                 (was / became pairs), the colored screens flat in
+                                 the root, overview.html as the hub
 ```

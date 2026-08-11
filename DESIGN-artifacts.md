@@ -6,14 +6,17 @@ palette, typography, icon language, and UI tone, each traced to an attribute or
 to the founder's recorded taste, plus a Sources section. It is the raw design
 material that the next phase reads.
 
-**This is NOT the product `DESIGN.md`.** By founder decision (2026-07-15,
-recorded in `design/docs/design.md`) the product design system does not live at
-a root `DESIGN.md`. It lives at `design/docs/design.md` and is generated at
-Etap 07 (UI + Visual) with `/impeccable document` from the real code of the
-colored screens plus this file. The chain for Tendd is therefore:
+**This is NOT the product design system.** It is the draft that the next phase reads.
+The chain for Tendd is:
 
-`DESIGN-artifacts.md` (this draft, Etap 06) -> `design/docs/design.md`
-(product system, Etap 07). There is intentionally no root `DESIGN.md`.
+`DESIGN-artifacts.md` (this draft, Etap 06) -> **`DESIGN.md` at the repository root**
+(product system, Etap 07), generated with `/impeccable document` from the real code of the
+coloured screens plus this file.
+
+**Corrected 2026-08-10.** This paragraph used to send the product system to
+`design/docs/design.md` and to say there was intentionally no root `DESIGN.md`. That was a July
+decision, the file it named was never created, and stage 08 reads the root file. Founder
+confirmed the move; ground in `docs/decisions.md`.
 
 Every decision below carries the attribute (A1 to A5) or taste line it traces to.
 A color, form, or font with no such pair is an invention, not a decision. The
@@ -69,7 +72,8 @@ text-on-surface pair clears WCAG AA.
 
 | Role | Value | Traces to |
 |---|---|---|
-| bg / Paper | `#ffffff` | A1 calm, true white, not beige (taste anti-reference: beige) |
+| canvas / ground | `#eef3f4` | A1 calm: the off-white canvas the technique names, a whisper cool. **Corrected 2026-08-10:** this row said `#ffffff`, which dropped the ground-against-card relationship |
+| paper / cards | `#ffffff` | A1 calm, true white cards on that ground, not beige (taste anti-reference: beige) |
 | surface | `#eef3f4` | A1 flat calm surface (T1), a whisper cool, cards and panels |
 | ink | `#141b1d` | A3 the biggest thing is ink, near-black |
 | muted | `#5a686c` | secondary and meta text, the single secondary tier (WCAG AA) |
@@ -93,7 +97,7 @@ Status "Active" is a quiet gray badge (T2), never a colored alert, never red.
 
 - **Family:** Inter, one family for everything. Traces to A5 (one neutral
   grotesk, warm restraint) and the taste (Apple clarity, warmed).
-- **Scale (tight):** monthly total 44px / 800 (A3, the one big number owns the
+- **Scale (tight):** monthly total 46px / 800 (**corrected 2026-08-10** from 44px, to the value the built screens ship) (A3, the one big number owns the
   screen); headings 20 to 28; body 15. Meta and the next-payment date line use
   the one muted tier, no lighter third tier.
 - **Delivery:** Google Fonts CDN (the product ships on GitHub Pages, where the CDN

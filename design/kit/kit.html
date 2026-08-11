@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Component kit - Tendd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css">
+<style>
+  /* SHOWCASE CHROME ONLY. This is a document about the kit, not a product
+     screen, so it carries the scaffolding that frames the specimens: the page
+     measure, the labels, the specimen plate. Nothing here styles a component.
+     A product screen carries none of this and no style of its own at all. */
+  body { background: var(--page); }
+  .kv-wrap { max-width: 1080px; margin: 0 auto; padding: 40px 24px 90px; }
+  @media (min-width: 840px) { body { padding-left: 220px; } }
+  .kv-head { margin: 0 0 34px; }
+  .kv-head h1 { margin: 0 0 8px; font-size: 30px; letter-spacing: -0.02em; color: var(--ink); }
+  .kv-head p { margin: 0 0 6px; max-width: 66ch; font-size: 14.5px; color: var(--mid); }
+  .kv-counts { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+  .kv-counts span { border: 1px solid var(--line); background: var(--frame); color: var(--mid); font-size: 12px; padding: 4px 10px; border-radius: var(--radius-sm); }
+  .kv-lvl { margin: 46px 0 14px; padding: 0 0 8px; border-bottom: 1px solid var(--line); }
+  .kv-lvl h2 { margin: 0; font-size: 13px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--soft); }
+  .kv-lvl p { margin: 6px 0 0; font-size: 13px; color: var(--soft); max-width: 70ch; }
+  .kv-item { margin: 0 0 26px; }
+  .kv-name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin: 0 0 4px; }
+  .kv-name h3 { margin: 0; font-size: 15px; color: var(--ink); }
+  .kv-name code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--soft); }
+  .kv-note { margin: 0 0 10px; font-size: 12.5px; color: var(--soft); max-width: 72ch; }
+  .kv-plate { border: 1px solid var(--line); border-radius: var(--radius); background: var(--frame); padding: 20px; }
+  .kv-plate.on-dark { background: var(--accent); }
+  .kv-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .kv-cols { display: grid; gap: 20px; }
+  @media (min-width: 720px) { .kv-cols.two { grid-template-columns: 1fr 1fr; } }
+  /* A specimen borrows the .app scope so the organism rules apply, but .app is
+     a screen shell: min-height 100vh, and a grid at container 760. Inside a
+     plate it must be an ordinary block, or every specimen is a viewport tall.
+     Neutralised here, in the showcase chrome, never in the kit. The plate wears
+     .app because the kit is scoped to it: an unscoped kit reached inside the
+     superseded .phone island and changed the seed screens, which the pixel
+     comparison caught. */
+  .kv-plate.app, .kv-plate .app { display: block; min-height: 0; height: auto; }
+  .kv-plate.app { background: var(--frame); }
+  .kv-plate.app.on-dark { background: var(--accent); }
+  .kv-plate.app > .screen, .kv-plate .app > .screen { padding: 0; }
+  /* GC2 is fixed to the bottom of the viewport on a real screen, which is right
+     there and wrong here: inside a plate it escaped to the page bottom and lay
+     across every specimen below it, while its own plate rendered empty. Same
+     class of problem as the .app min-height above, same place to fix it. */
+  .kv-plate .tabbar { position: static; }
+  .kv-new { display: inline-block; border: 0; border-radius: 6px; background: var(--accent-tint); color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; }
+  .kv-lit { display: inline-block; border: 0; border-radius: 6px; background: var(--amber-tint); color: var(--amber); font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; }
+</style>
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar-mount"></div>
+</aside>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main class="kv-wrap">
+
+  <header class="kv-head" id="top">
+    <h1>Component kit</h1>
+    <p>Every component of the product in one place, in Petrol and Paper. A screen is <strong>assembled from these classes</strong>, inside an <code>.app</code> or <code>.landing</code> host, and carries no style of its own: if a detail is missing it goes into the kit first and onto the screen second. A rule written on a screen looks flawless in the browser and becomes drift at the next stage, where the system derives its tokens from exactly these files.</p>
+    <p>The level is not a label. Stage 08 splits the CSS in this order and imports it in this order, so a container that sorts above its own parts lands higher in the cascade than the things it contains, and every contextual fix after that reaches for <code>!important</code>.</p>
+    <div class="kv-counts">
+      <span>21 atoms</span><span>28 molecules</span><span>19 organisms</span>
+      <span>read from 55 screens</span><span>179 classes</span><span>45 control forms to 16 components</span>
+    </div>
+  </header>
+
+  <!-- ============ ATOMS ============ -->
+  <section class="kv-lvl" id="atoms">
+    <h2>Atoms</h2>
+    <p>Contains nothing else from the kit. One visual element, one content slot.</p>
+  </section>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Button</h3><code>.btn</code><span class="kv-new">filled authored</span></div>
+    <p class="kv-note">One component that takes an element: it renders as both a link and a button, 46 times across the set, and whether it navigates or acts is invisible in the class. The filled form is <strong>authored, not extracted</strong>: in grey <code>.primary</code> is only a heavier border, because greyscale has no fill to give. One filled button per zone.</p>
+    <div class="kv-plate app">
+      <div class="kv-row">
+        <a class="btn primary" href="#top">Connect your bank</a>
+        <a class="btn" href="#top">Add them yourself</a>
+        <a class="btn compact" href="#top">Compact</a>
+        <span class="btn is-disabled">Disabled</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Button, inverse</h3><code>.btn.inverse</code><span class="kv-new">authored</span></div>
+    <p class="kv-note">Exists on none of the 55 pages, so it was authored rather than extracted. The atom assumes only that its ground is dark; the host supplies the ground. The pair mirrors the light one exactly, so both grounds read as one system.</p>
+    <div class="kv-plate app on-dark">
+      <div class="kv-row">
+        <a class="btn inverse primary" href="#top">Primary on accent</a>
+        <a class="btn inverse" href="#top">Secondary on accent</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Chip</h3><code>.tag</code> <code>.badge</code></div>
+    <p class="kv-note">One base where the inventory found four look-alikes with four owners and no base. Sentence case, not the wireframe's uppercase: a shouted status is not a calm one. The tones are by state, not by owner.</p>
+    <div class="kv-plate app">
+      <div class="kv-row">
+        <span class="tag">Active</span>
+        <span class="tag trial">Trial</span>
+        <span class="badge tone-attention">Price changed</span>
+        <span class="badge tone-error">Payment failed</span>
+        <span class="badge tone-accent">Pro</span>
+        <span class="tag cancelled">Cancelled</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Quiet inline link</h3><code>.quiet a</code></div>
+    <p class="kv-note">Thirteen rules for one job collapsed into this, and the five sizes into two. Six of the thirteen had no target rule at all, so the 44px floor on this base is what closes <strong>21 under-target controls across 10 pages</strong>. Petrol at rest only inside the trust line, which the concept names; everywhere else the underline carries the affordance.</p>
+    <div class="kv-plate app">
+      <p class="quiet"><a href="#top">Do this later</a></p>
+      <p class="legal">Available for US banks today. <a href="#top">More regions soon</a>.</p>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Field</h3><code>.field input</code> <code>.field select</code><span class="kv-new">invalid authored</span></div>
+    <p class="kv-note">One rule for the input and the select, which the grey CSS had already settled. The <strong>invalid state is authored</strong>: a sweep of all 55 pages returns no <code>aria-invalid</code>, no <code>required</code> and no error class, so the kit would otherwise inherit an input that cannot be invalid. Clay, never red, and the hook is the native attribute, so no page needs a new class.</p>
+    <div class="kv-plate app">
+      <div class="kv-cols two">
+        <div class="field">
+          <label for="k-a">Your email</label>
+          <input id="k-a" type="email" value="emma@example.com">
+          <p class="hint">The address your list is kept under.</p>
+        </div>
+        <div class="field">
+          <label for="k-b">Amount</label>
+          <input id="k-b" type="text" value="17.99" aria-invalid="true">
+          <p class="hint">Enter an amount, like 17.99.</p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="k-c">Billing frequency</label>
+        <select id="k-c"><option>Monthly</option><option>Every 4 weeks</option><option>Yearly</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>The total, and its slots</h3><code>.total</code> <code>.amt</code> <code>.context</code></div>
+    <p class="kv-note">Seven slot names had no base rule at all and were sized only by their host. Base first, host sizes as modifiers. Exactly one object per screen is set at display size, and it is the number the person came for.</p>
+    <div class="kv-plate app">
+      <p class="total">$192.90</p>
+      <p class="context">a month, for what you have signed up for</p>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Skeleton</h3><code>.skel</code></div>
+    <p class="kv-note">Pulses at 1.4s and stops entirely under <code>prefers-reduced-motion</code>, which is already wired. A placeholder in a box that shrinks to its content has no percentage to resolve against, so those widths are stated by the host.</p>
+    <div class="kv-plate app">
+      <span class="skel line w60"></span>
+      <span class="skel line w90"></span>
+      <span class="skel line short"></span>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Merchant mark, all three states</h3><code>.logo</code> <code>.logo.is-skel</code><span class="kv-new">unmatched added at step 5</span></div>
+    <p class="kv-note">One atom, three states: the mark we have, the mark still arriving, and the merchant we could not name. The third has no class of its own and is selected structurally, <code>:not(.is-skel):not(:has(img))</code>, because the grey has no hook for it and the wireframes are frozen; the product writes <code>[ ? ]</code> inside it on the unrecognized charge. Dashed on purpose, in colour as in grey: "we have nothing to show here" is already what a dashed outline says to a reader.</p>
+    <div class="kv-plate app">
+      <div class="kv-row">
+        <span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span>
+        <span class="logo is-skel"></span>
+        <span class="logo">[ ? ]</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Destination icon</h3><code>.ic-home</code> <code>.ic-alerts</code> <code>.ic-save</code> <code>.ic-you</code><span class="kv-new">added at step 5</span></div>
+    <p class="kv-note">The four GC2 destinations, drawn as masks so the kit owns the mark and the screen carries nothing but the class. The mask is painted with <code>currentColor</code>, which is what turns the current tab petrol without a second rule. It sits on a pseudo-element rather than on <code>.ic</code> itself, because a mask clips its own children and <code>.ic</code> hosts the unread dot. The grey wireframe draws these as an empty bordered box on purpose, so this is the one atom the extract could not take from <code>_wf.css</code>.</p>
+    <div class="kv-plate app">
+      <nav class="tabbar" aria-label="Destination icons">
+        <a class="cur" href="#" aria-current="page"><span class="ic ic-home"></span>Home</a>
+        <a href="#"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
+        <a href="#"><span class="ic ic-save"></span>Save</a>
+        <a href="#"><span class="ic ic-you"></span>You</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Step-forward link, and the caption over a number</h3><code>.next</code> <code>.lbl</code> <code>.lbl.strong</code> <code>.tone</code><span class="kv-new">added at step 6</span></div>
+    <p class="kv-note">Three atoms the Guided Reveal brought in, and all three are reconciliations rather than new inventions. <code>.next</code> is the only link in the product that carries a direction, because the step it points at is further down the same page; it is a standalone control, so the 44px floor applies to it (the exemption is for links inside a sentence). <code>.lbl.strong</code> is the caption over the 46px Display, declared as a modifier because the grey wrote it as a host restyling an atom. <code>.tone</code> shares every value with <code>.context</code> and differs only in the space above it: one set of values, two names, because the jobs differ and stage 08 assigns semantic roles from the job.</p>
+    <div class="kv-plate app">
+      <a class="next" href="#top">See what they are</a>
+      <p class="lbl">Freed up</p>
+      <p class="lbl strong">All together</p>
+      <p class="total">$192.90</p>
+      <p class="context">a month, for what you have signed up for</p>
+      <p class="tone">This is what you have signed up for, not what you wasted.</p>
+    </div>
+  </div>
+
+  <!-- ============ MOLECULES ============ -->
+  <section class="kv-lvl" id="molecules">
+    <h2>Molecules</h2>
+    <p>Hosts atoms. It may position an atom and never restyle one: a rule like <code>.charges li .amt{font-size:15px}</code> looks like a tidy adjustment and is an unnamed variant, which is the defect this stage exists to prevent.</p>
+  </section>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Subscription row</h3><code>.row</code><span class="kv-new">signature</span></div>
+    <p class="kv-note">The object the whole product is made of. A line in a list, not a card in a stack. The whole row is one link with one accessible name, so a screen reader reads the subscription and not five fragments. The badge appears only when the state is not the plain default: fourteen "Active" tags in a column is noise on the one screen whose job is calm. The row draws no floor of its own, the list separates.</p>
+    <div class="kv-plate app">
+      <div class="app"><div class="group"><ul>
+        <li><a class="row" href="#top" aria-label="Netflix, $17.99 a month, next charge in 2 days on 3 August, price changed"><span class="logo">[logo]</span><span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span><span class="amt">$17.99</span><span class="badge tone-attention">Price changed</span></a></li>
+        <li><a class="row" href="#top" aria-label="Spotify Premium, $11.99 a month, next charge in 6 days on 7 August"><span class="logo">[logo]</span><span class="body"><span class="name">Spotify Premium</span><span class="when">in 6 days &middot; Aug 7</span></span><span class="amt">$11.99</span></a></li>
+        <li><a class="row" href="#top" aria-label="Peloton App, $12.99 a month, trial ends in 17 days on 18 August"><span class="logo">[logo]</span><span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; Aug 18</span></span><span class="amt">$12.99</span><span class="tag trial">Trial</span></a></li>
+      </ul></div></div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Trust line</h3><code>.trust</code><span class="kv-new">signature</span></div>
+    <p class="kv-note">Not fine print and not a footer: it sits where the number is, because a trust claim that has to be scrolled to is not a trust claim. The petrol shield is one of the three jobs the accent is allowed to do, and it marks the block rather than one line, because all three lines are the claim.</p>
+    <div class="kv-plate app">
+      <div class="trust">
+        <p>From Chase, read-only. Tendd cannot move your money.</p>
+        <p>Last checked today, 9:14 AM.</p>
+        <a href="#top">What we read</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Banners</h3><code>.attention</code> <code>.notice</code></div>
+    <p class="kv-note">A price change is amber, a genuine failure is desaturated clay, and there is no red in this system for any state. Neither carries an icon: the sentence is the alert. Kept as two components on purpose, because one of them is news and the other is a failure.</p>
+    <div class="kv-plate app">
+      <section class="attention"><p>Netflix went up by $2.50, now $17.99 a month.</p><a href="#top">See what changed</a></section>
+      <section class="notice is-error"><p>We could not reach Chase. Your list is the one from yesterday, and nothing about your money has changed.</p></section>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Notice, both tones</h3><code>.notice</code> <code>.notice.is-error</code><span class="kv-new">tone authored</span></div>
+    <p class="kv-note">The tone is <strong>opt in</strong>, and that is a correction rather than a preference. Clay is reserved for a genuine failure, and three of the five pages that carry <code>.notice</code> are not failures: "we could not match this charge" and "your bank wants you to sign in again" are ordinary news. With clay as the default they told the person something had broken when nothing had. Greyscale could not express tone at all, so the modifier is the colour layer's to add, exactly like the destination icons.</p>
+    <div class="kv-plate app">
+      <div class="kv-cols two">
+        <section class="notice"><p>It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time.</p></section>
+        <section class="notice is-error"><p>We could not refresh just now. Showing your last update from today, 9:14 AM.</p><a href="#top">Try again</a></section>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Facts</h3><code>.facts</code> <code>.facts.sentences</code></div>
+    <p class="kv-note">Label left, answer right. The <code>.sentences</code> variant stacks the pair, because a sentence set against its label on the right wraps into a ragged column and stops being readable at 360.</p>
+    <div class="kv-plate app">
+      <div class="kv-cols two">
+        <dl class="facts">
+          <div><dt>Next charge</dt><dd>in 6 days, Aug 7</dd></div>
+          <div><dt>Billing cycle</dt><dd>Monthly</dd></div>
+          <div><dt>Charged to</dt><dd>Chase checking</dd></div>
+        </dl>
+        <dl class="facts sentences">
+          <div><dt>What arrives</dt><dd>A link you tap. There is no code to copy out</dd></div>
+          <div><dt>How long it works</dt><dd>Once, and then it expires. You can send another at any time</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Doors</h3><code>.doors</code> <code>.door</code></div>
+    <p class="kv-note">Two equal choices, so neither is recommended and <strong>neither gets petrol</strong>: two petrol objects on one screen is the One Voice Rule failing. The category hides one of these two doors; showing both is the decision.</p>
+    <div class="kv-plate app">
+      <div class="app"><div class="doors">
+        <a class="door" href="#top"><h3>Connect your bank</h3><p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p><span class="pick">Choose this path</span></a>
+        <a class="door" href="#top"><h3>Add them yourself</h3><p>Start with one and add more later. No bank is involved.</p><span class="pick">Choose this path</span></a>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Plan card</h3><code>.plan-opt</code></div>
+    <p class="kv-note">One rule with two hosts, the app and the landing, rather than an <code>lp-</code> copy. Rebuilt into the shape the category has taught people to read: the badge qualifies the card from the top, the price is the card's one big thing, and every card carries its own action. Only the recommended card takes the accent, because three accent buttons in a row would break the one-per-zone rule.</p>
+    <div class="kv-plate app">
+      <div class="app"><div class="plans">
+        <div class="plan-opt">
+          <span class="best">Best value</span>
+          <span class="amt">$69<span class="per">a year</span></span>
+          <span class="p">That is $5.75 a month, and it saves about $27 a year versus paying monthly.</span>
+          <a class="btn primary" href="#top">Start Tendd Pro - $69 a year</a>
+          <div class="incl"><span class="k">Everything in Tendd Pro</span><ul><li>History and trends</li><li>Advanced alerts</li><li>Full cancel guides</li><li>Export</li></ul></div>
+        </div>
+        <div class="plan-opt">
+          <span class="amt">$7.99<span class="per">a month</span></span>
+          <span class="p">Month to month. Cancel any time, no lock-in.</span>
+          <a class="btn" href="#top">Start Tendd Pro - $7.99 a month</a>
+          <div class="incl"><span class="k">Everything in Tendd Pro</span><ul><li>History and trends</li><li>Advanced alerts</li><li>Full cancel guides</li><li>Export</li></ul></div>
+        </div>
+        <div class="plan-opt">
+          <span class="amt">Lifetime<span class="per">one payment</span></span>
+          <span class="p">Tendd Pro stays open, for people who would rather never think about a renewal again.</span>
+          <span class="q">Not on sale yet. [? D4, the lifetime price, $99 to $139, is still being decided]</span>
+          <div class="incl"><span class="k">Everything in Tendd Pro</span><ul><li>History and trends</li><li>Advanced alerts</li><li>Full cancel guides</li><li>Export</li></ul></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Segmented control</h3><code>.range</code></div>
+    <p class="kv-note">Not a button variant, and the difference is real: it is a <em>selection</em> rather than an action, its width is set by the group, it has a disabled state the button has no equivalent for, and its selected state is a petrol <strong>tint</strong> where a primary button is a petrol <strong>fill</strong>.</p>
+    <div class="kv-plate app">
+      <div class="app"><div class="range">
+        <button type="button" aria-pressed="true">3 months</button>
+        <button type="button" aria-pressed="false">6 months</button>
+        <button type="button" aria-pressed="false" disabled>12 months</button>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Switch row, nav row, preset tile</h3><code>.switch</code> <code>.navrow</code> <code>.tile</code></div>
+    <p class="kv-note">The product's toggle is a real checkbox inside a label: there is no custom switch anywhere, and the 44px target is the label, not the box. A pressed tile is a current selection, so it takes petrol.</p>
+    <div class="kv-plate app">
+      <div class="app">
+        <label class="switch"><input type="checkbox" checked><span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span></label>
+        <ul class="navrows"><li><a class="navrow" href="#top"><span>Your sources<span class="sub">Banks and manual entries you track</span></span><span class="arrow">&rsaquo;</span></a></li></ul>
+        <div class="tiles">
+          <button class="tile" type="button" aria-pressed="true"><span class="logo">[logo]</span><span><span class="name">Netflix</span><span class="p">Typically $17.99 a month</span></span></button>
+          <button class="tile" type="button"><span class="logo">[logo]</span><span><span class="name">Spotify</span><span class="p">Typically $11.99 a month</span></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Merchant chip group</h3><code>.rgroup</code><span class="kv-new">added at step 6</span></div>
+    <p class="kv-note">Step two of the reveal, and the place the merchant mark earns its colour: a bank statement line reading <code>SPOTIFYAB STOCKHOLM</code> becomes a face a person recognises. No amounts here, ever - the number comes third. The group heading is the same <code>.group-head.plain</code> the list screens carry, so the chip is the only new shape. Its radius is a named decision: the grey draws a square 1px box, and the chip takes the control radius its own 22px mark carries.</p>
+    <div class="kv-plate app">
+      <div class="rgroup">
+        <h3 class="group-head plain">Streaming (4)</h3>
+        <ul>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/netflix.svg" alt=""></span>Netflix</li>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/disney-plus.svg" alt=""></span>Disney+</li>
+          <li><span class="logo" aria-hidden="true"><img src="../visuals/logos/hulu.svg" alt=""></span>Hulu</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ORGANISMS ============ -->
+  <section class="kv-lvl" id="organisms">
+    <h2>Organisms</h2>
+    <p>Hosts molecules, or is a screen shell. This is the ceiling; there is no level above it. The shell reflows on <strong>container</strong> queries, not media queries, so a screen behaves by the width it is given rather than by the width of the browser.</p>
+  </section>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>App shell</h3><code>.app</code> <code>.app.flow</code> <code>.app.detail</code></div>
+    <p class="kv-note">Three forms. At container 760 the tab bar becomes a 240px left rail and the app bar folds into its top; at 900 Home becomes a dashboard and the detail becomes two columns; at 1340 the groups run in three. The onboarding chain overrides the grid rather than inheriting it, because onboarding has no desktop delta. The review frame that wraps a screen on these pages is <strong>not</strong> in the kit: it hosts the navigation panel and does not travel to a real build.</p>
+    <div class="kv-plate app">
+      <p class="kv-note" style="margin:0">Open any screen in <a href="../overview.html">the UI + Visual hub</a> to see the shell at work. It is not specimened here, because a shell with nothing in it is a rectangle.</p>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Panel, with the gate folded in</h3><code>.panel</code> <code>.gate</code></div>
+    <p class="kv-note">Two forms from one class: a section with a band, and a disclosure whose summary replaces the band. The gate occurs nowhere outside a panel, so it is a slot of this organism and not a component of its own, and it sits <strong>below</strong> what is free and never in front of it.</p>
+    <div class="kv-plate app">
+      <div class="app"><section class="panel">
+        <h2>Recent charges</h2>
+        <ul class="charges">
+          <li><span>Aug 3</span><span class="amt">$17.99</span></li>
+          <li class="marked"><span>Jul 3 <span class="was">was $15.49</span></span><span class="amt">$15.49</span></li>
+        </ul>
+        <div class="gate"><p>Three months are free. Longer history and trends are part of Tendd Pro.</p><div class="actions"><a class="btn" href="#top">See what Pro adds</a></div></div>
+      </section></div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Pro gate card</h3><code>.locked</code><span class="kv-new">added at step 5</span></div>
+    <p class="kv-note">A card organism, built like the share card: its own frame, a heading, a short reason, the three things Pro adds, and one action row. It sits <strong>under</strong> the chart frame rather than over it, and it is deliberately quiet: no blur and no cover, because a blurred chart is a lie about our own product and the honest empty frame persuades better. The filled button here is the one accent of its zone, so nothing above it may take petrol.</p>
+    <div class="kv-plate app">
+      <div class="app"><section class="locked" aria-label="Trends are part of Tendd Pro">
+        <h2>Trends are part of Tendd Pro</h2>
+        <p>Your list, your total and your alerts stay free and uncapped. What Pro adds here is the past:</p>
+        <ul>
+          <li>How your monthly total moved, over 3, 6 or 12 months</li>
+          <li>Which subscriptions went up, which are new, which held steady</li>
+          <li>Your history as a spreadsheet</li>
+        </ul>
+        <div class="actions"><a class="btn primary" href="#top">See what Pro adds</a></div>
+      </section></div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Save-focus candidate list</h3><code>.candidates</code> <code>.cand</code> <code>.cut</code><span class="kv-new">added at step 5</span></div>
+    <p class="kv-note">The cancel moment, which principle 5 names the product's most important emotional beat. The row keeps its whole-row target to the subscription and <code>.cut</code> is a <strong>second, separately named control</strong> beside it: confusing the two is what costs the cancellation, so the cut is a bordered target of its own rather than a word inside the row. Filed as a one-off at step 2, which is why the kit had nothing for it and the list first rendered with browser bullets, a 40px indent and the cut as a bare blue link. Below 460 the cut drops under the row and keeps to the right.</p>
+    <div class="kv-plate app">
+      <div class="app"><section class="candidates" aria-label="Subscriptions you might not be using">
+        <p class="lead">Two you have not opened in a while. No pressure, just a nudge.</p>
+        <ul>
+          <li class="cand">
+            <a class="row" href="#top" aria-label="Peloton App, $12.99 a month, trial ends 18 August, not opened in 3 weeks"><span class="logo"><img src="../visuals/logos/peloton.svg" alt=""></span><span class="body"><span class="name">Peloton App</span><span class="when">Trial ends: Aug 18 &middot; not opened in 3 weeks</span></span><span class="amt">$12.99</span></a>
+            <a class="cut" href="#top" aria-label="Cancel Peloton App">Cancel</a>
+          </li>
+          <li class="cand">
+            <a class="row" href="#top" aria-label="The New York Times, $17.00 a month, next 11 August, not opened in 6 weeks"><span class="logo"><img src="../visuals/logos/nyt.svg" alt=""></span><span class="body"><span class="name">The New York Times</span><span class="when">Next: Aug 11 &middot; not opened in 6 weeks</span></span><span class="amt">$17.00</span></a>
+            <a class="cut" href="#top" aria-label="Cancel The New York Times">Cancel</a>
+          </li>
+        </ul>
+      </section></div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Source card</h3><code>.source</code></div>
+    <p class="kv-note">One column at every width: a settings sidebar does not survive 360px, which is also why this cluster is three screens and not one. The unclassed middle span grows, which is what pushes the status chip to the end, so the chip needs no margin written on it from the parent.</p>
+    <div class="kv-plate app">
+      <div class="app"><article class="source">
+        <div class="top"><span class="logo">[logo]</span><span><h2>Chase</h2><span class="kind">Bank connection through Plaid</span></span><span class="badge">Connected</span></div>
+        <dl class="facts">
+          <div><dt>Last checked</dt><dd>today, 9:14 AM</dd></div>
+          <div><dt>Tracking from here</dt><dd>11 subscriptions</dd></div>
+        </dl>
+        <div class="actions"><a class="btn" href="#top">Disconnect Chase</a></div>
+      </article></div>
+    </div>
+  </div>
+
+  <div class="kv-item">
+    <div class="kv-name"><h3>Reveal step</h3><code>.rstep</code><span class="kv-new">added at step 6</span></div>
+    <p class="kv-note">The only organism in this kit that exists to test a hypothesis rather than to hold content. H0, the assumption the whole product is built to prove, says an avoider who looks at the number feels calmer rather than worse - and this is where a person looks. Three steps live on one page and never on three routes, so back never means starting over. D1 read literally: the count, then the categories, then the total, and every step carries its own action. It joined the sample at step 6, when the strategy check found the five screens chosen for component coverage had left H0 with no coloured screen at all.</p>
+    <div class="kv-plate app">
+      <section class="rstep">
+        <span class="k">Step 1 of 3</span>
+        <h2>You're paying for 14 subscriptions</h2>
+        <p class="context">Found in your Chase account. No total yet, and no verdict.</p>
+        <a class="next" href="#top">See what they are</a>
+      </section>
+      <section class="rstep">
+        <span class="k">Step 3 of 3</span>
+        <p class="lbl strong">All together</p>
+        <p class="total">$192.90</p>
+        <p class="context">a month, for what you have signed up for</p>
+        <p class="tone">This is what you have signed up for, not what you wasted.</p>
+        <div class="actions"><a class="btn primary" href="#top">See your subscriptions</a></div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ THE LEDGER ============ -->
+  <section class="kv-lvl" id="ledger">
+    <h2>What was authored, and what this kit retired</h2>
+    <p>Extraction can only return what greyscale could express. Everything else is named here so the exception stays deliberate.</p>
+  </section>
+
+  <div class="kv-item">
+    <div class="kv-plate app">
+      <p class="kv-note"><span class="kv-new">authored</span> <strong>The filled button, the inverse button, the invalid field.</strong> The first exists in grey only as a heavier border, the second exists on no page at all, and the third has no hook anywhere: a sweep of the 55 pages returns no <code>aria-invalid</code>, no <code>required</code> and no error class. Two smaller ones join them: a focus ring, because the grey draws exactly one and only on the field, and the chip tones, because four look-alikes render fourteen states through markup that carries a class for none of them.</p>
+      <p class="kv-note"><strong>Retired.</strong> Thirteen rules for one quiet link became one atom, and the five sizes became two. Five chip rules became one base and five tones. Seven slot names got the base they never had, and twenty-one host rules became seven bases plus modifiers. The landing's <code>lp-btn</code> twin is gone, and with it the one rule it had already lost: the 44px floor.</p>
+      <p class="kv-note"><span class="kv-lit">literal</span> <strong>Ten places still carry a literal value</strong>, each marked <code>LIT</code> in <code>kit.css</code>. Fourteen variables are proposed in <a href="inventory.md">inventory.md</a> and none was added: a value enters this system by a named decision, never as a side effect of an extract. Four of the fourteen are pure naming of a literal the file already writes; one is a real 8px difference between the kit's rail and the grey's, and it needs a decision rather than a merge.</p>
+    </div>
+  </div>
+
+</main>
+
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script>
+  window.NAV_BASE = '../../';
+  window.NAV_ACTIVE = 'design/overview.html';
+  window.NAV_ACTIVE_LABEL = 'Component kit';
+  window.NAV_SECTIONS = [
+    { id:'atoms', label:'Atoms' },
+    { id:'molecules', label:'Molecules' },
+    { id:'organisms', label:'Organisms' },
+    { id:'ledger', label:'Authored and retired' },
+  ];
+</script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

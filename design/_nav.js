@@ -5,12 +5,18 @@
    when it is colored. No external libraries.
 
    Mirror of wireframes/_nav.js, but for the colored screens and styled through
-   design/_theme.css. Fills the #ui-screen-nav mount inside the .sidebar shell. */
+   design/kit/kit.css (it was design/_theme.css until the kit was formed at stage 07,
+   moved with git mv). Fills the #ui-screen-nav mount inside the .sidebar shell. */
 
 (function () {
   var SCREENS = [
+    { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['empty'] },
     { name: 'Home', base: 'home.html', states: ['empty', 'error', 'loading', 'savefocus'] },
-    { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['unrecognized', 'error', 'loading'] }
+    { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['unrecognized', 'price-change', 'payment-failed', 'error', 'loading'] },
+    { name: 'Add a Subscription', base: 'add-subscription.html', states: ['empty', 'error', 'loading'] },
+    { name: 'History and Trends', base: 'history-trends.html', states: ['locked', 'empty', 'error', 'loading'] },
+    { name: 'Upgrade to Pro', base: 'upgrade.html', states: ['current-plan', 'processing', 'payment-failed'] },
+    { name: 'Settings', base: 'settings.html', states: ['no-account'] }
   ];
 
   function stateFile(base, state) {

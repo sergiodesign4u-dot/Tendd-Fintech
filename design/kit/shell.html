@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shell - Tendd component kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css">
+</head>
+<body>
+
+<!--
+  THE SHELL. Every coloured screen is a copy of this file with the middle filled in.
+
+  Two paths change when you copy it up into design/:
+    kit.css        becomes  kit/kit.css
+    ../_nav.js     becomes  _nav.js
+
+  The one rule this file exists to enforce: a screen carries NO style of its own.
+  Not a <style> block, not a style attribute, not a class invented on the page.
+  A screen is assembled from kit classes. If a detail is missing, it goes into the
+  kit first (kit.css plus kit.html plus inventory.md) and onto the screen second.
+  A rule written on a screen looks flawless in the browser and becomes drift at
+  stage 08, where the system derives tokens from exactly these files.
+
+  THE THREE FORMS OF THE SHELL, chosen on the <main> element:
+    .app              the steady state: app bar, screen, tab bar
+    .app.flow         the onboarding chain: app bar, screen, and NO tab bar
+    .app.detail       one object in focus, two columns from container 900
+
+  The layout is driven by CONTAINER queries, not media queries, so a screen
+  behaves by the width it is given rather than by the width of the browser.
+  At container 760 the tab bar becomes a 240px left rail and the app bar folds
+  into its top. At 1040 the two densest screens gain a third pane.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<!-- .layout and .stage are the REVIEW frame, not the product. They host the
+     navigation panel and they do not travel to a real build. Everything from
+     <main> down is the product. -->
+
+<main class="app" aria-label="Screen name">
+
+  <!-- GC1 App header. Slots, in order: back or menu, the title or the greeting
+       on the You tab, one contextual action. On the Pro cluster that third slot
+       carries the plan chip instead of an action: it is status, not a thing to do. -->
+  <header class="appbar">
+    <a class="back" href="#">&lsaquo; Back</a>
+    <span class="wordmark">Tendd</span>
+    <span class="step">Step 2 of 3</span>
+  </header>
+
+  <!-- The screen body. One column on mobile. Wrap in .rows-col for a settings
+       list, .form-col for a form, .col1 / .col2 for the detail's two columns. -->
+  <main class="screen">
+
+    <!-- Molecules and organisms go here, in the order the node file gives.
+         Nothing in this block invents a class. -->
+
+  </main>
+
+  <!-- GC2 Global tab bar. Four destinations, icon over label, the current one
+       petrol. A quiet dot may sit on Alerts; there is never a count.
+       Removed entirely on .app.flow. -->
+  <nav class="tabbar" aria-label="Global navigation">
+    <a class="cur" href="#" aria-current="page"><span class="ic"></span>Home</a>
+    <a href="#"><span class="ic"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
+    <a href="#"><span class="ic"></span>Save</a>
+    <a href="#"><span class="ic"></span>You</a>
+  </nav>
+
+</main>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>

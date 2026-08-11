@@ -7,6 +7,456 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-11 - A seventh screen, added as the saturation test, and what it found at the wide end
+
+Founder's call after the stage closed: colour the account screen before answering the open
+questions. **Settings / Profile (node 6.16) plus node 6.16.1, the account-less steady state of the
+manual path.** The sample is seven screens and twenty-eight pages.
+
+**Why it was worth building a screen that was not in the sample.** The pack asks for a saturation
+signal to be said out loud: the point at which a new screen stops adding to the kit is the point
+at which the rest of the product can be assembled in one pass at stage 12. Six screens never
+produced that signal cleanly, because each of the six had been chosen for what it would add.
+Settings was chosen for nothing, and **it added nothing**: not a class, not a value, not a plate
+in the showcase. 21 atoms, 28 molecules, 19 organisms, 68 components, unchanged.
+
+That result is not luck, it is the step-2 decision paying out. The inventory was read from all 55
+grey pages rather than from the six that were going to be coloured, so `.navrows`, `.navrow`,
+`.switch` and `.promises` were counted even though no screen in the sample carried them. A kit
+sized to the sample would have met this screen with four missing components.
+
+**What it cost, and why that is the real reason to have built it.** Assembling a column screen at
+desktop width exposed a defect none of the six could show. Three reading measures (`.form-col`
+560, `.locked` 560, `.rows-col` 620) were written at specificity 0-2-0 and tie with
+`.app > .screen > * { max-width: none }` in the 900 container block, written for Home's own
+layout. Source order decides, the later block wins, and past a 900px container the measures stop
+existing: the form rendered at 588, the Pro gate at 748, the account column at 733. **Two of those
+screens had already been walked and accepted at the step-5 gate.**
+
+Fixed as a binding rather than a value: `.app > .screen > .form-col` at 0-3-0 cannot be outranked
+by a blanket reset regardless of order, and every one of these classes is a direct child of
+`.screen` on every page of both folders. No number moved.
+
+**Rejected:** re-declaring the three measures inside the 900 block, which fixes the symptom and
+leaves the next blanket reset free to unbind them again. **Rejected:** rendering the plan row on
+Settings as the petrol chip GC7 wears in the app header, because node 6.16 says this screen states
+the plan and never sells it, and petrol is spent on three jobs already. It stays `.subtotal`, as
+the grey wrote it.
+
+**Carried, not fixed:** the checkbox inside `.switch` is 20px, under the 24px WCAG 2.5.8 asks. The
+label wraps the checkbox and measures 44px or more, so the pointer target a person actually hits
+is the row; the raw control is not the target. Recorded rather than silently resized, because
+changing it is a kit value and this stage changes values only by a named decision.
+
+**The lesson, and it is about acceptance rather than CSS.** A screen is accepted at every width or
+it is not accepted. The narrow end gets walked because breakage there is loud. This defect lived
+at the wide end, looked entirely calm, and survived a triple critique and a four-instrument audit
+because at 360 and at 760 the rule still held.
+
+---
+
+## 2026-08-11 - The sample is six screens, and the sixth was chosen by the strategy check
+
+UI + Visual colours a sample, not the product. The rollout is stage 12, on purpose: a screen is
+built once, when everything it needs already exists, and building it twice is the cost of
+building it early.
+
+**The five chosen at step 5, and the coverage each one bought.** The stated criterion was not
+"representative" but "how much of the inventory do these together carry", reported by level so
+that a sample with no organisms could not hide:
+
+| Screen | Why it is in | What it added to the kit |
+|---|---|---|
+| Home / Subscription List | The etalon, the densest screen in the product, and the only list. Four states | The base of two organisms, the destination icons, the secondary actions |
+| Subscription Detail | The third shell form, `.app.detail`, two columns from container 900. Three states including the unmatched merchant | Nothing. The sample's first sign of saturation |
+| Add a Subscription | The form screen. The interaction primitives enter here or nowhere | `fieldset` |
+| Upgrade to Pro | The one screen that asks for money, so the one where the One Voice Rule is easiest to break | `.pitch`, and a named decision on plan-row width |
+| History and Trends | The paywall at depth (D3), and the locked state is a whole organism the free tier sees | `.bycat`, and the entire `.locked` organism |
+
+**The sixth, added at step 6.** The stage owes a strategy check on the whole sample together:
+which screen tests the riskiest assumption, and by which element a person actually touches. The
+answer was none of them. H0 says an avoidant person who sees their whole recurring spend in one
+calm frame completes the reveal and reports relief rather than stress, and it is tested on node
+1.5, the Guided Reveal, where the gradual reveal D1 locked actually happens. Home carries the
+aftermath of the reveal, not the reveal. **Guided Reveal is the sixth screen**, with its empty
+state, and the sample is twenty-six pages: every state of all six.
+
+It also pays for its place by the step-5 criterion, which is why it is an addition rather than an
+exception: it brings three components (`.next`, `.rgroup`, `.rstep`) and forces two merges that
+were owed anyway. **Rejected:** recording "we are not doing it" and leaving H0 grey until stage
+12, on the ground that the prototype exists to test H0 and a grey prototype tests nothing about
+whether the looking feels calm. **Rejected:** colouring `guided-reveal.html` without its empty
+state, on the ground that a screen enters the sample with its states or it has not entered.
+
+**The consequence for the criterion itself, worth carrying forward.** Component coverage is a
+good criterion and it is blind to strategy: it picks the screens that stress the system, not the
+screen the product is a bet on. Both questions have to be asked, and the second one is cheap to
+ask first.
+
+---
+
+## 2026-08-10 - Tendd carries no photography, and the merchant mark is a full colour logo
+
+Step 4 of UI + Visual was rewritten after its first attempt was rejected on screen.
+
+**No photography anywhere, landing included.** The first version of the step specified six
+generated editorial still lifes with a shared style prefix. The first image came back exactly as
+briefed and was indistinguishable from stock: it could have belonged to a candle brand or a
+meditation app, and nothing in it said "see what you are paying for". Underneath the taste
+failure was a structural one: `wireframes/index.html` has no image slot at all, so six
+destinations were invented for pictures the structure never asked for. **Rejected:** one
+atmospheric photo at the top, on the ground that every one of the ten landing blocks already has
+a better answer than a photograph, and the hero has the best one, which is the product itself.
+The hero is a render of the real coloured Home screen, captured at step 5 and true by
+construction. **Consequence:** empty states get a sentence and a button, never an illustration.
+
+**The merchant mark is the real full colour logo** (founder). This is a deliberate hole in the
+palette rule, and the ground is that a merchant mark is data rather than chrome: it is the user's
+own Netflix, rendered as Netflix. Rocket Money and every competitor do the same, and
+recognition in a list of fourteen rows is worth more than palette purity. The One Voice Rule
+survives because petrol stays the only colour **Tendd** uses to speak. **Rejected:** the monogram
+disc, which scales to all 400+ presets for free and keeps the list quiet, but makes a person hunt
+for a subscription she would otherwise spot instantly; **rejected:** desaturated logos, which
+lose the recognition that was the whole reason to use logos and still cost the same 14 files.
+
+Four containment rules were written with it, in `design/visuals/README.md`: the mark lives in a
+fixed 36px square, it is the only saturated thing in its row, petrol never sits inside the square,
+and no brand colour appears anywhere outside it. Without those, 14 brand colours turn the calm
+list loud and the product argues against its own first principle.
+
+The monogram survives as the **fallback**, not as the style: 14 files cannot cover 400+ presets
+or whatever a bank returns, so the `.logo` atom carries three states (image, monogram, skeleton).
+
+## 2026-08-10 - The product design system is a root DESIGN.md, and the canvas was never white
+
+Two things settled at the opening of UI + Visual, both of them corrections to prose rather than
+to screens.
+
+**The system lives at the repository root.** `DESIGN-artifacts.md` carried a July decision saying
+the product system would live at `design/docs/design.md` and that there was "intentionally no root
+`DESIGN.md`". The stage pack now says the opposite and forbids a `design/docs/` folder outright,
+and stage 08 reads the root file. Put to the founder, who moved it. The July path was never
+created, so nothing was lost, and `DESIGN-artifacts.md` stays what it always was: the draft the
+generated system reads, not a second system. **Rejected:** keeping two design docs, which is how a
+project ends up with two sources for one value.
+
+**The canvas is off-white, and the cards are white.** `DESIGN-artifacts.md` recorded "bg / Paper
+`#ffffff`" and `CLAUDE.md`'s D-Concept line said "white canvas". The built screens have
+`--page: #eef3f4` under `--frame: #ffffff`, and **that is what attribute A1 asked for in the
+first place**: its technique reads "off-white canvas, white cards". So the mockup was right and
+two prose records had drifted from the attribute they were supposed to serve. Both corrected. The
+same pass moved the recorded total from 44px to the 46px the screens ship.
+
+The divergence check is written out as a table at the end of `design/concept/docs/concept.md`,
+attribute by attribute with its source row in `personas.md`. Three rows, all three resolved in
+favour of the built screens, no attribute dropped and no screen changed.
+
+## 2026-08-10 - Four values get names, and ten stay literals until stage 08
+
+The extract at UI + Visual returned fourteen proposed variables. The rule it runs under is that
+extraction pulls **classes, not values**: a new variable leaves the agent as a list and enters the
+system only by a named decision, and an existing value cannot be changed at all.
+
+**Four adopted, and none of them is a new value.** `--radius-xs` (6px), `--radius-wash` (12px),
+`--line-strong` (#cdd7d9) and `--on-accent` (#ffffff) are all values `kit.css` **already wrote as
+literals**, two of them in more than one place, and two of them already named in prose by
+`DESIGN.md` (`rounded.wash`, and the #cdd7d9 hover border). Naming them is the whole change; not
+one pixel moves.
+
+`--on-accent` is the one worth stating a reason for, because it looks redundant. It equals
+`--frame` today and it is **a different role**: `--frame` is the card surface, `--on-accent` is
+text on the accent. One token was carrying both, and they part company the moment stage 08 lays a
+dark theme over the same system.
+
+**Ten deferred, deliberately.** The rail width, the four tap targets, the three measures, the
+block gap and the two z-indexes are real repetitions, but they are the primitive-against-semantic
+split that stage 08 exists to make. Naming them now would guess at the layer they belong to, and
+the kit is flat on purpose: semantic roles are only visible after the components have stood on
+real screens.
+
+**One is not a naming question at all and stays open.** The desktop rail is **240px in the kit and
+232px in the grey**. That is an 8px value change, and by the migration rule a value moves only by
+its own named decision, never as a side effect of an extract. It is carried at 240 (the value the
+migrated file and `shell.html` already agree on) and flagged for the founder rather than merged
+quietly.
+
+## 2026-08-10 - "Best value" stays, and pricing becomes three columns on both screens
+
+The critique found a straight contradiction: `upgrade.html` renders a **Best value** badge, and
+node 5.13 lists a promotional badge among the things named and not added. Put to the founder,
+who kept the badge and asked for the same treatment on the landing.
+
+**Decided: the badge stays, and the refusal is amended in its owner rather than the screen being
+stripped.** The ground is that node 5.13's list bundled two things that are not alike. "Most
+people choose this" is a claim about other people that the reader cannot check, and it works by
+making them feel odd; **"Best value" is arithmetic the card already shows on the line above it**,
+$69 against twelve times $7.99. A badge that restates a number already on screen is a label, not
+pressure. Everything else in that list stays refused: no countdown, no expiring offer, no
+discount that appears when you try to leave, no pre-selected expensive plan, no undismissable
+gate.
+
+**And the pricing becomes three tall columns, the same on both screens.** Block 8 of node 1.1 was
+one honest line and is now that line plus three columns: yearly with the badge, monthly, and
+**lifetime**, which had been a footnote under the two cards on node 5.13 since it was drawn. The
+third column is not invented: `5-13-upgrade.md` block 6 has always named the lifetime option, and
+its price is the open `[?]` of D4 ($99 to $139). It is drawn with that marker on it rather than
+with a number, because printing a price would settle a decision the founder has not made.
+
+**Still not a comparison table**, which is what block 8 was written against, and the difference is
+the axis. A comparison table compares **plans**, so it has to name what the cheaper one lacks, and
+under D-Free the free one lacks nothing a person can see. These three are **one plan with three
+ways to pay**, so no column is the lesser one and nothing has to be invented to fill a cell.
+
+**One rule, two hosts.** The card is not copied into an `lp-` twin: `_wf.css` now carries
+`.app .plan-opt, .landing .plan-opt` as a single rule, because a second copy of a component is
+exactly the drift that file exists to prevent, and Tokens and Components reads these screens to
+derive the kit.
+
+## 2026-08-10 - The auth model: no account on the manual path, an email on the bank path
+
+The last structural hole in the map. `sitemap.md` carried "auth model for try-with-no-account
+vs returning sign in" in its open items, GC1 had a `no-account-yet` variant marked `[?]`,
+Welcome had a "Sign in" link and Settings had "sign out", and no screen anywhere created an
+account. It stopped being deferrable the day the bank connection was written down, because an
+`access_token` belongs to somebody.
+
+**Decided, and the two doors get two different answers.**
+
+**The manual path runs with no account at all.** A person picks node 1.4, types three
+subscriptions, sees a real list, and has given us nothing but the three lines they typed. That
+is the whole of Ravi's path and it costs him no identity. GC1 runs in its `no-account-yet`
+variant and the You tab offers "Create an account to keep your list" (new state 6.16.1), which
+is the sentence `navigation.md` already wrote before anyone decided what was behind it.
+
+**The bank path asks for an email on node 1.3, in the same breath as the bank ask, and says
+why.** Not as a growth gate: as the same trust argument the rest of that screen already makes.
+Bank data needs somewhere that is yours, that you can sign back into and that you can order
+deleted. The account is created there, passwordless and unverified, and **Link opens
+immediately**: no verification wall inside the activation flow. The verification email doubles
+as the returning sign-in link, so one mechanism does both jobs and there is never a password.
+
+**Returning people get node 1.6 Sign In**, one field and a link by email, reached from the
+"Sign in" that already exists in the Welcome header and from an expired session. **A manual
+list made with no account merges into the account** the moment one is created.
+
+**Rejected: an account before everything.** It is the simplest thing to build and the worst
+thing to do to Emma, who is a self-described avoider being asked for a form before she has been
+shown a single reason to care. H0 is the only assumption the MVP exists to test, and a wall in
+front of the reveal makes the test measure the wall.
+
+**Rejected: staying anonymous through the bank connection too.** It converts best and it is the
+one we cannot defend: a live Plaid Item tied to a cookie is a bank connection nobody can
+reclaim when the cookie is lost, and one we cannot honour a deletion request against. Node 6.15
+promises deletion in plain words, and an orphaned Item makes that promise unkeepable.
+
+**No password, ever.** Node 6.16 holds an email and a currency and nothing else, and a password
+is one more thing to protect, to lose and to explain.
+
+## 2026-08-10 - A free trial has no bank signal, so the trial date is a manual field
+
+`home.html`, `index.html` and `alerts.html` all show "Peloton App, trial ends in 17 days,
+Aug 18", and Settings sells "a free trial is ending soon" as part of Pro. **A trial that has
+not charged produces no transaction.** No charge, no stream, no predicted date. Plaid cannot
+know that date and neither can any other aggregator.
+
+**Decided: the trial end date is something the person tells us,** through the "Next payment
+date" field node 1.4 already has, and **Peloton App is named as one of the three manual
+entries** in the canonical set. That makes every screen currently showing that row honest at no
+cost, because no page ever claimed Peloton came from Chase.
+
+**What the bank side can honestly do instead** is the opposite end of the same event: a brand
+new stream whose first full charge has just landed is "you are now paying for this", and that
+is detectable, useful, and arguably the more valuable alert of the two. The pre-trial warning
+stays scoped to what the person entered.
+
+**Rejected: inferring trials from $0.00 or $1.00 card authorisations.** They are inconsistent
+across issuers and frequently never reach the transactions feed at all, and a warning that
+fires for some people and not others is worse than one that is honestly scoped.
+
+## 2026-08-10 - A manual entry and a detected stream are one subscription, not two
+
+Falls straight out of the two decisions above. Peloton is typed by hand today; the day the
+trial converts, Chase reports a real charge and the detector opens a stream for it. Nothing in
+the map said what happens then, and the default behaviour of a system with two sources is to
+show fourteen subscriptions as fifteen.
+
+**Decided: they merge.** A new stream that matches a manual row on merchant, amount within
+tolerance and cycle becomes the same subscription. The bank becomes the source of truth for the
+figures, and what the person contributed survives: the name they gave it, the category they
+picked, the date they entered. They are told once, quietly, on the row itself.
+
+The ground is that the count is the product. "You're paying for 14 subscriptions" is the
+biggest sentence on Home and the thing the whole reveal builds to, and a product that
+double-counts the moment its two sources agree has broken the only number it sells.
+
+## 2026-08-10 - Tendd gets a cancel door of its own
+
+Settings block 3 sends "manage plan" into node 5.13, and node 5.13 is the screen that sells
+Pro. It has three states, none of them for a person who already has it, so a subscriber tapping
+"manage plan" arrives at an advertisement for what they already bought. There is no path
+anywhere in the map to cancel Pro.
+
+**Decided: node 5.13 gains state 5.13.3, the plan you are on.** What is included, when it
+renews and for how much, and a plain "Cancel Pro" that does not argue, does not offer a
+discount and does not ask why. It runs to the end of the paid period.
+
+The ground is that this product's entire promise is that cancelling should be easy, and the one
+subscription we control cannot be the hard one. California's auto-renewal law expects
+cancellation to be no harder than signing up, so the law and the thesis agree here. **Not
+reused: node 4.10, the cancel-win moment.** Celebrating that someone left us would be a joke at
+their expense.
+
+## 2026-08-10 - Two classes of telemetry, and only one of them is a toggle
+
+Node 6.15 block 4 offers "use my activity to improve Tendd, off by default". Read literally it
+switches off all measurement, and `cjm-to-be.md` says H0 is measured as the share of people who
+see three or more subscriptions in their first session, target 35 to 40 percent. The one number
+the MVP exists to produce would be collected from a minority.
+
+**Decided: name the two classes separately, in plain words, on the screen.** Product
+measurement is a count of anonymous events, no profile, never tied to a bank, an amount or a
+merchant, and it is what tells us whether the reveal works at all. It is stated rather than
+toggled, because a product that cannot tell whether it helped anybody has no way to get better
+and no honest reason to exist. Everything past that (person-level behaviour, session replay,
+anything that builds a picture of an individual) stays behind the toggle, off by default, where
+it already is.
+
+Stating it is the point. The failure mode this avoids is not "we measured", it is "we measured
+and the screen implied we did not". US-first posture; whether the counting itself needs a
+consent banner is part of the EU review that D5 defers, and `system.md` already carries that
+`[?]`.
+
+## 2026-08-10 - Alerts arrive by email, and push is deferred
+
+Node 3.8 described its entry as "through GC2 or a push notification", Settings block 4 names a
+weekly email digest, and nothing said how an alert itself reaches a person who is not in the
+app. J4 is "never be surprised by a price change or a failed payment", and a message that only
+exists inside the app cannot keep that promise.
+
+**Decided: email carries both the alerts and the digest at MVP, and web push is deferred.** The
+ground is a constraint, not a preference: Tendd is a mobile-first responsive web app and a
+native app is out of scope, and on iOS web push only works for a site the person has added to
+their home screen. Push would therefore reach a minority of exactly the audience this product
+is for, while looking on paper like it reached everyone. Inside the app the quiet dot on Alerts
+is unchanged.
+
+**Deferred rather than rejected:** push becomes worth building the day an installed experience
+or a native app is in scope, and it changes no screen when it arrives, only the channel row.
+
+## 2026-08-10 - Three hand-maintained datasets, named so they can be costed
+
+Not a design decision, a liability written down. Three things in this product are content, not
+code, and none of them was visible anywhere in the design: the merchant dictionary that turns
+`NETFLIX.COM 866-579-7172` into Netflix and puts it in Streaming, the 400+ presets with typical
+prices behind node 1.4, and the cancel guides behind node 4.9.
+
+All three rot. The guides rot fastest and most visibly, which is why node 4.9 block 10 already
+shows when the steps were last checked, and why its coverage at launch is still an open `[?]`.
+The dictionary rots quietly and shows up as an unmatched charge, which node 2.7.1 already
+handles gracefully. Recorded together in `bank-connection.md` section 13 with what each one
+feeds and what breaks when it is stale, so the operating cost of the product is on paper before
+it is a surprise.
+
+## 2026-08-10 - The recurring model is ours, Plaid Recurring is the US adapter
+
+The question was where subscription detection lives. Plaid's Recurring Transactions product
+returns ready-made streams, and the temptation was to render them onto the screen directly.
+
+Resolved: streams are normalized into our own subscription rows, and the two loudest states in
+the product are computed by us. The ground is that half the screens have no field behind them
+in any bank API. Nothing reports "Netflix went up by $2.50" (we compare the last amount against
+the stream's prior amounts) and nothing at all reports a failed outgoing card charge (we infer
+it from an expected charge that did not arrive). Categories are ours too: Streaming, Software,
+Music, Fitness and News are not Plaid's taxonomy. Once those three are ours, owning the row is
+cheaper than owning a translation layer over someone else's row.
+
+Rejected: reading Plaid Recurring straight onto the screen. It is US and Canada only, it prices
+per connected Item, and it still leaves the price-change and payment-failed states without a
+source, so it buys less than it looks like it buys. Rejected: our own detection engine over raw
+transactions from day one. Periodicity detection is a product of its own with its own accuracy
+problem, and it delays an MVP whose entire purpose is to test H0. The hybrid takes Plaid's
+detection where it is free and keeps the seam where EU will need one: GoCardless and TrueLayer
+return raw transactions with no recurring product, so the EU adapter plugs into our rows rather
+than forcing a second product.
+
+Consequence for D-Free: Plaid bills per Item and Recurring is a paid add-on, against a promise
+of unlimited connections. The lever is refresh cadence, never a cap, because a cap on
+connections is a visibility cap and D-Free already rejected it on that ground.
+
+Full field map, webhooks and build blockers: `bank-connection.md`.
+
+## 2026-08-10 - Link opens directly, and Tendd shows no institution search
+
+Node 1.3 carried an open `[?]`: whether a bank search appears on our side, or whether the
+primary action opens Plaid Link directly. Resolved: directly. Link owns institution search, and
+a search on our side means maintaining an institution list, keeping it in step with Plaid's
+coverage, and building a screen that Link already builds better. It is the same boundary rule
+that kept credential entry and MFA off our side, applied one screen earlier. Node 6.14 already
+names "a bank search and picker" among the things deliberately not added, so this makes the two
+nodes agree.
+
+## 2026-08-10 - Why Home is the etalon and Flow A is the first flow, written down late
+
+Both were chosen at the first build in July 2026 and both held through the August rebuild, but
+the ground was never recorded, so the next stage would have had to take them on trust or
+re-derive them. Recorded now, unchanged.
+
+**Home / Subscription List (node 2.6) is the etalon** because it is the working horse with the
+most reuse, and that is countable rather than felt: five of the seven global elements stand on
+it at once (GC1 the header, GC2 the tab bar, GC3 the summary strip, GC4 the row, GC6 the trust
+line). The two that are missing are missing on purpose: GC5 belongs to Alerts, and GC7 is
+barred from the calm view by D3. It is also where every flow ends, it has four states, and it
+carries the benchmark dimension on three named elements (`wireframes/docs/screens.md`, the
+paragraph under the etalon line). An etalon is a screen later screens are measured against, so
+the one that already contains most of the product is worth more than the one a person sees
+first. **Rejected:** node 1.1 Welcome, which is chronologically first and structurally poor. It
+is a marketing landing, it shares almost nothing with the app shell, and building it first
+would have set the bar on a page that no other screen inherits from.
+
+**Flow A (Emma, the bank path) is the first flow** because it is J-MAIN end to end, and because
+H0, the riskiest assumption of the whole product, runs down it: that an avoider actually looks
+and feels calmer. The flow that carries the assumption the MVP exists to test is the flow that
+has to exist first. **Rejected:** Flow B (Ravi, the manual path), which is the equal second
+door under D2 and reuses three of Flow A's four screens, so building it first would have
+produced fewer new screens for the same work.
+
+## 2026-08-10 - The plan chip stays, and GC1 says which badge it meant
+
+The critique put two written absolutes against each other. The built screens carry a `Free` or
+`Pro` chip in the app header on nine pages (node 5.12 with its states, node 5.12.4, node 5.13
+with its states), and `ia/docs/nodes/globals.md` said GC1 never carries "a count or a badge of
+any kind".
+
+**Decided: the chip stays, and the rule is amended in its owner rather than the screens being
+stripped.** Three grounds. The first is that the product already draws this distinction in two
+other places and only the IA line missed it: `voice/docs/microcopy.md` owns those three lines
+as `status`, and it records that a Pro badge was *retired* from Home and Subscription Detail
+because node 2.6 forbids an upsell on the calm view. The distinction is not new, it is a line
+that was already being applied everywhere except in the file that states it. The second is that
+node 5.12.4 exists only because the canonical person is on Free, and a gate screen that cannot
+say which side of the gate you are on has lost its subject. The third is what "never a badge"
+was written against: a count that climbs, a notification dot, a number that pulls you back. The
+plan word counts nothing and never changes on its own.
+
+**Rejected:** removing the chip from the nine pages. It would have cost node 5.12.4 its
+meaning and pushed the plan into body copy on a screen whose body is a chart.
+
+The amended line names the exception, its nine pages, and where it stays forbidden (nodes 2.6
+and 2.7). `ia/globals.html`, which renders that file, was rebuilt in the same step.
+
+## 2026-08-10 - Chase is 11 on both connection states, and the reason is now in the convention
+
+`connections.html` said Chase had 11 subscriptions and `connections-reconnect.html` said 8: one
+source telling the same story twice with two numbers. The rebuild had already fixed both
+screens to 11; `wireframes/docs/conventions.md` was still describing it as an open break.
+
+**Decided: 11 on both, and the ground is written into the convention rather than the number
+being copied a second time.** A stale connection does not reduce the count. It stops the
+figures being refreshed, and the IA already says the last ones stay visible and dated, which is
+the calm reading: what you see is what was true at the last check, not a product that shrank. A
+reconnect screen showing a *lower* count would say the opposite, that something was lost while
+the connection slept, on the one screen whose whole job is to say nothing was.
+
 ## 2026-08-05 - Subscription Detail has no master pane either, and the reveal ends with one door
 
 Two decisions from the same step, both left open when Home was rebuilt.
@@ -128,7 +578,7 @@ What moved: `user-research/` into `research/`; `master-research.md` to `research
 `competitive-analysis.md` to `competitors.md`, `benchmark-trust.md` to `benchmark.md`;
 `concept/` to `design/concept/`; `ui-visual/` to `design/` with `all-screens.html` becoming
 `design/overview.html`; `wireframes/index.html` (a hub) to `overview.html` and
-`wireframes/welcome.html` (the landing, node 0.0) to `index.html`. The empty stage folders
+`wireframes/welcome.html` (the landing, node 1.1) to `index.html`. The empty stage folders
 (`animation/`, `design-system/`, `responsive/`, `tokens-components/`, `handoff/`) and every
 `.gitkeep` were removed: a folder now appears together with its first file, on its own stage,
 and the route of the project is shown by the registry and the README, not by empty folders.
@@ -191,7 +641,7 @@ Welcome / Value Intro was rebuilt from a narrow onboarding step into a full-widt
 landing wireframe (top nav, two column hero with a calm app preview, benefit cards, how it
 works, trust and security, social proof, final CTA, footer). It stays greyscale, semantic and
 real copy; its CTAs lead into the onboarding chain at Path Choice. It is the only full-width
-page and the only one with a footer, which is why it is the product home page (node 0.0).
+page and the only one with a footer, which is why it is the product home page (node 1.1).
 
 ## 2026-07 - The desktop model: header in the rail, list and detail in two panes
 

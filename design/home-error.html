@@ -3,13 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home / Subscription List (sync-error) - Tendd in colour</title>
+<title>Home, could not refresh - Tendd in colour</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="_theme.css">
+<link rel="stylesheet" href="kit/kit.css">
 </head>
 <body>
+
+<!--
+  Home / Subscription List, node 2.6, the sync-error state: could not refresh.
+  Assembled from kit classes. This page carries no style of its own: no page-level
+  style block, no style attribute, no class that kit.css does not define.
+  Structure and copy are a verbatim copy of wireframes/home-error.html. The
+  colour layer owns the visual only, plus the merchant marks, which are the one
+  thing the grey page could not carry (it renders "[logo]" in their place).
+  Links to screens that are not coloured yet point back into wireframes/.
+-->
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
 
@@ -25,109 +35,181 @@
 <div class="layout">
 <div class="stage stage-app">
 
-<main class="phone dash" aria-label="Home screen, sync-error state, mobile layout">
+<div class="app">
 
   <header class="appbar">
     <span class="wordmark">Tendd</span>
-    <span class="right">Hi, Emma</span>
+    <a class="acct" href="settings.html" aria-label="Hi Emma, open your account">Hi, Emma</a>
   </header>
+  <main class="screen">
 
-  <div class="screen">
-
-    <!-- Quiet sync-error note, the recovery is here (the way out) -->
-    <section class="zone" aria-label="Sync notice">
-      <span class="zlabel">Sync-error notice - quiet, non-alarming, with a recovery</span>
-      <div class="alert-banner" role="status" aria-live="polite">
-        <p>We could not refresh just now. Showing your last update from today, 9:14 AM.</p>
-        <div class="act-row" style="margin-top:8px">
-          <a class="btn" href="home-loading.html">Try again</a>
-        </div>
-      </div>
-      <p class="zaction">Main action: <b>try again</b> (re-runs the sync, the loading state). The list below stays usable in the meantime.</p>
+    <!-- The figures stay, and one calm line says they are not fresh -->
+    <section class="notice is-error" role="status">
+      <p>We could not refresh just now. Showing your last update from today, 9:14 AM.</p>
+      <a href="home-loading.html">Try again</a>
     </section>
 
-    <!-- BLOCK 1 (P): GC3 summary, from the last known data -->
-    <section class="zone summary" aria-label="Recurring summary">
-      <span class="zlabel">GC3 Recurring summary strip - last known values</span>
-      <p class="count">You're paying for <strong>14 subscriptions</strong></p>
-      <p class="total">$192.90</p>
-      <p class="context">a month, as of your last update</p>
-      <p class="trust">Read-only. Tendd cannot move your money.</p>
-    </section>
+    <div class="head">
+      <section class="summary">
+        <h1>You're paying for 14 subscriptions</h1>
+        <p class="total" aria-label="monthly total, $192.90">$192.90</p>
+        <p class="context">a month, as of your last update</p>
+      </section>
 
-    <!-- BLOCK 3 (P): last known list stays visible -->
-    <section class="zone" aria-label="Your subscriptions">
-      <span class="zlabel">Subscription list - last known list, still tappable</span>
+      <section class="attention" aria-label="Needs your attention">
+        <p>Netflix went up by $2.50, now $17.99 a month.</p>
+        <a href="subscription-detail-price-change.html">See what changed</a>
+      </section>
+    </div>
 
-      <h2 class="group-title">Streaming</h2>
-      <ul class="list">
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Netflix, $17.99 monthly, next 3 August, active">
-            <span class="logo"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#e50914"/><text x="20" y="28" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="800" fill="#fff" letter-spacing="0">N</text></svg></span>
-            <span class="body">
-              <span class="name">Netflix</span>
-              <span class="meta">$17.99 / month</span>
-              <span class="when">Next: Aug 3</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Disney Plus, $13.99 monthly, next 12 August, active">
-            <span class="logo"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0c2a63"/><text x="20" y="26" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="800" fill="#fff" letter-spacing="0">D+</text></svg></span>
-            <span class="body">
-              <span class="name">Disney+</span>
-              <span class="meta">$13.99 / month</span>
-              <span class="when">Next: Aug 12</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-      </ul>
+      <div class="groups">
 
-      <h2 class="group-title">Software</h2>
-      <ul class="list">
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="Adobe Creative Cloud, $22.99 monthly, next 15 August, active">
-            <span class="logo"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#da1f26"/><text x="20" y="28" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="21" font-weight="800" fill="#fff" letter-spacing="0">A</text></svg></span>
-            <span class="body">
-              <span class="name">Adobe Creative Cloud</span>
-              <span class="meta">$22.99 / month</span>
-              <span class="when">Next: Aug 15</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-        <li>
-          <a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, $20.00 monthly, next 5 August, active">
-            <span class="logo"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="#0d8f6f"/><text x="20" y="25" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="11" font-weight="700" fill="#fff" letter-spacing="0">GPT</text></svg></span>
-            <span class="body">
-              <span class="name">ChatGPT Plus</span>
-              <span class="meta">$20.00 / month</span>
-              <span class="when">Next: Aug 5</span>
-            </span>
-            <span class="tag">Active</span>
-          </a>
-        </li>
-      </ul>
+        <section class="group">
+          <div class="group-head">
+            <h2>Streaming (4)</h2>
+            <span class="subtotal">$54.96 a month</span>
+          </div>
+          <ul>
+            <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, $17.99 a month, next in 2 days on 3 August, price changed">
+              <span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span>
+              <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
+              <span class="amt">$17.99</span>
+              <span class="tag">Price changed</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="Disney Plus, $13.99 a month, next in 11 days on 12 August, active">
+              <span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span>
+              <span class="body"><span class="name">Disney+</span><span class="when">in 11 days &middot; Aug 12</span></span>
+              <span class="amt">$13.99</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail-payment-failed.html" aria-label="Amazon Prime, $14.99 a month, next in 19 days on 20 August, payment failed">
+              <span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span>
+              <span class="body"><span class="name">Amazon Prime</span><span class="when">in 19 days &middot; Aug 20</span></span>
+              <span class="amt">$14.99</span>
+              <span class="tag">Payment failed</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="Hulu, $7.99 a month, next in 24 days on 25 August, active">
+              <span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span>
+              <span class="body"><span class="name">Hulu</span><span class="when">in 24 days &middot; Aug 25</span></span>
+              <span class="amt">$7.99</span>
+            </a></li>
+          </ul>
+        </section>
 
-      <p class="zaction">Main action: <b>tap a row to open its detail</b>. The list is fully usable even though the latest sync did not go through.</p>
-    </section>
+        <section class="group">
+          <div class="group-head">
+            <h2>Software (4)</h2>
+            <span class="subtotal">$53.98 a month</span>
+          </div>
+          <ul>
+            <li><a class="row" href="subscription-detail.html" aria-label="iCloud Plus, $2.99 a month, next tomorrow on 2 August, active">
+              <span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span>
+              <span class="body"><span class="name">iCloud+</span><span class="when">tomorrow &middot; Aug 2</span></span>
+              <span class="amt">$2.99</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, $20.00 a month, next in 4 days on 5 August, active">
+              <span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span>
+              <span class="body"><span class="name">ChatGPT Plus</span><span class="when">in 4 days &middot; Aug 5</span></span>
+              <span class="amt">$20.00</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="Notion, $8.00 a month, next in 8 days on 9 August, active">
+              <span class="logo"><img src="visuals/logos/notion.svg" alt=""></span>
+              <span class="body"><span class="name">Notion</span><span class="when">in 8 days &middot; Aug 9</span></span>
+              <span class="amt">$8.00</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="Adobe Creative Cloud, $22.99 a month, next in 14 days on 15 August, active">
+              <span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span>
+              <span class="body"><span class="name">Adobe Creative Cloud</span><span class="when">in 14 days &middot; Aug 15</span></span>
+              <span class="amt">$22.99</span>
+            </a></li>
+          </ul>
+        </section>
 
-  </div>
+        <section class="group">
+          <div class="group-head">
+            <h2>Music (2)</h2>
+            <span class="subtotal">$22.98 a month</span>
+          </div>
+          <ul>
+            <li><a class="row" href="subscription-detail.html" aria-label="Spotify Premium, $11.99 a month, next in 6 days on 7 August, active">
+              <span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span>
+              <span class="body"><span class="name">Spotify Premium</span><span class="when">in 6 days &middot; Aug 7</span></span>
+              <span class="amt">$11.99</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="Apple Music, $10.99 a month, next in 13 days on 14 August, active">
+              <span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span>
+              <span class="body"><span class="name">Apple Music</span><span class="when">in 13 days &middot; Aug 14</span></span>
+              <span class="amt">$10.99</span>
+            </a></li>
+          </ul>
+        </section>
 
+        <section class="group">
+          <div class="group-head">
+            <h2>Fitness (2)</h2>
+            <span class="subtotal">$24.98 a month</span>
+          </div>
+          <ul>
+            <li><a class="row" href="subscription-detail.html" aria-label="Peloton App, $12.99 a month, trial ends in 17 days on 18 August">
+              <span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span>
+              <span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; Aug 18</span></span>
+              <span class="amt">$12.99</span>
+              <span class="tag">Trial</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="Strava, $11.99 a month, next in 21 days on 22 August, active">
+              <span class="logo"><img src="visuals/logos/strava.svg" alt=""></span>
+              <span class="body"><span class="name">Strava</span><span class="when">in 21 days &middot; Aug 22</span></span>
+              <span class="amt">$11.99</span>
+            </a></li>
+          </ul>
+        </section>
+
+        <section class="group">
+          <div class="group-head">
+            <h2>News (2)</h2>
+            <span class="subtotal">$36.00 a month</span>
+          </div>
+          <ul>
+            <li><a class="row" href="subscription-detail.html" aria-label="The New York Times, $17.00 a month, next in 10 days on 11 August, active">
+              <span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span>
+              <span class="body"><span class="name">The New York Times</span><span class="when">in 10 days &middot; Aug 11</span></span>
+              <span class="amt">$17.00</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="The Economist, $19.00 a month, next in 27 days on 28 August, active">
+              <span class="logo"><img src="visuals/logos/economist.svg" alt=""></span>
+              <span class="body"><span class="name">The Economist</span><span class="when">in 27 days &middot; Aug 28</span></span>
+              <span class="amt">$19.00</span>
+            </a></li>
+          </ul>
+        </section>
+
+      </div><!-- /groups -->
+
+
+      <!-- Two quiet secondaries. The job of this screen is to look, not to add. -->
+      <nav class="secondary" aria-label="More">
+        <a class="btn compact" href="add-subscription.html">Add a subscription</a>
+        <a class="btn compact" href="history-trends-locked.html">See your trends</a>
+      </nav>
+
+      <!-- GC6 Data source and trust -->
+      <section class="trust" aria-label="Where these figures come from">
+        <p>From Chase, 11 subscriptions, and 3 you added yourself.</p>
+        <p>Read-only. Tendd cannot move your money.</p>
+        <p>Last checked today, 9:14 AM.</p>
+        <a href="../wireframes/connections.html">Your sources</a>
+      </section>
+
+  </main>
   <nav class="tabbar" aria-label="Global navigation">
-    <a class="cur" href="home.html" aria-current="page"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></span>Home</a>
-    <a href="../wireframes/alerts.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0112 0c0 6 2 7 2 7H4s2-1 2-7z"/><path d="M10 20a2 2 0 004 0"/></svg></span>Alerts</a>
-    <a href="home-savefocus.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v11H3z"/><path d="M16 12h2"/><path d="M3 8l3-4h12l3 4"/></svg></span>Save</a>
-    <a href="../wireframes/settings.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg></span>You</a>
+    <a class="cur" href="home.html" aria-current="page"><span class="ic ic-home"></span>Home</a>
+    <a href="../wireframes/alerts.html"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
+    <a href="home-savefocus.html"><span class="ic ic-save"></span>Save</a>
+    <a href="settings.html"><span class="ic ic-you"></span>You</a>
   </nav>
-
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->
-
 
 <script>
 (function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();

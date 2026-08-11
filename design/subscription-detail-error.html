@@ -3,13 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Subscription Detail (error) - Tendd in colour</title>
+<title>Subscription Detail, could not load - Tendd in colour</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="_theme.css">
+<link rel="stylesheet" href="kit/kit.css">
 </head>
 <body>
+
+<!--
+  Subscription Detail, node 2.7, the error state: the rest of the subscription
+  could not be loaded, and the name and the amount survive.
+  Assembled from kit classes. This page carries no style of its own: no page-level
+  style block, no style attribute, no class that kit.css does not define.
+  Structure and copy are a verbatim copy of wireframes/subscription-detail-error.html.
+  The colour layer owns the visual only, plus the merchant mark, which is the one
+  thing the grey page could not carry (it renders "[logo]" in its place).
+  The failure message is the grey page's State block, not a Notice: the wireframe
+  is the structure contract, so the tone modifier that the Notice component
+  carries has nothing here to attach to. Reported, not worked around.
+  Links to screens that are not coloured yet point back into wireframes/.
+-->
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
 
@@ -25,43 +39,63 @@
 <div class="layout">
 <div class="stage stage-app">
 
-<main class="phone dash" aria-label="Subscription detail error, mobile layout">
+<div class="app detail">
 
   <header class="appbar">
-    <a class="back" href="home.html">&lsaquo; Home</a>
+    <a class="back" href="home.html">&lsaquo; Your subscriptions</a>
     <span class="wordmark">Tendd</span>
-    <span class="right">&nbsp;</span>
   </header>
 
-  <div class="screen">
+  <main class="screen">
 
-    <section class="zone" aria-label="Could not load">
-      <span class="zlabel">Load error - active voice, two ways out</span>
-      <div class="msg" role="status" aria-live="polite">
-        <h2>We could not load this subscription</h2>
-        <p>This is usually temporary. Try again, or go back to your list.</p>
-        <div class="act-row" style="justify-content:center">
-          <a class="btn primary" href="subscription-detail-loading.html">Try again</a>
-          <a class="btn" href="home.html">Back to your subscriptions</a>
-        </div>
+    <div class="col1">
+
+      <!-- The name and the amount survive, because they came from the list and
+           not from the request that failed. Nothing is lost, and the list is one
+           tap away in the header and in the tab bar. -->
+      <div class="hero">
+        <span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span>
+        <span>
+          <h1>Spotify Premium</h1>
+          <span class="amt">$11.99</span>
+          <span class="cycle">a month</span>
+        </span>
       </div>
-      <p class="zaction">Main action: <b>try again</b> or <b>back to Home</b>. Never a stranded error screen.</p>
-    </section>
 
-  </div>
+      <div class="state" role="status" aria-live="polite">
+        <p>We could not load the rest of this subscription. This is usually temporary, and nothing about your money changed.</p>
+      </div>
+
+      <div class="actions">
+        <a class="btn primary" href="subscription-detail-loading.html">Try again</a>
+        <a class="btn" href="home.html">Back to your subscriptions</a>
+      </div>
+
+    </div>
+
+    <div class="col2">
+
+      <section class="trust" aria-label="Where these figures come from">
+        <p>From Chase, read-only. Tendd cannot move your money.</p>
+        <p>Last checked today, 9:14 AM.</p>
+        <a href="../wireframes/connections.html">Your sources</a>
+      </section>
+
+    </div>
+
+  </main>
 
   <nav class="tabbar" aria-label="Global navigation">
-    <a class="cur" href="home.html" aria-current="page"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></span>Home</a>
-    <a href="../wireframes/alerts.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0112 0c0 6 2 7 2 7H4s2-1 2-7z"/><path d="M10 20a2 2 0 004 0"/></svg></span>Alerts</a>
-    <a href="home-savefocus.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18v11H3z"/><path d="M16 12h2"/><path d="M3 8l3-4h12l3 4"/></svg></span>Save</a>
-    <a href="../wireframes/settings.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-5 8-5s6.5 1 8 5"/></svg></span>You</a>
+    <a class="cur" href="home.html" aria-current="page"><span class="ic ic-home"></span>Home</a>
+    <a href="../wireframes/alerts.html"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
+    <a href="home-savefocus.html"><span class="ic ic-save"></span>Save</a>
+    <a href="settings.html"><span class="ic ic-you"></span>You</a>
   </nav>
 
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->
-
 
 <script>
 (function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();

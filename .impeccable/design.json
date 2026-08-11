@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-10T00:00:00Z",
+  "title": "Design System: Tendd",
+  "extensions": {
+    "colorMeta": {
+      "petrol": {
+        "role": "primary",
+        "displayName": "Deep Petrol",
+        "canonical": "#1c6a76",
+        "tonalRamp": ["#0a2429", "#0f3841", "#144c58", "#1c6a76", "#2f8896", "#6bb0ba", "#a9d0d6", "#e7edee"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Near-Black Ink",
+        "canonical": "#141b1d",
+        "tonalRamp": ["#080b0c", "#141b1d", "#242f33", "#384349", "#5a686c", "#8b989c", "#c3ced1", "#eef3f4"]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Cool Paper Ground",
+        "canonical": "#eef3f4",
+        "tonalRamp": ["#3a4446", "#556164", "#727e82", "#96a2a6", "#bcc7ca", "#dbe4e6", "#eef3f4", "#f9fbfb"]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Statement Amber",
+        "canonical": "#8a5c0c",
+        "tonalRamp": ["#2e1e04", "#4a3107", "#68430a", "#8a5c0c", "#b57e1f", "#d6a951", "#ead092", "#f6efe0"]
+      },
+      "clay": {
+        "role": "tertiary",
+        "displayName": "Desaturated Clay",
+        "canonical": "#9a5842",
+        "tonalRamp": ["#32180f", "#4d281a", "#6b3a28", "#9a5842", "#b87a64", "#d0a292", "#e4c8bd", "#f3e9e5"]
+      },
+      "moss": {
+        "role": "tertiary",
+        "displayName": "Quiet Moss",
+        "canonical": "#2e6b52",
+        "tonalRamp": ["#0d241b", "#153a2c", "#1f523e", "#2e6b52", "#489076", "#78b39c", "#aed3c3", "#e2efe9"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "The Total", "purpose": "The monthly total, and nothing else. One per screen, ever." },
+      "headline": { "displayName": "Headline", "purpose": "A subscription name on its own screen; the heading of an empty or error state." },
+      "title": { "displayName": "Wordmark", "purpose": "The app bar wordmark." },
+      "body": { "displayName": "Row Name", "purpose": "The merchant name in a list row; the primary reading line." },
+      "meta": { "displayName": "Meta", "purpose": "Amount, next date, source line. Always muted, never ink." },
+      "label": { "displayName": "Badge", "purpose": "Status and plan badges. Never uppercased, never tracked out." }
+    },
+    "shadows": [
+      {
+        "name": "frame",
+        "value": "0 1px 3px rgba(10,30,35,0.05), 0 8px 24px -12px rgba(10,30,35,0.12)",
+        "purpose": "The mobile app frame only, to lift it off the canvas. Mixed from the palette's own dark rather than from neutral black, so it stays inside the cool world. Nothing inside the frame is allowed to use it."
+      }
+    ],
+    "motion": [
+      { "name": "state", "value": "0.15s", "purpose": "Background and colour on nav and row hover." },
+      { "name": "drawer", "value": "0.22s ease", "purpose": "The review sidebar slide; product chrome only." },
+      { "name": "skeleton-pulse", "value": "1.4s ease-in-out infinite", "purpose": "Loading placeholders. Disabled entirely under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "edge", "value": "460px" },
+      { "name": "dashboard", "value": "760px" },
+      { "name": "three-pane", "value": "1040px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one main action of a zone. Petrol fill, no border of its own.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Connect your bank</a>",
+      "css": ".ds-btn-primary { display: inline-block; background: var(--accent, #1c6a76); border: 1px solid var(--accent, #1c6a76); color: #fff; border-radius: 10px; padding: 10px 16px; font: 600 13.5px/1.4 Inter, -apple-system, sans-serif; text-decoration: none; cursor: pointer; } .ds-btn-primary:hover { background: #175a64; border-color: #175a64; } .ds-btn-primary:focus-visible { outline: 2px solid #1c6a76; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A real alternative, not a ghost. The two doors of this product are equal by decision.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Add them yourself</a>",
+      "css": ".ds-btn { display: inline-block; background: #fff; border: 1px solid #e4e9ea; color: #141b1d; border-radius: 10px; padding: 10px 16px; font: 600 13.5px/1.4 Inter, -apple-system, sans-serif; text-decoration: none; cursor: pointer; } .ds-btn:hover { border-color: #cdd7d9; background: #f4f7f8; } .ds-btn:focus-visible { outline: 2px solid #1c6a76; outline-offset: 2px; }"
+    },
+    {
+      "name": "Subscription Row",
+      "kind": "custom",
+      "refersTo": "row",
+      "description": "The object the whole product is made of. One link, one accessible name, a badge only when the state is not the default.",
+      "html": "<a class=\"ds-row\" href=\"#\" aria-label=\"Netflix, $17.99 a month, next charge in 2 days on 3 August\"><span class=\"ds-row-logo\"></span><span class=\"ds-row-body\"><span class=\"ds-row-name\">Netflix</span><span class=\"ds-row-meta\">$17.99 / month</span><span class=\"ds-row-when\">in 2 days &middot; Aug 3</span></span><span class=\"ds-badge\">Price changed</span></a>",
+      "css": ".ds-row { display: flex; align-items: center; gap: 12px; padding: 11px 12px; min-height: 44px; background: #fff; border: 1px solid #e4e9ea; border-radius: 10px; color: #141b1d; text-decoration: none; font-family: Inter, -apple-system, sans-serif; } .ds-row:hover { background: #f4f7f8; } .ds-row-logo { flex: none; width: 40px; height: 40px; border-radius: 10px; background: #eef3f4; } .ds-row-body { flex: 1; min-width: 0; } .ds-row-name { display: block; font-size: 14.5px; font-weight: 600; } .ds-row-meta { display: block; font-size: 12.5px; color: #5a686c; margin-top: 1px; } .ds-row-when { display: block; font-size: 11.5px; color: #5a686c; margin-top: 1px; } .ds-badge { flex: none; font-size: 10.5px; font-weight: 600; border-radius: 6px; padding: 3px 9px; color: #4f5e62; background: #e9eeef; }"
+    },
+    {
+      "name": "Status Badge",
+      "kind": "chip",
+      "refersTo": "badge-status",
+      "description": "Quiet grey. Shown only when the state is not the plain default, because a column of fourteen Active tags is noise on the screen whose job is calm.",
+      "html": "<span class=\"ds-badge-status\">Payment failed</span> <span class=\"ds-badge-trial\">Trial</span> <span class=\"ds-badge-pro\">Pro</span>",
+      "css": ".ds-badge-status, .ds-badge-trial { display: inline-block; font: 600 10.5px/1.4 Inter, -apple-system, sans-serif; border-radius: 6px; padding: 3px 9px; color: #4f5e62; background: #e9eeef; } .ds-badge-trial { background: #dfeef0; color: #185862; } .ds-badge-pro { display: inline-block; font: 700 10px/1.4 Inter, -apple-system, sans-serif; border-radius: 5px; padding: 1px 6px; background: #e7edee; color: #1c6a76; text-transform: uppercase; letter-spacing: 0.04em; }"
+    },
+    {
+      "name": "Summary Total",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "The one number that owns the screen, with its context line and the trust line beneath it.",
+      "html": "<div class=\"ds-summary\"><p class=\"ds-count\">You're paying for <strong>14 subscriptions</strong></p><p class=\"ds-total\">$192.90</p><p class=\"ds-context\">a month, for what you have signed up for</p><p class=\"ds-trust\">From Chase, read-only. Tendd cannot move your money.</p></div>",
+      "css": ".ds-summary { font-family: Inter, -apple-system, sans-serif; } .ds-count { font-size: 14px; color: #5a686c; margin: 0 0 4px; } .ds-count strong { color: #141b1d; font-weight: 700; } .ds-total { font-size: 46px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin: 0; color: #141b1d; } .ds-context { font-size: 13px; color: #5a686c; margin: 8px 0 0; } .ds-trust { position: relative; font-size: 12px; color: #5a686c; margin: 12px 0 0; padding-left: 20px; } .ds-trust::before { content: \"\"; position: absolute; left: 0; top: 1px; width: 15px; height: 15px; background-color: #1c6a76; -webkit-mask: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E\") center/contain no-repeat; mask: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E\") center/contain no-repeat; }"
+    },
+    {
+      "name": "Change Banner",
+      "kind": "custom",
+      "refersTo": "banner-change",
+      "description": "A price change in amber, never red. No icon: the sentence is the alert.",
+      "html": "<div class=\"ds-banner\"><p>Netflix went up by $2.50, now $17.99 a month.</p><span class=\"ds-banner-go\">See what changed</span></div>",
+      "css": ".ds-banner { background: #f6efe0; border-radius: 12px; padding: 12px 14px; font-family: Inter, -apple-system, sans-serif; } .ds-banner p { margin: 0; font-size: 13px; color: #141b1d; } .ds-banner-go { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 600; color: #8a5c0c; }"
+    },
+    {
+      "name": "Error Banner",
+      "kind": "custom",
+      "refersTo": "banner-error",
+      "description": "A genuine failure in desaturated clay. Scoped to real failures only, never to an empty state.",
+      "html": "<div class=\"ds-banner-err\" role=\"status\"><p>We could not reach Chase. Your list is the one from yesterday.</p></div>",
+      "css": ".ds-banner-err { background: #f3e9e5; border-radius: 12px; padding: 12px 14px; font-family: Inter, -apple-system, sans-serif; } .ds-banner-err p { margin: 0; font-size: 13px; color: #141b1d; }"
+    },
+    {
+      "name": "Tab Bar",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Four destinations, icon over label. The current tab is petrol. A quiet dot may sit on Alerts; there is never a count.",
+      "html": "<nav class=\"ds-tabbar\" aria-label=\"Global navigation\"><a href=\"#\" class=\"ds-cur\"><span class=\"ds-ic\"></span>Home</a><a href=\"#\"><span class=\"ds-ic\"></span>Alerts</a><a href=\"#\"><span class=\"ds-ic\"></span>Save</a><a href=\"#\"><span class=\"ds-ic\"></span>You</a></nav>",
+      "css": ".ds-tabbar { display: flex; border-top: 1px solid #eef2f3; background: #fff; font-family: Inter, -apple-system, sans-serif; } .ds-tabbar a { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 4px 11px; font-size: 11px; color: #5a686c; text-decoration: none; } .ds-tabbar .ds-ic { width: 22px; height: 22px; border-radius: 6px; background: currentColor; opacity: 0.35; } .ds-tabbar a.ds-cur { color: #1c6a76; font-weight: 700; }"
+    },
+    {
+      "name": "Callout",
+      "kind": "card",
+      "refersTo": "callout",
+      "description": "A quiet aside on the canvas tint, for a consequence or an explanation next to the thing it explains.",
+      "html": "<p class=\"ds-callout\">This one came from Chase, so removing it hides the row rather than deleting it.</p>",
+      "css": ".ds-callout { background: #eef3f4; border-radius: 10px; padding: 12px 14px; margin: 0; font: 400 13px/1.5 Inter, -apple-system, sans-serif; color: #384349; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Petrol and Paper",
+    "overview": "Tendd is for a person who does not open her banking app because she is afraid of what is in it. Everything in this system is bent toward one outcome: she looks, and nothing about the looking punishes her. That is why the loudest thing on any screen is a number she asked for, and the quietest thing is anything that could read as a verdict. The system has exactly one voice raised above a murmur, petrol, and it is spent on three things only: the primary action, the current selection, and the line that says what we can and cannot do with her money. The material is paper on a cool off-white ground. Cards are true white and sit on a canvas with a whisper of the accent in it, so the surface reads as a sheet on a desk rather than as a panel in an application. There is one shadow in the whole system and it is barely there. The register is warm restraint: the neutral is not clinical grey and it is not beige, because the taste rejected both by name.",
+    "keyCharacteristics": [
+      "One accent, spent three ways, and never on decoration.",
+      "Status is a quiet grey badge. Alarm is not a colour we own.",
+      "The monthly total is the largest object on screen by a wide margin (46px against a 14.5px row).",
+      "Real logos and real merchant names; never a cryptic code where a name is known, never stock art.",
+      "Flat by construction: one soft shadow, hairlines, and paper."
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Petrol appears on the primary action, the current selection and the trust line. Anywhere else it is decoration, and decoration in this palette is a bug. A screen with two petrol objects competing for the eye has already failed the rule.", "section": "colors" },
+      { "name": "The No Red Rule", "body": "There is no red in this system and there will not be one. A price rise is amber, a real failure is clay, and both are desaturated to the point where they read as information. The persona closes any app that shows her red; that is a recorded quote, not a preference.", "section": "colors" },
+      { "name": "The Two Tiers Rule", "body": "Ink and muted. A third, lighter grey is how a calm interface quietly becomes an unreadable one, and it is the first thing to reach for when a layout feels busy. It is not available.", "section": "colors" },
+      { "name": "The One Number Rule", "body": "Exactly one object on a screen is set in Display, and it is the number the person came for. If a second number wants that size, the screen is answering two questions and should be two screens.", "section": "typography" },
+      { "name": "The Flat Paper Rule", "body": "A new surface earns a hairline and a background change, never a shadow. The moment two elevations exist inside one screen, the eye starts ranking them, and ranking is the work this product takes away from the person.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do spend petrol on the primary action, the current selection and the trust line, and nowhere else.",
+      "Do keep the monthly total at Display size and alone at that size.",
+      "Do use the grey status badge for state, and show it only when the state is not the default.",
+      "Do separate surfaces with a hairline and a background change.",
+      "Do state a failure in clay and a price change in amber, both desaturated, both flat.",
+      "Do render the trust line next to the data it vouches for.",
+      "Do stop the skeleton pulse under prefers-reduced-motion; it is already wired."
+    ],
+    "donts": [
+      "Don't introduce red, in any tint, for any state. There is no case.",
+      "Don't add a second shadow, or put the frame shadow on anything inside the frame.",
+      "Don't add a third grey between muted and hairline; the two-tier scale is what holds AA.",
+      "Don't uppercase or letter-space a badge to make it look designed.",
+      "Don't put an icon on a banner. The sentence carries it.",
+      "Don't use clay on an empty state. Nothing went wrong in an empty state.",
+      "Don't introduce a second type family, a display face, or a mono face for numbers."
+    ]
+  }
+}

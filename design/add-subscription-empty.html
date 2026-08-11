@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Subscription, no preset matches - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/kit.css">
+</head>
+<body>
+
+<!--
+  Add a Subscription, node 1.4, the empty state: the search found no preset.
+  It exists because the catalogue will never hold every service, and the moment
+  it comes up short is the moment the manual path (D2) has to be right there,
+  already carrying the name that was typed. Nothing here is a dead end.
+  Assembled from kit classes. This page carries no page-level style block, no
+  style attribute, and no class that kit.css does not define.
+  Structure and copy are a verbatim copy of wireframes/add-subscription-empty.html.
+  Links to screens that are not coloured yet point back into wireframes/.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<div class="app flow">
+
+  <header class="appbar">
+    <a class="back" href="../wireframes/path-choice.html">&lsaquo; Back</a>
+    <span class="wordmark">Tendd</span>
+    <span class="step">Step 2 of 3</span>
+  </header>
+
+  <main class="screen">
+
+    <div class="lede">
+      <h1>Add a subscription</h1>
+    </div>
+
+    <form class="field" role="search" onsubmit="return false">
+      <label for="preset-search">Find a service</label>
+      <input id="preset-search" type="search" value="Cerebro Cloud">
+    </form>
+
+    <!-- An empty catalogue result is our gap, not the person's mistake, and the
+         line says so before it offers the way on. -->
+    <div class="state" role="status" aria-live="polite">
+      <h2>No match for "Cerebro Cloud"</h2>
+      <p>Not every service is in our list yet. You can add it by hand below, and it will sit alongside the rest.</p>
+    </div>
+
+    <!-- The name carries over from the search, so nothing typed is retyped. -->
+    <form class="form-col" onsubmit="return false">
+      <fieldset>
+        <div class="field">
+          <label for="sub-name">Name</label>
+          <input id="sub-name" type="text" value="Cerebro Cloud">
+        </div>
+        <div class="field">
+          <label for="sub-amount">Amount</label>
+          <input id="sub-amount" type="text" placeholder="$0.00">
+          <p class="hint">Enter an amount, like $9.99</p>
+        </div>
+        <div class="field">
+          <label for="sub-freq">Billing frequency</label>
+          <select id="sub-freq">
+            <option>Monthly</option>
+            <option>Every 4 weeks</option>
+            <option>Quarterly</option>
+            <option>Yearly</option>
+            <option>Custom</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sub-next">Next payment date</label>
+          <input id="sub-next" type="text" placeholder="Aug 3, 2026">
+          <p class="hint">For example, Aug 3, 2026</p>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button type="submit" class="btn primary">Add subscription</button>
+        <a class="btn" href="add-subscription.html">Search again</a>
+      </div>
+    </form>
+
+    <div class="actions">
+      <a class="btn primary" href="guided-reveal.html">See your subscriptions</a>
+    </div>
+
+  </main>
+
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

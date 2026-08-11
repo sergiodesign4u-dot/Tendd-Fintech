@@ -144,3 +144,22 @@ Detail), which share the identical subscription card so both read as one product
 `design/concept/concept.html`, seeded into the root `DESIGN-artifacts.md`, and applied to
 two anchor screens in `design/`. Next phase: UI + Visual (Etap 07), the full
 color pass across all 16 screens plus `design/docs/design.md`.*
+
+---
+
+## Mockup against attribute, checked at UI + Visual (2026-08-10)
+
+Stage 07 turns the roles around: the built screens are the living truth and this file is the
+justification that follows them. But a mockup that contradicts an **attribute** is not written up
+silently, because that is the wire between the way the product looks and what we know about the
+people using it. Three places where the code and the prose disagreed:
+
+| Attribute | Source row | What the code does | Resolution |
+|---|---|---|---|
+| **A1 calm, not alarming.** Technique: "off-white canvas, white cards" | Emma, "if anything is red or uses words like warning or overspending, she closes it" (`personas.md`, Trust Triggers) | `--page: #eef3f4` (cool off-white ground), `--frame: #ffffff` (white cards). **The code matches the attribute exactly.** | **The prose was wrong, not the mockup.** `DESIGN-artifacts.md` and `CLAUDE.md` both said "white canvas", which drops the ground-against-card relationship the technique names. Both corrected to "off-white canvas, white cards" |
+| **A3 one big number** | Design Principle 2; Emma P4, "too many numbers, too many graphs" (`personas.md`) | The total ships at **46px / 800**; the draft recorded 44px | **The mockup wins**, and `DESIGN.md` carries 46px. No attribute is touched: 46 is more A3 than 44, not less |
+| **A5 warm restraint**, "the neutral is not pure clinical gray and not beige" | `voice.md` warmth by default; the taste (Monzo, Monarch) | The whole neutral ramp leans cool toward the accent, and there is no warm neutral anywhere | **Held, and worth stating plainly:** "not beige" was satisfied, "warm" was carried by the copy and the roundness rather than by hue. The attribute stands; the warmth in this system is not a colour temperature |
+
+**No attribute was dropped and no mockup was changed by this pass.** All three rows resolved in
+favour of the built screens, and the two that moved moved in the prose.
+

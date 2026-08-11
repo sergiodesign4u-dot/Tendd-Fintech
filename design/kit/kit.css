@@ -33,9 +33,26 @@
   --radius-sm: 10px;
   --shadow: 0 1px 3px rgba(10,30,35,0.05), 0 8px 24px -12px rgba(10,30,35,0.12);
   /* review chrome (sage/cream, from the phase site) */
-  --c-bg: #f8f7f4; --c-surface: #ffffff; --c-border: #e8e4dc; --c-border-light: #f0ede6;
-  --c-text: #2a2724; --c-text-secondary: #6b6560; --c-text-muted: #9b958e;
-  --c-accent: #5c7a6e; --c-accent-light: #eef4f1; --c-radius-sm: 4px;
+  /* --c-bg was declared here and consumed nowhere: the page ground is the
+     product's --page, not the phase site's. Dropped at step 6, Codex 9. */
+  --c-surface: #ffffff; --c-border: #e8e4dc; --c-border-light: #f0ede6;
+  /* Two darkened at step 7 after the audit measured them. --c-text-muted was
+     #9b958e, 2.96:1 on white, and it carries the state links and the panel label;
+     --c-accent was #5c7a6e, 4.22:1 on its own tint, and it marks the CURRENT page,
+     so the one row that must be readable was the one that failed. Review chrome,
+     but a reviewer reads it on every screen. */
+  --c-text: #2a2724; --c-text-secondary: #6b6560; --c-text-muted: #6f6a63;
+  --c-accent: #4e6a5c; --c-accent-light: #eef4f1; --c-radius-sm: 4px;
+
+  /* Named at UI + Visual, 2026-08-10, founder decision. Four names for four
+     values THIS FILE ALREADY WROTE as literals: nothing here is a new value,
+     and no existing value moved. Ground: docs/decisions.md. */
+  --radius-xs: 6px;          /* origin: the chip and the skeleton, written inline twice in this file */
+  --radius-wash: 12px;       /* origin: .alert-banner in this file; DESIGN.md names it rounded.wash */
+  --line-strong: #cdd7d9;    /* origin: .btn:hover in this file; DESIGN.md states it in prose */
+  --on-accent: #ffffff;      /* origin: the label on a petrol ground, written as --frame. Equal to
+                                --frame today and a different ROLE: --frame is the card surface,
+                                this is text on the accent. They part company at the dark theme. */
 }
 
 * { box-sizing: border-box; }
@@ -55,14 +72,30 @@ body {
 .zlabel, .zaction, .pane-note, .gc-tag { display: none !important; }
 
 /* ---------- Review roadmap sidebar (sage/cream chrome) ---------- */
-.sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: var(--c-surface); border-right: 1px solid var(--c-border); z-index: 200; transform: translateX(-100%); transition: transform 0.22s ease; overflow-y: auto; padding-bottom: 32px; }
-.sidebar.open { transform: translateX(0); }
+/* visibility, not just transform. Off-canvas by transform alone leaves sixteen
+   chrome links in the tab order and in the accessibility tree, so on a phone a
+   keyboard user tabs through an invisible panel before reaching the product.
+   visibility:hidden takes them out and still animates, because visibility is a
+   transitionable property when it is paired with a duration. */
+.sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 220px; background: var(--c-surface); border-right: 1px solid var(--c-border); z-index: 200; transform: translateX(-100%); visibility: hidden; transition: transform 0.22s ease, visibility 0.22s; overflow-y: auto; padding-bottom: 32px; }
+.sidebar.open { transform: translateX(0); visibility: visible; }
 .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.25); z-index: 150; }
 .sidebar-overlay.open { display: block; }
 .sidebar-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 14px; border-bottom: 1px solid var(--c-border-light); }
 .nav-brand { font-weight: 600; font-size: 13.5px; color: var(--c-text); letter-spacing: -0.01em; }
 .sidebar-close { background: none; border: none; font-size: 18px; line-height: 1; color: var(--c-text-muted); cursor: pointer; padding: 4px 6px; border-radius: var(--c-radius-sm); }
-.nav-toggle { position: fixed; top: 14px; left: 16px; z-index: 100; background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--c-radius-sm); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.06); color: var(--c-text); font-size: 15px; }
+/* Review chrome, not the product, and it is not allowed to sit on top of the
+   product. Floating it anywhere covers something: at the top it covered the
+   wordmark, above the tab bar it covered the removal note. The grey wireframes
+   already solved this with a strip in normal flow above the screen, so this is
+   the same answer rather than a third guess. Hidden entirely from 840. */
+.nav-toggle {
+  position: static; display: flex; align-items: center; justify-content: flex-start;
+  width: 100%; height: 40px; padding: 0 14px; z-index: 100;
+  background: var(--c-surface); border: 0; border-bottom: 1px solid var(--c-border);
+  border-radius: 0; box-shadow: none; cursor: pointer;
+  color: var(--c-text-secondary); font-size: 13px; text-align: left;
+}
 .sidebar-nav { padding: 12px 10px 0; }
 .scr-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-text-muted); padding: 10px 8px 5px; }
 .scr-label.active { color: var(--c-accent); }
@@ -77,183 +110,903 @@ body {
 .scr-states a { display: block; text-decoration: none; color: var(--c-text-muted); font-size: 12px; padding: 3px 10px; border-radius: var(--c-radius-sm); }
 .scr-states a:hover { color: var(--c-text); background: var(--c-border-light); }
 .scr-states a.current { color: var(--c-accent); font-weight: 600; background: var(--c-accent-light); }
-@media (min-width: 840px) { .sidebar { transform: translateX(0); } .sidebar-close { display: none; } .sidebar-overlay { display: none !important; } .nav-toggle { display: none; } body { padding-left: 220px; } }
+/* The last line here is review chrome correcting itself, and it does NOT travel to
+   a build. The product's tab bar is fixed to the viewport, which is right when the
+   product owns the viewport and wrong on these pages, where the review panel takes
+   the first 220px: the Home destination was laid out underneath it and only a 4px
+   sliver showed. The body padding does not reach a fixed element, so the offset is
+   stated once, here, in the chrome's own block rather than on the component. The
+   grey wireframes have the same collision; it is corrected rather than carried. */
+@media (min-width: 840px) { .sidebar { transform: translateX(0); visibility: visible; } .sidebar-close { display: none; } .sidebar-overlay { display: none !important; } .nav-toggle { display: none; } body { padding-left: 220px; } .app > .tabbar { left: 220px; } }
 
 /* ---------- Layout + stage ---------- */
 .layout { display: block; }
 .stage { padding: 28px 16px 56px; container-type: inline-size; }
 .stage.stage-app { padding: 0; }
 
-/* ---------- Mobile phone frame ---------- */
-.phone {
-  max-width: 420px; margin: 0 auto; min-height: 720px;
-  background: var(--frame); border: 1px solid var(--line); border-radius: 22px;
-  display: flex; flex-direction: column; position: relative; overflow: hidden;
-  box-shadow: var(--shadow);
+
+/* The scoping decision, kept because it is the reason this file is shaped the
+   way it is. Cascade layers were tried here first and removed: layers reorder
+   CONFLICTING declarations, and the superseded .phone block does not declare
+   .trust or .k at all, so an unscoped kit rule was not competing with anything.
+   It was simply the only rule, and it reached into the legacy island and changed
+   the seed screens. Only not matching fixes that, so the kit is scoped under
+   .app and .landing and the July block under .phone. */
+
+
+/* Scoped under .app and .landing, matching the organisms below, and NOT left
+   unscoped. The reason is a leak the pixel comparison caught: the superseded
+   .phone block does not declare .trust or .k at all, so an unscoped kit rule
+   was not competing with anything, it was simply the only rule, and it reached
+   inside the legacy island and changed the seed screens. Cascade layers cannot
+   fix that: they reorder conflicting declarations, and there was no conflict to
+   reorder. Only not matching fixes it.
+   The argument for leaving atoms unscoped was the landing rendering its .row
+   unstyled, and that landing is a wireframe: it loads _wf.css and never this
+   file. The fix belongs there. */
+
+/* ============================================================
+   ATOMS (21). Geometry EXTRACTED from wireframes/_wf.css, named on each atom;
+   only the colour layer is new. Unscoped on purpose: _wf.css scopes everything
+   under .app, which is why the landing carries .row/.logo/.tag and renders
+   them unstyled. A kit atom must render without a host, and that one change
+   also retires the lp- twins.
+   Four values were named on 2026-08-10 (--radius-xs, --radius-wash, --line-strong,
+   --on-accent), all of them literals this file already wrote. The ten that are
+   still literals are listed in inventory.md and belong to stage 08.
+   ============================================================ */
+
+/* Migrated OUT of the July block at step 5, before that block is deleted. The
+   skeleton atom's own comment said the file "already carries" these, and what
+   carried them was the block scheduled for retirement: deleting it would have
+   stopped every skeleton in the product from animating, silently and with no
+   error. The duplicate reduced-motion guard was dropped in the same move. */
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+/* The guard was written as `.skel`, specificity 0-1-0, against a `.app .skel` at
+   0-2-0 that declares the animation. It lost the cascade and did nothing: every
+   skeleton on the five loading states pulsed forever for a person who had asked
+   the operating system for no motion. It looked correct in the file, it was
+   correct in the grey (where the animated rule was also unscoped), and it broke
+   silently the moment the kit scoped its atoms. Matched to the rule it guards. */
+@media (prefers-reduced-motion: reduce) { .skel, .app .skel, .landing .skel { animation: none; } .sidebar, .sidebar-nav a { transition: none; } }
+
+input, select, textarea, button, progress { accent-color: var(--accent); }
+
+/* _wf.css draws exactly one focus ring, on the field. :where() keeps
+   specificity at 0 so any atom can still override. */
+:where(a, button, input, select, textarea, .app summary, .landing summary, .app label.switch, .landing label.switch):focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
 }
 
-/* GC1 app header */
-.appbar { border-bottom: 1px solid var(--line2); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; background: var(--frame); }
-.appbar .wordmark { font-weight: 800; letter-spacing: -0.01em; font-size: 17px; color: var(--ink); }
-.appbar .right { font-size: 13px; color: var(--soft); }
+/* Button - _wf.css:579. AUTHORED in part: in grey .primary is only a heavier
+   border, because greyscale has no fill to give. This is the slot petrol fills. */
+.app .btn, .landing .btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 18px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--frame); color: var(--mid);
+  font: inherit; font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer;
+}
+.app .btn:hover, .landing .btn:hover { border-color: var(--line-strong); background: var(--panel2); color: var(--ink); }
+.app .btn.primary, .landing .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.app .btn.primary:hover, .landing .btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); color: var(--on-accent); }
+.app .btn.compact, .landing .btn.compact { min-height: 44px; padding: 0 14px; font-size: 13.5px; }
+.app .btn[disabled], .landing .btn[disabled], .app .btn.is-disabled, .landing .btn.is-disabled { cursor: default; color: var(--soft); background: var(--panel2); border-color: var(--line2); }
+/* AUTHORED. No inverse control exists on any of the 55 pages. The atom assumes
+   only that its ground is dark; the host supplies --accent or --ink. */
+.app .btn.inverse, .landing .btn.inverse { background: transparent; border-color: var(--on-accent); color: var(--on-accent); }
+.app .btn.inverse:hover, .landing .btn.inverse:hover { background: var(--on-accent); border-color: var(--on-accent); color: var(--accent); }
+.app .btn.inverse.primary, .landing .btn.inverse.primary { background: var(--frame); border-color: var(--frame); color: var(--accent); }
+.app .btn.inverse.primary:hover, .landing .btn.inverse.primary:hover { background: var(--accent-tint); border-color: var(--accent-tint); color: var(--accent-strong); }
 
-/* screen body */
-.screen { flex: 1; padding: 16px 16px 96px; }
+/* Quiet inline link - ONE atom where the grey had thirteen rules. The 44px
+   floor lives on the base, which closes the 21 under-target controls across 10
+   pages in one line. Petrol at rest only on the trust line, which the concept
+   names; everywhere else the underline carries the affordance. */
+/* CORRECTED at step 6. The 44px tap floor was put on the base, which turned every
+   link inside a sentence into a 44px inline-flex box: a four-line paragraph on the
+   trends screen measured 100px instead of 75, and the lines drifted apart. The
+   paragraphs that carry inline links are the privacy and trust sentences, so the
+   copy whose only job is to reassure was the copy that looked broken.
+   A link in a block of text is exempt from the target-size minimum, precisely
+   because enforcing it deforms the text it lives in. Every STANDALONE control in
+   the product is a button, a row or a tab, and all of those clear 44px measured. */
+.quiet a, .trust a, .removal a, .legal a, .notice a, .attention a,
+.app .consequence a, .landing .consequence a, .app .lp-links a, .landing .lp-links a, .app .lp-micro a, .landing .lp-micro a, .app .fcol a, .landing .fcol a {
+  font-size: 13px; color: var(--mid);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line);
+}
+.quiet a:hover, .trust a:hover, .removal a:hover, .legal a:hover, .notice a:hover,
+.app .attention a:hover, .landing .attention a:hover, .app .consequence a:hover, .landing .consequence a:hover, .app .lp-links a:hover, .landing .lp-links a:hover, .app .lp-micro a:hover, .landing .lp-micro a:hover, .app .fcol a:hover, .landing .fcol a:hover {
+  color: var(--accent); text-decoration-color: var(--accent);
+}
+/* ...and the other half of that correction, found by MEASURING at 360 rather than
+   by reading. Taking the tap floor off the base freed the links that live inside a
+   sentence and took it away from thirteen that do not: "Try again" on the sync
+   error, "See what changed" on the price alert, "Remove from your list", "Data and
+   privacy". Each was 14 to 15px tall, and the destructive one and the error
+   recovery one were among them.
+   The structure separates the two cases with no new class and no markup change: an
+   anchor that is a DIRECT CHILD of its block is standalone, sitting on its own line
+   beside the paragraph, and the floor is exactly right for it; an anchor inside a
+   `p` is running text and is exempt. `> a` against `p a`.
+   One case the structure cannot reach: a paragraph whose only content is the link
+   ("Do this later" on the empty reveal). CSS cannot tell it from a sentence that
+   happens to contain a link, and it is logged rather than papered over. */
+.app .trust > a, .landing .trust > a, .app .removal > a, .landing .removal > a,
+.app .notice > a, .landing .notice > a, .app .attention > a, .landing .attention > a,
+.app .legal > a, .landing .legal > a { display: inline-flex; align-items: center; min-height: 44px; }
 
-/* zone: a plain region (no wireframe border in color) */
-.zone { margin: 0 0 18px; }
-.zone.summary { margin-bottom: 20px; }
+.app .trust a, .landing .trust a, .app .legal a, .landing .legal a, .app .lp-micro a, .landing .lp-micro a, .app .fcol a, .landing .fcol a { font-size: 12px; }
+.app .trust a, .landing .trust a { color: var(--accent); text-decoration-color: var(--accent-tint); }
 
-/* GC3 summary */
-.summary .count { font-size: 14px; color: var(--soft); margin: 0 0 4px; }
-.summary .count strong, .summary .count b { color: var(--ink); font-weight: 700; }
-.summary .total { font-size: 46px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin: 0; color: var(--ink); }
-.summary .context { font-size: 13px; color: var(--soft); margin: 8px 0 0; }
-.summary .context strong { color: var(--accent); font-weight: 700; }
-.summary .trust { font-size: 12px; color: var(--soft); margin: 12px 0 0; padding-left: 20px; position: relative; }
-.summary .trust::before {
-  content: ""; position: absolute; left: 0; top: 1px; width: 15px; height: 15px;
+.app .consequence, .landing .consequence { margin: 12px 0 0; font-size: 12.5px; color: var(--soft); }
+.app .consequence.lead, .landing .consequence.lead { margin: 0 0 12px; }
+.app .consequence.spaced, .landing .consequence.spaced { margin-top: 18px; }
+.app .quiet, .landing .quiet { margin: 0 0 22px; font-size: 13px; }
+/* From _wf.css:1005. Filed as a one-off in inventory.md while the sample
+   excluded upgrade.html; that decision expired the moment upgrade entered the
+   sample, because a screen in design/ may carry no CSS of its own. Without it
+   the closing line under the plan cards comes back as an ordinary browser
+   paragraph, louder than the card copy it is meant to sit quietly beneath. */
+.app .pitch, .landing .pitch { margin: 12px 0 0; font-size: 13px; color: var(--soft); }
+.app .legal, .landing .legal { margin: 26px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line2); font-size: 12px; color: var(--soft); max-width: 52ch; }
+
+/* Chip - one base for the four look-alikes the inventory found (.tag, .badge,
+   .best, .plan) plus .locklabel, which was a fifth. Sentence case, not the
+   wireframe's uppercase: a shouted status is not a calm one. */
+.app .tag, .landing .tag, .app .badge, .landing .badge, .app .plan-opt .best, .landing .plan-opt .best, .appbar .plan, .app .locklabel, .landing .locklabel {
+  display: inline-block; flex: none; margin: 0; padding: 3px 9px;
+  border: 0; border-radius: var(--radius-xs);
+  background: var(--tag-bg); color: var(--tag-ink);
+  font-size: 10.5px; font-weight: 600; line-height: 1.6;
+  letter-spacing: 0; text-transform: none; white-space: nowrap;
+}
+/* .tone-info rode along on this rule from the Concept theme and no page in the
+   product ever carried it. Dropped at step 6, Codex 9: a tone with no consumer
+   becomes a semantic token at stage 08 for nothing. */
+.app .tag.trial, .landing .tag.trial { background: var(--trial-bg); color: var(--trial-ink); }
+.app .tone-attention, .landing .tone-attention { background: var(--amber-tint); color: var(--amber); }
+.app .tone-error, .landing .tone-error { background: var(--clay-tint); color: var(--clay); }
+.app .tone-accent, .landing .tone-accent, .app .locklabel, .landing .locklabel, .app .plan-opt .best, .landing .plan-opt .best { background: var(--accent-tint); color: var(--accent); }
+.app .tag.cancelled, .landing .tag.cancelled { background: var(--panel); color: var(--soft); }
+.app .row .tag, .landing .row .tag { margin-left: auto; }
+.appbar .plan { margin-left: auto; }
+.app p.badge, .landing p.badge { margin: 0 0 20px; }
+.app .alert .what .badge, .landing .alert .what .badge { margin: 0 0 0 4px; }
+.app .source .badge, .landing .source .badge { margin: 0 0 0 auto; }
+.app .locklabel, .landing .locklabel { margin-left: 6px; }
+
+/* The seven slot names the inventory found with no base rule, each sized only
+   by its host. Base first, host sizes as modifiers. */
+.app .amt, .landing .amt { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; color: var(--ink); }
+.app .row .amt, .landing .row .amt { flex: none; font-size: 14px; }
+.app .hero .amt, .landing .hero .amt { display: block; font-size: 32px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.08; }
+.app .charges li .amt, .landing .charges li .amt { font-size: 13.5px; font-weight: 400; }
+.app .plan-opt .amt, .landing .plan-opt .amt { display: block; font-size: 22px; font-weight: 700; letter-spacing: -0.015em; }
+
+.app .logo, .landing .logo {
+  flex: none; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border: 0; border-radius: var(--radius-sm); background: var(--panel);
+  overflow: hidden; font-size: 8px; color: var(--soft);
+}
+.app .logo svg, .landing .logo svg, .app .logo img, .landing .logo img { display: block; width: 100%; height: 100%; }
+.app .hero .logo, .landing .hero .logo { width: 52px; height: 52px; border-radius: var(--radius); }
+.app .alert .logo, .landing .alert .logo { width: 32px; height: 32px; }
+.app .tile .logo, .landing .tile .logo { width: 30px; height: 30px; }
+.app .source .top .logo, .landing .source .top .logo { width: 36px; height: 36px; }
+.app .logo.is-skel, .landing .logo.is-skel { background: var(--skel); }
+/* The unmatched charge. A .logo with no image and no skeleton is a merchant we
+   could not name, and node 2.7's unrecognized state is the whole reason the
+   screen exists: it writes "[ ? ]" where a mark would go. Selected structurally
+   because the grey has no class to hook and the wireframes are frozen. The grey
+   draws it dashed at _wf.css:637-640, which is the wireframe placeholder
+   convention; kept dashed here on purpose, because "we have nothing to show" is
+   exactly what a dashed outline means to a reader, in grey or in colour. */
+.app .logo:not(.is-skel):not(:has(img)), .landing .logo:not(.is-skel):not(:has(img)) {
+  border: 1px solid var(--line); background: var(--page); color: var(--soft);
+  /* Solid, not dashed. The first draft drew a dashed outline because that is what
+     "we have nothing to show" means in a wireframe, and DESIGN.md forbids a dashed
+     border outright. The recessed canvas fill says the same thing in this language. */
+}
+.app .hero .logo:not(.is-skel):not(:has(img)), .landing .hero .logo:not(.is-skel):not(:has(img)) { font-size: 11px; }
+
+.app .total, .landing .total { margin: 0; font-size: 46px; font-weight: 700; line-height: 1.02; letter-spacing: -0.025em; font-variant-numeric: tabular-nums; color: var(--ink); }
+.app .sharecard .total, .landing .sharecard .total { margin: 2px 0 0; font-size: 40px; line-height: 1.05; }
+/* .tone joins .context rather than repeating it. Both are the quiet line under a
+   number and they are byte-identical in the grey (_wf.css:614 and :625) apart
+   from the space above; two names for one set of values is the drift stage 08
+   turns into two tokens. The names stay apart because the jobs do: .context says
+   what the number is, .tone says how to feel about it, and stage 08 assigns
+   semantic roles from the job. Only the spacing is declared twice. */
+.app .context, .landing .context, .app .tone, .landing .tone { margin: 6px 0 0; font-size: 13px; color: var(--soft); }
+.app .tone, .landing .tone { margin: 22px 0 0; }
+.app .p, .landing .p { display: block; margin: 0; font-size: 13px; color: var(--soft); }
+.app .tile .p, .landing .tile .p { font-size: 11.5px; }
+.app .row .p, .landing .row .p { font-size: 12.5px; }
+.app .unlocks .p, .landing .unlocks .p { text-align: right; }
+.app .sharecard .p, .landing .sharecard .p { margin: 4px 0 0; }
+.app .lbl, .landing .lbl { display: block; margin: 0; font-size: 12px; color: var(--soft); }
+/* The caption above the number, on the emphasis axis. The quiet .lbl sits over a
+   40px figure inside a card; .lbl.strong sits over the 46px Display on the reveal,
+   where the number is the whole screen and its caption has to be legible from the
+   same distance. From _wf.css:612, which wrote it as .rstep .lbl, a host restyling
+   an atom. Declared as a modifier instead, and the reveal page carries the class. */
+.app .lbl.strong, .landing .lbl.strong { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--mid); letter-spacing: 0; }
+
+/* The step-forward link, node 1.5. It is D1 drawn: the reveal gives every step
+   its own action, and this is the only link in the product that carries a
+   direction, because the next step is further down the same page and not on
+   another one. Standalone, so the 44px floor applies (the exemption above is for
+   links inside a sentence). From _wf.css:615-616; --faint on the arrow collapses
+   to --soft under the Two Tiers Rule. */
+.app .next, .landing .next {
+  display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px;
+  font-size: 13.5px; color: var(--mid);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line);
+}
+.app .next:hover, .landing .next:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.app .next::after, .landing .next::after { content: "\2193" / ""; color: var(--soft); margin-left: 6px; }
+.app .next:hover::after, .landing .next:hover::after { color: var(--accent); }
+.app .k, .landing .k { display: block; margin: 0 0 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); }
+.app .oncard .k, .landing .oncard .k { margin-bottom: 6px; }
+
+/* Skeleton bar - reuses the @keyframes pulse and the reduced-motion guard the
+   file already carries. */
+.app .skel, .landing .skel { display: inline-block; height: 12px; background: var(--skel); border-radius: var(--radius-xs); animation: pulse 1.4s ease-in-out infinite; } .skel.line { display: block; height: 11px; margin: 3px 0; }
+.app .skel.line.short, .landing .skel.line.short { width: 40%; }
+.app .skel.total, .landing .skel.total { height: 44px; width: 190px; margin: 6px 0 0; }
+.app .skel.amt-skel, .landing .skel.amt-skel { flex: none; width: 56px; height: 13px; }
+.app .skel.w40, .landing .skel.w40 { width: 40%; } .skel.w50 { width: 50%; } .skel.w60 { width: 60%; }
+.app .skel.w70, .landing .skel.w70 { width: 70%; } .skel.w80 { width: 80%; } .skel.w90 { width: 90%; }
+.app .skel-list, .landing .skel-list { margin-top: 26px; }
+.app .row.is-skel, .landing .row.is-skel { cursor: default; }
+
+.app .chart, .landing .chart { display: flex; align-items: center; justify-content: center; height: 168px; overflow: hidden; border: 1px solid var(--line2); border-radius: var(--radius-sm); background: var(--panel2); font-size: 11px; color: var(--soft); }
+/* The chart is drawn, not described. In grey it carried the string "[chart: ...]",
+   which is the wireframe convention and reads as a build note the moment the screen
+   is in colour. The plot stretches with the box, so every stroke inside carries
+   vector-effect="non-scaling-stroke" and the x positions line up with the .axis
+   labels below. It is NOT petrol: the accent is spent on the primary action, the
+   current selection and the trust line, and a data line would be a fourth claim on
+   the one raised voice this system allows. */
+.app .chart > svg, .landing .chart > svg { display: block; width: 100%; height: 100%; }
+
+/* Text input and select - one rule for both, which the grey CSS had already
+   settled. Focus comes from the shared ring above. */
+.app .field input, .landing .field input, .app .field select, .landing .field select {
+  width: 100%; min-height: 44px; padding: 0 12px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--frame); color: var(--ink); font: inherit; font-size: 14px;
+}
+.app .field select, .landing .field select { padding-right: 8px; }
+.app .field input::placeholder, .landing .field input::placeholder { color: var(--soft); }
+.app .field input:hover, .landing .field input:hover, .app .field select:hover, .landing .field select:hover { border-color: var(--soft); }
+/* AUTHORED. A sweep of all 55 pages returns no aria-invalid, no required and no
+   error class, so the kit would otherwise inherit an input that cannot be
+   invalid. Clay, never red. The hook is the native attribute, so no page needs
+   a new class. */
+.app .field input[aria-invalid="true"], .landing .field input[aria-invalid="true"], .app .field select[aria-invalid="true"], .landing .field select[aria-invalid="true"] { border-color: var(--clay); background: var(--clay-tint); }
+.app .field input[aria-invalid="true"]:focus-visible, .landing .field input[aria-invalid="true"]:focus-visible, .app .field select[aria-invalid="true"]:focus-visible, .landing .field select[aria-invalid="true"]:focus-visible { outline-color: var(--clay); }
+.app .field:has([aria-invalid="true"]) .hint, .landing .field:has([aria-invalid="true"]) .hint { color: var(--clay); }
+
+.app .axis, .landing .axis, .app .strip, .landing .strip { display: flex; flex-wrap: wrap; color: var(--soft); }
+.app .axis, .landing .axis { justify-content: space-between; margin: 6px 0 24px; font-size: 11px; }
+.app .strip, .landing .strip { gap: 4px 22px; margin: 0 0 22px; padding: 10px 0; font-size: 12.5px; border-top: 1px solid var(--line2); border-bottom: 1px solid var(--line2); }
+.app .readout, .landing .readout { margin: 0 0 16px; font-size: 15px; line-height: 1.45; max-width: 46ch; color: var(--ink); }
+.app .freshness, .landing .freshness { margin: 0 0 22px; font-size: 12px; color: var(--soft); }
+.app .switch input, .landing .switch input { flex: none; width: 20px; height: 20px; margin: 3px 0 0; accent-color: var(--accent); }
+.app .newdot, .landing .newdot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--mid); margin-right: 7px; vertical-align: middle; }
+
+
+
+/* ============================================================
+   MOLECULES (27). A molecule hosts atoms. It may POSITION an atom (flex,
+   margin, display, width) and never RESTYLE one (font-size, colour, border,
+   background, padding): a rule like .charges li .amt{font-size:15px} looks like
+   a tidy adjustment and is an unnamed variant, which is the exact defect this
+   stage exists to prevent. Where the grey stylesheet did that, the variant was
+   given to the atom above instead.
+   --faint, the grey's third text tier, collapses to --soft everywhere: the Two
+   Tiers Rule forbids a third grey, and --faint on 11px text is under AA.
+   ============================================================ */
+
+.app .actions, .landing .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 18px; }
+
+.app .lede, .landing .lede { margin: 0 0 22px; }
+.app .lede h1, .landing .lede h1 { margin: 0 0 8px; font-size: 24px; line-height: 1.18; letter-spacing: -0.015em; color: var(--ink); }
+.app .lede p, .landing .lede p { margin: 0; font-size: 14.5px; color: var(--mid); max-width: 48ch; }
+
+/* Two forms, and the difference is real: h1 when the state IS the page subject,
+   h2 when it is a state inside a page whose h1 is spent elsewhere. Left aligned:
+   a centred message mid-flow reads as a stop rather than a step. */
+/* Deliberately untoned, including on the error states, and this was decided
+   rather than overlooked. .notice carries a clay wash because it sits ABOVE
+   content that still works and has to be told apart from it. A .state IS the
+   whole screen: there is nothing beside it to distinguish it from, the sentence
+   and the Try again button already say what happened, and a wash around a
+   full-screen message is decoration rather than information. */
+.app .state, .landing .state { margin: 0 0 22px; }
+.app .state h1, .landing .state h1 { margin: 0 0 8px; font-size: 21px; line-height: 1.2; color: var(--ink); }
+.app .state h2, .landing .state h2 { margin: 0 0 8px; font-size: 17px; line-height: 1.25; color: var(--ink); }
+.app .state p, .landing .state p { margin: 0 0 18px; font-size: 14px; color: var(--mid); max-width: 50ch; }
+
+.app .facts, .landing .facts { margin: 0 0 22px; }
+.app .facts div, .landing .facts div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line2); font-size: 13.5px; }
+.app .facts div:last-child, .landing .facts div:last-child { border-bottom: 0; }
+.app .facts dt, .landing .facts dt { color: var(--soft); }
+.app .facts dd, .landing .facts dd { margin: 0; text-align: right; color: var(--ink); font-variant-numeric: tabular-nums; }
+.app .facts.sentences div, .landing .facts.sentences div { display: block; }
+.app .facts.sentences dd, .landing .facts.sentences dd { text-align: left; margin: 3px 0 0; }
+.app .facts .skel, .landing .facts .skel { width: 84px; }
+.app .facts dd .skel, .landing .facts dd .skel { width: 110px; }
+
+.app .group-head, .landing .group-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 0 0 6px; margin: 0 0 2px; border-bottom: 1px solid var(--line2); }
+/* The group head's look is bound to the CLASS, not to the tag. It was written as
+   h2 only, and it broke twice for the same reason: on the form screen where the
+   h2 IS the head, and again on the reveal where the head is an h3 inside a group.
+   Both times the heading fell through to the browser default, 24px black against
+   12px uppercase soft everywhere else. A component whose typography depends on
+   which heading level the document happened to need is not a component. */
+.app :where(h1,h2,h3,h4).group-head, .landing :where(h1,h2,h3,h4).group-head,
+.app .group-head :where(h1,h2,h3,h4), .landing .group-head :where(h1,h2,h3,h4) { margin: 0; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); }
+.app .group-head .subtotal, .landing .group-head .subtotal { font-size: 12px; color: var(--soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.app .group-head.plain, .landing .group-head.plain { border: 0; padding: 0; margin: 0 0 12px; }
+.app .group-head .skel, .landing .group-head .skel { width: 104px; margin: 0; }
+.app .group-head .skel + .skel, .landing .group-head .skel + .skel { width: 90px; }
+
+/* GC6, signature. The petrol shield is one of the three jobs the accent is
+   allowed to do, and it marks the block rather than one line because all three
+   lines are the claim. */
+.app .trust, .landing .trust { position: relative; margin: 26px 0 0; padding: 14px 0 0 20px; border-top: 1px solid var(--line2); font-size: 12px; color: var(--soft); }
+.app .trust p, .landing .trust p { margin: 0 0 4px; }
+.app .trust::before, .landing .trust::before {
+  content: ""; position: absolute; left: 0; top: 16px; width: 15px; height: 15px;
   background-color: var(--accent);
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E") center/contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E") center/contain no-repeat;
 }
+.app .removal, .landing .removal { margin: 0 0 22px; font-size: 13px; color: var(--soft); }
+.app .removal p, .landing .removal p { margin: 0; max-width: 52ch; }
 
-/* alert banner (GC5): calm amber, not red */
-.alert-banner { background: var(--amber-tint); border-radius: 12px; padding: 12px 14px; }
-.alert-banner p { margin: 0; font-size: 13px; color: var(--ink); }
-.alert-banner .go { font-size: 12px; color: var(--amber); font-weight: 600; margin-top: 4px; display: inline-block; }
+/* GC4, THE signature molecule. A line in a list, not a card in a stack: no
+   fill, no radius, and the whole row is one link with one accessible name. The
+   name gets a 160px floor and the badge yields, so a merchant name never breaks
+   into two lines to make room for a status word. The row draws NO floor of its
+   own: the list separates its items, which is what removes the need for a
+   li:last-child rule reaching back into the row. */
+.app .row, .landing .row { display: flex; align-items: center; gap: 4px 12px; flex-wrap: wrap; min-height: 56px; margin: 0; padding: 10px 4px; border: 0; background: none; text-decoration: none; color: inherit; }
+.app .row:hover, .landing .row:hover { background: var(--panel2); }
+.app .row .logo, .landing .row .logo { flex: none; }
+.app .row .body, .landing .row .body { flex: 1 1 160px; min-width: 0; }
+.app .row .name, .landing .row .name { display: block; font-size: 15px; font-weight: 600; color: var(--ink); }
+.app .row .when, .landing .row .when { display: block; font-size: 12.5px; color: var(--soft); }
+.app .row .amt, .landing .row .amt { flex: none; white-space: nowrap; }
 
-/* Genuine error tone: desaturated clay, never alarm-red (concept.md A1, A5).
-   Scoped by the wireframe's own attributes so structural parity holds:
-   [role=status] alert = the sync failure; the "Could not load" section = the
-   load error. Price-change alerts keep the calm amber wash. */
-.alert-banner[role="status"] { background: var(--clay-tint); }
-section[aria-label="Could not load"] .msg h2 { color: var(--clay); }
+/* From _wf.css:743. Without it the browser's own fieldset border draws a box
+   around the four fields, which is chrome the system never asked for and the
+   only rectangle on the screen that means nothing. */
+.app fieldset, .landing fieldset { border: 0; margin: 0; padding: 0; }
+.app .field, .landing .field { margin: 0 0 16px; }
+.app .field label, .landing .field label { display: block; font-size: 12px; color: var(--soft); margin: 0 0 5px; }
+.app .field .hint, .landing .field .hint { margin: 5px 0 0; font-size: 12px; color: var(--soft); }
 
-/* category group + rows */
-.group-title { font-size: 12px; color: var(--soft); font-weight: 700; margin: 20px 0 8px; }
-ul.list { list-style: none; margin: 0; padding: 0; }
-.row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 11px 12px; margin: 0; background: var(--frame);
-  text-decoration: none; color: inherit; min-height: 44px; border-radius: var(--radius-sm);
+.app .hero, .landing .hero { display: flex; align-items: flex-start; gap: 14px; margin: 0 0 6px; }
+.app .hero .logo, .landing .hero .logo { flex: none; }
+.app .hero h1, .landing .hero h1 { margin: 0 0 2px; font-size: 21px; line-height: 1.2; color: var(--ink); }
+.app .hero .amt, .landing .hero .amt { display: block; }
+.app .hero .cycle, .landing .hero .cycle { font-size: 13px; color: var(--soft); }
+
+/* Layout only. Its anchors are the Button atom one size down (.btn.compact),
+   not a second button: against .btn they differ in exactly two values. */
+.app .secondary, .landing .secondary { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; }
+
+/* A genuine failure. Clay, never red. The grey border and its 3px bar are
+   dropped: in colour the wash IS the container, and fill plus border plus bar
+   is three marks for one message. */
+/* The tone is OPT IN, and that is the correction of a real defect. Clay was the
+   default here, and three of the five pages that carry .notice are NOT failures:
+   "we could not match this charge" and "your bank wants you to sign in again"
+   are both ordinary, and clay told the person something had gone wrong. An
+   element-scoped stopgap on p.notice covered one of them, and the one it missed
+   is a page in this very sample. Greyscale could not express tone at all, so the
+   modifier is the colour layer's to add, exactly like the destination icons.
+   WHERE THE CLAY IS SPENT, settled at step 7: on OUR failure only, which is the
+   two states DESIGN.md and concept.md already name, the sync error and the
+   could-not-load screen. A payment that did not go through at the merchant is
+   not our failure and not the person's: it is a fact about the world, and the
+   copy on that page says so in as many words ("Nothing is wrong with your
+   money"). It keeps the neutral wash. Extending clay to a third state would be a
+   new decision on a locked palette, and it is not made here. */
+.app .notice, .landing .notice { background: var(--panel); border-radius: var(--radius-wash); padding: 12px 14px; margin: 0 0 22px; }
+.app .notice p, .landing .notice p { margin: 0; font-size: 13.5px; color: var(--ink); }
+.app .notice a, .landing .notice a { min-height: 44px; font-size: 13px; color: var(--mid); font-weight: 600; }
+.app .notice.is-error, .landing .notice.is-error { background: var(--clay-tint); }
+.app .notice.is-error a, .landing .notice.is-error a { color: var(--clay); }
+/* upgrade.html writes it as a bare paragraph, which is a line of prose and not
+   a wash at all. */
+.app p.notice, .landing p.notice { background: none; border-radius: 0; padding: 0; color: var(--soft); }
+
+/* 2.6.4 save focus. The row keeps its whole-row target and the cut is a SECOND,
+   separately named control: confusing the two is what costs the cancellation.
+   Migrated whole from _wf.css:487-498 at step 5, values unchanged. The kit had
+   nothing for it at all, so the candidate list rendered with browser bullets, a
+   40px indent and the cut as a bare blue link.
+   Scoped under .cand on purpose: .cut is dimensionally identical to
+   nav.secondary a, and .lead already exists as .consequence.lead. Two names, two
+   owners, and neither is allowed to reach the other. */
+.app .candidates, .landing .candidates { margin: 0 0 24px; }
+.app .candidates .lead, .landing .candidates .lead { margin: 0 0 8px; font-size: 13px; color: var(--soft); }
+.app .candidates ul, .landing .candidates ul { list-style: none; margin: 0; padding: 0; }
+.app .cand, .landing .cand { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--line2); }
+.app .cand:last-child, .landing .cand:last-child { border-bottom: 0; }
+.app .cand .row, .landing .cand .row { flex: 1; min-width: 0; border-bottom: 0; }
+.app .cand .cut, .landing .cand .cut {
+  flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--frame);
+  font-size: 13px; color: var(--mid); text-decoration: none;
 }
-li + li .row { border-top: 1px solid var(--line2); border-radius: 0; }
-ul.list li:first-child .row { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
-ul.list li:last-child .row { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
-ul.list { background: var(--frame); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-a.row:hover { background: var(--panel2); }
-.logo { flex: none; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--panel); }
-.logo svg { display: block; }
-.row .body { flex: 1; min-width: 0; }
-.row .name { display: block; font-weight: 600; font-size: 14.5px; color: var(--ink); }
-.row .meta { display: block; font-size: 12.5px; color: var(--soft); margin-top: 1px; }
-.row .when { display: block; font-size: 11.5px; color: var(--soft); margin-top: 1px; }
-.tag { flex: none; font-size: 10.5px; font-weight: 600; border-radius: 6px; padding: 3px 9px; color: var(--tag-ink); background: var(--tag-bg); text-transform: none; letter-spacing: 0; }
-.tag.trial { background: var(--trial-bg); color: var(--trial-ink); }
-.tag.cancelled { background: var(--panel); color: var(--soft); }
+.app .cand .cut:hover, .landing .cand .cut:hover { border-color: var(--line-strong); color: var(--ink); }
 
-/* skeleton (loading) */
-.skel { background: var(--skel); border-radius: 6px; display: inline-block; height: 12px; animation: pulse 1.4s ease-in-out infinite; }
-.skel.lg { height: 34px; }
-.skel.block { display: block; }
-.phone.dash .logo:empty { background: var(--skel); }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
-@media (prefers-reduced-motion: reduce) { .skel { animation: none; } }
+.app .charges, .landing .charges { list-style: none; margin: 0; padding: 0; }
+.app .charges li, .landing .charges li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line2); font-size: 13.5px; }
+.app .charges li .was, .landing .charges li .was { display: block; font-size: 12px; color: var(--soft); }
+.app .charges li.marked, .landing .charges li.marked { background: var(--amber-tint); }
+.app .charges .skel, .landing .charges .skel { width: 56px; }
 
-/* secondary actions + buttons */
-.act-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
-.btn { display: inline-block; border: 1px solid var(--line); background: var(--frame); border-radius: var(--radius-sm); padding: 10px 16px; font-size: 13.5px; font-weight: 600; color: var(--ink); text-decoration: none; cursor: pointer; }
-.btn:hover { border-color: #cdd7d9; background: var(--panel2); }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
-.locklabel { font-size: 10px; font-weight: 700; border-radius: 5px; background: var(--accent-tint); padding: 1px 6px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; margin-left: 6px; }
+/* The cryptic bank string shown AS the cryptic string, next to the name it
+   resolves to. */
+/* The wait line on the loading state is its own statement, not a label on the
+   first skeleton row. From _wf.css:646; only the margin is load-bearing, the
+   rest already comes from the summary's context shape. */
+.app.detail .context { margin: 0 0 20px; }
 
-/* nudge (collapsible) */
-.nudge { display: flex; align-items: center; justify-content: space-between; background: var(--frame); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; text-decoration: none; color: inherit; }
-.nudge:hover { background: var(--panel2); }
-.nudge strong { color: var(--ink); }
-.nudge .chev { color: var(--accent); font-size: 13px; font-weight: 600; }
+/* From _wf.css:910. Only the container was missing; .bycat .k already resolves
+   through the generic .k. Without it the "Streaming is up $6 since March" line
+   reads as loud as the readout above it, instead of as the quiet footnote it is. */
+.app .bycat, .landing .bycat { margin: 0 0 24px; font-size: 13px; color: var(--mid); }
 
-/* GC2 tab bar (bottom on mobile) */
-.tabbar { position: absolute; left: 0; right: 0; bottom: 0; display: flex; border-top: 1px solid var(--line2); background: var(--frame); }
-.tabbar a { flex: 1; text-align: center; padding: 9px 4px 11px; font-size: 11px; color: var(--soft); text-decoration: none; border-top: 2px solid transparent; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.tabbar a .ic { display: block; width: 22px; height: 22px; color: var(--soft); }
-.tabbar a .ic svg { width: 22px; height: 22px; display: block; }
-.tabbar a.cur { color: var(--accent); font-weight: 700; }
-.tabbar a.cur .ic { color: var(--accent); }
+.app .decoder, .landing .decoder { background: var(--panel); border-radius: var(--radius-sm); padding: 12px 14px; margin: 0 0 22px; font-size: 13px; color: var(--mid); }
+.app .decoder .raw, .landing .decoder .raw { display: block; margin-top: 4px; font-size: 14px; letter-spacing: 0.04em; color: var(--ink); word-break: break-word; }
+.app .decoder .skel + .skel, .landing .decoder .skel + .skel { margin-top: 8px; }
 
-/* detail pane (desktop second column) + key/value */
-.kv { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line2); font-size: 13px; }
-.kv:last-child { border-bottom: 0; }
-.kv .k { color: var(--soft); }
-.kv .v { color: var(--ink); text-align: right; font-weight: 500; }
-.detail-head { display: flex; align-items: center; gap: 12px; }
-.detail-head .name { font-size: 18px; font-weight: 700; }
-.detail-head .amt { font-size: 13px; color: var(--soft); }
-.callout { background: var(--panel); border-radius: var(--radius-sm); padding: 12px 14px; margin: 0 0 12px; font-size: 13px; color: var(--mid); }
+.app .summary, .landing .summary { margin: 0 0 20px; }
+.app .summary h1, .landing .summary h1 { margin: 0 0 4px; font-size: 15px; font-weight: 600; color: var(--mid); letter-spacing: 0; }
+/* State variant, not a host override: this h1 is the CAPTION above the big number,
+   so it is quiet on purpose. On the empty state there is no number to caption, and
+   the caption then sat at 15px above a 17px h2, telling the person the second
+   sentence mattered more than the first. */
+.app .summary:not(:has(.total)) h1, .landing .summary:not(:has(.total)) h1 { font-size: 21px; font-weight: 700; color: var(--ink); line-height: 1.2; }
 
-/* empty / error message block */
-.msg { text-align: center; padding: 44px 18px; }
-.msg h2 { font-size: 18px; margin: 0 0 8px; color: var(--ink); }
-.msg p { font-size: 13.5px; color: var(--soft); margin: 0 auto 18px; max-width: 34ch; }
+/* Two equal choices (D2), so neither is recommended and NEITHER gets petrol:
+   two petrol objects on one screen is the One Voice Rule failing. */
+.app .door, .landing .door { display: block; border: 1px solid var(--line); border-radius: var(--radius); background: var(--frame); padding: 16px; text-decoration: none; color: inherit; }
+.app .door:hover, .landing .door:hover { border-color: var(--line-strong); background: var(--panel2); }
+.app .door h2, .landing .door h2, .app .door h3, .landing .door h3 { margin: 0 0 4px; font-size: 16px; color: var(--ink); }
+.app .door p, .landing .door p { margin: 0; font-size: 13px; color: var(--soft); }
+.app .door .pick, .landing .door .pick { display: block; margin-top: 10px; font-size: 13px; color: var(--mid); font-weight: 600; }
+.app .door .pick::after, .landing .door .pick::after { content: "\2192" / ""; margin-left: 6px; }
 
-@media (max-width: 460px) {
-  .stage { padding: 14px 8px 40px; }
+/* A price change. Calm amber, and the sentence carries it: no icon, no border,
+   no left bar. */
+.app .attention, .landing .attention { background: var(--amber-tint); border-radius: var(--radius-wash); padding: 12px 14px; margin: 0 0 22px; }
+.app .attention p, .landing .attention p { margin: 0; font-size: 13.5px; color: var(--ink); }
+.app .attention a, .landing .attention a { min-height: 44px; font-size: 13px; color: var(--amber); font-weight: 600; }
+.app .attention a::after, .landing .attention a::after { content: "\2192" / ""; margin-left: 6px; }
+
+/* Three facts, not a badge. The bars stay hairline: three accent bars plus a
+   primary button is four petrol objects on one screen. */
+.app .promises, .landing .promises { list-style: none; margin: 0 0 22px; padding: 0; }
+.app .promises li, .landing .promises li { border-left: 3px solid var(--line); padding: 2px 0 2px 14px; margin: 0 0 12px; font-size: 13.5px; color: var(--mid); }
+.app .promises li strong, .landing .promises li strong { display: block; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+
+/* The counter is generated, so the number cannot drift from the order. Square
+   by decision: three radii and a circle is not one of them. */
+.app .steps, .landing .steps { counter-reset: s; list-style: none; margin: 0 0 22px; padding: 0; }
+.app .steps li, .landing .steps li { position: relative; padding: 3px 0 16px 36px; font-size: 14px; color: var(--ink); }
+.app .steps li::before, .landing .steps li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 0; width: 26px; height: 26px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: var(--soft); }
+
+/* A segmented control, not a button variant: it is a selection rather than an
+   action, its width is set by the group, and its selected state is a petrol
+   TINT, which .btn.primary (a petrol FILL) cannot express. */
+.app .range, .landing .range { display: flex; gap: 8px; margin: 0 0 20px; }
+.app .range button, .landing .range button { flex: 1; min-height: 44px; /* was 40, the only product control in the set under the tap floor */ border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--frame); font: inherit; font-size: 13px; color: var(--mid); cursor: pointer; }
+.app .range button:hover, .landing .range button:hover { border-color: var(--line-strong); background: var(--panel2); }
+.app .range button[aria-pressed="true"], .landing .range button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-tint); color: var(--accent); font-weight: 600; }
+.app .range button[disabled], .landing .range button[disabled] { cursor: default; color: var(--soft); background: var(--panel2); border-color: var(--line2); }
+
+/* GC5. The inline action stays ink, not petrol: an alert list renders several
+   at once, and several petrol links is the One Voice Rule failing by
+   repetition. The dot is quiet and never a red count. */
+.app .alert, .landing .alert { display: flex; gap: 12px; padding: 14px 4px; text-decoration: none; color: inherit; }
+.app .alert:hover, .landing .alert:hover { background: var(--panel2); }
+.app .alert .logo, .landing .alert .logo { flex: none; }
+.app .alert .body, .landing .alert .body { flex: 1; min-width: 0; }
+.app .alert .what, .landing .alert .what { display: block; font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.app .alert .meta, .landing .alert .meta { display: block; font-size: 12.5px; color: var(--soft); margin: 3px 0 0; }
+.app .alert .prices, .landing .alert .prices { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 8px 0 0; font-size: 12.5px; }
+.app .alert .prices span, .landing .alert .prices span { color: var(--soft); }
+.app .alert .prices b, .landing .alert .prices b { font-weight: 600; color: var(--ink); }
+.app .alert .go, .landing .alert .go { display: inline-flex; align-items: center; min-height: 40px; font-size: 13px; color: var(--ink); font-weight: 600; }
+.app .alert .go::after, .landing .alert .go::after { content: "\2192" / ""; margin-left: 6px; }
+
+.app .navrow, .landing .navrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; padding: 12px 2px; text-decoration: none; color: inherit; font-size: 14.5px; }
+.app .navrow:hover, .landing .navrow:hover { background: var(--panel2); }
+.app .navrow .sub, .landing .navrow .sub { display: block; font-size: 12.5px; color: var(--soft); font-weight: 400; }
+.app .navrow .arrow, .landing .navrow .arrow { flex: none; color: var(--soft); }
+
+.app .switch, .landing .switch { display: flex; gap: 12px; padding: 12px 2px; border-bottom: 1px solid var(--line2); }
+.app .switch:last-of-type, .landing .switch:last-of-type { border-bottom: 0; }
+.app .switch .t, .landing .switch .t { display: block; font-size: 14px; color: var(--ink); }
+.app .switch .h, .landing .switch .h { display: block; font-size: 12.5px; color: var(--soft); margin-top: 2px; }
+
+/* The catalogue is the evidence that the manual path is not a punishment, so it
+   is shown rather than counted. Pressed is a current selection, so petrol. */
+.app .tile, .landing .tile { display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--frame); font: inherit; font-size: 13.5px; color: inherit; text-align: left; cursor: pointer; }
+.app .tile:hover, .landing .tile:hover { border-color: var(--line-strong); background: var(--panel2); }
+.app .tile .logo, .landing .tile .logo { flex: none; }
+.app .tile > span:last-child, .landing .tile > span:last-child { flex: 1 1 auto; min-width: 0; }
+.app .tile[aria-pressed="true"], .landing .tile[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-tint); }
+
+/* One rule, two hosts (.app and .landing), by the decision of 2026-08-10; the
+   kit keeps both by dropping the scope entirely. Rebuilt into the shape the
+   category has taught people to read: badge at the top, price as the card's one
+   big thing, its own action, then what the plan includes. */
+.app .plan-opt, .landing .plan-opt { position: relative; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius); background: var(--frame); padding: 18px 16px 16px; }
+.app .plan-opt:hover, .landing .plan-opt:hover { border-color: var(--line-strong); }
+.app .plan-opt .best, .landing .plan-opt .best { align-self: flex-start; margin: 0 0 10px; }
+.app .plan-opt .amt, .landing .plan-opt .amt { display: block; font-size: 30px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
+.app .plan-opt .per, .landing .plan-opt .per { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; letter-spacing: 0; color: var(--soft); }
+.app .plan-opt .p, .landing .plan-opt .p { flex: 1 1 auto; display: block; margin: 10px 0 16px; font-size: 13px; color: var(--mid); }
+.app .plan-opt .btn, .landing .plan-opt .btn { align-self: stretch; }
+.app .plan-opt .q, .landing .plan-opt .q { display: block; align-self: stretch; min-height: 44px; padding: 12px 0 0; font-size: 12px; color: var(--soft); }
+.app .plan-opt .incl, .landing .plan-opt .incl { margin: 16px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line2); }
+.app .plan-opt .incl .k, .landing .plan-opt .incl .k { margin: 0 0 8px; }
+.app .plan-opt .incl ul, .landing .plan-opt .incl ul { list-style: none; margin: 0; padding: 0; }
+.app .plan-opt .incl li, .landing .plan-opt .incl li { position: relative; padding: 0 0 7px 20px; font-size: 13px; color: var(--mid); }
+.app .plan-opt .incl li:last-child, .landing .plan-opt .incl li:last-child { padding-bottom: 0; }
+/* The tick is muted, not petrol. Twelve of them across three cards had the
+   accent, so on the one screen that asks for money the colour meaning "this is
+   the safe thing to press" was smeared over twelve ornaments and the actual
+   button stopped being the loudest thing on the page. A tick in a feature list
+   is not the primary action, not the current selection and not the trust line,
+   which is the whole of the One Voice Rule. */
+.app .plan-opt .incl li::before, .landing .plan-opt .incl li::before { content: "\2713" / ""; position: absolute; left: 0; top: 0; color: var(--soft); }
+
+.app .unlocks, .landing .unlocks { list-style: none; margin: 0 0 22px; padding: 0; }
+.app .unlocks li, .landing .unlocks li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line2); font-size: 13.5px; }
+.app .unlocks li:last-child, .landing .unlocks li:last-child { border-bottom: 0; }
+
+/* An image built from two numbers, which is why no bank data can reach it: safe
+   by construction, not by memory. */
+/* The Pro gate on the trends screen, migrated from _wf.css:915-921. The kit
+   had nothing for it, so the block rendered as a browser-default h2 over a
+   bulleted list: the loudest thing on the page, which inverts the screen, since
+   the gate is meant to sit quietly under an honest chart frame.
+   NAMED DECISION on one value: the grey draws a bare 1px box, and here it takes
+   the radius and the white card surface its sibling organisms already carry
+   (.sharecard on the line below, .panel above). A card that is a card
+   everywhere else must not be a rectangle only here. */
+.app .locked, .landing .locked { border: 1px solid var(--line); border-radius: var(--radius); background: var(--frame); padding: 18px; margin: 0 0 22px; }
+.app .locked h2, .landing .locked h2 { margin: 0 0 8px; font-size: 15px; }
+.app .locked p, .landing .locked p { margin: 0 0 14px; font-size: 13.5px; color: var(--mid); }
+.app .locked ul, .landing .locked ul { list-style: none; margin: 0 0 16px; padding: 0; }
+.app .locked li, .landing .locked li { padding: 8px 0; border-bottom: 1px solid var(--line2); font-size: 13.5px; }
+.app .locked li:last-child, .landing .locked li:last-child { border-bottom: 0; }
+.app .locked .actions, .landing .locked .actions { margin: 0; }
+
+.app .sharecard, .landing .sharecard { border: 1px solid var(--line); border-radius: var(--radius); background: var(--frame); padding: 26px 18px; margin: 0 0 10px; text-align: center; }
+.app .sharecard .lbl, .landing .sharecard .lbl { display: block; font-size: 12px; color: var(--soft); }
+.app .sharecard .count, .landing .sharecard .count { margin: 6px 0 0; font-size: 20px; font-weight: 600; color: var(--ink); }
+.app .sharecard .win-line, .landing .sharecard .win-line { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--line2); font-size: 13.5px; color: var(--mid); }
+
+
+
+/* Node 1.5, step two: the merchant chips. This is the moment the cryptic
+   statement lines turn into names a person recognises, which is mechanism 3 of
+   the strategic dimension doing its work at the emotional peak. Grouped by
+   category, and no amounts anywhere: the number comes third.
+   From _wf.css:619-623. The group heading is the .group-head.plain molecule the
+   list screens already carry, so the chip is the only new shape here.
+   NAMED DECISION on one value: the grey draws a square 1px box, and the chip
+   takes --radius-sm, the same radius its 22px mark carries and the one every
+   other control-sized object in the kit uses. */
+.app .rgroup, .landing .rgroup { margin: 14px 0 0; }
+.app .rgroup .group-head, .landing .rgroup .group-head { margin: 0 0 8px; }
+.app .rgroup ul, .landing .rgroup ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.app .rgroup li, .landing .rgroup li {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 12px 5px 6px;
+  border: 1px solid var(--line2); border-radius: var(--radius-sm);
+  background: var(--frame); font-size: 13px;
 }
-/* clear the fixed review toggle (top-left) so it never covers the app wordmark */
-@media (max-width: 839px) {
-  .phone .appbar { padding-left: 58px; }
-}
+.app .rgroup li .logo, .landing .rgroup li .logo { width: 22px; height: 22px; border-radius: var(--radius-xs); }
 
 /* ============================================================
-   Full-page dashboard shell on desktop (app screens marked .dash).
-   Ported from _wf.css, recolored. The tab bar becomes a full-height
-   product sidebar (petrol/white), the content owns the width.
+   ORGANISMS (15 of 16). An organism hosts molecules or is a screen shell.
+   Scoped under .app the way _wf.css scopes it, plus .landing for the one
+   two-host component. The scope is load-bearing: index.html is the only page
+   with no .app shell and it carries .row, .logo, .tag, .plans of its own.
+
+   NOT CARRIED, deliberately: the Review page frame (.layout, .stage,
+   .stage-app, .stage-flush). It is on all 55 pages and it is the wireframe
+   review scaffolding that hosts the nav panel. It is not product, it does not
+   travel to a real build, and a kit that ships it ships a component every
+   screen has to delete. Its rules stay where they are, above.
+
+   Colour rule, stated once: an outer frame is --line, an internal separator is
+   --line2, a raised surface is --frame, a recessed one is --panel2. Petrol is
+   spent only on the current selection.
    ============================================================ */
-.detailpane, .masterpane { display: none; }
+
+.app { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; background: var(--frame); }
+.app > .screen { flex: 1; padding: 18px 16px 104px; }   /* the foot clears the fixed tab bar */
+
+.app > .appbar { position: sticky; top: 0; z-index: 5; gap: 12px; }
+.app .appbar .acct { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; font-size: 13px; color: var(--soft); text-decoration: none; }
+.app .appbar .acct:hover { color: var(--ink); }
+.app .appbar .back { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px 0 0; font-size: 13px; color: var(--mid); text-decoration: none; }
+.app .appbar .back:hover { color: var(--ink); }
+/* A marker, never a progress bar: a bar on step 1 of 3 tells an avoider the
+   road is long. */
+.app .appbar .step { font-size: 12px; color: var(--soft); }
+
+/* The onboarding chain. One centred column, no tab bar, so the screen has
+   nothing to clear at the foot. It overrides the desktop grid rather than
+   inheriting it: onboarding has no desktop delta. */
+.app.flow { display: flex; flex-direction: column; height: auto; }
+.app.flow > .screen { grid-column: auto; grid-row: auto; overflow: visible; width: 100%; max-width: 620px; margin: 0 auto; padding: 26px 16px 64px; }
+/* NAMED DECISION, step 5: the flow's 620px reading cap is for prose, and a row
+   of three plan cards is not prose. .plans asks for 720px of its own further
+   down and could never reach it inside 620, so the three cards were crushed to
+   185px each and both the button label and "Everything in Tendd Pro" wrapped.
+   Widened only for the screen that actually carries a plan row, so every other
+   step of the chain keeps its reading measure. 760 = the 720 the plan row asks
+   for plus the screen's own 2x16 padding, and no more. */
+.app.flow > .screen:has(.plans) { max-width: 760px; }
+.app.flow > .appbar { grid-column: auto; grid-row: auto; flex-direction: row; align-items: center; border-right: 0; }
+
+.app .form-col, .app .rows-col { min-width: 0; }
+/* .col1 / .col2 carried NO rule of any kind in the grey and held only because
+   they were anonymous grid children. Named here, and given the floor a grid
+   child needs: the default min-width of a grid item is auto, so one long
+   statement string widens its track and pushes the other one out. */
+.app.detail .col1, .app.detail .col2 { min-width: 0; }
+
+.app > .tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; border-top: 1px solid var(--line); }
+.app > .tabbar a { min-height: 56px; }
+.app .tabbar a .ic { position: relative; }
+.app .tabbar a .ic .dot { position: absolute; top: -3px; right: -4px; width: 7px; height: 7px; border-radius: 50%; background: var(--mid); }
+
+/* ---- Added at step 5, screen 1 (Home). The extract took only the DELTAS for
+   the two chrome organisms and left their base geometry behind in
+   wireframes/_wf.css, so a screen assembled from the kit rendered its app bar
+   and its tab bar as browser defaults: underlined blue links in a heap. These
+   are the missing halves, migrated from _wf.css lines 253-258 and 346-357 with
+   the values unchanged. Two values are deliberately NOT the grey ones and both
+   are D-Concept: the current tab is petrol rather than ink, and the icon is a
+   real mark rather than the wireframe's bordered placeholder box. ---- */
+.app .appbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; background: var(--frame); border-bottom: 1px solid var(--line2);
+}
+/* margin-right auto pins the wordmark beside the leading slot. The app bar is a
+   three-slot row, and the detail screens have only two children, so a
+   space-between row threw the brand mark into the right rail where every other
+   screen puts the plan badge: it moved 262px between the list and a subscription,
+   which is the walk this person does most. */
+.app .appbar .wordmark { font-weight: 700; font-size: 16px; letter-spacing: 0.02em; margin-right: auto; }
+.app .tabbar { display: flex; background: var(--frame); }
+/* No rule for the anchors inside .secondary, deliberately, and this is the
+   correction of one written at step 5. They rendered as browser links, and the
+   reflex was to give the host a rule; that rule then set padding, border,
+   background, font-size and colour, which is not layout, it is a second button
+   declared under another name. Its values were byte for byte .btn.compact above.
+   The screens carry .btn.compact instead. The comment on .secondary said this
+   before the rule was written, which is what makes it the clearest example on
+   the file of the defect this stage exists to catch: locally it looked like a
+   tidy fix. */
+.app .tabbar a {
+  flex: 1; padding: 9px 4px 10px; text-align: center;
+  font-size: 12px; color: var(--soft); text-decoration: none;
+  border-top: 2px solid transparent;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+}
+.app .tabbar a.cur { color: var(--accent); font-weight: 600; border-top-color: var(--accent); }
+
+/* GC2 icons. One set for the whole product, drawn as masks so the kit owns the
+   mark and the screen carries nothing but the class. The mask inherits the
+   link's colour, which is what makes the current tab turn petrol for free. */
+.app .tabbar a .ic { display: block; width: 22px; height: 22px; }
+/* The mask sits on a pseudo-element, not on .ic itself. A mask clips its own
+   children, and .ic hosts the unread dot, so masking the element erased the
+   one thing GC2 has to be able to show. */
+.app .tabbar a .ic::before {
+  content: ""; position: absolute; inset: 0;
+  background-color: currentColor;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+.app .ic-home::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5 12 3.5l9 7'/%3E%3Cpath d='M5.5 9.5V20h13V9.5'/%3E%3Cpath d='M9.75 20v-5.5h4.5V20'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 10.5 12 3.5l9 7'/%3E%3Cpath d='M5.5 9.5V20h13V9.5'/%3E%3Cpath d='M9.75 20v-5.5h4.5V20'/%3E%3C/svg%3E");
+}
+.app .ic-alerts::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 10a6 6 0 0 1 12 0c0 3.5.8 5 1.6 6H4.4C5.2 15 6 13.5 6 10Z'/%3E%3Cpath d='M10 19.5a2.2 2.2 0 0 0 4 0'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 10a6 6 0 0 1 12 0c0 3.5.8 5 1.6 6H4.4C5.2 15 6 13.5 6 10Z'/%3E%3Cpath d='M10 19.5a2.2 2.2 0 0 0 4 0'/%3E%3C/svg%3E");
+}
+.app .ic-save::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5h16V20H4z'/%3E%3Cpath d='M3 4.5h18v4H3z'/%3E%3Cpath d='M12 8.5V20'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8.5h16V20H4z'/%3E%3Cpath d='M3 4.5h18v4H3z'/%3E%3Cpath d='M12 8.5V20'/%3E%3C/svg%3E");
+}
+.app .ic-you::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='3.6'/%3E%3Cpath d='M4.8 20c.6-3.6 3.6-5.6 7.2-5.6s6.6 2 7.2 5.6'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='3.6'/%3E%3Cpath d='M4.8 20c.6-3.6 3.6-5.6 7.2-5.6s6.6 2 7.2 5.6'/%3E%3C/svg%3E");
+}
+
+/* The GROUP owns the separation between its items; the item draws no floor of
+   its own, which is what removes the li:last-child rule that used to reach back
+   into the row. */
+.app .group { margin: 0 0 24px; }
+.app .group ul { list-style: none; margin: 0; padding: 0; }
+.app .group ul > li + li { border-top: 1px solid var(--line2); }
+
+/* Two forms from one class: a section with an h2 band, and a details disclosure
+   whose summary replaces the band. .gate occurs nowhere outside a panel, so it
+   is a slot of this organism and not a component. The gate sits BELOW what is
+   free and never in front of it (D3). */
+.app .panel { background: var(--frame); border: 1px solid var(--line); border-radius: var(--radius); margin: 0 0 22px; overflow: hidden; }
+.app .panel > h2 { margin: 0; padding: 12px 14px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); border-bottom: 1px solid var(--line2); }
+.app .panel > summary { padding: 14px; font-size: 13px; font-weight: 600; color: var(--mid); cursor: pointer; }
+.app .panel > summary:hover { color: var(--ink); background: var(--panel2); }
+.app .panel .gate { padding: 14px; font-size: 13px; color: var(--mid); background: var(--panel2); }
+.app .panel .gate:not(:first-child) { border-top: 1px solid var(--line2); }
+.app .panel .gate > p { margin: 0 0 10px; }
+/* From _wf.css:673. Without it the gate keeps the base 18px under its buttons
+   and the panel ends in dead space. */
+.app .panel .gate .actions { margin: 0; }
+
+/* Two doors of equal weight, because D2 makes them equals and not a fallback. */
+.app .doors { display: grid; gap: 12px; }
+/* A dialog is its own page, drawn as what it is: full width narrow, a centred
+   card wide. Its own h1/p slots are NOT carried: all three sheets put their
+   heading inside a State message, and the grey rules for those slots were
+   silently restyling it. */
+.app .sheet { max-width: 480px; margin: 0 auto; }
+.app .sheet > .doors { margin: 0 0 18px; }
+
+.app .alerts { list-style: none; margin: 0; padding: 0; }
+.app .alerts > li + li { border-top: 1px solid var(--line2); }
+.app .panel .alerts { padding: 0 14px 6px; }
+.app .navrows { list-style: none; margin: 0 0 22px; padding: 0; }
+.app .navrows > li + li { border-top: 1px solid var(--line2); }
+.app .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 22px; }
+.app .plans, .landing .plans { display: grid; gap: 10px; margin: 0 0 12px; }
+.lp-plan .plans { max-width: 420px; margin: 0 auto 14px; text-align: left; }
+.app .empty { margin: 0 0 24px; }
+.app .empty > h2 { margin: 0 0 6px; font-size: 17px; }
+.app .empty > p { margin: 0 0 18px; font-size: 13.5px; color: var(--soft); max-width: 52ch; }
+
+/* One column at every width: a settings sidebar does not survive 360px, which
+   is also why this cluster is three screens and not one. Growing the unclassed
+   middle span is what pushes the badge to the end, so the badge needs no margin
+   written on it from here. */
+.app .source { background: var(--frame); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin: 0 0 14px; }
+.app .source .top { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; }
+.app .source .top > span:not([class]) { flex: 1 1 auto; min-width: 0; }
+.app .source h2 { margin: 0; font-size: 15px; }
+.app .source .kind { display: block; font-size: 12.5px; color: var(--soft); }
+
+/* Node 1.5, the Guided Reveal, and the one organism in the kit that exists to
+   test a hypothesis rather than to hold content: H0, the assumption that an
+   avoider who looks feels calmer. Three steps on one page and never three
+   routes, so back never means starting over. D1 read literally: the count, then
+   the categories, then the total, and every step carries its own action.
+   From _wf.css:608-617, with three reconciliations rather than a copy.
+   --faint collapses to --soft. The grey's .num is retired in favour of the .k
+   eyebrow atom, the same 11px uppercase mark at a hair different tracking, and
+   the reveal page carries .k. The grey's .rstep .lbl was a host restyling an
+   atom, and it becomes the declared .lbl.strong modifier. */
+.app .rstep { padding: 0 0 26px; margin: 0 0 26px; border-bottom: 1px solid var(--line2); }
+.app .rstep:last-of-type { border-bottom: 0; padding-bottom: 0; }
+.app .rstep .k { margin: 0 0 10px; }
+.app .rstep h1, .app .rstep h2:not(.lbl) { margin: 0 0 6px; font-size: 24px; line-height: 1.15; letter-spacing: -0.015em; color: var(--ink); }
+.app .rstep .actions { margin: 18px 0 0; }
+
+/* ============================================================
+   THE CONTAINER STEPS. The stage is the query container, so a screen reflows on
+   the width it is GIVEN rather than the width of the browser: the review panel
+   takes 250px and the screen must not pretend otherwise. A media query here
+   would silently change how all 55 screens behave.
+     760   the tab bar becomes a 240px rail and the app bar folds into its top
+     900   Home becomes a dashboard and the detail becomes two columns
+    1340   the groups run in three columns
+   The three numbers cannot become variables: a custom property is not valid
+   inside a @container condition. Documented, not tokenized.
+   ============================================================ */
 
 @container (min-width: 760px) {
-  .phone.dash {
-    max-width: none; width: 100%; height: 100vh; border: 0; border-radius: 0;
-    display: grid; grid-template-columns: 240px minmax(0, 1fr); grid-template-rows: auto 1fr;
-    background: var(--frame); box-shadow: none;
-  }
-  .phone.dash > .appbar {
-    grid-column: 1; grid-row: 1; flex-direction: column; align-items: flex-start; gap: 4px;
-    border-right: 1px solid var(--line); border-bottom: 1px solid var(--line2); padding: 20px 22px;
-  }
-  .phone.dash > .tabbar {
-    position: static; grid-column: 1; grid-row: 2; flex-direction: column; border-top: 0;
-    border-right: 1px solid var(--line); align-content: start; background: var(--panel2); padding: 12px 0; overflow: auto;
-  }
-  .phone.dash > .tabbar a {
-    flex: none; text-align: left; padding: 11px 22px; border-top: 0; flex-direction: row;
-    border-left: 3px solid transparent; align-items: center; gap: 12px; font-size: 13.5px;
-  }
-  .phone.dash > .tabbar a.cur { border-top: 0; border-left-color: var(--accent); background: var(--frame); }
-  .phone.dash > .screen { grid-column: 2; grid-row: 1 / -1; overflow: auto; padding: 28px 36px 44px; }
-  .phone.dash:not(.tp-home):not(.tp-detail) > .screen > * { max-width: 940px; }
+  .app { display: grid; height: 100vh; height: 100dvh; grid-template-columns: 240px minmax(0, 1fr); grid-template-rows: auto 1fr; }
+  .app > .screen { grid-column: 2; grid-row: 1 / -1; overflow: auto; padding: 30px 36px 48px; }
+  .app > .screen > * { max-width: 780px; }
+  /* The three reading measures are bound through > .screen > deliberately. Written
+     as .app .form-col they tie at 0-2-0 with the blanket .app > .screen > *
+     { max-width: none } in the 900 block below, lose on source order, and unbind
+     without a symptom anyone would look for: the form ran at 588 instead of 560,
+     the Pro gate at 748 instead of 560, the settings column at 733 instead of 620.
+     Every one of these classes is a direct child of .screen on every page of both
+     folders, checked before the binding was tightened. Found when the account screen
+     joined the sample, on two screens the stage had already accepted: a measure that
+     holds at 760 and silently stops holding at 900 is why a wide viewport is its own
+     acceptance pass. Values unchanged. */
+  .app > .screen > .form-col { max-width: 560px; }
+  .app > .screen > .locked { max-width: 560px; } /* _wf.css:1021 */
+  .app > .screen > .rows-col { max-width: 620px; }
+  .app > .appbar { position: static; grid-column: 1; grid-row: 1; flex-direction: column; align-items: flex-start; gap: 4px; border-right: 1px solid var(--line); }
+  .app .appbar .acct { padding: 0; font-size: 12px; }
+  .app > .tabbar { position: static; grid-column: 1; grid-row: 2; flex-direction: column; align-content: start; overflow: auto; background: var(--panel2); border-top: 0; border-right: 1px solid var(--line); padding: 10px 0; }
+  .app > .tabbar a { flex: none; min-height: 48px; text-align: left; padding: 0 20px; flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px; border-top: 0; border-left: 3px solid transparent; }
+  .app > .tabbar a.cur { border-top: 0; border-left-color: var(--accent); background: var(--frame); }
+  .app .doors { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .app .tiles { grid-template-columns: repeat(3, 1fr); }
+  .app .plans { grid-template-columns: repeat(3, 1fr); max-width: 720px; }
+  .app .chart { height: 220px; }
+  /* The one organism that is a raised surface, so the one that takes the shadow. */
+  .app .sheet { background: var(--frame); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; margin-top: 24px; }
 }
 
-@container (min-width: 1040px) {
-  .phone.dash.tp-home { grid-template-columns: 240px minmax(360px, 1.05fr) minmax(360px, 1fr); }
-  .phone.dash.tp-home > .detailpane {
-    display: block; grid-column: 3; grid-row: 1 / -1; border-left: 1px solid var(--line);
-    padding: 28px 32px 44px; overflow: auto; background: var(--panel2);
-  }
-  .phone.dash.tp-detail { grid-template-columns: 240px minmax(320px, 0.9fr) minmax(360px, 1.1fr); }
-  .phone.dash.tp-detail > .masterpane {
-    display: block; grid-column: 2; grid-row: 1 / -1; border-right: 1px solid var(--line);
-    padding: 20px 20px 32px; overflow: auto;
-  }
-  .phone.dash.tp-detail > .screen { grid-column: 3; grid-row: 1 / -1; }
+@container (min-width: 900px) {
+  .app > .screen > * { max-width: none; }
+  .app > .screen { display: flex; flex-direction: column; }
+  /* Placement, not look. The DOM keeps the mobile-first order, where the add
+     action sits after the list because the job of this screen is to look, not
+     to add; on a dashboard that order puts it under the shorter of two columns,
+     where it reads as leftovers rather than as the way on. */
+  .app > .screen > .head { order: 1; }
+  /* margin migrated from _wf.css line 417 at step 5: without it the two
+     secondaries sat on top of the first group heading. */
+  .app > .screen > .secondary { order: 2; margin: 0 0 26px; }
+  .app > .screen > .groups { order: 3; }
+  .app > .screen > .trust { order: 4; }
+  /* The total and the one thing that needs attention, side by side across the
+     top: J-MAIN read literally, and the only thing the width buys. */
+  .app .head { display: grid; grid-template-columns: minmax(250px, 0.85fr) minmax(300px, 1.15fr); gap: 30px 40px; align-items: center; padding: 0 0 26px; margin: 0 0 22px; border-bottom: 1px solid var(--line2); }
+  .app .groups { columns: 2; column-gap: 44px; }
+  .app .group { break-inside: avoid; margin: 0 0 26px; }
+  /* The mobile order read left to right, so "what is this" stays in front of
+     "what now". */
+  .app.detail > .screen { display: grid; grid-template-columns: minmax(300px, 1fr) minmax(320px, 1fr); gap: 0 48px; align-content: start; }
+  .app.detail > .screen > * { max-width: none; }
+  .app.detail .col1 { grid-column: 1; }
+  .app.detail .col2 { grid-column: 2; }
 }
-.masterpane .mp-title { font-size: 12px; color: var(--soft); margin: 0 0 8px; font-weight: 700; }
-.masterpane .row.cur { background: var(--accent-tint); }
 
-/* Mobile: tab bar becomes fixed viewport chrome */
+@container (min-width: 1340px) {
+  .app .groups { columns: 3; }
+}
+
+/* The plan grid's second host. index.html is the only page with no .app shell
+   and its own block runs on media queries throughout, so the landing copy of
+   this rule matches that model deliberately. */
+/* On the narrowest layout the cut drops to its own line: a merchant name, an
+   amount and a second control do not share 360px without the name wrapping into
+   the amount, and the name is the thing being decided about. _wf.css:507-511. */
 @media (max-width: 460px) {
-  .phone.dash .tabbar { position: fixed; border-radius: 0; }
-  .phone.dash { border-radius: 0; }
+  .app .cand { flex-wrap: wrap; padding: 4px 0 10px; }
+  .app .cand .row { flex: 1 1 100%; }
+  .app .cand .cut { margin-left: auto; }
 }
+
+@media (min-width: 760px) {
+  .lp-plan .plans { grid-template-columns: repeat(3, 1fr); max-width: 780px; }
+}
+
+/* The July block stood here: the Concept-era colour copy written for the .phone
+   frame the wireframes deleted on 2026-08-05. Deleted at step 5, once the last
+   of the nine coloured seed pages was rebuilt on the kit and no page carried
+   .phone any more. Two things it was still holding were migrated out first: the
+   @keyframes pulse every skeleton in the product animates on, and the
+   reduced-motion guard beside it. Deleting it before that would have stopped
+   every skeleton silently, with no error anywhere. */

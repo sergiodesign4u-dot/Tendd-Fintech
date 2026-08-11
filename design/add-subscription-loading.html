@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add Subscription, preset library loading - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/kit.css">
+</head>
+<body>
+
+<!--
+  Add a Subscription, node 1.4, the loading state: the preset library is still
+  arriving. It exists because the wait has a shape: six tiles in the shape of the
+  content, never a spinner over the screen, and the search field stays live
+  throughout, because typing three letters is the fastest finish.
+  Assembled from kit classes. This page carries no page-level style block, no
+  style attribute, and no class that kit.css does not define.
+  Structure and copy are a verbatim copy of wireframes/add-subscription-loading.html.
+  A placeholder tile carries no merchant mark, so its .logo stays empty.
+  Links to screens that are not coloured yet point back into wireframes/.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<div class="app flow">
+
+  <header class="appbar">
+    <a class="back" href="../wireframes/path-choice.html">&lsaquo; Back</a>
+    <span class="wordmark">Tendd</span>
+    <span class="step">Step 2 of 3</span>
+  </header>
+
+  <main class="screen" aria-busy="true">
+
+    <div class="lede">
+      <h1>Add a subscription</h1>
+      <p role="status" aria-live="polite">Getting the list of services. This usually takes a moment.</p>
+    </div>
+
+    <!-- The search field works while the catalogue is still arriving: typing is
+         the fastest path and there is no reason to take it away during a wait. -->
+    <form class="field" role="search" onsubmit="return false">
+      <label for="preset-search">Find a service</label>
+      <input id="preset-search" type="search" placeholder="Search 400+ services" autofocus>
+    </form>
+
+    <h2 class="group-head plain"><span>Most tracked</span></h2>
+    <div class="tiles" aria-hidden="true">
+      <span class="tile"><span class="logo"></span><span><span class="skel line w60"></span><span class="skel line w90"></span></span></span>
+      <span class="tile"><span class="logo"></span><span><span class="skel line w90"></span><span class="skel line w80"></span></span></span>
+      <span class="tile"><span class="logo"></span><span><span class="skel line w50"></span><span class="skel line w90"></span></span></span>
+      <span class="tile"><span class="logo"></span><span><span class="skel line w80"></span><span class="skel line w80"></span></span></span>
+      <span class="tile"><span class="logo"></span><span><span class="skel line w90"></span><span class="skel line w90"></span></span></span>
+      <span class="tile"><span class="logo"></span><span><span class="skel line w70"></span><span class="skel line w90"></span></span></span>
+    </div>
+
+    <p class="quiet">Can't find it? <a href="add-subscription-empty.html">Add it by hand</a> and fill the details yourself.</p>
+
+  </main>
+
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

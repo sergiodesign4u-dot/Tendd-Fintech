@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Subscription Detail, unrecognized charge - Tendd in colour</title>
+<title>Subscription Detail, payment did not go through - Tendd in colour</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,16 +12,23 @@
 <body>
 
 <!--
-  Subscription Detail, node 2.7, the unrecognized state: it repeats like a
-  subscription and we could not match it to a service.
-  Assembled from kit classes. This page carries no style of its own: no page-level
-  style block, no style attribute, no class that kit.css does not define.
-  Structure and copy are a verbatim copy of wireframes/subscription-detail-unrecognized.html.
-  The Notice stays tone-neutral on purpose: an unmatched charge is an ordinary
-  state and not a failure, so it never takes the clay wash (D-Concept).
-  There is no merchant logo here, because that is exactly what is missing. What
-  the hero carries instead is the drawn unmatched mark: this stage owns the marks,
-  and "[ ? ]" was the grey placeholder for one, the same family as "[logo]".
+  Subscription Detail, node 2.7, the payment did not go through state: a charge
+  was refused, and the person finds out here rather than from the merchant.
+  It exists because the IA critique named the old version a dead end: the person
+  was told something had failed and then left with nothing to do. This page says
+  what happened, what usually happens next, that the money itself is fine, and
+  keeps every action of the screen underneath it.
+  The notice carries the kit's neutral wash and NOT the .is-error clay, and that
+  is a call rather than an omission. kit.css:460 makes the tone opt in and hands
+  the modifier to the colour layer, but the scope of clay is a named decision
+  (D-Concept, DESIGN.md "Clay"), and that decision names two states: the sync
+  error and the could-not-load screen. Adding a third is a new named decision and
+  belongs to the person who owns the palette. Reported, not worked around.
+  Assembled from kit classes. This page carries no page-level style block, no style attribute, and no class that kit.css does not define.
+  Structure and copy are a verbatim copy of wireframes/subscription-detail-payment-failed.html.
+  The colour layer owns the visual only, plus the merchant mark, which is the one
+  thing the grey page could not carry (it renders "[logo]" in its place), and the
+  destination icons in the tab bar.
   Links to screens that are not coloured yet point back into wireframes/.
 -->
 
@@ -50,41 +57,36 @@
 
     <div class="col1">
 
-      <!-- The raw string is shown as the raw string. Pretending a bank code is a
-           merchant name is exactly the thing the decoder line exists to stop, so
-           an unmatched charge says so instead of inventing a name. -->
       <div class="hero">
-        <!-- The unmatched mark. "[ ? ]" is the grey placeholder convention, the
-             same family as "[logo]", and this stage owns the marks: it becomes a
-             drawn one. Quiet on purpose. An unnamed charge is an ordinary gap in
-             the data, not a failure, so it takes the recessed square and the
-             muted tier rather than the clay of a genuine error. -->
-        <span class="logo"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true" focusable="false"><path d="M20.4 20.6a5.6 5.6 0 1 1 5.6 5.6v3.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="26" cy="34.4" r="1.6" fill="currentColor"/></svg></span>
+        <span class="logo" aria-hidden="true"><img src="visuals/logos/amazon-prime.svg" alt=""></span>
         <span>
-          <h1>SQ *BLUEBOTTLE 8890</h1>
-          <span class="amt">$14.00</span>
-          <span class="cycle">seen monthly</span>
+          <h1>Amazon Prime</h1>
+          <span class="amt">$14.99</span>
+          <span class="cycle">a month</span>
         </span>
       </div>
 
-      <p class="badge">Not identified</p>
+      <p class="badge">Payment failed</p>
 
-      <section class="notice" role="status" aria-label="What we know">
-        <p>It repeats like a subscription, but we could not match it to a service. Name it and pick a category so it reads clearly next time.</p>
+      <!-- The IA critique named this state as a dead end: the person was
+           informed and then left with nothing to do. One plain sentence, what
+           usually happens next, and the reassurance that the money itself is
+           fine. The actions of the screen are the way on. -->
+      <section class="notice" role="status" aria-label="What happened">
+        <p>A payment to Amazon Prime did not go through on Jul 20. Amazon usually tries again within a few days, and Tendd will tell you when it does. Nothing is wrong with your money.</p>
       </section>
 
       <dl class="facts">
-        <div><dt>Seen</dt><dd>3 times, monthly since May</dd></div>
-        <div><dt>Last charge</dt><dd>Jul 12</dd></div>
+        <div><dt>Next attempt</dt><dd>expected in the next few days</dd></div>
+        <div><dt>Billing cycle</dt><dd>Monthly</dd></div>
         <div><dt>Charged to</dt><dd>Chase checking</dd></div>
-        <div><dt>Category</dt><dd>not set yet</dd></div>
+        <div><dt>Category</dt><dd>Streaming</dd></div>
+        <div><dt>Paid so far</dt><dd>$164.89 since Aug 2025</dd></div>
       </dl>
 
-      <!-- Here the decoder line is all we have, so it is the whole identity of
-           the charge rather than a footnote under a name. -->
       <section class="decoder" aria-label="How this appears on your statement">
-        All we have is how it appears on your statement
-        <span class="raw">SQ *BLUEBOTTLE 8890</span>
+        Appears on your statement as
+        <span class="raw">AMZN Digital*2H4KL9</span>
       </section>
 
     </div>
@@ -94,9 +96,9 @@
       <section class="panel" aria-label="Recent charges">
         <h2>Recent charges</h2>
         <ul class="charges">
-          <li><span>Jul 12</span><span class="amt">$14.00</span></li>
-          <li><span>Jun 12</span><span class="amt">$14.00</span></li>
-          <li><span>May 12</span><span class="amt">$14.00</span></li>
+          <li class="marked"><span>Jul 20</span><span class="amt">$14.99<span class="was">did not go through</span></span></li>
+          <li><span>Jun 20</span><span class="amt">$14.99</span></li>
+          <li><span>May 20</span><span class="amt">$14.99</span></li>
         </ul>
         <div class="gate">
           <p>Three months are free. Longer history and trends are part of Tendd Pro.</p>
@@ -107,11 +109,13 @@
         </div>
       </section>
 
-      <!-- The primary is naming it, not cancelling it: you cannot decide about a
-           charge you cannot read, and that decision is what this screen is for. -->
       <div class="actions">
-        <a class="btn primary" href="add-subscription.html">Name this charge</a>
-        <a class="btn" href="home.html">This is not a subscription</a>
+        <a class="btn primary" href="../wireframes/cancel-guide.html">Cancel this subscription</a>
+      </div>
+
+      <div class="actions">
+        <a class="btn" href="add-subscription.html">Edit the details</a>
+        <a class="btn" href="../wireframes/alerts.html">See all your alerts</a>
       </div>
 
       <div class="removal">

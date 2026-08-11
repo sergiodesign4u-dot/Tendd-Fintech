@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings / Profile - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/kit.css">
+</head>
+<body>
+
+<!--
+  Settings / Profile, node 6.16. The account screen, and the seventh of the sample.
+  Assembled from kit classes. This page carries no style of its own: no page-level style
+  block, no style attribute, no class that kit.css does not define.
+  Structure and copy are a verbatim copy of wireframes/settings.html.
+
+  It added NOTHING to the kit, and that is the point of building it seventh: every
+  class it needs (.group, .field, .switch, .navrows, .promises, .subtotal) was already
+  read out of the wireframes at step 2, so the inventory covering the whole product
+  rather than the coloured sample is what let a new screen assemble with no new work.
+  The saturation signal the stage asks for, on the screen that proves it.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<div class="app">
+
+  <!-- GC1 App header -->
+  <header class="appbar">
+    <span class="wordmark">Tendd</span>
+    <a class="acct" href="settings.html" aria-label="Hi Emma, open your account">Hi, Emma</a>
+  </header>
+
+  <main class="screen">
+   <div class="rows-col">
+
+    <div class="lede">
+      <h1>You</h1>
+      <p>Your details, your plan, and the two screens that hold everything about your data.</p>
+    </div>
+
+    <!-- An email and a currency, and nothing else. We have no reason to hold a
+         name or a phone number, and not holding them is easier to explain than
+         protecting them. The Name field the July screen carried is gone. -->
+    <section class="group" aria-label="Your details">
+      <div class="group-head"><h2>Your details</h2></div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" value="emma@example.com">
+      </div>
+      <div class="field">
+        <label for="currency">Currency</label>
+        <select id="currency">
+          <option>US dollar ($)</option>
+          <option>Euro (&euro;)</option>
+          <option>British pound (&pound;)</option>
+        </select>
+        <p class="hint">Every amount in Tendd is shown in this currency.</p>
+      </div>
+    </section>
+
+    <!-- The plan's right home, and the reason the calm view stays clean: every
+         upsell was dropped from Home precisely so this could be stated once,
+         here, with no pressure. A statement of what you are on, not a paywall.
+         The plan reads in .subtotal and not in the petrol chip on purpose: the
+         chip in the app header marks a Pro session, and petrol here would sell
+         where the node says the screen only states. -->
+    <section class="group" aria-label="Your plan">
+      <div class="group-head">
+        <h2>Your plan</h2>
+        <span class="subtotal">Free</span>
+      </div>
+      <p class="consequence lead">Unlimited subscriptions and unlimited bank connections. History, trends and advanced alerts are part of Tendd Pro.</p>
+      <div class="actions">
+        <a class="btn" href="upgrade.html">Manage plan</a>
+      </div>
+    </section>
+
+    <!-- One place that answers what will reach you, instead of a reminder toggle
+         on every subscription the way the category does it. This is where the
+         link from the alerts screen lands. -->
+    <section class="group" aria-label="What Tendd tells you about">
+      <div class="group-head"><h2>What Tendd tells you about</h2></div>
+      <p class="consequence lead">All in plain language, never alarming.</p>
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span>
+      </label>
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span><span class="t">A payment does not go through</span><span class="h">Like "A payment to Amazon Prime did not go through".</span></span>
+      </label>
+      <label class="switch">
+        <input type="checkbox">
+        <span><span class="t">A free trial is ending soon</span><span class="h">Part of Tendd Pro.</span></span>
+      </label>
+      <label class="switch">
+        <input type="checkbox">
+        <span><span class="t">Weekly email digest</span><span class="h">A calm Sunday summary of what is coming up.</span></span>
+      </label>
+    </section>
+
+    <ul class="navrows">
+      <li><a class="navrow" href="../wireframes/connections.html"><span>Your sources<span class="sub">Banks and manual entries you track</span></span><span class="arrow">&rsaquo;</span></a></li>
+      <li><a class="navrow" href="../wireframes/data-privacy.html"><span>Data and privacy<span class="sub">What we read, and delete everything</span></span><span class="arrow">&rsaquo;</span></a></li>
+      <li><a class="navrow" href="#"><span>Help and support<span class="sub">Guides and how to reach us</span></span><span class="arrow">&rsaquo;</span></a></li>
+      <li><a class="navrow" href="../wireframes/index.html"><span>Sign out</span><span class="arrow">&rsaquo;</span></a></li>
+    </ul>
+
+   </div>
+  </main>
+
+  <!-- GC2 Global tab bar, the You tab active -->
+  <nav class="tabbar" aria-label="Global navigation">
+    <a href="home.html"><span class="ic ic-home"></span>Home</a>
+    <a href="../wireframes/alerts.html"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
+    <a href="home-savefocus.html"><span class="ic ic-save"></span>Save</a>
+    <a class="cur" href="settings.html" aria-current="page"><span class="ic ic-you"></span>You</a>
+  </nav>
+
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

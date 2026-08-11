@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="_theme.css">
+<link rel="stylesheet" href="kit/kit.css">
 <style>
   .wrap { max-width: 1000px; margin: 0 auto; padding: 40px 28px 72px; }
   .as-head h1 { margin: 0 0 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
@@ -37,6 +37,25 @@
   .states a:hover { color: var(--accent); border-color: var(--accent-tint); }
   .card.planned .note { font-size: 12px; color: var(--soft); margin: 0; }
 
+  .delta-tab { overflow-x: auto; margin: 0 0 22px; }
+  .delta-tab table { border-collapse: collapse; table-layout: fixed; width: 100%; min-width: 660px; font-size: 12.5px; }
+  .delta-tab table th:first-child { width: 15%; }
+  .delta-tab table th:nth-child(2), .delta-tab table th:nth-child(3), .delta-tab table th:nth-child(4) { width: 8%; }
+  .delta-tab.cols3 table th:nth-child(2) { width: 65%; }
+  .delta-tab.cols3 table th:nth-child(3) { width: 20%; }
+  .delta-tab td { overflow-wrap: anywhere; }
+  .delta-tab th, .delta-tab td { text-align: left; vertical-align: top; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--line2); }
+  .delta-tab th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); font-weight: 600; border-bottom-color: var(--line); }
+  .delta-tab td:nth-child(2), .delta-tab td:nth-child(3), .delta-tab td:nth-child(4) { font-variant-numeric: tabular-nums; color: var(--mid); white-space: nowrap; }
+  .delta-tab td:last-child { color: var(--soft); }
+  .delta-tab code { font-size: 11.5px; color: var(--mid); }
+  .delta-h { font-size: 13px; font-weight: 600; color: var(--ink); margin: 26px 0 12px; }
+  .pairs { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .pairs figure { margin: 0; }
+  .pairs img { display: block; width: 100%; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--frame); }
+  .pairs figcaption { margin: 8px 0 0; font-size: 12.5px; color: var(--soft); line-height: 1.5; }
+  .pairs figcaption b { color: var(--ink); font-weight: 600; }
+
   footer.as-foot { margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--soft); font-size: 13px; }
   footer.as-foot a { color: var(--accent); }
 </style>
@@ -59,24 +78,25 @@
 <div class="wrap">
   <header class="as-head">
     <h1>Screens in color</h1>
-    <p class="tag">Every Tendd screen in the Petrol & Paper language. The two anchor screens are colored; the rest are the wireframes waiting to be colored in this phase. Open a screen to see its states.</p>
+    <p class="tag">Every Tendd screen in the Petrol and Paper language. What is coloured here is the <b>sample</b>, not the product: seven screens, five chosen because together they carry every level of the kit and the heaviest layouts, a sixth added at step 6 because the strategy check found the first five never showed the moment the whole product is a bet on, and a seventh, the account screen, added last as the saturation test. The rest stay grey on purpose and are coloured in one pass later, once the system has been proved on these. Open a screen to see its states.</p>
     <div class="as-meta">
       <span>Phase: UI + Visual</span>
-      <span>16 screens</span>
-      <span><strong>2 colored</strong> so far</span>
-      <span>Language: Petrol &amp; Paper</span>
+      <span>17 screens</span>
+      <span><strong>7 coloured</strong>, 28 pages</span>
+      <span>Language: Petrol and Paper</span>
     </div>
     <div class="as-legend">
-      <span><b>colored</b> live in Petrol &amp; Paper, with states</span>
-      <span><b>planned</b> still grey in wireframes</span>
+      <span><b>coloured</b> assembled from the kit, with states</span>
+      <span><b>grey, waiting</b> still the wireframe, coloured at the rollout</span>
     </div>
+    <p class="tag">Nothing on a coloured page carries a style of its own: every one is assembled from <a href="kit/kit.html">the component kit</a>, and a fix goes into the kit rather than onto a screen.</p>
   </header>
 
   <section class="as-group">
     <h2>Core</h2>
     <div class="as-grid">
       <article class="card built">
-        <div class="row1"><a class="name" href="home.html">Home / Subscription List</a><span class="badge color">Colored</span></div>
+        <div class="row1"><a class="name" href="home.html">Home / Subscription List</a><span class="badge color">Coloured</span></div>
         <div class="states">
           <a href="home-empty.html">empty</a>
           <a href="home-error.html">error</a>
@@ -85,9 +105,11 @@
         </div>
       </article>
       <article class="card built">
-        <div class="row1"><a class="name" href="subscription-detail.html">Subscription Detail</a><span class="badge color">Colored</span></div>
+        <div class="row1"><a class="name" href="subscription-detail.html">Subscription Detail</a><span class="badge color">Coloured</span></div>
         <div class="states">
-          <a href="subscription-detail-unrecognized.html">empty</a>
+          <a href="subscription-detail-unrecognized.html">unrecognized</a>
+          <a href="subscription-detail-price-change.html">price change</a>
+          <a href="subscription-detail-payment-failed.html">payment failed</a>
           <a href="subscription-detail-error.html">error</a>
           <a href="subscription-detail-loading.html">loading</a>
         </div>
@@ -98,49 +120,174 @@
   <section class="as-group">
     <h2>Onboarding and Activation</h2>
     <div class="as-grid">
-      <article class="card planned"><div class="row1"><span class="name">Welcome / Value Intro</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Activation Path Choice</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Connect Bank</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Add Subscription</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Guided Reveal</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card planned"><div class="row1"><span class="name">Welcome / Value Intro</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card planned"><div class="row1"><span class="name">Activation Path Choice</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card planned"><div class="row1"><span class="name">Connect Bank</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card built">
+        <div class="row1"><a class="name" href="add-subscription.html">Add Subscription</a><span class="badge color">Coloured</span></div>
+        <p class="note">The manual path (D2), and the screen that brings the form primitives into the sample</p>
+        <div class="states">
+          <a href="add-subscription-empty.html">empty</a>
+          <a href="add-subscription-error.html">error</a>
+          <a href="add-subscription-loading.html">loading</a>
+        </div>
+      </article>
+      <article class="card built">
+        <div class="row1"><a class="name" href="guided-reveal.html">Guided Reveal</a><span class="badge color">Coloured</span></div>
+        <p class="note">The screen the riskiest assumption is tested on. It joined the sample at step 6, when the strategy check found the five chosen for component coverage had left H0 with no coloured screen</p>
+        <div class="states">
+          <a href="guided-reveal-empty.html">empty</a>
+        </div>
+      </article>
     </div>
   </section>
 
   <section class="as-group">
     <h2>Stay Ahead</h2>
     <div class="as-grid">
-      <article class="card planned"><div class="row1"><span class="name">Alerts / Activity</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card planned"><div class="row1"><span class="name">Alerts / Activity</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
     </div>
   </section>
 
   <section class="as-group">
     <h2>Cut and Celebrate</h2>
     <div class="as-grid">
-      <article class="card planned"><div class="row1"><span class="name">Cancel Guide</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Cancel Win Moment</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Share Snapshot</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card planned"><div class="row1"><span class="name">Cancel Guide</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card planned"><div class="row1"><span class="name">Cancel Win Moment</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card planned"><div class="row1"><span class="name">Share Snapshot</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
     </div>
   </section>
 
   <section class="as-group">
     <h2>Depth (Pro)</h2>
     <div class="as-grid">
-      <article class="card planned"><div class="row1"><span class="name">History and Trends</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Upgrade / Tendd Pro</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card built">
+        <div class="row1"><a class="name" href="history-trends.html">History and Trends</a><span class="badge color">Coloured</span></div>
+        <div class="states">
+          <a href="history-trends-locked.html">locked</a>
+          <a href="history-trends-empty.html">empty</a>
+          <a href="history-trends-error.html">error</a>
+          <a href="history-trends-loading.html">loading</a>
+        </div>
+      </article>
+      <article class="card built">
+        <div class="row1"><a class="name" href="upgrade.html">Upgrade / Tendd Pro</a><span class="badge color">Coloured</span></div>
+        <p class="note">The paywall, and the one place the product asks for money</p>
+        <div class="states">
+          <a href="upgrade-current-plan.html">current plan</a>
+          <a href="upgrade-processing.html">processing</a>
+          <a href="upgrade-payment-failed.html">payment failed</a>
+        </div>
+      </article>
     </div>
   </section>
 
   <section class="as-group">
     <h2>Account and Trust</h2>
     <div class="as-grid">
-      <article class="card planned"><div class="row1"><span class="name">Connections / Accounts</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Data and Privacy</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
-      <article class="card planned"><div class="row1"><span class="name">Settings / Profile</span><span class="badge plan">Planned</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card planned"><div class="row1"><span class="name">Connections / Accounts</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card planned"><div class="row1"><span class="name">Data and Privacy</span><span class="badge plan">Grey, waiting</span></div><p class="note">Grey in wireframes</p></article>
+      <article class="card built">
+        <div class="row1"><a class="name" href="settings.html">Settings / Profile</a><span class="badge color">Coloured</span></div>
+        <p class="note">The account screen, and the saturation test. It was built after the sample was already closed and needed <b>nothing new in the kit</b>: every class it uses was read out of the wireframes at step 2, when the inventory was taken from the whole product rather than from the coloured sample</p>
+        <div class="states">
+          <a href="settings-no-account.html">no account</a>
+        </div>
+      </article>
+      <article class="card planned"><div class="row1"><span class="name">Sign In</span><span class="badge plan">Grey, waiting</span></div><p class="note">Node 1.6, added to the wireframes in round 3</p></article>
+    </div>
+  </section>
+
+  <section class="as-group" id="delta">
+    <h2>Was to became</h2>
+    <p class="tag">Critique ran on three instruments and the audit on four, all in one pass over the sample. Every finding was re-read in the current file before anything was touched; what did not hold stayed in the log marked <b>dropped at verification</b>, with the reason. Closed, by class.</p>
+
+    <div class="delta-tab">
+      <table>
+        <thead><tr><th>Class</th><th>Found</th><th>Fixed</th><th>Dropped at verification</th><th>Carried, and why</th></tr></thead>
+        <tbody>
+          <tr><td>Style past the kit</td><td>0</td><td>0</td><td>0</td><td>All 28 pages carry no page-level style block, no style attribute and no class the kit does not define. Checked mechanically, not by eye</td></tr>
+          <tr><td>A measure that stops holding at one width</td><td>3</td><td>3</td><td>0</td><td><b>Found by the seventh screen, on two the stage had already accepted.</b> The three reading measures were written <code>.app .form-col</code>, which ties at 0-2-0 with a blanket reset in the 900 block and loses on source order. The form ran at 588 instead of 560, the Pro gate at 748 instead of 560, the settings column at 733 instead of 620. Bound through <code>&gt; .screen &gt;</code>; no value changed</td></tr>
+          <tr><td>Contextual override (an unnamed variant)</td><td>4</td><td>4</td><td>0</td><td>The worst was a second button hiding inside <code>.secondary a</code>, byte-identical to <code>.btn.compact</code> three lines under a comment saying it was not a second button</td></tr>
+          <tr><td>Duplicate under another name</td><td>3</td><td>3</td><td>0</td><td><code>.num</code> was <code>.k</code>, <code>.tone</code> was <code>.context</code>, <code>.rstep .lbl</code> became the declared <code>.lbl.strong</code></td></tr>
+          <tr><td>Orphan in the kit</td><td>3</td><td>2</td><td>1</td><td><code>.tone-info</code> and <code>--c-bg</code> removed. <b>Dropped:</b> <code>--success</code> is a documented palette token (DESIGN.md calls it Moss) whose consumer is the cancel-win screen, still grey</td></tr>
+          <tr><td>One voice, one zone</td><td>2</td><td>1</td><td>0</td><td>Twelve petrol ticks on the paywall were decoration and went quiet. <b>Carried:</b> two filled petrol buttons 55px apart on the form screen, because the class comes from the frozen grey</td></tr>
+          <tr><td>Typography bound to a tag</td><td>2</td><td>2</td><td>0</td><td>The group head was written as <code>h2.group-head</code> and broke twice, at 24px browser default against 12px everywhere. Now matched to the class at any heading level</td></tr>
+          <tr><td>Target size</td><td>14</td><td>13</td><td>0</td><td>The 44px floor was on the wrong half. It deformed links inside sentences (a four-line paragraph measured 100px instead of 75) and was missing from thirteen that are not in sentences, including "Try again" and "Remove from your list". <b>Carried:</b> one paragraph whose only content is its link, which CSS cannot tell from a sentence</td></tr>
+          <tr><td>Breaks at 360</td><td>0</td><td>0</td><td>4</td><td>Measured on all 28 pages at a true 360 (a default headless browser leaves a scrollbar and measures 345). Zero horizontal overflow, zero clipped or overlapping text, nothing escaping the stage. <b>Dropped:</b> four suspected overflows were the scrollbar</td></tr>
+          <tr><td>Text contrast</td><td>0</td><td>0</td><td>0</td><td>Every product text pair passes AA, the switch rows and the account promises included. The tightest is clay on its own wash at 4.57:1</td></tr>
+          <tr><td>Non-text contrast</td><td>7</td><td>0</td><td>0</td><td><b>Carried to a decision, not silently.</b> A control boundary is <code>--line</code> on white, 1.23:1 against the 3:1 that WCAG 1.4.11 asks. Fixing it means a visibly darker edge on every button, field and tile, which reopens a locked visual decision. It is the founder's call, not the audit's</td></tr>
+          <tr><td>Motion without a guard</td><td>1</td><td>1</td><td>0</td><td>The reduced-motion guard lost the cascade by one class and did nothing: every skeleton pulsed forever for a person who had asked for no motion. It read as correct in the file</td></tr>
+          <tr><td>Decorative glyph in an accessible name</td><td>5</td><td>5</td><td>0</td><td>Arrows and ticks injected by <code>content:</code> were being read aloud. Twelve feature rows on the paywall each announced a tick first</td></tr>
+          <tr><td>Review chrome on top of the product</td><td>3</td><td>3</td><td>0</td><td>The Home destination was laid out underneath the review panel and showed a 4px sliver; the off-canvas panel kept sixteen links in the tab order on a phone; two chrome colours were under AA</td></tr>
+          <tr><td>Structural desync with the grey</td><td>12</td><td>12</td><td>0</td><td>Eleven page titles had been rewritten rather than suffixed. The body text of all 28 pages is character-identical to its grey original</td></tr>
+          <tr><td>Placeholder shipped into colour</td><td>3</td><td>3</td><td>0</td><td><code>[ ? ]</code> and two <code>[chart: ...]</code> notes. This stage owns the marks, so they became a drawn mark and a drawn plot</td></tr>
+          <tr><td>Copy against microcopy.md</td><td>13</td><td>0</td><td>0</td><td><b>All thirteen are stage 05 misses, not copying errors:</b> the visible text of every coloured page matches its grey original exactly, so the divergence is between the grey and the line inventory. Listed in full below, because microcopy.md ships at handoff</td></tr>
+          <tr><td>ARIA and form semantics</td><td>11</td><td>0</td><td>0</td><td><b>Carried by rule.</b> A coloured copy owns the visual layer only, and every one of these is markup: a fieldset with no legend, an aria-label on a paragraph that ARIA discards, section labels repeating their own heading, a form with no required or invalid state. Inventing an ARIA difference between grey and colour is the exact desync this stage tests for</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="tag"><b>Where the fixes went: 24 into the kit, 0 onto a screen.</b> That is the number this stage exists to produce, and it is the one worth reading twice. Every style correction landed in <code>design/kit/kit.css</code> and reached 28 pages by itself. The edits that did touch a page were not styles: eleven restored titles, one drawn mark, two drawn plots, and the links repointed at coloured screens as they appeared.</p>
+
+    <h3 class="delta-h">The seventh screen, and what a screen that adds nothing proves</h3>
+    <p class="tag">The account screen was built after the sample was closed, and it needed <b>nothing new in the kit</b>: not a class, not a value, not a plate in the showcase. That is the saturation signal the stage asks for, and it is only available because the inventory at step 2 was read from every grey page rather than from the screens that were going to be coloured. A kit sized to the sample would have met this screen with four missing components.</p>
+    <p class="tag">It did not arrive empty-handed, though. Assembling it surfaced a defect no page in the sample could show: <b>a reading measure that holds at one width and quietly stops holding at the next.</b> The form column, the Pro gate and the settings column were all declared at a fixed measure and all three lost it past a 900px container, on a rule written for a different screen's layout. Two of those screens had already been walked and accepted. A screen is accepted at every width or it is not accepted, and the width where a defect lives is not always the narrow one.</p>
+
+    <h3 class="delta-h">The thirteen copy findings, and where each one belongs</h3>
+    <p class="tag">None of these is a colouring error. The visible text of all 28 coloured pages is character-identical to its grey original, so every row is a gap between the frozen grey and <code>voice/docs/microcopy.md</code>. That file ships at Handoff, and a product that has quietly diverged from its own line inventory diverges from it forever.</p>
+    <div class="delta-tab cols3">
+      <table>
+        <thead><tr><th>Where</th><th>What is wrong</th><th>Owner</th></tr></thead>
+        <tbody>
+          <tr><td>Upgrade</td><td>The paid screen prints the project's own open-question marker: "Not on sale yet. [? D4, the lifetime price, $99 to $139, is still being decided]". The line inventory carries the bracket verbatim, so the inventory blesses the leak</td><td>Voice, then Handoff</td></tr>
+          <tr><td>Upgrade</td><td>Four orphan strings never inventoried: "Everything in Tendd Pro", the monthly button, "one payment", and the lifetime sentence, which was rewritten when its "One payment," was demoted to a sub-label</td><td>Voice</td></tr>
+          <tr><td>Upgrade</td><td>Every feature row lost its descriptive half. The inventory has "History and trends (3, 6 and 12 month views)"; the screen has "History and trends". The same list on the current-plan screen still carries the descriptions, so one list exists in two forms</td><td>Voice</td></tr>
+          <tr><td>Home, empty</td><td><b>Here the screen is right and the document is wrong.</b> The inventory still carries a retired trust line containing "we can never move your money", the exact form Voice itself retired. Shipping microcopy.md today would ship a banned variant</td><td>Voice</td></tr>
+          <tr><td>Home, save focus</td><td>The same two subscriptions read "Trial ends: Aug 18" in the candidate list and "trial ends in 17 days, Aug 18" in the groups below, on one screen. Days first everywhere, date first here. Logged as an open Voice finding and never closed</td><td>Voice</td></tr>
+          <tr><td>Home, empty</td><td>Two headings a hundred pixels apart doing one job: "Nothing to add up yet" over "Nothing here yet". Also logged and never closed</td><td>Voice</td></tr>
+          <tr><td>Subscription Detail, error</td><td>One destination, two wordings on one screen: the chevron says "Your subscriptions", the button says "Back to your subscriptions". The documented exemption for this rested on the chevron saying "Home", which a later round changed</td><td>Voice</td></tr>
+          <tr><td>History and Trends, locked</td><td>The full-screen Pro gate has no "Maybe later", which voice.md says is always present. The three inline gates all carry it. Either "always" is too strong for a locked screen, where the back chevron is the exit, or the line is missing</td><td>Voice, a real decision either way</td></tr>
+          <tr><td>Add a Subscription</td><td>Six "Typically $X a month" strings against one inventoried. Renderings of one authored pattern, low severity</td><td>Voice</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="delta-h">Three pairs, and why there is no fourth</h3>
+    <div class="pairs">
+      <figure>
+        <img src="screens/06-reveal-group-heads-was.png" alt="The Guided Reveal with its category headings at browser default size, heavy and black">
+        <figcaption><b>Was.</b> Guided Reveal, step two. Every category heading fell through to the browser default, because the group head's typography was bound to <code>h2</code> and here the head is an <code>h3</code>. The loudest thing on the calmest screen in the product was the word "Streaming".</figcaption>
+      </figure>
+      <figure>
+        <img src="screens/06-reveal-group-heads-became.png" alt="The same screen with the category headings quiet, at 12px uppercase, and the merchant chips leading">
+        <figcaption><b>Became.</b> The rule now matches the class at any heading level. The eyebrow, the sentence and the chips read in that order, and the marks carry the recognition the step exists for.</figcaption>
+      </figure>
+      <figure>
+        <img src="screens/07-tabbar-home-was.png" alt="Home with only three destinations visible in the bottom bar and a small petrol sliver at the left edge">
+        <figcaption><b>Was.</b> Three destinations, not four. The tab bar is fixed to the viewport, which is right in a build and wrong here: the review panel takes the first 220px, so Home was laid out underneath it and showed a 4px sliver. The grey wireframes have the same collision.</figcaption>
+      </figure>
+      <figure>
+        <img src="screens/07-tabbar-home-became.png" alt="Home at desktop width with the tab bar as a left rail, Home marked current in petrol">
+        <figcaption><b>Became.</b> The offset is stated once, in the review chrome's own block, and marked as not travelling to a build. Past a 760px container the bar is a rail anyway, and Home is where the current selection is spent.</figcaption>
+      </figure>
+      <figure>
+        <img src="screens/08-reading-measure-was.png" alt="The Pro gate on a desktop viewport stretched to the full width of the reading column">
+        <figcaption><b>Was.</b> The Pro gate, declared at a 560px measure and rendering at 748. Nothing looks broken, which is the point: the panel is simply wider than the width it was designed at, on a screen the stage had already walked and accepted. The same rule was stretching the form on Add a Subscription and the whole account column.</figcaption>
+      </figure>
+      <figure>
+        <img src="screens/08-reading-measure-became.png" alt="The same Pro gate at its declared 560px measure, narrower than the chart above it">
+        <figcaption><b>Became.</b> The measure is bound through <code>&gt; .screen &gt;</code> so a blanket reset written for another screen's layout cannot outrank it. No value moved: 560 was always the number, it had just stopped being applied past a 900px container.</figcaption>
+      </figure>
+      <figure>
+        <img src="screens/07-standalone-links-360-became.png" alt="The sync error state at 360px, with Try again and See what changed each sitting in a 44px band">
+        <figcaption><b>The 360 class produced no product defect, so there is no pair to show.</b> Zero horizontal overflow on all 28 pages, zero clipped text, nothing escaping the stage. What this shot records instead is the target-size fix at 360: "Try again" and "See what changed" now stand in a 44px band, and the sentences around them are untouched.</figcaption>
+      </figure>
     </div>
   </section>
 
   <footer class="as-foot">
-    Colored copies live in <code>design/</code>, flat next to this hub; the grey wireframes stay untouched in <a href="../wireframes/overview.html">wireframes/</a>. Two screens are seeded from <a href="concept/concept.html">Concept</a>; the full color pass across all 16 screens is the UI + Visual phase.
+    Coloured copies live in <code>design/</code>, flat next to this hub; the grey wireframes stay untouched in <a href="../wireframes/overview.html">wireframes/</a>, and the cross-link runs one way only. The language was found at <a href="concept/concept.html">Concept</a> and became a system here: <a href="kit/kit.html">the component kit</a> is the showcase, <code>design/kit/kit.css</code> the single stylesheet, <code>design/kit/inventory.md</code> the count of all 68 components across the whole product. Colouring the remaining ten screens is deliberately a later phase, because a screen is built once, when everything it needs already exists.
   </footer>
 </div>
 
@@ -149,7 +296,9 @@
 </script>
 <script>
   window.NAV_BASE = '../';
-  window.NAV_SECTIONS = [];
+  window.NAV_SECTIONS = [
+    { id:'delta', label:'Was to became' },
+  ];
 </script>
 <script src="../_nav.js"></script>
 </body>
