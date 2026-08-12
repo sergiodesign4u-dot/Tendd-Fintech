@@ -7,6 +7,46 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-12 - The last letter is petrol, with no condition, and the brand heads the rail
+
+Three corrections on the day the mark shipped, all from the founder looking at a real screen
+rather than at a plate. Two were asked for and the third was found while measuring the first.
+
+**The coloured letter loses its three conditions.** `logo-crop.html` made it depend on the word
+standing alone, on being above 20px, and on the mark being absent, "because the mark is already
+carrying the petrol and two petrol things beside each other is one too many". The product
+satisfies none of the three, so the rule shipped for one day as no colour at all, and the coloured
+letter would have stayed unbuilt and untested until stage 12.
+
+The concept's reason describes a bar with two saturated **objects** in it. What is on the screen
+is a 22px mark and one 16px glyph 46px to its right, and the pair reads as one lockup rather than
+as two claims. The rule is now: **the last letter is petrol.** No condition, at any size, with or
+without the mark. Rejected: keeping the conditional rule and building none of it, which is how a
+brand rule becomes a paragraph nobody has ever seen rendered.
+
+The sentence this overrules is **left standing** on the concept page. That page is the record of
+how the mark was found, not a live specification, and editing the record to match the outcome
+would destroy the only evidence that a decision was taken at all.
+
+**The brand heads the rail.** Founder: "the logo jumps down, and it should not, here or on any
+other page." Measured at 1280 before anything was touched: the lockup sat 8px from the top of the
+bar on the ten screens with no leading control and **56px** on the eighteen carrying a back or a
+close. Walking from the list into a subscription moved the mark down 48px and walking back moved
+it up again. An identity whose vertical position depends on which screen you are on is not an
+identity.
+
+The same jump had a twin on mobile that the complaint did not name: the bar's three links each
+stand on the 44px tap floor and the brand stood on nothing, so a bar holding only the brand was
+41px tall against 61px everywhere else, on four screens. The brand now takes the same floor as
+every other slot, and the mark sits **19px from the top of the bar on all 28 screens, at both
+viewports, in both themes**.
+
+Fixed with `order: -1` on the lockup inside the 760 container block: same DOM, two arrangements,
+one per form factor. The row keeps the way out at the leading edge, which is right on a phone; the
+rail puts the brand at the head and the way out on the first line under it, which is what a rail
+is. Rejected: reordering the markup, which would have moved the way out off the leading edge at
+360 and traded a desktop defect for a mobile one.
+
 ## 2026-08-12 - The identity is Crop, and the wordmark reverses its tracking
 
 Thirteen logo directions were built as live HTML at real sizes on `design/concept/logo.html`. The
@@ -57,10 +97,11 @@ can I trust this". The brand answers "whose product is this", which is not a que
 of a screen ever asks. If the mark ever appears beside a number, that is the rule being broken and
 not the exception being used.
 
-**One consequence is already written into the system.** Beside the mark the wordmark is all ink,
-because the mark carries the petrol and two petrol things beside each other is one too many.
-`brand-wordmark.css` declares no colour at all, so the rule is enforced by absence rather than by
-a comment.
+**The consequence the concept drew from this did not survive the day.** It read: beside the mark
+the wordmark is all ink, because the mark carries the petrol and two petrol things beside each
+other is one too many. Overruled the same afternoon, in the entry above, after the founder looked
+at the pair on a real screen. The exception itself is unchanged and so is its boundary: what moved
+is how many petrol things the chrome may hold, not whether the content may hold any.
 
 `logo-crop.html` had already written this exception as a tag on its rules plate. `CLAUDE.md` had
 not, and a locked decision that only one file knows about is not locked. Both now carry it.

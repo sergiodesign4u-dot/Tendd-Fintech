@@ -157,9 +157,31 @@
    the spacing scale and is not a length; it stays as written. */
 .app .appbar .lockup {
   display: inline-flex; align-items: center;
+  min-height: var(--tap);
   gap: var(--space-8);
   margin-right: auto;
 }
+
+/* THE FLOOR IS THE SECOND HALF OF THE SAME FIX, and it is the one the founder's
+   complaint did not name but was also looking at. `.back`, `.close` and `.acct`
+   each stand on --tap, so a bar holding any of them is 61px tall. The brand stood
+   on nothing, so a bar holding ONLY the brand was as tall as the brand: measured
+   at 360 before this line, 24 screens at 61px and four at 41px, with the mark
+   riding 10px higher on Guided reveal, its empty state, Settings with no account
+   and the upgrade transit screen. Walking into any of those four moved the mark
+   up and shrank the chrome under it.
+
+   The floor goes on the lockup and NOT on the bar, and the difference is not
+   stylistic. On the bar it would have to be written as a calc of the tap floor
+   plus both paddings, because box-sizing is border-box, and that number would
+   then have to be corrected by hand every time the padding moved. On the lockup
+   it is the same --tap every other slot in this bar already reads, and the bar's
+   height goes on being whatever its tallest slot needs. It also survives the
+   rail, where the slot is a row of a column and the floor still applies.
+
+   Measured after, at both viewports and in both forms: the MARK sits 19px from
+   the top of the bar on all 28 coloured screens, and the bar is 61px on all 28
+   at 360. */
 
 /* ---- the account link ------------------------------------------------------
    "Hi, Emma" on 10 pages, and it is a greeting rather than a label: the trailing
@@ -315,6 +337,21 @@
   border-right: 0;
 }
 
+/* AND THE OPT-OUT HAS TO COVER THE BRAND'S ORDER TOO, which it did not for one
+   round and the screens said so. `order: -1` on the lockup is declared inside the
+   760 block for the RAIL, where the bar is a column and the brand belongs at its
+   head. The chain opts out of the column and keeps its row, but the order rule
+   does not know that: for one round the seven chain screens put the brand at the
+   leading edge of a ROW at 1280 and pushed the way out to its right. Measured,
+   which is how it was found: the lockup at left 89 on add-subscription at 360 and
+   left 16 at 1280, on a bar that is a row at both.
+
+   In a row the leading edge belongs to the way out, on a phone and on a desktop
+   alike, and that is the whole reason the DOM order is what it is. 0-4-0 against
+   the 0-3-0 inside the query, so it wins wherever it is written and is kept here
+   beside the opt-out it belongs to rather than repeated inside the query. */
+.app.flow .appbar .lockup { order: 0; }
+
 /* ============================================================================
    THE 760 CONTAINER: the bar stops being a bar and becomes the head of a rail.
 
@@ -350,6 +387,38 @@
     gap: var(--space-4);
     border-right: 1px solid var(--line-container);
   }
+  /* THE BRAND IS FIRST IN THE RAIL, AND IT IS A FIX RATHER THAN A PREFERENCE.
+     2026-08-12, founder: "the logo jumps down, and it should not, here or on any
+     other page."
+
+     Measured before it was touched. In the rail the bar stacks its slots in DOM
+     order, and the DOM order is the one the ROW needs: the way out is at the
+     leading edge on mobile, which is correct there and is not a statement about
+     the brand. Stacked, it puts the way out on line 1 and the brand under it, so
+     the brand's vertical position depends on whether the screen has a way out at
+     all: 8px from the top of the bar on Home and the other nine screens with no
+     leading control, and 56px on the eighteen that carry `.back` or `.close`.
+     Walking from the list into a subscription moved the mark down 48px, on the
+     walk this person does most often, and the same 48px moved it back.
+
+     An identity that is 48px lower on some screens than on others is not an
+     identity, it is a list item. `order` is the whole fix: same DOM, two
+     arrangements, one per form factor. On mobile the row keeps the way out at
+     the leading edge; in the rail the brand takes the head and the way out
+     becomes the first line of the navigation under it, which is what a rail is.
+
+     IT COSTS NOTHING IN THE TAB ORDER, and that is checked rather than assumed.
+     `order` moves the visual order and never the tab order, which is the usual
+     reason to avoid it. The lockup holds a span and an empty span: nothing in it
+     is focusable, so there is no focusable element whose visual and tab position
+     could disagree. If the lockup ever becomes the way home, this line has to be
+     revisited with the markup, and that is written down here rather than found
+     later.
+
+     Measured after: the lockup is at 8px from the top of the bar on all 28
+     coloured screens at 1280, and 16px from its left edge on all 28. */
+  .app .appbar .lockup { order: -1; }
+
   /* Same specificity as the base rule above, 0-3-0, and later in the file, so it
      wins by source order. Preserved in kit.css's own order for that reason. */
   .app .appbar .acct {

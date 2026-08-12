@@ -63,8 +63,8 @@ Founder, June 14 2026 (ground in `research/docs/strategy.md` section 6):
   red; a price change is calm amber, a genuine error desaturated clay.
 - **D-Brand** (2026-08-12) The identity is Crop: one letterform larger than any frame, and a
   window cut out of it. Crop A is the mark, at 22px in the app bar and as the favicon and touch
-  icon; the wordmark is Inter 800 at -0.02em with the `dd` pair at -0.09em, all ink beside the
-  mark. The brand is petrol's **fourth place and not a fourth job**: chrome only, never inside a
+  icon; the wordmark is Inter 800 at -0.02em with the `dd` pair at -0.09em and the **last letter
+  petrol everywhere**, with no condition. The brand is petrol's **fourth place and not a fourth job**: chrome only, never inside a
   screen's content. Ground and the five rules in `DESIGN.md`, section The brand.
 
 ## Design principles

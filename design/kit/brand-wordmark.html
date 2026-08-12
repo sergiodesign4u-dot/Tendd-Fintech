@@ -54,14 +54,15 @@
     <p class="note"><b>The live specimen stands where the component has ground.</b> The word takes its ink by inheritance and its place from the app bar, so a specimen floating on a blank canvas would be measuring neither. This is the bar on all 28 coloured screens.</p>
     <div class="kit-stage app bleed full rail">
       <header class="appbar">
-        <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span>
+        <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
         <a class="acct" href="#anatomy" aria-label="Hi Emma, open your account">Hi, Emma</a>
       </header>
     </div>
     <ul class="kit-callouts">
       <li><code>.wordmark</code> <span>weight <b>800</b>, the heaviest Inter the product ships, at <code>--type-sub</code> with <b>-0.02em</b> of tracking. Sixteen pixels is the step the bar has always set, and it did not move</span></li>
       <li><code>.dd</code> <span><b>-0.09em</b> on top of that, until the bowls almost meet. This is the one thing in the wordmark that is a drawing rather than a setting, and it is why the markup carries a span the app bar never needed</span></li>
-      <li><code>color</code> <span><b>not declared, and that is not an omission.</b> Beside the mark the word is all ink, because the mark is already carrying the petrol and two petrol things beside each other is one too many. Inheritance enforces the rule by absence, which is the only way it cannot drift</span></li>
+      <li><code>color</code> <span><b>not declared on the word, declared on one letter.</b> The word inherits the ink of whatever holds it, which inside the bar is <code>--text-primary</code>. Only <code>.hi</code> names a colour</span></li>
+      <li><code>.hi</code> <span><b>the last d, and the only coloured letter in the brand.</b> It reads <code>--text-action</code>, the semantic role, so the dark theme gives it the lightened petrol for nothing. It sits <i>inside</i> <code>.dd</code>, so it inherits the pair's tracking rather than declaring its own: the drawing and the colour are two facts about the same pair</span></li>
       <li><code>font-size</code> <span><code>--type-sub</code>. The only token this component reads, and it is the same one <code>app-bar.css</code> read on its behalf until the split</span></li>
     </ul>
   </section>
@@ -73,7 +74,7 @@
       <table>
         <thead>
           <tr>
-            <th>Where it stands<p class="axis-rule">The question is never the size. It is whether the mark is present: if it is, the mark carries the colour and the word carries none</p></th>
+            <th>Where it stands<p class="axis-rule">There is no condition on it any more. The last letter is petrol wherever the word appears, at any size, with or without the mark beside it. The concept had three conditions and the product satisfied none of them, so the rule would have been unbuilt and untested until stage 12</p></th>
             <th class="val">Tokens</th>
             <th>Where it stands</th>
           </tr>
@@ -81,30 +82,25 @@
         <tbody>
           <tr>
             <td><b>In the lockup</b> <code>.wordmark</code></td>
-            <td class="val">--type-sub<br>800 / -0.02em<br>ink, inherited</td>
-            <td>The app bar, on all 28 coloured screens. The mark is there, so the word is all ink</td>
+            <td class="val">--type-sub<br>800 / -0.02em<br>ink, inherited<br>.hi --text-action</td>
+            <td>The app bar, on all 28 coloured screens, and the only host today. The last <b>d</b> is petrol here as it is everywhere</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span></header></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span></header></div></td></tr>
           <tr>
-            <td class="kit-empty">Standing alone, above 20px</td>
+            <td class="kit-empty">Three conditions the concept wrote</td>
             <td class="kit-empty">-</td>
-            <td>The second <b>d</b> takes petrol when the word stands by itself. <b>Not built:</b> the word never stands alone today, and the two hosts that would carry it, a launch screen and a coloured landing, do not exist. It arrives with the first of them</td>
-          </tr>
-          <tr>
-            <td class="kit-empty">Below 20px with no mark</td>
-            <td class="kit-empty">-</td>
-            <td>All ink: the colour stops reading at that size. Locked at Concept, no host in the product</td>
+            <td><b>Overruled 2026-08-12, by the founder, in the product.</b> The concept made the coloured letter conditional: petrol when the word stands alone, above 20px, and all ink beside the mark, because the mark already carries the petrol. Looked at on a real screen, what is there is a 22px mark and one 16px glyph 46px to its right, and the pair reads as one lockup rather than as two claims. The conditions are gone and the letter is petrol everywhere. The sentence they came from is left standing on the concept page: that page records how the mark was found, and it is not a live spec</td>
           </tr>
           <tr>
             <td class="kit-empty">On a photograph or a partner page</td>
             <td class="kit-empty">-</td>
-            <td>Ink or white, and never petrol. No host, and the rule is written down so that the first person to need it does not have to decide it</td>
+            <td>Ink or white, and never petrol. The one condition that survives, because it is about a ground this system does not own. No host in the product, and the rule is written down so the first person to need it does not have to decide it</td>
           </tr>
         </tbody>
       </table>
     </div>
     <p class="note"><b>-0.02em here and -0.035em on the concept page, and the difference is not a compromise.</b> Tracking is an optical correction, and the tighter a setting is the more of it a large size can carry. The concept sets the hero at -0.035em and its own bar plate at -0.02em; at 16px the hero's value starts closing the counters. Both numbers are read from that page and neither is chosen here.</p>
-    <p class="note"><b>The trailing pull is measured and it is kept.</b> Letter-spacing lands after EVERY character in a span, the last one included, so the pair's -0.09em also pulls the word's right edge in by 1.44px at 16px. It costs nothing: the lockup is followed by <code>margin-right: auto</code> on all 28 screens, so nothing sits against that edge. Removing it would mean wrapping the second <b>d</b> in a span of its own to carry a positive correction, and one span is the drawing where two spans would be an apology for it.</p>
+    <p class="note"><b>The trailing pull is measured and it is kept.</b> Letter-spacing lands after EVERY character in a span, the last one included, so the pair's -0.09em also pulls the word's right edge in by 1.44px at 16px. It costs nothing: the lockup is followed by <code>margin-right: auto</code> on all 28 screens, so nothing sits against that edge. The second <b>d</b> does now carry a span of its own, for the colour, so a positive correction could be hung on it. It is not: the pull is invisible against an auto margin, and a correction that fixes nothing a person can see is a value the next reader has to explain.</p>
   </section>
 
   <section class="kit-sec" id="usage">
@@ -119,19 +115,19 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">The pair closes</span>
-        <div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span><span class="chip">Free</span></header></div>
+        <div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span><span class="chip">Free</span></header></div>
         <p>The two <b>d</b>'s track further in than the rest of the word, until the bowls almost meet. It is the same move the mark makes: the identity is a letter that has been crowded on purpose, and the word repeats it. Two <b>d</b>'s at the word's own spacing look like a typing mistake somebody kept.</p>
       </div>
       <div class="no">
         <span class="hd">The pair left open</span>
         <div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Tendd</span></span><span class="chip">Free</span></header></div>
-        <p>The same class with the span left out, drawn here for real rather than mocked. Everything is right except the drawing: 800, -0.02em, all ink. What is missing is 1.44px, and it is the difference between a name set boldly and a name that has been designed.</p>
+        <p>The same class with the span left out, drawn here for real rather than mocked. Everything is right except the drawing: 800, -0.02em, and the coloured letter is still there because <code>.hi</code> does not depend on <code>.dd</code>. What is missing is 1.44px, and it is the difference between a name set boldly and a name that has been designed.</p>
       </div>
     </div>
     <div class="kit-do">
       <div class="yes">
         <span class="hd">The name as a mark</span>
-        <div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span></header></div>
+        <div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span></header></div>
         <p>In the bar, beside the mark, once. This is the only place the component belongs, and the count is one per screen on all 28.</p>
       </div>
       <div class="no">
@@ -155,7 +151,8 @@
         <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
         <tbody>
           <tr><td>the size</td><td><code>--type-sub</code></td><td>16px, primitive, straight. The step the bar always set, and the one value in this component that did not move</td></tr>
-          <tr><td>the ink</td><td>none, and that is the rule</td><td>inherited. <code>--text-primary</code> inside the bar, 17.4:1 light and 15.0:1 dark. Beside the mark the word carries no colour of its own, so the rule cannot be broken by editing this file</td></tr>
+          <tr><td>the word's ink</td><td>none</td><td>inherited. <code>--text-primary</code> inside the bar, 17.4:1 light and 15.0:1 dark. Four of the five letters carry no colour of their own, so nothing here can be broken by editing this file</td></tr>
+          <tr><td>the last letter</td><td><code>--text-action</code></td><td><code>--petrol</code>, and <code>--petrol-dark</code> in the dark theme. <b>6.2:1</b> light and <b>6.8:1</b> dark on the bar, measured against the 4.5:1 <b>ink</b> threshold with the large-text allowance unused. WCAG 1.4.3 would exempt a logotype outright; this system does not take the exemption, because this glyph is half the name</td></tr>
           <tr><td>the weight and both trackings</td><td>literals</td><td><code>800</code>, <code>-0.02em</code>, <code>-0.09em</code>. Em tracking follows the type step it sits on, so it has nothing to override and no theme can want it different</td></tr>
           <tr><td>states</td><td>none</td><td>not interactive, see above</td></tr>
         </tbody>

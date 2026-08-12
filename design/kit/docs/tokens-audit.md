@@ -916,3 +916,104 @@ corpus gets no icon on purpose: it is the structure contract and it is not the p
 - The two grey `wireframes/` pages and the coloured ones now disagree about the app bar's brand
   slot: the grey writes `.wordmark`, the colour writes `.lockup`. That is the frozen corpus doing
   its job, and it is stated on `app-bar.html` beside the table that counts it.
+
+### Three corrections the same day, all from the founder looking at a real screen
+
+**1. The brand was 48px lower on eighteen screens than on the other ten.**
+
+In the rail the bar stacks its slots in DOM order, and the DOM order is the one the ROW needs:
+the way out sits at the leading edge on mobile, which is correct there and says nothing about the
+brand. Stacked, it put the way out on line 1 and the brand under it, so the brand's vertical
+position depended on whether the screen had a way out at all. Measured before anything was
+touched, at 1280:
+
+| Screens | Lockup, from the top of the bar |
+|---|---|
+| the 10 with no leading control (Home, Settings, the reveal) | **8px** |
+| the 18 carrying `.back` or `.close` | **56px** |
+
+Walking from the list into a subscription moved the mark down 48px, and walking back moved it up
+again, on the walk this person does most often. An identity that is 48px lower on some screens
+than on others is not an identity, it is a list item.
+
+Fixed with one declaration inside the 760 container block: `.app .appbar .lockup { order: -1 }`.
+Same DOM, two arrangements, one per form factor. On mobile the row keeps the way out at the
+leading edge; in the rail the brand takes the head and the way out becomes the first line of the
+navigation under it, which is what a rail is. It costs nothing in the tab order, because nothing
+inside the lockup is focusable; the day it becomes the way home, that line has to be revisited
+with the markup, and app-bar.css says so where it stands. Measured after: **8px from the top and
+16px from the left on all 28 screens.**
+
+**1b. The same jump on mobile, which the complaint did not name and was also looking at.**
+
+Tracing the first one turned up its twin. `.back`, `.close` and `.acct` each stand on `--tap`, so
+a bar holding any of them is 61px tall; the brand stood on nothing, so a bar holding **only** the
+brand was as tall as the brand. Measured at 360: **24 screens at 61px and four at 41px**, with the
+mark riding 10px higher on Guided reveal, its empty state, Settings with no account and the
+upgrade transit screen. Walking into any of those four moved the mark up and shrank the chrome
+under it.
+
+The floor went on the lockup and not on the bar. On the bar it would have to be a calc of the tap
+floor plus both paddings, because box-sizing is border-box, and that number would need correcting
+by hand every time the padding moved. On the lockup it is the same `--tap` every other slot in the
+bar already reads, and the bar goes on being as tall as its tallest slot.
+
+**One regression, found by measuring rather than by looking.** `order: -1` is declared inside the
+760 block for the rail. The onboarding chain opts out of the column and keeps its row, and the
+order rule did not know that: for one round the seven chain screens put the brand at the leading
+edge of a ROW at 1280 and pushed the way out to its right. Caught because the lockup measured left
+89 at 360 and left 16 at 1280 on a bar that is a row at both. Closed with
+`.app.flow .appbar .lockup { order: 0 }`, at 0-4-0, beside the opt-out it belongs to.
+
+**Measured after all three, on all 28 coloured screens, at both viewports and in both themes: the
+mark sits 19px from the top of the bar. One number, twenty-eight screens, four combinations.**
+
+**2. The last letter is petrol, and it overrules the concept.**
+
+`logo-crop.html` made the coloured letter conditional on three things: the word standing alone,
+above 20px, and all ink beside the mark. The product satisfies none of the three, so the rule
+shipped for one day as "no colour at all" and the coloured letter would have stayed unbuilt and
+untested until stage 12.
+
+The founder looked at it in the product and asked for the letter anyway. The concept's reason
+describes a bar with two saturated OBJECTS in it; what is on the screen is a 22px mark and one
+16px glyph 46px to its right. `.hi` now reads `--text-action`, measured 6.2:1 light and 6.8:1 dark
+against the 4.5:1 ink threshold, with the logotype exemption deliberately not taken. The markup
+is `Ten<span class="dd">d<span class="hi">d</span></span>`, nested rather than flat, so the colour
+inherits the pair's tracking instead of repeating it.
+
+The rule that replaces three conditions is: **the last letter is petrol.** The sentence it
+overrules is left standing on the concept page rather than quietly edited, because that page
+records how the mark was found and is not a live specification.
+
+### A defect this found and did NOT fix: the review chrome moves the product's breakpoint
+
+Tracing the jump across ten widths turned up something that has nothing to do with the brand and
+is worse than the thing being looked for. The bar's form is **not monotonic in window width**:
+
+```
+ 720 row      760 column   800 column   860 row   900 row   960 row   1024 column   1280 column
+```
+
+`design/_screen.css:192` gives `body { padding-left: 220px }` at `@media (min-width: 840px)`, to
+dock the reviewer's screen panel. `base.css` declares the product's container on `body`, and a
+container query reads the CONTENT box, so between 840 and about 980 the product is asked whether
+it is at least 760 wide while holding 620 to 760. It answers no, and every coloured screen renders
+its **mobile** layout inside a desktop window.
+
+Three things follow, and the third is the reason this is written down rather than fixed in
+passing:
+
+1. It is not the brand's doing. It has been true since the panel and the body container met, and
+   it moves the tab bar and the dashboard head as well as the app bar.
+2. Both accepted viewports miss it. 360 and 1280 sit either side of the band, which is exactly the
+   shape of the defect `CLAUDE.md` already names: a measure that quietly stops being applied at a
+   wider container looks calm.
+3. **The fix is a decision about the instrument, not a value.** A docked 220px panel and a
+   full-width product cannot both have the screen. Moving the panel's breakpoint to 980 repairs
+   the 760 boundary and leaves the 900 one broken by the same 220px; making the panel an overlay
+   at every width repairs all of them and costs the always-visible screen list. That is the
+   founder's call, so it is a row here and not an edit.
+
+Until it is decided, one thing is true and worth saying out loud: **a coloured screen reviewed
+between 840 and 980 is not showing what it ships.**

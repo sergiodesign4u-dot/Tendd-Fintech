@@ -17,21 +17,31 @@
    that is not the bar's. The bar keeps what is genuinely its own, which is where
    the lockup sits in the row and what happens to it when the row becomes a rail.
 
-   NO COLOUR IS DECLARED HERE, and that is not an omission. The word inherits the
-   ink of whatever holds it, which is exactly the brand rule: beside the mark the
-   word is all ink, because the mark is already carrying the petrol, and two
-   petrol things beside each other is one too many. Inside the bar that inherited
-   ink is --text-primary from base.css. When the word one day stands on a
-   photograph or a partner page it takes ink or white and never petrol, and
-   inheritance gives that for free.
+   THE WORD ITSELF DECLARES NO COLOUR, and that is not an omission: it inherits
+   the ink of whatever holds it, which inside the bar is --text-primary from
+   base.css. When the word one day stands on a photograph or a partner page it
+   takes ink or white and never petrol, and inheritance gives that for free.
 
-   THE COLOURED d IS NOT DECLARED, AND IT IS NOT MISSING. The brand rule says the
-   second d takes petrol when the word stands ALONE above 20px. Today the word
-   never stands alone: it is in the lockup on all 28 screens, and the two hosts
-   that would carry it standing alone (a launch screen, a coloured landing) do not
-   exist. A `.hi` rule written now would be a variant the product does not carry,
-   which is the same offence as an invented state. The rule is written on the kit
-   page with the host it is waiting for.
+   THE SECOND d IS PETROL EVERYWHERE, 2026-08-12, AND IT OVERRULES THE CONCEPT.
+   `logo-crop.html` gives the lockup a colour rule of its own: beside the mark the
+   word is ALL INK, because the mark already carries the petrol and two petrol
+   things beside each other is one too many. This file shipped that rule for one
+   day, by declaring nothing.
+
+   The founder looked at it in the product and asked for the coloured letter
+   anyway. The concept's reason describes a bar with two saturated OBJECTS in it;
+   what is actually on the screen is a 22px mark and a single 16px glyph 46px to
+   its right, and the pair reads as one lockup rather than as two claims. It is
+   the founder's call, it is recorded as one in docs/decisions.md, and the
+   sentence it overrules is left standing on the concept page rather than quietly
+   edited: that page is the record of how the mark was found, not a live spec.
+
+   The rule that replaces it is SIMPLER, which is the part worth keeping. It was
+   "petrol when the word stands alone, above 20px, and ink beside the mark":
+   three conditions, and the product satisfies none of them today, so the rule
+   would have been unbuilt and untested until stage 12. It is now "the last letter
+   is petrol", with no condition at all. A rule with two exceptions in it is a
+   rule nobody applies correctly at the fifth screen.
 
    NOT INTERACTIVE. It is a span on all 28 screens and never an anchor, so no
    states are declared. If it becomes the home link at stage 12, the anchor gets
@@ -80,6 +90,28 @@
    two spans would be an apology for it. */
 .app .wordmark .dd {
   letter-spacing: -0.09em;
+}
+
+/* ---- the coloured letter ---------------------------------------------------
+   The last d, and the ONLY coloured letter in the brand. It reads --text-action,
+   the semantic role, and never --petrol: the role is what gives it a dark pair
+   for nothing, and in the dark theme the letter takes the lightened petrol the
+   same way every other accent does.
+
+   MEASURED IN BOTH THEMES, against the ink threshold and not the logotype
+   exemption. --text-action on --bg-surface is 6.2:1 light and 6.8:1 dark, so a
+   16px glyph clears 4.5:1 in both with the large-text allowance unused. WCAG
+   1.4.3 would exempt it outright as part of a logo; this system does not take
+   the exemption, because a letter nobody can read is still a letter nobody can
+   read, and this one is half the name.
+
+   It sits INSIDE `.dd`, so it inherits the pair's -0.09em rather than declaring
+   tracking of its own. That nesting is the reason the markup is
+   `Ten<span class="dd">d<span class="hi">d</span></span>` and not two flat spans:
+   the drawing and the colour are two facts about the same pair, and flattening
+   them would mean writing -0.09em twice and letting the two copies drift. */
+.app .wordmark .hi {
+  color: var(--text-action);
 }
 
 /* NO `.landing` TWIN. Same reason as brand-mark.css: the coloured landing does

@@ -474,10 +474,19 @@ and 0 coloured ones, and the launch screen does not exist. A variant with no hos
    letter together, and only A has it.
 
 **The wordmark** is Inter 800 at 16px with -0.02em, and the `dd` pair a further -0.09em until the
-bowls almost meet. Beside the mark it is **all ink**, because the mark is already carrying the
-petrol and two petrol things beside each other is one too many. That rule is enforced by absence:
-`brand-wordmark.css` declares no colour at all. Standing alone above 20px the second `d` takes
-petrol; that form is locked and not built, because the word never stands alone today.
+bowls almost meet. **The last letter is petrol, everywhere, with no condition:** it reads
+`--text-action`, so the dark theme gives it the lightened petrol for nothing, and it measures
+6.2:1 light and 6.8:1 dark against the 4.5:1 ink threshold. The other four letters declare no
+colour at all and inherit the ink of whatever holds them; on a photograph or a partner page the
+whole word is ink or white and never petrol.
+
+That rule replaced a conditional one on 2026-08-12, on the founder's call after looking at the
+product. The concept had made the colour depend on three things: petrol when the word stands
+alone, above 20px, and all ink beside the mark, because the mark already carries the petrol and
+two petrol things beside each other is one too many. What is actually on a screen is a 22px mark
+and one 16px glyph 46px to its right, and the pair reads as one lockup rather than as two claims.
+The product satisfied none of the three conditions, so the coloured letter would have stayed
+unbuilt and untested until stage 12.
 
 **Petrol's fourth place, and the boundary that comes with it.** The Named Rule below spends petrol
 on the primary action, the current selection and the trust line "and nowhere else". The brand is
