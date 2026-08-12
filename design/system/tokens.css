@@ -21,6 +21,27 @@
    declared it text. Ink roles carry the -text suffix; measured figures for BOTH
    themes stand next to each role.
 
+   EVERY ROLE CARRIES ITS ORIGIN AND TWO COUNTS, swept in on 2026-08-12 at step 9
+   after five roles were found carrying no count at all and one stating it as a
+   word. The ORIGIN is the DESIGN.md entry the value was picked from, carried over
+   here rather than left there, because DESIGN.md was generated FROM the code and
+   the code is the thing that gets edited: a role that cannot name its entry is a
+   value nobody is able to refuse to change. The COUNTS are TWO DIFFERENT CORPORA
+   and are labelled so, because read as one they look like a contradiction. The
+   figure already in a comment is the KIT-ERA count the role grew from, taken in
+   kit.css and on the coloured pages before this file existed, and it is the
+   evidence that the role was a pattern and not a preference. The figure marked
+   "Today" is what reads the role NOW: `var(--role` across base.css and every
+   stylesheet in components/, counted mechanically on 2026-08-12, as occurrences
+   and as FILES. Written without a glob on purpose: a `*` after a slash inside a
+   comment is a false comment opening, and the balance check this file is verified
+   with counts markers rather than parsing them.
+   The two figures rarely agree and are not meant to. One component file serves
+   every page that wears the component, so a role written once here can paint
+   thirty screens, and the kit-era figure counted the screens. The finding this
+   sweep was looking for is a role at 0 today, which would be a role the product
+   stopped reading and nobody noticed; there is none.
+
    GEOMETRY gets no semantic level. A radius and a spacing have nothing to
    override: no theme and no rebrand moves them, they simply repeat. Components
    read them straight from primitive.
@@ -156,6 +177,36 @@
 
   --tap:   44px;         /* the floor a pointer target may not go under */
   --row:   56px;         /* the list row, comfortably over the floor */
+  /* THE RAIL ROW, 2026-08-12, and the third size primitive because two were never
+     enough. It is neither --tap (44) nor --row (56), and the gap between those two
+     is exactly the problem: a destination in the desktop rail is not a bare target,
+     so 44 is too tight for a row a person reads down a column of, and it carries one
+     line of ink rather than two, so 56 is loose enough to make four destinations
+     look like a list of subscriptions. Nor is it --space-48 wearing another hat. A
+     min-height is not a margin, a padding or a gap, so the 8px spacing grid does not
+     govern it, and folding it there would say that the height of a navigation row
+     and the air between two blocks are the same KIND of measurement, which is the
+     same mistake --ring, in the spacing block below, refuses for the focus outline.
+     PROPOSED AT STAGE 07, DEFERRED TO STAGE 08, AND STAGE 08 DID NOT CREATE IT,
+     which is why tab-bar.css:195 calls its own 48 "the one literal size in this
+     file" and why the geometry triage closed with two literals still owed a token.
+     ITS INTENDED CONSUMER IS `tab-bar.css:min-height: 48px`, in the 760 container
+     query where the tab bar becomes the rail, AND IT HAS NOT BEEN REPOINTED YET:
+     the component files are another agent's to edit. The name is declared first on
+     purpose, because the rule is that a missing detail enters the system and the
+     screen reads it second, never the reverse. Nothing moves when it is repointed:
+     48 is 48.
+     IT IS NOT alert-item.css's 40px. That file's own comment settles it: the 40 is a
+     line box on a span with no href, not a rail row and not a target, and the anchor
+     around it is what carries the floor. A second consumer at a different number
+     would make this token a bag of sizes rather than a form.
+     AN UNREAD TOKEN IS NORMALLY THE DEFECT THIS FILE ARGUES AGAINST, in the words
+     it uses to refuse --opacity-disabled below. The refusal there holds because
+     that token had no consumer and inventing one would have changed how every
+     disabled control renders. This one has a consumer already written, named at its
+     file and line, at the value it already serves. It is the --space-56 case rather
+     than the --opacity-disabled case: a step in a scale, declared whole. */
+  --tap-rail: 48px;      /* the rail form's row height */
 
   /* ==========================================================================
      PRIMITIVE - the type scale
@@ -236,34 +287,74 @@
 
   --bg-page:      var(--canvas);
       /* the ground under every screen: all 28 coloured pages (home, subscription-detail,
-         settings). fill, 3:1 not applicable, nothing sits behind it */
+         settings). fill, 3:1 not applicable, nothing sits behind it.
+         origin: DESIGN.md > Colors > Neutral, Canvas #eef3f4, "the ground the paper sits
+         on, and the callout fill". Today: 1 var(), 1 file, at the floor of this file's
+         counts and correctly there: the shell paints the ground once and every screen
+         inherits it, so a second usage would be a screen repainting what it stands on */
   --bg-surface:   var(--paper);
       /* card, row, app bar, tab bar: 25 usages in kit.css (.app, .appbar, .panel).
-         fill. 1.12 against --bg-page in both themes, by design: the hairline separates */
+         fill. 1.12 against --bg-page in both themes, by design: the hairline separates.
+         origin: DESIGN.md > Colors > Neutral, Paper #ffffff, "cards, rows, the app bar,
+         the tab bar. The product's content surface". Today: 20 var(), 17 files */
   --bg-recessed:  var(--panel);
       /* row hover, the desktop rail, a disabled control: 14 usages (.row:hover,
-         .tabbar at 760, .btn[disabled]). fill */
+         .tabbar at 760, .btn[disabled]). fill.
+         origin: DESIGN.md > Colors > Neutral, Panel #f4f7f8, "the row hover and the
+         desktop rail". Today: 11 var(), 8 files. The DESIGN.md entry hands one value the
+         resting job and the hover job in one breath, which is the sentence --bg-hover
+         below was split out of: the document recorded the pair before the file did */
   --bg-callout:   var(--canvas);
       /* the wash inside a card: 5 usages (.wash, the logo placeholder, .chip.cancelled).
          SAME VALUE as --bg-page today, different role: a page ground and a raised
-         block's fill can part company, and in the dark half below they already have */
+         block's fill can part company, and in the dark half below they already have.
+         origin: DESIGN.md > Colors > Neutral, Canvas #eef3f4, and its entry gives the one
+         value BOTH jobs in one line, "the ground the paper sits on, AND the callout
+         fill", so the split was latent in the prose before it was a token.
+         Today: 3 var(), 2 files */
   --bg-selected:  var(--petrol-tint);
       /* the current choice: 8 usages (.tile[aria-pressed], .range button[aria-pressed],
-         .trust a). fill. taste: attribute "calm" */
+         .trust a). fill. taste: attribute "calm".
+         origin: DESIGN.md > Colors > Primary, Petrol Tint #e7edee, "backs the Pro label
+         and the selected row in the master pane, and is the only place the accent appears
+         as a surface". Today: 2 var(), 2 files */
   --bg-attention: var(--amber-wash);
-      /* a price change: 4 usages (.wash.attention, .charges li.marked). fill */
+      /* a price change: 4 usages (.wash.attention, .charges li.marked). fill.
+         origin: DESIGN.md > Colors > Secondary, Amber "#8a5c0c on a #f6efe0 wash", "a
+         price change. Warm, readable, and never red". Today: 2 var(), 2 files */
   --bg-failure:   var(--clay-wash);
       /* OUR failure, never the merchant's: 3 usages (.wash.error, the invalid field).
-         fill */
+         fill.
+         origin: DESIGN.md > Colors > Secondary, Clay "#9a5842 on a #f3e9e5 wash", "a
+         genuine failure, and only a genuine failure". Today: 3 var(), 3 files */
   --bg-status:    var(--stone);
       /* the quiet chip: 1 rule, and it is the chip base every status badge in the
-         product shares, so it repeats on 36 pages. fill */
+         product shares, so it repeats on 36 pages. fill.
+         origin: DESIGN.md > Components > Badges > Status, "grey on grey (#4f5e62 on
+         #e9eeef), 6px radius, not uppercased"; the value has no entry in the Colors
+         section, it is named where the badge is. Today: 1 var(), 1 file, which is the
+         same 1 rule the kit-era figure counted: this role never grew and never had to */
   --bg-trial:     var(--teal-wash);
       /* the trial chip: 1 rule on 1 page. Kept because a chip tone is a domain state
-         and the pair (--bg-trial, --text-trial) is what makes it one. fill */
+         and the pair (--bg-trial, --text-trial) is what makes it one. fill.
+         origin: DESIGN.md > Components > Badges > Trial, "the same shape in the cool
+         trial pair (#185862 on #dfeef0)". Today: 1 var(), 1 file */
   --bg-placeholder: var(--skeleton);
-      /* loading: 2 usages on 89 grey pages (.skel, .logo.is-skel). fill */
+      /* loading: 2 usages on 89 grey pages (.skel, .logo.is-skel). fill.
+         origin: DESIGN.md > Colors > Neutral, Skeleton #e2e9ea, "loading placeholders,
+         pulsing at 1.4s and stopped entirely under prefers-reduced-motion".
+         Today: 2 var(), 2 files */
   --bg-action:    var(--petrol);
+      /* the ONE filled action of a zone: 33 buttons across the product.
+         fill. taste: the primary action is one of petrol's three permitted jobs.
+         origin: DESIGN.md > Colors > Primary, Petrol #1c6a76, "the identity colour and
+         the only saturated thing on a screen", spent on three jobs of which this is the
+         first. Today: 2 var(), 1 file, and the collapse from 33 to 2 is the whole point
+         of the stage: 33 buttons became one .btn.primary that 33 buttons wear.
+         THIS COMMENT WAS MOVED BACK UP HERE ON 2026-08-12. The 2026-08-12 split below
+         was written between the declaration and its comment, so the paragraph naming
+         "the ONE filled action of a zone" had come to sit under --text-chip-accent and
+         read as that role's. Nothing but the comment moved */
   /* THREE ROLES SPLIT OFF ON 2026-08-12, sixth named source, and not one pixel moves:
      each keeps the value it is splitting from. The rule is this system's own, that two
      roles are two tokens even at one value today, and the test is whether they can ever
@@ -276,12 +367,31 @@
        the ink of the current destination, so a change to what "selected" means would
        have repainted a badge that is not selectable at all. */
   --control-accent: var(--petrol);
+      /* origin: DESIGN.md > Colors > Primary, Petrol #1c6a76. DESIGN.md has NO entry for
+         a control accent, and that is not an omission: at stage 07 there was no checkbox
+         in the product, so the role is younger than the document and inherits only the
+         primitive's origin. Today: 2 var(), 2 files (base.css and checkbox.css) */
   --bg-chip-accent: var(--petrol-tint);
+      /* origin: DESIGN.md > Components > Badges > Pro, "petrol on petrol tint, the one
+         badge allowed to carry the accent, because it names a plan rather than a state".
+         That clause is the split's own argument, written before the split: a badge that
+         names a plan is not a selected control, so it cannot go on borrowing the fill of
+         one. Today: 1 var(), 1 file */
   --text-chip-accent: var(--petrol);
-      /* the ONE filled action of a zone: 33 buttons across the product.
-         fill. taste: the primary action is one of petrol's three permitted jobs */
+      /* origin: the same Badges > Pro entry, which names the pair and not the fill alone.
+         Today: 1 var(), 1 file, the same rule as its fill.
+         AN INK ROLE DECLARED IN THE FILL BLOCK, beside the fill it was split with rather
+         than among the inks, because the pair is the thing the split created and parting
+         them on the page would invite the next reader to part them in the product. The
+         -text prefix still says which surface it answers to. It is the one ink role in
+         this file with no measured pair standing next to it; that figure was not taken
+         at the split and is not invented here */
   --bg-action-strong: var(--petrol-deep);
-      /* the same action under the pointer: 3 usages (.btn.primary:hover). fill */
+      /* the same action under the pointer: 3 usages (.btn.primary:hover). fill.
+         origin: DESIGN.md > Colors > Primary, Petrol Deep #175a64, "its pressed and hover
+         state". Today: 4 var(), 2 files, and the second file is the news: checkbox.css
+         reads it too, so the role outgrew the ".btn.primary:hover" the kit-era note
+         scopes it to. A pressed state is a pressed state whatever is being pressed */
 
   /* ==========================================================================
      SEMANTIC - inks. Threshold 4.5:1, or 3:1 from 24px / 19px bold.
@@ -289,37 +399,70 @@
 
   --text-primary: var(--ink);
       /* headings, merchant names, amounts: 36 usages, all 28 pages. ink.
-         17.4:1 on surface light, 15.0:1 on surface dark */
+         17.4:1 on surface light, 15.0:1 on surface dark.
+         origin: DESIGN.md > Colors > Neutral, Ink #141b1d, "every heading and every
+         number that matters. Near-black, not black". Today: 29 var(), 23 files */
   --text-body:    var(--slate);
       /* sentences and button labels: 30 usages (.btn, .textblock p, .promises li). ink.
-         10.2:1 light, 10.4:1 dark */
+         10.2:1 light, 10.4:1 dark.
+         origin: DESIGN.md > Colors > Neutral, Slate #384349, "body copy inside callouts
+         and dense blocks". Today: 21 var(), 19 files, and the 19 files are wider than
+         that entry: the document scopes slate to callouts and dense blocks, the role
+         serves every sentence and every button label in the product. The entry describes
+         where the value was FOUND, the role describes what it now answers for */
   --text-muted:   var(--muted);
       /* the single secondary tier, and there is no third: 59 usages, the largest role
          in the system (.muted, .row .when, .field label). ink.
-         5.8:1 light, 6.4:1 dark. taste: the Two Tiers Rule */
+         5.8:1 light, 6.4:1 dark. taste: the Two Tiers Rule.
+         origin: DESIGN.md > Colors > Neutral, Muted #5a686c, "the single secondary tier.
+         There is no third, lighter tier anywhere, which is what keeps every
+         text-on-surface pair above WCAG AA". Today: 44 var(), 30 files, still the
+         largest role in the file by both measures and in both corpora, which is what
+         having exactly two tiers costs and what it buys */
   --text-action:  var(--petrol);
       /* the trust link and the current destination: 9 ink usages (.trust a,
          .tabbar a.cur, .next:hover). ink, and the SAME VALUE as --bg-action with a
          different role and a different threshold: one is a fill at 3:1, this is text
-         at 4.5:1. 6.2:1 light, 6.8:1 dark */
+         at 4.5:1. 6.2:1 light, 6.8:1 dark.
+         origin: DESIGN.md > Colors > Primary, Petrol #1c6a76, the second and third of
+         its three permitted jobs, "the current selection" and "the trust line's shield".
+         Today: 17 var(), 10 files */
   --text-on-action: var(--paper);
       /* the label standing ON a filled action: `.btn.primary`, and the accent
          chip. ink. 6.2:1 light. In the dark theme it is NOT paper: a white label
          on the lightened petrol would fail, so it takes the dark canvas at 7.5:1.
          It read "6 usages (.btn.primary, .btn.inverse)" until step 6 deleted
          `.btn.inverse`, which was worn on zero pages in either corpus and was the
-         only other reading of this role in button.css */
+         only other reading of this role in button.css.
+         origin: DESIGN.md > Components > Buttons > Primary, "petrol fill, white label,
+         no border of its own"; the value is Paper #ffffff, but its Colors entry names
+         surfaces and this is the one place the paper value is ink.
+         Today: 2 var(), 1 file, and both are button.css. THE ACCENT CHIP NAMED ABOVE NO
+         LONGER READS THIS ROLE: --text-chip-accent split off on 2026-08-12 and took it,
+         so the sentence above is true of the day it was written and not of the count */
   --text-attention: var(--amber);
       /* the price-change sentence: 3 usages. ink. 5.1:1 on its own wash light,
-         7.2:1 dark */
+         7.2:1 dark.
+         origin: DESIGN.md > Colors > Secondary, Amber #8a5c0c, "a price change. Warm,
+         readable, and never red. A price going up is news, not an emergency".
+         Today: 1 var(), 1 file (wash-block.css). The marked charge in charge-list.css
+         reads the FILL alone and sets no ink of its own, letting the row inherit, so
+         the ink half of this pair narrowed to one consumer while the fill kept two */
   --text-failure: var(--clay);
       /* the failure sentence and the invalid hint: 5 usages. ink. 4.6:1 on its own
-         wash light, which is the tightest pair in the system, 7.3:1 dark */
+         wash light, which is the tightest pair in the system, 7.3:1 dark.
+         origin: DESIGN.md > Colors > Secondary, Clay #9a5842, "a genuine failure, and
+         only a genuine failure ... An empty state never gets clay, because nothing went
+         wrong in an empty state". Today: 2 var(), 2 files */
   --text-status:  var(--stone-ink);
       /* the quiet chip's label: 1 rule, 36 pages. ink. 5.8:1 on --bg-status light,
-         6.7:1 dark */
+         6.7:1 dark.
+         origin: DESIGN.md > Components > Badges > Status, the ink half of "grey on grey
+         (#4f5e62 on #e9eeef)". Today: 1 var(), 1 file */
   --text-trial:   var(--teal-ink);
-      /* the trial chip's label: 1 rule, 1 page. ink. 6.8:1 light, 7.4:1 dark */
+      /* the trial chip's label: 1 rule, 1 page. ink. 6.8:1 light, 7.4:1 dark.
+         origin: DESIGN.md > Components > Badges > Trial, the ink half of "the cool trial
+         pair (#185862 on #dfeef0)". Today: 1 var(), 1 file */
 
   /* ==========================================================================
      SEMANTIC - lines. Threshold 3:1 for anything that identifies a control;
@@ -329,13 +472,27 @@
   --line-control:  var(--edge);
       /* the boundary that IDENTIFIES a control: 6 usages (.input, .select, .btn,
          .tile, .door, .range button). line, 3:1 required.
-         3.46:1 on surface light, 3.10:1 on canvas light; 5.15:1 dark */
+         3.46:1 on surface light, 3.10:1 on canvas light; 5.15:1 dark.
+         origin: DESIGN.md > Colors > Neutral, Control Edge #7b8d91, "the boundary of a
+         control, and nothing else ... the lightest value on the hairline family that
+         clears 3:1 on all three grounds a control sits on: paper 3.46, canvas 3.10,
+         panel 3.22". Today: 7 var(), 7 files, one apiece, which is what a role scoped
+         to a kind of object rather than to a place looks like when it is being obeyed */
   --line-container: var(--hairline);
       /* the edge of a card, panel or list: 26 usages. line, DECORATIVE: nothing has
          to be found by touch, so 1.23:1 light is deliberate and 1.33:1 dark matches it.
-         Raising this was rejected on 2026-08-11: it outlines the whole product */
+         Raising this was rejected on 2026-08-11: it outlines the whole product.
+         origin: DESIGN.md > Colors > Neutral, Hairline #e4e9ea, "container edges", and
+         DESIGN.md > Shapes carries the argument for the split from --line-control.
+         Today: 16 var(), 15 files */
   --line-divider:  var(--hairline-soft);
-      /* between rows inside one container: 26 usages. line, decorative */
+      /* between rows inside one container: 26 usages. line, decorative.
+         origin: DESIGN.md > Colors > Neutral, Hairline Soft #eef2f3, "inner dividers",
+         named in the same entry as the hairline because the pair only means anything
+         together. Today: 29 var(), 23 files, which makes it the largest LINE role in the
+         file: the kit-era figures had it level with --line-container at 26 apiece, and
+         componentisation broke the tie toward the divider. The product is more list than
+         it is card, which is the shape the List Row signature predicts */
   --line-failure: var(--clay);
       /* the edge of an invalid field, and its focus ring while invalid: 2 usages
          (.field input[aria-invalid], .field select[aria-invalid]). line, 3:1.
@@ -345,18 +502,30 @@
          line, so an invalid border had nothing correct to read. The agent
          building the field did not invent one; it read --text-failure on loan
          with a comment saying so, and reported the hole. Same value, so nothing
-         moves when the loan is repaid here */
+         moves when the loan is repaid here.
+         origin: DESIGN.md > Colors > Secondary, Clay #9a5842, and the entry there scopes
+         clay to "the sync error and the could-not-load state" without naming an invalid
+         field at all, which is the SAME HOLE told from the document's end: the value had
+         two jobs recorded and this role is the third. Today: 4 var(), 2 files
+         (select.css and text-input.css, a border and its invalid focus ring in each) */
   --line-selected: var(--petrol);
       /* the current tab and the pressed tile: the line that says "this is the one
          you are on". line, 3:1 required. 6.2:1 light, 6.8:1 dark. THIRD role on the
          same value: a fill, an ink and a line, three thresholds, three tokens.
          IT NO LONGER CLAIMS THE FOCUS RING. Written at step 3 as "the current tab,
          the pressed tile, the focus ring", which made two roles answer for one job:
-         --color-focus below is declared for the ring and nothing else, and eight
+         --color-focus below is declared for the ring and nothing else, and 8
          component files already read it. base.css, which draws the ring for the
          whole system, was the one place reading this instead, and it was corrected
          at step 6. Same value, so nothing moved; what was wrong was the answer to
-         "which role owns this" on the day the two part company */
+         "which role owns this" on the day the two part company.
+         THE 8 WAS SPELLED "eight" until 2026-08-12, and a word is not a count: it does
+         not sort, it does not diff, and the next reader cannot tell a measurement from a
+         figure of speech. It is a digit now, at the value it was measured at on the day
+         of step 6; the figure has since grown to 16 component files, 17 with base.css.
+         origin: DESIGN.md > Colors > Primary, Petrol #1c6a76, "the current selection (the
+         active tab, the selected row, the chosen plan)", the second of its three jobs.
+         Today: 4 var(), 3 files (preset-tile, range-picker, tab-bar twice) */
   --line-action-soft: var(--petrol-tint);
       /* the underline under a petrol link, and nothing else: 1 usage
          (.trust a, on 11 grey pages and 9 coloured ones). line, and NOT governed by
@@ -368,7 +537,14 @@
          against palette inflation; the surface axis forbids outright what the
          alternative was, which is --bg-selected, a FILL, painting a line. One of the
          two had to give, and a role that is honest about its surface costs one line
-         of this file while a fill on a line costs the next theme its underline */
+         of this file while a fill on a line costs the next theme its underline.
+         origin: DESIGN.md > Colors > Primary, Petrol Tint #e7edee, whose entry calls it
+         "the only place the accent appears as a surface" - and this role is the sentence
+         going out of date, because it paints a LINE. The document was written when the
+         tint had one surface job; the surface axis has since given it three roles on
+         three surfaces. The value is unchanged and the entry is still where it came from.
+         Today: 1 var(), 1 file (trust-block.css), still the single usage the exception
+         was granted for, so the exception has not spread in the way the rule feared */
 
   /* ==========================================================================
      STATE TOKENS
@@ -393,13 +569,27 @@
          the nav row, the tile, the door, the segment. fill.
          SAME VALUE as --bg-recessed today and a different role: one is a resting
          surface, this is a transient response, and they part company the moment
-         a hover wants to be warmer than a rail */
+         a hover wants to be warmer than a rail.
+         origin: DESIGN.md > Colors > Neutral, Panel #f4f7f8, "the row hover and the
+         desktop rail", the same entry --bg-recessed reads: the document states the two
+         jobs of the one value in one line and this role is the first of them.
+         Today: 11 var(), 10 files, against 11 var() in 8 files for --bg-recessed: the
+         same size, drawn on overlapping files, and still two roles */
   --line-control-hover: var(--muted);
       /* the control edge under the pointer, and it must STRENGTHEN: the resting
          edge is 3.46:1 on the light surface and this is 5.78:1. line.
          The value it replaced (--hairline-strong) was LIGHTER than the resting
          edge, so the boundary weakened under the pointer, which is the opposite
-         of what a hover is for. Found at the contrast decision, 2026-08-11 */
+         of what a hover is for. Found at the contrast decision, 2026-08-11.
+         origin: DESIGN.md > Colors > Neutral, Control Edge "hover #5a686c", and
+         DESIGN.md > Components > Buttons carries the same argument in its own words,
+         "the hover value has to be DARKER than the resting edge, which is why it is not
+         the old #cdd7d9". The document and this comment were written from one decision.
+         Today: 7 var(), 7 files, and they are the SAME 7 files that read --line-control:
+         button, door, preset-tile, range-picker, save-focus-candidate, select,
+         text-input. Every control that draws a resting edge draws its hover, and no
+         other kind of object draws one. That is what a state token being complete looks
+         like, and it is checkable rather than asserted */
   --line-container-hover: var(--hairline-strong);
       /* the edge of a CARD under the pointer: 1 usage (.plan-opt:hover). line,
          decorative, exactly as --line-container is: 1.23:1 rest to 1.47:1 hover
@@ -415,12 +605,29 @@
          at all. Dropping a state IS a visual change, and this stage has three named
          sources of visual change and this is none of them. Carrying it unchanged was
          the only move that needed no permission. Whether the hover should exist at
-         all is a separate question and stays with the founder in backlog.md */
+         all is a separate question and stays with the founder in backlog.md.
+         origin: NOT a Colors entry, and the exception is worth stating rather than
+         faking. The value is --hairline-strong #cdd7d9, which DESIGN.md names exactly
+         once and only NEGATIVELY, as the value the control hover was moved OFF ("it is
+         not the old #cdd7d9"). There is no positive entry to carry over, so the origin
+         stays the primitive's own, ".btn:hover in kit.css", recorded on --hairline-strong
+         above. A value that survived a decision by not being the subject of it has no
+         plate line, and inventing one here would put a fact in the file that no reader
+         could check. Today: 1 var(), 1 file (plan-option.css), the same single usage */
   --color-focus: var(--petrol);
       /* the focus ring, and focus-visible rather than focus: the ring is for the
          person arriving by keyboard and is noise for the person who clicked.
          line, 3:1 required by WCAG 1.4.11 because a ring is a line and not text.
-         6.23:1 on the light surface, 5.56:1 on the light canvas */
+         6.23:1 on the light surface, 5.56:1 on the light canvas.
+         origin: DESIGN.md > Colors > Primary, Petrol #1c6a76, and DESIGN.md's role table
+         lists this token by name at 6.23 light and 6.82 dark against --bg-surface,
+         needing 3.0. It is one of the four state tokens the document puts IN that table
+         on the ground that a state is a token and not a style.
+         Today: 18 var(), 17 files, 16 of them component files and the seventeenth
+         base.css, which draws the ring for the system. It is the widest-read of the four
+         state tokens by a distance, 18 against 11, 7 and 1, and the sixth widest role of
+         any kind in this file, which is the correct shape: a hover reaches the objects a
+         pointer visits, and a focus ring reaches everything a keyboard can land on */
 }
 
 /* ============================================================================

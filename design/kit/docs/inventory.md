@@ -69,8 +69,8 @@ the child**: doors are full cards and take air, tiles are chips and do not.
 
 ## Atoms (20)
 
-| Component | Class | Axes and their values | Pages in the product | Was  CSS file | Page |
-|---|---|---|---|------|---|
+| Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page |
+|---|---|---|---|---|---|---|
 | Amount | `.amt` | size by container: 14 / 32 (`--type-body`, `--type-figure`). 13.5 and 30 folded at step 5 | 69 | - | `amount.css` | `amount.html` |
 | Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - | `big-total.css` | `big-total.html` |
 | Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 28 coloured, 0 grey | - | `brand-mark.css` | `brand-mark.html` |
@@ -126,8 +126,8 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 
 ## Molecules (23)
 
-| Component | Class | Axes and their values | Pages in the product | Was  CSS file | Page |
-|---|---|---|---|------|---|
+| Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page |
+|---|---|---|---|---|---|---|
 | Action row | `.actions` | - | 42 | `.secondary` | `action-row.css` | `action-row.html` |
 | Alert item | `.alert` | content: with prices / with unread dot | 2 | - | `alert-item.css` | `alert-item.html` |
 | Charge list | `.charges` | state: marked | 5 | - | `charge-list.css` | `charge-list.html` |
@@ -154,8 +154,8 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 
 ## Organisms (14)
 
-| Component | Class | Axes and their values | Pages in the product | Was  CSS file | Page |
-|---|---|---|---|------|---|
+| Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page |
+|---|---|---|---|---|---|---|
 | App bar | `.appbar` | form: row / column rail at container 760 | 54 | - | `app-bar.css` | `app-bar.html` |
 | App shell | `.app` | form: steady / flow / detail | 54 | - | `app-shell.css` | `app-shell.html` |
 | Card | `.card` | - | 3 | `.locked`, `.source` | `card.css` | `card.html` |
@@ -263,7 +263,7 @@ waiting at all, they had been CONSUMED by the renaming map and left standing her
 | The landing, entire | `index.html` | 39 classes in the `lp-` namespace | **The largest hole in the system.** 37 of the landing's 60 tokens are outside it, and 48 of the 57 component files carry a `.landing` selector with ZERO pages wearing it. See the step 9 dry run |
 | Guided reveal step | `guided-reveal.html` | `.rstep`, `.num`, `.next`, `.rgroup`, `.tone`, `.lbl` | live, the page is coloured |
 | Cancel win | `cancel-win.html` | `.win`, `.freed`, `.year`, `.honest` | waiting: the page is still grey |
-| Save-focus candidate list | `home-savefocus.html` | `.candidates`, `.cand`, `.cut`, `.lead` | **`.lead` is NOT a one-off**: it also stands on `settings.html` and `settings-no-account.html`. Three coloured screens, so by this document's own two-occurrence rule it is a component and is owed a row. Carried to backlog |
+| Save-focus candidate list | `home-savefocus.html` | `.candidates`, `.cand`, `.cut` | live, the page is coloured. **`.lead` left this row on 2026-08-12 and is not a one-off**: it stands on 3 coloured pages and 4 grey ones, so listing it here made a shared class read as a local one. It is owed a component and has none: see the section under the list below |
 | Pro lock frame | `history-trends-locked.html` | `.locked` | **CONSUMED by the map**, `.locked` to `.card`. Not a one-off since step 6 and should not have been listed |
 | By-category line | `history-trends.html` | `.bycat`, `.k` | live, the page is coloured |
 | What is on this card | `share-snapshot.html` | `.oncard`, `.k` | waiting: the page is still grey |
@@ -287,6 +287,66 @@ page's markup.
 7. **The landing's preview list renders unstyled.** `index.html` carries `.row`, `.logo`, `.name`, `.tag` markup, but every one of those rules is scoped under `.app`, and the landing root is `.landing`.
 8. **`.col1` and `.col2` have no CSS rule at all.** They exist only as anonymous grid children on 8 pages.
 9. **No `textarea` and no `progress` anywhere.** Both form primitives have nothing to inherit and must be authored fresh.
+
+## `.lead` is owed a component and has none
+
+Carried out of the One-offs table on 2026-08-12, where it had been filed as one of the save-focus
+list's private classes. It is not one, and the row had said so for a step without acting on it.
+
+Measured with a class-token sweep rather than a substring grep, because `lp-lead` on the grey
+landing and `section-lead` on the grey hub both carry `lead` inside a word and neither of them is
+this class:
+
+| Fact | Value | Where |
+|---|---|---|
+| Coloured pages carrying the exact token | **3** | `design/home-savefocus.html`, `design/settings.html`, `design/settings-no-account.html` |
+| Occurrences on them | **5** | one bare `.lead` inside `.candidates`, four written `.muted.lead` |
+| Grey pages carrying it | **4** | `wireframes/data-privacy.html`, `home-savefocus.html`, `settings.html`, `settings-no-account.html`: 7 occurrences, six of them `.consequence.lead` |
+| Files in `design/system/components/` named for it | **0** | the folder holds no file with `lead` in its name |
+| Files that style it anyway | **2** | `muted-line.css:191` and `save-focus-list.css:70` |
+
+Three coloured pages clears rule 1 of this file by a page and a half, so `.lead` is not a one-off
+and never was. What it is instead is the defect rule 1 exists to catch: a class on three screens,
+declared in two files, and owned by neither of them. Finding 5 of the list above named the overlap
+at stage 07, both component files repeat the warning in their own comments, and neither file could
+close it, because a class with two owners is closed by a decision and not by an edit.
+
+**The two owners, and their jobs are not one job.** `muted-line.css:191` gives
+`.app .muted.lead, .landing .muted.lead` a bottom margin in place of a top one, so the same quiet
+line can sit above its subject on one screen and below it on another; it stands four times, on
+Settings and on Settings without an account. `save-focus-list.css:70` gives
+`.app .candidates .lead, .landing .candidates .lead` a margin, a size and an ink: the framing
+sentence over the save-focus list, `role="status"`, one occurrence. A third `.lead` exists and is
+correctly outside the system: `.kit-head .lead` in `design/kit/_page.css:167` is the stand's own
+chrome, which is why every component page in this folder carries the word and none of them counts
+as evidence.
+
+**The five things, instantiated, so the build has nothing left to work out.** They are the standard
+five of `docs/architecture.md`, written here against real paths:
+
+1. `design/system/components/lead-line.css`, holding both of today's rules under one owner: the
+   modifier moves out of `muted-line.css:191` and the framing line out of `save-focus-list.css:70`,
+   and the two comment blocks that warn about the collision move with them.
+2. `design/kit/lead-line.html` with the five blocks: anatomy, variants and sizes, when to use, the
+   rule and the anti-rule, states.
+3. a row in `design/kit/_nav.js`, **in the `atoms` group**, carrying `cls: '.lead'`,
+   `was: '.consequence.lead'` and `wf: 4`, the grey page count measured above.
+4. a row in the Atoms table of this file, with its level, and a row in the renaming map for
+   `.consequence.lead`.
+5. an `@import url("components/lead-line.css")` in `design/system/index.css`, **in the atoms group
+   between `label.css` and `logo.css`**, never appended at the end of the file.
+
+**Read the two rules before writing the file, because they may collapse the five into three.**
+`save-focus-list.css:60-70` argues in its own comment that after the fold its `.lead` is the Muted
+line atom plus an 8px host margin: 13px goes to `--type-body` and the ink was already
+`--text-muted`, so all that is left of its own is the margin. If that argument holds, `.lead` is not
+an atom, it is a spacing modifier on an atom the system already owns, four of the five coloured
+occurrences are already written that way, and the cost is three things rather than five: the
+`.candidates .lead` rule folds into `.muted.lead` with an 8px host margin, the modifier gets a block
+on `muted-line.html` and a value in the Muted line's `Axes` here and in `_nav.js`, and the renaming
+map gets the row it has never had. **The map owes that row on either path**, and its absence is the
+reason step 6 renamed `.consequence` to `.muted` on every page and left `.lead` standing beside it
+unexamined.
 
 ---
 
@@ -501,6 +561,54 @@ against `.doors`).
 two hosts (`.app .plans, .landing .plans`) with the reason in a comment, and the landing reuses
 GC4's row classes directly instead of copying them. Seven copies were made anyway. The kit takes
 the two-host pattern as the rule and retires the `lp-` twins.
+
+## The `.landing` half: written and unworn, and that is a decision rather than a defect
+
+Closed on 2026-08-12 as a **decision**, because the fix the paragraph above promises is not this
+stage's to make and saying so is worth more than another carried row.
+
+| Fact | Value | How it was produced |
+|---|---|---|
+| Component files carrying a `.landing` selector | **48 of 57** | `grep -l` over `design/system/components/*.css`; `base.css` carries one as well, outside the 57 |
+| Files in `design/` whose markup carries the token `landing` | **0** | a sweep of every `class="..."` in every `.html` in the repo |
+| Page roots carrying it anywhere in the repo | **1** | `wireframes/index.html:14`, `div.landing`, grey and frozen |
+| Other markup carrying it | **1** | `design/kit/plan-option.html:111`, a `div.kit-stage.landing` built to show the plan option's second host |
+| `.landing` halves that plate can reach | **4 of 57** | its subtree is `.plan-opt`, `.amt`, `.per`, `.muted`, `.btn`, so `plan-option.css`, `amount.css`, `muted-line.css`, `button.css` |
+| Distinct class tokens on the grey landing | **60** | class-token sweep of `wireframes/index.html` |
+| Of them, in the `lp-` namespace | **25** | the remaining 35 are app classes, the reviewer chrome and the root |
+
+**The half is unworn because the one page that could wear it does not load the system.**
+`wireframes/index.html` links `_wf.css` on line 8 and links nothing else. It is the grey structure
+contract: Voice was the last stage allowed to edit it, colour goes onto copies in `design/` and
+never onto the grey file, and there is no `design/index.html` to be the copy. So `.landing` is a
+host the system declares 48 times and that no product markup has ever selected. The one plate that
+does select it lives on the stand, exists to prove the plan card's two-host rule, and reaches four
+of the 48. Forty-four have never rendered anywhere, in any folder, at any width.
+
+**The promise above is not executed, and this stage cannot execute it.** "The kit takes the
+two-host pattern as the rule and retires the `lp-` twins" describes work that begins with building
+`design/index.html`: a coloured product screen, outside the seven-screen sample, in the half of the
+repo the rollout owns. That is **stage 12**. Doing it from the other end, by writing the twins out
+of `_wf.css`, is forbidden by a different rule, since the grey is frozen and this stage does not own
+that markup.
+
+**So the honest state is written and unworn, deliberately.** It is not dead code: dead code has no
+possible wearer, and this has a wearer that has not been built yet. It is not live code either,
+because a rule that has never rendered is a rule that has never been checked, and 44 of these have
+never rendered. Stage 12 has exactly two exits and no third. Either it builds `design/index.html`
+on the system, which gives all 48 halves their first render and retires the `lp-` twins in the same
+move, or it deletes the `.landing` half out of all 48 files and lets the landing keep a namespace of
+its own for good. **The half stays until then**, because deleting 48 selectors now in order to
+re-author them at stage 12 buys no certainty and costs the work twice.
+
+**One number in this file does not survive the re-count, and it is named here rather than quietly
+overwritten.** The One-offs row above calls the landing "39 classes in the `lp-` namespace", and the
+counting basis says 30 of the 66 single-page classes are that namespace. The sweep run for this
+section returns **25** distinct `lp-` tokens in the markup and **27** declared in `_wf.css`, the two
+extra being `.lp-quote` and `.lp-quotes`, the dead social-proof block that finding 6 already
+records. Neither 39 nor 30 reproduces from the files. Both rows are left standing with this line
+under them, because the measurement that produced them cannot be reconstructed, and replacing an
+unreproducible number with a reproducible one in silence is how the first one arrived.
 
 ---
 

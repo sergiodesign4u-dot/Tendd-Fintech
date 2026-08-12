@@ -59,7 +59,12 @@ window.NAV = [
   // NOT in this registry: it is the kit's own panel, design/kit/_nav.js, on the same two-level
   // pattern as wireframes/ and design/. A roadmap that listed 55 components would stop being a
   // roadmap.
-  { label:'Design System',       page:'design/kit/overview.html', done:true },
+  // done:false and NOT a mistake, corrected 2026-08-12. The row is one and the stages
+  // behind it are two, which the paragraph above already says: tokens and components
+  // closed here, patterns still ahead. A row marked done while a stage is still running
+  // behind it is exactly the third copy of the status this file's own header warns about.
+  // It flips the day stage 09 closes, on the same page, with no new row.
+  { label:'Design System',       page:'design/kit/overview.html', done:false, ready:true },
   { label:'Responsive',          page:null, done:false },
   { label:'Animation',           page:null, done:false },
   { label:'Handoff',             page:null, done:false },

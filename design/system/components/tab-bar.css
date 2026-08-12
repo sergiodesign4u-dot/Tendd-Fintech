@@ -192,14 +192,14 @@
      one place in the product where a paper fill marks a selection rather than a
      card.
 
-   `min-height: 48px` is the one literal size in this file. It is neither --tap
-   (44) nor --row (56), the only two size primitives the system has, and a
-   min-height is not a margin, a padding or a gap, so the 8px grid does not
-   govern it. `--tap-rail` was proposed at stage 07 and deferred to stage 08,
-   which did not create it. Left as a literal and reported rather than folded
-   into --space-48, which would read as a spacing and is a different scale. The
-   same hole is already recorded for the numbered-steps marker in
-   docs/backlog.md.
+   `min-height` READS --tap-rail FROM 2026-08-12, and the token exists because of
+   this line. It is neither --tap (44) nor --row (56), the only two size primitives
+   the system had, and a min-height is not a margin, a padding or a gap, so the 8px
+   grid does not govern it either. --tap-rail was proposed at stage 07, deferred to
+   stage 08, and stage 08's own step 9 finally declared it, at the same 48px this
+   file has always drawn. Zero pixels: the value did not move, it gained a name.
+   Folding it into --space-48 was refused on the way, because that would read as a
+   spacing and is a different scale.
 
    `padding: 0 20px` folds to --space-24, so each destination sits 4px further
    in from the rail's edge. The last spacing move this component makes. */
@@ -216,7 +216,7 @@
   }
   .app > .tabbar a {
     flex: none;
-    min-height: 48px;
+    min-height: var(--tap-rail);
     flex-direction: row; align-items: center; justify-content: flex-start;
     gap: var(--space-8);
     padding: var(--space-0) var(--space-24);
