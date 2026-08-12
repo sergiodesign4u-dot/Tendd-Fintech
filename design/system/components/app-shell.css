@@ -3,7 +3,7 @@
    The root every screen in the product carries, and the thing that decides what
    a screen IS at a width. On a phone it is a column: the app bar on top, the
    content between, the tab bar fixed to the glass. Past a 760px container it is a
-   two-track grid, with the app bar and the tab bar stacked in a 240px rail on the
+   two-track grid, with the app bar and the tab bar stacked in a 220px rail on the
    left and the whole screen scrolling in the right track. Past 900 the content
    column stops being a column and starts being a layout.
 
@@ -34,9 +34,11 @@
    silently re-point every query inside it, the tab bar's rail at 760, the
    dashboard head at 900 and the groups column set at 1340, at a different box.
    Measured on 2026-08-11: with `container-type` on `.app` the tab bar keeps its
-   column flow and still loses its rail, moving from 240px beside the content to
+   column flow and still loses its rail, moving from 220px beside the content to
    965px below it. Nothing errors and nothing looks obviously wrong on a
-   screenshot.
+   screenshot. That pair was measured on 2026-08-11, when the rail was 240; the
+   rail is the only term that moved, and 965 is what the bar becomes when the
+   grid stops happening, which does not depend on the track at all.
 
    The container is declared once, on `body`, in base.css, with the reasoning and
    the 33-width verification at the foot of that file. `body` is the only ancestor
@@ -65,7 +67,7 @@
    alone.
 
    NO HEX AND NO FONT NAME below. Every literal that survives is a WIDTH or a
-   VIEWPORT UNIT, neither of which is on the spacing scale: 240px is a grid track,
+   VIEWPORT UNIT, neither of which is on the spacing scale: 220px is a grid track,
    780 / 620 / 560 are reading measures, 300px and 320px are track minimums, 760
    is a container step that cannot be a variable at all, and 100vh / 100dvh are
    the viewport.
@@ -234,9 +236,9 @@
    of this product are 760, 900 and 1340.
 
    WHAT ACTUALLY CHANGES. The shell stops being a flex column and becomes a grid
-   of two columns and two rows: a 240px rail on the left holding the app bar in row
+   of two columns and two rows: a 220px rail on the left holding the app bar in row
    1 and the tab bar in row 2, and the screen on the right spanning both rows. The
-   240px is a track width and stays literal; the placement of the two chromes into
+   220px is a track width and stays literal; the placement of the two chromes into
    that rail lives in their own files, which is the same convention that leaves
    `.appbar .plan` in chip.css, and this file declares only the track they land in.
 
@@ -266,13 +268,43 @@
    560px }` is declared in card.css, because the card is the subject of that rule
    and the subject owns it. Its two neighbours in kit.css were these two, which carried no
    component, so they stay with the shell. Taking all three would give one measure
-   two owners, and the pair would then drift apart the day one of them moved. */
+   two owners, and the pair would then drift apart the day one of them moved.
+
+   THE TRACK IS 220 AND IT WAS 240 UNTIL 2026-08-12. Founder, looking at the rail
+   on a coloured screen: "make the side panel narrower, somewhere around 220
+   pixels." It is the fifth named source of a visual change in this stage, the
+   brand, and it is the same review that put the mark at the head of this rail: a
+   240px column holding a 22px mark, a 46px word and four one-word destinations was
+   mostly air, and the air read as importance the navigation does not have.
+
+   THE FLOOR IS MEASURED AND IT IS 180. What the rail has to hold is not the
+   navigation, which is short, but the app bar's widest way out: "Your
+   subscriptions" is 148px of unbreakable ink on the five History screens, and the
+   bar's own two 16px margins make 180. Probed at 230, 220, 210, 200, 190, 180 and
+   170 on all 28 coloured screens: not one element in either chrome changes height
+   until 180, where that label wraps to two lines. 220 keeps 40px of slack over the
+   longest string the product has, which is the room the next label needs.
+
+   WHAT THE 20px DID, counted on all 28 rather than asserted. Nothing moved
+   vertically and nothing overflows. 281 elements did not move at all: every
+   element of the ten `.app.flow` screens, which replace this grid with a flex
+   column above, plus everything inside the rail itself, whose left edge did not
+   change. The rest slid left by the 20px the rail gave back and the content took
+   it, 20px on a single-column screen and 10px each on the two columns of a detail.
+   ONE THING GOT BETTER AND IT IS WORTH NAMING, because it is what the width was
+   for: on subscription-detail-unrecognized the line "All we have is how it appears
+   on your statement" stopped wrapping, so that block is 21px shorter and the
+   statement descriptor under it sits 21px higher.
+
+   220 IS NOT ON THE 8px GRID AND DOES NOT HAVE TO BE, on this file's own rule at
+   the top: a width is on neither scale, and 780, 620 and 300 are not multiples of
+   8 either. What it must not be is a spacing token, and it is not one. */
 @container (min-width: 760px) {
   .app {
     display: grid;
     height: 100vh;
     height: 100dvh;
-    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-columns: 220px minmax(0, 1fr);
     grid-template-rows: auto 1fr;
   }
   .app > .screen {

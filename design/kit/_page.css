@@ -672,28 +672,35 @@
 .kit-stage.wide  { --kit-measure: 620px; }   /* nav rows, forms, plan cards */
 .kit-stage.bleed { --kit-measure: none; }    /* bands that really do span: a shell, a rail */
 
-/* THE RAIL IS 240px IN THE PRODUCT AND THE STAGE HAS TO SAY SO.
+/* THE RAIL IS 220px IN THE PRODUCT AND THE STAGE HAS TO SAY SO.
 
-   app-shell.css gives the desktop shell `grid-template-columns: 240px minmax(0,
-   1fr)`, so the app bar and the tab bar in their rail form are 240px wide on
+   app-shell.css gives the desktop shell `grid-template-columns: 220px minmax(0,
+   1fr)`, so the app bar and the tab bar in their rail form are 220px wide on
    every coloured screen. The stand has no shell grid, so the rail simply took
    the stage: measured at 898px on tab-bar.html and 898px on app-bar.html at a
    1280 window. That is the founder's "the panel is very wide", and it is also
    why the app bar's wordmark sat in a different place in each of its two
    specimens: at 898px the column had room the product never gives it.
 
+   IT WAS 240 UNTIL 2026-08-12 AND IT IS MIRRORED, NOT DECIDED, HERE. The product
+   narrowed the track on the founder's word and this line follows it, because the
+   whole job of this rule is that the specimen is the width the product gives the
+   component. Two owners for one measurement is the fault the drawer above already
+   records; this one has a single owner, app-shell.css, and the stand reads it. A
+   number that disagrees with the product turns the stand into a nice drawing.
+
    THE BOUND GOES ON THE CHILD AND THE STAGE STAYS WIDE, and the order matters
-   now that the stage is the query container: narrowing the stage to 240 would
+   now that the stage is the query container: narrowing the stage to 220 would
    drop the container under 760 and the component would render its MOBILE form
    instead. Wide stage, narrow specimen, and the query still fires.
 
    Inside the 760 query because the same stage renders the mobile form at a phone
-   width, where both chromes span the full width. A 240px cap centred in the box
+   width, where both chromes span the full width. A 220px cap centred in the box
    down there would be a third form the product never draws. It rides
    --kit-measure rather than writing its own max-width, so a stage still has one
    lever for how wide its specimen is allowed to be. */
 @container (min-width: 760px) {
-  .kit-stage.rail.full > * { --kit-measure: 240px; }
+  .kit-stage.rail.full > * { --kit-measure: 220px; }
 }
 
 /* THE STAND'S SCOPE IS NOT THE SHELL, and from this round it has to say so.

@@ -349,10 +349,11 @@ bordered container with a 14px radius, so a list reads as one object rather than
 cards. Nothing inside that container draws a second edge.
 
 The tab bar is bottom chrome on mobile. At a 760px container the whole shell becomes a dashboard:
-the tab bar rotates into a 240px left rail on the panel tint, the app bar folds into the top of
-that rail, and the content takes the remaining width. At 1040px the densest two screens gain a
-third column, a detail pane on Home and a master list on Subscription Detail. Below 460px the
-stage gives its gutter back and the screen goes edge to edge.
+the tab bar rotates into a 220px left rail on the panel tint, the app bar folds into the top of
+that rail, and the content takes the remaining width. At 900px the subscription detail splits into
+two columns and the category groups on Home run in two; at 1340px those groups run in three, which
+is the widest the product ever goes. Below 460px the stage gives its gutter back and the screen
+goes edge to edge.
 
 Container queries, not media queries, drive the shell, so a screen behaves by the width it is
 actually given rather than by the width of the browser.

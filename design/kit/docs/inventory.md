@@ -577,11 +577,18 @@ arithmetic agrees: `--faint` on the 11 to 12px text where it was used is about 2
 All six collapse onto `--soft` at 5.6:1, and the hierarchy `--faint` was carrying is restored by
 weight and by case, which is where it belonged.
 
-## One open value, flagged rather than merged
+## One open value, flagged rather than merged, and closed on 2026-08-12 at 220
 
 The desktop rail is **240px in the kit and 232px in the grey**. Eight pixels, and by the migration
 rule a value moves only by its own named decision. Carried at 240, which is what the migrated file
 and `shell.html` already agree on, and left for the founder.
+
+**Closed by the founder on 2026-08-12, and by a third number: 220.** Neither of the two had been
+chosen by anyone, which is exactly why the row stayed open. The floor was probed at 180 (the app
+bar's widest way out, "Your subscriptions", is 148px of unbreakable ink plus the bar's two 16px
+margins) and 220 keeps 40px of slack. One declaration moved, `grid-template-columns` in
+`app-shell.css`; the stand's `--kit-measure` mirror in `_page.css` follows it rather than deciding
+anything. Ledger in `docs/tokens-audit.md`, section The brand, correction 3.
 
 
 ## What the extract left behind, found at step 5 on the first screen

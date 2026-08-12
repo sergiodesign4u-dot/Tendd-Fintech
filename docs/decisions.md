@@ -7,6 +7,49 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-12 - The desktop rail is 220px, and the third number closes an eight-pixel argument
+
+Founder, on a coloured screen: "make the side panel narrower, somewhere around 220 pixels." One
+declaration moves, `grid-template-columns` in `app-shell.css` at container 760, and it is the only
+place in the system that states the rail's width. Everything else is prose that had to follow it.
+
+**Why it was too wide.** The rail holds a 22px mark, a 46px word and four one-word destinations.
+At 240 it was mostly air, and on a screen whose whole job is calm, air around the navigation reads
+as importance the navigation does not have. This is the same review that put the mark at the head
+of that rail, one entry below.
+
+**The floor is 180 and it was probed, not guessed.** What binds the rail is not the navigation,
+which is short, but the app bar's widest way out: "Your subscriptions" is 148px of unbreakable ink
+on the five History screens, and the bar's own two 16px margins make 180. Driven to seven widths
+from 230 down to 170 on all 28 coloured screens: nothing in either chrome changes height until
+180, where that label wraps. 220 keeps 40px of slack over the longest string the product has,
+which is the room the next label will need.
+
+**What it cost, counted rather than asserted.** 281 elements did not move at all, which is every
+element of the ten onboarding screens (they replace the grid with a flex column) plus everything
+inside the rail, whose left edge did not change. The rest slid left by the 20px the rail gave back
+and the content took it, 20px on a single-column screen and 10px on each column of a detail.
+Nothing moved vertically, nothing overflows, and exactly two elements changed height: on
+`subscription-detail-unrecognized` the line "All we have is how it appears on your statement"
+stopped wrapping, so that block is 21px shorter. The one height change in the product is a line
+that stopped wrapping, which is what the width was for.
+
+**It closes an open row rather than adding one.** Step 2 of this stage found the rail at **240 in
+the kit and 232 in the grey**, an 8px disagreement that could not be merged quietly, because a
+value moves only by its own named decision and never as a side effect of a migration. It was
+carried at 240 and flagged for the founder. The founder's answer is a third number, which is the
+right shape for the question: neither of the two was chosen by anyone, and 220 was.
+
+Rejected: **232, the grey's own number**, which would have settled the argument by seniority
+rather than by looking, and is 12px from the answer the person who owns the product gave when
+shown the screen. Rejected: **making it a token.** A width is on neither of the system's two
+scales, and `--rail-w` would be a size primitive invented for one usage; the file already carries
+that rule for 780, 620, 560, 300 and 320. Rejected: **fitting the 8px grid at 216 or 224.** A
+width is not a spacing, the grid does not govern it, and 780 and 620 are not multiples of 8
+either.
+
+Ground and the full ledger in `design/kit/docs/tokens-audit.md`, section The brand, correction 3.
+
 ## 2026-08-12 - The last letter is petrol, with no condition, and the brand heads the rail
 
 Three corrections on the day the mark shipped, all from the founder looking at a real screen
@@ -362,7 +405,8 @@ real screens.
 232px in the grey**. That is an 8px value change, and by the migration rule a value moves only by
 its own named decision, never as a side effect of an extract. It is carried at 240 (the value the
 migrated file and `shell.html` already agree on) and flagged for the founder rather than merged
-quietly.
+quietly. **CLOSED 2026-08-12 at 220**, by the founder, and by neither of the two numbers: see the
+entry at the top of this file.
 
 ## 2026-08-10 - "Best value" stays, and pricing becomes three columns on both screens
 

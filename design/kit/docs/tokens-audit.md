@@ -917,7 +917,7 @@ corpus gets no icon on purpose: it is the structure contract and it is not the p
   slot: the grey writes `.wordmark`, the colour writes `.lockup`. That is the frozen corpus doing
   its job, and it is stated on `app-bar.html` beside the table that counts it.
 
-### Three corrections the same day, all from the founder looking at a real screen
+### Four corrections the same day, all from the founder looking at a real screen
 
 **1. The brand was 48px lower on eighteen screens than on the other ten.**
 
@@ -985,6 +985,55 @@ inherits the pair's tracking instead of repeating it.
 The rule that replaces three conditions is: **the last letter is petrol.** The sentence it
 overrules is left standing on the concept page rather than quietly edited, because that page
 records how the mark was found and is not a live specification.
+
+**3. The desktop rail is 220px, and it was 240.**
+
+Founder, on a coloured screen: "make the side panel narrower, somewhere around 220 pixels."
+One declaration, `app-shell.css` `grid-template-columns`, and it is the only place the product
+states that width.
+
+| variable or rule | was | became | why |
+|---|---|---|---|
+| `.app { grid-template-columns }` at container 760 | `240px minmax(0, 1fr)` | `220px minmax(0, 1fr)` | founder's review, 2026-08-12. A 240px column holding a 22px mark, a 46px word and four one-word destinations was mostly air, and the air read as importance the navigation does not have |
+| `_page.css` `.kit-stage.rail.full > *` `--kit-measure` | `240px` | `220px` | mirrored, not decided. The stand shows a chrome at the width the product gives it, or it is a drawing |
+
+**The floor is 180 and it was probed, not guessed.** What the rail has to hold is not the
+navigation, which is short, but the app bar's widest way out: **"Your subscriptions" is 148px of
+unbreakable ink** on the five History screens, and the bar's own two 16px margins make 180. Driven
+to 230, 220, 210, 200, 190, 180 and 170 on all 28 coloured screens, reading every element's height
+in both chromes: nothing changes height until 180, where that label wraps to two lines. 220 keeps
+**40px of slack** over the longest string the product has.
+
+The first probe of this said the opposite and was wrong. It called a wrap by height, and every
+link in the rail stands on a `min-height` floor, so it reported the same 18 screens as broken at
+240, at 220 and at 170 alike. The second read `Range.getClientRects()` and counted inline boxes,
+so it called the destination icon and the petrol letter extra lines. Only the third instrument,
+element height taken twice in the same page, could answer the question at all. **A measurement
+that returns the same answer at every input is not measuring the input.**
+
+**What the 20px did, on all 28 screens at 1280:**
+
+| | elements |
+|---|---|
+| did not move at all | **281** (every element of the ten `.app.flow` screens, which replace the grid with a flex column, plus everything inside the rail, whose left edge did not change) |
+| slid left, content unchanged | 301 at -20px, 167 at -10px |
+| slid left and took the width | 216 at -20/+10, 214 at -10/+10, 129 at -20/+20 |
+| held their left edge and gave width back | 108 at -20 width |
+| changed height | **2**, and both are the same improvement |
+
+Nothing moved vertically anywhere else, and nothing overflows on any screen. The two height
+changes are on `subscription-detail-unrecognized`: the line "All we have is how it appears on your
+statement" **stopped wrapping**, so that block is 21px shorter and the statement descriptor under
+it sits 21px higher. That is what the width was for.
+
+**220 is not on the 8px grid and does not have to be.** `app-shell.css` already states the rule
+at the top of the file: a width is on neither scale, and 780, 620 and 300 are not multiples of 8
+either. What a width must not be is a spacing token, and this one is not.
+
+**It closes an open row from step 2.** The rail was **240 in the kit and 232 in the grey**, an 8px
+disagreement carried at 240 and flagged for the founder rather than merged quietly, because a
+value moves only by its own named decision. The decision arrived and it named a third number.
+`docs/decisions.md` and `docs/inventory.md` both carried that open row and both now point here.
 
 ### A defect this found and did NOT fix: the review chrome moves the product's breakpoint
 
