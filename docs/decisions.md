@@ -7,6 +7,64 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-12 - The identity is Crop, and the wordmark reverses its tracking
+
+Thirteen logo directions were built as live HTML at real sizes on `design/concept/logo.html`. The
+founder chose **Crop**, taken to depth on `design/concept/logo-crop.html`, and asked for it in the
+product the same day.
+
+**What makes it the choice, in one sentence:** it is not a picture of a `d`. One letterform is
+drawn on a 100 unit square, deliberately larger than any frame that will ever hold it, and a
+window is cut out of it. The letter never changes size relative to itself; the window does. So a
+new surface gets a new window rather than a new drawing, and the round avatar is the proof: nothing
+was redrawn, the window simply stopped having corners.
+
+**Rejected: a wordmark and no mark at all,** which is what shipped until this day and is direction
+"No mark" on the same page. It is honest, it is cheap, and it has no answer to the favicon. A
+16px tab, a home screen icon and a share card are three places where a word cannot go, and the
+repository had no icon in it at all.
+
+**Rejected: crops B and C in the system now.** They are locked and they are not built, because the
+hosts that carry them (the share card's band, a launch screen, the avatar) are still grey or do
+not exist. A variant with no host is an invention with a nice reason attached, and this project
+already has a rule against those.
+
+**A value changed with it, and the reason is a reversal rather than a correction.** The wordmark
+was 700 at +0.02em, and both `app-bar.css` and `DESIGN.md` argued for it out loud: at 16px in a
+bar the letters need air, and a wordmark set solid reads as a word rather than as a mark. Both were
+describing a product with **no mark in it**, where the word carried the identity alone. It is now
+800 at -0.02em with the `dd` pair a further -0.09em. The premise moved; the value followed.
+`DESIGN.md` was rewritten the same day rather than left to contradict the code.
+
+**What it cost the product, measured:** 3774 elements matched across 28 coloured screens at two
+viewports, 168 added, 0 dropped, and **69 moved**. All 69 are the brand's own slot and the two plan
+chips whose `margin-left: auto` absorbs its new width. The ledger is in
+`design/kit/docs/tokens-audit.md` under the fifth named source.
+
+## 2026-08-12 - The brand is petrol's fourth place, and it is an exception, not a fourth job
+
+D-Concept spends petrol on the primary action, the current selection and the trust line, and says
+"and no more". The mark is petrol and it stands on every screen, so the locked decision had to
+move or the mark could not ship.
+
+**It moves as a named exception with a boundary, not as a fourth job.** The brand is an identity
+and never an accent: it lives in the chrome (the app bar, the tab, a home screen) and it **never
+appears inside a screen's content**. The three jobs are unchanged, and the count of petrol things
+inside any screen's content is still what it was.
+
+**Why this is not a loophole.** The three jobs answer the question "what should I do, where am I,
+can I trust this". The brand answers "whose product is this", which is not a question the content
+of a screen ever asks. If the mark ever appears beside a number, that is the rule being broken and
+not the exception being used.
+
+**One consequence is already written into the system.** Beside the mark the wordmark is all ink,
+because the mark carries the petrol and two petrol things beside each other is one too many.
+`brand-wordmark.css` declares no colour at all, so the rule is enforced by absence rather than by
+a comment.
+
+`logo-crop.html` had already written this exception as a tag on its rules plate. `CLAUDE.md` had
+not, and a locked decision that only one file knows about is not locked. Both now carry it.
+
 ## 2026-08-11 - Voice Round 4: a copy defect is fixed in the grey, never in the colour
 
 UI + Visual compared all 28 coloured pages against `voice/docs/microcopy.md` and found thirteen

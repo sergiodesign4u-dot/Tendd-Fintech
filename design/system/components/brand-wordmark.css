@@ -1,0 +1,86 @@
+/* ============================================================================
+   Wordmark - atom
+   The name, set as a mark rather than as a label. It is the one string that is
+   the same on all 54 grey pages and all 28 coloured ones, and until 2026-08-12 it
+   was drawn by the app bar, which is an organism and had no business painting it.
+
+   Reads
+     type     --type-sub  (16px, the same step the bar always set)
+     tracking two literals, and they are the brand's own: see below
+   Page      design/kit/brand-wordmark.html
+   Origin    design/concept/logo-crop.html, the wordmark plate and its spec plate.
+   Stands on 28 coloured screens, inside the app bar's lockup.
+
+   IT MOVED OUT OF app-bar.css, AND THE MOVE IS THE POINT. That file's own first
+   line says an organism hosts and positions and repaints nothing, and then it set
+   this element's weight, size and tracking: three paint properties on a thing
+   that is not the bar's. The bar keeps what is genuinely its own, which is where
+   the lockup sits in the row and what happens to it when the row becomes a rail.
+
+   NO COLOUR IS DECLARED HERE, and that is not an omission. The word inherits the
+   ink of whatever holds it, which is exactly the brand rule: beside the mark the
+   word is all ink, because the mark is already carrying the petrol, and two
+   petrol things beside each other is one too many. Inside the bar that inherited
+   ink is --text-primary from base.css. When the word one day stands on a
+   photograph or a partner page it takes ink or white and never petrol, and
+   inheritance gives that for free.
+
+   THE COLOURED d IS NOT DECLARED, AND IT IS NOT MISSING. The brand rule says the
+   second d takes petrol when the word stands ALONE above 20px. Today the word
+   never stands alone: it is in the lockup on all 28 screens, and the two hosts
+   that would carry it standing alone (a launch screen, a coloured landing) do not
+   exist. A `.hi` rule written now would be a variant the product does not carry,
+   which is the same offence as an invented state. The rule is written on the kit
+   page with the host it is waiting for.
+
+   NOT INTERACTIVE. It is a span on all 28 screens and never an anchor, so no
+   states are declared. If it becomes the home link at stage 12, the anchor gets
+   the ring and this atom keeps its type.
+   ============================================================================ */
+
+/* ---- the word --------------------------------------------------------------
+   THE TRACKING REVERSED DIRECTION, AND IT IS THE FOUNDER'S DECISION RATHER THAN
+   A DRIFT. It was 700 at +0.02em, and app-bar.css said out loud why: at 16px in a
+   bar the letters need air, and a wordmark set solid reads as a word rather than
+   as a mark. DESIGN.md says the same. Both were describing a product with no mark
+   in it, where the word WAS the identity and had to hold the bar alone. The mark
+   now stands beside it, so the word stops being the identity and becomes half of
+   it, and a mark tracks in. Recorded as the fifth named source of a visual change
+   in design/kit/docs/tokens-audit.md, and DESIGN.md's sentence was rewritten the
+   same day rather than left to contradict this file.
+
+   -0.02em AND NOT -0.035em. The concept page sets the hero at -0.035em and the
+   bar at -0.02em, and the difference is not a compromise: tracking is an optical
+   correction, and the tighter a setting is the more of it a large size can carry.
+   At 16px the hero's value closes the counters. Both numbers are read from the
+   concept page's own bar plate and neither is chosen here.
+
+   The two literals are literals for the same reason every other tracking value in
+   this system is: em tracking follows the type step it sits on, so it has nothing
+   to override and no theme can want it different. The type scale gives the size,
+   and 16px is --type-sub, the step the bar has always set. */
+.app .wordmark {
+  font-weight: 800;
+  font-size: var(--type-sub);
+  letter-spacing: -0.02em;
+}
+
+/* ---- the pair --------------------------------------------------------------
+   The two d's close further than the rest of the word, until the bowls almost
+   meet. This is the one thing in the wordmark that is a drawing rather than a
+   setting, and it is why the markup carries a span the app bar never needed:
+   `Ten<span class="dd">dd</span>`.
+
+   -0.09em on top of the word's own -0.02em. Note that letter-spacing lands after
+   EVERY character in the span, including the last, so the word's right edge pulls
+   in by 1.44px at 16px as well. That is measured and it is kept: the lockup's
+   trailing edge is followed by `margin-right: auto` on all 28 screens, so nothing
+   sits against it, and removing the trailing pull would mean wrapping the second
+   d in a span of its own to carry a positive correction. One span is the drawing;
+   two spans would be an apology for it. */
+.app .wordmark .dd {
+  letter-spacing: -0.09em;
+}
+
+/* NO `.landing` TWIN. Same reason as brand-mark.css: the coloured landing does
+   not exist yet, and a dead selector costs more than the line it saves later. */

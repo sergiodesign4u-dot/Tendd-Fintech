@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand mark - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/logo-crop.html">Where the mark was found, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Brand mark</h1>
+    <p class="lead">The identity, and it is not a picture of a d. One letterform is drawn on a 100 unit square, deliberately larger than any frame that will ever hold it, and a window is cut out of it. The letter never changes size relative to itself; the window does. This file draws the first of three windows, and it is the only one the product carries.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>28</strong> coloured screens</span><span><strong>0</strong> grey pages</span><span>1 size</span><span>no states</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Two boxes and no content slot, which is what makes it an atom: a <b>field</b> that carries the corner, and a <b>letter</b> painted through a mask. Everything below is drawn by <code>design/system/components/brand-mark.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens.</p>
+    <p class="note"><b>The live specimen stands on its own ground.</b> This component exists inside one host, the app bar's lockup, and its field is <code>--bg-surface</code>, which is also the bar. Shown on a blank canvas it would be a paper tile nobody puts anywhere. Shown here it is what a person actually sees on all 28 coloured screens: a petrol letter with a cropped corner, on the bar it belongs to.</p>
+    <div class="kit-stage app bleed full rail">
+      <header class="appbar">
+        <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span>
+        <a class="acct" href="#anatomy" aria-label="Hi Emma, open your account">Hi, Emma</a>
+      </header>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.brand</code> <span>the frame: 22px square, <code>overflow: hidden</code>, and a field of <code>--bg-surface</code>. The clip is load-bearing rather than tidy, because the letter is bigger than the frame by construction and crosses every corner</span></li>
+      <li><code>border-radius</code> <span><b>23.4%</b>, a ratio and not a token, and this is the one number on the page that had to escape the scale. Rule 3 of the mark is that the corner is a share of the short side. A length would freeze it at one size: <code>--radius-xs</code> is 6px and would be 1px off at 22px and 36px off at 180</span></li>
+      <li><code>.brand::before</code> <span>the letter: <code>--text-action</code> painted through a mask, the same machinery <a href="app-bar.html">app-bar.css</a> uses for the chevron and the cross. One difference, and it is deliberate: those two take <code>currentColor</code> and are free in both themes, this one names the role, because the letter is petrol for being the brand and not for inheriting the ink of whatever holds it</span></li>
+      <li><code>viewBox</code> <span><b>the SVG does the cropping.</b> The drawing is a circle of radius 23 at (40,60) with a 15 unit wall, and a stem 15 wide from y6 to y90. Crop A is the window x26 y34, 46 by 46, and the mask image is written with <code>viewBox='26 34 46 46'</code>, so the region <i>is</i> the file. A new crop is a new viewBox on the same four numbers of geometry, which enforces rule 1, the letter is never redrawn, in the file rather than by discipline</span></li>
+      <li><code>mask-size</code> <span><code>100% 100%</code> and not <code>contain</code>: the image is already exactly the window, so <code>contain</code> would letterbox a square inside a square and cost a sub-pixel edge for nothing</span></li>
+    </ul>
+    <p class="note"><b>Every specimen on this page that includes the lockup is inside a real app bar, and the first draft of the page was not.</b> The lockup's own layout, <code>display: inline-flex</code> with an 8px gap, is declared in <a href="app-bar.html">app-bar.css</a> as <code>.app .appbar .lockup</code>, because it stands in one host and the inventory's rule is that a one-off is written down rather than promoted. Put the same markup on a bare stage and the selector does not match: the wrapper falls back to a plain span, the mark keeps <code>display: block</code>, and the word drops onto a second line. Caught in a screenshot at 1280 and fixed by giving the specimens their host.</p>
+    <p class="note">It is worth keeping rather than working around, because it is the "one host" decision proving itself out loud. A component that renders correctly on a blank canvas is a component; this is a slot. The moment the share card carries the second one, the rule moves to a file of its own and this stops being true.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">The axis is the <b>window</b>, and the concept locked three values on it. Only one of them is in this system, and the other two are listed rather than built, because a variant the product does not carry is an invention with a nice reason attached.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Window<p class="axis-rule">The tighter the crop, the more abstract the mark. A is still a letter, B is a shape with a memory of one, C is a brand colour with an edge in it. Each is the right answer at a different distance from the person</p></th>
+            <th class="val">In the system</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>A, the bowl</b> <code>.brand</code></td>
+            <td class="val">x26 y34, 46 sq<br>radius 23.4%</td>
+            <td>The only crop where the counter closes, so the only one that still reads as a letter to somebody who has never seen the brand. The app bar on all 28 coloured screens, and both exported icons</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span></header></div></td></tr>
+          <tr>
+            <td class="kit-empty">B, the joint</td>
+            <td class="kit-empty">-</td>
+            <td>Locked at Concept for the wide surfaces: the share card's band, the empty state, the launch screen. <b>Not built</b>, and the reason is a count rather than a preference: the share card stands on 2 grey pages and 0 coloured ones, and the other two screens do not exist. It arrives with its first host</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">C, the stem</td>
+            <td class="kit-empty">-</td>
+            <td>A field with one edge in it: the pattern, the avatar, the thing printed at 8mm. <b>Not built</b>, same reason, and it has no host anywhere in the product as designed today</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A size modifier</td>
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. Mark sizes in this product are set by the CONTAINER, the way <a href="logo.html">the merchant tile</a>'s five are, and there is exactly one container today. The other sizes of this mark exist as <b>files</b> rather than as CSS, which is what the concept page's own chain asked for</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The exported pair, and they are the same geometry.</b> A favicon is fetched as its own document and cannot read a custom property from the page, so these two files carry the only literals of this brand outside a token file. All four are copied from <code>tokens.css</code> and none is chosen there. The dark pair is carried through <code>prefers-color-scheme</code> rather than dropped, because a role without a pair does not exist in this system and a browser tab strip is a ground like any other.</p>
+    <div class="kit-stage">
+      <img src="../../favicon.svg" alt="favicon.svg, crop A at 46 units, with its own dark pair">
+      <img src="../../apple-touch-icon.png" alt="apple-touch-icon.png, crop A at 180px, square">
+    </div>
+    <p class="note"><b>The touch icon has no corner, and that is the one place rule 3 does not apply.</b> iOS masks a home screen icon with its own superellipse, so shipping a rounded square would put a corner inside a corner. The letter still leaves the frame on two sides, so rule 2 holds; rule 3's corner is the platform's here and nowhere else. It is 180px because that is what iOS asks for, and it carries the light values only, because Apple does not offer the icon a theme.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">Once per screen, in the app bar, beside the word. That is the whole of it today, and the narrowness is the point: <b>the mark is chrome and it is ours</b>. It says whose product this is, in the one place a person is not reading a number.</p>
+    <p class="note"><b>It is not the merchant tile, and the two are one grep apart.</b> <a href="logo.html">Logo</a>, <code>.logo</code>, is DATA: it is the person's own Netflix rendered as Netflix, 111 places across 21 grey pages, and it changes with the row it sits in. This one is chrome, it is the same on every screen, and there is exactly one of it. They could not share a name for that reason, and the name that moved is this one, because <code>.logo</code> was there first and is worn 111 times.</p>
+    <p class="note"><b>Never below 16px, and never crop B or C at any small size.</b> Rule 5: at favicon size the counter is the only thing holding the letter together, and A is the only window that has it. The system enforces the first half by having one size and no modifier, and the second half by not building B and C at all.</p>
+    <p class="note"><b>The mark is the fourth place petrol appears, and it is a named exception rather than a fourth job.</b> D-Concept spends petrol on the primary action, the current selection and the trust line. The brand is beside those three and not among them: it is an identity and never an accent, and it therefore never appears inside a screen's content. The exception is recorded in <code>docs/decisions.md</code> and in <code>CLAUDE.md</code>, so the next person finds the reason and not just the colour.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Beside the word, and the word is all ink</span>
+        <div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span><span class="chip">Free</span></header></div>
+        <p>Two petrol things beside each other is one too many. The mark is already carrying the colour, so the word takes the ink it inherits and nothing else. This is why <a href="brand-wordmark.html">brand-wordmark.css</a> declares no colour at all: the rule is enforced by absence, which is the only way it cannot drift.</p>
+      </div>
+      <div class="no">
+        <span class="hd">The word carrying the identity alone</span>
+        <div class="kit-stage app bleed full rail"><header class="appbar"><span class="wordmark">Ten<span class="dd">dd</span></span><span class="chip">Free</span></header></div>
+        <p>What shipped until 2026-08-12, and it is drawn here with the real class rather than a mock. It is not wrong so much as it is <b>not a mark</b>: at 16px in a bar there is nothing to recognise at a glance and nothing to put on a home screen. The favicon problem is the honest test, and a wordmark has no answer to it.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The letter leaves the frame on two sides</span>
+        <div class="kit-stage app"><span class="brand" aria-hidden="true"></span></div>
+        <p>Rule 2, and it is what separates this from a logo in a box. Every window has to be crossed: the moment the whole letter fits inside its frame the system stops being a crop and becomes a picture that has to be redrawn for every new shape. Crop A crosses on the left, the bottom and the right.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never inverted, and never a third colour</span>
+        <div class="kit-stage app"><span class="brand" aria-hidden="true"></span><span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span></div>
+        <p>Rule 4: two colours, and one of them is the ground. Swap them and the letter stops being the mark, because the counter becomes a dot and the frame becomes the drawing. Beside it here is a merchant tile at 36px, the component this one is most often mistaken for: <b>that</b> square is allowed any colour in the world, because the colour is the merchant's and not ours.</p>
+      </div>
+    </div>
+    <p class="note"><b>One contradiction in the source, resolved by the drawings.</b> The concept page's rule 4 reads "inverted only on the phone icon", and the plate two sections above it draws the inverse and labels it "not used", with the reason: swap the roles and the mark stops being the mark. The home screen plate on the same page then draws the phone icon <b>not</b> inverted. Two of the three say the same thing and the drawings are the living truth, so the system carries no inverse and the exported touch icon is the paper field with the petrol letter. Recorded here rather than picked in silence, so that whoever wrote the sentence can overrule the drawing if the sentence was the decision.</p>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and that is a finding rather than a gap.</b> The mark is never a target. It sits inside a lockup that is not a link on any of the 28 screens, and it carries <code>aria-hidden="true"</code> because the word beside it already says the name in text: a screen reader announcing an empty span before "Tendd" is noise. No <code>:hover</code>, no <code>:focus-visible</code> and no <code>[disabled]</code> are declared.</p>
+    <p class="note">If the lockup becomes the way home at stage 12, the ring belongs to the <b>anchor</b> and not to this square, the same way the subscription row's hover is the row's rule and not the merchant tile's. The mark would gain nothing and the link would gain a component it does not need.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the letter</td><td><code>--text-action</code></td><td><code>--petrol</code>, and <code>--petrol-dark</code> in the dark theme. <b>6.2:1</b> light and <b>6.8:1</b> dark on the field, both measured at stage 08 step 3 and both against the 4.5:1 ink threshold, with the size threshold unused</td></tr>
+          <tr><td>the field</td><td><code>--bg-surface</code></td><td><code>--paper</code>, and <code>--paper-dark</code>. Inside the app bar the field IS the bar, so what a person sees is rule 4 working: two colours, one of them the ground</td></tr>
+          <tr><td>the corner</td><td>none, and it cannot be one</td><td><code>23.4%</code>, a ratio. The rule is a share of the short side, so any length would hold at one size and break at the next</td></tr>
+          <tr><td>the size</td><td>none</td><td><code>22px</code>, a literal, on the same list as the merchant tile's five: mark sizes in this product are set by the container, and no container size is a token</td></tr>
+          <tr><td>states</td><td>none</td><td>not interactive, see above</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>WCAG 1.4.3 exempts a logotype outright and this system does not use the exemption.</b> A mark nobody can see is still a mark nobody can see, so the letter is measured against the ink threshold like any other glyph in the product, in both themes.</p>
+    <p class="note">Lives in <code>design/system/components/brand-mark.css</code>. Stands on 28 coloured screens and 0 grey ones: <code>wireframes/</code> is frozen and had no mark to freeze, which is the one place in this system where the grey corpus is behind the coloured one rather than ahead of it. Coloured screens carrying it: every one of the 28, starting at <a href="../home.html">Home</a>. Its two exported cuts are <code>favicon.svg</code> and <code>apple-touch-icon.png</code>, both at the repository root, linked from all <b>132</b> pages of the project outside <code>wireframes/</code>. The frozen 56 get no icon, which is correct: they are the structure contract and they are not the product.</p>
+    <code class="kit-cmd">&lt;span class="lockup"&gt;
+  &lt;span class="brand" aria-hidden="true"&gt;&lt;/span&gt;
+  &lt;span class="wordmark"&gt;Ten&lt;span class="dd"&gt;dd&lt;/span&gt;&lt;/span&gt;
+&lt;/span&gt;</code>
+    <p class="note">The empty span is the component. It has no content slot because it has no content: the drawing is a mask and the field is a background, and anything written inside it would be clipped by the frame and painted over by the letter.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/brand-mark.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It is the first component in this system that came from a <b>decision</b> rather than from the wireframes: the inventory reads the grey corpus, and the grey corpus has no mark in it. Where it was found, and the five rules it obeys, are in <a href="../concept/logo-crop.html">Concept, the mark taken to depth</a>; what it changed is in <code>docs/tokens-audit.md</code> under the fifth named source.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

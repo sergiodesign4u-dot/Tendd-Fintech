@@ -57,10 +57,15 @@ Founder, June 14 2026 (ground in `research/docs/strategy.md` section 6):
 - **D5** US and Plaid first, EU deferred.
 - **D-Free** (July 2026) No cap on subscriptions and no cap on bank connections in Free: a
   cap is a visibility cap, and it would break the reveal.
-- **D-Concept** (July 2026) The visual language is Petrol and Paper: off-white canvas with
-  white cards, Inter, petrol #1c6a76 spent only on the primary action, the current selection
-  and the trust line; status is a quiet gray badge, never red; a price change is calm amber,
-  a genuine error desaturated clay.
+- **D-Concept** (July 2026, amended by D-Brand) The visual language is Petrol and Paper: off-white
+  canvas with white cards, Inter, petrol #1c6a76 spent inside a screen's content only on the
+  primary action, the current selection and the trust line; status is a quiet gray badge, never
+  red; a price change is calm amber, a genuine error desaturated clay.
+- **D-Brand** (2026-08-12) The identity is Crop: one letterform larger than any frame, and a
+  window cut out of it. Crop A is the mark, at 22px in the app bar and as the favicon and touch
+  icon; the wordmark is Inter 800 at -0.02em with the `dd` pair at -0.09em, all ink beside the
+  mark. The brand is petrol's **fourth place and not a fourth job**: chrome only, never inside a
+  screen's content. Ground and the five rules in `DESIGN.md`, section The brand.
 
 ## Design principles
 

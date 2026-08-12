@@ -341,9 +341,16 @@ the same step that produces it, and the twelve rows above are the checklist for 
 
 ## CHANGES OF APPEARANCE, NAMED
 
-The three legal sources of a visual change on this stage. The pixel comparison at step 8 checks
-every difference against these three lists; a difference with no line here is a defect and is
-fixed in `tokens.css` or in a component file, never on a screen.
+The legal sources of a visual change on this stage. The pixel comparison at step 8 checks every
+difference against these lists; a difference with no line here is a defect and is fixed in
+`tokens.css` or in a component file, never on a screen.
+
+The stage opened with **three**: the consolidated drift, the review of the basics, the move onto
+system classes. The founder's review of the components added a fourth on 2026-08-12. The brand,
+locked the same day, is the **fifth**, and it is the only one of the five that is not a refactor
+of something already on the screens. The dark theme is deliberately **not** on this list: it was
+built as a stress test and changed nothing in `design/system/` or on a coloured screen, which is
+the result step 7 exists to produce.
 
 ### Consolidated drift (step 3)
 
@@ -765,3 +772,147 @@ every index by three and the naive string comparison reported all 3774 elements 
 while reporting zero changed properties. The comparison pairs by array position and reads
 fields from the third onward, so the answer was right and the headline was not. The
 equality shortcut now skips the leading index.
+
+---
+
+## The brand, and the fifth named source (2026-08-12)
+
+The founder chose one of thirteen logo directions the day after step 8 closed, and asked for it
+in the product. The direction is **Crop**, from `design/concept/logo-crop.html`: one letterform
+drawn on a 100 unit square, deliberately larger than any frame that will hold it, and a window
+cut out of it. The letter never changes size relative to itself; the window does.
+
+This is a change of appearance with a named source, and it is the fifth. It is also the only one
+of the five that is not a refactor: the other four moved values that were already on the screens,
+and this one puts a new object on all 28 of them.
+
+### What entered the system
+
+| Thing | Where | Level |
+|---|---|---|
+| `.brand`, the mark | `design/system/components/brand-mark.css` | atom, new |
+| `.wordmark`, the word | `design/system/components/brand-wordmark.css` | atom, **moved** out of `app-bar.css` |
+| `.lockup`, the pair | a slot rule in `app-bar.css` | not a component, see below |
+| `favicon.svg`, `apple-touch-icon.png` | repository root | exported cuts of crop A |
+
+Both atoms went through the five-thing gate: css, kit page with the five blocks, a row in
+`design/kit/_nav.js` in the atoms group, a row in `docs/inventory.md` with its level, and an
+`@import` in the atoms group of `index.css` rather than at the end of the file.
+
+### Two values changed, and the reason is a reversal rather than a correction
+
+| Variable or class | Was | Became | Why |
+|---|---|---|---|
+| `.wordmark` weight | 700 | 800 | the heaviest Inter the product ships, from the concept page's spec plate |
+| `.wordmark` tracking | +0.02em | -0.02em | it stopped being the identity and became half of it |
+| `.wordmark .dd` | did not exist | -0.09em | the pair closes until the bowls almost meet: the one part of the word that is a drawing |
+
+**The old value was right and its reason is on the record, which is why this needs saying.**
+`app-bar.css` argued for +0.02em out loud: at 16px in a bar the letters need air, and a wordmark
+set solid reads as a word rather than as a mark. `DESIGN.md` said the same thing. Both were
+describing a product with **no mark in it**, where the word carried the identity alone and had to
+hold the bar by itself. A mark now stands beside it, so the word is no longer the thing being
+recognised and can be set as one shape. The premise moved; the value followed. `DESIGN.md`'s
+sentence was rewritten the same day rather than left to contradict the code.
+
+### The mark is the fourth place petrol appears
+
+D-Concept spends petrol on the primary action, the current selection and the trust line, and says
+"and no more". The mark is a fourth place. It is recorded as a **named exception** in
+`docs/decisions.md` and in `CLAUDE.md` rather than as a fourth job, and the boundary is written
+with it: the brand is an identity and never an accent, so it never appears inside a screen's
+content. `logo-crop.html` had already written the exception; `CLAUDE.md` had not, and a locked
+decision that only one file knows about is not locked.
+
+### What it moved, measured
+
+The lockup **inserts** three elements per screen, so the step 8 fingerprint could not be paired by
+document order: every row after the app bar shifts by three, and index pairing would have reported
+the whole product as changed. Rows were re-aligned by an LCS on tag and text, which is the weakest
+key that survives an insertion, and only matched rows were compared:
+`design/kit/screens/brandproof.cjs`, output in `brand-ledger.txt`.
+
+```
+matched elements   : 3774
+added by the brand : 168   dropped: 0        exactly 3 per page-viewport, on all 56
+matched and moved  : 69
+
+WHICH ELEMENTS MOVED
+  56  span "Tendd"      the brand's own slot
+   7  span "Free"       the plan chip
+   6  span "Pro"        the plan chip
+```
+
+**Not one other element on any of the 28 screens changed a single declared property.** The two
+chips moved because `margin-left: auto` in `chip.css` absorbs free space in that bar, and the slot
+beside them got wider. Measured directly, both settings in the same document by the same engine:
+the word went from **50.703px to 45.938px**, narrower by 4.765px, and the slot from 50.703px to
+**75.938px**, wider by 25.235px. That figure, 25.235, is the whole of what the brand did to the
+layout of 28 screens, and the auto margins were already absorbing it.
+
+### The lockup was NOT promoted to a component, and the count is why
+
+It stands in exactly one host. Rule 1 of `inventory.md` is that one occurrence is a one-off and is
+written down as one rather than promoted in silence, so its rule lives in `app-bar.css` beside
+`.back`, `.close` and `.step`, the other three slots with no component anywhere in the system. The
+concept page names two more hosts, the share card's band and a launch screen; the share card
+stands on 2 grey pages and 0 coloured ones, and the launch screen does not exist. When the second
+host is built the lockup becomes a molecule and the rule moves.
+
+**Its layout lives in its host, and that is checkable rather than stylistic.** Put the lockup's
+markup on a bare stage in the kit and `.app .appbar .lockup` does not match: the wrapper falls
+back to a plain span, the mark keeps `display: block`, and the word drops onto a second line. It
+was caught in a screenshot of the new kit pages at 1280 and fixed by giving every lockup specimen
+a real app bar. Kept rather than worked around, because it is the "one host" decision proving
+itself: a thing that renders correctly on a blank canvas is a component, and this is a slot.
+
+**The wrapper exists for the rail, not for tidiness.** Past a 760px container the app bar turns
+into a column. A mark and a word left as two children of it would stack vertically at exactly the
+width where the brand has the most room. Wrapped, they are one child: the bar stacks the lockup,
+and the lockup stays horizontal inside itself at every width. Verified at 1280: `flex-direction`
+on the bar is `column` and the pair is still a row, gap 8px.
+
+### One contradiction in the source, resolved by the drawings
+
+`logo-crop.html` rule 4 reads "inverted only on the phone icon". Two sections above it, the "On
+other grounds" plate draws the inverse and labels it **not used**, with the reason: swap the roles
+and the letter stops being the mark, because the counter becomes a dot and the frame becomes the
+drawing. The "home screen" plate on the same page then draws the phone icon **not** inverted.
+
+Two of the three agree and the drawings are the living truth, which is this pipeline's own rule
+for a concept document that follows its mockups. The system therefore carries no inverse and the
+exported touch icon is the paper field with the petrol letter. Recorded rather than picked in
+silence, so whoever wrote the sentence can overrule the drawing if the sentence was the decision.
+
+### The repository stops having no icon
+
+`favicon.svg` is crop A at 46 units with its own dark pair through `prefers-color-scheme`, because
+a role without a pair does not exist in this system and a browser tab strip is a ground like any
+other. `apple-touch-icon.png` is 180px, square and light-only: iOS masks a home screen icon with
+its own superellipse, so a rounded square would put a corner inside a corner, and Apple does not
+offer the icon a theme.
+
+These two files carry the only literals of this brand outside a token file, because a favicon is
+fetched as its own document and cannot read a custom property from the page. All four values are
+copied from `tokens.css` and none is chosen there:
+`--paper #ffffff`, `--petrol #1c6a76`, `--paper-dark #161f21`, `--petrol-dark #6bb0ba`.
+
+Linked from **132** pages, every page in the project except the 56 in `wireframes/`. The frozen
+corpus gets no icon on purpose: it is the structure contract and it is not the product.
+
+### What this leaves for step 9
+
+- `.brand` occurs **zero** times in the grey corpus and always will. It is the first component
+  here that came from a decision instead of from the wireframes, and the inventory's counting
+  rule does not reach it. The instrument only finds what has already been drawn, so a brand, a
+  splash screen and a first-run tour are invisible to it by construction. Named in
+  `inventory.md` so the gap is a known one.
+- Crops **B** and **C** are locked at Concept and not built: no host in the product carries them.
+  The share card is the first, and it is still grey.
+- The **coloured d** is locked and not built, for the same reason: the word never stands alone
+  today.
+- The **motion rule** for the moving window is written and goes to stage 11 as its first entry,
+  which is where `logo-crop.html`'s own chain put it.
+- The two grey `wireframes/` pages and the coloured ones now disagree about the app bar's brand
+  slot: the grey writes `.wordmark`, the colour writes `.lockup`. That is the frozen corpus doing
+  its job, and it is stated on `app-bar.html` beside the table that counts it.

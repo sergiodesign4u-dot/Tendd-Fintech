@@ -3,7 +3,7 @@
    The top chrome of every screen in the app, and one of the two objects in this
    product that CHANGE FORM rather than size at a breakpoint. Below a 760px
    container it is a row across the top of the screen; past it, it folds into
-   the head of the left rail and runs as a column. It hosts the wordmark, the
+   the head of the left rail and runs as a column. It hosts the brand lockup, the
    back control, the step marker, the account link and the plan chip, and it
    paints none of them beyond the ink and the size they already had.
 
@@ -12,7 +12,7 @@
               --line-container
      states   --text-primary (the hover ink of all three links), --color-focus
      geometry --tap  (the 44px floor under all three, straight from primitive)
-     type     --type-sub, --type-body, --type-meta
+     type     --type-body, --type-meta
      spacing  --space-0, --space-4, --space-8, --space-16
      marks    two, both currentColor through a mask, both 16px: the left chevron
               on .back and the cross on .close. No colour of their own by
@@ -22,12 +22,17 @@
    landing (index.html) and the stage hub (overview.html). 28 of them are
    coloured, so more than half of it renders in Petrol and Paper today.
 
-   IT HOSTS AND POSITIONS, AND IT REPAINTS NOTHING. Seven things stand inside it
-   and this file gives exactly two kinds of them a rule: `.wordmark` (weight,
-   size, tracking and the auto margin that pins it beside the leading slot) and
-   the three links, `.back`, `.close` and `.acct`, which have no component of
-   their own anywhere in the system. The plan chip is the Chip atom and its
-   placement rule,
+   IT HOSTS AND POSITIONS, AND IT REPAINTS NOTHING - WHICH BECAME TRUE ON
+   2026-08-12 AND WAS NOT BEFORE. Until that day this file set the wordmark's
+   weight, size and tracking, three paint properties on an element that is the
+   brand's rather than the bar's, directly under a paragraph saying it painted
+   nothing. The brand arriving is what exposed it. Seven things stand inside the
+   bar and this file now gives exactly two kinds of them a rule: `.lockup`, which
+   is where the brand sits and nothing about how it looks, and the three links,
+   `.back`, `.close` and `.acct`, which have no component of their own anywhere in
+   the system. The mark and the word are drawn by brand-mark.css and
+   brand-wordmark.css, two atoms, and this file names neither a colour nor a size
+   for either. The plan chip is the Chip atom and its placement rule,
    `.appbar .plan { margin-left: auto }`, is ALREADY DECLARED in chip.css beside
    the other five host placements of that atom. It is left there rather than
    moved here, on the project's own convention that a host positioning an atom is
@@ -112,21 +117,47 @@
   border-bottom: 1px solid var(--line-divider);
 }
 
-/* ---- the wordmark ----------------------------------------------------------
-   The one place in the product where type tracks OUT rather than in, at
-   +0.02em, and DESIGN.md names it: at 16px in a bar the letters need air, and a
-   wordmark set solid reads as a word rather than as a mark.
+/* ---- the lockup: the brand's slot in the bar -------------------------------
+   REPLACES THE WORDMARK RULE THAT STOOD HERE, 2026-08-12. This file used to set
+   the wordmark's weight, size and tracking, which is three paint properties on a
+   thing that is not the bar's, in the file whose first paragraph says an organism
+   hosts and positions and repaints nothing. The type moved to
+   brand-wordmark.css, the mark arrived as brand-mark.css, and what stays here is
+   the only part that was ever the bar's: where the pair sits, and what happens to
+   it when the row becomes a rail.
+
+   IT IS A WRAPPER AND NOT A COMPONENT, AND THE COUNT IS WHY. The inventory's own
+   rule is that one occurrence is a one-off and is written down as one rather than
+   promoted in silence. The lockup stands in exactly one host today, this bar, so
+   it is a slot of the app bar in the same way `.back`, `.close` and `.step` are
+   slots with no component of their own. The share card and the launch screen are
+   the second and third hosts the concept page names, and both are still grey.
+   When the second one arrives this becomes a molecule and the rule moves; until
+   then a component page for it would document a thing with one instance.
+
+   THE WRAPPER EXISTS BECAUSE OF THE RAIL, and this is the load-bearing half. Past
+   a 760px container the bar turns into a column, so a mark and a word standing as
+   two children of it would stack vertically and stop being a lockup at exactly
+   the width where the brand has the most room. Wrapped, they are one child: the
+   bar stacks the lockup, and the lockup stays horizontal inside itself at every
+   width. Nothing in the query below needs to know the brand exists.
+
+   gap is --space-8 and the bar's own gap is --space-16. The two are different on
+   purpose and the difference IS the lockup: a mark and its word at the bar's
+   spacing read as two objects that happen to be adjacent. Clear space around the
+   pair is the frame's own corner radius, which at 22px is 5.15px, so 8px of air
+   inside the pair and 16px outside it keeps the rule with room to spare.
 
    `margin-right: auto` is not decoration and it is not redundant beside
-   `space-between`. The bar has three slots and the detail screens fill only two,
-   so a space-between row threw the brand mark into the right rail where every
-   other screen puts the plan chip: measured at stage 07, it moved 262px between
-   the list and a subscription, which is the walk this person does most often.
-   `auto` is not on the spacing scale and is not a length; it stays as written. */
-.app .appbar .wordmark {
-  font-weight: 700;
-  font-size: var(--type-sub);
-  letter-spacing: 0.02em;
+   `space-between`. It carries over from the wordmark unchanged, and so does its
+   reason. The bar has three slots and the detail screens fill only two, so a
+   space-between row threw the brand into the right rail where every other screen
+   puts the plan chip: measured at stage 07, it moved 262px between the list and a
+   subscription, which is the walk this person does most often. `auto` is not on
+   the spacing scale and is not a length; it stays as written. */
+.app .appbar .lockup {
+  display: inline-flex; align-items: center;
+  gap: var(--space-8);
   margin-right: auto;
 }
 

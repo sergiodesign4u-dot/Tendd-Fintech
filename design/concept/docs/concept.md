@@ -119,9 +119,48 @@ Marigold, Plum & Fog) are the record of the divergence, above.
 
 The approved brand seeds the root `DESIGN-artifacts.md` (draft design doc, Etap
 06): identity, palette with roles, typography, icon language, and UI tone, each
-tagged with an attribute or taste line. The product design system is generated from
-it at Etap 07 into `design/docs/design.md` (no root `DESIGN.md`, by founder
-decision).
+tagged with an attribute or taste line. The product design system was generated from
+it at Etap 07 into the root `DESIGN.md`, which is where it lives.
+
+### The mark, locked 2026-08-12
+
+Petrol & Paper locked the language and left the identity open: for a year the product
+had a wordmark and no mark, which is written on `logo.html` in its own words ("Tendd
+has a wordmark. It does not have a mark"). Thirteen directions were then built as live
+HTML at real sizes on `design/concept/logo.html`, and the founder chose **Crop**, taken
+to depth on `design/concept/logo-crop.html`.
+
+**The idea, in one sentence:** it is not a picture of a `d`. One letterform is drawn on
+a 100 unit square, deliberately larger than any frame that will ever hold it, and a
+window is cut out of it. The letter never changes size relative to itself; the window
+does. A new surface therefore gets a new window rather than a new drawing.
+
+**The geometry, once and never re-derived:** a bowl of radius 23 centred at (40,60)
+with a 15 unit wall, and a stem 15 wide running from y6 to y90 with a 7.5 cap. Three
+canonical windows: A the bowl (x26 y34, 46 square), B the joint, C the stem. Only A is
+built in the system, at 22px in the app bar and as the two exported icons.
+
+**The five rules** (the letter is never redrawn; it must leave the frame on two sides;
+the corner is 23.4 per cent of the short side; two colours and one of them is the
+ground; below 16px it is crop A or nothing) are written out on `logo-crop.html` and
+carried into `DESIGN.md`, section The brand, which is the document the system reads.
+
+**Attribute trace, because a visual decision with no attribute is an invention:**
+
+| The decision | Attribute or taste | Source line |
+|---|---|---|
+| the letter of the name at the largest possible size, cropped rather than shrunk | **A4 Recognition, not codes** | the persona recognises a shape before she reads a label, which is the same reason every merchant row carries a real mark |
+| character without corporate stiffness; a crop that is a system rather than a badge | **Taste: Monzo** | "Liked", the trait recorded there is character over corporate calm |
+| no red, no outline, no third colour; two colours and one of them is the ground | **A1 Calm, not alarming** | the language already spends one voice, and a mark is not a place to spend a second |
+| the mark never appears inside a screen's content | **A3 One big number, not a dashboard** | a second saturated object beside the total would be a second thing asking to be looked at |
+
+**One divergence between the page and itself, resolved by the drawings.** Rule 4 on
+`logo-crop.html` reads "inverted only on the phone icon"; the plate two sections above
+it draws the inverse, labels it **not used**, and gives the reason; the home screen
+plate on the same page draws the icon not inverted. Two of the three agree and the
+drawings are the living truth, which is this stage's own rule for a concept document
+that follows its mockups. The system carries no inverse. Recorded here so the sentence
+can be overruled by whoever wrote it, rather than quietly.
 
 ## Layout
 

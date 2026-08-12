@@ -99,6 +99,24 @@
   .share .amt { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
   .share .cap { font-size: 12.5px; color: var(--text-secondary); margin-top: 2px; }
 
+  /* ---------- the wordmark ----------
+     Inter 800, the whole word tightened, and the pair of d's closed past that
+     until the bowls nearly touch. The last d is the only coloured letter. */
+  .wm-hero { font-weight: 800; font-size: clamp(38px, 6vw, 64px); letter-spacing: -0.035em; line-height: 1; color: var(--text-primary); }
+  .wm-hero .dd { letter-spacing: -0.13em; }
+  .wm-hero .hi { color: var(--text-action); }
+  .wm-hero.rev { color: #ffffff; }
+  .wm-hero.rev .hi { color: #6bb0ba; }
+  .wm-hero.flat .hi { color: inherit; }
+  .wm-mid { font-size: 30px; }
+  .wm-sm  { font-size: 21px; }
+  .lockup { display: flex; align-items: center; gap: 12px; }
+  .lockup .wm-hero { font-size: 30px; }
+  .bar .wm.brand { font-weight: 800; letter-spacing: -0.02em; }
+  .bar .wm.brand .dd { letter-spacing: -0.09em; }
+  .bar .wm.brand .hi { color: var(--text-action); }
+  .spec { font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
   /* rules list */
   .rules { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
   .rule { border: 1px solid var(--border-light); border-radius: 12px; padding: 16px; }
@@ -120,6 +138,8 @@
   }
   @media (prefers-reduced-motion: reduce) { .pan { animation: none; } }
 </style>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
 </head>
 <body>
 
@@ -160,7 +180,9 @@
       relative to itself, the frame does.</p>
     <p>Which means there is no such thing as a wrong crop, only crops that are on the rule and crops
       that are not. This page sets the rule, cuts the three canonical windows, moves between them,
-      and then puts them into the product.</p>
+      sets the word beside them, and then puts the whole thing into the product.</p>
+    <p><b>Settled while this was being built:</b> the app icon and the favicon are crop A, and the
+      wordmark is Inter 800 tightened, with the second d in petrol when the word stands alone.</p>
     <a class="back" href="logo.html">&#8592; back to all thirteen directions</a>
   </header>
 
@@ -175,7 +197,7 @@
     <div class="blk-body">
       <div class="stage on-canvas" style="padding:28px">
         <svg width="100%" height="auto" viewBox="-6 -4 112 112" style="max-width:520px">
-          <g style="fill:var(--text-action);stroke:var(--text-action)" opacity="0.22">
+          <g style="fill:var(--text-action);stroke:var(--text-action)" opacity="0.3">
             <use href="#gd"/>
           </g>
           <g fill="none" stroke="var(--text-primary)" stroke-width="0.9" stroke-dasharray="3 2.4">
@@ -183,10 +205,11 @@
             <rect x="48" y="40" width="34" height="34" rx="8"/>
             <rect x="58" y="20" width="26" height="26" rx="6.1"/>
           </g>
-          <g font-family="Inter, sans-serif" font-size="5.4" font-weight="700" fill="var(--text-primary)">
-            <text x="27.6" y="32">A  THE BOWL</text>
-            <text x="49.6" y="79.4">B  THE JOINT</text>
-            <text x="59.6" y="51.4">C  THE STEM</text>
+          <g font-family="Inter, sans-serif" font-size="3.4" font-weight="700"
+             letter-spacing="0.24" fill="var(--text-primary)">
+            <text x="26" y="31.2">A  THE BOWL</text>
+            <text x="48" y="78">B  THE JOINT</text>
+            <text x="58" y="17.2">C  THE STEM</text>
           </g>
         </svg>
       </div>
@@ -437,6 +460,105 @@
     </div>
   </section>
 
+  <!-- ================= THE WORDMARK ================= -->
+  <section class="blk" id="wordmark">
+    <div class="blk-head">
+      <h2>The word, cut to match</h2>
+      <p>The mark is a fragment of a d, so the wordmark cannot be the app bar's ordinary label set a
+        bit bolder: it has to be the same letter, at the same weight, with the same appetite for
+        tightness. Inter 800, the whole word at -0.035em, and the pair of d's closed to -0.13em until
+        the bowls almost meet. <b>The last d is the only coloured letter in the brand.</b></p>
+    </div>
+    <div class="plates">
+
+      <div class="plate">
+        <div class="plate-label">The wordmark</div>
+        <div class="stage on-canvas" style="flex-direction:column;gap:20px">
+          <div class="wm-hero"><span>Ten</span><span class="dd">d<span class="hi">d</span></span></div>
+          <div class="wm-hero flat"><span>Ten</span><span class="dd">d<span class="hi">d</span></span></div>
+        </div>
+        <div class="plate-note">Above: the brand wordmark. Below: the one-colour cut, for anywhere
+          petrol cannot go. The tracking does not change between them.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">The spec</div>
+        <div class="stage on-paper" style="flex-direction:column;align-items:flex-start;gap:10px">
+          <div class="spec">weight <b>800</b>, the heaviest Inter the product ships</div>
+          <div class="spec">word tracking <b>-0.035em</b></div>
+          <div class="spec">the dd pair <b>-0.13em</b> on top of that</div>
+          <div class="spec">the second d in <b>petrol</b>, everything else ink</div>
+          <div class="spec">today's app bar label was 700 at <b>+0.02em</b></div>
+        </div>
+        <div class="plate-note">That last line is the decision this makes: the bar's wordmark stops
+          tracking out and starts tracking in. One value, one reason, and it changes in the kit
+          rather than on a screen.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">The lockup</div>
+        <div class="stage on-canvas" style="flex-direction:column;gap:18px">
+          <div class="lockup">
+            <svg width="38" height="38" viewBox="26 34 46 46"><clipPath id="wl"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+              <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+              <g clip-path="url(#wl)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <div class="wm-hero flat"><span>Ten</span><span class="dd">d<span class="hi">d</span></span></div>
+          </div>
+          <div class="wm-hero wm-mid"><span>Ten</span><span class="dd">d<span class="hi">d</span></span></div>
+        </div>
+        <div class="plate-note"><b>The rule:</b> with the mark, the word is all ink, because the mark
+          is already carrying the petrol. Alone, the last d takes it. Two petrol things beside each
+          other is one too many.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">On the dark canvas</div>
+        <div class="stage on-night" style="flex-direction:column;gap:18px;padding:26px 16px">
+          <div class="wm-hero rev wm-mid"><span>Ten</span><span class="dd">d<span class="hi">d</span></span></div>
+          <div class="lockup">
+            <svg width="34" height="34" viewBox="26 34 46 46"><clipPath id="wd"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+              <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+              <g clip-path="url(#wd)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <div class="wm-hero rev flat wm-mid"><span>Ten</span><span class="dd">d<span class="hi">d</span></span></div>
+          </div>
+        </div>
+        <div class="plate-note">The coloured d takes the lightened petrol, the same value every other
+          accent takes in the dark theme. The tile keeps paper as its field so the lockup does not
+          become two dark shapes.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">Down to the bar</div>
+        <div class="stage on-canvas col">
+          <div class="wm-hero wm-sm"><span>Ten</span><span class="dd">d<span class="hi">d</span></span></div>
+          <div class="bar">
+            <svg width="22" height="22" viewBox="26 34 46 46"><clipPath id="wb"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+              <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
+              <g clip-path="url(#wb)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
+            <span class="wm brand"><span>Ten</span><span class="dd">dd</span></span>
+            <span class="chip">Free</span>
+          </div>
+        </div>
+        <div class="plate-note">At 16px the tightened pair still reads, and the petrol d is dropped
+          here because the mark is present. This is the string on all 54 screens.</div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-label">Where the d is coloured</div>
+        <div class="stage on-paper" style="flex-direction:column;align-items:flex-start;gap:8px">
+          <div class="spec">alone, at any size above 20px: <b>coloured</b></div>
+          <div class="spec">beside the mark: <b>ink</b></div>
+          <div class="spec">in the app bar: <b>ink</b>, the mark is there</div>
+          <div class="spec">below 20px with no mark: <b>ink</b>, the colour stops reading</div>
+          <div class="spec">on a photograph or a partner page: <b>ink or white</b>, never petrol</div>
+        </div>
+        <div class="plate-note">Five lines, so nobody has to guess later. The coloured letter is a
+          brand move, not a UI accent, which is why it never appears inside a screen's content.</div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ================= IN THE PRODUCT ================= -->
   <section class="blk" id="product">
     <div class="blk-head">
@@ -449,17 +571,17 @@
       <div class="plate">
         <div class="plate-label">The app bar and the lockup</div>
         <div class="stage on-canvas col">
-          <div class="lock">
-            <svg width="30" height="30" viewBox="26 34 46 46"><clipPath id="pl"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
+          <div class="lockup">
+            <svg width="34" height="34" viewBox="26 34 46 46"><clipPath id="pl"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
               <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
               <g clip-path="url(#pl)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
-            <span class="wm">Tendd</span>
+            <div class="wm-hero flat"><span>Ten</span><span class="dd">d<span class="hi">d</span></span></div>
           </div>
           <div class="bar">
             <svg width="22" height="22" viewBox="26 34 46 46"><clipPath id="pb"><rect x="26" y="34" width="46" height="46" rx="10.8"/></clipPath>
               <rect x="26" y="34" width="46" height="46" rx="10.8" style="fill:var(--field)"/>
               <g clip-path="url(#pb)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
-            <span class="wm">Tendd</span><span class="chip">Free</span>
+            <span class="wm brand"><span>Ten</span><span class="dd">dd</span></span><span class="chip">Free</span>
           </div>
         </div>
         <div class="plate-note">Clear space is the frame's own corner radius on every side.</div>
@@ -486,7 +608,7 @@
         <div class="plate-label">The share card</div>
         <div class="stage on-canvas" style="padding:18px 12px">
           <div class="share">
-            <svg class="top" viewBox="20 40 64 20" preserveAspectRatio="none" height="88">
+            <svg class="top" viewBox="20 40 64 20" preserveAspectRatio="xMidYMid slice" height="88">
               <clipPath id="sh"><rect x="20" y="40" width="64" height="20"/></clipPath>
               <rect x="20" y="40" width="64" height="20" style="fill:var(--field)"/>
               <g clip-path="url(#sh)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g>
@@ -511,8 +633,9 @@
             <rect x="58" y="20" width="26" height="26" rx="6.1" style="fill:var(--field)"/>
             <g clip-path="url(#ph2)" style="fill:var(--ink);stroke:var(--ink)"><use href="#gd"/></g></svg>
         </div>
-        <div class="plate-note">Two candidates for the icon itself. A says the name, C says the brand
-          and holds better next to a screen full of other icons. This is the one open question left.</div>
+        <div class="plate-note"><b>Settled: the icon is A.</b> It is the crop where the counter closes,
+          so it is the only one that says the name to somebody who has not met the brand yet. C stays
+          in the system, but as the pattern and the avatar, not as the thing on the home screen.</div>
       </div>
     </div>
   </section>
@@ -557,7 +680,10 @@
       <div class="tags" style="margin-top:18px">
         <span class="tag">A4 recognition: the letter of the name at the largest possible size</span>
         <span class="tag">Taste: Monzo, character without corporate stiffness</span>
-        <span class="tag warn">Open: which crop is the app icon, A or C</span>
+        <span class="tag">Settled: the app icon and the favicon are crop A</span>
+        <span class="tag warn">Named exception: the brand is a fourth place petrol appears, beside
+          the primary action, the current selection and the trust line. It is a brand element, never
+          an accent inside a screen's content</span>
       </div>
     </div>
   </section>
@@ -574,16 +700,19 @@
         <li>The glyph lands in <b>design/system/</b> as one file, and the three crops become three
           exported assets from it. The lockup joins the kit beside <code>.appbar</code>, so it reaches
           all 54 screens through the kit and not by editing screens.</li>
-        <li>The favicon and the app icon are cut from crop A, and the repository stops having no icon
-          at all. The one decision still owed is whether the phone icon is A or C.</li>
-        <li>The wordmark's tracking is settled in the same step: today's +0.02em was written for a
-          word standing alone, and this lockup may want less.</li>
+        <li>The favicon, the app icon and the touch icon are all cut from <b>crop A</b>, and the
+          repository stops having no icon at all.</li>
+        <li>The wordmark replaces the app bar's label in the kit: <b>800 at -0.035em with the pair at
+          -0.13em</b>, where today it is 700 at +0.02em. That is a value change with a named reason,
+          so it goes in the log, and it reaches all 54 screens through <code>kit.css</code>.</li>
         <li>The motion rule above goes into the animation stage as the first entry, since it is
           already written and already has a reason.</li>
       </ol>
       <p style="font-size:14.5px;color:var(--text-secondary);margin-top:14px">
-        Nothing here touches a token. The mark spends petrol on the third of its three permitted jobs
-        and takes nothing from the primary action.
+        Nothing here touches a token value. What it does add is a named exception to where petrol is
+        allowed: the brand is the fourth place, beside the primary action, the current selection and
+        the trust line, and it never appears inside a screen's content. Written down here so the next
+        person finds the reason and not just the colour.
       </p>
       <a class="back" href="logo.html">&#8592; back to all thirteen directions</a>
     </div>
@@ -614,6 +743,7 @@
     { id:'crops',   label:'The three crops' },
     { id:'motion',  label:'The frame moves' },
     { id:'frames',  label:'Not only squares' },
+    { id:'wordmark', label:'The word' },
     { id:'product', label:'In the product' },
     { id:'rules',   label:'The rule' },
     { id:'next',    label:'If this is locked' },

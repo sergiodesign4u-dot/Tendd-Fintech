@@ -67,12 +67,14 @@ importance: the same button is 14px in a page action row and 13.5px in a compact
 the row is tighter, not because the action matters less. GAP in a grid is set by the **size of
 the child**: doors are full cards and take air, tiles are chips and do not.
 
-## Atoms (18)
+## Atoms (20)
 
 | Component | Class | Axes and their values | Pages in the product | Was |
 |---|---|---|---|---|
 | Amount | `.amt` | size by container: 13.5 / 14 / 30 / 32 | 69 | - |
 | Big total | `.total` | size by container: 46 / 40 | 8 | - |
+| Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 0 | - |
+| Brand wordmark | `.wordmark` | one setting. The coloured d waits for a host where the word stands alone | 54 | - |
 | Button | `.btn` | emphasis: fill / outline / inverse. size: default / compact | 85 | - |
 
 **Built.** `design/system/components/button.css` + `design/kit/button.html`. The etalon of step 5,
@@ -93,6 +95,34 @@ and the first component through the five-thing gate: css, page, registry row, in
 | Skeleton bar | `.skel` | width set, and one height for the total | 89 | - |
 | Step-forward link | `.next` | - | 2 | - |
 | Text input | `.input` | type: text / email / search | 8 | `.field input` |
+
+**The two brand atoms break this document's own counting rule, and the break is the finding.**
+Every other row above was read out of the grey corpus and enters the kit on two or more
+occurrences. `.brand` occurs **zero** times there, and no amount of reading `wireframes/` would
+ever have produced it: the wireframes are frozen, Voice was the last stage allowed to touch them,
+and there was no mark when they were written. It arrived on 2026-08-12 from a **decision** by the
+founder, out of `design/concept/logo-crop.html`, and it is the first component in this system with
+that provenance.
+
+The consequence worth carrying forward is about the instrument rather than the row. This
+inventory reads what the product already draws, so it can only ever find what has been drawn. A
+brand, a splash screen, a first-run tour and an error page that nobody wireframed are invisible to
+it by construction, and each of them is a real component with real states. The rollout at stage 12
+inherits that gap, and it is named here so the gap is a known one.
+
+`.wordmark` is the opposite case and needs no exception: it stands on all 54 grey pages and always
+did. What changed is who draws it. Until 2026-08-12 its weight, size and tracking were set by
+`app-bar.css`, an organism, in the file whose first paragraph says an organism repaints nothing.
+That is the same defect the consolidation already fixed once, when the reveal's container was
+found restyling the Label; this is the second instance and it was invisible until the brand gave
+the wordmark somewhere else to live.
+
+**A wrapper this stage deliberately did not promote.** The lockup, `.lockup`, holds the two atoms
+in the app bar. It stands in **one** host, so by rule 1 of this file it is a one-off and is
+recorded here rather than given a component of its own. Its rule lives in `app-bar.css` beside
+`.back`, `.close` and `.step`, the other three slots with no component anywhere. The concept page
+names two more hosts for it, the share card's band and a launch screen, and the share card stands
+on 2 grey pages and 0 coloured ones. When the second host is built, this becomes a molecule.
 
 ## Molecules (23)
 

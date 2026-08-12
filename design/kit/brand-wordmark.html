@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brand wordmark - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/logo-crop.html">Where the mark was found, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Brand wordmark</h1>
+    <p class="lead">The name, set as a mark rather than as a label. It is the one string that is the same on all 54 grey pages and all 28 coloured ones, and until 2026-08-12 it was drawn by the app bar, which is an organism and had no business painting it.</p>
+    <div class="kit-meta">
+      <span>Atom</span><span><strong>28</strong> coloured screens</span><span><strong>54</strong> grey pages</span><span>1 setting</span><span>no states</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">One text slot and one drawing inside it, which is the whole component. Everything below is drawn by <code>design/system/components/brand-wordmark.css</code> through the same entry point a product screen loads.</p>
+    <p class="note"><b>The live specimen stands where the component has ground.</b> The word takes its ink by inheritance and its place from the app bar, so a specimen floating on a blank canvas would be measuring neither. This is the bar on all 28 coloured screens.</p>
+    <div class="kit-stage app bleed full rail">
+      <header class="appbar">
+        <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span>
+        <a class="acct" href="#anatomy" aria-label="Hi Emma, open your account">Hi, Emma</a>
+      </header>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.wordmark</code> <span>weight <b>800</b>, the heaviest Inter the product ships, at <code>--type-sub</code> with <b>-0.02em</b> of tracking. Sixteen pixels is the step the bar has always set, and it did not move</span></li>
+      <li><code>.dd</code> <span><b>-0.09em</b> on top of that, until the bowls almost meet. This is the one thing in the wordmark that is a drawing rather than a setting, and it is why the markup carries a span the app bar never needed</span></li>
+      <li><code>color</code> <span><b>not declared, and that is not an omission.</b> Beside the mark the word is all ink, because the mark is already carrying the petrol and two petrol things beside each other is one too many. Inheritance enforces the rule by absence, which is the only way it cannot drift</span></li>
+      <li><code>font-size</code> <span><code>--type-sub</code>. The only token this component reads, and it is the same one <code>app-bar.css</code> read on its behalf until the split</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note">One setting, and the axis it sits on is <b>where the word stands</b> rather than how big it is. The concept locked four rules for the coloured letter and the product carries the first of them today; the rest are listed with the host each is waiting for, because a variant with no host is an invention.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Where it stands<p class="axis-rule">The question is never the size. It is whether the mark is present: if it is, the mark carries the colour and the word carries none</p></th>
+            <th class="val">Tokens</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>In the lockup</b> <code>.wordmark</code></td>
+            <td class="val">--type-sub<br>800 / -0.02em<br>ink, inherited</td>
+            <td>The app bar, on all 28 coloured screens. The mark is there, so the word is all ink</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span></header></div></td></tr>
+          <tr>
+            <td class="kit-empty">Standing alone, above 20px</td>
+            <td class="kit-empty">-</td>
+            <td>The second <b>d</b> takes petrol when the word stands by itself. <b>Not built:</b> the word never stands alone today, and the two hosts that would carry it, a launch screen and a coloured landing, do not exist. It arrives with the first of them</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">Below 20px with no mark</td>
+            <td class="kit-empty">-</td>
+            <td>All ink: the colour stops reading at that size. Locked at Concept, no host in the product</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">On a photograph or a partner page</td>
+            <td class="kit-empty">-</td>
+            <td>Ink or white, and never petrol. No host, and the rule is written down so that the first person to need it does not have to decide it</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>-0.02em here and -0.035em on the concept page, and the difference is not a compromise.</b> Tracking is an optical correction, and the tighter a setting is the more of it a large size can carry. The concept sets the hero at -0.035em and its own bar plate at -0.02em; at 16px the hero's value starts closing the counters. Both numbers are read from that page and neither is chosen here.</p>
+    <p class="note"><b>The trailing pull is measured and it is kept.</b> Letter-spacing lands after EVERY character in a span, the last one included, so the pair's -0.09em also pulls the word's right edge in by 1.44px at 16px. It costs nothing: the lockup is followed by <code>margin-right: auto</code> on all 28 screens, so nothing sits against that edge. Removing it would mean wrapping the second <b>d</b> in a span of its own to carry a positive correction, and one span is the drawing where two spans would be an apology for it.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">Once per screen, in the app bar, inside the lockup. If the name appears anywhere else, in a sentence, a heading or a legal line, that is <b>type</b> and it belongs to whatever component owns the text around it. A wordmark inside a paragraph is a logo somebody pasted into prose.</p>
+    <p class="note"><b>It is a mark, and the test is whether it is being read or recognised.</b> A person reads "Your subscriptions" and recognises "Tendd". That is the whole reason the tracking reversed direction: a word set for reading needs air between the letters, and a word set for recognition needs the opposite, because what it has to be is one shape.</p>
+    <p class="note">Its copy comes from nowhere and is not in <code>voice/docs/microcopy.md</code>: the product's name is not a string that anybody writes. It is the only text in this system with no owner in the copy inventory, which is correct and worth saying once.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The pair closes</span>
+        <div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span><span class="chip">Free</span></header></div>
+        <p>The two <b>d</b>'s track further in than the rest of the word, until the bowls almost meet. It is the same move the mark makes: the identity is a letter that has been crowded on purpose, and the word repeats it. Two <b>d</b>'s at the word's own spacing look like a typing mistake somebody kept.</p>
+      </div>
+      <div class="no">
+        <span class="hd">The pair left open</span>
+        <div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Tendd</span></span><span class="chip">Free</span></header></div>
+        <p>The same class with the span left out, drawn here for real rather than mocked. Everything is right except the drawing: 800, -0.02em, all ink. What is missing is 1.44px, and it is the difference between a name set boldly and a name that has been designed.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The name as a mark</span>
+        <div class="kit-stage app bleed full rail"><header class="appbar"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">dd</span></span></span></header></div>
+        <p>In the bar, beside the mark, once. This is the only place the component belongs, and the count is one per screen on all 28.</p>
+      </div>
+      <div class="no">
+        <span class="hd">The name as words</span>
+        <div class="kit-stage app"><div><h2 class="lbl strong">Tendd</h2><p class="muted">is keeping an eye on 14 subscriptions</p></div></div>
+        <p>When the product's name is part of something a person reads, it takes the type of whatever it is inside, here a <a href="label.html">label</a>. Setting it as the wordmark would put a second identity inside the content of a screen, and the whole point of the bar is that the identity lives in one place and stays out of the way of the numbers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and it is a finding.</b> It is a <code>span</code> on all 28 coloured screens and all 54 grey ones, never an anchor, so there is no hover to declare and no ring to draw. Drawing four cells here would document something the product cannot do.</p>
+    <p class="note">If it becomes the way home at stage 12, the anchor takes the ring and this atom keeps its type. That split is the same one <a href="logo.html">the merchant tile</a> already lives with: the row is the link, the mark inside it is not.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the size</td><td><code>--type-sub</code></td><td>16px, primitive, straight. The step the bar always set, and the one value in this component that did not move</td></tr>
+          <tr><td>the ink</td><td>none, and that is the rule</td><td>inherited. <code>--text-primary</code> inside the bar, 17.4:1 light and 15.0:1 dark. Beside the mark the word carries no colour of its own, so the rule cannot be broken by editing this file</td></tr>
+          <tr><td>the weight and both trackings</td><td>literals</td><td><code>800</code>, <code>-0.02em</code>, <code>-0.09em</code>. Em tracking follows the type step it sits on, so it has nothing to override and no theme can want it different</td></tr>
+          <tr><td>states</td><td>none</td><td>not interactive, see above</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Was to became, and it is the fifth named source of a visual change in this stage.</b> The setting was <b>700 at +0.02em</b> and is now <b>800 at -0.02em</b> with the pair at -0.09em. <code>app-bar.css</code> said out loud why the old value was right, and <code>DESIGN.md</code> said the same: at 16px in a bar the letters need air, and a wordmark set solid reads as a word rather than as a mark. Both were describing a product with <b>no mark in it</b>, where the word was the identity and had to hold the bar alone. It is not a drift and it is not a correction of a mistake: the premise changed, the sentence in <code>DESIGN.md</code> was rewritten the same day, and the row is in <code>docs/tokens-audit.md</code>.</p>
+    <p class="note"><b>Measured, both in the same document by the same engine.</b> The word was <b>50.703px</b> wide and is now <b>45.938px</b>, narrower by <b>4.765px</b>. The slot it sits in went the other way, from 50.703px to <b>75.938px</b>, because the mark adds 22px and the gap 8: <b>25.235px</b> wider. That figure is the whole of what the brand did to the layout of 28 screens, and it lands entirely in the <code>auto</code> margins that were already absorbing free space in that bar.</p>
+    <p class="note">Lives in <code>design/system/components/brand-wordmark.css</code>. Stands on 28 coloured screens and 54 grey ones, which is every page in <code>wireframes/</code> except the landing and the stage hub. The grey carries the word alone at the old setting, because <code>wireframes/</code> is frozen and Voice was the last stage allowed to edit text there.</p>
+    <code class="kit-cmd">&lt;span class="wordmark"&gt;Ten&lt;span class="dd"&gt;dd&lt;/span&gt;&lt;/span&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/brand-wordmark.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It is the second component this stage <b>moved out</b> of a file that should not have been holding it, after the reveal's caption left the container that was restyling it. What it looks like, and the four rules for its coloured letter, are in <a href="../concept/logo-crop.html">Concept, the mark taken to depth</a>; where it sits is <a href="app-bar.html">the app bar</a>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+/* ============================================================================
+   Brand mark - atom
+   The identity, and it is NOT a picture of a d. One letterform is drawn on a 100
+   unit square, deliberately larger than any frame that will ever hold it, and a
+   window is cut out of it. The letter never changes size relative to itself; the
+   window does. Three windows are canonical, and this file draws the first of
+   them.
+
+   Reads
+     colour   --text-action  (the letter)
+              --bg-surface   (the field, which is the ground of the mark and not
+                              the ground of the page)
+     geometry a ratio, not a token: see the corner below
+   Page      design/kit/brand-mark.html
+   Origin    design/concept/logo-crop.html, the direction the founder chose out of
+             thirteen. Every number below is read from that page and none of it is
+             re-derived here.
+   Stands on 28 coloured screens, inside the app bar's lockup, and on 0 grey ones:
+   wireframes/ is frozen and had no mark to freeze.
+
+   THE NAME IS `.brand` AND IT COULD NOT BE `.logo`. That class is the merchant
+   tile, 111 places across 21 grey pages, and it is DATA: it is the person's own
+   Netflix, rendered as Netflix. This one is chrome, it is ours, and there is
+   exactly one of it. Two things that differ in what they mean must differ in what
+   they are called, or the first person to grep for the logo finds 112 answers.
+
+   NOT INTERACTIVE. It is never a target: it sits inside a lockup that is not a
+   link on any of the 28 screens, and it carries aria-hidden in the markup because
+   the wordmark beside it already says the name in text. No :hover, no
+   :focus-visible, no [disabled] are declared, and if the lockup ever becomes a
+   link the ring belongs to the link and not to this square.
+
+   ONE SIZE, AND THAT IS THE HONEST COUNT. 22px, in the app bar. The other sizes
+   of this mark exist as EXPORTED FILES rather than as CSS, which is what the
+   concept page's own chain asked for: favicon.svg and apple-touch-icon.png are
+   crop A at their own sizes. A size modifier for the share card and the launch
+   screen would be a variant the product does not carry today, and the two screens
+   that would carry it are still grey.
+   ============================================================================ */
+
+/* ---- the frame -------------------------------------------------------------
+   `overflow: hidden` is load-bearing rather than tidy: the letter is bigger than
+   the frame by construction and crosses every corner, so without the clip the
+   petrol would paint outside the rounded field and the mark would have no corner
+   at all.
+
+   THE CORNER IS A RATIO AND THAT IS WHY IT IS NOT A TOKEN. Rule 3 of the mark:
+   the frame's radius is 23.4 per cent of its short side. A length would freeze
+   the corner at one size, and the moment the mark is exported at 180px for a
+   phone the 6px corner would read as a square. --radius-xs is 6px and would be
+   1px off at 22; at 180 it would be 36px off. The percentage is the rule written
+   down, not a value that escaped the scale.
+
+   The field takes --bg-surface, so inside the app bar (which is also
+   --bg-surface) the field is the bar and what a person sees is the petrol letter
+   with a cropped corner. That is rule 4 working as intended: two colours, and one
+   of them is the ground. On the canvas, on a card and in the exported icon the
+   same declaration draws a paper tile, because there the ground is something
+   else.
+
+   22px is a literal and it is on the same list as logo.css's five: the mark
+   sizes of this product are set by the CONTAINER, and no container size is a
+   token. The tab bar's four destinations are 22px squares for the same reason
+   the mark is: it is the size at which a filled shape in this bar reads without
+   competing with the type beside it. */
+.app .brand {
+  flex: none;
+  display: block;
+  width: 22px; height: 22px;
+  border-radius: 23.4%;
+  background: var(--bg-surface);
+  overflow: hidden;
+}
+
+/* ---- the letter ------------------------------------------------------------
+   THE GLYPH IS DECLARED ONCE, HERE, AND THE SVG DOES THE CROPPING. The drawing
+   is a circle of radius 23 centred at (40,60) with a 15 unit wall, and a stem 15
+   wide running from y6 to y90 with a 7.5 cap. Crop A is the window x26 y34, 46
+   by 46. Rather than scale and offset a full-square image with mask-size and
+   mask-position, the viewBox IS the window: `viewBox='26 34 46 46'` renders that
+   region and clips the rest at the SVG viewport. One consequence worth the line:
+   a new crop is a new viewBox on the same four numbers of geometry, so rule 1,
+   the letter is never redrawn, is enforced by the file rather than by discipline.
+
+   The mask over currentColor is the machinery app-bar.css already uses for the
+   chevron and the cross, with one difference that matters: those two take
+   `currentColor` and are therefore free in both themes, while this one takes
+   --text-action explicitly. The letter is petrol because it is the brand, not
+   because it inherited the ink of whatever holds it, and the semantic role gives
+   it its dark pair (--petrol-dark) for nothing.
+
+   mask-size is 100% 100% and not `contain`: the image is already exactly the
+   window, so contain would letterbox a square inside a square and cost a
+   sub-pixel edge for no reason.
+
+   -webkit- first and unprefixed second, because Safari still answers only to the
+   prefixed property and the unprefixed one has to be able to win where both are
+   understood. The same order, and the same longhands, as the two marks in
+   app-bar.css and the four in destination-icon.css.
+
+   CONTRAST, and the mark is measured rather than exempted. WCAG 1.4.3 exempts a
+   logotype outright; this system does not use that exemption, because a mark
+   nobody can see is still a mark nobody can see. --text-action on --bg-surface
+   is 6.2:1 light and 6.8:1 dark, which clears the 4.5:1 ink threshold in both
+   themes with the size threshold unused. */
+.app .brand::before {
+  content: "";
+  display: block;
+  width: 100%; height: 100%;
+  background-color: var(--text-action);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='26 34 46 46'%3E%3Ccircle cx='40' cy='60' r='23' fill='none' stroke='%23000' stroke-width='15'/%3E%3Crect x='64' y='6' width='15' height='84' rx='7.5' fill='%23000'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='26 34 46 46'%3E%3Ccircle cx='40' cy='60' r='23' fill='none' stroke='%23000' stroke-width='15'/%3E%3Crect x='64' y='6' width='15' height='84' rx='7.5' fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+
+/* NO `.landing` TWIN, AND THAT IS DELIBERATE. Forty-six of the fifty-five
+   component files carry a `.landing` prefix beside `.app`, inherited from
+   kit.css. This component has no landing host to carry: design/index.html does
+   not exist, and wireframes/index.html is grey and frozen. Declaring the twin
+   here would add a fifty-sixth dead selector to a list the backlog already wants
+   shortened. When the coloured landing is built, this is one line. */

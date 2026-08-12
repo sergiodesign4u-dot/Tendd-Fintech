@@ -40,9 +40,9 @@ typography:
   title:
     fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "16px"
-    fontWeight: 700
+    fontWeight: 800
     lineHeight: 1.4
-    letterSpacing: "0.02em"
+    letterSpacing: "-0.02em"
   body:
     fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "14.5px"
@@ -323,8 +323,13 @@ quiet, ordinary row.
   screen, ever.
 - **Headline** (700, 18px): the subscription name on the detail screen, and the heading of an
   empty or error message.
-- **Title** (700, 16px, +0.02em): the wordmark in the app bar. It tracks OUT, not in: it is the
-  only word on a screen that is a name rather than a sentence.
+- **Title** (800, 16px, -0.02em): the wordmark in the app bar, with the `dd` pair a further
+  -0.09em. It tracks IN, and it did the opposite until 2026-08-12. The old rule read "it tracks
+  OUT, not in: it is the only word on a screen that is a name rather than a sentence", and it was
+  right for a product with **no mark in it**, where the word carried the identity alone and needed
+  air to be read at 16px. A mark now stands beside it, so the word stopped being the thing being
+  recognised and became half of it, and a mark is set as one shape. The premise moved; the value
+  followed. See The brand, below.
 - **Body** (600, 14.5px): the merchant name in a row, the primary reading line.
 - **Meta** (400, 12.5px): the amount, the next date, the source line. Always muted.
 - **Label** (600, 10.5px): badges. Not uppercased and not tracked out, because a shouting label on
@@ -435,11 +440,73 @@ A 12px muted line with a 15px petrol shield masked in front of it, sitting direc
 figures it vouches for. It is not fine print and it is not a footer: it is placed where the number
 is, because a trust claim that has to be scrolled to is not a trust claim.
 
+## The brand
+
+Locked 2026-08-12, out of `design/concept/logo-crop.html`, and it is the last thing this document
+gained that was not read off a screen: it was read off a screen the day after it was decided.
+
+**The mark is not a picture of a d.** One letterform is drawn on a 100 unit square, deliberately
+larger than any frame that will hold it, and a window is cut out of it. The letter never changes
+size relative to itself; the window does. There is therefore no such thing as a wrong crop, only
+crops that are on the rule and crops that are not.
+
+**The geometry, once.** A bowl of radius 23 centred at (40,60) with a 15 unit wall, and a stem 15
+wide running from y6 to y90 with a 7.5 cap. Three windows are canonical: **A** the bowl (x26 y34,
+46 square), **B** the joint (x48 y40, 34 square), **C** the stem (x58 y20, 26 square). The tighter
+the crop, the more abstract the mark. A is still a letter, B is a shape with a memory of one, C is
+a brand colour with an edge in it.
+
+**Only A is built,** in `design/system/components/brand-mark.css`, at 22px in the app bar and as
+the two exported icons. B and C have no host in the product: the share card stands on 2 grey pages
+and 0 coloured ones, and the launch screen does not exist. A variant with no host is an invention.
+
+**The five rules.**
+1. The letter is never redrawn. A new surface gets a new window, never a new drawing. Enforced by
+   the file rather than by discipline: the mask image is written as `viewBox='26 34 46 46'`, so a
+   new crop is a new viewBox on the same four numbers.
+2. It must leave the frame on at least two sides. The moment the whole letter fits inside its
+   frame it stops being a crop and becomes a logo in a box.
+3. The corner is 23.4 per cent of the frame's short side. A ratio and not a token: any length
+   would hold at one size and break at the next.
+4. Two colours, and one of them is the ground. Letter in petrol, field in paper, never a third
+   colour and never an outline. No inverse is carried, see below.
+5. Below 16px it is crop A or nothing. At favicon size the counter is the only thing holding the
+   letter together, and only A has it.
+
+**The wordmark** is Inter 800 at 16px with -0.02em, and the `dd` pair a further -0.09em until the
+bowls almost meet. Beside the mark it is **all ink**, because the mark is already carrying the
+petrol and two petrol things beside each other is one too many. That rule is enforced by absence:
+`brand-wordmark.css` declares no colour at all. Standing alone above 20px the second `d` takes
+petrol; that form is locked and not built, because the word never stands alone today.
+
+**Petrol's fourth place, and the boundary that comes with it.** The Named Rule below spends petrol
+on the primary action, the current selection and the trust line "and nowhere else". The brand is
+the fourth, and it is an exception rather than a fourth job: the mark is an identity, never an
+accent, and it therefore never appears inside a screen's content. It lives in the app bar, in the
+tab, and on a home screen.
+
+**The mark is not the merchant tile.** `.logo` is DATA, the person's own Netflix rendered as
+Netflix, 111 places across 21 pages, and it may be any colour in the world because the colour is
+the merchant's. `.brand` is chrome, it is ours, and there is exactly one of it.
+
+**No inverse.** The concept page's rule 4 says "inverted only on the phone icon" and the plate two
+sections above it draws the inverse, labels it not used, and gives the reason: swap the roles and
+the counter becomes a dot and the frame becomes the drawing. The home screen plate on that page
+then draws the icon not inverted. Two of the three agree and the drawings are the living truth, so
+the system carries no inverse.
+
+**Motion belongs to stage 11.** The three crops are three stops on one continuous move, the window
+travelling across a fixed letter and tightening as it goes. Eight seconds, one loop, a hold of
+about a second and a half on each stop. Allowed on the launch screen, the first run, the empty
+state and the share card render; **never** in the app bar, never on a loading screen, never on a
+repeat visit. A mark that moves while somebody is trying to read a number is the opposite of calm.
+
 ## Do's and Don'ts
 
 ### Do:
-- **Do** spend petrol on the primary action, the current selection and the trust line, and nowhere
-  else.
+- **Do** spend petrol on the primary action, the current selection and the trust line, and inside a
+  screen's content nowhere else. The brand mark is the fourth place and it is not a fourth job: it
+  is an identity, it lives in the chrome, and it never appears among the content. See The brand.
 - **Do** keep the monthly total at Display size and alone at that size.
 - **Do** use the grey status badge for state, and show it only when the state is not the default.
 - **Do** separate surfaces with a hairline and a background change.
