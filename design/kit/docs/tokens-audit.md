@@ -519,6 +519,7 @@ to do when it turns out otherwise is to say so rather than to make the code fit 
 | `.removal > a`, `.legal > a` | the 44px floor by direct-child structure | `.muted > p ~ a` and `.muted.ruled > a` | **The one place the fold changed what a selector means**, and it had to be caught rather than renamed. `kit.css` gave the floor to `.removal > a` and `.legal > a` and left `.consequence a` out, and that arithmetic worked only because the three had different names. They are all `.muted > a` now: the removal block is a `div` wrapping a `p` and an `a`, the footnote is a `p` whose link ends its sentence, the consequence line is a `p` with a link in the MIDDLE of one. Left as `> a` the rule would have handed a 44px inline box to the two running-text links on History and Trends and on the Pro lock. Measured after: five removal links at 44px, the footnote link at 44px, the two running-text links at 17px, all three unchanged |
 | `.muted.spaced` | `margin-top: 18px` against `.consequence`'s 12 | byte identical to the base after step 4 folded both to `--space-16` | The `.btn.compact` finding a second time, and it is **not** deleted the way `.compact` was: `.compact` is a row of the renaming map and this is not, so removing it means taking the class off `upgrade-processing.html`, which that step did not own. Zero pixels either way. It is a row the map owes |
 | `.notice`, `.notice.is-error`, `.attention`, `.decoder` | four names, one object | `.wash`, `.wash.error`, `.wash.attention`, `.wash.code` | **Zero pixels, and the consolidation is why**: all four already shared one padding, one margin and, since the corner was consolidated at step 3, one radius, so the fold had nothing to collide over. The old half of every link selector list is deleted in the same edit, and the repair it protected survives exactly: rest unchanged per tone, hover taking ink and underline to `rgb(28, 106, 118)` on all four, each hover out-specifying its own rest by a whole class. Measured on the product and not only on the stand, on `design/home.html` and `design/home-error.html`. Selector count in `wash-block.css`: 48 naming an old class and 14 naming a new one, to 34 naming only the new |
+| `[chart]` and `[chart: waiting for a third month]` | the placeholder shipped as a LITERAL STRING into colour, `history-trends-loading.html:67` and `history-trends-empty.html:61` | a drawn frame: `<svg>` with a `<g>` of three gridlines, the same one the other three History and Trends states already carried | **The only STRUCTURAL change in the whole comparison, and the only one that adds elements rather than moving them**: +5 rows on each of four page-viewports, 31 to 36 and 52 to 57. Named by the atom round as a blocker for step 8 and handed to step 6 because the fix is markup on a product screen. It also corrects a stage 07 hub row that recorded "Placeholder shipped into colour, 3 found, 3 fixed, 0 carried": two of the five `.chart` instances were missed and the count was wrong |
 
 ---
 
@@ -596,3 +597,171 @@ retake recipe with "Step 9 checks these files for a byte shift"**, naming eight 
 were deliberately never taken. Written before the decision and outlived it, which is the same
 freeze the sentence was warning about, in prose. Corrected on all nine: the recipe stays as a
 recipe, the promise is gone, and step 9 is no longer sent hunting for phantom files.
+
+---
+
+## The pixel proof (step 8)
+
+The swap itself happened at step 6: `kit.css` was deleted and all 28 coloured screens
+were repointed at `design/system/index.css` in the same edit as the renaming map, because
+the two are one edit and not two. What step 8 owes is the accounting, and this is it.
+
+**The result in one line: 83 distinct declared shapes, and every one of them has a row.
+Zero unexplained.**
+
+### The instrument, and one thing it is honest about
+
+A DOM fingerprint of all 28 screens at 360 and 1280, keyed by **document order** rather than
+by class, which is the only pairing that survives a stage whose whole job was renaming
+classes. Every element carries 30 computed properties. The diff is then collapsed into
+SHAPES, one shape being one property moving from one value to another, because three
+thousand element diffs are not a document and eighty-three shapes with their counts are.
+
+**The proof does NOT try to match a shape to a row of prose.** A script that pretended to
+would be the worst kind of instrument: confident and unchecked. It classifies by RULE
+instead, and every rule is a fact about the file rather than a guess about intent:
+
+| Rule | Reads |
+|---|---|
+| the type scale | the after value is one of the eight declared steps |
+| the 8px grid | the after value is one of the eleven declared steps |
+| composed spacing | the one named composition, `calc(--space-16 + --space-8 + --space-4)` on the Amount field, `text-input.css:140` |
+| tracking | letter-spacing is declared in em, so it follows the type step that moved |
+| the Muted line's margin | a spacing that goes to 0, or 0 to 16: the atom gave up its margin and six hosts took it |
+| the charge list | a bottom border going 1px to 0 |
+| the wash corner | radius 10 to 12 |
+
+Anything that matches no rule is printed as UNEXPLAINED and is a defect.
+
+**What is counted and not itemised.** 10015 geometry moves (x, y, width, height, line
+height, text) are DERIVED: a box that moved because the line above it grew is not a second
+decision. 57 auto margins are derived for the same reason and are recognised by their
+fraction, since nothing in this system declares 199.188px. 56 opacity diffs are the
+skeleton's 1.4s pulse, which is noise by construction and is named rather than filtered
+silently.
+
+### The count
+
+| | |
+|---|---|
+| page-viewports compared element by element | **52** of 56 |
+| elements compared | **3588** |
+| distinct declared shapes | **83** |
+| Consolidated drift (step 3) | 1 shape, 10 occurrences |
+| Basics review (step 4) | 69 shapes, 4074 occurrences |
+| Moved onto system classes (step 6) | 11 shapes, 69 occurrences |
+| The founder's review of the components | 2 shapes, 20 occurrences |
+| **UNEXPLAINED** | **0 shapes, 0 occurrences** |
+
+The proportions are the story: **the stage that was not allowed to change the look moved
+4074 values, and 4074 of them are two scales the founder adopted by one rule each.** Nearest
+step, ties to the larger, applied mechanically. Nobody decided value by value, which is what
+makes the result auditable rather than arguable.
+
+### Per screen and viewport
+
+Both viewports agree on every screen except where noted, and the difference where they
+disagree is always a block that only exists past container 900.
+
+| Screen | moved @360 / @1280 | shapes | which lists |
+|---|---|---|---|
+| add-subscription | 57 / 57 | 23 | basics 90, classes 1 |
+| add-subscription-empty | 25 / 25 | 15 | basics 32, classes 1 |
+| add-subscription-error | 24 / 24 | 15 | basics 31, classes 1 |
+| add-subscription-loading | 41 / 41 | 17 | basics 91, classes 1 |
+| guided-reveal | 66 / 66 | 25 | basics 137, classes 1 |
+| guided-reveal-empty | 9 / 9 | 10 | basics 11, classes 1 |
+| history-trends | 54 / 56 | 31 / 35 | basics 82-87, classes 6 |
+| history-trends-error | 15 / 16 | 17 / 20 | basics 27-31 |
+| history-trends-locked | 35 / 36 | 23 / 27 | basics 52-56 |
+| home | 95 / 101 | 25 / 30 | basics 137-145, classes 0-2 |
+| home-empty | 15 / 15 | 13 / 17 | basics 22-26, classes 1 |
+| home-error | 98 / 104 | 25 / 30 | basics 144-152, classes 0-2 |
+| home-loading | 41 / 44 | 12 / 18 | basics 68-74, classes 0-1 |
+| home-savefocus | 108 / 113 | 22 / 28 | basics 152-159, classes 0-2 |
+| settings | 45 / 48 | 21 / 24 | basics 66-72 |
+| settings-no-account | 38 / 41 | 20 / 24 | basics 62-68 |
+| subscription-detail | 55 / 56 | 31 / 33 | basics 108-112, drift 1, founder 2 |
+| subscription-detail-error | 18 / 19 | 15 / 17 | basics 27-31 |
+| subscription-detail-loading | 54 / 55 | 24 / 26 | basics 126-130, drift 1, classes 1, founder 2 |
+| subscription-detail-payment-failed | 57 / 58 | 31 / 33 | basics 114-118, drift 1, founder 2 |
+| subscription-detail-price-change | 60 / 61 | 31 / 33 | basics 121-125, drift 1, founder 2 |
+| subscription-detail-unrecognized | 54 / 55 | 31 / 33 | basics 108-112, drift 1, founder 2 |
+| upgrade | 46 / 46 | 34 | basics 90, classes 14 |
+| upgrade-current-plan | 31 / 31 | 14 | basics 48, classes 3 |
+| upgrade-payment-failed | 18 / 18 | 18 | basics 32 |
+| upgrade-processing | 10 / 10 | 15 | basics 18 |
+| **history-trends-empty** | structural, 31 to 36 rows | - | see below |
+| **history-trends-loading** | structural, 52 to 57 rows | - | see below |
+
+### The four page-viewports that are not comparable element by element
+
+`history-trends-empty` and `history-trends-loading`, at both viewports, gained **five
+elements each**. The instrument refused to read them rather than pairing the wrong rows,
+which is the behaviour that matters more than the finding. Compared as a bag of tag and
+text instead, the change is exactly two things and both are named:
+
+- `+1 div, +1 svg, +1 g, +3 line, -1 div` : the literal string `[chart]` and
+  `[chart: waiting for a third month]` replaced by the drawn frame the other three History
+  and Trends states already carried. It has a row in the step 6 list
+- `-3 div, -1 header, -1 a` carrying `&lsaquo;` : the back link's chevron is drawn by a mask
+  now, so the character left the text. A text change, and text is derived
+
+### The reverse check: rows with no visible difference
+
+The pack asks for this and it is the half that finds real things. Three rows of the named
+lists correspond to no difference in this comparison, and each one has a different reason.
+
+**1. The share card's total, 40px to 32px.** Zero elements at 40px in the after corpus, and
+zero in the BEFORE corpus either, which settles it: `share-card.css:30` records that the
+component "stands on 2 grey pages and ZERO coloured ones". The row is true about the system
+and its screen is still grey. It becomes visible at stage 12 and not before.
+
+**2. The row family's side inset, and 3. the drawn chevron.** Both invisible, both for the
+same reason, and the reason is worth more than the two rows: **the before capture is not
+from step 1.**
+
+The pack assumes one instrument walks the screens at step 1 and again at step 8. This
+project used two. Step 1's instrument was the CONTROL CENSUS (`census.py`, `census-raw.json`,
+2026-08-11), which measures controls by their axes and not the whole DOM. The DOM
+fingerprint was built at step 6, so `pixel-before.json` is "the screens on `kit.css`
+immediately before the swap", not "the screens at step 1".
+
+The consequence is precise rather than vague. Everything this stage changed in a COMPONENT
+FILE reached the screens only at the swap, so it is all in the diff: steps 3, 4, and 6 in
+full. Everything the stage changed in `kit.css` ITSELF reached the screens before the
+capture, and that is exactly two rows, both from the founder's review of the components,
+both verifiable in git rather than by argument:
+
+```
+3aa3f5f (before step 5)  .app .row     padding: 10px 4px    .navrow  padding: 12px 2px
+9fa7c7d (step 5)         .app .row     padding: 10px 16px   .navrow  padding: 12px 16px
+                         .navrow .arrow  font-size: 0 + mask   <- the drawn chevron
+```
+
+Both are already in `pixel-before.json`: the row measures `padding-left: 16px` on the before
+side, the arrow measures `font-size: 0px` and `width: 16px` on both sides. So the audit's
+claim that the inset "moves its logo 12px right on Home, the largest single pixel move this
+stage makes" is **true of the product and not of this diff**. Measured on the coloured Home
+at 1280, the logo moves **4px**, and that 4px is the grid, not the inset. The 12px landed on
+the grey corpus and on the coloured screens at step 5, where the founder saw it and asked
+for it, which is the instrument that verified it.
+
+Recorded rather than repaired. Re-capturing a "before" now would be inventing evidence, and
+the pack is explicit that the before is never re-taken. What this costs is named: **the
+proof covers the SWAP, not the whole stage.** For the two rows above the witness is a git
+diff and a founder's eye, and that is said out loud instead of letting them look covered.
+
+### And the theme moved nothing
+
+Re-run after step 7, current state against the after taken before it: **3774 elements, 34
+changed, all 34 the skeleton pulse, 0 declared shapes.** The dark theme's twelve fixes
+landed in the stand, the reviewer chrome and two scripts, and not one of them touched a
+product screen or a component file.
+
+One instrument correction fell out of that run and is worth keeping. The fingerprint's row
+index counts SKIPPED rows too, so injecting the theme switch into the review panel shifted
+every index by three and the naive string comparison reported all 3774 elements as changed
+while reporting zero changed properties. The comparison pairs by array position and reads
+fields from the third onward, so the answer was right and the headline was not. The
+equality shortcut now skips the leading index.
