@@ -1122,3 +1122,65 @@ replace the shell's grid with a flex column by their own rule.
 on `.kit-stage`, so its docked panel never moved a specimen's query. Two reviewer panels now
 behave differently, and the difference has a reason: one of them was standing on the product's
 container and the other was not.
+
+## The sixth named source: the token package (2026-08-12)
+
+Step 9 raised five token rows and the founder took them as one package. Four of the five move
+no value at all; the fifth moves exactly one, in one theme.
+
+### 1. The callout stops being the panel in the dark theme
+
+| variable | was | became | why |
+|---|---|---|---|
+| `--bg-callout` in `[data-theme="dark"]` | `var(--panel-dark)` #1d282a | `var(--canvas-dark)` #0e1517 | it landed byte for byte on `--bg-recessed` and `--bg-hover`, and being a different ground is the only thing a callout is for |
+
+**The light theme is what decided it.** There `--bg-callout` is `--canvas`, which is also
+`--bg-page`: a callout is the page's own ground brought inside a surface, and that is a
+definition rather than a coincidence. The dark theme now says the same sentence.
+
+| | before | after | light, for comparison |
+|---|---|---|---|
+| callout against the paper | 1.11:1 | **1.10:1** | 1.12:1 |
+| callout against `--bg-recessed` | **1.00:1** | **1.22:1** | 1.04:1 |
+| ink on the callout | 13.51:1 | **16.48:1** | - |
+
+The separation from the surface is unchanged, the separation from the recess is now larger than
+the light theme's own, and the text inside the block reads better.
+
+**Named honestly: the light theme never had this.** `--bg-recessed` and `--bg-hover` are the same
+value in the light theme too, and always were. That is the case this system allows on purpose,
+two roles at one value that can part company. Only `--bg-callout` was a real collision, and its
+light-theme cost was 1.04:1, which is below what an eye resolves on two adjacent large areas. The
+dark theme did not lose something the light theme had; it failed to say something the light theme
+says.
+
+### 2. A pair that is identical and is NOT a collision
+
+`--bg-page` and `--text-on-action` both resolve to `--canvas-dark` in the dark theme. Left alone,
+with the reason written at the token. They arrive at one value from two correct requirements: the
+action fill inverts to the light petrol in the dark theme, so its ink must be the darkest value
+the palette holds, and the darkest value the palette holds is the canvas. They never meet on a
+screen, one being the ground under everything and the other a label on a button.
+
+### 3. Three roles split off, and not one pixel moves
+
+Each new role keeps the value it split from, in both themes.
+
+| new role | was reading | why it is its own role now |
+|---|---|---|
+| `--control-accent` | `--bg-action` | `accent-color` is the one hook a native checkbox, radio and progress bar give us, and a control is not "the single filled action of a zone". They separate the first time a checkbox is designed |
+| `--bg-chip-accent` | `--bg-selected` | the Best value badge is STATUS. It was borrowing the fill of a SELECTED control, so a change to what selected means would have repainted a badge nothing can select |
+| `--text-chip-accent` | `--text-action` | the same badge was borrowing the ink of the CURRENT DESTINATION and of the trust link |
+
+Consumers repointed: `base.css:51`, `checkbox.css:81`, and `chip.css`'s `.tone-accent`.
+
+### What it moved, measured on all 28 coloured screens in both themes
+
+Every element compared against the same corpus with the old value forced back on the root.
+**`background-color` is the only property that differs anywhere, only in the dark theme, and only
+on the callout element.** `color`, `border-top-color` and `accent-color` are byte-identical in
+every row of the ledger, on every screen, which is the proof that the three splits moved nothing:
+a role that was renamed and kept its value cannot show up in a colour diff, and none of them does.
+
+19 of the 28 screens carry a callout and repaint it #1d282a to #0e1517. The other 9 have none.
+No horizontal overflow at either viewport.

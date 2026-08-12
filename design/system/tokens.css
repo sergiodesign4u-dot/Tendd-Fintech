@@ -251,6 +251,20 @@
   --bg-placeholder: var(--skeleton);
       /* loading: 2 usages on 89 grey pages (.skel, .logo.is-skel). fill */
   --bg-action:    var(--petrol);
+  /* THREE ROLES SPLIT OFF ON 2026-08-12, sixth named source, and not one pixel moves:
+     each keeps the value it is splitting from. The rule is this system's own, that two
+     roles are two tokens even at one value today, and the test is whether they can ever
+     part company.
+     --control-accent  was --bg-action. accent-color is the ONE hook a native checkbox,
+       radio and progress give us, and a control is not "the single filled action of a
+       zone". The first time a checkbox is designed they separate.
+     --bg-chip-accent / --text-chip-accent  were --bg-selected and --text-action. The
+       Best value badge is STATUS. It was borrowing the fill of a selected control and
+       the ink of the current destination, so a change to what "selected" means would
+       have repainted a badge that is not selectable at all. */
+  --control-accent: var(--petrol);
+  --bg-chip-accent: var(--petrol-tint);
+  --text-chip-accent: var(--petrol);
       /* the ONE filled action of a zone: 33 buttons across the product.
          fill. taste: the primary action is one of petrol's three permitted jobs */
   --bg-action-strong: var(--petrol-deep);
@@ -409,7 +423,16 @@
   --bg-page:      var(--canvas-dark);
   --bg-surface:   var(--paper-dark);
   --bg-recessed:  var(--panel-dark);
-  --bg-callout:   var(--panel-dark);
+  /* MIRRORED, 2026-08-12, sixth named source. It read --panel-dark and so landed
+     byte for byte on --bg-recessed and --bg-hover: three roles, one value, and the
+     one thing a callout is for is being a different ground. In the LIGHT theme this
+     role is --canvas, which is also --bg-page: a callout is the page's own ground
+     brought inside a surface, and that is the definition rather than a coincidence.
+     The dark theme now says the same sentence. Measured: 1.10:1 from the paper,
+     where it was 1.11:1, so the separation from the surface is unchanged; 1.22:1
+     from --bg-recessed, where it was 1.00:1, which is MORE than the light theme's
+     own 1.04:1; and the ink on it goes from 13.51:1 to 16.48:1. */
+  --bg-callout:   var(--canvas-dark);
       /* NOT MIRRORED. In the light theme a callout and the page ground share one
          value; here they must not, because a wash on a dark surface has to lift and
          the page ground has to stay put. This is the pair that proves the two roles
@@ -421,6 +444,9 @@
   --bg-trial:     var(--teal-wash-dark);
   --bg-placeholder: var(--skeleton-dark);
   --bg-action:    var(--petrol-dark);
+  --control-accent: var(--petrol-dark);
+  --bg-chip-accent: var(--petrol-tint-dark);
+  --text-chip-accent: var(--petrol-dark);
   --bg-action-strong: var(--petrol-deep-dark);
       /* NOT MIRRORED. The light theme darkens under the pointer, this one lightens:
          the hover has to move AWAY from the ground, and the ground swapped ends */
@@ -430,6 +456,12 @@
   --text-body:    var(--slate-dark);
   --text-muted:   var(--muted-dark);
   --text-action:  var(--petrol-dark);
+  /* IT EQUALS --bg-page HERE AND THAT IS NOT A COLLISION, checked 2026-08-12.
+     The two arrive at one value from two correct requirements: in the dark theme the
+     action fill INVERTS to the light petrol, so its ink has to be the darkest value
+     the palette holds, and the darkest value the palette holds is the canvas. They
+     never meet on a screen, one being the ground under everything and the other a
+     label on a button. Written down so the next audit does not raise it again. */
   --text-on-action: var(--canvas-dark);
       /* NOT MIRRORED, and this is the one that would have shipped broken. In the
          light theme the label on a filled action is white; on the lightened petrol
