@@ -7,6 +7,44 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-12 - The reviewer's panel is an overlay at every width, and the container is the window again
+
+Found while tracing the brand's jump, decided the same day. `design/_screen.css` docked the screen
+panel from 840 with `body { padding-left: 220px }`. `base.css` declares the product's container on
+`body` and `.stage` declares a nearer one, and a container query reads the CONTENT box, so those
+220px did not only move the panel: they told the product it was 220px narrower than the window.
+
+**The shape of it was not "a bit narrow", it was not monotonic.** Walked on Home at fourteen
+widths: mobile to 700, desktop at 760 and 800, **back to mobile from 840 to 960**, desktop again
+from 980. Between 840 and 980 every coloured screen rendered its mobile layout inside a desktop
+window, and at 900 the product measured 680. Both accepted viewports sit either side of that band,
+which is why five months of acceptance never saw it.
+
+**Chosen: the panel is an overlay at every width.** It is the only form where the container equals
+the window everywhere, so all three of the product's steps fire where they say they do. Measured
+after: Home's groups go to two columns at a window of exactly 900 and to three at exactly 1340,
+and the detail splits at exactly 900. Under the dock those needed 1120, 1560 and 1120.
+
+Rejected: **moving the dock to 980.** It repairs the 760 boundary and leaves the 900 one broken by
+the same 220px. The product has three steps and a fixed dock can only ever be clear of one of
+them, so this is not a cheaper version of the fix, it is a third of it.
+
+Rejected: **accepting the band and reviewing outside it.** That turns the acceptance rule into
+"both ends of the range, and not in the middle", which is a rule nobody remembers on the day it
+matters. The band would have gone on being the place defects hide.
+
+The cost was named before it was taken and it is real: **the screen list is no longer permanently
+on screen.** It opens from the toggle, which is the mechanism that has run below 840 since the
+chrome was written, and which now carries a label because it stopped being a phone-only
+affordance.
+
+**Nothing in `design/kit/` changed.** The stand declares its container on `.kit-stage`, so its own
+docked panel never moved a specimen's query. Two reviewer panels now behave differently, and the
+difference is exactly the difference between standing on the product's container and not.
+
+Ground, the before-and-after table and the min-height finding underneath it in
+`design/kit/docs/tokens-audit.md`.
+
 ## 2026-08-12 - The desktop rail is 220px, and the third number closes an eight-pixel argument
 
 Founder, on a coloured screen: "make the side panel narrower, somewhere around 220 pixels." One

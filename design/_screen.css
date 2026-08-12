@@ -54,6 +54,13 @@
   --c-accent-light: #eef4f1;
   --c-control-edge: #8f887e;    /*  3.51:1 on --c-surface. See the dark half for why */
   --c-radius-sm: 4px;
+
+  /* THE ONLY GEOMETRY IN THE CHROME'S PALETTE, and it earns the name on
+     2026-08-12 because two rules now have to agree about it. The toggle is a
+     strip in normal flow above the screen, so its height is exactly the amount
+     the shell has to give back at a desktop width, and a shell one strip too tall
+     scrolls the review page by that strip. One owner, two readers. */
+  --c-toggle-h: 40px;
 }
 
 /* THE CHROME HAS A DARK PAIR, added 2026-08-12 by the dark stress test, and the
@@ -129,14 +136,35 @@
    product. Floating it anywhere covers something: at the top it covered the
    wordmark, above the tab bar it covered the removal note. The grey wireframes
    already solved this with a strip in normal flow above the screen, so this is
-   the same answer rather than a third guess. Hidden entirely from 840. */
+   the same answer rather than a third guess.
+
+   IT USED TO BE HIDDEN FROM 840 AND IT IS NOW SHOWN AT EVERY WIDTH. See the
+   overlay decision below. */
 .nav-toggle {
   position: static; display: flex; align-items: center; justify-content: flex-start;
-  width: 100%; height: 40px; padding: 0 14px; z-index: 100;
+  gap: 10px;
+  width: 100%; height: var(--c-toggle-h); padding: 0 14px; z-index: 100;
   background: var(--c-surface); border: 0; border-bottom: 1px solid var(--c-border);
   border-radius: 0; box-shadow: none; cursor: pointer;
   color: var(--c-text-secondary); font-size: 13px; text-align: left;
 }
+
+/* THE LABEL IS IN CSS AND NOT IN THE MARKUP, and both halves of that are on
+   purpose. It is added on 2026-08-12 because the panel stopped being docked: the
+   button used to be a phone-only affordance and is now the ONLY way to the screen
+   list at any width, and a bare hamburger at the top of a desktop window is a
+   thing a reviewer has to guess at. The rule that already declares this element
+   `font-size: 13px` and `text-align: left` was written for a label it never had.
+
+   In CSS because the button's markup is written out in all 28 coloured screens
+   rather than injected, so a word in the markup is 28 edits to product files for
+   a piece of review chrome. Generated content is chrome-only by construction and
+   comes off in one line if the dock ever comes back.
+
+   It does not touch the accessible name. The button carries
+   `aria-label="Open navigation"`, which overrides its contents, so a screen
+   reader hears one label rather than two. */
+.nav-toggle::after { content: "All screens"; }
 
 .sidebar-nav { padding: 12px 10px 0; }
 
@@ -170,27 +198,78 @@
 .scr-states a:hover { color: var(--c-text); background: var(--c-border-light); }
 .scr-states a.current { color: var(--c-accent); font-weight: 600; background: var(--c-accent-light); }
 
-/* The last line here is review chrome correcting itself, and it does NOT travel
-   to a build. The product's tab bar is fixed to the viewport, which is right
-   when the product owns the viewport and wrong on these pages, where the review
-   panel takes the first 220px: the Home destination was laid out underneath it
-   and only a 4px sliver showed. The body padding does not reach a fixed
-   element, so the offset is stated once, here, in the chrome's own block rather
-   than on the component. The grey wireframes have the same collision; it is
-   corrected rather than carried.
+/* ============================================================================
+   THE PANEL IS AN OVERLAY AT EVERY WIDTH, 2026-08-12, AND THE BLOCK THAT USED TO
+   STAND HERE IS DELETED RATHER THAN NARROWED.
 
-   NOT CARRIED, TWO: `display: none !important` on the overlay. It was there to
-   beat `.sidebar-overlay.open`, which is 0-2-0 against a bare 0-1-0, and a
-   media query adds no specificity. Naming both selectors in the same rule wins
-   the same argument at the same weight, which is what an `!important` is
-   usually standing in for. */
-@media (min-width: 840px) {
-  .sidebar { transform: translateX(0); visibility: visible; }
-  .sidebar-close { display: none; }
-  .sidebar-overlay, .sidebar-overlay.open { display: none; }
-  .nav-toggle { display: none; }
-  body { padding-left: 220px; }
-  .app > .tabbar { left: 220px; }
+   What was here: `@media (min-width: 840px)` pinned the drawer open, hid the
+   toggle, hid the overlay, gave `body` 220px of left padding and pushed the
+   product's fixed tab bar by the same 220. Six declarations, one idea: past 840
+   the reviewer gets a permanent screen list and the product gets whatever is
+   left.
+
+   WHY IT HAD TO GO. `base.css` declares the product's container on `body` and
+   `.stage` below declares a nearer one, and a container query reads the CONTENT
+   box. 220px of body padding therefore did not just move the panel, it told the
+   product it was 220px narrower than the window. Walked at fourteen widths on
+   Home before the change, and the shell's form is not monotonic in window width:
+
+     window   360  700  760  800 | 840  860  900  960 | 980  1024  1280  1440
+     shell    mob  mob  GRID GRID| mob  mob  mob  mob | GRID GRID  GRID  GRID
+
+   Between 840 and 980 every coloured screen rendered its MOBILE layout inside a
+   desktop window: at 900 the product measured 680. Both accepted viewports miss
+   it, 360 and 1280 sitting either side of the band, which is the exact shape
+   `CLAUDE.md` names when it asks for acceptance at BOTH ends of the range. A
+   screen reviewed in that band was not showing what it ships.
+
+   WHY THE OVERLAY AND NOT A WIDER DOCK. Moving the dock to 980 repairs the 760
+   boundary and leaves the 900 one broken by the same 220px, because the product
+   has three steps and a fixed dock can only ever be clear of one of them. The
+   overlay is the only form where the container equals the window at EVERY width,
+   so all three steps, 760, 900 and 1340, fire where they say they do. Founder's
+   call, and the cost was named before it was taken: the screen list is no longer
+   permanently on screen and opens from the toggle. The mechanism is not new, it
+   is the one that has run below 840 since the chrome was written.
+
+   The `!important` that stood on the overlay at stage 07 is still not carried:
+   it was there to beat `.sidebar-overlay.open`, and with the block gone there is
+   nothing left to beat.
+
+   ONE CORRECTION THE CHROME OWES ITSELF, and it replaces the tab bar offset that
+   used to be the last line of the deleted block. The toggle is a 40px strip in
+   normal flow ABOVE the screen, and past a 760px container the shell is exactly
+   `100dvh` tall, so the review page stood one strip taller than the window and
+   scrolled by 40px at every desktop width. Measured before, and it was already
+   true in the 760 to 840 band, where the toggle showed and the dock had not yet
+   started: `SCROLLS +40` at 760 and at 800.
+
+   It is stated HERE, on the chrome's own selector, and never in `design/system/`:
+   a build has no toggle and must not carry a subtraction for one. `.stage-app
+   .app` is 0-2-0 against the shell's own 0-1-0, and a container query adds no
+   specificity, so this wins without an `!important`. Inside a container query of
+   its own because at the mobile width the shell is a `min-height` column and a
+   height here would cut the page off. Both units, in the shell's own order, so
+   the fallback behaves the same way it does in the product.
+
+   AND IT TAKES FOUR DECLARATIONS RATHER THAN TWO, WHICH IS THE FINDING. The
+   first try set `height` alone and moved nothing: the page still scrolled 40px
+   with the rule matching and winning. The shell's MOBILE rule sets `min-height:
+   100dvh` and the 760 block adds `height: 100dvh` WITHOUT clearing it, so the
+   min-height survives into the desktop form and clamps anything shorter. In the
+   product the two are the same number and the clamp is invisible, which is why it
+   has never shown; the moment anything asks the shell to be shorter than the
+   window, the min-height and not the height is what answers. Recorded here rather
+   than "fixed" in app-shell.css, because in a build the two agreeing is correct
+   and there is nothing to repair.
+   ============================================================================ */
+@container (min-width: 760px) {
+  .stage-app .app {
+    min-height: calc(100vh - var(--c-toggle-h));
+    min-height: calc(100dvh - var(--c-toggle-h));
+    height: calc(100vh - var(--c-toggle-h));
+    height: calc(100dvh - var(--c-toggle-h));
+  }
 }
 
 /* ---------- the stage the screen stands in --------------------------------

@@ -1035,7 +1035,7 @@ disagreement carried at 240 and flagged for the founder rather than merged quiet
 value moves only by its own named decision. The decision arrived and it named a third number.
 `docs/decisions.md` and `docs/inventory.md` both carried that open row and both now point here.
 
-### A defect this found and did NOT fix: the review chrome moves the product's breakpoint
+### A defect this found and left for the founder: the review chrome moves the product's breakpoint. CLOSED the same day
 
 Tracing the jump across ten widths turned up something that has nothing to do with the brand and
 is worse than the thing being looked for. The bar's form is **not monotonic in window width**:
@@ -1066,3 +1066,59 @@ passing:
 
 Until it is decided, one thing is true and worth saying out loud: **a coloured screen reviewed
 between 840 and 980 is not showing what it ships.**
+
+#### Decided the same day: the panel is an overlay at every width
+
+Founder, 2026-08-12, choosing the third option in full: the panel opens from the toggle, the
+container always equals the window, and the always-visible screen list is the price.
+
+**The whole `@media (min-width: 840px)` block is deleted, not narrowed.** Six declarations went
+with it: the drawer pinned open, the close button hidden, the overlay hidden, the toggle hidden,
+`body { padding-left: 220px }` and `.app > .tabbar { left: 220px }`. The mechanism that replaces
+them is not new, it is the one that has run below 840 since the chrome was written.
+
+Walked on Home at fourteen window widths, before and after:
+
+| window | 360 | 700 | 760 | 800 | 840 | 860 | 900 | 960 | 980 | 1024 | 1280 | 1440 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| container **was** | 360 | 700 | 760 | 800 | **620** | **640** | **680** | **740** | 760 | 804 | 1060 | 1220 |
+| shell **was** | mob | mob | GRID | GRID | **mob** | **mob** | **mob** | **mob** | GRID | GRID | GRID | GRID |
+| container **now** | 360 | 700 | 760 | 800 | 840 | 860 | 900 | 960 | 980 | 1024 | 1280 | 1440 |
+| shell **now** | mob | mob | GRID | GRID | GRID | GRID | GRID | GRID | GRID | GRID | GRID | GRID |
+
+**The container now equals the window at every width**, so all three of the product's steps fire
+where they say they do. Measured on the step itself rather than around it: Home's groups go to two
+columns at a window of exactly 900 and to three at exactly 1340, and the subscription detail
+splits into two tracks at exactly 900. Under the dock those three would have needed 1120, 1560 and
+1120 of window.
+
+**One thing the overlay exposed, and it is the more interesting half.** The toggle is a 40px strip
+in normal flow above the screen, and past a 760px container the shell is exactly `100dvh`, so with
+the toggle now shown at every width the review page stood one strip taller than the window and
+scrolled by 40px. It was already true in the 760 to 840 band, where the toggle showed and the dock
+had not started yet, and nobody had looked.
+
+The correction is four declarations on `.stage-app .app` in the chrome's own file, and **it takes
+four rather than two, which is the finding.** Setting `height` alone moved nothing at all, with
+the rule matching and winning on specificity: the shell's MOBILE rule sets `min-height: 100dvh`,
+the 760 block adds `height: 100dvh` without clearing it, and the min-height survives into the
+desktop form and clamps anything shorter. In the product the two are the same number, so the clamp
+has never shown and there is nothing to repair in `app-shell.css`. **The shell cannot be asked to
+be shorter than the window, and no one decided that.** Recorded here for whoever asks it something
+new.
+
+The toggle also gained a label, `content: "All screens"`, in CSS rather than in markup: it stopped
+being a phone-only affordance and became the only way to the screen list at any width, and the
+button's markup is written out in all 28 screens, so a word in the markup would be 28 edits to
+product files for a piece of review chrome.
+
+**Verified across 252 page-widths**, 28 coloured screens at 360, 700, 760, 840, 900, 960, 980,
+1280 and 1440: container equal to the window on every one, `body` padding zero, the drawer hidden
+until asked for, the toggle present, no horizontal overflow, and no desktop page taller than its
+window. The ten `.app.flow` screens read as the mobile form at every width, which is correct: they
+replace the shell's grid with a flex column by their own rule.
+
+**Nothing in `design/kit/` changed and that is deliberate.** The stand declares its own container
+on `.kit-stage`, so its docked panel never moved a specimen's query. Two reviewer panels now
+behave differently, and the difference has a reason: one of them was standing on the product's
+container and the other was not.
