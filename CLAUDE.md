@@ -125,19 +125,20 @@ put a visible "updated after publishing" note on it and say so out loud.
 `voice/docs/microcopy.md`; the IA node states what information the place needs, not the
 wording. No product line exists in two editions. All product copy obeys `voice/docs/voice.md`.
 
-**Values migrate, they are never re-derived, and a fix lives in the kit.** One line of CSS
-values runs `design/_theme.css` (Concept) into `design/kit/kit.css` (UI + Visual, git mv, the
-`:root` block byte for byte) into `design/system/tokens.css` (Tokens + Components, split into
-primitive and semantic). Each step adds a level; a value changes only by a named decision
-("variable, value, why"), never as a side effect of an extract or a refactor. Every value
-carries its origin in a comment next to it. From UI + Visual on, a **screen carries no style
-of its own**: no page-level style block, no style attribute, no class the kit does not define.
-A correction therefore goes to the value in `kit.css` (it reaches every screen by itself), to
-the markup in `kit.html` (carry it to every screen that holds the component), and to the reason
-in `DESIGN.md`. A fix applied on one screen is a desync, and a missing detail enters the kit
-first (`kit.css` + `kit.html` + `docs/inventory.md`) and the screen second. A contextual override
-(`.host .btn{font-size:15px}`) is an undeclared variant, not a tidy adjustment: declare the
-modifier and put the class in the markup.
+**Values migrate, they are never re-derived, and a fix lives in the system.** One line of CSS
+values runs `_theme.css` (Concept) into `kit.css` (UI + Visual, git mv) into
+`design/system/tokens.css` (Tokens + Components), which is **two levels and not three**:
+primitive (raw values) and semantic (roles through `var()`). A value changes only by a named
+decision ("variable, value, why"), never as a side effect of an extract, and carries its origin
+in a comment beside it. A **screen carries no style of its own**: no page-level style block, no
+style attribute, no class the system does not define. So a correction goes to the token of its
+level, which reaches every screen by itself, or to the component's own css plus its page in
+`design/kit/` plus every screen holding it. A fix applied on one screen is a desync, and a
+contextual override (`.host .btn{font-size:15px}`) is an undeclared variant: declare the modifier
+and put the class in the markup. **A new component is five things:** css in `design/system/components/`,
+a page in `design/kit/`, a row in `design/kit/_nav.js` in its own LEVEL group, a line in
+`docs/inventory.md` with its level, and an `@import` in `index.css` in its own level group, never
+at the end. **A role or a state token lives in both themes or it does not exist.**
 
 **Critique runs on two instruments.** Claude and Codex (read-only, see `AGENTS.md`), taken
 independently and merged afterwards, with a "who found it" column. Codex owns what is
@@ -180,8 +181,8 @@ design/                          the whole visual half: concept/ (how the langua
                                  found), visuals/ (logos, README), screens/ (was /
                                  became pairs), the colored screens flat in the root,
                                  overview.html as the hub
-design/system/                   the CODE of the design system, liftable whole:
-                                 tokens.css, base.css, index.css, components/
+design/system/                   the CODE of the design system, liftable whole, with its
+                                 own CLAUDE.md: tokens.css, base.css, index.css, components/
 design/kit/                      the STAND that shows it: _nav.js is the component
                                  registry and draws both the hub cards and the side
                                  panel, _page.css is the stand's own look and the home

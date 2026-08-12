@@ -251,3 +251,38 @@ every difference against them:
 
 A difference with no line in one of those three lists is a defect, and it is fixed in
 `tokens.css` or in a component file. Never on the screen.
+
+---
+
+## Closed at step 9, 2026-08-12
+
+The rules above are the system's. These are the four the STAGE learned, and each one is here
+because a green check had already passed over it.
+
+**1. Two instruments is not redundancy, and the overlap proves it.** Codex read the source in
+read-only, a browser pass read the render, and they were merged afterwards with a "who found it"
+column. Codex returned 24 rows, the browser pass 4, and **not one row was the same**. The rule
+this buys: a class of defect belongs to exactly one instrument, and running the other one twice
+finds none of it. The most serious finding of the stage, structural edits committed into the
+frozen `wireframes/`, was invisible to the check that runs every session, because that check
+looks for UNCOMMITTED changes and this one had been committed three steps earlier.
+
+**2. An instrument that returns the same answer at every input is not measuring the input.**
+Three of this stage's own probes had to be thrown away and rewritten: a wrap detector that read
+element height, under components that all stand on a `min-height` floor; a line counter that used
+`Range.getClientRects()` and counted inline boxes rather than lines; and a state scanner that
+matched `:hover` inside comments saying no hover is declared. All three returned confident,
+detailed, wrong answers. Verify the instrument on a case you already know before trusting it on
+one you do not.
+
+**3. A declared list needs an idle control, and the control has three answers, not two.** A row
+that covers nothing is not automatically dead: it may be waiting for a page that is still grey,
+or it may have been CONSUMED by the renaming map and left standing. The One-offs table had one of
+each and both read identically until the question was asked. Every list in this folder now says
+which.
+
+**4. Completeness is proved against what has NOT been built.** The rollout moved to stage 12 and
+took the real completeness test with it. The replacement is a paper dry run over the densest
+still-grey screens: four of the five needed nothing, and the fifth, the landing, needs 37 classes
+the system has never carried. A system checked only against the screens it was extracted from
+proves nothing, because it was extracted from them.

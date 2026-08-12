@@ -59,7 +59,7 @@ window.NAV = [
   // NOT in this registry: it is the kit's own panel, design/kit/_nav.js, on the same two-level
   // pattern as wireframes/ and design/. A roadmap that listed 55 components would stop being a
   // roadmap.
-  { label:'Design System',       page:'design/kit/overview.html', done:false, ready:true },
+  { label:'Design System',       page:'design/kit/overview.html', done:true },
   { label:'Responsive',          page:null, done:false },
   { label:'Animation',           page:null, done:false },
   { label:'Handoff',             page:null, done:false },
