@@ -69,32 +69,32 @@ the child**: doors are full cards and take air, tiles are chips and do not.
 
 ## Atoms (20)
 
-| Component | Class | Axes and their values | Pages in the product | Was |
-|---|---|---|---|---|
-| Amount | `.amt` | size by container: 14 / 32 (`--type-body`, `--type-figure`). 13.5 and 30 folded at step 5 | 69 | - |
-| Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - |
-| Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 28 coloured, 0 grey | - |
-| Brand wordmark | `.wordmark` | one setting, and the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - |
-| Button | `.btn` | emphasis: fill / outline. `inverse` and `compact` both DELETED 2026-08-12, neither had a wearer | 85 | - |
+| Component | Class | Axes and their values | Pages in the product | Was  CSS file | Page |
+|---|---|---|---|------|---|
+| Amount | `.amt` | size by container: 14 / 32 (`--type-body`, `--type-figure`). 13.5 and 30 folded at step 5 | 69 | - | `amount.css` | `amount.html` |
+| Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - | `big-total.css` | `big-total.html` |
+| Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 28 coloured, 0 grey | - | `brand-mark.css` | `brand-mark.html` |
+| Brand wordmark | `.wordmark` | one setting, and the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - | `brand-wordmark.css` | `brand-wordmark.html` |
+| Button | `.btn` | emphasis: fill / outline. `inverse` and `compact` both DELETED 2026-08-12, neither had a wearer | 85 | - | `button.css` | `button.html` |
 
 **Built.** `design/system/components/button.css` + `design/kit/button.html`. The etalon of step 5,
 and the first component through the five-thing gate: css, page, registry row, inventory line,
 `@import` in its own level group.
-| Chart placeholder | `.chart` | - | 4 | - |
-| Checkbox | `.check` | - | 2 | `.switch input` |
-| Chip | `.chip` | tone: quiet / trial / pro. `cancelled` has no wearer; `trial`'s only wearer is the grey landing, so `--bg-trial` has never rendered | 36 | `.tag`, `.badge`, `.best`, `.plan` |
-| Destination icon | `.ic-*` | one per destination | 112 | - |
-| Eyebrow | `.k` | - | 4 | `.num` |
-| Label | `.lbl` | weight: quiet 12 / strong 16 (`--type-meta`, `--type-sub`). 15 was never the value | 3 | - |
-| Logo | `.logo` | size by container: 20 / 22 / 30 / 32 / 36 / 52 | 111 | - |
-| Meta row | `.metarow` | rule: plain / ruled | 5 | `.axis`, `.strip` |
-| Muted line | `.muted` | size: 12 / 12.5 / 13. rule: plain / ruled | 48 | `.consequence`, `.context`, `.tone`, `.legal`, `.freshness`, `.removal`, `.pitch`, `p.notice`, `.p` |
-| Quiet line | `.quiet` | - | 12 | - |
-| Readout | `.readout` | - | 2 | - |
-| Select | `.select` | - | 4 | `.field select` |
-| Skeleton bar | `.skel` | width set, and one height for the total | 89 | - |
-| Step-forward link | `.next` | - | 2 | - |
-| Text input | `.input` | type: text / email / search | 8 | `.field input` |
+| Chart placeholder | `.chart` | - | 4 | - | `chart-placeholder.css` | `chart-placeholder.html` |
+| Checkbox | `.check` | - | 2 | `.switch input` | `checkbox.css` | `checkbox.html` |
+| Chip | `.chip` | tone: quiet / trial / pro. `cancelled` has no wearer; `trial`'s only wearer is the grey landing, so `--bg-trial` has never rendered | 36 | `.tag`, `.badge`, `.best`, `.plan` | `chip.css` | `chip.html` |
+| Destination icon | `.ic-*` | one per destination | 112 | - | `destination-icon.css` | `destination-icon.html` |
+| Eyebrow | `.k` | - | 4 | `.num` | `eyebrow.css` | `eyebrow.html` |
+| Label | `.lbl` | weight: quiet 12 / strong 16 (`--type-meta`, `--type-sub`). 15 was never the value | 3 | - | `label.css` | `label.html` |
+| Logo | `.logo` | size by container: 20 / 22 / 30 / 32 / 36 / 52 | 111 | - | `logo.css` | `logo.html` |
+| Meta row | `.metarow` | rule: plain / ruled | 5 | `.axis`, `.strip` | `meta-row.css` | `meta-row.html` |
+| Muted line | `.muted` | size: 12 / 12.5 / 13. rule: plain / ruled | 48 | `.consequence`, `.context`, `.tone`, `.legal`, `.freshness`, `.removal`, `.pitch`, `p.notice`, `.p` | `muted-line.css` | `muted-line.html` |
+| Quiet line | `.quiet` | - | 12 | - | `quiet-line.css` | `quiet-line.html` |
+| Readout | `.readout` | - | 2 | - | `readout.css` | `readout.html` |
+| Select | `.select` | - | 4 | `.field select` | `select.css` | `select.html` |
+| Skeleton bar | `.skel` | width set, and one height for the total | 89 | - | `skeleton-bar.css` | `skeleton-bar.html` |
+| Step-forward link | `.next` | - | 2 | - | `step-forward-link.css` | `step-forward-link.html` |
+| Text input | `.input` | type: text / email / search | 8 | `.field input` | `text-input.css` | `text-input.html` |
 
 **The two brand atoms break this document's own counting rule, and the break is the finding.**
 Every other row above was read out of the grey corpus and enters the kit on two or more
@@ -126,50 +126,50 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 
 ## Molecules (23)
 
-| Component | Class | Axes and their values | Pages in the product | Was |
-|---|---|---|---|---|
-| Action row | `.actions` | - | 42 | `.secondary` |
-| Alert item | `.alert` | content: with prices / with unread dot | 2 | - |
-| Charge list | `.charges` | state: marked | 5 | - |
-| Detail hero | `.hero` | - | 6 | - |
-| Door | `.door` | content: with a pick line / without | 4 | - |
-| Form field | `.field` | host: div / form (the search) | 8 | - |
-| Group head | `.group-head` | rule: banded / plain | 16 | - |
-| Merchant chip group | `.rgroup` | - | 1 | - |
-| Nav row | `.navrow` | - | 2 | - |
-| Numbered steps | `.steps` | - | 3 | - |
-| Pair list | `.pairs` | markup: dt/dd / span. content: values / sentences | 19 | `.facts`, `.unlocks` |
-| Plan option | `.plan-opt` | host: app / landing | 2 | - |
-| Preset tile | `.tile` | state: pressed | 2 | - |
-| Promise list | `.promises` | - | 3 | - |
-| Range picker | `.range` | availability x selection: rest / pressed / disabled / disabled+pressed | 3 | - |
-| Save-focus candidate | `.cand` | - | 1 | - |
-| Share card | `.sharecard` | - | 2 | - |
-| Subscription row | `.row` | state: skeleton. host: list / candidate | 8 | - |
-| Summary | `.summary` | content: with a total / without | 5 | - |
-| Switch row | `.switch` | - | 2 | - |
-| Text block | `.textblock` | scope: page 24 / block 21 / inset 17 | 44 | `.lede`, `.state` |
-| Trust block | `.trust` | - | 11 | - |
-| Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without | 13 | `.attention`, `.notice`, `.decoder` |
+| Component | Class | Axes and their values | Pages in the product | Was  CSS file | Page |
+|---|---|---|---|------|---|
+| Action row | `.actions` | - | 42 | `.secondary` | `action-row.css` | `action-row.html` |
+| Alert item | `.alert` | content: with prices / with unread dot | 2 | - | `alert-item.css` | `alert-item.html` |
+| Charge list | `.charges` | state: marked | 5 | - | `charge-list.css` | `charge-list.html` |
+| Detail hero | `.hero` | - | 6 | - | `detail-hero.css` | `detail-hero.html` |
+| Door | `.door` | content: with a pick line / without | 4 | - | `door.css` | `door.html` |
+| Form field | `.field` | host: div / form (the search) | 8 | - | `form-field.css` | `form-field.html` |
+| Group head | `.group-head` | rule: banded / plain | 16 | - | `group-head.css` | `group-head.html` |
+| Merchant chip group | `.rgroup` | - | 1 | - | `merchant-chip-group.css` | `merchant-chip-group.html` |
+| Nav row | `.navrow` | - | 2 | - | `nav-row.css` | `nav-row.html` |
+| Numbered steps | `.steps` | - | 3 | - | `numbered-steps.css` | `numbered-steps.html` |
+| Pair list | `.pairs` | markup: dt/dd / span. content: values / sentences | 19 | `.facts`, `.unlocks` | `pair-list.css` | `pair-list.html` |
+| Plan option | `.plan-opt` | host: app / landing | 2 | - | `plan-option.css` | `plan-option.html` |
+| Preset tile | `.tile` | state: pressed | 2 | - | `preset-tile.css` | `preset-tile.html` |
+| Promise list | `.promises` | - | 3 | - | `promise-list.css` | `promise-list.html` |
+| Range picker | `.range` | availability x selection: rest / pressed / disabled / disabled+pressed | 3 | - | `range-picker.css` | `range-picker.html` |
+| Save-focus candidate | `.cand` | - | 1 | - | `save-focus-candidate.css` | `save-focus-candidate.html` |
+| Share card | `.sharecard` | - | 2 | - | `share-card.css` | `share-card.html` |
+| Subscription row | `.row` | state: skeleton. host: list / candidate | 8 | - | `subscription-row.css` | `subscription-row.html` |
+| Summary | `.summary` | content: with a total / without | 5 | - | `summary.css` | `summary.html` |
+| Switch row | `.switch` | - | 2 | - | `switch-row.css` | `switch-row.html` |
+| Text block | `.textblock` | scope: page 24 / block 21 / inset 17 | 44 | `.lede`, `.state` | `text-block.css` | `text-block.html` |
+| Trust block | `.trust` | - | 11 | - | `trust-block.css` | `trust-block.html` |
+| Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without | 13 | `.attention`, `.notice`, `.decoder` | `wash-block.css` | `wash-block.html` |
 
 ## Organisms (14)
 
-| Component | Class | Axes and their values | Pages in the product | Was |
-|---|---|---|---|---|
-| App bar | `.appbar` | form: row / column rail at container 760 | 54 | - |
-| App shell | `.app` | form: steady / flow / detail | 54 | - |
-| Card | `.card` | - | 3 | `.locked`, `.source` |
-| Category group | `.group` | - | 12 | - |
-| Dashboard head | `.head` | exists only at container 900 | 5 | - |
-| Dialog sheet | `.sheet` | full width, then a card at container 760 | 3 | - |
-| Divided list | `.divlist` | inset: bare / inside a panel | 4 | `.alerts`, `.navrows` |
-| Empty block | `.empty` | - | 2 | - |
-| Grid | `.grid` | columns: 1 to 2 / 2 to 3. gap by child size | 8 | `.doors`, `.tiles`, `.plans` |
-| Groups column set | `.groups` | columns: 2 at 900, 3 at 1340 | 4 | - |
-| Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - |
-| Reveal step | `.rstep` | - | 1 | - |
-| Save-focus list | `.candidates` | - | 1 | - |
-| Tab bar | `.tabbar` | form: bottom bar / left rail at container 760 | 28 | - |
+| Component | Class | Axes and their values | Pages in the product | Was  CSS file | Page |
+|---|---|---|---|------|---|
+| App bar | `.appbar` | form: row / column rail at container 760 | 54 | - | `app-bar.css` | `app-bar.html` |
+| App shell | `.app` | form: steady / flow / detail | 54 | - | `app-shell.css` | `app-shell.html` |
+| Card | `.card` | - | 3 | `.locked`, `.source` | `card.css` | `card.html` |
+| Category group | `.group` | - | 12 | - | `category-group.css` | `category-group.html` |
+| Dashboard head | `.head` | exists only at container 900 | 5 | - | `dashboard-head.css` | `dashboard-head.html` |
+| Dialog sheet | `.sheet` | full width, then a card at container 760 | 3 | - | `dialog-sheet.css` | `dialog-sheet.html` |
+| Divided list | `.divlist` | inset: bare / inside a panel | 4 | `.alerts`, `.navrows` | `divided-list.css` | `divided-list.html` |
+| Empty block | `.empty` | - | 2 | - | `empty-block.css` | `empty-block.html` |
+| Grid | `.grid` | columns: 1 to 2 / 2 to 3. gap by child size | 8 | `.doors`, `.tiles`, `.plans` | `grid.css` | `grid.html` |
+| Groups column set | `.groups` | columns: 2 at 900, 3 at 1340 | 4 | - | `groups-column-set.css` | `groups-column-set.html` |
+| Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html` |
+| Reveal step | `.rstep` | - | 1 | - | `reveal-step.css` | `reveal-step.html` |
+| Save-focus list | `.candidates` | - | 1 | - | `save-focus-list.css` | `save-focus-list.html` |
+| Tab bar | `.tabbar` | form: bottom bar / left rail at container 760 | 28 | - | `tab-bar.css` | `tab-bar.html` |
 
 ## What the consolidation removed, and on what ground
 
@@ -254,18 +254,22 @@ nobody can reconstruct what `.decoder` was folded into.
 
 ## One-offs: built once, not in the kit
 
-| One-off | Page | Classes |
-|---|---|---|
-| The landing, entire | `index.html` | 39 classes in the `lp-` namespace |
-| Guided reveal step | `guided-reveal.html` | `.rstep`, `.num`, `.next`, `.rgroup`, `.tone`, `.lbl` |
-| Cancel win | `cancel-win.html` | `.win`, `.freed`, `.year`, `.honest` |
-| Save-focus candidate list | `home-savefocus.html` | `.candidates`, `.cand`, `.cut`, `.lead` |
-| Pro lock frame | `history-trends-locked.html` | `.locked` |
-| By-category line | `history-trends.html` | `.bycat`, `.k` |
-| What is on this card | `share-snapshot.html` | `.oncard`, `.k` |
-| Pitch line | `upgrade.html` | `.pitch` |
-| Plain-answer intro | `data-privacy.html` | `.intro` |
-| The landing preview list | `index.html` | `.list`, `.tag.trial`, **and neither has any CSS rule** |
+Reviewed at step 9, 2026-08-12, and the review added the last column. A one-off that no coloured
+screen wears is not automatically dead: its page may simply still be grey. Two of these were not
+waiting at all, they had been CONSUMED by the renaming map and left standing here as one-offs.
+
+| One-off | Page | Classes | Idle control, 2026-08-12 |
+|---|---|---|---|
+| The landing, entire | `index.html` | 39 classes in the `lp-` namespace | **The largest hole in the system.** 37 of the landing's 60 tokens are outside it, and 48 of the 57 component files carry a `.landing` selector with ZERO pages wearing it. See the step 9 dry run |
+| Guided reveal step | `guided-reveal.html` | `.rstep`, `.num`, `.next`, `.rgroup`, `.tone`, `.lbl` | live, the page is coloured |
+| Cancel win | `cancel-win.html` | `.win`, `.freed`, `.year`, `.honest` | waiting: the page is still grey |
+| Save-focus candidate list | `home-savefocus.html` | `.candidates`, `.cand`, `.cut`, `.lead` | **`.lead` is NOT a one-off**: it also stands on `settings.html` and `settings-no-account.html`. Three coloured screens, so by this document's own two-occurrence rule it is a component and is owed a row. Carried to backlog |
+| Pro lock frame | `history-trends-locked.html` | `.locked` | **CONSUMED by the map**, `.locked` to `.card`. Not a one-off since step 6 and should not have been listed |
+| By-category line | `history-trends.html` | `.bycat`, `.k` | live, the page is coloured |
+| What is on this card | `share-snapshot.html` | `.oncard`, `.k` | waiting: the page is still grey |
+| Pitch line | `upgrade.html` | `.pitch` | **CONSUMED by the map**, `.pitch` to `.muted` at 13px. Not a one-off since step 6 |
+| Plain-answer intro | `data-privacy.html` | `.intro` | waiting: the page is still grey |
+| The landing preview list | `index.html` | `.list`, `.tag.trial`, **and neither has any CSS rule** | `.chip.trial` now HAS a rule and two tokens, `--bg-trial` and `--text-trial`, and this is still its only wearer. The role has never once rendered |
 
 Folded into a component rather than counted as a one-off: `.newdot`, `.what`, `.go`, `.prices`
 into Alert item; `.count`, `.win-line` into Share card; `.w90`, `.skel-list` into Skeleton bar.

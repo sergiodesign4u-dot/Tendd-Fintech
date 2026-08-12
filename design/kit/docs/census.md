@@ -395,11 +395,16 @@ Measured today, and the state has moved since the deletion was written:
 | `tone-attention` | 0 | 0 | **0**, cleared from `kit.html` since |
 | `tone-error` | 0 | 0 | **0**, cleared since |
 | `cancelled` | 0 | 0 | **0**, cleared since |
-| `inverse` | 0 | 0 | **2**, `kit.html` lines 120 and 121 |
-| `is-disabled` | 0 | 0 | **1**, `kit.html` line 110 |
+| `inverse` | 0 | 0 | **0** since 2026-08-12. It was 2 in `kit.html`, and the step 9 idle control found the row stale: `kit.html:128` now reads `deleted 2026-08-12`. A modifier no element ever wore |
+| `is-disabled` | 0 | 0 | **0** since 2026-08-12. Re-counted at step 9: no `.is-disabled` in the markup anywhere. The stand had been faking a state with a class the product does not carry, which is the thing this stage forbids by name |
 | `.row .p` | 0 | 0 | 0 |
 
-So three of the six are now clean in all three corpora and two are not, and three spans on the
+**Re-counted at step 9, 2026-08-12, and the answer changed: all six are now clean in all three
+corpora.** The two that were not are above, and both were the same kind of row: a count taken
+once and never re-taken while the thing it counted was deleted underneath it. A census is a
+measurement and a measurement has a date; these two carried the number and not the date.
+
+So all six of the six are now clean in all three corpora, and three spans on the
 system's own front page still wear classes no rule defines. **The finding is the instrument and
 not the arithmetic.** Both counts were right about what they measured; the corpus list was short
 by one, and the corpus it was short by is the one page a reviewer opens first. `chip.css` still

@@ -94,6 +94,14 @@ window.KIT_NAV = {
     { name: 'Reveal step',       cls: '.rstep',        page: 'reveal-step.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'Save-focus list',   cls: '.candidates',   page: 'save-focus-list.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'Tab bar',           cls: '.tabbar',       page: 'tab-bar.html', was: null,                          axes: 'form: bottom bar / left rail at container 760', wf: 28 }
+  ],
+
+  /* NOT PART OF THE SYSTEM, AND THAT IS WHY IT IS ITS OWN GROUP AT THE END rather
+     than a fifth foundation. Foundations are things a screen is built OUT OF; this
+     is evidence ABOUT what was built, and filing it beside Colour would say the
+     system contains its own audit. Step 9, 2026-08-12. */
+  verification: [
+    { name: 'The proof', file: 'pixel-proof.html', page: 'pixel-proof.html', note: 'the pixel comparison, the critique by class with who found it, and the three numbers still open' }
   ]
 };
 
@@ -103,7 +111,8 @@ window.KIT_NAV = {
     { key: 'foundations', label: 'Foundations' },
     { key: 'atoms',       label: 'Atoms' },
     { key: 'molecules',   label: 'Molecules' },
-    { key: 'organisms',   label: 'Organisms' }
+    { key: 'organisms',   label: 'Organisms' },
+    { key: 'verification', label: 'Verification' }
   ];
 
   function here() { return location.pathname.split('/').pop() || 'overview.html'; }
