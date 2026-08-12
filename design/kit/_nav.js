@@ -25,8 +25,8 @@ window.KIT_NAV = {
   ],
 
   atoms: [
-    { name: 'Amount',            cls: '.amt',          page: 'amount.html', was: null,                          axes: 'size by container: 13.5 / 14 / 30 / 32', wf: 69 },
-    { name: 'Big total',         cls: '.total',        page: 'big-total.html', was: null,                          axes: 'size by container: 46 / 40',            wf: 8 },
+    { name: 'Amount',            cls: '.amt',          page: 'amount.html', was: null,                          axes: 'size by container: 14 / 32. 13.5 and 30 folded at step 5', wf: 69 },
+    { name: 'Big total',         cls: '.total',        page: 'big-total.html', was: null,                          axes: 'size by container: 46 / 32. 40 folded at step 5',            wf: 8 },
     /* THE TWO BRAND ATOMS, 2026-08-12. `wf` counts GREY pages, and the mark's is
        0 on purpose rather than by oversight: it is the first component in this
        system that came from a DECISION instead of from the wireframes, and the
@@ -34,14 +34,14 @@ window.KIT_NAV = {
        The wordmark's 54 is the real grey count, because the word was always
        there; what changed is how it is set. */
     { name: 'Brand mark',        cls: '.brand',        page: 'brand-mark.html', was: null,                          axes: 'window: crop A. B and C locked at Concept, no host in the product yet', wf: 0 },
-    { name: 'Brand wordmark',    cls: '.wordmark',     page: 'brand-wordmark.html', was: null,                      axes: 'one setting. The coloured d waits for a host where the word stands alone', wf: 54 },
-    { name: 'Button',            cls: '.btn',          page: 'button.html', was: null,                          axes: 'emphasis: fill / outline / inverse. size: default / compact', wf: 85 },
+    { name: 'Brand wordmark',    cls: '.wordmark',     page: 'brand-wordmark.html', was: null,                      axes: 'one setting, and the last letter is petrol with no condition (founder, 2026-08-12)', wf: 54 },
+    { name: 'Button',            cls: '.btn',          page: 'button.html', was: null,                          axes: 'emphasis: fill / outline. inverse and compact both deleted 2026-08-12', wf: 85 },
     { name: 'Chart placeholder', cls: '.chart',        page: 'chart-placeholder.html', was: null,                          axes: '-',                                     wf: 4 },
     { name: 'Checkbox',          cls: '.check',        page: 'checkbox.html', was: '.switch input',                axes: '-',                                     wf: 2 },
-    { name: 'Chip',              cls: '.chip',         page: 'chip.html', was: '.tag, .badge, .best, .plan',   axes: 'tone: quiet / trial / pro / cancelled', wf: 36 },
+    { name: 'Chip',              cls: '.chip',         page: 'chip.html', was: '.tag, .badge, .best, .plan',   axes: 'tone: quiet / trial / pro. cancelled has no wearer', wf: 36 },
     { name: 'Destination icon',  cls: '.ic-*',         page: 'destination-icon.html', was: null,                          axes: 'one per destination',                   wf: 112 },
     { name: 'Eyebrow',           cls: '.k',            page: 'eyebrow.html', was: '.num',                         axes: '-',                                     wf: 4 },
-    { name: 'Label',             cls: '.lbl',          page: 'label.html', was: null,                          axes: 'weight: quiet 12 / strong 15',          wf: 3 },
+    { name: 'Label',             cls: '.lbl',          page: 'label.html', was: null,                          axes: 'weight: quiet 12 / strong 16',          wf: 3 },
     { name: 'Logo',              cls: '.logo',         page: 'logo.html', was: null,                          axes: 'size by container: 20 / 22 / 30 / 32 / 36 / 52', wf: 111 },
     { name: 'Meta row',          cls: '.metarow',      page: 'meta-row.html', was: '.axis, .strip',                axes: 'rule: plain / ruled',                   wf: 5 },
     { name: 'Muted line',        cls: '.muted',        page: 'muted-line.html', was: '.consequence, .context, .tone, .legal, .freshness, .removal, .pitch, p.notice, .p', axes: 'size: 12 / 12.5 / 13. rule: plain / ruled', wf: 48 },

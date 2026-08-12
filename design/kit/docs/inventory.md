@@ -43,7 +43,7 @@ The count is a class count, not a component count: `.row`, `.row .name`, `.row .
 
 # Part 1. The system after consolidation
 
-**55 components: 18 atoms, 23 molecules, 14 organisms.** Before the consolidation of stage 08
+**57 components: 20 atoms, 23 molecules, 14 organisms.** (55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
 step 2 the same material was 68 rows, and the pre-consolidation tables are not reproduced here:
 they were a list of what the product draws, and this is a list of what the system HAS. The
 ledgers further down record how the count moved, screen by screen and stage by stage.
@@ -71,21 +71,21 @@ the child**: doors are full cards and take air, tiles are chips and do not.
 
 | Component | Class | Axes and their values | Pages in the product | Was |
 |---|---|---|---|---|
-| Amount | `.amt` | size by container: 13.5 / 14 / 30 / 32 | 69 | - |
-| Big total | `.total` | size by container: 46 / 40 | 8 | - |
-| Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 0 | - |
-| Brand wordmark | `.wordmark` | one setting. The coloured d waits for a host where the word stands alone | 54 | - |
-| Button | `.btn` | emphasis: fill / outline / inverse. size: default / compact | 85 | - |
+| Amount | `.amt` | size by container: 14 / 32 (`--type-body`, `--type-figure`). 13.5 and 30 folded at step 5 | 69 | - |
+| Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - |
+| Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 28 coloured, 0 grey | - |
+| Brand wordmark | `.wordmark` | one setting, and the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - |
+| Button | `.btn` | emphasis: fill / outline. `inverse` and `compact` both DELETED 2026-08-12, neither had a wearer | 85 | - |
 
 **Built.** `design/system/components/button.css` + `design/kit/button.html`. The etalon of step 5,
 and the first component through the five-thing gate: css, page, registry row, inventory line,
 `@import` in its own level group.
 | Chart placeholder | `.chart` | - | 4 | - |
 | Checkbox | `.check` | - | 2 | `.switch input` |
-| Chip | `.chip` | tone: quiet / trial / pro / cancelled | 36 | `.tag`, `.badge`, `.best`, `.plan` |
+| Chip | `.chip` | tone: quiet / trial / pro. `cancelled` has no wearer; `trial`'s only wearer is the grey landing, so `--bg-trial` has never rendered | 36 | `.tag`, `.badge`, `.best`, `.plan` |
 | Destination icon | `.ic-*` | one per destination | 112 | - |
 | Eyebrow | `.k` | - | 4 | `.num` |
-| Label | `.lbl` | weight: quiet 12 / strong 15 | 3 | - |
+| Label | `.lbl` | weight: quiet 12 / strong 16 (`--type-meta`, `--type-sub`). 15 was never the value | 3 | - |
 | Logo | `.logo` | size by container: 20 / 22 / 30 / 32 / 36 / 52 | 111 | - |
 | Meta row | `.metarow` | rule: plain / ruled | 5 | `.axis`, `.strip` |
 | Muted line | `.muted` | size: 12 / 12.5 / 13. rule: plain / ruled | 48 | `.consequence`, `.context`, `.tone`, `.legal`, `.freshness`, `.removal`, `.pitch`, `p.notice`, `.p` |

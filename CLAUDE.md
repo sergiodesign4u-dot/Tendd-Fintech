@@ -103,7 +103,9 @@ pages of that stage is `overview.html`. This holds for `wireframes/` and `design
 
 **The wireframes are grey and frozen.** `wireframes/` is the structure contract: greyscale,
 semantic, real copy, one page per state, and a state page is named after its state rather than
-after the nearest system word. Voice was the last stage allowed to edit text there. From Concept
+after the nearest system word. Voice was the last stage allowed to edit TEXT there; a later stage
+may change STRUCTURE only by a founder's decision written into the file it changes, and the grey
+never loads a file from `design/` (a contract that depends on its own downstream is not one). From Concept
 on, color goes onto COPIES in `design/`, never onto the grey file, and a colored page may differ
 from its grey original by styling only. The etalon screen and the first flow are named on the
 first line of `wireframes/docs/screens.md`: later stages take them from there, not re-derived.
