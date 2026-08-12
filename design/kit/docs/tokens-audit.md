@@ -1184,3 +1184,44 @@ a role that was renamed and kept its value cannot show up in a colour diff, and 
 
 19 of the 28 screens carry a callout and repaint it #1d282a to #0e1517. The other 9 have none.
 No horizontal overflow at either viewport.
+
+## The geometry triage (2026-08-12), and it is smaller than the row that raised it
+
+Codex's row named ~28 files carrying literal pixels. Triaged mechanically, by asking of every
+literal on a spacing or size property whether a primitive with that exact value already exists:
+
+| | count | verdict |
+|---|---|---|
+| a literal that equals a primitive, on a property that owes one | **18 distinct** | real debt |
+| a literal with no primitive to read: a width, a position, an off-scale size | **11** | exempt by this system's own rule, that a width is on neither scale |
+
+**And 16 of the 18 are one thing.** `outline: 2px` and `outline-offset: 2px`, written out in 18
+places across 17 files, which is more occurrences than any spacing step in the system has.
+
+### `--ring: 2px`, one name for two properties
+
+| variable | was | became | why |
+|---|---|---|---|
+| `--ring` | 18 literals in 17 files | one primitive, read by all of them | the largest repetition left in the system |
+
+**One name for the width AND the offset, on purpose.** They are the same number by design: a ring
+thicker than its own gap reads as a border, so they have to move together or not at all. One name
+makes that impossible to get wrong.
+
+**It is NOT `--space-2`, and refusing that is the point of the row.** A ring is not a spacing step.
+Reading the spacing scale here would claim the gap between a control and its focus ring is the
+same KIND of measurement as the gap between two blocks, and the day the spacing scale moves every
+focus ring in the product would move with it. A literal that happens to equal a token is not
+automatically that token; the question is whether they mean the same thing.
+
+Measured after, on five screens in both themes: the ring computes **2px / 2px** and the petrol of
+its theme on every control that matched `:focus-visible`. Zero pixels. (Four controls per theme
+came back with the browser's own 3px black ring, which is programmatic `.focus()` not raising
+`:focus-visible` in Chromium, not a hole in the system: they take ours on a keyboard walk.)
+
+### Two literals left standing, both already owed a name
+
+`tab-bar.css` `min-height: 48px` and `alert-item.css` `min-height: 40px` are neither `--tap` (44)
+nor `--row` (56). `--tap-rail` was proposed at stage 07, deferred to stage 08, and stage 08 did not
+create it. They stay literal and reported rather than folded into `--space-48`, which would read as
+a spacing and is a different scale. The debt is now two lines instead of eighteen.

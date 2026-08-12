@@ -209,6 +209,19 @@
   --space-32: 32px;      /* between sections */
   --space-40: 40px;
   --space-48: 48px;
+  /* THE FOCUS RING, 2026-08-12, and it is ONE name for TWO properties on purpose.
+     Found by the step 9 geometry triage as the largest repetition left in the
+     system: `outline: 2px` and `outline-offset: 2px` written out in 18 places
+     across 17 files, which is more occurrences than any spacing step has. The
+     width and the offset are the same number BY DESIGN, because a ring that is
+     thicker than its own gap reads as a border, and they have to move together or
+     not at all. One name makes that impossible to get wrong.
+     It is NOT --space-2. A ring is not a spacing step: reading the spacing scale
+     here would say the gap between a control and its ring is the same KIND of
+     measurement as the gap between two blocks, and the day the spacing scale
+     moves, every focus ring in the product would move with it. */
+  --ring:      2px;
+
   --space-56: 56px;      /* no consumer today, and it is KEPT, 2026-08-12. Found by
                             the step 9 audit as the one primitive nothing reads. A
                             scale is declared whole: pull 56 out and the ladder runs
