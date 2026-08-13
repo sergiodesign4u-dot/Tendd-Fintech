@@ -89,14 +89,14 @@ interface text: one language across the sidebar, mixed language counts as a defe
 
 **No em dash** in any output file of the project. Use a hyphen or rewrite the sentence.
 
-**Navigation has two levels, and the roadmap has one owner.** `/_nav.js` is the single registry
-of the project and it lists STAGES: it renders the sidebar on every page, and active / Next /
-SOON are computed at render. A new page means one row plus `done:true`, never a hand written
-roadmap in a page. `/_nav.css` owns the look; a page never describes `nav-*` itself. The MATERIAL
-of a stage lists itself in the stage's own registry (`wireframes/_nav.js`, `design/_nav.js`,
-`design/kit/_nav.js`), each keeping its data and classes in its own namespace because hub pages
-load both; a roadmap that listed 57 components would stop being a roadmap. Stage pages carry the
-roadmap, the screens of a stage carry only their stage panel.
+**Navigation has two levels, and the roadmap has one owner.** `/_nav.js` is the single registry of
+the project and it lists STAGES: it renders the sidebar everywhere, and active / Next / SOON are
+computed at render. A new page means one row plus `done:true`, never a hand written roadmap;
+`/_nav.css` owns the look and a page never describes `nav-*` itself. The MATERIAL of a stage lists
+itself in the stage's own registry (`wireframes/_nav.js`, `design/_nav.js`, `design/kit/_nav.js`),
+each keeping its data and classes in its own namespace because hub pages load both; a roadmap that
+listed 57 components would stop being a roadmap. A stage page carries the roadmap and its material
+the panel, and **each carries a DOOR into the other**, drawn by the stage's registry: groups, not their contents.
 
 **`index.html` is the product home page, `overview.html` is the hub.** In any stage folder:
 opening the folder lands on the product screen (node 1.1, Welcome); the list of all

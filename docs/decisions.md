@@ -7,6 +7,48 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-13 - A door at each end of the navigation, and neither registry learns the other's data
+
+**What the founder said.** "I want this to be part of that, and not to have to hunt for where the
+design system itself is, and the same for responsive. So that on click we go into the design system,
+maybe to the why page."
+
+**What was true before.** Both registries were correct and both were islands. `/_nav.js` lists the
+stages and renders the project sidebar; `design/kit/_nav.js` lists the material and renders the
+stand's panel. A roadmap page showed you the stages and no way into the material. A component page
+showed you the material and no way back into the project: the only exits were the guide, the hub
+and two product links. Four pages loaded both registries and still showed only one of them.
+
+**What we did NOT do, and it is the rule this decision is careful with.** The 57 components do not
+enter the roadmap. `CLAUDE.md` has said since stage 08 that a roadmap listing 57 components would
+stop being a roadmap, and it still says it. The sidebar gets six group NAMES with their counts and
+nothing below them.
+
+**Two doors, both drawn by the stand's registry.** Into the system: `design/kit/_nav.js` appends a
+"The system" block inside the ACTIVE stage row of the project sidebar, six groups linking to the
+hub at their own anchor, and Verification to `pixel-proof.html`, which is a field rather than a
+computed string because the hub draws five card grids and Verification is not one of them. Back
+out: a "The project" block at the foot of the panel, the thirteen stages read from `window.NAV`,
+with the stage you are standing in marked. Every page of the stand now loads `/_nav.js` for that
+one purpose, and on 68 of the 72 it draws nothing at all: its renderer returns on the first line
+when it finds no `#sidebar`, so what those pages get is the registry and not the roadmap.
+
+**Why both are drawn from the stand's file.** The project registry must not learn what a molecule
+is. `/_nav.js` owns the stages, `design/kit/_nav.js` owns the material and lists itself, which is
+what a stage's registry is for. So the door into the system is drawn by the file that knows the
+system, in the `kn-*` namespace, touching no `nav-*` class and no `NAV_*` global. A door appears
+only where the kit registry is loaded, which is why nothing leaks onto the Wireframes or Voice
+roadmap: those pages do not load it, so there is nothing to draw it. Verified.
+
+**One bug found and fixed while building it, and it is a rule of this stand rather than a slip.**
+The door's links rendered in petrol, six accent-coloured rows under a roadmap of black ones,
+measured #1c6a76 against the sections' #9aa0a2. `_page.css` paints every CLASSLESS link on a stand
+page with `--text-action`, deliberately, so that product specimens keep their real link colour; the
+panel's own list has carried a class attribute since it was written for exactly that reason. A
+chrome link on this stand carries a class or it is painted as content.
+
+---
+
 ## 2026-08-13 - One right edge for a wide screen, and the groups run by spend
 
 **What the founder saw.** "A lot of white space on the right at large widths", with a screenshot of

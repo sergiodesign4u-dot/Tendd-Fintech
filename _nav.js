@@ -24,6 +24,13 @@
 // NAV_ACTIVE, NAV_ACTIVE_LABEL or the nav-* classes. Hub pages (ia/structure.html, wireframes/overview.html,
 // design/overview.html, design/kit/overview.html) load two registries at once:
 // if a local one declared window.NAV, the roadmap would silently render the wrong array.
+//
+// SINCE 2026-08-13 EVERY PAGE OF design/kit/ LOADS THIS FILE TOO, and on all but four of
+// them this file draws NOTHING: the renderer below returns on its first line when it finds
+// no #sidebar, so what those pages get is the REGISTRY and not the roadmap. They read
+// window.NAV to draw a way back into the project at the foot of the system's own panel,
+// and the drawing is done by design/kit/_nav.js in the kn-* namespace, never here. This
+// file still knows nothing about components, and that is the point of the arrangement.
 
 // Groups (children) have no page of their own: the top link is computed from the children and
 // points at the first READY page of the group, so it never points at a file that does not exist yet.

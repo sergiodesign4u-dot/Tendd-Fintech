@@ -207,7 +207,15 @@ design/system/     the CODE. A product loads this and nothing else.
   patterns/        one file per settled composition, added at stage 09 with no move
 
 design/kit/        the STAND. A person looks at this. It ships nothing.
-  _nav.js          the registry: draws both the hub cards and the side panel
+  _nav.js          the registry: draws the hub cards, the side panel, and since
+                   2026-08-13 the two DOORS between the stand and the project
+                   roadmap. Into the system: a "The system" block appended to the
+                   active stage of /_nav.js's sidebar, six group names and their
+                   counts, never their contents. Back out: a "The project" block
+                   at the foot of this panel, the stages read from window.NAV,
+                   which every stand page now loads for that one purpose. Both are
+                   drawn HERE, in the kn-* namespace, so the project registry goes
+                   on knowing nothing about a molecule
   _page.css        the stand's own look, and the home of the reviewer chrome
   overview.html    the hub
   <component>.html one page per component
