@@ -55,15 +55,24 @@
   docs/inventory.md) and onto the screen second. A rule written on a screen looks
   flawless in the browser and becomes drift the next time the system moves.
 
-  THE THREE FORMS OF THE SHELL, chosen on the <main> element:
+  THE THREE FORMS OF THE SHELL, chosen on the .app element:
     .app              the steady state: app bar, screen, tab bar
     .app.flow         the onboarding chain: app bar, screen, and NO tab bar
-    .app.detail       one object in focus, two columns from container 900
+    .app.detail       one object in focus, as many columns as its pane holds
 
   The layout is driven by CONTAINER queries, not media queries, so a screen
   behaves by the width it is given rather than by the width of the browser.
-  At container 760 the tab bar becomes a 220px left rail and the app bar folds
-  into its top. At 1340 the two densest screens gain a third pane.
+  At container 47.5rem the tab bar becomes a 220px left rail and the app bar
+  folds into its top. At 56.25rem the page measure comes off and a detail screen
+  counts its own columns. THERE IS NO THIRD STEP: the product has exactly two
+  points, both registered in design/system/tokens.css, and a third is the
+  founder's call. Nothing anywhere gains a third pane.
+
+  `.app` IS A <div> AND NOT A <main>. The screen inside it is the <main>, and a
+  main inside a main is invalid HTML and hands a screen reader two landmarks for
+  one page. All 32 coloured screens already write it this way; this template said
+  otherwise until stage 10 audited it, which would have put the defect on every
+  screen built from here at stage 12.
 -->
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
@@ -84,7 +93,7 @@
      navigation panel and they do not travel to a real build. Everything from
      <main> down is the product. -->
 
-<main class="app" aria-label="Screen name">
+<div class="app" aria-label="Screen name">
 
   <!-- GC1 App header. Slots, in order: back or menu, the title or the greeting
        on the You tab, one contextual action. On the Pro cluster that third slot

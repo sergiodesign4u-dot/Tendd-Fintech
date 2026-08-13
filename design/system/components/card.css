@@ -252,11 +252,13 @@
   color: var(--text-muted);
 }
 
-/* ---- the reading measure, and it is a CONTAINER query --------------------
-   Past a 760px container the prose card stops growing with the screen and holds
-   560px. It is a reading measure and not a decoration: the card is three
-   sentences and a list of three, and at the 908px a wide screen would otherwise
-   hand it, the lines run past the length an eye tracks back from.
+/* ---- the reading measure, and since stage 10 it asks NOTHING -------------
+   The prose card holds 560px and stops growing with the screen. It is a reading
+   measure and not a decoration: the card is three sentences and a list of three,
+   and at the 908px a wide screen would otherwise hand it, the lines run past the
+   length an eye tracks back from. Until stage 10 this rule sat inside
+   `@container (min-width: 47.5rem)`, and the last block of this comment records
+   why the query came off and what it was costing.
 
    THE SUBJECT IS `.card.prose` AND NOT `.card`, and that is the one place in
    this file where the rename could have gone wrong quietly. `.app > .screen >
@@ -286,10 +288,20 @@
    IT IS DECLARED HERE AND NOT IN THE SHELL'S FILE, on the same rule that puts
    the chart's 220px height in chart-placeholder.css: the subject of the rule
    owns it. Its two neighbours in kit.css were `.form-col` and `.rows-col`, the
-   shell's own columns, which carry no component, so they stay with the shell. */
-@container (min-width: 760px) {
-  .app > .screen > .card.prose { max-width: 560px; }   /* _wf.css:1021 */
-}
+   shell's own columns, which carry no component, so they stay with the shell.
+
+   THE QUERY CAME OFF AT STAGE 10, AND THE MEASURE STAYED. It was written inside
+   `@container (min-width: 47.5rem)`, carried verbatim from _wf.css:1021, and
+   nobody had asked what the query was for. A `max-width` never widens anything:
+   below 560 the card is already narrower and the declaration does nothing, so
+   the query bought no behaviour and cost a band. The width sweep priced that
+   band: at a 750 screen, ten pixels under the point, the prose card ran 684px
+   and its paragraph read at **78.9 characters to a line**, the worst measure
+   left in the product after the four fixes above it. Now the card holds 560 at
+   every width, 360 included, where it changes nothing because there is no room
+   to change. A reading measure does not need a point, which is the first rung
+   of the ladder in docs/responsive.md and this is its second instance. */
+.app > .screen > .card.prose { max-width: 560px; }   /* _wf.css:1021 */
 
 /* NO STATES, and the reason is one line: a card is not interactive. Neither
    form is an anchor, a button or a summary on any of the 55 grey pages or the 32

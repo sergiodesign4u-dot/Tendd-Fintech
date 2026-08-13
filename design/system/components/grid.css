@@ -98,8 +98,13 @@
 
 .app .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-8);
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min), 1fr));
+  /* --grid-gap and not --space-8 directly, 2026-08-13: the value is the same
+     8px and the OWNER changes. A grid's air is a property of grids, and the
+     door row overrides it below on the axis this page already declares, gap by
+     the child's weight. Reading the spacing step directly would say the air in
+     a grid and the air between two blocks are the same kind of measurement. */
+  gap: var(--grid-gap);
   margin: var(--space-0) var(--space-0) var(--space-24);
 }
 
@@ -221,7 +226,7 @@
    declares a third: a container between those and these rules would re-point
    every query inside it at a different box, with no error and no symptom.
 
-   The three steps (760 / 900 / 1340) cannot become variables, because a custom
+   The two points (47.5rem, 56.25rem) cannot become variables, because a custom
    property is not valid inside a @container condition. They are documented,
    not tokenized.
 
@@ -260,20 +265,102 @@
    dialog-sheet.css reaches in one level further at 0-4-0 to give a door row
    inside a sheet its bottom margin back, which still wins over the 0-3-0
    `margin` above. */
-@container (min-width: 760px) {
-  .app .grid { grid-template-columns: repeat(3, 1fr); }
+/* ============================================================================
+   STAGE 10, 2026-08-13. TWO OF THESE THREE ROWS STOP DECLARING A COUNT AND THE
+   THIRD KEEPS ONE, AND THE LINE BETWEEN THEM IS WHERE THE COUNT COMES FROM.
+
+   Stage 09 left this open in the note above: "the clean expression would be a
+   floor per child, `repeat(auto-fit, minmax(<floor>, 1fr))`, with the floor in
+   the child's own file. Three children, two names, and the third name is a
+   decision." The decision is taken here, and it splits the three rather than
+   converting all of them, because they are not the same question.
+
+   THE TILE ROW AND THE PLAN ROW ARE A FIT QUESTION. How many presets fit is a
+   fact about the width available and the narrow floor of a tile; nobody chose
+   three. So they count themselves, and the count stops being written anywhere.
+
+   THE DOOR ROW IS NOT A FIT QUESTION AND FLUID WOULD BE WRONG THERE. There are
+   two doors, on home-empty and on connections-empty, because the product offers
+   exactly two ways in: connect a bank, or add one yourself. That is D2, not a
+   measurement, and there will never be a third. `1fr 1fr` says "the two doors",
+   and `auto-fill` would say "as many doors as fit", which is a sentence about a
+   screen this product does not have. Measured, so that the refusal is a number
+   rather than a preference: with a floor that keeps one door per row at 360 and
+   two at a 760 container, `auto-fill` puts FOUR doors across at a 1440 window,
+   because a steady screen's pane is uncapped above the desktop point. Four
+   tracks, two of them empty, on the screen whose whole job is a choice between
+   two things.
+
+   auto-fill AND NOT auto-fit, which is this product's own correction to the
+   usual recipe and was already argued above: `auto-fit` collapses empty tracks,
+   so the count would depend on how many children a screen happens to hold, and
+   this component's page forbids exactly that. `auto-fill` keeps the count a
+   property of the place. On a full row the two behave identically; the day a
+   screen holds two presets instead of six, `auto-fit` would stretch them across
+   the pane and `auto-fill` leaves them tile-sized.
+
+   THE FLOORS, AND WHY NEITHER ROW RUNS AWAY. Both live on flow screens, whose
+   pane is capped by --container-column, so the arithmetic is bounded at every
+   width rather than only at the ones checked:
+     tiles   --grid-col-min, 10rem. Pane 588px inside a 620 flow screen at any
+             width past the tablet point: (588 + 8) / (160 + 8) = 3 columns, the
+             three that were declared here. At a 360 window the pane is 328:
+             (328 + 8) / 168 = 2, the two that were declared on the base rule.
+             The fluid form reproduces BOTH declared counts exactly, at every
+             width, which is why it costs nothing to take.
+     plans   13.125rem, 210px, local and not a token: one row, one place. The
+             band is (160, 234]: over 160 so two plans never share a 360 screen,
+             at or under 234 so three fit the 720 cap. 210 sits in the middle of
+             a band 74px wide.
+   ============================================================================ */
+@container (min-width: 47.5rem) {
+  .app .grid { grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min), 1fr)); }
   .app .grid.roomy { grid-template-columns: 1fr 1fr; }
-  .app .plans { grid-template-columns: repeat(3, 1fr); max-width: 720px; }
+  .app .plans { grid-template-columns: repeat(auto-fill, minmax(13.125rem, 1fr)); }
 }
+
+/* THE PLAN ROW'S CAP, AND IT IS ALIVE AGAIN AS OF 2026-08-13. Founder's
+   decision at stage 10 step 1: close it in this stage rather than carry it.
+
+   What was wrong: the cap was written inside the block above as `.app .plans`,
+   which is 0-2-0, and so is the shell's `.app > .screen > * { max-width: none }`
+   at the desktop point. The shell's rule is declared later, so it won. Measured
+   on design/upgrade.html at a 1440 window: `max-width` computed to `none` and
+   the row rendered 728px wide, eight pixels over the cap it was supposed to have.
+   The same unbinding took the form column from 560 to 588 and the Pro gate from
+   560 to 748; both of those were tightened to 0-3-0 when they were found and the
+   plan row was not, because it was not in that sample.
+
+   The repair is the same one: bind it through `> .screen >` at 0-3-0, where it
+   beats the blanket and needs no source order to be true. It is written outside
+   the container block because a cap that only holds between two points is the
+   bug, not the feature. `.plans` is a direct child of `.screen` on both pages
+   that carry it, checked before the selector was tightened. */
+.app > .screen > .plans { max-width: 720px; }
 
 /* ---- the landing's own step, and it is a MEDIA query ----------------------
    Deliberately not a container query, and kit.css said why at the line it was
    written: index.html is the only page with no `.app` shell, its own block runs
    on media queries throughout, and the landing copy of this rule matches that
-   model rather than introducing a second one on one page. 780px is a width and
-   stays literal. */
-@media (min-width: 760px) {
-  .lp-plan .plans { grid-template-columns: repeat(3, 1fr); max-width: 780px; }
+   model rather than introducing a second one on one page.
+
+   THE 780 STOPPED BEING A LITERAL AT STAGE 10. The sentence that stood here said
+   "780px is a width and stays literal", and it was true until the width tokens
+   existed: 780 is now `--container-page`, the same ceiling the shell gives a
+   screen, and a literal that repeats a token's value is the drift the token was
+   created to end. Same number, one owner.
+
+   THE COUNT STAYS DECLARED, AND THAT IS THE SECOND HALF OF THE ANSWER stage 10's
+   census asked for. `repeat(3, 1fr)` looks like the hard-coded count this stage
+   spent step 4 removing, and it is not the same thing: the landing's pricing
+   block holds exactly THREE plan options (`wireframes/index.html`, the
+   `lp-plan` section, three `.plan-opt` cards), so three is content and not a fit
+   question. This is the door row's argument a second time. Fluid would put four
+   or five tracks across a wide window and leave two of them empty on the one
+   block whose whole job is a comparison between three named things. Written down
+   because a grep for `repeat(` will find this line again. */
+@media (min-width: 47.5rem) {
+  .lp-plan .plans { grid-template-columns: repeat(3, 1fr); max-width: var(--container-page); }
 }
 
 /* TWO THINGS OUTSIDE THIS FILE DEPENDED ON THE NAME `.tiles`, and both would

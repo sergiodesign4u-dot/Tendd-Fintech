@@ -338,6 +338,65 @@
     </div>
   </section>
 
+  <section class="kit-sec" id="stage10">
+    <h2>Stage 10, Responsive: the promise is asymmetric, and both halves are measured</h2>
+
+    <p class="note"><b>Added 2026-08-13, and it is the first round of proof on this page whose promise is not "nothing moved".</b> Stages 08 and 09 owed zero difference at both viewports. A stage about width cannot owe that: at 360 the mobile layout is the base of a mobile-first product and it must not move at all, and on a wide screen the whole point is that things move. So the promise splits, and the second half is enforced differently: <b>every desktop difference must be explained by a named row</b>, and an unexplained one is exactly as much a defect as any difference at 360.</p>
+
+    <h3 class="kit-sub-h">The narrow end: 32 pages, zero difference, box and ink</h3>
+    <div class="kit-tab">
+    <table>
+      <tr><th>Measured at a real 360</th><th>Result</th></tr>
+      <tr><td>coloured pages compared against the pre-stage baseline</td><td><strong>32</strong>, every one</td></tr>
+      <tr><td>how a page is compared</td><td>the position and size of <b>every element</b> inside the shell, plus the rectangle the <b>text itself</b> paints, which catches a re-wrap that leaves the box alone</td></tr>
+      <tr><td>pages identical on the box</td><td><strong>32 of 32</strong></td></tr>
+      <tr><td>pages identical on the ink</td><td><strong>32 of 32</strong></td></tr>
+      <tr><td>horizontal scroll anywhere</td><td><strong>none</strong></td></tr>
+      <tr><td>the baseline</td><td><code class="kit-code">git archive HEAD</code> into a second served copy, so the two versions render side by side from the same browser on the same origin</td></tr>
+      <tr><td>where the instrument lives</td><td><code class="kit-code">screens/width10-harness.html</code>, and its output as run on 2026-08-13 in <code class="kit-code">screens/width10.txt</code>. <b>No screenshots, on the decision of 2026-08-11 recorded at the head of this page:</b> a picture of a measurement goes stale silently and then looks checked. Open the harness over a local server and press Run</td></tr>
+    </table>
+    </div>
+    <p class="note"><b>It failed once, and that is why it is worth running.</b> The first pass lit up on six pages. Two of the four reading-measure fixes had been written as a comment appended after an already-closed comment block, which left prose in the stylesheet and a stray <code>*/</code> after it; the browser dropped what followed. The 360 check caught a broken stylesheet that the eye read as a normal page. A comment-balance check now runs over all 65 stylesheets and is clean.</p>
+
+    <h3 class="kit-sub-h">The wide end: 32 pages changed, and every change has a row</h3>
+    <div class="kit-tab">
+    <table>
+      <tr><th>Measured at 1440</th><th>Result</th></tr>
+      <tr><td>pages whose geometry changed</td><td><strong>32</strong>, and <strong>688</strong> element boxes among them</td></tr>
+      <tr><td>pages where the <b>ink</b> moved, meaning a line actually re-wrapped</td><td><strong>19</strong>, and <strong>277</strong> text rectangles</td></tr>
+      <tr><td>causes, all named on <a href="responsive.html#components">the width page</a></td><td>four reading measures folded into one token; four prose blocks that had no measure at all; two dead caps repaired; two grids that stopped declaring a count; the groups column set; the detail screen's columns</td></tr>
+      <tr><td><b>unexplained</b></td><td><strong>0</strong></td></tr>
+      <tr><td>the biggest single move</td><td>the muted line under the chart on History and Trends: <b>1300px to 459px</b>, from 150 characters a line to 53</td></tr>
+    </table>
+    </div>
+
+    <h3 class="kit-sub-h">The instrument: a sweep, because a defect lives between the points</h3>
+    <div class="kit-tab">
+    <table>
+      <tr><th>The width sweep</th><th>Result</th></tr>
+      <tr><td>widths per page</td><td><strong>50</strong>: 320 to 1600 in steps of 40, with 10px steps around both points, around the container threshold and around the two widths where the column set changes its count</td></tr>
+      <tr><td>total measurements</td><td><strong>1600</strong></td></tr>
+      <tr><td>document-level horizontal scroll</td><td><strong>none</strong> at any stop, and <b>that check alone would have found nothing</b>: the pane is its own scroller past the tablet point, so a layout that does not fit scrolls inside it while the document stays clean</td></tr>
+      <tr><td>elements leaving the viewport</td><td><strong>18 stops</strong> before the fix, all on the six Subscription Detail pages at 900, 910 and 920. <strong>0</strong> after</td></tr>
+      <tr><td>the carrier of top-level navigation</td><td><b>exactly one</b> at every stop on every app-frame screen, four links, never two. Confirmed in the markup: 22 screens carry one <code class="kit-code">.tabbar</code>, the 10 flow screens carry none</td></tr>
+      <tr><td>the worst reading measure found</td><td><strong>150ch</strong> (History and Trends at 1600), then 82.8, 78.9, 72, 69, 67.8</td></tr>
+      <tr><td>the worst reading measure now</td><td><strong>60.7ch</strong>, the prose card, which is a named 560px decision and is written up in <code class="kit-code">docs/backlog.md</code> rather than quietly changed. Everything else is 53ch or below</td></tr>
+    </table>
+    </div>
+
+    <h3 class="kit-sub-h">Two instruments, and what each one was blind to</h3>
+    <div class="kit-tab">
+    <table>
+      <tr><th>Found by</th><th>What</th><th>Verdict</th></tr>
+      <tr><td>Claude, in a browser</td><td>five defects: the 78.9ch card, the unmeasured muted line at 150ch, the unmeasured wash paragraph and promise item, the 900-to-927 valley, and a sixth element needing the <code class="kit-code">&gt; .screen &gt;</code> binding</td><td>all five confirmed and fixed. None of them is visible in the source: every one needed a rendered page at a specific width</td></tr>
+      <tr><td>Codex, read-only in the source</td><td>ten findings across ten mechanical classes</td><td><b>7 confirmed</b> (a literal repeating a token, four inventory rows, a stale register claim, a comment contradicting its own rule), <b>2 dropped at verification</b> with the reason written into the code, <b>1 resolved by the stage closing</b></td></tr>
+      <tr><td>Claude, by grep, after Codex</td><td><b>eight stale claims naming 1340</b>, the number this stage removed, in the kit pages, the shell template, the review chrome and <code class="kit-code">DESIGN.md</code></td><td>all eight repaired. This is the class Codex was asked for and did not return, and it is the reason the two instruments are run and merged rather than trusted one at a time</td></tr>
+      <tr><td>The a11y pass</td><td><b>the shell template declared <code class="kit-code">&lt;main class="app"&gt;</code> around <code class="kit-code">&lt;main class="screen"&gt;</code></b>, a main inside a main, while all 32 built screens use a <code class="kit-code">div</code></td><td>repaired in the template. Nobody would have seen it until stage 12 built twenty screens from it, each with two landmarks</td></tr>
+      <tr><td>The a11y pass, not this stage's material</td><td>the project sidebar's section links read <b>2.65:1</b> on white at 13px, and the dimmed roadmap rows 3.37:1. Light theme only; the dark theme is clean</td><td><b>reported, not fixed.</b> It is <code class="kit-code">/_nav.css</code>, the project registry chrome, and it is on every stage page of the project: a colour decision for the founder rather than a stage-10 edit</td></tr>
+    </table>
+    </div>
+  </section>
+
   <footer class="kit-foot">
     Every number on this page was produced by a script in <code>screens/</code> or by a pass recorded in <code>docs/tokens-audit.md</code>, and none of them was typed from memory. Where a number is still open it says so and names what it is waiting for, which is a decision rather than a measurement. The one thing this page cannot prove is the thing it is most tempting to claim: that the system is finished. It is complete for the sample, closed for four of the five densest screens it has never seen, and demonstrably incomplete for the landing.
   </footer>

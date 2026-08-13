@@ -1,7 +1,7 @@
 /* ============================================================================
    Groups column set - organism
    The container the categorised list runs in. One column on a phone, two from
-   container 900, three from container 1340. It is a multicolumn box and not a
+   container 900, and as many as fit past that, capped at three. It is a multicolumn box and not a
    grid, which is the decision worth knowing: the groups flow, so five categories
    fill two columns by height rather than by count, and adding a sixth changes
    nothing about the CSS.
@@ -21,11 +21,13 @@
    a group head. That is what makes a set of columns a container rather than a
    card, and it is why this file is four declarations long.
 
-   MEASURED, ON THE PRODUCT, BEFORE THE STAND WAS CHOSEN. At a 1440 viewport the
-   set renders 893px wide in its two-column form and each group 424.5px; at 1600
-   it is 1053px in three columns at 321.7px each; at 1920, 1373px at 428.3px.
-   The stand cannot show the 1053 because design/kit/_page.css caps .kit-wrap at
-   1000px, and the page says so rather than pretending otherwise.
+   MEASURED ON THE PRODUCT, AND RE-MEASURED AT STAGE 10 WHEN THE COUNT STOPPED
+   BEING DECLARED. Under the old two-step rule a 1440 viewport gave 893px in two
+   columns of 424.5px, 1600 gave 1053px in three of 321.7px, and 1920 gave 1373px
+   in three of 428.3px: the set grew without limit between the steps. It is now
+   capped at 996px, three columns of the 300px floor plus two gutters, and past
+   about a 1310px container that is what every wider window shows. The numbers
+   above are kept as the record of what the declared steps did.
 
    NOT CARRIED, DELIBERATELY, and there are two.
 
@@ -60,40 +62,66 @@
    the rename map in docs/inventory.md leaves it alone.
    ============================================================================ */
 
-/* ---- two columns, from container 900 -------------------------------------
-   The three container steps (760, 900, 1340) cannot become variables: a custom
-   property is not valid inside a @container condition. They are documented, not
-   tokenized.
+/* ---- the columns, from container 900, and the SET COUNTS THEM ITSELF -------
+   REWRITTEN 2026-08-13, STAGE 10, FOUNDER'S DECISION. It was two declared steps,
+   `columns: 2` from a 900 container and `columns: 3` from a 1340 one. It is now
+   one fluid rule, and the number 1340 is gone from the product entirely.
+
+   WHY, AND IT IS A MEASUREMENT RATHER THAN A PREFERENCE. This file already
+   declared the floor in the note that used to sit below: "three columns is the
+   widest the set ever goes: a fourth would take a group below the 300px its rows
+   need, and the rows are the product". Stage 10 measured what the declared steps
+   actually gave, on design/home.html, walking the container:
+
+     container   900    940    960    1000   1335   1340
+     columns     2      2      2      2      2      3
+     per column  269    289    299    319    486    310
+
+   TWO THINGS ARE WRONG IN THAT ROW AND BOTH ARE THIS FILE'S OWN RULE. The step
+   at 900 puts a group at 269px, which is 31px UNDER the floor this file
+   declares, and it stays under it until about 960. And at 1335 a column is 486px,
+   nearly two floors wide, one pixel before it snaps back to 310. A count that is
+   switched by hand cannot help doing that: between two steps the columns grow
+   without limit, and at the step they collapse.
+
+   WHAT REPLACES IT. `columns: 300px` is column-width, not column-count: the
+   browser fits as many 300px columns as the place holds and never fewer than
+   one. The floor stops being a sentence in a comment and becomes the rule
+   itself, so it cannot be broken by a step standing above it. The counts that
+   result, measured after the change and not predicted:
+
+     container   900    960    963    1000   1300   1311   1440   1920
+     columns     1      1      2      2      2      3      3      3
+
+   AND THE CAP IS WHAT KEEPS "THREE IS THE WIDEST" TRUE. Without it a 1920 window
+   would fit four columns and this file's floor argument would be violated from
+   the other side. `calc(300px * 3 + var(--space-48) * 2)` is 996px and it is
+   written as the arithmetic rather than as the number, because the number is
+   only ever "three columns of the floor plus two gutters": change the floor and
+   the cap follows.
+
+   THE CAP IS BOUND THROUGH `> .screen >` AT 0-3-0, and that is not tidiness.
+   Written as `.app .groups` it would tie at 0-2-0 with the shell's blanket
+   `.app > .screen > * { max-width: none }` past the desktop point, lose on
+   source order, and stop applying with no symptom. This product has now found
+   that same unbinding five times: the form column, the Pro gate, the plan row,
+   the readout, and this cap would have been the fifth. `.groups` is a direct
+   child of `.screen` on every page that carries it, which app-shell.css already
+   relies on for its `order: 3`.
 
    THE GUTTER FOLDS FROM 44px TO 48px. kit.css wrote `column-gap: 44px`, which
    scales.md does not list, so the rule is applied as it is written for every
    other value: nearest step, and a tie goes to the LARGER. 44 sits exactly
-   between --space-40 and --space-48, so it goes up. The consequence is measured
-   and small: at the 893px the product gives this set at a 1440 viewport, each of
-   two columns goes from 424.5px to 422.5px. Reported for docs/tokens-audit.md. */
-@container (min-width: 900px) {
-  .app .groups { columns: 2; column-gap: var(--space-48); }
+   between --space-40 and --space-48, so it goes up. Recorded at stage 08 and
+   carried unchanged.
 
-  /* A GROUP MAY NOT BE CUT IN HALF BY A COLUMN BREAK, and this is the one rule
-     this file writes onto its child. It is fragmentation and not paint: it
-     changes no colour, no size, no weight and no edge, and outside a multicolumn
-     container it does nothing at all, which is exactly why it belongs to the set
-     and not to the group. Without it a category's four subscriptions split
-     across the fold and the group head ends up alone at the bottom of column
-     one, which on the screen whose job is calm reads as a rendering fault. */
-  /* `.app .group { break-inside: avoid }` was written here too and is NOT kept:
-     the subject of the rule is the category group, and the subject owns it.
-     category-group.css declares it, this file relies on it, and one rule in two
-     files is the drift this stage exists to remove. Found by the two builders
-     reporting the same declaration from opposite sides. */
-}
-
-/* ---- three columns, from container 1340 ----------------------------------
-   The gutter does not change, so this is one declaration. Three columns is the
-   widest the set ever goes: a fourth would take a group below the 300px its
-   rows need, and the rows are the product. */
-@container (min-width: 1340px) {
-  .app .groups { columns: 3; }
+   A GROUP MAY NOT BE CUT IN HALF BY A COLUMN BREAK. That rule is
+   `break-inside: avoid` and it lives in category-group.css, because the subject
+   of the rule is the group and the subject owns it. This file relies on it: one
+   rule in two files is the drift stage 09 existed to remove. */
+@container (min-width: 56.25rem) {
+  .app .groups { columns: 300px; column-gap: var(--space-48); }
+  .app > .screen > .groups { max-width: calc(300px * 3 + var(--space-48) * 2); }
 }
 
 /* NO STATES. The column set is a container with no fill, no edge and no target

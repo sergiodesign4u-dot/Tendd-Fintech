@@ -282,6 +282,133 @@
   --space-64: 64px;
 
   /* ==========================================================================
+     PRIMITIVE - width. Stage 10, step 2. No roles, no theme, NO DARK PAIR, and
+     the absence is a decision rather than an omission: a pair of themes is a
+     property of the semantic level, which is to say of colour. A width, a
+     container and a gutter are geometry, and geometry does not change direction
+     in the dark. Do not look for a pair here and do not declare an empty one.
+
+     THE REGISTRY OF POINTS, AND IT IS A REGISTRY BECAUSE CSS FORCES IT TO BE.
+     A media or container query is resolved BEFORE the variable cascade, so
+     `@container (min-width: var(--bp-tablet))` does not error and does not warn,
+     it simply never matches. The number therefore has to be written twice: here,
+     where it is the source of truth, and as a literal inside each query. That is
+     not two sources of truth, it is a register and its application, and this
+     stage turns the constraint into an instrument: EVERY width query in
+     design/system/ must resolve to a number declared in this block, and to no
+     other number. Checked by grep at step 6, on both instruments.
+
+     rem AND NOT px, AND THE REASON IS A PERSON RATHER THAN A DEVICE. A point in
+     px asks how wide the window is. A point in rem asks how wide the window is
+     relative to THE TEXT THE PERSON SET, so somebody reading at a 24px root gets
+     the one-column form until there is genuinely room for two, instead of
+     sitting at a "desktop" width with a phone's worth of words in a line. At the
+     browser default of 16px these are 760px and 900px exactly, and the root
+     font-size is set nowhere in this system, so naming them in rem moves zero
+     pixels for everybody who has not asked for larger text.
+
+     THE VALUES ARE NOT NEW, AND THAT IS THE WHOLE POINT OF THE STAGE. Both ran
+     in the code before it. What they lacked was a name, an origin and a register:
+     the census in docs/responsive.md, part A, found 18 different width numbers in
+     the product and not one token, which is exactly how a third point gets
+     declared on top of two that nobody had noticed.
+
+     THE LITERALS IN THE COMPONENT FILES ARE STILL px AND ARE REPOINTED AT STEP 4,
+     when those files are opened. Stated here rather than left to be discovered,
+     because a register that does not yet match its application is a defect the
+     moment it stops being written down.
+     ========================================================================== */
+
+  --bp-tablet:  47.5rem;   /* 760px. AUDIT ROW: the shell, docs/responsive.md.
+                              WHAT BREAKS BELOW IT: the two-column shell cannot
+                              exist. The rail needs 220px (measured floor 180,
+                              app-shell.css) beside a content column that still
+                              has to hold a subscription row, and a row's own
+                              floor is 300px. WHY FLUID CANNOT DO IT: a bottom tab
+                              bar fixed to the glass and a left rail in a grid
+                              track are two behaviours, not one stretched. Nothing
+                              interpolates between them.
+                              Read today by app-shell, app-bar, tab-bar, card,
+                              grid, chart-placeholder, dialog-sheet and the
+                              list-column pattern. */
+
+  --bp-desktop: 56.25rem;  /* 900px. AUDIT ROWS 7 and 8, Home and Subscription
+                              Detail. WHAT BREAKS ABOVE IT: the content stops
+                              being a column. The blanket 780px measure comes off,
+                              the screen becomes an explicit flex column so its
+                              blocks can be reordered, the dashboard head takes
+                              two tracks and the detail takes two. WHY FLUID
+                              CANNOT DO IT: reordering blocks is not a stretch,
+                              and a measure that comes off is a switch.
+                              Read today by app-shell, dashboard-head,
+                              category-group and groups-column-set. */
+
+  /* THERE IS NO --bp-wide, AND THERE IS NO THIRD NUMBER LEFT TO TOKENIZE.
+     groups-column-set.css carried a 1340 until 2026-08-13. What it switched was a
+     COUNT, two columns to three, and a count is the one thing this stage refuses
+     to switch by hand: measured, the step put a category group at 269px, which is
+     31px under the 300px floor that same file declares its rows need, and it held
+     it there for a 60px band. Founder's decision at step 4: the set takes
+     `columns: 300px` and counts its own, capped at three by the arithmetic. The
+     number is gone from the product rather than promoted to a third point, so
+     this register and the code now agree completely: every width query in
+     design/system/ resolves to one of the two values above. */
+
+  --container-page:   48.75rem;  /* 780px. The widest a screen's content block is
+                                    allowed to get between the two points, from
+                                    app-shell.css. Above --bp-desktop it currently
+                                    comes off entirely; whether that is right is a
+                                    step 4 question, and it is the reason the four
+                                    reading measures below exist at all. */
+
+  --container-column: 38.75rem;  /* 620px. The single-column cap: a flow screen
+                                    centred in the pane, and the list column of
+                                    the list-column pattern. Two containers and
+                                    not one, because a screen that is a form and a
+                                    screen that is a pane of content stop at
+                                    different places, and folding them would move
+                                    ten flow screens to make one number tidier. */
+
+  --container-text:   52ch;      /* THE READING MEASURE, and it is 52 rather than
+                                    the 60-75 of a text page because it was read
+                                    off this product rather than off a guideline.
+                                    The corpus had four: 46ch (readout), 48ch and
+                                    50ch (text block, body and status), 52ch
+                                    (empty block, ruled muted line). 52 is the
+                                    mode. Tendd has no long-form prose: its
+                                    longest continuous text is a paragraph that
+                                    explains a charge, and a 65ch line would make
+                                    a two-sentence explanation look like an
+                                    article. Step 4 folds the four with a measured
+                                    report on each, and any that genuinely differ
+                                    stay as a documented exception rather than
+                                    being rounded into agreement. */
+
+  --grid-gap:     var(--space-8);  /* the air in a grid of equal children. The
+                                      door row takes --space-16 and overrides
+                                      locally, on the axis grid.html already
+                                      declares: gap follows the child's WEIGHT,
+                                      and a bordered door is heavier than a tile. */
+
+  --grid-col-min: 10rem;           /* 160px, the DEFAULT narrow floor of a grid
+                                      child, measured rather than chosen: at a 360
+                                      viewport the content zone is 328px and the
+                                      preset tile row stands two across with an
+                                      8px gap, which is 160px each.
+                                      THE COLUMN COUNT IS NOT A TOKEN AND WILL NOT
+                                      BECOME ONE. It is counted by the grid from
+                                      this floor, so a width nobody predicted still
+                                      gets an answer. A child whose floor is not
+                                      160 overrides this value in its OWN file,
+                                      which is where grid.css has said the floor
+                                      belongs since stage 09: "a floor per child,
+                                      with the floor in the child's own file".
+                                      Wired at step 4, per child and with the
+                                      arithmetic shown, because one floor
+                                      demonstrably cannot reproduce two columns at
+                                      328px and three at 780px. */
+
+  /* ==========================================================================
      SEMANTIC - fills
      ========================================================================== */
 

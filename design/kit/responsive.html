@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Width - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="../../_nav.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<!--
+  The roadmap row of stage 10 leads HERE, so this page carries the project
+  sidebar from /_nav.js the way why.html and overview.html do, and it also stands
+  in the Foundations group of the kit's own registry after geometry.html: width
+  is geometry, and it should be read beside the rest of it.
+
+  Two registries load on purpose: the project roadmap from /_nav.js and the kit's
+  own from _nav.js, the second one for the panel's theme control.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
+  <div class="kit-theme" role="group" aria-label="Theme">
+    <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+    <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+  </div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <p class="kit-eyebrow">Stage 10 &middot; Responsive</p>
+    <h1 class="big">Width</h1>
+    <div class="kit-prose">
+      <p class="first">This product has been responsive since stage 04: every screen is a live screen at the full viewport, mobile-first, and the pixel comparisons of stage 08 ran at two widths. What it did not have is a width that was <b>named</b>. Eighteen different width numbers ran in the code and not one of them was a token, so nobody could say which of them was a decision and which was a leftover.</p>
+      <p>This page is the register. It holds the two points and what each one is for, the ladder that decides whether a point is needed at all, the containers that keep a line readable, and the grid that counts its own columns. Every example on it is live: drag the handle in the corner of a dashed box and the thing described actually happens.</p>
+    </div>
+    <div class="kit-meta">
+      <span>was <strong>18</strong> width values, <strong>0</strong> tokens</span>
+      <span><strong>2</strong> points, both in <code>rem</code></span>
+      <span><strong>2</strong> containers, <strong>1</strong> reading measure</span>
+      <span>column count: <strong>not a token</strong></span>
+      <span><strong>0</strong> width rules in a screen file</span>
+      <span class="kit-rsp-band">this window: <i data-band="base">base</i> <i data-band="tablet">tablet</i> <i data-band="desktop">desktop</i></span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="ladder">
+    <h2>Three methods, and the point is the last one</h2>
+    <p class="note">The ladder is read top down. Take the fluid answer; if the content cannot carry it, put the content in a container; and only what is physically impossible either way earns a point. <b>&ldquo;It is easier to write&rdquo; is not a reason.</b> A product with a point for every difference is three products with a switch between them, and there is always a width where none of the three looks intended.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th></th><th>Fluid</th><th>Container</th><th>Point</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>The question</td><td>will the content just stretch?</td><td>is the line too long?</td><td>is the behaviour different?</td></tr>
+          <tr><td>The mechanism</td><td><code>minmax(auto-fill)</code>, <code>clamp()</code>, <code>%</code>, <code>flex-wrap</code></td><td><code>max-width</code> and <code>margin-inline: auto</code></td><td><code>@media</code> for the shell, <code>@container</code> for a component</td></tr>
+          <tr><td>How many in this product</td><td class="n">no limit</td><td class="n">two, plus one reading measure</td><td class="n">two</td></tr>
+          <tr><td>What proves it</td><td>drag the width and nothing breaks</td><td>the measure, counted in <code>ch</code></td><td>a row of the audit saying what fluid could not do</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">1. Fluid: the grid counts its own columns</h3>
+    <p class="note">No query in this rule at all. The floor is <code>--grid-col-min</code>, and the number of columns is whatever fits. Drag the box: it answers at 640px and at 641px and at every width in between, including the ones nobody predicted.</p>
+    <div class="kit-rsp-live" data-rsp-live>
+      <div class="kit-rsp-fluid">
+        <span>one</span><span>two</span><span>three</span><span>four</span><span>five</span><span>six</span>
+      </div>
+    </div>
+    <p class="kit-rsp-hint">drag the corner &middot; container <b class="w" data-rsp-w>-</b></p>
+
+    <h3 class="kit-sub-h">2. Container: the line stops before the eye loses it</h3>
+    <p class="note">Past roughly fifty characters the eye stops finding the start of the next line reliably, and on a wide monitor a mobile-first paragraph runs the whole width of the screen. The measure is counted in <code>ch</code> rather than in pixels, because the thing being limited is characters and not millimetres.</p>
+    <div class="kit-rsp-live" data-rsp-live>
+      <div class="kit-rsp-measure held">
+        <span class="tag">held at --container-text</span>
+        <p>Netflix went up by $2.50, now $17.99 a month. We saw the new amount on your statement on 3 August, and nothing else about the subscription changed. You do not have to do anything today.</p>
+      </div>
+      <div class="kit-rsp-measure">
+        <span class="tag">the same words, no measure</span>
+        <p>Netflix went up by $2.50, now $17.99 a month. We saw the new amount on your statement on 3 August, and nothing else about the subscription changed. You do not have to do anything today.</p>
+      </div>
+    </div>
+    <p class="kit-rsp-hint">drag the corner &middot; container <b class="w" data-rsp-w>-</b> &middot; the held line stops at 52 characters, the free one does not stop</p>
+
+    <h3 class="kit-sub-h">3. Point: two behaviours, not one stretched</h3>
+    <p class="note">This is the case fluid cannot reach. A navigation bar fixed to the bottom of the glass and a rail standing in a grid track beside the content are two different things, and nothing interpolates between them. The box below carries the tablet point and asks its <b>place</b> rather than the window, which is why it also switches when you drag it narrow inside a wide screen.</p>
+    <div class="kit-rsp-live" data-rsp-live>
+      <div class="kit-rsp-point">
+        <div class="slot"><b>navigation</b> &middot; under the tablet point this is a bar across the bottom; over it, a rail down the left</div>
+        <div class="slot"><b>the screen</b> &middot; the content pane, which keeps its own measure either way</div>
+      </div>
+    </div>
+    <p class="kit-rsp-hint">drag the corner &middot; container <b class="w" data-rsp-w>-</b> &middot; switches at 47.5rem, which is 760px at the default text size</p>
+  </section>
+
+  <section class="kit-sec" id="points">
+    <h2>The two points, and where each number comes from</h2>
+    <p class="note">Both numbers already ran in the code before this stage. Nothing here is new behaviour: what is new is that each one now has a name, an origin, and a row of the audit that says <b>what breaks</b> at that width. A point is put where the content breaks, never where somebody's device happens to be. 768 and 1024 do not appear in this product, and the reason is that devices change every year and content does not.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>Token</th><th class="n">Value</th><th>What changes</th><th>Why fluid could not do it</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>--bp-tablet</code></td>
+            <td class="n">47.5rem<br><span class="kit-chip">760px</span></td>
+            <td>the shell. The tab bar leaves the bottom of the glass and becomes a 220px rail on the left, the app bar moves into it, and the content pane becomes its own scroller</td>
+            <td>a fixed bottom bar and a rail in a grid track are two behaviours. There is no value between them to interpolate, and the rail needs 220px beside a column that still has to hold a subscription row, whose own floor is 300px</td>
+          </tr>
+          <tr>
+            <td><code>--bp-desktop</code></td>
+            <td class="n">56.25rem<br><span class="kit-chip">900px</span></td>
+            <td>the content stops being a column. The blanket 780px cap comes off, the screen becomes an explicit flex column so its blocks can be <b>reordered</b>, the dashboard head takes two tracks and the subscription detail takes two</td>
+            <td>reordering blocks is not a stretch, and a measure that comes off is a switch rather than a slide</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">Why <code>rem</code> and not <code>px</code></h3>
+    <p class="note">A point in pixels asks how wide the window is. A point in <code>rem</code> asks how wide the window is <b>relative to the text the person set</b>. Somebody reading at a 24px root sits at a &ldquo;desktop&rdquo; width with a phone's worth of words in a line, and a pixel point cannot see that. At the browser default of 16px these are 760 and 900 exactly, and the root font size is set nowhere in this system, so naming them in <code>rem</code> costs zero pixels for everyone who has not asked for larger text.</p>
+
+    <h3 class="kit-sub-h">The register, and why the number is written twice</h3>
+    <p class="note"><code>@media (min-width: var(--bp-tablet))</code> <b>does not work</b>, and the way it fails is the problem: a query is resolved before the variable cascade, so there is no error and no warning, the rule simply never matches. The number therefore has to be written twice, once in <code>tokens.css</code> where it is the source of truth and once as a literal inside each query.</p>
+    <p class="note">That is not two sources of truth. It is a <b>register and its application</b>, and stage 10 turns the constraint into an instrument: every width query in <code>design/system/</code> must resolve to a number from this register and to no other number, which is a grep rather than an opinion. <b>Open at step 2, and stated rather than hidden:</b> the literals in the component files are still written in pixels and are repointed at step 4, when those files are opened. Until then the register and its application agree in value and disagree in unit.</p>
+
+    <h3 class="kit-sub-h">There is no third point, and no third number either</h3>
+    <p class="note">One number stood outside this register until 2026-08-13: the <code>1340</code> in <code>groups-column-set.css</code>, which took the category column set from two columns to three. It was carried as <b>open rather than blessed</b>, because a third point is the founder's call and never a side effect of a refactor.</p>
+    <p class="note"><b>It closed by disappearing rather than by being promoted</b>, and measuring the count is what settled it. At a 900 container a category group rendered <b>269px</b>, which is 31px under the 300px floor that same file declares its rows need, and it stayed under it for a 60px band; at 1335 a column was 486px, nearly two floors wide, one pixel before it snapped back to 310. A count switched by hand cannot help doing that: between two steps the columns grow without limit, and at the step they collapse. The set now takes <code>columns: 300px</code> and counts its own, capped at three by <code>calc(300px * 3 + var(--space-48) * 2)</code>, so the floor is the rule instead of a sentence in a comment.</p>
+    <p class="note"><b>Every width query in <code>design/system/</code> resolves to one of the THREE registered values</b>, and to nothing else: the two points above and the single container threshold of <code>28.75rem</code> in the register further down. Counted by script with comments stripped, after step 6: <b><code>47.5rem</code> x 8, <code>56.25rem</code> x 5, <code>28.75rem</code> x 2</b>. That is the instrument the register exists to be, and checking it is a grep.</p>
+    <p class="note"><b>These two tokens are the only ones in the system with no <code>var()</code> reader, and that is the mechanism rather than an oversight.</b> A query condition is resolved before the variable cascade, so <code>@container (min-width: var(--bp-tablet))</code> cannot work anywhere, in any browser. The token is the register and the literal in the query is its application, so the reader here is a grep and not a <code>var()</code>. It is written down because "a token with no reader" is a defect everywhere else in this system, and the read-only critic raised exactly that on the first pass.</p>
+
+    <h3 class="kit-sub-h">These tokens have no dark pair, and that is a decision</h3>
+    <p class="note">A <code>:root</code> and <code>[data-theme="dark"]</code> pair is a property of the semantic level, which is to say of colour. A width, a container and a gutter are geometry, and geometry does not change direction in the dark. Do not look for a pair here and do not declare an empty one. The one thing that <b>will</b> need a role is any surface that exists only on a wide screen and carries its own background, such as the rail, and that is checked in the dark theme at step 3, where nobody has yet seen it.</p>
+  </section>
+
+  <section class="kit-sec" id="container">
+    <h2>The containers</h2>
+    <p class="note">Two page containers and one reading measure. Two and not one, because a screen that is a form and a screen that is a pane of content stop at different places, and folding them would move ten flow screens to make one number tidier.</p>
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>Token</th><th class="n">Value</th><th>What it holds</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>--container-page</code></td><td class="n">48.75rem <span class="kit-chip">780px</span></td><td>the widest a screen's content block gets between the two points</td></tr>
+          <tr><td><code>--container-column</code></td><td class="n">38.75rem <span class="kit-chip">620px</span></td><td>the single column: a flow screen centred in the pane, and the list column of the list-column pattern</td></tr>
+          <tr><td><code>--container-text</code></td><td class="n">52ch</td><td>continuous text, anywhere it appears</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>52 and not the 60 to 75 of a text page, and the number was read off this product rather than off a guideline.</b> The corpus had four measures: 46ch on the readout, 48ch and 50ch on the two text blocks, 52ch on the empty block and the ruled muted line. 52 is the mode. Tendd has no long-form prose: its longest continuous text is a paragraph explaining a charge, and a 65ch line would make a two-sentence explanation look like an article. Step 4 folds the four with a measured report on each, and any that genuinely differ stay as a documented exception rather than being rounded into agreement.</p>
+  </section>
+
+  <section class="kit-sec" id="grid">
+    <h2>The grid, and why the column count is not a token</h2>
+    <p class="note">The obvious way to write this is <code>--col-count-tablet: 2</code> and <code>--col-count-desktop: 3</code>. It is wrong for one reason, and the reason is the whole ladder in miniature: <b>a fluid answer never has to be switched.</b> A grid built on a floor keeps working at 1100px, which nobody planned for, and at 1101px, and at whatever the next device does.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Token</th><th class="n">Value</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td><code>--grid-gap</code></td><td class="n">8px</td><td>the air between equal children. The door row takes 16 and overrides locally, on the axis the grid page already declares: gap follows the child's weight</td></tr>
+          <tr><td><code>--grid-col-min</code></td><td class="n">10rem <span class="kit-chip">160px</span></td><td>the default narrow floor, measured and not chosen: at a 360 viewport the content zone is 328px and the preset tiles stand two across with an 8px gap</td></tr>
+          <tr><td>the column count</td><td class="n">-</td><td><b>not a token, and it will not become one.</b> The grid counts it from the floor</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>A child whose floor is not 160 overrides the token in its own file</b>, which is where <code>grid.css</code> has said the floor belongs since stage 09: &ldquo;a floor per child, with the floor in the child's own file&rdquo;. That wiring happens at step 4, per child and with the arithmetic shown, because one floor demonstrably cannot reproduce two columns at 328px and three at 780px: two at 328 needs a floor at or under 160, and exactly three at 780 needs one over 189.</p>
+    <p class="note"><code>auto-fill</code> and not <code>auto-fit</code>, and that is this product's own correction to the usual recipe. <code>auto-fit</code> collapses empty tracks, so the column count starts depending on how many children a screen happens to put in the grid, and the grid's own page forbids exactly that: &ldquo;never by how many children there happen to be&rdquo;. <code>auto-fill</code> keeps the count a property of the <b>place</b>.</p>
+  </section>
+
+  <section class="kit-sec" id="shell">
+    <h2>The shell</h2>
+    <p class="note">The shell is the app bar, the carrier of the top-level navigation, and the page container. Its form on a wide screen is not a preference: it is derived from the navigation model of stage 03a by three questions, and it has three legal answers. <b>The navigation model itself is not reopened here.</b> How many destinations there are, in what order, and at which level was settled at 03a; this stage decides only what shape they take when there is room. Wanting different destinations on a desktop is a finding about the information architecture, not a layout decision.</p>
+
+    <h3 class="kit-sub-h">The three questions, and the answers the model gives</h3>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Question</th><th>Answer</th><th>Where it is written</th></tr></thead>
+        <tbody>
+          <tr><td>How many top-level destinations</td><td><b>four</b>: Home, Alerts, Save, You</td><td><code>ia/docs/sitemap.md</code>, Global navigation. Each one carries a job cluster, and History and Trends is deliberately not among them because a mostly-locked tab would break the calm promise</td></tr>
+          <tr><td>Is there a second level that has to stay visible</td><td><b>no</b></td><td>the same file: Settings, Connections and Data and Privacy sit behind You as <i>deep</i>, Subscription Detail and the rest are <i>contextual</i>, and Upgrade appears at a gate rather than standing in the chrome</td></tr>
+          <tr><td>Does any screen take side space for new behaviour</td><td><b>no</b></td><td>the audit: split view was declined, and the ground is in the census section below</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">The decision: B, the rail, confirmed rather than re-decided</h3>
+    <p class="note">Taken mechanically, four destinations with no permanent second level point at answer <b>A</b>, the destinations moving up into the header. The rail was kept, and the reason is that <b>the form had already been chosen with the thing in front of the person choosing</b>: the navigation model has said &ldquo;a bottom tab bar, scaling to a left rail on desktop&rdquo; since stage 03a, the shell has implemented it since stage 08 across 28 coloured pages, and on 2026-08-12 the founder looked at that rail on a coloured screen and set its width to 220px. Nothing has been learned since that argues the other way. Founder, 2026-08-13.</p>
+    <p class="note"><b>The counter-argument is recorded rather than dropped</b>, because it is this project's own and it will come back. <code>app-shell.css</code> writes it at the line where the rail narrowed: a 240px column holding a 22px mark, a 46px word and four one-word destinations was mostly air, and the air read as importance the navigation does not have. A rail spends 15% of a 1440px window on four words. If that ever stops being worth it, the change is answer A and it is a change to three component files and a line of the sitemap, not a rewrite.</p>
+
+    <h3 class="kit-sub-h">Both forms, live</h3>
+    <p class="note">The two specimens below are the real shell: the same markup a screen carries, drawn by the same rules out of <code>design/system/</code>. Nothing is redrawn here. The first box is 320px wide and the second is the full width of this column, and each one is <b>its own container</b>, which is why the same CSS gives two different answers on one page. They stack rather than standing side by side, and that is arithmetic rather than taste: this column is about 944px, so a 320px specimen beside its pair would leave the second one 604px, under the tablet point, and the page would have shown the same form twice while claiming to show two.</p>
+    <div class="kit-shell-pair">
+      <div class="kit-shell-demo narrow">
+        <div class="app" aria-label="The shell, narrow form">
+          <header class="appbar">
+            <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+            <span class="acct">You</span>
+          </header>
+          <div class="screen">
+            <div class="kit-shell-fill"><i class="w1"></i><i class="tall"></i><i class="w2"></i><i class="w3"></i></div>
+          </div>
+          <nav class="tabbar" aria-label="Global navigation, narrow specimen">
+            <a class="cur" href="#shell" aria-current="page"><span class="ic ic-home"></span>Home</a>
+            <a href="#shell"><span class="ic ic-alerts"></span>Alerts</a>
+            <a href="#shell"><span class="ic ic-save"></span>Save</a>
+            <a href="#shell"><span class="ic ic-you"></span>You</a>
+          </nav>
+        </div>
+      </div>
+      <div class="kit-shell-demo wide">
+        <div class="app" aria-label="The shell, wide form">
+          <header class="appbar">
+            <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+            <span class="acct">You</span>
+          </header>
+          <div class="screen">
+            <div class="kit-shell-fill"><i class="w1"></i><i class="tall"></i><i class="w2"></i><i class="w3"></i></div>
+          </div>
+          <nav class="tabbar" aria-label="Global navigation, wide specimen">
+            <a class="cur" href="#shell" aria-current="page"><span class="ic ic-home"></span>Home</a>
+            <a href="#shell"><span class="ic ic-alerts"></span>Alerts</a>
+            <a href="#shell"><span class="ic ic-save"></span>Save</a>
+            <a href="#shell"><span class="ic ic-you"></span>You</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <p class="kit-shell-cap"><b>First:</b> under the tablet point. The bar is on the glass at the foot of the specimen, the app bar is a row across the top. <b>Second:</b> over it. The same <code>nav</code> is a 220px rail in the first grid track, the app bar has folded into the head of that rail, and the content pane is its own scroller. Neither box declares a width for the navigation: at the narrow width <code>left: 0; right: 0</code> hands it everything, and past the point the shell's grid track hands it 220.<br><br><b>On a phone this page shows the same form twice, and that is the demo telling the truth rather than breaking.</b> A container cannot be wider than the page it stands in, so at 360 the second specimen is 289px and answers exactly as the first one does. The wide form needs a wide window to be shown in, which is the whole subject of the page.</p>
+
+    <h3 class="kit-sub-h">One carrier at every width, and it is one <i>element</i></h3>
+    <p class="note">The classic defect here is a header menu and a bottom bar both alive on a desktop, because each was built separately and neither was hidden. This product cannot have it, and not because somebody remembered to check: <b>there is only one navigation element in the markup</b>, and it changes form rather than yielding to a copy. Nothing is hidden, so nothing can be left behind in the accessibility tree for a screen reader to walk twice.</p>
+    <p class="note">Measured on <code>design/home.html</code> at <b>28 widths</b> from 320 to 1600 by computed style, not by reading the CSS: <b>exactly one visible top-level carrier at every one of them.</b> The switch is exact where the register says it is, 759 a bar and 760 a rail. On the activation chain the tab bar is <b>absent from the markup entirely</b> rather than hidden, which is the sitemap's own rule for that chain, so those screens carry zero carriers by construction and the content column stays centred at 620px at every width above it.</p>
+    <p class="note"><b>The rail is a surface that exists only on a wide screen, so it needs a role and it has one.</b> It is <code>--bg-recessed</code> against the screen's <code>--bg-surface</code>, with <code>--line-container</code> down its right edge, and both are paired in the dark theme. Measured on <code>design/home.html</code> in both: the fill separates the rail from the pane at <b>1.08:1 light and 1.11:1 dark</b>, the edge at <b>1.23:1 and 1.33:1</b>, so the hairline is the load-bearing separator in both directions and the pair holds the same relationship rather than merely existing. The destinations read at <b>5.37:1 at rest and 6.23:1 current</b> in the light theme, <b>5.77:1 and 6.82:1</b> in the dark. Checked rather than assumed: a wide layout is the one part of a mobile-first product that nobody has ever looked at in the dark.</p>
+
+    <h3 class="kit-sub-h">One thing this stage found and did not fix</h3>
+    <p class="note">In the rail form <b>the focus order and the visual order disagree</b>, and the disagreement is worth stating precisely rather than waving at. Measured on <code>design/home.html</code> at 1440 across 23 focusable controls: the rail's head takes focus <b>first</b>, the eighteen controls of the content pane come next, and the four destinations, which sit visually in the same left column as that head, come <b>last</b>. The rail looks like one object and is tabbed as two, with the whole screen in between.</p>
+    <p class="note">It is not a hidden-carrier defect and not a duplicate: everything reachable is visible and each control appears once. Content before navigation is also a defensible order, and it is the order a skip link exists to produce. <b>What cannot fix it is CSS</b>, and that is the part worth writing down: the shell reorders its blocks with <code>order</code> and <code>grid-column</code>, and neither moves the tab sequence. Making the two halves of the rail adjacent means changing the markup, which on a phone would put four destinations in front of the content for every person who tabs. So the order has to differ by width in the DOM, which is a decision about 53 pages rather than about 33, and it is written into <code>docs/backlog.md</code> addressed to stage 12, where the remaining screens get their markup for the first time.</p>
+  </section>
+
+  <section class="kit-sec" id="components">
+    <h2>How components behave</h2>
+    <p class="note"><b>A media query asks about the screen. A container query asks about the place.</b> A card does not know whether it stands in a one-column list or in a grid of three, and a desktop has narrow columns too: the detail screen's two are 546px each at a 1440 window. So a component asks its own container, and the one exception is the shell, where a media query is right because the shell <i>is</i> the viewport.</p>
+    <p class="note"><code>container-type: inline-size</code> is declared by <b>whoever places the component</b>, a pattern or the page frame in <code>base.css</code>, never by the component itself: a place is not a property of a brick. And a container query matches an <b>ancestor</b>, never the element itself, so a component that declared its own container would not be able to read it.</p>
+
+    <h3 class="kit-sub-h">23 of 60 adapt, and 37 do not</h3>
+    <p class="note">Counted from the CSS by script rather than remembered, and written into the width column of <code>docs/inventory.md</code> on every row. An empty cell there would mean "behaves unknown on a wide screen", which is why the column is filled on all sixty and the note on a component page is written only for the twenty-three. An empty "does not adapt" paragraph on thirty-seven pages is noise, not documentation.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>How it adapts</th><th class="n">How many</th><th>Which</th></tr></thead>
+        <tbody>
+          <tr><td><b>point</b> only</td><td class="n">5</td><td>app bar, category group, chart placeholder, dialog sheet, tab bar</td></tr>
+          <tr><td><b>point + fluid</b></td><td class="n">4</td><td>app shell, dashboard head, grid, groups column set</td></tr>
+          <tr><td><b>container threshold + fluid</b></td><td class="n">2</td><td>save-focus candidate, subscription row</td></tr>
+          <tr><td><b>fluid</b> only</td><td class="n">4</td><td>action row, alert item, meta row, merchant chip group</td></tr>
+          <tr><td><b>a reading measure</b>, and no query at all</td><td class="n">7</td><td>readout, text block, empty block, muted line, wash block, promise list, card</td></tr>
+          <tr><td><b>point + measure</b>, on a pattern</td><td class="n">1</td><td>list column</td></tr>
+          <tr><td>does not adapt</td><td class="n">37</td><td>the rest</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Three rows moved at step 6, and which way is the point.</b> Wash block and promise list were among the 39 that did not adapt, and the width sweep found their prose running without a measure. Card left the point group for the measure group without losing anything: its 560px measure stopped asking a question it never needed to ask. The groups column set moved from point to point + fluid when its column count stopped being declared.</p>
+
+    <h3 class="kit-sub-h">The register of container thresholds, and it has one row</h3>
+    <p class="note">A container threshold is <b>local</b> and does not become a token: it belongs to one component in one kind of place, the same test a component token had to pass at stage 08. But every one is listed, because without a register a grep cannot tell a measured local threshold from a point invented for somebody's device.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th class="n">Threshold</th><th>Where</th><th>What it decides</th><th>Why it is not a point</th></tr></thead>
+        <tbody>
+          <tr><td class="n">28.75rem<br><span class="kit-chip">460px</span></td><td><code>save-focus-candidate.css</code>, and the third rule of the same block in <code>subscription-row.css</code> for a cascade reason</td><td>the cut control drops to its own line and pushes to the end; the row takes the full width</td><td>it is a fact about one row: a merchant name, an amount and a second control stop sharing a line. It says nothing about the screen, and a candidate can stand in a 546px column on a desktop and need the same answer</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>It is the only local threshold in the system today</b>, and that is stated rather than left to be inferred: the register is short because the product is, not because nobody looked. <b>Zero pixels moved when those two blocks became container queries</b>, and that is worth knowing rather than celebrating: the nearest container is still <code>body</code>, so the question resolves to the same number it did as a media query. What changed is what happens next, when a pattern puts that row in a column of its own. The rule is now true instead of accidentally true.</p>
+
+    <h3 class="kit-sub-h">What moved, measured at both ends</h3>
+    <p class="note"><b>At 360 the difference is zero on all 32 coloured pages</b>, checked twice on two fresh origins by comparing the position and size of every element inside the shell. That half of the promise is not allowed to move: the mobile layout is the base of a mobile-first product and this stage had no business touching it. <b>At 1280, 21 pages changed</b>, and each one holds one of the causes below. A desktop difference with no cause is the same defect as any difference at 360.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What</th><th>Was</th><th>Is</th><th>What moved, and which audit row</th></tr></thead>
+        <tbody>
+          <tr><td>14 query literals to <code>rem</code></td><td>9 at 760px, 5 at 900px</td><td><code>47.5rem</code> x 8, <code>56.25rem</code> x 5</td><td>nothing at the default text size, which is the point. The register is now true, and a person reading at a 24px root gets the narrow form while a line still holds a phone's worth of words. <b>Eight and not nine:</b> one of the 760 queries came off entirely at step 6, with the prose card's measure that never needed a query at all</td></tr>
+          <tr><td>two <code>@media</code> at 460</td><td>asking the window</td><td><code>@container</code> asking the place</td><td>nothing today. See the register above</td></tr>
+          <tr><td>four reading measures folded into one</td><td>46ch, 48ch, 50ch, 52ch</td><td><code>--container-text</code>, 52ch</td><td>a text block's paragraph goes from 424px or 441px to <b>459px</b> at 1280. 21 pages, and the whole of the change on 19 of them. Audit rows 9, 10 and 16, wider by air</td></tr>
+          <tr><td><b>the readout's measure, which was dead</b></td><td>computed <code>none</code>, rendered <b>980px</b>, the full pane</td><td><b>525px</b></td><td>the fourth time this product has found the same unbinding: <code>.app .readout</code> at 0-2-0 lost to the shell's <code>max-width: none</code> at 0-3-0 past the desktop point. A reading measure that silently stops applying at a wider container is exactly why acceptance happens at both ends. History and Trends and its empty state</td></tr>
+          <tr><td><b>the plan row's cap, also dead</b></td><td>computed <code>none</code>, rendered <b>728px</b></td><td><b>720px</b></td><td>the defect stage 09 wrote down and carried with "it closes with the name". Founder's decision: it closes here. Four Upgrade pages</td></tr>
+          <tr><td>two grid rows stopped declaring a count</td><td><code>repeat(3, 1fr)</code></td><td><code>auto-fill</code> with a floor per child</td><td>nothing at 360 and nothing at 1280: the fluid form reproduces both declared counts exactly, because both rows stand on flow screens whose pane is capped. At <b>320</b> the tile row goes from two cramped tiles to one, which is the floor doing its job: this component's own page puts a tile's survival at 159px, and two tiles at 320 were 146px each</td></tr>
+          <tr><td><b>the door row kept its count</b></td><td><code>1fr 1fr</code></td><td>unchanged, deliberately</td><td>there are two doors because the product offers two ways in (D2), not because two fit. Fluid would have put <b>four</b> doors across a 1440 window with two tracks empty, on the screen whose whole job is a choice between two things. The count is content here, not width</td></tr>
+          <tr><td><b>the groups column set stopped switching a count</b></td><td><code>columns: 2</code> from 900, <code>columns: 3</code> from 1340</td><td><code>columns: 300px</code>, capped at three</td><td><b>the third number is gone from the product.</b> Before: a group was <b>269px</b> at a 900 container, 31px under the floor the file declares, and stayed under it to about 960; at 1335 a column was 486px, one pixel before snapping back to 310. After: 1 column to 962, 2 from 963, 3 from 1311, never narrower than 300, and past a 1310 container the set stops at 996px instead of filling the pane. Audit row 7, Home</td></tr>
+          <tr><td>three literals became container tokens</td><td>620px twice, 780px once</td><td><code>--container-column</code>, <code>--container-page</code></td><td>nothing. Same values, one owner. A fourth, the landing's own 780, joined them at step 6 when the read-only critic found it repeating the token's value beside the token</td></tr>
+          <tr><td><b>four more prose measures</b>, all found by the sweep</td><td>a plain muted line, a wash paragraph, a promise item and a prose card had <b>no measure at all</b></td><td><code>--container-text</code> on the first three; the card keeps its own named 560</td><td>the muted line under the chart on History and Trends ran <b>1300px, 150 characters to a line</b>, at a 1600 window, on all four states of that screen. Settings 620 to 459, Home empty 536 to 459, the wash paragraph 594 to 459, the three promises 620 to 459. <b>Ink moves only where a line re-wraps:</b> 38 muted boxes narrow and six paragraphs actually change shape</td></tr>
+          <tr><td><b>the prose card's measure stopped asking a point</b></td><td><code>max-width: 560px</code> inside a 47.5rem query</td><td>the same rule, no query</td><td>at a <b>750</b> screen the card ran 684px and its paragraph read <b>78.9 characters</b>, the worst measure in the product. A <code>max-width</code> never widens anything, so below 560 the query bought no behaviour and cost that band</td></tr>
+          <tr><td><b>the detail screen's two columns count themselves</b></td><td><code>minmax(300px, 1fr) minmax(320px, 1fr)</code>, placed by hand</td><td><code>repeat(auto-fit, minmax(320px, 1fr))</code></td><td><b>the valley at 900 to 927 is closed.</b> The point fires at 900, the rail takes 220 and the padding 80, so the pane is 600 while the two floors plus the gutter need 668: the pane scrolled sideways and the second column's right edge sat at 928 on a 900 screen. Above 988 the geometry is identical to the hand-placed version, pixel for pixel</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="sweep">
+    <h2>The width sweep, and the five things it caught</h2>
+    <p class="note"><b>32 coloured pages by 50 widths is 1600 measurements.</b> The widths run 320 to 1600 in steps of 40, with 10px steps around both points (730 to 790, 890 to 910), around the container threshold (450 to 470) and around the two widths where the groups column set changes its count. The reason is the pack's and it is exact: <b>a defect lives between the points</b>, and the worst width is the one where the content has already stopped fitting and the query has not yet fired. Three screenshots prove three widths.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What is read at every stop</th><th>How</th><th>Why this one</th></tr></thead>
+        <tbody>
+          <tr><td>horizontal scroll of the document</td><td><code>scrollWidth &gt; clientWidth</code></td><td>the standard check, and <b>it is not enough here</b>: past the tablet point the shell gives <code>.screen</code> its own <code>overflow: auto</code>, so a layout that does not fit scrolls INSIDE the pane and the document stays clean. It came back clean at all 1600 stops while a real overflow was running</td></tr>
+          <tr><td>every element that leaves the viewport</td><td>the rectangle of every node inside the shell against <code>clientWidth</code></td><td>this is the check that found the valley. Per element, so a clipped column cannot hide behind a scrolling ancestor</td></tr>
+          <tr><td>the carrier of top-level navigation</td><td>count of visible <code>.tabbar</code> elements and of the links inside them</td><td>the rule is exactly one at any width. Verified in the markup too: 22 app-frame screens carry one, the 10 flow screens carry none, and no screen carries two. CSS changes its form, never its number</td></tr>
+          <tr><td>the reading measure, in <code>ch</code></td><td>the box of every prose leaf over 90 characters, divided by the width of a "0" in that element's own computed font</td><td><code>ch</code> and not <code>px</code>, because the whole reason the measure is a token in <code>ch</code> is that it follows the font. A cap in px reads as fine at 15px and as a wall of text at 20px</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">What it caught, and who found it</h3>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th class="n">#</th><th>Finding</th><th>Who</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td class="n">1</td><td><b>A prose paragraph at 78.9 characters a line</b>, 684px, in the band just under the tablet point (<code>history-trends-locked</code>, worst at 750)</td><td>Claude, browser</td><td><b>fixed.</b> The card's 560px measure sat inside a container query it never needed. The query came off, the measure stayed</td></tr>
+          <tr><td class="n">2</td><td><b>A plain muted line has no measure at all</b>: 1300px and 150 characters at a 1600 window on four states of History and Trends, 620 on Settings, 536 on Home empty</td><td>Claude, browser</td><td><b>fixed.</b> The measure existed for the block form and the ruled modifier; the plain form had been missed since stage 08</td></tr>
+          <tr><td class="n">3</td><td><b>The wash paragraph and the promise item have no measure</b>, 594px and 620px</td><td>Claude, browser</td><td><b>fixed.</b> Both are running prose and both read <code>--container-text</code> now</td></tr>
+          <tr><td class="n">4</td><td><b>The valley at 900 to 927</b>: the Subscription Detail pane scrolls sideways and the second column's right edge sits at 928 on a 900 screen, on all six of its pages</td><td>Claude, browser</td><td><b>fixed.</b> The two columns count themselves; above 988 nothing moved</td></tr>
+          <tr><td class="n">5</td><td><b>A sixth element needed the <code>&gt; .screen &gt;</code> binding</b> against the shell's blanket <code>max-width: none</code></td><td>Claude, browser</td><td><b>bound</b>, and filed in <code>backlog.md</code> as a question about the blanket itself: five was a pattern, six is a defect generator</td></tr>
+          <tr><td class="n">6</td><td><b>The landing's 780px repeats <code>--container-page</code></b> as a literal, beside a comment saying it stays literal</td><td>Codex, source</td><td><b>fixed.</b> The comment predated the token by one step</td></tr>
+          <tr><td class="n">7</td><td><b>Four rows of <code>inventory.md</code> disagreed with the CSS</b>, and the register said "one of the two values" while two live queries use the third</td><td>Codex, source</td><td><b>fixed</b> in both the document and this page</td></tr>
+          <tr><td class="n">8</td><td><b>The two point tokens have no <code>var()</code> reader</b>, which the system's own rule calls a defect</td><td>Codex, source</td><td><b>dropped at verification</b>, and written up instead: a query cannot read a variable, so these two are a register whose reader is a grep. A critic without that paragraph is right to raise it</td></tr>
+          <tr><td class="n">9</td><td><b>The landing's plan row still declares <code>repeat(3, 1fr)</code></b> where the same file counts elsewhere</td><td>Codex, source</td><td><b>dropped at verification.</b> The landing's pricing block holds exactly three plan options, so three is content and not a fit question. It is the door row's argument again, and the reason is now written at the rule</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">The state after the fixes, measured and not asserted</h3>
+    <p class="note"><b>1600 stops: no horizontal scroll on the document, and no element leaving the viewport, on any page at any width.</b> The pane no longer scrolls sideways anywhere either. <b>The carrier is exactly one</b> on every app-frame screen at every width, with the same four links. <b>The worst reading measure left in the product is 60.7ch</b>, the prose card, and everything else lands at 53ch or below.</p>
+    <p class="note"><b>At 360, all 32 pages are identical to the pre-stage baseline</b>, compared element by element on the box AND on the ink the text actually paints: zero differences of either kind. <b>At 1440, 32 pages differ in box and 19 in ink</b>, and every difference belongs to a row of the table above. That asymmetry is the shape the stage promised.</p>
+    <p class="note"><b>The one measure left over 52ch stays, and is written down rather than resolved.</b> The prose card's paragraph reads 60.7 characters at a 600 screen because the card holds 560px, and that is a named decision with its own note in <code>card.css</code>. 52ch and 560px disagree by eight characters. A named value is not re-derived in a verification step, so it goes to <code>backlog.md</code> for the founder.</p>
+
+    <h3 class="kit-sub-h">Two traps, written down so the next stage does not pay for them again</h3>
+    <p class="note"><b>A green measurement has to be interrogated when it is too good.</b> Twice a comparison came back saying "nothing changed" when something had to have changed, and both times it was the HTTP cache holding the old CSS on the same origin. What works is a fresh port, so the browser has a new origin and no memory. The rule: <b>when a result is surprisingly clean, re-run it somewhere the cache cannot reach before believing it.</b></p>
+    <p class="note"><b>And a CSS comment can eat a rule.</b> Two of the four measure fixes were first written as a comment appended after an already-closed comment block, which left prose sitting in the stylesheet and a stray <code>*/</code> after it. The browser dropped what followed, the 360 comparison lit up on six pages, and that is how it was caught: <b>the 360 check earned its keep by failing.</b> A comment-balance check now runs over all 65 stylesheets and is clean.</p>
+  </section>
+
+  <section class="kit-sec" id="newbehaviour">
+    <h2>New behaviour: none</h2>
+    <p class="note">The audit's new-behaviour column is empty on all 17 screens, so this step ran in its short form. <b>A short form is not a skipped step.</b> It owes three things: the list of what was considered, the ground each candidate failed on, and a measurement showing that no new behaviour arrived by accident while the layout was being moved around.</p>
+
+    <h3 class="kit-sub-h">What was considered, and why none of it passed</h3>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Candidate</th><th>What a wide screen would gain</th><th>On what ground it was rejected</th></tr></thead>
+        <tbody>
+          <tr><td><b>Split-view</b><br>the list and the detail in one pane</td><td>one fewer navigation per charge decoded</td><td>it meets the mechanical threshold twice and is refused on three recorded sources anyway; they are in the audit below. The job it would close is already closed by the detail screen standing in two columns past a 900 container since stage 08. Founder, 2026-08-13</td></tr>
+          <tr><td><b>A table of the list</b><br>sortable columns, one row per charge</td><td>scanning by amount or by date</td><td>the audience line is &ldquo;not budget optimizers or spreadsheet fans&rdquo;, and barrier P4 is &ldquo;too many numbers and graphs&rdquo;. A sortable table is the precise object this product exists not to be, and it would arrive at exactly the width where the person is most likely to be at work</td></tr>
+          <tr><td><b>Bulk select, bulk cancel</b></td><td>cancelling three forgotten things in one pass</td><td>width is not an argument for a new job. Which jobs exist is a decision of stage 03a and of scope, not of layout, and the cancel moment is a guided walk that is per subscription by design: a small win is one win, and five at once is a purge</td></tr>
+          <tr><td><b>A permanent second panel</b><br>the total, the trust line or filters pinned beside the list</td><td>the number always in view</td><td>two grounds. D1 is portioned information, and a permanently visible summary un-portions it on the one device where the reveal has room to breathe. And the shell already spends the left side on the rail, so this would be a second permanent surface arguing with the one carrier</td></tr>
+          <tr><td><b>A hover-revealed row action</b><br>cut or edit appearing on pointer-over</td><td>a cleaner row at rest</td><td>a wide viewport is not proof of a pointer, and the action would be unreachable by touch. Verified rather than asserted: the system declares hover <b>51 times</b> and not one of those declarations touches <code>display</code>, <code>visibility</code> or <code>opacity</code>. Hover here is always a state of something already on the screen</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">And it did not arrive by accident, which is measured rather than argued</h3>
+    <p class="note">All 32 coloured pages were rendered at a real 360 and a real 1440, the scrollbar suppressed so the container is the number it claims to be. On each page, every painted node inside the shell (a non-zero box, with <code>display</code>, <code>visibility</code> and <code>opacity</code> all live, plus any non-empty <code>::before</code> or <code>::after</code> content) and every focusable node were collected, and the two widths compared as sets.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What was compared</th><th class="n">360</th><th class="n">1440</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Pages</td><td class="n">32</td><td class="n">32</td><td><b>32 of 32 identical</b>, in both directions</td></tr>
+          <tr><td>Elements inside the shell</td><td class="n">2149</td><td class="n">2149</td><td>not one node appears only at 1440, not one disappears</td></tr>
+          <tr><td>Focusable nodes</td><td class="n">303</td><td class="n">303</td><td>no affordance is added by width and none is taken away</td></tr>
+          <tr><td>Horizontal scroll</td><td class="n">0</td><td class="n">0</td><td>at both ends of the range</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">What that proves is bounded, and the bound belongs in writing: the wide screen shows <b>the same things arranged differently</b>. It does not prove they are arranged well. That is the other half of the asymmetry, and it is the width sweep, not this table.</p>
+    <p class="note"><b>The one thing that is new at width is the rail's own surface</b>, and it is a form of a carrier that exists on a phone (the same four items, the same order, one carrier) rather than a new behaviour. Because it is a surface no phone ever painted, it was checked in the dark theme instead of being assumed.</p>
+
+    <h3 class="kit-sub-h">The idle control, run the other way</h3>
+    <p class="note">A new behaviour would have owed a new string. Split-view invents the state &ldquo;nothing selected&rdquo;, which has never existed on a phone: it would have gone through <code>voice.md</code>, into <code>microcopy.md</code>, and <code>voice.html</code> would have been rebuilt in the same step. None of that happened. <code>microcopy.md</code> carries no selection-empty line, needs none, and the whole of <code>voice/</code> is untouched by this stage.</p>
+  </section>
+
+  <section class="kit-sec" id="census">
+    <h2>The census, and the audit</h2>
+    <p class="note">Both tables in full are in <code>docs/responsive.md</code>. What follows is the part a person needs on screen: what the product's width looked like before the stage, and what every screen is supposed to do with a wider window. <b>Stage 12 reads the second table row by row</b>, so that the agent building a screen reads the decision for that screen instead of taking it.</p>
+
+    <h3 class="kit-sub-h">Before the stage: 18 width numbers, 0 tokens</h3>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What</th><th class="n">How many</th><th>Which</th></tr></thead>
+        <tbody>
+          <tr><td>Query thresholds</td><td class="n">4</td><td>460 (x2), <b>760 (x9)</b>, <b>900 (x5)</b>, 1340 (x1)</td></tr>
+          <tr><td>Fixed layout widths</td><td class="n">11</td><td>220, 250, 300, 320, 420, 480, 560, 620, 720, 760, 780</td></tr>
+          <tr><td>Reading measures in <code>ch</code></td><td class="n">4</td><td>46, 48, 50, 52 (x2)</td></tr>
+          <tr><td>Width tokens</td><td class="n">0</td><td>no <code>--bp-*</code>, no <code>--container-*</code>, no <code>--grid-*</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">And the finding that decided the shape of step 4: <b>the 32 coloured screens hold zero width rules of any kind.</b> No <code>@media</code>, no <code>@container</code>, no inline width. The half of this stage that usually consists of dragging rules out of screen files is empty here, because stages 07 and 08 already held that line. What does have to move is smaller and more specific: two <code>@media</code> blocks at 460px that belong in a container query, and one at 760px serving a landing page that does not exist in colour yet.</p>
+
+    <h3 class="kit-sub-h">The audit: one row per screen, 17 screens, 55 pages</h3>
+    <p class="note">Read off the grey corpus, because that is where the whole product lives; the coloured folder holds a sample. <b>Same is the default</b>: a screen earns another category only when there is ground for it, and &ldquo;new behaviour&rdquo; is only taken when a job or a barrier can be named.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Screen</th><th>What the person does</th><th>Category</th><th>How</th></tr></thead>
+        <tbody>
+          <tr><td>Welcome 1.1</td><td>reads whether this is for her, before any ask for data</td><td><b>Wider</b>, grid</td><td>fluid</td></tr>
+          <tr><td>Path Choice 1.2</td><td>chooses between two doors</td><td>Same</td><td>container</td></tr>
+          <tr><td>Connect Bank 1.3</td><td>decides to trust us and connects a bank</td><td>Same</td><td>container. This is the trust moment and width does not improve it</td></tr>
+          <tr><td>Add Subscription 1.4</td><td>finds a preset or types one in</td><td><b>Wider</b>, grid</td><td>fluid tiles, the form keeps its measure</td></tr>
+          <tr><td>Guided Reveal 1.5</td><td>lives the aha one step at a time</td><td>Same</td><td>container. Principle 2, one thing at a time: width works against the gesture</td></tr>
+          <tr><td>Sign In 1.6</td><td>comes back without a password</td><td>Same</td><td>container</td></tr>
+          <tr><td><b>Home 2.6</b></td><td>looks at the whole list calmly</td><td><b>Wider</b>, grid</td><td>point 900, then the column set counts its own columns from a 300px floor</td></tr>
+          <tr><td><b>Subscription Detail 2.7</b></td><td>decodes a charge and decides its fate</td><td><b>Wider</b>, grid</td><td>point 900, and past it the columns count themselves</td></tr>
+          <tr><td>Alerts 3.8</td><td>reads what changed and goes to act</td><td><b>Wider</b>, air</td><td>container</td></tr>
+          <tr><td>Cancel Guide 4.9</td><td>walks the steps of cancelling</td><td><b>Wider</b>, air</td><td>point 900, two columns already</td></tr>
+          <tr><td>Cancel Win 4.10</td><td>lives a small win</td><td>Same</td><td>container. One number in the middle, and that is the screen</td></tr>
+          <tr><td>Share Snapshot 4.11</td><td>shares a card that carries no account figures</td><td>Same</td><td>the card has its own ratio</td></tr>
+          <tr><td>History and Trends 5.12</td><td>sees her own year</td><td><b>Wider</b>, grid</td><td>fluid. A chart is the one thing that genuinely grows with width</td></tr>
+          <tr><td>Upgrade 5.13</td><td>compares two plans</td><td><b>Wider</b>, grid</td><td>fluid</td></tr>
+          <tr><td>Connections 6.14</td><td>manages the sources</td><td>Same</td><td>container</td></tr>
+          <tr><td>Data and Privacy 6.15</td><td>reads what we hold about her</td><td><b>Wider</b>, air</td><td>container. This is continuous prose, and prose is what a measure is for</td></tr>
+          <tr><td>Settings 6.16</td><td>looks for the right door</td><td>Same</td><td>container</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Same 8 &middot; Wider 9</b> (grid 6, air 3) <b>&middot; New behaviour 0.</b></p>
+
+    <h3 class="kit-sub-h">Why new behaviour is zero, and that is an answer</h3>
+    <p class="note">Mechanically the split-view threshold is met twice: <code>flows.md</code> gives Home to Subscription Detail in flow C and Alerts to Subscription Detail in flow D, and the first is also the steady state of the main flow. Three recorded decisions of this product argue the other way, and each carries a source. <b>Barrier P4</b> in the as-is journey is &ldquo;no app gave a calm, judgment-free space to just see subscriptions: too many numbers and graphs&rdquo;, and a two-pane Home is what that looks like on a wide screen. <b>Principles 1 and 2</b>, calm over clever and one thing at a time, say the product shows one thing where a split view shows two. <b>D1</b>, the gradual reveal, is the promise a split view cancels on the desktop. And the job it would close, decoding a charge faster, is already closed by the width of the detail screen itself, which has stood in two columns since stage 08. Founder's decision, 2026-08-13: no split view.</p>
+  </section>
+
+  <footer class="kit-foot">
+    The tokens live in the primitive half of <code>design/system/tokens.css</code>, in the width block; the census, the full audit and the register of container thresholds are in <code>docs/responsive.md</code>. The rule that keeps them there is in <code>docs/architecture.md</code> under Contributing to the system, and in <code>design/system/CLAUDE.md</code>: adaptation lives in a token, a component, a pattern or the shell, and a screen file never carries a width rule. The screens this was measured on are in <a href="../overview.html">UI + Visual</a>; the geometry it belongs beside is on <a href="geometry.html">Geometry</a>.
+  </footer>
+</div>
+
+<script>
+(function(){
+  var s=document.getElementById('sidebar-panel'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');
+  function op(){s.classList.add('open');o.classList.add('open');}
+  function cl(){s.classList.remove('open');o.classList.remove('open');}
+  if(t)t.addEventListener('click',op); if(c)c.addEventListener('click',cl); if(o)o.addEventListener('click',cl);
+})();
+</script>
+<script>
+/* The width readout under each draggable box. The page is about measuring width,
+   so it measures rather than asserts: every figure below is read off the box in
+   the browser, not written into the markup. */
+(function(){
+  var boxes=[].slice.call(document.querySelectorAll('[data-rsp-live]'));
+  function paint(){
+    boxes.forEach(function(b){
+      var out=b.parentNode.querySelector('[data-rsp-w]');
+      if(!out) { var n=b.nextElementSibling; out=n?n.querySelector('[data-rsp-w]'):null; }
+      if(out) out.textContent=Math.round(b.getBoundingClientRect().width)+'px';
+    });
+  }
+  if('ResizeObserver' in window){ var ro=new ResizeObserver(paint); boxes.forEach(function(b){ro.observe(b);}); }
+  window.addEventListener('resize',paint); paint();
+})();
+</script>
+<script>
+  window.NAV_BASE = '../../';
+  window.NAV_SECTIONS = [
+    { id:'ladder',     label:'Three methods' },
+    { id:'points',     label:'The two points' },
+    { id:'container',  label:'The containers' },
+    { id:'grid',       label:'The grid' },
+    { id:'shell',      label:'The shell' },
+    { id:'components', label:'How components behave' },
+    { id:'sweep',      label:'The width sweep' },
+    { id:'newbehaviour', label:'New behaviour: none' },
+    { id:'census',     label:'The census and the audit' },
+  ];
+</script>
+<script src="../../_nav.js"></script>
+<script src="_nav.js"></script>
+
+</body>
+</html>

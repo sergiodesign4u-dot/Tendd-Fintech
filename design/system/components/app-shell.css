@@ -32,7 +32,7 @@
    A container query matches an ANCESTOR container and never the element itself.
    So `container-type` here could not let the shell query its own width; it would
    silently re-point every query inside it, the tab bar's rail at 760, the
-   dashboard head at 900 and the groups column set at 1340, at a different box.
+   dashboard head at 900 and the groups column set past it, at a different box.
    Measured on 2026-08-11: with `container-type` on `.app` the tab bar keeps its
    column flow and still loses its rail, moving from 220px beside the content to
    965px below it. Nothing errors and nothing looks obviously wrong on a
@@ -136,7 +136,7 @@
   grid-column: auto; grid-row: auto;
   overflow: visible;
   width: 100%;
-  max-width: 620px;
+  max-width: var(--container-column);
   margin: var(--space-0) auto;
   padding: var(--space-24) var(--space-16) var(--space-64);
 }
@@ -231,7 +231,7 @@
    `(width < 900px)` AND NOT `(max-width: 899px)`. A container width is not an
    integer, and 899.5 would fall between the two halves of the rule and be
    answered by neither. The step is still 900, read from the other side. */
-@container (width < 900px) {
+@container (width < 56.25rem) {
   .app > .screen > :last-child { margin-bottom: var(--space-0); }
 }
 
@@ -241,8 +241,10 @@
    THE CONTAINER IS body, IN base.css, AND IT IS NOT DECLARED HERE. See the header.
 
    760 is written as a number because it has to be: a custom property is not valid
-   inside a `@container` condition. Documented, not tokenized, and the three steps
-   of this product are 760, 900 and 1340.
+   inside a `@container` condition. Documented in the file, registered in the width
+   block of tokens.css, and the two points of this product are 47.5rem and
+   56.25rem. The 1340 that used to stand beside them is gone: stage 10 gave the
+   groups column set a column-width instead of a count.
 
    WHAT ACTUALLY CHANGES. The shell stops being a flex column and becomes a grid
    of two columns and two rows: a 220px rail on the left holding the app bar in row
@@ -308,7 +310,7 @@
    220 IS NOT ON THE 8px GRID AND DOES NOT HAVE TO BE, on this file's own rule at
    the top: a width is on neither scale, and 780, 620 and 300 are not multiples of
    8 either. What it must not be is a spacing token, and it is not one. */
-@container (min-width: 760px) {
+@container (min-width: 47.5rem) {
   .app {
     display: grid;
     height: 100vh;
@@ -321,7 +323,7 @@
     overflow: auto;
     padding: var(--space-32) var(--space-40) var(--space-48);
   }
-  .app > .screen > * { max-width: 780px; }
+  .app > .screen > * { max-width: var(--container-page); }
   .app > .screen > .form-col { max-width: 560px; }
   /* the third measure, `.rows-col` at 620, is in patterns/list-column.css since
      stage 09. See the note at the floor above. */
@@ -373,7 +375,7 @@
    deliberately. It is 0-3-0 where the blanket above is 0-2-0, and it is what stops
    a later rule at three levels from re-capping a detail column. Carried as kit.css
    wrote it. */
-@container (min-width: 900px) {
+@container (min-width: 56.25rem) {
   .app > .screen > * { max-width: none; }
   .app > .screen { display: flex; flex-direction: column; }
 
@@ -387,15 +389,55 @@
   .app > .screen > .groups     { order: 3; }
   .app > .screen > .trust      { order: 4; }
 
+  /* THE TWO COLUMNS COUNT THEMSELVES, AND THAT IS A REPAIR MEASURED AT STAGE 10.
+     It was `minmax(300px, 1fr) minmax(320px, 1fr)` with the two columns placed by
+     hand, and the width sweep found what a three-width screenshot cannot: in the
+     band from 900 to 927 the detail screen SCROLLS SIDEWAYS INSIDE ITS OWN PANE.
+
+     THE ARITHMETIC, MEASURED ON subscription-detail.html AT 900. The point fires
+     at 900, so the rail takes 220 and the screen's own padding takes 40 on each
+     side: the content box is 600. The two floors plus the gutter are
+     300 + 48 + 320 = 668. The grid is 68px wider than the box that holds it, the
+     pane's `overflow: auto` above turns that into a horizontal scrollbar inside
+     the content, and the second column's right edge lands at 928 on a 900 screen.
+     The DOCUMENT never scrolls, which is why this survived stage 08: the standard
+     `scrollWidth > clientWidth` check on the page is clean at every width, and
+     only a per-element check inside the shell sees it.
+
+     THE ROOT CAUSE IS THE QUESTION, NOT THE NUMBER. This query asks the screen
+     (56.25rem) while the layout lives in the pane, and past this same point the
+     pane is 300px narrower than the screen because of the rail. A point cannot
+     know that. `repeat(auto-fit, minmax(320px, 1fr))` asks nothing: it fits two
+     columns when two columns fit and one when they do not, which is the first
+     rung of the ladder and needs no third number in the register.
+
+     WHAT IT CHANGES AND WHAT IT DOES NOT, measured after the change: at a pane of
+     700 (a 1000 screen) the columns are 326 each and at 1140 (a 1440 screen) they
+     are 546 each, both identical to the hand-placed version. Two columns appear
+     from a 988 screen instead of 900, so the band 900 to 987 now reads as one
+     column of 600 to 687px instead of two cramped ones with the right one half
+     off the pane. 360 does not move: there is one column there and there was one
+     before. Audit row 8.
+
+     `auto-fit` AND NOT `auto-fill`, WHICH IS THE OPPOSITE OF THE CHOICE IN
+     grid.css, and the difference is the child count. A grid of tiles has an
+     unknown number of children, so a collapsing empty track would make the column
+     count depend on how many tiles exist. This screen has exactly two children on
+     all six of its pages, always in DOM order, so the empty track auto-fit
+     collapses at a wide pane is the one that would otherwise squeeze both columns
+     into a third of the width.
+
+     THE TWO `grid-column` DECLARATIONS ARE GONE ON PURPOSE. Auto-placement puts
+     col1 in the first track and col2 in the second, which is what they said; but
+     when the grid drops to one track, `grid-column: 2` would create an implicit
+     second track and bring the overflow straight back. */
   .app.detail > .screen {
     display: grid;
-    grid-template-columns: minmax(300px, 1fr) minmax(320px, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: var(--space-0) var(--space-48);
     align-content: start;
   }
   .app.detail > .screen > * { max-width: none; }
-  .app.detail .col1 { grid-column: 1; }
-  .app.detail .col2 { grid-column: 2; }
 }
 
 /* ---- what this file does NOT write ----------------------------------------

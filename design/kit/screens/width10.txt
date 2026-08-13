@@ -1,0 +1,66 @@
+STAGE 10 WIDTH SWEEP, the run of 2026-08-13, after every fix of the stage
+Produced by width10-harness.html in a browser over a local server. Re-runnable:
+open that file, press Run, and this is the output it prints.
+
+32 pages x 50 widths = 1600 measurements
+widths: 320 360 400 440 450 460 470 480 520 560 600 640 680 720 730 740 750 760
+        770 780 790 800 840 880 890 900 910 920 960 963 965 1000 1040 1080 1120
+        1160 1200 1240 1280 1305 1311 1315 1320 1360 1400 1440 1480 1520 1560 1600
+
+VIOLATIONS: none
+  no document scrolls sideways at any stop
+  no element leaves the viewport at any stop
+  no page shows two carriers of top-level navigation at any stop
+
+WORST READING MEASURE: 60.7ch (526px) on history-trends-locked at 600,
+  main.screen > section.card > p
+  It is the prose card, whose 560px measure is a named decision with its own note
+  in card.css. 52ch and 560px disagree by eight characters and the disagreement is
+  written up in docs/backlog.md for the founder rather than resolved in a
+  verification step. Every other prose block in the product lands at 53ch or below.
+
+CARRIER OF TOP-LEVEL NAVIGATION, distinct states across all 50 widths
+  Expect exactly one state per page: 1/4 on an app-frame screen, 0/0 on a flow
+  screen. A page showing two states would mean the carrier appears or disappears
+  with width; a page showing 2/8 would mean two carriers are alive at once.
+
+  1/4, one carrier and its four links, at every width   22 pages
+    alerts, alerts-empty, alerts-error, alerts-loading,
+    history-trends, history-trends-empty, history-trends-error,
+    history-trends-loading, history-trends-locked,
+    home, home-empty, home-error, home-loading, home-savefocus,
+    settings, settings-no-account,
+    subscription-detail, subscription-detail-error, subscription-detail-loading,
+    subscription-detail-payment-failed, subscription-detail-price-change,
+    subscription-detail-unrecognized
+
+  0/0, no carrier at any width                          10 pages
+    add-subscription, add-subscription-empty, add-subscription-error,
+    add-subscription-loading, guided-reveal, guided-reveal-empty,
+    upgrade, upgrade-current-plan, upgrade-payment-failed, upgrade-processing
+    These are flow screens: onboarding and the paid upgrade stand outside the app
+    frame by decision, with a way out instead of destinations. Verified in the
+    markup as well as in the render: 22 screens carry exactly one .tabbar element
+    and these 10 carry none, so no width can add or remove one.
+
+WHAT THE SAME SWEEP FOUND BEFORE THE FIXES, kept because the instrument is only
+worth what it caught:
+
+  18 stops with an element leaving the viewport
+    all six Subscription Detail pages at 900, 910 and 920. The desktop point fires
+    at 900, the rail takes 220 and the screen's padding 80, so the pane is 600
+    while the two column floors plus the gutter need 668. The pane scrolled
+    sideways inside a document that never scrolled, which is why the standard
+    check was clean through two accepted stages.
+
+  the reading measures, worst first
+    150.0ch  history-trends and three of its states, the muted line under the
+             chart, 1300px at a 1600 window
+     82.8ch  home-empty and both Settings pages, at 750
+     78.9ch  history-trends-locked, the prose card, at 750
+     72.0ch  settings-no-account, each of the three promises
+     69.0ch  two Subscription Detail states, the wash paragraph
+     67.8ch  add-subscription and upgrade-payment-failed, a standalone muted line
+
+  0 stops with two carriers, and 0 with none where one was expected. The shell
+  decision of step 3 held at every width both before and after.

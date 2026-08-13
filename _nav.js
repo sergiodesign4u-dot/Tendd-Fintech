@@ -76,8 +76,16 @@ window.NAV = [
   // points at the guide and overview.html names it through NAV_ACTIVE, which is the third
   // legal form in CLAUDE.md: it shows up as its own sub item, carrying its own sections.
   { label:'Design System',       page:'design/kit/why.html', done:true },
-  { label:'Responsive',          page:null, done:false },
+  { label:'Responsive',          page:'design/kit/responsive.html', done:true },
   { label:'Animation',           page:null, done:false },
+  // ROLLOUT WAS MISSING FROM THIS REGISTRY AND FROM THE README UNTIL 2026-08-13,
+  // and it was found at stage 10 rather than at stage 12, which is the only
+  // reason it cost nothing. The stage that builds the rest of the product in
+  // colour is the main consumer of everything stage 10 produces: the audit row
+  // per screen, the ban on a width rule in a screen file, the width column of
+  // the inventory. A consumer with no row in either owner of status is a stage
+  // that nothing schedules and nobody checks off. Founder, 2026-08-13.
+  { label:'Rollout',             page:null, done:false },
   { label:'Handoff',             page:null, done:false },
 ];
 

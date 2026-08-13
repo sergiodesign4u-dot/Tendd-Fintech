@@ -364,13 +364,57 @@ cards. Nothing inside that container draws a second edge.
 
 The tab bar is bottom chrome on mobile. At a 760px container the whole shell becomes a dashboard:
 the tab bar rotates into a 220px left rail on the panel tint, the app bar folds into the top of
-that rail, and the content takes the remaining width. At 900px the subscription detail splits into
-two columns and the category groups on Home run in two; at 1340px those groups run in three, which
-is the widest the product ever goes. Below 460px the stage gives its gutter back and the screen
-goes edge to edge.
+that rail, and the content takes the remaining width. At 900px the subscription detail
+becomes as many columns as its pane holds, one or two, and the category groups on Home stop being
+counted at all: they run in as many 300px columns as fit, capped at three, which is the widest the
+product ever goes. There is no third step; the product has exactly two, 47.5rem and 56.25rem.
+Below 460px, a container threshold rather than a point, the save-focus row drops its cut control
+onto its own line.
 
 Container queries, not media queries, drive the shell, so a screen behaves by the width it is
 actually given rather than by the width of the browser.
+
+## Width
+
+Adaptation is read top down and the breakpoint is the LAST answer: **fluid first**
+(`repeat(auto-fill, minmax(floor, 1fr))`, `columns: <width>`, `flex-wrap`), then **a container**
+(a `max-width`, and a reading measure counted in `ch`), and only a behaviour that cannot be
+interpolated earns **a point**. A bar on the glass and a rail in a grid track are two things with
+nothing in between; a paragraph that gets wider is one thing.
+
+**Two points for the whole product, both in `rem` and both in `design/system/tokens.css`:**
+
+| Token | Value | What changes there |
+|---|---|---|
+| `--bp-tablet` | `47.5rem` (760px) | the shell becomes a two-track grid: the tab bar rotates into a 220px rail, the app bar folds into its head, the pane becomes its own scroller and takes the `--container-page` measure |
+| `--bp-desktop` | `56.25rem` (900px) | that measure comes off, the pane's blocks can be reordered, Home becomes a dashboard and a detail screen counts its own columns |
+
+`rem` and not `px`, because a point has to react to the reader's font size as well as to the
+window: at a 24px root a "desktop" width holds a phone's worth of words in a line, and the narrow
+form is the right one there. **A third point is the founder's call**, named out loud with the audit
+row that needs it, never a side effect of a refactor. One local **container threshold** exists,
+`28.75rem`, and it belongs to one row rather than to the product; it is registered in
+`design/kit/docs/responsive.md` so that a check can tell it apart from a number invented for a
+device.
+
+**A query cannot read a variable.** `@container (min-width: var(--bp-tablet))` does not error and
+never matches, so the token is the REGISTER and the literal in the query is its application. That
+turns the register into an instrument: every width literal in a query must be one of the three
+registered values, and the check is a grep. Live count: `47.5rem` x 8, `56.25rem` x 5,
+`28.75rem` x 2.
+
+**Containers, and the column count that is not one.** `--container-page` (48.75rem) is the pane's
+ceiling, `--container-column` (38.75rem) a content column, `--container-text` (52ch) the reading
+measure every prose block in the system reads. **A column count is never a token**: it is computed
+from a floor (`--grid-col-min`, 10rem) unless the count is content, which is the case exactly
+twice, on the two doors of the path choice and the three plan options of the landing.
+
+**Where adaptation may live, and where it may not.** A width belongs to a token, to a component
+(`@container`, which asks its PLACE), to a pattern, or to the shell (`@media`, which asks the
+viewport because the shell is the viewport). **In a screen file `@media` is forbidden**, always;
+the whole ground is in `design/kit/docs/architecture.md` and in `design/system/CLAUDE.md`, and the
+full census, audit and register are in `design/kit/docs/responsive.md`, published as
+`design/kit/responsive.html`.
 
 ## Elevation & Depth
 

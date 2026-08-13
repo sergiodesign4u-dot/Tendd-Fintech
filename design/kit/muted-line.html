@@ -67,6 +67,10 @@
       <li><code>.muted p</code> <span>the block form. The sentence lives in its own paragraph so the link beside it is a sibling and not running text, and it takes the 52ch reading measure</span></li>
       <li><code>&gt; p ~ a</code> <span>a standalone link, the sibling that follows the paragraph, takes the 44px floor from <code>--tap</code>. A link in the middle of a sentence is running text and is exempt</span></li>
     </ul>
+  
+    <h3 class="kit-sub-h">Behaviour at width</h3>
+    <p class="note"><b>Every form carries the reading measure, <code>--container-text</code>, and the plain one only got it at stage 10.</b> The ruled form and the block form's paragraph were already 52ch, so nothing moved when the four measures in the system folded into one token. The plain form had no measure at all, and the width sweep priced that: on History and Trends the line under the chart ran <b>1300px at a 1600 window, 150 characters to a line</b>, and it did the same on all four states of that screen. Settings ran 620px, Home empty 536px. Nothing had asked for those widths; they are what a block element does when nobody stops it.</p>
+    <p class="note"><b>The measure is declared twice, and the second one is not a duplicate.</b> A muted line that stands as a direct child of the screen ties at 0-2-0 with the shell's blanket <code>max-width: none</code> past the desktop point and loses on source order, so <code>.app .screen &gt; .muted</code> is written at 0-3-0 beside it. This is the <b>sixth</b> element in the product to need that binding, which is why the blanket itself is now a question in <code>docs/backlog.md</code> rather than a fact everyone works around. <b>At 360 nothing moves:</b> 52ch is about 459px and no box on a phone is that wide. See <a href="responsive.html#newbehaviour">Width</a>.</p>
   </section>
 
   <section class="kit-sec" id="variants">

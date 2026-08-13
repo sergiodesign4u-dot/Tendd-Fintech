@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stage 10 width sweep - harness</title>
+<!--
+  THE INSTRUMENT OF STAGE 10, kept beside its output the way ledger.cjs and
+  ledger09.cjs are. Open this file over a local server from the repository root
+  (a file:// origin cannot read into an iframe) and press Run:
+
+      python3 -m http.server 8000
+      http://localhost:8000/design/kit/screens/width10-harness.html
+
+  It walks all 32 coloured screens at 50 widths, 1600 measurements, and prints
+  the ledger below plus the raw rows to the console. What it reads at each stop:
+
+    1. hscroll   the DOCUMENT scrollbar, scrollWidth > clientWidth. Kept because
+                 it is the standard check, and kept LOUD that it is not enough:
+                 past the tablet point the shell gives .screen its own overflow,
+                 so a layout that does not fit scrolls inside the pane while this
+                 flag stays false. It was false at all 1600 stops while a real
+                 overflow was running on six pages.
+    2. out       every element inside .app whose box leaves the viewport. This is
+                 the check that found the 900 to 927 valley.
+    3. carriers  visible .tabbar elements and the links inside them. The rule is
+                 exactly one carrier of top-level navigation at any width.
+    4. ch        the reading measure of every prose leaf over 90 characters, in
+                 ch, using the element's OWN computed font. ch and not px,
+                 because the measure follows the font by design.
+
+  A FRESH ORIGIN IS PART OF THE INSTRUMENT. The browser caches the stylesheet per
+  origin, and twice during this stage a cached CSS produced a clean run that was
+  a lie. If you have just edited the system, serve on a port you have not used
+  yet, or hard-reload with the cache disabled.
+-->
+<style>
+  body { margin: 0; font: 14px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: #fbfbf9; color: #1c1c1c; }
+  #bar { position: sticky; top: 0; padding: 12px 16px; background: #1c6a76; color: #fff; display: flex; gap: 12px; align-items: center; }
+  button { font: inherit; padding: 4px 12px; }
+  #out { padding: 16px; white-space: pre-wrap; }
+  #host { position: fixed; left: -9999px; top: 0; }
+  .bad { color: #8c3b2e; font-weight: 700; }
+  .ok { color: #1c6a76; }
+</style>
+</head>
+<body>
+<div id="bar"><button id="run">Run the sweep</button><span id="status">idle</span></div>
+<pre id="out"></pre>
+<div id="host"></div>
+<script>
+var PAGES = ["add-subscription","add-subscription-empty","add-subscription-error","add-subscription-loading",
+"alerts","alerts-empty","alerts-error","alerts-loading","guided-reveal","guided-reveal-empty",
+"history-trends","history-trends-empty","history-trends-error","history-trends-loading","history-trends-locked",
+"home","home-empty","home-error","home-loading","home-savefocus","settings","settings-no-account",
+"subscription-detail","subscription-detail-error","subscription-detail-loading","subscription-detail-payment-failed",
+"subscription-detail-price-change","subscription-detail-unrecognized","upgrade","upgrade-current-plan",
+"upgrade-payment-failed","upgrade-processing"];
+
+var WIDTHS = (function(){
+  var s = [];
+  for (var w = 320; w <= 1600; w += 40) s.push(w);
+  /* 10px steps where a decision lives: both points, the container threshold, and
+     the two widths where the groups column set changes its count */
+  [730,740,750,770,780,790, 450,460,470, 890,900,910, 960,963,965, 1305,1311,1315]
+    .forEach(function(x){ if (s.indexOf(x) < 0) s.push(x); });
+  return s.sort(function(a,b){ return a - b; });
+})();
+
+var CANVAS = document.createElement('canvas'), CTX = CANVAS.getContext('2d');
+function chPx(cs){ CTX.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily; return CTX.measureText('0').width || parseFloat(cs.fontSize) * 0.5; }
+function pathOf(el, root){
+  var parts = [], n = el;
+  while (n && n !== root && parts.length < 6){
+    var c = (n.className && typeof n.className === 'string' && n.className.trim()) ? '.' + n.className.trim().split(/\s+/)[0] : '';
+    parts.unshift(n.tagName.toLowerCase() + c); n = n.parentElement;
+  }
+  return parts.join('>');
+}
+function probe(win, doc){
+  var de = doc.documentElement, app = doc.querySelector('.app') || doc.body;
+  var carriers = [].slice.call(app.querySelectorAll('.tabbar')).filter(function(el){
+    var cs = win.getComputedStyle(el);
+    return cs.display !== 'none' && cs.visibility !== 'hidden' && el.getBoundingClientRect().height > 0;
+  });
+  var worst = null;
+  [].slice.call(app.querySelectorAll('p,li,div,span,td')).forEach(function(el){
+    var own = '';
+    for (var i = 0; i < el.childNodes.length; i++) if (el.childNodes[i].nodeType === 3) own += el.childNodes[i].nodeValue;
+    own = own.replace(/\s+/g, ' ').trim();
+    if (own.length < 90) return;
+    var cs = win.getComputedStyle(el); if (cs.display === 'none') return;
+    var r = el.getBoundingClientRect(); if (r.width < 1) return;
+    var ch = r.width / chPx(cs);
+    if (!worst || ch > worst.ch) worst = { ch: Math.round(ch * 10) / 10, px: Math.round(r.width), el: pathOf(el, app) };
+  });
+  var out = [];
+  [].slice.call(app.querySelectorAll('*')).forEach(function(el){
+    var r = el.getBoundingClientRect();
+    if (r.width > 0 && (r.right > de.clientWidth + 1 || r.left < -1)) out.push(pathOf(el, app) + '@' + Math.round(r.left) + '-' + Math.round(r.right));
+  });
+  return { hscroll: de.scrollWidth > de.clientWidth, carriers: carriers.length,
+           links: carriers.reduce(function(n, c){ return n + c.querySelectorAll('a').length; }, 0),
+           worst: worst, out: out.slice(0, 3) };
+}
+function sweep(page){
+  return new Promise(function(resolve){
+    var f = document.createElement('iframe');
+    f.style.width = WIDTHS[0] + 'px'; f.style.height = '1800px'; f.style.border = '0';
+    f.src = '../../' + page + '.html';
+    f.onload = function(){
+      var d = f.contentDocument, w = f.contentWindow;
+      var st = d.createElement('style');
+      st.textContent = 'html{scrollbar-width:none}html::-webkit-scrollbar{display:none}';
+      d.head.appendChild(st);   /* the container must really be the number it claims */
+      var rows = [], i = 0;
+      (function next(){
+        if (i >= WIDTHS.length){ f.remove(); return resolve({ page: page, rows: rows }); }
+        f.style.width = WIDTHS[i] + 'px';
+        w.requestAnimationFrame(function(){ w.requestAnimationFrame(function(){
+          var r = probe(w, d); r.w = WIDTHS[i]; rows.push(r); i++; next();
+        });});
+      })();
+    };
+    document.getElementById('host').appendChild(f);
+  });
+}
+document.getElementById('run').addEventListener('click', async function(){
+  var out = document.getElementById('out'), status = document.getElementById('status');
+  out.textContent = ''; var all = [], viol = [], worstAll = null;
+  for (var i = 0; i < PAGES.length; i++){
+    status.textContent = 'page ' + (i + 1) + ' of ' + PAGES.length + ': ' + PAGES[i];
+    var r = await sweep(PAGES[i]);
+    all.push(r);
+    r.rows.forEach(function(x){
+      if (x.hscroll) viol.push(PAGES[i] + '@' + x.w + '  document scrolls sideways');
+      if (x.out.length) viol.push(PAGES[i] + '@' + x.w + '  leaves the viewport: ' + x.out[0]);
+      if (x.carriers > 1) viol.push(PAGES[i] + '@' + x.w + '  two carriers of navigation');
+      if (x.worst && (!worstAll || x.worst.ch > worstAll.ch)) worstAll = { p: PAGES[i], w: x.w, ch: x.worst.ch, px: x.worst.px, el: x.worst.el };
+    });
+  }
+  var carrierStates = {};
+  all.forEach(function(r){ carrierStates[r.page] = Array.from(new Set(r.rows.map(function(x){ return x.carriers + '/' + x.links; }))).join(' '); });
+  var lines = [];
+  lines.push('STAGE 10 WIDTH SWEEP');
+  lines.push(PAGES.length + ' pages x ' + WIDTHS.length + ' widths = ' + (PAGES.length * WIDTHS.length) + ' measurements');
+  lines.push('widths: ' + WIDTHS.join(' '));
+  lines.push('');
+  lines.push('VIOLATIONS: ' + (viol.length ? viol.length : 'none'));
+  viol.forEach(function(v){ lines.push('  ' + v); });
+  lines.push('');
+  lines.push('WORST READING MEASURE: ' + (worstAll ? worstAll.ch + 'ch (' + worstAll.px + 'px) on ' + worstAll.p + ' at ' + worstAll.w + ', ' + worstAll.el : 'none over the floor'));
+  lines.push('');
+  lines.push('CARRIER OF TOP-LEVEL NAVIGATION, distinct states across all widths (expect one state per page):');
+  Object.keys(carrierStates).forEach(function(p){ lines.push('  ' + (carrierStates[p] === '1/4' || carrierStates[p] === '0/0' ? '  ok  ' : ' BAD  ') + p + '  ' + carrierStates[p]); });
+  out.textContent = lines.join('\n');
+  status.textContent = 'done';
+  console.log(JSON.stringify(all));
+});
+</script>
+</body>
+</html>

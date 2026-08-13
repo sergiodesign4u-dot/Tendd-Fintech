@@ -1014,3 +1014,165 @@
 .kit-spec .sample.sp-body    { font-size: var(--type-body);    font-weight: 400; line-height: 1.5; }
 .kit-spec .sample.sp-meta    { font-size: var(--type-meta);    font-weight: 400; line-height: 1.5; }
 .kit-spec .sample.sp-label   { font-size: var(--type-label);   font-weight: 600; line-height: 1.4; }
+
+/* ---------- the width demos, stage 10 --------------------------------------
+   THE STAND'S OWN, AND DELIBERATELY NOT THE PRODUCT'S. These classes exist so
+   that the three methods can be DRAGGED on responsive.html instead of described
+   in a paragraph, which is the difference between a page that documents the
+   adaptation and a page that asserts it. They ship nowhere: _page.css is the
+   stand, and the census in docs/responsive.md lists the stand as a corpus whose
+   width rules stay put.
+
+   The two thresholds used below are the registry's own, --bp-tablet and
+   --bp-desktop, written as the literals the query needs. A demo that switched at
+   some other number would teach the wrong thing on the one page whose job is to
+   teach the register. */
+
+/* the draggable place. `resize` needs a non-visible overflow to appear at all,
+   and `container-type: inline-size` is what makes the children below query the
+   BOX rather than the window: this is the same declaration a pattern makes when
+   it puts a component somewhere, said out loud on a page where it can be seen. */
+.kit-rsp-live {
+  container-type: inline-size;
+  resize: horizontal;
+  overflow: auto;
+  min-width: 240px;
+  max-width: 100%;
+  width: 100%;
+  padding: 16px;
+  border: 1px dashed var(--line-container-hover);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  margin: 0 0 8px;
+}
+.kit-rsp-hint { margin: 0 0 18px; font-size: 12.5px; color: var(--text-muted); }
+.kit-rsp-hint b { color: var(--text-primary); font-weight: 600; }
+.kit-rsp-hint .w { font-variant-numeric: tabular-nums; }
+
+/* 1. FLUID. No query anywhere in this rule: the count comes off the floor. */
+.kit-rsp-fluid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min), 1fr));
+  gap: var(--grid-gap);
+}
+.kit-rsp-fluid span {
+  min-height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius-sm);
+  background: var(--bg-recessed);
+  font-size: 12.5px; color: var(--text-muted);
+}
+
+/* 2. CONTAINER. The same paragraph twice, once inside the measure and once not. */
+.kit-rsp-measure p { margin: 0 0 6px; font-size: 14px; line-height: 1.5; color: var(--text-body); }
+.kit-rsp-measure.held p { max-width: var(--container-text); }
+.kit-rsp-measure .tag { display: block; margin: 0 0 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
+.kit-rsp-measure + .kit-rsp-measure { margin-top: 18px; }
+
+/* 3. POINT. One named change of behaviour, and it reads the place, not the
+   window, so the same block can be dragged narrow inside a wide monitor. */
+.kit-rsp-point {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.kit-rsp-point .slot {
+  padding: 12px 14px;
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius-sm);
+  background: var(--bg-recessed);
+  font-size: 12.5px; color: var(--text-muted);
+}
+.kit-rsp-point .slot b { color: var(--text-primary); font-weight: 600; }
+@container (min-width: 47.5rem) {
+  .kit-rsp-point { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 8px; }
+}
+
+/* the band readout: which side of each point the WINDOW is on right now. Three
+   spans, one visible at a time, so the page answers the question it is about. */
+.kit-rsp-band { display: inline-flex; gap: 6px; align-items: center; font-size: 12.5px; color: var(--text-muted); }
+.kit-rsp-band i { font-style: normal; padding: 2px 8px; border-radius: 999px; background: var(--bg-recessed); color: var(--text-muted); border: 1px solid var(--line-container); }
+.kit-rsp-band i.on { background: var(--bg-selected); border-color: var(--line-selected); color: var(--text-action); font-weight: 600; }
+.kit-rsp-band i[data-band="base"] { background: var(--bg-selected); border-color: var(--line-selected); color: var(--text-action); font-weight: 600; }
+@media (min-width: 47.5rem) {
+  .kit-rsp-band i[data-band="base"] { background: var(--bg-recessed); border-color: var(--line-container); color: var(--text-muted); font-weight: 400; }
+  .kit-rsp-band i[data-band="tablet"] { background: var(--bg-selected); border-color: var(--line-selected); color: var(--text-action); font-weight: 600; }
+}
+@media (min-width: 56.25rem) {
+  .kit-rsp-band i[data-band="tablet"] { background: var(--bg-recessed); border-color: var(--line-container); color: var(--text-muted); font-weight: 400; }
+  .kit-rsp-band i[data-band="desktop"] { background: var(--bg-selected); border-color: var(--line-selected); color: var(--text-action); font-weight: 600; }
+}
+
+/* a section that is honestly not written yet, rather than an empty div */
+.kit-rsp-todo {
+  border: 1px dashed var(--line-container-hover);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 13.5px; line-height: 1.55; color: var(--text-muted);
+  background: var(--bg-recessed);
+}
+.kit-rsp-todo b { color: var(--text-primary); font-weight: 600; }
+
+/* ---------- the shell shown in both forms, stage 10 step 3 ------------------
+   TWO DECLARATIONS DO THE WORK HERE AND THEY ARE NOT THE SAME ONE.
+
+   `container-type: inline-size` is what makes the box a QUERY TARGET, so the
+   product's own `@container (min-width: 47.5rem)` reads the specimen instead of
+   the window and the two forms can stand on one page.
+
+   `contain: layout` is what makes the box a CONTAINING BLOCK for the narrow
+   form's `position: fixed` tab bar, so the bar sits on the foot of the SPECIMEN
+   rather than on the foot of the browser window. It was written here after
+   measuring rather than before: `container-type` alone did not do it. With the
+   container declared and nothing else, the bar computed 1425px wide and pinned
+   itself to the bottom of the viewport, straight across the page. `contain:
+   layout`, `transform` and `filter` all repair it and all three were tried;
+   `contain: layout` is kept because it is the one that says what is meant.
+
+   That is the gap tab-bar.html reported in its own anatomy note, "the stand has
+   no class for holding a fixed specimen inside a stage". It is closed here for
+   the shell and deliberately NOT retrofitted onto `.kit-stage.pinned`: a
+   container on the generic stage would re-point every product query inside every
+   component page at the stage's box, and half the specimens would quietly start
+   rendering in their wide form. The tab bar's own page keeps the open note.
+
+   THE PAIR STACKS RATHER THAN SITTING SIDE BY SIDE, and the arithmetic is the
+   reason. The stand's content column is about 944px, so a 320px specimen beside
+   its pair leaves the second one 604px, which is under the tablet point: the
+   "wide" form would have rendered narrow and the page would have shown the same
+   thing twice while claiming to show two. Measured before the layout was chosen.
+
+   Everything else is the REAL shell: the same markup a screen carries and the
+   same rules out of design/system/. The only thing the stand adds is a height,
+   because `.app` asks for the whole viewport in both forms and a specimen has to
+   fit on a page. `_screen.css` already does exactly this for the reviewed
+   screens, and for the same reason. */
+.kit-shell-pair { margin: 0 0 10px; }
+.kit-shell-demo {
+  container-type: inline-size;
+  contain: layout;
+  overflow: hidden;
+  position: relative;
+  height: 420px;
+  margin: 0 0 10px;
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius-sm);
+  background: var(--bg-page);
+}
+.kit-shell-demo.narrow { width: 320px; max-width: 100%; }
+.kit-shell-demo.wide   { width: 100%; }
+.kit-shell-demo .app { min-height: 100%; height: 100%; }
+.kit-shell-demo .app > .screen { overflow: auto; }
+.kit-shell-cap { margin: 0 0 18px; font-size: 12.5px; color: var(--text-muted); }
+.kit-shell-cap b { color: var(--text-primary); font-weight: 600; }
+
+/* the filler inside a specimen: enough shape to show where the content sits,
+   and no product copy, because this is the shell and not a screen */
+.kit-shell-demo .kit-shell-fill { display: grid; gap: 10px; }
+.kit-shell-demo .kit-shell-fill i {
+  display: block; height: 14px; border-radius: 999px;
+  background: var(--bg-placeholder);
+}
+.kit-shell-demo .kit-shell-fill i.w1 { width: 62%; }
+.kit-shell-demo .kit-shell-fill i.w2 { width: 100%; }
+.kit-shell-demo .kit-shell-fill i.w3 { width: 84%; }
+.kit-shell-demo .kit-shell-fill i.tall { height: 56px; border-radius: var(--radius-sm); }

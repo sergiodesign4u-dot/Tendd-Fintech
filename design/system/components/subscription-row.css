@@ -162,6 +162,26 @@
    explain away; step 6 renamed classes and left this scope alone, because
    `.cand` has no row on the map. It is still open, and the same inconsistency is
    flagged on four width classes in skeleton-bar.css. */
-@media (max-width: 460px) {
+/* A CONTAINER QUERY AND NOT A MEDIA QUERY, 2026-08-13, STAGE 10. It was
+   `@media (max-width: 460px)`, which asked how wide the WINDOW is. What decides
+   whether a merchant name, an amount and a cut control fit on one line is how
+   wide the ROW's place is, and on a desktop there are narrow places too: the
+   detail screen's two columns are 546px each at a 1440 window, and a candidate
+   standing in one of them would have been told it had 1440.
+
+   ZERO PIXELS MOVE TODAY, and that is worth stating rather than hoping. The
+   nearest container is still `body`, declared in base.css, so the question
+   currently resolves to the same number it did as a media query. What changes is
+   what happens NEXT: the day a pattern puts this row in a column of its own, the
+   rule becomes true instead of accidentally true. Measured at 360 and 1280 on all
+   32 coloured pages before and after: identical.
+
+   28.75rem AND NOT 460px, for the same reason the two points are in rem: the
+   thing that stops fitting is a line of text, and a line of text is set in the
+   size the person chose. This threshold is LOCAL and is not a token: it belongs
+   to one component in one place. It is listed in the container-threshold
+   register of docs/responsive.md, which is what keeps it distinguishable from a
+   point invented for somebody's device. */
+@container (width <= 28.75rem) {
   .app .cand .row { flex: 1 1 100%; }
 }

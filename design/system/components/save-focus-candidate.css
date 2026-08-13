@@ -121,7 +121,15 @@
    candidate would not reflow. Step 5 did not touch a selector, precisely so the
    pixel comparison had nothing to explain away; step 6 renamed classes and left
    this scope alone, because `.cand` has no row on the map. Still open. */
-@media (max-width: 460px) {
+/* A CONTAINER QUERY AND NOT A MEDIA QUERY, 2026-08-13, STAGE 10, and the third
+   rule of this block moved with it: see subscription-row.css, which holds
+   `.cand .row` for a cascade reason and now holds the same container condition.
+   The two halves have to agree or the reflow happens on one line and not the
+   other. What decides this reflow is the width of the row's PLACE, not of the
+   window; the threshold is local, is not a token, and is listed in the
+   container-threshold register of docs/responsive.md. Zero pixels move today,
+   measured at 360 and 1280 on all 32 coloured pages. */
+@container (width <= 28.75rem) {
   .app .cand { flex-wrap: wrap; padding: var(--space-4) var(--space-0) var(--space-8); }
   .app .cand .cut { margin-left: auto; }
 }

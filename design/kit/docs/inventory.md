@@ -69,32 +69,32 @@ the child**: doors are full cards and take air, tiles are chips and do not.
 
 ## Atoms (20)
 
-| Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page |
-|---|---|---|---|---|---|---|
-| Amount | `.amt` | size by container: 14 / 32 (`--type-body`, `--type-figure`). 13.5 and 30 folded at step 5 | 69 | - | `amount.css` | `amount.html` |
-| Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - | `big-total.css` | `big-total.html` |
-| Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 32 coloured, 0 grey | - | `brand-mark.css` | `brand-mark.html` |
-| Brand wordmark | `.wordmark` | one setting, and the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - | `brand-wordmark.css` | `brand-wordmark.html` |
-| Button | `.btn` | emphasis: fill / outline. `inverse` and `compact` both DELETED 2026-08-12, neither had a wearer | 85 | - | `button.css` | `button.html` |
+| Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
+|---|---|---|---|---|---|---|---|
+| Amount | `.amt` | size by container: 14 / 32 (`--type-body`, `--type-figure`). 13.5 and 30 folded at step 5 | 69 | - | `amount.css` | `amount.html`  | does not adapt |
+| Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - | `big-total.css` | `big-total.html`  | does not adapt |
+| Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 32 coloured, 0 grey | - | `brand-mark.css` | `brand-mark.html`  | does not adapt |
+| Brand wordmark | `.wordmark` | one setting, and the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - | `brand-wordmark.css` | `brand-wordmark.html`  | does not adapt |
+| Button | `.btn` | emphasis: fill / outline. `inverse` and `compact` both DELETED 2026-08-12, neither had a wearer | 85 | - | `button.css` | `button.html`  | does not adapt |
 
 **Built.** `design/system/components/button.css` + `design/kit/button.html`. The etalon of step 5,
 and the first component through the five-thing gate: css, page, registry row, inventory line,
 `@import` in its own level group.
-| Chart placeholder | `.chart` | - | 4 | - | `chart-placeholder.css` | `chart-placeholder.html` |
-| Checkbox | `.check` | - | 2 | `.switch input` | `checkbox.css` | `checkbox.html` |
-| Chip | `.chip` | tone: quiet / trial / pro. `cancelled` has no wearer; `trial`'s only wearer is the grey landing, so `--bg-trial` has never rendered | 36 | `.tag`, `.badge`, `.best`, `.plan` | `chip.css` | `chip.html` |
-| Destination icon | `.ic-*` | one per destination | 112 | - | `destination-icon.css` | `destination-icon.html` |
-| Eyebrow | `.k` | - | 4 | `.num` | `eyebrow.css` | `eyebrow.html` |
-| Label | `.lbl` | weight: quiet 12 / strong 16 (`--type-meta`, `--type-sub`). 15 was never the value | 3 | - | `label.css` | `label.html` |
-| Logo | `.logo` | size by container: 20 / 22 / 30 / 32 / 36 / 52 | 111 | - | `logo.css` | `logo.html` |
-| Meta row | `.metarow` | rule: plain / ruled | 5 | `.axis`, `.strip` | `meta-row.css` | `meta-row.html` |
-| Muted line | `.muted` | size: 12 / 12.5 / 13. rule: plain / ruled | 48 | `.consequence`, `.context`, `.tone`, `.legal`, `.freshness`, `.removal`, `.pitch`, `p.notice`, `.p` | `muted-line.css` | `muted-line.html` |
-| Quiet line | `.quiet` | - | 12 | - | `quiet-line.css` | `quiet-line.html` |
-| Readout | `.readout` | - | 2 | - | `readout.css` | `readout.html` |
-| Select | `.select` | - | 4 | `.field select` | `select.css` | `select.html` |
-| Skeleton bar | `.skel` | width set, and one height for the total | 89 | - | `skeleton-bar.css` | `skeleton-bar.html` |
-| Step-forward link | `.next` | - | 2 | - | `step-forward-link.css` | `step-forward-link.html` |
-| Text input | `.input` | type: text / email / search | 8 | `.field input` | `text-input.css` | `text-input.html` |
+| Chart placeholder | `.chart` | - | 4 | - | `chart-placeholder.css` | `chart-placeholder.html`  | point |
+| Checkbox | `.check` | - | 2 | `.switch input` | `checkbox.css` | `checkbox.html`  | does not adapt |
+| Chip | `.chip` | tone: quiet / trial / pro. `cancelled` has no wearer; `trial`'s only wearer is the grey landing, so `--bg-trial` has never rendered | 36 | `.tag`, `.badge`, `.best`, `.plan` | `chip.css` | `chip.html`  | does not adapt |
+| Destination icon | `.ic-*` | one per destination | 112 | - | `destination-icon.css` | `destination-icon.html`  | does not adapt |
+| Eyebrow | `.k` | - | 4 | `.num` | `eyebrow.css` | `eyebrow.html`  | does not adapt |
+| Label | `.lbl` | weight: quiet 12 / strong 16 (`--type-meta`, `--type-sub`). 15 was never the value | 3 | - | `label.css` | `label.html`  | does not adapt |
+| Logo | `.logo` | size by container: 20 / 22 / 30 / 32 / 36 / 52 | 111 | - | `logo.css` | `logo.html`  | does not adapt |
+| Meta row | `.metarow` | rule: plain / ruled | 5 | `.axis`, `.strip` | `meta-row.css` | `meta-row.html`  | fluid |
+| Muted line | `.muted` | size: 12 / 12.5 / 13. rule: plain / ruled | 48 | `.consequence`, `.context`, `.tone`, `.legal`, `.freshness`, `.removal`, `.pitch`, `p.notice`, `.p` | `muted-line.css` | `muted-line.html`  | a reading measure |
+| Quiet line | `.quiet` | - | 12 | - | `quiet-line.css` | `quiet-line.html`  | does not adapt |
+| Readout | `.readout` | - | 2 | - | `readout.css` | `readout.html`  | a reading measure |
+| Select | `.select` | - | 4 | `.field select` | `select.css` | `select.html`  | does not adapt |
+| Skeleton bar | `.skel` | width set, and one height for the total | 89 | - | `skeleton-bar.css` | `skeleton-bar.html`  | does not adapt |
+| Step-forward link | `.next` | - | 2 | - | `step-forward-link.css` | `step-forward-link.html`  | does not adapt |
+| Text input | `.input` | type: text / email / search | 8 | `.field input` | `text-input.css` | `text-input.html`  | does not adapt |
 
 **The two brand atoms break this document's own counting rule, and the break is the finding.**
 Every other row above was read out of the grey corpus and enters the kit on two or more
@@ -126,50 +126,50 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 
 ## Molecules (23)
 
-| Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page |
-|---|---|---|---|---|---|---|
-| Action row | `.actions` | - | 42 | `.secondary` | `action-row.css` | `action-row.html` |
-| Alert item | `.alert` | content: with prices / with unread dot | 2 | - | `alert-item.css` | `alert-item.html` |
-| Charge list | `.charges` | state: marked | 5 | - | `charge-list.css` | `charge-list.html` |
-| Detail hero | `.hero` | - | 6 | - | `detail-hero.css` | `detail-hero.html` |
-| Door | `.door` | content: with a pick line / without | 4 | - | `door.css` | `door.html` |
-| Form field | `.field` | host: div / form (the search) | 8 | - | `form-field.css` | `form-field.html` |
-| Group head | `.group-head` | rule: banded / plain | 16 | - | `group-head.css` | `group-head.html` |
-| Merchant chip group | `.rgroup` | - | 1 | - | `merchant-chip-group.css` | `merchant-chip-group.html` |
-| Nav row | `.navrow` | - | 2 | - | `nav-row.css` | `nav-row.html` |
-| Numbered steps | `.steps` | - | 3 | - | `numbered-steps.css` | `numbered-steps.html` |
-| Pair list | `.pairs` | markup: dt/dd / span. content: values / sentences | 19 | `.facts`, `.unlocks` | `pair-list.css` | `pair-list.html` |
-| Plan option | `.plan-opt` | host: app / landing | 2 | - | `plan-option.css` | `plan-option.html` |
-| Preset tile | `.tile` | state: pressed | 2 | - | `preset-tile.css` | `preset-tile.html` |
-| Promise list | `.promises` | - | 3 | - | `promise-list.css` | `promise-list.html` |
-| Range picker | `.range` | availability x selection: rest / pressed / disabled / disabled+pressed | 3 | - | `range-picker.css` | `range-picker.html` |
-| Save-focus candidate | `.cand` | - | 1 | - | `save-focus-candidate.css` | `save-focus-candidate.html` |
-| Share card | `.sharecard` | - | 2 | - | `share-card.css` | `share-card.html` |
-| Subscription row | `.row` | state: skeleton. host: list / candidate | 8 | - | `subscription-row.css` | `subscription-row.html` |
-| Summary | `.summary` | content: with a total / without | 5 | - | `summary.css` | `summary.html` |
-| Switch row | `.switch` | - | 2 | - | `switch-row.css` | `switch-row.html` |
-| Text block | `.textblock` | scope: page 24 / block 21 / inset 17 | 44 | `.lede`, `.state` | `text-block.css` | `text-block.html` |
-| Trust block | `.trust` | - | 11 | - | `trust-block.css` | `trust-block.html` |
-| Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without | 13 | `.attention`, `.notice`, `.decoder` | `wash-block.css` | `wash-block.html` |
+| Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
+|---|---|---|---|---|---|---|---|
+| Action row | `.actions` | - | 42 | `.secondary` | `action-row.css` | `action-row.html`  | fluid |
+| Alert item | `.alert` | content: with prices / with unread dot | 2 | - | `alert-item.css` | `alert-item.html`  | fluid |
+| Charge list | `.charges` | state: marked | 5 | - | `charge-list.css` | `charge-list.html`  | does not adapt |
+| Detail hero | `.hero` | - | 6 | - | `detail-hero.css` | `detail-hero.html`  | does not adapt |
+| Door | `.door` | content: with a pick line / without | 4 | - | `door.css` | `door.html`  | does not adapt |
+| Form field | `.field` | host: div / form (the search) | 8 | - | `form-field.css` | `form-field.html`  | does not adapt |
+| Group head | `.group-head` | rule: banded / plain | 16 | - | `group-head.css` | `group-head.html`  | does not adapt |
+| Merchant chip group | `.rgroup` | - | 1 | - | `merchant-chip-group.css` | `merchant-chip-group.html`  | fluid |
+| Nav row | `.navrow` | - | 2 | - | `nav-row.css` | `nav-row.html`  | does not adapt |
+| Numbered steps | `.steps` | - | 3 | - | `numbered-steps.css` | `numbered-steps.html`  | does not adapt |
+| Pair list | `.pairs` | markup: dt/dd / span. content: values / sentences | 19 | `.facts`, `.unlocks` | `pair-list.css` | `pair-list.html`  | does not adapt |
+| Plan option | `.plan-opt` | host: app / landing | 2 | - | `plan-option.css` | `plan-option.html`  | does not adapt |
+| Preset tile | `.tile` | state: pressed | 2 | - | `preset-tile.css` | `preset-tile.html`  | does not adapt |
+| Promise list | `.promises` | - | 3 | - | `promise-list.css` | `promise-list.html`  | a reading measure |
+| Range picker | `.range` | availability x selection: rest / pressed / disabled / disabled+pressed | 3 | - | `range-picker.css` | `range-picker.html`  | does not adapt |
+| Save-focus candidate | `.cand` | - | 1 | - | `save-focus-candidate.css` | `save-focus-candidate.html`  | container threshold, 28.75rem, + fluid |
+| Share card | `.sharecard` | - | 2 | - | `share-card.css` | `share-card.html`  | does not adapt |
+| Subscription row | `.row` | state: skeleton. host: list / candidate | 8 | - | `subscription-row.css` | `subscription-row.html`  | container threshold, 28.75rem, + fluid |
+| Summary | `.summary` | content: with a total / without | 5 | - | `summary.css` | `summary.html`  | does not adapt |
+| Switch row | `.switch` | - | 2 | - | `switch-row.css` | `switch-row.html`  | does not adapt |
+| Text block | `.textblock` | scope: page 24 / block 21 / inset 17 | 44 | `.lede`, `.state` | `text-block.css` | `text-block.html`  | a reading measure |
+| Trust block | `.trust` | - | 11 | - | `trust-block.css` | `trust-block.html`  | does not adapt |
+| Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without | 13 | `.attention`, `.notice`, `.decoder` | `wash-block.css` | `wash-block.html`  | a reading measure |
 
 ## Organisms (14)
 
-| Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page |
-|---|---|---|---|---|---|---|
-| App bar | `.appbar` | form: row / column rail at container 760 | 54 | - | `app-bar.css` | `app-bar.html` |
-| App shell | `.app` | form: steady / flow / detail | 54 | - | `app-shell.css` | `app-shell.html` |
-| Card | `.card` | - | 3 | `.locked`, `.source` | `card.css` | `card.html` |
-| Category group | `.group` | - | 12 | - | `category-group.css` | `category-group.html` |
-| Dashboard head | `.head` | exists only at container 900 | 5 | - | `dashboard-head.css` | `dashboard-head.html` |
-| Dialog sheet | `.sheet` | full width, then a card at container 760 | 3 | - | `dialog-sheet.css` | `dialog-sheet.html` |
-| Divided list | `.divlist` | inset: bare / inside a panel | 4 | `.alerts`, `.navrows` | `divided-list.css` | `divided-list.html` |
-| Empty block | `.empty` | - | 2 | - | `empty-block.css` | `empty-block.html` |
-| Grid | `.grid` | columns: 1 to 2 / 2 to 3. gap by child size | 8 | `.doors`, `.tiles`, `.plans` | `grid.css` | `grid.html` |
-| Groups column set | `.groups` | columns: 2 at 900, 3 at 1340 | 4 | - | `groups-column-set.css` | `groups-column-set.html` |
-| Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html` |
-| Reveal step | `.rstep` | - | 1 | - | `reveal-step.css` | `reveal-step.html` |
-| Save-focus list | `.candidates` | - | 1 | - | `save-focus-list.css` | `save-focus-list.html` |
-| Tab bar | `.tabbar` | form: bottom bar / left rail at container 760 | 28 | - | `tab-bar.css` | `tab-bar.html` |
+| Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
+|---|---|---|---|---|---|---|---|
+| App bar | `.appbar` | form: row / column rail at container 760 | 54 | - | `app-bar.css` | `app-bar.html`  | point |
+| App shell | `.app` | form: steady / flow / detail | 54 | - | `app-shell.css` | `app-shell.html`  | point + fluid |
+| Card | `.card` | - | 3 | `.locked`, `.source` | `card.css` | `card.html`  | a reading measure, 560px, and no query since stage 10 |
+| Category group | `.group` | - | 12 | - | `category-group.css` | `category-group.html`  | point |
+| Dashboard head | `.head` | exists only at container 900 | 5 | - | `dashboard-head.css` | `dashboard-head.html`  | point + fluid |
+| Dialog sheet | `.sheet` | full width, then a card at container 760 | 3 | - | `dialog-sheet.css` | `dialog-sheet.html`  | point |
+| Divided list | `.divlist` | inset: bare / inside a panel | 4 | `.alerts`, `.navrows` | `divided-list.css` | `divided-list.html`  | does not adapt |
+| Empty block | `.empty` | - | 2 | - | `empty-block.css` | `empty-block.html`  | a reading measure |
+| Grid | `.grid` | columns: 1 to 2 / 2 to 3. gap by child size | 8 | `.doors`, `.tiles`, `.plans` | `grid.css` | `grid.html`  | point + fluid |
+| Groups column set | `.groups` | columns: from a 300px floor, capped at three | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
+| Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | does not adapt |
+| Reveal step | `.rstep` | - | 1 | - | `reveal-step.css` | `reveal-step.html`  | does not adapt |
+| Save-focus list | `.candidates` | - | 1 | - | `save-focus-list.css` | `save-focus-list.html`  | does not adapt |
+| Tab bar | `.tabbar` | form: bottom bar / left rail at container 760 | 28 | - | `tab-bar.css` | `tab-bar.html`  | point |
 
 ## Patterns (3), added at stage 09
 
@@ -184,11 +184,11 @@ A pattern declares **no colour, no type and no visual decision**. Where a compos
 the system did not have, the answer would be a component first, by the five things in
 `architecture.md`, and the pattern after it. None of the three needed one.
 
-| Pattern | Class | What it is assembled from | Screens | Grey pages | In colour | CSS file | Page |
-|---|---|---|---|---|---|---|---|
-| Interruption | `.interruption` | text block (`.textblock.status`) + action row, closed by a quiet or muted line; a grid of doors is the exit on one screen | **12** | 16 | 7 | `patterns/interruption.css` | `interruption.html` |
-| Action foot | `.act-foot` | action row + quiet line (an exit) or muted line (a consequence) | **8** | 17 | 6 | `patterns/act-foot.css` | `act-foot.html` |
-| List column | `.rows-col` | text block (the intro, first) + category group, divided list, card, switch row, as each screen needs | **4** | 9 (10 wear `.rows-col`) | 5 (6) | `patterns/list-column.css` | `list-column.html` |
+| Pattern | Class | What it is assembled from | Screens | Grey pages | In colour | CSS file | Page | Behaviour at width |
+|---|---|---|---|---|---|---|---|---|
+| Interruption | `.interruption` | text block (`.textblock.status`) + action row, closed by a quiet or muted line; a grid of doors is the exit on one screen | **12** | 16 | 7 | `patterns/interruption.css` | `interruption.html` | does not adapt |
+| Action foot | `.act-foot` | action row + quiet line (an exit) or muted line (a consequence) | **8** | 17 | 6 | `patterns/act-foot.css` | `act-foot.html` | does not adapt |
+| List column | `.rows-col` | text block (the intro, first) + category group, divided list, card, switch row, as each screen needs | **4** | 9 (10 wear `.rows-col`) | 5 (6) | `patterns/list-column.css` | `list-column.html` | point: the column takes --container-column past the tablet point |
 
 **The interruption gained a fourth host on 2026-08-13, and it cost no CSS.** The three it was
 written from (the screen, a detail column, the dialog sheet) all held the announcement as a direct

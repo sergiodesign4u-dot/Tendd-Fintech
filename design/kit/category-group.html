@@ -76,7 +76,11 @@
             <span class="amt">$7.99</span>
           </a></li>
         </ul>
-      </section>
+      
+    <h3 class="kit-sub-h">Behaviour at width</h3>
+    <p class="note"><b>From <code>--bp-desktop</code>, 56.25rem: <code>break-inside: avoid</code>.</b> One declaration, and outside a multicolumn container it does nothing at all, which is why it is written here rather than on the column set: the subject of the rule is the group, and the subject owns it.</p>
+    <p class="note">What it prevents is a rendering fault on the screen whose job is calm: without it a category's four subscriptions split across the fold and the group heading is left alone at the bottom of column one. See <a href="responsive.html#points">Width</a>.</p>
+  </section>
     </div>
     <ul class="kit-callouts">
       <li><code>.group</code> <span>the organism itself, and it is a <code>section</code> on all 32 occurrences. Its only declaration of its own is <code>margin: 0 0 24px</code>: no fill, no edge, no radius and no padding</span></li>
@@ -104,7 +108,7 @@
       </table>
     </div>
     <p class="note"><b>The overlap in the middle row is deliberate and it is recorded.</b> <code>docs/inventory.md</code> settled it at step 2 in one line: there were three identical <code>li + li</code> divider rules in <code>kit.css</code>, two of them merged into <code>.divlist</code>, and "the third belongs to <code>.group</code> and stays a usage". It stays because the bare list on Home has nothing else to draw it, and it is harmless where the two meet because both read <code>--line-divider</code> at 1px.</p>
-    <p class="note"><b>One responsive rule, and it is not a variant.</b> Past a 900px container the group takes <code>break-inside: avoid</code>, because the <a href="groups-column-set.html">Groups column set</a> around it runs two columns there and three past 1340. The column count belongs to that wrapper; what belongs here is the group's own refusal to be cut in half. <code>kit.css</code> also re-declared the margin in that block at 26px, and that half is <b>deleted</b>: 26 lands on <code>--space-24</code> under the founder's grid, which is what the base rule already sets, so the override became byte-identical to the rule it was overriding. Measured either side of the step: 24px at an 892px container and 24px at 908px. It goes for the same reason <code>.btn.compact</code> went, which is that a declaration changing nothing costs the next reader a minute.</p>
+    <p class="note"><b>One responsive rule, and it is not a variant.</b> Past a 900px container the group takes <code>break-inside: avoid</code>, because the <a href="groups-column-set.html">Groups column set</a> around it runs in columns from there, as many 300px columns as its container holds and never more than three. The column count belongs to that wrapper; what belongs here is the group's own refusal to be cut in half. <code>kit.css</code> also re-declared the margin in that block at 26px, and that half is <b>deleted</b>: 26 lands on <code>--space-24</code> under the founder's grid, which is what the base rule already sets, so the override became byte-identical to the rule it was overriding. Measured either side of the step: 24px at an 892px container and 24px at 908px. It goes for the same reason <code>.btn.compact</code> went, which is that a declaration changing nothing costs the next reader a minute.</p>
   </section>
 
   <section class="kit-sec" id="usage">

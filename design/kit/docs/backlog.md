@@ -283,6 +283,26 @@ holds **378** double hyphens and **zero** em dashes.
 
 ---
 
+## Found at stage 10 step 3, deciding the form of the shell
+
+One row. It is here rather than fixed in place because the fix is markup on pages that do not all
+exist yet, and doing it now would mean doing it twice.
+
+| What is missing | What it was needed for | Which level closes it | Priority |
+|---|---|---|---|
+| **In the rail form the focus order and the visual order disagree, and CSS cannot repair it.** Measured on `design/home.html` at 1440 across 23 focusable controls: the rail's head takes focus **first**, the eighteen controls of the content pane come next, and the four destinations, which sit visually in the same left column as that head, come **last**. The rail looks like one object and is tabbed as two, with the whole screen in between | The shell decision of stage 10. The stage owed a check that exactly one top-level carrier is alive at any width, and that check passed at 28 widths from 320 to 1600; this is the second finding of the same pass. It is **not** a hidden carrier and **not** a duplicate: everything reachable is visible and each control appears once, and content before navigation is a defensible order in its own right | **markup, and this is why it waits.** The shell reorders its blocks with `order` and `grid-column`, and neither moves the tab sequence: `order` is the property whose whole reputation is that it does not. Making the rail's two halves adjacent means moving `.tabbar` before `.screen`, which on a phone would put four destinations in front of the content for everyone who tabs. So the DOM order has to differ by width, and that is a decision about **53 pages** rather than the 33 that exist today | **Medium, and it is stage 12's.** Twenty screens get their markup there for the first time. Written up with the measurement on `responsive.html`, section The shell |
+
+## Found at stage 10 step 6, by the width sweep and the read-only critic
+
+Two rows. Both are questions about a value somebody named on purpose, which is why neither was
+answered inside a verification step: this stage fixes what it can prove is broken and does not
+re-derive a decision on its way past.
+
+| What is missing | What it was needed for | Which level closes it | Priority |
+|---|---|---|---|
+| **The shell's blanket `.app > .screen > * { max-width: none }` has now unbound six measures, one at a time, each found by accident.** The form column (588 instead of 560), the Pro gate (748 instead of 560), the plan row (728 instead of 720), the readout (980 instead of 525), the groups cap, and at stage 10 the standalone muted line. Every one was repaired the same way, by re-binding through `> .screen >` at 0-3-0, and every one was invisible until somebody measured that exact element | The blanket exists for a real reason: past the desktop point a screen's blocks are allowed to use the pane instead of reading down a column. What it cannot tell apart is a layout block, which should widen, from a line of prose, which should not | **the shell's file, and it is a rewrite rather than a patch.** The blanket would become a named list of what may widen (the head, the groups, the columns, the trust line) instead of `*`, which reverses the default: anything not named keeps its own measure. That changes every screen at once, so it needs its own before and after on all 32 pages, and it needs the 20 screens of stage 12 to exist first, or the list is written against a third of the product | **Medium, and it is stage 11 or 12's.** Five was a pattern. Six is a generator, and the seventh will be found the same way unless the default changes |
+| **The prose card reads 60.7 characters to a line, and the system's reading measure is 52ch.** `.card.prose` holds 560px, which is a named decision with its own note in `card.css`; inside the card's padding the paragraph lands at 526px, eight characters past `--container-text`. Both numbers are deliberate and they disagree | Stage 10 gave every other prose block in the product one measure, `--container-text`. This is the single place where a second, older measure still wins | **a founder's decision about a named value, not a code change.** Either 560 becomes the card's own container measure with the paragraph reading 52ch inside it, or 560 stands and the card is the declared exception. The rule this project runs on is that a value changes by a named decision, so a verification step is not allowed to pick | **Low.** It is one component on one page today, and it reads well. It becomes a real question at stage 12, when the prose card lands on more screens |
+
 ## What is deliberately NOT in this file
 
 Anything already fixed **and closed by a named instrument**, anything recorded in

@@ -21,6 +21,12 @@ window.KIT_NAV = {
     { name: 'Colour',       file: 'color.html',        page: 'color.html',        note: 'primitive palette, semantic roles, contrast pairs, both themes' },
     { name: 'Typography',   file: 'typography.html',   page: 'typography.html',   note: 'the stack, the size scale, weights, line heights' },
     { name: 'Geometry',     file: 'geometry.html',     page: 'geometry.html',     note: 'spacing, radii, control sizes, the one elevation' },
+    /* WIDTH STANDS AFTER GEOMETRY AND NOT AT THE END OF THE GROUP: width is
+       geometry, and the two points, the containers and the grid floor read
+       beside the radii and the spacing rather than in a room of their own. It is
+       also the roadmap page of stage 10, so it carries the project sidebar as
+       well as this panel, the same double duty why.html has. */
+    { name: 'Width',        file: 'responsive.html',   page: 'responsive.html',   note: 'two points, the containers, the reading measure, the grid floor' },
     { name: 'Icons',        file: 'icons.html',        page: 'icons.html',        note: 'four destination masks, fourteen merchant marks, two drawn marks' }
   ],
 
@@ -89,7 +95,7 @@ window.KIT_NAV = {
     { name: 'Divided list',      cls: '.divlist',      page: 'divided-list.html', was: '.alerts, .navrows',            axes: 'inset: bare / inside a panel',          wf: 4 },
     { name: 'Empty block',       cls: '.empty',        page: 'empty-block.html', was: null,                          axes: '-',                                     wf: 2 },
     { name: 'Grid',              cls: '.grid',         page: 'grid.html', was: '.doors, .tiles, .plans',       axes: 'columns: 1 to 2 / 2 to 3 / 1 to 3. gap by child size', wf: 8 },
-    { name: 'Groups column set', cls: '.groups',       page: 'groups-column-set.html', was: null,                          axes: 'columns: 2 at 900, 3 at 1340',          wf: 4 },
+    { name: 'Groups column set', cls: '.groups',       page: 'groups-column-set.html', was: null,                          axes: 'columns: from a 300px floor, capped at three',          wf: 4 },
     { name: 'Panel',             cls: '.panel',        page: 'panel.html', was: null,                          axes: 'head: banded h2 / summary disclosure / headless',  wf: 7 },
     { name: 'Reveal step',       cls: '.rstep',        page: 'reveal-step.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'Save-focus list',   cls: '.candidates',   page: 'save-focus-list.html', was: null,                          axes: '-',                                     wf: 1 },

@@ -284,6 +284,39 @@ property of the level and not an event, and the way to notice a missing one is t
 theme, which is to say never. The change itself is a named decision, "variable, value, why", and
 the origin travels with the value in a comment beside it.
 
+### A new RULE ABOUT WIDTH, added at stage 10
+
+Four addresses, and a screen file is not one of them.
+
+1. **A shared value** into `tokens.css`, in the width block at primitive level: a point, a
+   container, a grid floor. These have **no dark pair**, and the absence is a decision rather
+   than an omission: a pair belongs to the semantic level, which is to say to colour, and
+   geometry does not change direction in the dark.
+2. **A cheek of a component's own behaviour** into that component's file, through
+   **`@container`** with a local threshold. The component asks the width of **its place**, never
+   of the screen: a card does not know whether it stands in a one-column list or in a grid of
+   three, and on a desktop there are narrow places too. The threshold is local and does **not**
+   become a token, but it is listed in the container-threshold register of `docs/responsive.md`,
+   which is the only thing that keeps it distinguishable from a point invented for somebody's
+   device. `container-type: inline-size` is declared by whoever **places** the component, a
+   pattern or the page frame in `base.css`, never by the component itself: a place is not a
+   property of a brick.
+3. **A whole composition's behaviour** into the pattern's file, one query, which then reaches
+   every screen the pattern stands on, including the ones that do not exist yet.
+4. **The shell's behaviour** into `app-shell.css`, `app-bar.css` or `tab-bar.css`, through
+   **`@media`**. This is the one legal media query in a component, and it is legal because the
+   shell really does measure the viewport: it *is* the viewport.
+
+**In a screen file: forbidden, always.** No `@media`, no `@container`, no inline width rule. The
+cost of breaking this is not paid here, it is paid at stage 12, where twenty screens are built
+in a fan-out: twenty agents without the rule grow twenty media queries, and the product's
+adaptation is back where the inline CSS of stage 04 was. Caught by grep, not by eye.
+
+**A new POINT is the founder's call**, named out loud, with the audit row that needs it and a
+sentence on why fluid could not do the job. Two points are enough for this product; a third is
+not added as a side effect of anything. And the ladder is read top down before any of this:
+fluid, then a container, then a point. "It is easier to write" is not a reason.
+
 ### A new thing on a SCREEN and nowhere else
 
 **Forbidden.** A screen carries no style of its own: no page-level style block, no style

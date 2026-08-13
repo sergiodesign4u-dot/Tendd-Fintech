@@ -196,9 +196,39 @@
    standalone link below it is a sibling and not part of the running text. The
    paragraph carries no margin of its own: the block around it already has the
    gap. 52ch is the measure described above, and this is the one declaration of
-   it. */
+   it.
+
+   THE BARE `.muted` JOINED THIS LIST AT STAGE 10, AND IT IS A DEFECT FOUND BY
+   THE WIDTH SWEEP RATHER THAN A NEW IDEA. Until here the measure reached the
+   paragraph inside a muted block and the ruled modifier, and a plain muted line
+   had no measure at all. Measured on the coloured screens: on History and Trends
+   the line under the chart ran **1300px at a 1600 window, 150 characters to a
+   line**, and it read the full pane on all four states of that screen. Settings
+   ran 620px, Home empty 536px, Add Subscription and Upgrade payment failed 588px.
+   Nothing in the product asked for those widths: they are simply what a block
+   element does when nobody stops it.
+
+   ZERO PIXELS MOVE AT 360, and that is arithmetic rather than a hope: 52ch is
+   about 459px at the default size, and no box on a 360 screen is that wide.
+
+   MOST OF THE 38 MUTED BOXES THAT NARROW HERE DO NOT MOVE A PIXEL OF INK either,
+   because a muted line is usually one short caption in a wide box: the box loses
+   its empty right end and the words stay where they were. The ink moves on the
+   six prose lines named above, which is the whole point of the change. */
+.app .muted,       .landing .muted,
 .app .muted p,     .landing .muted p,
-.app .muted.ruled, .landing .muted.ruled { max-width: 52ch; }
+.app .muted.ruled, .landing .muted.ruled { max-width: var(--container-text); }
+
+/* AND THE SAME MEASURE A SECOND TIME AT 0-3-0, WHICH IS NOT A DUPLICATE. Past
+   the desktop point the shell writes `.app > .screen > * { max-width: none }` at
+   0-2-0, and a muted line that stands as a direct child of the screen (History
+   and Trends, Upgrade payment failed, Add Subscription) ties with it at 0-2-0 and
+   loses on source order. `.app .screen > .muted` is three classes and wins. This
+   is the SIXTH element in this product to need the same binding: the form column,
+   the Pro gate, the plan row, the readout, the groups cap and now this one. The
+   pattern is filed in docs/backlog.md as a question about the blanket itself,
+   because six is no longer a coincidence. */
+.app .screen > .muted, .landing .screen > .muted { max-width: var(--container-text); }
 
 .app .muted p, .landing .muted p { margin: var(--space-0); }
 

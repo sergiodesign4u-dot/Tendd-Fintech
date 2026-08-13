@@ -7,6 +7,52 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-13 - Two width points, the shell keeps its rail, and no split view
+
+**What we did.** Named the responsiveness the product has had since stage 04 and moved it into the
+system. **Two points for the whole product, both in `rem`, both in `tokens.css`:** `--bp-tablet`
+47.5rem (760px), where the shell becomes a two-track grid with the tab bar as a 220px rail, and
+`--bp-desktop` 56.25rem (900px), where the page measure comes off and the content stops being a
+column. Three container tokens (`--container-page`, `--container-column`, `--container-text` at
+52ch) and two grid tokens (`--grid-gap`, `--grid-col-min`). **The column count is deliberately not
+a token:** it is computed from a floor, except in the two places where the count is content.
+
+**Why exactly this, and why `rem`.** A point goes where the CONTENT breaks, never where a device
+is: 768 and 1024 are last year's hardware and this year's guess, and the content is neither. `rem`
+because a point must react to the reader's font size as well as to the window: at a 24px root a
+"desktop" width holds a phone's worth of words in a line and the narrow form is the correct one
+there. And a query cannot read a variable, so the token is a REGISTER and the literal in the query
+is its application: from that limitation the stage made its main instrument, and every width
+literal in every query must now be one of three registered values.
+
+**The shell: form B, the rail, confirmed rather than re-decided.** Four top-level destinations, no
+permanently visible second level, no screen taking the side space for new behaviour. Form A (the
+items in the app bar) would have put four destinations into a bar that already carries the brand
+and the account, and the rail was already built and already accepted at stage 08. Exactly one
+carrier of top-level navigation at any width, verified at 50 widths and in the markup.
+
+**The third number was removed rather than blessed.** The groups column set switched from two
+columns to three at 1340, which was a third point nobody had decided. Measuring it settled it: at a
+900 container a group rendered 269px, 31px under the 300px floor that same file declares, and at
+1335 a column was 486px one pixel before snapping back to 310. The set now takes `columns: 300px`
+and counts its own columns, capped at three. **1340 is gone from the product.**
+
+**What we rejected.** **Split view**, which meets its mechanical threshold twice (Home to detail in
+flow C, Alerts to detail in flow D). Three recorded sources argue against it: barrier P4 in the
+as-is journey ("too many numbers and graphs"), principles 1 and 2, and D1, the gradual reveal that
+a permanently open second pane cancels. The job it would close is already closed by the detail
+screen's own two columns. Also rejected, each with its ground: a sortable table of the list (the
+audience line is "not budget optimizers or spreadsheet fans"), bulk cancel (width is not an
+argument for a new job), a permanent second panel (D1 again, and the left side is already spent),
+and a hover-revealed row action (a wide viewport is not proof of a pointer).
+
+**What it cost, and what it bought.** The width sweep, 32 pages by 50 widths, found five defects
+that no three-width screenshot could see, the worst being a line of prose running 1300px and 150
+characters at a 1600 window on all four states of History and Trends, and a 28px-wide band at
+900 where the detail screen scrolled sideways inside its own pane. Both halves of the pixel promise
+were kept: **zero difference at 360 on all 32 pages, box and ink**, and on the desktop every one of
+the 688 changed boxes belongs to a named row.
+
 ## 2026-08-13 - Three patterns, four candidates, and the threshold is three screens
 
 **What we did.** Lifted three settled compositions out of the components into

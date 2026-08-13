@@ -66,7 +66,12 @@
         <div class="actions">
           <a class="btn primary" href="#anatomy">See what Pro adds</a>
         </div>
-      </section>
+      
+    <h3 class="kit-sub-h">Behaviour at width</h3>
+    <p class="note"><b>A measure and no point at all, and the point came off at stage 10.</b> <code>.app &gt; .screen &gt; .card.prose</code> takes a 560px measure so that a card which is read rather than scanned stops widening with the pane. That rule used to sit inside <code>@container (min-width: 47.5rem)</code>, carried over from the grey, and the query was doing nothing: a <code>max-width</code> never widens anything, so below 560 the declaration is inert either way. What the query did buy was a band. The width sweep priced it: at a <b>750</b> screen, ten pixels under the old point, the card ran <b>684px</b> and its paragraph read at <b>78.9 characters to a line</b>, the worst measure in the product. The other forms of the card keep the width of their column at every width.</p>
+    <p class="note"><b>The selector is bound through <code>&gt; .screen &gt;</code> and that is load-bearing, not tidiness.</b> Written as <code>.app .card.prose</code> it would tie at 0-2-0 with the shell's blanket <code>max-width: none</code> past the desktop point, lose on source order, and stop applying with no symptom anybody would look for. This product has now found that unbinding <b>six times</b>: the form column, the Pro gate, the plan row, the readout, the groups cap and the standalone muted line. See <a href="responsive.html#newbehaviour">Width</a>.</p>
+    <p class="note"><b>Its paragraph reads 60.7 characters, and that is the one measure in the product still over 52ch.</b> 560px is a named decision with its own note in <code>card.css</code>, and 52ch is the system's reading measure; inside the padding they disagree by eight characters. A named value is not re-derived in a verification step, so the disagreement is written up in <code>docs/backlog.md</code> for the founder instead of being quietly resolved here.</p>
+  </section>
     </div>
 
     <h3 class="kit-sub-h">A source, <code>.card</code></h3>

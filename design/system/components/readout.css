@@ -26,18 +26,43 @@
    loudest text on the screen after the numbers inside it, and the muted line
    directly under it ("Streaming is up $6 since March") is the footnote.
 
-   46ch is a reading measure and not a layout width. The line is a paragraph a
-   person reads once, at 15px over a 1.45 leading, and past about 50 characters
-   the eye starts losing the start of the next line. It is narrower than the
-   52ch the removal block and the ruled footnote take, because those are read as
-   small print and this one is read as a sentence. */
+   THE MEASURE IS A READING MEASURE AND NOT A LAYOUT WIDTH. The line is a
+   paragraph a person reads once, at 15px over a 1.45 leading, and past about 50
+   characters the eye starts losing the start of the next line.
+
+   IT WAS 46ch AND IT IS NOW --container-text, 2026-08-13, STAGE 10. The product
+   carried four reading measures for one job, 46, 48, 50 and 52ch, and four
+   numbers for one decision is drift wearing the clothes of precision. The token
+   is 52, the mode of the four. The old note here argued that a readout should be
+   narrower than the removal block "because those are read as small print and
+   this one is read as a sentence"; the argument does not survive the measurement
+   below, which found that this component's measure was not being applied at all.
+
+   AND THAT IS THE REAL FINDING: THE MEASURE WAS DEAD ON A WIDE SCREEN, AND HAD
+   BEEN SINCE STAGE 08. Measured on design/history-trends.html at a 1280 window:
+   the readout computed `max-width: none` and rendered 980px wide, the full pane.
+   `.app .readout` is 0-2-0 and the shell's `.app > .screen > * { max-width: none }`
+   past the desktop point is 0-3-0, so the shell won and the sentence ran the
+   width of the monitor, which is the exact defect a reading measure exists to
+   prevent. This is the FOURTH time this product has found the same unbinding:
+   the form column ran at 588 instead of 560, the Pro gate at 748 instead of 560,
+   the plan row at 728 instead of 720, and now this. The first two were repaired
+   when they were found, the third at this stage, and this one is the fourth.
+
+   THE REPAIR IS THE ONE THE OTHER THREE TOOK: bind it through `> .screen >`, at
+   0-3-0, where it beats the blanket without needing source order. The base rule
+   keeps the measure for every other place a readout can stand, and the bound
+   rule covers the one place the shell was overruling it. The readout is a direct
+   child of `.screen` on both pages that carry it, checked before the selector
+   was written. */
 .app .readout, .landing .readout {
   margin: var(--space-0) var(--space-0) var(--space-16);
   font-size: var(--type-sub);
   line-height: 1.45;
-  max-width: 46ch;
+  max-width: var(--container-text);
   color: var(--text-primary);
 }
+.app > .screen > .readout { max-width: var(--container-text); }
 
 /* No states. A readout is a sentence: it holds no link on either of the two
    pages that carry it, in either folder, and nothing about it is pressed or
