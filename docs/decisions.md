@@ -88,6 +88,16 @@ guide from inside it (the roadmap would open on an account of the previous stage
 rationale itself moved here out of `CLAUDE.md` at the same time, where it was costing lines in a
 budgeted rules file to record something that had already been decided.
 
+**The last of it left `CLAUDE.md` at the closing ritual of stage 09**, when the row flipped to
+`done:true`. What remained there was a four-line footnote naming which two stages shared the row
+and which page it opens on: a STATUS, in the file whose own header says status lives in the README
+table and in `/_nav.js`. The rule it hung off ("a new page means one row plus `done:true`, never a
+hand written roadmap in a page") stands two sentences above it and did not move, and the third
+legal form it relied on, a satellite page declaring `NAV_ACTIVE`, is still stated in full. The
+four lines bought the rule that replaced them: a number counted off a corpus is live in the same
+way a published page is, and growing the corpus means recounting every claim about it in the same
+step. Stage 09 paid for that rule twice before writing it.
+
 ## 2026-08-13 - The role count was 31 on two documents and 34 in the file, and a count is taken from the file
 
 Found at stage 09 while writing the guide, closed the same day. `tokens.css` declares **34** paired

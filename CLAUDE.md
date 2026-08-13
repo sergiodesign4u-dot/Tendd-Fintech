@@ -96,10 +96,7 @@ roadmap in a page. `/_nav.css` owns the look; a page never describes `nav-*` its
 of a stage lists itself in the stage's own registry (`wireframes/_nav.js`, `design/_nav.js`,
 `design/kit/_nav.js`), each keeping its data and classes in its own namespace because hub pages
 load both; a roadmap that listed 57 components would stop being a roadmap. Stage pages carry the
-roadmap, the screens of a stage carry only their stage panel. One consequence, decided
-2026-08-11: **Tokens + Components and Design System are one row**, because both lead into
-`design/kit/`; it opens on `design/kit/why.html` (2026-08-13), the guide, and the stage-08
-account at `overview.html` names it through `NAV_ACTIVE`.
+roadmap, the screens of a stage carry only their stage panel.
 
 **`index.html` is the product home page, `overview.html` is the hub.** In any stage folder:
 opening the folder lands on the product screen (node 1.1, Welcome); the list of all
@@ -120,9 +117,12 @@ page (with a `NAV_SECTIONS` entry), or a satellite page that declares `NAV_ACTIV
 label of its nearest registry page. Critique and audit logs appear as a "was to became"
 summary in a closed state, not as a list of open defects.
 
-**Live md, unfrozen html.** Changing a md that already has a published page means rebuilding
-the affected section of that page in the same step. If the page cannot hold the new material,
-put a visible "updated after publishing" note on it and say so out loud.
+**Live md, unfrozen html, and a COUNT is live in the same way.** Changing a md that already has
+a published page means rebuilding the affected section of that page in the same step. If the page
+cannot hold the new material, put a visible "updated after publishing" note on it and say so out
+loud. A number counted off a corpus obeys the same rule: growing the corpus means recounting every
+claim about it in the same step, by script and never from memory, and a claim left un-recounted
+keeps the corpus it was measured on, NAMED ("on the 28 pages of stage 08").
 
 **One owner per string.** SEO copy (title, description, H1, body) belongs to the IA node in
 `ia/docs/pages/`. Interface strings (buttons, labels, states, toasts) belong to
