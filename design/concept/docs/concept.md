@@ -109,7 +109,7 @@ generated plate-first fork; the founder locked Petrol & Paper from the live HTML
 (2026-07-15). As a visual record of that locked language, one dense brand toolkit
 plate was generated for Petrol & Paper only (rendered at 4k with Google Nano
 Banana 2, stored at 2400px) and saved at
-`design/concept/assets/brand-plate-petrol-paper.png`. It documents the chosen brand as
+`design/concept/assets/brand-plate-petrol-paper.webp`. It documents the chosen brand as
 a single brand-guidelines board (identity, palette, type specimen, icon set,
 applications in product context, UI components); it is a record, not a fresh
 decision, so the authoritative token values stay in this file, in `concept.html`,

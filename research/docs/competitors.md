@@ -65,29 +65,29 @@ Sources: [revolut.com](https://www.revolut.com/), [monzo.com](https://monzo.com/
 
 | File | Product | Page | New in refresh? |
 |------|---------|------|----------------|
-| research/screens/rocketmoney-landing.png | Rocket Money | Landing | No |
-| research/screens/rocketmoney-pricing.png | Rocket Money | Pricing [? redirected to app login] | No |
-| research/screens/emma-landing.png | Emma | Landing | No |
-| research/screens/emma-pricing.png | Emma | Plans comparison | No |
-| research/screens/hiatus-landing.png | Hiatus | Landing | No |
-| research/screens/bobby-landing.png | Bobby | Landing | No |
-| research/screens/resubs-landing.png | ReSubs | Landing | Yes |
-| research/screens/pocketguard-landing.png | PocketGuard | Landing | Yes |
-| research/screens/pocketguard-pricing.png | PocketGuard | Pricing | Yes |
-| research/screens/simplifi-landing.png | Simplifi | Landing | Yes |
-| research/screens/ynab-landing.png | YNAB | Landing | No |
-| research/screens/ynab-pricing.png | YNAB | Pricing | No |
-| research/screens/monarch-landing.png | Monarch Money | Landing | No |
-| research/screens/monarch-pricing.png | Monarch Money | Pricing | No |
-| research/screens/copilot-landing.png | Copilot Money | Landing | No |
-| research/screens/revolut-landing.png | Revolut | Landing (UK) | No |
-| research/screens/revolut-us-landing.png | Revolut | Landing (US) | No |
-| research/screens/monzo-landing.png | Monzo | Landing | No |
-| research/screens/monzo-tone-of-voice.png | Monzo | Tone of voice (public) | No |
-| research/screens/applecard-landing.png | Apple Card | Landing | No |
-| research/screens/applecard-features.png | Apple Card | Features | No |
-| research/screens/n26-landing.png | N26 | Landing | Yes |
-| research/screens/nubank-landing.png | Nubank | International about page | Yes |
+| research/screens/rocketmoney-landing.webp | Rocket Money | Landing | No |
+| research/screens/rocketmoney-pricing.webp | Rocket Money | Pricing [? redirected to app login] | No |
+| research/screens/emma-landing.webp | Emma | Landing | No |
+| research/screens/emma-pricing.webp | Emma | Plans comparison | No |
+| research/screens/hiatus-landing.webp | Hiatus | Landing | No |
+| research/screens/bobby-landing.webp | Bobby | Landing | No |
+| research/screens/resubs-landing.webp | ReSubs | Landing | Yes |
+| research/screens/pocketguard-landing.webp | PocketGuard | Landing | Yes |
+| research/screens/pocketguard-pricing.webp | PocketGuard | Pricing | Yes |
+| research/screens/simplifi-landing.webp | Simplifi | Landing | Yes |
+| research/screens/ynab-landing.webp | YNAB | Landing | No |
+| research/screens/ynab-pricing.webp | YNAB | Pricing | No |
+| research/screens/monarch-landing.webp | Monarch Money | Landing | No |
+| research/screens/monarch-pricing.webp | Monarch Money | Pricing | No |
+| research/screens/copilot-landing.webp | Copilot Money | Landing | No |
+| research/screens/revolut-landing.webp | Revolut | Landing (UK) | No |
+| research/screens/revolut-us-landing.webp | Revolut | Landing (US) | No |
+| research/screens/monzo-landing.webp | Monzo | Landing | No |
+| research/screens/monzo-tone-of-voice.webp | Monzo | Tone of voice (public) | No |
+| research/screens/applecard-landing.webp | Apple Card | Landing | No |
+| research/screens/applecard-features.webp | Apple Card | Features | No |
+| research/screens/n26-landing.webp | N26 | Landing | Yes |
+| research/screens/nubank-landing.webp | Nubank | International about page | Yes |
 
 ---
 

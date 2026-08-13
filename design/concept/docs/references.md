@@ -18,7 +18,7 @@ The strategic dimension was already named at Etap 01: **trust and first-time cla
 
 - **Refero style:** `aa5196ac-072e-42ec-8248-1174ae843063` (https://refero.design, "Hot Coral Digital Craftsmanship")
 - **Live:** https://monzo.com, tone of voice at https://monzo.com/tone-of-voice
-- **Local:** research/screens/monzo-landing.png, research/screens/monzo-tone-of-voice.png
+- **Local:** research/screens/monzo-landing.webp, research/screens/monzo-tone-of-voice.webp
 - **Role:** base of the visual language (surface system, accent discipline, badge treatment, row voice).
 
 ### Techniques taken (concrete, with tokens)
@@ -41,7 +41,7 @@ The strategic dimension was already named at Etap 01: **trust and first-time cla
 ## Source 2 (ONE technique): Apple Card / Apple Wallet
 
 - **Where sourced:** benchmark.md Mechanism 3 (highest benchmark score, 34/40), https://www.apple.com/apple-card/, https://support.apple.com/en-us/102329
-- **Local:** research/screens/applecard-landing.png, research/screens/applecard-features.png
+- **Local:** research/screens/applecard-landing.webp, research/screens/applecard-features.webp
 - **Refero note:** the Apple Card / Wallet transaction interior sits behind a login and is not in Refero's public-page index. The technique is documented from the benchmark doc and Apple's own support page, and anchored to concrete layout patterns available in Refero (see "Screen anchors" below).
 
 ### Technique taken
@@ -55,7 +55,7 @@ The strategic dimension was already named at Etap 01: **trust and first-time cla
 
 - **Refero style:** `3b22504a-d380-4a65-8063-f74a0226eae7` ("Midnight ocean with glowing buoys")
 - **Live:** https://copilot.money
-- **Local:** research/screens/copilot-landing.png
+- **Local:** research/screens/copilot-landing.webp
 
 ### Technique taken
 

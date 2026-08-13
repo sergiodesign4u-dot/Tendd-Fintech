@@ -108,9 +108,9 @@ first, which is growth zone 1, the single biggest gap named in the category.
 ### Sources opened in this session
 
 **Domain (competitors, public pages, opened 2026-08-04):**
-- ReSubs, [resubs.app](https://resubs.app/) - closest positioning (privacy-first, no bank access at all). Screenshot: `research/screens/blocks-resubs-landing.png`
-- Rocket Money, [rocketmoney.com](https://www.rocketmoney.com/) - category leader, 10M members. Screenshot: `research/screens/blocks-rocketmoney-landing.png`
-- Bobby, [bobbyapp.co](https://bobbyapp.co/) - the minimal end of the category, one screen. Screenshot: `research/screens/blocks-bobby-landing.png`
+- ReSubs, [resubs.app](https://resubs.app/) - closest positioning (privacy-first, no bank access at all). Screenshot: `research/screens/blocks-resubs-landing.webp`
+- Rocket Money, [rocketmoney.com](https://www.rocketmoney.com/) - category leader, 10M members. Screenshot: `research/screens/blocks-rocketmoney-landing.webp`
+- Bobby, [bobbyapp.co](https://bobbyapp.co/) - the minimal end of the category, one screen. Screenshot: `research/screens/blocks-bobby-landing.webp`
 
 **Craft (Refero, outside the category):**
 - Visitors, [visitors.now/vs/google-analytics](https://refero.design/pages/e8da34d5-3d08-4fbd-a78d-8876e59074e2) - a privacy-first alternative selling itself against an incumbent
@@ -191,7 +191,7 @@ page:
 
 - **Plaid Link**, the component we actually embed (D5), documented publicly at
   [plaid.com/docs/link](https://plaid.com/docs/link/), demo index at
-  [plaid.com/demo](https://plaid.com/demo/). Screenshot: `research/screens/blocks-plaid-link-flow.png`.
+  [plaid.com/demo](https://plaid.com/demo/). Screenshot: `research/screens/blocks-plaid-link-flow.webp`.
   Its published flow is a hard constraint on node 1.3, not an inspiration: Link opens, the
   person picks their bank, is handed off to the bank's own OAuth, signs in there, chooses
   which accounts to share, and comes back linked. Credential entry, MFA, error handling and
@@ -491,7 +491,7 @@ publishes an open library of cancel guides, and one was opened live in this sess
 ### Sources
 
 **Domain, opened 2026-08-04:**
-- ReSubs, [how to cancel Spotify](https://resubs.app/resources/how-to-cancel-spotify), one of about thirty published guides ([the library](https://resubs.app/resources)). Screenshot: `research/screens/blocks-resubs-cancel-guide.png`
+- ReSubs, [how to cancel Spotify](https://resubs.app/resources/how-to-cancel-spotify), one of about thirty published guides ([the library](https://resubs.app/resources)). Screenshot: `research/screens/blocks-resubs-cancel-guide.webp`
 
 **Craft, outside the category:**
 - [Brilliant, "You earned 1 Streak Charge"](https://refero.design/pages/c0942ebc-8348-4cc6-b424-899d56faa82f) - a reward screen that stays quiet: one icon, one sentence, an explain link and a continue

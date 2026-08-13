@@ -53,7 +53,7 @@ Revolut's strength is speed-to-clarity. The landing page communicates a clear si
 
 Where Revolut falls short for our context: data and fee transparency is not prominent on the marketing site. The free vs. paid tier distinction and what data is collected require deliberate investigation. For the anxious user, this creates a low-grade suspicion that something is hidden. The UI is also dense with features - the value proposition is "do everything," which is the opposite of calm focus.
 
-**Screenshot:** research/screens/revolut-landing.png, research/screens/revolut-us-landing.png (public landing page)
+**Screenshot:** research/screens/revolut-landing.webp, research/screens/revolut-us-landing.webp (public landing page)
 
 ### Monzo (Score: 33/40)
 
@@ -63,7 +63,7 @@ Monzo's "positive friction" concept - where the app gently slows down spending b
 
 Where Monzo falls short for our context: it is a full bank account, not a subscription tracker. Trust is earned by regulatory compliance (FCA regulated) and by not having alternatives. Our product must earn it faster, with less authority, in a lower-stakes context.
 
-**Screenshot:** research/screens/monzo-landing.png, research/screens/monzo-tone-of-voice.png (public page)
+**Screenshot:** research/screens/monzo-landing.webp, research/screens/monzo-tone-of-voice.webp (public page)
 
 ### Apple Card / Apple Wallet (Score: 34/40)
 
@@ -75,7 +75,7 @@ The fee transparency is industry-leading: "No fees. Not even hidden ones." This 
 
 Where Apple Card falls short for our context: it is a credit card product (hardware and brand), not a web app. The trust it generates comes partly from Apple's pre-existing brand authority, which Tendd does not have.
 
-**Screenshot:** research/screens/applecard-landing.png, research/screens/applecard-features.png (public page)
+**Screenshot:** research/screens/applecard-landing.webp, research/screens/applecard-features.webp (public page)
 
 ### Copilot Money (Score: 26/40)
 
@@ -83,7 +83,7 @@ Copilot is the most design-forward budgeting app in the US market and is consist
 
 Where Copilot falls short for trust: it requires bank connection before showing any value (reviewed as a pain point when months of unrefined data arrive at once, which can be overwhelming). Source: [aicashcaptain.com/copilot-money-review-2025/](https://aicashcaptain.com/copilot-money-review-2025/). It is also iOS/Mac only (web added December 2025) which limits reach. The pricing ($13/month, no free tier) means users must commit before experiencing value.
 
-**Screenshot:** research/screens/copilot-landing.png (public page)
+**Screenshot:** research/screens/copilot-landing.webp (public page)
 
 ### YNAB (Score: 25/40)
 
@@ -91,7 +91,7 @@ YNAB scores highest on honest communication about what the product is and is not
 
 However, YNAB is the lowest-scoring benchmark on onboarding friction (C4) and pre-bank value (C8). The zero-based budgeting system requires significant user investment before delivering value. "Most people take 2-4 months to get it." Source: [nerdwallet.com - YNAB Review](https://www.nerdwallet.com/finance/learn/ynab-app-review). This makes YNAB a benchmark for honesty and long-term trust, but a cautionary example for first-session anxiety reduction.
 
-**Screenshot:** research/screens/ynab-landing.png, research/screens/ynab-pricing.png (public page)
+**Screenshot:** research/screens/ynab-landing.webp, research/screens/ynab-pricing.webp (public page)
 
 ---
 

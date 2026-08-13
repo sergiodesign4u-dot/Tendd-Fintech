@@ -7,6 +7,49 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-13 - The images go to WebP in two modes, and evidence is never compressed with loss
+
+**What it weighed.** 17.4 MB of raster images in 52 tracked files, against 36 MB for the whole
+working tree. Concentrated rather than spread: `research/screens` held 11.1 MB in 30 competitor
+screenshots and one brand plate held 3.1 MB on its own. **One page carried 9.0 MB**,
+`research/research.html` with 25 images and not one of them lazy, so a browser fetched all of them
+before the reader had scrolled anywhere.
+
+**Two modes, and the split is not a preference.** `wireframes/screens` and `design/screens` are the
+was-and-became pairs: they exist to PROVE pixels, so compressing them with loss would damage the
+thing they are evidence of. Those go to **lossless** WebP, where the bits of the image are the same
+and only the container is smaller. Everything else is context rather than evidence, so competitor
+screenshots, the brand plate and the logo generations go to **lossy at q82**. No file is written if
+the WebP is not smaller than the PNG, which is a real case: the brand plate is 118% of its original
+as lossless and 4% as lossy.
+
+| Folder | Files | Before | After | Mode |
+|---|---|---|---|---|
+| `research/screens` | 30 | 11.1 MB | 2.2 MB | lossy |
+| `design/concept/assets` | 7 | 4.4 MB | 0.5 MB | lossy |
+| `wireframes/screens` | 6 | 1.0 MB | 0.3 MB | lossless |
+| `design/screens` | 9 | 0.9 MB | 0.4 MB | lossless |
+| **total** | **52** | **17.4 MB** | **3.4 MB** | **minus 80%** |
+
+**And the page weight, which is what a reader actually pays.** Every screenshot below the first one
+on a page now carries `loading="lazy"` and its intrinsic `width`/`height`, so nothing jumps as it
+arrives. `research/research.html` went from **9.0 MB at first paint to 0.05 MB**, with 1.2 MB
+arriving as the reader scrolls. The other three gallery pages went from about 0.9 MB each to 0.3 to
+0.4 MB, and around 0.05 MB at first paint.
+
+**One defect found on the way, and it had been live for months.** `apple-touch-icon.png` is named
+by **143 pages** and answered **404** on the live site, because `.gitignore` carries a blanket
+`*.png` for local verification screenshots and that blanket cannot tell a screenshot from an asset.
+The file existed locally and had never been committed. It is whitelisted BY NAME now, and the
+comment in `.gitignore` says why: an asset is named, a folder is not enough.
+
+**What this does not fix, said out loud.** `.git` is 40 MB and keeps every original blob in its
+history; deleting the PNGs today does not shrink it, and rewriting history to recover that is not
+worth the cost of every clone and every link to a commit changing. A clone still pays 40 MB once. A
+reader of the site pays 80% less than yesterday, every visit.
+
+---
+
 ## 2026-08-13 - The system's own pages move inside the system, and the roadmap comes with them
 
 **What the founder said, in two rounds.** First: "I want this to be part of that, and not to have
@@ -1203,7 +1246,7 @@ that must stay reachable.
 The Concept pack gained two outputs after this project's Concept phase had closed: a root
 `DESIGN-artifacts.md` (the draft design doc entered from the approved brand) and dense brand
 toolkit plates. Both were added afterwards. Only ONE plate was generated
-(`design/concept/assets/brand-plate-petrol-paper.png`, Google Nano Banana 2, 4k, stored at
+(`design/concept/assets/brand-plate-petrol-paper.webp`, Google Nano Banana 2, 4k, stored at
 2400px) instead of the three the pack asks for, because the brand had already been chosen
 from the live html directions: the plate documents the choice rather than making it.
 Generating three divergent plates after the fact would have been theatre.

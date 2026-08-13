@@ -31,7 +31,7 @@ Founder-locked (D-Concept, 2026-07-15). One of three directions built live in
 `design/concept/directions.html`; the two others (Ink & Marigold, Plum & Fog) stay on
 record in `design/concept/docs/concept.md` and are not deleted.
 
-**Recorded as a brand toolkit plate:** `design/concept/assets/brand-plate-petrol-paper.png`
+**Recorded as a brand toolkit plate:** `design/concept/assets/brand-plate-petrol-paper.webp`
 (rendered at 4k with Google Nano Banana 2, stored downscaled to 2400px to keep the
 repo light). The plate is a visual record of the
 already-locked language, not a divergence exercise: the brand was chosen from the
@@ -164,7 +164,7 @@ Kept for the record in `design/concept/docs/concept.md`; can be returned to.
   base (Monzo minus Hot Coral), and the rejects.
 - `design/concept/concept.html` - the live language stand: palette, type scale, form,
   real brand logos, Solar icons, three components, and the WCAG AA contrast table.
-- `design/concept/assets/brand-plate-petrol-paper.png` - the brand toolkit plate for the
+- `design/concept/assets/brand-plate-petrol-paper.webp` - the brand toolkit plate for the
   locked direction.
 - `design/home.html`, `design/subscription-detail.html` - the language
   applied to the two anchor screens (with their state pages).
