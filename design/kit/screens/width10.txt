@@ -43,6 +43,26 @@ CARRIER OF TOP-LEVEL NAVIGATION, distinct states across all 50 widths
     markup as well as in the render: 22 screens carry exactly one .tabbar element
     and these 10 carry none, so no width can add or remove one.
 
+THE POINT IN A REAL WINDOW, second pass, added and run the same day after the
+founder reported that the width behaved oddly in the DevTools device toolbar.
+Everything above reports the CONTAINER, because the sweep injects
+`scrollbar-width: none` so that the box really is the width it claims. This pass
+injects nothing and reports the WINDOW, which is the number a person sees.
+
+  home                  tablet at window 775 (container 775), desktop at 900
+  alerts                tablet at window 775 (container 775), desktop at 900
+  settings              tablet at window 775 (container 775), desktop at 900
+  subscription-detail   tablet at window 775 (container 775), desktop at 900
+  scrollbar below the tablet point: 15px on all four
+
+  So the tablet point is 760 of the CONTAINER and 775 of the WINDOW wherever the
+  scrollbar is classic (Windows, Linux, macOS set to always show it), and 760 of
+  both where it is an overlay (macOS by default, iOS, Android). The desktop point
+  has no offset at all: past the tablet point the pane is its own scroller and the
+  document stops scrolling, so 900 is 900. Neither is a defect and neither is
+  fixed; what was missing was the register saying WHICH BOX its numbers measure,
+  and it says so now. Ground in docs/decisions.md, 2026-08-13.
+
 WHAT THE SAME SWEEP FOUND BEFORE THE FIXES, kept because the instrument is only
 worth what it caught:
 

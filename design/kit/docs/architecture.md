@@ -304,8 +304,19 @@ Four addresses, and a screen file is not one of them.
 3. **A whole composition's behaviour** into the pattern's file, one query, which then reaches
    every screen the pattern stands on, including the ones that do not exist yet.
 4. **The shell's behaviour** into `app-shell.css`, `app-bar.css` or `tab-bar.css`, through
-   **`@media`**. This is the one legal media query in a component, and it is legal because the
-   shell really does measure the viewport: it *is* the viewport.
+   **`@container`** as well, and the container is `body`. This line said `@media` until
+   2026-08-13, on the argument that the shell *is* the viewport; the code never did, and the
+   code is the one that is right. **A shell on `@media` was measured before it was rejected**: it
+   would put the register's number back in the browser window, and it would cost the stand, where
+   a 434px specimen renders the phone bottom bar today and would render the desktop rail at a
+   1280 window. Two consequences follow and both are load-bearing. **A point is the page
+   container's width and not the window's**, so where the scrollbar is classic the tablet point
+   arrives at 775 rather than 760, and the register says so. And **nothing between `body` and
+   `.app` may take horizontal padding**: the reviewer's dock took 220px of it until 2026-08-12
+   and every coloured screen between an 840 and a 980 window rendered its MOBILE form inside a
+   desktop one. The stand re-points the query at `.kit-stage` on purpose, which is the same
+   mechanism used deliberately, and it is the reason the stand can show two forms of one
+   component on one page.
 
 **In a screen file: forbidden, always.** No `@media`, no `@container`, no inline width rule. The
 cost of breaking this is not paid here, it is paid at stage 12, where twenty screens are built

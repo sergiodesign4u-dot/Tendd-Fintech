@@ -176,6 +176,46 @@ literal in the query is its application. The reader is therefore a grep, not a `
 grep is the instrument above. Written here because "a token with no reader" is a defect everywhere
 else in this system, and a critic who does not find this paragraph is right to raise it.
 
+### The point is the PAGE CONTAINER's width and not the window's, and the two are different numbers
+
+Added 2026-08-13, after the founder reported that the width behaved oddly in the DevTools device
+toolbar. The toolbar turned out to be showing a number it had not applied, which is a browser state
+and not this product: at a stated 360 the page still rendered across the whole window, with no
+emulation frame beside it. But the check that settled it found something the register genuinely
+owed its reader.
+
+**Every width query in this product is a `@container` query and the container is `body`**, declared
+once in `base.css`. A container query reads the CONTENT box, and a classic scrollbar is outside it.
+Measured on Home in Chromium, 15px scrollbar, one pixel at a time:
+
+| Window | Container | Shell |
+|---|---|---|
+| 760 | 745 | bottom bar |
+| 770 | 755 | bottom bar |
+| 774 | 759 | bottom bar |
+| **775** | **775** | **rail** |
+
+So where the scrollbar is classic (Windows, Linux, macOS set to always show it) the tablet point
+arrives at a **775px window**, and where it is an overlay (macOS by default, iOS, Android) it
+arrives at exactly 760. The container jumping 759 to 775 in one pixel is the scrollbar leaving:
+past the point the pane becomes its own scroller and the document stops scrolling.
+
+**Only the tablet point carries the offset.** Past it the document no longer scrolls, so at
+`--bp-desktop` the container equals the window and 900 is 900, at 890, 900 and 910 alike.
+
+**It is not content dependent, which was the first hypothesis and it did not survive.** A screen
+short enough to need no scrollbar would flip at exactly 760, so the flip width would differ from
+screen to screen. Measured with the reviewer chrome stripped, in a 900px window: `home-error` runs
+1853px tall and Home 1711px, and every app-frame screen in this product scrolls on the narrow side.
+All of them flip at the same 775.
+
+**The register keeps the container number, and that is the decision rather than the default.** 760
+is the width at which the CONTENT has no room left, and when a scrollbar is taking 15px the content
+really does have 15px less. The alternative was measured before it was rejected: moving the shell
+to `@media` puts the number back in the window and costs the stand, where a 434px specimen renders
+the phone bottom bar today and would render the desktop rail. Ground in `docs/decisions.md`,
+2026-08-13.
+
 ### The containers
 
 | Token | Value | What it holds |
@@ -493,3 +533,13 @@ appended after an already-closed comment block, which left prose sitting in the 
 stray `*/` after it. The browser dropped what followed, the 360 comparison lit up on six pages, and
 that is how it was caught: **the 360 check earned its keep by failing.** A comment-balance check now
 runs over all 65 stylesheets and is clean.
+
+**And an instrument can hide the one thing it was built to see.** The harness injects
+`html{scrollbar-width:none}` into every iframe so that the container really is the width the run
+claims. That injection is exactly what kept the 15px above invisible for the whole stage: inside
+the harness the tablet point fires at 760, in a browser window it fires at 775, and the sweep could
+not have told the difference. The injection stays, because a sweep that cannot state its own
+container width measures nothing. What it carries now is a second pass at the two points with the
+scrollbar left alone, printed under `THE POINT IN A REAL WINDOW`, and a header that says which of
+the two numbers each pass is reporting. Third blind spot of this instrument, after the pane that
+scrolls inside a clean document and the cache that serves an old stylesheet.

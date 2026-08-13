@@ -7,6 +7,61 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-13 - A point is a container width, and the shell keeps its container query
+
+**What happened.** The founder reported that the width behaved oddly in the Chrome DevTools device
+toolbar: dragging the handle changed nothing, typing 360 changed something once, and the layout on
+screen did not match the number in the toolbar. **The report was right about the symptom and the
+product was not the cause.** In the screenshots the page renders across the whole window at a
+stated 360, with no emulation frame beside it, so the toolbar was displaying a number it had not
+applied. Verified independently: `design/home.html` was walked at eleven widths with a real
+viewport resize and again with `Emulation.setDeviceMetricsOverride` at DPR 2, which is the same
+mechanism the device toolbar uses. The shell takes its rail above the point and its bottom bar
+below it, every time, in both directions.
+
+**What the check found that the report could not name.** The register published `760` and `900` as
+if they were window widths. They are **container** widths. Every width query in this product is a
+`@container` against `body`, a container query reads the content box, and a classic scrollbar sits
+outside it, so the tablet point arrives at a **775px window** on Windows and Linux and at exactly
+760 where the scrollbar is an overlay. Measured one pixel at a time on Home: 774 gives a 759
+container and the bottom bar, 775 gives a 775 container and the rail. The desktop point carries no
+offset, because past the tablet point the pane is its own scroller and the document stops
+scrolling.
+
+**What we rejected, and it was measured before it was rejected.** Moving the shell's three files
+(`app-shell.css`, `app-bar.css`, `tab-bar.css`) to `@media` would put the register's number back in
+the browser window and would satisfy the rule as three documents had written it. It was tested by
+taking the container off `.kit-stage` at a 1280 window, which is what a media query would leave:
+the 434px specimen on `tab-bar.html` flipped from the phone bottom bar to the desktop rail. That is
+precisely the defect the founder raised on 2026-08-12 ("this does not look like a tab bar"), and it
+would come back on every stand page that shows a shell, an app bar or a tab bar in two forms. **The
+container number is also the more honest one:** 760 is the width at which the content has no room
+left, and when a scrollbar is taking 15px the content really does have 15px less.
+
+**So the code stayed and the documents changed, because the code was the one that was right.**
+Three places claimed the shell runs on `@media` "because the shell is the viewport", and it never
+did: `design/system/CLAUDE.md` rule 8, `DESIGN.md`, and the width rule in
+`design/kit/docs/architecture.md`. Three stand pages still said a review page gives a screen 250px
+less than the browser, which stopped being true when the reviewer's dock was deleted on 2026-08-12.
+All six are corrected.
+
+**Two consequences are now rules rather than folklore.** A point is a page container's width and
+not a window's, and it is registered as such in `tokens.css`. And **nothing between `body` and
+`.app` may take horizontal padding**: the reviewer's dock took 220px of it until 2026-08-12 and
+every coloured screen between an 840 and a 980 window rendered its MOBILE form inside a desktop
+one. The stand re-points the query at `.kit-stage` on purpose, which is the same mechanism used
+deliberately, and it is why one page can show two forms of one component.
+
+**And the instrument grew the pass it was missing.** The width sweep injects
+`scrollbar-width: none` so the container really is the width it claims, and that injection is what
+hid the 15px for the whole stage. It stays, and `width10-harness.html` now runs a second pass at
+both points with the scrollbar left alone, reporting the WINDOW. Re-run of 2026-08-13: 1600
+measurements, no violations, worst measure 60.7ch unchanged; tablet at window 775 and desktop at
+900 on Home, Alerts, Settings and Subscription Detail alike. Third blind spot of this instrument,
+after the pane that scrolls inside a clean document and the cache that serves an old stylesheet.
+
+---
+
 ## 2026-08-13 - Two width points, the shell keeps its rail, and no split view
 
 **What we did.** Named the responsiveness the product has had since stage 04 and moved it into the

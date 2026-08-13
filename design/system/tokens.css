@@ -330,7 +330,17 @@
                               interpolates between them.
                               Read today by app-shell, app-bar, tab-bar, card,
                               grid, chart-placeholder, dialog-sheet and the
-                              list-column pattern. */
+                              list-column pattern.
+                              THE NUMBER IS THE CONTAINER'S AND NOT THE WINDOW'S,
+                              2026-08-13. Every query that reads this point is a
+                              `@container` and the container is `body`, so a
+                              classic scrollbar sits OUTSIDE the box it measures:
+                              the shell flips at a 775px window on Windows and
+                              Linux and at exactly 760 where the scrollbar is an
+                              overlay. Measured one pixel at a time, table in
+                              docs/responsive.md. --bp-desktop below carries no
+                              such offset, because past this point the pane is its
+                              own scroller and the document stops scrolling. */
 
   --bp-desktop: 56.25rem;  /* 900px. AUDIT ROWS 7 and 8, Home and Subscription
                               Detail. WHAT BREAKS ABOVE IT: the content stops

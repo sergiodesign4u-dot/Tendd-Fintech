@@ -409,9 +409,12 @@ measure every prose block in the system reads. **A column count is never a token
 from a floor (`--grid-col-min`, 10rem) unless the count is content, which is the case exactly
 twice, on the two doors of the path choice and the three plan options of the landing.
 
-**Where adaptation may live, and where it may not.** A width belongs to a token, to a component
-(`@container`, which asks its PLACE), to a pattern, or to the shell (`@media`, which asks the
-viewport because the shell is the viewport). **In a screen file `@media` is forbidden**, always;
+**Where adaptation may live, and where it may not.** A width belongs to a token, to a component, to
+a pattern or to the shell, and every one of them asks a `@container`: the container is `body`,
+declared once in `base.css`. A point is therefore the **page container's** width and not the
+window's, which is a real difference of 15px wherever the scrollbar is classic, and it is why
+nothing between `body` and `.app` may take horizontal padding. **In a screen file `@media` is
+forbidden**, always;
 the whole ground is in `design/kit/docs/architecture.md` and in `design/system/CLAUDE.md`, and the
 full census, audit and register are in `design/kit/docs/responsive.md`, published as
 `design/kit/responsive.html`.

@@ -32,6 +32,17 @@
   origin, and twice during this stage a cached CSS produced a clean run that was
   a lie. If you have just edited the system, serve on a port you have not used
   yet, or hard-reload with the cache disabled.
+
+  AND THE INJECTION ABOVE HAS A PRICE, FOUND ON 2026-08-13 AND PAID FOR BY A
+  SECOND PASS. Hiding the scrollbar is what makes the container equal the number
+  this run states, which the first four checks need. It is also what hides the
+  15px between a point and a window: every query in this product is a @container
+  against `body`, a container query reads the CONTENT box, and a classic
+  scrollbar sits outside it. In here the tablet point fires at 760; in a browser
+  window it fires at 775. So `pointPass` below walks the same two points with the
+  scrollbar LEFT ALONE and reports the WINDOW width at which the shell changes
+  form, which is the number a person actually sees. Two passes, two different
+  questions, and the output says which is which.
 -->
 <style>
   body { margin: 0; font: 14px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: #fbfbf9; color: #1c1c1c; }
@@ -124,6 +135,48 @@ function sweep(page){
     document.getElementById('host').appendChild(f);
   });
 }
+/* THE SECOND PASS. No injected style: the iframe keeps its real scrollbar, so the
+   body container is the window minus 15px on the narrow side, exactly as it is in
+   a browser. Walks 745 to 790 and 885 to 915 one pixel at a time and reports the
+   WINDOW width at which the shell changes form. The tablet point is read off the
+   tab bar's flow direction, the desktop point off the screen becoming a flex
+   column, because those are the two declarations the points exist to make. */
+var POINT_PAGES = ["home", "alerts", "settings", "subscription-detail"];
+function pointPass(page){
+  return new Promise(function(resolve){
+    var f = document.createElement('iframe');
+    f.style.width = '745px'; f.style.height = '900px'; f.style.border = '0';
+    f.src = '../../' + page + '.html';
+    f.onload = function(){
+      var d = f.contentDocument, w = f.contentWindow;
+      var steps = [], x;
+      for (x = 745; x <= 790; x++) steps.push(x);
+      for (x = 885; x <= 915; x++) steps.push(x);
+      var res = { page: page, tablet: null, desktop: null, gutter: 0 };
+      var i = 0, prev = { rail: null, flex: null };
+      (function next(){
+        if (i >= steps.length){ f.remove(); return resolve(res); }
+        f.style.width = steps[i] + 'px';
+        w.requestAnimationFrame(function(){ w.requestAnimationFrame(function(){
+          var tb = d.querySelector('.tabbar'), sc = d.querySelector('.app > .screen');
+          var rail = tb ? w.getComputedStyle(tb).flexDirection === 'column' : null;
+          /* flex OR grid: the 900 block makes the screen a flex column, and the
+             detail screen overrides that same block with its two-track grid. */
+          var disp = sc ? w.getComputedStyle(sc).display : null;
+          var flex = sc ? (disp === 'flex' || disp === 'grid') : null;
+          var box  = Math.round(d.body.getBoundingClientRect().width);
+          if (prev.rail === false && rail === true && !res.tablet) res.tablet = { win: steps[i], box: box };
+          if (prev.flex === false && flex === true && !res.desktop) res.desktop = { win: steps[i], box: box };
+          if (rail === false) res.gutter = steps[i] - d.documentElement.clientWidth;
+          prev = { rail: rail, flex: flex };
+          i++; next();
+        });});
+      })();
+    };
+    document.getElementById('host').appendChild(f);
+  });
+}
+
 document.getElementById('run').addEventListener('click', async function(){
   var out = document.getElementById('out'), status = document.getElementById('status');
   out.textContent = ''; var all = [], viol = [], worstAll = null;
@@ -152,6 +205,19 @@ document.getElementById('run').addEventListener('click', async function(){
   lines.push('');
   lines.push('CARRIER OF TOP-LEVEL NAVIGATION, distinct states across all widths (expect one state per page):');
   Object.keys(carrierStates).forEach(function(p){ lines.push('  ' + (carrierStates[p] === '1/4' || carrierStates[p] === '0/0' ? '  ok  ' : ' BAD  ') + p + '  ' + carrierStates[p]); });
+
+  lines.push('');
+  lines.push('THE POINT IN A REAL WINDOW, the pass with the scrollbar left alone.');
+  lines.push('The four checks above report the CONTAINER; these two lines report the WINDOW.');
+  for (var k = 0; k < POINT_PAGES.length; k++){
+    status.textContent = 'point pass: ' + POINT_PAGES[k];
+    var pp = await pointPass(POINT_PAGES[k]);
+    lines.push('  ' + POINT_PAGES[k] +
+      '   tablet at window ' + (pp.tablet ? pp.tablet.win + ' (container ' + pp.tablet.box + ')' : 'not reached') +
+      ',  desktop at window ' + (pp.desktop ? pp.desktop.win + ' (container ' + pp.desktop.box + ')' : 'not reached') +
+      ',  scrollbar below the point ' + pp.gutter + 'px');
+  }
+
   out.textContent = lines.join('\n');
   status.textContent = 'done';
   console.log(JSON.stringify(all));
