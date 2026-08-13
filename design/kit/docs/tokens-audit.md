@@ -795,7 +795,7 @@ and this one puts a new object on all 28 of them.
 | `.lockup`, the pair | a slot rule in `app-bar.css` | not a component, see below |
 | `favicon.svg`, `apple-touch-icon.png` | repository root | exported cuts of crop A |
 
-Both atoms went through the five-thing gate: css, kit page with the five blocks, a row in
+Both atoms went through the five-thing gate: css, kit page with the six sections, a row in
 `design/kit/_nav.js` in the atoms group, a row in `docs/inventory.md` with its level, and an
 `@import` in the atoms group of `index.css` rather than at the end of the file.
 

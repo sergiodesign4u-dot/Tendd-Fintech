@@ -44,7 +44,7 @@
     <h1>Architecture</h1>
     <p class="lead">The rules of the system, and they are short on purpose: a rule that needs a paragraph to state is usually two rules that disagree. Read this first. Everything else on this stand is material; this is what holds it together.</p>
     <div class="kit-meta">
-      <span>2 token levels</span><span>3 component levels</span><span>3 surfaces</span><span>5 things to add a component</span>
+      <span>2 token levels</span><span>3 component levels</span><span>1 pattern shelf</span><span>3 surfaces</span><span>5 things to add a component</span><span>11 usage rules</span>
     </div>
   </header>
 
@@ -74,7 +74,7 @@
           <tr><td><b>atoms</b></td><td>contains nothing else from the kit. One visual element, one content slot</td><td class="n">18</td></tr>
           <tr><td><b>molecules</b></td><td>two or more content slots in one unit, or hosts an atom</td><td class="n">23</td></tr>
           <tr><td><b>organisms</b></td><td>hosts a molecule, or is a screen shell, or is a container of repeated units. <b>This is the ceiling:</b> anything containing an organism is still an organism, and inside the group the ones that contain nothing else come first</td><td class="n">14</td></tr>
-          <tr><td>patterns</td><td>settled compositions. A new shelf in the same cupboard from stage 09, not a rebuild</td><td class="n">-</td></tr>
+          <tr><td><b>patterns</b></td><td>a settled composition of the rungs above, standing on three screens or more. A new shelf in the same cupboard from stage 09, not a rebuild. It declares no colour and no type of its own: if one is needed, that is a component first</td><td class="n">3</td></tr>
         </tbody>
       </table>
     </div>
@@ -125,25 +125,45 @@
     <p class="note">A product class in the stand, or a stand style in a component file, is a defect either way. <code>design/system/</code> can be lifted into another project whole; the stand stays here. <b><code>@import</code> runs by level, never alphabetically:</b> all atoms, then molecules, then organisms, alphabetical inside each level, and inside organisms the ones that contain no other organism first. A composite must sit lower in the cascade than its own parts.</p>
   </section>
 
-  <section class="kit-sec" id="adding">
-    <h2>Adding a component: five things, and four is not enough</h2>
+  <section class="kit-sec" id="contribution">
+    <h2>Contributing to the system</h2>
+    <p class="note">The rule is one sentence and everything below it is an address book: <b>nothing new appears on a screen first.</b> It is built in <code>design/system/</code>, it is shown here in <code>design/kit/</code>, and it reaches the screen from there. That order is not bureaucracy, it is the only arrangement in which a correction is made once and lands everywhere, and it is why the dark theme cost three lines rather than forty edits.</p>
+
+    <h3 class="kit-sub-h">A new COMPONENT: five things, and four is not enough</h3>
     <div class="kit-tab">
       <table>
         <thead><tr><th class="n">#</th><th>What</th><th>Why it is on the list</th></tr></thead>
         <tbody>
           <tr><td class="n">1</td><td><code>design/system/components/&lt;name&gt;.css</code></td><td>the component itself</td></tr>
-          <tr><td class="n">2</td><td><code>design/kit/&lt;name&gt;.html</code></td><td>five blocks: anatomy, variants and sizes, when to use, the rule and the anti-rule, states</td></tr>
+          <tr><td class="n">2</td><td><code>design/kit/&lt;name&gt;.html</code></td><td><b>six</b> sections, in order and with these ids: <code>anatomy</code>, <code>variants</code>, <code>usage</code>, <code>rule</code>, <code>states</code>, <code>tech</code>, every state drawn in both themes. A pattern page carries six too, with <code>where</code> in place of <code>states</code></td></tr>
           <tr><td class="n">3</td><td>a row in <code>design/kit/_nav.js</code>, <b>in its own level group</b></td><td>the registry draws both the hub card and the panel link. No row, no component</td></tr>
           <tr><td class="n">4</td><td>a row in <code>docs/inventory.md</code>, <b>with its level</b></td><td>the level decides four orders downstream</td></tr>
           <tr><td class="n">5</td><td>an <code>@import</code> in <code>index.css</code>, <b>into its level group and not at the end</b></td><td>appended at the end it looks harmless, and that is exactly how the ladder comes apart</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note">The last two are the ones that get skipped, and they matter most for a component added <i>after</i> the first build: at the consolidation of step 6, at a new screen, at the rollout of stage 12.</p>
+    <p class="note">The last two are the ones that get skipped, and they matter most for a component added <i>after</i> the first build: at the consolidation of step 6, at a new screen, at the rollout of stage 12. Anything missing means the component is not finished, and an unfinished component does not go onto a screen.</p>
+    <p class="note"><b>Row 2 said "five blocks" until 2026-08-13, and the structural check said six.</b> The check is the one that runs, so the check is right and the list was short by <code>tech</code>, the block naming the css file a page is drawn by. Two editions of one contract in one document, and the one a person reads before building was the wrong one.</p>
+
+    <h3 class="kit-sub-h">The other four entrances</h3>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What is new</th><th>Where it goes, and what it may not do</th></tr></thead>
+        <tbody>
+          <tr><td><b>a USAGE RULE</b></td><td>a row in the <a href="#usage">table below</a> with its <b>"where it comes from" filled</b>: counted on the grey pages, decided by a person, or caught by a critique log. A rule with an empty source is an invention with a table around it. Plus a <b>Limits</b> item on the page of every component it names, linking back, because the person about to break a rule is reading the component page and not this one</td></tr>
+          <tr><td><b>a COMPOSITION, three screens</b></td><td>a file in <code>design/system/patterns/</code>, a page here, a row in the registry in the patterns group, a line in <code>docs/inventory.md</code>, and an <code>@import</code> <b>after every component</b>. No colour, no type, no visual decision of its own; needing one is an order for a component, built first</td></tr>
+          <tr><td><b>a COMPOSITION, two screens</b></td><td>it stays markup and goes into the candidates table on <a href="patterns.html#candidates">Patterns</a>. Two occurrences prove a composition is possible, three prove it is settled, and that is the whole reason the folder does not fill up with things nobody checked</td></tr>
+          <tr><td><b>a VALUE</b></td><td><code>tokens.css</code> at its own level: raw is <b>primitive</b>, a colour with a job is <b>semantic</b> and reads its primitive through <code>var()</code>. No third level, and geometry gets none. A role or a state token is written <b>twice</b>, in <code>:root</code> and in <code>[data-theme="dark"]</code>, as it is declared. The change is a named decision, "variable, value, why", and the origin travels with it in a comment</td></tr>
+          <tr><td><b>anything, on a SCREEN only</b></td><td><b>Forbidden.</b> A screen carries no style of its own: no page-level style block, no style attribute, no class the system does not define. If none of the entrances above fits, the system is missing something and the missing thing gets built; what was deliberately not built goes into <code>docs/backlog.md</code> rather than being worked around</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The last row is the one that costs the most to break, because a style written on one screen is invisible until the second screen needs the same thing, and by then there are two of them and no class name for either.</p>
   </section>
 
   <section class="kit-sec" id="fixes">
     <h2>Where a correction goes</h2>
+    <p class="note">The section above is where NEW goes. This one is where a FIX goes, and they are different questions: the first asks which shelf a thing belongs on, the second asks which single place to touch so that every screen gets it.</p>
     <div class="kit-tab">
       <table>
         <thead><tr><th>What is wrong</th><th>Where the fix goes</th></tr></thead>
@@ -157,6 +177,32 @@
       </table>
     </div>
     <p class="note"><b>A fix applied on one screen is a desync.</b> It looks finished, and it is a second edition of the component that nobody declared.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>Usage rules: what you may not do with what you may take</h2>
+    <p class="note">Every page on this stand answers "what may I take". This section answers the question nobody asks until after the screen is built. <b>These are not anti-rules and they do not belong on a component page.</b> An anti-rule is a SUBSTITUTION ("not a chip here, a label"), so it lives beside the component you should not have taken. These are two other kinds, and neither can be written as a substitution, because no other component is the answer: <b>composition</b> is how many and next to what, <b>context</b> is where it may appear at all.</p>
+    <p class="note"><b>Every row names its source, and a row with an empty source is an invention with a table around it.</b> Four sources, one is enough: <b>the counter</b>, run over <code class="kit-code">wireframes/*.html</code> at stage 09 (55 pages, 17 screens, the whole product, where the colour is a sample of 8 screens until stage 12); <b><code class="kit-code">wireframes/docs/conventions.md</code></b>, which carried usage rules for four stages with no reader; <b>the critique logs</b> of 04, 06, 07 and 08, because a defect caught on two screens is a rule; and <b><code class="kit-code">docs/census.md</code></b>. Read forwards, the counter finds patterns: what repeats three times or more. Read backwards it finds these: what never happened once, although it could have.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th class="n">#</th><th>Rule</th><th>Class</th><th>Where it comes from</th><th>Components</th><th>How to check a new screen</th></tr></thead>
+        <tbody>
+          <tr><td class="n">U1</td><td><b>One filled action per zone.</b> A zone is a block a person reads as one thing: the screen's own content column, or a <code class="kit-code">.panel</code>, <code class="kit-code">.card</code>, <code class="kit-code">.sheet</code>, <code class="kit-code">.rstep</code> or <code class="kit-code">&lt;form&gt;</code> inside it. The second action of a zone takes <code class="kit-code">.btn</code> without <code class="kit-code">.primary</code></td><td>composition</td><td>conventions.md ("what the one main action is") + the counter: 15 of 17 screens carry at most one + critique 07, row "One voice, one zone", carried unresolved + the last open row of census.md</td><td><a href="button.html">button</a>, <a href="action-row.html">action row</a></td><td>count <code class="kit-code">.btn.primary</code> per zone, not per page</td></tr>
+          <tr><td class="n">U2</td><td><b>No tab bar inside <code class="kit-code">.app.flow</code>, and none on the landing.</b> The chain is one task and the way out of it is finishing it</td><td>context</td><td>the counter: 26 grey pages are a flow and not one has a tab bar; 28 carry a tab bar and not one is a flow + conventions.md section 8</td><td><a href="tab-bar.html">tab bar</a>, <a href="app-shell.html">app shell</a></td><td>is the shell <code class="kit-code">.app.flow</code>? then no tab bar</td></tr>
+          <tr><td class="n">U3</td><td><b>Exactly one <code class="kit-code">.appbar</code> per screen, and none on the landing</b></td><td>composition + context</td><td>the counter: 16 of 17 screens carry exactly one, the landing carries none</td><td><a href="app-bar.html">app bar</a></td><td>presence</td></tr>
+          <tr><td class="n">U4</td><td><b>One <code class="kit-code">.textblock.status</code> per screen.</b> A screen that needs to announce two things is two states, not one screen</td><td>composition</td><td>the counter: 12 screens carry one, none carries two</td><td><a href="text-block.html">text block</a></td><td>count</td></tr>
+          <tr><td class="n">U5</td><td><b>One introductory <code class="kit-code">.textblock</code> per screen</b>, and it is the first block of its column</td><td>composition</td><td>the counter: 12 screens carry one, none carries two + the contract of the list column pattern</td><td><a href="text-block.html">text block</a></td><td>count, and check it is first</td></tr>
+          <tr><td class="n">U6</td><td><b>A <code class="kit-code">.textblock.status</code> comes with a way out</b> in the same container: an <code class="kit-code">.actions</code> row, or a <code class="kit-code">.grid</code> of doors</td><td>composition</td><td>conventions.md section 7 ("no dead ends") + the counter: 19 grey pages carry a status block, 17 have the exit beside it, and the two that do not are named below</td><td><a href="text-block.html">text block</a>, <a href="action-row.html">action row</a>, <a href="grid.html">grid</a></td><td>is there an exit in the same container?</td></tr>
+          <tr><td class="n">U7</td><td><b>A wait carries no control at all.</b> An edge a person takes is a control; an edge the system takes is not</td><td>context</td><td>conventions.md section 7, added 2026-08-05 + the counter: connect-bank-loading and upgrade-processing carry zero buttons</td><td><a href="button.html">button</a>, <a href="action-row.html">action row</a></td><td>count controls; a wait has none</td></tr>
+          <tr><td class="n">U8</td><td><b>One <code class="kit-code">.trust</code> per screen, and only where a figure came from the bank.</b> It is the read-only declaration, not decoration</td><td>composition + context</td><td>the counter: 4 screens, never twice + conventions.md section 5</td><td><a href="trust-block.html">trust block</a></td><td>count, and ask where the figures came from</td></tr>
+          <tr><td class="n">U9</td><td><b>One <code class="kit-code">.total</code> per screen.</b> The most important number is the biggest thing on the screen, and two of them means neither is</td><td>composition</td><td>the counter: 4 screens, never twice + design principle 2</td><td><a href="big-total.html">big total</a></td><td>count</td></tr>
+          <tr><td class="n">U10</td><td><b>One <code class="kit-code">.sheet</code> at a time.</b> A sheet over a sheet has no way back a person can see</td><td>composition</td><td>the counter: 3 screens carry one, none carries two</td><td><a href="dialog-sheet.html">dialog sheet</a></td><td>count</td></tr>
+          <tr><td class="n">U11</td><td><b>No footer inside the app.</b> Tendd is an app; the one footer in the product is on the Welcome landing</td><td>context</td><td>conventions.md section 8</td><td>none: the rule is that none is built</td><td>presence</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The exceptions are named, not implied.</b> A rule with an unwritten exception is a rule people learn to ignore. <b>U6</b>, counted rather than remembered: of the 19 grey pages carrying a status block, two do not carry the exit beside it. On <code class="kit-code">cancel-guide-no-guide</code> the exits are in the other column of a detail layout, which is a place a person can see; on <code class="kit-code">upgrade-processing</code> there is no exit anywhere, deliberately. <code class="kit-code">connect-bank-loading</code>, the other wait, carries no status block at all, so it is U7's case and not U6's. <b>U1</b>: <code class="kit-code">add-subscription</code> carries two filled actions and the rule permits it, because they sit in two zones, the manual form and the screen itself. That is the weakest permission in the table and it is written as such: stage 07 measured the two 55px apart and carried the row rather than closing it. <b>U1 again</b>: <code class="kit-code">cancel-guide</code> carries two filled actions <b>in one column</b> and the rule does not permit it. The screen is grey only, so nothing is broken in colour today; it is a line in <code class="kit-code">docs/backlog.md</code>, settled when the screen is coloured at stage 12, rather than by quietly widening the rule until it fits.</p>
+    <p class="note"><b>The idle control, the same one every declared list in this folder carries.</b> A rule that forbids something the product never does anyway is a dead row. Nine of the eleven are counted on screens that exist: U1 on 17 screens, U2 on 54 pages, U3 on 17, U4 and U5 on 12 each, U6 on 16 status blocks, U8 on 4, U9 on 4, U10 on 3. Two are carried on a decision rather than a count and say so: U7 (two pages) and U11 (one page). <b>What was deliberately not made a rule:</b> <code class="kit-code">.head</code>, <code class="kit-code">.summary</code>, <code class="kit-code">.hero</code>, <code class="kit-code">.chart</code> and <code class="kit-code">.empty</code> never appear twice on a screen either, and each stands on one or two screens in the whole product. A counter that has seen one screen has not found a rule, it has described a screen.</p>
   </section>
 
   <section class="kit-sec" id="promise">

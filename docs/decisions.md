@@ -7,6 +7,104 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-13 - Three patterns, four candidates, and the threshold is three screens
+
+**What we did.** Lifted three settled compositions out of the components into
+`design/system/patterns/`: **the interruption** (a status block, the way out, and whatever the
+screen needs between them; 12 screens, 16 grey pages), **the action foot** (a row of actions
+closed by the line that says what happens if you take one; 8 screens, 17 pages), and **the list
+column** (an intro over a column of grouped rows; 4 screens, 9 pages). Each is assembled from
+components already in the system and declares no style of its own. The eight coloured pages that
+carry them were moved onto them in the same step, and the move was proved with a DOM fingerprint
+rather than an argument: 56 page-viewports, 3998 elements, **0 unexplained differences**, and at
+360 no geometry moved at all.
+
+**Why exactly this, and why three and not two.** Two occurrences prove a composition is
+*possible*; three prove it has *settled*. The same threshold as "one usage is not yet a role" at
+stage 08, for the same reason: a system where every second screen produces a pattern becomes a set
+of synonyms, and the cost lands on whoever has to choose between them. The counter runs on
+`wireframes/*.html`, where the whole product is, and never on the coloured sample, which is 8
+screens of 17: a pattern extracted because it stands on three of eight coloured screens is "almost
+everywhere in the sample" wearing the word pattern.
+
+**What we rejected.** **Four compositions that stand on exactly two screens**, kept as markup and
+listed as candidates on `design/kit/patterns.html` with what each is waiting for: the detail
+column pair (subscription detail and cancel guide, the largest and closest to the line, already
+carrying real rules in `app-shell.css` under `.app.detail`), and three smaller ones. A candidate
+that never reaches a third screen stays a candidate; it is not a debt and it is not deleted. Also
+rejected: an intro over a chart, which happens on **one** screen. One occurrence is a screen, not a
+composition, and a file for it would put a stylesheet in the system that no second page will ever
+load. And rejected as a category: an intro followed by a category group, which does stand on two
+screens but is already *inside* the list column. A pattern inside a pattern is the parent pattern
+described twice.
+
+**One consequence recorded rather than hidden.** The interruption's host axis was written from the
+three hosts that stood when the file was written, and the first screen built afterwards, on the
+same day, produced a fourth: `alerts-error` puts the announcement inside `.rows-col`, a list
+column, where the three known hosts held it directly. **It cost no CSS**: a child selector does not
+care what the parent is called, and the gap measured 24px with the class and 24px without it at
+both viewports. The lesson is about documentation and not about code. An axis read off the corpus
+that stands is a description of that corpus, not a limit on it.
+
+---
+
+## 2026-08-13 - No component token level was created, and that is a decision rather than an absence
+
+**What we did.** Nothing. `design/system/tokens.css` still holds exactly two levels, primitive and
+semantic, and stage 09 added neither a third level nor a single token.
+
+**Why.** The rule in `design/system/CLAUDE.md` allows a component token "only where a state lands
+on no role", and the stage looked for that case twice and did not find it. The patterns needed no
+value of their own: what moved into `patterns/` was **ownership of a gap**, not a new number, and
+both gaps were already primitives (`--space-24` and `--space-16`). The one candidate that looked
+like a component token was `outline-offset: -2px` in two focus rules, and it resolved the other
+way: it is `calc(var(--ring) * -1)`, which is the ring's own primitive read backwards, not a new
+value. A third level introduced to serve one negative sign would have been the most expensive
+line in the system.
+
+**What we rejected, and it is worth the sentence.** A weight token. `range-picker.css` writes
+`font-weight: 600` inside a disabled-and-pressed state, which reads like a state written with a
+value. It is not: **this system has no weight scale at all**, by the rule that colour goes through a
+role and geometry through a primitive and weight is neither. Weight is a literal in all 57
+component files, consistently, and tokenising one occurrence would have opened a scale for a
+single line. Raised by Codex at the verification pass and dropped there, with this reason.
+
+---
+
+## 2026-08-13 - One roadmap row for the design system, and it opens on the guide
+
+Two rows were folded into one on 2026-08-11: Tokens + Components and Design System both led into
+`design/kit/`, and a row whose page is a section of another row's page is a second entrance to one
+room. Stage 09 then built `design/kit/why.html`, the guide to the system, which is a page and not
+a section, so the merge could have been reopened. It was not, and deliberately: the argument for
+one row was never about there being only one page, it was about there being one place. **The row
+stays one and now opens on `why.html`,** because the person arriving from the roadmap has not
+built the system and needs why it looks like this before they need the component list.
+`overview.html`, the account of stage 08, names the row through `NAV_ACTIVE` and renders as its
+own sub item carrying its own sections, which is the third legal form in `CLAUDE.md` for a page
+outside the registry. Rejected: a second row (it re-opens a decision nothing has changed, and the
+sidebar would show one stage twice), and pointing the row at `overview.html` while linking the
+guide from inside it (the roadmap would open on an account of the previous stage). The one-row
+rationale itself moved here out of `CLAUDE.md` at the same time, where it was costing lines in a
+budgeted rules file to record something that had already been decided.
+
+## 2026-08-13 - The role count was 31 on two documents and 34 in the file, and a count is taken from the file
+
+Found at stage 09 while writing the guide, closed the same day. `tokens.css` declares **34** paired
+tokens at the semantic level; `color.html` showed 31 cards and 31 table rows, and `DESIGN.md` said
+"31 roles, 31 pairs, none missing" over a table of 29. The missing three, `--control-accent`,
+`--bg-chip-accent` and `--text-chip-accent`, were split off from `--bg-action`, `--bg-selected` and
+`--text-action` during the component rounds of stage 08 and appeared **nowhere on the stand at
+all**: no card, no row, no mention. `--bg-hover` was on the stand and missing from the `DESIGN.md`
+table. A fourth number went with them: eleven fills are decorative, not the twelve both documents
+claimed. Nothing was broken in the product, all 34 are paired and all 34 clear their threshold, so
+this is a documentation defect and not a colour one. **The lesson is in how it survived:** the same
+count had already been corrected once, from 25 to 31 on 2026-08-12, and that recount was taken off
+the stand rather than off `tokens.css`, so it could only ever find what the stand already showed. A
+check that reads the document it is checking is not a check. Fixed by adding the three plates and
+their measured rows to `color.html`, the four missing rows to `DESIGN.md`, and the three demo
+classes to `_page.css` that the plates read the tokens through.
+
 ## 2026-08-12 - The reviewer's panel is an overlay at every width, and the container is the window again
 
 Found while tracing the brand's jump, decided the same day. `design/_screen.css` docked the screen

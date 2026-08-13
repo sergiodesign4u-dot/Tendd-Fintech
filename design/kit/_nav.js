@@ -96,6 +96,31 @@ window.KIT_NAV = {
     { name: 'Tab bar',           cls: '.tabbar',       page: 'tab-bar.html', was: null,                          axes: 'form: bottom bar / left rail at container 760', wf: 28 }
   ],
 
+  /* THE FOURTH SHELF, STAGE 09, AND IT IS AFTER ORGANISMS RATHER THAN ANYWHERE
+     ELSE. The panel has to read in the same ladder the system is assembled in,
+     because that ladder is also the @import order in system/index.css: patterns
+     are imported after every component, since a pattern is assembled from them
+     and has to be able to correct the rhythm between them.
+
+     `wf` counts GREY pages, as everywhere in this registry, and for a pattern it
+     is the count that decides whether it exists at all: three screens or more,
+     counted on wireframes/, where the whole product is. The coloured count is on
+     each pattern's own page and it is smaller on all three, because the rollout
+     is stage 12. */
+  patterns: [
+    { name: 'Patterns',      file: 'patterns.html', page: 'patterns.html', note: 'when to take a pattern and when the components, the three-screen threshold, the four candidates waiting' },
+    /* Four hosts since 2026-08-13, not three: the list column joined them on
+       alerts-error, the first screen built after the pattern was written. */
+    { name: 'Interruption',  cls: '.interruption',  page: 'interruption.html',  was: null, axes: 'host: screen / detail column / dialog sheet / list column. 12 screens', wf: 16 },
+    /* `file` is written out here and nowhere else in this group, because the
+       renderer derives a filename from the NAME when it is absent, and "Action
+       foot" would derive `action-foot.html`. The page is named after the class,
+       `.act-foot`, which is the rule the other 60 pages follow too. Without this
+       line the panel simply fails to highlight the page you are standing on. */
+    { name: 'Action foot',   cls: '.act-foot', file: 'act-foot.html', page: 'act-foot.html', was: null, axes: 'line: consequence (.muted) / exit (.quiet). 8 screens',  wf: 17 },
+    { name: 'List column',   cls: '.rows-col',      page: 'list-column.html',   was: null, axes: 'one measure, 620 from the 760 container. 4 screens',     wf: 9 }
+  ],
+
   /* NOT PART OF THE SYSTEM, AND THAT IS WHY IT IS ITS OWN GROUP AT THE END rather
      than a fifth foundation. Foundations are things a screen is built OUT OF; this
      is evidence ABOUT what was built, and filing it beside Colour would say the
@@ -112,6 +137,7 @@ window.KIT_NAV = {
     { key: 'atoms',       label: 'Atoms' },
     { key: 'molecules',   label: 'Molecules' },
     { key: 'organisms',   label: 'Organisms' },
+    { key: 'patterns',    label: 'Patterns' },
     { key: 'verification', label: 'Verification' }
   ];
 
@@ -172,7 +198,35 @@ window.KIT_NAV = {
     return html;
   }
 
+  /* The guide sits at the top of the panel foot, and it is drawn from here rather
+     than typed into 67 pages: one string, one owner, and the next link that belongs
+     to the whole stand costs one edit instead of sixty-seven.
+
+     Only THIS link is drawn. The rest of the foot stays in each page's markup,
+     because those links are page-specific: the two brand pages point at the Concept
+     page where the mark was found, not at the Concept page everyone else points at,
+     and a blanket redraw of the block would have deleted them without anyone
+     noticing. So the split is by ownership: system-wide links here, the page's own
+     context in the page.
+
+     Guarded on data-kit-guide rather than on the href, so the page that IS the guide
+     can suppress its own link by carrying the attribute itself if it ever grows a
+     panel. Today why.html carries the project roadmap instead and has no foot. */
+  function mountFoot() {
+    var foot = document.querySelector('.kit-panel-foot');
+    if (!foot || foot.querySelector('[data-kit-guide]')) return;
+    var a = document.createElement('a');
+    a.href = 'why.html';
+    a.setAttribute('data-kit-guide', '');
+    /* The arrow is escaped and not literal: this file is served as a separate
+       resource and its charset is the server's to declare, not the document's.
+       Escaped, it cannot arrive as mojibake whatever the header says. */
+    a.textContent = 'Why the system is like this \u2192';
+    foot.insertBefore(a, foot.firstChild);
+  }
+
   function mount() {
+    mountFoot();
     var el = document.getElementById('kit-nav');
     if (el) {
       el.innerHTML = build();

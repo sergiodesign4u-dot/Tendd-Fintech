@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The action foot - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>The action foot</h1>
+    <p class="lead">The row of actions, and under it the line that answers the question a person asks with their finger already on the button: what happens if I do this, and what happens if I do not. It is where this product does most of its work on anxiety, and it is one line of text.</p>
+    <div class="kit-meta">
+      <span>Pattern</span><span><strong>8</strong> screens</span><span><strong>17</strong> grey pages</span><span><strong>6</strong> in colour</span><span>one value, and it moved four pages</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Two parts, and the second is the point. A row of buttons with nothing under it is just an <a href="action-row.html">action row</a>; this pattern exists where the product answers before it is asked. Drawn by <code>design/system/patterns/act-foot.css</code> and the components it arranges, through the same <code>../system/index.css</code> a product screen loads.</p>
+    <div class="kit-stage app">
+      <div class="act-foot">
+        <div class="actions">
+          <a class="btn primary" href="#anatomy">Start Tendd Pro - $7.99 a month</a>
+          <a class="btn" href="#anatomy">Maybe later</a>
+        </div>
+        <p class="muted">Pays for itself with the first subscription you drop. Cancel any time, from this screen.</p>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.act-foot</code> <span>on the container that holds both, which on 16 of the 17 pages is the screen itself. No wrapper is added: the class marks a container that already exists</span></li>
+      <li><a href="action-row.html"><code>.actions</code></a> <span>one filled action, and a plain one beside it where there is a second way. The row keeps its own margins everywhere else in the product; inside the foot its bottom margin is zero and the gap belongs to the pattern</span></li>
+      <li><a href="muted-line.html"><code>.muted</code></a> <span>a consequence: "Nothing about your plan or your data changed". Thirteen pages</span></li>
+      <li><a href="quiet-line.html"><code>.quiet</code></a> <span>a real exit rather than a consequence: "Do this later", "I will connect a bank later". Four pages, and it is a link rather than a sentence</span></li>
+      <li><code>margin-top</code> <span>16px, and it is the one value this pattern owns. Read the technical half below: it was two numbers at two viewports before this pattern existed</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants</h2>
+    <p class="note"><b>One shape, two kinds of line, and the difference is not visual.</b> Both render at the same 16px under the row. What differs is what the sentence does, and the two are never interchangeable: a consequence explains, an exit offers. The system has two atoms for this and the pattern reads whichever the screen puts there.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>The line<p class="axis-rule">Set by what the screen has to say, not by how it should look</p></th>
+            <th class="val">Selector</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>A consequence</b>, and it is a sentence</td>
+            <td class="val">.act-foot &gt; .actions + .muted</td>
+            <td>Thirteen pages. "You can come back to this from any Pro feature. Nothing about your subscriptions or your data changed"</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app"><div class="act-foot"><div class="actions"><a class="btn primary" href="#variants">Try again</a><a class="btn" href="#variants">Back to your subscriptions</a></div><p class="muted">Nothing about your plan or your data changed. If it keeps happening, tell us and we will look at it.</p></div></div></td></tr>
+          <tr>
+            <td><b>An exit</b>, and it is a link</td>
+            <td class="val">.act-foot &gt; .actions + .quiet</td>
+            <td>Four pages. "Do this later" under the one action a person is not obliged to take. The voice rule behind it is "a real exit is always present", and the quiet line is how the product keeps it without weakening the main action</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app"><div class="act-foot"><div class="actions"><a class="btn primary" href="#variants">Add a subscription</a></div><p class="quiet"><a href="#variants">Do this later</a></p></div></div></td></tr>
+          <tr>
+            <td class="kit-empty">A third line, or a line above the row</td>
+            <td class="kit-empty">-</td>
+            <td>Not in the product and not invented here. Two sentences under a button is a screen explaining itself twice; a line above the row is the announcement's job, and that composition is <a href="interruption.html">the interruption</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">Wherever the action has a consequence a person is entitled to know before they take it. In <code>ia/docs/flows.md</code> that is every commitment point of every flow: the bank connection in Flow A, the paywall in Flow C and D, the sign-in link in Flow E. The line is not decoration and it is not fine print. On the paywall it says the price pays for itself and that cancelling is on the same screen; on an error it says what did not change.</p>
+    <p class="note"><b>It is what keeps a filled button from feeling like a trap.</b> The product's audience is people who avoid finance apps, and the reason they avoid them is that a button might do something they cannot see. One sentence under the row costs nothing and removes exactly that.</p>
+    <p class="note"><b>It stacks with the interruption and is not part of it.</b> Ten of its pages are also interruptions and six are not: Connect bank, Sign in, History and trends, Upgrade and Connections all carry a foot on a screen that is working normally. Two classes on one container is the honest way to write that, because they are two compositions and either can appear without the other.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The line is about the action</span>
+        <div class="kit-stage app"><div class="act-foot"><div class="actions"><a class="btn primary" href="#rule">Connect a bank</a><a class="btn" href="#rule">Add them myself</a></div><p class="muted">Read-only. Tendd cannot move your money, and you can disconnect at any time.</p></div></div>
+        <p>The sentence answers the button above it and nothing else. A person reading it is deciding, and this is the fact they are deciding on.</p>
+      </div>
+      <div class="no">
+        <span class="hd">The line is a second sentence of the screen</span>
+        <div class="kit-stage app"><div class="act-foot"><div class="actions"><a class="btn primary" href="#rule">Connect a bank</a></div><p class="muted">Tendd is a calm way to see everything you pay for every month, without becoming a finance person.</p></div></div>
+        <p>True, and in the wrong place. That belongs to the intro at the top of the screen, where a <a href="text-block.html">text block</a> holds it. Under the row it reads as small print that says nothing, and the next person writing a screen copies the shape and puts marketing there.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">One filled action in the row</span>
+        <div class="kit-stage app"><div class="act-foot"><div class="actions"><a class="btn primary" href="#rule">I cancelled it</a><a class="btn" href="#rule">Not yet</a></div><p class="muted">We will stop counting it in your monthly total from the next charge date.</p></div></div>
+        <p>The second way out is a plain button. The foot then reads as one decision with a way past it, which is what it is.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Two filled actions</span>
+        <div class="kit-stage app"><div class="act-foot"><div class="actions"><a class="btn primary" href="#rule">I cancelled it</a><a class="btn primary" href="#rule">Not yet</a></div><p class="muted">We will stop counting it in your monthly total from the next charge date.</p></div></div>
+        <p>Two filled buttons 55px apart, and the line under them can no longer be about either. This is rule U1 and it is the one the product has actually broken: stage 07 measured exactly this pair on a form screen and carried it, and <code>cancel-guide</code> carries two in one column today, in the grey. Fixing it is the rollout's job and it is a line in <code>docs/backlog.md</code>, not a widening of the rule.</p>
+      </div>
+    </div>
+    <h3 class="kit-sub-h">Limits</h3>
+    <p class="note"><b>U1, composition.</b> One filled action per zone, and the foot is one zone. <b>U7, context.</b> No action foot on a wait: a screen with no control has nothing for the line to be about. Full table with sources: <a href="architecture.html#usage">Usage rules</a>.</p>
+  </section>
+
+  <section class="kit-sec" id="where">
+    <h2>Where it stands</h2>
+    <p class="note">Seventeen pages across eight screens in the grey product. Six are in colour and carry the class today. Ten of the seventeen also carry <a href="interruption.html">the interruption</a>; the other seven are ordinary working screens, which is why this is a pattern of its own rather than the tail of that one.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Screen</th><th>Pages</th><th>The line</th><th>In colour</th></tr></thead>
+        <tbody>
+          <tr><td>History and trends</td><td><a href="../history-trends.html">history-trends</a>, <a href="../history-trends-empty.html">history-trends-empty</a>, <a href="../history-trends-error.html">history-trends-error</a></td><td>consequence</td><td>yes</td></tr>
+          <tr><td>Upgrade</td><td><a href="../upgrade.html">upgrade</a>, <a href="../upgrade-payment-failed.html">upgrade-payment-failed</a></td><td>consequence</td><td>yes</td></tr>
+          <tr><td>Guided reveal</td><td><a href="../guided-reveal-empty.html">guided-reveal-empty</a></td><td>exit</td><td>yes</td></tr>
+          <tr><td>Connect bank</td><td>connect-bank, connect-bank-cancelled, connect-bank-error</td><td>exit, and a consequence on the base page</td><td>grey, stage 12</td></tr>
+          <tr><td>Sign in</td><td>sign-in, sign-in-expired, sign-in-sent</td><td>exit</td><td>grey, stage 12</td></tr>
+          <tr><td>Cancel guide</td><td>cancel-guide, cancel-guide-blocked, cancel-guide-no-guide</td><td>consequence</td><td>grey, stage 12</td></tr>
+          <tr><td>Share snapshot</td><td>share-snapshot-error</td><td>consequence</td><td>grey, stage 12</td></tr>
+          <tr><td>Connections</td><td>connections</td><td>consequence</td><td>grey, stage 12</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Declares</th><th>Value</th><th>Where it came from</th></tr></thead>
+        <tbody>
+          <tr><td>the gap under the row</td><td><code>var(--space-16)</code></td><td>a named decision at stage 09, taken because the extraction found the gap was not one number. See below</td></tr>
+          <tr><td>colour, type, radius, elevation</td><td>none</td><td>a pattern arranges components and reads tokens</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The value this pattern owns is the one it found broken.</b> Before it existed, the gap under the row was two margins meeting: 16px below <code>.actions</code> from <code>action-row.css</code>, and, for a muted line standing directly on a screen, 16px above it from <code>muted-line.css</code>. Under 900 the screen is normal flow, adjacent margins collapse, and the pair reads <b>16</b>. At 900 and past it the screen becomes a flex column, nothing collapses, and the same pair reads <b>32</b>. One composition at two distances, decided by a layout mode rather than by anyone, and invisible unless both ends are measured. The quiet variant read 16 at both widths because it carries no top margin, so the two lines of one foot disagreed with each other as well.</p>
+    <p class="note">It is 16 now at every width, declared once here, with the row's bottom margin zeroed inside the foot so there is one number and one home. <b>Four pages lose 16px at 1280 and nothing else in the product moves</b>, at either width: history-trends, history-trends-empty, history-trends-error and upgrade-payment-failed. On history-trends the 16px does not leave the page, because that screen is already taller than its pane and the chart is the shrinkable item in the column: the plot takes the space back and the blocks under it sit 16px lower. The whole account, with the element counts, is on <a href="pixel-proof.html">the proof</a>.</p>
+    <code class="kit-cmd">&lt;main class="screen act-foot"&gt;
+  ...
+  &lt;div class="actions"&gt;
+    &lt;a class="btn primary" href="upgrade.html"&gt;Start Tendd Pro&lt;/a&gt;
+    &lt;a class="btn" href="home.html"&gt;Maybe later&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p class="muted"&gt;Pays for itself with the first subscription you drop.&lt;/p&gt;
+&lt;/main&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    One of three patterns, listed on <a href="patterns.html">Patterns</a>. Its rules of use are U1 and U7 in <a href="architecture.html#usage">Architecture, usage rules</a>. Lives in <code>design/system/patterns/act-foot.css</code>, imported after every component. The copy in the examples is the product's own, from <code>voice/docs/microcopy.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

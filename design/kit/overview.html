@@ -52,7 +52,8 @@
       <p>The code of the system lives in <code>design/system/</code> and a product loads it with one link. The stand is here, and a person looks at it. The split is simple: <code>design/system/</code> can be lifted into another project whole, and this stand stays behind.</p>
     </div>
     <div class="kit-meta">
-      <span><strong>55</strong> components, was 68</span>
+      <span><strong>57</strong> components, was 68</span>
+      <span><strong>3</strong> patterns, stage 09</span>
       <span><strong>25</strong> roles, every one paired to a dark theme</span>
       <span><strong>0</strong> failing contrast pairs</span>
       <span>Foundations awaiting review</span>
@@ -101,7 +102,7 @@
     <div class="kit-prose">
       <p><b>Primitive</b> answers what value, <b>semantic</b> answers why this colour here, and there is no third level. A component token is created case by case and only where a state lands on no role at all. Geometry gets no semantic level: a radius has nothing to override, so components read it straight from primitive.</p>
       <p>The finding that decided how many roles exist is the <b>surface axis</b>. A role declares what it paints, and there are three: ink, fill, line. Ink answers to 4.5:1, fill and line to 3:1. One role on two surfaces is forbidden even at the same value, because a fill role placed on a 12px bold caption passes as a surface and fails as text, and a table of text-on-background pairs never catches it: nobody declared it text. Petrol alone became three roles for exactly this reason.</p>
-      <p><b>Every role is written twice at the moment it is declared</b>, in <code>:root</code> and in <code>[data-theme="dark"]</code>. 27 roles and 4 state tokens, 31 pairs, none missing. The pair is not mirrored, and three places show why. The action darkens under the pointer in the light theme and <b>lightens</b> in the dark one, because the hover has to move away from the ground and the ground swapped ends. The callout shares one value with the page in the light theme and must not in the dark. And the label on a filled action is white in the light theme; on the lightened petrol of the dark theme white measures <b>1.9:1</b>, so it takes the dark canvas at 7.5:1 instead. That last one would have shipped broken had the pair been left for later.</p>
+      <p><b>Every role is written twice at the moment it is declared</b>, in <code>:root</code> and in <code>[data-theme="dark"]</code>. 27 roles, 4 state tokens and 3 component tokens, 34 pairs, none missing; the last three were counted in nothing until 2026-08-13 and are on <a href="color.html#roles">the colour page</a> now. The pair is not mirrored, and three places show why. The action darkens under the pointer in the light theme and <b>lightens</b> in the dark one, because the hover has to move away from the ground and the ground swapped ends. The callout shares one value with the page in the light theme and must not in the dark. And the label on a filled action is white in the light theme; on the lightened petrol of the dark theme white measures <b>1.9:1</b>, so it takes the dark canvas at 7.5:1 instead. That last one would have shipped broken had the pair been left for later.</p>
       <p>21 dark primitives are the only new values in the file. They had to be new, because the flat kit had no dark theme to carry.</p>
     </div>
   </section>
@@ -143,7 +144,8 @@
   <section class="kit-step" id="material">
     <h2>The material itself <span class="no">Index</span></h2>
     <div class="kit-prose">
-      <p>The system's own panel on the left of every stand page is the way to browse this. The index below is the same registry, laid out flat. A component with no page yet is shown quiet: <b>0 of 55 are built</b>, and step 5 builds them in rounds from the bottom of the ladder up.</p>
+      <p>The system's own panel on the left of every stand page is the way to browse this. The index below is the same registry, laid out flat. A component with no page yet is shown quiet: <b>all 57 are built</b>, in rounds from the bottom of the ladder up, and two brand atoms joined them on 2026-08-12 when the founder locked the mark.</p>
+      <p><b>The fourth group is new at stage 09</b> and it is a different kind of thing from the three above it. A component is one brick and its test is what it contains; a pattern is a composition of bricks and its test is repetition, three screens or more, counted on the grey product. The count that produced them and the four candidates still waiting are on <a href="patterns.html">Patterns</a>.</p>
     </div>
     <h3 class="kit-sub-h">Atoms</h3>
     <div class="kit-grid" id="grid-atoms"></div>
@@ -151,10 +153,12 @@
     <div class="kit-grid" id="grid-molecules"></div>
     <h3 class="kit-sub-h">Organisms</h3>
     <div class="kit-grid" id="grid-organisms"></div>
+    <h3 class="kit-sub-h">Patterns</h3>
+    <div class="kit-grid" id="grid-patterns"></div>
   </section>
 
   <footer class="kit-foot">
-    The audit is in <code>docs/tokens-audit.md</code>, the measured control forms in <code>docs/census.md</code>, the component list and the renaming map in <code>docs/inventory.md</code>, the rules in <a href="architecture.html">Architecture</a>. The coloured screens this system is proved against are in <a href="../overview.html">UI + Visual</a>, and the grey structure contract in <a href="../../wireframes/overview.html">wireframes/</a>.
+    The audit is in <code>docs/tokens-audit.md</code>, the measured control forms in <code>docs/census.md</code>, the component and pattern list in <code>docs/inventory.md</code>, the rules in <a href="architecture.html">Architecture</a>, and what may NOT be done with them in <a href="architecture.html#usage">usage rules</a>. The coloured screens this system is proved against are in <a href="../overview.html">UI + Visual</a>, and the grey structure contract in <a href="../../wireframes/overview.html">wireframes/</a>.
   </footer>
 </div>
 
@@ -169,6 +173,12 @@
 </script>
 <script>
   window.NAV_BASE = '../../';
+  // The roadmap row of this stage opens on why.html, the guide, so this page is
+  // no longer the registry page of the row and names it instead. That is the
+  // third legal form: a page outside the registry declaring its nearest one, and
+  // it renders here as a sub item under Design System carrying the sections below.
+  window.NAV_ACTIVE = 'design/kit/why.html';
+  window.NAV_ACTIVE_LABEL = 'Tokens and components (stage 08)';
   window.NAV_SECTIONS = [
     { id:'audit',            label:'Step 1, the audit' },
     { id:'consolidation',    label:'Step 2, the consolidation' },
@@ -206,7 +216,7 @@
     h += '</article>';
     return h;
   }
-  ['foundations','atoms','molecules','organisms'].forEach(function(k){
+  ['foundations','atoms','molecules','organisms','patterns'].forEach(function(k){
     var el = document.getElementById('grid-'+k);
     if (el && N[k]) el.innerHTML = N[k].map(card).join('');
   });

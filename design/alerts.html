@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alerts / Activity - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- THE THEME BEFORE THE FIRST PAINT. Three lines, inline, above the stylesheet
+     on purpose: a switch that runs on DOMContentLoaded leaves one frame of white
+     on every load in the dark theme, and a flash is the most visible thing a dark
+     theme can get wrong. design/_nav.js draws the control and owns the same key. -->
+<script>(function(){try{if(localStorage.getItem('tendd-screen-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+<body>
+
+<!--
+  Alerts / Activity, node 3.8. The eighth screen in colour, and the first one built
+  at stage 09 rather than at 07: the self-sufficiency test of the design system.
+  Assembled from system classes only. This page carries no style of its own: no
+  page-level style block, no style attribute, no class that design/system/ does not
+  define, and nothing was added to the system to make it fit.
+
+  Structure and copy are a verbatim copy of wireframes/alerts.html. The colour copy
+  adds exactly one kind of thing, the same thing every other coloured page adds:
+  the merchant marks that the grey wrote as the placeholder string [logo].
+
+  WHY THIS SCREEN. It carried the largest hole in the coloured sample: .alert had
+  never been rendered in colour on any of the 28 pages, and its own stylesheet says
+  so in its header. The panel's disclosure form (details + summary) had never been
+  rendered either, and it stands on exactly one page in the product, this one. And
+  the tab bar of every coloured steady screen pointed at ../wireframes/alerts.html,
+  so nineteen coloured pages dropped a person into greyscale on one tap.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<div class="app">
+
+  <!-- GC1 App header -->
+  <header class="appbar">
+    <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+    <a class="acct" href="settings.html" aria-label="Hi Emma, open your account">Hi, Emma</a>
+  </header>
+
+  <main class="screen">
+   <div class="rows-col">
+
+    <div class="textblock">
+      <h1>Alerts</h1>
+      <p>The few things worth knowing about. A quiet dot marks what is new since your last visit.</p>
+    </div>
+
+    <!-- Sorted by whether it needs you, not by date. A feed sorted by date makes
+         a person scan to find out whether anything is wrong; this answers that
+         before they read a word. This group is usually empty, and that is the
+         product working. -->
+    <section class="group" aria-label="Needs you">
+      <div class="group-head">
+        <h2>Needs you</h2>
+        <span class="subtotal">2</span>
+      </div>
+      <ul class="divlist">
+        <li>
+          <a class="alert" href="subscription-detail-price-change.html" aria-label="New. Netflix went up by $2.50, now $17.99 a month. Price change from Chase, Jul 28. See what changed.">
+            <span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span>
+            <span class="body">
+              <span class="what"><span class="newdot" aria-hidden="true"></span>Netflix went up by $2.50, now $17.99 a month</span>
+              <span class="meta">Price change &middot; Netflix &middot; Jul 28 &middot; from Chase</span>
+              <!-- The old price beside the new one. Every product shows the new
+                   number; the old one turns a surprise into an explanation. -->
+              <span class="prices"><span>Was <b>$15.49</b></span><span>Now <b>$17.99</b></span><span>Difference <b>$2.50</b></span></span>
+              <span class="go">See what changed</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="alert" href="subscription-detail-payment-failed.html" aria-label="New. A payment to Amazon Prime did not go through. Payment failed from Chase, Jul 20, $14.99. What to do.">
+            <span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span>
+            <span class="body">
+              <span class="what"><span class="newdot" aria-hidden="true"></span>A payment to Amazon Prime did not go through</span>
+              <span class="meta">Payment failed &middot; Amazon Prime &middot; $14.99 &middot; Jul 20 &middot; from Chase</span>
+              <span class="go">What to do</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="group" aria-label="Just so you know">
+      <div class="group-head">
+        <h2>Just so you know</h2>
+        <span class="subtotal">5</span>
+      </div>
+      <ul class="divlist">
+        <li>
+          <a class="alert" href="subscription-detail.html" aria-label="iCloud Plus charges $2.99 tomorrow. Coming up from Chase, 2 August. See iCloud Plus.">
+            <span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span>
+            <span class="body">
+              <span class="what">iCloud+ charges $2.99 tomorrow</span>
+              <span class="meta">Coming up &middot; iCloud+ &middot; Aug 2 &middot; from Chase</span>
+              <span class="go">See iCloud+</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="alert" href="subscription-detail.html" aria-label="ChatGPT Plus charges $20.00 in 4 days. Coming up from Chase, 5 August. See ChatGPT Plus.">
+            <span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span>
+            <span class="body">
+              <span class="what">ChatGPT Plus charges $20.00 in 4 days</span>
+              <span class="meta">Coming up &middot; ChatGPT Plus &middot; Aug 5 &middot; from Chase</span>
+              <span class="go">See ChatGPT Plus</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="alert" href="subscription-detail.html" aria-label="Tendd found a new subscription, Strava, $11.99 a month. New subscription from Chase, found 29 July. See Strava.">
+            <span class="logo"><img src="visuals/logos/strava.svg" alt=""></span>
+            <span class="body">
+              <span class="what"><span class="newdot" aria-hidden="true"></span>Tendd found a new subscription, Strava, $11.99 a month</span>
+              <span class="meta">New subscription &middot; Strava &middot; found Jul 29 &middot; from Chase</span>
+              <span class="go">See Strava</span>
+            </span>
+          </a>
+        </li>
+        <!-- The two Pro alert types are shown, not hidden, and they state what
+             they are: no blur, because a blur pretends there is text being
+             withheld and an anxious person fills it in with something bad. -->
+        <li>
+          <a class="alert" href="upgrade.html" aria-label="Your Peloton App trial ends soon. Trial ending, part of Tendd Pro. See what Pro adds.">
+            <span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span>
+            <span class="body">
+              <span class="what">Your Peloton App trial ends soon <span class="chip">Pro</span></span>
+              <span class="meta">Trial ending &middot; Peloton App &middot; Aug 18 &middot; Tendd Pro explains what happens next</span>
+              <span class="go">See what Pro adds</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a class="alert" href="upgrade.html" aria-label="We noticed something about your Adobe Creative Cloud charge. Unusual charge, part of Tendd Pro. See what Pro adds.">
+            <span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span>
+            <span class="body">
+              <span class="what">We noticed something about your Adobe Creative Cloud charge <span class="chip">Pro</span></span>
+              <span class="meta">Unusual charge &middot; Adobe Creative Cloud &middot; Jul 15 &middot; Tendd Pro explains what we saw</span>
+              <span class="go">See what Pro adds</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- The recent past is the job of this screen. The distant past is node 5.12. -->
+    <details class="panel">
+      <summary>Older</summary>
+      <ul class="divlist">
+        <li>
+          <a class="alert" href="subscription-detail.html" aria-label="We could not take your Spotify Premium payment on 28 June. Payment failed from Chase, since gone through. See Spotify Premium.">
+            <span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span>
+            <span class="body">
+              <span class="what">We could not take your Spotify Premium payment on Jun 28</span>
+              <span class="meta">Payment failed &middot; Spotify Premium &middot; $11.99 &middot; from Chase &middot; this one has since gone through</span>
+              <span class="go">See Spotify Premium</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </details>
+
+    <!-- One place that answers what will reach you, rather than a reminder
+         toggle on every subscription the way the category does it. -->
+    <nav class="actions" aria-label="More">
+      <a class="btn" href="settings.html">What Tendd tells you about</a>
+    </nav>
+
+   </div>
+  </main>
+
+  <!-- GC2 Global tab bar, the Alerts tab active. The dot rides the current tab
+       here and on no other state of this screen: it marks what is new since the
+       last visit, and the empty, error and loading states have nothing new. -->
+  <nav class="tabbar" aria-label="Global navigation">
+    <a href="home.html"><span class="ic ic-home"></span>Home</a>
+    <a class="cur" href="alerts.html" aria-current="page"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
+    <a href="home-savefocus.html"><span class="ic ic-save"></span>Save</a>
+    <a href="settings.html"><span class="ic ic-you"></span>You</a>
+  </nav>
+
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

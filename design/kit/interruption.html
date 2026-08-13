@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The interruption - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>The interruption</h1>
+    <p class="lead">Something stopped: a load failed, a link expired, a list is empty, a payment did not go through. The container says what happened, in one sentence a person can act on, and gives the way on directly under it. It is the most common composition in the product and the one most likely to be built badly, because every screen meets it at its worst moment.</p>
+    <div class="kit-meta">
+      <span>Pattern</span><span><strong>12</strong> screens</span><span><strong>16</strong> grey pages</span><span><strong>7</strong> in colour</span><span>4 hosts</span><span>no styles of its own</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">Two required parts and one optional one, in this order and no other. Everything below is drawn by <code>design/system/patterns/interruption.css</code> plus the component files it arranges, through the same <code>../system/index.css</code> a product screen loads, so this page cannot drift from the screens.</p>
+    <div class="kit-stage app">
+      <div class="interruption act-foot">
+        <div class="textblock status" role="status" aria-live="polite">
+          <h1>That payment did not go through</h1>
+          <p>Your bank did not approve it, so nothing was charged. This happens most often with a card that has expired or a bank that wants to confirm a new payment.</p>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="#anatomy">Try another payment method</a>
+          <a class="btn" href="#anatomy">Maybe later</a>
+        </div>
+        <p class="muted">You can come back to this from any Pro feature. Nothing about your subscriptions or your data changed.</p>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.interruption</code> <span>the class goes on the CONTAINER that holds the pair, not on a wrapper of its own: a wrapper would be markup added to a product screen for the system's convenience, and it would not survive the dialog sheet</span></li>
+      <li><a href="text-block.html"><code>.textblock.status</code></a> <span>the announcement, first. It carries <code>role="status"</code> and <code>aria-live="polite"</code> on every one of the pages it stands on, so the sentence reaches a screen reader when the state arrives rather than only on the way past</span></li>
+      <li><a href="action-row.html"><code>.actions</code></a> <span>the way out, second, and it is not optional. One filled action and, where there is a second way, a plain one beside it</span></li>
+      <li><code>.quiet</code> <span>or <code>.muted</code>: the closing line, optional, and when it is there the container is also an <a href="act-foot.html">action foot</a>. A <a href="quiet-line.html">quiet line</a> carries a real exit ("Do this later"); a <a href="muted-line.html">muted line</a> carries a consequence ("Nothing about your plan changed")</span></li>
+      <li><code>margin</code> <span>the only value the pattern owns: 24px between the announcement and whatever follows it. It was the text block's own bottom margin and it still is everywhere else; inside an interruption the block's margin is zeroed and the gap is declared once, on the composition</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants</h2>
+    <p class="note"><b>No visual variants, and that is the point of a pattern.</b> What varies is the host it stands in and what stands between the announcement and the exit, and neither changes a value: the four hosts below render identically because the pattern reads the host's width and nothing else. <b>The fourth arrived on 2026-08-13</b>, from the first screen built after this page existed, and it cost no CSS at all: an axis read off the corpus that stands is a description of that corpus, and the next screen is allowed to extend it.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Host<p class="axis-rule">The container the class goes on. All three are containers the product already had; the pattern adds none</p></th>
+            <th class="val">Selector</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>The screen</b>, and the screen is now for this</td>
+            <td class="val">main.screen.interruption</td>
+            <td>Eleven pages. The whole screen has stopped: the trends failed to load, the reveal has nothing to reveal, the sign-in link expired</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app"><div class="interruption"><div class="textblock status"><h1>We could not load your trends</h1><p>Something on our side did not answer. Your subscriptions, your total and your alerts are not affected: this is only the history view.</p></div><div class="actions"><a class="btn primary" href="#variants">Try again</a><a class="btn" href="#variants">Back to your subscriptions</a></div></div></div></td></tr>
+          <tr>
+            <td><b>One column of a detail</b></td>
+            <td class="val">.col1.interruption</td>
+            <td>One page, <a href="../subscription-detail-error.html">subscription detail, could not load</a>. The identity of the thing survives in the hero above and only the rest of the record failed, so the interruption takes the column and not the screen</td>
+          </tr>
+          <tr>
+            <td><b>A dialog sheet</b></td>
+            <td class="val">.sheet.interruption</td>
+            <td>Three pages, all still grey: the cancel guide with no guide, the add-a-source sheet, the delete confirmation. <b>No coloured page carries this host yet</b>, so it is the one part of this pattern that the pixel comparison could not check. It reaches colour at stage 12</td>
+          </tr>
+          <tr>
+            <td><b>The list column</b>, added 2026-08-13</td>
+            <td class="val">.rows-col.interruption</td>
+            <td>One page, <a href="../alerts-error.html">alerts, could not reach your alerts</a>, and it is the first screen built after this pattern was written. The three hosts above all hold the announcement as a direct child of the screen or of a detail column; this screen puts its list column in between, because its grey original does. The class moves to whichever element actually holds the pair, which is what a child selector means. Measured on the page at both viewports: <b>24px with the class and 24px without it</b></td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A tone: error red, warning yellow</td>
+            <td class="kit-empty">-</td>
+            <td>Forbidden with a reason rather than missing. A <a href="text-block.html">status block</a> IS the whole container: there is nothing beside it to be told apart from, and a fill around a full-screen message is decoration rather than information. The product has one desaturated clay for a genuine error and it is spent on the sentence, never on a panel behind it. This is the calm rule of <a href="../concept/concept.html">Concept</a> at the composition level</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">Every flow in <code>ia/docs/flows.md</code> meets it. Flow A hits it when the bank connection is cancelled or fails, Flow B when the service list will not load, Flow C in the cancel guide's dead end, Flow D at an alert that leads to a screen with nothing on it, Flow E when the sign-in link has expired. That is the reason it earned a name before anything else did: it is not one screen's problem, it is the shape the product takes whenever it has to say no.</p>
+    <p class="note"><b>The rule that makes it calm is in the copy, and the composition protects it.</b> The announcement says what happened and what is still fine, in that order, and the exit is a real one. Both come from <code>voice/docs/voice.md</code>: no fault, no exclamation, and a way out always present. A composition that puts the button above the sentence would invite the opposite text, which is why the order is part of the pattern rather than a habit.</p>
+    <p class="note"><b>It is not the same thing as an empty block.</b> The <a href="empty-block.html">empty block</a> is a component for a zone inside a working screen, the way Home shows an empty list under a head that still works. The interruption is the container itself having stopped.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The container has stopped</span>
+        <div class="kit-stage app"><div class="interruption act-foot"><div class="textblock status"><h1>Nothing to reveal yet</h1><p>Add at least one subscription and your list appears here. Even a partial list is saved, so you can come back any time.</p></div><div class="actions"><a class="btn primary" href="#rule">Add a subscription</a></div><p class="quiet"><a href="#rule">Do this later</a></p></div></div>
+        <p>Nothing else is on the screen, because nothing else can be. The announcement, the way on, and a real way past it. This is the pattern.</p>
+      </div>
+      <div class="no">
+        <span class="hd">The container still works</span>
+        <div class="kit-stage app"><div><div class="wash error"><p>We could not refresh just now. Your figures are from this morning. <a href="#rule">Try again</a></p></div><div class="textblock"><h1>You're paying for 14 subscriptions</h1></div></div></div>
+        <p>Home when the refresh failed. Every figure is still there and still true, so the screen has not stopped and this is not an interruption: it is a <a href="wash-block.html">wash block</a> annotating a screen that works, with the recovery inside the sentence that explains it. Turning this into an interruption would hide fourteen subscriptions to report that one request was slow. Two more pages are this case and not the pattern: <code>add-subscription-empty</code>, where the manual form under the notice is the point of the screen, and <code>cancel-guide-no-guide</code>, where the guide beside it is still readable.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">An exit that is a control</span>
+        <div class="kit-stage app"><div class="interruption"><div class="textblock status"><h1>That link has expired</h1><p>Links last one hour, so we can be sure it is you. Ask for a new one and it will be there in a moment.</p></div><div class="actions"><a class="btn primary" href="#rule">Send a new link</a></div></div></div>
+        <p>A person taps and something happens. Every exit in this pattern is an edge a person takes.</p>
+      </div>
+      <div class="no">
+        <span class="hd">A wait is not an interruption</span>
+        <div class="kit-stage app"><div><div class="textblock status"><h1>Confirming with your bank</h1><p>This usually takes a few seconds.</p></div></div></div>
+        <p><code>upgrade-processing</code> and <code>connect-bank-loading</code> carry a status block and <b>no way out at all</b>, and neither takes this class. An edge the system takes is not a control: a button on a wait screen offers an action the product does not have, and on a charge in flight it offers the one thing that screen must not offer. That is rule U7 in <a href="architecture.html#usage">the usage rules</a>, and these two pages are its whole evidence.</p>
+      </div>
+    </div>
+    <h3 class="kit-sub-h">Limits</h3>
+    <p class="note"><b>U4, composition.</b> One <code>.textblock.status</code> per screen, so one interruption per screen. Two announcements are two states. <b>U6, composition.</b> The way out is required and lives in the same container, except on <code>cancel-guide-no-guide</code>, where it is in the column beside it. <b>U1, composition.</b> One filled action in the row, whatever else the exit offers. Full table with sources: <a href="architecture.html#usage">Usage rules</a>.</p>
+  </section>
+
+  <section class="kit-sec" id="where">
+    <h2>Where it stands</h2>
+    <p class="note">Sixteen pages across twelve screens, counted on the grey product, which is the whole of it. Seven are in colour today and carry the class; the other nine are still grey and take it at the rollout. This list is the proof the pattern exists, so it is named page by page rather than summarised.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Screen</th><th>Pages</th><th>Host</th><th>In colour</th></tr></thead>
+        <tbody>
+          <tr><td>Add subscription</td><td><a href="../add-subscription-error.html">add-subscription-error</a></td><td>screen</td><td>yes</td></tr>
+          <tr><td>Guided reveal</td><td><a href="../guided-reveal-empty.html">guided-reveal-empty</a></td><td>screen</td><td>yes</td></tr>
+          <tr><td>History and trends</td><td><a href="../history-trends-empty.html">history-trends-empty</a>, <a href="../history-trends-error.html">history-trends-error</a></td><td>screen</td><td>yes</td></tr>
+          <tr><td>Subscription detail</td><td><a href="../subscription-detail-error.html">subscription-detail-error</a></td><td><code>.col1</code></td><td>yes</td></tr>
+          <tr><td>Upgrade</td><td><a href="../upgrade-payment-failed.html">upgrade-payment-failed</a></td><td>screen</td><td>yes</td></tr>
+          <tr><td>Connect bank</td><td>connect-bank-cancelled, connect-bank-empty, connect-bank-error</td><td>screen</td><td>grey, stage 12</td></tr>
+          <tr><td>Sign in</td><td>sign-in-expired, sign-in-sent</td><td>screen</td><td>grey, stage 12</td></tr>
+          <tr><td>Alerts</td><td><a href="../alerts-error.html">alerts-error</a></td><td><code>.rows-col</code></td><td>yes</td></tr>
+          <tr><td>Share snapshot</td><td>share-snapshot-error</td><td>screen</td><td>grey, stage 12</td></tr>
+          <tr><td>Cancel guide</td><td>cancel-guide-blocked</td><td><code>.sheet</code></td><td>grey, stage 12</td></tr>
+          <tr><td>Connections</td><td>connections-add-source</td><td><code>.sheet</code>, exit is a grid of doors</td><td>grey, stage 12</td></tr>
+          <tr><td>Data and privacy</td><td>data-privacy-delete-confirm</td><td><code>.sheet</code></td><td>grey, stage 12</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The dialog sheet host is the one thing on this page that pixels have not checked</b>, because no sheet exists in colour yet. It is said here rather than left to be noticed: three grey pages, none proved, and the rollout is where it gets proved.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Declares</th><th>Value</th><th>Where it came from</th></tr></thead>
+        <tbody>
+          <tr><td>the gap under the announcement</td><td><code>var(--space-24)</code></td><td>the text block's own bottom margin, which stays in <code>text-block.css</code> for the other 27 text blocks in the product. Inside the pattern it is zeroed there and declared here, so the composition has one home</td></tr>
+          <tr><td>colour, type, radius, elevation</td><td>none</td><td>a pattern arranges components and reads tokens. A hex here would be a component nobody declared</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/patterns/interruption.css</code>, imported at the foot of <code>design/system/index.css</code>, after every component. Measured before and after the extraction at 360 and 1280 on all six coloured pages: the gap is 24px on both sides of the change, and no element moved. Under 900 the screen is normal flow and adjacent margins collapse, so 24 and 0 collapse the same way 0 and 24 do; at 900 and past it the screen is a flex column and both readings are a plain sum. The account is on <a href="pixel-proof.html">the proof</a>.</p>
+    <code class="kit-cmd">&lt;main class="screen interruption act-foot"&gt;
+  &lt;div class="textblock status" role="status" aria-live="polite"&gt;
+    &lt;h1&gt;That payment did not go through&lt;/h1&gt;
+    &lt;p&gt;Your bank did not approve it, so nothing was charged.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="actions"&gt;
+    &lt;a class="btn primary" href="upgrade.html"&gt;Try another payment method&lt;/a&gt;
+    &lt;a class="btn" href="history-trends-locked.html"&gt;Maybe later&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;p class="muted"&gt;You can come back to this from any Pro feature.&lt;/p&gt;
+&lt;/main&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    One of three patterns, listed on <a href="patterns.html">Patterns</a>. Its rules of use are U1, U4, U6 and U7 in <a href="architecture.html#usage">Architecture, usage rules</a>. The copy in every example on this page is the product's own, from <code>voice/docs/microcopy.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

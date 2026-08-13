@@ -228,7 +228,17 @@ rebrand would have worked on a flat sheet of values: swap the hex and everything
 theme separates the two levels, because the ground inverts while "the action" stays the action.
 **The pair is a property of the level, not an event:** every role is written twice, in `:root`
 and in `[data-theme="dark"]`, at the moment it is declared, and a role without a pair does not
-exist. 31 roles, 31 pairs, none missing.
+exist. **34 declarations at the semantic level, 34 pairs, none missing:** 27 roles, 4 state
+tokens and 3 component tokens.
+
+**This document said 31 until 2026-08-13, and so did the colour page of the stand.** The three
+component tokens (`--control-accent`, `--bg-chip-accent`, `--text-chip-accent`) were split off
+from `--bg-action`, `--bg-selected` and `--text-action` during the component rounds, and were
+counted in neither figure; `--bg-hover` was paired and named everywhere but missing from the
+table below. Nothing was broken in the product, all four are declared in both themes and all four
+clear their threshold. What was broken is the parity between the code and the documents that
+describe it, and it survived a recount because the recount was taken off the stand rather than
+off `tokens.css`.
 
 **It is not a mirror.** Contrast runs against the opposite ground, so five pairs deliberately
 disagree with their light halves, and each disagreement is marked in `tokens.css`:
@@ -242,7 +252,7 @@ disagree with their light halves, and each disagreement is marked in `tokens.css
 | `--text-on-action` | white | the dark canvas | white on the lightened petrol measures **1.9:1**; this one would have shipped broken |
 
 **Three surfaces, three thresholds.** Ink answers to 4.5:1 (3:1 from 24px or 19px bold), fill and
-line answer to 3:1 under WCAG 1.4.11. Twelve fills and four lines are marked decorative by a
+line answer to 3:1 under WCAG 1.4.11. Eleven fills and four lines are marked decorative by a
 named decision of 2026-08-11: a card edge and a wash separate two surfaces that nothing has to
 find by touch, and raising them outlines the whole product, which is what this language was
 chosen against. The boundary that *identifies* a control is a separate role and carries its 3:1.
@@ -260,6 +270,9 @@ chosen against. The boundary that *identifies* a control is a separate role and 
 | `--bg-placeholder` | fill | `--bg-surface` | 1.23 | 1.15 | decorative |
 | `--bg-action` | fill | `--bg-surface` | 6.23 | 6.82 | 3.0 |
 | `--bg-action-strong` | fill | `--bg-surface` | 7.83 | 7.91 | 3.0 |
+| `--bg-hover` | fill | `--bg-surface` | 1.08 | 1.11 | decorative |
+| `--control-accent` | fill | `--bg-surface` | 6.23 | 6.82 | 3.0 |
+| `--bg-chip-accent` | fill | `--bg-surface` | 1.18 | 1.20 | decorative |
 | `--text-primary` | ink | `--bg-surface` | 17.44 | 14.98 | 4.5 |
 | `--text-body` | ink | `--bg-surface` | 10.16 | 10.44 | 4.5 |
 | `--text-muted` | ink | `--bg-surface` | 5.78 | 6.40 | 4.5 |
@@ -269,6 +282,7 @@ chosen against. The boundary that *identifies* a control is a separate role and 
 | `--text-failure` | ink | `--bg-failure` | 4.57 | 6.67 | 4.5 |
 | `--text-status` | ink | `--bg-status` | 5.77 | 6.69 | 4.5 |
 | `--text-trial` | ink | `--bg-trial` | 6.75 | 7.36 | 4.5 |
+| `--text-chip-accent` | ink | `--bg-chip-accent` | 5.26 | 5.68 | 4.5 |
 | `--line-control` | line | `--bg-surface` | 3.46 | 5.15 | 3.0 |
 | `--line-control-hover` | line | `--bg-surface` | 5.78 | 6.40 | 3.0 |
 | `--line-selected` | line | `--bg-surface` | 6.23 | 6.82 | 3.0 |
@@ -441,6 +455,36 @@ A 12px muted line with a 15px petrol shield masked in front of it, sitting direc
 figures it vouches for. It is not fine print and it is not a footer: it is placed where the number
 is, because a trust claim that has to be scrolled to is not a trust claim.
 
+### Patterns (a level above the components)
+
+Three compositions recur often enough to have a name, a file and a page of their own. A pattern
+is a settled arrangement of components with **no style of its own**: it declares who owns a gap,
+never what a thing looks like. The threshold is **three named screens**, counted on the grey
+wireframes where the whole product is. Two occurrences prove a composition is possible; three
+prove it has settled, and a system where every second screen produces a pattern is a set of
+synonyms with a filing cabinet.
+
+**The interruption.** Something stopped, here is what happened, here is the way on. A status text
+block, then the way out, and whatever the screen needs in between. **12 screens, 16 pages.** Its
+one declaration moves the 24px gap from the announcement's own margin onto the composition, so
+the rhythm of every interruption in the product changes in one line. It has four hosts, because
+the class goes on whatever holds the pair: the screen, a detail column, a dialog sheet, or a list
+column. A **wait is not an interruption** and carries no way out on purpose, because a person has
+nothing to do about it.
+
+**The action foot.** A row of actions closed by the line that says what happens if you take one.
+**8 screens, 17 pages.** One value moved here, the 16px between the row and its line, and it is
+16 at every width: a foot that grew with the viewport read as two unrelated blocks on a desktop.
+
+**The list column.** A page that is a column of grouped rows, opened by an intro that says what
+the column is. **4 screens, 9 pages.** It is the one pattern that took real CSS with it, a 620px
+reading measure and a `min-width: 0`, both of which had been sitting in the app shell because
+there was no level above it to put them in.
+
+**Four more compositions stand on two screens and are named rather than promoted**, on
+`design/kit/patterns.html`, each with what it is waiting for. A candidate that never reaches a
+third screen is a candidate, not a debt.
+
 ## The brand
 
 Locked 2026-08-12, out of `design/concept/logo-crop.html`, and it is the last thing this document
@@ -510,6 +554,32 @@ travelling across a fixed letter and tightening as it goes. Eight seconds, one l
 about a second and a half on each stop. Allowed on the launch screen, the first run, the empty
 state and the share card render; **never** in the app bar, never on a loading screen, never on a
 repeat visit. A mark that moves while somebody is trying to read a number is the opposite of calm.
+
+## Contributing to the system
+
+Everything above describes what ships, and all of it arrived the same way. That way is the rule:
+**nothing new appears on a screen first.** A value goes into `design/system/tokens.css` at its
+level, a component into `design/system/components/` with its page in `design/kit/`, a composition
+that has turned up on three screens into `design/system/patterns/`. Only then does a screen use
+it. The order is the reason a correction is made once and reaches everywhere, and the reason a
+theme could be added without opening a single component file.
+
+**A state is a token, not a style.** Nothing inside a `:hover` or a `:focus-visible` block is a hex
+or a number anywhere in this system, and a state token carries a value in **both** themes at the
+moment it is declared. A state written as a style inside a class is the defect that looks correct
+in one theme and vanishes in the other, and the file gives you no way to notice: the way to notice
+is to switch the theme, which is to say never.
+
+**A screen carries no style of its own.** No page-level style block, no style attribute, no class
+the system does not define. A fix applied on one screen is a desync: it looks finished, and it is a
+second edition of a component that nobody declared. A contextual override such as
+`.host .btn { font-size: 15px }` is an undeclared variant, so declare the modifier in the
+component's own file and put the class in the markup.
+
+**When the system does not have it,** that is an order for the system and not an exception on the
+screen. What was deliberately not built is written into `design/kit/docs/backlog.md` rather than
+worked around, and the rules with the checks that catch a violation are in
+`design/kit/docs/architecture.md`, section "Contributing to the system".
 
 ## Do's and Don'ts
 

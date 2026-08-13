@@ -19,9 +19,9 @@
               --space-48, --space-64
    Page      design/kit/app-shell.html
    Stands on 54 grey pages, which is every page in wireframes/ except the landing
-   (index.html) and the stage hub (overview.html). 28 of them are coloured. The
-   three forms split 20 steady, 26 flow and 8 detail in the grey, and 12, 10 and 6
-   in colour.
+   (index.html) and the stage hub (overview.html). 32 of them are coloured. The
+   three forms split 20 steady, 26 flow and 8 detail in the grey, and 16, 10 and 6
+   in colour: the four Alerts pages of stage 09 all took the steady form.
    Hosts     the App bar, the Tab bar, and through `.screen` every organism in the
              system. It gives them placement and nothing else.
 
@@ -54,9 +54,11 @@
    looks like a stray line; taken together they are the desktop reading order of
    Home. Lose any one and the screen reads in source order with nothing erroring.
 
-   THE READING MEASURES ARE SPLIT, AND TWO OF THE THREE ARE MINE. `.form-col` and
-   `.rows-col` are the shell's own columns and carry no component, so they are
-   below. `.card.prose` is NOT: card.css already declares
+   THE READING MEASURES ARE SPLIT, AND ONE OF THE THREE IS MINE SINCE STAGE 09.
+   `.form-col` is the shell's own column and carries no component, so it is below.
+   `.rows-col` was beside it until stage 09 and is now the list column pattern,
+   patterns/list-column.css, with its floor and its 620 measure both. `.card.prose`
+   is a third owner again: card.css already declares
    `.app > .screen > .card.prose { max-width: 560px }` because the card is the
    subject of that rule, and repeating it here would give one measure two owners.
    Read and confirmed in card.css before this file was written.
@@ -68,7 +70,8 @@
 
    NO HEX AND NO FONT NAME below. Every literal that survives is a WIDTH or a
    VIEWPORT UNIT, neither of which is on the spacing scale: 220px is a grid track,
-   780 / 620 / 560 are reading measures, 300px and 320px are track minimums, 760
+   780 / 620 / 560 are reading measures (620 twice, once here on the flow column
+   and once in the list column pattern), 300px and 320px are track minimums, 760
    is a container step that cannot be a variable at all, and 100vh / 100dvh are
    the viewport.
    ============================================================================ */
@@ -178,8 +181,14 @@
    detail screen) widens its own track and pushes the other one off the screen.
    `.col1` and `.col2` carried NO rule of any kind in the grey and held only
    because they were anonymous grid children; naming them in colour is what made
-   the floor necessary. */
-.app .form-col, .app .rows-col { min-width: 0; }
+   the floor necessary.
+
+   `.rows-col` LEFT THIS FILE AT STAGE 09 and both of its rules went with it, the
+   floor here and the 620 measure in the 760 block below. It became the list
+   column pattern, patterns/list-column.css, which is the level this pair always
+   belonged to: the shell held them because there was nothing above it. The form
+   column stays, because one screen is not a pattern. */
+.app .form-col { min-width: 0; }
 .app.detail .col1, .app.detail .col2 { min-width: 0; }
 
 /* ---- the foot is the padding, and the last block adds nothing to it --------
@@ -314,7 +323,8 @@
   }
   .app > .screen > * { max-width: 780px; }
   .app > .screen > .form-col { max-width: 560px; }
-  .app > .screen > .rows-col { max-width: 620px; }
+  /* the third measure, `.rows-col` at 620, is in patterns/list-column.css since
+     stage 09. See the note at the floor above. */
 }
 
 /* ============================================================================

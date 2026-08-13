@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The list column - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <a class="kit-allsys" href="overview.html">The whole system &rarr;</a>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>The list column</h1>
+    <p class="lead">A page that is a column of grouped rows, opened by a line that says what the column is. Settings, Alerts, Connections and Data and privacy are all this shape, and on a desktop none of them uses the width of the pane: the column stops at a reading measure and the rest of the page stays quiet.</p>
+    <div class="kit-meta">
+      <span>Pattern</span><span><strong>4</strong> screens</span><span><strong>9</strong> grey pages</span><span><strong>5</strong> in colour, <strong>6</strong> wear the class</span><span>620px measure</span><span>the one pattern that took real CSS with it</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">An intro, then whatever the screen groups, in one narrow column. The composition is the ORDER and the measure rather than the list of members: what follows the intro differs on all four screens and none of that is the pattern's business.</p>
+    <div class="kit-stage app">
+      <div class="rows-col">
+        <div class="textblock">
+          <h1>You</h1>
+          <p>Your details, your plan, and the two screens that hold everything about your data.</p>
+        </div>
+        <section class="group" aria-label="Your plan">
+          <div class="group-head"><h2>Your plan</h2></div>
+          <ul class="divlist">
+            <li><a class="navrow" href="#anatomy">Data and privacy</a></li>
+            <li><a class="navrow" href="#anatomy">Connections</a></li>
+          </ul>
+        </section>
+        <p class="muted">A plain copy of everything we hold is free and always will be.</p>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.rows-col</code> <span>the pattern keeps the class the product already writes. It was the exact marker of this composition on all nine pages, so renaming it would have been markup churn on nine files to arrive at the same set. The two patterns that had no such marker were given one</span></li>
+      <li><a href="text-block.html"><code>.textblock</code></a> <span>the intro, and it is the first block or this is not the pattern. It answers "what is this column" before a person starts reading rows</span></li>
+      <li><code>.group</code> <span>and <code>.divlist</code>, <code>.card</code>, <code>.switch</code>: whatever the screen groups. Settings groups fields and then nav rows, <a href="alert-item.html">Alerts</a> groups alert items, Connections groups <a href="card.html">source cards</a>, Data and privacy groups <a href="switch-row.html">switches</a>. The <a href="category-group.html">category group</a> and the <a href="divided-list.html">divided list</a> are the two that appear on every one of the four</span></li>
+      <li><code>min-width: 0</code> <span>the floor. The default minimum of a grid or flex child is "as wide as my content refuses to get narrower than", and one long unbroken string widens the track and pushes the layout sideways. Cut from <code>app-shell.css</code> with the measure below</span></li>
+      <li><code>max-width: 620px</code> <span>the reading measure, from the 760 container up. The same 620 the onboarding chain uses for a column of prose, and the reason a settings page on a 1280 screen is not a 980px line of text</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants</h2>
+    <p class="note"><b>None, and the absence is load bearing.</b> The four screens differ by what they group and by nothing else. A wider variant would be a second reading measure with no reason, and a variant with the intro somewhere other than first would be a different composition. The one thing that changes across widths is the measure itself, and it changes once, in the container query.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Width<p class="axis-rule">Set by the container, which is <code>body</code>, declared once in <code>base.css</code></p></th>
+            <th class="val">Measured</th>
+            <th>What happens</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Under 760</b></td>
+            <td class="val">328px at a 360 viewport</td>
+            <td>The column is the screen, minus the screen's own 16px of side padding. No measure applies and none is needed</td>
+          </tr>
+          <tr>
+            <td><b>760 and past it</b></td>
+            <td class="val">620px at a 1280 viewport</td>
+            <td>The shell has become a two track grid with a 220px rail, and the pane it leaves is 1060 wide. The column takes 620 of it and stops. Rows that are 620 wide are read; rows that are 1060 wide are scanned and then re-read</td>
+          </tr>
+          <tr>
+            <td class="kit-empty">A second column beside it</td>
+            <td class="kit-empty">-</td>
+            <td>That is the two-track detail, and it is a <a href="patterns.html#candidates">candidate</a> rather than a pattern: two screens today, waiting for a third. A list column that grows a second column is not this pattern widened, it is that one</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">For a screen whose whole content is one list of things a person scans and taps into. In <code>ia/docs/flows.md</code> these are the screens off the tab bar rather than inside a flow: You, Alerts, and the two screens behind them. They are the calm rooms of the product, visited deliberately, and the intro at the top is what makes each one answerable in a sentence.</p>
+    <p class="note"><b>Not for Home.</b> Home is also a column of grouped rows and it is deliberately not this pattern: it carries a dashboard head with the total, it reorders its blocks past 900, and its groups run in two and three columns from the <a href="groups-column-set.html">groups column set</a>. That is one screen's own arrangement and it stays in the screen. The list column is for the screens where the list is the whole point and the width is the only decision.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">The intro is first</span>
+        <div class="kit-stage app"><div class="rows-col"><div class="textblock"><h1>Alerts</h1><p>What changed, and what is about to. Nothing here needs an answer today.</p></div><section class="group"><div class="group-head"><h2>This week</h2></div><ul class="divlist"><li><a class="navrow" href="#rule">Netflix went up by $2.50</a></li></ul></section></div></div>
+        <p>Two lines that say what the column is and how much attention it wants, then the rows. On a screen about alerts, the second sentence is the product's whole promise about alerts.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Rows first, explanation later</span>
+        <div class="kit-stage app"><div class="rows-col"><section class="group"><div class="group-head"><h2>This week</h2></div><ul class="divlist"><li><a class="navrow" href="#rule">Netflix went up by $2.50</a></li></ul></section><p class="muted">What changed, and what is about to. Nothing here needs an answer today.</p></div></div>
+        <p>The same words, arriving after they were needed. A person who lands on a list of changes to their money reads the first row with no idea whether it is urgent. The intro is not a heading habit, it is the sentence that sets how hard the rows are read, and this product is built for people who arrive nervous.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">One column, and it stops</span>
+        <div class="kit-stage app"><div class="rows-col"><div class="textblock"><h1>Connections</h1><p>The banks you have connected, and what each one is showing.</p></div><ul class="divlist"><li><a class="navrow" href="#rule">Monzo, updated this morning</a></li></ul></div></div>
+        <p>At 1280 this is 620px wide inside a 1060px pane, and the empty space to the right is the design. A settings row is a line of text with a control at the end of it, and both are found faster when the line is short.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Take the pattern, then override the measure</span>
+        <div class="kit-stage app"><span class="muted">.settings .rows-col { max-width: 980px }</span></div>
+        <p>A contextual override is an undeclared variant, and this one would put one screen's rows at a different measure from the other three with nothing recording the decision. If a screen genuinely needs a different width, that is a variant of the pattern, declared in <code>patterns/list-column.css</code> with a modifier class and a reason. The rule is in <a href="architecture.html">Architecture</a> and it holds for patterns exactly as it holds for components.</p>
+      </div>
+    </div>
+    <h3 class="kit-sub-h">Limits</h3>
+    <p class="note"><b>U5, composition.</b> One introductory text block per column, and it is the first block. <b>U3, composition.</b> The screen around it carries exactly one app bar. Full table with sources: <a href="architecture.html#usage">Usage rules</a>.</p>
+  </section>
+
+  <section class="kit-sec" id="where">
+    <h2>Where it stands</h2>
+    <p class="note">Nine pages across four screens in the grey product, and <b>the count is of the COMPOSITION rather than of the class</b>: ten grey pages and six coloured ones write <code>.rows-col</code>, and the tenth and sixth is the same page, <a href="../alerts-error.html">alerts-error</a>, which wears the container and puts an <a href="interruption.html">interruption</a> inside it instead of a list. It is counted there, so that no page is counted twice across the three patterns. Five of the nine are in colour today: Settings with and without an account, and three states of Alerts, which arrived at stage 09 step 5. It is still the pattern with the thinnest coloured proof of the three, and it is said here rather than left to be discovered.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Screen</th><th>Pages</th><th>What it groups</th><th>In colour</th></tr></thead>
+        <tbody>
+          <tr><td>Settings</td><td><a href="../settings.html">settings</a>, <a href="../settings-no-account.html">settings-no-account</a></td><td>form fields, then nav rows into the two data screens</td><td>yes</td></tr>
+          <tr><td>Alerts</td><td><a href="../alerts.html">alerts</a>, <a href="../alerts-empty.html">alerts-empty</a>, <a href="../alerts-loading.html">alerts-loading</a></td><td>alert items, this week and older</td><td>yes</td></tr>
+          <tr><td>Connections</td><td>connections, connections-empty, connections-reconnect</td><td>source cards, one per connected bank</td><td>grey, stage 12</td></tr>
+          <tr><td>Data and privacy</td><td>data-privacy</td><td>switch rows, then the export and delete doors</td><td>grey, stage 12</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The error state of Alerts wears the class and not the composition, and the distinction is the reason this table has a row it does not count.</b> <code>alerts-error</code> writes <code>.rows-col</code>, so it takes this file's two declarations exactly like the other nine; what it puts inside the container is not a column of grouped rows but <a href="interruption.html">an interruption</a>. Two patterns, one container, both true at once, and the page is counted on the interruption so that no page is counted twice across the three. <b>Nine and five are the composition; ten and six are the selector.</b></p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Declares</th><th>Value</th><th>Where it came from</th></tr></thead>
+        <tbody>
+          <tr><td>the floor</td><td><code>min-width: 0</code></td><td><b>cut</b> from <code>app-shell.css</code>, where it was the <code>.rows-col</code> half of a declaration shared with <code>.form-col</code>. The form column keeps its half there, because one screen is not a pattern</td></tr>
+          <tr><td>the reading measure</td><td><code>max-width: 620px</code> from the 760 container</td><td><b>cut</b> from <code>app-shell.css</code>. A width is on neither scale of this system, so 620 is a literal, documented rather than tokenised, exactly as the shell wrote it</td></tr>
+          <tr><td>colour, type, radius, elevation</td><td>none</td><td>a pattern arranges components and reads tokens</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>This is the only one of the three patterns that is a move rather than a first writing.</b> Both rules existed, both were in the shell because there was no shelf above the shell to put them on, and both left it: <code>app-shell.css</code> has neither now, so there is one home and no cascade race. Measured before and after at 360 and 1280 on both coloured pages: 328 wide at 360, 620 at 1280, identical on both sides of the move.</p>
+    <code class="kit-cmd">&lt;main class="screen"&gt;
+  &lt;div class="rows-col"&gt;
+    &lt;div class="textblock"&gt;
+      &lt;h1&gt;You&lt;/h1&gt;
+      &lt;p&gt;Your details, your plan, and the two screens that hold everything about your data.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;section class="group" aria-label="Your details"&gt;...&lt;/section&gt;
+  &lt;/div&gt;
+&lt;/main&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    One of three patterns, listed on <a href="patterns.html">Patterns</a>. Its rules of use are U3 and U5 in <a href="architecture.html#usage">Architecture, usage rules</a>. Lives in <code>design/system/patterns/list-column.css</code>, imported after every component.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* ============================================================================
+   THE INTERRUPTION: something stopped, here is what happened, here is the way on.
+
+   ASSEMBLED FROM, and it declares no component of its own:
+     text-block  `.textblock.status`   the announcement, first in the container
+     action-row  `.actions`            the way out, and it is not optional
+     quiet-line / muted-line           the closing line, when there is one
+   Anything standing between the announcement and the way out belongs to the
+   interruption too: the facts of a failed payment on upgrade-payment-failed, the
+   empty chart on history-trends-empty. The composition is the container, not a
+   fixed list of three.
+
+   WHERE IT STANDS. 12 screens and 16 pages of the grey product, which is the
+   corpus that counts: add-subscription, alerts, cancel-guide, connect-bank,
+   connections, data-privacy, guided-reveal, history-trends, share-snapshot,
+   sign-in, subscription-detail, upgrade. Seven of those pages exist in colour and
+   carry the class today: add-subscription-error, alerts-error, guided-reveal-empty,
+   history-trends-empty, history-trends-error, subscription-detail-error,
+   upgrade-payment-failed. The other nine are grey and reach it at stage 12.
+   alerts-error is the seventh and it arrived on 2026-08-13, with the fourth host
+   below: this file was written at step 1 and the count under it moved at step 5,
+   which is the whole reason a per-file count is a line in docs/backlog.md now.
+
+   THREE PAGES CARRY A STATUS BLOCK AND ARE NOT THIS PATTERN, and the line between
+   them is the whole of the rule. On `add-subscription-empty` and
+   `cancel-guide-no-guide` the status ANNOTATES a container that still works: the
+   manual form under it is the point of the screen, the guide beside it is still
+   readable. The container has not been interrupted, so it does not take the class.
+   `upgrade-processing` is a wait, and a wait carries no way out at all, on purpose.
+
+   THE HOST IS WHATEVER HOLDS THE PAIR, and there are FOUR of them in the
+   product: the screen itself, `.col1` of a detail layout (subscription-detail-error),
+   the dialog sheet (cancel-guide-blocked, connections-add-source,
+   data-privacy-delete-confirm, all still grey), and `.rows-col`, the list column
+   (alerts-error). That is why the class goes on the container rather than on a
+   wrapper of its own: a wrapper would be markup added to a product screen for the
+   system's convenience, and it would not survive the sheet.
+
+   THE FOURTH HOST WAS FOUND BY THE FIRST SCREEN BUILT AFTER THIS FILE, on
+   2026-08-13, at the self-sufficiency test of stage 09. The three above were read
+   off the pages that already stood, and every one of them held the status block as
+   a direct child of the screen or of a detail column. `alerts-error` puts the list
+   column in between, because that is what its grey original does, so the class goes
+   on `.rows-col` and the pattern reaches its members exactly as before. Nothing here
+   changed to allow it and nothing had to: a child selector does not care what the
+   parent is called. The lesson is about the DOCUMENTATION and not the CSS. An axis
+   written from the corpus that exists is a description of that corpus, and the first
+   screen outside it can extend the axis without breaking anything. Measured on the
+   new page at both viewports: the gap is 24px with the class and 24px without it,
+   so applying it moved nothing and only moved who owns it.
+
+   WHAT MOVED HERE, AND IT IS THE GAP AND NOTHING ELSE. The 24px between the
+   announcement and what follows it was the announcement's own bottom margin, from
+   `.app .textblock` in text-block.css. It still is, everywhere else a text block
+   stands. Inside an interruption it is not: the block's margin is zeroed and the
+   gap is declared once, on the composition, so that changing the rhythm of every
+   interruption in the product is this line and not a sweep of fifteen pages.
+   text-block.css keeps its own margin and is not edited, because that margin is
+   true for the other 27 text blocks in the product; what is written here is an
+   override inside one scope, not a second home for one rule.
+
+   MEASURED BEFORE AND AFTER, at 360 and at 1280, on all six coloured pages: the
+   gap is 24px on both sides of the change. The two arithmetics differ and land on
+   the same number, which is the only reason this is a refactor. Under 900 the
+   screen is normal flow and adjacent margins collapse, so 24 and 0 collapse to 24
+   the same way 0 and 24 do. At 900 and past it the screen is a flex column, where
+   nothing collapses and both readings are a plain sum: 24 + 0 and 0 + 24.
+
+   ITS PAGE: design/kit/interruption.html. Its rule of use, and the two screens
+   that are deliberately NOT interruptions, are in docs/architecture.md under
+   "Usage rules": a wait is not an interruption, because a person has nothing to do
+   about it, and connect-bank-loading and upgrade-processing carry no way out on
+   purpose.
+   ============================================================================ */
+
+.app .interruption > .textblock.status { margin-bottom: var(--space-0); }
+.app .interruption > .textblock.status + * { margin-top: var(--space-24); }
+
+/* NO `.landing` TWIN, and that is a decision rather than an omission. Every
+   component file carries one, and the proof page has an open row saying that 48
+   of 57 of them are worn by no page loading this system. The landing is a
+   marketing page and has no interruption on it. A new file does not grow an open
+   defect. */

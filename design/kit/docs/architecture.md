@@ -43,8 +43,14 @@ through a primitive".
   Anything that contains an organism is still an organism. Inside the group, the ones that
   contain nothing else come first.
 
-From stage 09 a fourth shelf stands above: **patterns**, the settled compositions. It is a new
-shelf in the same cupboard, not a rebuild.
+From stage 09 a fourth shelf stands above: **patterns**, a settled composition of the rungs
+below it, standing on three screens or more. Three in the system: the interruption, the action
+foot and the list column. It is a new shelf in the same cupboard, not a rebuild, and its criterion
+is different from the three below: repetition across screens rather than nesting. A pattern
+declares no colour, no type and no visual decision of its own; if one is needed, that is an order
+for a component, and the component is built first. `@import` puts the shelf LAST, after every
+component, because a pattern is assembled from them and a rule that has to win cannot be declared
+first.
 
 **Grouping by purpose is forbidden.** By purpose a button and a sign-in dialog are both "forms",
 and they end up side by side while one lives inside the other. The cost is not cosmetic:
@@ -115,6 +121,15 @@ it runs with the rest:
 ['anatomy','variants','usage','rule','states','tech']
   .filter(id => !document.getElementById(id))
 ```
+
+**A PATTERN PAGE CARRIES SIX TOO, AND ONE OF THEM IS DIFFERENT.** From stage 09 the check runs
+`['anatomy','variants','usage','rule','where','tech']` on the three pages in `design/kit/patterns/`
+territory (`interruption.html`, `act-foot.html`, `list-column.html`). **`states` is replaced by
+`where`**, and neither substitution is cosmetic. A pattern has no states of its own: hover, focus
+and disabled belong to the components inside it, and drawing four empty cells would document
+something the composition cannot do. What a pattern must prove instead is that it exists at all,
+which is the named list of three or more screens it stands on. That list is the evidence, so it is
+a required block rather than a footnote.
 
 **It exists because of a real loss.** On 2026-08-11 a bulk pass rewrote 39 matrices
 across 34 files to un-crush their specimens, and `select.html` came out without its
@@ -189,7 +204,7 @@ design/system/     the CODE. A product loads this and nothing else.
   base.css         what belongs to no component: reset, font, focus ring, the one keyframe
   index.css        the single entry point. Imports tokens, then base, then components BY LEVEL
   components/      one file per component
-  (patterns/ joins it at stage 09, with no move)
+  patterns/        one file per settled composition, added at stage 09 with no move
 
 design/kit/        the STAND. A person looks at this. It ships nothing.
   _nav.js          the registry: draws both the hub cards and the side panel
@@ -209,22 +224,82 @@ becomes the only way to correct it.
 
 ---
 
-## Adding a component: five things, and four is not enough
+## Contributing to the system
+
+The rule is one sentence and everything under it is an address book: **nothing new appears on a
+screen first.** It is built in `design/system/`, it is shown in `design/kit/`, and it reaches the
+screen from there. That order is not bureaucracy, it is the only arrangement in which a correction
+is made once and lands everywhere, and it is why the dark theme cost three lines rather than forty
+edits.
+
+### A new COMPONENT: five things, and four is not enough
 
 1. `design/system/components/<name>.css`
-2. `design/kit/<name>.html`, with the five blocks: anatomy, variants and sizes, when to use,
-   the rule and the anti-rule, states.
+2. `design/kit/<name>.html`, with the **six** sections the structural check above requires, in
+   that order and with those ids: `anatomy`, `variants`, `usage`, `rule`, `states`, `tech`.
+   Every state drawn in **both themes**. A pattern page carries six too, with `where` in place
+   of `states`.
 3. a row in `design/kit/_nav.js`, **in the group of its own level**
 4. a row in `design/kit/docs/inventory.md`, **with its level**
 5. an `@import` in `design/system/index.css`, **into its own level group and not at the end**
 
 The last two are the ones that get skipped, and they are the ones that matter most for a
 component added *after* the first build: appended at the end of the file it looks harmless, and
-that is exactly how the ladder comes apart.
+that is exactly how the ladder comes apart. Anything missing means the component is not finished,
+and an unfinished component does not go onto a screen.
+
+**Item 2 said "five blocks" until 2026-08-13, and the structural check higher up this same file
+said six.** The check is the one that runs, so the check is right and the list was short by
+`tech`, the block naming the css file a page is drawn by. Two editions of one contract in one
+file, and the one a person reads before building was the wrong one.
+
+### A new USAGE RULE
+
+A row in the Usage rules table below, with its **"where it comes from" column filled**:
+counted on the grey pages, decided by a person, or caught by a critique log. A rule with an empty
+source is an invention with a table around it. Plus a **Limits** item on the page of every
+component the rule names, linking back to the table, because the person about to break a rule is
+reading the component page and not this one. A rule that lives in one head, or in one chat, does
+not fire the next time.
+
+### A new COMPOSITION
+
+On **three screens or more** it is a pattern: a file in `design/system/patterns/`, a page in
+`design/kit/`, a row in the registry in the patterns group, a line in `docs/inventory.md`, and an
+`@import` **after every component**, because a pattern is assembled from them and a rule that has
+to win cannot be declared first. It carries no colour, no type and no visual decision of its own;
+needing one is an order for a component, and the component is built first.
+
+On **two screens** it stays markup and goes into the candidates table on `patterns.html`. Two
+occurrences prove a composition is possible, three prove it is settled, and the difference is the
+whole reason the folder does not fill up with things nobody checked.
+
+### A new VALUE
+
+Into `tokens.css` at its own level: a raw value is **primitive**, a colour with a job is
+**semantic** and reads its primitive through `var()`. There is no third level, and geometry does
+not get one because a radius has nothing to re-define. A role or a state token is written
+**twice**, in `:root` and in `[data-theme="dark"]`, at the moment it is declared: the pair is a
+property of the level and not an event, and the way to notice a missing one is to switch the
+theme, which is to say never. The change itself is a named decision, "variable, value, why", and
+the origin travels with the value in a comment beside it.
+
+### A new thing on a SCREEN and nowhere else
+
+**Forbidden.** A screen carries no style of its own: no page-level style block, no style
+attribute, no class the system does not define. If none of the four entrances above fits, that is
+not a case for an exception on the screen, it is the system missing something, and the missing
+thing gets built. What was deliberately not built is written into `docs/backlog.md` rather than
+worked around. This is the entrance that costs the most to break, because a style written on one
+screen is invisible until the second screen needs the same thing, and by then there are two.
 
 ---
 
 ## Where a correction goes
+
+The section above is where NEW goes. This one is where a FIX goes, and they are different
+questions with different answers: the first asks which shelf a thing belongs on, the second asks
+which single place to touch so that every screen gets it.
 
 | What is wrong | Where the fix goes |
 |---|---|
@@ -236,6 +311,85 @@ that is exactly how the ladder comes apart.
 
 **A fix applied on one screen is a desync.** It looks finished and it is a second edition of the
 component that nobody declared.
+
+---
+
+## Usage rules
+
+The pages above answer "what may I take". This section answers the other question, and it is the
+one nobody asks until after they have built the screen: **what may I not do with it.**
+
+**These are not anti-rules and they do not belong on a component page.** An anti-rule is a
+SUBSTITUTION: "not a chip here, a label". There is something else to take, so it lives beside the
+component you should not have taken. The eleven rules below are two other kinds, and neither can
+be written as a substitution, because no other component is the answer:
+
+- **composition** is how many, and next to what. "No more than one filled action per zone." The
+  component is right, its count or its neighbour is wrong.
+- **context** is where it may appear at all. "No tab bar inside the onboarding chain." The
+  component is right and its count is right, the place is wrong.
+
+**Where they come from, and none of them from anybody's memory.** Every row names its source, and
+a row with an empty source is not a rule, it is an invention with a table around it. There are
+four possible sources and one is enough:
+
+- **the counter**, run on `wireframes/*.html` at stage 09 step 1. The grey pages are the whole
+  product, 55 pages across 17 screens, where the colour is a sample of 8 screens until stage 12.
+  A rule counted on the sample would be an observation about five screens wearing the word rule.
+  Read forwards it finds patterns, what repeats three times or more; read backwards it finds these,
+  what never happened once although it could have.
+- **`wireframes/docs/conventions.md`**, stage 04. It carried usage rules for four stages with no
+  reader. They are restated here in the classes of the system rather than in prose about zones.
+- **the critique logs**, 04, 06, 07 and 08. A defect caught on two screens or more is a rule, not
+  an accident.
+- **`docs/census.md`**, stage 08, the control census taken in a browser at both viewports.
+
+| # | Rule | Class | Where it comes from | Components | How to check a new screen |
+|---|---|---|---|---|---|
+| **U1** | **One filled action per zone.** A zone is a block a person reads as one thing: the screen's own content column, or a `.panel`, `.card`, `.sheet`, `.rstep` or `<form>` inside it. The second action of a zone takes `.btn` without `.primary` | composition | conventions.md ("what the one main action is") + the counter: 15 of 17 screens carry at most one `.btn.primary` + critique 07, row "One voice, one zone", carried unresolved + the last open row of `census.md` | button, action-row | count `.btn.primary` per zone, not per page |
+| **U2** | **No tab bar inside `.app.flow`, and none on the landing.** The chain is one task and the way out of it is finishing it | context | the counter: 26 grey pages carry `.app.flow` and not one of them has a `.tabbar`; 28 pages carry a tab bar and not one of them is a flow + conventions.md section 8 | tab-bar, app-shell | is the shell `.app.flow`? then no tab bar |
+| **U3** | **Exactly one `.appbar` per screen, and none on the landing.** The landing is a marketing page and carries its own header | composition + context | the counter: 16 of 17 screens carry exactly one, `index` carries none | app-bar | presence |
+| **U4** | **One `.textblock.status` per screen.** A screen that needs to announce two things is two states, not one screen | composition | the counter: 12 screens carry one, none carries two | text-block | count |
+| **U5** | **One introductory `.textblock` per screen**, and it is the first block of its column | composition | the counter: 12 screens carry one, none carries two + it is the contract of the list column pattern | text-block, list-column | count, and check it is first |
+| **U6** | **A `.textblock.status` comes with a way out**, in the same container: an `.actions` row, or a `.grid` of doors | composition | conventions.md section 7 ("no dead ends") + the counter: 19 grey pages carry a status block and 17 of them have the exit in the same container. The two that do not are named below and neither is a dead end | text-block, action-row, grid | is there an exit in the same container, or in the column beside it? |
+| **U7** | **A wait carries no control at all.** An edge a person takes is a control; an edge the system takes is not, and a button on a wait screen offers an action the product does not have | context | conventions.md section 7, added 2026-08-05 + the counter: `connect-bank-loading` and `upgrade-processing` carry zero `.btn` | button, action-row | count controls; a wait has none |
+| **U8** | **One `.trust` per screen, and only where a figure came from the bank.** It is the read-only declaration, not decoration | composition + context | the counter: 4 screens, never twice + conventions.md section 5 ("the read-only line wherever a trust moment appears") | trust-block | count, and ask where the figures came from |
+| **U9** | **One `.total` per screen.** The most important number is the biggest thing on the screen, and two of them means neither is | composition | the counter: 4 screens, never twice + design principle 2 in `CLAUDE.md` | big-total | count |
+| **U10** | **One `.sheet` at a time.** A sheet over a sheet has no way back that a person can see | composition | the counter: 3 screens carry one, none carries two | dialog-sheet | count |
+| **U11** | **No footer inside the app.** Tendd is an app; the one footer in the product is on the Welcome landing | context | conventions.md section 8 | (no component: the rule is that none is built) | presence |
+
+**The exceptions are named, not implied.** A rule with an unwritten exception is a rule people
+learn to ignore.
+
+- **U6**, and the exceptions were counted rather than remembered: of the 19 grey pages carrying a
+  status block, two do not carry the exit beside it. On `cancel-guide-no-guide` the exits are in
+  `.col2`, the other column of a detail layout, which is a place a person can see. On
+  `upgrade-processing` there is no exit anywhere and that is deliberate twice over, because a way
+  out in the middle of a charge is the thing that screen must not offer. `connect-bank-loading`,
+  the other wait, carries no status block at all and so is U7's case rather than U6's.
+- **U1**: `add-subscription` carries two filled actions and the rule permits it, because they sit
+  in two zones: the manual form owns "Add subscription" and the screen owns "See your
+  subscriptions". This is the weakest permission in the table and it is written down as such:
+  stage 07 measured the two 55px apart and carried the row rather than closing it.
+- **U1**: `cancel-guide` carries two filled actions **in one column**, and the rule does not
+  permit it. The screen is grey only, so nothing is broken in colour today. It is a line in
+  `backlog.md` and it is settled when the screen is coloured at stage 12, not by quietly widening
+  the rule until it fits.
+
+**The idle control, which is the same one every declared list in this folder carries.** A rule
+that forbids something the product never does anyway is not a safe rule, it is a dead row. Nine of
+the eleven are counted on screens that exist: U1 on 17 screens, U2 on 54 pages, U3 on 17 screens,
+U4 and U5 on 12 screens each, U6 on 16 status blocks, U8 on 4, U9 on 4, U10 on 3. Two are carried
+on a decision rather than on a count, and both say so in the source column: U7 (two pages) and
+U11 (one page). **What was deliberately NOT made into a rule**: `.head`, `.summary`, `.hero`,
+`.chart` and `.empty` also never appear twice on a screen, and every one of them stands on one or
+two screens in the whole product. A counter that has seen one screen has not found a rule, it has
+described a screen.
+
+**Where each rule is read a second time.** Every component the table names carries a **Limits**
+sub-item inside its "rule and anti-rule" block, quoting the rows that mention it and linking back
+here. One author, two visible places, the same arrangement as the SEO copy and the microcopy: the
+rule is written once and read where the person is standing.
 
 ---
 

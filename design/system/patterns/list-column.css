@@ -1,0 +1,63 @@
+/* ============================================================================
+   THE LIST COLUMN: a page that is a column of grouped rows, opened by a line that
+   says what the column is.
+
+   ASSEMBLED FROM, and it declares no component of its own:
+     text-block      `.textblock`   the intro, and it is always the first block
+     category-group  `.group`       the groups, with their heads
+     divided-list    `.divlist`     the rows themselves
+     card, promise-list, muted-line as each screen needs them
+   The composition is the order rather than the list: an intro first, then whatever
+   the screen groups, in one narrow column that never uses the full width of a
+   desktop pane.
+
+   WHERE IT STANDS. 4 screens and 9 pages of the grey product: alerts, connections,
+   data-privacy, settings. Five of those pages exist in colour: settings,
+   settings-no-account, alerts, alerts-empty and alerts-loading. The other four are
+   grey and reach it at stage 12. SIX coloured pages wear the CLASS, and the sixth
+   is alerts-error, which is counted on the interruption instead; the paragraph
+   below says why, and every place that carries this number carries the divergence
+   with it, because a number that needs a footnote and does not carry one is raised
+   again by every audit that comes after.
+
+   IT KEEPS THE CLASS THE PRODUCT ALREADY WRITES, `.rows-col`, and no screen was
+   edited to adopt this pattern. The class was already the exact marker of this
+   composition on all nine pages, and renaming it would have been markup churn on
+   every one of them plus a rename map row, to arrive at the same set. The two
+   other patterns of this stage had no such marker and had to be given one.
+
+   THE CLASS OCCURS ON TEN GREY PAGES AND THE COMPOSITION ON NINE, and the tenth is
+   named rather than rounded away: `alerts-error` writes `.rows-col` and puts an
+   interruption inside it instead of a list. It gets this file's two declarations,
+   because a class cannot be applied selectively, and it is counted on the
+   interruption's page rather than here, so that no page is counted twice across the
+   three patterns. Nine is the composition; ten is the selector.
+
+   WHAT MOVED HERE, AND THIS ONE IS A CUT RATHER THAN AN OVERRIDE. Both rules came
+   out of app-shell.css, where they sat because the shell had no level above it to
+   put them in:
+     `min-width: 0`      was the `.rows-col` half of a shared declaration with
+                         `.form-col`; the form column is one screen and no pattern,
+                         so it keeps its half there.
+     `max-width: 620px`  was `.app > .screen > .rows-col` inside the 760 container.
+   Both are the composition's own: the floor stops one long unbroken string from
+   widening the column past its track, and 620 is the reading measure of a column
+   of prose, the same number `.app.flow > .screen` uses. Neither exists in
+   app-shell.css any more, so there is one home and no cascade race.
+
+   MEASURED BEFORE AND AFTER, at 360 and at 1280, on both coloured pages: 328 wide
+   at 360, 620 at 1280, identical on both sides of the move.
+
+   ITS PAGE: design/kit/list-column.html. Its rule of use is in docs/architecture.md
+   under "Usage rules": the intro is the first block or the column is not this
+   pattern, and a list column carries no second column beside it.
+   ============================================================================ */
+
+.app .rows-col { min-width: 0; }
+
+/* 620 is a reading measure and a width, so it is a literal on this system's own
+   rule: a width is on neither scale. The container is `body`, declared in
+   base.css, and 760 is the step at which the shell becomes a two track grid. */
+@container (min-width: 760px) {
+  .app > .screen > .rows-col { max-width: 620px; }
+}

@@ -17,6 +17,12 @@
     { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['empty'] },
     { name: 'Home', base: 'home.html', states: ['empty', 'error', 'loading', 'savefocus'] },
     { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['unrecognized', 'price-change', 'payment-failed', 'error', 'loading'] },
+    /* Alerts, added 2026-08-13 at stage 09 step 5, the self-sufficiency test of
+       the design system: the eighth screen, and the first one coloured after the
+       sample of stage 07 closed. It sits here rather than at the end of the list
+       because the list runs by node number where a flow allows it, and 3.8 comes
+       after 2.7. Nothing was added to design/system/ to build it. */
+    { name: 'Alerts', base: 'alerts.html', states: ['empty', 'error', 'loading'] },
     { name: 'Add a Subscription', base: 'add-subscription.html', states: ['empty', 'error', 'loading'] },
     { name: 'History and Trends', base: 'history-trends.html', states: ['locked', 'empty', 'error', 'loading'] },
     { name: 'Upgrade to Pro', base: 'upgrade.html', states: ['current-plan', 'processing', 'payment-failed'] },

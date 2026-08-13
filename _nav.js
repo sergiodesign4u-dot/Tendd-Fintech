@@ -59,12 +59,23 @@ window.NAV = [
   // NOT in this registry: it is the kit's own panel, design/kit/_nav.js, on the same two-level
   // pattern as wireframes/ and design/. A roadmap that listed 55 components would stop being a
   // roadmap.
-  // done:false and NOT a mistake, corrected 2026-08-12. The row is one and the stages
-  // behind it are two, which the paragraph above already says: tokens and components
-  // closed here, patterns still ahead. A row marked done while a stage is still running
-  // behind it is exactly the third copy of the status this file's own header warns about.
-  // It flips the day stage 09 closes, on the same page, with no new row.
-  { label:'Design System',       page:'design/kit/overview.html', done:false, ready:true },
+  // done:true from 2026-08-13, and it flipped exactly as the note here said it would:
+  // with no new row. The row was one and the stages behind it were two, tokens and
+  // components at stage 08 and patterns at stage 09; the second one closed today, so the
+  // row closed with it. What "done" covers: two token levels, 57 components, 3 patterns,
+  // 11 usage rules, the growth rule written into four files, and one product screen
+  // (design/alerts.html) built out of the system to prove it stands on its own.
+  //
+  // The page moved from design/kit/overview.html to why.html on 2026-08-13, and the row
+  // did not: it is still ONE row, which is the whole point of the 2026-08-11 decision
+  // above. What changed is which page it opens on. overview.html is the ACCOUNT of stage
+  // 08, written in its own steps; why.html is the guide to the system, and it is what a
+  // person who did not build it needs first: why it looks like this, how to use it, how
+  // to grow it. Two rows onto one folder would be the second entrance we already refused,
+  // and two rows onto two pages would re-open a decision nothing has changed. So the row
+  // points at the guide and overview.html names it through NAV_ACTIVE, which is the third
+  // legal form in CLAUDE.md: it shows up as its own sub item, carrying its own sections.
+  { label:'Design System',       page:'design/kit/why.html', done:true },
   { label:'Responsive',          page:null, done:false },
   { label:'Animation',           page:null, done:false },
   { label:'Handoff',             page:null, done:false },

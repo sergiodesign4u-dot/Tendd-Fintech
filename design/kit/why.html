@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why the system is like this - Tendd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<link rel="stylesheet" href="../../_nav.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<!--
+  The roadmap row of stage 09 leads HERE, and not to overview.html, which is the
+  account of stage 08. So this page carries the project sidebar from /_nav.js,
+  the same way the hub does, and every other page of the stand carries only the
+  system's own panel.
+
+  Two registries load here on purpose: the project roadmap from /_nav.js and the
+  kit's own from _nav.js, the second one only for the theme control.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
+  <div class="kit-theme" role="group" aria-label="Theme">
+    <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+    <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+  </div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <p class="kit-eyebrow">Stage 09 &middot; Design System</p>
+    <h1 class="big">Why the system is like this</h1>
+    <div class="kit-prose">
+      <p class="first">This page is for the person who did not build it. Tomorrow-you, who already decided something once and cannot remember the argument. The developer at handoff, who needs to know what is allowed before writing a screen. A new session, which has to be told where to put things. It answers three questions and nothing else: <b>why it looks like this</b>, <b>how to use it</b>, and <b>how to grow it</b>.</p>
+      <p>Every claim below points at a file. The look was not chosen here: it was found at <a href="../concept/concept.html">Concept</a> from the personas and the founder's recorded taste, locked as <b>Petrol and Paper</b> on 2026-07-15, and this system is only its mechanics. That order matters when something needs to change. A colour is not a preference you can talk anyone out of on a Tuesday; it is the end of a line that starts in a research file, and the line is short enough to walk.</p>
+    </div>
+    <div class="kit-meta">
+      <span><strong>5</strong> attributes, each from a data line</span>
+      <span><strong>3</strong> sources, and four refusals</span>
+      <span><strong>57</strong> components, <strong>3</strong> patterns</span>
+      <span><strong>11</strong> things you may not do</span>
+    </div>
+  </header>
+
+
+  <section class="kit-sec" id="why">
+    <h2>Why it looks like this: the five attributes</h2>
+    <p class="note">The visual language is five <b>oppositions</b>, not five adjectives. Each was drawn from a real line in the research and built from a specific borrowed technique, and each one still has a consequence you can point at in the code. <b>A visual decision with no attribute behind it is an invention</b>, which is the rule <code class="kit-code">design/concept/docs/concept.md</code> has held since stage 06. The middle column is what the attribute became once it was code; the right column is where you can go and look at it.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>Attribute</th><th>What it means in the system</th><th>Where it is visible</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>A1 Calm, not alarming</b><p class="axis-rule">Emma closes anything red or worded as a warning</p></td>
+            <td>There is <b>no alarm red in the palette at all</b>, and no role that could become one. The two tones allowed to raise a voice are desaturated and split by whose fault it is: amber <code class="kit-code">--text-attention</code> for a price change, which is the merchant's, and clay <code class="kit-code">--text-failure</code> for a failure, which is ours. A status is a stone chip on <code class="kit-code">--bg-status</code>, an informational tag rather than an alert.</td>
+            <td><a href="color.html#roles">Colour, the roles</a><br><a href="chip.html">Chip</a>, <a href="wash-block.html">Wash block</a></td>
+          </tr>
+          <tr>
+            <td><b>A2 Trust shown, not claimed</b><p class="axis-rule">The activation gate is trust, not features</p></td>
+            <td>Petrol has exactly three jobs and one of them is the read-only line. That makes the trust declaration a <b>first-class block next to the figures</b> rather than fine print under them, and rule U8 keeps it honest: one per screen, and only where a figure actually came from the bank.</td>
+            <td><a href="trust-block.html">Trust block</a><br><a href="architecture.html#usage">Usage rule U8</a></td>
+          </tr>
+          <tr>
+            <td><b>A3 One big number, not a dashboard</b><p class="axis-rule">"Too many numbers, too many graphs"</p></td>
+            <td><code class="kit-code">--type-display: 46px</code> is declared for the monthly total <b>and for nothing else in the product</b>; the next rung down is 32. Rule U9 allows one <code class="kit-code">.total</code> per screen, on the ground that two of them means neither is the biggest thing on it. Four screens carry one, none carries two.</td>
+            <td><a href="big-total.html">Big total</a><br><a href="typography.html">Typography</a></td>
+          </tr>
+          <tr>
+            <td><b>A4 Recognition, not codes</b><p class="axis-rule">"SPOTIFYAB STOCKHOLM" is not a name</p></td>
+            <td>The content layer is a <b>real merchant mark and a real name</b>, never a card-statement string and never stock art. The category rides along as a quiet pill instead of a legend to decode, because this person pattern-matches rather than analyses.</td>
+            <td><a href="logo.html">Logo</a>, <a href="subscription-row.html">Subscription row</a><br><a href="icons.html">Icons</a></td>
+          </tr>
+          <tr>
+            <td><b>A5 Warm restraint, not clinical</b><p class="axis-rule">The taste rejected beige and cold ledger grey by name</p></td>
+            <td>One accent for the whole product, and one shadow, <code class="kit-code">--shadow</code>, barely there: depth is carried by the hairline and by the paper, not by lift. Restraint is written as a rule rather than left as a mood: U1 allows <b>one filled action per zone</b>, so the accent is spent deliberately or not at all.</td>
+            <td><a href="color.html#primitive">Colour, the primitives</a><br><a href="geometry.html">Geometry</a>, <a href="button.html">Button</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">The one place the attribute and the value disagree, and it is not an error</h3>
+    <p class="note">A5 says <b>warm</b>, and the ground is <code class="kit-code">--canvas: #eef3f4</code>, which leans slightly <b>cool</b>. That reads as a contradiction until you see where the warmth actually lives. The neutral was pushed a whisper toward the accent rather than toward beige, so that white cards read as <b>paper on a desk</b> instead of panels in an application; the warmth is carried by the voice, by the plain-language rows and by how rarely the accent is spent, not by the hue. Beige was refused by name in the taste, and a warm hue here would have walked straight into it. This is written down because it is exactly the kind of thing that gets quietly "fixed" a year later by someone who read the word warm and reached for the paint.</p>
+
+    <h3 class="kit-sub-h">The taste, which is data too</h3>
+    <p class="note">Recorded from the founder on 2026-07-15 and kept next to the personas, so that a new prompt cannot reset it to the model default. <b>Liked, one trait each:</b> Monzo for plain-language character with one confident accent, Apple Card for radical clarity, Copilot Money for the calm of a well categorised view, Monarch for spending the accent only on the single most important action. <b>Actively avoided:</b> the reflex calm-fintech palette of mint, sage and beige, which is the first thing a model reaches for on the word calm; beige on its own, called out separately; red as an accent or an alert; rounded-everything with friendly blobs, which reads as a toy rather than as money software; and generated-looking cliche, the purple gradients and the glassmorphism. The four liked products do not all pull the same way, and the tension was resolved rather than averaged: <a href="../concept/concept.html">Apple's clarity warmed toward Monzo and Monarch, Copilot's category colour taken onto a light canvas rather than its dark one</a>.</p>
+  </section>
+
+
+  <section class="kit-sec" id="sources">
+    <h2>What was borrowed, and what was refused</h2>
+    <p class="note">A reference is an <b>input, not an output</b>: one base, two single techniques lifted from two other products, and no wholesale clone anywhere. The refusals below are as load-bearing as the takings, and they are the reason this palette is not the one you would guess from the words "calm fintech". The full sourcing, with the persona line each technique relieves, is in <code class="kit-code">design/concept/docs/references.md</code>.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>Source</th><th>Role</th><th>What was taken</th><th>Where it lives now</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Monzo</b></td>
+            <td>the base</td>
+            <td>The flat calm surface system, the quiet status badge, and plain-language active-voice rows: "we blocked the payment", not "the payment was blocked"</td>
+            <td><code class="kit-code">--paper</code> on <code class="kit-code">--canvas</code> with one shadow, <code class="kit-code">--bg-status</code> and <code class="kit-code">--text-status</code>, and principle 2 of <code class="kit-code">voice/docs/voice.md</code></td>
+          </tr>
+          <tr>
+            <td><b>Apple Card and Wallet</b></td>
+            <td>one technique</td>
+            <td>The transaction clarity layer: a real mark, a real readable name, a category, the amount, the next date, and one number given the size hierarchy</td>
+            <td><a href="subscription-row.html">Subscription row</a>, <a href="logo.html">Logo</a>, <a href="big-total.html">Big total</a></td>
+          </tr>
+          <tr>
+            <td><b>Copilot Money</b></td>
+            <td>one technique</td>
+            <td>The category as a soft coloured pill, a recognition signal rather than a chart, toned down from a neon inset glow to a calm light chip</td>
+            <td><a href="chip.html">Chip</a>, tone quiet</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">Four refusals, and they still bind</h3>
+    <ul class="kit-callouts">
+      <li><code>no red</code> <span>Monzo's Hot Coral and every relative of it. The mechanism of one reserved accent was taken; the hue was not. Red is an alarm signal for this person, and the system has no role that could carry it</span></li>
+      <li><code>no dark ground</code> <span>Copilot's midnight canvas as the product's ground. Calm-light is the trust environment; a dark finance UI reads as a serious tool for finance people, which is the position we are not taking</span></li>
+      <li><code>no reflex palette</code> <span>Mint, sage, beige-and-terracotta. Guessable from the category, so it is a reflex rather than a decision, and it was discarded before the three directions were even drawn</span></li>
+      <li><code>no stock art</code> <span>Tendd is data-first. The content layer is real brand marks, and the empty states carry a sentence rather than an illustration</span></li>
+    </ul>
+
+    <p class="note"><b>The dark theme is not the refusal being broken, and it is worth saying out loud before someone finds it.</b> Every role in this system is written twice, once in <code class="kit-code">:root</code> and once in <code class="kit-code">[data-theme="dark"]</code>, so a dark theme demonstrably exists. What was refused is dark as <b>the product's ground</b>, the thing the anxious person meets on first open. A theme that a person chooses is a different object from a canvas chosen for them, and the pairing is what proves the palette is built out of roles rather than out of colours. See <a href="color.html#stress">the stress test</a>, which is the page that makes that argument in pixels.</p>
+
+    <h3 class="kit-sub-h">The brand plate, and why the code outranks it</h3>
+    <p class="note">One dense toolkit plate was generated for Petrol and Paper as a <b>record of the locked language</b>, and this is the first page in the project that actually shows it. It is a record and not a source: the brand was found through three live HTML directions and locked from them, and the plate was rendered afterwards. Where the plate and the code disagree, <b>the code wins</b>, and here is exactly where they disagree today.</p>
+
+    <figure class="kit-plate">
+      <img src="../concept/assets/brand-plate-petrol-paper.png" alt="The Petrol and Paper brand toolkit plate: identity and wordmark settings, the colour palette with paper, surface, ink, muted and petrol, an Inter type specimen, a construction grid, a thin-line icon set, three app screens in context, social tiles and a footer strip.">
+      <figcaption><b><a href="../concept/assets/brand-plate-petrol-paper.png">design/concept/assets/brand-plate-petrol-paper.png</a></b>, generated at 4k in July 2026 and stored at 2400px, so it is worth opening full size rather than reading at this width. Read it as a mood board: several of the merchant names inside the sample screens are not words, which is what a generated plate does, and none of them is product copy. The product copy is in <code class="kit-code">voice/docs/microcopy.md</code> and the values are in <code class="kit-code">design/system/tokens.css</code>.</figcaption>
+    </figure>
+
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>On the plate</th><th>In the code today</th><th>Why the code is right</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>A lowercase <b>t</b> monogram in a rounded square</td>
+            <td><b>Crop A</b>: one letterform larger than any frame, with a window cut out of it</td>
+            <td>The mark was locked by decision D-Brand on 2026-08-12, four weeks after the plate was rendered. See <a href="brand-mark.html">Brand mark</a> and <a href="../concept/logo-crop.html">where the mark was found</a></td>
+          </tr>
+          <tr>
+            <td>The wordmark set entirely in ink</td>
+            <td>Inter 800 at -0.02em, the <b>dd</b> pair tightened, and the <b>last letter petrol, with no condition</b></td>
+            <td>Same decision, same day, and the plate predates it. See <a href="brand-wordmark.html">Brand wordmark</a></td>
+          </tr>
+          <tr>
+            <td>A fourth semantic chip, <b>success</b></td>
+            <td><b>No success role exists.</b> The palette carries amber, clay and stone, and nothing green</td>
+            <td>It was the only orphan in the file at stage 08, declared and read by nothing, and it was dropped rather than carried. It re-enters the day the cancel-win screen is coloured, and not before</td>
+          </tr>
+          <tr>
+            <td>"8 to 10 quiet thin-line icons"</td>
+            <td>Four destination masks, fourteen merchant marks, two drawn marks</td>
+            <td>The set was built against the real screens rather than against a number. See <a href="icons.html">Icons</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <section class="kit-sec" id="values">
+    <h2>Where the values came from</h2>
+    <p class="note">Not one number in this system was chosen at the moment it was written into a stylesheet. Every value arrived by <b>migration</b>: it was decided once, and then it moved from file to file carrying its origin in a comment beside it. That is why the token file reads as it does, and why a comment there is not decoration: <b>it is the last link back to where the value was picked</b>, and it cannot be recovered from anywhere else once it is gone.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>Stage</th><th>File</th><th>What happened to the values</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>06 Concept</b></td><td><code class="kit-code">design/_theme.css</code></td><td>Three contrasting directions were built as live HTML, the founder locked Petrol and Paper from the render, and the locked direction became a stylesheet. The values were picked off the direction that shipped, not off a plate</td></tr>
+          <tr><td><b>07 UI + Visual</b></td><td><code class="kit-code">design/kit/kit.css</code></td><td>The theme became the kit of the coloured sample by <code class="kit-code">git mv</code>, so the file kept its history. Six values that had been documented from the draft rather than from the shipped stylesheet were corrected against the code at the close of the stage</td></tr>
+          <tr><td><b>08 Tokens</b></td><td><code class="kit-code">design/system/tokens.css</code></td><td>The flat kit split into <b>two levels and no third</b>: a primitive keeps the raw value and its origin comment, a semantic role names the job and is written twice, once per theme. The kit file was then deleted, and the coloured sample moved onto the system with zero unexplained pixels</td></tr>
+          <tr><td><b>09 today</b></td><td><code class="kit-code">design/system/patterns/</code></td><td>No colour, no type size and no radius changed. One measure moved file, two composition gaps were named for the first time, and one of those two was a real change: an action foot that had been 16px at a phone and 32px at a desktop is now 16 everywhere, on four pages, by decision rather than by accident of layout mode</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note"><b>The plate is not a link in that chain, and the order is the point.</b> A generated plate first and a product bent to fit it afterwards is the common way round; here the language was found live, locked, and only then recorded as a picture. It means the picture can go stale without anything downstream breaking, which is exactly what has happened to its monogram. Where a value actually lives today, with its measured contrast in both themes, is <a href="color.html">the colour page</a>.</p>
+  </section>
+
+
+  <section class="kit-sec" id="use">
+    <h2>How to use it: four ways in</h2>
+    <p class="note">Four questions, four doors, and the fourth one is named separately on purpose. A person building a screen for the first time goes looking for <b>permission</b>, finds it, builds, and meets the prohibitions afterwards, when the screen already exists and changing it is expensive. So the prohibitions get their own door, at the same size as the other three.</p>
+
+    <div class="kit-grid">
+      <div class="kit-card">
+        <div class="r1"><a class="nm" href="overview.html">Which component do I take?</a><span class="cnt">57</span></div>
+        <p class="ax">The hub, and a page for every component: anatomy, its variants, every state, the rule and the anti-rule, and the css it is actually drawn by. Grouped by the ladder, atoms through organisms.</p>
+      </div>
+      <div class="kit-card">
+        <div class="r1"><a class="nm" href="patterns.html">Does the composition already exist?</a><span class="cnt">3</span></div>
+        <p class="ax">Three settled compositions that stand on three screens or more, plus four candidates that are waiting for a third screen. Take the pattern whole; do not re-declare the gaps it owns.</p>
+      </div>
+      <div class="kit-card">
+        <div class="r1"><a class="nm" href="architecture.html">What are the rules?</a><span class="cnt">2 ladders</span></div>
+        <p class="ax">The token ladder and the component ladder, which are not the same ladder, plus naming, the parity and structural checks, and the five things a new component is.</p>
+      </div>
+      <div class="kit-card">
+        <div class="r1"><a class="nm" href="architecture.html#usage">What may I NOT do?</a><span class="cnt">11</span></div>
+        <p class="ax">Eleven usage rules, each with the source it was counted from and how to check a new screen against it. Not anti-rules: these are about how many, next to what, and where a thing may appear at all.</p>
+      </div>
+    </div>
+
+    <h3 class="kit-sub-h">And the order to ask them in</h3>
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>If</th><th>Then</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>A <b>pattern</b> covers the composition</td><td>Take the pattern. It owns the gaps between its members, so re-declaring them on the screen is a second author for one value and the two will part company</td></tr>
+          <tr><td>No pattern, but the <b>components exist</b></td><td>Assemble from components in markup, and let each one keep its own spacing. A composition that turns up twice is still just markup; the <b>third</b> screen is what promotes it into <code class="kit-code">patterns/</code></td></tr>
+          <tr><td>The <b>component does not exist</b></td><td>It is an order for the system, not an exception on the screen. Build it as five things, in that order, and only then use it. A style written on a screen because the system did not have it is the desync that every later stage pays for</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <section class="kit-sec" id="grow">
+    <h2>How to grow it</h2>
+    <p class="note"><b>New goes into the system first and onto the screen second.</b> That is the whole rule, and everything else is its consequence. A component means five things and four is not enough: the css in <code class="kit-code">design/system/components/</code>, a page here in <code class="kit-code">design/kit/</code>, a row in the registry in its own level group, a line in <code class="kit-code">docs/inventory.md</code> with its level, and an <code class="kit-code">@import</code> in <code class="kit-code">index.css</code> in its level group rather than at the end. A composition goes to <code class="kit-code">design/system/patterns/</code>, and only after a third screen has asked for it. A value goes to its level in <code class="kit-code">tokens.css</code>, by a named decision that says variable, value and why, with its origin beside it.</p>
+    <p class="note"><b>And a correction goes to the same places, never to the screen it was noticed on.</b> A fix applied on one screen is a desync by definition, because the other screens carrying the same component did not get it. A contextual override is the same defect wearing a nicer name: <code class="kit-code">.host .btn { font-size: 15px }</code> is an undeclared variant, and the honest version is to declare the modifier in the component's own file and put the class in the markup. The rules in full, with the checks that catch a violation, are in <a href="architecture.html">Architecture</a>; the six that travel with the code, because <code class="kit-code">design/system/</code> can be lifted into another project whole, are in its own <code class="kit-code">CLAUDE.md</code>.</p>
+  </section>
+
+
+  <section class="kit-sec" id="backlog">
+    <h2>The system backlog</h2>
+    <p class="note">A system stays honest by writing down what it decided <b>not</b> to do. <code class="kit-code">design/kit/docs/backlog.md</code> is that file, and this section is its visible place: it was opened during the component rounds of stage 08, earlier than the schedule asked for, because findings were arriving faster than the steps that owned them and a finding with no home is a finding that gets lost.</p>
+    <p class="note"><b>60 rows, 23 closed and 37 open, and two dropped at verification.</b> Fifty-four came out of stage 08 and sort into blockers, decisions that need a person, holes with the reason each was not filled, rows from the component rounds and from the control census, copy owned by Voice, and a last section naming what is deliberately <b>not</b> in the file so the next audit does not raise it again. <b>The four below came from somewhere else</b>, and that is why they are shown here: not from an audit of what already stands, but from the first product screen built out of the system after it was called finished.</p>
+
+    <h3 class="kit-sub-h">The self-sufficiency test, 2026-08-13</h3>
+    <p class="note"><a href="../alerts.html">Alerts</a> and its three states were assembled from <code class="kit-code">design/system/</code> alone: <b>44 distinct system classes across four pages, and 0 new CSS files, 0 new tokens, 0 new variants, 0 new lines of copy</b>. Nothing was added to the system to make the screen fit, which is the rule the test runs under. What was missing is written down instead, and the rule against drawing it on the screen by hand is what makes the list mean anything.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>What is missing</th><th>What it was needed for</th><th>Which level closes it</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>An edge for the logo tile in the dark theme</b></td>
+            <td>Measured against the dark surface: <b>Peloton 1.04:1, Netflix 1.25:1, Disney+ 2.05:1</b>, three of the fourteen merchant marks under the 3:1 a non-text boundary owes. On the light paper the same three read 17.44, 21.0 and 12.4, which is why no earlier pass saw it: the dark theme was audited by role, and a merchant mark is an image</td>
+            <td><b>Component</b>, <a href="logo.html">logo</a>. The role it needs already exists in both themes, <code class="kit-code">--line-container</code>. Whether the edge is always on or only under a dark tile is a decision</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td><b>A sentence in the right-aligned pair list is cramped at 360</b></td>
+            <td><a href="../alerts-empty.html">Alerts, all clear</a>: three of its four rows wrap onto two lines on both sides at 360, so "with the old price beside the new one" ends with "one" alone. All four are single-line at 1280</td>
+            <td><b>None, and that is the finding.</b> <a href="pair-list.html">Pair list</a> already declares <code class="kit-code">.sentences</code> for exactly this and the grey chose the plain form deliberately, five other grey pages using the modifier. A colour copy may differ from its grey by styling only</td>
+            <td>Low, and it is the founder's at the rollout</td>
+          </tr>
+          <tr>
+            <td><b>U8 says when a trust line is ALLOWED and never when it is OWED</b></td>
+            <td>Alerts carries eight items each ending "from Chase" and no trust line; its error state, where nothing was reached, carries one. Both are legal under the rule as written, because the rule is a maximum</td>
+            <td><b>Usage rule</b>, <a href="architecture.html#usage">U8</a>. Either it gains an obligation half, or it states out loud that it is a ceiling and the obligation belongs to the wireframes</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td><b>The interruption pattern's host axis was short by one</b> <span class="ok">Closed</span></td>
+            <td><a href="../alerts-error.html">Alerts, could not reach</a> holds the announcement inside a list column, where the three known hosts held it directly. The gap measured <b>24px with the class and 24px without it</b> at both viewports</td>
+            <td><b>Pattern documentation and no CSS.</b> A child selector does not care what the parent is called; an axis read off the corpus that stands is a description of it, not a limit on it. Corrected in four places the same day</td>
+            <td>Closed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">The verification pass, 2026-08-13, and one row of it is structural</h3>
+    <p class="note">Two instruments again, Codex read-only over the source and a browser pass over the running pages, taken independently and merged with a "who found it" column. <b>Twelve findings held and two were dropped at verification.</b> Eleven of the twelve were one defect with eleven addresses, and that one is the row worth carrying into stage 13. The full merge, class by class, is on <a href="pixel-proof.html#stage09">the proof page</a>.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead>
+          <tr><th>What is missing</th><th>What it was needed for</th><th>Which level closes it</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>A per-component coloured footprint is written by hand in forty places and nothing recomputes it</b></td>
+            <td>The coloured corpus grew for the first time since stage 07, 28 pages to 32 and 7 screens to 8, when step 5 built Alerts. <b>21 components' counts went stale in one commit</b> and every one had to be found by grep and re-counted by script. The same growth arrives again at stage 12, four times the size</td>
+            <td><b>Tooling, and it is the only row in the backlog that asks for a script rather than a decision.</b> The counter exists and was run twice at this stage; it lives nowhere. Either it becomes a checked-in script that regenerates the line, or the line stops carrying a number and carries a link to the one place that does</td>
+            <td>High, and it belongs to <b>stage 13</b>, where the handoff decides what a developer is handed</td>
+          </tr>
+          <tr>
+            <td><b>Ten component pages said another component "is not built yet" long after all 57 were built</b> <span class="ok">Closed</span></td>
+            <td>Fifteen occurrences across ten pages and two CSS files, every one of them true when it was written during the build rounds of stage 08. A reader following one concludes a part of the system is missing</td>
+            <td><b>Documentation, fixed in the same step</b>: each now links the page that exists. Kept in the file as the record, because the mechanism is the row above. A sentence about the state of the system, written inside a component, has no owner who re-reads it</td>
+            <td>Closed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="kit-open">
+      <p><b>What the test did not find is worth a line of its own, because a silent absence reads as a formality.</b> No component was missing, no state, no token. No line of copy had to be invented: every string on the four pages is character-identical to its grey original, which Voice owns. The one build error was mine rather than the system's, and the browser caught it: the links in the action row were written bare, where the system had folded that anchor into the button atom at stage 08.</p>
+      <p>The earlier finding of this stage never reached the file at all, because it closed on the day it was found. The colour page showed <b>31</b> semantic roles where <code class="kit-code">tokens.css</code> declares <b>34</b>; the three missing ones appeared nowhere on the stand, not as a card, a row or a mention. Nothing was broken in the product, all 34 being paired and past their thresholds. What was broken was the parity between the code and the documents, and the recount of 2026-08-12 missed it because it was taken off the stand rather than off the source. <b>A count of a file is taken from the file.</b></p>
+    </div>
+  </section>
+
+  <footer class="kit-foot">
+    The material this page argues from: <code>design/concept/docs/concept.md</code> for the attributes and the taste, <code>design/concept/docs/references.md</code> for the sources, <code>DESIGN.md</code> for the language as it shipped, and <a href="architecture.html">Architecture</a> for the rules. The system itself is <a href="overview.html">the whole kit</a> and <a href="patterns.html">its patterns</a>; the proof that it moved the product by nothing is <a href="pixel-proof.html">the pixel page</a>. The coloured screens are <a href="../overview.html">UI + Visual</a> and the grey structure contract is <a href="../../wireframes/overview.html">wireframes/</a>.
+  </footer>
+</div>
+
+<script>
+(function(){
+  var s=document.getElementById('sidebar-panel'), o=document.getElementById('sidebarOverlay'),
+      t=document.getElementById('navToggle'), c=document.getElementById('sidebarClose');
+  function op(){s.classList.add('open');o.classList.add('open');}
+  function cl(){s.classList.remove('open');o.classList.remove('open');}
+  if(t)t.addEventListener('click',op); if(c)c.addEventListener('click',cl); if(o)o.addEventListener('click',cl);
+})();
+</script>
+<script>
+  window.NAV_BASE = '../../';
+  window.NAV_SECTIONS = [
+    { id:'why',      label:'Why it looks like this' },
+    { id:'sources',  label:'Borrowed and refused' },
+    { id:'values',   label:'Where the values came from' },
+    { id:'use',      label:'How to use it' },
+    { id:'grow',     label:'How to grow it' },
+    { id:'backlog',  label:'The system backlog' },
+  ];
+</script>
+<script src="../../_nav.js"></script>
+<script src="_nav.js"></script>
+
+</body>
+</html>

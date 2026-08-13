@@ -17,9 +17,10 @@
      spacing  --space-0, --space-8, --space-16, --space-24
    Page      design/kit/panel.html
    Stands on 7 grey pages, 7 panels: the five subscription-detail states, alerts,
-   and cancel-guide. Five of the seven are coloured, all of them subscription
-   detail, so the banded form renders in Petrol and Paper today and the disclosure
-   is still grey.
+   and cancel-guide. Six of the seven are coloured. Five are subscription detail and
+   carry the banded form; the sixth is alerts, coloured on 2026-08-13, and it is the
+   only page in the product carrying the DISCLOSURE form, which had no coloured
+   render at all until then. Only the headless form on cancel-guide is still grey.
    Hosts     the Charge list molecule, the Divided list organism, the Action row
              molecule and the Button atom, and it repaints none of them.
 
@@ -91,7 +92,7 @@
    IT IS A DESCENDANT-FREE `>` SELECTOR AND THAT IS DELIBERATE. Written as
    `.app .panel h2` it would also reach a group head written as an `h2` inside a
    panel and outrank group-head.css. No page does that today, checked across all
-   55 grey pages and 28 coloured ones, and the combinator means it never can.
+   55 grey pages and 32 coloured ones, and the combinator means it never can.
 
    The padding folds from 12 by 14 to one step, 16 by 16, so the band gains 4px of
    height and its label sits 2px further in. --line-divider under it and not
@@ -280,5 +281,5 @@
 }
 .app .panel > summary:focus-visible {
   outline: var(--ring) solid var(--color-focus);
-  outline-offset: -2px;
+  outline-offset: calc(var(--ring) * -1);
 }

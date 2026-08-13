@@ -395,6 +395,20 @@
 .f--bg-action { background: var(--bg-action); }
 .t--bg-action { color: var(--bg-action); }
 .b--bg-action { border-color: var(--bg-action); }
+/* The three component tokens, added here 2026-08-13. They were declared in
+   tokens.css during the component rounds and had no plate on this stand at all,
+   which is how the role count on color.html could read 31 while the file held
+   34. Their order mirrors tokens.css, between the action fill they were split
+   from and its pressed state. */
+.f--control-accent { background: var(--control-accent); }
+.t--control-accent { color: var(--control-accent); }
+.b--control-accent { border-color: var(--control-accent); }
+.f--bg-chip-accent { background: var(--bg-chip-accent); }
+.t--bg-chip-accent { color: var(--bg-chip-accent); }
+.b--bg-chip-accent { border-color: var(--bg-chip-accent); }
+.f--text-chip-accent { background: var(--text-chip-accent); }
+.t--text-chip-accent { color: var(--text-chip-accent); }
+.b--text-chip-accent { border-color: var(--text-chip-accent); }
 .f--bg-action-strong { background: var(--bg-action-strong); }
 .t--bg-action-strong { color: var(--bg-action-strong); }
 .b--bg-action-strong { border-color: var(--bg-action-strong); }
@@ -794,16 +808,30 @@
 .kit-callouts { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 8px; }
 .kit-callouts li { display: grid; grid-template-columns: 128px 1fr; gap: 12px; align-items: baseline; font-size: 13px; color: var(--text-muted); }
 .kit-callouts code { color: var(--text-action); }
+/* A CALLOUT ANCHOR THAT IS NOT A SELECTOR, 2026-08-13. Four of the 257 callouts on
+   this stand name a dimension ("26 by 26"), a part with no class of its own ("the
+   sentence") or an absence ("no atoms"), and all four were bare text in the anchor
+   column. Two things missed them: the petrol above, and `.kit-callouts li > *`
+   below, which cannot reach a text node, so a long anchor could push the 128px
+   column off a narrow screen. Declared once here rather than repaired four times in
+   the markup, and deliberately NOT by wrapping them in `code`: marking prose as
+   code would be a second untruth put in to hide the first. */
+.kit-callouts .kit-part { color: var(--text-action); }
 
 .kit-matrix { overflow-x: auto; margin: 0 0 8px; }
 .kit-matrix table { border-collapse: collapse; width: 100%; min-width: 640px; }
 .kit-matrix th, .kit-matrix td { text-align: left; vertical-align: top; padding: 14px 16px 14px 0; border-bottom: 1px solid var(--line-divider); }
 .kit-matrix th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; border-bottom-color: var(--line-container); }
-.kit-matrix .axis-rule { margin: 4px 0 0; font-size: 12px; color: var(--text-muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
+/* The second line under a cell's subject: the axis rule in a variants matrix,
+   the data line under an attribute on why.html. One declaration serving both
+   tables, generalised rather than copied: the two are the same object in two
+   containers, and a second copy would be a second value to keep in step. */
+.kit-matrix .axis-rule, .kit-tab .axis-rule { margin: 4px 0 0; font-size: 12px; color: var(--text-muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
 .kit-matrix td.val { font-size: 12.5px; color: var(--text-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
 /* RENAMED FROM .empty, 2026-08-11. The Empty block organism is registered on the
-   class `.empty` and is not built yet. Today the collision is harmless, because no
-   stand cell sits inside an `.app` scope, but "the code and the stand do not mix" is
+   class `.empty`, and at the time of the rename it was not built yet; it is now.
+   The collision stayed harmless, because no stand cell sits inside an `.app` scope,
+   but "the code and the stand do not mix" is
    a rule about NAMES and not only about cascade: the moment the organism lands, a
    product rule starts matching a reviewer chrome cell and nothing errors. Removed
    before the organism round rather than debugged during it. */
@@ -954,6 +982,16 @@
 .kit-icg-bar i.g-home   { width: 78.6%; }  /* 21.02 / 26.73 */
 .kit-icg-bar i.g-alerts { width: 57.9%; }  /* 15.47 / 26.73 */
 .kit-icg-bar i.g-you    { width: 48.5%; }  /* 12.97 / 26.73 */
+
+/* ---------- the brand plate, why.html ----------
+   One wide image with its reading under it. It is a RECORD of the locked
+   language and not a specimen of it, so it is shown as a figure with a border
+   and a caption rather than as a hero: a picture that fills the top of a page
+   reads as the source of the values, and the source is tokens.css. */
+.kit-plate { margin: 0 0 10px; border: 1px solid var(--line-container); border-radius: var(--radius-sm); overflow: hidden; background: var(--bg-surface); }
+.kit-plate img { display: block; width: 100%; }
+.kit-plate figcaption { padding: 12px 14px; border-top: 1px solid var(--line-divider); font-size: 12.5px; line-height: 1.55; color: var(--text-muted); }
+.kit-plate figcaption b { color: var(--text-primary); font-weight: 600; }
 
 /* the carried finding: a closed defect, stated once, not a running list */
 .kit-icg-carry { border-left: 3px solid var(--line-selected); padding: 2px 0 2px 16px; margin: 0 0 18px; max-width: 74ch; }

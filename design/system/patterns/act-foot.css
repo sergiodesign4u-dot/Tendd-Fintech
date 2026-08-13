@@ -1,0 +1,51 @@
+/* ============================================================================
+   THE ACTION FOOT: the row of actions, and the line that says what happens if you
+   take one.
+
+   ASSEMBLED FROM, and it declares no component of its own:
+     action-row  `.actions`   one filled action and its quieter neighbours
+     quiet-line  `.quiet`     "You can undo this later"
+     muted-line  `.muted`     "Your trends stay where they are until you upgrade"
+   The line is the point of the composition. A row of buttons with nothing under it
+   is just an action row; this pattern exists where the product answers the
+   question a person asks with their finger already on the button.
+
+   WHERE IT STANDS. 8 screens and 17 pages of the grey product: cancel-guide,
+   connect-bank, connections, guided-reveal, history-trends, share-snapshot,
+   sign-in, upgrade. Six of those pages exist in colour and carry the class today:
+   guided-reveal-empty, history-trends, history-trends-empty, history-trends-error,
+   upgrade, upgrade-payment-failed. It is not the tail of the interruption above:
+   on six of the eight screens it stands with no announcement anywhere near it.
+
+   THE ONE VALUE THIS PATTERN OWNS, AND IT MOVED FOUR PAGES AT ONE WIDTH.
+   The gap under the action row was two margins meeting: 16px below `.actions` from
+   action-row.css and, for a muted line standing directly on a screen, 16px above
+   it from muted-line.css. Under 900 the screen is normal flow, adjacent margins
+   collapse, and the pair reads 16. At 900 and past it the screen becomes a flex
+   column, nothing collapses, and the same pair reads 32. One composition at two
+   distances, decided by a layout mode rather than by anyone, and invisible unless
+   you measure both ends: the quiet variant reads 16 at both widths because it
+   carries no top margin, so the two lines of the same foot disagree with each
+   other as well.
+
+   It is 16 now, at every width, declared once here. The row's bottom margin is
+   zeroed inside the foot and the gap is the line's own top margin, so there is one
+   number and one home. Measured: four pages lose 16px at 1280 and nothing else in
+   the product moves, at either width. history-trends, history-trends-empty,
+   history-trends-error, upgrade-payment-failed, plus upgrade, which is the fifth
+   and reads the same because it was already at the same arithmetic.
+   Named at stage 09 step 1 and confirmed by the founder; the two component files
+   keep their own margins for every other place they stand and are not edited.
+
+   ITS PAGE: design/kit/act-foot.html. Its rule of use is in docs/architecture.md
+   under "Usage rules": one filled action per zone, and the line under the row is
+   the consequence of the action, never a second sentence of the screen.
+   ============================================================================ */
+
+.app .act-foot > .actions { margin-bottom: var(--space-0); }
+.app .act-foot > .actions + .quiet,
+.app .act-foot > .actions + .muted { margin-top: var(--space-16); }
+
+/* NO `.landing` TWIN. Same reason as interruption.css: the landing wears none of
+   this, and the proof page already carries an open row about 48 component files
+   that declare a `.landing` selector no page uses. */

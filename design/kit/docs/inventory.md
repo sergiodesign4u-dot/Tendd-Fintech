@@ -73,7 +73,7 @@ the child**: doors are full cards and take air, tiles are chips and do not.
 |---|---|---|---|---|---|---|
 | Amount | `.amt` | size by container: 14 / 32 (`--type-body`, `--type-figure`). 13.5 and 30 folded at step 5 | 69 | - | `amount.css` | `amount.html` |
 | Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - | `big-total.css` | `big-total.html` |
-| Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 28 coloured, 0 grey | - | `brand-mark.css` | `brand-mark.html` |
+| Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 32 coloured, 0 grey | - | `brand-mark.css` | `brand-mark.html` |
 | Brand wordmark | `.wordmark` | one setting, and the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - | `brand-wordmark.css` | `brand-wordmark.html` |
 | Button | `.btn` | emphasis: fill / outline. `inverse` and `compact` both DELETED 2026-08-12, neither had a wearer | 85 | - | `button.css` | `button.html` |
 
@@ -170,6 +170,47 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Reveal step | `.rstep` | - | 1 | - | `reveal-step.css` | `reveal-step.html` |
 | Save-focus list | `.candidates` | - | 1 | - | `save-focus-list.css` | `save-focus-list.html` |
 | Tab bar | `.tabbar` | form: bottom bar / left rail at container 760 | 28 | - | `tab-bar.css` | `tab-bar.html` |
+
+## Patterns (3), added at stage 09
+
+A different kind of row from the three tables above, and the difference is the test. A component
+is one brick and its rung is decided by **what it contains**; a pattern is a settled composition of
+bricks and its existence is decided by **repetition**: three screens or more, named, counted on
+`wireframes/*.html`, where the whole product is. The colour is a sample of eight screens until the
+rollout at stage 12, so the coloured count is smaller on all three and is carried in its own column
+rather than hidden.
+
+A pattern declares **no colour, no type and no visual decision**. Where a composition needed a look
+the system did not have, the answer would be a component first, by the five things in
+`architecture.md`, and the pattern after it. None of the three needed one.
+
+| Pattern | Class | What it is assembled from | Screens | Grey pages | In colour | CSS file | Page |
+|---|---|---|---|---|---|---|---|
+| Interruption | `.interruption` | text block (`.textblock.status`) + action row, closed by a quiet or muted line; a grid of doors is the exit on one screen | **12** | 16 | 7 | `patterns/interruption.css` | `interruption.html` |
+| Action foot | `.act-foot` | action row + quiet line (an exit) or muted line (a consequence) | **8** | 17 | 6 | `patterns/act-foot.css` | `act-foot.html` |
+| List column | `.rows-col` | text block (the intro, first) + category group, divided list, card, switch row, as each screen needs | **4** | 9 (10 wear `.rows-col`) | 5 (6) | `patterns/list-column.css` | `list-column.html` |
+
+**The interruption gained a fourth host on 2026-08-13, and it cost no CSS.** The three it was
+written from (the screen, a detail column, the dialog sheet) all held the announcement as a direct
+child. `design/alerts-error.html`, the first screen built after the pattern existed, puts its list
+column in between, so the class goes on `.rows-col`. A child selector does not care what the parent
+is called; what needed correcting was the axis, in four places, because an axis read off the corpus
+that stands is a description of that corpus and not a limit on it.
+
+**What each one owns in CSS, because a pattern that owns nothing is a name rather than a file.**
+The list column is a **move**: `min-width: 0` and `max-width: 620px` were cut out of
+`app-shell.css`, which held them only because there was no shelf above the shell. The other two are
+a **first writing**: their compositions lived in markup order alone, and each now owns exactly one
+gap, declared once on the composition instead of arriving as the sum of two components' margins.
+The action foot's gap was the finding of the extraction: it read 16px under 900 and 32px past it,
+because the screen becomes a flex column there and margins stop collapsing. It is 16 at every width
+now, which moved four pages at 1280 and nothing else in the product.
+
+**Candidates, on two screens, waiting for a third.** They are markup today and they are listed so
+that the next stage does not search for them again: the two-track detail (`.col1` + `.col2`, on
+subscription detail and cancel guide, 8 pages, the closest to the line); announcement + facts +
+exit; intro + facts; a grid of choices with a quiet way past. The full table with what each is
+waiting for is on `patterns.html`.
 
 ## What the consolidation removed, and on what ground
 
@@ -327,8 +368,8 @@ five of `docs/architecture.md`, written here against real paths:
 1. `design/system/components/lead-line.css`, holding both of today's rules under one owner: the
    modifier moves out of `muted-line.css:191` and the framing line out of `save-focus-list.css:70`,
    and the two comment blocks that warn about the collision move with them.
-2. `design/kit/lead-line.html` with the five blocks: anatomy, variants and sizes, when to use, the
-   rule and the anti-rule, states.
+2. `design/kit/lead-line.html` with the six sections the structural check requires, in order and
+   with these ids: `anatomy`, `variants`, `usage`, `rule`, `states`, `tech`.
 3. a row in `design/kit/_nav.js`, **in the `atoms` group**, carrying `cls: '.lead'`,
    `was: '.consequence.lead'` and `wf: 4`, the grey page count measured above.
 4. a row in the Atoms table of this file, with its level, and a row in the renaming map for

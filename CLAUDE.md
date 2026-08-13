@@ -89,13 +89,17 @@ interface text: one language across the sidebar, mixed language counts as a defe
 
 **No em dash** in any output file of the project. Use a hyphen or rewrite the sentence.
 
-**Navigation has two levels, and the roadmap has one owner.** `/_nav.js` is the single
-registry of the project: it renders the sidebar on every page, and active / Next / SOON are
-computed at render. A new page means one row plus `done:true`, never a hand written roadmap
-in a page. `/_nav.css` owns the look; a page never describes `nav-*` itself. Per-stage
-registries (`wireframes/_nav.js`, `design/_nav.js`) keep their data and classes in their own
-namespace, because hub pages load both. Stage pages carry the roadmap; the screens of a
-stage carry only their stage panel.
+**Navigation has two levels, and the roadmap has one owner.** `/_nav.js` is the single registry
+of the project and it lists STAGES: it renders the sidebar on every page, and active / Next /
+SOON are computed at render. A new page means one row plus `done:true`, never a hand written
+roadmap in a page. `/_nav.css` owns the look; a page never describes `nav-*` itself. The MATERIAL
+of a stage lists itself in the stage's own registry (`wireframes/_nav.js`, `design/_nav.js`,
+`design/kit/_nav.js`), each keeping its data and classes in its own namespace because hub pages
+load both; a roadmap that listed 57 components would stop being a roadmap. Stage pages carry the
+roadmap, the screens of a stage carry only their stage panel. One consequence, decided
+2026-08-11: **Tokens + Components and Design System are one row**, because both lead into
+`design/kit/`; it opens on `design/kit/why.html` (2026-08-13), the guide, and the stage-08
+account at `overview.html` names it through `NAV_ACTIVE`.
 
 **`index.html` is the product home page, `overview.html` is the hub.** In any stage folder:
 opening the folder lands on the product screen (node 1.1, Welcome); the list of all
@@ -125,20 +129,22 @@ put a visible "updated after publishing" note on it and say so out loud.
 `voice/docs/microcopy.md`; the IA node states what information the place needs, not the
 wording. No product line exists in two editions. All product copy obeys `voice/docs/voice.md`.
 
-**Values migrate, they are never re-derived, and a fix lives in the system.** One line of CSS
-values runs `_theme.css` (Concept) into `kit.css` (UI + Visual, git mv) into
-`design/system/tokens.css` (Tokens + Components), which is **two levels and not three**:
-primitive (raw values) and semantic (roles through `var()`). A value changes only by a named
-decision ("variable, value, why"), never as a side effect of an extract, and carries its origin
-in a comment beside it. A **screen carries no style of its own**: no page-level style block, no
-style attribute, no class the system does not define. So a correction goes to the token of its
-level, which reaches every screen by itself, or to the component's own css plus its page in
-`design/kit/` plus every screen holding it. A fix applied on one screen is a desync, and a
-contextual override (`.host .btn{font-size:15px}`) is an undeclared variant: declare the modifier
-and put the class in the markup. **A new component is five things:** css in `design/system/components/`,
-a page in `design/kit/`, a row in `design/kit/_nav.js` in its own LEVEL group, a line in
-`docs/inventory.md` with its level, and an `@import` in `index.css` in its own level group, never
-at the end. **A role or a state token lives in both themes or it does not exist.**
+**Nothing new reaches a screen first, and "we keep it" is an address rather than a verdict.**
+A VALUE goes to `design/system/tokens.css` at its level, **two levels and not three**: primitive
+(raw values) and semantic (roles through `var()`); a role or a state token lives in both themes
+or it does not exist. A COMPONENT is five things: css in `design/system/components/`, a page in
+`design/kit/`, a row in `design/kit/_nav.js` in its own LEVEL group, a line in `docs/inventory.md`
+with its level, and an `@import` in `index.css` in its own level group, never at the end. A
+COMPOSITION on three screens is a pattern: a file in `design/system/patterns/` plus its page,
+assembled from components and declaring no style of its own; on two it stays markup. A USAGE RULE
+is a row in `design/kit/docs/architecture.md` with its "where it comes from" filled, plus a Limits
+item on every component page it names. **A value is never re-derived:** it changes by a named
+decision ("variable, value, why") and carries its origin in a comment beside it. A **screen
+carries no style of its own**: no style block, no style attribute, no class the system does not
+define. So a correction goes to the token of its level, which reaches every screen by itself, or
+to the component css plus its page plus every screen holding it. A fix applied on one screen is a
+desync, and a contextual override (`.host .btn{font-size:15px}`) is an undeclared variant:
+declare the modifier and put the class in the markup.
 
 **Critique runs on two instruments.** Claude and Codex (read-only, see `AGENTS.md`), taken
 independently and merged afterwards, with a "who found it" column. Codex owns what is
@@ -181,18 +187,12 @@ design/                          the whole visual half: concept/ (how the langua
                                  found), visuals/ (logos, README), screens/ (was /
                                  became pairs), the colored screens flat in the root,
                                  overview.html as the hub
-design/system/                   the CODE of the design system, liftable whole, with its
-                                 own CLAUDE.md: tokens.css, base.css, index.css, components/
+design/system/                   the CODE of the design system, liftable whole, with its own
+                                 CLAUDE.md: tokens.css, base.css, index.css, components/, patterns/
 design/kit/                      the STAND that shows it: _nav.js is the component
                                  registry and draws both the hub cards and the side
                                  panel, _page.css is the stand's own look and the home
-                                 of the reviewer chrome, overview.html the hub,
-                                 docs/ (inventory, tokens-audit, census)
+                                 of the reviewer chrome, why.html the guide and the
+                                 roadmap page, overview.html the hub, docs/ (inventory,
+                                 tokens-audit, census, backlog)
 ```
-
-**Two registries, and the roadmap is not one of them.** `/_nav.js` lists STAGES; the material
-of a stage lists itself in the stage's own registry (`wireframes/_nav.js`, `design/_nav.js`,
-`design/kit/_nav.js`). A roadmap that listed 55 components would stop being a roadmap. One
-consequence, decided 2026-08-11: **Tokens + Components and Design System are one row**, because
-both led into `design/kit/` and a row whose page is a section of another row's page is a second
-entrance to one room.

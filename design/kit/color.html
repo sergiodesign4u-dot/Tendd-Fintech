@@ -44,7 +44,7 @@
     <h1>Colour</h1>
     <p class="lead">Two levels and a pair of themes. The values below are what the product has been painted with since Concept; the roles are what stage 08 read out of where each value actually stands. Nothing here is new except the dark ramp, which had nothing to be carried from.</p>
     <div class="kit-meta">
-      <span><strong>22</strong> primitives, light</span><span><strong>22</strong> primitives, dark</span><span><strong>27</strong> roles + <strong>4</strong> state tokens, all paired</span><span>0 failing pairs</span>
+      <span><strong>22</strong> primitives, light</span><span><strong>22</strong> primitives, dark</span><span><strong>27</strong> roles + <strong>4</strong> state + <strong>3</strong> component tokens, all paired</span><span>0 failing pairs</span>
     </div>
   </header>
 
@@ -106,7 +106,8 @@
 
   <section class="kit-sec" id="roles">
     <h2>Semantic: the roles, both themes at once</h2>
-    <p class="note">Twenty-seven roles and four state tokens, thirty-one pairs, and the count was <b>25</b> here until 2026-08-12: <code>--line-failure</code> and <code>--line-action-soft</code> were added by the component rounds at step 5 and the sentence above them was not. Counted off the file rather than off memory, and the table at the foot of this page has carried all thirty-one rows the whole time. Each one points at a primitive through <code>var()</code> and each one is written twice, in <code>:root</code> and in <code>[data-theme="dark"]</code>, at the moment it is declared. <b>The pair is a property of the level, not an event.</b> A role without a pair does not exist, because the way to notice a missing one is to switch the theme, which is to say never.</p>
+    <p class="note">Twenty-seven roles, four state tokens and three component tokens: <b>34 declarations at this level, 34 pairs.</b> Each one points at a primitive through <code>var()</code> and each one is written twice, in <code>:root</code> and in <code>[data-theme="dark"]</code>, at the moment it is declared. <b>The pair is a property of the level, not an event.</b> A role without a pair does not exist, because the way to notice a missing one is to switch the theme, which is to say never.</p>
+    <p class="note"><b>This count was wrong twice, and the second time is the instructive one.</b> It read <b>25</b> until 2026-08-12, when <code>--line-failure</code> and <code>--line-action-soft</code> arrived from the component rounds and the sentence above them did not. It then read <b>31</b> until 2026-08-13, and the three tokens below marked <i>component token</i> were not on this page at all: not a card, not a table row, not a mention. The recount that fixed 25 was taken off <b>this stand</b> instead of off <code>tokens.css</code>, so it could only ever find what the stand already showed. A count of a file is taken from the file. Nothing was broken in the product by any of it: all 34 are paired and all 34 clear their threshold.</p>
     <p class="note">Both themes are shown side by side deliberately, whatever the theme of this page. The pairs are material, not the state of a toggle. <b>The pair is not mirrored:</b> contrast runs against the opposite ground, so on dark the accent climbs the scale rather than reusing the same primitive, and three roles visibly disagree with their light halves. The loudest is <code>--text-on-action</code>: white on the lightened petrol would measure 1.9:1, so on dark it takes the dark canvas instead.</p>
     <div class="kit-roles">
       <div class="kit-role">
@@ -174,6 +175,24 @@
         <span class="rs">fill</span>
         <div class="kit-pair"><div class="kit-chip" data-theme="light"><span class="lbl">Light</span><span class="demo f--bg-action">&nbsp;</span><span class="val">--petrol #1c6a76</span></div><div class="kit-chip" data-theme="dark"><span class="lbl">Dark</span><span class="demo f--bg-action">&nbsp;</span><span class="val">--petrol-dark #6bb0ba</span></div></div>
         <p class="why">measured 6.23 light, 6.82 dark, against <code>--bg-surface</code></p>
+      </div>
+      <div class="kit-role">
+        <span class="rn">--control-accent</span>
+        <span class="rs">fill</span>
+        <div class="kit-pair"><div class="kit-chip" data-theme="light"><span class="lbl">Light</span><span class="demo f--control-accent">&nbsp;</span><span class="val">--petrol #1c6a76</span></div><div class="kit-chip" data-theme="dark"><span class="lbl">Dark</span><span class="demo f--control-accent">&nbsp;</span><span class="val">--petrol-dark #6bb0ba</span></div></div>
+        <p class="why">measured 6.23 light, 6.82 dark, against <code>--bg-surface</code>. <b>A component token, not a role.</b> It exists because <code>accent-color</code> is the one hook a native checkbox and a native radio give you, and it takes a colour rather than a role: split off from <code>--bg-action</code> so that the day the accent of a control parts from the accent of a button, one line moves and no markup does</p>
+      </div>
+      <div class="kit-role">
+        <span class="rn">--bg-chip-accent</span>
+        <span class="rs">fill</span>
+        <div class="kit-pair"><div class="kit-chip" data-theme="light"><span class="lbl">Light</span><span class="demo f--bg-chip-accent">&nbsp;</span><span class="val">--petrol-tint #e7edee</span></div><div class="kit-chip" data-theme="dark"><span class="lbl">Dark</span><span class="demo f--bg-chip-accent">&nbsp;</span><span class="val">--petrol-tint-dark #123037</span></div></div>
+        <p class="why">measured 1.18 light, 1.20 dark, against <code>--bg-surface</code>, decorative by the same decision as every other wash. <b>A component token</b>, split off from <code>--bg-selected</code>: the Pro chip is not a selection, and it was reading the selected wash only because the two happen to share a value today</p>
+      </div>
+      <div class="kit-role">
+        <span class="rn">--text-chip-accent</span>
+        <span class="rs">ink</span>
+        <div class="kit-pair"><div class="kit-chip" data-theme="light"><span class="lbl">Light</span><span class="demo t--text-chip-accent f--bg-chip-accent">Pro</span><span class="val">--petrol #1c6a76</span></div><div class="kit-chip" data-theme="dark"><span class="lbl">Dark</span><span class="demo t--text-chip-accent f--bg-chip-accent">Pro</span><span class="val">--petrol-dark #6bb0ba</span></div></div>
+        <p class="why">measured 5.26 light, 5.68 dark, against <code>--bg-chip-accent</code> and not against the surface, because that wash is what it actually stands on. <b>A component token</b>, the ink half of the pair above</p>
       </div>
       <div class="kit-role">
         <span class="rn">--bg-action-strong</span>
@@ -310,7 +329,7 @@
   <section class="kit-sec" id="contrast">
     <h2>Contrast, every role, both themes</h2>
     <p class="note">Every role is tabulated, not only the ones somebody called textual. <b>That is exactly where the quiet defect hides:</b> a fill role placed on a 12px bold caption passes as a surface at 3:1 and fails as text at 4.5:1, and a table of text-on-background pairs never catches it, because nobody declared it text. Three surfaces, three thresholds: ink answers to 4.5:1 (3:1 from 24px, or 19px bold), fill and line answer to 3:1 under WCAG 1.4.11.</p>
-    <p class="note">Twelve fills and four lines are marked <b>decorative</b>. That is a decision with a name, not an omission: a card edge and a wash separate two surfaces that nothing has to find by touch. Raising them was considered and rejected on 2026-08-11, because it outlines every surface in the product and the language was chosen against exactly that. The boundary that <i>identifies a control</i> is a different role, <code>--line-control</code>, and it carries the 3:1 it owes.</p>
+    <p class="note">Eleven fills and four lines are marked <b>decorative</b>. That is a decision with a name, not an omission: a card edge and a wash separate two surfaces that nothing has to find by touch. Raising them was considered and rejected on 2026-08-11, because it outlines every surface in the product and the language was chosen against exactly that. The boundary that <i>identifies a control</i> is a different role, <code>--line-control</code>, and it carries the 3:1 it owes.</p>
     <div class="kit-tab">
       <table>
         <thead><tr><th>Role</th><th>Paints</th><th>Measured against</th><th class="n">Light</th><th class="n">Dark</th><th class="n">Needs</th><th>Verdict</th></tr></thead>
@@ -327,6 +346,9 @@
           <tr><td><code>--bg-placeholder</code></td><td>fill</td><td><code>--bg-surface</code></td><td class="n">1.23</td><td class="n">1.15</td><td class="n">3.0</td><td><span class="dec">decorative, by decision</span></td></tr>
           <tr><td><code>--bg-action</code></td><td>fill</td><td><code>--bg-surface</code></td><td class="n">6.23</td><td class="n">6.82</td><td class="n">3.0</td><td><span class="ok">passes</span></td></tr>
           <tr><td><code>--bg-action-strong</code></td><td>fill</td><td><code>--bg-surface</code></td><td class="n">7.83</td><td class="n">7.91</td><td class="n">3.0</td><td><span class="ok">passes</span></td></tr>
+          <tr><td><code>--control-accent</code></td><td>fill</td><td><code>--bg-surface</code></td><td class="n">6.23</td><td class="n">6.82</td><td class="n">3.0</td><td><span class="ok">passes</span></td></tr>
+          <tr><td><code>--bg-chip-accent</code></td><td>fill</td><td><code>--bg-surface</code></td><td class="n">1.18</td><td class="n">1.20</td><td class="n">3.0</td><td><span class="dec">decorative, by decision</span></td></tr>
+          <tr><td><code>--text-chip-accent</code></td><td>ink</td><td><code>--bg-chip-accent</code></td><td class="n">5.26</td><td class="n">5.68</td><td class="n">4.5</td><td><span class="ok">passes</span></td></tr>
           <tr><td><code>--text-primary</code></td><td>ink</td><td><code>--bg-surface</code></td><td class="n">17.44</td><td class="n">14.98</td><td class="n">4.5</td><td><span class="ok">passes</span></td></tr>
           <tr><td><code>--text-body</code></td><td>ink</td><td><code>--bg-surface</code></td><td class="n">10.16</td><td class="n">10.44</td><td class="n">4.5</td><td><span class="ok">passes</span></td></tr>
           <tr><td><code>--text-muted</code></td><td>ink</td><td><code>--bg-surface</code></td><td class="n">5.78</td><td class="n">6.4</td><td class="n">4.5</td><td><span class="ok">passes</span></td></tr>
