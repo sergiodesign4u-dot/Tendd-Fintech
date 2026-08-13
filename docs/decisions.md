@@ -7,6 +7,77 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-13 - The type scale goes to rem, because the width points already had
+
+**The question, from the founder: why is the type in px, and should it be rem.** Answered by
+reading rather than by convention. There is no decision in this log about the units of the type
+scale, because there never was one: the eight `--type-*` steps were authored at stage 08, when the
+job was replacing 21 shipped sizes and no variable for any of them, and units were not the
+question that day. It was inherited, not decided.
+
+**Why it had to change, and it is a contradiction rather than a preference.** Stage 10 declared
+both width points in `rem` and wrote the reason into `tokens.css`: a point should ask how wide the
+window is **relative to the text the person set**. That reason is only true if the text moves with
+the setting. A browser's own font-size menu changes the root size; an explicit `px` font-size
+ignores it completely. So the promise was half kept, and the half that was missing was the half
+that mattered. Measured on `design/home.html` at a 24px root: the text stayed 16 and 12px, and the
+900px window fell **below** the tablet point (47.5rem is 1140px at that root), so the rail went
+away, the page measure came off and `.screen` went from 680 to 900. **The person who asked for
+larger text paid the entire layout change and got no larger text.** The `rem` point was working
+against the only person it was written for.
+
+**Why nobody had noticed for two stages.** Page zoom is a different mechanism and scales `px` and
+`rem` alike, so every check anybody had run - including the stage 10 width sweep - was blind to
+this by construction. It only shows up under the browser's font-size setting, which no instrument
+in this project was touching.
+
+**What it cost, measured and not asserted.** Eight values in one file; 94 declarations in
+`design/system/` already read them through `var()` and none of them changed. The conversions are
+exact and none rounds: 46/32/24/20/16/14/12/10 are 2.875/2/1.5/1.25/1/0.875/0.75/0.625rem. The
+root font-size is set nowhere in this system, so at the browser default every step is the number
+it always was. Proved by DOM fingerprint - box, font-size, line-height and weight of every element
+under `.app` and `.landing` - across the 28 coloured screens and the landing at 390, 760, 1280 and
+1600, the px scale against the rem one: identical, not one record different.
+
+**What stays px, and it is not an oversight.** Spacing, radii, the 220px rail and the 300px column
+floor are **geometry, not text**, and the same distinction that denies the width block a dark pair
+applies here: a width does not change direction in the dark and does not grow with a sentence. The
+two things that genuinely had to scale with the text already did before this change - the reading
+measures are in `ch` (`--container-text` is 52ch, 9 consumers) and every line height in the system
+is unitless.
+
+**One defect it exposed, and exposing it is the point.** At a 390px viewport the plan card's track
+is 358px, and "Start Tendd Pro - $7.99 a month" on a non-wrapping button is 249px at the default,
+302 at a 20px root, 329 at 22px and 356 at 24px. At 22px the card is 363 inside that 358 track; at
+24px the page scrolls sideways by 16px. That is a real product defect at a setting Chrome offers
+by name under **Very large**, and it was previously hidden only because the product ignored the
+setting entirely.
+
+**What we rejected.** Shortening the label, which is what `button.css` had told anybody to do since
+stage 09 ("if a label cannot fit, the label is too long, and that is a question for microcopy").
+That instruction assumes a label can be authored once and measured once, and with a `rem` scale
+the text size belongs to the reader, so **no label exists that fits every root size**. Also
+rejected: `min-width: 0` on the card, which lets the grid track shrink and moves the overflow from
+the page into the card, which is not a fix; and moving the whole spacing scale to `rem`, which
+would inflate the phone layout for a problem that turned out to be one button. Taken instead: one
+scoped exception, `.app .plan-opt .btn` takes `white-space: normal`, written in `button.css`
+because white-space is that file's property and a host reaching in to change it is the defect
+`plan-option.css` names twice in its own header. It is the only button in the product whose label
+is a sentence carrying a price and a period rather than a verb and its object.
+
+**What is left open, named rather than shrugged at.** Swept live after the change: 609 renders, 29
+pages by 7 widths from 320 to 1600 by 3 root sizes (16, 20, 24). **Everything at 360 and above is
+clean at every root size.** One corner is not: at a **320px viewport with a 24px root**, two things
+still cross the edge, `.btn.primary` "Try another payment method" on `upgrade-payment-failed` (329px
+in a 288px zone) and the app bar's plan `.chip` on the five History and Trends screens, pushed out
+25 to 32px by a brand lockup that grew with the text beside it. Not fixed here **on purpose**: the
+general answer is whether `white-space: nowrap` on `.btn` can survive a text size the product no
+longer controls, and that rule came from a founder finding on the etalon page, so reversing it is
+not a builder's call. The two honest answers are an exception per host as each appears (two so
+far), or dropping `nowrap` from `.btn` entirely, which stage 09 itself measured as zero pixels at
+the default. Carried in `design/kit/docs/backlog.md`, the row about a button that may not wrap,
+owned by the founder with Voice for the string.
+
 ## 2026-08-13 - The images go to WebP in two modes, and evidence is never compressed with loss
 
 **What it weighed.** 17.4 MB of raster images in 52 tracked files, against 36 MB for the whole

@@ -228,16 +228,45 @@
      wins, so every component asking for the body ink would have been handed 14px.
      Caught by reading the file back before anything was wired to it. A namespace
      is not decoration; two things called the same name are one thing.
+
+     rem AND NOT px SINCE 2026-08-13, founder's question, and it settles a
+     contradiction this file was already carrying. The width block below declares
+     both points in rem and gives the reason: a point asks how wide the window is
+     RELATIVE TO THE TEXT THE PERSON SET. That reason is only true if the text
+     actually moves with the setting, and a px scale does not move at all. A
+     browser's own font-size setting changes the root size; an explicit px
+     font-size ignores it. (Page zoom is a separate mechanism and scales px and
+     rem alike, which is why this was invisible for two stages.)
+
+     WHAT IT COST TO LEAVE IT IN px, MEASURED ON design/home.html at a 24px root:
+     the text stayed 16 and 12px, and the 900px window fell BELOW the tablet
+     point (47.5rem is 1140px at that root), so the rail went away, the page
+     measure came off and .screen went from 680 to 900. The person who asked for
+     larger text paid the whole layout change and got no larger text. That is the
+     rem point working against the only person it was written for.
+
+     THE SWAP MOVES NOTHING FOR ANYBODY ELSE, and that is measured rather than
+     assumed: 7660 element records (box, font-size, line-height, weight) across
+     the 28 coloured pages and the landing, at 390, 760, 1280 and 1600, px
+     against rem, identical. The root font-size is set nowhere in this system, so
+     at the browser default every step below is the number it always was. The
+     conversions are exact, none of them rounds.
+
+     THE GEOMETRY STAYS px ON PURPOSE. Spacing, radii, the 220px rail and the
+     300px column floor are geometry, not text, and the same distinction that
+     denies the width block a dark pair applies here. The reading measures were
+     already text-relative before this (--container-text is 52ch) and every
+     line-height in the system is already unitless, so both scale by themselves.
      ========================================================================== */
 
-  --type-display: 46px;  /* the monthly total, and nothing else on the screen */
-  --type-figure:  32px;  /* a subscription's own amount, a plan price */
-  --type-head:    24px;  /* the subject of a page */
-  --type-title:   20px;  /* the subject of a block inside a page */
-  --type-sub:     16px;  /* a merchant name, a door, the reading line */
-  --type-body:    14px;  /* sentences, button labels */
-  --type-meta:    12px;  /* labels, hints, the second tier of information */
-  --type-label:   10px;  /* badges and the eyebrow */
+  --type-display: 2.875rem;  /* 46px. the monthly total, and nothing else on the screen */
+  --type-figure:  2rem;      /* 32px. a subscription's own amount, a plan price */
+  --type-head:    1.5rem;    /* 24px. the subject of a page */
+  --type-title:   1.25rem;   /* 20px. the subject of a block inside a page */
+  --type-sub:     1rem;      /* 16px. a merchant name, a door, the reading line */
+  --type-body:    0.875rem;  /* 14px. sentences, button labels */
+  --type-meta:    0.75rem;   /* 12px. labels, hints, the second tier of information */
+  --type-label:   0.625rem;  /* 10px. badges and the eyebrow */
 
   /* ==========================================================================
      PRIMITIVE - the spacing scale, an 8px grid

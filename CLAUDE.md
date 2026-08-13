@@ -141,9 +141,9 @@ is a row in `design/kit/docs/architecture.md` with its "where it comes from" fil
 item on every component page it names. **A value is never re-derived:** it changes by a named
 decision ("variable, value, why") and carries its origin in a comment beside it. A **screen carries
 no style of its own**: no style block, no style attribute, no `@media`, no class the system does
-not define. **A width is a value like the rest:** two points, in `rem`, in `tokens.css`; a query
-cannot read a `var()`, so the token is the register and the literal in the query is its
-application, and a third point is the founder's. So a correction goes to the token of its level,
+not define. **`rem` is what a reader resizes and `px` is geometry:** the type scale and the two
+width points, not spacing; a query cannot read a `var()`, so a point is a register and its literal
+the application, and a third is the founder's. So a correction goes to the token of its level,
 which reaches every screen by itself, or to the component css plus its page plus every screen
 holding it. A fix applied on one screen is a desync, and a contextual override
 (`.host .btn{font-size:15px}`) is an undeclared variant: declare the modifier and put the class in

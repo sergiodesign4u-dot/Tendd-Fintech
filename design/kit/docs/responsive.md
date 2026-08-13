@@ -155,6 +155,23 @@ At the browser default of 16px these are 760 and 900 exactly, and the root font 
 nowhere in this system, so naming them in `rem` costs zero pixels for anyone who has not asked for
 larger text.
 
+**AMENDED 2026-08-13, AND THE PARAGRAPH ABOVE WAS ONLY HALF TRUE WHEN IT WAS WRITTEN.** "The text
+the person set" was the whole ground of the decision, and at the time this stage closed the type
+scale was still `px`, which ignores that setting completely. So the point moved with the person and
+the type did not. Measured on `design/home.html` at a 24px root: the text stayed 16 and 12px while
+the 900px window fell below `--bp-tablet` (47.5rem is 1140px at that root), so the rail went away,
+the page measure came off, and `.screen` went from 680 to 900. **The reader this argument was
+written for was the one reader it made worse off.** The founder asked why the type was not `rem`,
+the scale moved to `rem` the same day, and the argument above is now true rather than half true.
+Nothing in this table changed. Ground: `docs/decisions.md`, the entry of 2026-08-13.
+
+**Why the stage 10 width sweep could not have caught it.** The sweep drives the viewport, and page
+zoom scales `px` and `rem` alike, so every instrument this stage built was blind to the browser's
+font-size setting by construction. **A width sweep is not a text sweep.** The defect it hid was
+real: at a 390px viewport and a 24px root, `design/upgrade.html` scrolled sideways by 16px, because
+the plan card's non-wrapping button grows from 249px to 356px inside a 358px track. Fixed at the
+component, one scoped exception in `button.css`.
+
 **The register is written twice because CSS forces it to be.** A query is resolved before the
 variable cascade, so `@media (min-width: var(--bp-tablet))` does not error and does not warn: it
 simply never matches. The number lives in `tokens.css` as the source of truth and appears as a

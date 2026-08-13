@@ -55,6 +55,33 @@
   white-space: nowrap;
 }
 
+/* THE ONE EXCEPTION, AND IT IS THE RULE ABOVE MEETING A READER RATHER THAN A
+   BUILDER, 2026-08-13. The rule holds because a label is authored once and can be
+   measured once. That stopped being true the day the type scale became rem: the
+   text size is now the PERSON'S, so no label can be authored to fit every root,
+   and "the label is too long, take it to microcopy" has no answer to give.
+
+   MEASURED ON design/upgrade.html AT A 390px VIEWPORT, root by root. The plan
+   card's track is 358px. "Start Tendd Pro - $7.99 a month" as a non-wrapping
+   button has a min-content width of 249px at the browser default and grows with
+   the root: 302 at 20px, 329 at 22px, 356 at 24px. At a 22px root the card is
+   already 363 in a 358 track; at 24px the page itself scrolls sideways by 16px.
+   Chrome's own font-size menu offers exactly that value under "Very large", so
+   this is a setting a person picks from a list, not a hypothetical.
+
+   IT IS SCOPED TO THE PLAN CARD AND WRITTEN HERE. Scoped, because this is the
+   only button in the product whose label is a SENTENCE carrying a price and a
+   period rather than a verb and its object, and the rule above is right about
+   every other one. Written here rather than in plan-option.css, because
+   white-space is this file's property and a host reaching in to change it is the
+   defect that file's own header names twice.
+
+   ZERO PIXELS MOVE AT THE DEFAULT: at a 16px root the label fits on one line, and
+   a wrapping button that already fits keeps its width and its 44px height. What
+   this rule removes is the sideways scroll at the top of the range, not a line
+   break at the bottom of it. */
+.app .plan-opt .btn, .landing .plan-opt .btn { white-space: normal; }
+
 /* ---- emphasis: one axis, TWO values, and only one of them per zone -------
    Filled is the main action of a zone and there is exactly one. Outline is a
    real alternative rather than a ghost: the two doors of this product are equal

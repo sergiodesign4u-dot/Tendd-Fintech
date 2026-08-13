@@ -292,6 +292,15 @@ property of the level and not an event, and the way to notice a missing one is t
 theme, which is to say never. The change itself is a named decision, "variable, value, why", and
 the origin travels with the value in a comment beside it.
 
+**The unit is decided by who owns the number, added 2026-08-13.** `rem` for what a reader can
+resize, which is the **type scale** and the **two width points**, and they have to be the same
+unit or the point moves for a person whose text does not. `px` for **geometry**: spacing, radii,
+the rail, the column floor. A width and a gutter are not text and do not grow with a sentence,
+which is the same distinction that denies the width block a dark pair. **A `px` font-size anywhere
+in `design/system/` is a defect**, and it is a grep. The two things that must track the text
+already do it themselves and need no unit rule: reading measures are in `ch`, line heights are
+unitless. Ground: `docs/decisions.md`, 2026-08-13.
+
 ### A new RULE ABOUT WIDTH, added at stage 10
 
 Four addresses, and a screen file is not one of them.

@@ -84,44 +84,48 @@
     <p class="note"><b>Each specimen below reads its own token</b>, through <code>var(--type-display)</code> and its seven neighbours: change a value in <code>tokens.css</code> and this ladder moves with it. <b>The ladder further down does not</b>, and must not. That one is a record of the sizes the product used to carry, so it is drawn from literals and stays where it was even if every token in the file changes. A page that documents a scale without reading it can quietly disagree with the scale.</p>
 
     <div class="kit-spec">
-      <p class="meta"><span>--type-display</span><span>46px</span><span>the monthly total, and nothing else on a screen</span><span>folds in: 46</span></p>
+      <p class="meta"><span>--type-display</span><span>2.875rem <i>(46px)</i></span><span>the monthly total, and nothing else on a screen</span><span>folds in: 46</span></p>
       <p class="sample sp-display">$192.90</p>
     </div>
 
     <div class="kit-spec">
-      <p class="meta"><span>--type-figure</span><span>32px</span><span>a subscription's own amount, a plan price</span><span>folds in: 40, 32, 30</span></p>
+      <p class="meta"><span>--type-figure</span><span>2rem <i>(32px)</i></span><span>a subscription's own amount, a plan price</span><span>folds in: 40, 32, 30</span></p>
       <p class="sample sp-figure">$11.99</p>
     </div>
 
     <div class="kit-spec">
-      <p class="meta"><span>--type-head</span><span>24px</span><span>the subject of a page</span><span>folds in: 24</span></p>
+      <p class="meta"><span>--type-head</span><span>1.5rem <i>(24px)</i></span><span>the subject of a page</span><span>folds in: 24</span></p>
       <p class="sample sp-head">Add a subscription</p>
     </div>
 
     <div class="kit-spec">
-      <p class="meta"><span>--type-title</span><span>20px</span><span>the subject of a block inside a page</span><span>folds in: 21, 20</span></p>
+      <p class="meta"><span>--type-title</span><span>1.25rem <i>(20px)</i></span><span>the subject of a block inside a page</span><span>folds in: 21, 20</span></p>
       <p class="sample sp-title">Spotify Premium</p>
     </div>
 
     <div class="kit-spec">
-      <p class="meta"><span>--type-sub</span><span>16px</span><span>a merchant name, a door, the reading line</span><span>folds in: 17, 16, 15</span></p>
+      <p class="meta"><span>--type-sub</span><span>1rem <i>(16px)</i></span><span>a merchant name, a door, the reading line</span><span>folds in: 17, 16, 15</span></p>
       <p class="sample sp-sub">Connect your bank</p>
     </div>
 
     <div class="kit-spec">
-      <p class="meta"><span>--type-body</span><span>14px</span><span>sentences, button labels</span><span>folds in: 14.5, 14, 13.5, 13</span></p>
+      <p class="meta"><span>--type-body</span><span>0.875rem <i>(14px)</i></span><span>sentences, button labels</span><span>folds in: 14.5, 14, 13.5, 13</span></p>
       <p class="sample sp-body">See your subscriptions</p>
     </div>
 
     <div class="kit-spec">
-      <p class="meta"><span>--type-meta</span><span>12px</span><span>labels, hints, the second tier</span><span>folds in: 12.5, 12, 11.5, 11</span></p>
+      <p class="meta"><span>--type-meta</span><span>0.75rem <i>(12px)</i></span><span>labels, hints, the second tier</span><span>folds in: 12.5, 12, 11.5, 11</span></p>
       <p class="sample sp-meta">Read-only. Tendd cannot move your money.</p>
     </div>
 
     <div class="kit-spec">
-      <p class="meta"><span>--type-label</span><span>10px</span><span>badges and the eyebrow</span><span>folds in: 10.5, 8</span></p>
+      <p class="meta"><span>--type-label</span><span>0.625rem <i>(10px)</i></span><span>badges and the eyebrow</span><span>folds in: 10.5, 8</span></p>
       <p class="sample sp-label">Active</p>
     </div>
+
+    <p class="note"><b>The steps are <code>rem</code> and not <code>px</code>, since 2026-08-13, and the px in brackets is what each one renders at the browser default.</b> The reason is not a convention, it is a contradiction this system was already carrying: stage 10 declared both width points in <code>rem</code> and gave as its reason that a point should ask how wide the window is <b>relative to the text the person set</b>. A <code>px</code> scale does not move with that setting at all, so the promise was only half kept. Measured on <code>design/home.html</code> at a 24px root: the text stayed 16 and 12px while the 900px window fell below the tablet point, so the rail went away and the page measure came off. The person who asked for larger text paid the whole layout change and got no larger text. <b>Page zoom is a different mechanism</b> and scales <code>px</code> and <code>rem</code> alike, which is why this stayed invisible for two stages.</p>
+
+    <p class="note"><b>Nothing moved for anybody who has not changed that setting, and that is measured rather than asserted.</b> 7 660 element records (box, font size, line height, weight) across the 28 coloured screens and the landing at 390, 760, 1280 and 1600, the px scale against the rem one: identical, not one record different. The root font size is set nowhere in this system, so at the default every step is the number it always was, and every conversion above is exact with no rounding. <b>The geometry stayed <code>px</code> on purpose</b> - spacing, radii, the 220px rail, the 300px column floor - because that is geometry and not text, the same distinction that denies the width block a dark pair. The reading measures were already in <code>ch</code> and every line height in the system is already unitless, so both scale by themselves. <b>One thing broke and it is named:</b> the plan card's button label stopped fitting a 390px phone at a 24px root, which is <a href="button.html">button.html</a>, the one exception to the no-wrap rule.</p>
 
     <p class="note"><b>The namespace is <code>--type-</code> and not <code>--text-</code>, and that is not a preference.</b> <code>--text-</code> already belongs to the ink roles, and the first draft of this block called the body step <code>--text-body</code>, which is the name of a colour three hundred lines further down the same file. The later declaration wins, so every component asking for the body ink would have been handed <code>14px</code>. It was caught by reading the file back before anything was wired to it. Two things called the same name are one thing.</p>
   </section>
