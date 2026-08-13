@@ -7,45 +7,49 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
-## 2026-08-13 - A door at each end of the navigation, and neither registry learns the other's data
+## 2026-08-13 - The system's own pages move inside the system, and the roadmap comes with them
 
-**What the founder said.** "I want this to be part of that, and not to have to hunt for where the
-design system itself is, and the same for responsive. So that on click we go into the design system,
-maybe to the why page."
+**What the founder said, in two rounds.** First: "I want this to be part of that, and not to have
+to hunt for where the design system itself is, and the same for responsive." That was answered with
+a door: a "The system" block under the active stage of the project sidebar. It was the wrong shape,
+and the second round said why: **"when you click there it should be built into the design system
+itself, maybe as a System section holding all of it."**
 
-**What was true before.** Both registries were correct and both were islands. `/_nav.js` lists the
-stages and renders the project sidebar; `design/kit/_nav.js` lists the material and renders the
-stand's panel. A roadmap page showed you the stages and no way into the material. A component page
-showed you the material and no way back into the project: the only exits were the guide, the hub
-and two product links. Four pages loaded both registries and still showed only one of them.
+**What was actually wrong.** Three pages of `design/kit/` carried the PROJECT roadmap instead of
+the system's own panel, because they are also roadmap rows: `why.html` (stage 09), `overview.html`
+(stage 08) and `responsive.html` (stage 10). So clicking Design System in the roadmap landed you on
+a page that still looked like the roadmap, and the material was one more click away behind a link
+in the body. A door from one island to the other does not fix that; it adds a link to it.
 
-**What we did NOT do, and it is the rule this decision is careful with.** The 57 components do not
-enter the roadmap. `CLAUDE.md` has said since stage 08 that a roadmap listing 57 components would
-stop being a roadmap, and it still says it. The sidebar gets six group NAMES with their counts and
-nothing below them.
+**What we did.** Every page of the stand now carries the same panel, and the two documents became a
+group in it: **System**, at the top, holding "Why the system is like this" and "Tokens and
+components". Width was already in Foundations and stays there, because width is geometry before it
+is a stage document and one page in two groups of one panel is a second entrance to one room. The
+panel also renders the SECTIONS of the page you are on, read from `window.NAV_SECTIONS`, so nothing
+the roadmap used to show was lost in the move: "Step 1, the audit ... The material" is where it
+always was, one level in. And the roadmap itself comes back as **The project** at the foot of the
+panel, thirteen stages with the one you are standing in marked.
 
-**Two doors, both drawn by the stand's registry.** Into the system: `design/kit/_nav.js` appends a
-"The system" block inside the ACTIVE stage row of the project sidebar, six groups linking to the
-hub at their own anchor, and Verification to `pixel-proof.html`, which is a field rather than a
-computed string because the hub draws five card grids and Verification is not one of them. Back
-out: a "The project" block at the foot of the panel, the thirteen stages read from `window.NAV`,
-with the stage you are standing in marked. Every page of the stand now loads `/_nav.js` for that
-one purpose, and on 68 of the 72 it draws nothing at all: its renderer returns on the first line
-when it finds no `#sidebar`, so what those pages get is the registry and not the roadmap.
+**Two duplicates were deleted rather than left beside the new group.** The panel head carried "The
+whole system" on 70 pages and the panel foot carried "Why the system is like this" on 67, and both
+now point at rows of the System group. The group is open on every page for the same reason: it is
+the way in, and it is two rows.
 
-**Why both are drawn from the stand's file.** The project registry must not learn what a molecule
-is. `/_nav.js` owns the stages, `design/kit/_nav.js` owns the material and lists itself, which is
-what a stage's registry is for. So the door into the system is drawn by the file that knows the
-system, in the `kn-*` namespace, touching no `nav-*` class and no `NAV_*` global. A door appears
-only where the kit registry is loaded, which is why nothing leaks onto the Wireframes or Voice
-roadmap: those pages do not load it, so there is nothing to draw it. Verified.
+**The rule this respects.** The 57 components still do not enter the project roadmap; `CLAUDE.md`
+says so and still says so. What changed is the sentence after it: a stage page carries the roadmap,
+and where a stage HAS its own registry, its pages carry that panel instead, with the roadmap back
+at its foot. The project registry still knows nothing about a molecule: `/_nav.js` is loaded by
+every page of the stand and draws nothing on any of them, because its renderer returns on the first
+line when it finds no `#sidebar`. All the drawing is done by the stand's registry in the `kn-*`
+namespace.
 
-**One bug found and fixed while building it, and it is a rule of this stand rather than a slip.**
-The door's links rendered in petrol, six accent-coloured rows under a roadmap of black ones,
-measured #1c6a76 against the sections' #9aa0a2. `_page.css` paints every CLASSLESS link on a stand
-page with `--text-action`, deliberately, so that product specimens keep their real link colour; the
-panel's own list has carried a class attribute since it was written for exactly that reason. A
-chrome link on this stand carries a class or it is painted as content.
+**Two bugs found in the building, both by measuring rather than by reading.** The door's links
+rendered in petrol, because `_page.css` paints every CLASSLESS link on a stand page with
+`--text-action` so that product specimens keep their real link colour: a chrome link here carries a
+class or it is painted as content. And "The project" marked **Wireframes** as the stage you were
+standing in while you stood in the system hub, because it compared file NAMES and `overview.html`
+is the file name of both hubs. It compares the tail of the path now, which is what the project
+registry has always done.
 
 ---
 

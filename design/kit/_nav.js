@@ -16,6 +16,26 @@
    system/index.css, and the groups below. */
 
 window.KIT_NAV = {
+  /* THE SYSTEM'S OWN DOCUMENTS, AND THEY ARE A GROUP LIKE ANY OTHER SINCE
+     2026-08-13. Founder: "when you click there it should be built into the design
+     system itself, maybe as a System section holding all of it."
+
+     Until today these two pages were the only ones in design/kit/ that carried the
+     PROJECT roadmap instead of this panel, because they are also the roadmap rows
+     of stages 09 and 08. So clicking Design System in the roadmap landed you on a
+     page that looked like the roadmap, and the system itself was somewhere else
+     again: the material was one click further, behind a link in the body. A stage
+     whose material has its own registry is better read from inside that registry,
+     with the roadmap carried back at the foot of the panel.
+
+     Width is deliberately NOT repeated here even though it is the roadmap page of
+     stage 10: it is a foundation of this system before it is a stage document, and
+     one page in two groups of one panel is a second entrance to one room. */
+  system: [
+    { name: 'Why the system is like this', file: 'why.html', page: 'why.html', note: 'the guide: why it looks like this, how to use it, how to grow it' },
+    { name: 'Tokens and components',       file: 'overview.html', page: 'overview.html', note: 'the account of stage 08, its steps and the whole material as cards' }
+  ],
+
   foundations: [
     { name: 'Architecture', file: 'architecture.html', page: 'architecture.html', note: 'the two ladders, naming, how to add a component' },
     { name: 'Colour',       file: 'color.html',        page: 'color.html',        note: 'primitive palette, semantic roles, contrast pairs, both themes' },
@@ -24,8 +44,9 @@ window.KIT_NAV = {
     /* WIDTH STANDS AFTER GEOMETRY AND NOT AT THE END OF THE GROUP: width is
        geometry, and the two points, the containers and the grid floor read
        beside the radii and the spacing rather than in a room of their own. It is
-       also the roadmap page of stage 10, so it carries the project sidebar as
-       well as this panel, the same double duty why.html has. */
+       also the roadmap page of stage 10, and since 2026-08-13 that costs it
+       nothing: it carries this panel like every other page of the stand, and the
+       project comes back at the foot of the panel. */
     { name: 'Width',        file: 'responsive.html',   page: 'responsive.html',   note: 'two points, the containers, the reading measure, the grid floor' },
     { name: 'Icons',        file: 'icons.html',        page: 'icons.html',        note: 'four destination masks, fourteen merchant marks, two drawn marks' }
   ],
@@ -138,18 +159,14 @@ window.KIT_NAV = {
 
 (function () {
   var N = window.KIT_NAV;
-  /* `hub` is where the group opens from OUTSIDE the stand, and it is a field rather
-     than a computed string because one group does not follow the rule: the hub
-     draws five card grids and Verification is not one of them, it is a single page.
-     Guessing `overview.html#grid-verification` would have produced a link that
-     scrolls nowhere, which is the quietest kind of broken. */
   var GROUPS = [
-    { key: 'foundations', label: 'Foundations', hub: 'overview.html#grid-foundations' },
-    { key: 'atoms',       label: 'Atoms',       hub: 'overview.html#grid-atoms' },
-    { key: 'molecules',   label: 'Molecules',   hub: 'overview.html#grid-molecules' },
-    { key: 'organisms',   label: 'Organisms',   hub: 'overview.html#grid-organisms' },
-    { key: 'patterns',    label: 'Patterns',    hub: 'overview.html#grid-patterns' },
-    { key: 'verification', label: 'Verification', hub: 'pixel-proof.html' }
+    { key: 'system',      label: 'System' },
+    { key: 'foundations', label: 'Foundations' },
+    { key: 'atoms',       label: 'Atoms' },
+    { key: 'molecules',   label: 'Molecules' },
+    { key: 'organisms',   label: 'Organisms' },
+    { key: 'patterns',    label: 'Patterns' },
+    { key: 'verification', label: 'Verification' }
   ];
 
   function here() { return location.pathname.split('/').pop() || 'overview.html'; }
@@ -183,6 +200,48 @@ window.KIT_NAV = {
   }
   window.KIT_SET_THEME = setTheme;
 
+  /* THE SECTIONS OF THE PAGE YOU ARE STANDING ON, under its own row, 2026-08-13.
+
+     `window.NAV_SECTIONS` is PAGE data and not registry data, which is why reading
+     it here breaks no namespace: /_nav.js owns NAV and NAV_BASE, a page owns its
+     own sections, and either renderer may show them. It is declared on the three
+     documents of this system and on no component page, so this list appears
+     exactly where there is something long enough to need it.
+
+     Without it the swap of 2026-08-13 would have been a loss: the roadmap showed
+     "Step 1, the audit ... The material" under the stage row, and moving those
+     pages into this panel would have taken that away. The panel now shows what the
+     roadmap showed, in the place the founder asked for it. */
+  function sections() {
+    var S = window.NAV_SECTIONS || [];
+    if (!S.length) return '';
+    var h = '<ul class="kn-sections">';
+    S.forEach(function (s) {
+      h += '<li><a class="kn-section" data-section="' + s.id + '" href="#' + s.id + '">' + esc(s.label) + '</a></li>';
+    });
+    return h + '</ul>';
+  }
+
+  /* The same reading position the roadmap marks, marked the same way. Copied in
+     behaviour and not in code: /_nav.css owns the roadmap's look and this file owns
+     the panel's, so the class is kn-section and the rule lives in _page.css. */
+  function watchSections() {
+    var S = window.NAV_SECTIONS || [];
+    if (!S.length || !('IntersectionObserver' in window)) return;
+    var links = {};
+    Array.prototype.forEach.call(document.querySelectorAll('.kn-section'), function (a) {
+      links[a.getAttribute('data-section')] = a;
+    });
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        Object.keys(links).forEach(function (k) { links[k].classList.remove('is-current'); });
+        if (links[e.target.id]) links[e.target.id].classList.add('is-current');
+      });
+    }, { rootMargin: '-15% 0px -75% 0px' });
+    S.forEach(function (s) { var t = document.getElementById(s.id); if (t) obs.observe(t); });
+  }
+
   function build() {
     var cur = here(), html = '';
     GROUPS.forEach(function (g) {
@@ -193,7 +252,13 @@ window.KIT_NAV = {
       /* the accordion opens the group you are standing in, and only that one.
          On the hub, where you stand in none, Foundations opens: it is the group
          the system is read from. */
-      var open = mine || (cur === 'overview.html' && g.key === 'foundations');
+      /* THE ACCORDION OPENS THE GROUP YOU STAND IN, AND `system` ON TOP OF THAT.
+         It is the exception and it is two rows: the guide and the account of the
+         stage, which are the way IN to everything below them. They used to be a
+         link in the panel head and a link in its foot, on 72 pages each; as a
+         group that is always open they are one thing in one place, and the two
+         duplicates are deleted rather than left beside it. */
+      var open = mine || g.key === 'system';
       html += '<div class="kn-group' + (open ? ' is-open' : '') + '" data-group="' + g.key + '">';
       html += '<button class="kn-head" type="button" aria-expanded="' + open + '">' +
               '<span><span class="kn-caret">&rsaquo;</span> ' + esc(g.label) + '</span>' +
@@ -201,112 +266,35 @@ window.KIT_NAV = {
       html += '<ul class="kn-list">';
       items.forEach(function (it) {
         var f = fileOf(it), isCur = (cur === f);
-        if (it.page === null && !isCur) html += '<li><span class="kn-pending">' + esc(it.name) + '</span></li>';
-        else html += '<li><a class="' + (isCur ? 'current' : '') + '" href="' + f + '">' + esc(it.name) + '</a></li>';
+        if (it.page === null && !isCur) { html += '<li><span class="kn-pending">' + esc(it.name) + '</span></li>'; return; }
+        html += '<li><a class="' + (isCur ? 'current' : '') + '" href="' + f + '">' + esc(it.name) + '</a>' +
+                (isCur ? sections() : '') + '</li>';
       });
       html += '</ul></div>';
     });
     return html;
   }
 
-  /* The guide sits at the top of the panel foot, and it is drawn from here rather
-     than typed into 67 pages: one string, one owner, and the next link that belongs
-     to the whole stand costs one edit instead of sixty-seven.
+  /* THE PROJECT, AT THE FOOT OF THE MATERIAL. The stage list comes from window.NAV,
+     which every page of the stand loads for this one purpose, and the renderer in
+     /_nav.js does nothing here: it returns on its first line when it finds no
+     #sidebar, so that file is a registry on this stand and a renderer only on a
+     roadmap page. This is what makes the swap of 2026-08-13 cost nothing: the three
+     pages that used to show the roadmap show the system instead, and the roadmap is
+     still one glance away from every page of it.
 
-     Only THIS link is drawn. The rest of the foot stays in each page's markup,
-     because those links are page-specific: the two brand pages point at the Concept
-     page where the mark was found, not at the Concept page everyone else points at,
-     and a blanket redraw of the block would have deleted them without anyone
-     noticing. So the split is by ownership: system-wide links here, the page's own
-     context in the page.
-
-     Guarded on data-kit-guide rather than on the href, so the page that IS the guide
-     can suppress its own link by carrying the attribute itself if it ever grows a
-     panel. Today why.html carries the project roadmap instead and has no foot. */
-  function mountFoot() {
-    var foot = document.querySelector('.kit-panel-foot');
-    if (!foot || foot.querySelector('[data-kit-guide]')) return;
-    var a = document.createElement('a');
-    a.href = 'why.html';
-    a.setAttribute('data-kit-guide', '');
-    /* The arrow is escaped and not literal: this file is served as a separate
-       resource and its charset is the server's to declare, not the document's.
-       Escaped, it cannot arrive as mojibake whatever the header says. */
-    a.textContent = 'Why the system is like this \u2192';
-    foot.insertBefore(a, foot.firstChild);
-  }
-
-  /* ==========================================================================
-     THE TWO DOORS BETWEEN THE ROADMAP AND THE STAND, 2026-08-13, FOUNDER.
-
-     "I want this to be part of that, and not to have to hunt for where the design
-     system itself is." Both registries were correct and both were islands: a
-     roadmap page showed the stages and no way into the material, a component page
-     showed the material and no way back into the project. The rule that keeps the
-     57 components out of the roadmap is not the problem and does not move; what
-     was missing is a door at each end.
-
-     BOTH DOORS ARE DRAWN FROM HERE, AND THAT IS THE NAMESPACE RULE RATHER THAN
-     convenience. /_nav.js owns the stages and must not learn what a molecule is;
-     this file owns the material and lists itself, exactly as a stage's material is
-     supposed to. So the project sidebar never mentions the system, and this file
-     appends a block to it when it finds one, using its own `kn-*` classes and
-     touching no `nav-*` class or NAV_* global.
-
-     A DOOR APPEARS ONLY WHERE THIS FILE IS LOADED, which is why the block cannot
-     leak onto the Wireframes or Voice roadmap: those pages do not load the kit
-     registry, so there is nothing to draw it. ========================================================================== */
-
-  /* Into the system, from a roadmap page. Appended inside the ACTIVE stage row, so
-     it reads as part of that stage rather than as a second roadmap. Six groups,
-     never their contents: a roadmap that listed 57 components would stop being a
-     roadmap, which is the rule in CLAUDE.md this door is careful not to break. */
-  function mountDoor() {
-    var active = document.querySelector('#sidebar .nav-item.is-active');
-    if (!active || active.querySelector('.kn-door')) return;
-    var box = document.createElement('div');
-    box.className = 'kn-door';
-    var h = document.createElement('span');
-    h.className = 'kn-door-head';
-    h.textContent = 'The system';
-    box.appendChild(h);
-    var ul = document.createElement('ul');
-    ul.className = 'kn-door-list';
-    GROUPS.forEach(function (g) {
-      var items = N[g.key] || [];
-      if (!items.length) return;
-      var li = document.createElement('li');
-      var a = document.createElement('a');
-      a.href = g.hub;
-      /* THE CLASS IS LOAD-BEARING AND IT IS NOT DECORATION. `_page.css` paints every
-         classless link on a stand page with --text-action, which is petrol, so a
-         bare <a> here rendered six accent-coloured rows under a roadmap of black
-         ones: measured #1c6a76 against the sections' #9aa0a2 before the fix. The
-         panel's own list has carried a class attribute for the same reason since it
-         was written. A door is quieter than the page it stands on. */
-      a.className = 'kn-door-link';
-      a.innerHTML = '<span>' + esc(g.label) + '</span><span class="kn-door-n">' + items.length + '</span>';
-      li.appendChild(a); ul.appendChild(li);
-    });
-    box.appendChild(ul);
-    active.appendChild(box);
-  }
-
-  /* Back into the project, from anywhere in the stand. The stage list comes from
-     window.NAV, which every page of the stand now loads for this one purpose, and
-     the renderer in /_nav.js does nothing there: it returns on the first line when
-     it finds no #sidebar, so the file is a registry here and a renderer only on a
-     roadmap page.
-
-     WHERE YOU ARE is the stage that owns this folder, and it is only sometimes the
-     page you are standing on: responsive.html is both a component page and the
-     roadmap page of stage 10, so it names itself; every other page of the stand
-     belongs to Design System whatever its own file is called. */
+     WHERE YOU ARE is matched on the tail of the PATH and never on the file name.
+     `overview.html` is the file name of this system's hub and of the wireframes
+     hub, and a basename comparison marked Wireframes as the stage you were standing
+     in while you stood in the system. Every page of the stand that names no stage of
+     its own belongs to Design System, which is the stage that owns this folder;
+     responsive.html is the exception, because it is also the roadmap page of stage
+     10 and says so itself. */
   function mountProject() {
     var el = document.getElementById('kit-nav');
     if (!el || !window.NAV || el.querySelector('.kn-project')) return;
     var base = window.NAV_BASE || '../../';
-    var cur = here();
+    var cur = here(), path = location.pathname;
     var box = document.createElement('div');
     box.className = 'kn-project';
     var h = document.createElement('span');
@@ -318,7 +306,7 @@ window.KIT_NAV = {
     window.NAV.forEach(function (item) {
       var pages = (item.children || [item]).filter(function (c) { return c.page; });
       var target = pages[0] || null;
-      var mine = pages.some(function (p) { return p.page.split('/').pop() === cur; }) ||
+      var mine = pages.some(function (p) { return path.slice(-p.page.length) === p.page; }) ||
                  (cur !== 'responsive.html' && item.label === 'Design System');
       var li = document.createElement('li');
       var a = document.createElement(target ? 'a' : 'span');
@@ -338,12 +326,11 @@ window.KIT_NAV = {
   }
 
   function mount() {
-    mountFoot();
-    mountDoor();
     var el = document.getElementById('kit-nav');
     if (el) {
       el.innerHTML = build();
       mountProject();
+      watchSections();
       el.addEventListener('click', function (e) {
         var b = e.target.closest ? e.target.closest('.kn-head') : null;
         if (!b) return;

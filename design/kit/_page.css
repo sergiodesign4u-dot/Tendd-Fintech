@@ -91,10 +91,6 @@
   border-radius: 999px; padding: 3px 9px;
 }
 .kit-sub { margin: 6px 0 0; font-size: 12px; color: var(--kn-text-muted); }
-.kit-allsys {
-  display: block; margin: 12px 0 0; padding: 7px 10px; border-radius: var(--kn-radius);
-  font-size: 12.5px; text-decoration: none; color: var(--kn-accent); background: var(--kn-accent-light);
-}
 .kit-panel-close, .kit-toggle {
   background: var(--kn-surface); border: 1px solid var(--kn-border); border-radius: var(--kn-radius);
   color: var(--kn-text); font: inherit; cursor: pointer;
@@ -126,28 +122,27 @@
 .kn-list a.current { background: var(--kn-accent-light); color: var(--kn-accent); font-weight: 600; }
 .kn-pending { color: var(--kn-text-muted); opacity: 0.6; cursor: default; }
 
-/* ---- the two doors between the roadmap and the stand, 2026-08-13 -----------
-   Both blocks are drawn by _nav.js and both live in the kit's own namespace, so
-   the project sidebar can host one of them without this stylesheet ever naming a
-   `nav-*` class or that one ever naming a `kn-*` class. They are deliberately
-   QUIETER than the list they stand under: a door is a way out of the page you are
-   on, not a second navigation competing with it. Same head as .kn-head, one step
-   smaller and without the button's hit area, because neither block collapses. */
-.kn-door { margin: 10px 0 2px; padding: 10px 0 0; border-top: 1px solid var(--kn-border-light); }
-.kn-door-head, .kn-project-head {
+/* ---- the page you are on, and the project it belongs to, 2026-08-13 --------
+   Two blocks the panel did not have until the stand absorbed its own stage pages.
+   `.kn-sections` is the list of sections of the current page, which the project
+   roadmap used to show and this panel now shows in its place; `.kn-project` is the
+   thirteen stages, at the foot, so the swap costs nothing. Both are quieter than
+   the material list they stand with: they say where you are, not what you can
+   build with. */
+.kn-sections { list-style: none; margin: 2px 0 6px; padding: 0; }
+.kn-section {
+  display: block; padding: 4px 10px 4px 34px; border-radius: var(--kn-radius);
+  font-size: 12px; text-decoration: none; color: var(--kn-text-muted);
+}
+.kn-section:hover { color: var(--kn-text); background: var(--kn-border-light); }
+.kn-section.is-current { color: var(--kn-accent); }
+
+.kn-project-head {
   display: block; padding: 0 10px 6px;
   font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
   color: var(--kn-text-muted);
 }
-.kn-door-list, .kn-project-list { list-style: none; margin: 0; padding: 0; }
-.kn-door-link {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
-  padding: 5px 10px; border-radius: var(--kn-radius);
-  font-size: 13px; text-decoration: none; color: var(--kn-text-secondary);
-}
-.kn-door-link:hover { background: var(--kn-border-light); color: var(--kn-text); }
-.kn-door-n { font-size: 11.5px; color: var(--kn-text-muted); font-variant-numeric: tabular-nums; }
-
+.kn-project-list { list-style: none; margin: 0; padding: 0; }
 .kn-project { margin: 14px 0 0; padding: 12px 0 0; border-top: 1px solid var(--kn-border-light); }
 .kn-project-link {
   display: block; padding: 5px 10px; border-radius: var(--kn-radius);

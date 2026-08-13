@@ -95,8 +95,8 @@ computed at render. A new page means one row plus `done:true`, never a hand writ
 `/_nav.css` owns the look and a page never describes `nav-*` itself. The MATERIAL of a stage lists
 itself in the stage's own registry (`wireframes/_nav.js`, `design/_nav.js`, `design/kit/_nav.js`),
 each keeping its data and classes in its own namespace because hub pages load both; a roadmap that
-listed 57 components would stop being a roadmap. A stage page carries the roadmap and its material
-the panel, and **each carries a DOOR into the other**, drawn by the stage's registry: groups, not their contents.
+listed 57 components would stop being a roadmap. A stage page carries the roadmap, **and where a
+stage HAS its own registry its pages carry that panel instead**, with the roadmap back at its foot.
 
 **`index.html` is the product home page, `overview.html` is the hub.** In any stage folder:
 opening the folder lands on the product screen (node 1.1, Welcome); the list of all

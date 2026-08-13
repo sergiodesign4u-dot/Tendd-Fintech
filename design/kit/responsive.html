@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../system/index.css">
 <link rel="stylesheet" href="_page.css">
-<link rel="stylesheet" href="../../_nav.css">
 <script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
@@ -17,30 +16,42 @@
 <body class="kit-body">
 
 <!--
-  The roadmap row of stage 10 leads HERE, so this page carries the project
-  sidebar from /_nav.js the way why.html and overview.html do, and it also stands
-  in the Foundations group of the kit's own registry after geometry.html: width
-  is geometry, and it should be read beside the rest of it.
+  THIS PAGE IS READ FROM INSIDE THE SYSTEM, 2026-08-13, FOUNDER. It is the roadmap
+  row of stage 10, and until today that meant it carried the PROJECT sidebar while
+  every other page of the stand carried the system's own panel. So clicking Design
+  System in the roadmap landed you on a page that still looked like the roadmap.
+  Now it carries the panel like the rest of the stand: it stands in Foundations as Width, because width is geometry and the roadmap
+  comes back as "The project" at the foot of the panel, with the stage you are
+  standing in marked.
 
-  Two registries load on purpose: the project roadmap from /_nav.js and the kit's
-  own from _nav.js, the second one for the panel's theme control.
+  `window.NAV_SECTIONS` below is still declared and is now read by the PANEL, which
+  renders the sections of the page you are on under its own row. It is page data
+  rather than registry data, so either renderer may show it. `/_nav.js` still loads,
+  and draws nothing: it returns on its first line when it finds no #sidebar, so what
+  this page takes from it is window.NAV for that project list.
 -->
 
-<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
 
-<aside class="sidebar" id="sidebar-panel">
-  <div class="sidebar-header">
-    <span class="nav-brand">Tendd</span>
-    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
   </div>
-  <div id="sidebar"></div>
-  <div class="kit-theme" role="group" aria-label="Theme">
-    <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
-    <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
   </div>
 </aside>
-
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="kit-overlay" id="kitOverlay"></div>
 
 <div class="kit-wrap">
 
@@ -492,12 +503,7 @@
 </div>
 
 <script>
-(function(){
-  var s=document.getElementById('sidebar-panel'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');
-  function op(){s.classList.add('open');o.classList.add('open');}
-  function cl(){s.classList.remove('open');o.classList.remove('open');}
-  if(t)t.addEventListener('click',op); if(c)c.addEventListener('click',cl); if(o)o.addEventListener('click',cl);
-})();
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
 </script>
 <script>
 /* The width readout under each draggable box. The page is about measuring width,

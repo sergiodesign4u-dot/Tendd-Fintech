@@ -78,10 +78,15 @@ window.NAV = [
   // above. What changed is which page it opens on. overview.html is the ACCOUNT of stage
   // 08, written in its own steps; why.html is the guide to the system, and it is what a
   // person who did not build it needs first: why it looks like this, how to use it, how
-  // to grow it. Two rows onto one folder would be the second entrance we already refused,
-  // and two rows onto two pages would re-open a decision nothing has changed. So the row
-  // points at the guide and overview.html names it through NAV_ACTIVE, which is the third
-  // legal form in CLAUDE.md: it shows up as its own sub item, carrying its own sections.
+  // to grow it.
+  //
+  // AND THE PAGE IT OPENS ON NO LONGER RENDERS THIS ROADMAP, same day, founder: "it
+  // should be built into the design system itself." why.html, overview.html and
+  // responsive.html carry the system's own panel now, where the first two are its System
+  // group and the third is Width in Foundations, and this roadmap comes back at the foot
+  // of that panel. So this row still points where it pointed; what changed is that
+  // arriving there puts you INSIDE the material instead of beside it. NAV_ACTIVE is no
+  // longer used by any of the three, because none of them renders a sidebar to hint at.
   { label:'Design System',       page:'design/kit/why.html', done:true },
   { label:'Responsive',          page:'design/kit/responsive.html', done:true },
   { label:'Animation',           page:null, done:false },
