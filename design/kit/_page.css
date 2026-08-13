@@ -170,6 +170,25 @@ span.kn-project-link { color: var(--kn-text-muted); opacity: 0.6; }
 }
 .kit-theme button[aria-pressed="true"] { background: var(--kn-accent-light); border-color: var(--kn-accent); color: var(--kn-accent); font-weight: 600; }
 
+/* THE FLOATING TOGGLE SAT ON THE TITLE BELOW 1100, and it had since the panel was
+   built. Measured on color.html at 360, 900 and 1000, all three identical: the
+   toggle is a fixed box at 12,12 to 99,48 and the h1 starts at 28,40, so the button
+   covered the first 8px of the heading and the first 71px of its line. It went
+   unseen because the three pages the founder opens most carry an eyebrow above the
+   h1, which pushes the title clear of it; every component page has none.
+
+   THE PAGE MOVES DOWN AND THE BUTTON STAYS PUT. A static toggle in normal flow is
+   the other answer, and it is the one the project chrome takes, but this one is
+   worth keeping fixed: the panel is the navigation of the whole stand and a way to
+   open it that scrolls away is a way to lose it. 64 is the toggle's own bottom
+   edge, 48, plus 16 of air, so the number moves if the button ever does.
+
+   Same subject and same guard as the padding-left below, `:has(aside.kit-panel)`,
+   because the other chrome in this file puts its toggle in the flow and needs no
+   room reserved for it. From 1100 the panel is docked, the toggle is gone and the
+   40 comes back. */
+.kit-body:has(aside.kit-panel) .kit-wrap { padding-top: 64px; }
+
 @media (min-width: 1100px) {
   .kit-panel { transform: translateX(0); visibility: visible; }
   .kit-toggle, .kit-panel-close { display: none; }
@@ -188,11 +207,14 @@ span.kn-project-link { color: var(--kn-text-muted); opacity: 0.6; }
      48px of its own content. Found by the founder, on screen, at a width the
      sweep never ran. */
   body.kit-body:has(aside.kit-panel) { padding-left: 268px; }
+  /* the toggle is gone up here, so the room reserved for it goes too */
+  .kit-body:has(aside.kit-panel) .kit-wrap { padding-top: 40px; }
 }
 
 /* ---------- the page ---------- */
 
 .kit-wrap { max-width: 1000px; margin: 0 auto; padding: 40px 28px 80px; }
+
 .kit-head h1 { margin: 0 0 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; }
 .kit-head .lead { margin: 0 0 18px; max-width: 66ch; font-size: 15px; color: var(--text-muted); }
 .kit-meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 26px; }
