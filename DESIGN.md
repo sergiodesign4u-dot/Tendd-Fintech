@@ -410,7 +410,10 @@ every prose block in the system reads. The wide one was added on 2026-08-13: abo
 point the measure used to come off entirely, so a screen's head took the whole pane while the
 category column set stopped at a cap of its own, and the two right edges disagreed by 624px at a
 1920 window. One measure for every block of a wide screen, and three columns stay the maximum by
-arithmetic, because a fourth needs 1344px. **A column count is never a token**: it is computed
+arithmetic, because a fourth needs 1344px. **It is written as a padding on the pane and not as a
+`max-width` on each block**, because a cap ends a screen but cannot centre one: with three
+different block widths on one screen, centring each block gives a ragged left edge. One content box
+is centred and everything inside it stays flush left. **A column count is never a token**: it is computed
 from a floor (`--grid-col-min`, 10rem) unless the count is content, which is the case exactly
 twice, on the two doors of the path choice and the three plan options of the landing.
 

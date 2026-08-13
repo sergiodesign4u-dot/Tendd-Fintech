@@ -40,13 +40,33 @@ in `microcopy.md` and a rebuild of `voice.html`. Stage 10 closed with zero new b
 purpose, and this is a decision of its own rather than a side effect of a complaint about white
 space.
 
-**One screen is not covered and it is in `backlog.md` rather than patched.** The detail grid is not
-a child of `.screen`, it IS `.screen`, so the blanket cannot reach it. Both repairs were tried and
-measured in the same step: a `max-width` there moves the pane's scrollbar into the middle of the
-window, because that element is the scroller; capping the track with
-`minmax(320px, var(--container-column))` broke the two columns everywhere below a 1988 window,
-because `auto-fit` counts repetitions off a definite MAX and not the min, so a 1140px pane fitted
-one track instead of three. Reverted in the same step, with both costs written into the file.
+**Second round the same day, and it is the founder's second question: "maybe centre it on the
+page".** The answer is yes, and the mechanism had to change to say it. A cap on the children ends a
+wide screen in the right place but it cannot centre one, because `margin-inline: auto` centres each
+block at ITS OWN width and this product does not have one width per screen. Measured at 1920 before
+choosing: Home and its four states carry one width, 1280; History and Trends carries THREE, 1280
+for the chart, 525 for the readout, 459 for the muted lines; Alerts and Settings carry 620.
+Centring each child would have moved the readout 377px in and left the chart at zero, which is a
+ragged LEFT edge, the same defect the wide measure was opened to cure on the right.
+
+So the measure moved from the children to the pane:
+`padding-inline: max(var(--space-40), (100% - var(--container-wide)) / 2)`. One content box is
+centred and every block inside it stays flush left. Nothing moves below a 1360px pane, where the
+`max()` floor is the 40px the 760 block already set; above it the gaps grow together, 50 and 50 at
+a 1600 window, 210 and 210 at 1920. **The cost is named:** the gap between the rail and the content
+grows too, 210px at 1920 and 530 at 2560. Left-aligned, that same 1920 window puts all 340px of the
+air on one side. Founder's call, and one declaration to reverse.
+
+**It also closed a backlog row the same hour.** The detail grid IS `.screen`, so a cap on
+`.app > .screen > *` never matched it and the detail screen was going to end 340px further right
+than every other screen. A `max-width` there would have moved the pane's scrollbar into the middle
+of the window; capping its track with `minmax(320px, var(--container-column))` broke the two
+columns everywhere below a 1988 window, because `auto-fit` counts repetitions off a definite MAX
+and not the min, so a 1140px pane fitted one track instead of three. Both were measured and both
+were reverted. A padding on the pane does the job with neither cost, because the pane still spans
+its track and only its content box is capped. **The ten flow screens are untouched**, and that is
+specificity rather than luck: `.app.flow > .screen` is 0-3-0 with its own `padding` shorthand
+against this rule's 0-2-0. Checked at six widths on eleven pages.
 
 **And the groups now run by monthly spend, highest first.** 54.96, 53.98, 36.00, 24.98, 22.98. It
 was Streaming, Software, Music, Fitness, News, which followed no rule a reader could find, and

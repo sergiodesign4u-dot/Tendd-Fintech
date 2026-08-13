@@ -337,11 +337,11 @@
    width rather than read down a column; and `.screen` becomes an explicit flex
    column so that its children can be REORDERED.
 
-   IT HANDS OVER, IT DOES NOT COME OFF, AND THAT CHANGED ON 2026-08-13. This line
-   was `max-width: none` from stage 07 to stage 10, and the founder's report is
-   what settled it: "a lot of white space on the right at large widths". The
-   diagnosis was not that the screen was too narrow, it was that two right edges
-   disagreed. Measured on Home before the change:
+   THE MEASURE MOVED TO THE PANE, AND THE BLANKET KEEPS RELEASING RATHER THAN
+   CAPPING, 2026-08-13. The founder's report is what settled it: "a lot of white
+   space on the right at large widths", and then "maybe centre it on the page".
+   The diagnosis was not that the screen was too narrow, it was that two right
+   edges disagreed. Measured on Home before the change:
 
      window   pane   head + alert   the category column set   unused
      1280     980    965            965                       15
@@ -353,17 +353,47 @@
    `300 * 3 + 48 * 2 = 996`, which existed to keep three columns the widest the
    set ever goes. So the wider the window, the more ragged the right edge, and the
    number that produced it lived in a different file from the number that fought
-   it. `--container-wide` (80rem) replaces both: every block of a wide screen
-   stops at the same place, the column set fills it, and three columns stay the
-   maximum by arithmetic, because a fourth needs 1344px and the cap is 1280. The
-   groups cap in groups-column-set.css is deleted rather than moved, because a cap
-   inside a cap is the drift stage 09 existed to remove.
+   it. `--container-wide` (80rem) replaces both, and the groups cap in
+   groups-column-set.css is deleted rather than moved, because a cap inside a cap
+   is the drift stage 09 existed to remove.
 
-   WHAT IT COSTS, NAMED RATHER THAN DISCOVERED. Above a 1580 window the content
-   stops growing and the pane keeps going, so there is deliberate air on the right
-   at 1920 and beyond. That is the same decision as every reading measure in this
-   product: a list of subscriptions 1600px wide stops being scannable. The air is
-   now on ONE edge shared by every block instead of ragged between them.
+   IT IS A PADDING ON THE PANE AND NOT A max-width ON EACH BLOCK, AND THAT IS THE
+   WHOLE POINT OF THE SECOND ROUND. A cap on the children ends a wide screen in
+   the right place but it cannot CENTRE one: `margin-inline: auto` on every child
+   centres each block at ITS OWN width, and this product does not have one width
+   per screen. Measured at 1920 before choosing: Home and its four states carry one
+   width, 1280, so they would have centred cleanly; History and Trends carries
+   THREE, 1280 for the chart and the meta row, 525 for the readout, 459 for the
+   muted lines, and Settings and Alerts carry 620. Centring each child would have
+   moved the readout 377px in and left the chart at zero, which is a ragged LEFT
+   edge, the same defect this block was opened to cure on the right.
+
+   `max(var(--space-40), (100% - var(--container-wide)) / 2)` therefore centres ONE
+   content box and lets every block inside it stay flush left. Below a 1360px pane
+   the max() floor is the 40px side padding the 760 block already set, so nothing
+   moves; above it the two gaps grow together, 50 and 50 at a 1600 window, 210 and
+   210 at 1920. Verified at three widths on twelve pages: one distinct left edge
+   per screen, two on a detail screen because a detail screen has two columns.
+
+   THE PADDING ALSO REACHES THE DETAIL GRID, WHICH A CHILD CAP COULD NOT. That grid
+   IS `.screen`, so `.app > .screen > *` never matched it, and it was on its way to
+   backlog.md as the one screen that ends somewhere else. A `max-width` there would
+   have moved the pane's scrollbar into the middle of the window; a padding does
+   not, because the pane still spans its track and only its CONTENT box is capped.
+   Detail now ends where Home ends, and the scrollbar is still at the edge.
+
+   FLOW SCREENS ARE UNTOUCHED AND IT IS SPECIFICITY THAT PROTECTS THEM, checked
+   rather than assumed: `.app.flow > .screen` is 0-3-0 and carries its own
+   `padding` shorthand, this rule is 0-2-0, and a container query adds nothing to
+   either. The ten flow pages keep their 620 and 760 measures and their own
+   centring.
+
+   WHAT IT COSTS, NAMED RATHER THAN DISCOVERED. Above a 1360px pane the content
+   stops growing, so there is deliberate air at 1920 and beyond, and the gap
+   between the rail and the content grows with it: 210px at 1920, 530 at 2560. The
+   air is symmetric and shared by every block instead of ragged between them, and
+   the alternative was measured: left-aligned, a 1920 window puts all 340px of it
+   on one side. Founder's call, one declaration to reverse.
 
    THE FOUR `order` DECLARATIONS ARE PLACEMENT AND NEVER LOOK. The DOM keeps the
    mobile-first order, where the add action sits AFTER the list, because the job of
@@ -404,8 +434,11 @@
    a later rule at three levels from re-capping a detail column. Carried as kit.css
    wrote it. */
 @container (min-width: 56.25rem) {
-  .app > .screen > * { max-width: var(--container-wide); }
-  .app > .screen { display: flex; flex-direction: column; }
+  .app > .screen > * { max-width: none; }
+  .app > .screen {
+    display: flex; flex-direction: column;
+    padding-inline: max(var(--space-40), (100% - var(--container-wide)) / 2);
+  }
 
   /* the same foot as above, minus the screens this block reorders. See the long
      note at the rule below the columns for why the guard is `:has(> .head)` and

@@ -237,14 +237,29 @@ the groups cap is deleted rather than moved. **80rem is not a round guess:** a f
 300px floor needs 1344px, so any cap below that keeps "three columns is the widest" true by
 arithmetic. Nothing moves below a 1296px window, because that is where the pane first passes 996.
 
-**One screen is not covered and it is recorded rather than patched.** The detail grid is not a
-child of `.screen`, it IS `.screen`, so the blanket cannot match it: its two tracks still grow with
-the pane above 1288. Both repairs were tried and measured in the same step. A `max-width` there
-moves the pane's scrollbar into the middle of the window, because that element is the scroller.
-Capping the track instead (`minmax(320px, var(--container-column))`) broke the two columns
-everywhere below a 1988 window: with a definite maximum, `auto-fit` counts repetitions off the MAX
-and not the min, so a 1140px pane fitted one track instead of three. Reverted, and filed in
-`backlog.md`.
+**It is a padding on the pane and not a `max-width` on each block, and that is the founder's second
+question answered: "maybe centre it on the page".** A cap on the children ends a wide screen in the
+right place but it cannot CENTRE one, because `margin-inline: auto` centres each block at ITS OWN
+width and this product does not have one width per screen. Measured at 1920 before choosing: Home
+and its four states carry one width, 1280; History and Trends carries three, 1280 for the chart and
+the meta row, 525 for the readout and 459 for the muted lines; Alerts and Settings carry 620.
+Centring each child would have moved the readout 377px in and left the chart at zero, which is a
+ragged LEFT edge, the same defect the wide measure was opened to cure on the right.
+
+So the shell writes `padding-inline: max(var(--space-40), (100% - var(--container-wide)) / 2)` on
+the pane. One content box is centred and every block inside it stays flush left. Below a 1360px
+pane the `max()` floor is the 40px the 760 block already set, so nothing moves; above it the two
+gaps grow together, 50 and 50 at a 1600 window, 210 and 210 at 1920. Verified at six widths on
+eleven pages: one distinct left edge per screen, two on a detail screen because a detail screen has
+two columns, and no horizontal scroll anywhere.
+
+**Two things fell out of it that a child cap could not have done.** The detail grid IS `.screen`,
+so `.app > .screen > *` never matched it and it was on its way to `backlog.md` as the one screen
+that ends somewhere else; a padding reaches it, and unlike a `max-width` it does not move the
+pane's scrollbar into the middle of the window, because the pane still spans its track and only its
+content box is capped. And the ten flow screens are untouched, which is specificity rather than
+luck: `.app.flow > .screen` is 0-3-0 with its own `padding` shorthand against this rule's 0-2-0,
+and a container query adds nothing to either. Checked at every width, not assumed.
 
 Two page containers and not one, because a screen that is a form and a screen that is a pane of
 content stop at different places, and folding them would move ten flow screens to make one number
