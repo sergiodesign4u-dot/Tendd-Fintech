@@ -11,14 +11,14 @@
       python3 -m http.server 8000
       http://localhost:8000/design/kit/screens/width10-harness.html
 
-  It walks all 32 coloured screens at 50 widths, 1600 measurements, and prints
+  It walks all 32 coloured screens at 58 widths, 1856 measurements, and prints
   the ledger below plus the raw rows to the console. What it reads at each stop:
 
     1. hscroll   the DOCUMENT scrollbar, scrollWidth > clientWidth. Kept because
                  it is the standard check, and kept LOUD that it is not enough:
                  past the tablet point the shell gives .screen its own overflow,
                  so a layout that does not fit scrolls inside the pane while this
-                 flag stays false. It was false at all 1600 stops while a real
+                 flag stays false. It was false at every stop of the run while a real
                  overflow was running on six pages.
     2. out       every element inside .app whose box leaves the viewport. This is
                  the check that found the 900 to 927 valley.
@@ -69,7 +69,10 @@ var PAGES = ["add-subscription","add-subscription-empty","add-subscription-error
 
 var WIDTHS = (function(){
   var s = [];
-  for (var w = 320; w <= 1600; w += 40) s.push(w);
+  /* 320 to 1920. The top end moved out from 1600 on 2026-08-13, when
+     --container-wide gave a screen a ceiling of 1280: everything the new measure
+     does happens above a 1580 window, which the old range could not see. */
+  for (var w = 320; w <= 1920; w += 40) s.push(w);
   /* 10px steps where a decision lives: both points, the container threshold, and
      the two widths where the groups column set changes its count */
   [730,740,750,770,780,790, 450,460,470, 890,900,910, 960,963,965, 1305,1311,1315]

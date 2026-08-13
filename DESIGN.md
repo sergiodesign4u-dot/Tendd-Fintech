@@ -404,8 +404,13 @@ registered values, and the check is a grep. Live count: `47.5rem` x 8, `56.25rem
 `28.75rem` x 2.
 
 **Containers, and the column count that is not one.** `--container-page` (48.75rem) is the pane's
-ceiling, `--container-column` (38.75rem) a content column, `--container-text` (52ch) the reading
-measure every prose block in the system reads. **A column count is never a token**: it is computed
+ceiling between the two points, `--container-wide` (80rem) its ceiling above the desktop point,
+`--container-column` (38.75rem) a content column, `--container-text` (52ch) the reading measure
+every prose block in the system reads. The wide one was added on 2026-08-13: above the desktop
+point the measure used to come off entirely, so a screen's head took the whole pane while the
+category column set stopped at a cap of its own, and the two right edges disagreed by 624px at a
+1920 window. One measure for every block of a wide screen, and three columns stay the maximum by
+arithmetic, because a fourth needs 1344px. **A column count is never a token**: it is computed
 from a floor (`--grid-col-min`, 10rem) unless the count is content, which is the case exactly
 twice, on the two doors of the path choice and the three plan options of the landing.
 

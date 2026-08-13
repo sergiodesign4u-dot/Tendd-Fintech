@@ -161,10 +161,10 @@ measured at a 892px container: 0, 0, 0, 0</code>
       <div class="yes">
         <span class="hd">Bind a measure through the child combinator</span>
         <code class="kit-cmd">@container (min-width: 760px) { .app &gt; .screen &gt; .form-col { max-width: 560px } }   0-3-0, holds
-@container (min-width: 900px) { .app &gt; .screen &gt; *         { max-width: none  } }   0-2-0, loses
+@container (min-width: 900px) { .app &gt; .screen &gt; *  { max-width: var(--container-wide) } }   0-2-0, loses
 
 measured at a 908px container: .form-col 560px, .rows-col 620px, everything else none</code>
-        <p>Written as <code>.app .form-col</code> the measure ties at 0-2-0 with the blanket <code>max-width: none</code> in the 900 block, loses on source order, and unbinds with <b>no symptom anybody would look for</b>: the form ran at 588 instead of 560, the settings column at 733 instead of 620, and the Pro gate at 748 instead of 560. Two of those were on screens the stage had already accepted at 360 and at 760. A measure that holds at one width and silently stops holding at a wider one is why a desktop viewport is its own acceptance pass.</p>
+        <p>Written as <code>.app .form-col</code> the measure ties at 0-2-0 with the blanket in the 900 block (<code>max-width: none</code> until 2026-08-13, <code>var(--container-wide)</code> since), loses on source order, and unbinds with <b>no symptom anybody would look for</b>: the form ran at 588 instead of 560, the settings column at 733 instead of 620, and the Pro gate at 748 instead of 560. Two of those were on screens the stage had already accepted at 360 and at 760. A measure that holds at one width and silently stops holding at a wider one is why a desktop viewport is its own acceptance pass.</p>
       </div>
       <div class="no">
         <span class="hd">Never read the DOM for the foot past 900</span>

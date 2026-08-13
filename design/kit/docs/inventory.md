@@ -165,7 +165,7 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Divided list | `.divlist` | inset: bare / inside a panel | 4 | `.alerts`, `.navrows` | `divided-list.css` | `divided-list.html`  | does not adapt |
 | Empty block | `.empty` | - | 2 | - | `empty-block.css` | `empty-block.html`  | a reading measure |
 | Grid | `.grid` | columns: 1 to 2 / 2 to 3. gap by child size | 8 | `.doors`, `.tiles`, `.plans` | `grid.css` | `grid.html`  | point + fluid |
-| Groups column set | `.groups` | columns: from a 300px floor, capped at three | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
+| Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
 | Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | does not adapt |
 | Reveal step | `.rstep` | - | 1 | - | `reveal-step.css` | `reveal-step.html`  | does not adapt |
 | Save-focus list | `.candidates` | - | 1 | - | `save-focus-list.css` | `save-focus-list.html`  | does not adapt |
@@ -884,7 +884,7 @@ screen at desktop width exposed a defect none of the six could show:
 | `.rows-col`, Settings | 620px | 733px |
 
 All three were written `.app .form-col`, specificity 0-2-0. The `@container (min-width: 900px)`
-block carries `.app > .screen > * { max-width: none }`, also 0-2-0, written for Home, whose head
+block carries the blanket, also 0-2-0, written for Home, whose head
 and column groups genuinely need the release. Equal specificity, so source order decides, and the
 later block wins: past 900 the reading measures stop existing. Two of the three screens had
 already been walked and accepted at the step 5 gate.

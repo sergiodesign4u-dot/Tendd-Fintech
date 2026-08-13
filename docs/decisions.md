@@ -7,6 +7,59 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-13 - One right edge for a wide screen, and the groups run by spend
+
+**What the founder saw.** "A lot of white space on the right at large widths", with a screenshot of
+Home at a wide window, and a second question beside it: "why is Music under Software?"
+
+**The white space was not empty room, it was two right edges disagreeing.** Measured on Home before
+anything was touched: at a 1440 window the pane is 1140, the head with its alert takes 1125 and the
+category column set stops at 996; at 1600 it is 1285 against 996; at 1920, 1605 against 996. The
+shell let every block of a wide screen take the whole pane, and the column set carried a cap of its
+own, `300 * 3 + 48 * 2 = 996`, which existed to keep "three columns is the widest" true. One number
+lived in `app-shell.css` and the other in `groups-column-set.css`, and neither knew about the other.
+
+**What we did.** A new primitive, `--container-wide` at **80rem (1280px)**, and the shell's blanket
+above the desktop point stops being `max-width: none` and becomes that measure. The groups cap is
+**deleted rather than moved**, because a cap inside a cap is the drift stage 09 existed to remove.
+80rem is not a round guess: a fourth column of the 300px floor needs 1344px, so any cap below that
+keeps three columns the maximum by ARITHMETIC rather than by a remembered number. Nothing moves
+below a 1296px window, which is where the pane first passes 996. At 1600 the set is now three
+columns of 395 instead of three of 300 with 304px of nothing beside them.
+
+**What it costs, named rather than discovered.** Above a 1580 window the content stops growing and
+the pane keeps going, so there is deliberate air at 1920 and beyond. That is the same decision as
+every reading measure in this product: a list of subscriptions 1600px wide stops being scannable.
+The air is now on ONE edge shared by every block instead of ragged between them.
+
+**What we rejected.** Letting the set fill the pane with no cap at all: it uses everything and
+gives four columns at 1920 and six at 2560, which turns a calm overview into a table and breaks the
+floor argument from the other side. And a right-hand column for alerts and insights, which is the
+right long-term answer for a dashboard and is NEW BEHAVIOUR: a new empty state, focus work, a line
+in `microcopy.md` and a rebuild of `voice.html`. Stage 10 closed with zero new behaviour on
+purpose, and this is a decision of its own rather than a side effect of a complaint about white
+space.
+
+**One screen is not covered and it is in `backlog.md` rather than patched.** The detail grid is not
+a child of `.screen`, it IS `.screen`, so the blanket cannot reach it. Both repairs were tried and
+measured in the same step: a `max-width` there moves the pane's scrollbar into the middle of the
+window, because that element is the scroller; capping the track with
+`minmax(320px, var(--container-column))` broke the two columns everywhere below a 1988 window,
+because `auto-fit` counts repetitions off a definite MAX and not the min, so a 1140px pane fitted
+one track instead of three. Reverted in the same step, with both costs written into the file.
+
+**And the groups now run by monthly spend, highest first.** 54.96, 53.98, 36.00, 24.98, 22.98. It
+was Streaming, Software, Music, Fitness, News, which followed no rule a reader could find, and
+Music at 22.98 stood above News at 36.00. Past the desktop point the set is a multicolumn flow, so
+it fills column one top to bottom before column two: with an arbitrary order that reads as an
+accident, which is exactly what the founder's second question was. Highest first makes the vertical
+flow a rule a person can feel. **This is a STRUCTURE change and not a styling one**, so it is
+written into every file it touches: `home`, `home-savefocus` and `home-error` in `design/` and the
+same three in `wireframes/`, so the grey contract and the colour do not disagree. It moves pixels
+at 360 as well, and that is the point of it rather than a side effect.
+
+---
+
 ## 2026-08-13 - A point is a container width, and the shell keeps its container query
 
 **What happened.** The founder reported that the width behaved oddly in the Chrome DevTools device

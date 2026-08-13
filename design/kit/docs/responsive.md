@@ -221,8 +221,30 @@ the phone bottom bar today and would render the desktop rail. Ground in `docs/de
 | Token | Value | What it holds |
 |---|---|---|
 | `--container-page` | 48.75rem (780px) | the widest a screen's content block gets between the two points |
+| `--container-wide` | 80rem (1280px) | the widest it gets ABOVE the desktop point. Added 2026-08-13 |
 | `--container-column` | 38.75rem (620px) | the single column: a flow screen centred in the pane, and the list column of the `list-column` pattern |
 | `--container-text` | 52ch | continuous text, wherever it appears |
+
+**`--container-wide` closes a question this register carried in writing.** The comment on
+`--container-page` said the measure "comes off entirely" above the desktop point and that whether
+that was right was a step 4 question. It was not right, and the founder's report is what settled
+it: "a lot of white space on the right at large widths". The screen was not too narrow, two right
+edges disagreed. Measured on Home before the change: at a 1440 window the head took 1125 and the
+category column set stopped at its own 996 cap, at 1600 it was 1285 against 996, at 1920 1605
+against 996. One cap lived in `app-shell.css` and the other in `groups-column-set.css`, and neither
+knew about the other. Now every block of a wide screen stops at 1280, the column set fills it, and
+the groups cap is deleted rather than moved. **80rem is not a round guess:** a fourth column of the
+300px floor needs 1344px, so any cap below that keeps "three columns is the widest" true by
+arithmetic. Nothing moves below a 1296px window, because that is where the pane first passes 996.
+
+**One screen is not covered and it is recorded rather than patched.** The detail grid is not a
+child of `.screen`, it IS `.screen`, so the blanket cannot match it: its two tracks still grow with
+the pane above 1288. Both repairs were tried and measured in the same step. A `max-width` there
+moves the pane's scrollbar into the middle of the window, because that element is the scroller.
+Capping the track instead (`minmax(320px, var(--container-column))`) broke the two columns
+everywhere below a 1988 window: with a definite maximum, `auto-fit` counts repetitions off the MAX
+and not the min, so a 1140px pane fitted one track instead of three. Reverted, and filed in
+`backlog.md`.
 
 Two page containers and not one, because a screen that is a form and a screen that is a pane of
 content stop at different places, and folding them would move ten flow screens to make one number
@@ -261,9 +283,12 @@ number switched was a **count**, and measuring the count is what settled it: at 
 category group rendered **269px**, which is 31px under the 300px floor that same file declares its
 rows need, and it stayed under it for a 60px band; at 1335 a column was 486px, nearly two floors
 wide, one pixel before it snapped back to 310. A count switched by hand cannot help doing that.
-The set now takes `columns: 300px` and counts its own, capped at three by
-`calc(300px * 3 + var(--space-48) * 2)`, so the floor is the rule instead of a sentence in a
-comment. Founder's decision, 2026-08-13.
+The set now takes `columns: 300px` and counts its own, so the floor is the rule instead of a
+sentence in a comment. Founder's decision, 2026-08-13. **The cap that stood beside it for one day
+is gone too:** it was `calc(300px * 3 + var(--space-48) * 2)`, 996px, and it is what made the right
+edge of Home ragged at every width above 1296. Three columns stay the maximum through
+`--container-wide` instead, which is 1280 against the 1344 a fourth column needs. One cap in one
+file, and it belongs to the shell because it is the shell that decides where a screen ends.
 
 **Every width query in `design/system/` now resolves to one of the THREE registered values**: the
 two points above and the single container threshold of `28.75rem` registered further down. Nothing
@@ -468,14 +493,14 @@ of them holds one of the three causes below.
 
 ### The instrument, and why three screenshots would have found none of this
 
-**32 coloured pages by 50 widths is 1600 measurements.** The widths run 320 to 1600 in steps of 40,
+**32 coloured pages by 58 widths is 1856 measurements.** The widths run 320 to 1600 in steps of 40,
 with 10px steps around both points (730 to 790, 890 to 910), around the container threshold (450 to
 470) and around the two places where the groups column set changes its count (960 to 965, 1305 to
 1315). The pack's reason for the sweep is exact: **a defect lives between the points**, and the
 worst width is the one where the content has already stopped fitting and the query has not yet
 fired. Three widths prove three widths.
 
-At every one of the 1600 stops, four things were read off the live page:
+At every one of the 1856 stops, four things were read off the live page:
 
 | What | How it is read | Why this one |
 |---|---|---|
@@ -509,7 +534,7 @@ than quietly resolved here.
 
 ### The state after the fixes, measured and not asserted
 
-- **1600 stops: no horizontal scroll on the document, and no element leaving the viewport, on any
+- **1856 stops: no horizontal scroll on the document, and no element leaving the viewport, on any
   page at any width.** The pane no longer scrolls sideways anywhere either.
 - **The carrier is exactly one** on every app-frame screen at every width, and its four links are
   the same four.

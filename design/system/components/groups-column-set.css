@@ -93,21 +93,30 @@
      container   900    960    963    1000   1300   1311   1440   1920
      columns     1      1      2      2      2      3      3      3
 
-   AND THE CAP IS WHAT KEEPS "THREE IS THE WIDEST" TRUE. Without it a 1920 window
-   would fit four columns and this file's floor argument would be violated from
-   the other side. `calc(300px * 3 + var(--space-48) * 2)` is 996px and it is
-   written as the arithmetic rather than as the number, because the number is
-   only ever "three columns of the floor plus two gutters": change the floor and
-   the cap follows.
+   THIS FILE HAD A CAP OF ITS OWN AND IT IS DELETED, 2026-08-13, FOUNDER'S
+   DECISION. It was `max-width: calc(300px * 3 + var(--space-48) * 2)`, 996px,
+   bound through `> .screen >` at 0-3-0 so the shell's blanket could not unbind
+   it, and it existed to keep "three columns is the widest" true from the other
+   side: without something, a 1920 window fits four.
 
-   THE CAP IS BOUND THROUGH `> .screen >` AT 0-3-0, and that is not tidiness.
-   Written as `.app .groups` it would tie at 0-2-0 with the shell's blanket
-   `.app > .screen > * { max-width: none }` past the desktop point, lose on
-   source order, and stop applying with no symptom. This product has now found
-   that same unbinding five times: the form column, the Pro gate, the plan row,
-   the readout, and this cap would have been the fifth. `.groups` is a direct
-   child of `.screen` on every page that carries it, which app-shell.css already
-   relies on for its `order: 3`.
+   WHAT IT ACTUALLY PRODUCED. The shell let every other block of a wide screen
+   take the whole pane while this one stopped at 996, so the two right edges
+   disagreed by 144px at a 1440 window, 304 at 1600 and 624 at 1920. That is the
+   white space the founder reported, and it was never about this set being too
+   narrow: it was two caps in two files, neither of which knew about the other.
+
+   WHAT REPLACES IT is one cap in the shell, `--container-wide` at 80rem, which
+   every block of a wide screen now reads. Three columns stay the maximum by
+   ARITHMETIC and not by a remembered number: a fourth column of this file's own
+   300px floor needs 1344px, and 1280 is below it, so the count cannot reach four
+   no matter how wide the window gets. The floor is still the rule and it is still
+   in one place.
+
+   NOTHING MOVES BELOW A 1296px WINDOW, measured rather than assumed: the pane is
+   the window minus the 220px rail and 80px of padding, so it only passes 996 at
+   1296, and below that this set was never touching its old cap. Above it the set
+   fills the measure: three columns of 301 at a 1300 window and of 395 at 1600,
+   where it used to be three of 300 with 304px of nothing beside them.
 
    THE GUTTER FOLDS FROM 44px TO 48px. kit.css wrote `column-gap: 44px`, which
    scales.md does not list, so the rule is applied as it is written for every
@@ -121,7 +130,6 @@
    rule in two files is the drift stage 09 existed to remove. */
 @container (min-width: 56.25rem) {
   .app .groups { columns: 300px; column-gap: var(--space-48); }
-  .app > .screen > .groups { max-width: calc(300px * 3 + var(--space-48) * 2); }
 }
 
 /* NO STATES. The column set is a container with no fill, no edge and no target

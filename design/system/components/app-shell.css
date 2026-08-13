@@ -333,9 +333,37 @@
    THE 900 CONTAINER: the content column stops being a column.
 
    Two things happen and they are not the same thing. The blanket 780px measure
-   comes off, because past here a screen is allowed to use the width rather than
-   read down a column; and `.screen` becomes an explicit flex column so that its
-   children can be REORDERED.
+   HANDS OVER to the wide one, because past here a screen is allowed to use the
+   width rather than read down a column; and `.screen` becomes an explicit flex
+   column so that its children can be REORDERED.
+
+   IT HANDS OVER, IT DOES NOT COME OFF, AND THAT CHANGED ON 2026-08-13. This line
+   was `max-width: none` from stage 07 to stage 10, and the founder's report is
+   what settled it: "a lot of white space on the right at large widths". The
+   diagnosis was not that the screen was too narrow, it was that two right edges
+   disagreed. Measured on Home before the change:
+
+     window   pane   head + alert   the category column set   unused
+     1280     980    965            965                       15
+     1440     1140   1125           996                        144
+     1600     1300   1285           996                        304
+     1920     1620   1605           996                        624
+
+   The head took the whole pane while the column set stopped at a cap of its own,
+   `300 * 3 + 48 * 2 = 996`, which existed to keep three columns the widest the
+   set ever goes. So the wider the window, the more ragged the right edge, and the
+   number that produced it lived in a different file from the number that fought
+   it. `--container-wide` (80rem) replaces both: every block of a wide screen
+   stops at the same place, the column set fills it, and three columns stay the
+   maximum by arithmetic, because a fourth needs 1344px and the cap is 1280. The
+   groups cap in groups-column-set.css is deleted rather than moved, because a cap
+   inside a cap is the drift stage 09 existed to remove.
+
+   WHAT IT COSTS, NAMED RATHER THAN DISCOVERED. Above a 1580 window the content
+   stops growing and the pane keeps going, so there is deliberate air on the right
+   at 1920 and beyond. That is the same decision as every reading measure in this
+   product: a list of subscriptions 1600px wide stops being scannable. The air is
+   now on ONE edge shared by every block instead of ragged between them.
 
    THE FOUR `order` DECLARATIONS ARE PLACEMENT AND NEVER LOOK. The DOM keeps the
    mobile-first order, where the add action sits AFTER the list, because the job of
@@ -376,7 +404,7 @@
    a later rule at three levels from re-capping a detail column. Carried as kit.css
    wrote it. */
 @container (min-width: 56.25rem) {
-  .app > .screen > * { max-width: none; }
+  .app > .screen > * { max-width: var(--container-wide); }
   .app > .screen { display: flex; flex-direction: column; }
 
   /* the same foot as above, minus the screens this block reorders. See the long
@@ -431,6 +459,23 @@
      col1 in the first track and col2 in the second, which is what they said; but
      when the grid drops to one track, `grid-column: 2` would create an implicit
      second track and bring the overflow straight back. */
+  /* THE WIDE CAP DOES NOT REACH THIS GRID, AND THAT IS RECORDED RATHER THAN
+     PATCHED, 2026-08-13. Every other screen stops at --container-wide through the
+     blanket at the top of this block, but this grid is not a CHILD of `.screen`,
+     it IS `.screen`, so the blanket cannot match it: at a 1920 window its two
+     tracks are 786px each while Home stops at 1280.
+
+     BOTH REPAIRS WERE TRIED AND BOTH COST MORE THAN THEY FIX. A `max-width` here
+     works, and it moves the pane's scrollbar into the middle of the window,
+     because this element is the scroller. Capping the TRACK instead
+     (`minmax(320px, var(--container-column))`) silently broke the two columns
+     everywhere below a 1988 window: with a definite maximum, `auto-fit` counts
+     repetitions off the MAX and not the min, so a 1140px pane fitted one track
+     instead of three and the detail screen became a single column. Measured, not
+     reasoned, and reverted in the same step.
+
+     So the tracks stay `1fr` and the screen keeps the pane. Filed in backlog.md
+     for the founder, with the two costs named. */
   .app.detail > .screen {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

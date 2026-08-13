@@ -366,10 +366,43 @@
 
   --container-page:   48.75rem;  /* 780px. The widest a screen's content block is
                                     allowed to get between the two points, from
-                                    app-shell.css. Above --bp-desktop it currently
-                                    comes off entirely; whether that is right is a
-                                    step 4 question, and it is the reason the four
-                                    reading measures below exist at all. */
+                                    app-shell.css. Above --bp-desktop it HANDS OVER
+                                    to --container-wide below; until 2026-08-13 it
+                                    came off entirely, and this comment carried the
+                                    open question of whether that was right. It was
+                                    not, and the founder's report is what settled
+                                    it. It is still the reason the four reading
+                                    measures below exist at all. */
+
+  --container-wide:   80rem;     /* 1280px. THE WIDEST A SCREEN'S CONTENT GOES,
+                                    above --bp-desktop. Added 2026-08-13, founder's
+                                    decision, ground in docs/decisions.md.
+
+                                    WHAT IT REPAIRS. Past the desktop point every
+                                    block took the whole pane while the category
+                                    column set stopped at its own 996px cap, so the
+                                    two right edges disagreed by more the wider the
+                                    window got: 144px at a 1440 window, 304 at 1600,
+                                    624 at 1920. The screen did not run out of
+                                    content, it ran out of agreement.
+
+                                    WHY 80rem AND NOT A ROUNDER GUESS. It is the
+                                    only band that keeps "three columns is the
+                                    widest" true by ARITHMETIC rather than by a
+                                    remembered number: a fourth column of the 300px
+                                    floor needs 1344px (300 * 4 + 48 * 3), so any
+                                    cap below that can never grow one. 1280 sits
+                                    above the three-column minimum of 996 and below
+                                    1344, so the set fills its measure with exactly
+                                    three columns at every width. In rem for the
+                                    same reason the points are: a person reading at
+                                    a larger root gets the narrower content sooner.
+
+                                    Read by app-shell.css, in the block above
+                                    --bp-desktop, where it replaced
+                                    `max-width: none`. It is a CAP and not a target:
+                                    a screen narrower than this is not padded out to
+                                    reach it. */
 
   --container-column: 38.75rem;  /* 620px. The single-column cap: a flow screen
                                     centred in the pane, and the list column of
