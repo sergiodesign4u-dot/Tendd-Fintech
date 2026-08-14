@@ -384,6 +384,17 @@
   .landing .lp-orbit.lp-story.fromcircle .ototal {
     grid-area: total; position: static; align-self: start; justify-self: end; text-align: right;
   }
+  /* THEY LIVE IN THE TOP ROW AND START AT THE BOTTOM OF THE STAGE, which is the
+     founder's three frames in one rule. The first screen has them in the bottom
+     corners, under the promise and either side of the window; the scroll carries
+     them up to the top corners as the promise leaves, and everything after that
+     happens between them. A grid area cannot be animated, so the placement is the
+     one they END in and the travel is a transform: the stage is `100svh - 64`
+     tall, the top row and its air are 126, so the distance to the foot is
+     `100svh - 190px`. Measured against their own bottom edge at 800, 900 and
+     1080. */
+  .landing .lp-orbit.lp-story.fromcircle .ocount,
+  .landing .lp-orbit.lp-story.fromcircle .ototal { --ftravel: calc(100svh - 190px); }
   /* between the spread point and 80rem the card still lies across the foot and
      the two figures are already in the corners, so it sits a figure above them */
   .landing .lp-orbit.lp-story.fromcircle .scard { position: absolute; bottom: var(--space-96); }
@@ -450,41 +461,85 @@
 .landing .lp-orbit.lp-story.fromcircle .storyhead { grid-area: auto; }
 
 /* ============================================================================
-   THE CASCADE
-   The founder, 2026-08-14: the window turns into "каскадные 3д плитки с
-   подписками, первая сверху и потом все ниже ниже ниже". So on this page the list
-   stops being one card with fourteen rows in it and becomes fourteen PLATES, each
-   with its own ground, its own hairline and its own shadow, stacked down the
-   centre of the screen and leaning away from the reader as they descend.
+   THE DECK
+   The founder drew all three frames on 2026-08-14: the promise with the window
+   beside it and the two figures in the BOTTOM corners; then the promise scrolled
+   away and the two figures at the TOP; then the window gone and a deck of cards
+   in its place, the front one square on and every one behind it smaller, lower
+   and fainter.
 
-   The recline is anchored at the TOP - `transform-origin: 50% 0` - which is the
-   whole difference between a cascade and a table seen at an angle: the first
-   plate faces the reader square on, and every plate under it is further back.
-   `perspective()` has to come before `rotateX()` in the list, or the rotation is
-   flat; and the whole thing rides in `--stilt`, which the list's own travel
-   keyframes append, because a second transform declaration would replace the
-   first rather than compose with it.
+   So the list here is not fourteen rows in a card and not fourteen plates in a
+   column: it is a DECK. Each plate carries its own scale and its own opacity as
+   variables, overlaps the one before it, and paints behind it. Fourteen pairs of
+   numbers written out rather than computed, because CSS has no counter to do the
+   arithmetic with and a generated ramp that nobody can read is worse than a table
+   anybody can correct.
+
+   `--pscale` and `--pfade` are VARIABLES and not a `transform` and an `opacity`,
+   which is the one thing that makes this compose: the cancellation animates both
+   properties on the same node, and a keyframe that said `scale(1)` would snap the
+   eleventh plate back to full size on its way out. The keyframes read the
+   variables instead, so a plate leaves from wherever it stands in the deck.
 
    The plates are the candidate's and not the component's: `design/index.html`
    keeps the single card. If the round window wins, this is what the list is.
    ========================================================================== */
 .landing .lp-orbit.lp-story.fromcircle .storylist {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-0);
   background: none;
   border: 0;
   padding: var(--space-0);
+  max-width: none;
 }
 .landing .lp-orbit.lp-story.fromcircle .sline {
+  --pscale: 1;
+  --pfade: 1;
+  position: relative;
+  min-height: var(--srow-h);
+  padding: var(--space-8) var(--space-16);
   background: var(--bg-surface);
   border: 1px solid var(--line-container);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: var(--space-4) var(--space-16);
+  transform: scale(var(--pscale));
+  transform-origin: 50% 0;
+  opacity: var(--pfade);
 }
 /* a plate that has gone quiet keeps its shape and loses its lift, which is what
-   says "this one is no longer costing you anything" without a colour */
-.landing .lp-orbit.lp-story.fromcircle .sline.cut { box-shadow: none; }
+   says "this one is no longer costing you anything" without a colour.
+   AND IT KEEPS ITS FLOOR OFF, at this file's specificity. landing-story.css says
+   `.sline.cut { min-height: 0 }` at 0-3-0 so the row can collapse to nothing on
+   its way out; the deck's own `min-height` is 0-5-0 and beat it, so all three
+   cancelled plates faded on the spot and the deck never closed over them. The
+   chip still turned and the count still stepped down, so nothing looked broken -
+   it just stopped being a deck being dealt from. */
+.landing .lp-orbit.lp-story.fromcircle .sline.cut {
+  box-shadow: none;
+  min-height: 0;
+  height: var(--srow-h);
+  overflow: hidden;
+}
+
+/* the ramp: scale down 4.3% and fade 7.2% a plate, and every plate after the
+   first bites into the one above it by `--pbite` so the deck stacks rather than
+   lists. The front plate is at full size and full opacity; the fourteenth is at
+   0.44 and 0.12, which is far enough back to read as depth and still near enough
+   to read as the same object. */
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) { --pscale: 1.0; --pfade: 1.0; z-index: 19; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2) { --pscale: 0.957; --pfade: 0.928; z-index: 18; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3) { --pscale: 0.914; --pfade: 0.856; z-index: 17; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4) { --pscale: 0.871; --pfade: 0.784; z-index: 16; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5) { --pscale: 0.828; --pfade: 0.712; z-index: 15; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6) { --pscale: 0.785; --pfade: 0.64; z-index: 14; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7) { --pscale: 0.742; --pfade: 0.568; z-index: 13; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8) { --pscale: 0.699; --pfade: 0.496; z-index: 12; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9) { --pscale: 0.656; --pfade: 0.424; z-index: 11; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10) { --pscale: 0.613; --pfade: 0.352; z-index: 10; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11) { --pscale: 0.57; --pfade: 0.28; z-index: 9; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12) { --pscale: 0.527; --pfade: 0.208; z-index: 8; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13) { --pscale: 0.484; --pfade: 0.136; z-index: 7; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14) { --pscale: 0.441; --pfade: 0.12; z-index: 6; margin-top: calc(-1 * var(--pbite)); }
 
 @supports (animation-timeline: view()) {
  /* AND THE WHOLE COMPOSITION IS BEHIND THE POINT, which is a structural fix and
@@ -513,8 +568,28 @@
   /* the promise leaves first, the heading takes its place, and the heading is
      gone again before the list has finished rising into the middle of the stage:
      nothing is ever both on screen and in the list's way */
-  .landing .lp-orbit.lp-story.fromcircle .osay { animation-name: sout; animation-range: contain 8% contain 15%; }
-  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: shand; animation-range: contain 8% contain 34%; }
+  /* the promise LEAVES UPWARD rather than dissolving where it stands. In the
+     founder's second frame its last line is half off the top of the screen: the
+     page is moving under it, and a block that only loses opacity reads as a light
+     going out instead. */
+  .landing .lp-orbit.lp-story.fromcircle .osay { animation-name: sup; animation-range: contain 2% contain 14%; }
+
+  /* and the two figures come up from the foot to the head of the stage over the
+     same stretch, so the reader watches one movement and not two */
+  .landing .lp-orbit.lp-story.fromcircle .ocount,
+  .landing .lp-orbit.lp-story.fromcircle .ototal {
+    animation-name: frise;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-timeline: --story;
+    animation-range: contain 2% contain 16%;
+  }
+  /* THE HEADING WAITS FOR THE CORNERS TO LAND. It used to arrive at 8%, which is
+     the middle of the count's climb up the left edge: "14 subscriptions" was drawn
+     straight through "Tendd is not a budgeting app" for about a fifth of the
+     scroll. The beats are in order now - the promise leaves, the two figures take
+     the top, and only then does the section say its own name. */
+  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: shand; animation-range: contain 18% contain 42%; }
 
   /* THE SWAP IS A FIXED BOX ON THE CENTRE LINE, not a grid track. It holds the
      window and the list one on top of the other, both centred on the page, and
@@ -580,7 +655,7 @@
      stands and the cascade comes out of it. */
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
     animation-name: ofold;
-    animation-range: contain 6% contain 30%;
+    animation-range: contain 8% contain 32%;
   }
   /* AND THE SWAP STOPS CLIPPING, which is the one line that lets the dive be seen
      at all. The swap is 608 tall and the window 594 of it: clipped, the window
@@ -616,33 +691,29 @@
      give way to the stage rather than the other way round. */
   .landing .lp-orbit.lp-story.fromcircle .storylist {
     width: 100%;
-    /* ANCHORED TO THE FOOT OF THE WINDOW AND NOT TO ITS MIDDLE, and the reason is
-       the heading beside it. Centred, the first plate arrived at y=246 at 1440,
-       and the section's own heading and its paragraph occupy 220 to 290 in the
-       column to the left: an opaque plate landed across a sentence. The cascade
-       runs DOWN from where the window is, so its top edge belongs below the
-       heading rather than level with it, and the plates are 32 rather than 40 to
-       keep twelve of them inside the stage after the move. 338 at 1440, which
-       clears the paragraph by 48. */
-    --srow-h: var(--space-32);
+    /* THE FRAME IS GONE AND SO IS THE MASK. A twelve-row window with a soft edge
+       was the answer while the plates stood in a column and two of them had to
+       arrive from below; stacked into a deck all fourteen are on the stage at
+       once, in 480px instead of 620, and the ramp of opacity does what the mask
+       was doing at the far end. Anchored to the foot of the window, not its
+       middle: the deck runs DOWNWARD from where the window is, so its front plate
+       belongs below the heading in the column beside it rather than level with
+       it. */
+    --srow-h: 3.25rem;
+    --pbite: 1.25rem;
     top: auto;
     bottom: var(--space-0);
     translate: none;
-    height: min(100%, calc(12 * (var(--srow-h) + var(--space-4)) + var(--space-16)));
+    height: auto;
     max-height: 100%;
-    overflow: hidden;
-    /* leaning away from the top down, not from the bottom up: the first plate is
-       the one facing the reader */
-    --stilt: perspective(1200px) rotateX(-7deg);
-    transform-origin: 50% 0%;
-    /* only the bottom edge is soft now. The top is where the cascade STARTS, and
-       a fade there would blur the one plate that is meant to be square on. */
-    mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
     animation-name: sfall;
-    animation-range: contain 12% contain 34%;
+    animation-range: contain 16% contain 38%;
     --scardslot: 0rem;
   }
+
  }
 }
 
@@ -747,4 +818,15 @@
   0%   { opacity: 0; clip-path: inset(0 0 100% 0); transform: translate3d(0, -1rem, 0) var(--stilt,); }
   18%  { opacity: 1; }
   100% { opacity: 1; clip-path: inset(0 0 0 0);    transform: translate3d(0, 0, 0) var(--stilt,); }
+}
+
+/* the promise leaving with the page, and the two figures arriving from the foot */
+@keyframes sup {
+  0%   { opacity: 1; transform: translate3d(0, 0, 0); }
+  60%  { opacity: 0; transform: translate3d(0, -1.75rem, 0); }
+  100% { opacity: 0; transform: translate3d(0, -3rem, 0); }
+}
+@keyframes frise {
+  0%   { transform: translate3d(0, var(--ftravel), 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }

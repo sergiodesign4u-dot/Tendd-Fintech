@@ -885,16 +885,22 @@
    reader can see the word "Cancelled" on a row that is still there, and then it
    folds upward out of the list. The lines under it come up on their own: they
    are in the flow, and the row's height is what they were standing on. */
+/* `scale(var(--pscale, 1))` AND NOT `scale(1)`, which is what lets this set live
+   on a deck as well as on a column. The candidate gives every plate its own scale
+   and its own opacity as variables; a keyframe that wrote `scale(1)` would snap
+   the eleventh plate back to full size on its way out, and `opacity: 1` would
+   light up a plate that stands at 0.28. Read through the variables, a plate
+   leaves from wherever it stands. The fallbacks are what the plain column uses. */
 @keyframes sgo {
-  0%   { height: var(--srow-h); opacity: 1; background: var(--bg-surface);
-         transform: translate3d(0, 0, 0) scale(1); }
-  30%  { height: var(--srow-h); opacity: 1; background: var(--bg-recessed);
-         transform: translate3d(0, 0, 0) scale(1); }
-  55%  { height: var(--srow-h); opacity: 1; background: var(--bg-recessed);
-         transform: translate3d(0, 0, 0) scale(1); }
+  0%   { height: var(--srow-h); opacity: var(--pfade, 1); background: var(--bg-surface);
+         transform: translate3d(0, 0, 0) scale(var(--pscale, 1)); }
+  30%  { height: var(--srow-h); opacity: var(--pfade, 1); background: var(--bg-recessed);
+         transform: translate3d(0, 0, 0) scale(var(--pscale, 1)); }
+  55%  { height: var(--srow-h); opacity: var(--pfade, 1); background: var(--bg-recessed);
+         transform: translate3d(0, 0, 0) scale(var(--pscale, 1)); }
   100% { height: 0; opacity: 0; padding-block: var(--space-0);
          background: var(--bg-recessed);
-         transform: translate3d(0, -0.75rem, 0) scale(0.94); }
+         transform: translate3d(0, -0.75rem, 0) scale(calc(var(--pscale, 1) * 0.94)); }
 }
 /* the window folding away: it keeps shrinking after it has gone, so the last
    thing the eye has of it is a movement rather than a disappearance */

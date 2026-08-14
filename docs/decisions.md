@@ -7,6 +7,47 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-14 - D-Hero, the three frames: the figures start low and rise, and the list is a deck
+
+The founder drew all three states rather than describing them, which settled two questions the
+previous amendment had answered backwards.
+
+**Frame one:** the promise on the left, the window beside it, and the two figures in the BOTTOM
+corners. **Frame two:** the promise gone off the top, the window still on the centre line, and
+the two figures now at the TOP corners. **Frame three:** the window gone and a DECK of cards in
+its place, front one square on, every card behind it smaller, lower and fainter, with the
+reason cards at the sides.
+
+**So the figures are not placed at the top, they ARRIVE there.** A grid area cannot be
+animated, so the placement is the one they end in and the travel is a transform: the stage is
+`100svh - 64` tall and the top row with its air is 126, so the distance to the foot is
+`100svh - 190px`. The promise leaves upward rather than dissolving where it stands, because in
+frame two its last line is half off the top of the screen: the page is moving under it, and a
+block that only loses opacity reads as a light going out.
+
+**And the list is a deck rather than a column of plates.** Each plate carries its own scale and
+its own opacity as VARIABLES, overlaps the one above it by `--pbite`, and paints behind it: the
+front plate is at full size, the fourteenth at 0.44 and 0.12. Fourteen pairs of numbers written
+out rather than computed, because CSS has no counter to do the arithmetic with and a generated
+ramp nobody can read is worse than a table anybody can correct. The twelve-row frame and its
+mask are deleted with the column they were for: stacked, all fourteen are on the stage at once
+in 480px instead of 620, and the opacity ramp does what the mask was doing at the far end.
+
+**Variables and not properties, and that is what makes it compose.** The cancellation animates
+both `transform` and `opacity` on the same node. A keyframe that wrote `scale(1)` would snap
+the eleventh plate back to full size on its way out, and `opacity: 1` would light up a plate
+standing at 0.28. `sgo` reads `var(--pscale, 1)` and `var(--pfade, 1)` instead, so a plate
+leaves from wherever it stands in the deck and the fallbacks are what the plain column uses.
+
+**Two defects, both of them a rule of this file beating a rule of the other at a specificity it
+had no business winning.** `.sline.cut { min-height: 0 }` is 0-3-0 and the deck's own
+`min-height` is 0-5-0, so all three cancelled plates faded on the spot and the deck never
+closed over them - the chip still turned and the count still stepped down, so nothing looked
+broken, it just stopped being a deck being dealt from. And the section's heading arrived at 8%,
+which is the middle of the count's climb up the left edge: "14 subscriptions" was drawn through
+"Tendd is not a budgeting app" for a fifth of the scroll. The beats are in order now: the
+promise leaves, the two figures take the top, and only then does the section say its own name.
+
 ## 2026-08-14 - D-Hero amended again: the figures take the top and the window becomes a cascade
 
 The founder, on the candidate, with the two bottom corners circled and two arrows drawn up to
