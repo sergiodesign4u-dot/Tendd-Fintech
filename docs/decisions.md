@@ -154,18 +154,47 @@ winner in the same step. `landing-orbit.css` says this in its own header and `de
 landing-orbit.html` says it on the page.
 
 **B carries a third width point and it is deliberately not registered.** The composition
-becomes a spread at 64rem, because at the registered 47.5 the side columns are under 200px
-and the promise wraps to five lines beside a window with nowhere to shrink to. The point is
-local to the candidate. If B wins, the point is either registered in `tokens.css` or the
-composition is changed to live without it: a candidate does not get to add to the width
-scale on its way past.
+becomes a spread at 72rem. It was 64 until the founder asked for the headline on two lines:
+a two-line headline is about 580px of its own 800-weight face, it is allowed past its column
+on purpose so it lies across the window's left edge, and under 1152 there is not enough left
+for a window beside it. The point is local to the candidate. If B wins, it is either
+registered in `tokens.css` or the composition is changed to live without it: a candidate
+does not get to add to the width scale on its way past.
 
-**`.listfirst` is a declared modifier, not an override.** On B the stage opens on the list,
-because showing the fourteen in a circle and then again on three tracks is the same picture
-twice with nothing gained between them. Written as `.lp-orbit + .lp-story .storyfield
-{ display: none }` from the hero's file it would be an undeclared variant, and the next
-person to read `landing-story.css` would have no way to know the component has two shapes.
-A component with two shapes says so in its own file.
+**Three corrections from the founder, 2026-08-14, all on B.** The promise reads from the
+LEFT EDGE: the first cut carried `.lp-hero` in its markup and inherited that component's
+`text-align: center`, so an asymmetric composition had a centred column in it. The headline
+is TWO LINES and crosses the window by about 72px at every width past the point, which is
+also what takes the composition back inside one screen: at four lines it was 909 tall at
+1440 x 900 and is now 689. And the window's mask in the HERO is off centre, at 64% with its
+solid core pulled in to 40%, so the left of it is nearly empty and the sentence crosses
+quiet ground rather than drifting colour. The stage below keeps the centred mask: nothing is
+written over it.
+
+**One line that is load-bearing and looks like tidiness.** `.osay` carries `width: 100%`.
+The wrap says `justify-items: start`, so a grid item with no width is sized by its
+MAX-CONTENT, and the headline's deliberate overflow became the whole block's width: the
+paragraph and the reassurance line stretched out under the round window and were painted
+over by it. The headline is the only thing here allowed past the column.
+
+**`.fromcircle` is a declared modifier, not an override.** On B the stage opens on the same
+round window the hero opened on, and the window CONTRACTS INTO THE LIST rather than three
+tracks gathering into it: showing the fourteen in a circle and then again on tracks is the
+same picture twice. Written as `.lp-orbit + .lp-story .storyfield { display: none }` from
+the hero's file it would be an undeclared variant, and the next person to read
+`landing-story.css` would have no way to know the component has two shapes. A component
+with two shapes says so in its own file, and so `.orbit` and everything inside it stopped
+naming a host: the hero places one and the stage places another, and what the window looks
+like is written once.
+
+**A screen and a half, and the number is arithmetic.** The section is 560svh on B rather
+than 460, so its `contain` phase - the part of the scroll where the stage is pinned - is
+460svh. The fold runs over the first thirty per cent of it, which is 138svh, and it leaves
+the three cancellations exactly where they already are at 35, 53 and 71. The window's range
+and the list's OVERLAP by half the window's rather than meeting: the circle is still there,
+at half opacity and eight tenths of its size, while the list is already rising through it.
+Meeting would be a dissolve between two states; overlapping is one state becoming another,
+which is what the founder asked for in the words "мягко нежно перетекать".
 
 **Two things measured on B.** The section's own 192px of padding is taken off, because
 `.lp-section`'s 96 top and bottom is the rhythm between blocks of ARGUMENT and this is the

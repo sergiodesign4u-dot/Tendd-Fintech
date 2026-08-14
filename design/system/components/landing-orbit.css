@@ -79,12 +79,42 @@
   padding-block: var(--space-40);
 }
 .landing .lp-orbit .osay { grid-area: say; }
-.landing .lp-orbit .orbit { grid-area: window; justify-self: center; }
+.landing .lp-orbit .orbit { grid-area: window; justify-self: center; width: min(20rem, 42svh, 100%); }
 .landing .lp-orbit .ocount { grid-area: count; }
 .landing .lp-orbit .ototal { grid-area: total; justify-self: end; text-align: right; }
 
-.landing .lp-orbit .osay { max-width: var(--container-text); }
+/* The promise reads from the LEFT EDGE, at every width, which is the founder's
+   correction of 2026-08-14: the first cut of this hero carried `.lp-hero` in its
+   markup and inherited that component's `text-align: center`, so an asymmetric
+   composition had a centred column in it. The class is off the markup now and
+   the alignment is stated here rather than inherited from a component this hero
+   is not. */
+/* `width: 100%` IS LOAD-BEARING and it is not tidiness. The wrap says
+   `justify-items: start`, so a grid item without a width is sized by its
+   MAX-CONTENT, and the headline below is given an explicit width wider than the
+   column on purpose. Without this line that width became the block's width, and
+   the paragraph and the reassurance line stretched out under the round window
+   and were painted over by it: two sentences half-eaten by a circle. The
+   headline is the only thing here allowed past the column, and this is what
+   keeps everything else inside it. */
+.landing .lp-orbit .osay { width: 100%; max-width: var(--container-text); text-align: left; }
 .landing .lp-orbit .lp-h1 { margin-top: var(--space-8); }
+
+/* TWO LINES, AND THE HEADLINE IS ALLOWED PAST ITS COLUMN TO GET THEM. 17ch of
+   its own 800-weight face is about 570px, which is wider than "See what you're
+   paying" and narrower than "paying for. Calmly.", so the sentence breaks where
+   it means to: the question on one line, the answer on the other. It is the
+   fourth line of the four-line version that was pushing the composition past one
+   screen, and this is what takes it back.
+
+   The column it stands in is narrower than that, so the headline overflows to
+   the right and lies across the left edge of the window. That is the founder's
+   ask in their own words, "пусть чуть залазит на круг", and it is why this rule
+   carries a stacking context: without `z-index` the window, which comes later in
+   the markup, paints over it. */
+@container (min-width: 72rem) {
+  .landing .lp-orbit .lp-h1 { width: 15ch; max-width: none; position: relative; z-index: 1; }
+}
 
 /* ---- the two corner figures ----------------------------------------------
    They are the same two numbers the first hero puts under its headline, moved
@@ -115,7 +145,13 @@
 .landing .lp-orbit .ototal .amt.figure { margin: var(--space-0); }
 .landing .lp-orbit .ototal .muted { margin: var(--space-0); }
 
-/* ---- the window -----------------------------------------------------------
+/* ---- the window, and it has TWO HOSTS on the same page ---------------------
+   The hero opens on it and the stage below opens on it again, contracting into
+   the list. So its own rules name no host: `.landing .orbit` and not
+   `.landing .lp-orbit .orbit`. Where it stands and how big it is belongs to
+   whoever places it, here and in landing-story.css; what it looks like belongs
+   here and is written once.
+
    A circle, and everything about it follows from that one decision.
 
    `aspect-ratio: 1` with a width in three units, whichever is smallest: 34rem is
@@ -128,9 +164,8 @@
    MEASUREMENT: the tracks inside are far wider than the window, so whatever
    places this element has to be able to say `min-width: 0`. Here that is the
    grid track below, declared as `auto` inside `minmax(0, 1fr)` columns. */
-.landing .lp-orbit .orbit {
+.landing .orbit {
   position: relative;
-  width: min(20rem, 42svh, 100%);
   aspect-ratio: 1;
   display: flex;
   flex-direction: column;
@@ -146,13 +181,26 @@
    itself. It is the only decoration in this component and it earns its place by
    saying "this is an aperture" a second time, quietly, at a value that owes no
    contrast threshold because nothing has to be found by it. */
-.landing .lp-orbit .orbit::after {
+.landing .orbit::after {
   content: "";
   position: absolute;
   inset: calc(-1 * var(--space-24));
   border-radius: 50%;
   border: 1px solid var(--line-divider);
   pointer-events: none;
+}
+
+/* IN THE HERO THE MASK IS OFF CENTRE, and that is what makes the overlap legal.
+   The headline is allowed past its column and lies across the left of the
+   window; big black type over drifting colour is readable but noisy, and noisy
+   is the one thing this product does not get to be. Moving the mask's centre to
+   64% and pulling its solid core in to 40% empties the left of the window almost
+   completely, so the sentence crosses quiet ground and the chips are dense on
+   the side where nothing is written. The stage below keeps the centred mask: it
+   has no headline over it. */
+.landing .lp-orbit .obands {
+  mask-image: radial-gradient(circle at 64% 50%, #000 40%, transparent 84%);
+  -webkit-mask-image: radial-gradient(circle at 64% 50%, #000 40%, transparent 84%);
 }
 
 /* ---- the five bands -------------------------------------------------------
@@ -165,25 +213,25 @@
    speeds five bands read as one mechanism with five parts; at five they read as
    five things arriving independently, which is the sentence this picture is
    making. Between 16 and 22 pixels a second, slower than reading. */
-.landing .lp-orbit .obands {
+.landing .obands {
   display: flex;
   flex-direction: column;
   gap: var(--space-16);
   mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 88%);
   -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 88%);
 }
-.landing .lp-orbit .orow { display: flex; }
-.landing .lp-orbit .otrack {
+.landing .orow { display: flex; }
+.landing .otrack {
   display: flex;
   width: max-content;
   will-change: transform;
   animation: odrift linear infinite;
 }
-.landing .lp-orbit .orow:nth-child(1) .otrack { animation-duration: 47s; animation-direction: reverse; }
-.landing .lp-orbit .orow:nth-child(2) .otrack { animation-duration: 39s; }
-.landing .lp-orbit .orow:nth-child(3) .otrack { animation-duration: 33s; animation-direction: reverse; }
-.landing .lp-orbit .orow:nth-child(4) .otrack { animation-duration: 43s; }
-.landing .lp-orbit .orow:nth-child(5) .otrack { animation-duration: 36s; animation-direction: reverse; }
+.landing .orow:nth-child(1) .otrack { animation-duration: 47s; animation-direction: reverse; }
+.landing .orow:nth-child(2) .otrack { animation-duration: 39s; }
+.landing .orow:nth-child(3) .otrack { animation-duration: 33s; animation-direction: reverse; }
+.landing .orow:nth-child(4) .otrack { animation-duration: 43s; }
+.landing .orow:nth-child(5) .otrack { animation-duration: 36s; animation-direction: reverse; }
 
 /* One keyframe, one direction, `reverse` on the bands that travel the other way.
    The track carries its set twice and travels exactly half its own width, so the
@@ -202,7 +250,7 @@
    their own thing they forgot. The names and the prices arrive with the list in
    the section below, where the point is the list rather than the field, and the
    two numbers that matter here are already in the corners. */
-.landing .lp-orbit .ochip {
+.landing .ochip {
   flex: none;
   width: clamp(2.75rem, 12cqw, 4rem);
   aspect-ratio: 1;
@@ -232,13 +280,13 @@
    this hero wins, the point is either registered or the composition is changed
    to live without it; a candidate does not get to add to the width scale.
    ========================================================================== */
-@container (min-width: 64rem) {
+@container (min-width: 72rem) {
   .landing .lp-orbit > .lp-wrap {
-    grid-template-columns: minmax(19rem, 1.5fr) minmax(0, 34rem) minmax(11rem, 0.85fr);
+    grid-template-columns: minmax(20rem, 1.35fr) minmax(0, 30rem) minmax(9rem, 0.5fr);
     grid-template-rows: minmax(0, 1fr) auto;
     grid-template-areas:
       "say   window ."
-      "count window total";
+      "count .      total";
     align-items: center;
     gap: var(--space-32) var(--space-48);
     min-height: min(42rem, 82svh);

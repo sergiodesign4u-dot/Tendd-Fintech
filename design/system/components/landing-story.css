@@ -164,21 +164,24 @@
   color: var(--text-muted);
 }
 
-/* ---- `.listfirst`, and it is a MODIFIER rather than an override ------------
-   The candidate hero at `design/index-circle.html` already shows the fourteen,
-   in a round window, above this section. Showing them again on three tracks
-   here would be the same picture twice with nothing gained between them, so on
-   that page the stage opens on the list and the field is not in it.
+/* ---- `.fromcircle`, and it is a MODIFIER rather than an override -----------
+   The candidate page `design/index-circle.html` opens on a round window of the
+   fourteen. On that page this stage opens on the SAME window, and the window
+   contracts into the list instead of three tracks gathering into it. The founder
+   asked for the transformation to take roughly a screen and a half and to flow
+   softly from one into the other, so the section is taller there and the two
+   ranges overlap rather than meet.
 
    Declared here, as a class in the markup, because the alternative is the thing
    the architecture forbids by name: a host writing `.lp-orbit + .lp-story
    .storyfield { display: none }` is an undeclared variant, and the next person
-   to read landing-story.css would have no way to know the component has two
-   shapes. A component with two shapes says so in its own file.
+   to read this file would have no way to know the component has two shapes.
+   A component with two shapes says so in its own file.
 
    It exists for as long as the candidate does. If the centred hero wins, this
-   block is deleted with the page that reads it. */
-.landing .lp-story.listfirst .storyfield { display: none; }
+   block is deleted with the page that reads it, and landing-orbit.css with it. */
+.landing .lp-story.fromcircle .storyfield { display: none; }
+.landing .lp-story.fromcircle .storyswap > .orbit { width: min(100%, 24rem); }
 
 /* ---- the field and the list -----------------------------------------------
    Stacked here, one above the other, which is the honest order for a browser
@@ -457,9 +460,28 @@
      `--stravel` is the distance, and it is ZERO wherever the list already fits:
      the travel is not an effect, it is the answer to a shortage of height. */
   .landing .storylist { animation-name: slist; animation-range: contain 10% contain 86%; }
-  /* with no field to hand over from, the list arrives at once instead of waiting
-     for a gather that is not happening */
-  .landing .lp-story.listfirst .storylist { animation-range: contain 0% contain 86%; }
+  /* ---- the window contracting into the list ------------------------------
+     A SCREEN AND A HALF, AND THE NUMBER IS ARITHMETIC. The section is 560svh
+     there rather than 460, so the `contain` phase - the part of the scroll where
+     the stage is pinned - is 460svh. Thirty per cent of it is 138svh, which is
+     the screen and a half the founder asked for, and it leaves the three
+     cancellations exactly where they already are, at 35, 53 and 71.
+
+     The two ranges OVERLAP by half the window's, which is what makes it flow
+     rather than cut: the circle is still there, at half opacity and eight tenths
+     of its size, while the list is already rising through it. Meeting instead of
+     overlapping would be a dissolve between two states; overlapping is one state
+     becoming another. */
+  .landing .lp-story.fromcircle { min-height: 560svh; }
+  .landing .lp-story.fromcircle .storyswap > .orbit {
+    width: min(100%, 100cqh);
+    animation-name: ofold;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-timeline: --story;
+    animation-range: contain 0% contain 30%;
+  }
+  .landing .lp-story.fromcircle .storylist { animation-range: contain 14% contain 88%; }
 
   /* THE HEAD DOES NOT ANIMATE, and that is the decision the first cut of this
      file got wrong. It carried `srise` over contain 6% to 20%, which meant that
@@ -621,6 +643,13 @@
   from { background: var(--bg-surface); }
   to   { background: var(--bg-recessed); }
 }
+/* the window folding away: it keeps shrinking after it has gone, so the last
+   thing the eye has of it is a movement rather than a disappearance */
+@keyframes ofold {
+  0%   { transform: scale(1);    opacity: 1; }
+  62%  { transform: scale(0.86); opacity: 0.5; }
+  100% { transform: scale(0.72); opacity: 0; }
+}
 @keyframes sin  { from { opacity: 0; } to { opacity: 1; } }
 @keyframes sout { from { opacity: 1; } to { opacity: 0; } }
 /* a card: in over the first quarter, hold, out over the last */
@@ -661,12 +690,14 @@
    is five screens of the same frame.
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .landing .lp-story { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
+  .landing .lp-story,
+  .landing .lp-story.fromcircle { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
   .landing .storypin { position: static; height: auto; }
   .landing .storyswap { position: static; }
   .landing .storyfield { position: static; animation-name: none; }
   .landing .storypin,
   .landing .storylist,
+  .landing .lp-story.fromcircle .storyswap > .orbit,
   .landing .storystack > *:nth-child(n),
   .landing .sline.cut,
   .landing .sline.cut .swap > .live,
