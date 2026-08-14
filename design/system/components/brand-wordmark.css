@@ -47,6 +47,14 @@
    states are declared. If it becomes the home link at stage 12, the anchor gets
    the ring and this atom keeps its type.
    ============================================================================ */
+/* THE `.landing` SCOPE WAS ADDED ON 2026-08-14, at the rollout, and its absence
+   was invisible until the public page was built. 48 of the 57 components already
+   carried it; this one did not, because nothing outside `.app` had ever worn it.
+   Every selector below that reached `.app` now reaches `.landing` too, at the
+   same specificity and with no value changed: it is the same object standing in
+   a second host, which is what the two-host convention in this system means.
+   Zero pixels inside the app, because no rule there was touched. */
+
 
 /* ---- the word --------------------------------------------------------------
    THE TRACKING REVERSED DIRECTION, AND IT IS THE FOUNDER'S DECISION RATHER THAN
@@ -69,7 +77,7 @@
    this system is: em tracking follows the type step it sits on, so it has nothing
    to override and no theme can want it different. The type scale gives the size,
    and 16px is --type-sub, the step the bar has always set. */
-.app .wordmark {
+.app .wordmark, .landing .wordmark {
   font-weight: 800;
   font-size: var(--type-sub);
   letter-spacing: -0.02em;
@@ -88,7 +96,7 @@
    sits against it, and removing the trailing pull would mean wrapping the second
    d in a span of its own to carry a positive correction. One span is the drawing;
    two spans would be an apology for it. */
-.app .wordmark .dd {
+.app .wordmark .dd, .landing .wordmark .dd {
   letter-spacing: -0.09em;
 }
 
@@ -110,7 +118,7 @@
    `Ten<span class="dd">d<span class="hi">d</span></span>` and not two flat spans:
    the drawing and the colour are two facts about the same pair, and flattening
    them would mean writing -0.09em twice and letting the two copies drift. */
-.app .wordmark .hi {
+.app .wordmark .hi, .landing .wordmark .hi {
   color: var(--text-action);
 }
 

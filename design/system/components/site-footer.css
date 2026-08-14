@@ -1,0 +1,86 @@
+/* ============================================================================
+   Site footer - organism
+   The public page's foot: what Tendd is in one sentence, and three columns of
+   links. It exists on exactly one page, because it is the only page a person
+   arrives at from outside.
+
+   IT IS NOT THE APP'S FOOT. `.act-foot` is a pattern that closes a TASK with an
+   action row and a way out. This closes a PAGE, carries no action at all, and
+   the reason it carries none is the same reason the pricing block is not a
+   comparison table: the one action of this page is stated three times already,
+   and a fourth in the footer would be asking after the argument has ended.
+
+   Reads
+     colour   --bg-surface, --line-container, --text-primary, --text-body,
+              --text-muted
+     spacing  --space-0, --space-8, --space-16, --space-32, --space-48
+     type     --type-sub, --type-body, --type-meta
+     width    --container-text, --bp-tablet
+   Hosts     the brand lockup, drawn by brand-mark.css and brand-wordmark.css.
+             The mark stands here and in the landing bar and nowhere else on
+             this page, which is D-Brand's chrome-only rule read literally.
+   Page      design/kit/site-footer.html
+   Stands on 1 grey page and 1 coloured one.
+   ============================================================================ */
+
+.landing .lp-footer {
+  padding: var(--space-48) var(--space-0);
+  background: var(--bg-surface);
+  border-top: 1px solid var(--line-container);
+}
+
+.landing .lp-footer > .lp-wrap {
+  display: flex; flex-direction: column; gap: var(--space-32);
+}
+
+/* ---- the columns ---------------------------------------------------------
+   Each one is a heading and a stack of links, and the links are 44px because a
+   footer is where a thumb goes hunting. */
+.landing .lp-footer .fcol { display: flex; flex-direction: column; }
+
+.landing .lp-footer .fcol h4 {
+  margin: var(--space-0) var(--space-0) var(--space-8);
+  font-size: var(--type-meta);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+/* The eyebrow's caps and tracking, deliberately NOT the eyebrow atom: `.k` is a
+   block mark inside content and this is a column head inside chrome. Same
+   treatment, two different jobs, and the day the eyebrow changes the footer
+   should not follow it. Written out here rather than borrowed, which is the
+   same call chip.css makes about placement belonging to the host. */
+
+.landing .lp-footer .fcol a {
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  font-size: var(--type-body);
+  color: var(--text-body);
+  text-decoration: none;
+}
+.landing .lp-footer .fcol a:hover { color: var(--text-action); }
+
+/* ---- the brand column ----------------------------------------------------
+   The lockup and one sentence. It is the widest column and it leads, because a
+   person who scrolled this far without deciding is being told once more, plainly,
+   what the thing is. */
+.landing .lp-footer .fbrand p {
+  margin: var(--space-8) var(--space-0) var(--space-0);
+  font-size: var(--type-body);
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: var(--container-text);
+}
+
+/* ==========================================================================
+   PAST THE TABLET POINT, 47.5rem / 760px: the four columns stand in a row
+   ========================================================================== */
+@container (min-width: 47.5rem) {
+  .landing .lp-footer > .lp-wrap {
+    flex-direction: row; gap: var(--space-48); align-items: flex-start;
+  }
+  .landing .lp-footer .fbrand { flex: 1 1 40%; min-width: 0; }
+  .landing .lp-footer .fcol:not(.fbrand) { flex: 0 1 auto; min-width: 0; }
+}

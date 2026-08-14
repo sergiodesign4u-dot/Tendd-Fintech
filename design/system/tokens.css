@@ -262,6 +262,40 @@
      line-height in the system is already unitless, so both scale by themselves.
      ========================================================================== */
 
+  /* THE ONE STEP ABOVE THE TOTAL, ADDED 2026-08-14 FOR THE LANDING, AND IT IS
+     THE ONE NUMBER RULE BEING KEPT RATHER THAN BROKEN. Inside the app the
+     biggest thing on a screen is a number the person owns, and 46px belongs to
+     it alone. On the public page that number does not exist yet: the only figure
+     there is an EXAMPLE, labelled "Example, not your data", and the biggest
+     thing has to be the promise instead. Giving the landing's headline
+     --type-display would put two different jobs on one step and quietly make the
+     example look like somebody's real total. So the headline gets its own step
+     above, and the example steps DOWN to --type-figure by wearing .amt.figure,
+     which is the same move the share card's total made for the same reason.
+     Result: --type-display still has exactly one job and the landing carries no
+     `.total` at all.
+     3.5rem AT THE TOP AND NOT MORE. 56px against the 46 below it is one clear
+     step, and it is where restraint stops it: A5 in concept.md is warm restraint
+     against clinical, and a 72px hero on a product built to lower anxiety is the
+     poster reflex this language was chosen against.
+
+     AND IT IS FLUID, WHICH IS THE FIRST ANSWER STAGE 10 ASKS FOR AND THE SECOND
+     ONE I GAVE. The first draft of this token was a flat 3.5rem with a comment
+     refusing fluid on the ground that there was no content reason for it. There
+     was, and looking at the built page at 390 is what produced it: at a fixed
+     56px the headline ran to FOUR lines and took the whole first screen, so the
+     lead, both buttons and the proof panel were all below the fold on a phone.
+     A headline that pushes its own call to action off the screen is not a
+     headline. Fluid is not decoration here, it is the content reason the first
+     comment said did not exist.
+
+     THE MIN AND THE MAX ARE rem AND ONLY THE MIDDLE TERM IS vw, which keeps the
+     promise the scale below makes. A person at a 24px root gets 60px at the
+     floor and 84 at the ceiling, so the headline still moves with their setting;
+     the vw term only decides where between the two ends a given width lands.
+     Measured: 42px at 390, 52 at the tablet point, 56 from about 920 up. */
+  --type-hero:    clamp(2.5rem, 2rem + 2.6vw, 3.5rem);  /* 40 to 56px. the landing
+                              headline, and nothing else in the product */
   --type-display: 2.875rem;  /* 46px. the monthly total, and nothing else on the screen */
   --type-figure:  2rem;      /* 32px. a subscription's own amount, a plan price */
   --type-head:    1.5rem;    /* 24px. the subject of a page */
@@ -312,6 +346,15 @@
                             and the rule this file exists to hold is the one that
                             breaks. An unused STEP is not an unused ROLE */
   --space-64: 64px;
+  /* THE TWO LANDING STEPS, 2026-08-14. A public page breathes differently from
+     an app screen: the app stacks blocks a person is working through, the
+     landing stacks arguments a person is deciding between, and 64 between them
+     reads as one long column rather than as separate claims. Both are multiples
+     of 8 and both have a consumer the day they are declared (landing-shell.css,
+     the section rhythm and the gap under a section heading), so neither is the
+     --space-56 case of a step kept without a reader. */
+  --space-80: 80px;
+  --space-96: 96px;
 
   /* ==========================================================================
      PRIMITIVE - width. Stage 10, step 2. No roles, no theme, NO DARK PAIR, and

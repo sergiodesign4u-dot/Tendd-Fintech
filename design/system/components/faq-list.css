@@ -1,0 +1,89 @@
+/* ============================================================================
+   FAQ list - organism
+   The four objections a visitor actually arrives with, each one a native
+   `<details>` so the answer is real text in the page rather than something a
+   script reveals. That is not a technical preference: `ia/docs/pages/` puts an
+   FAQPage schema on this node, and a schema that describes text a crawler
+   cannot read is a claim about a page that does not exist.
+
+   NO JAVASCRIPT AND NO ARIA. `<details>` and `<summary>` already are a
+   disclosure widget: they carry the expanded state, the keyboard behaviour and
+   the announcement, and every attribute this file could add would be repeating
+   something the element does better. The one thing the element does not bring
+   is a mark that says which way it is about to go, and that is drawn below.
+
+   Reads
+     colour   --bg-surface, --line-container, --line-divider, --text-primary,
+              --text-body
+     spacing  --space-0, --space-4, --space-16, --space-24
+     geometry --radius, --tap, --ring
+     type     --type-sub, --type-body
+     width    --container-text
+   Page      design/kit/faq-list.html
+   Stands on 1 grey page and 1 coloured one.
+   ============================================================================ */
+
+.landing .lp-faq {
+  background: var(--bg-surface);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.landing .lp-faq details + details { border-top: 1px solid var(--line-divider); }
+
+/* ---- the question --------------------------------------------------------
+   A control, so it takes the 44px floor and it takes the system's one focus
+   ring from base.css. `list-style: none` plus the webkit marker rule removes
+   the browser's own triangle in both engines; the mark this component draws is
+   below, and two marks pointing different ways is how a disclosure stops being
+   readable. */
+.landing .lp-faq summary {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-16);
+  min-height: var(--tap);
+  padding: var(--space-16) var(--space-24);
+  font-size: var(--type-sub);
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+  list-style: none;
+}
+.landing .lp-faq summary::-webkit-details-marker { display: none; }
+.landing .lp-faq summary:hover { color: var(--text-action); }
+
+/* THE MARK IS THE CHEVRON THE SYSTEM ALREADY DRAWS, turned. It is the same path
+   nav-row.css uses for "there is more this way" and app-bar.css mirrors for
+   "back", at the same 16px box, over the same currentColor mask. So it darkens
+   with its label, needs no colour rule, and has no dark pair of its own. Down
+   when closed, up when open, and the rotation is the only thing that moves. */
+.landing .lp-faq summary::after {
+  content: ""; flex: none; width: 16px; height: 16px;
+  background: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  transform: rotate(0deg);
+}
+.landing .lp-faq details[open] > summary::after { transform: rotate(180deg); }
+
+/* ---- the answer ----------------------------------------------------------
+   Body ink at the reading measure, and the top padding is zero because the
+   question above it already spent it: a gap on both sides of the seam reads as
+   two blocks rather than as a question and its answer. */
+.landing .lp-faq details > p {
+  margin: var(--space-0);
+  padding: var(--space-0) var(--space-24) var(--space-24);
+  font-size: var(--type-body);
+  line-height: 1.6;
+  color: var(--text-body);
+  max-width: var(--container-text);
+}
+
+/* NO ANIMATION HERE, and it is left for stage 11 rather than improvised. A
+   height transition on a disclosure needs either a fixed height, which the copy
+   does not have, or `interpolate-size`, which is a decision about how this
+   product moves and belongs to the stage that owns motion. An unfinished
+   animation is worse than none: it is the one a person notices. */

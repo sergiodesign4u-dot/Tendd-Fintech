@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing shell - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Landing shell</h1>
+    <p class="lead">The public page's measure and its vertical rhythm. Two classes: <code>.lp-wrap</code> is what every block is centred in, <code>.lp-section</code> is the air between one argument and the next.</p>
+    <div class="kit-meta">
+      <span>Organism</span>
+      <span><strong>1</strong> grey page</span>
+      <span><strong>1</strong> coloured page</span>
+      <span>band: canvas / surface</span>
+      <span>added 2026-08-14</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="what">
+    <h2>What it is</h2>
+        <p class="note"><b>It is the landing's answer to what <code>app-shell.css</code> does for a screen, and it could not be that file.</b> The app shell centres one column of blocks a person is <b>working through</b>, at <code>--container-page</code>, with the tab bar or the rail around it. A landing has no navigation to hold, its blocks are arguments a person is <b>deciding between</b>, and it runs full bleed section by section so a band can take its own ground. Two jobs, two files.</p>
+    <p class="note"><b>The measure is <code>--container-wide</code>, the same value the app uses above its desktop point.</b> That is deliberate rather than convenient: a person who reads this page and then signs up should not feel the page change width under them.</p>
+  </section>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <ul class="kit-parts">
+      <li><code>.lp-wrap</code> <span>the measure, 80rem, centred, with the screen's own side padding: 16px at the narrow end and 40 past the tablet point, which is what the app shell spends there too</span></li>
+      <li><code>.lp-section</code> <span>80px of air on a phone, 96 past the tablet point. It is the widest gap in this product, and it is the point: on an app screen the next block is the next thing you do, here it is a different claim</span></li>
+      <li><code>.lp-section.lp-trust</code>, <code>.lp-section.lp-plan</code> <span>the two bands that stand on the surface fill instead of the canvas. No border between them: the fill change <b>is</b> the edge, which is the Flat Paper Rule every card in this product already follows</span></li>
+      <li><code>.lp-section.lp-final</code> <span>the closing block, and the only centred thing on the page. Centring a column of arguments would cost the left edge each one is read from; centring one sentence and one button is what an ending looks like</span></li>
+    </ul>
+    <h3 class="kit-sub-h">Behaviour on width</h3>
+    <p class="note">One point, the registered 47.5rem. The measure's padding goes 16 to 40 and the section rhythm 80 to 96. Nothing else changes, and there is no second point: the page is a single column of full-bleed bands at every width, so there is nothing for a second one to switch.</p>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+        <p class="note"><b>The grid floor is set here and it is the grid's own axis, not an override.</b> <code>.grid</code> counts columns from <code>--grid-col-min</code>, and the default 10rem is sized for preset tiles in a 588px pane. Inside a 1200px landing measure that floor produced <b>seven tracks for three cards</b>, so the benefit cards sat in the left third with four empty tracks beside them. This file sets <code>--grid-col-min: 20rem</code> on the sections, which is the floor a paragraph of argument needs, and no column count is written anywhere.</p>
+  </section>
+
+  <section class="kit-sec" id="source">
+    <h2>Where it comes from</h2>
+    <p class="note">Drawn by <code>design/system/components/landing-shell.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It stands on <a href="../index.html">the coloured landing</a> and on <code>wireframes/index.html</code>, and on nothing else: the landing is the only public surface this product has. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the organism group.</p>
+  </section>
+
+</div>
+
+<script src="_nav.js"></script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

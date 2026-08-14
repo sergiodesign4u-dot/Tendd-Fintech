@@ -1,0 +1,127 @@
+/* ============================================================================
+   Landing bar - organism
+   The public page's header: the lockup, three section links, and the two
+   actions a visitor can take. It is the only navigation in this product that
+   points at places on the SAME page, and the only one that carries a filled
+   button, because on the landing the primary action IS the navigation.
+
+   WHY IT IS NOT THE APP BAR. `.appbar` holds one screen's identity and at most
+   two slots, and past the tablet point it leaves the top of the glass entirely
+   and becomes the head of the rail. This one stays a bar at every width, holds
+   a set of anchors, and never moves: a public page has no rail to move into.
+
+   Reads
+     colour   --bg-surface, --line-container, --text-body, --text-primary
+     spacing  --space-8, --space-16, --space-24, --space-32
+     geometry --tap
+     type     --type-body
+   Hosts     the brand lockup (brand-mark.css and brand-wordmark.css draw it,
+             this file only places it) and the button, which arrives as `.btn`
+             exactly as it does on every screen. This file styles neither.
+   Page      design/kit/landing-bar.html
+   Stands on 1 grey page and 1 coloured one.
+
+   THE BRAND IS HERE BECAUSE THIS IS CHROME. D-Brand puts the mark in chrome only
+   and never inside a screen's content, and a public header is chrome in exactly
+   the sense that rule means: it frames the page rather than being read as part
+   of it. That is also why the mark appears twice on this page and nowhere else,
+   here and in the footer.
+   ============================================================================ */
+
+.landing .lp-nav {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--line-container);
+}
+
+/* STICKY, AND IT IS THE ONE PLACE IN THIS PRODUCT THAT IS. Inside the app
+   nothing sticks to the top: the app bar scrolls away because the content is
+   what the person came for. Here the one action is what the page is for, and a
+   visitor who has read to the pricing block should not have to scroll back up
+   to take it. The bar is 64px and the fill is opaque, so nothing shows through
+   and no blur is needed; this system has no blur and gains none here. */
+
+.landing .lp-nav > .lp-wrap {
+  display: flex; align-items: center; gap: var(--space-16);
+  min-height: 64px;
+  /* IT WRAPS, and that is the reader's text size being taken seriously rather
+     than a hedge. At a 24px root the two actions alone measure 263px, and with
+     the lockup beside them the bar ran past a 390 screen: measured on the built
+     page. The alternatives were hiding Sign in on a phone, which removes a
+     control somebody may be looking for, and shrinking the button, which is a
+     size the button component owns and not this file's to take. Wrapping costs
+     one row of height at a text size most people never set, and nothing at every
+     other one. */
+  flex-wrap: wrap;
+  padding-block: var(--space-8);
+}
+
+/* The lockup takes the leading slot and the rest is pushed to the far end.
+   THE LAYOUT IS WRITTEN OUT HERE AND NOT INHERITED, and the reason is that it
+   was never inherited: `.lockup` gets its row and its gap from
+   `.app .appbar .lockup` in app-bar.css, which is the APP's bar, and on a page
+   with no `.app` in front of it the mark and the word stacked. Found by looking
+   at the built page, not at the markup. The two values are the app bar's own, so
+   the lockup reads identically in both places, which is the whole point of a
+   mark: it does not get to look different on the page where somebody meets it
+   first. The 44px floor is app-bar.css's argument repeated for the same reason,
+   a bar holding only the brand being as tall as the brand. */
+.landing .lp-nav .lockup {
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  gap: var(--space-8);
+  margin-right: auto;
+}
+
+/* ---- the section links ---------------------------------------------------
+   Hidden below the tablet point rather than folded into a menu, and that is a
+   decision with a reason: they point at blocks of THIS page, which a person on
+   a phone reaches by scrolling anyway. A hamburger that opens a list of anchors
+   to content already under the thumb is a control that exists to look complete.
+   `display: none` and not `visibility`, so they leave the accessibility tree
+   with the pixels: on a phone the page IS the navigation. */
+.landing .lp-nav .lp-links { display: none; }
+
+.landing .lp-nav .lp-links a {
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  padding: var(--space-0) var(--space-8);
+  font-size: var(--type-body);
+  color: var(--text-body);
+  text-decoration: none;
+}
+.landing .lp-nav .lp-links a:hover { color: var(--text-primary); }
+
+/* ---- the two actions -----------------------------------------------------
+   One filled and one not, which is the button component's own emphasis axis
+   doing its job: this zone has exactly one primary action, the same one the
+   hero and the closing block carry, and Sign in is the quiet way back for
+   somebody who already has an account. */
+.landing .lp-nav .lp-actions {
+  display: flex; align-items: center; gap: var(--space-8);
+}
+
+/* Sign in is a text action rather than a second button. Two buttons side by
+   side in a header read as a choice between two ways to start, and there is
+   only one: the other is a way BACK. Ink at rest, primary under the pointer,
+   with the 44px floor because it is a standalone control and not a link inside
+   a sentence, which is the case quiet-line.css says CSS cannot tell apart and
+   markup has to. */
+.landing .lp-nav .signin {
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  padding: var(--space-0) var(--space-8);
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--text-body);
+  text-decoration: none;
+}
+.landing .lp-nav .signin:hover { color: var(--text-primary); }
+
+/* ==========================================================================
+   PAST THE TABLET POINT, 47.5rem / 760px
+   ========================================================================== */
+@container (min-width: 47.5rem) {
+  .landing .lp-nav .lp-links { display: flex; gap: var(--space-8); }
+  .landing .lp-nav > .lp-wrap { min-height: 72px; gap: var(--space-32); }
+}

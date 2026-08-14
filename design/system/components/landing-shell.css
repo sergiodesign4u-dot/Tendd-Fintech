@@ -1,0 +1,116 @@
+/* ============================================================================
+   Landing shell - organism
+   The public page's measure and its vertical rhythm. Two classes, and they are
+   the landing's answer to what app-shell.css does for a screen: `.lp-wrap` is
+   the measure every block is centred in, `.lp-section` is the air between one
+   argument and the next.
+
+   WHY THE APP SHELL COULD NOT DO IT. `.app > .screen` centres ONE column of
+   blocks a person is working through, at --container-page, with the tab bar or
+   the rail around it. A landing has no navigation to hold, its blocks are
+   arguments a person is deciding between rather than steps in a task, and it
+   runs full-bleed section by section so a band can take its own ground. Those
+   are two different jobs, so they are two files.
+
+   Reads
+     colour   --bg-canvas, --bg-surface, --line-container
+     spacing  --space-16, --space-24, --space-32, --space-48, --space-80, --space-96
+     width    --container-wide, --bp-tablet, --bp-desktop
+   Page      design/kit/landing-shell.html
+   Stands on 1 grey page and 1 coloured one: the landing is the only public
+   surface this product has.
+
+   NO @media IN A SCREEN FILE, and none here either: every width question below
+   asks a `@container`, and the container is `body`, declared once in base.css.
+   The two literals are the registered points, 47.5rem and 56.25rem.
+   ============================================================================ */
+
+/* ---- the ground ----------------------------------------------------------
+   The landing sits on the canvas like every other surface in this product, and
+   the sections that need to stand apart take the surface fill rather than a
+   border. One shadow exists in this system and it is not spent here: depth on a
+   public page is carried by the ground change, exactly as it is inside the app. */
+.landing {
+  background: var(--bg-canvas);
+}
+
+/* ---- the measure ---------------------------------------------------------
+   ONE VALUE, --container-wide, AND IT IS THE SAME ONE THE APP USES above its
+   desktop point. That is deliberate: a person who lands here and then signs up
+   should not feel the page change width under them. The side padding is the
+   screen's own --space-16 at the narrow end and --space-40 past the tablet
+   point, which is what app-shell.css spends there too. */
+.landing .lp-wrap {
+  max-width: var(--container-wide);
+  margin: var(--space-0) auto;
+  padding: var(--space-0) var(--space-16);
+}
+
+/* ---- the rhythm ----------------------------------------------------------
+   80px between arguments on a phone, 96 past the tablet point. It is the widest
+   gap in this product and it is the point: on an app screen the next block is
+   the next thing you do, so 24 or 32 keeps them one task; here the next block
+   is a different claim, and the air is what stops the page reading as one long
+   paragraph of marketing. */
+.landing .lp-section {
+  padding: var(--space-80) var(--space-0);
+}
+
+/* A section heading owns the gap under itself, not the block above it, which is
+   the same convention every heading in this system follows. */
+.landing .lp-section > .lp-wrap > h2 {
+  margin: var(--space-0) var(--space-0) var(--space-16);
+  font-size: var(--type-head);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+
+/* ---- the grid floor, and it is the grid's OWN axis being set ---------------
+   `.grid` counts its columns from `--grid-col-min` rather than from a declared
+   number, which is the whole point of the component: it works at widths nobody
+   predicted. The default floor is 10rem, sized for preset tiles inside a 588px
+   pane, and inside a 1200px landing measure that floor produces SEVEN tracks for
+   three cards, so three benefit cards sat in the left third of the page with
+   four empty tracks beside them. Measured, not guessed: it is what the first
+   build of this page rendered.
+
+   20rem is the floor a paragraph of argument needs. At 1200 it gives three
+   tracks, at the tablet point two, on a phone one, and no number of columns is
+   written anywhere. This is a host setting the component's declared variable,
+   not a host overriding the component's rule: the difference is that the day the
+   grid changes how it counts, this page follows it. */
+.landing .lp-section .grid { --grid-col-min: 20rem; }
+
+/* ---- the two bands, and a band is a GROUND rather than a decoration -------
+   Two sections stand on the surface fill instead of the canvas: Trust, because
+   it is the one block that answers a fear and has to read as a held space, and
+   Pricing, because a price sitting on the same ground as the argument for it
+   reads as part of the argument. Everything else stays on the canvas. No border
+   between them: the fill change IS the edge, which is the Flat Paper Rule that
+   governs every card in this product. */
+.landing .lp-section.lp-trust,
+.landing .lp-section.lp-plan {
+  background: var(--bg-surface);
+}
+
+/* ---- the closing block ---------------------------------------------------
+   The last section repeats the one action and nothing else, so it is centred
+   and it is the only centred block on the page. Centring a column of arguments
+   would cost the left edge every one of them is read from; centring a single
+   sentence and a single button is what an ending looks like. */
+.landing .lp-section.lp-final {
+  text-align: center;
+  border-top: 1px solid var(--line-container);
+}
+.landing .lp-section.lp-final .actions { justify-content: center; }
+.landing .lp-section.lp-final .muted { margin-inline: auto; }
+
+/* ==========================================================================
+   PAST THE TABLET POINT, 47.5rem / 760px, the registered point
+   ========================================================================== */
+@container (min-width: 47.5rem) {
+  .landing .lp-wrap { padding: var(--space-0) var(--space-40); }
+  .landing .lp-section { padding: var(--space-96) var(--space-0); }
+  .landing .lp-section > .lp-wrap > h2 { font-size: var(--type-head); }
+}

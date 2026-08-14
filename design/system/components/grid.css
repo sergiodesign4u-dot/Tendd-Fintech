@@ -74,6 +74,14 @@
    and loads _wf.css, so both rules below it are carried forward for a coloured
    landing that does not exist yet.
    ============================================================================ */
+/* THE `.landing` SCOPE WAS ADDED ON 2026-08-14, at the rollout, and its absence
+   was invisible until the public page was built. 48 of the 57 components already
+   carried it; this one did not, because nothing outside `.app` had ever worn it.
+   Every selector below that reached `.app` now reaches `.landing` too, at the
+   same specificity and with no value changed: it is the same object standing in
+   a second host, which is what the two-host convention in this system means.
+   Zero pixels inside the app, because no rule there was touched. */
+
 
 /* ---- the zone -------------------------------------------------------------
    Two columns at the narrow end and a gap, which is the tile row, and it is the
@@ -96,9 +104,25 @@
    below, and it asks because three cards side by side stop being comparable
    past that and not because the grid has a width. */
 
-.app .grid {
+/* THE FLOOR IS WRAPPED IN `min(..., 100%)` SINCE 2026-08-14, and it is a floor
+   that could always have been taller than its own container. `minmax(320px, 1fr)`
+   in a 288px zone produces a 320px track and the page scrolls sideways: the
+   track does not shrink to fit, because a floor is a promise not to. It never
+   fired inside the app because the app's floor is 10rem and no content zone in
+   the product is narrower than 160px. The landing asks for 20rem, and at a 320
+   viewport the content zone is 288, so it fired on the first build of that page.
+   `min(floor, 100%)` says "this wide, or the whole container, whichever is
+   smaller", which is the floor keeping its promise everywhere it can and
+   breaking it only where keeping it would break the page.
+
+   ZERO PIXELS INSIDE THE APP, and it is measured rather than reasoned: all 7 grid
+   containers in the coloured product, at a 320 viewport which is the narrowest it
+   renders. The tightest is the plan row on Upgrade, 288px of container against a
+   210px floor, so it still has 78px of headroom. 100% is never the smaller term
+   anywhere in the app, so the wrapper resolves to the floor every time. */
+.app .grid, .landing .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-min), 100%), 1fr));
   /* --grid-gap and not --space-8 directly, 2026-08-13: the value is the same
      8px and the OWNER changes. A grid's air is a property of grids, and the
      door row overrides it below on the axis this page already declares, gap by
@@ -141,7 +165,7 @@
    bordered cards of equal standing take air, six chips do not. The column count
    travels with it here because a door and a tile happen to differ on both axes
    at once; it is not what the word means. */
-.app .grid.roomy {
+.app .grid.roomy, .landing .grid.roomy {
   grid-template-columns: 1fr;
   gap: var(--space-16);
   margin-bottom: var(--space-0);
@@ -314,9 +338,9 @@
              a band 74px wide.
    ============================================================================ */
 @container (min-width: 47.5rem) {
-  .app .grid { grid-template-columns: repeat(auto-fill, minmax(var(--grid-col-min), 1fr)); }
-  .app .grid.roomy { grid-template-columns: 1fr 1fr; }
-  .app .plans { grid-template-columns: repeat(auto-fill, minmax(13.125rem, 1fr)); }
+  .app .grid, .landing .grid { grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-min), 100%), 1fr)); }
+  .app .grid.roomy, .landing .grid.roomy { grid-template-columns: 1fr 1fr; }
+  .app .plans, .landing .plans { grid-template-columns: repeat(auto-fill, minmax(min(13.125rem, 100%), 1fr)); }
 }
 
 /* THE PLAN ROW'S CAP, AND IT IS ALIVE AGAIN AS OF 2026-08-13. Founder's

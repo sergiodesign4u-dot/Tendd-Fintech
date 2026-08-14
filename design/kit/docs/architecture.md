@@ -292,6 +292,16 @@ property of the level and not an event, and the way to notice a missing one is t
 theme, which is to say never. The change itself is a named decision, "variable, value, why", and
 the origin travels with the value in a comment beside it.
 
+**A component may need a second HOST, and a scope is not a new component, added 2026-08-14.**
+`.app` and `.landing` are the two hosts this product has. A component written for one of them
+reaches the other by having `.landing` added to every selector that already reaches `.app`, at the
+same specificity and with no value changed: it is the same object standing somewhere else. 48 of
+the 57 components carried both from stage 07; three did not, and the absence was invisible until
+the public page was built, because nothing outside `.app` had ever worn them. **A missing scope
+fails silently and looks like a broken page rather than a missing rule**, which is why it is a
+grep and not an eye: any selector in `design/system/` reaching `.app` without a `.landing` twin
+is either a deliberate app-only rule that says so at the line, or a defect.
+
 **The unit is decided by who owns the number, added 2026-08-13.** `rem` for what a reader can
 resize, which is the **type scale** and the **two width points**, and they have to be the same
 unit or the point moves for a person whose text does not. `px` for **geometry**: spacing, radii,

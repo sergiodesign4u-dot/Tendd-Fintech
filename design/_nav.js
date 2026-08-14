@@ -18,6 +18,10 @@
        the head of the list because the list runs by node number where a flow
        allows it, and 1.3 is the earliest node in colour: the sample of stage 07
        began at Guided Reveal because everything before it was still grey. */
+    /* The landing stands FIRST and outside the node order for once, because it is
+       node 1.1 and because it is the only public page: a person meets it before
+       anything else in this list exists for them. */
+    { name: 'Welcome (landing)', base: 'index.html', states: [] },
     { name: 'Path Choice', base: 'path-choice.html', states: [] },
     { name: 'Connect Bank', base: 'connect-bank.html', states: ['loading', 'error', 'empty', 'cancelled'] },
     { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['empty'] },

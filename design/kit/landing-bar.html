@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing bar - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Landing bar</h1>
+    <p class="lead">The public page's header: the lockup, three section links and the two actions a visitor can take. The only navigation in this product that points at places on the same page.</p>
+    <div class="kit-meta">
+      <span>Organism</span>
+      <span><strong>1</strong> grey page</span>
+      <span><strong>1</strong> coloured page</span>
+      <span>links: hidden / shown</span>
+      <span>added 2026-08-14</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="what">
+    <h2>What it is</h2>
+        <p class="note"><b>It is not the app bar.</b> <code>.appbar</code> holds one screen's identity and at most two slots, and past the tablet point it leaves the top of the glass entirely and becomes the head of the rail. This one stays a bar at every width, holds a set of anchors, and never moves: a public page has no rail to move into.</p>
+    <p class="note"><b>It is the one sticky thing in this product.</b> Inside the app nothing sticks to the top, because the content is what the person came for. Here the one action <b>is</b> what the page is for, and a visitor who has read as far as the pricing should not have to scroll back up to take it. The fill is opaque, so nothing shows through and no blur is needed; this system has no blur and gains none here.</p>
+  </section>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <ul class="kit-parts">
+      <li>the lockup <span>drawn by <code>brand-mark.css</code> and <code>brand-wordmark.css</code>. This file only places it, and it had to: <code>.lockup</code> takes its row and its gap from <code>.app .appbar .lockup</code>, so on a page with no <code>.app</code> in front of it the mark and the word <b>stacked</b>. Found by looking at the built page</span></li>
+      <li><code>.lp-links</code> <span>three anchors to blocks of this page, hidden below the tablet point. Not folded into a menu: a hamburger that opens a list of anchors to content already under the thumb is a control that exists to look complete</span></li>
+      <li><code>.signin</code> <span>a text action and not a second button. Two buttons in a header read as a choice between two ways to start, and there is only one: the other is a way <b>back</b></span></li>
+      <li><code>.btn.primary</code> <span>the same button every screen carries, at the same emphasis. One filled action in this zone, which is the button's own rule</span></li>
+    </ul>
+    <h3 class="kit-sub-h">Behaviour on width</h3>
+    <p class="note">One point, the registered 47.5rem: the section links appear and the bar grows from 64px to 72. The links use <code>display: none</code> and not <code>visibility</code>, so they leave the accessibility tree with the pixels. On a phone the page is the navigation.</p>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+        <p class="note"><b>The bar wraps, and that is the reader's text size taken seriously.</b> At a 24px root the two actions alone measure 263px, and with the lockup beside them the bar ran past a 390 screen. The alternatives were hiding Sign in on a phone, which removes a control somebody may be looking for, and shrinking the button, which is a size the button component owns. Wrapping costs one row of height at a text size most people never set.</p>
+  </section>
+
+  <section class="kit-sec" id="source">
+    <h2>Where it comes from</h2>
+    <p class="note">Drawn by <code>design/system/components/landing-bar.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It stands on <a href="../index.html">the coloured landing</a> and on <code>wireframes/index.html</code>, and on nothing else: the landing is the only public surface this product has. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the organism group.</p>
+  </section>
+
+</div>
+
+<script src="_nav.js"></script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

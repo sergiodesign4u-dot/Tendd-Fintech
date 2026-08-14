@@ -7,6 +7,65 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-14 - The landing, and the five things the system did not have
+
+**23 of 23 screens are in colour.** The public page was held back deliberately: 57 classes of
+which 39 were its own `lp-*` vocabulary, so it was a design pass rather than a translation. It
+turned out to be far less new than that number suggested. **48 of the 57 components already
+answered to `.landing`**, because the system was built with this page in mind from stage 07, and
+26 of the 39 folded straight onto them: `.lp-btn` to `.btn`, `.lp-eyebrow` to `.k`, `.lp-cta-row`
+to `.actions`, `.lp-grid` to `.grid`, `.lp-card` and `.lp-preview` and `.lp-path` to `.card`,
+`.lp-paths` to `.grid.roomy`, the trust list to `.promises`, four muted slots to `.muted`.
+
+**Five organisms were built, and each one exists because an app component could not do its job.**
+The landing shell, because `app-shell.css` centres one column of blocks a person is working
+through and this page runs full-bleed bands a person is deciding between. The landing bar, because
+`.appbar` leaves the top of the glass at the tablet point and becomes the head of a rail, and a
+public page has no rail to move into. The hero, the FAQ list and the site footer, none of which
+has an equivalent anywhere in the app.
+
+**THE ONE NUMBER RULE IS KEPT RATHER THAN BENT, and it is the page's central decision.** Inside
+the app the biggest thing on a screen is a number the person owns, and 46px belongs to it alone.
+On the public page that number does not exist yet: the only figure there is an example, labelled
+"Example, not your data" in the frozen markup. So the headline gets **its own step above**,
+`--type-hero`, and the example steps **down** to `--type-figure` by wearing `.amt.figure`, which is
+the move the share card's total already made for the same reason. **The landing carries no
+`.total` at all**, and `--type-display` still has exactly one job.
+
+**`--type-hero` is fluid, and the first draft of it was not.** It shipped as a flat 3.5rem with a
+comment refusing fluid on the ground that there was no content reason for it. Looking at the built
+page at 390 produced the reason: at a fixed 56px the headline ran to **four lines and pushed the
+lead, both buttons and the whole proof panel below the fold**. A headline that pushes its own call
+to action off the screen is not a headline. It is now `clamp(2.5rem, 2rem + 2.6vw, 3.5rem)`, with
+the min and max in `rem` so a reader's own font setting still moves it and only the middle term is
+viewport-relative. Measured: 42px at 390, 52 at the tablet point, 56 from about 920 up.
+
+**Four defects the build found, and three of them were in the system rather than on the page.**
+
+1. *Three components had never been given `.landing`.* `brand-mark.css`, `brand-wordmark.css` and
+   `grid.css` reached `.app` only, so the brand lockup **stacked** in the header and the benefit
+   cards did not lay out at all. Invisible until something outside `.app` wore them.
+2. *`.lockup` got its row from `.app .appbar .lockup`,* so on a page with no `.app` the mark and
+   the word stacked even after the scope fix. Written out in `landing-bar.css` at the app bar's own
+   values, so the mark reads identically in both places.
+3. *A grid floor can be taller than its own container.* `minmax(320px, 1fr)` in a 288px zone
+   produces a 320px track and the page scrolls sideways, because a floor is a promise not to
+   shrink. It never fired inside the app, whose floor is 10rem, and fired on the landing at 320.
+   Fixed at the component for every consumer: `minmax(min(var(--grid-col-min), 100%), 1fr)`.
+4. *The bar did not wrap.* At a 24px root the two header actions measure 263px and the bar ran past
+   a 390 screen. It wraps now, which costs one row of height at a text size most people never set.
+
+**The footer's wordmark.** The grey wrote it as plain text. D-Brand says the last letter is petrol
+**everywhere, with no condition**, so it is the wordmark now. The mark is not repeated there: a
+second mark four thousand pixels down the page is a logo asking to be noticed rather than chrome
+framing a page.
+
+**Rejected.** A hamburger for the three section anchors (they point at content already under the
+thumb on a phone; a menu that opens a list of them is a control that exists to look complete). A
+fourth call to action in the footer (the page states it three times and the argument has ended).
+An animated disclosure (a height transition needs a fixed height the copy does not have, or
+`interpolate-size`, which is stage 11's decision about how this product moves).
+
 ## 2026-08-14 - The rollout closes: a declared size axis, two marks, and the last screen
 
 Two founder decisions, both taken on the recommendation, and both paid for rather than worked

@@ -37,6 +37,14 @@
    screen would be a variant the product does not carry today, and the two screens
    that would carry it are still grey.
    ============================================================================ */
+/* THE `.landing` SCOPE WAS ADDED ON 2026-08-14, at the rollout, and its absence
+   was invisible until the public page was built. 48 of the 57 components already
+   carried it; this one did not, because nothing outside `.app` had ever worn it.
+   Every selector below that reached `.app` now reaches `.landing` too, at the
+   same specificity and with no value changed: it is the same object standing in
+   a second host, which is what the two-host convention in this system means.
+   Zero pixels inside the app, because no rule there was touched. */
+
 
 /* ---- the frame -------------------------------------------------------------
    `overflow: hidden` is load-bearing rather than tidy: the letter is bigger than
@@ -63,7 +71,7 @@
    token. The tab bar's four destinations are 22px squares for the same reason
    the mark is: it is the size at which a filled shape in this bar reads without
    competing with the type beside it. */
-.app .brand {
+.app .brand, .landing .brand {
   flex: none;
   display: block;
   width: 22px; height: 22px;
@@ -103,7 +111,7 @@
    nobody can see is still a mark nobody can see. --text-action on --bg-surface
    is 6.2:1 light and 6.8:1 dark, which clears the 4.5:1 ink threshold in both
    themes with the size threshold unused. */
-.app .brand::before {
+.app .brand::before, .landing .brand::before {
   content: "";
   display: block;
   width: 100%; height: 100%;

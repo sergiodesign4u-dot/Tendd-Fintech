@@ -165,6 +165,11 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Divided list | `.divlist` | inset: bare / inside a panel | 4 | `.alerts`, `.navrows` | `divided-list.css` | `divided-list.html`  | does not adapt |
 | Empty block | `.empty` | - | 2 | - | `empty-block.css` | `empty-block.html`  | a reading measure |
 | Grid | `.grid` | columns: 1 to 2 / 2 to 3. gap by child size | 8 | `.doors`, `.tiles`, `.plans` | `grid.css` | `grid.html`  | point + fluid |
+| FAQ list | `.lp-faq` | - | 1 | `.lp-faq` | `faq-list.css` | `faq-list.html`  | does not adapt |
+| Landing bar | `.lp-nav` | links: hidden / shown | 1 | `.lp-nav` | `landing-bar.css` | `landing-bar.html`  | links appear at 47.5rem |
+| Landing hero | `.lp-hero` | form: stacked / two columns | 1 | `.lp-hero` | `landing-hero.css` | `landing-hero.html`  | two columns at 47.5rem |
+| Landing shell | `.landing` | band: canvas / surface | 1 | `.landing` | `landing-shell.css` | `landing-shell.html`  | measure and rhythm grow at 47.5rem |
+| Site footer | `.lp-footer` | form: stacked / four columns | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem |
 | Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
 | Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | does not adapt |
 | Reveal step | `.rstep` | - | 1 | - | `reveal-step.css` | `reveal-step.html`  | does not adapt |
@@ -254,6 +259,15 @@ nobody can reconstruct what `.decoder` was folded into.
 | `.consequence` | `.muted` (12.5px) | 11 | 21 |
 | `.context`, `.tone` | `.muted` (13px) | 9 | 10 |
 | `.legal` | `.muted.ruled` (12px) | 0 | 7 |
+| `.lp-btn` | `.btn` | 0 | 1 | **The landing, 2026-08-14.** 26 of its 39 own class names folded onto components that already answered to `.landing` |
+| `.lp-eyebrow`, `.plabel` | `.k` | 0 | 1 | Caps, tracked, muted: the eyebrow, not the label |
+| `.lp-cta-row` | `.actions` | 0 | 1 | |
+| `.lp-micro`, `.pctx`, `.planmicro` | `.muted` | 0 | 1 | |
+| `.lp-intro`, `.planline` | `.muted.lead` | 0 | 1 | |
+| `.lp-grid`, `.cols-3` | `.grid` | 0 | 1 | With `--grid-col-min: 20rem` set by the landing shell, which is the grid's own axis rather than an override |
+| `.lp-card`, `.lp-preview`, `.lp-path` | `.card` | 0 | 1 | |
+| `.lp-paths` | `.grid.roomy` | 0 | 1 | |
+| `.ptotal` | `.amt.figure` | 0 | 1 | **Not `.total`.** The figure is an example and 46px belongs to a number a person owns |
 | `.win` | `.summary` | 0 | 1 | **Rollout, 2026-08-14.** A sentence over a figure is the summary's form one, and cancel-win is the second block in the product with that shape |
 | `.win .lbl` | `.k`, the eyebrow | 0 | 1 | The grey has no base `.lbl` at all, only three host rules that are three different atoms: `.rstep .lbl` is `.lbl.strong`, `.sharecard .lbl` is `.lbl`, and this one is 12px caps tracked muted, which is the eyebrow |
 | `.freed` | `.amt.figure` | 0 | 1 | 40px, and the fold table already sent 40 to `--type-figure` once for the share card's total, on the ground that 46 is the monthly total's alone |
