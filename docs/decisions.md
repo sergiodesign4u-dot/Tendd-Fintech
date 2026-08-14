@@ -7,6 +7,59 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-14 - The rollout closes: a declared size axis, two marks, and the last screen
+
+Two founder decisions, both taken on the recommendation, and both paid for rather than worked
+around.
+
+**The size axis on the amount, and it closes a debt instead of adding to one.** `cancel-win`'s
+figure is 40px in the grey and the fold table had already decided that number once: 40 goes to
+`--type-figure`, because 46 belongs to the monthly total alone under the One Number Rule, which is
+exactly how the share card's total was settled. So the size was never in question. What was is
+whose it is. `amount.css` set this atom's font-size from **four host rules**, which is the shape
+`CLAUDE.md` forbids by name (`.host .btn{font-size:15px}` is its own example) and which
+`backlog.md` carried as one of four atoms sized by their hosts, with the fix recorded as owed and
+unbuilt. Building `cancel-win` needed a **fifth**. Adding one more occurrence of a rule the system
+forbids is not a way to build a screen, so the axis is declared: `--type-body` on the base,
+`--type-figure` on `.amt.figure`, with the weight, tracking and `display` that travel with a
+figure. **Zero pixels**, and it is measured rather than argued: all 66 amounts in the coloured
+product snapshotted before and after on size, weight, leading, tracking, display and box,
+identical. What stays with the hosts is not size and each one says so at its rule: `flex: none` in
+a row is placement, weight 400 on a past charge is history reading as a texture, and the two
+leadings (1.05 in a plan card, 1.08 in the hero) are what a container asks for. Three atoms are
+still sized by their hosts (`logo.css`, `muted-line.css`, `big-total.css`); the same answer
+applies and the same evidence is owed.
+
+**`cancel-win` is the summary's form one, and that is the One Number Rule working rather than
+getting in the way.** The block is a sentence running into a figure, which is the shape
+`summary.css` already models: with a number the h1 is a **caption** and is deliberately quiet,
+because a caption that competes with its own figure breaks the rule from above instead of from
+beside. The hook read `:has(.total)` and now reads `:has(.total, .amt.figure)`. The two big numbers
+of this product wear two different classes on purpose, so the selector names both rather than
+pretending they are one. Zero pixels again: no `.summary` in the product contained an
+`.amt.figure` before this screen, checked in the browser and not off the markup.
+
+**Two marks, because the set was complete for a sample and not for the product.** `icons.html`
+counted ten drawn marks and one character, and none of them was a bank or a source a person typed
+in by hand, which is both slots of the Connections card. Left blank they took the **unmatched**
+square, which means "we looked and could not name the merchant" and is a lie about a source we can
+name exactly. So two are drawn, in the family's own terms: a pediment over three columns for the
+bank, a pen on a rule for the private source, inline `svg` exactly as the unmatched question mark
+is, taking the square's ink through `currentColor` so neither needs a colour rule or a dark pair.
+Drawn rather than borrowed on purpose: the mark says "a bank", not "Chase", because the card names
+the institution in words and a real bank logo is somebody else's trademark. Census recounted:
+twelve drawn marks and one character.
+
+**Rejected on the way.** A fifth host rule for the amount (one line, and it is the fifth instance
+of what the system forbids). Reusing the shield for the bank slot (it means read-only trust on the
+trust line, not an institution). Leaving the two squares blank (cheap, and it says the wrong
+thing). Promoting `cancel-win`'s figure to `--type-display` (it would make 46px two jobs and undo
+the One Number Rule for one screen).
+
+**22 of 23 screens are now in colour.** The landing, `index.html`, stays grey by the founder's
+call: 57 classes of which 39 are its own `lp-*` vocabulary, so it is a design pass rather than a
+translation.
+
 ## 2026-08-14 - The rollout: 21 screens in colour, and what it found that the sample could not
 
 **The count first, because it was wrong before it was right.** 55 grey product screens against 32

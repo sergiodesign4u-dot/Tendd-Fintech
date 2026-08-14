@@ -68,7 +68,26 @@
    stays a caption. One of the five Home pages takes this rule, and it is
    home-empty. Written any other way, the loading state would have promoted its
    heading and then demoted it again when the figure landed. */
-.app .summary:not(:has(.total)) h1, .landing .summary:not(:has(.total)) h1 {
+/* THE HOOK READS ".total, .amt.figure" SINCE 2026-08-14, and it used to read
+   `.total` alone. The rollout brought the second block in the product that is a
+   sentence over a figure: cancel-win, where "You just cancelled Netflix and
+   freed up" runs straight into $17.99 a month. That is form ONE by every word
+   of the argument above, and the old hook would have promoted its heading to
+   the subject and set it competing with its own number, which is the exact
+   defect the caption form exists to prevent.
+
+   IT IS NOT `.total`, AND THAT IS THE ONE NUMBER RULE DOING ITS JOB rather than
+   getting in the way. 46px belongs to the monthly total alone; a win figure
+   folds to --type-figure, which is what the share card's total did for the same
+   reason. So the two big numbers of this product wear two different classes on
+   purpose, and this selector names both instead of pretending they are one.
+
+   ZERO PIXELS. No `.summary` in the product contained an `.amt.figure` before
+   cancel-win: the five Home summaries hold `.total` or a skeleton wearing its
+   class, and the amounts on Home live in rows outside the block. Checked in the
+   browser across the whole coloured corpus rather than read off the markup. */
+.app .summary:not(:has(.total, .amt.figure)) h1,
+.landing .summary:not(:has(.total, .amt.figure)) h1 {
   font-size: var(--type-title);
   font-weight: 700;
   color: var(--text-primary);

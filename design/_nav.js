@@ -32,6 +32,7 @@
     { name: 'Alerts', base: 'alerts.html', states: ['empty', 'error', 'loading'] },
     { name: 'Add a Subscription', base: 'add-subscription.html', states: ['empty', 'error', 'loading'] },
     { name: 'Cancel Guide', base: 'cancel-guide.html', states: ['no-guide', 'blocked'] },
+    { name: 'Cancel Win', base: 'cancel-win.html', states: [] },
     { name: 'Share Snapshot', base: 'share-snapshot.html', states: ['loading', 'error'] },
     { name: 'History and Trends', base: 'history-trends.html', states: ['locked', 'empty', 'error', 'loading'] },
     { name: 'Upgrade to Pro', base: 'upgrade.html', states: ['current-plan', 'processing', 'payment-failed'] },

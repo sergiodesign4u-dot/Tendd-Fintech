@@ -71,7 +71,7 @@ the child**: doors are full cards and take air, tiles are chips and do not.
 
 | Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
 |---|---|---|---|---|---|---|---|
-| Amount | `.amt` | size by container: 14 / 32 (`--type-body`, `--type-figure`). 13.5 and 30 folded at step 5 | 69 | - | `amount.css` | `amount.html`  | does not adapt |
+| Amount | `.amt` | **size: base / `figure`** (`--type-body`, `--type-figure`), a DECLARED axis since 2026-08-14. 13.5 and 30 folded at step 5 | 69 | - | `amount.css` | `amount.html`  | does not adapt |
 | Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - | `big-total.css` | `big-total.html`  | does not adapt |
 | Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 32 coloured, 0 grey | - | `brand-mark.css` | `brand-mark.html`  | does not adapt |
 | Brand wordmark | `.wordmark` | one setting, and the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - | `brand-wordmark.css` | `brand-wordmark.html`  | does not adapt |
@@ -254,6 +254,10 @@ nobody can reconstruct what `.decoder` was folded into.
 | `.consequence` | `.muted` (12.5px) | 11 | 21 |
 | `.context`, `.tone` | `.muted` (13px) | 9 | 10 |
 | `.legal` | `.muted.ruled` (12px) | 0 | 7 |
+| `.win` | `.summary` | 0 | 1 | **Rollout, 2026-08-14.** A sentence over a figure is the summary's form one, and cancel-win is the second block in the product with that shape |
+| `.win .lbl` | `.k`, the eyebrow | 0 | 1 | The grey has no base `.lbl` at all, only three host rules that are three different atoms: `.rstep .lbl` is `.lbl.strong`, `.sharecard .lbl` is `.lbl`, and this one is 12px caps tracked muted, which is the eyebrow |
+| `.freed` | `.amt.figure` | 0 | 1 | 40px, and the fold table already sent 40 to `--type-figure` once for the share card's total, on the ground that 46 is the monthly total's alone |
+| `.year`, `.honest` | `.muted` | 0 | 1 | 13.5 and 13, both `--type-body` |
 | `.intro` | `.muted.lead` (14px) | 0 | 1 | **Added at the rollout, 2026-08-14, and it is a fold rather than a choice.** `_wf.css:558` gives it `font-size: 14px; margin: 0 0 14px; color: mid`, which is the muted line at `--type-body` with its air UNDERNEATH, and that is exactly what `.muted.lead` is (`muted-line.css:191`, `margin: 0 0 --space-16`). 14 to 16 is the 8px grid, the same rounding every other fold took at step 4. One page, `data-privacy` |
 | `.freshness` | `.muted` (12px) | 0 | 2 |
 | `.removal` | `.muted` (13px, 52ch) | 5 | 8 |

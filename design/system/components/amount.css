@@ -44,6 +44,46 @@
   font-weight: 600;
   white-space: nowrap;
   color: var(--text-primary);
+  /* THE SIZE IS ON THE BASE SINCE 2026-08-14, and it used to be on four hosts.
+     See the axis below for why it moved. Every .amt in the product is inside one
+     of four hosts today (44 in .row, 13 in .charges, 6 in .hero, 3 in .plan-opt,
+     counted in the browser across the whole coloured corpus), so nothing was
+     inheriting a size and nothing moves by the base gaining one. */
+  font-size: var(--type-body);
+}
+
+/* ---- the SIZE AXIS, declared 2026-08-14 ----------------------------------
+   WHAT IT REPLACES. Four host rules set this atom's font-size: `.row` and
+   `.charges li` at --type-body, `.plan-opt` and `.hero` at --type-figure. That
+   is the exact shape CLAUDE.md forbids by name, quoting `.host .btn{font-size}`
+   as an undeclared variant, and docs/backlog.md carried it as one of four atoms
+   sized by their hosts with the fix recorded as owed and unbuilt. The rollout
+   of stage 12 needed a FIFTH host for it (cancel-win's freed figure), and adding
+   one more occurrence of a rule the system forbids is not a way to build a
+   screen. So the axis is declared and the debt is paid instead.
+
+   ONE MODIFIER AND NOT TWO, because there are only two sizes. The base is the
+   small form, which is what 57 of the 66 amounts in the product are; `.figure`
+   is the large one, which is what a price becomes when the number IS the
+   subject rather than a value in a line.
+
+   WHAT TRAVELS WITH THE SIZE AND WHAT DOES NOT. Weight, tracking and `display`
+   move here because they are the same on both large hosts and they are what
+   makes a figure a figure. Two things stay with their hosts and are marked at
+   the rule: `.charges li` takes weight 400, which is a statement about HISTORY
+   being a texture rather than about size; and the two line-heights differ, 1.05
+   in a plan card against 1.08 in the detail hero, which is the leading a
+   container asks for and not a property of the number.
+
+   ZERO PIXELS. --type-figure is the value all four large occurrences already
+   resolved to; the base is the value the other 57 already resolved to. Proved by
+   snapshotting all 66 amounts (size, weight, leading, tracking, display, box)
+   before and after. */
+.app .amt.figure, .landing .amt.figure {
+  display: block;
+  font-size: var(--type-figure);
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 /* ---- size, set by the CONTAINER, never by importance ---------------------
@@ -67,31 +107,24 @@
    in this product gets to it, and that gap is what keeps the two readable as
    different kinds of number. */
 
-.app .row .amt, .landing .row .amt {
-  flex: none;
-  font-size: var(--type-body);
-}
+/* WHAT IS LEFT WITH THE HOSTS, and none of it is a size. Each of these four
+   rules used to carry a font-size and now does not; what remains is the thing
+   the CONTAINER genuinely decides. */
 
-.app .charges li .amt, .landing .charges li .amt {
-  font-size: var(--type-body);
-  font-weight: 400;
-}
+/* Placement: an amount does not stretch in the row's flex line. */
+.app .row .amt, .landing .row .amt { flex: none; }
 
-.app .plan-opt .amt, .landing .plan-opt .amt {
-  display: block;
-  font-size: var(--type-figure);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-}
+/* A past charge is the lightest weight in the component, and that is a statement
+   about HISTORY rather than about size: a column of eleven identical numbers is
+   a texture, not eleven things to read. It rides on the base size. */
+.app .charges li .amt, .landing .charges li .amt { font-weight: 400; }
 
-.app .hero .amt, .landing .hero .amt {
-  display: block;
-  font-size: var(--type-figure);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.08;
-}
+/* The two leadings, and they differ because the containers do. In a plan card
+   the figure sits directly above its cadence line, so it is set tight; in the
+   detail hero it stands alone under a merchant name and gets a hair more air.
+   Leading is what a container asks for; the size is the atom's own, above. */
+.app .plan-opt .amt, .landing .plan-opt .amt { line-height: 1.05; }
+.app .hero .amt,     .landing .hero .amt     { line-height: 1.08; }
 
 /* No states. An amount is a figure and never a target: on every screen that
    carries one it is either inside a link the ROW owns (the whole row is one
