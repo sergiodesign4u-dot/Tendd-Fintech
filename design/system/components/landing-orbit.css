@@ -758,7 +758,204 @@
   /* 46cqw is what keeps a big window from swallowing the promise beside it at
      the new point: 594 at 1440, 460 at 1000, and the mask keeps its left third
      empty at both. */
-  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { width: min(38rem, 66svh, 100%); }
+  /* `--owidth` IS DECLARED ON THE PIN AND READ TWICE, and that is the whole
+     reason it exists. The window and the eight strands around it are one object:
+     if the strands were sized off their own box the ring of air between them and
+     the glass would change with every screen. Declared once, the svg is
+     `--owidth / 0.705` wide, its viewBox is 400 units, and the window's radius is
+     therefore `0.705 x 400 / 2 = 141` units at EVERY size. The strands sit at 148
+     to 190, which is a constant 7 to 49 units of air.
+     FIVE PER CENT SMALLER, on the founder's mark, 2026-08-15: 38rem and 66svh
+     were 40 and 70 two rounds ago and are 36.1 and 62.7 now. The strands took the
+     room. */
+  /* NOTHING BOX-RELATIVE GOES IN THIS VARIABLE, and it took two measurements to
+     write that sentence. A custom property is substituted at the point of USE,
+     so every unit inside it that depends on a box is resolved against the
+     READER's box, not the writer's. Written `min(..., 100%)` the window read it
+     against the swap and the svg against the pin: 440 and 502 at a 1000px
+     window, twelve pixels of air between the glass and the first strand at 1440
+     and forty-three at 1000. Written `min(..., 44cqw)` it was worse, because
+     `.storyswap` is itself a query container: the window resolved 44cqw against
+     its own 620px parent and came out 273 instead of 564.
+     So the variable carries only what a root can answer - `rem` and `svh` - and
+     the box-relative cap is written at each site in that site's own terms. The
+     window takes `100%` of the swap; the svg takes the swap's own expression,
+     and it may, because the svg and the swap are siblings in the same container. */
+  .landing .lp-orbit.lp-story.fromcircle .storypin { --owidth: min(36.1rem, 62.7svh); }
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { width: min(var(--owidth), 100%); }
+
+  /* ---- THE FIELD IS A BACKGROUND NOW, NOT A CONTENTS PAGE ------------------
+     The founder, 2026-08-15: "сами провайдеры... крупнее с ценами подписки чтобы
+     оно было как фон, может прозрачности добавить". The chip was a 64px disc
+     carrying a mark alone, sized for RECOGNITION at a glance. Grown into a pill
+     with the item's own price beside the mark it stops being a row of icons and
+     becomes what the promise beside it is describing: money going out, named and
+     priced, drifting past. It is a background and it is treated as one - blurred
+     by a hair and held at 0.62 - so the sentence on its left is never competing
+     with a price on its right. The blur is on the STACK and not on the chip: one
+     filter on one box, and the radial mask that was already there fades the rim.
+
+     The price is the item's own from the canonical dataset in
+     `voice/docs/microcopy.md`, and the generator refuses to write without it.
+     `design/index.html` keeps the disc: this is the candidate's aperture, and
+     there the field stands under a headline that has to stay readable. */
+  .landing .lp-orbit.lp-story.fromcircle .obands {
+    filter: blur(1.4px);
+    opacity: 0.62;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .ochip {
+    width: auto;
+    aspect-ratio: auto;
+    gap: var(--space-16);
+    padding: var(--space-16) var(--space-24) var(--space-16) var(--space-16);
+    border-radius: 999px;
+    background: var(--bg-surface);
+    border-color: var(--line-container);
+  }
+  .landing .lp-orbit.lp-story.fromcircle .ochip .logo {
+    width: 40px;
+    height: 40px;
+    flex: none;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .oprice {
+    font-size: var(--type-body);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* ======================================================================
+     THE EIGHT STRANDS
+     The founder drew them over a screenshot on 2026-08-15: lines coming down
+     from above the frame on the right, looping around the window, and carrying
+     on down below it, in provider colours, with a glow and a loop.
+
+     That shape is the brand's own letter. D-Brand: the identity is Crop, one
+     letterform larger than any frame with a window cut out of it, and a `d` is
+     a stem and a bowl. This is the same letter drawn eight times at eight radii
+     around the same aperture, which is why it is a decoration this product is
+     allowed to have and a ring of neon would not be.
+
+     COLOUR: the strands are the providers' own, read out of the marks already
+     inside the window, and the generator refuses to write if a colour is not the
+     fill of the file it is named after. That keeps this off D-Concept's rule
+     rather than breaking it: petrol still has exactly three jobs inside a screen
+     and a fourth in the chrome, and provider colour is borrowed colour that has
+     been legal inside this aperture since the day it was drawn. One ring further
+     out is not a new palette.
+
+     CALM: eight glowing objects at once is Vegas, which is a rule this stage
+     took from the motion-graphics craft. So the strand is a hairline at 0.14 and
+     what glows is a 130-unit dash travelling it - one dash per strand, spaced
+     evenly around a 15 second clock, so the eye follows a relay rather than a
+     light show. The glow is a 5px drop-shadow of the strand's own colour, not a
+     bloom.
+     ==================================================================== */
+  .landing .lp-orbit.lp-story.fromcircle .oribbons {
+    position: absolute;
+    left: 50%;
+    top: var(--space-0);
+    /* `height: 100%` AND NOT `top: 0; bottom: 0`. An svg with a viewBox is a
+       REPLACED element: given both insets and `height: auto` it does not stretch
+       between them, it takes its intrinsic ratio, and 400 x 1200 at 800 wide is
+       2401 tall - two and a half screens of stems hanging below a section that
+       has to scroll away cleanly. */
+    height: 100%;
+    translate: -50% 0;
+    /* 0.705 is the whole geometry: it makes the window 141 units of a 400 unit
+       viewBox at every screen size. The svg root clips itself, and the box is
+       the PIN - so the eight stems run off the top and the bottom of the screen
+       exactly as they do in the drawing, and nothing is left hanging in mid air
+       over the section below. */
+    width: calc(min(var(--owidth), var(--container-column), 44cqw) / 0.705);
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .oline,
+  .landing .lp-orbit.lp-story.fromcircle .ocomet {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+  }
+  /* the geometry, always there and almost not there */
+  .landing .lp-orbit.lp-story.fromcircle .oline {
+    stroke-width: 1.1;
+    opacity: 0.14;
+  }
+  /* AND THE COMET IS THREE DASHES, WHICH IS THE DIFFERENCE BETWEEN A LIGHT AND
+     AN ARC. One dash of one colour travelling a circle is a progress ring: it
+     has a hard head, a hard tail and the same weight all the way through, and
+     eight of them read as a loading spinner in eight colours. A head with the
+     glow on it, a middle at half and a long tail at a fifth is a thing moving
+     THROUGH a place. Each segment lags the one in front by exactly its own
+     length, and the lag is a fraction of the strand's own duration rather than a
+     number of seconds, so it holds while the eight run at eight speeds. */
+  .landing .lp-orbit.lp-story.fromcircle .ocomet {
+    animation-name: oflow;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: var(--osp);
+    animation-delay: var(--oph);
+  }
+  .landing .lp-orbit.lp-story.fromcircle .ohead {
+    stroke-width: 2.6;
+    stroke-dasharray: 42 958;
+  }
+  /* AND THE GLOW IS TWO WIDE SOFT STROKES, WHICH IS A MEASUREMENT AND NOT A
+     PREFERENCE. It was `filter: drop-shadow(0 0 6px currentColor)` on the head,
+     which is eight filter passes over an 800 x 828 box every frame: measured at
+     1440 x 900 while scrolling, the page went from 8.3ms a frame to 16.7 with a
+     p95 of 25, which is 40fps on the one screen in this product that has to feel
+     expensive. Removing them put it back to 8.3 exactly; the blur on the field
+     costs nothing, because it is a static filter on a layer the marquee is
+     composited inside. Two strokes under the head, at 14px and 7px with round
+     caps, cost nothing measurable and read as the same light. */
+  .landing .lp-orbit.lp-story.fromcircle .oglow1 {
+    stroke-width: 7;
+    stroke-dasharray: 48 952;
+    opacity: 0.16;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .oglow2 {
+    stroke-width: 14;
+    stroke-dasharray: 56 944;
+    opacity: 0.08;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .omid {
+    stroke-width: 2.2;
+    stroke-dasharray: 62 938;
+    opacity: 0.5;
+    animation-delay: calc(var(--oph) + var(--osp) * 0.042);
+  }
+  .landing .lp-orbit.lp-story.fromcircle .otail {
+    stroke-width: 1.8;
+    stroke-dasharray: 150 850;
+    opacity: 0.18;
+    animation-delay: calc(var(--oph) + var(--osp) * 0.104);
+  }
+
+  /* THE EIGHT COLOURS, each one the fill of the mark it is named after, checked
+     by the generator against `design/visuals/logos/<name>.svg` before it writes.
+     The order alternates warm and cool so no two neighbouring strands read as
+     one thicker strand.
+
+     `--osp` IS EIGHT DIFFERENT DURATIONS AND NONE OF THEM IS ROUND, for the
+     reason the five marquee bands above are 47, 39, 33, 43 and 36 seconds: at
+     one speed and one spacing eight strands are one mechanism with eight parts,
+     and the eye reads a spinner. At eight speeds they drift apart over the first
+     minute and never line up again. `--oph` is NEGATIVE, so every strand is
+     already mid-travel on the first frame: positive delays would mean eight dark
+     strands lighting up one at a time over the first two minutes of a page
+     nobody waits on. */
+  .landing .lp-orbit.lp-story.fromcircle .s1 { color: #E50914; --osp: 15.4s; --oph: -0.0s;  }  /* netflix      */
+  .landing .lp-orbit.lp-story.fromcircle .s2 { color: #00A8E1; --osp: 17.1s; --oph: -2.1s;  }  /* amazon prime */
+  .landing .lp-orbit.lp-story.fromcircle .s3 { color: #FC4C02; --osp: 13.3s; --oph: -4.4s;  }  /* strava       */
+  .landing .lp-orbit.lp-story.fromcircle .s4 { color: #113CCF; --osp: 18.6s; --oph: -6.3s;  }  /* disney plus  */
+  .landing .lp-orbit.lp-story.fromcircle .s5 { color: #1DB954; --osp: 16.2s; --oph: -8.2s;  }  /* spotify      */
+  .landing .lp-orbit.lp-story.fromcircle .s6 { color: #FA243C; --osp: 14.1s; --oph: -10.5s; }  /* apple music  */
+  .landing .lp-orbit.lp-story.fromcircle .s7 { color: #10A37F; --osp: 19.3s; --oph: -12.4s; }  /* chatgpt      */
+  .landing .lp-orbit.lp-story.fromcircle .s8 { color: #4CA5F5; --osp: 15.9s; --oph: -14.1s; }  /* icloud       */
   /* THE WINDOW SINKS, IT DOES NOT DISSOLVE WHERE IT STANDS. The founder, 2026-08-14:
      "сам круг начинает двигаться вниз до того момента как достигнет цифры... и тут
      начинается магия". So the window keeps its size and its opacity through the
@@ -907,6 +1104,27 @@
     --ease-settle: linear(0 0%, 0.11 6%, 0.38 17%, 0.66 27%, 0.85 36%,
                           0.95 45%, 1.008 56%, 1.015 66%, 1.006 80%, 1 100%);
     animation-timing-function: var(--ease-leave);
+    /* AND THE STAGE DOES NOT DISSOLVE AT THE END, it simply stops being pinned.
+       The founder, 2026-08-15: "в конце давай не делать исчезновение всего
+       каскада, а просто продолжим скролл дальше". The shared component fades the
+       whole pin out over the last twelve per cent, which is right where a stage
+       hands over to a section that has to be read next; here the deck is the
+       last thing the reader was given and fading it out takes it away from them.
+       With the animation off the sticky simply releases at the foot of the
+       section and the page carries on under it. */
+    animation-name: none;
+  }
+
+  /* the strands leave with the window they are drawn around, over the same
+     stretch and on the same curve: they open outward by six per cent as the
+     window closes inward, and by the time the deck is arriving there is nothing
+     of either left to compete with it */
+  .landing .lp-orbit.lp-story.fromcircle .oribbons {
+    animation-name: orib;
+    animation-fill-mode: both;
+    animation-timing-function: var(--ease-leave);
+    animation-timeline: --story;
+    animation-range: contain 20% contain 38%;
   }
 
   .landing .lp-orbit.lp-story.fromcircle .osay { animation-timing-function: var(--ease-leave); }
@@ -1089,6 +1307,13 @@
   .landing .lp-orbit.lp-story.fromcircle .storyasides {
     grid-area: auto; grid-column: 1 / -1;
   }
+  /* AND THE EIGHT STRANDS GO, rather than being frozen. They are drawn around
+     the window by arithmetic that assumes the pin IS the screen and the window
+     is at its centre: released, the pin is as tall as its contents and the
+     window is one item in a column, so a ring sized off `--owidth` would sit
+     around nothing. A decoration whose whole subject has moved is not a
+     decoration that can be stilled; it is one that has to go. */
+  .landing .lp-orbit.lp-story.fromcircle .oribbons { display: none; }
 }
 
 @media (max-height: 42.5rem) {
@@ -1158,6 +1383,13 @@
   .landing .lp-orbit.lp-story.fromcircle .storyasides {
     grid-area: auto; grid-column: 1 / -1;
   }
+  /* AND THE EIGHT STRANDS GO, rather than being frozen. They are drawn around
+     the window by arithmetic that assumes the pin IS the screen and the window
+     is at its centre: released, the pin is as tall as its contents and the
+     window is one item in a column, so a ring sized off `--owidth` would sit
+     around nothing. A decoration whose whole subject has moved is not a
+     decoration that can be stilled; it is one that has to go. */
+  .landing .lp-orbit.lp-story.fromcircle .oribbons { display: none; }
 }
 
 /* AND THE THIRD RELEASE, WHICH IS ONE DECLARATION AND WAS ALMOST MISSED. Under
@@ -1171,6 +1403,20 @@
    the same scroll that moved nothing else. */
 @container story (max-width: 59.99rem) {
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-name: none; }
+  /* AND THE STRANDS ARE BEHIND THE POINT LIKE EVERYTHING ELSE HERE. The svg is
+     `--owidth / 0.705` wide, which is 142% of whatever the window is: above the
+     point the window is capped at 44cqw and there is room on both sides for the
+     other 42, and below it the window is the full width of its column and there
+     is none. A ring of strands that has to hang off both edges of a phone is not
+     a smaller version of this drawing, it is a different one. */
+  .landing .lp-orbit.lp-story.fromcircle .oribbons { display: none; }
+  /* and the field goes back to being a field: the pill and its price are sized
+     for a 564px aperture, and on a phone the window is 342. The price is in the
+     markup at every width and hidden here rather than generated twice, so there
+     is one source for what a chip says and the point decides how much of it
+     there is room to say. */
+  .landing .lp-orbit.lp-story.fromcircle .obands { filter: none; opacity: 1; }
+  .landing .lp-orbit.lp-story.fromcircle .oprice { display: none; }
 }
 
 /* THE CASCADE ARRIVES FROM THE TOP DOWN AND THEN ROLLS FORWARD, and it is one
@@ -1319,6 +1565,24 @@
    focus is what makes the two read as one exchange rather than as a dissolve
    between two pictures. It also drifts up 1.25rem, against the deck coming up
    1.5 - they pass each other. */
+/* THE DASH TRAVELS THE WHOLE STRAND, and `pathLength="1000"` is what lets one
+   keyframe set drive eight different circumferences: the shortest strand is 148
+   units of radius and the longest 190, so their real lengths differ by 264
+   units, and normalised they are the same clock. The pattern is 130 + 870 =
+   1000, exactly one path, so there is always exactly ONE dash on each strand and
+   never two. Most of its travel is spent on the stems, which are off the top and
+   the bottom of the screen: what the reader sees is a light arriving from above,
+   going round the window, and leaving downward. */
+@keyframes oflow {
+  from { stroke-dashoffset: 1000; }
+  to   { stroke-dashoffset: 0; }
+}
+/* and the strands open outward as they go, against a window that closes inward */
+@keyframes orib {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.06); }
+}
+
 @keyframes ovanish {
   0%   { opacity: 1; transform: scale(1) translate3d(0, 0, 0); filter: blur(0); }
   55%  { opacity: 0.45; transform: scale(0.88) translate3d(0, -0.5rem, 0); filter: blur(4px); }

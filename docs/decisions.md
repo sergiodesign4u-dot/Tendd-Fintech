@@ -7,6 +7,66 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - D-Hero: eight strands, and the aperture becomes a background
+
+The founder drew over a screenshot: lines coming down from above the frame on the right,
+looping around the window, and carrying on down below it, eight of them, in provider
+colours, with a glow and a loop. Also: the window five per cent smaller, the providers
+inside it bigger and carrying their prices, the whole field softened so it reads as a
+background, and the stage no longer dissolving at the end.
+
+**The shape is the brand's own letter, and that is why it is allowed.** D-Brand: the
+identity is Crop, one letterform larger than any frame with a window cut out of it, and a
+`d` is a stem and a bowl. Eight strands, each a stem coming down and a bowl around the
+aperture, is that letter drawn eight times at eight radii. A ring of neon around a circle
+would have been a decoration this product has no argument for; this one is the mark.
+
+**The colour is borrowed, not new.** Each strand is the fill of a mark already inside the
+window, read out of `design/visuals/logos/<name>.svg`, and the generator refuses to write
+if one has moved. D-Concept gives petrol three jobs inside a screen and D-Brand a fourth in
+the chrome; provider colour is a fifth thing that has been legal inside this aperture since
+the day it was drawn, and one ring further out is the same borrowed colour, not a palette.
+**Rejected: a single petrol strand.** It would have made the ribbon the product's own voice
+and given petrol a job it does not have.
+
+**Eight glowing objects at once is Vegas**, which is the one rule this round took whole from
+the motion-graphics craft. So the strand itself is a hairline at 0.14 opacity and what moves
+is a comet: a 42 unit head, a 62 unit middle at half and a 150 unit tail at a fifth, each
+lagging the one in front by exactly its own length. The lag is a fraction of the strand's
+own duration rather than a number of seconds, because the eight run at eight different
+speeds - 13.3 to 19.3 seconds, none of them round, for the same reason the five marquee
+bands are 47, 39, 33, 43 and 36. At one speed eight strands are a loading spinner.
+
+**The glow is two wide soft strokes and not a `drop-shadow`, and that is a measurement.**
+Eight drop-shadows are eight filter passes over an 800 x 828 box every frame: measured at
+1440 x 900 while scrolling, the page went from 8.3ms a frame to **16.7 with a p95 of 25**,
+which is 40fps on the one screen in this product that has to feel expensive. Removing them
+put it back to 8.3 exactly, level with `design/index.html`. The blur on the field costs
+nothing, because it is a static filter on a layer the marquee composites inside.
+
+**The field is a background now.** The chip was a 64px disc carrying a mark alone, sized for
+recognition at a glance; it is a pill with the item's own price beside a 40px mark, blurred
+by a hair and held at 0.62. It stops being a row of icons and becomes what the promise
+beside it describes: money going out, named and priced, drifting past. `design/index.html`
+keeps the disc, where the field stands under a headline that has to stay readable.
+
+**And the stage does not dissolve at the end**, on the founder's word: the shared component
+fades the whole pin out over the last twelve per cent, which is right where a stage hands
+over to something that has to be read next, and wrong here, where the deck is the last thing
+the reader was given. The sticky simply releases and the page carries on under it.
+
+**Two defects found in the sizing, both of the same family.** `--owidth` was written
+`min(36.1rem, 62.7svh, 100%)` and then `min(..., 44cqw)`, and a custom property is
+substituted at the point of USE: every unit inside it that depends on a box resolves against
+the reader's box, not the writer's. The window read `100%` against the swap and the svg read
+it against the pin - 440 against 502 at a 1000px window, twelve pixels of air between the
+glass and the first strand at 1440 and forty-three at 1000. `44cqw` was worse: `.storyswap`
+is itself a query container, so the window resolved it against its own 620px parent and came
+out 273 instead of 564. The variable carries only what a root can answer now, `rem` and
+`svh`, and each site writes its own box-relative cap in its own terms. Separately, an svg
+with a viewBox is a **replaced** element: given `top: 0; bottom: 0; height: auto` it does not
+stretch between them, it takes its intrinsic ratio, and 400 x 1200 at 800 wide is 2401 tall.
+
 ## 2026-08-15 - D-Hero: the clock is shaped, and `linear` was the decision nobody made
 
 The founder asked for the candidate hero to be soft on the scroll. The stage was already
