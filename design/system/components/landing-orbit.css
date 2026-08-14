@@ -396,11 +396,11 @@
      the one width band nobody had re-measured. Naming the edge you are not using
      is how you take an edge back. */
   .landing .lp-orbit.lp-story.fromcircle .ocount {
-    position: absolute; top: var(--space-16); bottom: auto; left: var(--story-gutter);
+    position: absolute; top: var(--space-48); bottom: auto; left: var(--story-gutter);
     margin: var(--space-0); text-align: left;
   }
   .landing .lp-orbit.lp-story.fromcircle .ototal {
-    position: absolute; top: var(--space-16); bottom: auto; right: var(--story-gutter);
+    position: absolute; top: var(--space-48); bottom: auto; right: var(--story-gutter);
     text-align: right;
   }
   /* left aligned on the grid, on the founder's mark: the count used to centre its
@@ -528,6 +528,13 @@
   transform: scale(var(--pscale));
   transform-origin: 50% 0;
   opacity: var(--pfade);
+  /* AND A BLUR, WHICH IS WHAT MAKES IT A DECK RATHER THAN A LIST OF FADED ROWS.
+     Scale and opacity alone leave every plate in focus, so fourteen legible rows
+     compete for the same eye and the front one wins nothing. A depth of field
+     puts one plate in focus and turns the rest into what they are: the size of
+     the problem, not fourteen things to read. Zero on the first two, then 0.42px
+     a plate. */
+  filter: blur(var(--pblur, 0));
 }
 /* a plate that has gone quiet keeps its shape and loses its lift, which is what
    says "this one is no longer costing you anything" without a colour.
@@ -559,10 +566,17 @@
    the front card carries the name and the price and nothing it cannot show the
    source of. */
 .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) {
-  padding: var(--space-24) var(--space-24);
+  /* ITS OWN `--srow-h`, and that is the fix for a mark hanging out of its card.
+     A cancelled plate is given a fixed `height: var(--srow-h)` so it can collapse
+     to nothing on its way out, and the front plate is Netflix, which is the first
+     line the stage cancels: a 52px height with a 56px mark and 24 of padding put
+     the black square through the card's top edge and out the other side. The
+     height a plate collapses FROM has to be the height it stands at. */
+  --srow-h: 6rem;
+  padding: var(--space-16) var(--space-24);
   border-radius: var(--radius);
 }
-.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) .logo { width: 56px; height: 56px; }
+.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) .logo { width: 48px; height: 48px; }
 .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) .name {
   font-size: var(--type-title); font-weight: 700; color: var(--text-primary);
 }
@@ -574,20 +588,20 @@
    lists. The front plate is at full size and full opacity; the fourteenth is at
    0.44 and 0.12, which is far enough back to read as depth and still near enough
    to read as the same object. */
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) { --pscale: 1.0; --pfade: 1.0; z-index: 19; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2) { --pscale: 0.957; --pfade: 0.928; z-index: 18; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3) { --pscale: 0.914; --pfade: 0.856; z-index: 17; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4) { --pscale: 0.871; --pfade: 0.784; z-index: 16; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5) { --pscale: 0.828; --pfade: 0.712; z-index: 15; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6) { --pscale: 0.785; --pfade: 0.64; z-index: 14; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7) { --pscale: 0.742; --pfade: 0.568; z-index: 13; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8) { --pscale: 0.699; --pfade: 0.496; z-index: 12; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9) { --pscale: 0.656; --pfade: 0.424; z-index: 11; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10) { --pscale: 0.613; --pfade: 0.352; z-index: 10; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11) { --pscale: 0.57; --pfade: 0.28; z-index: 9; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12) { --pscale: 0.527; --pfade: 0.208; z-index: 8; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13) { --pscale: 0.484; --pfade: 0.136; z-index: 7; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14) { --pscale: 0.441; --pfade: 0.12; z-index: 6; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) { --pscale: 1.0; --pfade: 1.0; --pblur: 0px; z-index: 19; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2) { --pscale: 0.957; --pfade: 0.902; --pblur: 0px; z-index: 18; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3) { --pscale: 0.914; --pfade: 0.804; --pblur: 0.42px; z-index: 17; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4) { --pscale: 0.871; --pfade: 0.706; --pblur: 0.84px; z-index: 16; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5) { --pscale: 0.828; --pfade: 0.608; --pblur: 1.26px; z-index: 15; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6) { --pscale: 0.785; --pfade: 0.51; --pblur: 1.68px; z-index: 14; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7) { --pscale: 0.742; --pfade: 0.412; --pblur: 2.1px; z-index: 13; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8) { --pscale: 0.699; --pfade: 0.314; --pblur: 2.52px; z-index: 12; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9) { --pscale: 0.656; --pfade: 0.216; --pblur: 2.94px; z-index: 11; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10) { --pscale: 0.613; --pfade: 0.118; --pblur: 3.36px; z-index: 10; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11) { --pscale: 0.57; --pfade: 0.05; --pblur: 3.78px; z-index: 9; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12) { --pscale: 0.527; --pfade: 0.05; --pblur: 4.2px; z-index: 8; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13) { --pscale: 0.484; --pfade: 0.05; --pblur: 4.2px; z-index: 7; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14) { --pscale: 0.441; --pfade: 0.05; --pblur: 4.2px; z-index: 6; margin-top: calc(-1 * var(--pbite)); }
 
 @supports (animation-timeline: view()) {
  /* AND THE WHOLE COMPOSITION IS BEHIND THE POINT, which is a structural fix and
@@ -631,9 +645,14 @@
      promise's cell to get there - it never shares a moment with the promise, so
      there was nothing keeping them in one box - and it is capped at the DECK's own
      width, which is what keeps it off the count at a 1000px window. */
+  /* AIR UNDER THE BAR. `top: 0` on this band put the heading's cap height straight
+     on the app bar's bottom edge: no gutter at all between the chrome and the
+     first word of the page, which the founder called out in one sentence. 32 for
+     the heading and 48 for the two figures beside it, so the band reads as one
+     thing set down under the bar rather than three things stuck to it. */
   .landing .lp-orbit.lp-story.fromcircle .storyhead {
     position: absolute;
-    top: var(--space-0);
+    top: var(--space-32);
     left: 50%;
     translate: -50% 0;
     width: min(var(--container-column), 44cqw);
