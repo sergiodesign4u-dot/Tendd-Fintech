@@ -66,22 +66,15 @@
    its own 40, which is the air between the composition and the bar above it. */
 .landing .lp-section.lp-orbit { padding-block: var(--space-0); }
 
-.landing .lp-orbit > .lp-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "say    say"
-    "window window"
-    "count  total";
-  gap: var(--space-32);
-  justify-items: start;
-  align-items: end;
-  padding-block: var(--space-40);
-}
-.landing .lp-orbit .osay { grid-area: say; }
-.landing .lp-orbit .orbit { grid-area: window; justify-self: center; width: min(20rem, 42svh, 100%); }
-.landing .lp-orbit .ocount { grid-area: count; }
-.landing .lp-orbit .ototal { grid-area: total; justify-self: end; text-align: right; }
+/* BELOW THE POINT THIS FILE DECLARES NO COMPOSITION AT ALL, and that is the
+   correction of 2026-08-14. It used to carry its own narrow template - `say`,
+   `window`, `count`/`total` - from when the hero was a separate section with a
+   window of its own to place. Folded into the stage, the narrow arrangement is
+   landing-story.css's four rows, and two templates fighting over one grid is not
+   a tie anybody wins: this one had the higher specificity, so the stack asked for
+   an area named `head` that this template had never heard of, went into an
+   implicit column, and pushed 298px of the promise off the side of a phone. One
+   template per grid. This file speaks only past 72rem, where the spread is. */
 
 /* The promise reads from the LEFT EDGE, at every width, which is the founder's
    correction of 2026-08-14: the first cut of this hero carried `.lp-hero` in its
@@ -97,7 +90,7 @@
    and were painted over by it: two sentences half-eaten by a circle. The
    headline is the only thing here allowed past the column, and this is what
    keeps everything else inside it. */
-.landing .lp-orbit .osay { width: 100%; max-width: var(--container-text); text-align: left; }
+.landing .lp-orbit.lp-story.fromcircle .osay { width: 100%; max-width: var(--container-text); text-align: left; }
 .landing .lp-orbit .lp-h1 { margin-top: var(--space-8); }
 
 /* TWO LINES, AND THE HEADLINE IS ALLOWED PAST ITS COLUMN TO GET THEM. 17ch of
@@ -131,7 +124,7 @@
    paragraph and the reassurance line reach it too, and the window's own paper is
    opaque: "recurring cha", "what is going", "we cann" - three sentences eaten by
    a white circle. One rule on the block instead of one on the headline. */
-.landing .lp-orbit .osay { position: relative; z-index: 1; }
+.landing .lp-orbit.lp-story.fromcircle .osay { position: relative; z-index: 1; }
 
 /* ---- the two corner figures, and they have TWO HOSTS ----------------------
    They are the same two numbers the first hero puts under its headline, moved
@@ -226,8 +219,8 @@
    the side where nothing is written. The stage below keeps the centred mask: it
    has no headline over it. */
 .landing .lp-orbit .obands {
-  mask-image: radial-gradient(circle at 70% 50%, #000 34%, transparent 84%);
-  -webkit-mask-image: radial-gradient(circle at 70% 50%, #000 34%, transparent 84%);
+  mask-image: radial-gradient(circle at 76% 50%, #000 28%, transparent 74%);
+  -webkit-mask-image: radial-gradient(circle at 76% 50%, #000 28%, transparent 74%);
 }
 
 /* ---- the five bands -------------------------------------------------------
@@ -324,7 +317,7 @@
      `translate` and not `transform`, because the hand-off animates `transform:
      scale()` on this same element and the two would overwrite each other. Two
      properties, two jobs, no conflict. */
-  .landing .lp-orbit > .lp-wrap {
+  .landing .lp-orbit.lp-story.fromcircle .storypin {
     position: relative;
     grid-template-columns: minmax(20rem, 1.35fr) 30rem minmax(9rem, 0.5fr);
     grid-template-rows: minmax(0, 1fr) auto;
@@ -350,16 +343,22 @@
      is 496 tall and the two corner figures 109, so 32 of air between them leaves
      the window 468, which 52svh is. At 62 the corners fell off the bottom of a
      900 window, which is where this number came from. */
-  .landing .lp-orbit .orbit {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    translate: -50% -50%;
-    z-index: 0;
-    width: min(30rem, 52svh);
+  /* EVERY ITEM IS RE-PLACED, not just the template. The narrow arrangement names
+     four areas - head, swap, cards, count and total - and this one names three.
+     An item still asking for `head` in a template that has no `head` is placed
+     in an IMPLICIT track, which is how a three-column grid came out with five
+     columns and four rows and the promise ended up in the bottom right corner.
+     Changing a template means changing everything that reads it. */
+  .landing .lp-orbit.lp-story.fromcircle .saystack { grid-area: say; align-self: center; }
+  .landing .lp-orbit.lp-story.fromcircle .storyswap { grid-area: auto; }
+  .landing .lp-orbit.lp-story.fromcircle .storyasides { display: contents; }
+  .landing .lp-orbit.lp-story.fromcircle .ocount {
+    grid-area: count; position: static; align-self: end; justify-self: start;
   }
-  .landing .lp-orbit .ocount { align-self: end; justify-self: start; }
-  .landing .lp-orbit .ototal { align-self: end; justify-self: end; text-align: right; }
+  .landing .lp-orbit.lp-story.fromcircle .ototal {
+    grid-area: total; position: static; align-self: end; justify-self: end; text-align: right;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .scard { position: absolute; }
 }
 
 /* ==========================================================================
@@ -375,21 +374,6 @@
    moment on a phone and on a desktop, because the hero is a different height on
    each, and that mistake has been made twice on this page already.
    ========================================================================== */
-.landing .lp-orbit { view-timeline-name: --whero; }
-
-@supports (animation-timeline: view()) {
-  .landing .lp-orbit .orbit {
-    animation-name: oclose;
-    animation-fill-mode: both;
-    animation-timing-function: linear;
-    animation-timeline: --whero;
-    animation-range: exit 0% exit 92%;
-  }
-}
-
-@keyframes oclose {
-  to { transform: scale(0.72); opacity: 0; }
-}
 
 /* ==========================================================================
    NO MOTION
@@ -400,6 +384,103 @@
    needs a line of its own: collapsed, it would land on its last keyframe and the
    window would simply be gone.
    ========================================================================== */
+/* ============================================================================
+   ONE SCENE, AND THE SECOND ONE IS DELETED
+   The founder, 2026-08-14: "Не делай дубликат... вот отсюдова мы скролим и
+   меняем двигаем объекты". The page had a hero with a window and two corner
+   figures, and then a stage below it with the SAME window and the SAME two
+   figures. Two of everything, and a section boundary between them doing nothing
+   but repeating.
+
+   So there is one section now. The scroll starts on the hero, the hero is the
+   stage, and everything in it moves in place: the promise gives way to the
+   section's own heading, the window contracts into the list, the two corner
+   figures count down where they already are, and the three reasons arrive beside
+   the list. Nothing is drawn twice and nothing is handed from one block to
+   another.
+
+   The machinery is landing-story.css's, because the section carries `.lp-story
+   .fromcircle` as well: the timeline, the pin, the list, the cancellations, the
+   figures' stacks and the reason cards are all its. What is here is the hero's
+   own composition and the four beats that belong to it.
+   ============================================================================ */
+
+/* the promise and the section's heading stand in ONE cell and trade places; out
+   of the stage they are simply two blocks, one after the other, which is the
+   readable order for a browser with no scroll timeline */
+.landing .lp-orbit.lp-story.fromcircle .saystack { display: grid; gap: var(--space-24); }
+
+@supports (animation-timeline: view()) {
+  .landing .lp-orbit.lp-story.fromcircle .saystack {
+    grid-template-areas: "one";
+    gap: var(--space-0);
+    position: relative;
+    z-index: 1;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .saystack > * { grid-area: one; align-self: start; }
+
+  .landing .lp-orbit.lp-story.fromcircle .osay,
+  .landing .lp-orbit.lp-story.fromcircle .storyhead {
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-timeline: --story;
+  }
+  /* the promise leaves first, the heading takes its place, and the heading is
+     gone again before the list has finished rising into the middle of the stage:
+     nothing is ever both on screen and in the list's way */
+  .landing .lp-orbit.lp-story.fromcircle .osay { animation-name: sout; animation-range: contain 8% contain 15%; }
+  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: shand; animation-range: contain 8% contain 34%; }
+
+  /* THE SWAP IS A FIXED BOX ON THE CENTRE LINE, not a grid track. It holds the
+     window and the list one on top of the other, both centred on the page, and
+     it needs a definite height for two reasons: `container-type: size` (which is
+     how the list works out its own travel) does not size a box to its contents,
+     and a box that grows as the list arrives would move the window while the
+     window is still dissolving. */
+  /* `minmax(0, 1fr)` ON THE TRACK, and it is the difference between a 620 list
+     and a 310 one. An `auto` track sizes to its children's max-content, and a
+     child asking for `width: 100%` of an auto track gets the track's content
+     width back: the list came out 310 wide inside a 620 box and the window with
+     it. The track has to be told to fill the box before anything in it can. */
+  /* NOT A GRID HERE, AND THAT IS A RETREAT WORTH WRITING DOWN. The swap stacks
+     its two children in one cell, and one cell is easy to say in grid until two
+     templates disagree about how many columns there are: the list came out 18px
+     wide, which is its padding and its borders and nothing else, because it was
+     sizing itself against a 0px implicit track. Two absolutely placed children
+     in a relative box cannot have that argument. `left: 0; right: 0` with an
+     explicit width and `margin-inline: auto` centres horizontally; `top: 50%`
+     with a translate centres vertically; and neither one depends on the other. */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    width: min(var(--container-column), 92cqw);
+    height: min(38rem, 70svh);
+  }
+  /* bigger, on the founder's mark: 38rem and 66svh, from 30 and 52 */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > * {
+    position: absolute;
+    left: var(--space-0);
+    right: var(--space-0);
+    top: 50%;
+    translate: 0 -50%;
+    margin-inline: auto;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { width: min(38rem, 66svh, 100%); }
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-range: contain 10% contain 32%; }
+  .landing .lp-orbit.lp-story.fromcircle .storylist {
+    width: 100%;
+    max-height: 100%;
+    animation-range: contain 18% contain 88%;
+    --scardslot: 0rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .landing .lp-orbit .orbit { animation-name: none; }
+  .landing .lp-orbit.lp-story.fromcircle .osay,
+  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: none; }
+  .landing .lp-orbit.lp-story.fromcircle .saystack { grid-template-areas: none; gap: var(--space-24); }
+  .landing .lp-orbit.lp-story.fromcircle .storyswap { position: static; translate: none; width: 100%; height: auto; }
 }

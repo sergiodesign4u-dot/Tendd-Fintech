@@ -536,17 +536,26 @@
      the slot is zero. */
   .landing .lp-story.fromcircle .storypin {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    /* THREE ROWS AND NOT FOUR. A row of its own for the reason card cost the
+       list 150px it does not have on a phone once the promise is in the head
+       row: at 360 x 740 the two figures were pushed off the bottom of the stage
+       altogether. The card lies across the foot of the list instead, which is
+       where it was before the promise moved in, and `--scardslot` is the room
+       the list travels to keep clear of it. */
+    grid-template-rows: auto minmax(0, 1fr) auto;
     grid-template-areas:
       "head  head"
       "swap  swap"
-      "cards cards"
       "count total";
   }
   .landing .lp-story.fromcircle .storyhead { grid-area: head; }
+  /* on the candidate the head row holds the promise and the heading, which
+     trade places; landing-orbit.css stacks them, this puts the stack in the row */
+  .landing .lp-story.fromcircle .saystack { grid-area: head; }
   .landing .lp-story.fromcircle .storyswap { grid-area: swap; }
   .landing .lp-story.fromcircle .storyasides {
-    grid-area: cards; display: grid; grid-template-areas: "one"; width: 100%;
+    grid-area: swap; align-self: end; z-index: 1;
+    display: grid; grid-template-areas: "one"; width: 100%;
   }
   /* `transform: none` is the third of the three. The shared rule centres the
      card with `left: 50%` and `translateX(-50%)`, and a transform applies to a
@@ -559,7 +568,7 @@
   }
   .landing .lp-story.fromcircle .ocount { grid-area: count; justify-self: start; }
   .landing .lp-story.fromcircle .ototal { grid-area: total; justify-self: end; text-align: right; }
-  .landing .lp-story.fromcircle .storylist { --scardslot: 0rem; }
+  .landing .lp-story.fromcircle .storylist { --scardslot: 11rem; }
 
   @container (min-width: 80rem) {
     .landing .lp-story.fromcircle .storypin {
@@ -587,6 +596,28 @@
      with no scroll timeline gets. Measured: the threshold is between 640, which
      fails, and 780, which works, so it is set at 680. */
   @media (max-height: 42.5rem) {
+    .landing .lp-story.fromcircle { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
+    .landing .lp-story.fromcircle .storypin { position: static; height: auto; }
+    .landing .lp-story.fromcircle .storyswap { overflow: visible; container-type: normal; }
+    .landing .lp-story.fromcircle .storyswap > .orbit,
+    .landing .lp-story.fromcircle .storylist,
+    .landing .lp-story.fromcircle .storystack > *:nth-child(n),
+    .landing .lp-story.fromcircle .sline.cut,
+    .landing .lp-story.fromcircle .sline.cut .swap > .live,
+    .landing .lp-story.fromcircle .sline.cut .swap > .gone,
+    .landing .lp-story.fromcircle .scard:nth-child(n) { animation-name: none; }
+    .landing .lp-story.fromcircle .storystack > * + * { opacity: 0; }
+    .landing .lp-story.fromcircle .sline.cut .swap > .gone { opacity: 0; }
+    .landing .lp-story.fromcircle .scard { opacity: 1; }
+  }
+  /* AND THE SAME BELOW THE SPREAD. Once the promise moved into the stage it
+     takes the whole head row, and on a phone that leaves the list and the two
+     figures fighting over what is left: at 360 x 740 the figures were pushed off
+     the bottom of the stage. The choreography is a wide-screen affordance. Under
+     72rem the section is a column - the promise, the window, the list, the
+     reasons, the two figures - which is the same picture a browser with no
+     scroll timeline gets, and every word of it is readable. */
+  @container (max-width: 71.99rem) {
     .landing .lp-story.fromcircle { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
     .landing .lp-story.fromcircle .storypin { position: static; height: auto; }
     .landing .lp-story.fromcircle .storyswap { overflow: visible; container-type: normal; }
