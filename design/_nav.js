@@ -14,7 +14,14 @@
 
 (function () {
   var SCREENS = [
+    /* Connect Bank, added 2026-08-14, the first flow of the ROLLOUT. It stands at
+       the head of the list because the list runs by node number where a flow
+       allows it, and 1.3 is the earliest node in colour: the sample of stage 07
+       began at Guided Reveal because everything before it was still grey. */
+    { name: 'Path Choice', base: 'path-choice.html', states: [] },
+    { name: 'Connect Bank', base: 'connect-bank.html', states: ['loading', 'error', 'empty', 'cancelled'] },
     { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['empty'] },
+    { name: 'Sign In', base: 'sign-in.html', states: ['sent', 'expired'] },
     { name: 'Home', base: 'home.html', states: ['empty', 'error', 'loading', 'savefocus'] },
     { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['unrecognized', 'price-change', 'payment-failed', 'error', 'loading'] },
     /* Alerts, added 2026-08-13 at stage 09 step 5, the self-sufficiency test of
@@ -24,8 +31,12 @@
        after 2.7. Nothing was added to design/system/ to build it. */
     { name: 'Alerts', base: 'alerts.html', states: ['empty', 'error', 'loading'] },
     { name: 'Add a Subscription', base: 'add-subscription.html', states: ['empty', 'error', 'loading'] },
+    { name: 'Cancel Guide', base: 'cancel-guide.html', states: ['no-guide', 'blocked'] },
+    { name: 'Share Snapshot', base: 'share-snapshot.html', states: ['loading', 'error'] },
     { name: 'History and Trends', base: 'history-trends.html', states: ['locked', 'empty', 'error', 'loading'] },
     { name: 'Upgrade to Pro', base: 'upgrade.html', states: ['current-plan', 'processing', 'payment-failed'] },
+    { name: 'Connections', base: 'connections.html', states: ['empty', 'reconnect', 'add-source'] },
+    { name: 'Data and Privacy', base: 'data-privacy.html', states: ['delete-confirm'] },
     { name: 'Settings', base: 'settings.html', states: ['no-account'] }
   ];
 

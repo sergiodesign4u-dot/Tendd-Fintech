@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data and Privacy - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- THE THEME BEFORE THE FIRST PAINT. Three lines, inline, above the stylesheet
+     on purpose: a switch that runs on DOMContentLoaded leaves one frame of white
+     on every load in the dark theme, and a flash is the most visible thing a dark
+     theme can get wrong. design/_nav.js draws the control and owns the same key. -->
+<script>(function(){try{if(localStorage.getItem('tendd-screen-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+<body>
+
+<!--
+  Data and Privacy, node 6.15. The screen E3 lives on, and the one that says what we do
+  in falsifiable sentences rather than in a policy. .intro folds to .muted.lead, added to the
+  renaming map today with its arithmetic.
+
+  Assembled from system classes. This page carries no style of its own: no page-level style
+  block, no style attribute, no class design/system/ does not define. Structure and copy are a
+  verbatim copy of the grey twin; class names come from the renaming map in
+  design/kit/docs/inventory.md and from nowhere else.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<div class="app">
+
+  <header class="appbar">
+    <a class="back" href="settings.html">You</a>
+    <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+  </header>
+
+  <main class="screen">
+   <div class="rows-col">
+
+    <div class="textblock">
+      <h1>Data and privacy</h1>
+      <p>Exactly what Tendd reads, and how to remove it whenever you want.</p>
+    </div>
+
+    <!-- The fear stated first, then denied with specifics. Vague "bank-level
+         security" language is precisely what scares this person; a specific,
+         falsifiable claim is what earns the trust. -->
+    <section aria-label="The plain answer">
+      <p class="muted lead">Worried what an app does with your bank data? Here is exactly what we do.</p>
+      <ul class="promises">
+        <li><strong>We read your recurring charges</strong>Read-only, and nothing else you do with your money.</li>
+        <li><strong>We can never move your money</strong>The connection has no permission to, and we never ask for one.</li>
+        <li><strong>We do not sell your data</strong>Not to advertisers, not to anyone, on any plan.</li>
+      </ul>
+    </section>
+
+    <section class="group" aria-label="What each source can reach">
+      <div class="group-head"><h2>What each source can reach</h2></div>
+      <dl class="pairs">
+        <div><dt>Bank connection</dt><dd>read-only transaction history, through Plaid</dd></div>
+        <div><dt>Added by you</dt><dd>only what you type</dd></div>
+      </dl>
+      <!-- `.quiet` and not `.actions` alone, corrected 2026-08-14 during the rollout.
+           `.actions` declares its children are buttons, and this exit link is not one:
+           left bare it was the ONE anchor in 53 coloured screens that no rule in
+           design/system/ reached, so it rendered rgb(0, 0, 238), the browser's default
+           blue, in BOTH themes. quiet-line.css already owns exactly this object: body
+           ink at rest, a hairline underline, petrol only under the pointer, because
+           petrol at rest is the primary action, the current selection and the trust
+           line, and an exit link is none of those. The element and the copy do not
+           move; one declared class does. -->
+      <nav class="actions quiet" aria-label="More">
+        <a href="connections.html">Your sources</a>
+      </nav>
+    </section>
+
+    <!-- Two real toggles and no theatre. There is no advertising switch and no
+         personalisation switch, because we do neither, and offering a control
+         with only one legal position implies we could. -->
+    <section class="group" aria-label="Controls">
+      <div class="group-head"><h2>Controls</h2></div>
+      <label class="switch">
+        <input class="check" type="checkbox" checked>
+        <span><span class="t">Refresh my bank data automatically</span><span class="h">Read-only. Keeps your list current without you asking.</span></span>
+      </label>
+      <label class="switch">
+        <input class="check" type="checkbox">
+        <span><span class="t">Use my activity to improve Tendd</span><span class="h">Off by default. We never sell your data either way.</span></span>
+      </label>
+    </section>
+
+    <!-- A plain, complete export of what we hold about you is a right, not a
+         feature, so it is free and it lives here. The analytical export of
+         history and trends is a different thing and it is Pro. -->
+    <section class="group" aria-label="Your data">
+      <div class="group-head"><h2>Your data</h2></div>
+      <p class="muted lead">Download everything Tendd holds for you. This is your right and it is free. Exporting your spend history as a spreadsheet is a separate Tendd Pro feature, on Your trends.</p>
+      <div class="actions">
+        <button type="button" class="btn">Download my data</button>
+      </div>
+
+      <p class="muted lead spaced">Deleting removes your subscriptions, your sources and your account. It cannot be undone.</p>
+      <div class="actions">
+        <a class="btn" href="data-privacy-delete-confirm.html">Delete everything</a>
+      </div>
+    </section>
+
+    <p class="muted ruled">The full privacy policy is at <a href="#">tendd.com/privacy</a>.</p>
+
+   </div>
+  </main>
+
+  <nav class="tabbar" aria-label="Global navigation">
+    <a href="home.html"><span class="ic ic-home"></span>Home</a>
+    <a href="alerts.html"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
+    <a href="home-savefocus.html"><span class="ic ic-save"></span>Save</a>
+    <a class="cur" href="settings.html" aria-current="page"><span class="ic ic-you"></span>You</a>
+  </nav>
+
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

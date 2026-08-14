@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connections, a source needs attention - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- THE THEME BEFORE THE FIRST PAINT. Three lines, inline, above the stylesheet
+     on purpose: a switch that runs on DOMContentLoaded leaves one frame of white
+     on every load in the dark theme, and a flash is the most visible thing a dark
+     theme can get wrong. design/_nav.js draws the control and owns the same key. -->
+<script>(function(){try{if(localStorage.getItem('tendd-screen-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+<body>
+
+<!--
+  Source needs attention, node 6.14.2. A bank connection expiring is normal and
+  is said so: calm amber, never red, which is D-Concept at the one place it costs something.
+
+  Assembled from system classes. This page carries no style of its own: no page-level style
+  block, no style attribute, no class design/system/ does not define. Structure and copy are a
+  verbatim copy of the grey twin; class names come from the renaming map in
+  design/kit/docs/inventory.md and from nowhere else.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<div class="app">
+
+  <header class="appbar">
+    <a class="back" href="settings.html">You</a>
+    <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+  </header>
+
+  <main class="screen">
+   <div class="rows-col">
+
+    <div class="textblock">
+      <h1>Your sources</h1>
+      <p>Where Tendd gets the list of what you pay for. You are always in control of these. Read-only. Tendd cannot move your money.</p>
+    </div>
+
+    <!-- Bank connections expire by design. The category treats that as an error;
+         here it is maintenance, in the same calm register, and the screen says
+         why before it asks for anything. A person's first reading of
+         "reconnect" is that something happened to their money. -->
+    <section class="wash" role="status" aria-label="A source needs attention">
+      <p>Chase needs to reconnect. Banks ask for this now and then to keep your connection secure. Your last update is still below, and nothing about your money has changed.</p>
+    </section>
+
+    <section class="card" aria-label="Chase, needs to reconnect">
+      <div class="top">
+        <span class="logo"></span>
+        <span>
+          <h2>Chase</h2>
+          <span class="kind">Bank connection through Plaid</span>
+        </span>
+        <span class="chip">Reconnect needed</span>
+      </div>
+      <!-- The figures stay visible and dated. A stale connection does not reduce
+           the count: these 11 were found and they are still yours. -->
+      <dl class="pairs">
+        <div><dt>Last checked</dt><dd>Jul 29, 8:02 AM</dd></div>
+        <div><dt>Accounts included</dt><dd>Checking</dd></div>
+        <div><dt>Tracking from here</dt><dd>11 subscriptions</dd></div>
+        <div><dt>Access</dt><dd>Read-only. Tendd cannot move your money.</dd></div>
+      </dl>
+      <p class="muted">Until it reconnects, your list is the one from Jul 29. New charges and price changes will not appear.</p>
+      <div class="actions">
+        <a class="btn primary" href="connect-bank-loading.html">Reconnect Chase</a>
+        <a class="btn" href="connections-empty.html">Disconnect Chase</a>
+      </div>
+    </section>
+
+    <section class="card" aria-label="Added by you, a private source">
+      <div class="top">
+        <span class="logo"></span>
+        <span>
+          <h2>Added by you</h2>
+          <span class="kind">Private, entered by hand</span>
+        </span>
+        <span class="chip">Private</span>
+      </div>
+      <dl class="pairs">
+        <div><dt>Last updated</dt><dd>by you, Jul 30</dd></div>
+        <div><dt>Tracking here</dt><dd>3 subscriptions</dd></div>
+        <div><dt>Access</dt><dd>Only what you type. Nothing is read from anywhere.</dd></div>
+      </dl>
+      <div class="actions">
+        <a class="btn" href="add-subscription.html">Add a subscription</a>
+      </div>
+    </section>
+
+    <p class="muted ruled">US banks connect through Plaid. More regions soon. <a href="data-privacy.html">What we read</a></p>
+
+   </div>
+  </main>
+
+  <nav class="tabbar" aria-label="Global navigation">
+    <a href="home.html"><span class="ic ic-home"></span>Home</a>
+    <a href="alerts.html"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
+    <a href="home-savefocus.html"><span class="ic ic-save"></span>Save</a>
+    <a class="cur" href="settings.html" aria-current="page"><span class="ic ic-you"></span>You</a>
+  </nav>
+
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

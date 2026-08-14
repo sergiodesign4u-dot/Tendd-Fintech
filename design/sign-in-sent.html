@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home, nothing tracked yet - Tendd in colour</title>
+<title>Sign In, check your email - Tendd in colour</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -20,12 +20,13 @@
 <body>
 
 <!--
-  Home / Subscription List, node 2.6, the empty state: nothing tracked yet.
-  Assembled from system classes. This page carries no style of its own: no page-level
-  style block, no style attribute, no class that design/system/ does not define.
-  Structure and copy are a verbatim copy of wireframes/home-empty.html. The
-  colour layer owns the visual only.
-  Links to screens that are not coloured yet point back into wireframes/.
+  Check your email, node 1.6.1. The wait between the ask and the link, and it says
+  what to do if the mail does not arrive rather than leaving a person staring at a screen.
+
+  Assembled from system classes. This page carries no style of its own: no page-level style
+  block, no style attribute, no class design/system/ does not define. Structure and copy are a
+  verbatim copy of the grey twin; class names come from the renaming map in
+  design/kit/docs/inventory.md and from nowhere else.
 -->
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
@@ -42,49 +43,41 @@
 <div class="layout">
 <div class="stage stage-app">
 
-<div class="app">
+<div class="app flow">
 
   <header class="appbar">
+    <a class="back" href="sign-in.html">Back</a>
     <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
-    <a class="acct" href="settings.html" aria-label="Hi Emma, open your account">Hi, Emma</a>
   </header>
+
   <main class="screen">
 
-    <div class="head">
-      <section class="summary">
-        <h1>Nothing to add up yet</h1>
-        <p class="muted">Connect your bank or add a subscription, and your monthly total appears here as the biggest thing on screen.</p>
-      </section>
+    <!-- Node 1.6.1. The address is stated back, because the commonest failure
+         here is a typo the person cannot see any more once the field is gone. -->
+    <div class="textblock status" role="status" aria-live="polite">
+      <h1>Check your email</h1>
+      <p>A link is on its way to <strong>emma@example.com</strong>. Tap it and you are back in your list.</p>
     </div>
 
-    <!-- Both doors, in the words of node 1.2. Neither is the recommended one (D2). -->
-    <section class="empty">
-      <h2>Two ways to start</h2>
-      <p>See everything you pay for in one calm place. Pick the one that feels right; you can change it later.</p>
-      <div class="grid roomy">
-        <a class="door" href="connect-bank.html">
-          <h3>Connect your bank</h3>
-          <p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p>
-        </a>
-        <a class="door" href="add-subscription.html">
-          <h3>Add a subscription</h3>
-          <p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p>
-        </a>
-      </div>
-    </section>
+    <dl class="pairs sentences">
+      <div><dt>If it has not arrived</dt><dd>Give it a minute, and look in your spam folder</dd></div>
+      <div><dt>If the address is wrong</dt><dd>Go back and type it again. Nothing was sent anywhere else</dd></div>
+    </dl>
+
+    <!-- Resending is available and not loud: the action a person needs is in
+         their inbox, and a bright button here competes with it. -->
+    <div class="actions">
+      <a class="btn" href="sign-in-sent.html">Send another link</a>
+    </div>
+
+    <p class="quiet"><a href="sign-in.html">Use a different email</a></p>
 
   </main>
-  <nav class="tabbar" aria-label="Global navigation">
-    <a class="cur" href="home.html" aria-current="page"><span class="ic ic-home"></span>Home</a>
-    <a href="alerts.html"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
-    <a href="home-savefocus.html"><span class="ic ic-save"></span>Save</a>
-    <a href="settings.html"><span class="ic ic-you"></span>You</a>
-  </nav>
+
 </div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->
-
 <script>
 (function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
 </script>

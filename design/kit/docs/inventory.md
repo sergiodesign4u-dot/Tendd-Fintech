@@ -254,6 +254,7 @@ nobody can reconstruct what `.decoder` was folded into.
 | `.consequence` | `.muted` (12.5px) | 11 | 21 |
 | `.context`, `.tone` | `.muted` (13px) | 9 | 10 |
 | `.legal` | `.muted.ruled` (12px) | 0 | 7 |
+| `.intro` | `.muted.lead` (14px) | 0 | 1 | **Added at the rollout, 2026-08-14, and it is a fold rather than a choice.** `_wf.css:558` gives it `font-size: 14px; margin: 0 0 14px; color: mid`, which is the muted line at `--type-body` with its air UNDERNEATH, and that is exactly what `.muted.lead` is (`muted-line.css:191`, `margin: 0 0 --space-16`). 14 to 16 is the 8px grid, the same rounding every other fold took at step 4. One page, `data-privacy` |
 | `.freshness` | `.muted` (12px) | 0 | 2 |
 | `.removal` | `.muted` (13px, 52ch) | 5 | 8 |
 | `.pitch` | `.muted` (13px) | 1 | 1 |

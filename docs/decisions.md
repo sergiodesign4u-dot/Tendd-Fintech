@@ -7,6 +7,65 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-14 - The rollout: 21 screens in colour, and what it found that the sample could not
+
+**The count first, because it was wrong before it was right.** 55 grey product screens against 32
+coloured, so 23 were missing and not the 16 anybody would have said: the four Alerts screens were
+coloured at stage 09 and every count in the repository still said 28. Twenty-one of the 23 are
+built here in six flows (Connect bank 5, Connections 4, Cancel guide 3, Sign in 3, Share snapshot
+3, Data privacy 2, Path choice 1). Two are left and both are decisions rather than assembly.
+
+**The recipe was read, not invented.** Three accepted pairs (settings, add-subscription,
+home-loading) were diffed line by line, and the diff is the whole recipe: same structure, same
+order, same copy, a different head and shell, and class names from the renaming map in
+`design/kit/docs/inventory.md`. It runs as a script rather than by hand, so screen twenty-one is
+built exactly the way screen one was; a hand edit does not survive the next clone.
+
+**Measured on the built result, not on the intent.** Zero classes that `design/system/` does not
+define, on all 21. Zero style blocks and zero style attributes. Zero horizontal overflow at 360,
+900 and 1280. Zero contrast failures in the dark theme, where none of these screens had ever been
+seen. 411 links in `design/`, none broken, and 32 cross-links into `wireframes/` closed because
+their target is now coloured.
+
+**Three defects, and the third is the one worth keeping.**
+
+1. *The doubled chevron.* `app-bar.css` draws the chevron on `.back`; the grey also types one. The
+   grey has 37 of them under **seven different labels**, not just "Back", so a first pass that
+   matched the label left `< < You` on nine pages. Matched on the class instead.
+2. *The placeholder string.* Four `[logo]` slots rendered the grey's literal text. No accepted page
+   does, and `logo.css` states the rule at its own base rule: the mark is the content, and the
+   answer to an empty slot is to draw one, never to shrink type until the words fit.
+3. *A link the design system never reached.* On `data-privacy` a bare `<a>` inside `.actions`
+   rendered **`rgb(0, 0, 238)`, the browser's default blue, in BOTH themes** - the single most
+   out-of-language colour possible in a product built on one petrol accent. Swept: it was the only
+   one on all 53 coloured screens. `quiet-line.css` already owns exactly this object, so the fix is
+   one declared class on the existing `nav` and the element and copy do not move. `.actions`
+   declares its children are buttons; an exit link is not one.
+
+**One row added to the renaming map:** `.intro` to `.muted.lead`, and it is a fold rather than a
+choice. `_wf.css:558` gives `.intro` 14px with its margin underneath, which is what `.muted.lead`
+is; 14 to 16 is the 8px grid, the same rounding every other fold took at step 4.
+
+**What is left open, and why it was not guessed.**
+
+- **`cancel-win` runs into the One Number Rule.** Its figure is 40px in the grey. The scale has no
+  40, and the fold table already decided this exact case once: 40 goes to 32 (`--type-figure`)
+  because 46 is reserved for the monthly total, which is how the share card's total was settled.
+  So the SIZE is known. What is not is whose it is: `.amt` is already sized by two hosts
+  (`.plan-opt`, `.hero`), a third is what `backlog.md` calls an undeclared variant, and the
+  declared alternative is the size axis that same row says is owed and unbuilt. One screen, one
+  rule, and it is the product's most important emotional beat, so it is the founder's.
+- **Two marks the set does not have.** `icons.html` counts ten drawn marks and one character, and
+  none of them is a bank or "entered by hand". The two logo slots on Connections stand empty. The
+  set was complete for a seven screen sample and is not complete for the product, which is exactly
+  the kind of hole only a rollout can find.
+- **The landing, `index.html`,** by the founder's call: it is 57 classes of which 39 are its own
+  `lp-*` vocabulary, so it is a design pass rather than a translation.
+
+**The counts in this repository now say 32 and the corpus is 53.** Not corrected here on purpose:
+the number moves again when those two land, and a claim recounted twice in two days is a claim
+nobody trusts. It is the closing task of the stage, by script, on the whole corpus at once.
+
 ## 2026-08-13 - The type scale goes to rem, because the width points already had
 
 **The question, from the founder: why is the type in px, and should it be rem.** Answered by
@@ -36,8 +95,10 @@ in this project was touching.
 exact and none rounds: 46/32/24/20/16/14/12/10 are 2.875/2/1.5/1.25/1/0.875/0.75/0.625rem. The
 root font-size is set nowhere in this system, so at the browser default every step is the number
 it always was. Proved by DOM fingerprint - box, font-size, line-height and weight of every element
-under `.app` and `.landing` - across the 28 coloured screens and the landing at 390, 760, 1280 and
-1600, the px scale against the rem one: identical, not one record different.
+under `.app` and `.landing` - across all 32 coloured screens at 390, 760, 1280 and 1600, the px scale against
+the rem one: identical, not one record different. **Recounted 2026-08-14:** the first pass read
+7 660 off a page list of 28 that predated the four Alerts screens of stage 09 and named a
+`design/index.html` that does not exist. The finding held; the corpus had grown under it.
 
 **What stays px, and it is not an oversight.** Spacing, radii, the 220px rail and the 300px column
 floor are **geometry, not text**, and the same distinction that denies the width block a dark pair
@@ -65,12 +126,14 @@ because white-space is that file's property and a host reaching in to change it 
 `plan-option.css` names twice in its own header. It is the only button in the product whose label
 is a sentence carrying a price and a period rather than a verb and its object.
 
-**What is left open, named rather than shrugged at.** Swept live after the change: 609 renders, 29
-pages by 7 widths from 320 to 1600 by 3 root sizes (16, 20, 24). **Everything at 360 and above is
-clean at every root size.** One corner is not: at a **320px viewport with a 24px root**, two things
-still cross the edge, `.btn.primary` "Try another payment method" on `upgrade-payment-failed` (329px
-in a 288px zone) and the app bar's plan `.chip` on the five History and Trends screens, pushed out
-25 to 32px by a brand lockup that grew with the text beside it. Not fixed here **on purpose**: the
+**What is left open, named rather than shrugged at.** Swept live after the change and recounted on 2026-08-14 against the
+true corpus: **672 renders, 32 pages by 7 widths from 320 to 1600 by 3 root sizes (16, 20, 24)**.
+**Everything at 360 and above is clean at every root size.** One corner is not: at a **320px
+viewport with a 24px root**, eight rows cross the edge and they are three things: `.btn.primary`
+"Try another payment method" on `upgrade-payment-failed` (329px in a 288px zone), the app bar's plan
+`.chip` on the five History and Trends screens (pushed out 25 to 32px by a brand lockup that grew
+with the text beside it), and a `.btn` on `alerts` and `alerts-empty` by 7px, which the first sweep
+could not see because its page list predated those screens. Not fixed here **on purpose**: the
 general answer is whether `white-space: nowrap` on `.btn` can survive a text size the product no
 longer controls, and that rule came from a founder finding on the etalon page, so reversing it is
 not a builder's call. The two honest answers are an exception per host as each appears (two so
