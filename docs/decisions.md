@@ -85,6 +85,53 @@ string rendered from a stylesheet is a line of product copy the voice inventory 
 all fourteen rows are live at $192.90, which is exactly the state a browser without
 scroll-driven animation is given, and the state `prefers-reduced-motion` is given.
 
+### Amended the same day: one stage, not two blocks
+
+**The founder saw it and said "все это смотрится очень плоско".** The diagnosis was
+structural rather than decorative, and it is worth writing down because it is the reason
+this entry exists twice. Two blocks a screen apart said one thing in two places. Between
+them the reader was given a CUT: the field ended, a section boundary passed, a list began.
+No amount of easing makes a cut feel like a transformation, because the two shapes are
+never on screen at the same time and the reader is never shown the second being made out
+of the first. What was needed was a SHOT: one stage that holds still while the content
+inside it changes.
+
+**What replaced them.** `landing-story.css`, one organism, and both of the others were
+retired the same hour along with their kit pages, their registry rows, their inventory
+lines and their imports. The section is tall, a stage inside it pins under the bar, and
+the `contain` phase of its view timeline is exactly the part of the scroll where the pin
+is stuck. In that phase: the field drifts, gathers to the middle and fades as the list
+rises into the same place; three lines are cancelled one at a time; the total steps down
+at each; and each of the three benefit cards this section always carried arrives beside
+the list just before the cancellation it explains. Nothing was invented to fill it: the
+head is the four lines that used to sit in the hero's panel plus the heading and paragraph
+this section always had, and the cards are its own copy.
+
+**The hero lost its second column in the same decision**, which is the half that is easy
+to miss. It is now the promise alone, centred: eyebrow, headline, paragraph, two actions,
+reassurance. The proof did not disappear, it moved somewhere it has room to happen.
+
+**Rejected: a JavaScript motion library.** The founder linked GSAP and asked whether a
+skill or a tool was needed for this. Nothing here needs one. `position: sticky` and
+`animation-timeline: view()` are the whole mechanism, they are in the stylesheet the
+product already loads, and they degrade to a readable static section on their own. A
+library would add a dependency, a script the page has to wait for, and a second place
+where motion is described, on the one page whose job is to load fast for somebody who is
+already suspicious.
+
+**Rejected: keeping the product's `.row` in the list.** Fourteen of them are 812px and no
+phone holds that plus a head. Restyling `.row` inside a host is the contextual override
+the architecture forbids, so the story declares `.sline`: the same atoms, a different
+object, and its logo size lives in `logo.css` beside the other host sizes rather than in
+the component that wanted it.
+
+**Three things measured rather than assumed.** The stage pins under the bar at 64px and 72
+past the tablet point, not at 0, or the heading sits behind it. A grid track's automatic
+minimum is its content, so the stage needs `minmax(0, 1fr)` and the swap `min-height: 0`
+or fourteen lines push the head off the top. And the four totals must never overlap: the
+first cut cross-faded them over six per cent and $192.90 stood at half opacity behind
+$174.91 at the largest size on the page, so they now hand off with a hold instead.
+
 ## 2026-08-14 - The landing, and the five things the system did not have
 
 **23 of 23 screens are in colour.** The public page was held back deliberately: 57 classes of

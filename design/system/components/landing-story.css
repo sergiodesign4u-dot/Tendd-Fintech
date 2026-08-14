@@ -1,0 +1,661 @@
+/* ============================================================================
+   Landing story - organism
+   The public page's one long argument, told once, in a stage that holds still
+   while the reader scrolls. A field of fourteen subscriptions drifts, gathers
+   to the middle, becomes the list this product gives you, and then three of
+   them are cancelled in front of you while the total steps down and the reason
+   for each one is stated beside it.
+
+   IT REPLACES TWO COMPONENTS AND THE REASON IS THE FOUNDER'S: "все это
+   смотрится очень плоско", 2026-08-14. `landing-window.css` (a field in the
+   hero) and `landing-cut-list.css` (a list further down) said the same thing in
+   two places and neither one moved the reader between them. A hand-off between
+   two blocks a screen apart is a cut; a stage that stays put while the content
+   inside it changes is a SHOT, and the difference is the whole effect. Both
+   files are retired in the same step, with their kit pages, their registry rows
+   and their imports, because a component that no page holds does not exist.
+
+   THE SHAPE IS THE ARGUMENT, TWICE.
+     A FIELD says a subscription stack is not something anybody sat down and
+     made. It arrives, one charge at a time, from more directions than a person
+     is watching. That is the problem, and it is stated in the only place on this
+     surface where it may be: the public page, before the promise.
+     A LIST says what the product does about it. Same fourteen, same prices, one
+     column, one total. The reader watches the second thing be made out of the
+     first, which is a demonstration rather than a claim.
+
+   THE NUMBER MOVES ONLY WHEN SOMETHING VISIBLE IS CANCELLED.
+   $192.90 to $174.91 to $161.92 to $144.92, and every step is the price on the
+   line that just went quiet. Nothing on this page counts up on its own. A number
+   that changes for a reason a person can check is a demonstration; a number that
+   changes by itself is a claim, and this product does not make claims at people
+   who already do not trust finance apps.
+
+   THE FOURTEEN AND THE THREE ARE BOTH GROUNDED.
+   The fourteen, their categories and their prices are the "Canonical
+   subscription dataset" in `voice/docs/microcopy.md`, which has owned them since
+   the voice stage and sums to $192.90. The three that go are the three the
+   PRODUCT itself names: `cancel-win.html` cancels Netflix and frees $17.99;
+   `home-savefocus.html` flags The New York Times at six weeks unopened and
+   Peloton App at three, and its own line "save up to $29.99 by cutting 2" is
+   those two added up. The script that writes this markup reads the fixture table
+   and refuses to write anything that disagrees with it.
+
+   Reads
+     colour   --bg-page, --bg-surface, --bg-recessed (the three grounds)
+              --line-container, --line-divider, --shadow
+              --text-primary, --text-body, --text-muted
+     spacing  --space-0, 2, 4, 8, 16, 24, 32, 40
+     geometry --radius, --radius-sm, --container-column
+     type     --type-figure, --type-title, --type-body, --type-meta, --type-label
+   Hosts     .logo, .amt, .chip at their own sizes. The story declares the boxes
+             they stand in and nothing about any of them.
+   Owns      .sline, and that is deliberate. The product's `.row` is 58px tall,
+             so fourteen of them are 812px and no viewport holds the list plus
+             its head. Restyling `.row` inside a host is the contextual override
+             the architecture forbids, and a story line is a different object
+             with a different job: it is READ as a field of fourteen, never
+             tapped, never a target. So it is declared here, out of the same
+             atoms, at the height the stage can hold.
+   Page      design/kit/landing-story.html
+   Stands on 1 grey page and 1 coloured one: the landing is the only public
+             surface this product has.
+   ============================================================================ */
+
+/* ---- the section, and it is TALL only where the stage can work --------------
+   The height and the pin live inside @supports at the foot of this file. A
+   browser without scroll-driven animation gets an ordinary section: the field,
+   then the list, then the three cards, stacked and readable, which is a whole
+   picture missing only the choreography. Declaring the height here and the
+   motion there would give that browser a five-screen scroll through one frozen
+   frame, which is worse than no effect at all. */
+.landing .lp-story {
+  position: relative;
+  padding: var(--space-32) var(--space-0) var(--space-64);
+  background: var(--bg-page);
+  border-top: 1px solid var(--line-divider);
+  container-type: inline-size;
+  view-timeline-name: --story;
+}
+
+/* ---- the stage ------------------------------------------------------------
+   Everything the reader sees during the story is inside this one box, which is
+   what makes it a shot rather than a sequence of blocks. `place-content: center`
+   and not a top alignment: the stage has to hold its centre while its contents
+   change height, or the head walks up the screen as lines are cancelled. */
+.landing .storypin {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: var(--space-24);
+  width: 100%;
+  padding: var(--space-0) var(--space-24);
+}
+
+/* ---- the head -------------------------------------------------------------
+   The heading of the section, the one number, and the count. The number is
+   --type-figure, the largest thing in the stage, which is principle 2: the most
+   important number is the biggest thing on screen. */
+.landing .storyhead {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+  max-width: var(--container-text);
+  text-align: center;
+}
+.landing .storyhead h2 {
+  margin: var(--space-0);
+  font-size: var(--type-title);
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+.landing .storyhead .lead {
+  margin: var(--space-0) var(--space-0) var(--space-8);
+  font-size: var(--type-body);
+  color: var(--text-muted);
+}
+/* Past the tablet point the stage has height to spare, so the line goes back up
+   to 40 and the lead to body size. Below it, 32 and --type-meta are what let the
+   head, fourteen lines and a card share one phone screen: measured at 390 x 844,
+   the head is 214px and the list 464, inside a stage of 780. */
+@container (min-width: 47.5rem) {
+  .landing .sline { min-height: var(--space-40); }
+  .landing .storyhead .lead { font-size: var(--type-body); }
+}
+.landing .storyhead .lead { font-size: var(--type-meta); }
+.landing .storyhead .k {
+  margin: var(--space-0);
+  font-size: var(--type-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---- the two figures, and each is a STACK of the values it will take --------
+   Four totals and four counts stand in one cell each, and the scroll decides
+   which one is opaque. A single node whose text is rewritten would need a
+   script; four nodes and an opacity are the same picture with nothing running.
+   The cell is sized by the WIDEST of the four, so the number never re-centres
+   itself as it steps down. */
+.landing .storyfigs {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+}
+.landing .storystack {
+  display: grid;
+  grid-template-areas: "one";
+  justify-items: center;
+}
+.landing .storystack > * {
+  grid-area: one;
+  margin: var(--space-0);
+}
+/* the base state is the FIRST value visible and the other three not, which is
+   also the whole picture a browser with no scroll timeline is left with */
+.landing .storystack > * + * { opacity: 0; }
+.landing .storystack .figure {
+  font-size: var(--type-figure);
+  line-height: 1.05;
+  color: var(--text-primary);
+}
+.landing .storystack .count {
+  font-size: var(--type-body);
+  color: var(--text-muted);
+}
+
+/* ---- the field and the list -----------------------------------------------
+   Stacked here, one above the other, which is the honest order for a browser
+   with no stage: this is the problem, and this is what the product does with it.
+   On the stage they are moved into ONE cell, so the second is made out of the
+   first instead of appearing under it. That move is in the @supports block. */
+.landing .storyswap {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-40);
+  width: 100%;
+}
+
+/* ============================================================================
+   THE FIELD
+   ========================================================================== */
+
+/* Three bands, and they do not travel the same way: the top one right, the
+   middle one left, the bottom one right. At equal speeds three bands read as one
+   mechanism with three parts; at three speeds they read as three things
+   arriving independently, which is the point being made. Between 18 and 22
+   pixels a second, slower than reading. */
+.landing .storyfield {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  width: 100%;
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+}
+.landing .srow { display: flex; }
+.landing .strack {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: sdrift linear infinite;
+}
+.landing .srow:nth-child(1) .strack { animation-duration: 42s; animation-direction: reverse; }
+.landing .srow:nth-child(2) .strack { animation-duration: 35s; }
+.landing .srow:nth-child(3) .strack { animation-duration: 29s; animation-direction: reverse; }
+
+/* One keyframe and one direction, with `reverse` on the two bands that travel
+   the other way. Two mirrored blocks would be two places to change the distance,
+   and the distance is the thing the seam depends on.
+
+   THE TRACK CARRIES ITS SET TWICE AND TRAVELS EXACTLY HALF ITS OWN WIDTH, so
+   the second set lands where the first began. That arithmetic only closes if
+   every tile carries its own trailing gap: with `gap` on the track there are
+   2n-1 gaps for 2n tiles, half the width falls half a gap short of one set, and
+   the band jumps once a cycle. Written as a margin there are 2n, and it does
+   not. */
+@keyframes sdrift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ---- a tile ---------------------------------------------------------------
+   A mark and a price in a square, because the field has to read as a FIELD of
+   things rather than as a list. The list is what the product gives you a moment
+   later, and the whole hand-off depends on those being two different shapes.
+   No name on a tile: the job here is RECOGNITION, a person seeing their own
+   Netflix, their own thing they forgot. The names arrive with the list.
+
+   The shadow is the one place this component leaves the flat-paper rule, and it
+   is why: these tiles are the only objects in the product that are meant to read
+   as LOOSE, lying at different depths, not yet gathered. The list they become
+   carries no shadow at all, and that difference is the argument. */
+.landing .stile {
+  flex: none;
+  width: clamp(4.75rem, 15cqw, 7.5rem);
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  margin-right: var(--space-16);
+  background: var(--bg-surface);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ============================================================================
+   THE LIST
+   ========================================================================== */
+
+.landing .storylist {
+  list-style: none;
+  width: 100%;
+  max-width: var(--container-column);
+  margin: var(--space-0);
+  padding: var(--space-8);
+  background: var(--bg-surface);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+}
+
+/* ---- a story line ---------------------------------------------------------
+   The product's row at the height a stage can hold fourteen of. Mark, name,
+   price, state. The category line the app's row carries is dropped: at fourteen
+   at once it is noise, and the grouping it names is not what this stage is
+   about. */
+.landing .sline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--space-32);
+  padding: var(--space-2) var(--space-8);
+  border-radius: var(--radius-sm);
+}
+.landing .sline .logo { flex: none; }
+.landing .sline .name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: var(--type-meta);
+  color: var(--text-primary);
+}
+.landing .sline .amt {
+  flex: none;
+  font-size: var(--type-meta);
+  color: var(--text-body);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- the state, and it is a STACK for the same reason the total is ---------
+   "Active" and "Cancelled" stand in one cell; the scroll decides which is
+   opaque. The cell is sized by the wider of the two, so nothing to its left
+   moves when the state changes. Twelve lines never change state at all and
+   carry a single chip with no stack around it. */
+.landing .sline .swap {
+  display: grid;
+  grid-template-areas: "one";
+  justify-items: end;
+  flex: none;
+}
+.landing .sline .swap > * { grid-area: one; }
+.landing .sline .swap > .gone { opacity: 0; }
+
+/* ============================================================================
+   THE THREE CARDS
+   The reasons, one per cancellation, and they are the copy this page already
+   had. They are placed beside the list on a wide screen and over its foot on a
+   narrow one; both placements are in the @supports block, because both are part
+   of the stage and neither one is how the section reads without it.
+   ========================================================================== */
+
+.landing .scard {
+  max-width: 21rem;
+  padding: var(--space-24);
+  background: var(--bg-surface);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.landing .scard h3 {
+  margin: var(--space-0) var(--space-0) var(--space-8);
+  font-size: var(--type-body);
+  color: var(--text-primary);
+}
+.landing .scard p {
+  margin: var(--space-0);
+  font-size: var(--type-meta);
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+/* without the stage they are three cards in a row, which is what this section
+   was before the stage existed and is a complete answer on its own */
+.landing .storyasides {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: var(--space-16);
+  width: 100%;
+  max-width: var(--container-page);
+}
+
+/* ============================================================================
+   THE STAGE, AND EVERY LINE OF IT IS BEHIND @supports
+   `animation-timeline` is the one thing here a browser can be missing, and the
+   failure mode of leaving it unguarded is the worst kind: the declarations stay
+   valid, every animation falls back to the DOCUMENT timeline, and the whole
+   story plays itself once on load, at the top of the page, where nobody is
+   looking. The height and the pin are inside the guard for the same reason in
+   reverse: five screens of scroll through one frozen frame is worse than no
+   effect at all.
+
+   `contain` and not `cover` or `entry`. `contain` is exactly the part of the
+   scroll where the section completely covers the viewport, which is exactly the
+   part where the pin is stuck. Written as a cover percentage the beats would
+   land at different moments on a phone and on a desktop, because the section is
+   a different height on each, and that mistake has been made twice on this page
+   already.
+   ========================================================================== */
+@supports (animation-timeline: view()) {
+
+  .landing .lp-story {
+    min-height: 460svh;
+    padding: var(--space-0);
+  }
+  /* THE STAGE STARTS UNDER THE BAR, NOT UNDER THE WINDOW. landing-bar.css is
+     `position: sticky; top: 0` at a min-height of 64px, and 72 past its own
+     container point. A stage pinned at 0 puts its heading behind that bar, which
+     is what the first cut of this file did. The two numbers are this file's
+     copies of the bar's own, named here so a grep for either finds both. */
+  .landing .lp-story { --story-top: 64px; }
+  .landing .storypin {
+    position: sticky;
+    top: var(--story-top);
+    height: calc(100svh - var(--story-top));
+    grid-template-rows: auto minmax(0, 1fr);
+    align-content: stretch;
+  }
+  /* `minmax(0, 1fr)` and `min-height: 0`, both of them load-bearing: a grid
+     track's automatic minimum is its content, so without them fourteen lines
+     push the stage taller than the viewport and the heading goes up behind the
+     bar. With them the swap takes exactly what the head leaves and clips. */
+  /* `safe center` and not `center`. Centred content that is taller than its box
+     overflows EQUALLY at both edges, so the first line of the list went under
+     the head at 1280 x 720 and 360 x 740 while its last went under the card.
+     `safe` falls back to `start` exactly when that would happen, which is the
+     one keyword that means "centre it unless centring loses something". */
+  .landing .storyswap { overflow: hidden; min-height: 0; align-content: safe center; }
+  @container (min-width: 47.5rem) {
+    .landing .lp-story { --story-top: 72px; }
+  }
+
+  /* the two shapes now occupy the same cell in a stage that does not grow */
+  .landing .storyswap {
+    position: relative;
+    grid-template-areas: "one";
+    align-items: center;
+    gap: var(--space-0);
+  }
+  .landing .storyswap > * { grid-area: one; }
+  .landing .storyfield { position: absolute; left: var(--space-0); right: var(--space-0); }
+
+  /* ---- everything on this stage reads one clock --------------------------
+     Longhands and never the `animation` shorthand: the shorthand RESETS
+     `animation-range` and `animation-timeline` to their initial values, and
+     because it does so silently the range simply stops existing. That cost this
+     page a whole afternoon once. */
+  .landing .storypin,
+  .landing .storyfield,
+  .landing .storylist,
+  .landing .storystack > *,
+  .landing .sline.cut,
+  .landing .sline.cut .swap > .live,
+  .landing .sline.cut .swap > .gone,
+  .landing .scard {
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-timeline: --story;
+  }
+
+  /* ---- beat 1: the field gathers ----------------------------------------
+     Each band travels to the middle line and shrinks as it goes. The travel is
+     a variable on the row rather than three keyframe blocks, so the distance
+     has one owner. */
+  .landing .storyfield { animation-name: sgather; animation-range: contain 2% contain 22%; }
+  .landing .srow:nth-child(1) { --sy: 5.5rem; }
+  .landing .srow:nth-child(2) { --sy: 0rem; }
+  .landing .srow:nth-child(3) { --sy: -5.5rem; }
+
+  /* ---- beat 2: the list is made out of it -------------------------------
+     It rises into the place the field is leaving, and the overlap between the
+     two ranges is what the eye reads as one movement rather than two. */
+    /* ONE ANIMATION AND NOT TWO, because both of them would be a transform.
+     The list rises into the place the field is leaving, and then, where the
+     stage is too short to show fourteen lines and a reason card at once, it
+     travels under the card so the line being cancelled is always on screen.
+     Written as two animations the second would simply replace the first.
+     `--stravel` is the distance, and it is ZERO wherever the list already fits:
+     the travel is not an effect, it is the answer to a shortage of height. */
+  .landing .storylist { animation-name: slist; animation-range: contain 10% contain 86%; }
+
+  /* THE HEAD DOES NOT ANIMATE, and that is the decision the first cut of this
+     file got wrong. It carried `srise` over contain 6% to 20%, which meant that
+     at contain 0% - the first frame anybody sees when the stage locks - its
+     fill-mode held it at opacity 0 and the reader was given fourteen unlabelled
+     squares with no heading, no number and no reason. The head is the ANCHOR of
+     the stage: it is what stays while everything under it changes, and a thing
+     that stays does not make an entrance. */
+
+  /* ---- beats 3, 4 and 5: three cancellations -----------------------------
+     EVERY MOMENT RULE IS WRITTEN AT THE SAME SPECIFICITY AS THE RULE IT TIMES,
+     AND AFTER IT. The three above are 0-4-0; if the moments were written as
+     `.cut1 .swap > *` at 0-3-0 they would lose, every chip would take the
+     generic range, and all three cancellations would fire at once. That is not
+     a hypothetical: it is what this file's predecessor did.
+
+     The classes are cut1/cut2/cut3 and not :nth-of-type, because each line is
+     the only element of its type inside its own <li>, so :nth-of-type makes
+     every one of them number one. */
+  .landing .sline.cut { animation-name: squiet; }
+  .landing .sline.cut .swap > .live { animation-name: sout; }
+  .landing .sline.cut .swap > .gone { animation-name: sin; }
+
+  .landing .sline.cut1,
+  .landing .sline.cut1 .swap > .live,
+  .landing .sline.cut1 .swap > .gone { animation-range: contain 35% contain 38%; }
+  .landing .sline.cut2,
+  .landing .sline.cut2 .swap > .live,
+  .landing .sline.cut2 .swap > .gone { animation-range: contain 53% contain 56%; }
+  .landing .sline.cut3,
+  .landing .sline.cut3 .swap > .live,
+  .landing .sline.cut3 .swap > .gone { animation-range: contain 71% contain 74%; }
+
+  /* ---- the total and the count follow them --------------------------------
+     ONE KEYFRAME SET PER NODE, NOT TWO ANIMATIONS. The two middle values have
+     to appear at one moment and leave at another, and two animations cannot do
+     that: `fill-mode: both` means each one applies its value before and after
+     its own range, so the later always wins and the value never leaves. The
+     answer is a single set with stops inside it, handed a range that spans both
+     moments.
+
+     AND THE FOUR OF THEM NEVER OVERLAP, which is a correction rather than a
+     refinement. The first cut cross-faded each pair over the same six per cent,
+     so for a third of that window BOTH numbers stood at half opacity in the same
+     cell, and $192.90 read as a smudge behind $174.91 at the largest size on the
+     page. `shand` hands off instead: it holds at zero until the outgoing value
+     has finished leaving, then takes one per cent to arrive. Out at 36, in from
+     36; out at 54, in from 54; out at 72, in from 72. No frame has two totals on
+     it and no frame has none. */
+  .landing .storystack > *:nth-child(1) { animation-name: sout;  animation-range: contain 35% contain 36%; }
+  .landing .storystack > *:nth-child(2) { animation-name: shand; animation-range: contain 35% contain 55%; }
+  .landing .storystack > *:nth-child(3) { animation-name: shand; animation-range: contain 53% contain 73%; }
+  .landing .storystack > *:nth-child(4) { animation-name: sin;   animation-range: contain 72% contain 73%; }
+
+  /* ---- the reasons, one before each cancellation --------------------------
+     Card one is on stage before Netflix goes, card two before Peloton, card
+     three before The New York Times, and each leaves as the next arrives. The
+     third stays: it is the last thing said, and the section ends on it. */
+  .landing .storyasides { display: contents; }
+  .landing .scard {
+    position: absolute;
+    width: min(21rem, 30cqw);
+    opacity: 0;
+  }
+  .landing .scard:nth-child(1) { animation-name: sturn; animation-range: contain 25% contain 49%; }
+  .landing .scard:nth-child(2) { animation-name: sturn; animation-range: contain 43% contain 67%; }
+  .landing .scard:nth-child(3) { animation-name: sin;   animation-range: contain 61% contain 67%; }
+
+  /* ---- and the stage lets go ---------------------------------------------
+     The last quarter of the pin had nothing happening in it, which is a quarter
+     of a screen-height of scroll spent on a still frame. It now carries the
+     hand-off: the stage fades as the section releases it, and "How Tendd works"
+     arrives into the space it leaves. `both` holds it at full opacity for
+     everything before 88%, so this costs the rest of the story nothing. */
+  .landing .storypin { animation-name: sout; animation-range: contain 88% contain 100%; }
+
+  /* narrow: the card lies across the foot of the list, on paper, with the list
+     fading under it. Wide: it stands beside the list with room to spare. The
+     question is asked of the CONTAINER and not the window, because a component
+     is not entitled to know how wide the screen is, only how wide its place is. */
+  /* ---- THE TRAVEL IS ARITHMETIC AND NOT A GUESS -------------------------
+     The list has to be shown whole, and whether it fits is a question about
+     HEIGHT, which no container query and no width point can answer. The first
+     cut answered it with -6.5rem below a width point, and it was wrong at both
+     ends: at 1024 x 768 and 1280 x 720 the point had fired, the travel was
+     switched off and the list was clipped at both edges with two of the three
+     cancellations off screen.
+
+     `container-type: size` on the swap makes its own height readable as `cqh`,
+     and a percentage inside a translate is a percentage of the ELEMENT. So the
+     distance is exactly the overflow: the window, less the list, less whatever
+     the reason card is covering. `min(0px, ...)` is what makes it nothing when
+     the list already fits, at any width and any height, with no point involved.
+
+     `--scardslot` is the one number here that is chosen rather than measured:
+     the card lies across the foot of the stage below 80rem, and 11rem is its
+     height plus its air. Past 80rem it stands beside the list and covers
+     nothing, so the slot is zero. */
+  .landing .storyswap { container-type: size; }
+  .landing .storylist {
+    --scardslot: 11rem;
+    --stravel: min(0px, calc(100cqh - 100% - var(--scardslot)));
+  }
+  .landing .scard { left: 50%; bottom: var(--space-0); transform: translateX(-50%); width: min(28rem, 100%); }
+
+  /* ---- 80rem: THE CARDS STAND BESIDE THE LIST --------------------------
+     And the point is arithmetic too. The list is --container-column, 620, so
+     its edge is 310 from the centre of the stage; 24 of air puts a card's inner
+     edge at 334. What is left for the card is `50cqw - 334 - 24`, and it stops
+     being a card somewhere under 17rem, which puts the point at 1260. 80rem is
+     the next register above it and it is already a token's value.
+
+     Written as a fixed inset from the WINDOW (`left: 40px`) instead, which is
+     what the first cut did, the cards ran under the list at every width from
+     1024 to 1360: at 1024 a 307px card starting at 40 ends at 347 and the list
+     starts at 202. Anchoring to the centre cannot make that mistake. */
+  @container (min-width: 80rem) {
+    .landing .storylist { --scardslot: 0rem; }
+    .landing .scard {
+      bottom: auto; top: 50%; transform: none;
+      width: min(21rem, calc(50cqw - 358px));
+    }
+    .landing .scard:nth-child(1) { right: calc(50% + 334px); left: auto; margin-top: -7rem; }
+    .landing .scard:nth-child(2) { left: calc(50% + 334px); right: auto; margin-top: -3rem; }
+    .landing .scard:nth-child(3) { right: calc(50% + 334px); left: auto; margin-top: 1rem; }
+  }
+}
+
+/* ---- the keyframes --------------------------------------------------------
+   Four of them do one thing each and are shared by everything on the stage,
+   which is what keeps twenty timed rules above readable. */
+@keyframes sgather {
+  to { transform: translate3d(0, 0, 0) scale(0.72); opacity: 0; }
+}
+@keyframes srise {
+  from { transform: translate3d(0, 2.5rem, 0); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+/* the list: it rises, and then it travels by --stravel, which is 0 wherever the
+   fourteen lines already fit above the card */
+/* THE STOPS ARE THE THREE MOMENTS, NOT AN EVEN RAMP, and that is the whole
+   reason this set has five of them. The three lines that get cancelled are the
+   1st, the 11th and the 13th of fourteen: two of them are almost at the bottom
+   of the list and they are eighteen per cent of the scroll apart. A linear
+   travel puts the list at 40% of the way when the eleventh line is cancelled,
+   which leaves it under the card on a short screen. So the list holds still
+   through the first cancellation, is three quarters of the way by the second,
+   and is home by the third. Measured at nine sizes from 320 x 640 to 1920 x
+   1080: all three cancelled lines fully on screen at their own moment. */
+@keyframes slist {
+  0%   { transform: translate3d(0, 2.5rem, 0); opacity: 0; }
+  20%  { transform: translate3d(0, 0, 0); opacity: 1; }
+  40%  { transform: translate3d(0, 0, 0); opacity: 1; }
+  59%  { transform: translate3d(0, calc(var(--stravel) * 0.75), 0); opacity: 1; }
+  82%  { transform: translate3d(0, var(--stravel), 0); opacity: 1; }
+  100% { transform: translate3d(0, var(--stravel), 0); opacity: 1; }
+}
+@keyframes squiet {
+  from { background: var(--bg-surface); }
+  to   { background: var(--bg-recessed); }
+}
+@keyframes sin  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sout { from { opacity: 1; } to { opacity: 0; } }
+/* a card: in over the first quarter, hold, out over the last */
+@keyframes sturn { 0% { opacity: 0; } 26% { opacity: 1; } 74% { opacity: 1; } 100% { opacity: 0; } }
+/* a figure: waits for its predecessor to finish leaving, then arrives */
+@keyframes shand {
+  0%  { opacity: 0; }
+  5%  { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  95% { opacity: 0; }
+  100%{ opacity: 0; }
+}
+
+/* the bands converge on the middle line; the distance is a variable on the row
+   so the three of them have one owner and not three keyframe blocks */
+@supports (animation-timeline: view()) {
+  .landing .srow { will-change: transform; }
+  .landing .storyfield { transform-origin: 50% 50%; }
+}
+
+/* ============================================================================
+   NO MOTION, AND THE STATIC STATE IS THE HONEST ONE
+   base.css already collapses every animation in the product for a person who has
+   asked the system for no motion, and for the drifting bands that blanket is
+   enough: they carry no fill-mode, so they return to translate3d(0,0,0), a full
+   band standing still. Everything on the stage carries `both`, so it needs
+   naming: collapsed, each would land on its last keyframe, which is the field
+   gone, three lines cancelled and a total of $144.92 with no reason on screen
+   for any of it.
+
+   THE SPECIFICITY MISTAKE IS THE SAME ONE HERE. Each rule below is written at
+   the specificity of the rule it cancels, including `> *:nth-child(n)` to carry
+   the fourth class, or one "Cancelled" chip survives the blanket. That has
+   happened on this page once already.
+
+   And the pin comes off with the motion. A stuck stage with nothing moving in it
+   is five screens of the same frame.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .landing .lp-story { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
+  .landing .storypin { position: static; height: auto; }
+  .landing .storyswap { position: static; }
+  .landing .storyfield { position: static; animation-name: none; }
+  .landing .storypin,
+  .landing .storylist,
+  .landing .storystack > *:nth-child(n),
+  .landing .sline.cut,
+  .landing .sline.cut .swap > .live,
+  .landing .sline.cut .swap > .gone,
+  .landing .scard:nth-child(n) { animation-name: none; }
+  .landing .storylist { mask-image: none; -webkit-mask-image: none; }
+  .landing .storystack > * + * { opacity: 0; }
+  .landing .sline.cut .swap > .gone { opacity: 0; }
+  .landing .storyasides { display: grid; }
+  .landing .scard { position: static; opacity: 1; width: auto; margin-top: 0; }
+}

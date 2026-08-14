@@ -43,7 +43,7 @@ The count is a class count, not a component count: `.row`, `.row .name`, `.row .
 
 # Part 1. The system after consolidation
 
-**64 components: 20 atoms, 23 molecules, 21 organisms.** (57 until the public page: five organisms arrived with the landing on 2026-08-14 and the landing window with it. 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
+**63 components: 20 atoms, 23 molecules, 20 organisms.** (57 until the public page: five organisms arrived with the landing on 2026-08-14, and the landing story replaced two shorter-lived ones the same day. 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
 step 2 the same material was 68 rows, and the pre-consolidation tables are not reproduced here:
 they were a list of what the product draws, and this is a list of what the system HAS. The
 ledgers further down record how the count moved, screen by screen and stage by stage.
@@ -167,10 +167,9 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Grid | `.grid` | columns: 1 to 2 / 2 to 3. gap by child size | 8 | `.doors`, `.tiles`, `.plans` | `grid.css` | `grid.html`  | point + fluid |
 | FAQ list | `.lp-faq` | - | 1 | `.lp-faq` | `faq-list.css` | `faq-list.html`  | does not adapt |
 | Landing bar | `.lp-nav` | links: hidden / shown | 1 | `.lp-nav` | `landing-bar.css` | `landing-bar.html`  | links appear at 47.5rem |
-| Landing hero | `.lp-hero` | form: stacked / two columns | 1 | `.lp-hero` | `landing-hero.css` | `landing-hero.html`  | two columns at 47.5rem |
+| Landing hero | `.lp-hero` | - | 1 | `.lp-hero` | `landing-hero.css` | `landing-hero.html`  | one centred column at every width |
 | Landing shell | `.landing` | band: canvas / surface | 1 | `.landing` | `landing-shell.css` | `landing-shell.html`  | measure and rhythm grow at 47.5rem |
-| Landing window | `.lp-window` | - | 1 | `.lp-window`, `.wrows`, `.wrow`, `.wtrack`, `.wtile` | `landing-window.css` | `landing-window.html`  | does not adapt: the square is a ratio of the opening in `cqw` |
-| Landing cut list | `.lp-cut` | - | 1 | `.lp-cut`, `.cuthead`, `.cutfigs`, `.cutstack`, `.chipswap`, `.row.cut`, `.cut1`, `.cut2`, `.cut3`, `.live`, `.gone` | `landing-cut-list.css` | `landing-cut-list.html`  | a measure, `--container-page`, and no query |
+| Landing story | `.lp-story` | cards: over the list / beside it | 1 | `.lp-story`, `.storypin`, `.storyhead`, `.storyfigs`, `.storystack`, `.storyswap`, `.storyfield`, `.srow`, `.strack`, `.stile`, `.storylist`, `.sline`, `.swap`, `.storyasides`, `.scard`, `.cut1`, `.cut2`, `.cut3`, `.live`, `.gone` | `landing-story.css` | `landing-story.html`  | the line and the lead grow at 47.5rem; the cards move beside the list at 80rem; the list's travel is arithmetic, not a point |
 | Site footer | `.lp-footer` | form: stacked / four columns | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem |
 | Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
 | Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | does not adapt |

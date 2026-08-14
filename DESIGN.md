@@ -539,8 +539,7 @@ arithmetic can be checked against the rows on the screen.
 because something on the screen was cancelled is a demonstration; a number that changes on
 its own is a claim, and this product does not make claims at people who already do not trust
 finance apps. A cancelled row goes quiet rather than red: cancelling is a small win, not an
-alarm. Ground: `docs/decisions.md`, D-Hero. Components: `design/kit/landing-window.html` and
-`design/kit/landing-cut-list.html`.
+alarm. Ground: `docs/decisions.md`, D-Hero. Component: `design/kit/landing-story.html`.
 
 ### Patterns (a level above the components)
 

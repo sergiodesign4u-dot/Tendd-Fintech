@@ -409,9 +409,12 @@ list". Total: `$192.90 / month`.
 
 ### welcome (public marketing landing)
 
-**The cut list, added 2026-08-14 (D-Hero).** The public page's second block shows the
-canonical fourteen as the product's own rows and cancels three of them as the reader
-scrolls. Four totals and four counts are real text in the page, one per state, because
+**The story, added 2026-08-14 (D-Hero).** The public page's second block is a stage that
+holds still while the reader scrolls through it: the canonical fourteen drift as a field,
+gather into a list, and three of them are cancelled one at a time. The same decision took
+the proof panel out of the hero, so the four lines that stood in it (the label, the count,
+the total and the caption) are now the head of the stage and are listed once, under
+`story`. The zone was called `cut-list` for one day. Four totals and four counts are real text in the page, one per state, because
 CSS cannot rewrite the words inside an element and a string rendered from a stylesheet
 would be a line of product copy this file cannot own. **`Cancelled`** is the one new
 word on the whole page, and it is spelled the way `cancel-win` already spells it ("You
@@ -435,16 +438,13 @@ against the rows in front of them.
 | welcome | hero | Get started free | button |
 | welcome | hero | See how it works | button |
 | welcome | hero | No bank connection needed to start. Read-only, we cannot move your money. | body |
-| welcome | hero-preview | Example, not your data | body |
-| welcome | hero-preview | You're paying for 14 subscriptions | body |
-| welcome | hero-preview | a month, for what you have signed up for | body |
-| welcome | cut-list | Example, not your data | body |
-| welcome | cut-list | $192.90 / $174.91 / $161.92 / $144.92 | body |
-| welcome | cut-list | 14 subscriptions / 13 subscriptions / 12 subscriptions / 11 subscriptions | body |
-| welcome | cut-list | a month, for what you have signed up for | body |
-| welcome | cut-list | Active | badge |
-| welcome | cut-list | Trial | badge |
-| welcome | cut-list | Cancelled | badge |
+| welcome | story | Example, not your data | body |
+| welcome | story | $192.90 / $174.91 / $161.92 / $144.92 | body |
+| welcome | story | 14 subscriptions / 13 subscriptions / 12 subscriptions / 11 subscriptions | body |
+| welcome | story | a month, for what you have signed up for | body |
+| welcome | story | Active | badge |
+| welcome | story | Trial | badge |
+| welcome | story | Cancelled | badge |
 | welcome | benefit-card | Calm control of your recurring money | heading |
 | welcome | benefit-card | Tendd is not a budgeting app. It is a simple, low-pressure way to see and control what you are subscribed to. | body |
 | welcome | benefit-card | Everything in one place | heading |
