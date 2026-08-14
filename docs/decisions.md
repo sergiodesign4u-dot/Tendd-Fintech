@@ -7,6 +7,37 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-14 - D-Hero, the geometry pass: five collisions, and four of them only existed on a small window
+
+The founder, looking at the built page on their own screen rather than at a screenshot of it:
+"смотри как ужасно выглядит". Everything below was measured at 1000, 1280, 1440 and 1680, and
+four of the five were invisible at 1440 and above, which is where every earlier check had run.
+
+- **The headline started at -20 at a 1000px window.** It is deliberately wider than its column,
+  and `landing-hero.css` centres it with `margin-inline: auto`, which on a box wider than its
+  parent splits the overflow between BOTH sides. Worse, without `min-width: 0` the stack took
+  the headline's max-content as its own width and was then laid out from its centre. The
+  overflow belongs on the side the window is on: `justify-items: start` and a floor of zero.
+- **The section's heading and the deck's front plate were in the same 250px.** Heading at
+  y 215..293 across x 40..589; front plate at y 236 across x 330..950. At 1440 the plate starts
+  at 310 and there was nothing to see. The heading now says its piece and is gone before the
+  deck arrives, and the three cancellations, the four totals and the three reason cards all move
+  back with it - written at this file's specificity, so `design/index.html` keeps the timings it
+  was verified on.
+- **A reason card was at x=0 with no gutter at 1280.** `landing-story.css` sends the cards to
+  the sides from 80rem at a fixed 334px off the centre, and at 1280 the sum is
+  564 + 2 x 336 + 80 = 1316 against a 1280 page. The offset is the deck's half-width plus air
+  now, clamped by `min()` to the page's own gutter, and the side point is 85rem.
+- **The two figures cleared the fold by 7px** on the first screen, which is not clearance.
+- **Chips were hard-clipped at the window's rim.** The radial mask faded too late to reach it.
+
+**And one thing was tried and rejected in the same pass.** Giving the reason card a slot of its
+own below the deck left the deck 384px of a 560 window, and a 52px plate biting 32 into the one
+above it shows twenty pixels of itself: the mark clipped, the price gone, four plates reading as
+one smear. The card lies across the deck's foot instead, covering the last four plates, which
+stand at 0.2 opacity and below and are depth rather than content. This is what the component
+already does on its narrow arrangement.
+
 ## 2026-08-14 - D-Hero, the three frames: the figures start low and rise, and the list is a deck
 
 The founder drew all three states rather than describing them, which settled two questions the

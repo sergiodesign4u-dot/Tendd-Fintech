@@ -98,6 +98,13 @@
    keeps everything else inside it. */
 .landing .lp-orbit.lp-story.fromcircle .osay { width: 100%; max-width: var(--container-text); text-align: left; }
 .landing .lp-orbit .lp-h1 { margin-top: var(--space-8); }
+/* AND IT HANGS OFF THE RIGHT, NEVER THE LEFT. The headline is wider than its
+   column on purpose, and `landing-hero.css` centres it with `margin-inline: auto`
+   - which on a box wider than its parent splits the overflow between BOTH sides.
+   At a 1000px window the say column is 405 and the headline 580, so it started at
+   -20: the first word of the promise was off the left edge of the page. The
+   overflow belongs on the side the window is on. */
+.landing .lp-orbit.lp-story.fromcircle .lp-h1 { margin-inline: var(--space-0) auto; }
 
 /* TWO LINES, AND THE HEADLINE IS ALLOWED PAST ITS COLUMN TO GET THEM. 17ch of
    its own 800-weight face is about 570px, which is wider than "See what you're
@@ -225,8 +232,8 @@
    the side where nothing is written. The stage below keeps the centred mask: it
    has no headline over it. */
 .landing .lp-orbit .obands {
-  mask-image: radial-gradient(circle at 76% 50%, #000 28%, transparent 74%);
-  -webkit-mask-image: radial-gradient(circle at 76% 50%, #000 28%, transparent 74%);
+  mask-image: radial-gradient(circle at 66% 50%, #000 18%, transparent 64%);
+  -webkit-mask-image: radial-gradient(circle at 66% 50%, #000 18%, transparent 64%);
 }
 
 /* ---- the five bands -------------------------------------------------------
@@ -394,7 +401,7 @@
      `100svh - 190px`. Measured against their own bottom edge at 800, 900 and
      1080. */
   .landing .lp-orbit.lp-story.fromcircle .ocount,
-  .landing .lp-orbit.lp-story.fromcircle .ototal { --ftravel: calc(100svh - 190px); }
+  .landing .lp-orbit.lp-story.fromcircle .ototal { --ftravel: calc(100svh - 214px); }
   /* between the spread point and 80rem the card still lies across the foot and
      the two figures are already in the corners, so it sits a figure above them */
   .landing .lp-orbit.lp-story.fromcircle .scard { position: absolute; bottom: var(--space-96); }
@@ -556,8 +563,17 @@
     gap: var(--space-0);
     position: relative;
     z-index: 1;
+    /* `min-width: 0` AND `justify-items: start`, and between them they are what
+       keeps the promise on the page. The headline is deliberately wider than its
+       column; without a floor of zero the stack takes the headline's max-content
+       as its own width, and a stack wider than its track is laid out from its
+       CENTRE - so at a 1000px window the first word of "See what you're paying
+       for" started at -20, off the left edge of the page. The overflow is meant
+       to lie across the window on the right, never off the gutter on the left. */
+    min-width: 0;
+    justify-items: start;
   }
-  .landing .lp-orbit.lp-story.fromcircle .saystack > * { grid-area: one; align-self: start; }
+  .landing .lp-orbit.lp-story.fromcircle .saystack > * { grid-area: one; align-self: start; min-width: 0; }
 
   .landing .lp-orbit.lp-story.fromcircle .osay,
   .landing .lp-orbit.lp-story.fromcircle .storyhead {
@@ -589,7 +605,7 @@
      straight through "Tendd is not a budgeting app" for about a fifth of the
      scroll. The beats are in order now - the promise leaves, the two figures take
      the top, and only then does the section say its own name. */
-  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: shand; animation-range: contain 18% contain 42%; }
+  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: shand; animation-range: contain 14% contain 28%; }
 
   /* THE SWAP IS A FIXED BOX ON THE CENTRE LINE, not a grid track. It holds the
      window and the list one on top of the other, both centred on the page, and
@@ -616,7 +632,11 @@
     left: 50%;
     top: 50%;
     translate: -50% -50%;
-    width: min(var(--container-column), 52cqw);
+    /* 44cqw and not 52: the deck has to stand clear of the two figures in the top
+       corners, and at a 1000px window 52 put its left edge at 240 against a count
+       that ends at 270. 44 gives 280..720 there and changes nothing past 1410,
+       where `--container-column` is the cap anyway. */
+    width: min(var(--container-column), 44cqw);
     height: min(38rem, 70svh);
   }
   /* bigger, on the founder's mark: 38rem and 66svh, from 30 and 52 */
@@ -655,7 +675,7 @@
      stands and the cascade comes out of it. */
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
     animation-name: ofold;
-    animation-range: contain 8% contain 32%;
+    animation-range: contain 10% contain 34%;
   }
   /* AND THE SWAP STOPS CLIPPING, which is the one line that lets the dive be seen
      at all. The swap is 608 tall and the window 594 of it: clipped, the window
@@ -710,7 +730,7 @@
     mask-image: none;
     -webkit-mask-image: none;
     animation-name: sfall;
-    animation-range: contain 16% contain 38%;
+    animation-range: contain 28% contain 46%;
     --scardslot: 0rem;
   }
 
@@ -829,4 +849,95 @@
 @keyframes frise {
   0%   { transform: translate3d(0, var(--ftravel), 0); }
   100% { transform: translate3d(0, 0, 0); }
+}
+
+/* ============================================================================
+   THE CANDIDATE'S OWN CLOCK
+   Every beat after the deck lands is eighteen points later here than on
+   `design/index.html`, and the reason is one collision measured at 1000 and 1280:
+   the section's heading stood at y 215..293 across x 40..589, and the deck's front
+   plate arrived at y 236 across x 330..950. Two opaque things in the same 250px.
+   At 1440 and above the deck starts at 310 and there was nothing to see, which is
+   how it survived three rounds of screenshots taken on a big window.
+
+   So the heading now says its piece and is GONE before the deck arrives - in at
+   14, out by 28, deck from 28 - and the three cancellations, the four totals and
+   the three reason cards all move back with it. Written at this file's own
+   specificity so `design/index.html`, whose stage has no promise in it and no such
+   collision, keeps the timings it was verified on.
+   ========================================================================== */
+@supports (animation-timeline: view()) {
+ @container story (min-width: 60rem) {
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 { animation-range: contain 48% contain 58%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 { animation-range: contain 62% contain 72%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 { animation-range: contain 76% contain 86%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 .swap > .live,
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 .swap > .gone { animation-range: contain 48% contain 51%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 .swap > .live,
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 .swap > .gone { animation-range: contain 62% contain 65%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 .swap > .live,
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 .swap > .gone { animation-range: contain 76% contain 79%; }
+
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(1) { animation-range: contain 48% contain 49%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(2) { animation-range: contain 48% contain 64%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(3) { animation-range: contain 62% contain 78%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(4) { animation-range: contain 77% contain 78%; }
+
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1) { animation-range: contain 38% contain 60%; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { animation-range: contain 56% contain 76%; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { animation-range: contain 74% contain 80%; }
+ }
+}
+
+/* ============================================================================
+   THE REASON CARDS STAY ON THE PAGE
+   `landing-story.css` puts them a fixed 334px off the centre line past 80rem,
+   which is exactly right at 1440 and off the edge at 1280: measured 0..306, with
+   its left edge on the page's own boundary and no gutter at all. And between 60
+   and 80rem there is no room beside a 620px deck for a 336px card, so the card
+   lies across the foot of the stage - where, since the deck became a deck and
+   grew to 468, it lay across the deck instead.
+
+   Both are one arithmetic problem: the card's offset is the deck's half-width
+   plus air, and it may never take the page's gutter. `min()` of the two is the
+   answer, and the deck gives the foot back where the card has to lie in it.
+   ========================================================================== */
+@supports (animation-timeline: view()) {
+ @container story (min-width: 60rem) {
+  /* declared on the STAGE and not on `.storyasides`, which is `display: contents`
+     and therefore not the cards' parent for inheritance purposes on every path */
+  .landing .lp-orbit.lp-story.fromcircle .storypin {
+    --scardw: min(21rem, 30cqw);
+    --deckhalf: calc(min(var(--container-column), 52cqw) / 2);
+    --scardoff: min(calc(50% + var(--deckhalf) + var(--space-24)),
+                    calc(100% - var(--scardw) - var(--space-40)));
+  }
+  /* UNDER THE SIDE POINT THE CARD LIES ACROSS THE FOOT, and every one of the
+     three is re-placed here rather than left to landing-story.css: that file
+     sends them to the sides from 80rem, and at 80rem exactly the sum is
+     564 + 2 x 336 + 80 of gutter = 1316 against a 1280 page. Written at this
+     file's specificity the whole question is answered in one place. */
+  /* AND THE CARD LIES ACROSS THE DECK'S FOOT rather than under it, which is what
+     the component already does on its narrow arrangement. The alternative was
+     tried and measured: giving the card a slot of its own left the deck 384px of a
+     560 window, and a 52px plate biting 32 into the one above it shows twenty
+     pixels of itself - the mark clipped, the price gone, four plates reading as
+     one smear. Lying across the foot the card covers the last four plates, which
+     stand at 0.2 opacity and below and are depth rather than content. */
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) {
+    width: var(--scardw);
+    left: 50%; right: auto; margin-top: 0;
+    transform: translateX(-50%);
+  }
+ }
+ /* 85rem AND NOT 80: three boxes and four gutters have to fit, and the deck is
+    44cqw. At 1360 that is 591 + 2 x 336 + 80 = 1343, which fits; at 1280 it is
+    1316 against 1280, and the card that lost went to x=0 with no gutter at all
+    while its neighbour lay 18px over the deck. */
+ @container story (min-width: 85rem) {
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) { transform: none; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1),
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { right: var(--scardoff); left: auto; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { left: var(--scardoff); right: auto; }
+ }
 }
