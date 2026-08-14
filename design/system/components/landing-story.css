@@ -126,7 +126,7 @@
    head, fourteen lines and a card share one phone screen: measured at 390 x 844,
    the head is 214px and the list 464, inside a stage of 780. */
 @container (min-width: 47.5rem) {
-  .landing .sline { min-height: var(--space-40); }
+  .landing .storylist { --srow-h: var(--space-40); }
   .landing .storyhead .lead { font-size: var(--type-body); }
 }
 .landing .storyhead .lead { font-size: var(--type-meta); }
@@ -235,7 +235,14 @@
   mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
 }
-.landing .srow { display: flex; }
+/* A BAND CLIPS ITSELF, and it was leaning on its grandparent to do it. Each
+   track carries its set twice and runs to 3386px on purpose, and the only thing
+   standing between that and the page was `overflow: hidden` on the swap - which
+   the no-motion branch turns OFF, because the swap has to grow to its contents
+   there. At 1440 with motion off this landing had 2664px of sideways scroll: the
+   whole marquee, laid out across the document. Found by asking for the overflow
+   in both motion settings rather than one. */
+.landing .srow { display: flex; overflow: hidden; }
 .landing .strack {
   display: flex;
   width: max-content;
@@ -293,6 +300,13 @@
    ========================================================================== */
 
 .landing .storylist {
+  /* THE ROW HEIGHT IS A VARIABLE ON THE LIST AND NOT ON THE ROW, because two
+     things now need it and only one of them is a row. A cancelled line collapses
+     to nothing, which is an animation on `height`, and `height` cannot be
+     animated from a keyword: the row has to be told a number. And the list's own
+     frame is a whole number of rows, so the parent has to know it too. Declared
+     here, inherited by every `.sline`, changed in ONE place at the tablet point. */
+  --srow-h: var(--space-32);
   list-style: none;
   width: 100%;
   max-width: var(--container-column);
@@ -312,9 +326,24 @@
   display: flex;
   align-items: center;
   gap: var(--space-8);
-  min-height: var(--space-32);
+  min-height: var(--srow-h);
   padding: var(--space-2) var(--space-8);
   border-radius: var(--radius-sm);
+}
+/* ---- a line that is about to go -------------------------------------------
+   A cancelled line does not just go grey now: it flies up out of the list and
+   the lines under it come up to fill the space, which is what makes the stack
+   read as a deck being dealt from rather than a table being greyed out.
+   Collapsing is an animation on `height`, so three things have to be true
+   before the keyframes can say anything: the row has to have a height to
+   animate FROM (`min-height` is a floor, not a value, and `height: auto`
+   cannot be interpolated), the floor has to be gone or it holds the row open
+   at 32px, and the box has to clip or the mark and the price spill out of a
+   row of no height on the way. */
+.landing .sline.cut {
+  min-height: 0;
+  height: var(--srow-h);
+  overflow: hidden;
 }
 .landing .sline .logo { flex: none; }
 .landing .sline .name {
@@ -615,6 +644,18 @@
     .landing .lp-story.fromcircle .scard:nth-child(n) { animation-name: none; }
     .landing .lp-story.fromcircle .storystack > * + * { opacity: 0; }
     .landing .lp-story.fromcircle .sline.cut .swap > .gone { opacity: 0; }
+    /* THE FRAME COMES OFF WITH THE PIN, AND IT IS WRITTEN AT 0-5-0 BECAUSE THE
+       RULE IT UNDOES IS. The list's twelve-row window only makes sense while
+       something is scrolling it: with the choreography off, twelve rows of a
+       frame and fourteen rows of list means two subscriptions cut off the
+       bottom and nothing ever coming to show them. Written at 0-4-0 like its
+       neighbours this line loses to the frame and does nothing, which is the
+       silent kind of wrong. */
+    .landing .lp-orbit.lp-story.fromcircle .storylist {
+      height: auto; max-height: none; overflow: visible;
+      mask-image: none; -webkit-mask-image: none; transform: none;
+    }
+    .landing .lp-story.fromcircle .sline.cut { height: auto; min-height: var(--srow-h); overflow: visible; }
     .landing .lp-story.fromcircle .scard { opacity: 1; }
   }
   /* AND THE SAME BELOW THE SPREAD. Once the promise moved into the stage it
@@ -637,6 +678,18 @@
     .landing .lp-story.fromcircle .scard:nth-child(n) { animation-name: none; }
     .landing .lp-story.fromcircle .storystack > * + * { opacity: 0; }
     .landing .lp-story.fromcircle .sline.cut .swap > .gone { opacity: 0; }
+    /* THE FRAME COMES OFF WITH THE PIN, AND IT IS WRITTEN AT 0-5-0 BECAUSE THE
+       RULE IT UNDOES IS. The list's twelve-row window only makes sense while
+       something is scrolling it: with the choreography off, twelve rows of a
+       frame and fourteen rows of list means two subscriptions cut off the
+       bottom and nothing ever coming to show them. Written at 0-4-0 like its
+       neighbours this line loses to the frame and does nothing, which is the
+       silent kind of wrong. */
+    .landing .lp-orbit.lp-story.fromcircle .storylist {
+      height: auto; max-height: none; overflow: visible;
+      mask-image: none; -webkit-mask-image: none; transform: none;
+    }
+    .landing .lp-story.fromcircle .sline.cut { height: auto; min-height: var(--srow-h); overflow: visible; }
     .landing .lp-story.fromcircle .scard { opacity: 1; }
   }
 
@@ -658,17 +711,24 @@
      The classes are cut1/cut2/cut3 and not :nth-of-type, because each line is
      the only element of its type inside its own <li>, so :nth-of-type makes
      every one of them number one. */
-  .landing .sline.cut { animation-name: squiet; }
+  .landing .sline.cut { animation-name: sgo; }
   .landing .sline.cut .swap > .live { animation-name: sout; }
   .landing .sline.cut .swap > .gone { animation-name: sin; }
 
-  .landing .sline.cut1,
+  /* THE ROW AND ITS CHIP NO LONGER SHARE A RANGE, and that is the one thing
+     this beat needed. The chip turns over three per cent, as it always did; the
+     row now has ten, because after the turn it has to hold long enough to be
+     read and then fold away. Written as one range the fold would have taken the
+     same three per cent as the word, and the reader would see a line vanish
+     without ever seeing why. The row's own stops (30 / 55 / 100) put the turn
+     inside the chip's three per cent and the fold in the last four. */
+  .landing .sline.cut1 { animation-range: contain 35% contain 45%; }
+  .landing .sline.cut2 { animation-range: contain 53% contain 63%; }
+  .landing .sline.cut3 { animation-range: contain 71% contain 81%; }
   .landing .sline.cut1 .swap > .live,
   .landing .sline.cut1 .swap > .gone { animation-range: contain 35% contain 38%; }
-  .landing .sline.cut2,
   .landing .sline.cut2 .swap > .live,
   .landing .sline.cut2 .swap > .gone { animation-range: contain 53% contain 56%; }
-  .landing .sline.cut3,
   .landing .sline.cut3 .swap > .live,
   .landing .sline.cut3 .swap > .gone { animation-range: contain 71% contain 74%; }
 
@@ -701,6 +761,13 @@
   .landing .scard {
     position: absolute;
     width: min(21rem, 30cqw);
+    /* AND HEIGHT TO ITS CONTENT, WHICH AN ABSOLUTE GRID ITEM DOES NOT GET FOR
+       FREE. `.storyasides` is `display: contents`, so each card is a grid item of
+       the pin; absolutely placed, its containing block is still its grid AREA,
+       and the default `align-self: stretch` gave a card of a hundred and thirty
+       words a box of three hundred and fifteen pixels with two hundred of them
+       empty. Read as a mistake at every width above the spread. */
+    height: max-content;
     opacity: 0;
   }
   .landing .scard:nth-child(1) { animation-name: sturn; animation-range: contain 25% contain 49%; }
@@ -795,17 +862,39 @@
    through the first cancellation, is three quarters of the way by the second,
    and is home by the third. Measured at nine sizes from 320 x 640 to 1920 x
    1080: all three cancelled lines fully on screen at their own moment. */
+/* `var(--stilt,)` WITH AN EMPTY FALLBACK, and the comma is load-bearing. The
+   candidate stands its list on a slight recline, which is a transform, and this
+   set already owns the element's transform: appended here it composes, declared
+   separately it would replace. Written `var(--stilt)` with no fallback and no
+   declaration the whole property is invalid at computed-value time and the list
+   does not move at all - the empty fallback is what makes the variable optional
+   rather than required. */
 @keyframes slist {
-  0%   { transform: translate3d(0, 2.5rem, 0); opacity: 0; }
-  20%  { transform: translate3d(0, 0, 0); opacity: 1; }
-  40%  { transform: translate3d(0, 0, 0); opacity: 1; }
-  59%  { transform: translate3d(0, calc(var(--stravel) * 0.75), 0); opacity: 1; }
-  82%  { transform: translate3d(0, var(--stravel), 0); opacity: 1; }
-  100% { transform: translate3d(0, var(--stravel), 0); opacity: 1; }
+  0%   { transform: translate3d(0, 2.5rem, 0) var(--stilt,); opacity: 0; }
+  20%  { transform: translate3d(0, 0, 0) var(--stilt,); opacity: 1; }
+  40%  { transform: translate3d(0, 0, 0) var(--stilt,); opacity: 1; }
+  59%  { transform: translate3d(0, calc(var(--stravel) * 0.75), 0) var(--stilt,); opacity: 1; }
+  82%  { transform: translate3d(0, var(--stravel), 0) var(--stilt,); opacity: 1; }
+  100% { transform: translate3d(0, var(--stravel), 0) var(--stilt,); opacity: 1; }
 }
-@keyframes squiet {
-  from { background: var(--bg-surface); }
-  to   { background: var(--bg-recessed); }
+/* A CANCELLED LINE: it goes quiet, and then it leaves. One keyframe set and not
+   two, for the reason this file has written down twice already - both halves
+   would be an animation on the same node, and `fill-mode: both` means the second
+   would simply replace the first. So the stops carry the whole moment: the row
+   recedes and its chip turns over the first third, it holds for a beat so the
+   reader can see the word "Cancelled" on a row that is still there, and then it
+   folds upward out of the list. The lines under it come up on their own: they
+   are in the flow, and the row's height is what they were standing on. */
+@keyframes sgo {
+  0%   { height: var(--srow-h); opacity: 1; background: var(--bg-surface);
+         transform: translate3d(0, 0, 0) scale(1); }
+  30%  { height: var(--srow-h); opacity: 1; background: var(--bg-recessed);
+         transform: translate3d(0, 0, 0) scale(1); }
+  55%  { height: var(--srow-h); opacity: 1; background: var(--bg-recessed);
+         transform: translate3d(0, 0, 0) scale(1); }
+  100% { height: 0; opacity: 0; padding-block: var(--space-0);
+         background: var(--bg-recessed);
+         transform: translate3d(0, -0.75rem, 0) scale(0.94); }
 }
 /* the window folding away: it keeps shrinking after it has gone, so the last
    thing the eye has of it is a movement rather than a disappearance */
@@ -862,7 +951,15 @@
      collapses to 0 and the list is drawn outside a box of nothing. Found at
      320 x 640 on the candidate page; it was true here too and no check had
      looked, because every check measured the list and none measured its parent. */
-  .landing .storyswap { position: static; container-type: normal; overflow: visible; }
+  /* AND ITS TRACK IS `minmax(0, 1fr)`, WHICH IS THE WHOLE FIX FOR 2664px OF
+     SIDEWAYS SCROLL. With the swap's `overflow: hidden` gone - it has to go, or
+     the box has nothing to grow to - its one grid track is `auto`, an auto track
+     sizes to max-content, and the max-content of a marquee band is both of its
+     copies laid end to end: 4104px at 1440. The band clips its own track now
+     (see `.srow`), but a band that is itself 4104 wide has nothing to clip
+     against, so the track has to be told it may not exceed its box first. */
+  .landing .storyswap { position: static; container-type: normal; overflow: visible;
+    grid-template-columns: minmax(0, 1fr); }
   .landing .storyfield { position: static; animation-name: none; }
   .landing .storypin,
   .landing .storylist,
@@ -872,7 +969,12 @@
   .landing .sline.cut .swap > .live,
   .landing .sline.cut .swap > .gone,
   .landing .scard:nth-child(n) { animation-name: none; }
-  .landing .storylist { mask-image: none; -webkit-mask-image: none; }
+  .landing .storylist { mask-image: none; -webkit-mask-image: none;
+    height: auto; max-height: none; overflow: visible; transform: none; }
+  /* the collapse is an animation on `height`, so with the animation off the row
+     has to be given its height back as a keyword or it stands at whatever the
+     variable said, which is a floor rather than a fit */
+  .landing .sline.cut { height: auto; min-height: var(--srow-h); overflow: visible; }
   .landing .storystack > * + * { opacity: 0; }
   .landing .sline.cut .swap > .gone { opacity: 0; }
   .landing .storyasides { display: grid; }

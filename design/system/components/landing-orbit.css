@@ -246,7 +246,9 @@
   mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 88%);
   -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 88%);
 }
-.landing .orow { display: flex; }
+/* clipped by the band and not by anything above it, for the reason written
+   beside `.srow` in landing-story.css */
+.landing .orow { display: flex; overflow: hidden; }
 .landing .otrack {
   display: flex;
   width: max-content;
@@ -492,18 +494,170 @@
      the new point: 594 at 1440, 460 at 1000, and the mask keeps its left third
      empty at both. */
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { width: min(38rem, 66svh, 100%); }
-  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-range: contain 10% contain 32%; }
+  /* THE WINDOW SINKS, IT DOES NOT DISSOLVE WHERE IT STANDS. The founder, 2026-08-14:
+     "сам круг начинает двигаться вниз до того момента как достигнет цифры... и тут
+     начинается магия". So the window keeps its size and its opacity through the
+     first third of its range and travels DOWN the stage, and only once its top
+     edge has come level with the example total does it give way to the list.
+
+     `--odive` IS ARITHMETIC AND NOT A PROPORTION, and the first cut of it was a
+     proportion: 58% of the swap's own height, which is the one box on this stage
+     whose height is readable from inside it. That box is not the one the travel
+     is measured against, so the window stopped 180px short of the figure at 1440
+     and 270 short at 1920 - a distance that looks deliberate at one size and
+     unfinished at the next. The pin is `100svh - 64`, its centre is where the
+     window starts, and the example total is 103px tall at every width measured,
+     so the drop is `50svh - 32 - 103` plus the radius the window keeps after it
+     has shrunk. Every term is a number this stage already owns. */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
+    --odive: calc(50svh - 135px + 0.74 * min(19rem, 33svh));
+    animation-name: odive;
+    animation-range: contain 6% contain 34%;
+  }
+  /* AND THE SWAP STOPS CLIPPING, which is the one line that lets the dive be seen
+     at all. The swap is 608 tall and the window 594 of it: clipped, the window
+     would be cut off in a straight line across its own middle 40px into a travel
+     of 350. The list does its own clipping now, so nothing here needs a lid. */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap { overflow: visible; }
+  /* and the two figures come to the front, because a box that is `position:
+     absolute` paints over its static siblings no matter what order they are in.
+     `relative` moves neither of them: they are grid items and they keep their
+     cells. */
+  .landing .lp-orbit.lp-story.fromcircle .ocount,
+  .landing .lp-orbit.lp-story.fromcircle .ototal { position: relative; z-index: 2; }
+
+  /* ---- THE LIST IS A DECK, NOT A TABLE ------------------------------------
+     The founder asked for the list to be "каскадний блок, знизу вверх, 3д", with
+     a cancelled line flying up and out and a new one arriving from below. Three
+     things make that, and none of them is a library:
+
+     1. A FRAME OF TWELVE ROWS, not fourteen. Two of the fourteen start below the
+        frame's edge, so when Netflix folds away the thirteenth rises into view
+        from the bottom on its own - the arrival is the flow doing its work, not
+        an animation, and no subscription had to be invented for it. Twelve and
+        not ten: the second and third cancellations are the 11th and 13th lines,
+        and both have to be inside the frame at their own moment.
+     2. A RECLINE. `perspective()` before `rotateX()` in the list's own transform,
+        with the origin at the foot, so the deck leans away from the reader at the
+        top and stands square at the bottom.
+     3. TWO FADES. The mask takes the top edge, where the recline is deepest, and
+        the bottom edge, where the next line is arriving - so a row is never cut
+        by a hard line at either end.
+
+     `min(100%, ...)` and not the calc alone: on a short window the frame has to
+     give way to the stage rather than the other way round. */
   .landing .lp-orbit.lp-story.fromcircle .storylist {
     width: 100%;
+    height: min(100%, calc(12 * var(--srow-h) + var(--space-16)));
     max-height: 100%;
+    overflow: hidden;
+    --stilt: perspective(1600px) rotateX(4deg);
+    transform-origin: 50% 100%;
+    mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 86%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 86%, transparent 100%);
     animation-range: contain 18% contain 88%;
     --scardslot: 0rem;
   }
 }
 
+/* the window's descent: it holds its ground and its size while it travels, and
+   only lets go over the last third, so the eye follows one object down the stage
+   instead of watching two things happen to it at once */
+@keyframes odive {
+  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+  45%  { transform: translate3d(0, calc(var(--odive) * 0.42), 0) scale(0.97); opacity: 1; }
+  72%  { transform: translate3d(0, calc(var(--odive) * 0.76), 0) scale(0.88); opacity: 0.7; }
+  90%  { transform: translate3d(0, calc(var(--odive) * 0.94), 0) scale(0.78); opacity: 0.28; }
+  100% { transform: translate3d(0, var(--odive), 0) scale(0.74); opacity: 0; }
+}
+
+/* ============================================================================
+   WHERE THE STAGE LETS GO, THIS FILE HAS TO SAY SO TOO
+   landing-story.css releases the pin in three places - no motion asked for, a
+   window under 680px tall, a container under 60rem - and it writes those
+   releases at 0-2-0 and 0-4-0, which is the specificity of the rules it is
+   undoing IN THAT FILE. This file raised the specificity to 0-5-0 to place the
+   candidate's composition, so every one of those releases silently lost:
+
+     - reduced motion at 1440 x 900: the pin stayed sticky and the swap, whose
+       children are absolute, resolved to a height of ZERO. Five screens of
+       scroll over a stage that was not moving and a list drawn outside its box.
+     - 1280 x 660: same, by the short-window branch.
+
+   Neither is visible in a screenshot of the top of the page, and neither was
+   caught by a check that measured the list rather than its parent. The third
+   release needs nothing here: the composition lives inside `@container story
+   (min-width: 60rem)`, so under 60rem there is nothing of this file to undo.
+   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-name: none; }
   .landing .lp-orbit.lp-story.fromcircle .osay,
   .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: none; }
   .landing .lp-orbit.lp-story.fromcircle .saystack { grid-template-areas: none; gap: var(--space-24); }
-  .landing .lp-orbit.lp-story.fromcircle .storyswap { position: static; translate: none; width: 100%; height: auto; }
+
+  .landing .lp-orbit.lp-story.fromcircle { min-height: 0; }
+  .landing .lp-orbit.lp-story.fromcircle .storypin { position: static; height: auto; min-height: 0; }
+  .landing .lp-orbit.lp-story.fromcircle .storyswap {
+    position: static; translate: none; display: grid; gap: var(--space-24);
+    /* and the padding is the RING's, not air: `.orbit::after` is inset by -24,
+       so out of the pinned layout - where the swap clipped it - the ring is the
+       widest thing on the page and puts 24px of sideways scroll on the document */
+    justify-items: center; width: 100%; height: auto; padding: var(--space-24);
+  }
+  /* `relative` AND NOT `static`, and the difference is the ring. `.orbit` is a
+     positioned element on purpose: `.orbit::after` is the outer circle, inset by
+     -24 against it. Set static, the ring's containing block becomes the section
+     instead, `inset: -24px` resolves against the whole page, and the page gets
+     24px of sideways scroll from a decoration nobody can see. Relative undoes
+     the absolute placement and keeps the anchor. */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > * {
+    position: relative; translate: none; margin-inline: auto;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .storylist {
+    height: auto; max-height: none; overflow: visible; transform: none;
+    mask-image: none; -webkit-mask-image: none;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .storyasides { display: grid; gap: var(--space-16); }
+  .landing .lp-orbit.lp-story.fromcircle .scard { position: static; }
+}
+
+@media (max-height: 42.5rem) {
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-name: none; }
+  .landing .lp-orbit.lp-story.fromcircle { min-height: 0; }
+  .landing .lp-orbit.lp-story.fromcircle .storypin { position: static; height: auto; min-height: 0; }
+  .landing .lp-orbit.lp-story.fromcircle .storyswap {
+    position: static; translate: none; display: grid; gap: var(--space-24);
+    /* and the padding is the RING's, not air: `.orbit::after` is inset by -24,
+       so out of the pinned layout - where the swap clipped it - the ring is the
+       widest thing on the page and puts 24px of sideways scroll on the document */
+    justify-items: center; width: 100%; height: auto; padding: var(--space-24);
+  }
+  /* `relative` AND NOT `static`, and the difference is the ring. `.orbit` is a
+     positioned element on purpose: `.orbit::after` is the outer circle, inset by
+     -24 against it. Set static, the ring's containing block becomes the section
+     instead, `inset: -24px` resolves against the whole page, and the page gets
+     24px of sideways scroll from a decoration nobody can see. Relative undoes
+     the absolute placement and keeps the anchor. */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > * {
+    position: relative; translate: none; margin-inline: auto;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .storylist {
+    height: auto; max-height: none; overflow: visible; transform: none;
+    mask-image: none; -webkit-mask-image: none;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .storyasides { display: grid; gap: var(--space-16); }
+  .landing .lp-orbit.lp-story.fromcircle .scard { position: static; }
+}
+
+/* AND THE THIRD RELEASE, WHICH IS ONE DECLARATION AND WAS ALMOST MISSED. Under
+   60rem there is no composition of this file's to undo - it all lives inside
+   `@container story (min-width: 60rem)` - with one exception: the window's dive
+   is declared in the `@supports` block above at 0-6-0, and landing-story.css
+   switches the window's animation off at 0-5-0. Six beats five wherever they
+   meet, so on a phone the round window faded away on scroll while the list, the
+   figures and the cards all stood still: one object animating alone on a stage
+   that had let go. Measured at 390 x 844, where the window went from 1 to 0 over
+   the same scroll that moved nothing else. */
+@container story (max-width: 59.99rem) {
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-name: none; }
 }

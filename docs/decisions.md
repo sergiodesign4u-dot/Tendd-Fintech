@@ -7,6 +7,53 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-14 - D-Hero amended: the window sinks to the figures, and the list is a deck
+
+The founder, on the candidate page and in one message: the copy stays where it is, the round
+window travels DOWN until its top edge reaches the example total, and only there does it turn
+into the list; and the list itself becomes a cascade seen slightly from below, where a
+cancelled line's status turns to "Cancelled" and the line then flies up and out while a new
+one arrives from underneath.
+
+**What that changed, and what it did not.** No new data and no new copy. The fourteen, their
+prices, the three that go and the four totals are still the fixture table in
+`voice/docs/microcopy.md`, untouched. What changed is three CSS facts:
+
+- The window's fall is `50svh - 32 - 103 + 0.74 x min(19rem, 33svh)`: half the pin, less the
+  height of the example total, plus the radius the window keeps after shrinking. The first cut
+  was a proportion of the window's own wrapper, which is not the box the travel is measured
+  against, and it stopped 180px short at 1440 and 270 short at 1920.
+- The list is framed to TWELVE rows of fourteen, so two of them begin below its edge and rise
+  into view when a line above them folds away. The arrival is the flow doing its work; nothing
+  was invented to arrive. Twelve and not ten, because the second and third cancellations are
+  the 11th and 13th lines and both have to be inside the frame at their own moment.
+- A cancelled line collapses its own `height` to nothing after its chip has turned, so the
+  lines under it come up on their own. One keyframe set with stops at 30 / 55 / 100, not two
+  animations: `fill-mode: both` means the second would simply replace the first.
+
+**Rejected: inventing three more subscriptions to arrive from below.** It is the obvious way
+to read "a new block flies in", and it would have broken the one thing this section is for:
+the total steps down only when something visible is cancelled, and every step is the price on
+the line that just went quiet. A row arriving with a price on it would either be a
+subscription the fixture table does not have, or a number the total has to ignore. Framing
+the list instead gives the same movement out of the fourteen that are already true.
+
+**Three defects the change surfaced, all silent, all in the release paths.** This file's
+composition is written at 0-5-0 and 0-6-0 to place the candidate; `landing-story.css` releases
+the pin at 0-2-0 and 0-4-0, the specificity of the rules it undoes IN ITS OWN FILE. So every
+release lost. With no motion asked for, and on any window under 680px tall, the stage stayed
+pinned and the swap - whose children are absolute - resolved to a height of ZERO; on a phone
+the round window faded away on scroll while the list, the figures and the cards all stood
+still, one object animating alone on a stage that had let go. And with the swap's
+`overflow: hidden` gone in the no-motion branch, its one `auto` grid track sized to the
+max-content of a marquee band, which is both of its copies end to end: `design/index.html` had
+2664px of sideways scroll at 1440 with motion off, and it had it before this change too. A
+band clips its own track now, and the track is `minmax(0, 1fr)`.
+
+**The instrument that found all three: asking for the overflow in BOTH motion settings and at
+BOTH ends of the height range, on both candidate pages at once.** Every earlier check on this
+stage ran with motion on and measured the list rather than its parent.
+
 ## 2026-08-14 - D-Hero: the hero moves, and the value is demonstrated rather than claimed
 
 Written after three attempts, and it records the two that were thrown away as well as the
