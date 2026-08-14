@@ -123,9 +123,15 @@
 .landing .lp-orbit .lp-h1 {
   width: min(15ch, 100cqw - 5rem);
   max-width: none;
-  position: relative;
-  z-index: 1;
 }
+
+/* THE WHOLE PROMISE STANDS ABOVE THE WINDOW, not just the headline. Only the
+   headline carried a stacking context while the window sat off to the right and
+   only the headline reached it. With the window on the page's centre line the
+   paragraph and the reassurance line reach it too, and the window's own paper is
+   opaque: "recurring cha", "what is going", "we cann" - three sentences eaten by
+   a white circle. One rule on the block instead of one on the headline. */
+.landing .lp-orbit .osay { position: relative; z-index: 1; }
 
 /* ---- the two corner figures, and they have TWO HOSTS ----------------------
    They are the same two numbers the first hero puts under its headline, moved
@@ -220,8 +226,8 @@
    the side where nothing is written. The stage below keeps the centred mask: it
    has no headline over it. */
 .landing .lp-orbit .obands {
-  mask-image: radial-gradient(circle at 64% 50%, #000 40%, transparent 84%);
-  -webkit-mask-image: radial-gradient(circle at 64% 50%, #000 40%, transparent 84%);
+  mask-image: radial-gradient(circle at 70% 50%, #000 34%, transparent 84%);
+  -webkit-mask-image: radial-gradient(circle at 70% 50%, #000 34%, transparent 84%);
 }
 
 /* ---- the five bands -------------------------------------------------------
@@ -302,12 +308,29 @@
    to live without it; a candidate does not get to add to the width scale.
    ========================================================================== */
 @container (min-width: 72rem) {
+  /* THE WINDOW LEAVES THE GRID AND TAKES THE CENTRE OF THE PAGE, 2026-08-14, on
+     the founder's mark. In the middle track it was centred on what was LEFT OVER
+     after the promise, which at 1440 put it at 863 against a page centre of 720:
+     off by 143px, and the eye reads that as a mistake rather than as a spread.
+     Absolutely placed at 50% of the wrap it is on the page's own centre line at
+     every width, and the text above it does not move, which is what was asked.
+
+     The middle track stays and is now a FIXED 30rem rather than `minmax(0, 30rem)`.
+     Emptied of its item, an auto track collapses to zero and the two side columns
+     take the space back: the promise would have re-wrapped and the figures moved,
+     which is exactly what "do not touch the text" forbids. A fixed track holds
+     the composition still while its occupant floats free of it.
+
+     `translate` and not `transform`, because the hand-off animates `transform:
+     scale()` on this same element and the two would overwrite each other. Two
+     properties, two jobs, no conflict. */
   .landing .lp-orbit > .lp-wrap {
-    grid-template-columns: minmax(20rem, 1.35fr) minmax(0, 30rem) minmax(9rem, 0.5fr);
+    position: relative;
+    grid-template-columns: minmax(20rem, 1.35fr) 30rem minmax(9rem, 0.5fr);
     grid-template-rows: minmax(0, 1fr) auto;
     grid-template-areas:
-      "say   window ."
-      "count .      total";
+      "say   . ."
+      "count . total";
     align-items: center;
     gap: var(--space-32) var(--space-48);
     min-height: min(42rem, 82svh);
@@ -327,7 +350,14 @@
      is 496 tall and the two corner figures 109, so 32 of air between them leaves
      the window 468, which 52svh is. At 62 the corners fell off the bottom of a
      900 window, which is where this number came from. */
-  .landing .lp-orbit .orbit { width: min(100%, 52svh); align-self: center; justify-self: center; }
+  .landing .lp-orbit .orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    z-index: 0;
+    width: min(30rem, 52svh);
+  }
   .landing .lp-orbit .ocount { align-self: end; justify-self: start; }
   .landing .lp-orbit .ototal { align-self: end; justify-self: end; text-align: right; }
 }
