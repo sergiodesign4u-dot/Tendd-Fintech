@@ -517,36 +517,30 @@ A 12px muted line with a 15px petrol shield masked in front of it, sitting direc
 figures it vouches for. It is not fine print and it is not a footer: it is placed where the number
 is, because a trust claim that has to be scrolled to is not a trust claim.
 
-### The landing window (signature, and the one moving thing)
+### The landing, and the only motion in this product (signature)
 
-The public page's hero panel has an opening cut into its left, right and bottom edges. Fourteen
-merchant marks drift across it on three tracks - top to the right, middle to the left, bottom to
-the right, between 18 and 22 pixels a second - and one enormous grey numeral climbs behind them,
-a dollar every ten seconds, from 192 to 199, and then stops.
+The public page carries two moving blocks and the app carries none. They are one argument in
+two halves, and the difference between them is the argument.
 
-**It is the only motion in this product that is not a loading state**, and it is on the only
-surface that is not a screen. Principle 1 ("every screen lowers anxiety") governs what a person is
-inside; this is where the anxiety somebody already has is named back to them once, before the
-promise. There is no red, no urgency and nothing flashing: the whole effect is a grey shape moving
-slower than reading.
+**The hero's opening.** Under the example's total, a field of fourteen app squares on three
+bands: the top one drifting right, the middle left, the bottom right, between 18 and 22
+pixels a second. It says the thing a screenshot cannot - that a subscription stack is not a
+list somebody made, it arrives, from more directions than anybody is watching. The number
+above it does not move.
 
-**The numeral is a picture of a number, not a readout.** $192.90 is stated once, in text, above
-the opening, with its label and its caption. The numeral carries no cents, is cropped by its
-frame, is painted in `--text-ghost` at 1.36:1 against its ground, and sits inside an `aria-hidden`
-element. A number that moves is a number a person cannot check, so the checkable one never moves.
+**The cut list.** At the foot of "Calm control of your recurring money", the same fourteen
+as the product's own rows, with the total stuck to the top of the block. Scrolling through
+the list cancels three of them, one at a time, and the total steps down at each: $192.90,
+$174.91, $161.92, $144.92. Netflix, The New York Times and Peloton App, which are the three
+the product itself cancels or flags, at the prices the canonical dataset gives them, so the
+arithmetic can be checked against the rows on the screen.
 
-**The same opening appears once more, and says the opposite thing.** At the foot of "How Tendd
-works" the fourteen stand still in one grid, arriving as the section is scrolled past, and then one
-of them leaves and the figure falls from 192 to 174. Every difference between the two is the
-argument: the hero is charges arriving from three directions past a number going up, this is
-everything in one place and a number going down. It is driven by the scroll rather than by a clock,
-so it does not happen at a person; it happens because they moved. It carries no copy, because step
-3 above it has read "Feel the small win when the number goes down" since the wireframes.
-
-**And it is the mark at hero scale.** Crop is one letterform larger than any frame with a window
-cut out of it; here the figure is set to the width of the opening and past it, and what does the
-cutting is first the frame and then the tiles, which pass in front and take it away a piece at a
-time. Ground: `docs/decisions.md`, D-Hero. Component: `design/kit/landing-window.html`.
+**One number moves on this page and it moves for a visible reason.** A number that changes
+because something on the screen was cancelled is a demonstration; a number that changes on
+its own is a claim, and this product does not make claims at people who already do not trust
+finance apps. A cancelled row goes quiet rather than red: cancelling is a small win, not an
+alarm. Ground: `docs/decisions.md`, D-Hero. Components: `design/kit/landing-window.html` and
+`design/kit/landing-cut-list.html`.
 
 ### Patterns (a level above the components)
 

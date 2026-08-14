@@ -115,20 +115,22 @@ window.KIT_NAV = {
     { name: 'Dialog sheet',      cls: '.sheet',        page: 'dialog-sheet.html', was: null,                          axes: 'full width, then a card at container 760', wf: 3 },
     { name: 'Divided list',      cls: '.divlist',      page: 'divided-list.html', was: '.alerts, .navrows',            axes: 'inset: bare / inside a panel',          wf: 4 },
     { name: 'Empty block',       cls: '.empty',        page: 'empty-block.html', was: null,                          axes: '-',                                     wf: 2 },
-    /* THE SIX PUBLIC-PAGE ORGANISMS. Five arrived on 2026-08-14 at the rollout,
+    /* THE SEVEN PUBLIC-PAGE ORGANISMS. Five arrived on 2026-08-14 at the rollout,
        and they were the only things the landing needed that the system did not
        already have: 48 of the 57 components at that date already answered to
        `.landing`. The landing window arrived later the same day, on the founder's
-       decision to make the hero move. Each stands on exactly one grey page and
+       decision to make the hero move, and the cut list with it, when the same
+       decision grew a second half. Each stands on exactly one grey page and
        one coloured one, because the landing is the only public surface this
        product has, and that is a fact about the product rather than a thin
        count. */
     { name: 'FAQ list',          cls: '.lp-faq',       page: 'faq-list.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'Grid',              cls: '.grid',         page: 'grid.html', was: '.doors, .tiles, .plans',       axes: 'columns: 1 to 2 / 2 to 3 / 1 to 3. gap by child size', wf: 8 },
+    { name: 'Landing cut list',  cls: '.lp-cut',       page: 'landing-cut-list.html', was: null,                          axes: 'a measure, no point',                   wf: 1 },
     { name: 'Landing bar',       cls: '.lp-nav',       page: 'landing-bar.html', was: null,                          axes: 'links: hidden / shown at container 760', wf: 1 },
     { name: 'Landing hero',      cls: '.lp-hero',      page: 'landing-hero.html', was: null,                          axes: 'form: stacked / two columns at container 760', wf: 1 },
     { name: 'Landing shell',     cls: '.landing',      page: 'landing-shell.html', was: null,                          axes: 'band: canvas / surface. final: centred', wf: 1 },
-    { name: 'Landing window',    cls: '.lp-window',    page: 'landing-window.html', was: null,                          axes: 'form: drifting / gathered. figure: hung from the top / centred at container 760', wf: 1 },
+    { name: 'Landing window',    cls: '.lp-window',    page: 'landing-window.html', was: null,                          axes: '-', wf: 1 },
     { name: 'Groups column set', cls: '.groups',       page: 'groups-column-set.html', was: null,                          axes: 'columns: from a 300px floor, capped at three',          wf: 4 },
     { name: 'Panel',             cls: '.panel',        page: 'panel.html', was: null,                          axes: 'head: banded h2 / summary disclosure / headless',  wf: 7 },
     { name: 'Reveal step',       cls: '.rstep',        page: 'reveal-step.html', was: null,                          axes: '-',                                     wf: 1 },

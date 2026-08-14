@@ -180,31 +180,26 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 .lp-preview .ptotal { font-size: 34px; font-weight: 700; letter-spacing: -0.02em; margin: 2px 0; line-height: 1.05; }
 .lp-preview .pctx { font-size: 12px; color: var(--soft); margin: 0 0 12px; }
 
-/* The opening in the proof panel, added 2026-08-14 on the founder's decision
-   recorded in index.html at the block it changes. STRUCTURE ONLY, and standing
-   still: fourteen merchant tiles on three tracks, and the total behind them.
-   The grey states what is there and in what order; the drift and the climb are
-   the colour layer's, in design/system/components/landing-window.css. */
+/* The landing's two moving blocks, added 2026-08-14 on the founder's decision,
+   recorded in index.html at each block it changes. STRUCTURE ONLY: the grey says
+   what is there and in what order, and the colour layer moves it. The hero's
+   field of squares stands still here, and in the cut list all fourteen rows are
+   live with the total at $192.90, which is the state the colour layer starts in
+   and the state a browser with no scroll timeline keeps. */
 .lp-preview .lp-window {
   position: relative; overflow: hidden;
   margin: 12px -16px -16px; padding: 14px 0;
   background: var(--panel); border-top: 1px solid var(--line2);
 }
-.lp-window .wfig {
-  position: absolute; inset: 0; display: flex;
-  align-items: center; justify-content: center;
-  font-size: 128px; font-weight: 700; line-height: 1; letter-spacing: -0.05em;
-  color: var(--skel); user-select: none;
-}
-.lp-window .wfig::after { content: "$192"; }
-.lp-preview .wrows { position: relative; display: flex; flex-direction: column; gap: 8px; }
+.lp-preview .wrows { display: flex; flex-direction: column; gap: 8px; }
 .lp-preview .wrow { display: flex; }
 .lp-preview .wtrack { display: flex; width: max-content; }
 .lp-preview .wtile {
-  flex: none; display: flex; align-items: center; gap: 8px;
-  margin-right: 8px; padding: 6px 12px 6px 6px;
-  background: var(--frame); border: 1px solid var(--line2);
+  flex: none; width: 92px; aspect-ratio: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  margin-right: 8px; background: var(--frame); border: 1px solid var(--line2);
 }
+.lp-preview .wtile .amt { font-size: 13px; font-weight: 600; color: var(--ink); }
 /* Written out rather than borrowed: every other .logo rule in this file is
    scoped to .app, and the landing is not .app. The dashed square is the grey's
    own convention for "a mark goes here", the same one .app .tile .logo uses. */
@@ -213,39 +208,42 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
   display: flex; align-items: center; justify-content: center;
   border: 1px dashed var(--line); font-size: 8px; color: var(--faint);
 }
-.lp-preview .wtile .amt { font-size: 13px; font-weight: 600; color: var(--ink); }
 
-/* The second opening, at the foot of "How Tendd works": the same fourteen,
-   settled in one grid. STRUCTURE ONLY. The tiles stand where they land and the
-   figure holds at 192; in colour they arrive on the scroll and it falls to 174.
-   Selectors are written on .lp-window rather than through .lp-preview, because
-   this one stands on the section's own ground rather than inside a panel. */
-.lp-window.gather {
-  position: relative; overflow: hidden;
-  margin: 20px 0 0; padding: 18px 0;
-  background: var(--panel); border: 1px solid var(--line);
-}
-.lp-window.gather .wfig { font-size: 116px; }
-.wgrid {
-  position: relative; display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
-  gap: 8px; padding: 0 14px;
-}
-.wgrid .wtile {
-  flex: none; display: flex; align-items: center; gap: 8px;
-  margin-right: 0; padding: 6px 12px 6px 6px;
-  background: var(--frame); border: 1px solid var(--line2);
-}
-.wgrid .wtile .logo {
+/* The cut list, at the foot of "Calm control of your recurring money". */
+.lp-cut { margin-top: 20px; background: var(--frame); border: 1px solid var(--line); }
+.lp-cut .cuthead { padding: 16px 16px 12px; border-bottom: 1px solid var(--line2); }
+.lp-cut .cuthead .plabel { margin: 0 0 8px; }
+.lp-cut .cutfigs { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+.lp-cut .cutstack { display: grid; grid-template-areas: "one"; justify-items: start; }
+.lp-cut .cutstack > * { grid-area: one; margin: 0; }
+/* Only the first state of each stack is shown. The other three are the states
+   the colour layer swaps to on the scroll; here they would print on top of one
+   another, and the grey's job is to say they exist and in what order. */
+.lp-cut .cutstack > * + * { visibility: hidden; }
+.lp-cut .cutstack .ptotal { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+.lp-cut .cutstack .pctx { font-size: 14px; color: var(--mid); margin: 0; }
+.lp-cut .cutcaption { font-size: 12px; color: var(--soft); margin: 6px 0 0; }
+.lp-cut ul { list-style: none; margin: 0; padding: 8px 12px 12px; }
+.lp-cut li + li { border-top: 1px solid var(--line2); }
+.lp-cut .row { display: flex; align-items: center; gap: 10px; padding: 10px 4px; }
+.lp-cut .row .logo {
   flex: none; width: 34px; height: 34px;
   display: flex; align-items: center; justify-content: center;
   border: 1px dashed var(--line); font-size: 8px; color: var(--faint);
 }
-.wgrid .wtile .amt { font-size: 13px; font-weight: 600; color: var(--ink); }
-/* The one the cancel guide cancels. In the grey it is NAMED and not hidden:
-   a state that only exists once you scroll is still a state, and the structure
-   contract has to say which tile carries it. */
-.wgrid .wtile.cut { border-style: dashed; }
+.lp-cut .row .body { display: flex; flex-direction: column; min-width: 0; }
+.lp-cut .row .name { font-size: 14px; font-weight: 600; }
+.lp-cut .row .when { font-size: 12px; color: var(--soft); }
+.lp-cut .row .amt { margin-left: auto; font-size: 14px; font-weight: 600; }
+.lp-cut .row .tag, .lp-cut .row .chip {
+  flex: none; font-size: 11px; color: var(--mid);
+  border: 1px solid var(--line2); padding: 2px 8px; background: var(--panel);
+}
+/* Both chips are real text and both are in the page. The grey shows the live one
+   and hides the cancelled one, which is the order the colour layer swaps them in. */
+.lp-cut .chipswap { display: grid; grid-template-areas: "one"; justify-items: end; margin-left: 10px; }
+.lp-cut .chipswap > * { grid-area: one; }
+.lp-cut .chipswap > .gone { visibility: hidden; }
 
 /* Benefit / step grids */
 .lp-grid { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 10px; }

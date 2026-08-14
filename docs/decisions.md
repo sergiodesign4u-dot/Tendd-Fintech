@@ -7,112 +7,83 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
-## 2026-08-14 - D-Hero: the hero moves, and the example finally adds up
+## 2026-08-14 - D-Hero: the hero moves, and the value is demonstrated rather than claimed
 
-**The founder's ask, in the founder's words:** the first screen was boring, and it should carry
-a wow effect - a matrix of real apps sliding through one big square, the top band travelling
-right, the middle left, the bottom right, and behind them an enormous background number
-starting at 192 and climbing on its own, "because subscriptions grow and you do not notice".
+Written after three attempts, and it records the two that were thrown away as well as the
+one that stands, because both failures were about the same thing: what the page is allowed
+to say with a number.
 
-**What was there.** `.lp-preview`, the hero's proof panel: a label, a count, $192.90, a caption
-and three still rows (Netflix, Spotify Premium, Peloton App). Three rows are a screenshot, and a
-screenshot cannot say the thing this page has to say first - that a subscription stack is not a
-list somebody made, it arrives.
+**The founder's ask.** The first screen was boring. It should carry a wow effect: a matrix
+of real apps sliding through one big square, the top band travelling right, the middle
+left, the bottom right; and then, as the reader scrolls into "Calm control of your
+recurring money", the subscriptions travel with them, become a list, one after another
+flips to cancelled, and the total appears at the top and comes down.
 
-**What changed.** The three rows became `.lp-window`: an opening cut to the panel's left, right
-and bottom edges, holding all **fourteen** merchants of the example on three drifting tracks,
-with the total behind them. The four lines above the cut did not move. This is a STRUCTURE change
-to a frozen file, so it is written into `wireframes/index.html` at the block it changes, and the
-grey shows the same fourteen tiles standing still: the grey is a structure contract and motion is
-not structure.
+**What was built.** Two blocks, and they are two components. `landing-window.css`: the
+hero's opening, all fourteen merchants as squares on three drifting bands. `landing-cut-list
+.css`: at the foot of "Calm control", the same fourteen as the product's OWN `.row`s, with
+a sticky head, three cancellations spaced down the scroll, and a total that steps 192.90 to
+174.91 to 161.92 to 144.92, each step at the moment of the cancellation that causes it.
 
-**The example is checkable now, and it was not before.** The panel claimed "14 subscriptions" and
-"$192.90" while showing three of them: the other eleven were an assertion and the total was a
-number with nothing under it. Five merchants already carried a price in the corpus (Netflix 17.99,
-Spotify Premium 11.99, Peloton App 12.99, ChatGPT Plus 20.00, The New York Times 17.00 = 79.97);
-the other nine were chosen to close the remaining 112.93 exactly, and the script that writes the
-markup into both corpora refuses to write anything if the fourteen do not sum to $192.90.
+**THE FOURTEEN PRICES ALREADY EXISTED AND THE FIRST BUILD INVENTED THEM.** `voice/docs/
+microcopy.md` has carried "Canonical subscription dataset" since the voice stage: fourteen
+subscriptions, their categories and their prices, summing to $192.90. The first version of
+this block did not look, concluded that "the total was a number with nothing under it",
+invented nine prices to close it, and shipped three that contradict the fixtures: Disney+
+9.99 against 13.99, Hulu 9.99 against 7.99, Notion 10.00 against 8.00. The claim written
+into the decision log at the time was wrong on both counts. Corrected here, and the script
+that writes the markup now reads the fixture table line by line and refuses to write
+anything that disagrees with it. One owner per string, and the owner was already named.
 
-**Rejected: GSAP, and any motion library.** The founder named it. The page carries no third-party
-runtime today, and it is the page whose argument is "read-only, we cannot move your money" - a
-CDN script on that page costs something real. Everything asked for is CSS: transforms for the
-drift, and a registered custom property for the count. A library would also have put the motion in
-a per-screen script, which is the failure `CLAUDE.md` already forbids for width.
+**Rejected: $79 as the end figure**, which is what the founder's sketch asked for. It would
+mean cutting $114 of a $192.90 stack: a 59% saving is a claim this product makes nowhere,
+and "Example, not your data" does not make a claim like that safe on the one surface whose
+job is to be trusted by somebody who already does not trust finance apps. **$144.92 instead,
+and every part of it is the product's own:** Netflix $17.99, which `cancel-win.html` cancels
+and frees exactly this much; The New York Times $17.00 and Peloton App $12.99, the two
+`home-savefocus.html` flags as not opened in weeks. Those two are also the two behind that
+screen's own line, "You could save up to $29.99 a month by cutting 2": 12.99 + 17.00 =
+29.99. A reader can check the whole thing against the rows in front of them.
 
-**Rejected: 192 climbing to 216, which is what was built first.** The panel two lines above says
-$192.90, in text, and it is the honest figure on this page. A background numeral that has drifted
-to 216 while that figure says 192.90 is a page arguing with itself, on the one surface whose job
-is to be trusted by somebody who does not trust finance apps. Settled at **192 to 199, one dollar
-every ten seconds**: it still climbs, which is the whole sentence; it stays within a few dollars
-of the stated figure for as long as anybody is looking; and it never crosses 200, which would read
-as a different number rather than the same one growing.
+**Rejected: a number that moves in the hero.** The first build had a giant watermark figure
+climbing 192 to 199 behind the tiles, on a clock, to say "it goes up on its own". It made
+the page argue with the $192.90 printed two lines above it. A number that changes for a
+reason a person can see is a demonstration; a number that changes on its own is a claim.
+The hero's figure is now still, and the only number that moves on the whole page moves
+because something on the screen was cancelled. `--text-ghost`, the role added for that
+watermark, was removed the same day: a token with no reader does not exist.
 
-**THE SECOND ACT, and it is the same component saying the opposite thing.** The founder's second
-half was: on scroll the apps gather to the middle into one system, an unsubscribe happens, and the
-number falls. Built as `.lp-window.gather` at the foot of "How Tendd works": the same fourteen
-merchants, settled in one grid instead of three drifting tracks, arriving as the section is
-scrolled past, and then one of them leaves and the figure falls. Driven by the SCROLL rather than
-by a clock, so it does not happen at a person, it happens because they moved.
+**Rejected: the gathered grid**, the second attempt, which had the fourteen settle into a
+grid at the foot of "How Tendd works" and one of them disappear. It was the right mechanism
+in the wrong place and at the wrong strength. The founder's redraw put the block at the END
+OF THE ARGUMENT ABOUT CALM CONTROL, made the tiles into the product's own list rather than
+into another grid, and made three things flip rather than one - and it is better, because
+the list is the thing the product actually gives you and a hole in a grid is not.
 
-**It carries no copy, and it needed none.** Step 3 of the section it closes has read "Feel the
-small win when the number goes down" since the wireframes. The opening is what that sentence looks
-like, which is why it went at the foot of that section rather than into a new one: a new section
-would have meant a new heading, a new line and a new entry in `microcopy.md`, for an argument the
-page already makes in words.
+**Rejected: a phone mockup in the middle of it**, which the founder floated as a maybe. It
+would be a picture of the product drawn by the landing, which `landing-hero.css` refuses in
+its first paragraph. The rows here ARE the product's rows, through the same stylesheet.
 
-**192 to 174, and neither number is invented.** `design/cancel-win.html` cancels **Netflix** and
-frees **$17.99** a month. 192.90 minus 17.99 is 174.91, truncating to 174 the same way 192.90
-truncates to the 192 the hero starts on. The tile that leaves is the same Netflix. The landing does
-not get a story of its own.
+**Four things about the mechanism, all of them found by measuring rather than by looking.**
+The `animation` shorthand resets `animation-range` and `animation-timeline`, so a shorthand
+after a range silently erases it: longhands only. A moment rule has to be written at the
+same specificity as the rule it is timing, and the first draft timed the chips at 0-5-0
+against a 0-6-0 and all three cancellations fired at once across the whole range. Two
+animations on one property cannot give one element a fade-in and a fade-out at two
+different moments, because `fill-mode: both` means both are always applying and the later
+one always wins: the two edges have to live in one keyframe set with percentage stops. And
+`:nth-of-type` counts by TAG, so three rows that are each the only child of their own `li`
+are all number one; the moment is a class in the markup instead.
 
-**Rejected: a phone mockup in the middle of the gathering,** which the founder floated as a maybe.
-It would be a picture of the product drawn by the landing, which is the exact thing `landing-hero
-.css` refuses in its first paragraph: a landing that draws its own mockup starts lying the first
-time a row changes. The tiles and the number ARE the product's own components, so the second act
-shows the real thing changing state instead of an illustration of it.
+**Cancelled is the one new word on the page**, registered in `voice/docs/microcopy.md` with
+the spelling `cancel-win` already uses, along with the four totals and the four counts. Both
+chips are real text in the page: CSS cannot rewrite the words inside an element, and a
+string rendered from a stylesheet is a line of product copy the voice inventory cannot own.
 
-**Rejected: closing the gap where the cancelled tile was.** A grid that reflows to thirteen says
-there were always thirteen. The hole is the point, and it is what the falling number is explaining.
-
-**The scroll act sits behind `@supports (animation-timeline: view())` and the guard is not
-politeness.** Unguarded, a browser without support keeps the declarations, falls back to the
-DOCUMENT timeline, and plays the whole act once on load at the top of the page where nobody is
-looking. Guarded, it renders the base state: fourteen tiles settled in the grid and the figure at
-192, which is a complete picture of the calm view with nothing missing but the movement. It is the
-same state `prefers-reduced-motion` gets.
-
-**Two ranges were wrong before this was right, and both were found by measuring rather than by
-looking.** The first ended the fall at `cover 78%`, six pixels from the top edge: the number
-finished falling as the block left the screen. The second ended at 68% and was correct on a desktop
-and wrong on a phone, because past the tablet point the figure is centred and is very nearly the
-whole block, while below it the figure hangs in the opening's 80px of top padding and the block is
-524 tall, so the figure leaves the screen long before the block does. Ending at `cover 52%` puts
-the opening's top at 304px on a 900 window and 133 on an 844 one. And no bound mixes `entry` with
-`cover`: `entry` is measured against the element's own height, so the same `entry 25%` is two
-different places on two screens.
-
-**Rejected: promoting the figure to `.total`.** The One Number Rule holds. This numeral has no
-cents, is cropped by its frame, sits at the ground's own value and lives inside an `aria-hidden`
-element. It is a picture of a number, not a readout.
-
-**Rejected: `--bg-placeholder` for the figure's ink, and the rejection was measured rather than
-argued.** "Something is here and it is not real yet" describes this numeral exactly, and rendered
-it came out at 1.14:1 against its ground in the light theme and **1.04:1 in the dark**, where
-there was no figure on the screen at all. A role of its own, `--text-ghost`, at 1.36:1 and 1.33:1.
-It is not `--line-container-hover`, which reads the same primitive today, because that one is a
-card's edge under the pointer and the day a hover edge wants to be darker a watermark should not
-darken with it.
-
-**One point, and it is the registered one.** The three tracks are 178px tall at every width, since
-a mark and a price do not grow on a wider screen, while the figure grows with the opening. Centred
-on the same axis they collide at the phone end: 181 against 178, measured on a 390 screen, and it
-looked like nothing. Below 47.5rem the figure hangs from the top and the tracks sit at the bottom;
-past it, both are centred and the figure stands 28px clear above and below.
-
-**Found on the way.** `.grid`, `.brand` and `.wordmark`'s sibling problem has a fourth member:
-`landing-hero.css` carried a rule for `.pctx`, which is the GREY's class name for the caption, and
-the colour layer folds that class into `.muted` - so the rule matched nothing on the only page it
-exists for. Fixed. It is the idle half of the two-sided idle check: a rule with no reader.
+**Both blocks changed a frozen file, and that is a founder's decision** written into
+`wireframes/index.html` at each block it changes. In the grey the squares stand still and
+all fourteen rows are live at $192.90, which is exactly the state a browser without
+scroll-driven animation is given, and the state `prefers-reduced-motion` is given.
 
 ## 2026-08-14 - The landing, and the five things the system did not have
 

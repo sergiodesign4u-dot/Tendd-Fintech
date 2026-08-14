@@ -1,79 +1,65 @@
 /* ============================================================================
    Landing window - organism
-   The live half of the hero's proof panel: a cut opening with the product's own
-   merchant marks drifting through it, and one enormous, quiet number climbing
-   behind them.
+   The hero's proof: under the example's total and its count, a matrix of the
+   person's own apps, drifting. Three bands, and they do not travel the same way:
+   the top one right, the middle one left, the bottom one right.
 
-   WHY IT EXISTS, AND IT IS AN ARGUMENT RATHER THAN AN ORNAMENT. The panel above
-   this window states the example in words and in one figure, and a person who
-   has never felt the problem reads that as a screenshot. The window says the
-   part the screenshot cannot: that a subscription stack is not a list somebody
-   sat down and made, it is a thing that ARRIVES, one charge at a time, from
-   fourteen directions, while the total goes up on its own and nobody is
-   watching. The drift is the arriving. The climbing number is the not watching.
+   WHY IT EXISTS, AND IT IS AN ARGUMENT RATHER THAN AN ORNAMENT. A still list is
+   a screenshot, and a person who has never felt the problem reads a screenshot
+   as somebody else's tidy spreadsheet. The drift says the part a screenshot
+   cannot: that a subscription stack is not a list somebody sat down and made, it
+   ARRIVES, one charge at a time, from more directions than anybody is watching.
    That is the problem this product exists for, said in the only place on the
    whole surface where it may be said: principle 1 governs SCREENS, and every one
    of them lowers anxiety. This is the public page, and it is where the anxiety a
    person already has is named back to them once, calmly, before the promise.
 
-   IT IS ALSO THE MARK AT HERO SCALE. D-Brand locks the identity as Crop: one
-   letterform larger than any frame, and a window cut out of it. The figure here
-   is set to the width of the opening and past it, and what does the cutting is
-   first the frame and then the tiles themselves, which pass in front of it and
-   take it away a piece at a time. Nothing here is sized to fit.
+   THE NUMBER DOES NOT MOVE HERE. It is stated at --type-figure with its label
+   ("Example, not your data") and its caption, and it stays $192.90 for as long
+   as anybody looks at it. The one place it moves is landing-cut-list.css, in the
+   next section, where three subscriptions are visibly cancelled and the drop is
+   the sum of the three prices on the screen. A number that changes for a reason
+   a person can check is a demonstration; a number that changes on its own is a
+   claim, and this product does not make claims at people who already do not
+   trust finance apps. The first build of this file had it climb 192 to 199 as a
+   watermark behind the tiles, and that was the wrong instinct: it made the page
+   argue with the figure printed two lines above it.
+
+   A SQUARE, NOT A ROW. Each tile is a mark with its price under it, in a square,
+   because the matrix has to read as a FIELD of things rather than as a list. The
+   list is what the product gives you afterwards, in the next section, and the
+   whole hand-off between the two depends on those being two different shapes.
+   The founder drew it as a 3 by 3 and 3 by 3 is what it is at every width: the
+   square is sized in cqw, so about three stand across the opening whether it is
+   286 wide or 518.
 
    Reads
-     colour   --bg-recessed   (the ground of the opening, one step under the card)
+     colour   --bg-recessed   (the ground of the opening)
               --bg-surface    (a tile: the same paper every row in the app is on)
-              --text-ghost    (the climbing figure. See THE FIGURE'S INK below)
-              --line-divider, --line-container
-     spacing  --space-0, --space-8, --space-16, --space-64
+              --line-container, --line-divider
+     spacing  --space-0, --space-8, --space-16, --space-32
      geometry --radius-sm
-     type     the tile's price is `.amt` at its base size, untouched. The figure
-              is sized in cqw and is not a step of the type scale: see below.
-   Hosts     .logo at its BASE 36px, and .amt at its base. Neither gets a rule
-              here. A size of another component declared in this file is the
-              shape of a later disagreement, which logo.css says in its own words.
+     type     the tile's price is `.amt` at its base size, untouched
+   Hosts     .logo at its BASE 36px and .amt at its base. Neither gets a rule
+             here: a size of another component declared in this file is the shape
+             of a later disagreement, which logo.css says in its own words.
    Placed by design/system/components/landing-hero.css, which owns .lp-preview
-              and therefore owns where this opening is cut into it.
+             and therefore owns where this opening is cut into it.
    Page      design/kit/landing-window.html
    Stands on 1 grey page and 1 coloured one: the landing is the only public
-              surface this product has.
+             surface this product has.
 
-   THE FIGURE IS NOT A READOUT AND MUST NEVER BECOME ONE. $192.90 is stated
-   once, in text, above this opening, with its label ("Example, not your data")
-   and its caption. This numeral carries no cents, is cropped by the frame, sits
-   at the ground's own value, and the whole opening is aria-hidden. It is a
-   picture of a number. Principle 4 is the reason the honest figure stays in the
-   panel rather than moving in here: a number that moves is a number a person
-   cannot check.
-
-   AND THE EXAMPLE NOW ADDS UP. The fourteen tiles are the product's own fourteen
-   merchants, named exactly as every app screen names them, and their prices sum
-   to $192.90 to the cent, which is the figure the panel has claimed since the
-   wireframes. Five of the fourteen already carried a price in the corpus
-   (Netflix 17.99, Spotify Premium 11.99, Peloton App 12.99, ChatGPT Plus 20.00,
-   The New York Times 17.00 = 79.97); the other nine were chosen to close the
-   remaining 112.93 exactly. Before this window the total was a number with
-   nothing under it. See docs/decisions.md, D-Hero.
+   THE FOURTEEN ARE THE CANONICAL DATASET, NOT A SAMPLE WRITTEN HERE.
+   `voice/docs/microcopy.md` has carried the fourteen subscriptions, their
+   categories and their prices under "Canonical subscription dataset" since the
+   voice stage, summing to $192.90. That file is the owner. The first build of
+   this component invented nine of the fourteen prices to close the total, in the
+   belief that no itemisation existed, and shipped three that contradicted the
+   fixtures: Disney+ at 9.99 against 13.99, Hulu at 9.99 against 7.99, Notion at
+   10.00 against 8.00. Corrected 2026-08-14, in the same step the founder redrew
+   this block. The script that writes the markup now reads the fixture table and
+   refuses to write anything whose fourteen do not sum to $192.90.
    ============================================================================ */
-
-/* ---- the climbing number, registered so it can be interpolated -------------
-   An unregistered custom property has no type, so a browser can only flip it
-   from one value to the other at the halfway mark. Registered as <integer> it
-   interpolates, and interpolating an integer IS the tick: there is no keyframe
-   per step and no steps() timing function, the type does the counting.
-
-   The fallback is not a decoration either. Where @property is not honoured the
-   registration is dropped, the declaration below survives as a plain custom
-   property, `counter-reset` still resolves it to 192, and the opening renders
-   the true total standing still. That is the correct static state, which is the
-   same state prefers-reduced-motion is given at the foot of this file. */
-@property --wfig-n {
-  syntax: "<integer>";
-  inherits: false;
-  initial-value: 192;
-}
 
 /* ---- the opening ---------------------------------------------------------
    One step down from the card it is cut into, because a tile has to read as an
@@ -81,125 +67,48 @@
    --bg-surface, and the ground between them is --bg-recessed: the same three
    values, in the same order, that a row hover uses inside the app.
 
-   `overflow: hidden` is the whole component. It is what crops the figure, it is
-   what makes a track wider than the page cost nothing, and it is why no width
-   below is ever asked about.
+   `overflow: hidden` is the whole component. It is what makes a track wider than
+   the page cost nothing, and it is why no width below is ever asked about.
 
    AND IT CLIPS PAINT, NOT MEASUREMENT, which cost the grey corpus 204px of
-   sideways scroll before it was found. A track is 1122px wide. `overflow: hidden`
-   stops it being DRAWN outside the opening; it does not stop an ancestor from
-   MEASURING it. Here in the colour layer that is harmless, because landing-hero
-   .css gives the panel `min-width: 0` past the tablet point and below the point
-   the panel is a stretched column flex item, whose width comes from its parent
-   rather than from its content. In `wireframes/_wf.css` the same panel is a GRID
-   item, and a grid item's automatic minimum IS its content's min-content size, so
-   the hero's column resolved to the track and the page scrolled. The grey now
-   carries `min-width: 0` with that measurement written beside it. Nothing was
-   added here: a guard the colour does not need is a dead declaration, and the
-   trap belongs in the note rather than in the file.
+   sideways scroll before it was found. A track is far wider than its opening.
+   `overflow: hidden` stops it being DRAWN outside; it does not stop an ancestor
+   from MEASURING it. In the colour layer that is harmless, because
+   landing-hero.css gives the panel `min-width: 0` past the tablet point, and
+   below the point the panel is a stretched column flex item whose width comes
+   from its parent rather than from its content. In `wireframes/_wf.css` the same
+   panel is a GRID item, and a grid item's automatic minimum IS its content's
+   min-content size, so the hero's column resolved to the track and the page
+   scrolled sideways. The grey carries `min-width: 0` with that measurement
+   written beside it.
 
    `container-type: inline-size` is declared HERE and that is the rule rather
    than an exception to it: container-type belongs to whoever PLACES a component,
-   and this element places the figure. The figure is sized from the opening's own
-   width, not the page's, and the opening is 320px wide on a phone and 490 in the
+   and this element places the tiles. The square is sized from the opening's own
+   width, not the page's, and the opening is 286px wide on a phone and 518 in the
    hero's right column at 1280 - two numbers a viewport unit cannot tell apart.
    Checked before declaring it: nothing inside this opening asks an @container
    question, so nothing changes its answer by being re-parented. */
 .landing .lp-window {
   position: relative;
   overflow: hidden;
-  padding: var(--space-80) var(--space-0) var(--space-16);
+  padding: var(--space-16) var(--space-0);
   background: var(--bg-recessed);
   border-top: 1px solid var(--line-divider);
   container-type: inline-size;
+  view-timeline-name: --whero;
 }
 
-/* ---- the figure ----------------------------------------------------------
-   THE FIGURE'S INK is --text-ghost, a role added for it, and the first value it
-   was given was wrong. --bg-placeholder was the reasoned choice: "something is
-   here and it is not real yet" describes this numeral exactly. Rendered, it
-   measured 1.14:1 against the ground in the light theme and 1.04:1 in the dark,
-   and at 1.04 there was no figure on the screen at all. The role it has now sits
-   one step off its ground in both themes, 1.36:1 and 1.33:1, and carries the
-   argument for its own existence in tokens.css.
-
-   SIZED IN cqw AND NOT FROM THE TYPE SCALE, on purpose. The scale exists so that
-   text agrees with other text; nothing else in this product is ever this size,
-   and the figure's job is a RATIO to its frame rather than a step: as wide as the
-   opening, and taller than the three tracks in front of it.
-
-   AND THE CLAMP IS DOING REAL WORK AT BOTH ENDS, which is why both bounds are
-   numbers and not guesses. The tracks are the one thing in this opening that does
-   NOT scale with width: three tiles of 54px and two gaps is 178px at 320 and 178
-   at 1600, because a mark and a price do not get bigger on a wider screen. So the
-   figure has to clear 178 even where 76cqw would not. The floor, 15.5rem, is the
-   size whose digits are 181 tall: one hair over the tracks, so the figure is
-   never entirely behind them. The ceiling, 22rem, is where "192" is exactly as
-   wide as the widest this opening ever gets, so past that the frame would start
-   eating digits for nothing. Between them it tracks the width.
-
-   The crop is therefore real and it is not everywhere: at the desktop end the
-   numeral spans the opening edge to edge and stands 39px clear above and below
-   the tracks; in the narrow band between the tablet point and about 1050 the
-   frame does cut into it, on purpose rather than by accident, which is what the
-   floor buys. Measured at four widths, not reasoned.
-
-   tabular-nums is load-bearing, not taste: 192 and 216 must be the same width or
-   the whole numeral shifts on the tick and the eye catches it immediately. */
-.landing .wfig {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  font-size: clamp(8rem, 55cqw, 15rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-ghost);
-  user-select: none;
-  pointer-events: none;
-
-  /* 192 to 199 over seventy seconds: ONE DOLLAR EVERY TEN. The first draft ran
-     192 to 216 in a minute and it was wrong for a reason worth keeping written
-     down. The panel two lines above this opening states $192.90, in text, with
-     its label and its caption, and it is the honest figure on this page. A
-     background numeral that has drifted to 216 while that figure says 192.90 is
-     a page arguing with itself, on the one surface whose whole job is to be
-     trusted by somebody who does not trust finance apps.
-
-     Seven dollars over seventy seconds keeps both things. It climbs, which is
-     the entire sentence this opening exists to say. It stays within a few
-     dollars of the figure it sits behind for as long as anybody is looking, and
-     it never crosses 200, which would read as a different number rather than the
-     same one growing. A visitor who scrolls past in ten seconds sees 192 or 193.
-
-     `forwards` because it must STOP at the top and stay there. A number that
-     reset to 192 every seventy seconds would be saying the opposite thing. */
-  --wfig-n: 192;
-  counter-reset: wfig var(--wfig-n);
-  animation: wfig-climb 70s linear forwards;
-}
-.landing .wfig::after { content: counter(wfig); }
-
-@keyframes wfig-climb { to { --wfig-n: 199; } }
-
-/* ---- the three rows ------------------------------------------------------
-   The mask sits on the STACK and not on each row, so all three dissolve on the
-   same two edges and the figure behind them does not dissolve at all. It is the
-   calm instrument of this component: nothing enters or leaves by appearing.
-
-   position: relative puts the stack above the figure with no z-index anywhere.
-   Both are positioned, the stack comes second in the markup, and paint order
-   does the rest. */
+/* ---- the three bands ------------------------------------------------------
+   The mask sits on the STACK and not on each band, so all three dissolve on the
+   same two edges. It is the calm instrument of this component: nothing enters or
+   leaves by appearing. */
 .landing .wrows {
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
-  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
 .landing .wrow { display: flex; }
@@ -209,14 +118,11 @@
    so the second set lands where the first set started and the loop has no seam.
    That arithmetic only closes if every tile carries its own trailing gap: with
    `gap` on the track there are 2n-1 gaps for 2n tiles, half the width falls half
-   a gap short of one full set, and the row jumps 4px once a cycle. Written as a
+   a gap short of one full set, and the band jumps 4px once a cycle. Written as a
    margin there are 2n gaps, half is exactly one set, and it does not.
 
-   width: max-content is what lets the track be wider than the opening. It costs
-   nothing, because the opening hides what it cannot show.
-
    Three durations rather than one, and none of them a round number: at equal
-   speeds three rows read as one mechanism with three parts. Between 18 and 22
+   speeds three bands read as one mechanism with three parts. Between 18 and 22
    pixels a second, which is slower than reading. */
 .landing .wtrack {
   display: flex;
@@ -224,11 +130,11 @@
   will-change: transform;
   animation: wdrift linear infinite;
 }
-.landing .wrow:nth-child(1) .wtrack { animation-duration: 34s; animation-direction: reverse; }
-.landing .wrow:nth-child(2) .wtrack { animation-duration: 29s; }
-.landing .wrow:nth-child(3) .wtrack { animation-duration: 25s; animation-direction: reverse; }
+.landing .wrow:nth-child(1) .wtrack { animation-duration: 40s; animation-direction: reverse; }
+.landing .wrow:nth-child(2) .wtrack { animation-duration: 34s; }
+.landing .wrow:nth-child(3) .wtrack { animation-duration: 29s; animation-direction: reverse; }
 
-/* One keyframe, one direction, and `reverse` on the two rows that travel the
+/* One keyframe, one direction, and `reverse` on the two bands that travel the
    other way. Two mirrored keyframe blocks would be two places to change the
    distance, and the distance is the thing the seam depends on. */
 @keyframes wdrift {
@@ -236,243 +142,75 @@
   to   { transform: translate3d(-50%, 0, 0); }
 }
 
-/* ---- a tile --------------------------------------------------------------
-   A mark and a price. No name, and that is a decision rather than a shortage of
-   room: the opening is aria-hidden and its job is recognition, not reading. A
-   person sees their own Netflix, their own Spotify, their own thing they forgot,
-   and the count and the total are already stated in words directly above.
+/* ---- a tile: a square, a mark and a price --------------------------------
+   No name, and that is a decision rather than a shortage of room: the opening is
+   aria-hidden and its job here is RECOGNITION. A person sees their own Netflix,
+   their own Spotify, their own thing they forgot. The names arrive in the next
+   section, where the list is the point rather than the field.
 
-   The mark is `.logo` at the size logo.css gives it with no host rule, and the
-   price is `.amt` at the size amount.css gives it with no host rule. This file
-   declares the box the two of them stand in and nothing about either of them,
+   `aspect-ratio` and not a height, so the square stays square while its width is
+   a ratio of the opening. The mark is `.logo` at the size logo.css gives it and
+   the price is `.amt` at the size amount.css gives it, neither with a host rule:
+   this file declares the box the two of them stand in and nothing about either,
    which is what a host is allowed to do. */
 .landing .wtile {
   flex: none;
+  width: clamp(5.25rem, 28cqw, 8.5rem);
+  aspect-ratio: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--space-8);
   margin-right: var(--space-8);
-  padding: var(--space-8) var(--space-16) var(--space-8) var(--space-8);
   background: var(--bg-surface);
   border: 1px solid var(--line-container);
   border-radius: var(--radius-sm);
 }
 
 /* ==========================================================================
-   NO MOTION, AND THE STATIC STATE IS THE HONEST ONE
-   base.css already collapses every animation in the product for a person who
-   has asked the system for no motion, and for the tracks that blanket is enough:
-   they carry no fill-mode, so they return to translate3d(0,0,0), which is a full
-   row of tiles standing still.
+   THE HAND-OFF, AND IT IS BEHIND @supports ON PURPOSE
+   The founder's ask was that the subscriptions travel with the reader into the
+   next section rather than simply ending. They do not literally move between two
+   blocks: nothing in CSS carries an element out of one section and into another.
+   What is built is the READING of it. As the hero leaves, the field sinks and
+   fades; landing-cut-list.css has the list rise into the same place at the same
+   moment. The eye joins them, which is the only thing that was ever required.
 
-   The figure needs its own line because it is the one animation in this system
-   that ends `forwards`, and a forwards animation collapsed to nothing lands on
-   its LAST keyframe: $216, a number that was never true. Turning the animation
-   off instead returns --wfig-n to its declared 192, which is the real total of
-   the fourteen tiles below it. The guard is here rather than in base.css for the
-   same reason the pulse guard is there rather than here: that one belongs to the
-   whole product, this one belongs to this file's own exception.
-   ========================================================================== */
-@media (prefers-reduced-motion: reduce) {
-  .landing .wfig { animation: none; }
-}
-
-/* ==========================================================================
-   PAST THE TABLET POINT, 47.5rem / 760px, the registered point
-   THE FIGURE STOPS HANGING AND STARTS FLOATING, and that is the one real piece of
-   responsive behaviour in this component. It is arithmetic rather than taste.
-
-   The three tracks are 178px tall at every width, because a mark and a price do
-   not grow on a wider screen. The figure grows with the width. So whether any of
-   the figure can be seen AROUND the tracks depends entirely on how wide the
-   opening is, and centring the two on the same axis is the worst case: at the
-   phone end the figure is 181 tall against 178 of tracks and the tracks cover all
-   but a hair of it. Measured, on a 390 screen, and it looked like nothing.
-
-   Below the point the two are therefore anchored to OPPOSITE edges: the figure to
-   the top, the tracks to the bottom, and the opening's top padding is the band
-   the figure is seen in. 64px of a 181px numeral is its top third, which is the
-   third that tells 2 from 3, so the climb still reads.
-
-   Past the point the opening is 518 wide against 178 of tracks, the figure is 234
-   tall, and centring gives 28px clear ABOVE and BELOW - the number surrounding
-   the cards rather than looming over them, which is the better picture and is
-   only available once there is width to pay for it. So past the point it is
-   centred, and the padding is even.
-   ========================================================================== */
-@container (min-width: 47.5rem) {
-  .landing .lp-window { padding: var(--space-64) var(--space-0); }
-  .landing .wfig { align-items: center; font-size: clamp(15.5rem, 76cqw, 20rem); }
-}
-
-/* ============================================================================
-   THE SECOND OPENING: `.gather`, and it is the same component saying the
-   opposite thing.
-
-   The hero's opening is the problem: fourteen charges arriving from three
-   directions past a number that climbs. This one is the answer, and every
-   difference between them is the argument. Nothing drifts. The fourteen stand
-   in one grid, which is the calm view this product sells. The number goes DOWN
-   rather than up. And it is driven by the SCROLL rather than by a clock, so it
-   does not happen at a person: it happens because they moved.
-
-   It sits at the foot of "How Tendd works", under the three steps, and the
-   third of them already reads "Feel the small win when the number goes down."
-   That is why this block carries no copy of its own and needs none: the
-   sentence was written at the wireframes and the opening is what it looks like.
-
-   THE FIGURE FALLS 192 TO 174, AND NEITHER NUMBER IS INVENTED. The example
-   totals $192.90. `design/cancel-win.html`, the product's own small-win screen,
-   cancels Netflix and frees $17.99 a month. 192.90 minus 17.99 is 174.91, which
-   truncates to 174 the same way 192.90 truncates to the 192 the hero starts on.
-   The tile that leaves is the Netflix tile, `.wtile.cut`, and it is the same
-   Netflix. The landing does not get its own story.
-
-   NO NEW STRUCTURE INSIDE THE TILE, and no new component. A grid instead of
-   three tracks, a border and a corner instead of a cut edge, and two animations
-   on a view timeline. Everything else - the ground, the figure's size and its
-   anchoring at each end of the range, the tile, the mark, the price - is the
-   rules above, unchanged, which is what a declared variant is supposed to cost.
-   ============================================================================ */
-
-/* ---- the standalone form -------------------------------------------------
-   The hero's opening is cut INTO a card and lets the card's own edge do the
-   clipping, so it declares no corner. This one stands on the section's own
-   ground with nothing around it, so it takes the container hairline and the
-   container radius, exactly as every other container in this product does. */
-.landing .lp-window.gather {
-  border: 1px solid var(--line-container);
-  border-radius: var(--radius);
-  view-timeline-name: --wgather;
-}
-
-/* ---- the fourteen, settled ------------------------------------------------
-   `auto-fit` and a floor, and the number of columns is written nowhere: nine at
-   a 1200 measure, five at the tablet point, two on a phone, and the day this
-   product has fifteen merchants nothing here changes. The floor is
-   min(7.5rem, 100%) rather than 7.5rem, which is the correction grid.css took
-   on 2026-08-14: a floor taller than its container produces a track wider than
-   the container, and the page scrolls sideways for a promise nobody needed. */
-.landing .wgrid {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(7.5rem, 100%), 1fr));
-  gap: var(--space-8);
-  padding: var(--space-0) var(--space-16);
-}
-
-/* A tile in the grid carries no trailing margin: the gap is the grid's job here,
-   and the margin exists on a track only because a seamless loop cannot use gap.
-   Two mechanisms, one for each form, and each one is right where it stands. */
-.landing .wgrid .wtile { margin-right: var(--space-0); }
-
-/* ==========================================================================
-   THE SCROLL, AND IT IS BEHIND @supports ON PURPOSE
    `animation-timeline` is the one thing here a browser can be missing, and the
    failure mode of leaving it unguarded is the worst kind: the declarations stay
-   valid, the animations fall back to the DOCUMENT timeline, and the whole act
-   plays itself once on load, at the top of the page, where nobody is looking.
-   Guarded, a browser without it renders the base state - fourteen tiles settled
-   in the grid and the figure holding at 192 - which is a correct and complete
-   picture of the calm view. Nothing is missing from it except the movement.
+   valid, the animation falls back to the DOCUMENT timeline, and the field sinks
+   and disappears once on load, at the top of the page, where nobody is looking.
+   Guarded, a browser without it renders the base state - the field, drifting -
+   which is a complete picture with nothing missing but the hand-off.
 
-   The timeline is NAMED and declared on the opening rather than taken with a
-   bare `view()` on each tile. A bare view() would measure each tile's own box,
-   and each tile's box is the thing being transformed: the animation would be
-   reading a number it is writing. One name, one measured box, every child
-   reading it.
+   `exit` and not `cover`: the range is the part of the scroll where the opening
+   is LEAVING the top of the screen, which is exactly when the next section is
+   arriving at the bottom of it. Written as a cover percentage it would be a
+   different moment on a phone and on a desktop, because the opening is a
+   different height on each.
    ========================================================================== */
 @supports (animation-timeline: view()) {
-
-  /* THE ARRIVING. Each tile comes from a small offset and lands. Seven starting
-     positions cycled by nth-child, so fourteen tiles never repeat a neighbour's
-     move, and no tile carries a style attribute: a screen is not allowed one and
-     this is how the scatter is declared instead of authored. The offsets are
-     small on purpose - between 14 and 24px and under four degrees. This is a
-     product about lowering anxiety, and things that fly do not settle. */
-  .landing .wgrid .wtile {
-    animation: wgather linear both;
-    animation-timeline: --wgather;
-  }
-  .landing .wgrid .wtile:nth-child(7n+1) { --wdx: -22px; --wdy:  18px; --wr: -3deg; }
-  .landing .wgrid .wtile:nth-child(7n+2) { --wdx:  16px; --wdy:  24px; --wr:  2deg; }
-  .landing .wgrid .wtile:nth-child(7n+3) { --wdx: -14px; --wdy: -20px; --wr:  3deg; }
-  .landing .wgrid .wtile:nth-child(7n+4) { --wdx:  24px; --wdy: -16px; --wr: -2deg; }
-  .landing .wgrid .wtile:nth-child(7n+5) { --wdx: -18px; --wdy:  22px; --wr:  3deg; }
-  .landing .wgrid .wtile:nth-child(7n+6) { --wdx:  20px; --wdy:  16px; --wr: -3deg; }
-  .landing .wgrid .wtile:nth-child(7n+7) { --wdx: -16px; --wdy: -22px; --wr:  2deg; }
-
-  /* Three bands rather than fourteen delays. A stagger written per element is a
-     stagger nobody can change; written as three ranges it is one edit. */
-  .landing .wgrid .wtile:nth-child(3n+1) { animation-range: cover  8% cover 20%; }
-  .landing .wgrid .wtile:nth-child(3n+2) { animation-range: cover 13% cover 25%; }
-  .landing .wgrid .wtile:nth-child(3n+3) { animation-range: cover 18% cover 30%; }
-
-  /* THE FALL. It starts after the last tile has landed, so the two moves are
-     read in order rather than at once: everything gathers, and THEN one of them
-     goes and the number follows it.
-
-     THE RANGE IS WHERE THE OPENING IS ON THE SCREEN, and it was wrong twice.
-     Every bound below is read off the geometry rather than picked, and every
-     bound is a `cover` percentage rather than a mix of `entry` and `cover`,
-     because `entry` is measured against the ELEMENT's own height and this
-     element is 246px tall on a desktop and 524 on a phone: the same `entry 25%`
-     is two completely different places on the screen.
-
-     The first draft ended the fall at `cover 78%`, which puts the opening's top
-     6px from the viewport top: the number finished falling as the block left.
-     The second ended at 68% and was fine on a desktop and wrong on a phone,
-     which is the interesting one. Past the tablet point the figure is CENTRED
-     and is very nearly the whole block, so any moment the block is on screen the
-     figure is too. Below the point it is hung from the top and lives in the
-     opening's own 80px of top padding, while the block is 524 tall - so the
-     figure leaves the screen long before the block does, and the last third of
-     the fall happened above the fold.
-
-     Solved by ending earlier rather than by making the phone's block shorter.
-     At `cover 52%` the opening's top sits at 304px on a 900 window and at 133 on
-     an 844 one, so the figure is comfortably in view at both, clear of the
-     sticky header. The tiles are all down by `cover 30%`, four percent before
-     the fall starts, so the two moves are still read in order. */
-  .landing .lp-window.gather .wfig {
-    animation: wfall linear both;
-    animation-timeline: --wgather;
-    animation-range: cover 34% cover 52%;
-  }
-
-  /* THE ONE THAT LEAVES. It gathers with the rest and then goes, which is two
-     animations on one element and the second one wins the property while it is
-     running. It leaves its cell empty rather than closing the gap: a grid that
-     reflows would say "there were always thirteen", and the hole is the point. */
-  .landing .wgrid .wtile.cut {
-    animation: wgather linear both, wcut linear both;
-    animation-timeline: --wgather, --wgather;
-    animation-range: cover 8% cover 20%, cover 34% cover 48%;
+  .landing .wrows {
+    animation: wsink linear both;
+    animation-timeline: --whero;
+    animation-range: exit 0% exit 95%;
   }
 }
 
-@keyframes wgather {
-  from {
-    opacity: 0;
-    transform: translate3d(var(--wdx, 0), var(--wdy, 0), 0) rotate(var(--wr, 0deg)) scale(0.94);
-  }
-  to { opacity: 1; transform: none; }
+@keyframes wsink {
+  to { transform: translate3d(0, var(--space-32), 0); opacity: 0; }
 }
 
-/* The figure's own fall. --wfig-n is the same registered integer the hero
-   climbs; only the direction and the timeline differ, which is the whole of
-   what this variant changes about it. */
-@keyframes wfall { to { --wfig-n: 174; } }
-
-/* It goes, and it does not slide out or shrink away. A tile that flies off says
-   somebody threw it; a tile that stops being there says it was cancelled. */
-@keyframes wcut { to { opacity: 0; } }
-
-/* NO MOTION: the base state again, and it is the same honest one. Fourteen
-   tiles standing in the grid, the figure at 192. A person who asked for no
-   motion is shown the calm view rather than a story about it. */
+/* ==========================================================================
+   NO MOTION, AND THE STATIC STATE IS THE HONEST ONE
+   base.css already collapses every animation in the product for a person who has
+   asked the system for no motion, and for the tracks that blanket is enough:
+   they carry no fill-mode, so they return to translate3d(0,0,0), which is a full
+   band of tiles standing still. The hand-off carries `both`, so it needs a line
+   of its own: collapsed, it would land on its last keyframe and the field would
+   simply be gone.
+   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .landing .wgrid .wtile,
-  .landing .wgrid .wtile.cut,
-  .landing .lp-window.gather .wfig { animation: none; }
+  .landing .wrows { animation: none; }
 }
