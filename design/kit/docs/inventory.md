@@ -169,7 +169,7 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Landing bar | `.lp-nav` | links: hidden / shown | 1 | `.lp-nav` | `landing-bar.css` | `landing-bar.html`  | links appear at 47.5rem |
 | Landing hero | `.lp-hero` | form: stacked / two columns | 1 | `.lp-hero` | `landing-hero.css` | `landing-hero.html`  | two columns at 47.5rem |
 | Landing shell | `.landing` | band: canvas / surface | 1 | `.landing` | `landing-shell.css` | `landing-shell.html`  | measure and rhythm grow at 47.5rem |
-| Landing window | `.lp-window` | figure: hung from the top / centred | 1 | `.lp-window`, `.wfig`, `.wrows`, `.wrow`, `.wtrack`, `.wtile` | `landing-window.css` | `landing-window.html`  | the figure is centred and the opening deepens at 47.5rem |
+| Landing window | `.lp-window`, `.lp-window.gather` | form: drifting / gathered. figure: hung from the top / centred | 1 | `.lp-window`, `.gather`, `.wfig`, `.wrows`, `.wrow`, `.wtrack`, `.wgrid`, `.wtile`, `.wtile.cut` | `landing-window.css` | `landing-window.html`  | the figure is centred and the opening deepens at 47.5rem; the gathered grid counts its own columns and asks nothing |
 | Site footer | `.lp-footer` | form: stacked / four columns | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem |
 | Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
 | Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | does not adapt |

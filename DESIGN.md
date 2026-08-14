@@ -535,6 +535,14 @@ the opening, with its label and its caption. The numeral carries no cents, is cr
 frame, is painted in `--text-ghost` at 1.36:1 against its ground, and sits inside an `aria-hidden`
 element. A number that moves is a number a person cannot check, so the checkable one never moves.
 
+**The same opening appears once more, and says the opposite thing.** At the foot of "How Tendd
+works" the fourteen stand still in one grid, arriving as the section is scrolled past, and then one
+of them leaves and the figure falls from 192 to 174. Every difference between the two is the
+argument: the hero is charges arriving from three directions past a number going up, this is
+everything in one place and a number going down. It is driven by the scroll rather than by a clock,
+so it does not happen at a person; it happens because they moved. It carries no copy, because step
+3 above it has read "Feel the small win when the number goes down" since the wireframes.
+
 **And it is the mark at hero scale.** Crop is one letterform larger than any frame with a window
 cut out of it; here the figure is set to the width of the opening and past it, and what does the
 cutting is first the frame and then the tiles, which pass in front and take it away a piece at a

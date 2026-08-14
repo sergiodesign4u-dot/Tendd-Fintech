@@ -304,3 +304,175 @@
   .landing .lp-window { padding: var(--space-64) var(--space-0); }
   .landing .wfig { align-items: center; font-size: clamp(15.5rem, 76cqw, 20rem); }
 }
+
+/* ============================================================================
+   THE SECOND OPENING: `.gather`, and it is the same component saying the
+   opposite thing.
+
+   The hero's opening is the problem: fourteen charges arriving from three
+   directions past a number that climbs. This one is the answer, and every
+   difference between them is the argument. Nothing drifts. The fourteen stand
+   in one grid, which is the calm view this product sells. The number goes DOWN
+   rather than up. And it is driven by the SCROLL rather than by a clock, so it
+   does not happen at a person: it happens because they moved.
+
+   It sits at the foot of "How Tendd works", under the three steps, and the
+   third of them already reads "Feel the small win when the number goes down."
+   That is why this block carries no copy of its own and needs none: the
+   sentence was written at the wireframes and the opening is what it looks like.
+
+   THE FIGURE FALLS 192 TO 174, AND NEITHER NUMBER IS INVENTED. The example
+   totals $192.90. `design/cancel-win.html`, the product's own small-win screen,
+   cancels Netflix and frees $17.99 a month. 192.90 minus 17.99 is 174.91, which
+   truncates to 174 the same way 192.90 truncates to the 192 the hero starts on.
+   The tile that leaves is the Netflix tile, `.wtile.cut`, and it is the same
+   Netflix. The landing does not get its own story.
+
+   NO NEW STRUCTURE INSIDE THE TILE, and no new component. A grid instead of
+   three tracks, a border and a corner instead of a cut edge, and two animations
+   on a view timeline. Everything else - the ground, the figure's size and its
+   anchoring at each end of the range, the tile, the mark, the price - is the
+   rules above, unchanged, which is what a declared variant is supposed to cost.
+   ============================================================================ */
+
+/* ---- the standalone form -------------------------------------------------
+   The hero's opening is cut INTO a card and lets the card's own edge do the
+   clipping, so it declares no corner. This one stands on the section's own
+   ground with nothing around it, so it takes the container hairline and the
+   container radius, exactly as every other container in this product does. */
+.landing .lp-window.gather {
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+  view-timeline-name: --wgather;
+}
+
+/* ---- the fourteen, settled ------------------------------------------------
+   `auto-fit` and a floor, and the number of columns is written nowhere: nine at
+   a 1200 measure, five at the tablet point, two on a phone, and the day this
+   product has fifteen merchants nothing here changes. The floor is
+   min(7.5rem, 100%) rather than 7.5rem, which is the correction grid.css took
+   on 2026-08-14: a floor taller than its container produces a track wider than
+   the container, and the page scrolls sideways for a promise nobody needed. */
+.landing .wgrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(7.5rem, 100%), 1fr));
+  gap: var(--space-8);
+  padding: var(--space-0) var(--space-16);
+}
+
+/* A tile in the grid carries no trailing margin: the gap is the grid's job here,
+   and the margin exists on a track only because a seamless loop cannot use gap.
+   Two mechanisms, one for each form, and each one is right where it stands. */
+.landing .wgrid .wtile { margin-right: var(--space-0); }
+
+/* ==========================================================================
+   THE SCROLL, AND IT IS BEHIND @supports ON PURPOSE
+   `animation-timeline` is the one thing here a browser can be missing, and the
+   failure mode of leaving it unguarded is the worst kind: the declarations stay
+   valid, the animations fall back to the DOCUMENT timeline, and the whole act
+   plays itself once on load, at the top of the page, where nobody is looking.
+   Guarded, a browser without it renders the base state - fourteen tiles settled
+   in the grid and the figure holding at 192 - which is a correct and complete
+   picture of the calm view. Nothing is missing from it except the movement.
+
+   The timeline is NAMED and declared on the opening rather than taken with a
+   bare `view()` on each tile. A bare view() would measure each tile's own box,
+   and each tile's box is the thing being transformed: the animation would be
+   reading a number it is writing. One name, one measured box, every child
+   reading it.
+   ========================================================================== */
+@supports (animation-timeline: view()) {
+
+  /* THE ARRIVING. Each tile comes from a small offset and lands. Seven starting
+     positions cycled by nth-child, so fourteen tiles never repeat a neighbour's
+     move, and no tile carries a style attribute: a screen is not allowed one and
+     this is how the scatter is declared instead of authored. The offsets are
+     small on purpose - between 14 and 24px and under four degrees. This is a
+     product about lowering anxiety, and things that fly do not settle. */
+  .landing .wgrid .wtile {
+    animation: wgather linear both;
+    animation-timeline: --wgather;
+  }
+  .landing .wgrid .wtile:nth-child(7n+1) { --wdx: -22px; --wdy:  18px; --wr: -3deg; }
+  .landing .wgrid .wtile:nth-child(7n+2) { --wdx:  16px; --wdy:  24px; --wr:  2deg; }
+  .landing .wgrid .wtile:nth-child(7n+3) { --wdx: -14px; --wdy: -20px; --wr:  3deg; }
+  .landing .wgrid .wtile:nth-child(7n+4) { --wdx:  24px; --wdy: -16px; --wr: -2deg; }
+  .landing .wgrid .wtile:nth-child(7n+5) { --wdx: -18px; --wdy:  22px; --wr:  3deg; }
+  .landing .wgrid .wtile:nth-child(7n+6) { --wdx:  20px; --wdy:  16px; --wr: -3deg; }
+  .landing .wgrid .wtile:nth-child(7n+7) { --wdx: -16px; --wdy: -22px; --wr:  2deg; }
+
+  /* Three bands rather than fourteen delays. A stagger written per element is a
+     stagger nobody can change; written as three ranges it is one edit. */
+  .landing .wgrid .wtile:nth-child(3n+1) { animation-range: cover  8% cover 20%; }
+  .landing .wgrid .wtile:nth-child(3n+2) { animation-range: cover 13% cover 25%; }
+  .landing .wgrid .wtile:nth-child(3n+3) { animation-range: cover 18% cover 30%; }
+
+  /* THE FALL. It starts after the last tile has landed, so the two moves are
+     read in order rather than at once: everything gathers, and THEN one of them
+     goes and the number follows it.
+
+     THE RANGE IS WHERE THE OPENING IS ON THE SCREEN, and it was wrong twice.
+     Every bound below is read off the geometry rather than picked, and every
+     bound is a `cover` percentage rather than a mix of `entry` and `cover`,
+     because `entry` is measured against the ELEMENT's own height and this
+     element is 246px tall on a desktop and 524 on a phone: the same `entry 25%`
+     is two completely different places on the screen.
+
+     The first draft ended the fall at `cover 78%`, which puts the opening's top
+     6px from the viewport top: the number finished falling as the block left.
+     The second ended at 68% and was fine on a desktop and wrong on a phone,
+     which is the interesting one. Past the tablet point the figure is CENTRED
+     and is very nearly the whole block, so any moment the block is on screen the
+     figure is too. Below the point it is hung from the top and lives in the
+     opening's own 80px of top padding, while the block is 524 tall - so the
+     figure leaves the screen long before the block does, and the last third of
+     the fall happened above the fold.
+
+     Solved by ending earlier rather than by making the phone's block shorter.
+     At `cover 52%` the opening's top sits at 304px on a 900 window and at 133 on
+     an 844 one, so the figure is comfortably in view at both, clear of the
+     sticky header. The tiles are all down by `cover 30%`, four percent before
+     the fall starts, so the two moves are still read in order. */
+  .landing .lp-window.gather .wfig {
+    animation: wfall linear both;
+    animation-timeline: --wgather;
+    animation-range: cover 34% cover 52%;
+  }
+
+  /* THE ONE THAT LEAVES. It gathers with the rest and then goes, which is two
+     animations on one element and the second one wins the property while it is
+     running. It leaves its cell empty rather than closing the gap: a grid that
+     reflows would say "there were always thirteen", and the hole is the point. */
+  .landing .wgrid .wtile.cut {
+    animation: wgather linear both, wcut linear both;
+    animation-timeline: --wgather, --wgather;
+    animation-range: cover 8% cover 20%, cover 34% cover 48%;
+  }
+}
+
+@keyframes wgather {
+  from {
+    opacity: 0;
+    transform: translate3d(var(--wdx, 0), var(--wdy, 0), 0) rotate(var(--wr, 0deg)) scale(0.94);
+  }
+  to { opacity: 1; transform: none; }
+}
+
+/* The figure's own fall. --wfig-n is the same registered integer the hero
+   climbs; only the direction and the timeline differ, which is the whole of
+   what this variant changes about it. */
+@keyframes wfall { to { --wfig-n: 174; } }
+
+/* It goes, and it does not slide out or shrink away. A tile that flies off says
+   somebody threw it; a tile that stops being there says it was cancelled. */
+@keyframes wcut { to { opacity: 0; } }
+
+/* NO MOTION: the base state again, and it is the same honest one. Fourteen
+   tiles standing in the grid, the figure at 192. A person who asked for no
+   motion is shown the calm view rather than a story about it. */
+@media (prefers-reduced-motion: reduce) {
+  .landing .wgrid .wtile,
+  .landing .wgrid .wtile.cut,
+  .landing .lp-window.gather .wfig { animation: none; }
+}

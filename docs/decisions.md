@@ -47,6 +47,50 @@ every ten seconds**: it still climbs, which is the whole sentence; it stays with
 of the stated figure for as long as anybody is looking; and it never crosses 200, which would read
 as a different number rather than the same one growing.
 
+**THE SECOND ACT, and it is the same component saying the opposite thing.** The founder's second
+half was: on scroll the apps gather to the middle into one system, an unsubscribe happens, and the
+number falls. Built as `.lp-window.gather` at the foot of "How Tendd works": the same fourteen
+merchants, settled in one grid instead of three drifting tracks, arriving as the section is
+scrolled past, and then one of them leaves and the figure falls. Driven by the SCROLL rather than
+by a clock, so it does not happen at a person, it happens because they moved.
+
+**It carries no copy, and it needed none.** Step 3 of the section it closes has read "Feel the
+small win when the number goes down" since the wireframes. The opening is what that sentence looks
+like, which is why it went at the foot of that section rather than into a new one: a new section
+would have meant a new heading, a new line and a new entry in `microcopy.md`, for an argument the
+page already makes in words.
+
+**192 to 174, and neither number is invented.** `design/cancel-win.html` cancels **Netflix** and
+frees **$17.99** a month. 192.90 minus 17.99 is 174.91, truncating to 174 the same way 192.90
+truncates to the 192 the hero starts on. The tile that leaves is the same Netflix. The landing does
+not get a story of its own.
+
+**Rejected: a phone mockup in the middle of the gathering,** which the founder floated as a maybe.
+It would be a picture of the product drawn by the landing, which is the exact thing `landing-hero
+.css` refuses in its first paragraph: a landing that draws its own mockup starts lying the first
+time a row changes. The tiles and the number ARE the product's own components, so the second act
+shows the real thing changing state instead of an illustration of it.
+
+**Rejected: closing the gap where the cancelled tile was.** A grid that reflows to thirteen says
+there were always thirteen. The hole is the point, and it is what the falling number is explaining.
+
+**The scroll act sits behind `@supports (animation-timeline: view())` and the guard is not
+politeness.** Unguarded, a browser without support keeps the declarations, falls back to the
+DOCUMENT timeline, and plays the whole act once on load at the top of the page where nobody is
+looking. Guarded, it renders the base state: fourteen tiles settled in the grid and the figure at
+192, which is a complete picture of the calm view with nothing missing but the movement. It is the
+same state `prefers-reduced-motion` gets.
+
+**Two ranges were wrong before this was right, and both were found by measuring rather than by
+looking.** The first ended the fall at `cover 78%`, six pixels from the top edge: the number
+finished falling as the block left the screen. The second ended at 68% and was correct on a desktop
+and wrong on a phone, because past the tablet point the figure is centred and is very nearly the
+whole block, while below it the figure hangs in the opening's 80px of top padding and the block is
+524 tall, so the figure leaves the screen long before the block does. Ending at `cover 52%` puts
+the opening's top at 304px on a 900 window and 133 on an 844 one. And no bound mixes `entry` with
+`cover`: `entry` is measured against the element's own height, so the same `entry 25%` is two
+different places on two screens.
+
 **Rejected: promoting the figure to `.total`.** The One Number Rule holds. This numeral has no
 cents, is cropped by its frame, sits at the ground's own value and lives inside an `aria-hidden`
 element. It is a picture of a number, not a readout.
