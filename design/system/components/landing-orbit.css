@@ -353,11 +353,9 @@
        and they are the first thing the section says: how many, and how much. The
        promise reads under them instead of beside them, which also puts its call
        to action about 110px higher than it was. */
-    grid-template-rows: auto minmax(0, 1fr);
-    grid-template-areas:
-      "count . total"
-      "say   . .";
-    align-items: start;
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "say . .";
+    align-items: center;
     gap: var(--space-32) var(--space-32);
     min-height: min(42rem, 82svh);
     padding-block: var(--space-16) var(--space-0);
@@ -385,12 +383,30 @@
   .landing .lp-orbit.lp-story.fromcircle .saystack { grid-area: say; align-self: start; }
   .landing .lp-orbit.lp-story.fromcircle .storyswap { grid-area: auto; }
   .landing .lp-orbit.lp-story.fromcircle .storyasides { display: contents; }
+  /* THE TWO CORNERS COME OUT OF THE GRID, which is what raises the promise. As
+     grid items they held a row of their own about 126px tall, and on the first
+     screen - where they are translated to the FOOT of the stage - that row was
+     126px of nothing at the top with the promise sitting under it. Absolutely
+     placed they cost the stage no height, the promise takes the whole box, and the
+     founder's "поставить выше" is the same rule for both of them. */
+  /* `bottom: auto` IS NOT TIDINESS. landing-story.css pins these two to
+     `bottom: var(--space-8)` past 80rem, and an absolutely placed box given both a
+     top and a bottom with `height: auto` is STRETCHED between them: the total's
+     bottom edge came out at 1292 in an 800px window and only past 1280, which is
+     the one width band nobody had re-measured. Naming the edge you are not using
+     is how you take an edge back. */
   .landing .lp-orbit.lp-story.fromcircle .ocount {
-    grid-area: count; position: static; align-self: start; justify-self: start;
+    position: absolute; top: var(--space-16); bottom: auto; left: var(--story-gutter);
+    margin: var(--space-0); text-align: left;
   }
   .landing .lp-orbit.lp-story.fromcircle .ototal {
-    grid-area: total; position: static; align-self: start; justify-self: end; text-align: right;
+    position: absolute; top: var(--space-16); bottom: auto; right: var(--story-gutter);
+    text-align: right;
   }
+  /* left aligned on the grid, on the founder's mark: the count used to centre its
+     figure over its word, which put neither of them on the column the promise
+     under it starts from */
+  .landing .lp-orbit.lp-story.fromcircle .ocount strong { text-align: left; }
   /* THEY LIVE IN THE TOP ROW AND START AT THE BOTTOM OF THE STAGE, which is the
      founder's three frames in one rule. The first screen has them in the bottom
      corners, under the promise and either side of the window; the scroll carries
@@ -401,7 +417,7 @@
      `100svh - 190px`. Measured against their own bottom edge at 800, 900 and
      1080. */
   .landing .lp-orbit.lp-story.fromcircle .ocount,
-  .landing .lp-orbit.lp-story.fromcircle .ototal { --ftravel: calc(100svh - 214px); }
+  .landing .lp-orbit.lp-story.fromcircle .ototal { --ftravel: calc(100svh - 300px); }
   /* between the spread point and 80rem the card still lies across the foot and
      the two figures are already in the corners, so it sits a figure above them */
   .landing .lp-orbit.lp-story.fromcircle .scard { position: absolute; bottom: var(--space-96); }
@@ -528,6 +544,31 @@
   overflow: hidden;
 }
 
+/* THE FRONT PLATE IS A CARD AND THE REST ARE ITS SHADOW, which is the founder's
+   "карточки большие и меньше их". The first one carries a taller box, a bigger
+   mark, a heavier name and the price at figure weight; everything behind it is
+   the same markup at a smaller scale, so nothing is duplicated and nothing is
+   invented. The mark's size is written here rather than in `logo.css` for the
+   reason that file already states: an atom takes its size from the host that
+   places it, and this host places it twice at two sizes.
+
+   NO DATE LINE. The founder's drawing has "Aug 3" under the name, and there is no
+   next-charge date for these fourteen anywhere in `voice/docs/microcopy.md`: the
+   canonical dataset is name, category and price. A date invented for a demo is
+   the same mistake this stage's own log records against nine invented prices, so
+   the front card carries the name and the price and nothing it cannot show the
+   source of. */
+.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) {
+  padding: var(--space-24) var(--space-24);
+  border-radius: var(--radius);
+}
+.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) .logo { width: 56px; height: 56px; }
+.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) .name {
+  font-size: var(--type-title); font-weight: 700; color: var(--text-primary);
+}
+.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) .amt { font-size: var(--type-title); font-weight: 700; }
+.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) { gap: var(--space-16); }
+
 /* the ramp: scale down 4.3% and fade 7.2% a plate, and every plate after the
    first bites into the one above it by `--pbite` so the deck stacks rather than
    lists. The front plate is at full size and full opacity; the fourteenth is at
@@ -572,8 +613,34 @@
        to lie across the window on the right, never off the gutter on the left. */
     min-width: 0;
     justify-items: start;
+    /* STATIC, and the z-index moves to the promise itself. This stack used to be
+       `position: relative` so it would paint over the window, and that made it the
+       containing block of everything absolute inside it - including the section's
+       heading, which is meant to be centred on the PAGE and came out centred on
+       the say column instead, drawn straight through "14 subscriptions" at 1440.
+       A positioned ancestor is a decision about every descendant, not only about
+       paint order. */
+    position: static;
   }
+  .landing .lp-orbit.lp-story.fromcircle .osay { position: relative; z-index: 1; }
   .landing .lp-orbit.lp-story.fromcircle .saystack > * { grid-area: one; align-self: start; min-width: 0; }
+
+  /* THE SECTION'S HEADING TAKES THE TOP CENTRE, on the founder's mark: in their
+     drawing of the second half it stands centred above the deck with the count on
+     its left and the total on its right, all three on one band. It leaves the
+     promise's cell to get there - it never shares a moment with the promise, so
+     there was nothing keeping them in one box - and it is capped at the DECK's own
+     width, which is what keeps it off the count at a 1000px window. */
+  .landing .lp-orbit.lp-story.fromcircle .storyhead {
+    position: absolute;
+    top: var(--space-0);
+    left: 50%;
+    translate: -50% 0;
+    width: min(var(--container-column), 44cqw);
+    justify-items: center;
+    text-align: center;
+    z-index: 2;
+  }
 
   .landing .lp-orbit.lp-story.fromcircle .osay,
   .landing .lp-orbit.lp-story.fromcircle .storyhead {
@@ -605,7 +672,12 @@
      straight through "Tendd is not a budgeting app" for about a fifth of the
      scroll. The beats are in order now - the promise leaves, the two figures take
      the top, and only then does the section say its own name. */
-  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: shand; animation-range: contain 14% contain 28%; }
+  /* AND IT STAYS. `shand` was right while the heading stood in the promise's cell
+     on the left, where the deck would have landed on it; centred above the deck it
+     is the title of the picture, and the founder's drawing of the second half has
+     it there with the deck fully formed under it. So it arrives once and holds -
+     the stage's own release at 88% takes it with everything else. */
+  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: sin; animation-range: contain 8% contain 16%; }
 
   /* THE SWAP IS A FIXED BOX ON THE CENTRE LINE, not a grid track. It holds the
      window and the list one on top of the other, both centred on the page, and
@@ -675,7 +747,7 @@
      stands and the cascade comes out of it. */
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
     animation-name: ofold;
-    animation-range: contain 10% contain 34%;
+    animation-range: contain 22% contain 40%;
   }
   /* AND THE SWAP STOPS CLIPPING, which is the one line that lets the dive be seen
      at all. The swap is 608 tall and the window 594 of it: clipped, the window
@@ -686,8 +758,16 @@
      absolute` paints over its static siblings no matter what order they are in.
      `relative` moves neither of them: they are grid items and they keep their
      cells. */
+  /* `z-index` ALONE, and the `position` that used to be here is the bug it left.
+     This rule exists to bring the two figures in front of the window, which is
+     absolutely placed and would otherwise paint over them. It said `position:
+     relative` to do it - and when the figures themselves became absolute, later in
+     the file at the same specificity, this line quietly put them back in the flow:
+     they landed 500px below where they belonged and the total's bottom edge was at
+     1316 in an 800px window. An absolutely placed box is a positioned box; it
+     needs no help to take a z-index. */
   .landing .lp-orbit.lp-story.fromcircle .ocount,
-  .landing .lp-orbit.lp-story.fromcircle .ototal { position: relative; z-index: 2; }
+  .landing .lp-orbit.lp-story.fromcircle .ototal { z-index: 2; }
 
   /* ---- THE LIST IS A DECK, NOT A TABLE ------------------------------------
      The founder asked for the list to be "каскадний блок, знизу вверх, 3д", with
@@ -730,7 +810,7 @@
     mask-image: none;
     -webkit-mask-image: none;
     animation-name: sfall;
-    animation-range: contain 28% contain 46%;
+    animation-range: contain 32% contain 50%;
     --scardslot: 0rem;
   }
 
@@ -868,24 +948,24 @@
    ========================================================================== */
 @supports (animation-timeline: view()) {
  @container story (min-width: 60rem) {
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 { animation-range: contain 48% contain 58%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 { animation-range: contain 62% contain 72%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 { animation-range: contain 76% contain 86%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 { animation-range: contain 54% contain 62%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 { animation-range: contain 68% contain 76%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 { animation-range: contain 82% contain 90%; }
   .landing .lp-orbit.lp-story.fromcircle .sline.cut1 .swap > .live,
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 .swap > .gone { animation-range: contain 48% contain 51%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 .swap > .gone { animation-range: contain 54% contain 57%; }
   .landing .lp-orbit.lp-story.fromcircle .sline.cut2 .swap > .live,
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 .swap > .gone { animation-range: contain 62% contain 65%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 .swap > .gone { animation-range: contain 68% contain 71%; }
   .landing .lp-orbit.lp-story.fromcircle .sline.cut3 .swap > .live,
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 .swap > .gone { animation-range: contain 76% contain 79%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 .swap > .gone { animation-range: contain 82% contain 85%; }
 
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(1) { animation-range: contain 48% contain 49%; }
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(2) { animation-range: contain 48% contain 64%; }
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(3) { animation-range: contain 62% contain 78%; }
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(4) { animation-range: contain 77% contain 78%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(1) { animation-range: contain 54% contain 55%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(2) { animation-range: contain 54% contain 69%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(3) { animation-range: contain 68% contain 83%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(4) { animation-range: contain 83% contain 84%; }
 
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1) { animation-range: contain 38% contain 60%; }
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { animation-range: contain 56% contain 76%; }
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { animation-range: contain 74% contain 80%; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1) { animation-range: contain 44% contain 66%; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { animation-range: contain 62% contain 84%; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { animation-range: contain 80% contain 92%; }
  }
 }
 
@@ -939,5 +1019,56 @@
   .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1),
   .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { right: var(--scardoff); left: auto; }
   .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { left: var(--scardoff); right: auto; }
+ }
+}
+
+/* ============================================================================
+   THE BEATS, AND THE SCROLL SETTLES ON THEM
+   The founder, 2026-08-14: "чтобы анимация докручивалась сама поэтапно к нужным
+   визуальным моментам". A five-screen stage has seven pictures worth stopping on
+   and about four hundred positions between them, and a trackpad leaves the reader
+   in one of the four hundred more often than not.
+
+   `proximity` AND NEVER `mandatory`. Mandatory snapping on a document scroller
+   takes the page away from the reader: a flick that should have gone two screens
+   lands back on the one they were leaving, and anything between two anchors
+   becomes unreachable. Proximity settles a scroll that has already stopped near a
+   beat and leaves every other scroll alone.
+
+   THE ANCHOR POSITIONS ARE THE RANGES, ARITHMETIC. The stage is `560svh` and the
+   pinned part of it - the `contain` phase every range on this page is written in
+   - is `560 - 100 = 460svh`. So the beat at `contain N%` is `4.6 x N` svh down
+   the section, and the seven below are the opening frame, the corners landed, the
+   deck landed, and the three cancellations, and the release. Change a range and
+   its anchor moves with it; they are written next to each other for that reason.
+
+   The declaration is on `:root:has()` because the scroller is the DOCUMENT and a
+   class on the body cannot reach it. Other sections carry no `scroll-snap-align`,
+   so nothing outside this stage is a target and nothing outside it changes.
+   ========================================================================== */
+:root:has(.landing .lp-orbit.lp-story.fromcircle) { scroll-snap-type: y proximity; }
+
+.landing .storybeats { position: absolute; inset: 0; pointer-events: none; }
+.landing .storybeats .beat {
+  position: absolute;
+  left: var(--space-0);
+  width: 1px;
+  height: 1px;
+  scroll-snap-align: start;
+  /* NO `scroll-margin`, and it is worth a line. The anchor's own offset already
+     IS the scroll position of its beat - it is derived from the range, in the same
+     unit the range is measured in - so a margin would move every beat off the
+     picture it was computed for. The 64px of the app bar is already inside the
+     `contain` phase's arithmetic. */
+}
+@supports (animation-timeline: view()) {
+ @container story (min-width: 60rem) {
+  .landing .storybeats .beat:nth-child(1) { top: var(--space-0); }        /* the promise, the window whole   */
+  .landing .storybeats .beat:nth-child(2) { top: 83svh; }                 /* contain 18: corners up, heading in */
+  .landing .storybeats .beat:nth-child(3) { top: 239svh; }                /* contain 52: the deck, whole     */
+  .landing .storybeats .beat:nth-child(4) { top: 295svh; }                /* contain 64: Netflix gone        */
+  .landing .storybeats .beat:nth-child(5) { top: 359svh; }                /* contain 78: Peloton gone        */
+  .landing .storybeats .beat:nth-child(6) { top: 423svh; }                /* contain 92: the Times gone      */
+  .landing .storybeats .beat:nth-child(7) { top: 460svh; }                /* the release                     */
  }
 }

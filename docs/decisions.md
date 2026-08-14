@@ -7,6 +7,59 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-14 - D-Hero, the second half: one band at the top, a card at the front, and the scroll settles itself
+
+The founder drew the cascade state and marked four moves on the built page.
+
+**The top band.** The section's heading takes the top CENTRE, with the count on its left and the
+example total on its right: three things on one band, above the deck. The heading leaves the
+promise's cell to get there - it never shares a moment with the promise, so nothing was keeping
+them in one box - and it is capped at the deck's own width, which is what keeps it off the count
+at a 1000px window. It arrives once and holds, rather than handing off: centred above the deck
+it is the title of the picture, not a caption passing through.
+
+**The two corners come out of the grid**, and that is what raises the promise. As grid items
+they held a row about 126px tall, and on the first screen - where they are translated to the
+FOOT of the stage - that row was 126px of nothing at the top with the promise sitting under it.
+The count is left aligned on the column the promise starts from, rather than centring its figure
+over its own word.
+
+**The front plate is a card and the rest are its shadow.** A taller box, a 56px mark, the name at
+title weight and the price with it; everything behind it is the same markup at a smaller scale.
+
+**NO DATE LINE, and that is a refusal.** The founder's drawing has "Aug 3" under the name. There
+is no next-charge date for these fourteen anywhere in `voice/docs/microcopy.md` - the canonical
+dataset is name, category and price - and a date invented for a demo is the same mistake this
+log already records against nine invented prices. If the card should carry a date, the fixture
+table gets dates first.
+
+**The scroll settles on the beats.** Seven anchors down the section, one per moment the stage
+has, so a five-screen stage with about four hundred positions in it stops on a picture.
+`proximity` and never `mandatory`: mandatory snapping on a document scroller takes the page away
+from the reader, and anything between two anchors becomes unreachable. The anchor positions are
+the ranges, as arithmetic: the stage is 560svh, its pinned part is 460svh, so the beat at
+`contain N%` is `4.6 x N` svh down the section. They are written next to the ranges they come
+from, so changing a beat moves its anchor. The declaration sits on `:root:has(...)` because the
+scroller is the document and a class on the body cannot reach it; nothing outside this stage
+carries `scroll-snap-align`, so nothing outside it changes.
+
+**Three defects, and all three are one sentence: a property set for one purpose decided
+something else.**
+
+- `.ocount` and `.ototal` carried `position: relative` from a rule whose only job was a
+  z-index. When they became absolute, later in the file at the same specificity, that line
+  quietly put them back in the flow: the total's bottom edge landed at 1316 in an 800px window.
+  An absolutely placed box is a positioned box and needs no help to take a z-index.
+- `landing-story.css` pins the same two to `bottom: var(--space-8)` past 80rem, and an
+  absolutely placed box given both a top and a bottom with `height: auto` is STRETCHED between
+  them: 1292 in an 800px window, and only past 1280, the one band nobody re-measured. Naming
+  the edge you are not using is how you take an edge back.
+- `.saystack` was `position: relative` so it would paint over the window, and that made it the
+  containing block of everything absolute inside it - including the heading, which is meant to
+  be centred on the PAGE and came out centred on the say column, drawn straight through "14
+  subscriptions". A positioned ancestor is a decision about every descendant, not only about
+  paint order.
+
 ## 2026-08-14 - D-Hero, the geometry pass: five collisions, and four of them only existed on a small window
 
 The founder, looking at the built page on their own screen rather than at a screenshot of it:
