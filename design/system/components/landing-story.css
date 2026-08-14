@@ -74,7 +74,14 @@
   padding: var(--space-32) var(--space-0) var(--space-64);
   background: var(--bg-page);
   border-top: 1px solid var(--line-divider);
+  /* NAMED, and the name is what makes the queries in this file and in
+     landing-orbit.css ask the SECTION. `.storyswap` is a container too - it has
+     to be, that is how the list works out its own travel - and it is 620px wide,
+     so an unnamed `@container (max-width: 59.99rem)` matched inside it at every
+     window size and switched the whole choreography off. A query with no name
+     asks whatever is nearest, and what is nearest is not always what is meant. */
   container-type: inline-size;
+  container-name: story;
   view-timeline-name: --story;
 }
 
@@ -617,7 +624,7 @@
      72rem the section is a column - the promise, the window, the list, the
      reasons, the two figures - which is the same picture a browser with no
      scroll timeline gets, and every word of it is readable. */
-  @container (max-width: 71.99rem) {
+  @container story (max-width: 59.99rem) {
     .landing .lp-story.fromcircle { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
     .landing .lp-story.fromcircle .storypin { position: static; height: auto; }
     .landing .lp-story.fromcircle .storyswap { overflow: visible; container-type: normal; }

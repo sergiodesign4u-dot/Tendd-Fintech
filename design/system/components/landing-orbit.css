@@ -64,7 +64,13 @@
    with the two corner figures still on it. With both paddings the composition
    was 909 tall at 1440 x 900 and the corners fell off the bottom. The wrap keeps
    its own 40, which is the air between the composition and the bar above it. */
-.landing .lp-section.lp-orbit { padding-block: var(--space-0); }
+/* THE SECTION AND THE STAGE BOTH LET GO OF THEIR TOP PADDING. Under the bar the
+   scene had 74px of air above it that nothing needed, and the stage is exactly
+   one screen tall: those 74 came off the bottom, which is where the two corner
+   figures are. On a 1000 x 800 window they sat at 819, nineteen pixels below the
+   fold, on the one screen that has to be complete without scrolling. */
+.landing .lp-section.lp-orbit,
+.landing .lp-orbit.lp-story.fromcircle { padding-block: var(--space-0); }
 
 /* BELOW THE POINT THIS FILE DECLARES NO COMPOSITION AT ALL, and that is the
    correction of 2026-08-14. It used to carry its own narrow template - `say`,
@@ -300,7 +306,7 @@
    this hero wins, the point is either registered or the composition is changed
    to live without it; a candidate does not get to add to the width scale.
    ========================================================================== */
-@container (min-width: 72rem) {
+@container story (min-width: 60rem) {
   /* THE WINDOW LEAVES THE GRID AND TAKES THE CENTRE OF THE PAGE, 2026-08-14, on
      the founder's mark. In the middle track it was centred on what was LEFT OVER
      after the promise, which at 1440 put it at 863 against a page centre of 720:
@@ -318,16 +324,28 @@
      scale()` on this same element and the two would overwrite each other. Two
      properties, two jobs, no conflict. */
   .landing .lp-orbit.lp-story.fromcircle .storypin {
-    position: relative;
-    grid-template-columns: minmax(20rem, 1.35fr) 30rem minmax(9rem, 0.5fr);
+    /* STICKY, NOT RELATIVE. This rule set `position: relative` to give the
+       absolutely placed window something to anchor to, and in doing so it
+       un-pinned the stage: the whole choreography ran while the section scrolled
+       past it, and the two corner figures sat 74px below the fold on the one
+       screen that has to be complete without scrolling. Sticky is a positioned
+       element too, so the anchoring was never the reason to say relative. */
+    position: sticky;
+    /* FLUID, BECAUSE THE POINT CAME DOWN TO 60rem. The founder's window is about
+       1000px and the spread was waiting for 1152, so everything they were looking
+       at was the column fallback: the promise full width, the window under it,
+       the two figures pushed off the first screen. Fixed tracks at 20 + 30 + 9rem
+       are 944 and do not fit an 880 wrap, so all three give way now and the
+       composition holds from 960 up instead of from 1152. */
+    grid-template-columns: minmax(15rem, 1.35fr) clamp(12rem, 30cqw, 30rem) minmax(8rem, 0.5fr);
     grid-template-rows: minmax(0, 1fr) auto;
     grid-template-areas:
       "say   . ."
       "count . total";
     align-items: center;
-    gap: var(--space-32) var(--space-48);
+    gap: var(--space-16) var(--space-32);
     min-height: min(42rem, 82svh);
-    padding-block: var(--space-40);
+    padding-block: var(--space-16) var(--space-0);
   }
   /* THE MIDDLE TRACK IS CAPPED AND FLUID, NOT `auto`, AND THAT IS THE ONE PIECE
      OF ARITHMETIC HERE. Written `auto` the track takes the circle's max-content
@@ -358,7 +376,9 @@
   .landing .lp-orbit.lp-story.fromcircle .ototal {
     grid-area: total; position: static; align-self: end; justify-self: end; text-align: right;
   }
-  .landing .lp-orbit.lp-story.fromcircle .scard { position: absolute; }
+  /* between the spread point and 80rem the card still lies across the foot and
+     the two figures are already in the corners, so it sits a figure above them */
+  .landing .lp-orbit.lp-story.fromcircle .scard { position: absolute; bottom: var(--space-96); }
 }
 
 /* ==========================================================================
@@ -456,7 +476,7 @@
     left: 50%;
     top: 50%;
     translate: -50% -50%;
-    width: min(var(--container-column), 92cqw);
+    width: min(var(--container-column), 52cqw);
     height: min(38rem, 70svh);
   }
   /* bigger, on the founder's mark: 38rem and 66svh, from 30 and 52 */
@@ -468,6 +488,9 @@
     translate: 0 -50%;
     margin-inline: auto;
   }
+  /* 46cqw is what keeps a big window from swallowing the promise beside it at
+     the new point: 594 at 1440, 460 at 1000, and the mask keeps its left third
+     empty at both. */
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { width: min(38rem, 66svh, 100%); }
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-range: contain 10% contain 32%; }
   .landing .lp-orbit.lp-story.fromcircle .storylist {
