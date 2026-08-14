@@ -150,11 +150,11 @@ holding it. A fix applied on one screen is a desync, and a contextual override
 the markup.
 
 **Critique runs on two instruments.** Claude and Codex (read-only, see `AGENTS.md`), taken
-independently and merged afterwards, with a "who found it" column. Codex owns what is
-falsifiable in the source (contradiction between files, an orphan, a state that is not in
-the code, a broken link, a rule violation); "breaks at 360px" and pixel checks stay with
-Claude in a browser. Verify a finding by re-reading the place before fixing it; a finding
-that does not hold stays in the log marked "dropped at verification", with the reason.
+independently and merged afterwards, with a "who found it" column. Codex owns what is falsifiable
+in the source (contradiction between files, an orphan, unbalanced markup, a state that is not in
+the code, a broken link, a rule violation); "breaks at 360px" and pixel checks stay with Claude in
+a browser. Verify a finding by re-reading the place before fixing it; a finding that does not hold
+stays in the log marked "dropped at verification", with the reason.
 
 **Acceptance happens at both ends of the range AND BETWEEN THEM.** Where a stage produces a screen
 or text on it, open it in a browser, walk every state, and sweep the width instead of sampling two

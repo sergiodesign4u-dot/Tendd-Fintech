@@ -161,10 +161,22 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 
 /* Buttons (landing scale) */
 .lp-cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.lp-btn { display: inline-block; border: 1px solid var(--line); background: var(--frame); padding: 12px 20px; font-size: 15px; color: var(--mid); text-decoration: none; }
-.lp-btn.primary { border-color: var(--ink); color: var(--ink); font-weight: 700; }
-.lp-btn:hover { border-color: var(--soft); }
+/* `.btn` IS HERE BECAUSE THE MARKUP SAYS `.btn`, found 2026-08-14. The plan
+   cards arrived on this page on 2026-08-10 carrying the app's class, and the
+   app's rule below is scoped `.app .btn`, which the landing is not. The two
+   plan actions and nothing else therefore fell through to the browser: #0000EE,
+   underlined, on the page whose first rule is that nothing here is coloured.
+   Two names for one object is the drift this file exists to prevent, and the
+   repair is one selector rather than a second copy or an edit to frozen markup:
+   the colour layer names it `.btn` too, and the two corpora stay word for word. */
+.lp-btn, .landing .btn { display: inline-block; border: 1px solid var(--line); background: var(--frame); padding: 12px 20px; font-size: 15px; color: var(--mid); text-decoration: none; }
+.lp-btn.primary, .landing .btn.primary { border-color: var(--ink); color: var(--ink); font-weight: 700; }
+.lp-btn:hover, .landing .btn:hover { border-color: var(--soft); }
 .lp-micro { font-size: 13px; color: var(--soft); margin: 14px 0 0; }
+/* The one inline link on the page, and it is grey with its underline kept: an
+   underline is how a link is found without colour, which is the whole method
+   of this corpus. */
+.lp-micro a { color: var(--ink); }
 
 /* Hero */
 .lp-hero .lp-wrap { display: grid; grid-template-columns: 1fr; gap: 30px; }

@@ -17,6 +17,6 @@ the material is markdown and markup, and it is checked as text.
    only on copies in `design/`, `index.html` as the product home and `overview.html` as the
    hub, internal md in English. In doubt read `CLAUDE.md` and `docs/decisions.md`.
 5. **Your radius is the source, not the render.** Contradictions, orphans, missing states,
-   drifted values, broken links, violated rules. "Breaks at 360px" and pixel checks belong
-   to the browser pass, not to you.
+   drifted values, broken links, violated rules, unbalanced markup. "Breaks at 360px" and
+   pixel checks belong to the browser pass, not to you.
 6. **Answer in Ukrainian.**
