@@ -7,6 +7,48 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - D-Hero: the deck rolls, and every plate is the same card
+
+The founder, on the built page: "все нижние должны быть такие же как первый, и первый уходит
+вверх и исчезает, а под ним который будет становится на место первого".
+
+**One card, fourteen times, at fourteen scales.** The front plate used to carry its own taller
+box, its own mark size and its own type, and the moment it was cancelled that made the deck
+wrong twice over: the card at the front vanished and the one behind it stayed a small row, so
+the deck had no front at all. The special case is gone; the ramp is the only difference between
+plates.
+
+**The list is TOP anchored, and that is what lets the deck roll.** Bottom anchored, a plate
+collapsing at the front moved the list's own top edge down by exactly as much as it moved its
+contents up, so the deck did not move: Netflix vanished and left a 76px hole above a Disney+
+that was still a small row. Top anchored the plates below come up on their own, which leaves the
+second plate one `--pbite` too high and still at its ramp scale of 0.957 - so the list comes
+down by `--pbite` and grows by `--pstepk`, which is 1 / 0.957. The second plate lands on the
+first one's mark at the first one's size and every plate behind it moves up one place with it.
+Two numbers, both of them the ramp's own, and both inside the one keyframe set that already owns
+the list's transform.
+
+**The clip opens upward at the end.** Every plate after the first carries a negative
+`margin-top`, so the moment the front plate collapses the second sits ABOVE the list's own top
+edge and `inset(0 ...)` cut it in half. That is the clipping the founder photographed.
+
+**The steps are not even, and that is the whole difference between a deck and a stack of
+clipped rows.** A plate is 76 tall and its content 40, so an even step of 38 left the second,
+third and fourth plates showing the bottom half of their own mark and the bottom half of their
+own name. Near the front the step has to clear the content; far back the plates are scaled,
+faded and blurred to where the step is only depth. 66 at the front falling to 22 at the back:
+thirteen numbers adding to 510, which with the front plate is a 586px deck in a window that is
+560 at its shortest, and the last three plates stand at 0.05 opacity and below.
+
+**No recline.** A `rotateX` on the whole deck was carrying the depth before the blur did, and
+the two together read as a photograph of a screen rather than a stack of cards. The founder's
+own drawings have no rotation in them at all.
+
+**And the deck's look is behind the point, like everything else this file says.** A 76px plate
+with a 40px mark and the name at title size is 142px wider than a 390px phone, which is what a
+check of the overflow in both motion settings said the moment the plates grew. The look of a
+thing belongs in the same query as the composition it was drawn for.
+
 ## 2026-08-14 - D-Hero, the second half: one band at the top, a card at the front, and the scroll settles itself
 
 The founder drew the cascade state and marked four moves on the built page.

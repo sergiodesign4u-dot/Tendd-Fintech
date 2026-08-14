@@ -507,101 +507,109 @@
    The plates are the candidate's and not the component's: `design/index.html`
    keeps the single card. If the round window wins, this is what the list is.
    ========================================================================== */
-.landing .lp-orbit.lp-story.fromcircle .storylist {
-  display: grid;
-  gap: var(--space-0);
-  background: none;
-  border: 0;
-  padding: var(--space-0);
-  max-width: none;
-}
-.landing .lp-orbit.lp-story.fromcircle .sline {
-  --pscale: 1;
-  --pfade: 1;
-  position: relative;
-  min-height: var(--srow-h);
-  padding: var(--space-8) var(--space-16);
-  background: var(--bg-surface);
-  border: 1px solid var(--line-container);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  transform: scale(var(--pscale));
-  transform-origin: 50% 0;
-  opacity: var(--pfade);
-  /* AND A BLUR, WHICH IS WHAT MAKES IT A DECK RATHER THAN A LIST OF FADED ROWS.
-     Scale and opacity alone leave every plate in focus, so fourteen legible rows
-     compete for the same eye and the front one wins nothing. A depth of field
-     puts one plate in focus and turns the rest into what they are: the size of
-     the problem, not fourteen things to read. Zero on the first two, then 0.42px
-     a plate. */
-  filter: blur(var(--pblur, 0));
-}
-/* a plate that has gone quiet keeps its shape and loses its lift, which is what
-   says "this one is no longer costing you anything" without a colour.
-   AND IT KEEPS ITS FLOOR OFF, at this file's specificity. landing-story.css says
-   `.sline.cut { min-height: 0 }` at 0-3-0 so the row can collapse to nothing on
-   its way out; the deck's own `min-height` is 0-5-0 and beat it, so all three
-   cancelled plates faded on the spot and the deck never closed over them. The
-   chip still turned and the count still stepped down, so nothing looked broken -
-   it just stopped being a deck being dealt from. */
-.landing .lp-orbit.lp-story.fromcircle .sline.cut {
-  box-shadow: none;
-  min-height: 0;
-  height: var(--srow-h);
-  overflow: hidden;
+/* THE DECK IS BEHIND THE POINT, like everything else this file says. Under 60rem
+   the stage has let go and the list is the component's own card of fourteen rows;
+   a 76px plate with a 40px mark and the name at title size is 142px wider than a
+   390px phone, which is what a check of the overflow in both motion settings said
+   the moment the plates grew. The look of a thing belongs in the same query as the
+   composition it was drawn for. */
+@container story (min-width: 60rem) {
+  .landing .lp-orbit.lp-story.fromcircle .storylist {
+    display: grid;
+    gap: var(--space-0);
+    background: none;
+    border: 0;
+    padding: var(--space-0);
+    max-width: none;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .sline {
+    --pscale: 1;
+    --pfade: 1;
+    --srow-h: 4.75rem;
+    position: relative;
+    min-height: var(--srow-h);
+    gap: var(--space-16);
+    padding: var(--space-16) var(--space-24);
+    background: var(--bg-surface);
+    border: 1px solid var(--line-container);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transform: scale(var(--pscale));
+    transform-origin: 50% 0;
+    opacity: var(--pfade);
+    /* AND A BLUR, WHICH IS WHAT MAKES IT A DECK RATHER THAN A LIST OF FADED ROWS.
+       Scale and opacity alone leave every plate in focus, so fourteen legible rows
+       compete for the same eye and the front one wins nothing. A depth of field
+       puts one plate in focus and turns the rest into what they are: the size of
+       the problem, not fourteen things to read. Zero on the first two, then 0.42px
+       a plate. */
+    filter: blur(var(--pblur, 0));
+  }
+  /* a plate that has gone quiet keeps its shape and loses its lift, which is what
+     says "this one is no longer costing you anything" without a colour.
+     AND IT KEEPS ITS FLOOR OFF, at this file's specificity. landing-story.css says
+     `.sline.cut { min-height: 0 }` at 0-3-0 so the row can collapse to nothing on
+     its way out; the deck's own `min-height` is 0-5-0 and beat it, so all three
+     cancelled plates faded on the spot and the deck never closed over them. The
+     chip still turned and the count still stepped down, so nothing looked broken -
+     it just stopped being a deck being dealt from. */
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut {
+    box-shadow: none;
+    min-height: 0;
+    height: var(--srow-h);
+    overflow: hidden;
+  }
+
+  /* EVERY PLATE IS THE SAME CARD, and the ramp is the only difference between
+     them. The founder, 2026-08-15: "все нижние должны быть такие же как первый".
+     The front plate used to carry its own taller box, its own mark size and its own
+     type, and the moment it was cancelled that made the deck wrong twice over: the
+     card at the front of the deck vanished and the one behind it stayed a small row,
+     so the deck had no front at all. One card, fourteen times, at fourteen scales.
+
+     NO DATE LINE. The founder's drawing has "Aug 3" under the name, and there is no
+     next-charge date for these fourteen anywhere in `voice/docs/microcopy.md`: the
+     canonical dataset is name, category and price. A date invented for a demo is
+     the same mistake this stage's own log records against nine invented prices, so
+     the card carries the name and the price and nothing it cannot show the source
+     of. */
+  .landing .lp-orbit.lp-story.fromcircle .sline .logo { width: 40px; height: 40px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline .name {
+    font-size: var(--type-title); font-weight: 700; color: var(--text-primary);
+  }
+  .landing .lp-orbit.lp-story.fromcircle .sline .amt {
+    font-size: var(--type-title); font-weight: 700; color: var(--text-primary);
+  }
 }
 
-/* THE FRONT PLATE IS A CARD AND THE REST ARE ITS SHADOW, which is the founder's
-   "карточки большие и меньше их". The first one carries a taller box, a bigger
-   mark, a heavier name and the price at figure weight; everything behind it is
-   the same markup at a smaller scale, so nothing is duplicated and nothing is
-   invented. The mark's size is written here rather than in `logo.css` for the
-   reason that file already states: an atom takes its size from the host that
-   places it, and this host places it twice at two sizes.
+/* THE RAMP, AND THE STEPS ARE NOT EVEN. Scale falls 4.3% a plate and opacity
+   9.8%; the STEP between plates falls too, from 66px at the front to 22 at the
+   back, and that is the whole difference between a deck and a stack of clipped
+   rows. A plate is 76 tall and its content is 40 of that, so an even step of 38
+   left the second, third and fourth plates showing the bottom half of their own
+   mark and the bottom half of their own name: legible as a smear, not as a line.
+   Near the front the step has to clear the content; far back the plates are
+   scaled and faded to the point where the step is only depth, and 22 is enough.
+   The thirteen numbers add up to 510, which with the front plate is a 586px deck
+   in a window that is 560 at its shortest - the last three plates stand at 0.05
+   opacity and below and are outside it on purpose.
 
-   NO DATE LINE. The founder's drawing has "Aug 3" under the name, and there is no
-   next-charge date for these fourteen anywhere in `voice/docs/microcopy.md`: the
-   canonical dataset is name, category and price. A date invented for a demo is
-   the same mistake this stage's own log records against nine invented prices, so
-   the front card carries the name and the price and nothing it cannot show the
-   source of. */
-.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) {
-  /* ITS OWN `--srow-h`, and that is the fix for a mark hanging out of its card.
-     A cancelled plate is given a fixed `height: var(--srow-h)` so it can collapse
-     to nothing on its way out, and the front plate is Netflix, which is the first
-     line the stage cancels: a 52px height with a 56px mark and 24 of padding put
-     the black square through the card's top edge and out the other side. The
-     height a plate collapses FROM has to be the height it stands at. */
-  --srow-h: 6rem;
-  padding: var(--space-16) var(--space-24);
-  border-radius: var(--radius);
-}
-.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) .logo { width: 48px; height: 48px; }
-.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) .name {
-  font-size: var(--type-title); font-weight: 700; color: var(--text-primary);
-}
-.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) .amt { font-size: var(--type-title); font-weight: 700; }
-.landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) { gap: var(--space-16); }
-
-/* the ramp: scale down 4.3% and fade 7.2% a plate, and every plate after the
-   first bites into the one above it by `--pbite` so the deck stacks rather than
-   lists. The front plate is at full size and full opacity; the fourteenth is at
-   0.44 and 0.12, which is far enough back to read as depth and still near enough
-   to read as the same object. */
+   `--pbite` is the SECOND plate's own margin, 10px, because that is what the
+   promotion has to correct: see `sfall`. */
   .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) { --pscale: 1.0; --pfade: 1.0; --pblur: 0px; z-index: 19; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2) { --pscale: 0.957; --pfade: 0.902; --pblur: 0px; z-index: 18; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3) { --pscale: 0.914; --pfade: 0.804; --pblur: 0.42px; z-index: 17; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4) { --pscale: 0.871; --pfade: 0.706; --pblur: 0.84px; z-index: 16; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5) { --pscale: 0.828; --pfade: 0.608; --pblur: 1.26px; z-index: 15; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6) { --pscale: 0.785; --pfade: 0.51; --pblur: 1.68px; z-index: 14; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7) { --pscale: 0.742; --pfade: 0.412; --pblur: 2.1px; z-index: 13; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8) { --pscale: 0.699; --pfade: 0.314; --pblur: 2.52px; z-index: 12; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9) { --pscale: 0.656; --pfade: 0.216; --pblur: 2.94px; z-index: 11; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10) { --pscale: 0.613; --pfade: 0.118; --pblur: 3.36px; z-index: 10; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11) { --pscale: 0.57; --pfade: 0.05; --pblur: 3.78px; z-index: 9; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12) { --pscale: 0.527; --pfade: 0.05; --pblur: 4.2px; z-index: 8; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13) { --pscale: 0.484; --pfade: 0.05; --pblur: 4.2px; z-index: 7; margin-top: calc(-1 * var(--pbite)); }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14) { --pscale: 0.441; --pfade: 0.05; --pblur: 4.2px; z-index: 6; margin-top: calc(-1 * var(--pbite)); }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2) { --pscale: 0.957; --pfade: 0.902; --pblur: 0px; z-index: 18; margin-top: -10px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3) { --pscale: 0.914; --pfade: 0.804; --pblur: 0.42px; z-index: 17; margin-top: -16px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4) { --pscale: 0.871; --pfade: 0.706; --pblur: 0.84px; z-index: 16; margin-top: -22px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5) { --pscale: 0.828; --pfade: 0.608; --pblur: 1.26px; z-index: 15; margin-top: -28px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6) { --pscale: 0.785; --pfade: 0.51; --pblur: 1.68px; z-index: 14; margin-top: -32px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7) { --pscale: 0.742; --pfade: 0.412; --pblur: 2.1px; z-index: 13; margin-top: -36px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8) { --pscale: 0.699; --pfade: 0.314; --pblur: 2.52px; z-index: 12; margin-top: -40px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9) { --pscale: 0.656; --pfade: 0.216; --pblur: 2.94px; z-index: 11; margin-top: -44px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10) { --pscale: 0.613; --pfade: 0.118; --pblur: 3.36px; z-index: 10; margin-top: -46px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11) { --pscale: 0.57; --pfade: 0.05; --pblur: 3.78px; z-index: 9; margin-top: -48px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12) { --pscale: 0.527; --pfade: 0.05; --pblur: 4.2px; z-index: 8; margin-top: -50px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13) { --pscale: 0.484; --pfade: 0.05; --pblur: 4.2px; z-index: 7; margin-top: -52px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14) { --pscale: 0.441; --pfade: 0.05; --pblur: 4.2px; z-index: 6; margin-top: -54px; }
 
 @supports (animation-timeline: view()) {
  /* AND THE WHOLE COMPOSITION IS BEHIND THE POINT, which is a structural fix and
@@ -818,18 +826,33 @@
        middle: the deck runs DOWNWARD from where the window is, so its front plate
        belongs below the heading in the column beside it rather than level with
        it. */
-    --srow-h: 3.25rem;
-    --pbite: 1.25rem;
-    top: auto;
-    bottom: var(--space-0);
+    /* TOP ANCHORED, AND THAT IS WHAT LETS THE DECK ROLL. Bottom anchored, a plate
+       collapsing at the FRONT moved the list's own top edge down by exactly as
+       much as it moved its contents up, so the deck did not move at all: Netflix
+       vanished and left a 76px hole above a Disney+ that was still a small row.
+       Top anchored the plates below simply come up, and one correction of
+       `--pbite` puts the second plate exactly where the first one stood.
+
+       7.5rem down the window rather than centred, on the founder's mark: the deck
+       runs downward and its front card belongs under the heading band, not level
+       with it. */
+    --srow-h: 4.75rem;
+    --pbite: 10px;
+    --pstepk: 1.0449;
+    top: 7.5rem;
+    bottom: auto;
     translate: none;
     height: auto;
     max-height: 100%;
     overflow: visible;
     mask-image: none;
     -webkit-mask-image: none;
+    /* 32 to 92 and not 32 to 50: this set now carries the promotion as well as the
+       fall, and its stops are the beats. 30% of the range is contain 50 (the deck
+       whole), 37% is contain 54 (Netflix starts to go) and 50% is contain 62 (it
+       is gone and the deck has closed over it). */
     animation-name: sfall;
-    animation-range: contain 32% contain 50%;
+    animation-range: contain 32% contain 92%;
     --scardslot: 0rem;
   }
 
@@ -927,17 +950,35 @@
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-name: none; }
 }
 
-/* THE CASCADE ARRIVES FROM THE TOP DOWN, and it is `clip-path` that does it. The
-   plates are one element, so a stagger would mean fourteen ranges and fourteen
-   rules; an inset clip opening from 100% to 0 reveals them in their own order,
-   first plate first, at no cost in rules and with no chance of two of them
-   disagreeing about when they arrive. Everything is in place before the first
-   cancellation at 35%. */
+/* THE CASCADE ARRIVES FROM THE TOP DOWN AND THEN ROLLS FORWARD, and it is one
+   keyframe set because it is one property. An inset clip opening from 100% to 0
+   reveals the plates in their own order, first plate first, with no stagger and
+   no chance of two of them disagreeing about when they arrive.
+
+   THE CLIP OPENS UPWARD AT THE END, and that is not tidiness. Every plate after
+   the first carries `margin-top: calc(-1 * var(--pbite))`, so the moment the
+   front plate collapses to nothing the second one sits ABOVE the list's own top
+   edge - and `inset(0 ...)` cut it in half. The last stops open the top side by a
+   whole viewport so nothing is ever clipped by the box the deck grew out of.
+
+   AND THE PROMOTION. When the front plate is cancelled the deck has to close over
+   it: the plates below come up on their own (the list is top anchored), which
+   leaves the second plate one `--pbite` too high, and it is still at its ramp
+   scale of 0.957. So the list comes down by exactly `--pbite` and grows by
+   `--pstepk`, which is 1 / 0.957: the second plate lands on the first one's mark
+   at the first one's size, and every plate behind it moves up one place with it.
+   Two numbers, both of them the ramp's own. */
 @keyframes sfall {
-  0%   { opacity: 0; clip-path: inset(0 0 100% 0); transform: translate3d(0, -1rem, 0) var(--stilt,); }
-  18%  { opacity: 1; }
-  100% { opacity: 1; clip-path: inset(0 0 0 0);    transform: translate3d(0, 0, 0) var(--stilt,); }
+  0%   { opacity: 0; clip-path: inset(0 0 100% 0); transform: translate3d(0, -1rem, 0) scale(1); }
+  12%  { opacity: 1; }
+  30%  { opacity: 1; clip-path: inset(-100vh 0 0 0); transform: translate3d(0, 0, 0) scale(1); }
+  37%  { opacity: 1; clip-path: inset(-100vh 0 0 0); transform: translate3d(0, 0, 0) scale(1); }
+  50%  { opacity: 1; clip-path: inset(-100vh 0 0 0);
+         transform: translate3d(0, var(--pbite), 0) scale(var(--pstepk)); }
+  100% { opacity: 1; clip-path: inset(-100vh 0 0 0);
+         transform: translate3d(0, var(--pbite), 0) scale(var(--pstepk)); }
 }
+
 
 /* the promise leaving with the page, and the two figures arriving from the foot */
 @keyframes sup {
