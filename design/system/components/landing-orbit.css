@@ -1,0 +1,306 @@
+/* ============================================================================
+   Landing orbit - organism
+   The second hero, and it exists to be COMPARED rather than to replace anything.
+   The founder drew it on 2026-08-14, over a screenshot of the first one: the
+   promise moves off the centre line to the left, a round window holds the
+   subscription platforms in the middle, the count sits in the bottom left corner
+   and the example total in the bottom right.
+
+   IT IS A CANDIDATE AND THE PAGE IT STANDS ON SAYS SO. `design/index.html` keeps
+   the centred hero; this one is `design/index-circle.html`, listed in
+   `design/_nav.js` as a state of the welcome screen. Nothing in `wireframes/`
+   moved for it: the grey is the structure contract and a contract does not
+   change for a candidate, only for a decision. When the founder picks one, the
+   loser is deleted with its page, its row and its import, and the grey follows
+   the winner in the same step.
+
+   WHY A CIRCLE AND NOT ANOTHER RECTANGLE. Every other object on this page is a
+   rectangle: cards, rows, the list, the bands. A round window is the one shape
+   that reads as a VIEW INTO something rather than as another panel of content,
+   and that is exactly what it is: a look at a stack that is bigger than the
+   window showing it. The chips drift past its edge and dissolve there, so the
+   fourteen are never all countable at once, which is the feeling being named.
+   The count in the corner is what says how many there are, in words.
+
+   THE COPY LEAVES THE CENTRE AND THAT IS THE REAL DIFFERENCE. The first hero is
+   centred and symmetrical, which is what an opening statement looks like. This
+   one is asymmetric: the argument holds the left edge, the picture holds the
+   middle, and the two numbers hold the bottom corners. It reads as a spread
+   rather than as a poster. Neither is more correct; they are two answers to
+   "what does a person see first", and the founder is looking at both.
+
+   Reads
+     colour   --bg-page, --bg-surface, --line-container, --line-divider
+              --text-primary, --text-body, --text-muted
+     spacing  --space-0, 8, 16, 24, 32, 40, 48
+     geometry --radius-sm
+     type     --type-figure, --type-body, --type-meta, --type-label
+   Hosts     .k, .lp-h1, .lp-lead, .actions, .btn, .muted, .amt, .logo, all at
+             the sizes their own files give them. This one places them.
+   Page      design/kit/landing-orbit.html
+   Stands on 1 coloured page and 0 grey ones, and the second number is the point:
+             see the second paragraph.
+   ============================================================================ */
+
+/* ---- the composition ------------------------------------------------------
+   Below the point it is a column in the order of the argument: the promise, then
+   the window, then the two numbers side by side.
+
+   THE PROMISE COMES FIRST ON A PHONE AND THE REASON IS THE CALL TO ACTION. The
+   picture reads better first and the founder's sketch puts it in the middle, but
+   on a 390 x 844 screen a window big enough to recognise anything in pushes the
+   two buttons to roughly 800px down the page. `landing-hero.css` already carries
+   the sentence this repeats: a headline that pushes its own call to action off
+   the screen is not a headline. With the promise first the buttons land at about
+   470, and the window is the next thing a thumb reaches.
+
+   The two numbers share a row here rather than stacking, which is 87px of a
+   phone screen and also reads better: they are a pair, and the window is what
+   they are about. */
+/* THE SECTION'S OWN PADDING IS TAKEN OFF, and it is 192px of it. Every
+   `.lp-section` on this page carries 96 top and bottom from landing-shell.css,
+   which is the rhythm between blocks of argument. This section is not a block of
+   argument, it is the first screenful, and its job is to stand inside one screen
+   with the two corner figures still on it. With both paddings the composition
+   was 909 tall at 1440 x 900 and the corners fell off the bottom. The wrap keeps
+   its own 40, which is the air between the composition and the bar above it. */
+.landing .lp-section.lp-orbit { padding-block: var(--space-0); }
+
+.landing .lp-orbit > .lp-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "say    say"
+    "window window"
+    "count  total";
+  gap: var(--space-32);
+  justify-items: start;
+  align-items: end;
+  padding-block: var(--space-40);
+}
+.landing .lp-orbit .osay { grid-area: say; }
+.landing .lp-orbit .orbit { grid-area: window; justify-self: center; }
+.landing .lp-orbit .ocount { grid-area: count; }
+.landing .lp-orbit .ototal { grid-area: total; justify-self: end; text-align: right; }
+
+.landing .lp-orbit .osay { max-width: var(--container-text); }
+.landing .lp-orbit .lp-h1 { margin-top: var(--space-8); }
+
+/* ---- the two corner figures ----------------------------------------------
+   They are the same two numbers the first hero puts under its headline, moved
+   to the corners where they frame the window instead of following the sentence.
+   The count is a fact about the example and the total is the example, so the
+   label belongs to the total and not to the count. */
+.landing .lp-orbit .ocount {
+  margin: var(--space-0);
+  font-size: var(--type-body);
+  color: var(--text-muted);
+}
+.landing .lp-orbit .ocount strong {
+  display: block;
+  font-size: var(--type-figure);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+.landing .lp-orbit .ototal { display: grid; gap: var(--space-2); }
+.landing .lp-orbit .ototal .k {
+  margin: var(--space-0);
+  font-size: var(--type-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.landing .lp-orbit .ototal .amt.figure { margin: var(--space-0); }
+.landing .lp-orbit .ototal .muted { margin: var(--space-0); }
+
+/* ---- the window -----------------------------------------------------------
+   A circle, and everything about it follows from that one decision.
+
+   `aspect-ratio: 1` with a width in three units, whichever is smallest: 34rem is
+   the size at which the chips inside are still recognisable rather than
+   decorative; 62svh keeps it inside a short window with the corners still
+   readable; 100% keeps it inside a narrow one. A circle sized in only one of the
+   three is a circle that is wrong on two thirds of the screens people have.
+
+   `overflow: hidden` on a 50% radius IS the mask, and it clips PAINT and not
+   MEASUREMENT: the tracks inside are far wider than the window, so whatever
+   places this element has to be able to say `min-width: 0`. Here that is the
+   grid track below, declared as `auto` inside `minmax(0, 1fr)` columns. */
+.landing .lp-orbit .orbit {
+  position: relative;
+  width: min(20rem, 42svh, 100%);
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-16);
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 1px solid var(--line-container);
+}
+
+/* The second ring, one hairline out from the window and drawn by the window
+   itself. It is the only decoration in this component and it earns its place by
+   saying "this is an aperture" a second time, quietly, at a value that owes no
+   contrast threshold because nothing has to be found by it. */
+.landing .lp-orbit .orbit::after {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--space-24));
+  border-radius: 50%;
+  border: 1px solid var(--line-divider);
+  pointer-events: none;
+}
+
+/* ---- the five bands -------------------------------------------------------
+   The mask is on the STACK rather than on each band, and it is radial rather
+   than linear because the opening is round: a linear fade would leave the chips
+   at the top and bottom of the circle hard-edged against the rim. Nothing here
+   enters or leaves by appearing.
+
+   Five speeds, none of them a round number, alternating direction. At equal
+   speeds five bands read as one mechanism with five parts; at five they read as
+   five things arriving independently, which is the sentence this picture is
+   making. Between 16 and 22 pixels a second, slower than reading. */
+.landing .lp-orbit .obands {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 88%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 88%);
+}
+.landing .lp-orbit .orow { display: flex; }
+.landing .lp-orbit .otrack {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: odrift linear infinite;
+}
+.landing .lp-orbit .orow:nth-child(1) .otrack { animation-duration: 47s; animation-direction: reverse; }
+.landing .lp-orbit .orow:nth-child(2) .otrack { animation-duration: 39s; }
+.landing .lp-orbit .orow:nth-child(3) .otrack { animation-duration: 33s; animation-direction: reverse; }
+.landing .lp-orbit .orow:nth-child(4) .otrack { animation-duration: 43s; }
+.landing .lp-orbit .orow:nth-child(5) .otrack { animation-duration: 36s; animation-direction: reverse; }
+
+/* One keyframe, one direction, `reverse` on the bands that travel the other way.
+   The track carries its set twice and travels exactly half its own width, so the
+   second set lands where the first began. That arithmetic only closes if every
+   chip carries its own trailing gap: with `gap` on the track there are 2n-1 gaps
+   for 2n chips, half the width falls half a gap short of one set, and the band
+   jumps once a cycle. As a margin there are 2n, and it does not. */
+@keyframes odrift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ---- a chip ---------------------------------------------------------------
+   Round, to agree with the window it lives in, and the mark alone with no name
+   and no price. The job here is RECOGNITION: a person seeing their own Netflix,
+   their own thing they forgot. The names and the prices arrive with the list in
+   the section below, where the point is the list rather than the field, and the
+   two numbers that matter here are already in the corners. */
+.landing .lp-orbit .ochip {
+  flex: none;
+  width: clamp(2.75rem, 12cqw, 4rem);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--space-16);
+  background: var(--bg-page);
+  border: 1px solid var(--line-divider);
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   PAST 64rem: THE SPREAD
+   Two things happen at once and they are one decision. The window goes to the
+   MIDDLE COLUMN of three, so it is centred on the page rather than centred in
+   whatever is left over; and the four text blocks take the corners around it.
+   `minmax(0, 1fr)` on the side columns is what keeps a track from resolving to
+   its content, which for a track holding a marquee would be a page that scrolls
+   sideways. It is the same line the grey landing needed at the first hero, and
+   it is written here before it can cost anything.
+
+   The point is 64rem and not the registered 47.5: at the tablet point the side
+   columns are under 200px and the promise wraps to five lines beside a window
+   that has nowhere to shrink to. This is a THIRD point on the product, and it
+   is deliberately local to a candidate rather than added to `tokens.css`. If
+   this hero wins, the point is either registered or the composition is changed
+   to live without it; a candidate does not get to add to the width scale.
+   ========================================================================== */
+@container (min-width: 64rem) {
+  .landing .lp-orbit > .lp-wrap {
+    grid-template-columns: minmax(19rem, 1.5fr) minmax(0, 34rem) minmax(11rem, 0.85fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "say   window ."
+      "count window total";
+    align-items: center;
+    gap: var(--space-32) var(--space-48);
+    min-height: min(42rem, 82svh);
+    padding-block: var(--space-40);
+  }
+  /* THE MIDDLE TRACK IS CAPPED AND FLUID, NOT `auto`, AND THAT IS THE ONE PIECE
+     OF ARITHMETIC HERE. Written `auto` the track takes the circle's max-content
+     width, the side columns fall to their minimums, and past that the grid
+     overflows the page. Written `minmax(0, 34rem)` the track gives way first and
+     the circle, at `min(100%, 62svh)`, fills whatever it is given. 1.4fr and
+     0.8fr rather than 1fr and 1fr: the promise is the thing being read and the
+     total is a figure with a caption, so they do not want the same width. At
+     1440 that is 427 and 213 around a 544 window, which puts the headline on
+     three lines instead of four. */
+  /* 52svh and not 62: the whole composition has to stand inside one screen, and
+     it is the promise beside it that sets the floor. At 1440 x 900 the promise
+     is 496 tall and the two corner figures 109, so 32 of air between them leaves
+     the window 468, which 52svh is. At 62 the corners fell off the bottom of a
+     900 window, which is where this number came from. */
+  .landing .lp-orbit .orbit { width: min(100%, 52svh); align-self: center; justify-self: center; }
+  .landing .lp-orbit .ocount { align-self: end; justify-self: start; }
+  .landing .lp-orbit .ototal { align-self: end; justify-self: end; text-align: right; }
+}
+
+/* ==========================================================================
+   THE HAND-OFF, BEHIND @supports FOR THE USUAL REASON
+   Unguarded, `animation-timeline` stays a valid declaration, falls back to the
+   DOCUMENT timeline, and the window shrinks away once on load at the top of the
+   page where nobody is looking. Guarded, a browser without it gets the whole
+   picture standing still, which is complete.
+
+   `exit` and not `cover`: the range is the part of the scroll where the hero is
+   LEAVING the top of the screen, which is exactly when the section under it is
+   arriving at the bottom. Written as a cover percentage it would be a different
+   moment on a phone and on a desktop, because the hero is a different height on
+   each, and that mistake has been made twice on this page already.
+   ========================================================================== */
+.landing .lp-orbit { view-timeline-name: --whero; }
+
+@supports (animation-timeline: view()) {
+  .landing .lp-orbit .orbit {
+    animation-name: oclose;
+    animation-fill-mode: both;
+    animation-timing-function: linear;
+    animation-timeline: --whero;
+    animation-range: exit 0% exit 92%;
+  }
+}
+
+@keyframes oclose {
+  to { transform: scale(0.72); opacity: 0; }
+}
+
+/* ==========================================================================
+   NO MOTION
+   base.css collapses every animation in the product for a person who has asked
+   the system for no motion, and for the five tracks that blanket is enough: they
+   carry no fill-mode, so they return to translate3d(0,0,0), which is five full
+   bands standing still inside the window. The hand-off carries `both`, so it
+   needs a line of its own: collapsed, it would land on its last keyframe and the
+   window would simply be gone.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .landing .lp-orbit .orbit { animation-name: none; }
+}

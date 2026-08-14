@@ -21,7 +21,12 @@
     /* The landing stands FIRST and outside the node order for once, because it is
        node 1.1 and because it is the only public page: a person meets it before
        anything else in this list exists for them. */
-    { name: 'Welcome (landing)', base: 'index.html', states: [] },
+    { name: 'Welcome (landing)', base: 'index.html', states: ['circle'] },
+    /* 'circle' is not a product state and the label is doing a second job here.
+       It is the CANDIDATE hero the founder asked for on 2026-08-14: the same
+       page with a round window of platforms in the middle instead of a centred
+       column. Two heroes exist so they can be looked at side by side, and one of
+       them is deleted when the choice is made. */
     { name: 'Path Choice', base: 'path-choice.html', states: [] },
     { name: 'Connect Bank', base: 'connect-bank.html', states: ['loading', 'error', 'empty', 'cancelled'] },
     { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['empty'] },

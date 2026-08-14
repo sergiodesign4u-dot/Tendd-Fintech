@@ -129,6 +129,7 @@ window.KIT_NAV = {
     { name: 'Landing bar',       cls: '.lp-nav',       page: 'landing-bar.html', was: null,                          axes: 'links: hidden / shown at container 760', wf: 1 },
     { name: 'Landing hero',      cls: '.lp-hero',      page: 'landing-hero.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'Landing shell',     cls: '.landing',      page: 'landing-shell.html', was: null,                          axes: 'band: canvas / surface. final: centred', wf: 1 },
+    { name: 'Landing orbit',     cls: '.lp-orbit',     page: 'landing-orbit.html', was: null,                          axes: 'column / spread at container 1024. A CANDIDATE', wf: 0 },
     { name: 'Landing story',     cls: '.lp-story',     page: 'landing-story.html', was: '.lp-window, .lp-cut',          axes: 'cards: over the list / beside it at container 1280', wf: 1 },
     { name: 'Groups column set', cls: '.groups',       page: 'groups-column-set.html', was: null,                          axes: 'columns: from a 300px floor, capped at three',          wf: 4 },
     { name: 'Panel',             cls: '.panel',        page: 'panel.html', was: null,                          axes: 'head: banded h2 / summary disclosure / headless',  wf: 7 },

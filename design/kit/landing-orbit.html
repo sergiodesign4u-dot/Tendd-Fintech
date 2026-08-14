@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing orbit - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Landing orbit</h1>
+    <p class="lead">The second hero, and it exists to be compared rather than to replace anything. The promise moves off the centre line to the left, a round window holds the subscription platforms in the middle, the count sits in the bottom left corner and the example total in the bottom right.</p>
+    <div class="kit-meta">
+      <span>Organism</span>
+      <span><strong>0</strong> grey pages</span>
+      <span><strong>1</strong> coloured page</span>
+      <span>candidate</span>
+      <span>added 2026-08-14</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="what">
+    <h2>What it is</h2>
+    <p class="note"><b>It is a candidate, and the page it stands on says so.</b> <a href="../index.html">design/index.html</a> keeps the centred hero; this one is <a href="../index-circle.html">design/index-circle.html</a>, listed in <code>design/_nav.js</code> as a state of the welcome screen. Nothing in <code>wireframes/</code> moved for it: the grey is the structure contract, and a contract changes for a decision, not for a candidate. When the founder picks one, the loser is deleted with its page, its registry row and its import, and the grey follows the winner in the same step. That is why the meta above says <b>0 grey pages</b> rather than 1.</p>
+    <p class="note"><b>Why a circle and not another rectangle.</b> Every other object on this page is a rectangle: cards, rows, the list, the bands. A round window is the one shape that reads as a <b>view into</b> something rather than as another panel of content, and that is exactly what it is: a look at a stack bigger than the window showing it. The chips drift past its edge and dissolve there, so the fourteen are never all countable at once, which is the feeling being named. The count in the corner is what says how many there are, in words.</p>
+    <p class="note"><b>The copy leaves the centre, and that is the real difference.</b> The first hero is centred and symmetrical, which is what an opening statement looks like. This one is asymmetric: the argument holds the left edge, the picture holds the middle, and the two numbers hold the bottom corners. It reads as a spread rather than as a poster. Neither is more correct; they are two answers to "what does a person see first".</p>
+    <p class="note"><b>The section below it carries <code>listfirst</code>.</b> The window has already shown the fourteen, so on this page <a href="landing-story.html">the landing story</a> opens on the list instead of on a second field. That is a declared modifier in <code>landing-story.css</code>, not an override written from here: a component with two shapes says so in its own file.</p>
+  </section>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <ul class="kit-parts">
+      <li><code>.osay</code> <span>the promise: eyebrow, headline, paragraph, two actions, reassurance. The same five things the centred hero has, at the same sizes, moved to the left edge</span></li>
+      <li><code>.orbit</code> <span>the window. <code>aspect-ratio: 1</code> with a width in three units, whichever is smallest, because a circle sized in one unit is wrong on two thirds of the screens people have. <code>overflow: hidden</code> on a 50% radius <b>is</b> the mask</span></li>
+      <li><code>.orbit::after</code> <span>the second ring, one hairline out. The only decoration in the component, and it earns its place by saying "this is an aperture" a second time, quietly</span></li>
+      <li><code>.obands</code> <span>five tracks of <code>.ochip</code> at 47s, 39s, 33s, 43s and 36s, alternating direction. The mask is radial and sits on the stack, because the opening is round: a linear fade would leave the chips hard-edged against the rim at the top and bottom</span></li>
+      <li><code>.ochip</code> <span>round, to agree with the window, and the mark alone. No name and no price: the job here is recognition, and the two numbers that matter are already in the corners</span></li>
+      <li><code>.ocount</code> and <code>.ototal</code> <span>the two corner figures. The label "Example, not your data" belongs to the total, because the count is a fact about the example and the total <b>is</b> the example</span></li>
+    </ul>
+    <h3 class="kit-sub-h">Behaviour on width</h3>
+    <p class="note">One point, <b>64rem</b>, and it is a third point on the product, declared locally and deliberately not added to <code>tokens.css</code>. At the registered 47.5rem the side columns are under 200px and the promise wraps to five lines beside a window with nowhere to shrink to. If this hero wins, the point is either registered or the composition is changed to live without it: a candidate does not get to add to the width scale. Below the point it is a column, and the promise comes <b>first</b>, before the window, because on a 390 x 844 screen a window big enough to recognise anything in pushes the two buttons to roughly 800px down the page.</p>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+    <p class="note"><b>The middle track is capped and fluid, not <code>auto</code>.</b> Written <code>auto</code> the track takes the circle's max-content width, the side columns fall to their minimums, and past that the grid overflows the page. Written <code>minmax(0, 34rem)</code> the track gives way first and the circle, at <code>min(100%, 52svh)</code>, fills whatever it is given.</p>
+    <p class="note"><b>The section's own 192px of padding is taken off, and that is not tidiness.</b> Every <code>.lp-section</code> carries 96 top and bottom from <code>landing-shell.css</code>, which is the rhythm between blocks of argument. This section is not a block of argument, it is the first screenful, and its job is to stand inside one screen with the two corner figures still on it. With both paddings the composition was 909 tall at 1440 x 900 and the corners fell off the bottom.</p>
+    <p class="note"><b>52svh and not 62.</b> The promise beside the window sets the floor: at 1440 x 900 it is 496 tall and the two corner figures 109, so 32 of air between them leaves the window 468, which 52svh is. At 62 the corners fell off a 900 window. Measured at eleven sizes from 320 x 640 to 1920 x 1080: the call to action is above the fold at every one of them.</p>
+    <p class="note"><b>The hand-off is behind <code>@supports (animation-timeline: view())</code>.</b> Unguarded, the declaration stays valid, falls back to the document timeline, and the window shrinks away once on load at the top of the page where nobody is looking. The range is <code>exit</code> and never <code>cover</code>: it is the part of the scroll where the hero is leaving the top of the screen, which is exactly when the section under it is arriving at the bottom.</p>
+  </section>
+
+  <section class="kit-sec" id="source">
+    <h2>Where it comes from</h2>
+    <p class="note">Drawn by <code>design/system/components/landing-orbit.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It stands on <a href="../index-circle.html">the candidate landing</a> and nowhere else. Ground: <code>docs/decisions.md</code>, D-Hero. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the organism group.</p>
+  </section>
+
+</div>
+
+<script src="_nav.js"></script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

@@ -164,6 +164,22 @@
   color: var(--text-muted);
 }
 
+/* ---- `.listfirst`, and it is a MODIFIER rather than an override ------------
+   The candidate hero at `design/index-circle.html` already shows the fourteen,
+   in a round window, above this section. Showing them again on three tracks
+   here would be the same picture twice with nothing gained between them, so on
+   that page the stage opens on the list and the field is not in it.
+
+   Declared here, as a class in the markup, because the alternative is the thing
+   the architecture forbids by name: a host writing `.lp-orbit + .lp-story
+   .storyfield { display: none }` is an undeclared variant, and the next person
+   to read landing-story.css would have no way to know the component has two
+   shapes. A component with two shapes says so in its own file.
+
+   It exists for as long as the candidate does. If the centred hero wins, this
+   block is deleted with the page that reads it. */
+.landing .lp-story.listfirst .storyfield { display: none; }
+
 /* ---- the field and the list -----------------------------------------------
    Stacked here, one above the other, which is the honest order for a browser
    with no stage: this is the problem, and this is what the product does with it.
@@ -441,6 +457,9 @@
      `--stravel` is the distance, and it is ZERO wherever the list already fits:
      the travel is not an effect, it is the answer to a shortage of height. */
   .landing .storylist { animation-name: slist; animation-range: contain 10% contain 86%; }
+  /* with no field to hand over from, the list arrives at once instead of waiting
+     for a gather that is not happening */
+  .landing .lp-story.listfirst .storylist { animation-range: contain 0% contain 86%; }
 
   /* THE HEAD DOES NOT ANIMATE, and that is the decision the first cut of this
      file got wrong. It carried `srise` over contain 6% to 20%, which meant that

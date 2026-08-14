@@ -43,7 +43,7 @@ The count is a class count, not a component count: `.row`, `.row .name`, `.row .
 
 # Part 1. The system after consolidation
 
-**63 components: 20 atoms, 23 molecules, 20 organisms.** (57 until the public page: five organisms arrived with the landing on 2026-08-14, and the landing story replaced two shorter-lived ones the same day. 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
+**64 components: 20 atoms, 23 molecules, 21 organisms.** (57 until the public page: five organisms arrived with the landing on 2026-08-14, the landing story replaced two shorter-lived ones the same day, and the landing orbit stands beside it as the CANDIDATE second hero: it is on 0 grey pages on purpose, and one of the two heroes goes when the founder chooses. 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
 step 2 the same material was 68 rows, and the pre-consolidation tables are not reproduced here:
 they were a list of what the product draws, and this is a list of what the system HAS. The
 ledgers further down record how the count moved, screen by screen and stage by stage.
@@ -169,6 +169,7 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Landing bar | `.lp-nav` | links: hidden / shown | 1 | `.lp-nav` | `landing-bar.css` | `landing-bar.html`  | links appear at 47.5rem |
 | Landing hero | `.lp-hero` | - | 1 | `.lp-hero` | `landing-hero.css` | `landing-hero.html`  | one centred column at every width |
 | Landing shell | `.landing` | band: canvas / surface | 1 | `.landing` | `landing-shell.css` | `landing-shell.html`  | measure and rhythm grow at 47.5rem |
+| Landing orbit | `.lp-orbit` | column / spread | 0 | `.lp-orbit`, `.osay`, `.orbit`, `.obands`, `.orow`, `.otrack`, `.ochip`, `.ocount`, `.ototal` | `landing-orbit.css` | `landing-orbit.html`  | a spread at 64rem, a local third point declared as a candidate's and not registered |
 | Landing story | `.lp-story` | cards: over the list / beside it | 1 | `.lp-story`, `.storypin`, `.storyhead`, `.storyfigs`, `.storystack`, `.storyswap`, `.storyfield`, `.srow`, `.strack`, `.stile`, `.storylist`, `.sline`, `.swap`, `.storyasides`, `.scard`, `.cut1`, `.cut2`, `.cut3`, `.live`, `.gone` | `landing-story.css` | `landing-story.html`  | the line and the lead grow at 47.5rem; the cards move beside the list at 80rem; the list's travel is arithmetic, not a point |
 | Site footer | `.lp-footer` | form: stacked / four columns | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem |
 | Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |

@@ -132,6 +132,48 @@ or fourteen lines push the head off the top. And the four totals must never over
 first cut cross-faded them over six per cent and $192.90 stood at half opacity behind
 $174.91 at the largest size on the page, so they now hand off with a hold instead.
 
+### Still open the same day: two heroes, and the founder is looking at both
+
+**Not a decision, a pair of candidates.** The founder asked for the centred hero to be kept
+and a second one built beside it, and drew the second over a screenshot of the first: the
+promise off the centre line to the left, a round window of subscription platforms in the
+middle, the count in the bottom left corner and the example total in the bottom right.
+
+  A  `design/index.html`         centred. Eyebrow, headline, paragraph, two actions,
+                                 reassurance, symmetrical, and the proof happens in the
+                                 stage below it. An opening statement.
+  B  `design/index-circle.html`  a spread. The argument holds the left edge, a round
+                                 window holds the middle, the two numbers hold the bottom
+                                 corners, and the stage below opens on the list because the
+                                 window has already shown the fourteen.
+
+**Nothing in `wireframes/` moved for B.** The grey is the structure contract and a contract
+changes for a decision, not for a candidate. When one is chosen, the other is deleted with
+its component, its kit page, its registry row and its import, and the grey follows the
+winner in the same step. `landing-orbit.css` says this in its own header and `design/kit/
+landing-orbit.html` says it on the page.
+
+**B carries a third width point and it is deliberately not registered.** The composition
+becomes a spread at 64rem, because at the registered 47.5 the side columns are under 200px
+and the promise wraps to five lines beside a window with nowhere to shrink to. The point is
+local to the candidate. If B wins, the point is either registered in `tokens.css` or the
+composition is changed to live without it: a candidate does not get to add to the width
+scale on its way past.
+
+**`.listfirst` is a declared modifier, not an override.** On B the stage opens on the list,
+because showing the fourteen in a circle and then again on three tracks is the same picture
+twice with nothing gained between them. Written as `.lp-orbit + .lp-story .storyfield
+{ display: none }` from the hero's file it would be an undeclared variant, and the next
+person to read `landing-story.css` would have no way to know the component has two shapes.
+A component with two shapes says so in its own file.
+
+**Two things measured on B.** The section's own 192px of padding is taken off, because
+`.lp-section`'s 96 top and bottom is the rhythm between blocks of ARGUMENT and this is the
+first screenful: with both paddings the composition was 909 tall at 1440 x 900 and the two
+corner figures fell off the bottom. And the window is 52svh rather than 62, because the
+promise beside it sets the floor: 496 of promise plus 109 of corner figures plus 32 of air
+leaves 468, which is what 52svh is at 900.
+
 ## 2026-08-14 - The landing, and the five things the system did not have
 
 **23 of 23 screens are in colour.** The public page was held back deliberately: 57 classes of

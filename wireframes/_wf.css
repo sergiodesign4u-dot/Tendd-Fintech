@@ -249,10 +249,22 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
   border: 1px solid var(--line2); padding: 2px 8px; background: var(--panel);
 }
 /* Both chips are real text and both are in the page. The grey shows the live one
-   and hides the cancelled one, which is the order the colour layer swaps them in. */
+   and hides the cancelled one, which is the order the colour layer swaps them in.
+   Both are named rather than matched with `> *`: a class this file never mentions
+   is a class the next reader cannot tell from a typo. */
 .lp-story .sline .swap { display: grid; grid-template-areas: "one"; justify-items: end; flex: none; }
-.lp-story .sline .swap > * { grid-area: one; }
+.lp-story .sline .swap > .live, .lp-story .sline .swap > .gone { grid-area: one; }
 .lp-story .sline .swap > .gone { visibility: hidden; }
+
+/* WHICH THREE LINES GET CANCELLED IS STRUCTURE, NOT STYLING, so the grey says it.
+   A reader of the contract has to be able to see that this list has three special
+   rows and which ones, without opening the colour layer to find out. The dotted
+   edge is this file's own convention for "something happens here"; the ORDER is
+   in the class names, cut1 before cut2 before cut3, and the colour layer times
+   them in that order. */
+.lp-story .sline.cut1,
+.lp-story .sline.cut2,
+.lp-story .sline.cut3 { border-left: 2px dotted var(--line); padding-left: 6px; }
 
 .lp-story .storyasides { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 16px; width: 100%; max-width: 1040px; }
 .lp-story .scard { padding: 16px; background: var(--frame); border: 1px solid var(--line2); }

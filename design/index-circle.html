@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tendd, the round window - See and control your subscriptions, calmly</title>
+<meta name="description" content="See every subscription and recurring charge in one calm view. No bank connection needed to start. Built for people who find money apps stressful.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- THE THEME BEFORE THE FIRST PAINT. Three lines, inline, above the stylesheet
+     on purpose: a switch that runs on DOMContentLoaded leaves one frame of white
+     on every load in the dark theme, and a flash is the most visible thing a dark
+     theme can get wrong. design/_nav.js draws the control and owns the same key. -->
+<script>(function(){try{if(localStorage.getItem('tendd-screen-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+<body>
+
+<!--
+  A CANDIDATE, NOT A SCREEN. 2026-08-14.
+
+  This page is design/index.html with ONE thing changed: the hero. The founder
+  drew it over a screenshot of the other one - the promise off the centre line to
+  the left, a round window of subscription platforms in the middle, the count in
+  the bottom left corner and the example total in the bottom right - and asked
+  for both to exist so they can be looked at side by side.
+
+  Everything below the hero is the same page, byte for byte, except one class:
+  the story section carries `listfirst`, because the round window has already
+  shown the fourteen and showing them again on three tracks would be the same
+  picture twice. On this page the stage opens on the list.
+
+  NOTHING IN wireframes/ MOVED FOR THIS. The grey is the structure contract and a
+  contract changes for a decision, not for a candidate. When one hero is chosen,
+  the other is deleted with its component, its kit page, its registry row and its
+  import, and the grey follows the winner in the same step.
+
+  Component: design/system/components/landing-orbit.css.
+  Page: design/kit/landing-orbit.html. Ground: docs/decisions.md, D-Hero.
+-->
+
+<!--
+  Welcome / Value Intro, node 1.1, and the only PUBLIC surface this product has.
+  It closes the rollout: 23 of 23 screens are now in colour.
+
+  Assembled from system classes. This page carries no style of its own: no page-level style
+  block, no style attribute, no class design/system/ does not define. Structure and copy are a
+  verbatim copy of wireframes/index.html.
+
+  SIX COMPONENTS WERE BUILT FOR IT, and they are the only things the system did not
+  already have: the landing shell (the measure and the rhythm), the landing bar, the hero,
+  the FAQ list, the site footer, and - on the founder's decision, D-Hero - the landing
+  story. Everything else here is the product's own furniture answering to `.landing`,
+  which 48 of the 57 components already carried at the rollout.
+
+  THE ONLY MOTION IN THIS PRODUCT IS ON THIS PAGE, and it is one argument told once.
+  BLOCK 3 is a stage that pins while the reader scrolls through it. It opens on the
+  canonical fourteen drifting on three tracks, which is what a subscription stack is:
+  something that arrives from more directions than anybody is watching. They gather to the
+  middle and become the list this product gives you. Then three are cancelled, one at a
+  time, and the total steps down at each: 192.90, 174.91, 161.92, 144.92. Netflix, Peloton
+  App and The New York Times are the three the product itself cancels or flags, at the
+  prices voice/docs/microcopy.md gives them, so the arithmetic can be checked against the
+  lines on the screen. Beside each cancellation stands the benefit card that explains it,
+  which is the copy this section always carried. A number that moves for a reason a person
+  can see is a demonstration; a number that moves on its own is a claim.
+
+  The hero losing its second column and this section becoming a stage are both structure
+  changes to a frozen file, and both are written out in wireframes/index.html at the block
+  they change. Without `animation-timeline` the whole stage lays out as an ordinary
+  section: field, list, three cards, stacked and readable, at $192.90 with nothing cut.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-flush">
+<div class="landing">
+
+  <!-- BLOCK 1: header. The only screen in the set with a full navigation and a
+       footer, because it is the only public one. -->
+  <header class="lp-nav">
+    <div class="lp-wrap">
+      <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+      <nav class="lp-links" aria-label="Landing sections">
+        <a href="#how">How it works</a>
+        <a href="#trust">Trust and security</a>
+        <a href="#pricing">Pricing</a>
+      </nav>
+      <div class="lp-actions">
+        <a class="signin" href="sign-in.html">Sign in</a>
+        <a class="btn primary" href="path-choice.html">Get started free</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- BLOCK 2: the promise, alone and centred. The reassurance line says the
+       harder thing in the same breath as the ask. The proof that used to stand
+       beside it is BLOCK 3, which has the room to show it happening. -->
+  <section class="lp-hero lp-orbit lp-section" aria-label="What Tendd is">
+    <div class="lp-wrap">
+      <div class="osay">
+        <p class="k">For people who are not into finance</p>
+        <h1 class="lp-h1">See what you're paying for. Calmly.</h1>
+        <p class="lp-lead">Tendd shows every subscription and recurring charge in one calm view, so you always know what is going out. No spreadsheets, no judgment, no surprises.</p>
+        <div class="actions">
+          <a class="btn primary" href="path-choice.html">Get started free</a>
+          <a class="btn" href="#how">See how it works</a>
+        </div>
+        <p class="muted">No bank connection needed to start. Read-only, we cannot move your money.</p>
+      </div>
+      <div class="orbit" aria-hidden="true">
+        <div class="obands">
+          <div class="orow"><div class="otrack"><span class="ochip"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span></span></div></div>
+          <div class="orow"><div class="otrack"><span class="ochip"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span></span></div></div>
+          <div class="orow"><div class="otrack"><span class="ochip"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span></span></div></div>
+          <div class="orow"><div class="otrack"><span class="ochip"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span></span></div></div>
+          <div class="orow"><div class="otrack"><span class="ochip"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span></span><span class="ochip"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span></span></div></div>
+        </div>
+      </div>
+      <p class="ocount"><strong>14</strong> subscriptions</p>
+      <div class="ototal">
+        <p class="k">Example, not your data</p>
+        <p class="amt figure">$192.90</p>
+        <p class="muted">a month, for what you have signed up for</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 3: the stage. The three benefits, and the argument they describe,
+       happening: the field of fourteen gathers into the list, three of them are
+       cancelled, the total steps down, and each benefit card arrives beside the
+       cancellation it explains. Structure and copy are a verbatim copy of
+       wireframes/index.html, where the founder's decision is written out. -->
+  <section class="lp-story listfirst" aria-label="Why Tendd">
+    <div class="storypin">
+      <div class="storyhead">
+        <h2>Calm control of your recurring money</h2>
+        <p class="lead">Tendd is not a budgeting app. It is a simple, low-pressure way to see and control what you are subscribed to.</p>
+        <p class="k">Example, not your data</p>
+        <div class="storyfigs">
+          <span class="storystack"><span class="amt figure">$192.90</span><span class="amt figure">$174.91</span><span class="amt figure">$161.92</span><span class="amt figure">$144.92</span></span>
+          <span class="storystack"><span class="count">14 subscriptions</span><span class="count">13 subscriptions</span><span class="count">12 subscriptions</span><span class="count">11 subscriptions</span></span>
+        </div>
+        <p class="muted">a month, for what you have signed up for</p>
+      </div>
+      <div class="storyswap">
+        <div class="storyfield" aria-hidden="true">
+          <div class="srow"><div class="strack"><span class="stile"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span class="amt">$17.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span><span class="amt">$13.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span><span class="amt">$14.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span><span class="amt">$7.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span><span class="amt">$22.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span class="amt">$17.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span><span class="amt">$13.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span><span class="amt">$14.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span><span class="amt">$7.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span><span class="amt">$22.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span class="amt">$17.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span><span class="amt">$13.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span><span class="amt">$14.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span><span class="amt">$7.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span><span class="amt">$22.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span class="amt">$17.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span><span class="amt">$13.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span><span class="amt">$14.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span><span class="amt">$7.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span><span class="amt">$22.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span class="amt">$17.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span><span class="amt">$13.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span><span class="amt">$14.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span><span class="amt">$7.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span><span class="amt">$22.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span class="amt">$17.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span><span class="amt">$13.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span><span class="amt">$14.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span><span class="amt">$7.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span><span class="amt">$22.99</span></span></div></div>
+          <div class="srow"><div class="strack"><span class="stile"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span><span class="amt">$20.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span><span class="amt">$2.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span><span class="amt">$8.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span><span class="amt">$10.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span><span class="amt">$20.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span><span class="amt">$2.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span><span class="amt">$8.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span><span class="amt">$10.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span><span class="amt">$20.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span><span class="amt">$2.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span><span class="amt">$8.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span><span class="amt">$10.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span><span class="amt">$20.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span><span class="amt">$2.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span><span class="amt">$8.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span><span class="amt">$10.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span><span class="amt">$20.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span><span class="amt">$2.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span><span class="amt">$8.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span><span class="amt">$10.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span><span class="amt">$20.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span><span class="amt">$2.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span><span class="amt">$8.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span><span class="amt">$10.99</span></span></div></div>
+          <div class="srow"><div class="strack"><span class="stile"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span><span class="amt">$12.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span><span class="amt">$17.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span><span class="amt">$19.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span><span class="amt">$12.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span><span class="amt">$17.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span><span class="amt">$19.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span><span class="amt">$12.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span><span class="amt">$17.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span><span class="amt">$19.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span><span class="amt">$12.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span><span class="amt">$17.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span><span class="amt">$19.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span><span class="amt">$12.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span><span class="amt">$17.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span><span class="amt">$19.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span><span class="amt">$12.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span><span class="amt">$11.99</span></span><span class="stile"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span><span class="amt">$17.00</span></span><span class="stile"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span><span class="amt">$19.00</span></span></div></div>
+        </div>
+        <ul class="storylist" aria-hidden="true">
+          <li class="sline cut cut1"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span class="name">Netflix</span><span class="amt">$17.99</span><span class="swap"><span class="chip live">Active</span><span class="chip gone">Cancelled</span></span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span><span class="name">Disney+</span><span class="amt">$13.99</span><span class="chip">Active</span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span><span class="name">Amazon Prime</span><span class="amt">$14.99</span><span class="chip">Active</span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span><span class="name">Hulu</span><span class="amt">$7.99</span><span class="chip">Active</span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span><span class="name">Adobe Creative Cloud</span><span class="amt">$22.99</span><span class="chip">Active</span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span><span class="name">ChatGPT Plus</span><span class="amt">$20.00</span><span class="chip">Active</span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span><span class="name">iCloud+</span><span class="amt">$2.99</span><span class="chip">Active</span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span><span class="name">Notion</span><span class="amt">$8.00</span><span class="chip">Active</span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span class="name">Spotify Premium</span><span class="amt">$11.99</span><span class="chip">Active</span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span><span class="name">Apple Music</span><span class="amt">$10.99</span><span class="chip">Active</span></li>
+          <li class="sline cut cut2"><span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span><span class="name">Peloton App</span><span class="amt">$12.99</span><span class="swap"><span class="chip live">Trial</span><span class="chip gone">Cancelled</span></span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/strava.svg" alt=""></span><span class="name">Strava</span><span class="amt">$11.99</span><span class="chip">Active</span></li>
+          <li class="sline cut cut3"><span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span><span class="name">The New York Times</span><span class="amt">$17.00</span><span class="swap"><span class="chip live">Active</span><span class="chip gone">Cancelled</span></span></li>
+          <li class="sline"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span><span class="name">The Economist</span><span class="amt">$19.00</span><span class="chip">Active</span></li>
+        </ul>
+      </div>
+      <div class="storyasides">
+        <article class="scard"><h3>Everything in one place</h3><p>Every subscription and recurring charge, pulled together and grouped by category. One calm list instead of a dozen forgotten logins.</p></article>
+        <article class="scard"><h3>Clear, never judged</h3><p>No budgets to set up, no red warnings, no lectures. Just your numbers in plain language, so you feel in control instead of anxious.</p></article>
+        <article class="scard"><h3>Never caught off guard</h3><p>Tendd tells you in plain words when a price goes up, a free trial is about to end, or a payment does not go through.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 4: how it works, with the length of the path stated up front. -->
+  <section class="lp-section" id="how" aria-label="How Tendd works">
+    <div class="lp-wrap">
+      <h2 >How Tendd works</h2>
+      <p class="muted lead">Three steps, a few minutes. You are in control the whole way.</p>
+      <div class="grid">
+        <article class="card lp-step">
+          <span class="snum">1</span>
+          <h3>Connect or add</h3>
+          <p>Connect your bank read-only, or add your subscriptions yourself from 400+ services. Your choice, no pressure to link an account.</p>
+        </article>
+        <article class="card lp-step">
+          <span class="snum">2</span>
+          <h3>See it all, calmly</h3>
+          <p>Tendd finds your recurring charges and shows them in one clear list, with your real monthly total as the biggest thing on screen.</p>
+        </article>
+        <article class="card lp-step">
+          <span class="snum">3</span>
+          <h3>Cancel and save</h3>
+          <p>Spot what you no longer use and cancel it with a step-by-step guide. Feel the small win when the number goes down.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 5: the two paths, side by side and the same size. The category
+       hides one of these two doors; showing both is the decision (D2). There is
+       no button here on purpose: the one action of this page is repeated in the
+       header, the hero and the closing block, and nowhere else. -->
+  <section class="lp-section" aria-label="Two ways to start">
+    <div class="lp-wrap">
+      <h2 >Two ways to start</h2>
+      <p class="muted lead">Neither one is the real way in. You pick when you start, and you can add the other later.</p>
+      <div class="grid roomy">
+        <article class="card">
+          <h3>Connect your bank</h3>
+          <p>Read-only, through Plaid, and about a minute. Tendd finds the charges that repeat and names them for you.</p>
+        </article>
+        <article class="card">
+          <h3>Add them yourself</h3>
+          <p>Pick from 400+ services and add what you already know about. No bank is involved, and nothing leaves your control.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 6: trust, stated as facts. A badge is not a fact. -->
+  <section class="lp-section lp-trust" id="trust" aria-label="Trust and security">
+    <div class="lp-wrap">
+      <h2 >Trusted with your money</h2>
+      <p class="muted lead">Trust is earned, not claimed. Here is exactly what Tendd can and cannot do.</p>
+      <ul class="promises">
+        <li>
+          <strong>Read-only, always</strong>
+          <span>Tendd can see your recurring charges but cannot move, spend, or touch your money.</span>
+        </li>
+        <li>
+          <strong>Bank connection through Plaid</strong>
+          <span>You sign in on your bank's own site, through Plaid, the same service many major finance apps use. We never see your bank password.</span>
+        </li>
+        <li>
+          <strong>You are in control</strong>
+          <span>Disconnect any account or delete all of your data at any time, in one tap. It is gone when you say so.</span>
+        </li>
+        <li>
+          <strong>We never sell your data</strong>
+          <span>Your financial life is yours. Tendd does not sell or share it, full stop.</span>
+        </li>
+      </ul>
+      <div class="actions">
+        <a class="btn" href="data-privacy.html">Read what we access</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 7: the plan, in one honest line. Not a comparison table: a table
+       asks for a decision about money before anything has been shown (D3, D4). -->
+  <section class="lp-section lp-plan" id="pricing" aria-label="Pricing">
+    <div class="lp-wrap">
+      <h2 >Simple, honest pricing</h2>
+      <p class="muted lead">The whole calm view is free. Tendd Pro adds history, trends and advanced alerts.</p>
+      <!-- The two Pro prices as the same card node 5.13 uses, yearly first with
+           the monthly equivalent (D4). Not a comparison table: a table has to
+           invent something Free lacks, and under D-Free it lacks nothing you
+           can see. These state what Pro costs, they do not argue for it. -->
+      <div class="plans">
+        <div class="plan-opt">
+          <span class="chip tone-accent">Best value</span>
+          <span class="amt">$69<span class="per">a year</span></span>
+          <span class="muted">That is $5.75 a month, and it saves about $27 a year versus paying monthly.</span>
+          <a class="btn primary" href="path-choice.html">Start Tendd Pro - $69 a year</a>
+          <div class="incl">
+            <span class="k">Everything in Tendd Pro</span>
+            <ul>
+              <li>History and trends</li>
+              <li>Advanced alerts</li>
+              <li>Full cancel guides</li>
+              <li>Export</li>
+            </ul>
+          </div>
+        </div>
+        <div class="plan-opt">
+          <span class="amt">$7.99<span class="per">a month</span></span>
+          <span class="muted">Month to month. Cancel any time, no lock-in.</span>
+          <a class="btn" href="path-choice.html">Start Tendd Pro - $7.99 a month</a>
+          <div class="incl">
+            <span class="k">Everything in Tendd Pro</span>
+            <ul>
+              <li>History and trends</li>
+              <li>Advanced alerts</li>
+              <li>Full cancel guides</li>
+              <li>Export</li>
+            </ul>
+          </div>
+        </div>
+        <div class="plan-opt">
+          <span class="amt">Lifetime<span class="per">one payment</span></span>
+          <span class="muted">Tendd Pro stays open, for people who would rather never think about a renewal again.</span>
+          <span class="q">Not on sale yet. We are still working out the price.</span>
+          <div class="incl">
+            <span class="k">Everything in Tendd Pro</span>
+            <ul>
+              <li>History and trends</li>
+              <li>Advanced alerts</li>
+              <li>Full cancel guides</li>
+              <li>Export</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p class="muted">No cap on subscriptions and no cap on banks in Free. Cancelling is free, always.</p>
+    </div>
+  </section>
+
+  <!-- BLOCK 8: the four objections people actually arrive with, as real text,
+       which is also what makes the FAQPage schema legitimate. -->
+  <section class="lp-section" aria-label="Questions people ask first">
+    <div class="lp-wrap">
+      <h2 >Questions people ask first</h2>
+      <div class="lp-faq">
+        <details>
+          <summary>Do I have to connect my bank?</summary>
+          <p>No. You can add your subscriptions yourself from 400+ services and get the same calm view. Connecting a bank is one of two ways in, not the price of entry.</p>
+        </details>
+        <details>
+          <summary>Is connecting my bank safe?</summary>
+          <p>You sign in on your bank's own site, through Plaid, so Tendd never sees your password. The connection is read-only. Tendd cannot move your money, and you can disconnect at any time.</p>
+        </details>
+        <details>
+          <summary>What does Tendd cost?</summary>
+          <p>The calm view is free, with no cap on how many subscriptions or banks you add. Tendd Pro is $7.99 a month or $69 a year, and it adds history, trends, and advanced alerts.</p>
+        </details>
+        <details>
+          <summary>Can Tendd cancel subscriptions for me?</summary>
+          <p>Tendd shows you how to cancel, step by step, and that part is free. It does not cancel on your behalf, because that would mean asking for more than read-only access to your money.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCK 9: the same single action, and the marketing footer. -->
+  <section class="lp-section lp-final" aria-label="Get started">
+    <div class="lp-wrap">
+      <h2 >See what you're paying for. Calmly.</h2>
+      <p class="lp-lead">Start free. No bank connection needed, and nothing to cancel later if it is not for you.</p>
+      <div class="actions">
+        <a class="btn primary" href="path-choice.html">Get started free</a>
+      </div>
+      <p class="muted">Already using Tendd? <a href="sign-in.html">Sign in</a>.</p>
+    </div>
+  </section>
+
+  <footer class="lp-footer" aria-label="Footer">
+    <div class="lp-wrap">
+      <div class="fcol fbrand">
+        <!-- The wordmark and not a bare word, because D-Brand says the last letter is petrol
+             EVERYWHERE, with no condition, and the grey wrote the footer's brand as plain text.
+             The mark is not repeated here: D-Brand puts it at 22px in the app bar and as the
+             favicon, and a second mark 4000px down the page is a logo asking to be noticed
+             rather than chrome framing a page. The word alone is enough to close it. -->
+        <span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span>
+        <p>A calm way to see and control your recurring payments. Built for people who are not into finance.</p>
+      </div>
+      <nav class="fcol" aria-label="Product">
+        <h4>Product</h4>
+        <a href="#how">How it works</a>
+        <a href="#trust">Trust and security</a>
+        <a href="#pricing">Pricing</a>
+      </nav>
+      <nav class="fcol" aria-label="Company">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Careers</a>
+      </nav>
+      <nav class="fcol" aria-label="Legal">
+        <h4>Legal</h4>
+        <a href="data-privacy.html">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="data-privacy.html">Data and privacy</a>
+      </nav>
+    </div>
+  </footer>
+
+</div><!-- /landing -->
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>
