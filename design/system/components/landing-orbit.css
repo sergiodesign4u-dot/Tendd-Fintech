@@ -580,7 +580,6 @@
   .landing .lp-orbit.lp-story.fromcircle .sline .amt {
     font-size: var(--type-title); font-weight: 700; color: var(--text-primary);
   }
-}
 
 /* THE RAMP, AND THE STEPS ARE NOT EVEN. Scale falls 4.3% a plate and opacity
    9.8%; the STEP between plates falls too, from 66px at the front to 22 at the
@@ -595,7 +594,15 @@
    opacity and below and are outside it on purpose.
 
    `--pbite` is the SECOND plate's own margin, 10px, because that is what the
-   promotion has to correct: see `sfall`. */
+   promotion has to correct: see `sfall`.
+
+   AND THE RAMP IS BEHIND THE POINT, like everything else the deck is made of.
+   It stood at the top level of this file: the scale, the opacity and the blur
+   are only read inside the container block, so those leaked harmlessly, but
+   `margin-top` is a plain property and it applied on a phone too - fourteen
+   rows of a plain mobile column biting between 10 and 54px into each other,
+   with no deck anywhere to explain why. Invisible to an overflow check, which
+   is what every sweep of this stage has measured. */
   .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) { --pscale: 1.0; --pfade: 1.0; --pblur: 0px; z-index: 19; }
   .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2) { --pscale: 0.957; --pfade: 0.902; --pblur: 0px; z-index: 18; margin-top: -10px; }
   .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3) { --pscale: 0.914; --pfade: 0.804; --pblur: 0.42px; z-index: 17; margin-top: -16px; }
@@ -610,6 +617,7 @@
   .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12) { --pscale: 0.527; --pfade: 0.05; --pblur: 4.2px; z-index: 8; margin-top: -50px; }
   .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13) { --pscale: 0.484; --pfade: 0.05; --pblur: 4.2px; z-index: 7; margin-top: -52px; }
   .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14) { --pscale: 0.441; --pfade: 0.05; --pblur: 4.2px; z-index: 6; margin-top: -54px; }
+}
 
 @supports (animation-timeline: view()) {
  /* AND THE WHOLE COMPOSITION IS BEHIND THE POINT, which is a structural fix and
@@ -856,6 +864,139 @@
     --scardslot: 0rem;
   }
 
+  /* ======================================================================
+     THE CLOCK IS SHAPED, AND THAT IS THE WHOLE ANSWER TO "МЯГКО"
+     The founder, 2026-08-15, on a stage that was already doing everything it
+     was asked to: make it soft.
+
+     Every animation on this page ran on `animation-timing-function: linear`,
+     and on a scroll timeline that is not a neutral default - it is a decision,
+     and the strongest one in the file. Linear welds the object to the
+     scrollbar: it starts the instant the wheel does, it moves at exactly the
+     wheel's rate, and it stops dead where the wheel stops. Nothing accelerates,
+     nothing arrives, nothing settles. The stage was correct and it read like a
+     scrubbed video, which is the one thing a scroll-driven page must not read
+     like.
+
+     So there are three curves and each one names a job:
+
+     - `--ease-arrive` is expo-out. It covers the whole distance early and
+       spends the rest of its range closing the last few pixels, which is what
+       an object landing looks like. Everything that comes ON uses it.
+     - `--ease-leave` is its mirror: slow to let go, then quick. Everything that
+       goes OFF uses it, and an exit is always shorter than an entrance.
+     - `--ease-settle` is a spring written as `linear()`, with a single overshoot
+       of one and a half per cent at 66. It is used in exactly one place - the
+       deck closing over a cancelled plate - because that is the one moment on
+       this stage where something is meant to feel like an OBJECT arriving at a
+       stop, not a value being interpolated. Any more overshoot than that and a
+       calm product starts bouncing; this much is a card seating itself.
+
+     `linear()` needs no guard of its own: this whole block is already behind
+     `@supports (animation-timeline: view())`, and every engine that has a
+     scroll timeline has had `linear()` for longer.
+     ==================================================================== */
+  .landing .lp-orbit.lp-story.fromcircle .storypin {
+    /* THE CURVES ARE LOCAL AND DELIBERATELY UNREGISTERED, exactly as this
+       candidate's two width points are. Stage 11 owns the motion scale and has
+       not run; when it does, these three go to `tokens.css` as primitives with
+       the roles named there, and this block keeps only the assignment. Carried
+       in `design/kit/docs/backlog.md`. */
+    --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-leave: cubic-bezier(0.6, 0, 0.85, 0.2);
+    --ease-settle: linear(0 0%, 0.11 6%, 0.38 17%, 0.66 27%, 0.85 36%,
+                          0.95 45%, 1.008 56%, 1.015 66%, 1.006 80%, 1 100%);
+    animation-timing-function: var(--ease-leave);
+  }
+
+  .landing .lp-orbit.lp-story.fromcircle .osay { animation-timing-function: var(--ease-leave); }
+  .landing .lp-orbit.lp-story.fromcircle .ocount,
+  .landing .lp-orbit.lp-story.fromcircle .ototal { animation-timing-function: var(--ease-arrive); }
+  /* the heading no longer merely appears: `sheadin` brings it up and pulls it
+     into focus, and the ease is what makes it stop rather than halt */
+  .landing .lp-orbit.lp-story.fromcircle .storyhead {
+    animation-name: sheadin;
+    animation-timing-function: var(--ease-arrive);
+  }
+  /* the window goes out of focus on its way out */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
+    animation-name: ovanish;
+    animation-timing-function: var(--ease-leave);
+  }
+  /* THE DECK IS THE ONE THING THAT SETTLES. Its range carries two different
+     movements - the arrival at the front of it and the promotion at 50% - and
+     the spring shapes both: the deck comes up and seats itself, and later the
+     second plate takes the first one's mark with the same small overshoot. One
+     curve on one element, because they are one animation. */
+  .landing .lp-orbit.lp-story.fromcircle .storylist {
+    animation-timing-function: var(--ease-settle);
+  }
+
+  /* EVERY PLATE ARRIVES ON ITS OWN CLOCK, and this is the stagger the deck
+     never had. Fourteen plates appearing on one signal is a wipe however well
+     it is shaped; nine tenths of a per cent apart they are a cascade, which is
+     the word the founder used for this block on the day it was asked for.
+
+     `:not(.cut)` and not a bare index, because the three cancelled plates are
+     the 1st, the 11th and the 13th and they already own their element's one
+     animation: `fill-mode: both` means a second would not compose with `sgo`,
+     it would replace it, and the deck would simply stop cancelling. The front
+     plate arrives with the DECK itself - `sfall` brings the whole list up 1.5rem
+     at 0.94 and settles it - so the card the reader is actually looking at has
+     the best entrance on the stage, and the two invisible ones (11 and 13 stand
+     at 0.05 opacity and below) arrive with the list's own fade. */
+  .landing .lp-orbit.lp-story.fromcircle .sline:not(.cut) {
+    animation-name: pdrop;
+    animation-fill-mode: both;
+    animation-timing-function: var(--ease-arrive);
+    animation-timeline: --story;
+  }
+  /* 0.9 apart and 7 long: plate 2 opens at 34 and plate 14 is home at 51.8,
+     which is the beat at contain 52 where the deck is meant to be whole, and
+     two points clear of the first cancellation at 54. */
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2):not(.cut)  { animation-range: contain 34.0% contain 41.0%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3):not(.cut)  { animation-range: contain 34.9% contain 41.9%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4):not(.cut)  { animation-range: contain 35.8% contain 42.8%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5):not(.cut)  { animation-range: contain 36.7% contain 43.7%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6):not(.cut)  { animation-range: contain 37.6% contain 44.6%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7):not(.cut)  { animation-range: contain 38.5% contain 45.5%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8):not(.cut)  { animation-range: contain 39.4% contain 46.4%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9):not(.cut)  { animation-range: contain 40.3% contain 47.3%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10):not(.cut) { animation-range: contain 41.2% contain 48.2%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11):not(.cut) { animation-range: contain 42.1% contain 49.1%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12):not(.cut) { animation-range: contain 43.0% contain 50.0%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13):not(.cut) { animation-range: contain 43.9% contain 50.9%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14):not(.cut) { animation-range: contain 44.8% contain 51.8%; }
+
+  /* a cancelled plate leaves on the exit curve: it holds while the reader reads
+     the word, then goes quickly */
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut { animation-timing-function: var(--ease-leave); }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .live {
+    animation-name: schipout;
+    animation-timing-function: var(--ease-leave);
+  }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .gone {
+    animation-name: schipin;
+    animation-timing-function: var(--ease-arrive);
+  }
+
+  /* the four totals and the four counts roll instead of crossfading */
+  .landing .lp-orbit.lp-story.fromcircle .storystack > * {
+    animation-timing-function: var(--ease-arrive);
+  }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(1) { animation-name: srollout; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(2),
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(3) { animation-name: sroll; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(4) { animation-name: srollin; }
+
+  /* and a reason card glides in from the side it lives on */
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) {
+    animation-timing-function: var(--ease-arrive);
+  }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1),
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { animation-name: sglide; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { animation-name: sglidehold; }
+
  }
 }
 
@@ -907,6 +1048,47 @@
   }
   .landing .lp-orbit.lp-story.fromcircle .storyasides { display: grid; gap: var(--space-16); }
   .landing .lp-orbit.lp-story.fromcircle .scard { position: static; }
+  /* AND EVERY ANIMATION THE SHAPED CLOCK DECLARED, AT THE SPECIFICITY IT USED.
+     This is the trap the top of this section is written about, one round later:
+     that clock re-declares `animation-name` on seven more selectors, one of
+     them at 0-8-0, and `landing-story.css` releases them at 0-3-0 and 0-4-0.
+     Left alone, a reader who asks for no motion gets a deck whose thirteen back
+     plates sit at `pdrop`'s 0% frame - opacity zero - and one card alone on an
+     empty stage. */
+  .landing .lp-orbit.lp-story.fromcircle .storylist,
+  .landing .lp-orbit.lp-story.fromcircle .storypin,
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(n),
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .live,
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .gone,
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(n),
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) { animation-name: none; }
+  /* AND THE DEPTH RAMP GOES WITH THEM, which is a defect this release found
+     rather than one it caused. With no motion the deck cannot roll, so its
+     fourteen plates stand where the ramp put them: four legible and ten between
+     0.21 and 0.05 opacity, biting up to 54px into each other. That is a picture
+     OF a deck, not a list of subscriptions, and the reader who asked for no
+     motion is exactly the reader who has to read it. Flat, it is fourteen
+     cards. */
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(n) {
+    --pscale: 1; --pfade: 1; --pblur: 0px; margin-top: var(--space-0);
+  }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut {
+    height: auto; min-height: var(--srow-h); overflow: visible;
+  }
+  /* AND THE TWO BOXES THAT WERE ABSOLUTE COME BACK INTO A GRID THAT HAS NO
+     ROOM FOR THEM. The pin's template is `"say . ."` - three columns, written
+     for a layout where the window and the three cards are absolutely placed and
+     take no track at all. Released they are grid items again, both of them
+     still asking for an area called `swap` that this template does not define,
+     and an item asking for an area that is not there goes into an IMPLICIT
+     column. The pin came out with five columns - 240 300 128 0 300 - inside 920
+     of content width, and put 136px of sideways scroll on the document at
+     1000x800. Full-row placement is the whole fix: the three explicit columns
+     are 668 and fit, and nothing implicit is created. */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap,
+  .landing .lp-orbit.lp-story.fromcircle .storyasides {
+    grid-area: auto; grid-column: 1 / -1;
+  }
 }
 
 @media (max-height: 42.5rem) {
@@ -935,6 +1117,47 @@
   }
   .landing .lp-orbit.lp-story.fromcircle .storyasides { display: grid; gap: var(--space-16); }
   .landing .lp-orbit.lp-story.fromcircle .scard { position: static; }
+  /* AND EVERY ANIMATION THE SHAPED CLOCK DECLARED, AT THE SPECIFICITY IT USED.
+     This is the trap the top of this section is written about, one round later:
+     that clock re-declares `animation-name` on seven more selectors, one of
+     them at 0-8-0, and `landing-story.css` releases them at 0-3-0 and 0-4-0.
+     Left alone, a reader who asks for no motion gets a deck whose thirteen back
+     plates sit at `pdrop`'s 0% frame - opacity zero - and one card alone on an
+     empty stage. */
+  .landing .lp-orbit.lp-story.fromcircle .storylist,
+  .landing .lp-orbit.lp-story.fromcircle .storypin,
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(n),
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .live,
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .gone,
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(n),
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) { animation-name: none; }
+  /* AND THE DEPTH RAMP GOES WITH THEM, which is a defect this release found
+     rather than one it caused. With no motion the deck cannot roll, so its
+     fourteen plates stand where the ramp put them: four legible and ten between
+     0.21 and 0.05 opacity, biting up to 54px into each other. That is a picture
+     OF a deck, not a list of subscriptions, and the reader who asked for no
+     motion is exactly the reader who has to read it. Flat, it is fourteen
+     cards. */
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(n) {
+    --pscale: 1; --pfade: 1; --pblur: 0px; margin-top: var(--space-0);
+  }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut {
+    height: auto; min-height: var(--srow-h); overflow: visible;
+  }
+  /* AND THE TWO BOXES THAT WERE ABSOLUTE COME BACK INTO A GRID THAT HAS NO
+     ROOM FOR THEM. The pin's template is `"say . ."` - three columns, written
+     for a layout where the window and the three cards are absolutely placed and
+     take no track at all. Released they are grid items again, both of them
+     still asking for an area called `swap` that this template does not define,
+     and an item asking for an area that is not there goes into an IMPLICIT
+     column. The pin came out with five columns - 240 300 128 0 300 - inside 920
+     of content width, and put 136px of sideways scroll on the document at
+     1000x800. Full-row placement is the whole fix: the three explicit columns
+     are 668 and fit, and nothing implicit is created. */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap,
+  .landing .lp-orbit.lp-story.fromcircle .storyasides {
+    grid-area: auto; grid-column: 1 / -1;
+  }
 }
 
 /* AND THE THIRD RELEASE, WHICH IS ONE DECLARATION AND WAS ALMOST MISSED. Under
@@ -968,27 +1191,138 @@
    `--pstepk`, which is 1 / 0.957: the second plate lands on the first one's mark
    at the first one's size, and every plate behind it moves up one place with it.
    Two numbers, both of them the ramp's own. */
+/* AND THE CLIP IS GONE, WHICH IS A DELETION AND NOT A TWEAK. An inset clip
+   opening down the deck was the arrival while the plates had no motion of their
+   own: it revealed them in order because it swept past them in order. It also
+   drew each of them half-built for a moment - a 76px card behind a 66px step
+   shows one band at a time, and a wipe through that band is a card sliced across
+   its own mark. Every plate now arrives on its own clock (`pdrop`, below), so
+   the clip has nothing left to reveal, and with it goes the `-100vh` top inset
+   that only ever existed to stop the clip cutting the second plate in half.
+   What is left is the DECK's own arrival: it comes up 1.5rem, at 0.94, and
+   settles. */
 @keyframes sfall {
-  0%   { opacity: 0; clip-path: inset(0 0 100% 0); transform: translate3d(0, -1rem, 0) scale(1); }
-  12%  { opacity: 1; }
-  30%  { opacity: 1; clip-path: inset(-100vh 0 0 0); transform: translate3d(0, 0, 0) scale(1); }
-  37%  { opacity: 1; clip-path: inset(-100vh 0 0 0); transform: translate3d(0, 0, 0) scale(1); }
-  50%  { opacity: 1; clip-path: inset(-100vh 0 0 0);
-         transform: translate3d(0, var(--pbite), 0) scale(var(--pstepk)); }
-  100% { opacity: 1; clip-path: inset(-100vh 0 0 0);
-         transform: translate3d(0, var(--pbite), 0) scale(var(--pstepk)); }
+  0%   { opacity: 0; transform: translate3d(0, 1.5rem, 0) scale(0.94); }
+  10%  { opacity: 1; }
+  30%  { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  37%  { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  50%  { opacity: 1; transform: translate3d(0, var(--pbite), 0) scale(var(--pstepk)); }
+  100% { opacity: 1; transform: translate3d(0, var(--pbite), 0) scale(var(--pstepk)); }
+}
+
+/* A PLATE ARRIVING INTO THE DECK. It reads through the ramp's own three
+   variables, exactly as `sgo` does, so a plate arrives AT the depth it belongs
+   at rather than at full size and then falling back: the ninth plate comes in
+   already at 0.656 and 0.216, and the only thing it does on its own is close
+   the last 2.25rem and lose 6px of blur. Three properties together and never
+   opacity alone. */
+@keyframes pdrop {
+  0%   { opacity: 0;
+         transform: translate3d(0, 2.25rem, 0) scale(calc(var(--pscale, 1) * 0.9));
+         filter: blur(calc(var(--pblur, 0px) + 4px)); }
+  100% { opacity: var(--pfade, 1);
+         transform: translate3d(0, 0, 0) scale(var(--pscale, 1));
+         filter: blur(var(--pblur, 0px)); }
 }
 
 
 /* the promise leaving with the page, and the two figures arriving from the foot */
+/* THE PROMISE GOES OUT OF FOCUS AS IT LEAVES. It travelled and faded, which is
+   two properties and was already past the floor; the blur is the third, and it
+   is the one that makes the leaving read as the page moving under a block
+   rather than as a block being switched off. It ends blurred, not merely
+   transparent, so nothing about it competes with the heading arriving. */
 @keyframes sup {
-  0%   { opacity: 1; transform: translate3d(0, 0, 0); }
-  60%  { opacity: 0; transform: translate3d(0, -1.75rem, 0); }
-  100% { opacity: 0; transform: translate3d(0, -3rem, 0); }
+  0%   { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+  60%  { opacity: 0; transform: translate3d(0, -1.75rem, 0); filter: blur(4px); }
+  100% { opacity: 0; transform: translate3d(0, -3rem, 0); filter: blur(6px); }
 }
 @keyframes frise {
   0%   { transform: translate3d(0, var(--ftravel), 0); }
   100% { transform: translate3d(0, 0, 0); }
+}
+
+/* ---- the candidate's own copies of four shared keyframes ------------------
+   `sin`, `sout`, `sturn` and `shand` in `landing-story.css` are opacity and
+   nothing else, and they are right there: on `design/index.html` they carry a
+   card and a figure that never move. Here the same four moments are the ones
+   the reader is watching hardest - the heading taking the top band, a card
+   arriving beside the deck, a total handing over to the next total - and a
+   lone fade is the one entrance that always reads as cheap. So the candidate
+   gets its own set, and the shared ones are left exactly as `design/index.html`
+   was verified on. */
+
+/* the heading arrives out of focus and lands. `translate` (the property) holds
+   its -50% centring, so `transform` here is free to be the motion: they are two
+   properties and they compose. */
+@keyframes sheadin {
+  0%   { opacity: 0; transform: translate3d(0, 1.25rem, 0); filter: blur(8px); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+
+/* A REASON CARD COMES FROM THE SIDE IT LIVES ON, and `--sglide` is that side:
+   positive for the two on the right, negative for the one on the left, zero
+   under the side point where all three lie across the deck's foot and the
+   arrival is vertical. `--scardc` carries the centring translate the narrow
+   arrangement needs, because an animation on `transform` REPLACES the
+   `translateX(-50%)` in the rule rather than composing with it: written without
+   it, every card jumped half its own width to the right the moment its range
+   opened. */
+@keyframes sglide {
+  0%   { opacity: 0; filter: blur(5px);
+         transform: translate3d(calc(var(--scardc, 0px) + var(--sglide, 0px)), 0.9rem, 0) scale(0.96); }
+  22%  { opacity: 1; filter: blur(0);
+         transform: translate3d(var(--scardc, 0px), 0, 0) scale(1); }
+  74%  { opacity: 1; filter: blur(0);
+         transform: translate3d(var(--scardc, 0px), 0, 0) scale(1); }
+  100% { opacity: 0; filter: blur(4px);
+         transform: translate3d(calc(var(--scardc, 0px) + var(--sglide, 0px) * -0.4), -0.9rem, 0) scale(0.98); }
+}
+/* the third card arrives and stays: the stage's own release at 94% takes it */
+@keyframes sglidehold {
+  0%   { opacity: 0; filter: blur(5px);
+         transform: translate3d(calc(var(--scardc, 0px) + var(--sglide, 0px)), 0.9rem, 0) scale(0.96); }
+  100% { opacity: 1; filter: blur(0);
+         transform: translate3d(var(--scardc, 0px), 0, 0) scale(1); }
+}
+
+/* A FIGURE ROLLS OVER TO THE NEXT ONE. $192.90 becoming $174.91 is the single
+   most important number on this stage, and a crossfade between two numbers in
+   one cell is a smear: for a third of the handover both values are on screen at
+   half opacity, on top of each other, and neither is readable. Rolled - the old
+   value up and out, the new one up and in - there is one number at a time and
+   the direction says which way the total is going. `em` and not `rem`, so the
+   count and the total each travel by their own type size. */
+@keyframes sroll {
+  0%   { opacity: 0; transform: translate3d(0, 0.55em, 0); }
+  12%  { opacity: 1; transform: translate3d(0, 0, 0); }
+  88%  { opacity: 1; transform: translate3d(0, 0, 0); }
+  100% { opacity: 0; transform: translate3d(0, -0.55em, 0); }
+}
+@keyframes srollin  { 0% { opacity: 0; transform: translate3d(0, 0.55em, 0); }
+                      100% { opacity: 1; transform: translate3d(0, 0, 0); } }
+@keyframes srollout { 0% { opacity: 1; transform: translate3d(0, 0, 0); }
+                      100% { opacity: 0; transform: translate3d(0, -0.55em, 0); } }
+
+/* the status badge turning over: it is a small object and a small scale is all
+   it needs, but it needs something - the word changes, and a change of word
+   under a pure crossfade reads as a rendering glitch */
+@keyframes schipout { 0% { opacity: 1; transform: scale(1); }
+                      100% { opacity: 0; transform: scale(0.88); } }
+@keyframes schipin  { 0% { opacity: 0; transform: scale(0.88); }
+                      100% { opacity: 1; transform: scale(1); } }
+
+/* THE WINDOW DOES NOT SHRINK AND FADE, IT GOES OUT OF FOCUS AND IS GONE. The
+   shared `ofold` is scale plus opacity, which is a light being turned down on
+   an object that stays sharp to the last frame. Here the window is handing the
+   stage to the deck, and the deck arrives sharp: the window leaving out of
+   focus is what makes the two read as one exchange rather than as a dissolve
+   between two pictures. It also drifts up 1.25rem, against the deck coming up
+   1.5 - they pass each other. */
+@keyframes ovanish {
+  0%   { opacity: 1; transform: scale(1) translate3d(0, 0, 0); filter: blur(0); }
+  55%  { opacity: 0.45; transform: scale(0.88) translate3d(0, -0.5rem, 0); filter: blur(4px); }
+  100% { opacity: 0; transform: scale(0.7) translate3d(0, -1.25rem, 0); filter: blur(9px); }
 }
 
 /* ============================================================================
@@ -1064,10 +1398,21 @@
      pixels of itself - the mark clipped, the price gone, four plates reading as
      one smear. Lying across the foot the card covers the last four plates, which
      stand at 0.2 opacity and below and are depth rather than content. */
+  /* `--scardc` IS THIS RULE'S OWN `translateX`, HANDED TO THE KEYFRAMES. An
+     animation on `transform` replaces the property, it does not compose with
+     it, so `sglide` has to carry the centring itself or every card jumps half
+     its own width to the right the moment its range opens. The variable is
+     declared where the placement is decided, and the keyframes read it: one
+     owner, two readers. Above the side point the cards are placed by `left` and
+     `right` and the centring is zero. */
   .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) {
     width: var(--scardw);
     left: 50%; right: auto; margin-top: 0;
     transform: translateX(-50%);
+    --scardc: -50%;
+    /* lying across the deck's foot, all three arrive from below: there is no
+       side for them to come from */
+    --sglide: 0px;
   }
  }
  /* 85rem AND NOT 80: three boxes and four gutters have to fit, and the deck is
@@ -1075,10 +1420,23 @@
     1316 against 1280, and the card that lost went to x=0 with no gutter at all
     while its neighbour lay 18px over the deck. */
  @container story (min-width: 85rem) {
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) { transform: none; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) { transform: none; --scardc: 0px; }
+  /* AND EACH ONE COMES FROM THE SIDE IT STANDS ON, which is the whole reason
+     the direction is a variable rather than a number in the keyframes. A card
+     that arrives from the far side has crossed the deck to get where it is
+     going; a card that arrives from its own edge has come from off the page,
+     which is where the reader's eye is not.
+
+     THE SIGNS ARE THE MEASURED SIDES AND NOT THE PROPERTY NAMES, which is the
+     one thing about this pair that cannot be read off the source. `right:
+     var(--scardoff)` looks like a card on the right and is a card on the LEFT:
+     the offset is `50% + half the deck + air`, which at 1440 is 1064, and a
+     right inset of 1064 puts a 336px card at x=50. Written from the property
+     names, cards 1 and 3 slid in from the far side of the page across the whole
+     deck. Measured: 1 and 3 stand at x=50, card 2 at x=1053. */
   .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1),
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { right: var(--scardoff); left: auto; }
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { left: var(--scardoff); right: auto; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { right: var(--scardoff); left: auto; --sglide: -1.5rem; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { left: var(--scardoff); right: auto; --sglide: 1.5rem; }
  }
 }
 

@@ -213,6 +213,18 @@
    first instead of appearing under it. That move is in the @supports block. */
 .landing .storyswap {
   display: grid;
+  /* `minmax(0, 1fr)` AND NOT THE DEFAULT `auto` TRACK, which is the third time
+     this same sentence has had to be written in this file and the first time it
+     has been written where it belongs. An `auto` track sizes to its children's
+     MAX-content, and the max-content of a row of the fourteen is its mark, its
+     whole name, its price and its badge laid out with nothing wrapped: 310px.
+     Handed a 242px box at a 320px window, the track came out 310 anyway and put
+     31px of sideways scroll on the document, in both themes. The row already
+     knows how to be narrow - `.sline .name` has `min-width: 0` and an ellipsis -
+     and it never got the chance, because the track above it never asked it to
+     be. Measured at 320x800 on `design/index-circle.html`, where the pin takes
+     the hero's own 40px gutter at every width and so runs out of room first. */
+  grid-template-columns: minmax(0, 1fr);
   justify-items: center;
   gap: var(--space-40);
   width: 100%;

@@ -7,6 +7,57 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - D-Hero: the clock is shaped, and `linear` was the decision nobody made
+
+The founder asked for the candidate hero to be soft on the scroll. The stage was already
+doing everything it had been asked to do, and it read like a scrubbed video, because every
+animation on it ran on `animation-timing-function: linear`. On a scroll timeline that is not
+a neutral default: it welds the object to the scrollbar, so it starts the instant the wheel
+does, moves at exactly the wheel's rate and stops dead where the wheel stops. Nothing
+accelerates, nothing arrives, nothing settles.
+
+Three curves now, each naming a job and declared locally on the pin: `--ease-arrive`
+(expo-out) for everything coming on, `--ease-leave` (its mirror) for everything going off,
+and `--ease-settle`, a spring written as `linear()` with a single overshoot of 1.5% at 66,
+used in exactly one place - the deck closing over a cancelled plate. **Rejected: more
+overshoot.** A calm product that bounces has changed what it is saying; this much is a card
+seating itself.
+
+Four shared keyframes were opacity and nothing else, which is right on `design/index.html`
+where they carry a card and a figure that never move. The candidate has its own set: the
+heading arrives out of focus and lands, a reason card glides in **from the side it stands
+on**, the four totals and the four counts **roll** instead of crossfading, and the badge
+turns over with a small scale. The roll is the one that matters: $192.90 becoming $174.91 is
+the most important number on this stage, and a crossfade puts both values on screen at half
+opacity on top of each other for a third of the handover, with neither readable.
+
+The deck's arrival is a **stagger** and the `clip-path` that used to be it is deleted. A clip
+sweeping down the deck revealed the plates in order because it swept past them in order, and
+it also drew each of them half-built: a 76px card behind a 66px step shows one band at a
+time, and a wipe through that band is a card sliced across its own mark. Every plate has its
+own range now, 0.9 points apart, and the front plate arrives with the deck itself.
+
+**Three defects found by the round rather than caused by it.** The depth ramp stood at the
+top level of the file, so its `margin-top` applied on a phone and a plain mobile column had
+fourteen rows biting up to 54px into each other. In reduced motion the deck cannot roll, so
+ten of its fourteen plates stood between 0.21 and 0.05 opacity for the one reader who has to
+read the list rather than watch it; the release flattens the ramp now. And released from the
+pinned layout, the window and the three cards became grid items again, both still asking for
+an area the pin's template does not define - an item asking for an area that is not there
+goes into an implicit column, and the pin came out with five columns inside 920 of content
+width and 136px of sideways scroll at 1000 x 800.
+
+One fix went into the shared component, at the base rule and not in a release: `.storyswap`
+takes `grid-template-columns: minmax(0, 1fr)`. An `auto` track sizes to max-content, and the
+max-content of a row of the fourteen is 310px; in a 242px box at a 320px window the track
+came out 310 anyway and put 31px of sideways scroll on the document in both themes. The row
+already knew how to be narrow and was never asked to be.
+
+Instruments: a 25-position scrub of the arrival window at 1440 reading all fourteen plate
+opacities, the seven beats screenshotted and probed, 276 width-sweep probes, 560 screen
+renders in both themes, and a reduced-motion probe at five sizes on both landings and the
+grey. Ground: `design/kit/landing-orbit.html`, sections Anatomy and Limits.
+
 ## 2026-08-15 - D-Hero: the deck rolls, and every plate is the same card
 
 The founder, on the built page: "все нижние должны быть такие же как первый, и первый уходит
