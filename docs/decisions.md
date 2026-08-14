@@ -7,6 +7,45 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-14 - D-Hero amended again: the figures take the top and the window becomes a cascade
+
+The founder, on the candidate, with the two bottom corners circled and two arrows drawn up to
+the top of the screen: the count and the example total belong at the TOP, the promise moves up
+under them, the window stays on the centre line, and it turns into "каскадные 3д плитки с
+подписками, первая сверху и потом все ниже ниже ниже".
+
+**What changed.** The stage's top row is now the two figures, left and right; the promise reads
+under them, about 110px higher than it was. The window's dive is DELETED: it was built to
+travel down to the example total, and the total is at the top now, so the movement had nothing
+at the end of it. The list stops being one card with fourteen rows and becomes fourteen
+PLATES, each with its own ground, hairline and shadow, leaning away from the reader as they
+descend - the recline is anchored at the TOP, which is the whole difference between a cascade
+and a table seen at an angle. It arrives by an inset `clip-path` opening from the top down, so
+the plates reveal in their own order with one rule instead of fourteen ranges.
+
+**The plates are anchored to the foot of the window and not to its middle.** Centred, the first
+plate arrived at y=246 at 1440 and landed across the section's own heading in the column beside
+it. The cascade runs downward from where the window is, so its top edge belongs below the
+heading; the plates are 32 rather than 40 to keep twelve of them on the stage after the move.
+
+**Three defects, all of them the same shape: a rule that was written for the spread and applied
+everywhere.**
+
+- The whole composition sat in an unguarded `@supports` block, so at 390 it applied too: the
+  wrap resolved to `52cqw` of a phone, which is 203px, and the plates inside it were 310 wide
+  and hung off the side of the page. It is behind `@container story (min-width: 60rem)` now,
+  and under the point this file has nothing to say.
+- `.storyhead` carries `grid-area: head`, which is correct on its own page, where the heading
+  is a grid item of the stage. On the candidate it is a child of `.saystack`, whose grid has
+  never heard of `head`: the name resolved to an implicit line, the heading went into an
+  implicit COLUMN beside the promise, and the headline hung 26px off the left edge of a phone.
+  An item asking for an area its grid does not define is the third time that mistake has been
+  made here.
+- Deleting the dive's keyframes left ONE stray closing brace, which swallowed the entire
+  reduced-motion block below it: the stage stayed pinned with no motion at all. A stray `}` at
+  the top level is a parse error a browser recovers from silently, and nothing about the page
+  looks wrong until you ask a computed style what it thinks.
+
 ## 2026-08-14 - D-Hero amended: the window sinks to the figures, and the list is a deck
 
 The founder, on the candidate page and in one message: the copy stays where it is, the round

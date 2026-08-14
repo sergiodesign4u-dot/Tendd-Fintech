@@ -340,12 +340,18 @@
        are 944 and do not fit an 880 wrap, so all three give way now and the
        composition holds from 960 up instead of from 1152. */
     grid-template-columns: minmax(15rem, 1.35fr) clamp(12rem, 30cqw, 30rem) minmax(8rem, 0.5fr);
-    grid-template-rows: minmax(0, 1fr) auto;
+    /* THE TWO FIGURES TAKE THE TOP AND THE PROMISE COMES UP UNDER THEM, on the
+       founder's mark of 2026-08-14, drawn as two arrows off the bottom corners
+       pointing at the top of the screen. They were the last thing on the screen
+       and they are the first thing the section says: how many, and how much. The
+       promise reads under them instead of beside them, which also puts its call
+       to action about 110px higher than it was. */
+    grid-template-rows: auto minmax(0, 1fr);
     grid-template-areas:
-      "say   . ."
-      "count . total";
-    align-items: center;
-    gap: var(--space-16) var(--space-32);
+      "count . total"
+      "say   . .";
+    align-items: start;
+    gap: var(--space-32) var(--space-32);
     min-height: min(42rem, 82svh);
     padding-block: var(--space-16) var(--space-0);
   }
@@ -369,14 +375,14 @@
      in an IMPLICIT track, which is how a three-column grid came out with five
      columns and four rows and the promise ended up in the bottom right corner.
      Changing a template means changing everything that reads it. */
-  .landing .lp-orbit.lp-story.fromcircle .saystack { grid-area: say; align-self: center; }
+  .landing .lp-orbit.lp-story.fromcircle .saystack { grid-area: say; align-self: start; }
   .landing .lp-orbit.lp-story.fromcircle .storyswap { grid-area: auto; }
   .landing .lp-orbit.lp-story.fromcircle .storyasides { display: contents; }
   .landing .lp-orbit.lp-story.fromcircle .ocount {
-    grid-area: count; position: static; align-self: end; justify-self: start;
+    grid-area: count; position: static; align-self: start; justify-self: start;
   }
   .landing .lp-orbit.lp-story.fromcircle .ototal {
-    grid-area: total; position: static; align-self: end; justify-self: end; text-align: right;
+    grid-area: total; position: static; align-self: start; justify-self: end; text-align: right;
   }
   /* between the spread point and 80rem the card still lies across the foot and
      the two figures are already in the corners, so it sits a figure above them */
@@ -431,8 +437,65 @@
    of the stage they are simply two blocks, one after the other, which is the
    readable order for a browser with no scroll timeline */
 .landing .lp-orbit.lp-story.fromcircle .saystack { display: grid; gap: var(--space-24); }
+/* AND THE HEADING INSIDE IT ASKS FOR NO AREA. landing-story.css says
+   `.storyhead { grid-area: head }`, which is correct on its own page: there the
+   heading IS a grid item of the stage. Here it is a child of `.saystack`, whose
+   grid has never heard of an area called `head`, so the name resolves to an
+   implicit line and the heading goes into an implicit COLUMN beside the promise:
+   the stack came out 443px wide inside a 310px phone and the headline hung 26px
+   off the left edge of the page. An item asking for an area its grid does not
+   define is this file's oldest mistake and this is the third time it has been
+   made. Above the point the block below places both children in one cell, which
+   is why this only ever showed under it. */
+.landing .lp-orbit.lp-story.fromcircle .storyhead { grid-area: auto; }
+
+/* ============================================================================
+   THE CASCADE
+   The founder, 2026-08-14: the window turns into "каскадные 3д плитки с
+   подписками, первая сверху и потом все ниже ниже ниже". So on this page the list
+   stops being one card with fourteen rows in it and becomes fourteen PLATES, each
+   with its own ground, its own hairline and its own shadow, stacked down the
+   centre of the screen and leaning away from the reader as they descend.
+
+   The recline is anchored at the TOP - `transform-origin: 50% 0` - which is the
+   whole difference between a cascade and a table seen at an angle: the first
+   plate faces the reader square on, and every plate under it is further back.
+   `perspective()` has to come before `rotateX()` in the list, or the rotation is
+   flat; and the whole thing rides in `--stilt`, which the list's own travel
+   keyframes append, because a second transform declaration would replace the
+   first rather than compose with it.
+
+   The plates are the candidate's and not the component's: `design/index.html`
+   keeps the single card. If the round window wins, this is what the list is.
+   ========================================================================== */
+.landing .lp-orbit.lp-story.fromcircle .storylist {
+  display: grid;
+  gap: var(--space-4);
+  background: none;
+  border: 0;
+  padding: var(--space-0);
+}
+.landing .lp-orbit.lp-story.fromcircle .sline {
+  background: var(--bg-surface);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space-4) var(--space-16);
+}
+/* a plate that has gone quiet keeps its shape and loses its lift, which is what
+   says "this one is no longer costing you anything" without a colour */
+.landing .lp-orbit.lp-story.fromcircle .sline.cut { box-shadow: none; }
 
 @supports (animation-timeline: view()) {
+ /* AND THE WHOLE COMPOSITION IS BEHIND THE POINT, which is a structural fix and
+    not a tweak. Everything below - the promise and the heading trading places in
+    one cell, the window and the cascade absolutely placed on the centre line,
+    the twelve-plate frame - is the SPREAD. It was written unguarded, so at 390 it
+    applied too: the wrap resolved to `52cqw` of a phone, which is 203px, and the
+    plates inside it were 310 wide and hung off the side of the page. Under the
+    point this file has nothing to say and landing-story.css's column is the whole
+    answer, which is also what makes the three releases below short. */
+ @container story (min-width: 60rem) {
   .landing .lp-orbit.lp-story.fromcircle .saystack {
     grid-template-areas: "one";
     gap: var(--space-0);
@@ -509,10 +572,15 @@
      window starts, and the example total is 103px tall at every width measured,
      so the drop is `50svh - 32 - 103` plus the radius the window keeps after it
      has shrunk. Every term is a number this stage already owns. */
+  /* THE WINDOW STAYS ON THE CENTRE LINE, and the dive is deleted. It was built to
+     travel down to the example total, and the total is at the TOP of the screen
+     now: a window sinking towards a figure that is no longer there is a movement
+     with nothing at the end of it. The founder, 2026-08-14: "круг в центре
+     остается... и трансформируем в каскадные 3д плитки". So it gives way where it
+     stands and the cascade comes out of it. */
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
-    --odive: calc(50svh - 135px + 0.74 * min(19rem, 33svh));
-    animation-name: odive;
-    animation-range: contain 6% contain 34%;
+    animation-name: ofold;
+    animation-range: contain 6% contain 30%;
   }
   /* AND THE SWAP STOPS CLIPPING, which is the one line that lets the dive be seen
      at all. The swap is 608 tall and the window 594 of it: clipped, the window
@@ -548,27 +616,34 @@
      give way to the stage rather than the other way round. */
   .landing .lp-orbit.lp-story.fromcircle .storylist {
     width: 100%;
-    height: min(100%, calc(12 * var(--srow-h) + var(--space-16)));
+    /* ANCHORED TO THE FOOT OF THE WINDOW AND NOT TO ITS MIDDLE, and the reason is
+       the heading beside it. Centred, the first plate arrived at y=246 at 1440,
+       and the section's own heading and its paragraph occupy 220 to 290 in the
+       column to the left: an opaque plate landed across a sentence. The cascade
+       runs DOWN from where the window is, so its top edge belongs below the
+       heading rather than level with it, and the plates are 32 rather than 40 to
+       keep twelve of them inside the stage after the move. 338 at 1440, which
+       clears the paragraph by 48. */
+    --srow-h: var(--space-32);
+    top: auto;
+    bottom: var(--space-0);
+    translate: none;
+    height: min(100%, calc(12 * (var(--srow-h) + var(--space-4)) + var(--space-16)));
     max-height: 100%;
     overflow: hidden;
-    --stilt: perspective(1600px) rotateX(4deg);
-    transform-origin: 50% 100%;
-    mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 86%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 86%, transparent 100%);
-    animation-range: contain 18% contain 88%;
+    /* leaning away from the top down, not from the bottom up: the first plate is
+       the one facing the reader */
+    --stilt: perspective(1200px) rotateX(-7deg);
+    transform-origin: 50% 0%;
+    /* only the bottom edge is soft now. The top is where the cascade STARTS, and
+       a fade there would blur the one plate that is meant to be square on. */
+    mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+    animation-name: sfall;
+    animation-range: contain 12% contain 34%;
     --scardslot: 0rem;
   }
-}
-
-/* the window's descent: it holds its ground and its size while it travels, and
-   only lets go over the last third, so the eye follows one object down the stage
-   instead of watching two things happen to it at once */
-@keyframes odive {
-  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
-  45%  { transform: translate3d(0, calc(var(--odive) * 0.42), 0) scale(0.97); opacity: 1; }
-  72%  { transform: translate3d(0, calc(var(--odive) * 0.76), 0) scale(0.88); opacity: 0.7; }
-  90%  { transform: translate3d(0, calc(var(--odive) * 0.94), 0) scale(0.78); opacity: 0.28; }
-  100% { transform: translate3d(0, var(--odive), 0) scale(0.74); opacity: 0; }
+ }
 }
 
 /* ============================================================================
@@ -660,4 +735,16 @@
    the same scroll that moved nothing else. */
 @container story (max-width: 59.99rem) {
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-name: none; }
+}
+
+/* THE CASCADE ARRIVES FROM THE TOP DOWN, and it is `clip-path` that does it. The
+   plates are one element, so a stagger would mean fourteen ranges and fourteen
+   rules; an inset clip opening from 100% to 0 reveals them in their own order,
+   first plate first, at no cost in rules and with no chance of two of them
+   disagreeing about when they arrive. Everything is in place before the first
+   cancellation at 35%. */
+@keyframes sfall {
+  0%   { opacity: 0; clip-path: inset(0 0 100% 0); transform: translate3d(0, -1rem, 0) var(--stilt,); }
+  18%  { opacity: 1; }
+  100% { opacity: 1; clip-path: inset(0 0 0 0);    transform: translate3d(0, 0, 0) var(--stilt,); }
 }
