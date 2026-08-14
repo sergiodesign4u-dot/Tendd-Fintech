@@ -336,7 +336,7 @@ quiet, ordinary row.
 the reader's own browser font-size setting and the two width points, which were already `rem`,
 finally ask the question they were written to ask. The px below are what each step renders at the
 browser default, which is where they always were: the swap moved nothing for a reader who has not
-changed that setting, proved across 7 660 element records on the coloured screens at four widths.
+changed that setting, proved across 8 596 element records on all 32 coloured screens at four widths.
 The geometry stayed `px` on purpose - a width and a gutter are not text.
 
 ### Hierarchy
