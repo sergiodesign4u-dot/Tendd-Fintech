@@ -112,21 +112,39 @@
    ask in their own words, "пусть чуть залазит на круг", and it is why this rule
    carries a stacking context: without `z-index` the window, which comes later in
    the markup, paints over it. */
-@container (min-width: 72rem) {
-  .landing .lp-orbit .lp-h1 { width: 15ch; max-width: none; position: relative; z-index: 1; }
+/* NO WIDTH POINT ON THIS RULE, and that is the correction. It sat inside a
+   `@container (min-width: 72rem)` block, so on any window narrower than 1152 the
+   headline fell back to `landing-hero.css`'s 14ch measure and ran to four lines,
+   which is what the founder was looking at when they said only the alignment had
+   changed. `100cqw - 5rem` is the page's own gutters: past a 641px container the
+   headline is its full 15ch and two lines, and under that it gives way rather
+   than overflowing the screen. Below the spread there is nothing beside it to
+   overlap, so the overflow costs nothing there. */
+.landing .lp-orbit .lp-h1 {
+  width: min(15ch, 100cqw - 5rem);
+  max-width: none;
+  position: relative;
+  z-index: 1;
 }
 
-/* ---- the two corner figures ----------------------------------------------
+/* ---- the two corner figures, and they have TWO HOSTS ----------------------
    They are the same two numbers the first hero puts under its headline, moved
    to the corners where they frame the window instead of following the sentence.
    The count is a fact about the example and the total is the example, so the
-   label belongs to the total and not to the count. */
-.landing .lp-orbit .ocount {
+   label belongs to the total and not to the count.
+
+   The stage below places the same two blocks in the same two corners, and there
+   they COUNT DOWN as the list is cut. That is the founder's correction of
+   2026-08-14: the stage used to repeat the label, the figure, the count and the
+   caption a second time in a centred head above the list, which is the same four
+   lines twice on one page. One pair, in the corners, from the first screen to
+   the last. So these rules name no host either. */
+.landing .ocount {
   margin: var(--space-0);
   font-size: var(--type-body);
   color: var(--text-muted);
 }
-.landing .lp-orbit .ocount strong {
+.landing .ocount strong {
   display: block;
   font-size: var(--type-figure);
   font-weight: 700;
@@ -134,16 +152,19 @@
   letter-spacing: -0.02em;
   color: var(--text-primary);
 }
-.landing .lp-orbit .ototal { display: grid; gap: var(--space-2); }
-.landing .lp-orbit .ototal .k {
+.landing .ototal { display: grid; gap: var(--space-2); }
+.landing .ototal .k {
   margin: var(--space-0);
   font-size: var(--type-label);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-muted);
 }
-.landing .lp-orbit .ototal .amt.figure { margin: var(--space-0); }
-.landing .lp-orbit .ototal .muted { margin: var(--space-0); }
+.landing .ototal .amt.figure { margin: var(--space-0); }
+.landing .ototal .muted { margin: var(--space-0); }
+/* the stack of values a figure takes as the scroll cancels things, right aligned
+   because the block it lives in is */
+.landing .ototal .storystack { justify-items: end; }
 
 /* ---- the window, and it has TWO HOSTS on the same page ---------------------
    The hero opens on it and the stage below opens on it again, contracting into

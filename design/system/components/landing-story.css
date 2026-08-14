@@ -183,6 +183,22 @@
 .landing .lp-story.fromcircle .storyfield { display: none; }
 .landing .lp-story.fromcircle .storyswap > .orbit { width: min(100%, 24rem); }
 
+/* THE HEAD LOSES ITS FIGURE, ITS COUNT AND ITS CAPTION on this page, and the
+   founder's reason is that they were already on the screen. The hero puts the
+   label, the total and the caption in its bottom right corner and the count in
+   its bottom left; the stage repeated all four in a centred block above the
+   list, which is the same four lines twice on one page and a second, competing
+   centre of gravity. Here the head is the heading and its paragraph, quiet and
+   left aligned, and the two numbers stay in the corners they arrived in and
+   count down there. */
+.landing .lp-story.fromcircle .storyhead {
+  justify-self: start;
+  justify-items: start;
+  text-align: left;
+  max-width: 38rem;
+}
+.landing .lp-story.fromcircle .storyhead h2 { font-size: var(--type-head); }
+
 /* ---- the field and the list -----------------------------------------------
    Stacked here, one above the other, which is the honest order for a browser
    with no stage: this is the problem, and this is what the product does with it.
@@ -483,6 +499,109 @@
   }
   .landing .lp-story.fromcircle .storylist { animation-range: contain 14% contain 88%; }
 
+  /* ---- the two corner figures, in the corners they arrived in ------------
+     Absolutely placed against the pin, which is a positioned element, exactly
+     as the three reason cards are. The reader's eye never has to find them
+     again: they are where the hero left them, and they are the only thing on
+     the stage besides the list that changes. */
+  /* THE INSET IS THE PAGE'S OWN GUTTER, WORKED OUT RATHER THAN GUESSED. These
+     two blocks have to land on the same two verticals the hero left them on, or
+     the eye loses them across the section boundary and the whole point of
+     keeping one pair is gone. `.lp-wrap` is `--container-wide` centred
+     with 40 of padding in a section, so the gutter is
+     `max(40px, (100% - 1280px) / 2 + 40px)`: 40 up to 1280, 120 at 1440, 360 at
+     1920. Measured against the hero's own corners at all three, because 16 was
+     the first guess and it put them 24px inside the line the hero left. */
+  .landing .lp-story.fromcircle .storypin {
+    /* air under the bar: the heading sat on it at 72 with nothing between them */
+    padding-block-start: var(--space-32);
+    /* AND THE SAME GUTTER THE HERO USES, at every width, in both layouts. Below
+       the point the two figures are grid cells and take it from here; above it
+       they are absolute and take it from `left`/`right`, which measure from the
+       padding box and so are unaffected by this line. Without it the flow layout
+       put them on the pin's own 24 and they sat 16px inside the vertical the
+       hero had left them on. */
+    padding-inline: var(--story-gutter);
+    --story-gutter: max(var(--space-40), calc((100% - var(--container-wide)) / 2 + var(--space-40)));
+  }
+  /* NOTHING IS ABSOLUTE UNTIL THERE IS ROOM FOR IT. Below 64rem the stage is
+     four rows and every one of them is in the flow: the heading, the window
+     becoming the list, the reason of the moment, and the two figures side by
+     side at the foot. Placed absolutely instead, which is what the first cut
+     did, the count and the total sat on each other at 390 (the total's label and
+     caption are wider than a quarter of a phone) and both sat on the card. Three
+     things in the same 80px. A corner is only a corner when there is a corner.
+     Above the point they take the four corners and the list travels under the
+     card, which is what `--scardslot` is for; here nothing overlays anything, so
+     the slot is zero. */
+  .landing .lp-story.fromcircle .storypin {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      "head  head"
+      "swap  swap"
+      "cards cards"
+      "count total";
+  }
+  .landing .lp-story.fromcircle .storyhead { grid-area: head; }
+  .landing .lp-story.fromcircle .storyswap { grid-area: swap; }
+  .landing .lp-story.fromcircle .storyasides {
+    grid-area: cards; display: grid; grid-template-areas: "one"; width: 100%;
+  }
+  /* `transform: none` is the third of the three. The shared rule centres the
+     card with `left: 50%` and `translateX(-50%)`, and a transform applies to a
+     static box as happily as to an absolute one: the card sat 168px off the left
+     edge of the screen. A rule that moves a thing has to be taken off wherever
+     the thing stops needing moving. */
+  .landing .lp-story.fromcircle .scard {
+    grid-area: one; position: static; width: auto;
+    margin-top: var(--space-0); transform: none;
+  }
+  .landing .lp-story.fromcircle .ocount { grid-area: count; justify-self: start; }
+  .landing .lp-story.fromcircle .ototal { grid-area: total; justify-self: end; text-align: right; }
+  .landing .lp-story.fromcircle .storylist { --scardslot: 0rem; }
+
+  @container (min-width: 80rem) {
+    .landing .lp-story.fromcircle .storypin {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto minmax(0, 1fr);
+      grid-template-areas: "head" "swap";
+    }
+    .landing .lp-story.fromcircle .storyasides { display: contents; }
+    .landing .lp-story.fromcircle .scard { position: absolute; }
+    .landing .lp-story.fromcircle .ocount,
+    .landing .lp-story.fromcircle .ototal { position: absolute; bottom: var(--space-8); }
+    .landing .lp-story.fromcircle .ocount { left: var(--story-gutter); }
+    .landing .lp-story.fromcircle .ototal { right: var(--story-gutter); }
+    /* the stage's foot belongs to the two figures now, so the list stops short of
+       them; the cards are beside it and overlay nothing */
+    .landing .lp-story.fromcircle .storylist { --scardslot: 6rem; }
+  }
+
+  /* AND WHERE THERE IS NO HEIGHT, THERE IS NO STAGE. Four rows plus a card plus
+     two figures need about 680px to leave the list a window worth looking at: at
+     320 x 640 the swap resolved to 62px and two of the three cancellations were
+     off it. Rather than tune four numbers for one small phone, the stage lets go
+     there and the section lays out as a column - the window, the list, the
+     reason cards, the two figures - which is the same honest picture a browser
+     with no scroll timeline gets. Measured: the threshold is between 640, which
+     fails, and 780, which works, so it is set at 680. */
+  @media (max-height: 42.5rem) {
+    .landing .lp-story.fromcircle { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
+    .landing .lp-story.fromcircle .storypin { position: static; height: auto; }
+    .landing .lp-story.fromcircle .storyswap { overflow: visible; container-type: normal; }
+    .landing .lp-story.fromcircle .storyswap > .orbit,
+    .landing .lp-story.fromcircle .storylist,
+    .landing .lp-story.fromcircle .storystack > *:nth-child(n),
+    .landing .lp-story.fromcircle .sline.cut,
+    .landing .lp-story.fromcircle .sline.cut .swap > .live,
+    .landing .lp-story.fromcircle .sline.cut .swap > .gone,
+    .landing .lp-story.fromcircle .scard:nth-child(n) { animation-name: none; }
+    .landing .lp-story.fromcircle .storystack > * + * { opacity: 0; }
+    .landing .lp-story.fromcircle .sline.cut .swap > .gone { opacity: 0; }
+    .landing .lp-story.fromcircle .scard { opacity: 1; }
+  }
+
   /* THE HEAD DOES NOT ANIMATE, and that is the decision the first cut of this
      file got wrong. It carried `srise` over contain 6% to 20%, which meant that
      at contain 0% - the first frame anybody sees when the stage locks - its
@@ -602,7 +721,14 @@
     .landing .storylist { --scardslot: 0rem; }
     .landing .scard {
       bottom: auto; top: 50%; transform: none;
-      width: min(21rem, calc(50cqw - 358px));
+      /* `50%` OF THE STAGE AND NOT `50cqw`. Both look like half the page and one
+         of them is: the card is placed from the centre of the pin, so the room
+         it has is half the PIN less the list's half-width and two gaps. Written
+         in `cqw` it asked a container two levels up and came back 336 wide at a
+         1280 window, where 282 is all there is: the card crossed the right edge
+         and the page scrolled sideways by 30px. A width measured against a
+         different box than the one it is positioned in is the bug, not the unit. */
+      width: min(21rem, calc(50% - 358px));
     }
     .landing .scard:nth-child(1) { right: calc(50% + 334px); left: auto; margin-top: -7rem; }
     .landing .scard:nth-child(2) { left: calc(50% + 334px); right: auto; margin-top: -3rem; }
@@ -693,7 +819,12 @@
   .landing .lp-story,
   .landing .lp-story.fromcircle { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
   .landing .storypin { position: static; height: auto; }
-  .landing .storyswap { position: static; }
+  /* `container-type: size` MEANS THE BOX DOES NOT GROW TO ITS CONTENTS. With the
+     pin taken off there is nothing left to give the swap a height, so it
+     collapses to 0 and the list is drawn outside a box of nothing. Found at
+     320 x 640 on the candidate page; it was true here too and no check had
+     looked, because every check measured the list and none measured its parent. */
+  .landing .storyswap { position: static; container-type: normal; overflow: visible; }
   .landing .storyfield { position: static; animation-name: none; }
   .landing .storypin,
   .landing .storylist,

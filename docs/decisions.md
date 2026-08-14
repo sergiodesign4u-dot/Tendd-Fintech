@@ -161,6 +161,24 @@ for a window beside it. The point is local to the candidate. If B wins, it is ei
 registered in `tokens.css` or the composition is changed to live without it: a candidate
 does not get to add to the width scale on its way past.
 
+**A fourth round of corrections from the founder, same day, all on B.** The stage had a
+centred head above the list carrying the label, the total, the count and the caption, and
+the hero already carries all four in its two bottom corners: the same four lines twice on
+one page, and a second centre of gravity competing with the list. The head is now the
+heading and its paragraph, quiet and left aligned, and the TWO CORNER FIGURES CAME DOWN
+FROM THE HERO INTO THE STAGE and count down there, on the same two verticals, so the eye
+never has to find them again across the section boundary. The heading and its paragraph
+were kept rather than deleted with the rest: they are the section's own body copy and taking
+them off the page is a content decision, not a layout one. Deleting them is one line if the
+founder wants it.
+
+**And the two-line headline had a width point on it, which is why the founder saw four
+lines.** `width: 15ch` sat inside `@container (min-width: 72rem)`, so on any window under
+1152 it fell back to `landing-hero.css`'s 14ch and ran to four lines. It is
+`min(15ch, 100cqw - 5rem)` now and carries no point: two lines from a 641px container up.
+The spread still needs 72rem, because a 580px headline plus a window beside it does not fit
+under 1152, but the headline no longer waits for it.
+
 **Three corrections from the founder, 2026-08-14, all on B.** The promise reads from the
 LEFT EDGE: the first cut carried `.lp-hero` in its markup and inherited that component's
 `text-align: center`, so an asymmetric composition had a centred column in it. The headline
@@ -170,6 +188,21 @@ also what takes the composition back inside one screen: at four lines it was 909
 solid core pulled in to 40%, so the left of it is nearly empty and the sentence crosses
 quiet ground rather than drifting colour. The stage below keeps the centred mask: nothing is
 written over it.
+
+**Five more defects found while making those corrections, none of them visible until the
+layout changed.** A card centred with `left: 50%` and `translateX(-50%)` keeps the transform
+when it goes back into the flow, so on a phone it sat 168px off the left edge of the screen.
+`container-type: size` means a box does not grow to its contents, so wherever the pin is
+taken off - reduced motion, a short window - the swap collapsed to zero height and the list
+was drawn outside a box of nothing; that was true on BOTH pages and no check had looked,
+because every check measured the list and none measured its parent. The reason card's width
+was written in `50cqw` while it is positioned from `50%` of the pin: two things that look
+like half the page, one of which is, and at a 1280 window the card came back 336 wide where
+282 is all there is, so the page scrolled sideways by 30px. Below 64rem the count and the
+total were absolutely placed in corners a phone does not have and sat on each other and on
+the card. And under about 680px of height the stage cannot hold a head, a list, a card and
+two figures at once - at 320 x 640 the list's window resolved to 62px - so below that
+threshold the stage lets go and the section lays out as a column.
 
 **One line that is load-bearing and looks like tidiness.** `.osay` carries `width: 100%`.
 The wrap says `justify-items: start`, so a grid item with no width is sized by its
