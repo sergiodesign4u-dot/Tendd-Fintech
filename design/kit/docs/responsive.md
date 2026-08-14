@@ -433,6 +433,14 @@ that row in a column of its own. The rule is now true instead of accidentally tr
 
 ## Component behaviour
 
+> **The corpus this section was measured on, named rather than left to be inferred.** Every count
+> below was taken at step 6 of stage 10, on **60 inventory entries and 57 component files**. Six
+> organisms have arrived since, all of them on 2026-08-14 and all of them on the public page: the
+> landing shell, the landing bar, the landing hero, the FAQ list, the site footer and the landing
+> window. Four of the six adapt at the registered 47.5rem and two do not, so the shape of the table
+> is unchanged and its numbers are not. They are recounted in one pass when the corpus stops
+> moving, which is `backlog.md`'s open count-drift row; until then this section reads 60 and 57.
+
 **23 of the 60 entries in `inventory.md` adapt, and 37 do not.** The column there is filled on
 every row, and an empty one would have meant "behaves unknown on a wide screen". Counted from the
 CSS by script rather than from memory, and recounted after step 6, which moved three rows:

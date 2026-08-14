@@ -69,7 +69,7 @@ window.NAV = [
   // done:true from 2026-08-13, and it flipped exactly as the note here said it would:
   // with no new row. The row was one and the stages behind it were two, tokens and
   // components at stage 08 and patterns at stage 09; the second one closed today, so the
-  // row closed with it. What "done" covers: two token levels, 57 components, 3 patterns,
+  // row closed with it. What "done" covers: two token levels, 63 components, 3 patterns,
   // 11 usage rules, the growth rule written into four files, and one product screen
   // (design/alerts.html) built out of the system to prove it stands on its own.
   //

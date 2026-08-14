@@ -517,6 +517,29 @@ A 12px muted line with a 15px petrol shield masked in front of it, sitting direc
 figures it vouches for. It is not fine print and it is not a footer: it is placed where the number
 is, because a trust claim that has to be scrolled to is not a trust claim.
 
+### The landing window (signature, and the one moving thing)
+
+The public page's hero panel has an opening cut into its left, right and bottom edges. Fourteen
+merchant marks drift across it on three tracks - top to the right, middle to the left, bottom to
+the right, between 18 and 22 pixels a second - and one enormous grey numeral climbs behind them,
+a dollar every ten seconds, from 192 to 199, and then stops.
+
+**It is the only motion in this product that is not a loading state**, and it is on the only
+surface that is not a screen. Principle 1 ("every screen lowers anxiety") governs what a person is
+inside; this is where the anxiety somebody already has is named back to them once, before the
+promise. There is no red, no urgency and nothing flashing: the whole effect is a grey shape moving
+slower than reading.
+
+**The numeral is a picture of a number, not a readout.** $192.90 is stated once, in text, above
+the opening, with its label and its caption. The numeral carries no cents, is cropped by its
+frame, is painted in `--text-ghost` at 1.36:1 against its ground, and sits inside an `aria-hidden`
+element. A number that moves is a number a person cannot check, so the checkable one never moves.
+
+**And it is the mark at hero scale.** Crop is one letterform larger than any frame with a window
+cut out of it; here the figure is set to the width of the opening and past it, and what does the
+cutting is first the frame and then the tiles, which pass in front and take it away a piece at a
+time. Ground: `docs/decisions.md`, D-Hero. Component: `design/kit/landing-window.html`.
+
 ### Patterns (a level above the components)
 
 Three compositions recur often enough to have a name, a file and a page of their own. A pattern

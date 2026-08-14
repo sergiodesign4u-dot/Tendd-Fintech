@@ -6,10 +6,19 @@
    argument: claim first, proof second.
 
    THE PROOF IS THE PRODUCT, NOT A PICTURE OF IT. The panel on the right is built
-   from the same components the app screens are - `.card`, `.row`, `.logo`,
-   `.chip`, `.amt` - through the same stylesheet, so it cannot drift from what a
+   from the same components the app screens are - `.logo` and `.amt` at their own
+   base sizes, through the same stylesheet - so it cannot drift from what a
    person actually gets. A landing that draws its own mockup is a landing that
    starts lying the first time a row changes.
+
+   THE PANEL SAYS IT, THE OPENING SHOWS IT. Above the cut: the label, the count,
+   $192.90 and the caption, in text, checkable, unchanged since the wireframes.
+   Below it: `.lp-window`, which is landing-window.css and holds all fourteen
+   merchants drifting past a climbing figure. This file owns WHERE that opening
+   is cut and nothing about what happens inside it. The change is a structure
+   change to a frozen file and it is a founder's decision, written into
+   wireframes/index.html at the block it changes and into docs/decisions.md as
+   D-Hero.
 
    AND IT CARRIES NO `.total`. The figure in the panel is an EXAMPLE, labelled as
    one in the markup, and 46px belongs to a number a person owns. It wears
@@ -69,6 +78,12 @@
   background: var(--bg-surface);
   border: 1px solid var(--line-container);
   border-radius: var(--radius);
+  /* The panel clips its own content, so the opening cut into it below can run to
+     the card's real edge without drawing a second corner of its own. A window
+     with its own border-radius inside a 1px-bordered card leaves a hairline
+     sliver at each bottom corner where the two curves disagree; letting the card
+     do the clipping removes the disagreement rather than tuning it. */
+  overflow: hidden;
 }
 
 .landing .lp-preview .pcount {
@@ -82,18 +97,29 @@
    so its size, weight and tracking come from amount.css; what is here is the
    gap under it, which is the panel's business. */
 .landing .lp-preview .amt.figure { margin: var(--space-0); }
-.landing .lp-preview .pctx { margin: var(--space-4) var(--space-0) var(--space-16); }
 
-/* The rows are the product's rows. The list only divides them, which is what
-   `.divlist` does everywhere else, and the hairline above the first one is what
-   separates the sample from the number it adds up to. */
-.landing .lp-preview .list {
-  margin: var(--space-0);
-  padding: var(--space-16) var(--space-0) var(--space-0);
-  border-top: 1px solid var(--line-divider);
-  list-style: none;
+/* The caption under the figure. This rule was written against `.pctx`, which is
+   the grey's class name for it, and the colour layer folds that class into
+   `.muted` - so the rule matched nothing on the only page it exists for. Found
+   at the window build, on the day the gap under it started mattering. It is the
+   idle half of the two-sided idle check: a rule with no reader. */
+.landing .lp-preview > .muted { margin: var(--space-4) var(--space-0) var(--space-0); }
+
+/* ---- where the opening is cut ---------------------------------------------
+   The window is landing-window.css's component and this is its PLACEMENT, which
+   belongs to the host: the negative margins are this file's own --space-24 of
+   padding, given back on three sides, so the opening runs to the card's left,
+   right and bottom edges and the card's overflow does the clipping. The one
+   positive number is the air between the caption and the cut.
+
+   16 / 24 / 24 read as three numbers and they are one: 24 is the panel's padding
+   written three times, and if that padding ever moves these move with it. */
+.landing .lp-preview .lp-window {
+  margin:
+    var(--space-16)
+    calc(-1 * var(--space-24))
+    calc(-1 * var(--space-24));
 }
-.landing .lp-preview .list > li + li { border-top: 1px solid var(--line-divider); }
 
 /* ==========================================================================
    PAST THE TABLET POINT, 47.5rem / 760px: claim and proof stand side by side

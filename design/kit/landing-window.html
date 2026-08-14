@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing window - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Landing window</h1>
+    <p class="lead">An opening cut into the hero's proof panel: all fourteen merchants of the example drifting across it on three tracks, and the total behind them, climbing. The only moving thing in this product that is not a loading state.</p>
+    <div class="kit-meta">
+      <span>Organism</span>
+      <span><strong>1</strong> grey page</span>
+      <span><strong>1</strong> coloured page</span>
+      <span>figure: hung from the top / centred</span>
+      <span>added 2026-08-14</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="what">
+    <h2>What it is</h2>
+    <p class="note"><b>It is an argument, not an ornament.</b> The panel above it states the example in words and in one figure, and a person who has never felt the problem reads that as a screenshot. This says the part a screenshot cannot: that a subscription stack is not a list somebody sat down and made, it <b>arrives</b>, one charge at a time, from fourteen directions, while the total goes up on its own and nobody is watching. The drift is the arriving. The climbing number is the not watching.</p>
+    <p class="note"><b>Principle 1 governs screens, and this is the one public surface.</b> "Every screen lowers anxiety" is a rule about the product a person is inside. Here is where the anxiety somebody already has is named back to them once, calmly, before the promise. No red, no urgency, nothing flashing: a grey number moving a dollar every ten seconds.</p>
+    <p class="note"><b>It is the mark at hero scale.</b> D-Brand locks the identity as Crop: one letterform larger than any frame, and a window cut out of it. The figure is set to the width of the opening and past it; what does the cutting is first the frame and then the tiles themselves, which pass in front of it and take it away a piece at a time.</p>
+    <p class="note"><b>And the example finally adds up.</b> Before this opening the panel claimed "14 subscriptions" and "$192.90" and showed three rows: the other eleven were an assertion and the total was a number with nothing under it. The fourteen tiles are the product's own fourteen merchants, and their prices sum to $192.90 to the cent. Five already carried a price in the corpus (Netflix 17.99, Spotify Premium 11.99, Peloton App 12.99, ChatGPT Plus 20.00, The New York Times 17.00 = 79.97); the other nine were chosen to close the remaining 112.93 exactly, and the script that writes the markup refuses to write it if they do not.</p>
+  </section>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <ul class="kit-parts">
+      <li><code>.lp-window</code> <span>the opening: <code>--bg-recessed</code>, one step under the card it is cut into, so a tile reads as an object lying on something. <code>overflow: hidden</code> is the whole component - it crops the figure, it makes a track wider than the page cost nothing, and it is why no width question is ever asked about a track</span></li>
+      <li><code>.wfig</code> <span>the climbing figure, absolutely positioned behind everything, <code>aria-hidden</code> with its opening. Sized in <code>cqw</code> against the opening's own width, painted in <code>--text-ghost</code>, tabular so 192 and 199 are the same width and the numeral does not shift on the tick</span></li>
+      <li><code>.wrows</code> <span>the stack of three, and the one place the edge fade is declared: a mask on the stack rather than on each row, so all three dissolve on the same two edges and the figure behind them does not dissolve at all</span></li>
+      <li><code>.wtrack</code> <span>the same tiles twice, travelling exactly half its own width. That is what makes the loop seamless, and it is why the gap between tiles is a <code>margin-right</code> and not a <code>gap</code>: with <code>gap</code> there are 2n-1 gaps for 2n tiles, half the width falls half a gap short of one set, and the row jumps 4px once a cycle</span></li>
+      <li><code>.wtile</code> <span>a mark and a price. The mark is <code>.logo</code> at the base 36px and the price is <code>.amt</code> at its base size, neither of them given a rule by this file: this component declares the box the two of them stand in and nothing about either</span></li>
+    </ul>
+    <h3 class="kit-sub-h">Behaviour on width</h3>
+    <p class="note">One point, the registered 47.5rem, and the reason is arithmetic rather than taste. The three tracks are <b>178px tall at every width</b>, because a mark and a price do not grow on a wider screen, while the figure grows with the opening. Centring the two on the same axis is therefore worst at the phone end: measured on a 390 screen the figure stood 181 tall against 178 of tracks and the tracks covered all but a hair of it. Below the point the two are anchored to opposite edges - the figure to the top, the tracks to the bottom, and the opening's 80px of top padding is the band the figure is seen in. Past the point the opening is 518 wide, the figure is 234 tall against 178 of tracks, and centring gives 28px clear above and below.</p>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+    <p class="note"><b>The figure is not a readout and must never become one.</b> $192.90 is stated once, in text, above the opening, with its label and its caption. This numeral carries no cents, is cropped by its frame, sits at the ground's own value and is inside an <code>aria-hidden</code> element. It is a picture of a number. Principle 4 is why the honest figure stays in the panel: a number that moves is a number a person cannot check.</p>
+    <p class="note"><b>The climb is seven dollars over seventy seconds, and the first draft was wrong.</b> It ran 192 to 216 in a minute. A background numeral that has drifted to 216 while the figure two lines above says $192.90 is a page arguing with itself, on the one surface whose whole job is to be trusted by somebody who does not trust finance apps. One dollar every ten seconds keeps the climb, stays within a few dollars of the stated figure for as long as anybody is looking, and never crosses 200 - which would read as a different number rather than the same one growing.</p>
+    <p class="note"><b>No JavaScript, and no library.</b> The count is a registered custom property: <code>@property --wfig-n</code> typed as <code>&lt;integer&gt;</code>, animated, read back through <code>counter-reset</code>. Typing it is what makes it interpolate, and interpolating an integer <b>is</b> the tick - there is no keyframe per step and no <code>steps()</code> function. Where <code>@property</code> is not honoured the registration drops, the declaration survives as a plain custom property, and the opening renders the true 192 standing still.</p>
+    <p class="note"><b>Under <code>prefers-reduced-motion</code> the static state is the honest one, and it needed a line of its own.</b> <code>base.css</code> already collapses every animation in the product, and for the tracks that is enough: they carry no <code>fill-mode</code>, so they return to <code>translate3d(0,0,0)</code>, a full row of tiles standing still. The figure is the one animation in this system that ends <code>forwards</code>, and a forwards animation collapsed to nothing lands on its <b>last</b> keyframe: 199, a number that was never true. The component turns its own animation off instead, and the property returns to its declared 192.</p>
+    <p class="note"><b>The <code>container-type</code> is declared here, and that is the rule rather than an exception to it.</b> It belongs to whoever <b>places</b> a component, and this opening places the figure. The figure is sized from the opening's own width and not the page's: the opening is 286px wide on a 320 screen and 518 in the hero's right column at 1280, two numbers a viewport unit cannot tell apart. Checked before declaring it - nothing inside the opening asks an <code>@container</code> question, so nothing changes its answer by being re-parented.</p>
+    <p class="note"><b><code>overflow: hidden</code> clips paint, not measurement, and that cost the grey corpus 204px of sideways scroll before it was caught.</b> A track is 1122px wide; hiding the overflow stops it being drawn outside the opening and does not stop an ancestor from measuring it. In colour this is harmless: <code>landing-hero.css</code> gives the panel <code>min-width: 0</code> past the point, and below it the panel is a stretched column flex item whose width comes from its parent. In the grey the same panel is a <b>grid</b> item, and a grid item's automatic minimum is its content's min-content size, so the hero's column resolved to the track. The grey now carries <code>min-width: 0</code>; nothing was added to the colour, because a guard it does not need is a dead declaration.</p>
+    <p class="note"><b>It changed a frozen file, and that is a founder's decision rather than a build choice.</b> The panel's three sample rows were structure, and structure lives in <code>wireframes/</code>. The decision is written into <code>wireframes/index.html</code> at the block it changes, and recorded as <b>D-Hero</b> in <code>docs/decisions.md</code>. In the grey the same fourteen tiles stand still: the grey is a structure contract, and motion is not structure.</p>
+  </section>
+
+  <section class="kit-sec" id="source">
+    <h2>Where it comes from</h2>
+    <p class="note">Drawn by <code>design/system/components/landing-window.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads, and <b>placed</b> by <code>landing-hero.css</code>, which owns <code>.lp-preview</code> and therefore owns where the opening is cut into it. It stands on <a href="../index.html">the coloured landing</a> and on <code>wireframes/index.html</code>, and on nothing else: the landing is the only public surface this product has. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the organism group. Its one token, <code>--text-ghost</code>, is in <code>tokens.css</code> with the measurement that put it there.</p>
+  </section>
+
+</div>
+
+<script src="_nav.js"></script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

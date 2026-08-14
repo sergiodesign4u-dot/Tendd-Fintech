@@ -7,6 +7,69 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-14 - D-Hero: the hero moves, and the example finally adds up
+
+**The founder's ask, in the founder's words:** the first screen was boring, and it should carry
+a wow effect - a matrix of real apps sliding through one big square, the top band travelling
+right, the middle left, the bottom right, and behind them an enormous background number
+starting at 192 and climbing on its own, "because subscriptions grow and you do not notice".
+
+**What was there.** `.lp-preview`, the hero's proof panel: a label, a count, $192.90, a caption
+and three still rows (Netflix, Spotify Premium, Peloton App). Three rows are a screenshot, and a
+screenshot cannot say the thing this page has to say first - that a subscription stack is not a
+list somebody made, it arrives.
+
+**What changed.** The three rows became `.lp-window`: an opening cut to the panel's left, right
+and bottom edges, holding all **fourteen** merchants of the example on three drifting tracks,
+with the total behind them. The four lines above the cut did not move. This is a STRUCTURE change
+to a frozen file, so it is written into `wireframes/index.html` at the block it changes, and the
+grey shows the same fourteen tiles standing still: the grey is a structure contract and motion is
+not structure.
+
+**The example is checkable now, and it was not before.** The panel claimed "14 subscriptions" and
+"$192.90" while showing three of them: the other eleven were an assertion and the total was a
+number with nothing under it. Five merchants already carried a price in the corpus (Netflix 17.99,
+Spotify Premium 11.99, Peloton App 12.99, ChatGPT Plus 20.00, The New York Times 17.00 = 79.97);
+the other nine were chosen to close the remaining 112.93 exactly, and the script that writes the
+markup into both corpora refuses to write anything if the fourteen do not sum to $192.90.
+
+**Rejected: GSAP, and any motion library.** The founder named it. The page carries no third-party
+runtime today, and it is the page whose argument is "read-only, we cannot move your money" - a
+CDN script on that page costs something real. Everything asked for is CSS: transforms for the
+drift, and a registered custom property for the count. A library would also have put the motion in
+a per-screen script, which is the failure `CLAUDE.md` already forbids for width.
+
+**Rejected: 192 climbing to 216, which is what was built first.** The panel two lines above says
+$192.90, in text, and it is the honest figure on this page. A background numeral that has drifted
+to 216 while that figure says 192.90 is a page arguing with itself, on the one surface whose job
+is to be trusted by somebody who does not trust finance apps. Settled at **192 to 199, one dollar
+every ten seconds**: it still climbs, which is the whole sentence; it stays within a few dollars
+of the stated figure for as long as anybody is looking; and it never crosses 200, which would read
+as a different number rather than the same one growing.
+
+**Rejected: promoting the figure to `.total`.** The One Number Rule holds. This numeral has no
+cents, is cropped by its frame, sits at the ground's own value and lives inside an `aria-hidden`
+element. It is a picture of a number, not a readout.
+
+**Rejected: `--bg-placeholder` for the figure's ink, and the rejection was measured rather than
+argued.** "Something is here and it is not real yet" describes this numeral exactly, and rendered
+it came out at 1.14:1 against its ground in the light theme and **1.04:1 in the dark**, where
+there was no figure on the screen at all. A role of its own, `--text-ghost`, at 1.36:1 and 1.33:1.
+It is not `--line-container-hover`, which reads the same primitive today, because that one is a
+card's edge under the pointer and the day a hover edge wants to be darker a watermark should not
+darken with it.
+
+**One point, and it is the registered one.** The three tracks are 178px tall at every width, since
+a mark and a price do not grow on a wider screen, while the figure grows with the opening. Centred
+on the same axis they collide at the phone end: 181 against 178, measured on a 390 screen, and it
+looked like nothing. Below 47.5rem the figure hangs from the top and the tracks sit at the bottom;
+past it, both are centred and the figure stands 28px clear above and below.
+
+**Found on the way.** `.grid`, `.brand` and `.wordmark`'s sibling problem has a fourth member:
+`landing-hero.css` carried a rule for `.pctx`, which is the GREY's class name for the caption, and
+the colour layer folds that class into `.muted` - so the rule matched nothing on the only page it
+exists for. Fixed. It is the idle half of the two-sided idle check: a rule with no reader.
+
 ## 2026-08-14 - The landing, and the five things the system did not have
 
 **23 of 23 screens are in colour.** The public page was held back deliberately: 57 classes of

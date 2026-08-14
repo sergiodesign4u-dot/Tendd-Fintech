@@ -43,7 +43,7 @@ The count is a class count, not a component count: `.row`, `.row .name`, `.row .
 
 # Part 1. The system after consolidation
 
-**57 components: 20 atoms, 23 molecules, 14 organisms.** (55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
+**63 components: 20 atoms, 23 molecules, 20 organisms.** (57 until the public page: five organisms arrived with the landing on 2026-08-14 and the landing window with it. 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
 step 2 the same material was 68 rows, and the pre-consolidation tables are not reproduced here:
 they were a list of what the product draws, and this is a list of what the system HAS. The
 ledgers further down record how the count moved, screen by screen and stage by stage.
@@ -169,6 +169,7 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Landing bar | `.lp-nav` | links: hidden / shown | 1 | `.lp-nav` | `landing-bar.css` | `landing-bar.html`  | links appear at 47.5rem |
 | Landing hero | `.lp-hero` | form: stacked / two columns | 1 | `.lp-hero` | `landing-hero.css` | `landing-hero.html`  | two columns at 47.5rem |
 | Landing shell | `.landing` | band: canvas / surface | 1 | `.landing` | `landing-shell.css` | `landing-shell.html`  | measure and rhythm grow at 47.5rem |
+| Landing window | `.lp-window` | figure: hung from the top / centred | 1 | `.lp-window`, `.wfig`, `.wrows`, `.wrow`, `.wtrack`, `.wtile` | `landing-window.css` | `landing-window.html`  | the figure is centred and the opening deepens at 47.5rem |
 | Site footer | `.lp-footer` | form: stacked / four columns | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem |
 | Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
 | Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | does not adapt |
@@ -629,7 +630,7 @@ stage's to make and saying so is worth more than another carried row.
 
 | Fact | Value | How it was produced |
 |---|---|---|
-| Component files carrying a `.landing` selector | **48 of 57** | `grep -l` over `design/system/components/*.css`; `base.css` carries one as well, outside the 57 |
+| Component files carrying a `.landing` selector | **54 of 63**, recounted 2026-08-14 (was 48 of 57 before the public page) | `grep -l` over `design/system/components/*.css`; `base.css` carries one as well, outside the 63 |
 | Files in `design/` whose markup carries the token `landing` | **0** | a sweep of every `class="..."` in every `.html` in the repo |
 | Page roots carrying it anywhere in the repo | **1** | `wireframes/index.html:14`, `div.landing`, grey and frozen |
 | Other markup carrying it | **1** | `design/kit/plan-option.html:111`, a `div.kit-stage.landing` built to show the plan option's second host |

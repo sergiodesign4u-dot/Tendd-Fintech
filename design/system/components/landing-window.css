@@ -1,0 +1,306 @@
+/* ============================================================================
+   Landing window - organism
+   The live half of the hero's proof panel: a cut opening with the product's own
+   merchant marks drifting through it, and one enormous, quiet number climbing
+   behind them.
+
+   WHY IT EXISTS, AND IT IS AN ARGUMENT RATHER THAN AN ORNAMENT. The panel above
+   this window states the example in words and in one figure, and a person who
+   has never felt the problem reads that as a screenshot. The window says the
+   part the screenshot cannot: that a subscription stack is not a list somebody
+   sat down and made, it is a thing that ARRIVES, one charge at a time, from
+   fourteen directions, while the total goes up on its own and nobody is
+   watching. The drift is the arriving. The climbing number is the not watching.
+   That is the problem this product exists for, said in the only place on the
+   whole surface where it may be said: principle 1 governs SCREENS, and every one
+   of them lowers anxiety. This is the public page, and it is where the anxiety a
+   person already has is named back to them once, calmly, before the promise.
+
+   IT IS ALSO THE MARK AT HERO SCALE. D-Brand locks the identity as Crop: one
+   letterform larger than any frame, and a window cut out of it. The figure here
+   is set to the width of the opening and past it, and what does the cutting is
+   first the frame and then the tiles themselves, which pass in front of it and
+   take it away a piece at a time. Nothing here is sized to fit.
+
+   Reads
+     colour   --bg-recessed   (the ground of the opening, one step under the card)
+              --bg-surface    (a tile: the same paper every row in the app is on)
+              --text-ghost    (the climbing figure. See THE FIGURE'S INK below)
+              --line-divider, --line-container
+     spacing  --space-0, --space-8, --space-16, --space-64
+     geometry --radius-sm
+     type     the tile's price is `.amt` at its base size, untouched. The figure
+              is sized in cqw and is not a step of the type scale: see below.
+   Hosts     .logo at its BASE 36px, and .amt at its base. Neither gets a rule
+              here. A size of another component declared in this file is the
+              shape of a later disagreement, which logo.css says in its own words.
+   Placed by design/system/components/landing-hero.css, which owns .lp-preview
+              and therefore owns where this opening is cut into it.
+   Page      design/kit/landing-window.html
+   Stands on 1 grey page and 1 coloured one: the landing is the only public
+              surface this product has.
+
+   THE FIGURE IS NOT A READOUT AND MUST NEVER BECOME ONE. $192.90 is stated
+   once, in text, above this opening, with its label ("Example, not your data")
+   and its caption. This numeral carries no cents, is cropped by the frame, sits
+   at the ground's own value, and the whole opening is aria-hidden. It is a
+   picture of a number. Principle 4 is the reason the honest figure stays in the
+   panel rather than moving in here: a number that moves is a number a person
+   cannot check.
+
+   AND THE EXAMPLE NOW ADDS UP. The fourteen tiles are the product's own fourteen
+   merchants, named exactly as every app screen names them, and their prices sum
+   to $192.90 to the cent, which is the figure the panel has claimed since the
+   wireframes. Five of the fourteen already carried a price in the corpus
+   (Netflix 17.99, Spotify Premium 11.99, Peloton App 12.99, ChatGPT Plus 20.00,
+   The New York Times 17.00 = 79.97); the other nine were chosen to close the
+   remaining 112.93 exactly. Before this window the total was a number with
+   nothing under it. See docs/decisions.md, D-Hero.
+   ============================================================================ */
+
+/* ---- the climbing number, registered so it can be interpolated -------------
+   An unregistered custom property has no type, so a browser can only flip it
+   from one value to the other at the halfway mark. Registered as <integer> it
+   interpolates, and interpolating an integer IS the tick: there is no keyframe
+   per step and no steps() timing function, the type does the counting.
+
+   The fallback is not a decoration either. Where @property is not honoured the
+   registration is dropped, the declaration below survives as a plain custom
+   property, `counter-reset` still resolves it to 192, and the opening renders
+   the true total standing still. That is the correct static state, which is the
+   same state prefers-reduced-motion is given at the foot of this file. */
+@property --wfig-n {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 192;
+}
+
+/* ---- the opening ---------------------------------------------------------
+   One step down from the card it is cut into, because a tile has to read as an
+   object lying ON something. The card is --bg-surface, the tiles are
+   --bg-surface, and the ground between them is --bg-recessed: the same three
+   values, in the same order, that a row hover uses inside the app.
+
+   `overflow: hidden` is the whole component. It is what crops the figure, it is
+   what makes a track wider than the page cost nothing, and it is why no width
+   below is ever asked about.
+
+   AND IT CLIPS PAINT, NOT MEASUREMENT, which cost the grey corpus 204px of
+   sideways scroll before it was found. A track is 1122px wide. `overflow: hidden`
+   stops it being DRAWN outside the opening; it does not stop an ancestor from
+   MEASURING it. Here in the colour layer that is harmless, because landing-hero
+   .css gives the panel `min-width: 0` past the tablet point and below the point
+   the panel is a stretched column flex item, whose width comes from its parent
+   rather than from its content. In `wireframes/_wf.css` the same panel is a GRID
+   item, and a grid item's automatic minimum IS its content's min-content size, so
+   the hero's column resolved to the track and the page scrolled. The grey now
+   carries `min-width: 0` with that measurement written beside it. Nothing was
+   added here: a guard the colour does not need is a dead declaration, and the
+   trap belongs in the note rather than in the file.
+
+   `container-type: inline-size` is declared HERE and that is the rule rather
+   than an exception to it: container-type belongs to whoever PLACES a component,
+   and this element places the figure. The figure is sized from the opening's own
+   width, not the page's, and the opening is 320px wide on a phone and 490 in the
+   hero's right column at 1280 - two numbers a viewport unit cannot tell apart.
+   Checked before declaring it: nothing inside this opening asks an @container
+   question, so nothing changes its answer by being re-parented. */
+.landing .lp-window {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-80) var(--space-0) var(--space-16);
+  background: var(--bg-recessed);
+  border-top: 1px solid var(--line-divider);
+  container-type: inline-size;
+}
+
+/* ---- the figure ----------------------------------------------------------
+   THE FIGURE'S INK is --text-ghost, a role added for it, and the first value it
+   was given was wrong. --bg-placeholder was the reasoned choice: "something is
+   here and it is not real yet" describes this numeral exactly. Rendered, it
+   measured 1.14:1 against the ground in the light theme and 1.04:1 in the dark,
+   and at 1.04 there was no figure on the screen at all. The role it has now sits
+   one step off its ground in both themes, 1.36:1 and 1.33:1, and carries the
+   argument for its own existence in tokens.css.
+
+   SIZED IN cqw AND NOT FROM THE TYPE SCALE, on purpose. The scale exists so that
+   text agrees with other text; nothing else in this product is ever this size,
+   and the figure's job is a RATIO to its frame rather than a step: as wide as the
+   opening, and taller than the three tracks in front of it.
+
+   AND THE CLAMP IS DOING REAL WORK AT BOTH ENDS, which is why both bounds are
+   numbers and not guesses. The tracks are the one thing in this opening that does
+   NOT scale with width: three tiles of 54px and two gaps is 178px at 320 and 178
+   at 1600, because a mark and a price do not get bigger on a wider screen. So the
+   figure has to clear 178 even where 76cqw would not. The floor, 15.5rem, is the
+   size whose digits are 181 tall: one hair over the tracks, so the figure is
+   never entirely behind them. The ceiling, 22rem, is where "192" is exactly as
+   wide as the widest this opening ever gets, so past that the frame would start
+   eating digits for nothing. Between them it tracks the width.
+
+   The crop is therefore real and it is not everywhere: at the desktop end the
+   numeral spans the opening edge to edge and stands 39px clear above and below
+   the tracks; in the narrow band between the tablet point and about 1050 the
+   frame does cut into it, on purpose rather than by accident, which is what the
+   floor buys. Measured at four widths, not reasoned.
+
+   tabular-nums is load-bearing, not taste: 192 and 216 must be the same width or
+   the whole numeral shifts on the tick and the eye catches it immediately. */
+.landing .wfig {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: clamp(8rem, 55cqw, 15rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-ghost);
+  user-select: none;
+  pointer-events: none;
+
+  /* 192 to 199 over seventy seconds: ONE DOLLAR EVERY TEN. The first draft ran
+     192 to 216 in a minute and it was wrong for a reason worth keeping written
+     down. The panel two lines above this opening states $192.90, in text, with
+     its label and its caption, and it is the honest figure on this page. A
+     background numeral that has drifted to 216 while that figure says 192.90 is
+     a page arguing with itself, on the one surface whose whole job is to be
+     trusted by somebody who does not trust finance apps.
+
+     Seven dollars over seventy seconds keeps both things. It climbs, which is
+     the entire sentence this opening exists to say. It stays within a few
+     dollars of the figure it sits behind for as long as anybody is looking, and
+     it never crosses 200, which would read as a different number rather than the
+     same one growing. A visitor who scrolls past in ten seconds sees 192 or 193.
+
+     `forwards` because it must STOP at the top and stay there. A number that
+     reset to 192 every seventy seconds would be saying the opposite thing. */
+  --wfig-n: 192;
+  counter-reset: wfig var(--wfig-n);
+  animation: wfig-climb 70s linear forwards;
+}
+.landing .wfig::after { content: counter(wfig); }
+
+@keyframes wfig-climb { to { --wfig-n: 199; } }
+
+/* ---- the three rows ------------------------------------------------------
+   The mask sits on the STACK and not on each row, so all three dissolve on the
+   same two edges and the figure behind them does not dissolve at all. It is the
+   calm instrument of this component: nothing enters or leaves by appearing.
+
+   position: relative puts the stack above the figure with no z-index anywhere.
+   Both are positioned, the stack comes second in the markup, and paint order
+   does the rest. */
+.landing .wrows {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+}
+
+.landing .wrow { display: flex; }
+
+/* ---- the track, and why the gap is a margin ------------------------------
+   Each track holds the same tiles twice and travels exactly half its own width,
+   so the second set lands where the first set started and the loop has no seam.
+   That arithmetic only closes if every tile carries its own trailing gap: with
+   `gap` on the track there are 2n-1 gaps for 2n tiles, half the width falls half
+   a gap short of one full set, and the row jumps 4px once a cycle. Written as a
+   margin there are 2n gaps, half is exactly one set, and it does not.
+
+   width: max-content is what lets the track be wider than the opening. It costs
+   nothing, because the opening hides what it cannot show.
+
+   Three durations rather than one, and none of them a round number: at equal
+   speeds three rows read as one mechanism with three parts. Between 18 and 22
+   pixels a second, which is slower than reading. */
+.landing .wtrack {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: wdrift linear infinite;
+}
+.landing .wrow:nth-child(1) .wtrack { animation-duration: 34s; animation-direction: reverse; }
+.landing .wrow:nth-child(2) .wtrack { animation-duration: 29s; }
+.landing .wrow:nth-child(3) .wtrack { animation-duration: 25s; animation-direction: reverse; }
+
+/* One keyframe, one direction, and `reverse` on the two rows that travel the
+   other way. Two mirrored keyframe blocks would be two places to change the
+   distance, and the distance is the thing the seam depends on. */
+@keyframes wdrift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ---- a tile --------------------------------------------------------------
+   A mark and a price. No name, and that is a decision rather than a shortage of
+   room: the opening is aria-hidden and its job is recognition, not reading. A
+   person sees their own Netflix, their own Spotify, their own thing they forgot,
+   and the count and the total are already stated in words directly above.
+
+   The mark is `.logo` at the size logo.css gives it with no host rule, and the
+   price is `.amt` at the size amount.css gives it with no host rule. This file
+   declares the box the two of them stand in and nothing about either of them,
+   which is what a host is allowed to do. */
+.landing .wtile {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-right: var(--space-8);
+  padding: var(--space-8) var(--space-16) var(--space-8) var(--space-8);
+  background: var(--bg-surface);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   NO MOTION, AND THE STATIC STATE IS THE HONEST ONE
+   base.css already collapses every animation in the product for a person who
+   has asked the system for no motion, and for the tracks that blanket is enough:
+   they carry no fill-mode, so they return to translate3d(0,0,0), which is a full
+   row of tiles standing still.
+
+   The figure needs its own line because it is the one animation in this system
+   that ends `forwards`, and a forwards animation collapsed to nothing lands on
+   its LAST keyframe: $216, a number that was never true. Turning the animation
+   off instead returns --wfig-n to its declared 192, which is the real total of
+   the fourteen tiles below it. The guard is here rather than in base.css for the
+   same reason the pulse guard is there rather than here: that one belongs to the
+   whole product, this one belongs to this file's own exception.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .landing .wfig { animation: none; }
+}
+
+/* ==========================================================================
+   PAST THE TABLET POINT, 47.5rem / 760px, the registered point
+   THE FIGURE STOPS HANGING AND STARTS FLOATING, and that is the one real piece of
+   responsive behaviour in this component. It is arithmetic rather than taste.
+
+   The three tracks are 178px tall at every width, because a mark and a price do
+   not grow on a wider screen. The figure grows with the width. So whether any of
+   the figure can be seen AROUND the tracks depends entirely on how wide the
+   opening is, and centring the two on the same axis is the worst case: at the
+   phone end the figure is 181 tall against 178 of tracks and the tracks cover all
+   but a hair of it. Measured, on a 390 screen, and it looked like nothing.
+
+   Below the point the two are therefore anchored to OPPOSITE edges: the figure to
+   the top, the tracks to the bottom, and the opening's top padding is the band
+   the figure is seen in. 64px of a 181px numeral is its top third, which is the
+   third that tells 2 from 3, so the climb still reads.
+
+   Past the point the opening is 518 wide against 178 of tracks, the figure is 234
+   tall, and centring gives 28px clear ABOVE and BELOW - the number surrounding
+   the cards rather than looming over them, which is the better picture and is
+   only available once there is width to pay for it. So past the point it is
+   centred, and the padding is even.
+   ========================================================================== */
+@container (min-width: 47.5rem) {
+  .landing .lp-window { padding: var(--space-64) var(--space-0); }
+  .landing .wfig { align-items: center; font-size: clamp(15.5rem, 76cqw, 20rem); }
+}
