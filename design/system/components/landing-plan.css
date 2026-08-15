@@ -75,12 +75,15 @@
    `background-color` FIRST AND ALWAYS, then the picture over it. A wash that is
    the only ground is a section that is white until the network says otherwise.
    THE PICTURE FADES IN OVER THE TOP HALF, AND THAT IS WHAT MAKES IT USABLE. A
-   layer of the band's own ground sits over it, opaque to 42% and gone by 60%, so
+   layer of the band's own ground sits over it, opaque to 48% and gone by 64%, so
    the part of the band that holds the words is the surface colour it has always
    been and the part that holds the cards is the picture at full strength. The
    two numbers are read off the page and not chosen: swept at nine widths, the
-   last line of text ends at 52% of the band at the widest and the cards begin at
-   57%, so the fade is spent in the gap between them. Everything else was tried and measured first: lightening the whole
+   last line of text ends at 47% of the band at the widest and the cards begin at
+   52%, so the fade starts where the words stop and is spent behind the top of a
+   card, which is opaque anyway. They were 42 and 60 until the prices grew on
+   2026-08-15 and the cards with them; the sweep is what says so, and a change to
+   the block's height runs it again. Everything else was tried and measured first: lightening the whole
    asset costs the picture the founder asked for ("не оно очень скучное"), moving
    the eyebrow costs the reading order, and repainting the eyebrow's ink is a host
    restyling an atom. This costs nothing - the top of the band was surface
@@ -99,7 +102,7 @@
 .landing .lp-section.lp-plan {
   background-color: var(--bg-surface);
   background-image:
-    linear-gradient(to bottom, var(--bg-surface) 0%, var(--bg-surface) 42%, transparent 60%),
+    linear-gradient(to bottom, var(--bg-surface) 0%, var(--bg-surface) 48%, transparent 64%),
     var(--wash-pricing);
   background-size: cover;
   background-position: center top;
@@ -213,7 +216,8 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-rows: auto 1fr auto;
-  padding: var(--space-24);
+  padding: var(--space-32);
+  box-shadow: var(--shadow);
 }
 .landing .lp-plan .plan-opt .chip {
   grid-column: 2;
@@ -226,10 +230,16 @@
 .landing .lp-plan .plan-opt > .muted {
   grid-column: 1 / -1;
   grid-row: 2;
-  margin-bottom: var(--space-16);
-  padding-bottom: var(--space-16);
+  margin: var(--space-16) var(--space-0) var(--space-24);
+  padding-bottom: var(--space-24);
   border-bottom: 1px solid var(--line-divider);
 }
+/* the cadence under a 46px figure. plan-option.css sets it at --type-body under
+   the app's 32px one, which is the right step there and too small a step here:
+   under a display figure "a year" was reading as the start of the sentence
+   below it rather than as part of the price. One step up, and the ink is the
+   atom's own. */
+.landing .lp-plan .plan-opt .per { font-size: var(--type-sub); }
 .landing .lp-plan .plan-opt .btn,
 .landing .lp-plan .plan-opt .q { grid-column: 1 / -1; grid-row: 3; }
 /* the quiet line keeps the 44px floor plan-option.css gives it, and under a
@@ -241,6 +251,14 @@
   align-items: center;
   padding: var(--space-0);
 }
+/* MEASURED AND LEFT: at the tablet point a card is 204px wide, and there the
+   lifetime note wraps to two lines where a button label is one, so that card's
+   footer is 54px against 43 and its divider sits 10px higher than the other two.
+   The two cards with a BUTTON align at every width. Nothing available fixes the
+   third without lying about it: a fixed footer height would clip the note, and
+   moving the note above the divider would put a card's last line where the other
+   two put their action. Ten pixels at one width, on the line that is furthest
+   from the eye, is the cheapest of the three. */
 
 /* ---- one of the three is recommended, and it stands up -------------------
    THE FOUNDER, LOOKING AT THREE FLAT EQUAL BOXES ON 2026-08-15: "не оно очень
@@ -254,7 +272,12 @@
    primary action, and the rule asks exactly that rather than a class the markup
    would have to remember: `:has(.btn.primary)`. Sixteen of negative block margin
    at each end makes it 32px taller than its neighbours and lifts it clear of
-   their top line, and --shadow puts the air under it that the raise implies.
+   their top line.
+   THE SHADOW IS ON ALL THREE AND NOT ONLY ON THAT ONE, since 2026-08-15: the
+   cards stand on a picture now, and paper laid on water with nothing under it
+   reads as a hole cut in the picture rather than as a card on top of it. The
+   raise is what separates the recommended one, and it does it by 32px, which no
+   shadow can be confused with.
 
    NOT A FILL, AND THAT IS MEASURED RATHER THAN TASTE. The first pass sank the
    two quiet cards to --bg-recessed. In the light theme that reads correctly, the
@@ -270,7 +293,6 @@
 @container (min-width: 47.5rem) {
   .landing .lp-plan .plan-opt:has(.btn.primary) {
     margin-block: calc(var(--space-16) * -1);
-    box-shadow: var(--shadow);
   }
 }
 

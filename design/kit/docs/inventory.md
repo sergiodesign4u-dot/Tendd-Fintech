@@ -71,7 +71,7 @@ the child**: doors are full cards and take air, tiles are chips and do not.
 
 | Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
 |---|---|---|---|---|---|---|---|
-| Amount | `.amt` | **size: base / `figure`** (`--type-body`, `--type-figure`), a DECLARED axis since 2026-08-14. 13.5 and 30 folded at step 5 | 69 | - | `amount.css` | `amount.html`  | does not adapt |
+| Amount | `.amt` | **size: base / `figure` / `display`** (`--type-body`, `--type-figure`, `--type-display`), a DECLARED axis since 2026-08-14, third size 2026-08-15 for the landing's plan price. 13.5 and 30 folded at step 5 | 69 | - | `amount.css` | `amount.html`  | does not adapt |
 | Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - | `big-total.css` | `big-total.html`  | does not adapt |
 | Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 32 coloured, 0 grey | - | `brand-mark.css` | `brand-mark.html`  | does not adapt |
 | Brand wordmark | `.wordmark` | one setting, and the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - | `brand-wordmark.css` | `brand-wordmark.html`  | does not adapt |

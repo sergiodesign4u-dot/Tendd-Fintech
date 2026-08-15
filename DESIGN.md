@@ -383,7 +383,10 @@ The geometry stayed `px` on purpose - a width and a gutter are not text.
 ### Named Rules
 **The One Number Rule.** Exactly one object on a screen is set in Display, and it is the number
 the person came for. If a second number wants that size, the screen is answering two questions and
-should be two screens.
+should be two screens. **Which number that is depends on the screen, stated 2026-08-15:** in the
+app it is the monthly total; on the landing, which has no total, it is the plan price. The rule
+was written as "46px belongs to the monthly total" and that named the app's occurrence rather than
+the job. The count per screen never changed and is still one.
 
 ## Layout
 

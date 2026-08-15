@@ -86,11 +86,28 @@ so the only asset that could pass was one with nothing in it.
 - **The free footnote moved up under the lead.** Both sentences are about Free, and the bottom of
   the band is where the picture is deepest.
 
-**What was NOT done, and it is a rule rather than a preference.** The price did not grow. The
-reference the founder pasted sets its price at about 60px, and `amount.css` carries the One Number
-Rule: 46px belongs to the monthly total and to nothing else, the plan price being 32px. A landing
-is not a reason to break a rule the product keeps on nine screens; the row got its emphasis from
-geometry instead.
+**The fourth build made the price the biggest thing in the card, and it is the founder's call.**
+"а можно как то блоки с ценами сделать красивее больше? виделить цену большой такой?" The third
+build had refused this on the ground that `amount.css` carries the One Number Rule and 46px
+belongs to the monthly total. The founder asked again with the reference beside it, so the rule is
+restated rather than broken: exactly one object on a screen is set in Display and it is the number
+the person came for. In the app that is the monthly total; the landing has no total, so until now
+it had no Display figure at all. The count per screen is still one. A third size is declared on
+the amount as `.display` and worn as a class in the markup, in both corpora.
+
+**And the ask uncovered a desync that had been shipping since the rollout.** When the size axis
+was declared on the amount at stage 08, four host rules became one modifier, and a modifier has to
+be worn: `upgrade.html` writes `class="amt figure"` on all three of its cards and the landing's
+three were left bare. The landing's prices had been rendering at **14px**, the size of the
+sentence under them, while the grey has drawn them at 30px since it was built. Measured in the
+browser. Nobody saw it because the coloured landing did not exist when the axis was declared, and
+a 14px price reads as a small bold price rather than as a missing rule.
+
+**Three smaller things followed the size.** The cadence under the figure went up one step, because
+under a 46px number "a year" was reading as the start of the sentence below it. The card's padding
+went to 32. And all three cards took the one elevation, where before only the raised one had it:
+paper laid on a picture with nothing under it reads as a hole cut in the picture rather than as a
+card on top of it.
 
 New organism `landing-plan`, all five things, and the landing's plan row moved into it from
 `grid.css`, where its `@media` became a `@container`. `plan-option`'s `.incl` slot is an

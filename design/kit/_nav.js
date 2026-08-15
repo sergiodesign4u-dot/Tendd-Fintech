@@ -52,7 +52,7 @@ window.KIT_NAV = {
   ],
 
   atoms: [
-    { name: 'Amount',            cls: '.amt',          page: 'amount.html', was: null,                          axes: 'size by container: 14 / 32. 13.5 and 30 folded at step 5', wf: 69 },
+    { name: 'Amount',            cls: '.amt',          page: 'amount.html', was: null,                          axes: 'size: 14 / 32 / 46, a declared modifier at each step', wf: 69 },
     { name: 'Big total',         cls: '.total',        page: 'big-total.html', was: null,                          axes: 'size by container: 46 / 32. 40 folded at step 5',            wf: 8 },
     /* THE TWO BRAND ATOMS, 2026-08-12. `wf` counts GREY pages, and the mark's is
        0 on purpose rather than by oversight: it is the first component in this
