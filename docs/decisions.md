@@ -29,15 +29,19 @@ distance it is a rocket that then creeps, which is the harshness the founder poi
 `--ease-travel` is a gentle in-out; composed with the conductor's own smoothstep it reads
 as one soft carry.
 
-**The figures land at 336px past 75rem, and the point is a measurement.** The founder drew
-them as two boxes either side of the deck's front card (y 302), not up on the heading's
-band. Not below 75rem: the example total is a 271px block right-aligned on a 40px gutter
-and the window is 44cqw, so at 1000 the total's left edge crossed the window's rim by 31px
-and at 1120 by 13; solved for 16px of clearance the crossing stops at about 1200. Below the
-point the figures keep the top band, where three rounds have verified them. The travel from
-the foot shortens by the same 288px the landing came down by, so the foot the figures rise
-from never moves. A third local width value on the candidate, beside 60 and 85rem, all
-carried in the backlog against hero B winning.
+**The figures come down off the band past 75rem, and both bounds of "down" are the
+founder's.** "Пониже цифры бы поставил" took them from the top band toward the deck's face
+at 336; on the built page the count's word sat 23px above the first reason card's title in
+the same column, one pile, and the next note - "выше чуть, чтобы не налазило" - took them
+back up to 240. There they paint at 312..386: clear under the heading band (foot 182) and a
+hundred-odd pixels above the highest reason card (486 at 1440, 396 at 1280x720). Not below
+75rem, and the point is a measurement: the example total is a 271px block right-aligned on
+a 40px gutter and the window is 44cqw, so at 1000 the total's left edge crossed the
+window's rim by 31px and at 1120 by 13; solved for 16px of clearance the crossing stops at
+about 1200. Below the point the figures keep the top band, where three rounds have verified
+them. The travel from the foot shortens by the same distance the landing came down, so the
+foot the figures rise from never moves. A third local width value on the candidate, beside
+60 and 85rem, all carried in the backlog against hero B winning.
 
 ## 2026-08-15 - D-Hero: the conductor, and why the snap had to go entirely
 
