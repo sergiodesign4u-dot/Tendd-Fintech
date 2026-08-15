@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing paths - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Landing paths</h1>
+    <p class="lead">The "Two ways to start" block: the two doors of D2, side by side and the same size, and inside each one a peek at the screen that door opens, cut off at the card's edge.</p>
+    <div class="kit-meta">
+      <span>Organism</span>
+      <span><strong>1</strong> grey page</span>
+      <span><strong>1</strong> coloured page</span>
+      <span>added 2026-08-15</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="what">
+    <h2>What it is</h2>
+    <p class="note"><b>Two doors that look the same and show nothing are not a choice, they are a form.</b> The block was a heading and a sentence in each of two white cards and nothing else - two identical empty boxes for the one decision this page asks a person to make. The founder, 2026-08-15: "теперь давай тут делать что то такое красивенькое".</p>
+    <p class="note"><b>What is inside them is the product, cut off at the card's edge.</b> Each door now ends in a recessed well that bleeds to the card's left, right and bottom, and the well holds the <b>first true moment</b> of that path, taken from the screen the door leads to and not invented here. <b>Connect your bank</b> shows the connection as <code>connections.html</code> draws it: the drawn bank mark, "Chase", "Bank connection through Plaid", the Connected chip, and the four facts under it - the last one before the cut being "Access: Read-only. Tendd cannot move your money.", which is the sentence this door's own paragraph makes and the promise the whole page rests on. <b>Add them yourself</b> shows the preset picker as <code>add-subscription.html</code> draws it: the first tiles, mark, service and "Typically $X a month", which is the paragraph's "Pick from 400+ services" shown instead of claimed.</p>
+    <p class="note"><b>It is a peek and not a picture, which is the whole device.</b> The well is taller than the room the card gives it and is masked away at the bottom, so each door stands <b>ajar</b>: there is visibly more behind it, and what is behind it is real. A framed thumbnail says "here is a picture of the product"; a cut-off screen says "this is where you would be".</p>
+    <p class="note"><b>No new strings, no action, no petrol.</b> Every word in both wells belongs to the screen it is taken from and to <code>voice/docs/microcopy.md</code>. Neither door is recommended, which is D2 read literally and the same reason <a href="door.html">the door</a> inside the product carries no petrol either. And the block comment on the page has said since the landing was built that the one action of this page lives in the header, the hero and the closing block and nowhere else, so the wells are <code>aria-hidden</code> and take no pointer at all.</p>
+  </section>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <ul class="kit-parts">
+      <li><code>.lp-paths</code> <span>its own grid and not <code>.grid</code>: two is not "as many as fit", it is a <b>pair</b>, and D2 is the reason. There is no width at which one door is alone on a row while the other wraps. One column below the desktop point, two above it</span></li>
+      <li><code>.lp-path</code> <span>the door: a card re-declared upward to 32 of padding, and a flex column so the well below takes whatever height is left - which is what makes both doors end their peek on the same line however the paragraphs wrap. <code>overflow: hidden</code> is load-bearing: the well reaches the bottom corners and would otherwise square off the card's radius</span></li>
+      <li><code>.pdemo</code> <span>the peek: bleeds by exactly the card's own padding on three sides, written as the padding negated rather than as a number so the two cannot drift apart. Masked away over its last quarter, and <code>pointer-events: none</code> for the whole well</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+    <p class="note"><b>The mask fades the well and not only its content, and that is deliberate.</b> Ground and content go together, so the recessed panel dissolves back into the card - which is what "there is more behind this door" looks like without a word spent on saying so. It fades over the <b>last quarter</b> and not from the middle: the first cut started at 58% and put "Access: Read-only. Tendd cannot move your money." at half strength, which is the one line in the well that must stay legible right up to the cut.</p>
+    <p class="note"><b>Nothing in the well is a target, and one declaration says so for all of it.</b> The tile inside is the product's real <a href="preset-tile.html">preset tile</a> and it carries <code>cursor: pointer</code> and a hover from its own file - both correct where it is a <code>button</code>, both a lie in a picture. <code>pointer-events: none</code> on the well answers that once instead of repainting an atom.</p>
+    <p class="note"><b>One rule reaches into a hosted atom's markup, and it is the one card.css cannot give.</b> On <code>connections.html</code> the source's name is an <code>h2</code>, and a heading has no business inside a decorative <code>aria-hidden</code> block, so the peek writes <code>strong</code> and this file sizes it. <code>.top</code>, <code>.kind</code>, the logo's 36px, the chip's <code>margin-left: auto</code> and the pair list are all their own files' and are not restated.</p>
+    <p class="note"><b>The grey changed structure and the decision is written where the rule demands.</b> The wireframe is frozen; the founder's decision of 2026-08-15 is a comment on the section in <code>wireframes/index.html</code>, and <code>_wf.css</code> draws the same two peeks in the grey's own boxes-and-bars vocabulary. In grey the cut is plain; the fade is styling and stays in colour. Not one word of the block's copy moved.</p>
+    <p class="note"><b>What was rejected: making the doors clickable.</b> <a href="door.html">The door</a> component exists, it carries these two exact headings, and it is a link. Using it here would have added two actions to a block whose own comment has said since the landing was built that the one action of this page is repeated in the header, the hero and the closing block <b>and nowhere else</b>. That is a decision, not an oversight, and a redesign does not get to reverse it quietly.</p>
+  </section>
+
+  <section class="kit-sec" id="source">
+    <h2>Where it comes from</h2>
+    <p class="note">Drawn by <code>design/system/components/landing-paths.css</code> through <code>../system/index.css</code>. It stands on <a href="../index.html">the landing</a> and its grey twin. Ground: <code>docs/decisions.md</code>, D2 and the entry of 2026-08-15. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the organism group. It hosts <a href="card.html">the card</a> and its own <code>.top</code> and <code>.kind</code>, <a href="logo.html">logo</a>, <a href="chip.html">chip</a>, <a href="pair-list.html">pair list</a> and <a href="preset-tile.html">preset tile</a>, each at the size its own file gives it.</p>
+  </section>
+
+</div>
+
+<script src="_nav.js"></script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

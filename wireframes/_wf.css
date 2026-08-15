@@ -817,10 +817,31 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 /* Block 6. The category hides one of the two doors; both are shown, the same
    size, in the same frame, because D2 makes them equals and not a fallback. */
 .lp-paths { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 10px; }
-.lp-path { border: 1px solid var(--line); padding: 22px; background: var(--frame); }
+.lp-path { display: flex; flex-direction: column; border: 1px solid var(--line); padding: 22px; background: var(--frame); overflow: hidden; }
 .lp-path h3 { margin: 0 0 8px; font-size: 18px; }
-.lp-path p { margin: 0 0 14px; color: var(--mid); font-size: 14px; }
+.lp-path > p { margin: 0; color: var(--mid); font-size: 14px; }
 .lp-path .lp-btn { width: 100%; text-align: center; }
+
+/* THE PEEK, 2026-08-15, with the founder's decision written on the section in
+   index.html. Each door ends in the first true moment of the screen it opens,
+   bleeding to the card's three edges and cut off by its bottom, so the door
+   stands ajar. In grey it is a plain cut; the colour layer fades the last
+   quarter of it away, which is styling and stays there. */
+.lp-path .pdemo { flex: 1 1 auto; min-height: 180px; margin: 22px -22px -22px; padding: 16px 22px 0; background: var(--panel); border-top: 1px solid var(--line2); overflow: hidden; }
+.lp-path .ptop { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; }
+.lp-path .dbox { flex: none; width: 34px; height: 34px; background: var(--skel); }
+.lp-path .pwho { flex: 1 1 auto; min-width: 0; }
+.lp-path .pwho strong { display: block; font-size: 15px; font-weight: 700; }
+.lp-path .pkind { display: block; font-size: 12.5px; color: var(--soft); }
+.lp-path .ptop .chip { flex: none; border: 1px solid var(--line); padding: 2px 8px; font-size: 12px; color: var(--mid); }
+.lp-path .ppairs { margin: 0; font-size: 13px; }
+.lp-path .ppairs > div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line2); }
+.lp-path .ppairs dt { color: var(--soft); }
+.lp-path .ppairs dd { margin: 0; text-align: right; }
+.lp-path .pdemo.presets { display: grid; align-content: start; gap: 8px; }
+.lp-path .ptile { display: flex; align-items: center; gap: 8px; min-height: 52px; padding: 8px; border: 1px solid var(--line); background: var(--frame); font-size: 14px; }
+.lp-path .ptile > span:last-child { flex: 1 1 auto; min-width: 0; }
+.lp-path .pmuted { display: block; font-size: 11.5px; color: var(--soft); }
 
 /* Block 8. One honest sentence, not a comparison table: a table invites a
    decision about money before the product has shown anything. */

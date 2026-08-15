@@ -1,0 +1,178 @@
+/* ============================================================================
+   Landing paths - organism
+   The "Two ways to start" block: the two doors of D2, side by side and the same
+   size, and inside each one a PEEK at the screen that door opens.
+
+   THE PROBLEM IT SOLVES, in the founder's words on 2026-08-15: "теперь давай тут
+   делать что то такое красивенькое". The block was two white cards holding a
+   heading and a sentence each, and nothing else - two identical empty boxes for
+   the one decision this page asks a person to make. Two doors that look the same
+   and show nothing are not a choice, they are a form.
+
+   WHAT IS INSIDE THEM IS THE PRODUCT, CUT OFF AT THE CARD'S EDGE. Each door now
+   ends in a recessed well that bleeds to the card's left, right and bottom, and
+   the well holds the FIRST TRUE MOMENT of that path, taken from the screen the
+   door leads to and not invented here:
+
+     Connect your bank    the connection as `connections.html` draws it - the
+                          drawn bank mark, "Chase", "Bank connection through
+                          Plaid", the Connected chip, and the four facts under
+                          it. The last one a person sees before the cut is
+                          "Access: Read-only. Tendd cannot move your money.",
+                          which is the sentence this door's own paragraph makes
+                          and the promise the whole page is built on.
+     Add them yourself    the preset picker as `add-subscription.html` draws it -
+                          the first three tiles, mark, service and "Typically $X
+                          a month", which is the paragraph's "Pick from 400+
+                          services" shown instead of claimed.
+
+   IT IS A PEEK AND NOT A PICTURE, which is the whole device. The well is taller
+   than the room the card gives it and it is masked away at the bottom, so each
+   door stands AJAR: there is visibly more behind it, and what is behind it is
+   real. A framed thumbnail says "here is a picture of the product"; a cut-off
+   screen says "this is where you would be".
+
+   No new strings anywhere: every word in both wells belongs to the screen it is
+   taken from and to voice/docs/microcopy.md. No petrol, because neither door is
+   recommended - D2 read literally, and the same reason door.css gives for the
+   doors inside the product carrying no petrol either. And no action: the block
+   comment on the page has said since the landing was built that the one action
+   of this page lives in the header, the hero and the closing block and nowhere
+   else, so the wells are `aria-hidden` and take no pointer at all.
+
+   Reads
+     colour   --bg-surface, --bg-recessed, --text-primary, --text-body
+     spacing  --space-0, 8, 16, 24, 32
+     type     --type-title, --type-sub, --type-body
+     width    --container-text
+   Hosts     .card and its own `.top` and `.kind`, .logo, .chip, .pairs and
+             .tile, every one at the size its own file gives it. This file
+             declares the boxes they stand in and repaints none of them.
+   Owns      .lp-paths (the pair), .lp-path (the door), .pdemo (the peek)
+   Page      design/kit/landing-paths.html
+   Stands on 1 grey page and 1 coloured one.
+   ============================================================================ */
+
+/* ---- the pair -------------------------------------------------------------
+   Its own grid and not `.grid`, for the same reason landing-steps.css declares
+   its own: two is not "as many as fit", it is a PAIR, and D2 is the reason -
+   the two doors are equal in size and weight and there is no width at which one
+   of them is allowed to be alone on a row while the other wraps.
+   The point is --bp-desktop's literal, read off `body`, which base.css declares
+   as the page container. */
+.landing .lp-paths {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-24);
+}
+@container (min-width: 56.25rem) {
+  .landing .lp-paths {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-32);
+  }
+}
+
+/* ---- the door -------------------------------------------------------------
+   A card, re-declared upward: 32 of padding against the base card's 16, because
+   a card that opens onto a screen needs the words to stand clear of it. It is a
+   column so the well below can take whatever height is left, which is what
+   makes both doors end their peek on the same line however the paragraphs wrap.
+   `overflow: hidden` is load-bearing rather than tidy: the well reaches the
+   bottom corners, and without it they would square off the card's radius. */
+.landing .lp-path {
+  display: flex;
+  flex-direction: column;
+  margin: var(--space-0);
+  padding: var(--space-32);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.landing .lp-path h3 {
+  margin: var(--space-0) var(--space-0) var(--space-8);
+  font-size: var(--type-title);
+}
+.landing .lp-path > p {
+  margin: var(--space-0);
+  max-width: var(--container-text);
+  font-size: var(--type-body);
+  color: var(--text-body);
+}
+
+/* ---- the peek -------------------------------------------------------------
+   It bleeds by exactly the card's own padding on three sides, so the well is
+   flush left, right and bottom and the card's border is the only frame. The
+   negative margins are written as the padding negated rather than as a number,
+   so the two can never drift apart.
+
+   THE MASK IS THE DEVICE AND NOT A FLOURISH. The well is taller than the space
+   it is given and its content runs past the card, so a hard edge would read as
+   a crop and a scrollbar would read as a bug. Fading the well itself - ground
+   and content together - is what makes the recessed panel dissolve back into
+   the card, which is what "there is more behind this door" looks like without a
+   word being spent on saying so. 76% and not 58: the first cut faded from the
+   middle of the well, and on the left door that put "Access: Read-only. Tendd
+   cannot move your money." - the promise the whole page rests on - at half
+   strength. The fade is the last quarter now, so what is cut is legible right up
+   to the cut.
+
+   `pointer-events: none` is the honest half: nothing in here is a target. The
+   tile inside is the product's real preset tile and it carries `cursor:
+   pointer` and a hover from its own file, both correct where it is a button and
+   both a lie here. Turning off the pointer for the whole well answers that once
+   instead of repainting an atom. */
+.landing .lp-path .pdemo {
+  flex: 1 1 auto;
+  min-height: 196px;
+  margin: var(--space-32) calc(var(--space-32) * -1) calc(var(--space-32) * -1);
+  padding: var(--space-24) var(--space-32) var(--space-0);
+  background: var(--bg-recessed);
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 76%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 76%, transparent 100%);
+}
+
+/* the source's own name inside the peek. `.card .top` and `.kind` are card.css's
+   and are not restated; this is the one line that file cannot give, because on
+   `connections.html` the name is an `h2` and a heading has no business inside a
+   decorative aria-hidden block. */
+.landing .lp-path .pdemo .top strong {
+  display: block;
+  font-size: var(--type-sub);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* the preset picker's tiles, in the order add-subscription.html lists them */
+.landing .lp-path .pdemo.presets {
+  display: grid;
+  align-content: start;
+  gap: var(--space-8);
+}
+
+/* ---- the entrance ---------------------------------------------------------
+   The page's own grammar: each door rises on its own view() timeline, the
+   second offset behind the first so the pair is read left to right. `cover` and
+   not `entry` for the reason landing-orbit.css measured - an entry range against
+   the element's own height is a pop, a cover range is a rise. THE CURVE IS THE
+   SAME EXPO-OUT that file declares and cannot be read from here; stage 11 owns
+   the motion scale and makes it one token, and the backlog carries the debt. */
+@supports (animation-timeline: view()) {
+  .landing .lp-path {
+    animation-name: pathin;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-timeline: view();
+    animation-range: cover 0% cover 28%;
+  }
+  .landing .lp-path:nth-child(2) { animation-range: cover 6% cover 34%; }
+}
+@keyframes pathin {
+  from { opacity: 0; transform: translate3d(0, 1.5rem, 0) scale(0.97); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+/* base.css's global guard zeroes durations, and a scroll-driven animation has no
+   duration to zero: the kill has to be by name */
+@media (prefers-reduced-motion: reduce) {
+  .landing .lp-path { animation-name: none; }
+}

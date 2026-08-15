@@ -7,6 +7,57 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - Two ways to start: each door stands ajar on the screen it opens
+
+The founder: "теперь давай тут делать что то такое красивенькое", on the block that carried
+the two doors of D2.
+
+**Two doors that look the same and show nothing are not a choice, they are a form.** The
+block was a heading and a sentence inside each of two white cards: two identical empty boxes
+for the one decision this page asks a person to make, and the emptiest thing on the page.
+
+**Each door now ends in a peek at the screen it opens.** A recessed well bleeds to the
+card's left, right and bottom and holds the FIRST TRUE MOMENT of that path, taken from the
+screen the door leads to and not invented for the landing:
+
+- **Connect your bank** shows the connection as `connections.html` draws it: the drawn bank
+  mark, "Chase", "Bank connection through Plaid", the Connected chip and the four facts
+  under it. The last one before the cut is "Access: Read-only. Tendd cannot move your
+  money.", which is the sentence this door's own paragraph makes and the promise the whole
+  page rests on.
+- **Add them yourself** shows the preset picker as `add-subscription.html` draws it: the
+  first tiles, mark, service and "Typically $X a month". The paragraph says "Pick from 400+
+  services"; the well shows it instead of claiming it.
+
+**It is a peek and not a picture, which is the whole device.** The well is taller than the
+room the card gives it and is masked away over its last quarter, so each door stands AJAR:
+there is visibly more behind it, and what is behind it is real. A framed thumbnail says
+"here is a picture of the product"; a cut-off screen says "this is where you would be". The
+fade starts at 76% and not at 58, where the first cut put it: at 58 the Read-only line was
+already at half strength, and that is the one line in the well that has to be legible right
+up to the cut.
+
+**No new strings, no action, no petrol.** Every word in both wells belongs to the screen it
+came from. Neither door is recommended, which is D2 read literally and the same ground
+`door.css` gives for the doors inside the product carrying no petrol either.
+
+**Rejected: making the doors clickable.** The `door` component exists, carries these two
+exact headings and is a link. Using it would have added two actions to a block whose own
+comment has said since the landing was built that the one action of this page is repeated in
+the header, the hero and the closing block AND NOWHERE ELSE. That is a decision, and a
+redesign does not get to reverse it quietly.
+
+**A new organism, all five things:** `landing-paths.css`, `design/kit/landing-paths.html`,
+the `_nav.js` row, the `inventory.md` line, the `@import` in its level group. It also closes
+a divergence: the grey has called this block `.lp-paths` / `.lp-path` since the wireframes,
+and the coloured page was rendering it as `.grid.roomy` with two bare cards. One name now,
+both corpora. **And the grey changed structure by the rule:** the founder's decision is
+written as a comment on the section in `wireframes/index.html`, and `_wf.css` draws the same
+two peeks in the grey's own vocabulary. In grey the cut is plain; the fade is styling and
+stays in colour. Not one word of the block's copy moved.
+
+---
+
 ## 2026-08-15 - D-Hero closed: the round window is the landing
 
 The founder: "давай теперь перенесем index-circle.html на основу index.html".
