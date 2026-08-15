@@ -23,15 +23,12 @@ instead of one, so the band has a ground before the picture loads.
 **Scope is the decision.** ONE band. Not the page, not the trust band, not a card. D-Concept's
 ground is paper and stays paper: a texture that spreads stops being quiet.
 
-**Its strength is a measurement and not a taste.** The smallest ink standing on that band is
-`--text-muted` at 14px, so every pixel of the picture has to clear 4.5:1 against it. Neither
-edition arrived clearing it: the first measured **2.75:1** under the closing line at seven of nine
-widths, the second 3.97:1. Each was lightened toward its own ground until it did. Today the light
-asset's darkest pixel reads 4.61:1 and the worst pair actually rendered is **4.55:1**, swept over
-nine widths in both themes; the dark asset's worst is 5.21:1. That margin is thin on purpose:
-darkening this picture by any amount breaks the band, so a replacement asset re-runs the sweep
-before it ships. The other lever is the closing line, the one 14px muted line standing on the
-picture - move it onto paper and the ceiling lifts, and that is a founder's call.
+**The contrast is solved in the composition and not in the asset, and that is the whole trick.**
+The band lays its own ground over the picture, opaque to 42% of its height and gone by 60%, so
+every word stands on the surface colour and the picture begins where the cards do. Both numbers
+are read off the page: the last line of text ends at 52% of the band at the widest and the cards
+begin at 57%, so the fade is spent in the gap between them. What is measured is the RENDERED pair
+and not the file: 5.49:1 at the worst, swept over nine widths in both themes.
 
 **Who generated it, and how to replace it.** Codex cannot generate images; it is a coding agent
 and it is read-only in this repository. The two assets were generated from a written brief with
@@ -65,10 +62,35 @@ The founder, seeing it on the page: "это ужасно". Three things were wro
   space sits inside a bounded body instead of floating between two elements, which is the whole
   difference between air and a hole. All three dividers land on one line, measured.
 
-**And the picture was replaced with a symmetrical one.** The first pooled its haze in one corner
-and, cropped by `cover`, read as a smudge at the right-hand edge rather than as a decision. Its
-replacement is an even vertical wash, warm paper at the top settling into a pale mint low down,
-balanced left and right, so every crop at every width is the same picture.
+**And the picture was replaced twice.** The first pooled its haze in one corner and, cropped by
+`cover`, read as a smudge at the right-hand edge rather than as a decision. The second was an even
+vertical wash, symmetrical and correct, and it had been lightened almost to nothing because every
+pixel of it was being made to clear 4.5:1 against the smallest ink on the band. The founder, on
+that one: "не оно очень скучное". Both are the same mistake - the ASSET was carrying the contrast,
+so the only asset that could pass was one with nothing in it.
+
+**The third build moved the contrast into the composition, and three things followed.**
+
+- **The picture is a picture now.** A watercolour mist rising off pale paper in the light theme,
+  the same composition over dark water in the dark one, at full strength. The band lays its own
+  ground over the top 42% and lets it go by 60%, so the words stand on the surface colour and the
+  picture begins where the cards do.
+- **One of the three prices rises out of the row.** D4 names the yearly price the best value, the
+  copy says so in a badge, and nothing in the geometry agreed: three identical rectangles are a
+  table, and a table is what this block has said since it was drawn that it is not. The card
+  carrying the primary action is 32px taller than its neighbours and sits 16px above their top
+  line, with the shadow the raise implies. Asked as `:has(.btn.primary)` rather than as a class
+  the markup would have to remember. Rejected and measured: sinking the two quiet cards to
+  `--bg-recessed`, which reads correctly in the light theme and INVERTS in the dark one, where
+  that role is lighter than `--bg-surface`.
+- **The free footnote moved up under the lead.** Both sentences are about Free, and the bottom of
+  the band is where the picture is deepest.
+
+**What was NOT done, and it is a rule rather than a preference.** The price did not grow. The
+reference the founder pasted sets its price at about 60px, and `amount.css` carries the One Number
+Rule: 46px belongs to the monthly total and to nothing else, the plan price being 32px. A landing
+is not a reason to break a rule the product keeps on nine screens; the row got its emphasis from
+geometry instead.
 
 New organism `landing-plan`, all five things, and the landing's plan row moved into it from
 `grid.css`, where its `@media` became a `@container`. `plan-option`'s `.incl` slot is an

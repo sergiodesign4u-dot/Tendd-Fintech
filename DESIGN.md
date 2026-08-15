@@ -300,17 +300,22 @@ chosen against. The boundary that *identifies* a control is a separate role and 
 | `--line-action-soft` | line | `--bg-surface` | 1.18 | 1.20 | decorative, a hint under text that already carries 4.8:1 |
 
 **One role in the file is not a colour, and it is in neither table above.** `--wash-pricing`,
-added 2026-08-15, is an IMAGE: the atmospheric wash behind the pricing band, a teal haze drifting
-across paper in the light theme and the same composition at dusk in the dark one. It is a role
-rather than a line in a component for the reason every role exists - it lives in both themes or
-it does not exist, and a picture that reverses between a paper theme and an ink theme is exactly
-that case. It is read UNDER a `background-color` and never instead of one, so a band has a ground
-before the picture loads. Its strength is a measurement, not a taste: the smallest ink standing on
-that band is `--text-muted` at 14px, so every pixel of the picture clears **4.5:1** against it -
-4.61:1 at the light asset's darkest pixel, **4.55:1** at the worst pair actually rendered, 5.21:1
-in the dark theme. That margin is thin on purpose: darkening the picture by any amount breaks the
-band, and a replacement asset re-runs the sweep before it ships. One band, and nowhere else: a
-texture that spreads stops being quiet.
+added 2026-08-15, is an IMAGE: the atmospheric picture behind the pricing band, a watercolour mist
+rising off pale paper in the light theme and the same composition over dark water in the dark one.
+It is a role rather than a line in a component for the reason every role exists - it lives in both
+themes or it does not exist, and a picture that reverses between a paper theme and an ink theme is
+exactly that case. It is read UNDER a `background-color` and never instead of one, so a band has a
+ground before the picture loads.
+
+**The contrast is solved in the composition and not in the asset**, which is what lets the picture
+be a picture: the band lays its own ground over it, opaque to 42% of the band's height and gone by
+60%, so every word stands on the surface colour and the picture begins where the cards do. The two
+numbers are read off the page - the last line of text ends at 52% and the cards begin at 57%, so
+the fade is spent in the gap between them. What is measured is the RENDERED pair and not the file:
+**5.49:1** at the worst, swept over nine widths in both themes. Two earlier pictures were lightened
+almost to nothing trying to make the asset carry the contrast alone, and that is the mistake this
+arrangement exists to correct. One band, and nowhere else: a texture that spreads stops being
+quiet.
 
 The four state tokens are in that table because a state is a token and not a style: nothing
 inside a `:hover` or a `:focus-visible` block is a hex or a number anywhere in this system, which

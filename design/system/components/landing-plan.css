@@ -74,15 +74,35 @@
 
    `background-color` FIRST AND ALWAYS, then the picture over it. A wash that is
    the only ground is a section that is white until the network says otherwise.
-   `center bottom` because the haze pools low in both pictures and the cards
-   stand in the upper two thirds: the quiet end of the picture is where the words
-   are. `cover` and no `fixed`: a fixed attachment repaints on every scroll frame
+   THE PICTURE FADES IN OVER THE TOP HALF, AND THAT IS WHAT MAKES IT USABLE. A
+   layer of the band's own ground sits over it, opaque to 42% and gone by 60%, so
+   the part of the band that holds the words is the surface colour it has always
+   been and the part that holds the cards is the picture at full strength. The
+   two numbers are read off the page and not chosen: swept at nine widths, the
+   last line of text ends at 52% of the band at the widest and the cards begin at
+   57%, so the fade is spent in the gap between them. Everything else was tried and measured first: lightening the whole
+   asset costs the picture the founder asked for ("не оно очень скучное"), moving
+   the eyebrow costs the reading order, and repainting the eyebrow's ink is a host
+   restyling an atom. This costs nothing - the top of the band was surface
+   coloured before the picture arrived, so the seam with the trust band above it
+   is the one it already had. It is a gradient to `transparent`, which browsers
+   interpolate in premultiplied alpha and so leaves no grey fringe; the first
+   layer listed is the one on top.
+
+   `center top` AND THAT IS A MEASUREMENT. Both pictures are pale at the top and
+   deepen downward, and `cover` crops whatever the band cannot use. Anchored at
+   the bottom the crop eats the pale end, so on a wide short band the mist climbed
+   into the eyebrow above the cards and took it to 3.66:1. Anchored at the top the
+   crop eats the deep end instead, where nothing but the picture stands, and the
+   pale zone stays under the words at every width. `cover` and no `fixed`: a fixed attachment repaints on every scroll frame
    and this page already spends its budget on the hero. */
 .landing .lp-section.lp-plan {
   background-color: var(--bg-surface);
-  background-image: var(--wash-pricing);
+  background-image:
+    linear-gradient(to bottom, var(--bg-surface) 0%, var(--bg-surface) 42%, transparent 60%),
+    var(--wash-pricing);
   background-size: cover;
-  background-position: center bottom;
+  background-position: center top;
   background-repeat: no-repeat;
   text-align: center;
 }
@@ -146,7 +166,7 @@
    repeats on every line adds nothing the label has not; twelve of them across
    three cards is what this block just came out of. */
 .landing .lp-plan .plan-all {
-  margin: var(--space-0) var(--space-0) var(--space-32);
+  margin: var(--space-40) var(--space-0) var(--space-32);
 }/* A WRAPPING ROW AND NOT A FOUR-COLUMN GRID. Four equal columns put "Export"
    alone in the middle of a 300px track and read as a table of one-word rows.
    A centred flex row with a gap lets the four sit as one line at the widths
@@ -220,6 +240,38 @@
   display: flex;
   align-items: center;
   padding: var(--space-0);
+}
+
+/* ---- one of the three is recommended, and it stands up -------------------
+   THE FOUNDER, LOOKING AT THREE FLAT EQUAL BOXES ON 2026-08-15: "не оно очень
+   скучное". They were right, and the reason is structural rather than
+   decorative: D4 names the yearly price the best value, the copy says so in a
+   badge, and nothing in the geometry agreed. Three identical rectangles are a
+   table, and a table is what this block has said since it was drawn that it is
+   not.
+
+   SO THE RECOMMENDED CARD RISES OUT OF THE ROW. It is the one carrying the
+   primary action, and the rule asks exactly that rather than a class the markup
+   would have to remember: `:has(.btn.primary)`. Sixteen of negative block margin
+   at each end makes it 32px taller than its neighbours and lifts it clear of
+   their top line, and --shadow puts the air under it that the raise implies.
+
+   NOT A FILL, AND THAT IS MEASURED RATHER THAN TASTE. The first pass sank the
+   two quiet cards to --bg-recessed. In the light theme that reads correctly, the
+   recommended one staying paper; in the DARK theme --bg-recessed is LIGHTER than
+   --bg-surface (0x1d282a against 0x161f21), so the two quiet cards would have
+   been the brightest things in the row and the hierarchy would have inverted on
+   one theme. Geometry and a shadow say the same thing in both.
+
+   BELOW THE TABLET POINT NOTHING RISES. A single column has no row to stand out
+   of, and a card that pushes 16px into the gaps above and below it in a stack is
+   just a card with the wrong margins. The shadow goes with it, for the same
+   reason: on a phone the three cards are read one at a time. */
+@container (min-width: 47.5rem) {
+  .landing .lp-plan .plan-opt:has(.btn.primary) {
+    margin-block: calc(var(--space-16) * -1);
+    box-shadow: var(--shadow);
+  }
 }
 
 /* ---- the entrance ---------------------------------------------------------
