@@ -771,7 +771,14 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    translate: -50% -50%;
+    /* `--parx`/`--pary` ARE THE POINTER, AND ONLY story.js EVER WRITES THEM.
+       The conductor lerps the cursor's offset from the stage's centre into two
+       small lengths on the pin, and the window leans a few pixels toward the
+       hand. The STYLE stays here: the script hands over two numbers and owns
+       nothing about what they do. Zero when there is no pointer, when motion is
+       reduced, or when the script is not on the page - the fallback is the
+       whole no-parallax picture. */
+    translate: calc(-50% + var(--parx, 0px)) calc(-50% + var(--pary, 0px));
     /* 44cqw and not 52: the deck has to stand clear of the two figures in the top
        corners, and at a 1000px window 52 put its left edge at 240 against a count
        that ends at 270. 44 gives 280..720 there and changes nothing past 1410,
@@ -895,7 +902,11 @@
        2401 tall - two and a half screens of stems hanging below a section that
        has to scroll away cleanly. */
     height: 100%;
-    translate: -50% 0;
+    /* the strands take the pointer at 1.35 of the window's own lean: one ring
+       nearer the reader than the glass it surrounds, which is the same depth
+       statement the ramp makes behind the deck. Same two variables, same owner,
+       same zero fallback. */
+    translate: calc(-50% + var(--parx, 0px) * 1.35) calc(var(--pary, 0px) * 1.35);
     /* 0.705 is the whole geometry: it makes the window 141 units of a 400 unit
        viewBox at every screen size. The svg root clips itself, and the box is
        the PIN - so the eight stems run off the top and the bottom of the screen
@@ -1803,77 +1814,54 @@
 }
 
 /* ============================================================================
-   THE BEATS, AND THE SCROLL SETTLES ON THEM
+   THE BEATS, AND THE CONDUCTOR THAT CARRIES THE SCROLL TO THEM
    The founder, 2026-08-14: "чтобы анимация докручивалась сама поэтапно к нужным
-   визуальным моментам". A five-screen stage has seven pictures worth stopping on
-   and about four hundred positions between them, and a trackpad leaves the reader
-   in one of the four hundred more often than not.
+   визуальным моментам". A three-screen stage has seven pictures worth stopping
+   on and about four hundred positions between them, and a trackpad leaves the
+   reader in one of the four hundred more often than not.
 
-   `mandatory` AND `scroll-snap-stop: always`, WHICH IS A REVERSAL WRITTEN DOWN.
-   This said `proximity` and never `mandatory` for two rounds, on the ground that
-   mandatory snapping on a document scroller takes the page away from the reader.
-   The founder, 2026-08-15, describing what they wanted instead: "чуть скролл
-   нажал, и у тебя оп, такая анимация проиграла - 13 стало 12, каскад проиграл,
-   Netflix улетел, Disney появился. Потом оп, чуть скрольнул, и пошла следующая".
-   That is not a preference about snapping, it is a description of the stage as a
-   sequence of STAGES, and proximity cannot give it: proximity settles a scroll
-   that has already stopped near a beat and leaves a scroll that stopped anywhere
-   else exactly where it is, which is the middle of a movement.
+   CSS SCROLL SNAP IS GONE, AND IT WAS TRIED BOTH WAYS BEFORE IT WENT.
+   `proximity` could not give the founder's "чуть скролл нажал, и оп, анимация
+   проиграла" - it settles a scroll that stopped near a beat and abandons one
+   that stopped anywhere else, which is the middle of a movement. `mandatory`
+   with `scroll-snap-stop: always` gave exactly that - and judedered doing it,
+   which is the founder's next note verbatim: "как будто лагает покадрово при
+   скролле". The mechanism is structural, not a tuning problem: on a document
+   scroller every wheel tick starts the browser's own snap animation, the next
+   tick interrupts it, and the page moves in the staircase of those collisions.
+   A trackpad fling fights the same fight against its own momentum. Snapping and
+   scrolling are two hands on one scrollbar.
 
-   `scroll-snap-stop: always` is the half that makes it a stage rather than a
-   jump. Without it a single flick passes several anchors and lands on the last
-   one, so three cancellations become one; with it, every gesture advances by
-   exactly one beat and the browser animates the whole distance. One gesture, one
-   picture, whatever the gesture was.
+   SO THE SETTLING MOVED TO A CONDUCTOR, design/story.js, loaded by the
+   candidate page alone. The reader's own scroll is NATIVE and untouched - no
+   hand fights theirs, which is the whole cure for the judder - and only once
+   the scroll has been still for a beat does the conductor glide the page
+   forward to the next anchor in the direction the reader was going, on a long
+   soft curve the browser's snap cannot be asked for. Any input cancels it
+   instantly. It reads the anchors below, so the choreography still has exactly
+   one owner; it does nothing under reduced motion, nothing below the 60rem
+   point, and nothing outside this one section. If the candidate loses, the file
+   dies with the page that loads it.
 
-   The cost is real and named: between two anchors there is now nothing to stop
-   on. That is correct here - there is nothing between two anchors to READ, only
-   a movement - and it is wrong anywhere with text in it, which is why the
-   declaration reaches exactly one section and why it is off entirely for a
-   reader who asked for no motion.
-
-   AND THE GAPS ARE EVEN, WHICH IS WHAT MAKES THE SNAP READ AS A GLIDE. The
-   browser animates a snap over a duration set by the distance, and it caps: a
-   40svh gap is a smooth travel and a 122svh gap is a jump with a blur in the
-   middle. The founder, 2026-08-15: "анимация выглядит топорной, а должна быть
-   гладкой весь цикл при скролле". The stage went from 460svh to 320 and the
-   beats were re-solved so that no two are more than 48svh apart - 40, 48, 40,
-   30, 31, 31 - where they had been 65, 122, 43, 51, 50, 29. Nothing about the
-   choreography moved except the numbers that say when: every range is a
-   percentage of the `contain` phase.
-
-   THE ANCHOR POSITIONS ARE THE RANGES, ARITHMETIC. The stage is `320svh` and the
-   pinned part of it - the `contain` phase every range on this page is written in
-   - is `320 - 100 = 220svh`. So the beat at `contain N%` is `2.2 x N` svh down
-   the section, and the seven below are the opening frame, the corners landed, the
-   deck landed, the three cancellations, and the foot of the stage. Change a range
-   and its anchor moves with it; they are written next to each other for that
-   reason.
-
-   The declaration is on `:root:has()` because the scroller is the DOCUMENT and a
-   class on the body cannot reach it. Other sections carry no `scroll-snap-align`,
-   so nothing outside this stage is a target and nothing outside it changes.
-   ========================================================================== */
-:root:has(.landing .lp-orbit.lp-story.fromcircle) { scroll-snap-type: y mandatory; }
-@media (prefers-reduced-motion: reduce) {
-  /* a reader who asked for no motion gets no scroll they did not ask for either */
-  :root:has(.landing .lp-orbit.lp-story.fromcircle) { scroll-snap-type: none; }
-}
-
+   THE ANCHOR POSITIONS ARE THE RANGES, ARITHMETIC. The stage is `320svh` and
+   the pinned part of it - the `contain` phase every range on this page is
+   written in - is `320 - 100 = 220svh`. So the beat at `contain N%` is
+   `2.2 x N` svh down the section, and the seven below are the opening frame,
+   the corners landed, the deck landed, the three cancellations, and the foot of
+   the stage. Change a range and its anchor moves with it; they are written next
+   to each other for that reason. The gaps stay even on purpose: the conductor
+   scales its travel time by distance, and even gaps are what keep one gesture
+   from being a hop and the next a voyage. */
 .landing .storybeats { position: absolute; inset: 0; pointer-events: none; }
 .landing .storybeats .beat {
   position: absolute;
   left: var(--space-0);
   width: 1px;
   height: 1px;
-  scroll-snap-align: start;
-  /* and every beat is a stop, so one gesture is one stage */
-  scroll-snap-stop: always;
-  /* NO `scroll-margin`, and it is worth a line. The anchor's own offset already
-     IS the scroll position of its beat - it is derived from the range, in the same
-     unit the range is measured in - so a margin would move every beat off the
-     picture it was computed for. The 64px of the app bar is already inside the
-     `contain` phase's arithmetic. */
+  /* NO `scroll-margin` and no snap properties: the anchor's own offset already
+     IS the scroll position of its beat - it is derived from the range, in the
+     same unit the range is measured in. The 64px of the app bar is already
+     inside the `contain` phase's arithmetic. */
 }
 @supports (animation-timeline: view()) {
  @container story (min-width: 60rem) {

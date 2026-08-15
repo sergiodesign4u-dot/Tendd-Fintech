@@ -7,6 +7,52 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - D-Hero: the conductor, and why the snap had to go entirely
+
+The founder, on the built page: the animation lags frame by frame under the scroll, and it
+should be softer, more interactive, more interesting.
+
+**The judder was the mandatory snap, and the mechanism is structural, not a tuning
+problem.** On a document scroller every wheel tick starts the browser's own snap animation;
+the next tick interrupts it, and the page moves in the staircase of those collisions. A
+trackpad fling fights the same fight against its own momentum. Snapping and scrolling are
+two hands on one scrollbar, and no values of `scroll-snap-*` change that.
+
+**So CSS snap is gone entirely - tried both ways first - and the settling moved to a
+conductor**, `design/story.js`, loaded by the candidate page alone. The reader's scroll is
+native and untouched, which is the whole cure for the judder. Only once the scroll has been
+still for 130ms does the conductor glide the page to the next beat **in the direction the
+reader was going**, on a smoothstep whose duration scales with distance (capped at 1.1s) -
+the founder's "чуть скролл нажал, и оп, анимация проиграла", but on a curve the browser's
+snap cannot be asked for. Any input cancels the glide instantly. It does nothing under
+reduced motion, below the 60rem point, or outside the one section. The anchors stay in the
+CSS, derived from the ranges, so the choreography keeps exactly one owner and the script
+reads it from the DOM.
+
+**The first cut had an autonomous crawler in it, and the beat probe found it.** Standing on
+a beat, the page still has a "next beat in the direction of travel", so the conductor
+advanced to it, settled, advanced again - walking the reader through the whole stage with no
+hand on anything. The probe's reads came back scrambled by a page conducting itself. The fix
+is one explicit check: standing within 6px of any beat is standing still.
+
+**And the window leans toward the hand.** The script damps the pointer's offset from the
+viewport centre into two custom properties on the stage, `--parx` and `--pary`, and
+`landing-orbit.css` decides what they mean: the swap leans up to 9px by 6px, the strands
+take the same numbers at 1.35 - one ring nearer the reader than the glass, the same depth
+statement the ramp makes behind the deck. The lerp is 0.085, so the picture lags the hand,
+which is what makes it read as weight rather than as a cursor effect. Zero without a
+pointer, with a coarse one, under reduced motion, or with the script absent: the variables'
+fallback is the whole no-lean picture. **A script is a first for this repository's
+screens**, and its boundary is written down: it hands over numbers, owns no style, and dies
+with the candidate if hero A wins.
+
+**Measured before shipping:** the conductor costs nothing - frame timings with the script
+loaded and blocked are identical across three runs each (8.3ms median both ways).
+`will-change` on the plates was measured too and changed nothing, so it is not added. The
+carried-forward check: a 140px wheel gesture from beat 3 lands on beat 4 exactly; a small
+gesture up carries back; an interrupt mid-glide hands the page to the reader within one
+frame.
+
 ## 2026-08-15 - D-Hero: a list at the front, a deck behind it, and a card that leaves
 
 The founder, on the built page: the front cards climb on top of each other and should stand
