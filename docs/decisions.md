@@ -66,9 +66,10 @@ as one soft carry.
 **The figures come down off the band past 75rem, and both bounds of "down" are the
 founder's.** "Пониже цифры бы поставил" took them from the top band toward the deck's face
 at 336; on the built page the count's word sat 23px above the first reason card's title in
-the same column, one pile, and the next note - "выше чуть, чтобы не налазило" - took them
-back up to 240. There they paint at 312..386: clear under the heading band (foot 182) and a
-hundred-odd pixels above the highest reason card (486 at 1440, 396 at 1280x720). Not below
+the same column, one pile, and the next notes - "выше чуть, чтобы не
+налазило", then "еще трохи выше" - took them back up to 192. There they paint at 264..338:
+eighty-odd pixels under the heading band (foot 182) and far above the highest reason card
+(486 at 1440, 396 at 1280x720). Not below
 75rem, and the point is a measurement: the example total is a 271px block right-aligned on
 a 40px gutter and the window is 44cqw, so at 1000 the total's left edge crossed the
 window's rim by 31px and at 1120 by 13; solved for 16px of clearance the crossing stops at
