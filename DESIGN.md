@@ -307,8 +307,10 @@ it does not exist, and a picture that reverses between a paper theme and an ink 
 that case. It is read UNDER a `background-color` and never instead of one, so a band has a ground
 before the picture loads. Its strength is a measurement, not a taste: the smallest ink standing on
 that band is `--text-muted` at 14px, so every pixel of the picture clears **4.5:1** against it -
-4.62:1 at the asset's darkest pixel, 4.89:1 at the worst pair actually rendered. One band, and
-nowhere else: a texture that spreads stops being quiet.
+4.61:1 at the light asset's darkest pixel, **4.55:1** at the worst pair actually rendered, 5.21:1
+in the dark theme. That margin is thin on purpose: darkening the picture by any amount breaks the
+band, and a replacement asset re-runs the sweep before it ships. One band, and nowhere else: a
+texture that spreads stops being quiet.
 
 The four state tokens are in that table because a state is a token and not a style: nothing
 inside a `:hover` or a `:focus-visible` block is a hex or a number anywhere in this system, which

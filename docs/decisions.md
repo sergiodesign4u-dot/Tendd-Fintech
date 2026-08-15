@@ -24,12 +24,14 @@ instead of one, so the band has a ground before the picture loads.
 ground is paper and stays paper: a texture that spreads stops being quiet.
 
 **Its strength is a measurement and not a taste.** The smallest ink standing on that band is
-`--text-muted` at 14px, so every pixel of the picture has to clear 4.5:1 against it. As generated
-it did not: the haze pooling low measured **2.75:1** under the closing line at seven of nine
-widths, and the lead dipped to 4.23:1 at 1920. The asset was lightened toward paper until its
-darkest pixel reads 4.62:1, and the worst pair actually rendered is 4.89:1. A stronger picture is
-available and it costs that line: it would have to move onto paper first, and that is a founder's
-call. The dark edition needed none of it, its ink being light and its ground dark: 7.74:1.
+`--text-muted` at 14px, so every pixel of the picture has to clear 4.5:1 against it. Neither
+edition arrived clearing it: the first measured **2.75:1** under the closing line at seven of nine
+widths, the second 3.97:1. Each was lightened toward its own ground until it did. Today the light
+asset's darkest pixel reads 4.61:1 and the worst pair actually rendered is **4.55:1**, swept over
+nine widths in both themes; the dark asset's worst is 5.21:1. That margin is thin on purpose:
+darkening this picture by any amount breaks the band, so a replacement asset re-runs the sweep
+before it ships. The other lever is the closing line, the one 14px muted line standing on the
+picture - move it onto paper and the ceiling lifts, and that is a founder's call.
 
 **Who generated it, and how to replace it.** Codex cannot generate images; it is a coding agent
 and it is read-only in this repository. The two assets were generated from a written brief with
@@ -40,9 +42,33 @@ same 4.5:1 sweep before it ships.
 
 **The same step fixed two older things in that block.** The four included lines were printed
 three times, once per card - twelve list items and twelve ticks for four facts - so they are now
-stated ONCE under all three prices: this is one plan and three ways to pay for it, which is what
-D4 locked. And the block was centred in grey and left-aligned in colour since the rollout, which
-is a desync and not a design; the colour follows the grey again.
+stated ONCE: this is one plan and three ways to pay for it, which is what D4 locked. And the block
+was centred in grey and left-aligned in colour since the rollout, which is a desync and not a
+design; the colour follows the grey again.
+
+**It was built twice on the same day, and the second build is the block.** The first put the four
+included things in a full-measure card UNDER the three prices and left the prices as they were.
+The founder, seeing it on the page: "это ужасно". Three things were wrong:
+
+- **The shared list was a bar.** A full-measure white card under three white cards, holding four
+  short phrases spread across 1800px, is not an object: it is the leftover space between two
+  things with a border drawn round it. It is a LINE now, and it moved ABOVE the prices, which is
+  also the order a person reads in: what this is, then what it costs.
+- **The badge pushed the yearly price out of line.** Stacked above the figure it put it 31px
+  below the two it is being compared with, measured. The card is three rows and two columns now:
+  a price with its badge beside it, a sentence, an action. Chipless cards leave column two empty
+  and nothing shifts.
+- **The growing sentence left a hole.** `plan-option.css` gives that sentence `flex: 1 1 auto` so
+  three cards of unequal copy land their buttons on one line; on Upgrade the list under the button
+  absorbs the difference, and here, with the list lifted out, it showed as 120px of nothing in the
+  middle of two cards. Every card is a BODY and a FOOTER now, with a divider between: the leftover
+  space sits inside a bounded body instead of floating between two elements, which is the whole
+  difference between air and a hole. All three dividers land on one line, measured.
+
+**And the picture was replaced with a symmetrical one.** The first pooled its haze in one corner
+and, cropped by `cover`, read as a smudge at the right-hand edge rather than as a decision. Its
+replacement is an even vertical wash, warm paper at the top settling into a pale mint low down,
+balanced left and right, so every crop at every width is the same picture.
 
 New organism `landing-plan`, all five things, and the landing's plan row moved into it from
 `grid.css`, where its `@media` became a `@container`. `plan-option`'s `.incl` slot is an

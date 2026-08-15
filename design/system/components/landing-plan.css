@@ -131,25 +131,32 @@
   }
 }
 
-/* ---- what the plan includes, said once ------------------------------------
-   A card and not a caption: it is the base the three prices stand on, so it
-   takes the same paper, the same edge and the same radius they do, and the row
-   above it reads as three doors into one room.
+/* ---- what the plan includes, said once, ABOVE the prices ------------------
+   IT WAS A CARD UNTIL THE FOUNDER SAW IT ("это ужасно", 2026-08-15) AND IT WAS
+   THE WORST THING IN THE BLOCK. A full-measure white bar under three white
+   cards, holding four short phrases spread across 1800px, is not an object: it
+   is the leftover space between two things with a border drawn round it.
 
-   The four are a ROW and not a list, above the tablet point. A column of four
-   under three cards would be a fourth card; four across a band under them is a
-   line, and a line is what a shared fact looks like. */
+   It is a LINE now, and it moved above the prices, which is also the order a
+   person reads in: what this is, then what it costs. No paper, no edge, no
+   radius - the four things are said in the section's own voice, quietly and
+   centred, and the eyebrow above them is what names them.
+
+   No tick beside a line either. The label says "included", and an ornament that
+   repeats on every line adds nothing the label has not; twelve of them across
+   three cards is what this block just came out of. */
 .landing .lp-plan .plan-all {
-  margin: var(--space-0) var(--space-0) var(--space-24);
-  padding: var(--space-24);
-  border: 1px solid var(--line-container);
-  border-radius: var(--radius);
-  background: var(--bg-surface);
-}
+  margin: var(--space-0) var(--space-0) var(--space-32);
+}/* A WRAPPING ROW AND NOT A FOUR-COLUMN GRID. Four equal columns put "Export"
+   alone in the middle of a 300px track and read as a table of one-word rows.
+   A centred flex row with a gap lets the four sit as one line at the widths
+   that hold them, break into two lines where they do not, and stack on a
+   phone, with the words themselves setting the rhythm. */
 .landing .lp-plan .plan-all ul {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-8) var(--space-24);
   list-style: none;
   margin: var(--space-0);
   padding: var(--space-0);
@@ -158,11 +165,61 @@
   font-size: var(--type-body);
   color: var(--text-body);
 }
-@container (min-width: 47.5rem) {
-  .landing .lp-plan .plan-all ul {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--space-16);
-  }
+
+/* ---- the card's body and its footer ---------------------------------------
+   THE HOLE WAS THE OTHER HALF OF "это ужасно", and it is worth being exact
+   about what caused it. plan-option.css gives the supporting sentence
+   `flex: 1 1 auto` so that three cards of unequal copy land their buttons on
+   one line; on Upgrade the list under the button absorbs what is left over, and
+   on the landing, with the list lifted out, there was nothing under the button
+   and the difference showed as 120px of nothing in the middle of two cards.
+
+   THE ANSWER IS A LINE AND NOT A RESHUFFLE. The sentence keeps the growing box
+   it needs and now ends in a divider, so every card is a BODY and a FOOTER: the
+   price and its sentence above the line, the action below it, and the line
+   itself lands at the same height in all three. The leftover space is inside a
+   bounded body instead of floating between two elements, which is the whole
+   difference between air and a hole. Nothing about the atom changes, and Upgrade
+   is untouched: this is the landing host declaring the shape of its own card.
+
+   AND THE BADGE MOVES TO THE PRICE'S OWN LINE, which is the second half of the
+   same repair. Stacked above the price it pushed the yearly card's figure 31px
+   below the other two - measured - so the three numbers a person is comparing
+   did not start on one line. A reserved empty slot in the other two cards would
+   have fixed the alignment by inventing a height; three rows and two columns fix
+   it by saying what the card is: a price with its badge beside it, a sentence,
+   and an action. Chipless cards leave column two empty and nothing shifts. */
+.landing .lp-plan .plan-opt {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto 1fr auto;
+  padding: var(--space-24);
+}
+.landing .lp-plan .plan-opt .chip {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  align-self: start;
+  margin: var(--space-0);
+}
+.landing .lp-plan .plan-opt .amt { grid-column: 1; grid-row: 1; }
+.landing .lp-plan .plan-opt > .muted {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin-bottom: var(--space-16);
+  padding-bottom: var(--space-16);
+  border-bottom: 1px solid var(--line-divider);
+}
+.landing .lp-plan .plan-opt .btn,
+.landing .lp-plan .plan-opt .q { grid-column: 1 / -1; grid-row: 3; }
+/* the quiet line keeps the 44px floor plan-option.css gives it, and under a
+   divider that floor finally does what it was written for: it holds the third
+   card's footer to the height of the two real buttons beside it, so all three
+   dividers land on one line. Centred in that slot, because a button's label is */
+.landing .lp-plan .plan-opt .q {
+  display: flex;
+  align-items: center;
+  padding: var(--space-0);
 }
 
 /* ---- the entrance ---------------------------------------------------------
