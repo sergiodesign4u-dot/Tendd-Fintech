@@ -7,6 +7,62 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - D-Hero: the stage becomes a sequence of stages
+
+The founder, on the built page: the strands bounce back instead of going round; the deck
+only moves once and after that "чисто числа меняются без движения каскада"; there is too
+much scrolling between one cancellation and the next; and what they want is one small
+scroll, one whole movement - "оп, такая анимация проиграла, 13 стало 12, Netflix улетел,
+Disney появился. Потом оп, чуть скрольнул, и пошла следующая".
+
+**The deck's order is not the fixture table's, and that is the fix for the dead middle.**
+The three the product cancels stand 1st, 11th and 13th in the canonical dataset, so on a
+deck the second and the third were plates at 0.13 and 0.05 opacity ten cards deep: the
+count fell 13, 12, 11 and nothing on the stage moved at all. On this deck they come first,
+in the order they are cancelled in, and everything else keeps the table's order behind
+them. Nothing about the data moves - the same fourteen, the same prices, the same three
+cancellations, the same fall to $144.92 - only the order they are dealt in, and only on
+this candidate: the marquee keeps the table's order, and so does `design/index.html`, whose
+list is the grey wireframe's twin and may differ from it by styling only.
+
+**The front four plates are flat**, which is what lets the deck be dealt from three times.
+Every plate used to carry its own scale, so a cancelled front plate was replaced by one
+4.3% smaller and the correction was a scale on the whole list. Three of those compound to
+1.148 and the front card grows by a seventh of itself over the sequence. Flat at the front,
+the card arriving is already the size the card leaving was.
+
+**One vertical correction and not three, and that is a measurement.** The first cut carried
+8, 16 and 24, on the reasoning that a collapsed plate leaves its two 1px borders behind and
+the gaps accumulate. Measured at all three moments at 1440 x 900, they do not: the plate
+arriving sits exactly 8px above the list's own top edge whether one plate has collapsed or
+three, because the list is a grid and a collapsed plate's row carries its own negative
+margin. Three corrections put the front card at y 302, 310 and 318 - drifting eight pixels
+lower at each cancellation, which reads as sloppiness rather than as a bug. One holds it at
+302 at every beat.
+
+**`mandatory` with `scroll-snap-stop: always`, which reverses a decision made twice.** This
+stage said `proximity` and never `mandatory` for two rounds, on the ground that mandatory
+snapping on a document scroller takes the page away from the reader. The founder's
+description is not a preference about snapping, it is a description of the stage as a
+sequence of STAGES, and proximity cannot give it. The `stop` is the half that makes it a
+stage rather than a jump: without it one flick passes several anchors and lands on the
+last, so three cancellations become one. **The cost is named and accepted:** between two
+anchors there is now nothing to stop on. That is correct on a stage with nothing between
+two anchors to read, wrong anywhere with text in it, and off entirely for a reader who
+asked for no motion.
+
+**460svh and not 560.** Every range is a percentage of the `contain` phase, so shortening
+the section moves nothing about the choreography and only changes how far the hand has to
+travel: the pinned part goes from 460svh to 360, and the gap between two cancellations from
+64svh to 50. The three reason cards were re-timed to the beats at the same time, because a
+reader who only ever stops on a beat must never find a card half arrived.
+
+**Two characters in a path, for the strands.** Each comes down its stem and meets the loop
+at its rightmost point, and the arcs were written counter-clockwise: the light arrived
+travelling down, turned round, went back the way it came, and turned again to leave.
+Clockwise, the tangent at the entry and at the exit are both straight down, and it is one
+continuous travel from above the screen, round the window, and away below it.
+
 ## 2026-08-15 - D-Hero: eight strands, and the aperture becomes a background
 
 The founder drew over a screenshot: lines coming down from above the frame on the right,
