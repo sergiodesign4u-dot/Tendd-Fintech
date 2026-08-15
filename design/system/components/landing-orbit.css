@@ -553,11 +553,20 @@
      cancelled plates faded on the spot and the deck never closed over them. The
      chip still turned and the count still stepped down, so nothing looked broken -
      it just stopped being a deck being dealt from. */
+  /* A CANCELLED PLATE IS THE SAME CARD AS THE OTHERS UNTIL IT LEAVES, and it
+     leaves by flying over the deck rather than by deflating in place. It used to
+     carry `box-shadow: none` and `overflow: hidden`: no shadow so a collapsing
+     row left no line behind it, and a clip so a mark could not spill out of a
+     row of no height. Both were right for a row and wrong for a card. Three of
+     the four cards at the front of this deck are cancelled in turn, so three
+     times out of four the front card of the deck was the one card with no
+     shadow, and the clip meant the card could not move at all - anything the
+     exit translated slid out of its own box instead of off the stage. Visible
+     and on top (z-index 19), it lifts, tilts out of focus and is gone. */
   .landing .lp-orbit.lp-story.fromcircle .sline.cut {
-    box-shadow: none;
     min-height: 0;
     height: var(--srow-h);
-    overflow: hidden;
+    overflow: visible;
   }
 
   /* EVERY PLATE IS THE SAME CARD, and the ramp is the only difference between
@@ -617,24 +626,30 @@
    needs is the vertical one - the gap the collapsed plate left. No scale, no
    compounding, and the deck is the same size at the end as at the start.
 
-   The step between the four is uniform at 10, because between plates of one
-   size the bite is the only thing saying which is in front. Behind them it
-   opens out from 20 to 58: those plates are scaled, faded and blurred, and the
-   step there is depth rather than legibility. */
+   THE FRONT FOUR DO NOT TOUCH, AND THAT IS A CORRECTION. They carried a bite of
+   -10 like everything else, on the reasoning that between plates of one size an
+   overlap is what says which is in front. Full size, four cards of identical
+   weight overlapping by ten pixels do not read as depth at all: they read as
+   four rows whose shadows are stacked on each other, which is what the founder
+   saw and called out - "чего они налазят друг на друга? должны быть друг под
+   другом". They are a LIST at the front and a DECK behind it: 12px of air
+   between the four, and the recession starts at the fifth plate, which is also
+   the first one that is scaled and faded. The step behind opens from 10 to 68,
+   because there it is depth rather than legibility. */
   .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(1) { --pscale: 1.0; --pfade: 1.0; --pblur: 0px; z-index: 19; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2) { --pscale: 1.0; --pfade: 1.0; --pblur: 0px; z-index: 18; margin-top: -10px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3) { --pscale: 1.0; --pfade: 1.0; --pblur: 0px; z-index: 17; margin-top: -10px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4) { --pscale: 1.0; --pfade: 1.0; --pblur: 0px; z-index: 16; margin-top: -10px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5) { --pscale: 0.957; --pfade: 0.90; --pblur: 0px; z-index: 15; margin-top: -10px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6) { --pscale: 0.914; --pfade: 0.79; --pblur: 0.42px; z-index: 14; margin-top: -20px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7) { --pscale: 0.871; --pfade: 0.68; --pblur: 0.84px; z-index: 13; margin-top: -28px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8) { --pscale: 0.828; --pfade: 0.57; --pblur: 1.26px; z-index: 12; margin-top: -34px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9) { --pscale: 0.785; --pfade: 0.46; --pblur: 1.68px; z-index: 11; margin-top: -40px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10) { --pscale: 0.742; --pfade: 0.35; --pblur: 2.1px; z-index: 10; margin-top: -44px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11) { --pscale: 0.699; --pfade: 0.24; --pblur: 2.52px; z-index: 9; margin-top: -48px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12) { --pscale: 0.656; --pfade: 0.13; --pblur: 2.94px; z-index: 8; margin-top: -52px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13) { --pscale: 0.613; --pfade: 0.05; --pblur: 3.36px; z-index: 7; margin-top: -56px; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14) { --pscale: 0.57; --pfade: 0.05; --pblur: 3.78px; z-index: 6; margin-top: -58px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2) { --pscale: 1.0; --pfade: 1.0; --pblur: 0px; z-index: 18; margin-top: 12px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3) { --pscale: 1.0; --pfade: 1.0; --pblur: 0px; z-index: 17; margin-top: 12px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4) { --pscale: 1.0; --pfade: 1.0; --pblur: 0px; z-index: 16; margin-top: 12px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5) { --pscale: 0.957; --pfade: 0.88; --pblur: 0px; z-index: 15; margin-top: -10px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6) { --pscale: 0.914; --pfade: 0.75; --pblur: 0.5px; z-index: 14; margin-top: -24px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7) { --pscale: 0.871; --pfade: 0.62; --pblur: 1.0px; z-index: 13; margin-top: -32px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8) { --pscale: 0.828; --pfade: 0.50; --pblur: 1.5px; z-index: 12; margin-top: -40px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9) { --pscale: 0.785; --pfade: 0.38; --pblur: 2.0px; z-index: 11; margin-top: -46px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10) { --pscale: 0.742; --pfade: 0.27; --pblur: 2.5px; z-index: 10; margin-top: -52px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11) { --pscale: 0.699; --pfade: 0.17; --pblur: 3.0px; z-index: 9; margin-top: -58px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12) { --pscale: 0.656; --pfade: 0.10; --pblur: 3.4px; z-index: 8; margin-top: -62px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13) { --pscale: 0.613; --pfade: 0.05; --pblur: 3.8px; z-index: 7; margin-top: -66px; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14) { --pscale: 0.57; --pfade: 0.05; --pblur: 4.0px; z-index: 6; margin-top: -68px; }
 }
 
 @supports (animation-timeline: view()) {
@@ -997,7 +1012,7 @@
      stands and the cascade comes out of it. */
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
     animation-name: ofold;
-    animation-range: contain 22% contain 40%;
+    animation-range: contain 16% contain 30%;
   }
   /* AND THE SWAP STOPS CLIPPING, which is the one line that lets the dive be seen
      at all. The swap is 608 tall and the window 594 of it: clipped, the window
@@ -1060,21 +1075,18 @@
        runs downward and its front card belongs under the heading band, not level
        with it. */
     --srow-h: 4.75rem;
-    /* ONE CORRECTION FOR ALL THREE CANCELLATIONS, AND THAT IS A MEASUREMENT.
-       The first cut of this carried three, at 8, 16 and 24, on the reasoning
-       that a collapsed plate leaves its two 1px borders behind and the gaps
-       accumulate. They do not: measured at 1440 x 900 at all three moments, the
-       plate arriving at the front sits at exactly 8px above the list's own top
-       edge every time, whether one plate has collapsed or three. Three
-       corrections put the front card at y 302, 310 and 318 - drifting eight
-       pixels lower at each cancellation, which is the kind of error that looks
-       like sloppiness rather than like a bug. One correction holds it at 302.
-
-       The reason is the grid: the list is a grid and a collapsed plate's row
-       carries its own negative margin, so the row the next plate stands in
-       absorbs the closure. The flow does the work and the transform only has to
-       pay for the first one. */
-    --pbite: 8px;
+    /* THREE CORRECTIONS, ONE PER CANCELLATION, AND THEY GO UP. When the front
+       four overlapped, the flow closed the gap by itself after the first
+       cancellation and one 8px correction held the front card at y 302 through
+       all three. With 12px of air between them it is the other way round: a
+       collapsed plate leaves its two 1px borders AND its 12px gap behind, so
+       every cancellation pushes the next front card 14px further down, and the
+       error accumulates. Measured at 1440 x 900: uncorrected the front card
+       stood at 302, 324, 338 and 352. Fourteen, twenty-eight, forty-two, upward,
+       and it stands at 302 at all four. */
+    --pb1: -14px;
+    --pb2: -28px;
+    --pb3: -42px;
     top: 7.5rem;
     bottom: auto;
     translate: none;
@@ -1088,7 +1100,7 @@
        whole), 37% is contain 54 (Netflix starts to go) and 50% is contain 62 (it
        is gone and the deck has closed over it). */
     animation-name: sfall;
-    animation-range: contain 32% contain 92%;
+    animation-range: contain 20% contain 90%;
     --scardslot: 0rem;
   }
 
@@ -1155,7 +1167,7 @@
     animation-fill-mode: both;
     animation-timing-function: var(--ease-leave);
     animation-timeline: --story;
-    animation-range: contain 20% contain 38%;
+    animation-range: contain 14% contain 28%;
   }
 
   .landing .lp-orbit.lp-story.fromcircle .osay { animation-timing-function: var(--ease-leave); }
@@ -1203,23 +1215,26 @@
   /* 0.9 apart and 7 long: plate 2 opens at 34 and plate 14 is home at 51.8,
      which is the beat at contain 52 where the deck is meant to be whole, and
      two points clear of the first cancellation at 54. */
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2):not(.cut)  { animation-range: contain 34.0% contain 41.0%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3):not(.cut)  { animation-range: contain 34.9% contain 41.9%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4):not(.cut)  { animation-range: contain 35.8% contain 42.8%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5):not(.cut)  { animation-range: contain 36.7% contain 43.7%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6):not(.cut)  { animation-range: contain 37.6% contain 44.6%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7):not(.cut)  { animation-range: contain 38.5% contain 45.5%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8):not(.cut)  { animation-range: contain 39.4% contain 46.4%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9):not(.cut)  { animation-range: contain 40.3% contain 47.3%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10):not(.cut) { animation-range: contain 41.2% contain 48.2%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11):not(.cut) { animation-range: contain 42.1% contain 49.1%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12):not(.cut) { animation-range: contain 43.0% contain 50.0%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13):not(.cut) { animation-range: contain 43.9% contain 50.9%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14):not(.cut) { animation-range: contain 44.8% contain 51.8%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2):not(.cut) { animation-range: contain 21.0% contain 26.0%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3):not(.cut) { animation-range: contain 21.9% contain 26.9%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4):not(.cut) { animation-range: contain 22.8% contain 27.8%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5):not(.cut) { animation-range: contain 23.7% contain 28.7%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6):not(.cut) { animation-range: contain 24.6% contain 29.6%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7):not(.cut) { animation-range: contain 25.5% contain 30.5%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8):not(.cut) { animation-range: contain 26.4% contain 31.4%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9):not(.cut) { animation-range: contain 27.3% contain 32.3%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10):not(.cut) { animation-range: contain 28.2% contain 33.2%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11):not(.cut) { animation-range: contain 29.1% contain 34.1%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12):not(.cut) { animation-range: contain 30.0% contain 35.0%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13):not(.cut) { animation-range: contain 30.9% contain 35.9%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14):not(.cut) { animation-range: contain 31.8% contain 36.8%; }
 
   /* a cancelled plate leaves on the exit curve: it holds while the reader reads
      the word, then goes quickly */
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut { animation-timing-function: var(--ease-leave); }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut {
+    animation-name: spart;
+    animation-timing-function: var(--ease-leave);
+  }
   .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .live {
     animation-name: schipout;
     animation-timing-function: var(--ease-leave);
@@ -1486,19 +1501,24 @@
    82 to 90, which is 83.3% to 96.7%. Change a cancellation's range and its stop
    moves with it, which is why the arithmetic is written down here.
 
-   NO SCALE IN ANY OF THEM. The single promotion this replaces carried a scale of
-   1/0.957, because the plate arriving at the front was one rank smaller than the
-   one leaving. Three of those compound to 1.148 and the front card grows by a
-   seventh of itself over the sequence. The front four plates are flat now, so
+   NO SCALE IN ANY OF THEM. The first cut of this carried a scale of 1/0.957 per
+   promotion, because the plate arriving at the front was one rank smaller than
+   the one leaving. Three of those compound to 1.148 and the front card grows by
+   a seventh of itself over the sequence. The front four plates are flat now, so
    the card arriving is already the right size and the only thing left to correct
    is the gap - and a gap is a translation. */
 @keyframes sfall {
   0%     { opacity: 0; transform: translate3d(0, 1.5rem, 0) scale(0.94); }
   10%    { opacity: 1; }
   30%    { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-  36.7%  { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-  50%    { opacity: 1; transform: translate3d(0, var(--pbite), 0) scale(1); }
-  100%   { opacity: 1; transform: translate3d(0, var(--pbite), 0) scale(1); }
+  26%    { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  40%    { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  51.4%  { opacity: 1; transform: translate3d(0, var(--pb1), 0) scale(1); }
+  60%    { opacity: 1; transform: translate3d(0, var(--pb1), 0) scale(1); }
+  71.4%  { opacity: 1; transform: translate3d(0, var(--pb2), 0) scale(1); }
+  80%    { opacity: 1; transform: translate3d(0, var(--pb2), 0) scale(1); }
+  91.4%  { opacity: 1; transform: translate3d(0, var(--pb3), 0) scale(1); }
+  100%   { opacity: 1; transform: translate3d(0, var(--pb3), 0) scale(1); }
 }
 
 /* A PLATE ARRIVING INTO THE DECK. It reads through the ramp's own three
@@ -1516,6 +1536,32 @@
          filter: blur(var(--pblur, 0px)); }
 }
 
+
+/* A CARD LEAVING THE DECK, and it is the candidate's own because the shared one
+   is a ROW leaving a list. `sgo` recedes, holds and folds upward by three
+   quarters of a rem while its height collapses: exactly right on
+   `design/index.html`, where the thing leaving is a 32px line in a column and
+   the eye is on the column. Here the thing leaving is the card the reader is
+   looking at, at the front of a deck, and it has to go somewhere.
+
+   So: it goes quiet and its badge turns over (0 to 26%), it HOLDS for a fifth of
+   the beat so the word "Cancelled" is readable on a card that is still there,
+   and then it lifts five rem, drops four per cent of its size, goes out of focus
+   and is gone - while its height collapses under it and the deck closes up. The
+   hold is the whole reason this reads as a decision rather than as a glitch:
+   fast, still, fast is what makes a movement look expensive. */
+@keyframes spart {
+  0%   { height: var(--srow-h); opacity: 1; background: var(--bg-surface);
+         transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+  26%  { height: var(--srow-h); opacity: 1; background: var(--bg-recessed);
+         transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+  46%  { height: var(--srow-h); opacity: 1; background: var(--bg-recessed);
+         transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+  70%  { opacity: 0.55; }
+  100% { height: 0; opacity: 0; padding-block: var(--space-0);
+         background: var(--bg-recessed);
+         transform: translate3d(0, -5rem, 0) scale(0.96); filter: blur(5px); }
+}
 
 /* the promise leaving with the page, and the two figures arriving from the foot */
 /* THE PROMISE GOES OUT OF FOCUS AS IT LEAVES. It travelled and faded, which is
@@ -1651,20 +1697,20 @@
    ========================================================================== */
 @supports (animation-timeline: view()) {
  @container story (min-width: 60rem) {
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 { animation-range: contain 54% contain 62%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 { animation-range: contain 68% contain 76%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 { animation-range: contain 82% contain 90%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 { animation-range: contain 48% contain 56%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 { animation-range: contain 62% contain 70%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 { animation-range: contain 76% contain 84%; }
   .landing .lp-orbit.lp-story.fromcircle .sline.cut1 .swap > .live,
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 .swap > .gone { animation-range: contain 54% contain 57%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut1 .swap > .gone { animation-range: contain 48% contain 51%; }
   .landing .lp-orbit.lp-story.fromcircle .sline.cut2 .swap > .live,
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 .swap > .gone { animation-range: contain 68% contain 71%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut2 .swap > .gone { animation-range: contain 62% contain 65%; }
   .landing .lp-orbit.lp-story.fromcircle .sline.cut3 .swap > .live,
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 .swap > .gone { animation-range: contain 82% contain 85%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline.cut3 .swap > .gone { animation-range: contain 76% contain 79%; }
 
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(1) { animation-range: contain 54% contain 55%; }
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(2) { animation-range: contain 54% contain 69%; }
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(3) { animation-range: contain 68% contain 83%; }
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(4) { animation-range: contain 83% contain 84%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(1) { animation-range: contain 48% contain 49%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(2) { animation-range: contain 48% contain 63%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(3) { animation-range: contain 62% contain 77%; }
+  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(4) { animation-range: contain 77% contain 78%; }
 
   /* THE CARDS ARE TIMED TO THE BEATS, NOT TO EACH OTHER, and that is what the
      snapping made necessary. A reader who only ever stops on a beat must never
@@ -1673,9 +1719,9 @@
      two beats rather than on one. Card 1 is whole at contain 52 and 64 and gone
      by 78; card 2 is whole at 64 and 78 and gone by 92; card 3 arrives after 78
      and is whole at 92, where it stays. */
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1) { animation-range: contain 44% contain 76%; }
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { animation-range: contain 66% contain 92%; }
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { animation-range: contain 80% contain 90%; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1) { animation-range: contain 30% contain 70%; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { animation-range: contain 60% contain 86%; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { animation-range: contain 74% contain 84%; }
  }
 }
 
@@ -1786,9 +1832,19 @@
    declaration reaches exactly one section and why it is off entirely for a
    reader who asked for no motion.
 
-   THE ANCHOR POSITIONS ARE THE RANGES, ARITHMETIC. The stage is `460svh` and the
+   AND THE GAPS ARE EVEN, WHICH IS WHAT MAKES THE SNAP READ AS A GLIDE. The
+   browser animates a snap over a duration set by the distance, and it caps: a
+   40svh gap is a smooth travel and a 122svh gap is a jump with a blur in the
+   middle. The founder, 2026-08-15: "анимация выглядит топорной, а должна быть
+   гладкой весь цикл при скролле". The stage went from 460svh to 320 and the
+   beats were re-solved so that no two are more than 48svh apart - 40, 48, 40,
+   30, 31, 31 - where they had been 65, 122, 43, 51, 50, 29. Nothing about the
+   choreography moved except the numbers that say when: every range is a
+   percentage of the `contain` phase.
+
+   THE ANCHOR POSITIONS ARE THE RANGES, ARITHMETIC. The stage is `320svh` and the
    pinned part of it - the `contain` phase every range on this page is written in
-   - is `460 - 100 = 360svh`. So the beat at `contain N%` is `3.6 x N` svh down
+   - is `320 - 100 = 220svh`. So the beat at `contain N%` is `2.2 x N` svh down
    the section, and the seven below are the opening frame, the corners landed, the
    deck landed, the three cancellations, and the foot of the stage. Change a range
    and its anchor moves with it; they are written next to each other for that
@@ -1822,11 +1878,11 @@
 @supports (animation-timeline: view()) {
  @container story (min-width: 60rem) {
   .landing .storybeats .beat:nth-child(1) { top: var(--space-0); }        /* the promise, the window whole      */
-  .landing .storybeats .beat:nth-child(2) { top: 65svh; }                 /* contain 18: corners up, heading in */
-  .landing .storybeats .beat:nth-child(3) { top: 187svh; }                /* contain 52: the deck, whole        */
-  .landing .storybeats .beat:nth-child(4) { top: 230svh; }                /* contain 64: Netflix gone, 13       */
-  .landing .storybeats .beat:nth-child(5) { top: 281svh; }                /* contain 78: Peloton gone, 12       */
-  .landing .storybeats .beat:nth-child(6) { top: 331svh; }                /* contain 92: the Times gone, 11     */
-  .landing .storybeats .beat:nth-child(7) { top: 360svh; }                /* the foot of the stage              */
+  .landing .storybeats .beat:nth-child(2) { top: 40svh; }                 /* contain 18: corners up, heading in */
+  .landing .storybeats .beat:nth-child(3) { top: 88svh; }                 /* contain 40: the deck, whole        */
+  .landing .storybeats .beat:nth-child(4) { top: 128svh; }                /* contain 58: Netflix gone, 13       */
+  .landing .storybeats .beat:nth-child(5) { top: 158svh; }                /* contain 72: Peloton gone, 12       */
+  .landing .storybeats .beat:nth-child(6) { top: 189svh; }                /* contain 86: the Times gone, 11     */
+  .landing .storybeats .beat:nth-child(7) { top: 220svh; }                /* the foot of the stage              */
  }
 }

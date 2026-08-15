@@ -7,6 +7,49 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - D-Hero: a list at the front, a deck behind it, and a card that leaves
+
+The founder, on the built page: the front cards climb on top of each other and should stand
+one under another; and the animation looks crude where it should be smooth for the whole
+cycle.
+
+**Both halves of the deck's front were wrong, and for the same reason.** The four front
+plates were made flat last round so the deck could be dealt from three times without the
+front card growing. Flat and still overlapping by ten pixels, four cards of identical
+weight do not read as depth at all: they read as four rows whose shadows are stacked on
+each other. It is a **list** at the front and a **deck** behind it now - 12px of air
+between the four, and the recession starting at the fifth plate, which is also the first
+one that is scaled and faded.
+
+**The correction flips sign, and both the number and the direction are measurements.**
+While the front four overlapped, the flow closed the gap by itself after the first
+cancellation and one 8px downward correction held the front card at y 302 through all
+three. With air between them a collapsed plate leaves its two 1px borders **and** its 12px
+gap behind, so every cancellation pushes the next front card 14px further down and the
+error accumulates: uncorrected, 302, 324, 338, 352. Fourteen, twenty-eight, forty-two,
+upward. The first cut of this reasoned its way to 8, 16 and 24 downward, which was wrong in
+size and in direction; the fix was to measure the plate at each of the three moments.
+
+**A cancelled card leaves the deck now.** The shared `sgo` is a row leaving a list: it
+recedes, holds, folds upward by three quarters of a rem while its height collapses. Right
+on `design/index.html`, where the thing leaving is a 32px line and the eye is on the column;
+wrong here, where it is the card the reader is looking at. The candidate's own `spart` goes
+quiet, turns its badge over, **holds** for a fifth of the beat so "Cancelled" is readable on
+a card that is still there, then lifts five rem, drops four per cent of its size, goes out
+of focus and is gone while its height collapses under it. Fast, still, fast. Two rules had
+to go for it: the cut plate no longer carries `box-shadow: none` (three of the four cards at
+the front are cancelled in turn, so three times out of four the front card was the one with
+no shadow) and no longer clips itself (anything the exit translated slid out of its own box
+instead of off the stage).
+
+**The stage is 320svh and the beats are evenly spaced, which is the whole of "smoother".**
+The browser animates a snap over a duration set by the distance and it caps, so a 40svh gap
+is a smooth travel and a 122svh gap is a jump with a blur in the middle. No two beats are
+more than 48svh apart now - 40, 48, 40, 30, 31, 31 - where they were 65, 122, 43, 51, 50,
+29. Nothing about the choreography moved except the numbers that say when: every range is a
+percentage of the `contain` phase. Frame timing improved with it, from a p95 of 16.7ms to
+10.1.
+
 ## 2026-08-15 - D-Hero: the stage becomes a sequence of stages
 
 The founder, on the built page: the strands bounce back instead of going round; the deck
