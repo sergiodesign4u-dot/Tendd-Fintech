@@ -1,0 +1,195 @@
+/* ============================================================================
+   Landing plan - organism
+   The "Simple, honest pricing" block: three ways to pay for one plan, standing
+   on the page's one atmospheric band, and what that plan includes said ONCE
+   underneath them.
+
+   THE PROBLEM IT SOLVES, in the founder's words on 2026-08-15: "давай теперь
+   след секцию делать ... может на фон какую ненавязчивую спокойную картинку
+   сделать". Three things were wrong under that ask.
+
+   ONE: THE BLOCK SAID THE SAME FOUR LINES THREE TIMES. Each of the three cards
+   carried "Everything in Tendd Pro" over History and trends, Advanced alerts,
+   Full cancel guides, Export - the identical four, word for word, twelve list
+   items and twelve ticks for four facts. Three identical lists is the block
+   confessing that the comparison it is drawn as does not exist: THIS IS NOT
+   THREE PLANS, IT IS ONE PLAN AND THREE WAYS TO PAY FOR IT, which is what D4
+   locked and what the copy has said all along. So the list is lifted out of the
+   cards and stated once, under all three, where it belongs to all three.
+   plan-option.css already made half of this argument at stage 07, about colour:
+   twelve petrol ticks smeared the accent until the button stopped being the
+   loudest thing on the page. The other half is that twelve of anything for four
+   facts is the same mistake in another currency. Four items, and no tick at all:
+   the label above them is what says "included", and an ornament that repeats on
+   every line says nothing the label has not.
+
+   TWO: THE BLOCK WAS CENTRED IN GREY AND NOT IN COLOUR. `_wf.css` centres this
+   section, heading, lead and all, and the colour rollout kept the centring for
+   the closing block and lost it here, so a left-aligned heading stood over a
+   centred row of cards with a third of the band empty beside it. That is a
+   desync and not a design, and the grey is the contract.
+
+   THREE: THE BAND WAS WHITE. It is the one section on the page that asks for
+   money, and it stood on the same flat surface fill as the section above it.
+
+   THE WASH IS ONE BAND AND NOWHERE ELSE, which is the whole discipline of it.
+   `--wash-pricing` is the one non-colour role in tokens.css and it exists in
+   both themes: a teal haze drifting across paper in the light one, the same
+   composition at dusk in the dark one. It is read UNDER a `background-color`,
+   never instead of one, so the band has a ground before the picture loads and
+   keeps it if the picture never does. D-Concept's ground is paper and stays
+   paper: a texture that spreads to a second block stops being quiet.
+
+   Reads
+     colour   --bg-surface (the band's ground and the cards'), --line-container,
+              --text-body
+     paint    --wash-pricing (the band's picture, both themes)
+     radii    --radius
+     spacing  --space-0, 8, 16, 24, 32, 40
+     type     --type-body
+     width    --container-page (the lead's measure)
+   Hosts     .plan-opt with its chip, amount, button and quiet line, and the
+             eyebrow, every one at the size its own file gives it.
+   Owns      the .lp-plan band, .lp-plan .plans (moved here from grid.css, see
+             below) and .plan-all (the shared list)
+   Page      design/kit/landing-plan.html
+   Stands on 1 grey page and 1 coloured one.
+
+   THE PLAN ROW MOVED HERE FROM grid.css ON 2026-08-15, and the reason that file
+   gave for holding it has expired. It said `.lp-plan` exists only on
+   wireframes/index.html, which is frozen, so the landing's row was left in the
+   grid's file rather than given an owner. `.lp-plan` is on the coloured page as
+   well since the rollout, this is now an organism with a page of its own, and
+   the row asked its width with an `@media` in a system that answers `@container`
+   everywhere else. All three are settled by the move.
+   ============================================================================ */
+
+/* ---- the band -------------------------------------------------------------
+   NOT in landing-shell.css's pair of bands any more: the trust band is a fill
+   and this one is a fill plus a picture, so it stopped being the same object.
+   The shell keeps the one it still owns and this file owns this one, which is
+   also the only order that works - the shell is imported after every organism,
+   so a band rule left there could not be corrected from here at any specificity
+   short of an argument.
+
+   `background-color` FIRST AND ALWAYS, then the picture over it. A wash that is
+   the only ground is a section that is white until the network says otherwise.
+   `center bottom` because the haze pools low in both pictures and the cards
+   stand in the upper two thirds: the quiet end of the picture is where the words
+   are. `cover` and no `fixed`: a fixed attachment repaints on every scroll frame
+   and this page already spends its budget on the hero. */
+.landing .lp-section.lp-plan {
+  background-color: var(--bg-surface);
+  background-image: var(--wash-pricing);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+/* the centring the grey has always had. The heading takes it by inheritance;
+   the two muted lines need their own margins, because a centred measure is a
+   box centred in its parent and not a line centred in a box. */
+.landing .lp-plan .lp-wrap > .muted {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---- the three ways to pay ------------------------------------------------
+   THE COUNT STAYS DECLARED and this is the same argument grid.css made when it
+   held the rule: `repeat(3, 1fr)` is not the hard-coded count the fluid grid
+   exists to remove, because this block holds exactly THREE prices and D4 is why.
+   Fluid would put four or five tracks across a wide window and leave two empty
+   on the one block whose whole job is a choice between three named things.
+
+   IT TAKES THE WHOLE MEASURE NOW, where it used to stop at --container-page.
+   With the list lifted out, a card is a price, a sentence and a button, and at
+   780 across three that is 253px a card, at which both button labels wrap inside
+   the button. At the full wrap it is 373 and neither does.
+
+   AND BETWEEN THE TWO POINTS THEY STILL WRAP, which is stated rather than hidden.
+   Counted as line boxes, not guessed: both labels take two lines from the tablet
+   point up to 940, the yearly one settles at 940 and the monthly at 980, and from
+   980 up neither wraps. The clean number is a card of 275, which is a third width
+   point, and rule 8 says a third is the founder's. Nothing renders wrong in the
+   band between: a long label on two lines inside a wide button is untidy and it
+   is legible, the buttons stay level with each other, and no card grows past its
+   neighbours. Written down so the next reader knows it was measured and left.
+
+   `text-align: left` is the section's centring taken back off inside the cards,
+   because a plan card reads as a form and not as a poster. */
+.landing .lp-plan .plans {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-16);
+  margin: var(--space-0) var(--space-0) var(--space-16);
+  text-align: left;
+}
+@container (min-width: 47.5rem) {
+  .landing .lp-plan .plans {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-24);
+  }
+}
+
+/* ---- what the plan includes, said once ------------------------------------
+   A card and not a caption: it is the base the three prices stand on, so it
+   takes the same paper, the same edge and the same radius they do, and the row
+   above it reads as three doors into one room.
+
+   The four are a ROW and not a list, above the tablet point. A column of four
+   under three cards would be a fourth card; four across a band under them is a
+   line, and a line is what a shared fact looks like. */
+.landing .lp-plan .plan-all {
+  margin: var(--space-0) var(--space-0) var(--space-24);
+  padding: var(--space-24);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
+  background: var(--bg-surface);
+}
+.landing .lp-plan .plan-all ul {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-8);
+  list-style: none;
+  margin: var(--space-0);
+  padding: var(--space-0);
+}
+.landing .lp-plan .plan-all li {
+  font-size: var(--type-body);
+  color: var(--text-body);
+}
+@container (min-width: 47.5rem) {
+  .landing .lp-plan .plan-all ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-16);
+  }
+}
+
+/* ---- the entrance ---------------------------------------------------------
+   The page's own grammar: the row rises, then the base under it, offset behind.
+   `cover` and not `entry` for the reason landing-orbit.css measured - an entry
+   range against the element's own height is a pop, a cover range is a rise. THE
+   CURVE IS THE SAME EXPO-OUT the other landing organisms declare and cannot be
+   read from here; stage 11 owns the motion scale and the backlog carries the
+   debt, which now names four files instead of three. */
+@supports (animation-timeline: view()) {
+  .landing .lp-plan .plans,
+  .landing .lp-plan .plan-all {
+    animation-name: planin;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-timeline: view();
+    animation-range: cover 0% cover 28%;
+  }
+  .landing .lp-plan .plan-all { animation-range: cover 8% cover 36%; }
+}
+@keyframes planin {
+  from { opacity: 0; transform: translate3d(0, 1.5rem, 0) scale(0.97); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+/* base.css's global guard zeroes durations, and a scroll-driven animation has no
+   duration to zero: the kill has to be by name */
+@media (prefers-reduced-motion: reduce) {
+  .landing .lp-plan .plans,
+  .landing .lp-plan .plan-all { animation-name: none; }
+}

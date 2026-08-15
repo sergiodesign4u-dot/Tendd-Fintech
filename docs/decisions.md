@@ -7,6 +7,47 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - D-Wash: the pricing band carries a picture, and exactly one band does
+
+The founder, on the pricing block: "може на фон какую ненавязчивую спокойную картинку сделать -
+для генерации использую Codex чтоби он сгененрировал изображение".
+
+**The picture.** `--wash-pricing`, the first non-colour role in `tokens.css`: a soft atmospheric
+wash, a teal haze drifting across paper in the light theme and the same composition at dusk in
+the dark one. It is a token and not a line in a component because system rule 6 says a role lives
+in both themes or it does not exist, and a paint that reverses between a paper theme and an ink
+theme is exactly that case; the alternative was a `[data-theme]` selector inside a component, and
+there are zero of those in the 68 component files. It is read UNDER a `background-color` and never
+instead of one, so the band has a ground before the picture loads.
+
+**Scope is the decision.** ONE band. Not the page, not the trust band, not a card. D-Concept's
+ground is paper and stays paper: a texture that spreads stops being quiet.
+
+**Its strength is a measurement and not a taste.** The smallest ink standing on that band is
+`--text-muted` at 14px, so every pixel of the picture has to clear 4.5:1 against it. As generated
+it did not: the haze pooling low measured **2.75:1** under the closing line at seven of nine
+widths, and the lead dipped to 4.23:1 at 1920. The asset was lightened toward paper until its
+darkest pixel reads 4.62:1, and the worst pair actually rendered is 4.89:1. A stronger picture is
+available and it costs that line: it would have to move onto paper first, and that is a founder's
+call. The dark edition needed none of it, its ink being light and its ground dark: 7.74:1.
+
+**Who generated it, and how to replace it.** Codex cannot generate images; it is a coding agent
+and it is read-only in this repository. The two assets were generated from a written brief with
+the image tool available in the session, lightened by measurement, and saved as
+`design/system/assets/plan-wash-light.webp` (17KB) and `plan-wash-dark.webp` (20KB). Replacing
+either is one file: the token names it and nothing else does. A new light edition has to pass the
+same 4.5:1 sweep before it ships.
+
+**The same step fixed two older things in that block.** The four included lines were printed
+three times, once per card - twelve list items and twelve ticks for four facts - so they are now
+stated ONCE under all three prices: this is one plan and three ways to pay for it, which is what
+D4 locked. And the block was centred in grey and left-aligned in colour since the rollout, which
+is a desync and not a design; the colour follows the grey again.
+
+New organism `landing-plan`, all five things, and the landing's plan row moved into it from
+`grid.css`, where its `@media` became a `@container`. `plan-option`'s `.incl` slot is an
+Upgrade-only slot from today, recounted the same day.
+
 ## 2026-08-15 - Trusted with your money: every claim stands beside its own proof
 
 The founder: "давай делать теперь вот це ... хочется реально что то красивое", on the block

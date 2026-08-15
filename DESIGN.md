@@ -299,6 +299,17 @@ chosen against. The boundary that *identifies* a control is a separate role and 
 | `--line-container-hover` | line | `--bg-surface` | 1.47 | 1.47 | decorative |
 | `--line-action-soft` | line | `--bg-surface` | 1.18 | 1.20 | decorative, a hint under text that already carries 4.8:1 |
 
+**One role in the file is not a colour, and it is in neither table above.** `--wash-pricing`,
+added 2026-08-15, is an IMAGE: the atmospheric wash behind the pricing band, a teal haze drifting
+across paper in the light theme and the same composition at dusk in the dark one. It is a role
+rather than a line in a component for the reason every role exists - it lives in both themes or
+it does not exist, and a picture that reverses between a paper theme and an ink theme is exactly
+that case. It is read UNDER a `background-color` and never instead of one, so a band has a ground
+before the picture loads. Its strength is a measurement, not a taste: the smallest ink standing on
+that band is `--text-muted` at 14px, so every pixel of the picture clears **4.5:1** against it -
+4.62:1 at the asset's darkest pixel, 4.89:1 at the worst pair actually rendered. One band, and
+nowhere else: a texture that spreads stops being quiet.
+
 The four state tokens are in that table because a state is a token and not a style: nothing
 inside a `:hover` or a `:focus-visible` block is a hex or a number anywhere in this system, which
 is why the dark theme cost three lines rather than forty edits. `--color-focus` is the one that

@@ -653,6 +653,44 @@
          reads it too, so the role outgrew the ".btn.primary:hover" the kit-era note
          scopes it to. A pressed state is a pressed state whatever is being pressed */
 
+  /* THE ONE ROLE IN THIS FILE THAT IS NOT A COLOUR, ADDED 2026-08-15 ON THE
+     FOUNDER'S WORD ("может на фон какую ненавязчивую спокойную картинку сделать").
+     It is an IMAGE and it is here rather than in the component for one mechanical
+     reason: rule 6 says a role lives in both themes or it does not exist, and a
+     wash that reverses between a paper theme and an ink theme is exactly the kind
+     of paint that rule was written for. The alternative was a `[data-theme]`
+     selector inside landing-plan.css, and there are ZERO of those in the 67
+     component files today: the whole point of two token levels is that a
+     component never asks which theme it is in.
+     A `--wash-` prefix and not `--bg-`, because it is not a fill and cannot be
+     read as one: it needs `background-color` UNDER it in every use, and the
+     component says so.
+     THE PATH IS WRITTEN FROM components/ AND NOT FROM HERE, and that is a
+     browser fact rather than a preference. A `url()` inside a custom property is
+     resolved against the stylesheet that USES the property, not the one that
+     declares it: written as `assets/...` this token asked for
+     design/system/components/assets/ and returned 404, measured on the page
+     before it was corrected. Every consumer of a token is one folder deep in
+     components/ or patterns/, so `../assets/` is the one path that is right from
+     all of them. The asset itself sits at design/system/assets/, which is where
+     the system's own picture belongs: it is liftable whole and carries it.
+     SCOPE, and it is the decision: ONE band. Not the page, not the trust band,
+     not a card. A texture that spreads stops being quiet, and D-Concept's ground
+     is paper.
+     ITS STRENGTH IS A MEASUREMENT AND NOT A TASTE, and this is the number to
+     hold on to. The smallest ink that stands on this band is --text-muted at
+     14px, so every pixel of the picture has to clear 4.5:1 against it. As
+     generated it did not: the haze pooling low measured 2.75:1 under the closing
+     line at seven of nine widths, and the lead dipped to 4.23:1 at 1920. The
+     asset was lightened toward paper until its darkest pixel reads 4.62:1, and
+     the worst pair actually rendered is 4.89:1, swept over nine widths in both
+     themes. A stronger picture is available and it costs that line: it would
+     have to move onto paper first, and that is the founder's call and not this
+     file's. The dark edition needed none of it - its ink is light and its ground
+     is dark, so the two never converge: 7.74:1 at its worst pixel.
+     Today: 1 var(), 1 file */
+  --wash-pricing: url("../assets/plan-wash-light.webp");
+
   /* ==========================================================================
      SEMANTIC - inks. Threshold 4.5:1, or 3:1 from 24px / 19px bold.
      ========================================================================== */
@@ -930,6 +968,13 @@
   --bg-action-strong: var(--petrol-deep-dark);
       /* NOT MIRRORED. The light theme darkens under the pointer, this one lightens:
          the hover has to move AWAY from the ground, and the ground swapped ends */
+  --wash-pricing: url("../assets/plan-wash-dark.webp");
+      /* NOT THE SAME PICTURE, and it could not be. The light wash is a teal haze
+         drifting across paper; on the dark surface it would be a bright cloud in a
+         dark room, which is the opposite of quiet. Its dark pair is the same
+         composition seen at dusk: the haze pools in the same corner, low and to
+         the right, so the band reads as one place in two lights rather than as two
+         decorations. Generated from the same brief on the same day */
 
   /* inks */
   --text-primary: var(--ink-dark);

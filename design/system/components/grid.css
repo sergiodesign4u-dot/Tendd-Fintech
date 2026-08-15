@@ -69,10 +69,12 @@
    bottom margin and the 720 cap it already has. Naming it is a founder's line,
    not this round's.
 
-   The landing's `.lp-plan .plans` is untouched for the same reason and for a
-   second one: `.lp-plan` exists only on wireframes/index.html, which is frozen
-   and loads _wf.css, so both rules below it are carried forward for a coloured
-   landing that does not exist yet.
+   The landing's `.lp-plan .plans` was untouched for the same reason and for a
+   second one: `.lp-plan` existed only on wireframes/index.html, frozen and
+   loading _wf.css, so both of its rules were carried forward for a coloured
+   landing that did not exist yet. IT LEFT THIS FILE ON 2026-08-15, when that
+   landing existed and the block became an organism. See the two notes further
+   down that stand where its rules stood.
    ============================================================================ */
 /* THE `.landing` SCOPE WAS ADDED ON 2026-08-14, at the rollout, and its absence
    was invisible until the public page was built. 48 of the 57 components already
@@ -182,17 +184,19 @@
   margin: var(--space-0) var(--space-0) var(--space-16);
 }
 
-/* ---- the landing's plan row -----------------------------------------------
-   The same grid on the one page with no `.app` shell. 420px is a width and not
-   a spacing, so the 8px grid does not govern it; the `auto` beside the margin
-   is what centres the single column in a centred section, and `text-align:
-   left` is the landing section's own centring being taken back off, because a
-   plan card reads as a form and not as a poster. Nothing here is a paint. */
-.lp-plan .plans {
-  max-width: 420px;
-  margin: var(--space-0) auto var(--space-16);
-  text-align: left;
-}
+/* ---- the landing's plan row: GONE FROM THIS FILE ON 2026-08-15 -------------
+   It lived here with a 420px cap, an `auto` margin and a `text-align: left`,
+   and further down it asked `@media (min-width: 47.5rem)` for three columns and
+   a --container-page cap. All of it now lives in landing-plan.css, which is the
+   organism that block became when the founder rebuilt it.
+
+   THE REASON THIS FILE GAVE FOR HOLDING IT HAS EXPIRED, and it is written here
+   rather than deleted so the next reader does not put it back. The reason was
+   that `.lp-plan` exists only on wireframes/index.html, which is frozen, so the
+   row had no owner in the coloured half to go to. It has one now: `.lp-plan` is
+   on the coloured page since the rollout, and the rule also asked its width with
+   an `@media` in a system that answers `@container` everywhere else. One move
+   settles all three. */
 
 /* ============================================================================
    THE TWO AXES, AND THE RULE FOR CHOOSING ON EACH
@@ -377,15 +381,14 @@
    THE COUNT STAYS DECLARED, AND THAT IS THE SECOND HALF OF THE ANSWER stage 10's
    census asked for. `repeat(3, 1fr)` looks like the hard-coded count this stage
    spent step 4 removing, and it is not the same thing: the landing's pricing
-   block holds exactly THREE plan options (`wireframes/index.html`, the
-   `lp-plan` section, three `.plan-opt` cards), so three is content and not a fit
+   block holds exactly THREE plan options, so three is content and not a fit
    question. This is the door row's argument a second time. Fluid would put four
    or five tracks across a wide window and leave two of them empty on the one
    block whose whole job is a comparison between three named things. Written down
-   because a grep for `repeat(` will find this line again. */
-@media (min-width: 47.5rem) {
-  .lp-plan .plans { grid-template-columns: repeat(3, 1fr); max-width: var(--container-page); }
-}
+   because a grep for `repeat(` will find this line again, and the argument moved
+   with the rule: landing-plan.css makes it in the same words. */
+/* the three-column point moved to landing-plan.css with the rest of that row on
+   2026-08-15, and it is a `@container` there. See the block above. */
 
 /* TWO THINGS OUTSIDE THIS FILE DEPENDED ON THE NAME `.tiles`, and both would
    have gone silent rather than loud when it changed. They are named here because

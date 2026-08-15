@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing plan - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Landing plan</h1>
+    <p class="lead">The "Simple, honest pricing" block: three ways to pay for one plan, standing on the page's one atmospheric band, and what that plan includes said once underneath them.</p>
+    <div class="kit-meta">
+      <span>Organism</span>
+      <span><strong>1</strong> grey page</span>
+      <span><strong>1</strong> coloured page</span>
+      <span>added 2026-08-15</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="what">
+    <h2>What it is</h2>
+    <p class="note"><b>Three identical lists is a block admitting that the comparison it is drawn as does not exist.</b> Each of the three cards carried "Everything in Tendd Pro" over History and trends, Advanced alerts, Full cancel guides and Export - the identical four, word for word, twelve list items and twelve ticks for four facts. This is not three plans: it is <b>one plan and three ways to pay for it</b>, which is what D4 locked and what the copy has said all along. The list is lifted out and stated once, under all three, where it belongs to all three. <a href="plan-option.html">The plan option</a> already made half of this argument at stage 07, about colour: twelve petrol ticks smeared the accent until the button stopped being the loudest thing on the screen. The other half is that twelve of anything for four facts is the same mistake in another currency.</p>
+    <p class="note"><b>The band was centred in grey and not in colour.</b> <code>_wf.css</code> centres this section, heading, lead and all; the rollout kept the centring for the closing block and lost it here, so a left-aligned heading stood over a centred row of cards with a third of the band empty beside it. That is a desync, not a design, and the grey is the contract.</p>
+    <p class="note"><b>And the band was white.</b> It is the one section on the page that asks for money and it stood on the same flat fill as the section above it. The founder, 2026-08-15: "может на фон какую ненавязчивую спокойную картинку сделать". It now carries a wash: a teal haze drifting across paper in the light theme, the same composition at dusk in the dark one.</p>
+  </section>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <ul class="kit-parts">
+      <li><code>.lp-plan</code> <span>the band: a <code>background-color</code> with <code>--wash-pricing</code> over it, and the section's centring. The colour is under the picture in every use, so the band has a ground before the picture loads and keeps it if the picture never does</span></li>
+      <li><code>.lp-plan .plans</code> <span>the three ways to pay. <b>Moved here from <a href="grid.html">the grid</a> on 2026-08-15</b>, and the reason that file gave for holding it had expired: it said <code>.lp-plan</code> exists only on the frozen grey page, so the row had no owner in the coloured half. It has one now, and the rule also asked its width with an <code>@media</code> in a system that answers <code>@container</code> everywhere else</span></li>
+      <li><code>.lp-plan .plan-all</code> <span>what the plan includes, said once: the same paper, edge and radius the three prices have, so the row above reads as three doors into one room. Four items across a line above the tablet point, because a column of four under three cards would be a fourth card</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+    <p class="note"><b>The wash is one band and nowhere else, and that is the whole discipline of it.</b> <code>--wash-pricing</code> is the one non-colour role in <code>tokens.css</code>. It is there rather than in this component for one mechanical reason: system rule 6 says a role lives in both themes or it does not exist, and a paint that reverses between a paper theme and an ink theme is exactly what that rule was written for. The alternative was a <code>[data-theme]</code> selector inside a component file, and there are <b>zero</b> of those in the 68 component files: the point of two token levels is that a component never asks which theme it is in.</p>
+    <p class="note"><b>Its strength is a measurement and not a taste.</b> The smallest ink standing on this band is <code>--text-muted</code> at 14px, so every pixel of the picture has to clear 4.5:1 against it. As generated it did not: the haze pooling low measured <b>2.75:1</b> under the closing line at seven of nine widths, and the lead dipped to 4.23:1 at 1920. The asset was lightened toward paper until its darkest pixel reads <b>4.62:1</b>, and the worst pair actually rendered is <b>4.89:1</b>, swept over nine widths in both themes. A stronger picture is available and it costs that line: it would have to move onto paper first, and that is the founder's call. The dark edition needed none of it, its ink being light and its ground dark: 7.74:1 at its worst pixel.</p>
+    <p class="note"><b>The path in the token is written from <code>components/</code> and that is a browser fact, not a preference.</b> A <code>url()</code> inside a custom property resolves against the stylesheet that <b>uses</b> the property, not the one that declares it: written as <code>assets/...</code> the token asked for <code>design/system/components/assets/</code> and returned 404, measured on the page before it was corrected. Every consumer of a token is one folder deep in <code>components/</code> or <code>patterns/</code>, so <code>../assets/</code> is the one path right from all of them. The asset itself sits at <code>design/system/assets/</code>, a shelf this change created: the system is liftable whole and now carries its own picture, 17KB light and 20KB dark.</p>
+    <p class="note"><b>The count stays declared, and it is not the hard-coded count the fluid grid exists to remove.</b> <code>repeat(3, ...)</code> is right here because the block holds exactly three prices and D4 is why. Fluid would put four or five tracks across a wide window and leave two empty on the one block whose whole job is a choice between three named things. The row also takes the whole measure now, where it used to stop at <code>--container-page</code>: with the list lifted out, a card is a price, a sentence and a button, and at 780 across three that is 253px a card, at which both button labels wrapped inside the button. At the full wrap it is 373 and neither does. <b>Between the two points they still wrap,</b> and that is stated rather than hidden: counted as line boxes, both labels take two lines from the tablet point up to 940, the yearly one settles at 940 and the monthly at 980, and from 980 neither wraps. The clean number is a card of 275, which is a third width point, and rule 8 says a third is the founder's. Nothing renders wrong in the band between - the buttons stay level and no card grows past its neighbours.</p>
+    <p class="note"><b>The band left <a href="landing-shell.html">the shell</a> rather than changing there.</b> Trust and Pricing were one rule, two sections on the surface fill. Pricing is now a fill plus a picture, which is no longer the same object - and the shell is imported after every organism, so a band rule left there could not be corrected from here at any specificity short of an argument.</p>
+    <p class="note"><b>The grey changed structure and the decision is written where the rule demands.</b> The wireframe is frozen; the founder's decision of 2026-08-15 is a comment on the section in <code>wireframes/index.html</code>, and <code>_wf.css</code> draws the same three cards and the same single list. The wash is the colour layer's and the grey has none: greyscale is the contract, and a picture is styling.</p>
+  </section>
+
+  <section class="kit-sec" id="source">
+    <h2>Where it comes from</h2>
+    <p class="note">Drawn by <code>design/system/components/landing-plan.css</code> through <code>../system/index.css</code>. It stands on <a href="../index.html">the landing</a> and its grey twin. Ground: <code>docs/decisions.md</code>, D4 and the entry of 2026-08-15. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the organism group. It hosts <a href="plan-option.html">the plan option</a> with its <a href="chip.html">chip</a>, <a href="amount.html">amount</a> and <a href="button.html">button</a>, and <a href="eyebrow.html">the eyebrow</a>, each at the size its own file gives it.</p>
+  </section>
+
+</div>
+
+<script src="_nav.js"></script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

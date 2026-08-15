@@ -251,6 +251,15 @@ edits.
 4. a row in `design/kit/docs/inventory.md`, **with its level**
 5. an `@import` in `design/system/index.css`, **into its own level group and not at the end**
 
+**And if it carries a picture, the picture belongs to the system too.** `design/system/assets/`
+opened on 2026-08-15 with the pricing wash, and it exists so the system stays liftable whole: a
+component that reached into `design/visuals/` would break the moment the folder above it moved.
+The path is written into the token as `../assets/...` and not as `assets/...`, which is a browser
+fact rather than a preference: a `url()` inside a custom property resolves against the stylesheet
+that USES the property, not the one that declares it, so the shorter form asked for
+`design/system/components/assets/` and returned 404. Every consumer of a token is one folder deep
+in `components/` or `patterns/`, so one path is right from all of them.
+
 The last two are the ones that get skipped, and they are the ones that matter most for a
 component added *after* the first build: appended at the end of the file it looks harmless, and
 that is exactly how the ladder comes apart. Anything missing means the component is not finished,
