@@ -133,6 +133,7 @@ window.KIT_NAV = {
     { name: 'Landing story',     cls: '.lp-story',     page: 'landing-story.html', was: '.lp-window, .lp-cut',          axes: 'cards: over the list / beside it at container 1280', wf: 1 },
     { name: 'Landing steps',     cls: '.lp-steps',     page: 'landing-steps.html', was: null,                          axes: 'one rail, three ordinals, three pictures of the product', wf: 1 },
     { name: 'Landing paths',     cls: '.lp-paths',     page: 'landing-paths.html', was: null,                          axes: 'two doors, each ajar on the screen it opens', wf: 1 },
+    { name: 'Landing facts',     cls: '.lp-facts',     page: 'landing-facts.html', was: '.lp-trust ul',                axes: 'four claims, three of them beside their own proof', wf: 1 },
     { name: 'Groups column set', cls: '.groups',       page: 'groups-column-set.html', was: null,                          axes: 'columns: from a 300px floor, capped at three',          wf: 4 },
     { name: 'Panel',             cls: '.panel',        page: 'panel.html', was: null,                          axes: 'head: banded h2 / summary disclosure / headless',  wf: 7 },
     { name: 'Reveal step',       cls: '.rstep',        page: 'reveal-step.html', was: null,                          axes: '-',                                     wf: 1 },

@@ -298,11 +298,51 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 .lp-card h3 { margin: 0 0 8px; font-size: 17px; }
 .lp-card p { margin: 0; color: var(--mid); font-size: 14px; }
 
-/* Trust list */
-.lp-trust ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 16px; }
-.lp-trust li { border-left: 3px solid var(--line); padding: 2px 0 2px 14px; }
-.lp-trust li strong { display: block; margin-bottom: 3px; font-size: 15px; }
-.lp-trust li span { color: var(--mid); font-size: 14px; }
+/* Trust, block 6. The four claims and the proof beside each one.
+
+   STRUCTURE CHANGED 2026-08-15 BY THE FOUNDER'S DECISION, recorded on the
+   section in index.html. It was a list of four sentences down the left edge,
+   each behind a 3px rule; three of the four now carry the object that settles
+   them, taken from the screen where that object lives. The claims themselves
+   are word for word what they were.
+
+   Three bands and not four boxes: the claim with the ledger takes the measure,
+   the two short claims pair off under it, the claim with the control takes the
+   measure again. The colour differs by styling only. */
+.lp-facts { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 10px 0 0; }
+.lp-fact { display: flex; flex-direction: column; border: 1px solid var(--line); background: var(--panel); padding: 18px; }
+.lp-fact h3 { margin: 0 0 6px; font-size: 16px; }
+.lp-fact > p { margin: 0; color: var(--mid); font-size: 14px; }
+/* the claim with nothing to show says it louder and stands centred, for the
+   reason the colour's own file gives: the Plaid claim cannot be demonstrated
+   without drawing the bank's sign-in screen, which this product does not draw */
+.lp-fact:not(:has(.fdemo)) { justify-content: center; }
+.lp-fact:not(:has(.fdemo)) > p { font-size: 15px; }
+/* the mark. In grey it is a box, as every drawn thing in this corpus is */
+.lp-fact .fmark { width: 26px; height: 26px; margin: 0 0 14px; background: var(--skel); }
+/* the proof: the real object on its own paper, inside the panel */
+.lp-fact .fdemo { margin: 16px 0 0; padding: 6px 14px; border: 1px solid var(--line); background: var(--frame); }
+.lp-fact .fdemo:last-child { margin-top: auto; }
+.lp-fact .fdemo.control { align-self: flex-start; padding: 14px; }
+.lp-fact .fpairs { margin: 0; font-size: 13px; }
+.lp-fact .fpairs > div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 8px 0; }
+.lp-fact .fpairs > div + div { border-top: 1px solid var(--line2); }
+.lp-fact .fpairs dt { color: var(--soft); }
+.lp-fact .fpairs dd { margin: 0; text-align: right; }
+.lp-fact .fswitch { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; }
+.lp-fact .fbox { flex: none; width: 20px; height: 20px; border: 1px solid var(--line); background: var(--frame); }
+.lp-fact .ft { display: block; font-size: 14px; }
+.lp-fact .fh { display: block; margin-top: 2px; font-size: 12.5px; color: var(--soft); }
+/* AFTER the rules it corrects, and the point is a WINDOW width read against a
+   STAGE. The grey landing renders inside the review stage, beside the tree
+   menu, so the pane is a long way narrower than the window: measured on this
+   page, a 900px window leaves the stage 650. The pair of short claims wants
+   about 300 apiece before the ledger above them starts breaking its values, and
+   that lands at a 1000px window. Measured, not guessed. */
+@media (min-width: 1000px) {
+  .lp-facts { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .lp-fact.anchor, .lp-fact.wide { grid-column: 1 / -1; }
+}
 
 /* Social proof */
 .lp-quotes { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 10px; }
@@ -333,7 +373,6 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
   .lp-hero .lp-wrap { padding-top: 70px; padding-bottom: 70px; }
   .lp-section .lp-wrap { padding-top: 64px; padding-bottom: 64px; }
   .lp-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
-  .lp-trust ul { grid-template-columns: 1fr 1fr; gap: 20px 34px; }
   .lp-quotes { grid-template-columns: repeat(3, 1fr); }
   .lp-footer .lp-wrap { grid-template-columns: 2fr 1fr 1fr 1fr; }
 }

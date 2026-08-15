@@ -1,0 +1,268 @@
+/* ============================================================================
+   Landing facts - organism
+   The "Trusted with your money" block: four claims about what this product can
+   and cannot do with a person's money, and beside each one the piece of the
+   product that PROVES it.
+
+   THE PROBLEM IT SOLVES, in the founder's words on 2026-08-15: "давай делать
+   теперь вот це ... хочется реально что то красивое". The block was the
+   promise list - four sentences down the left edge of the page, each behind a
+   3px grey bar - on a white band 1200 wide, so at desktop the block that
+   decides this product occupied the left third of it and the rest was empty.
+   Four claims in a column with a bar beside them is the shape of small print,
+   and small print is the exact thing this audience has learned not to believe.
+
+   THE BLOCK'S OWN LEAD PROMISES A LEDGER AND THE BLOCK DELIVERED A PARAGRAPH.
+   "Here is exactly what Tendd can and cannot do" is a promise of specifics, and
+   nothing under it was specific: four more sentences. So the repair is not a
+   prettier list, it is giving each claim the OBJECT that settles it, taken from
+   the screen where that object really lives and not invented here:
+
+     Read-only, always      the access ledger as `data-privacy.html` draws it:
+                            "Bank connection / read-only transaction history,
+                            through Plaid" and "Added by you / only what you
+                            type". That IS read-only, stated per source.
+     Bank connection        nothing, deliberately. See the Limits note below.
+     You are in control     the disconnect as `connections.html` draws it: the
+                            button, by name, "Disconnect Chase".
+     We never sell          the one preference that could have sold it, in its
+                            resting position, as `data-privacy.html` draws it:
+                            "Use my activity to improve Tendd - Off by default.
+                            We never sell your data either way."
+
+   A claim beside its own control is not the same object as a claim beside a
+   grey bar. The bar decorates the sentence; the control lets a person check it.
+
+   THE PANELS ARE RECESSED AND THE PROOF INSIDE THEM IS PAPER, which is the
+   ground inverted on purpose. This section is one of the two bands that stand
+   on --bg-surface, so a white card here would be a white card on white and the
+   hairline would be doing all the work. Sunk into the band instead, the panel
+   is a held space, and the real object inside it rises back to paper. That is
+   the only place in this system where the inner box is lighter than the outer
+   one, and the reason is the band.
+
+   ONE PETROL MARK, AND IT IS THE THIRD OF PETROL'S THREE JOBS AND NOT A FOURTH.
+   D-Concept spends the accent on the primary action, the current selection and
+   THE TRUST LINE, and this is the trust line's own block: trust-block.css
+   paints exactly this shield in exactly this role on eleven grey pages and ten
+   coloured ones. It stands on the anchor panel, the read-only claim, because
+   that is the claim the other three rest on. Nothing else here is petrol.
+
+   Reads
+     colour   --bg-surface (the proof), --bg-recessed (the panel),
+              --text-primary, --text-body, --text-action (the shield)
+     lines    --line-container (the proof's edge)
+     radii    --radius (the panel), --radius-sm (the proof)
+     spacing  --space-0, 8, 16, 24, 32
+     type     --type-title, --type-body
+     width    --container-text
+   Hosts     .pairs, .btn and .switch with its .check, every one at the size its
+             own file gives it. This file declares the boxes they stand in and
+             repaints none of them.
+   Owns      .lp-facts (the set), .lp-fact (one claim, with .anchor and .wide),
+             .fmark (the shield), .fdemo (the proof)
+   Page      design/kit/landing-facts.html
+   Stands on 1 grey page and 1 coloured one.
+   ============================================================================ */
+
+/* ---- the set --------------------------------------------------------------
+   Its own grid and not `.grid`, for the reason landing-steps.css and
+   landing-paths.css each give for theirs: `.grid` fits as many equal columns as
+   it can, and these four are not equal. One of them is the claim the other
+   three stand on and one of them is a control that wants width. A component
+   that counts columns cannot say that.
+
+   Both points are the registered ones and there is no third. Read off `body`,
+   which base.css declares as the page container. */
+.landing .lp-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+/* PAST THE TABLET POINT the anchor and the wide one take the full measure and
+   the two short claims pair off between them. Three bands, not four rows. */
+@container (min-width: 47.5rem) {
+  .landing .lp-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-24);
+  }
+  .landing .lp-fact.anchor,
+  .landing .lp-fact.wide { grid-column: 1 / -1; }
+}
+
+/* THREE BANDS AND NOT FOUR BOXES: a claim with a ledger, the two short claims
+   paired, a claim with a control. The two wide ones turn their proof out to the
+   right past the desktop point; the rule that does it is at the foot of this
+   file, with the arithmetic that makes the row spans safe.
+
+   MEASURED AND REJECTED: the anchor standing the full height of the two claims
+   beside it, in column one. It is the more interesting shape and it does not
+   survive the content - at 1440 the two short claims came to 520px against the
+   anchor's 345, so the ledger, pinned to the floor of a stretched panel, sat
+   under 175px of nothing. A hole is not air. Filling it would have meant
+   inventing a third source for the ledger or padding the claim with a sentence
+   the product does not say, and both are worse than a calmer grid. */
+
+/* ---- one claim ------------------------------------------------------------
+   Not a card: a card is paper and this is a hollow in the band. No border,
+   because the fill change IS the edge, which is the Flat Paper Rule every
+   container in this product obeys. No shadow, for the same reason a well never
+   has one: it is below the surface and not above it. */
+.landing .lp-fact {
+  display: flex;
+  flex-direction: column;
+  margin: var(--space-0);
+  padding: var(--space-24);
+  border-radius: var(--radius);
+  background: var(--bg-recessed);
+}
+.landing .lp-fact h3 {
+  margin: var(--space-0) var(--space-0) var(--space-8);
+  font-size: var(--type-title);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+.landing .lp-fact > p {
+  margin: var(--space-0);
+  max-width: var(--container-text);
+  font-size: var(--type-body);
+  color: var(--text-body);
+}
+
+/* A CLAIM WITH NOTHING TO SHOW SAYS IT LOUDER, and the rule states exactly
+   that: one step up in size for the panel that carries no proof. It is not
+   decoration for a short box. The Plaid claim is the one fact here that cannot
+   be demonstrated without drawing somebody else's sign-in screen, so it stands
+   on its sentence alone, and a sentence standing alone is read at the size of a
+   statement rather than at the size of a caption. */
+.landing .lp-fact:not(:has(.fdemo)) > p { font-size: var(--type-sub); }
+
+/* and it is centred in the panel for the same reason. Beside a claim that has a
+   control under it, a claim made only of words is the shorter box, and a grid
+   row stretches it to match: left at the top, it would read as a panel someone
+   forgot to finish. Centred, the air is on both sides of the sentence and the
+   panel reads as deliberate. */
+.landing .lp-fact:not(:has(.fdemo)) { justify-content: center; }
+
+/* ---- the shield -----------------------------------------------------------
+   The same mark trust-block.css carries, in the same role and the same ink,
+   drawn here rather than masked because the landing has no `.trust` block to
+   hang it on and a pseudo-element cannot be borrowed across components. 28px
+   is the geometry of a mark, which is neither a margin nor a gap and so is not
+   on the spacing scale - the same reading trust-block.css's own 15px takes. */
+.landing .lp-fact .fmark {
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: var(--space-0) var(--space-0) var(--space-16);
+  color: var(--text-action);
+}
+.landing .lp-fact .fmark svg { display: block; width: 100%; height: 100%; }
+
+/* ---- the proof ------------------------------------------------------------
+   Paper inside the hollow: the real object, at the real size, on the ground it
+   has everywhere else in the product. `margin-top: auto` is what makes the
+   anchor's ledger sit on the floor of a panel that has been stretched to the
+   height of the two claims beside it, instead of leaving a gap under it.
+
+   NOTHING IN HERE IS A TARGET AND TWO ATTRIBUTES SAY SO. `aria-hidden` keeps
+   the proof out of the reading order, because every word in it is already said
+   by the claim above it or belongs to another screen. `inert` is the half
+   `aria-hidden` cannot do: the switch is a real `input` and an `aria-hidden`
+   subtree with something focusable in it is a defect in the accessible tree,
+   not a decoration. `pointer-events: none` answers the pointer for the whole
+   box at once instead of repainting the button and the row that live in it. */
+.landing .lp-fact .fdemo {
+  margin: var(--space-24) var(--space-0) var(--space-0);
+  padding: var(--space-8) var(--space-16);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  pointer-events: none;
+}
+.landing .lp-fact .fdemo:last-child { margin-top: auto; }
+
+/* the pair list's own bottom margin is a gap to the next block on a screen, and
+   here it is the floor of the box */
+.landing .lp-fact .fdemo .pairs { margin-bottom: var(--space-0); }
+
+/* the disconnect stands alone, so its paper hugs it rather than running the
+   width of the panel: a 200px button adrift in a 750px box reads as a box that
+   lost its contents. `align-self` and not a width, so nothing is measured and
+   the paper is exactly the button plus its room. The button itself is not
+   repainted: only what is around it. */
+.landing .lp-fact .fdemo.control {
+  display: flex;
+  align-self: start;
+  padding: var(--space-16);
+}
+
+/* ---- the two full-measure claims, past the desktop point ------------------
+   A panel that has taken the whole width and then stacks two lines of text with
+   a ledger underneath has wasted the width it asked for. Above the desktop
+   point the claim stays on the left at its reading measure and its proof turns
+   out to the right, which is the shape both of these objects have on the screens
+   they come from: a label on the left, its value on the right.
+
+   THE ROW SPANS ARE ARITHMETIC AND NOT A GUESS. `grid-row: 1 / -1` counts to the
+   end of the EXPLICIT row grid, so each of the two states how many rows its own
+   text occupies: the anchor has three children in column one (the shield, the
+   heading, the sentence) and the wide one has two. Written as `span 5` or left
+   implicit it would either fall short or open empty rows, and the panel would
+   grow for no content. The last row is 1fr so the proof, centred against it,
+   has a column to be centred in. */
+@container (min-width: 56.25rem) {
+  .landing .lp-fact.anchor,
+  .landing .lp-fact.wide {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    column-gap: var(--space-32);
+  }
+  .landing .lp-fact.anchor { grid-template-rows: auto auto 1fr; }
+  .landing .lp-fact.wide   { grid-template-rows: auto 1fr; }
+  .landing .lp-fact.anchor .fmark,
+  .landing .lp-fact.anchor h3,
+  .landing .lp-fact.anchor > p,
+  .landing .lp-fact.wide h3,
+  .landing .lp-fact.wide > p { grid-column: 1; }
+  .landing .lp-fact.anchor .fdemo,
+  .landing .lp-fact.wide .fdemo {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    margin: var(--space-0);
+  }
+}
+
+/* ---- the entrance ---------------------------------------------------------
+   The page's own grammar: each panel rises on its own view() timeline, offset
+   behind the one before it so the set is read in the order it is written.
+   `cover` and not `entry` for the reason landing-orbit.css measured - an entry
+   range against the element's own height is a pop, a cover range is a rise.
+   THE CURVE IS THE SAME EXPO-OUT the other landing organisms declare and cannot
+   be read from here; stage 11 owns the motion scale and makes it one token, and
+   the backlog carries the debt. */
+@supports (animation-timeline: view()) {
+  .landing .lp-fact {
+    animation-name: factin;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-timeline: view();
+    animation-range: cover 0% cover 26%;
+  }
+  .landing .lp-fact:nth-child(2) { animation-range: cover 5% cover 31%; }
+  .landing .lp-fact:nth-child(3) { animation-range: cover 10% cover 36%; }
+  .landing .lp-fact:nth-child(4) { animation-range: cover 15% cover 41%; }
+}
+@keyframes factin {
+  from { opacity: 0; transform: translate3d(0, 1.5rem, 0) scale(0.97); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+/* base.css's global guard zeroes durations, and a scroll-driven animation has no
+   duration to zero: the kill has to be by name */
+@media (prefers-reduced-motion: reduce) {
+  .landing .lp-fact { animation-name: none; }
+}

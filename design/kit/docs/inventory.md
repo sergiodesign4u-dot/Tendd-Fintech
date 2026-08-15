@@ -43,7 +43,7 @@ The count is a class count, not a component count: `.row`, `.row .name`, `.row .
 
 # Part 1. The system after consolidation
 
-**64 components: 20 atoms, 23 molecules, 21 organisms.** (57 until the public page: five organisms arrived with the landing on 2026-08-14, the landing story replaced two shorter-lived ones the same day, and the landing orbit stands beside it as the CANDIDATE second hero: it is on 0 grey pages on purpose, and one of the two heroes goes when the founder chooses. 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
+**67 components: 20 atoms, 23 molecules, 24 organisms.** Recounted 2026-08-15 off the `@import` groups in `design/system/index.css`. (64 before the founder's three rebuilds of 2026-08-15, which added the landing steps, the landing paths and the landing facts; 57 until the public page, when five organisms arrived with the landing on 2026-08-14 and the landing story replaced two shorter-lived ones the same day; 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
 step 2 the same material was 68 rows, and the pre-consolidation tables are not reproduced here:
 they were a list of what the product draws, and this is a list of what the system HAS. The
 ledgers further down record how the count moved, screen by screen and stage by stage.
@@ -173,6 +173,7 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Landing story | `.lp-story` | cards: over the list / beside it | 1 | `.lp-story`, `.storypin`, `.storyhead`, `.storystack`, `.storyswap`, `.storylist`, `.sline`, `.swap`, `.storyasides`, `.scard`, `.cut1`, `.cut2`, `.cut3`, `.live`, `.gone` | `landing-story.css` | `landing-story.html`  | `.storyfigs` and `.storystack .count` deleted 2026-08-15 with the centred hero; `.storyfield`, `.srow`, `.strack` and `.stile` are dead in both corpora and their fold is a backlog row. The line and the lead grow at 47.5rem; the cards move beside the list at 80rem; the list's travel is arithmetic, not a point |
 | Landing steps | `.lp-steps` | one rail, three ordinals, three product pictures | 1 | `.lp-steps`, `.lp-step`, `.sord`, `.sdemo`, `.dgrid`, `.drow` | `landing-steps.css` | `landing-steps.html`  | organism, added and then rebuilt 2026-08-15. Hosts logo (including the initials mode), amt and chip; carries no card and no string the product does not already own. `.sord` replaced `.snum`, which numbered-steps.css declared and no longer does |
 | Landing paths | `.lp-paths` | door: bank / presets | 1 | `.lp-paths`, `.lp-path`, `.pdemo` | `landing-paths.css` | `landing-paths.html`  | organism, added 2026-08-15. Two doors side by side above the desktop point, stacked below it; each ends in a peek at the screen it opens, masked away at the card's edge. Hosts the card's own `.top` and `.kind`, logo, chip, pair list and preset tile |
+| Landing facts | `.lp-facts` | claim: with a proof / on its own. panel: anchor / short / wide | 1 | `.lp-trust ul` | `landing-facts.css` | `landing-facts.html`  | organism, added 2026-08-15, replacing the promise list on the landing. Four claims in recessed panels on the trust band, three of them beside the object that settles them; the panels turn their proof out to the right past the desktop point. Hosts pair list, button and switch row with its checkbox |
 | Site footer | `.lp-footer` | form: stacked / four columns | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem |
 | Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
 | Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | does not adapt |
@@ -538,7 +539,7 @@ more than one, and 20 of the 55 have none.
 | GC3 Summary Strip | `.summary` + h1 + `.total` + `.context` | **5** | Three implementations, zero shared classes |
 | GC4 List Item | `.row` + logo/body/name/when/amt/tag | **8** | Two named variants never render, one rendered variant the node forbids |
 | GC5 Alert Item | `.alert` + what/meta/go/newdot/prices | **2** | Only node 3.8. What 2.6 and 2.7 show is a different component |
-| GC6 Source and Trust | `.trust` (11p), `.source` (2p), `.promises` (3p), `.lp-trust` (1p) | 11 / 2 / 3 / 1 | **Four implementations under three variant names, and a fourth name in a node file** |
+| GC6 Source and Trust | `.trust` (11p), `.source` (2p), `.promises` (3p), `.lp-facts` (1p) | 11 / 2 / 3 / 1 | **Four implementations under three variant names, and a fourth name in a node file.** The landing's was `.lp-trust ul`, a byte-identical copy of the promise list; on 2026-08-15 it became `.lp-facts`, which is not a copy of anything - it hosts the pair list, the button and the switch row |
 | GC7 Gate and Chip | `.plan` (9p), `.gate` (5p), `.locked` (1p) | 9 / 5 / 1 | All four variants render, none of them on the chip's own home screen |
 
 ## Nine variants a node names and no page renders
@@ -618,12 +619,15 @@ a byte-identical rule), the account entry (`.signin` against `.acct`), the numbe
 (`.snum` against `.steps li::before`), the intro paragraph, and the two-doors block (`.lp-paths`
 against `.doors`).
 
-**One of the seven closed on 2026-08-15, and not by being retired.** The step marker pair is gone:
-the founder's rebuild of the "How Tendd works" section made the landing's ordinal a display
+**Two of the seven closed on 2026-08-15, and neither by being retired.** The step marker pair went
+first: the founder's rebuild of the "How Tendd works" section made the landing's ordinal a display
 element on a rail (`.sord`, owned by `landing-steps.css`) and the cancel guide's marker stayed a
 small quiet box in a gutter. They are no longer two editions of one thing, so `.snum` was deleted
-from `numbered-steps.css` and nothing renders it. Six pairs left, and the count above still reads
-seven because it is the record of what was found on the day it was found.
+from `numbered-steps.css` and nothing renders it. The promise list pair went the same day and the
+same way: the founder's rebuild of "Trusted with your money" gave each claim its own panel and the
+object that settles it (`.lp-facts`, owned by `landing-facts.css`), so the landing no longer
+carries a copy of `.promises` at all. Five pairs left, and the count above still reads seven
+because it is the record of what was found on the day it was found.
 
 **One of the seven has already drifted, which is the argument in one line:** `.lp-btn` has no
 `min-height: 44px`, the single rule the rest of the stylesheet enforces on every control.
@@ -645,8 +649,8 @@ stage's to make and saying so is worth more than another carried row.
 | Page roots carrying it anywhere in the repo | **1** | `wireframes/index.html:14`, `div.landing`, grey and frozen |
 | Other markup carrying it | **1** | `design/kit/plan-option.html:111`, a `div.kit-stage.landing` built to show the plan option's second host |
 | `.landing` halves that plate can reach | **4 of 57** | its subtree is `.plan-opt`, `.amt`, `.per`, `.muted`, `.btn`, so `plan-option.css`, `amount.css`, `muted-line.css`, `button.css` |
-| Distinct class tokens on the grey landing | **60** | class-token sweep of `wireframes/index.html` |
-| Of them, in the `lp-` namespace | **25** | the remaining 35 are app classes, the reviewer chrome and the root |
+| Distinct class tokens on the grey landing | **107**, recounted 2026-08-15 (was 60 before the hero, the steps, the doors and the facts were rebuilt) | class-token sweep of `wireframes/index.html` |
+| Of them, in the `lp-` namespace | **26** | the remaining 81 are the four rebuilt blocks' own parts, app classes, the reviewer chrome and the root |
 
 **The half is unworn because the one page that could wear it does not load the system.**
 `wireframes/index.html` links `_wf.css` on line 8 and links nothing else. It is the grey structure

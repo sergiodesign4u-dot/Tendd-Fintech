@@ -7,6 +7,69 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - Trusted with your money: every claim stands beside its own proof
+
+The founder: "давай делать теперь вот це ... хочется реально что то красивое", on the block
+that carries the four trust claims.
+
+**Four claims in a column with a grey bar beside them is the shape of small print,** and
+small print is the exact thing this audience has learned not to believe. The block was the
+promise list on a white band 1200 wide, so at desktop the block that decides this product
+occupied the left third of it and the rest was empty.
+
+**The block's own lead promises a ledger and the block delivered a paragraph.** "Here is
+exactly what Tendd can and cannot do" is a promise of specifics, and nothing under it was
+specific: four more sentences. So the repair is not a prettier list. Three of the four claims
+now stand beside the object that settles them, taken from the screen where that object really
+lives and not invented for the landing:
+
+- **Read-only, always** beside the access ledger as `data-privacy.html` draws it: "Bank
+  connection / read-only transaction history, through Plaid" and "Added by you / only what
+  you type".
+- **You are in control** beside the disconnect as `connections.html` draws it, by name.
+- **We never sell your data** beside the one preference that could have sold it, in the
+  resting position `data-privacy.html` gives it: "Use my activity to improve Tendd - Off by
+  default. We never sell your data either way."
+
+A claim beside its own control is not the same object as a claim beside a bar. The bar
+decorates the sentence; the control lets a person check it.
+
+**The Plaid claim carries no proof, and that is the decision.** What would prove it is the
+bank's own sign-in, and `connect-bank.html` has said since it was drawn that we do not design
+that screen and would be lying to draw it. A block about honesty does not open with an
+invented screenshot of somebody else's product. It stands on its sentence, one step larger
+and centred, and the rule that does it states the thought rather than a class:
+`:not(:has(.fdemo))`, a claim with nothing to show says it louder.
+
+**The panels are recessed and the proof inside them is paper.** The section is one of the two
+bands standing on the surface fill, so a white card here would be a white card on white. Sunk
+into the band, the panel is a held space and the real object rises back out of it. It is the
+one place in the system where the inner box is lighter than the outer one, and the band is
+the reason.
+
+**One petrol mark, and it is the third of petrol's three jobs and not a fourth.** D-Concept
+spends the accent on the primary action, the current selection and the trust line, and this
+is the trust line's own block: `trust-block.css` paints exactly this shield in exactly this
+role on eleven grey pages and ten coloured ones. It stands on the read-only claim, the one
+the other three rest on.
+
+**Rejected, measured:** the anchor panel standing the full height of the two claims beside
+it, in column one. It is the more interesting shape and it does not survive the content - at
+1440 the two short claims came to 520px against the anchor's 345, so the ledger, pinned to
+the floor of a stretched panel, sat under 175px of nothing. Filling it would have meant
+inventing a third source for the ledger or padding the claim with a sentence the product does
+not say. A hole is not air, and both cures are worse than a calmer grid.
+
+**No new strings.** Every word in every proof is already in `voice/docs/microcopy.md` under
+the screen it comes from, and the four claims did not move a comma. Nothing in a proof is a
+target: `aria-hidden` for the reading order, `inert` so the preference's checkbox cannot be
+reached, `pointer-events: none` for the pointer.
+
+New organism `landing-facts`, all five things. The grey followed by a founder's decision
+written on the section, and its two-column point is 1000 rather than 760 because the grey
+landing renders inside the review stage: a 900px window leaves the pane 650. The promise list
+loses its fourth host and is back to three screens in both corpora, recounted the same day.
+
 ## 2026-08-15 - Two ways to start: each door stands ajar on the screen it opens
 
 The founder: "теперь давай тут делать что то такое красивенькое", on the block that carried
