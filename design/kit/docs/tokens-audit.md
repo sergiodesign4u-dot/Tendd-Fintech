@@ -381,7 +381,7 @@ rather than arguable.
 
 | Variable or class | Was | Became | Why |
 |---|---|---|---|
-| the type scale | **21 sizes, no variable for any of them**, five of them half steps (14.5, 13.5, 12.5, 11.5, 10.5) | **8 steps**: `--type-display` 46, `--type-figure` 32, `--type-head` 24, `--type-title` 20, `--type-sub` 16, `--type-body` 14, `--type-meta` 12, `--type-label` 10 | Founder: no half steps. The half steps existed for no stated reason and no two of them were ever compared. **The units became `rem` on 2026-08-13** (2.875 / 2 / 1.5 / 1.25 / 1 / 0.875 / 0.75 / 0.625), which changes nothing in this table: the numbers above are what every step renders at the browser default, and the swap moved zero of 8 596 element records on all 32 coloured screens. See `docs/decisions.md`, the entry of that date |
+| the type scale | **21 sizes, no variable for any of them**, five of them half steps (14.5, 13.5, 12.5, 11.5, 10.5) | **8 steps at the fold, 9 today**: `--type-display` 46, `--type-figure` 32, `--type-head` 24, `--type-title` 20, `--type-sub` 16, `--type-body` 14, `--type-meta` 12, `--type-label` 10, plus **`--type-step` 40, added 2026-08-15** for the landing's three ordinals | Founder: no half steps. The half steps existed for no stated reason and no two of them were ever compared. **The units became `rem` on 2026-08-13** (2.875 / 2 / 1.5 / 1.25 / 1 / 0.875 / 0.75 / 0.625), which changes nothing in this table: the numbers above are what every step renders at the browser default, and the swap moved zero of 8 596 element records on all 32 coloured screens. See `docs/decisions.md`, the entry of that date |
 | the biggest folds | 13px x29, 12.5px x9, 15px x6, 21px, 11px | 14, 12, 16, 20, 12 | Nearest step, ties to the larger. 30 `font-size` declarations converted in the atom level; the molecules and organisms fold as they are written |
 | 40px, the share card total | 40px | **32px** | The one named exception. 40 is nearer 46 than 32, and 46 is exclusive to the monthly total under the One Number Rule, so it goes down instead of up |
 | the spacing scale | **27 values, no variable for any of them**, among them 1, 3, 5, 7 and 9 | **an 8px grid**: 0, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64 | Founder: an 8px grid including 8, 4, 2 and 0, with 0 a real value rather than the absence of one. 1, 3, 5, 7 and 9 are not a rhythm, they are the absence of one |
@@ -630,7 +630,7 @@ instead, and every rule is a fact about the file rather than a guess about inten
 
 | Rule | Reads |
 |---|---|
-| the type scale | the after value is one of the eight declared steps |
+| the type scale | the after value is one of the declared steps (eight at the fold, nine since `--type-step`) |
 | the 8px grid | the after value is one of the eleven declared steps |
 | composed spacing | the one named composition, `calc(--space-16 + --space-8 + --space-4)` on the Amount field, `text-input.css:140` |
 | tracking | letter-spacing is declared in em, so it follows the type step that moved |

@@ -7,6 +7,69 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - Landing steps, second look: the ordinal is the spine and the card is gone
+
+Same day, same section, after the founder looked at what was built: "ну честно говоря так
+себе... ети цифирки маленькие ну просто кошмар". The number was the complaint. The card
+was the cause, and both were replaced.
+
+**The ordinal became a display element.** It was `--type-meta` inside a 26px hairline box
+hung on a card's corner: the size of a footnote wearing the job of a section's spine. It is
+now **`--type-step`, a new step in the type scale at 40px**, set solid at 800 and tracked to
+-0.03em. It is **muted and not full ink**, which is the one place this pulls back: at 40px
+in primary ink it outweighed "How Tendd works" above it, and a step's number louder than
+the section's name is a hierarchy upside down. Big and quiet is this language's register.
+
+**Why a new token rather than `--type-figure`.** A step's ordinal and a subscription's
+amount are not one role. The amount is money the person owns and reads; the ordinal is
+structure the person counts, and it is the only number in the system that is never money.
+They can part company at any moment (system rule 4) and they already have: this one is set
+at a weight and a tracking no amount is allowed. 40px sits one clear step from 46 and from
+32.
+
+**The card is gone, and that is the bigger half of the fix.** Three identical boxes each
+holding a picture-shaped grey rectangle is the shape every SaaS page has, and a surface
+inside a surface is a card inside a card. What carries the section now: a hairline **rail**
+at the ordinals' own mid-line, interrupted by each numeral and reaching across the gap into
+the next column, so the three read as `1 ----- 2 ----- 3`; the words straight on the canvas;
+and exactly **one** raised surface per column.
+
+**The pictures stopped being placeholders.** Step 2 was a list FORMING out of skeleton bars.
+Grey bars are what a page draws when it has nothing to draw, and this product has fourteen
+real rows. Step 2 is now **the list**, with real names and real amounts from the canonical
+dataset, and step 3 is **the same list one moment later**: Netflix quiet, wearing the
+canonical Cancelled chip where its amount was. The third picture is the second picture's
+consequence. Step 1 grew from five marks to eight tiles, seven marks and the plus.
+
+**What it cost elsewhere, all of it deliberate.** `numbered-steps.css` no longer draws
+`.landing .lp-step .snum`; that rule held the landing's marker identical to the cancel
+guide's, and the two are no longer editions of one thing, so the pair is closed rather than
+aligned and the dead rule is deleted. `logo.css` gained the section's two host sizes with
+the product's other seven, because that file owns the mark's size by host. And
+`landing-shell.css` was reading **`--bg-canvas`, a role that does not exist**: the var()
+resolved to nothing and the landing has been showing `body`'s `--bg-page` since stage 07.
+Found by this file copying the wrong name and getting a background that did not paint.
+
+**Two numbers were measured rather than chosen.** The row's gap is 8 and not the real row's
+16: at the desktop point the column is 252px and a 16-gap row wants 268, so the name
+ellipsised from 900 to 939 and was clean from 940 up - the exact "content stopped fitting
+and the query has not fired" band `CLAUDE.md` names, probed at eight widths on both gaps.
+And the rail is `--line-container` and not `--line-divider`: the divider role (#eef2f3) and
+the canvas (#eef3f4) are one point apart, so the first cut of the rail rendered invisible.
+
+**The grey followed, by the rule.** The founder's decision is written as a comment on the
+section in `wireframes/index.html`; `_wf.css` draws the same rail, ordinal and list in
+greyscale. Its three-column point is **1120 and not 900**, because the grey landing renders
+inside the review stage beside the tree menu: at a 900 window this section gets 650px and a
+column 182. Not one word of copy moved.
+
+**The entrance moves the content and never the structure.** The rail and the numerals stand
+still; the panel and the words rise into them on their own `view()` timelines, offset left
+to right. A staggered column would carry its own rail with it, and three rails at three
+heights is a broken line for as long as the scroll lasts.
+
+---
+
 ## 2026-08-15 - Landing steps: the section shows the product small, on one path
 
 The founder: "посмотри примеры, насмотрись и сделай красиво, будто ты супер UI designer" -

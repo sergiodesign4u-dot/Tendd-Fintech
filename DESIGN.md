@@ -32,6 +32,12 @@ typography:
     fontWeight: 700
     lineHeight: 1.02
     letterSpacing: "-0.025em"
+  step:
+    fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: "40px"
+    fontWeight: 800
+    lineHeight: 1
+    letterSpacing: "-0.03em"
   headline:
     fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "18px"

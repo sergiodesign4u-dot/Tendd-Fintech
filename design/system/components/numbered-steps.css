@@ -38,9 +38,13 @@
    is the whole argument for this component existing rather than being three
    paragraphs with digits typed into them. The numbers are GENERATED, so they
    cannot drift from the order. The landing page proves the alternative: its
-   `.snum` writes "1", "2", "3" by hand into the markup (wireframes/index.html,
-   lines 90, 95, 100), and the day a step is inserted in the middle, the numbers
-   are wrong and nothing in the code says so. */
+   `.sord` writes "1", "2", "3" by hand into the markup, and the day a step is
+   inserted in the middle, the numbers are wrong and nothing in the code says
+   so. That is still true after the 2026-08-15 rebuild and it is still the
+   trade: a hand-written ordinal can be set at display size and put on a rail,
+   a generated one cannot be placed like that without the counter becoming the
+   layout. Three steps that have not changed since the sitemap was written is
+   what buys the risk. */
 .app .steps, .landing .steps {
   counter-reset: s;
   list-style: none;
@@ -97,30 +101,24 @@
   color: var(--text-muted);
 }
 
-/* ---- THE SECOND MARKER, AND IT IS THE SAME MARKER, 2026-08-14 -------------
-   The landing's three step cards carry their number in the markup (`.snum`)
-   rather than in a counter, because each one is an `<article>` with a heading
-   of its own and not an item in a list. The GEOMETRY is not allowed to be a
-   second opinion: same 26px box, same hairline, same meta size, same muted ink,
-   because two step markers in one product that differ by four pixels is the
-   drift this system was built to remove. What differs is placement, and only
-   placement: the list marker is absolutely positioned in the gutter of its row,
-   this one sits in the flow above its heading, because a card has no gutter.
+/* ---- THE SECOND MARKER WAS THE SAME MARKER FOR ONE DAY, AND IT IS GONE ----
+   2026-08-14 this file also drew `.landing .lp-step .snum`: the landing's three
+   step cards carried their number in the markup rather than in a counter, and
+   the geometry was held identical to the marker above (26px box, hairline, meta,
+   muted) on the ground that two step markers differing by four pixels is exactly
+   the drift this system removes.
 
-   IT IS DECLARED HERE AND NOT IN THE LANDING'S OWN FILES, which is the same call
-   button.css made about white-space and amount.css made about size: the marker
-   belongs to the file that draws markers. The grey drew it at 30px
-   (wireframes/_wf.css:182); 26 is the value the system already carries and the
-   difference is the fold, not a new decision. */
-.landing .lp-step .snum {
-  display: flex; align-items: center; justify-content: center;
-  width: 26px; height: 26px;
-  margin: var(--space-0) var(--space-0) var(--space-16);
-  border: 1px solid var(--line-container);
-  font-size: var(--type-meta);
-  font-weight: 600;
-  color: var(--text-muted);
-}
+   2026-08-15 THE FOUNDER SPLIT THEM, and the split is real rather than a relapse.
+   "ети цифирки маленькие ну просто кошмар": the landing's steps were rebuilt so
+   that the ordinal IS the section's spine, at --type-step on a hairline rail, and
+   it is now a display element and not a marker. This one is still a marker: it
+   sits in the gutter beside an instruction a person is following on somebody
+   else's site, where being small and quiet is the whole job. Same word, two
+   jobs, so two components - which is rule 4 answered in the direction it is
+   usually answered the other way.
+   The declaration is DELETED and not left to rot: nothing renders `.snum` any
+   more, on any screen, grey or coloured. What replaced it is `.sord`, owned by
+   landing-steps.css, whose page carries the reasoning. */
 
 /* NO STATES. A step is an instruction and never a target: a sweep of every
    `.steps` list on all three grey pages returns ZERO anchors inside one, even

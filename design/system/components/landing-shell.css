@@ -13,7 +13,7 @@
    are two different jobs, so they are two files.
 
    Reads
-     colour   --bg-canvas, --bg-surface, --line-container
+     colour   --bg-page, --bg-surface, --line-container
      spacing  --space-16, --space-24, --space-32, --space-48, --space-80, --space-96
      width    --container-wide, --bp-tablet, --bp-desktop
    Page      design/kit/landing-shell.html
@@ -30,8 +30,15 @@
    the sections that need to stand apart take the surface fill rather than a
    border. One shadow exists in this system and it is not spent here: depth on a
    public page is carried by the ground change, exactly as it is inside the app. */
+   THE ROLE IS --bg-page, AND IT SAID --bg-canvas UNTIL 2026-08-15. No such role
+   exists: the var() resolved to nothing, the declaration fell to transparent,
+   and the landing has been showing base.css's own --bg-page on `body` the whole
+   time. Nothing renders differently now, which is exactly why it survived two
+   accepted stages; it was found by a second file copying the wrong name and
+   getting a background that did not paint. --canvas is the PRIMITIVE behind
+   this role, and a primitive read directly is the hole rule 2 names. */
 .landing {
-  background: var(--bg-canvas);
+  background: var(--bg-page);
 }
 
 /* ---- the measure ---------------------------------------------------------

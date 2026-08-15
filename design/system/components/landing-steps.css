@@ -1,191 +1,280 @@
 /* ============================================================================
    Landing steps - organism
-   The "How Tendd works" section: three cards on one hairline path, and inside
-   each card the product itself at a small size, doing the step the words under
-   it describe. The founder, 2026-08-15: "посмотри примеры, насмотрись и сделай
-   красиво". The examples were looked at (Refero: Wealthsimple, Cake Equity,
-   GoFundMe, TidyCal and the pattern space around them), and the finding is the
-   direction: the sections that read as expensive do not decorate their steps
-   with icon clip-art, they show the PRODUCT small - and this product already
-   owns every atom needed to do that honestly.
+   The "How Tendd works" section: three ordinals on one rail, and under each of
+   them the product itself at a small size, doing the step the words describe.
 
-   THE THREE VIGNETTES ARE TRUE, WHICH IS THE WHOLE TASTE DECISION.
-     1. Connect or add     three real provider marks and a plus tile: the two
-                           doors of D2, drawn with the marks the list already
-                           uses. The plus tile is `.logo` in its initials mode,
-                           which logo.css already renders for a service with no
-                           image.
-     2. See it all, calmly a list FORMING: three rows of skeleton mark and
-                           skeleton line, which is the product's own loading
-                           grammar, plus one full row - the list arriving out
-                           of noise is this product's whole first act, said
-                           again at thumbnail size.
-     3. Cancel and save    one row going quiet: a real mark, a line, and the
-                           canonical Cancelled chip - the same label the stage
-                           above cancels three subscriptions with. REUSED, not
-                           rewritten: chip.css draws it, voice/docs/microcopy.md
-                           owns the word.
-   No new strings anywhere in them, no invented prices, no icons. Petrol keeps
-   its three jobs: nothing here is an action, a selection or the trust line, so
-   nothing here is petrol.
+   REBUILT 2026-08-15, SAME DAY, ON THE FOUNDER'S SECOND LOOK: "так себе... ети
+   цифирки маленькие ну просто кошмар". The first cut was three cards, each with
+   a 26px marker box on its top border and a washed grey well inside. Two things
+   were wrong with it and only one of them was the number.
 
-   THE PATH IS THE CARDS' OWN TOP EDGE, CONTINUED. Each marker sits ON the top
-   border of its card, and between cards a hairline continues at exactly that
-   height, so the three read as stations on one line rather than three boxes
-   with numbers in them. The intro already promises "three steps, a few
-   minutes"; the geometry now says the same sentence.
+     1. THE ORDINAL WAS A FOOTNOTE. --type-meta inside a hairline box, hung on a
+        card's corner. A three-step sequence is the section's spine, and its
+        spine was set at the size of a hint. It is now --type-step, the scale's
+        own new step, set solid at 800 and tracked to -0.03em: the first thing
+        the eye lands on in each column.
+     2. THE CARD WAS THE LAZY CONTAINER. Three identical boxes, each holding a
+        picture-shaped grey rectangle, is the shape every SaaS page has; and
+        putting a surface (the picture) inside a surface (the card) is a card
+        inside a card. The card is GONE. What is left is the rail, the ordinal,
+        the words on the canvas, and exactly ONE surface per column - a small
+        piece of the real product, which is the only thing here that deserves to
+        be raised off the page.
+
+   THE RAIL IS THE SECTION'S SENTENCE. A hairline runs at the ordinals' own
+   mid-line, is interrupted by each numeral (which carries the canvas behind it
+   and punches its own hole), and continues across the gap into the next column.
+   Read across, it is `1 ----- 2 ----- 3`: one road, three stations. The intro
+   promises "three steps, a few minutes"; the geometry now says the same
+   sentence before the words do.
+
+   THE THREE PICTURES ARE TRUE, WHICH IS THE TASTE DECISION THAT SURVIVED.
+     1. Connect or add     eight tiles: seven real provider marks and the plus,
+                           which is `.logo` in its initials mode. The two doors
+                           of D2 and the "400+ services" of the paragraph, drawn
+                           rather than claimed.
+     2. See it all, calmly THE LIST, with real names and real amounts from the
+                           canonical dataset - not skeleton bars. Grey bars are
+                           what a page shows when it has nothing to show; this
+                           product has fourteen real rows and shows three.
+     3. Cancel and save    THE SAME LIST as step 2, one row later: Netflix has
+                           gone quiet and wears the canonical Cancelled chip
+                           where its amount was. Steps 2 and 3 are one list at
+                           two moments, so the section's third picture is the
+                           second picture's consequence.
+   No new strings anywhere: the names and the amounts are the canonical dataset
+   in voice/docs/microcopy.md, the chip label is that file's own Cancelled, and
+   all three pictures are aria-hidden. Petrol keeps its three jobs - nothing
+   here is an action, a selection or the trust line, so nothing here is petrol.
 
    Reads
-     colour   --bg-surface, --bg-recessed, --line-container, --line-divider,
+     colour   --bg-page, --bg-surface, --line-container, --line-divider,
               --shadow, --text-primary, --text-muted
-     spacing  --space-0, 8, 16, 24, 32
-     geometry --radius, --radius-wash
-     type     --type-title, --type-body
-   Hosts     .logo, .logo.is-skel, .skel, .chip, .snum at their own sizes;
-             this file declares the boxes they stand in and nothing about them.
-             The marker's geometry belongs to numbered-steps.css; this file
-             owns only its PLACEMENT, which is the split that file's own
-             comment prescribes.
-   Owns      .lp-steps (the path), .lp-step's card form, .sdemo, .drow
+     spacing  --space-0, 8, 16, 24, 32, 48
+     geometry --radius
+     type     --type-step, --type-title, --type-body
+   Hosts     .logo, .amt, .chip at their own sizes; this file declares the boxes
+             they stand in and repaints none of them.
+   Owns      .lp-steps (the grid and the rail's reach), .lp-step (the column),
+             .sord (the ordinal), .sdemo (the one surface), .drow, .drow .name
    Page      design/kit/landing-steps.html
    Stands on the landing (both candidates) and its grey twin.
    ============================================================================ */
 
-/* ---- the path --------------------------------------------------------------
-   The grid draws one hairline across its own top, at the exact height of the
-   cards' top borders, and the cards (opaque, bordered) sit on it: the line
-   shows only in the gaps, which is precisely where a connection lives. z-index
-   on the cards and not on the line, because the line has no box to raise. */
-.landing .lp-steps { position: relative; }
-.landing .lp-steps::before {
+/* ---- the columns -----------------------------------------------------------
+   Its own grid and not `.grid`: the rail has to bridge the gap between two
+   columns, so this file has to KNOW the gap and the column count, and
+   `.grid`'s auto-fill knows neither at authoring time. One column below the
+   point, three above it, and the point is --bp-desktop's literal (56.25rem)
+   read off `body`, which is the page container base.css declares. */
+.landing .lp-steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-48);
+  /* the rail is the next heading level down from the section's own name, and
+     it was arriving 20px under the lead, which is the gap BETWEEN two lines of
+     one paragraph. More space above a heading than below it: 48 above the rail,
+     24 under each numeral. */
+  margin-top: var(--space-48);
+}
+.landing .lp-step {
+  position: relative;
+  margin: var(--space-0);
+  min-width: 0;
+}
+
+/* ---- the rail --------------------------------------------------------------
+   Drawn per column rather than across the section, because a section-wide line
+   is only true while the columns are side by side: stacked, it would be a line
+   above the first step and nothing above the other two. Per column it is right
+   in both layouts, and the only thing the wide layout adds is the reach across
+   the gap.
+
+   20px is half of --type-step's 40px line box, which is where the numeral's own
+   middle is. It is geometry derived from one token and it is written as the
+   literal it computes to, the way every other px in this system is.
+
+   --line-container AND NOT --line-divider, measured rather than assumed. The
+   divider role is --hairline-soft (#eef2f3) and the page's canvas is #eef3f4:
+   one point apart, so the first cut of this rail rendered INVISIBLE and the
+   three numerals floated with nothing between them. A divider is the line
+   BETWEEN two things inside a surface; this is a line ON the canvas, which is
+   the container role's own job, and at #e4e9ea it reads. */
+.landing .lp-step::before {
   content: "";
   position: absolute;
   left: var(--space-0);
   right: var(--space-0);
-  top: 13px;
-  border-top: 1px solid var(--line-divider);
+  top: 20px;
+  border-top: 1px solid var(--line-container);
 }
 
-/* ---- the card --------------------------------------------------------------
-   It re-declares the card's padding upward (24 against the base card's 16)
-   because a card carrying a picture needs more air than a card carrying a
-   paragraph, and it clears space above for the marker that sits on its edge.
-   The hover is a lift with no colour change: calm products move, they do not
-   light up. The transition rides base.css's global reduced-motion guard. */
-.landing .lp-steps .lp-step {
+/* ---- the ordinal -----------------------------------------------------------
+   In flow, at the head of its column, with the canvas behind it so the rail
+   stops at the numeral instead of striking through it. `width: max-content`
+   keeps that background exactly the size of the digit plus the air after it;
+   a block-level background would paint over the whole rail.
+
+   --text-muted AND NOT --text-primary, which is the one place this section
+   pulls back. At 40px and weight 800 in full ink the ordinal outweighed "How
+   Tendd works" above it, and a step's number louder than the section's name is
+   a hierarchy upside down. Muted keeps every pixel of the size the founder
+   asked for and gives the heading its rank back: big and quiet is the whole
+   register of this language. */
+.landing .lp-step .sord {
+  display: block;
   position: relative;
   z-index: 1;
-  margin: var(--space-0);
-  padding: var(--space-24);
-  padding-top: var(--space-32);
-  box-shadow: var(--shadow);
-  transition: translate 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  width: max-content;
+  max-width: 100%;
+  margin: var(--space-0) var(--space-0) var(--space-24);
+  padding-right: var(--space-24);
+  background: var(--bg-page);
+  font-size: var(--type-step);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
 }
-.landing .lp-steps .lp-step:hover { translate: 0 -3px; }
 
-/* the marker rides the card's top edge, centred on the border it interrupts.
-   Its geometry (26px, hairline, meta, muted) is numbered-steps.css's and is
-   not restated; the surface behind it is, so the border does not strike
-   through the numeral. */
-.landing .lp-steps .lp-step .snum {
-  position: absolute;
-  top: -13px;
-  left: var(--space-24);
-  margin: var(--space-0);
+/* ---- the one surface -------------------------------------------------------
+   A piece of the product, raised off the canvas: the same border, radius and
+   shadow a real container has, because it is standing in for one. A fixed
+   height and not a min-height, so the three headings under it stand on one line
+   across the section: three rows of 64 plus two hairlines is 194, and the tile
+   grid of step one centres itself inside the same box.
+
+   `overflow: hidden` is load-bearing rather than tidy: the rows run edge to
+   edge, so without it the first row's corners would square off the panel's. */
+.landing .lp-step .sdemo {
+  display: grid;
+  align-content: center;
+  height: 194px;
+  margin: var(--space-0) var(--space-0) var(--space-24);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius);
   background: var(--bg-surface);
-  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
-.landing .lp-steps .lp-step h3 {
+/* ---- a row -----------------------------------------------------------------
+   The product's own row at the product's own rhythm: the mark, the name that
+   takes what is left, the amount or the chip at the end. 64px tall, which is
+   the real row's 56 floor plus the air a picture wants. */
+.landing .lp-step .drow {
+  display: flex;
+  align-items: center;
+  /* 8 AND NOT THE REAL ROW'S 16, and the 40px band that decided it is written
+     here so it is not re-derived. At the desktop point the column is 252px, and
+     a row of 32px mark + 16 + "Spotify Premium" + 16 + $11.99 inside 32px of
+     padding wants 268: the name ellipsised from 900 to 939 and was clean from
+     940 up, which is exactly the "content stopped fitting and the query has not
+     fired" band CLAUDE.md names. Probed at eight widths, both gaps, and 8 is
+     clean at every one of them. It is also the right unit for a miniature: this
+     is a picture of a row at two thirds scale, not a row. */
+  gap: var(--space-8);
+  min-width: 0;
+  padding: var(--space-16);
+}
+.landing .lp-step .drow + .drow { border-top: 1px solid var(--line-divider); }
+.landing .lp-step .drow .name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.landing .lp-step .drow .amt,
+.landing .lp-step .drow .chip { flex: none; }
+/* the cancelled row. IT GOES QUIET PIECE BY PIECE AND NOT BEHIND ONE OPACITY,
+   because an opacity on the row takes the Cancelled chip down with it and the
+   chip is the one thing in that row a person has to be able to read. The mark
+   dims, the name steps back to muted, and the status stays at full strength:
+   that is what a cancelled subscription looks like in the product itself. The
+   name's colour is set on THIS component's own `.name`, which this file
+   declares eleven lines up; no atom is repainted. */
+.landing .lp-step .drow.is-off .logo { opacity: 0.45; }
+.landing .lp-step .drow.is-off .name { color: var(--text-muted); font-weight: 400; }
+
+/* ---- step one's tiles ------------------------------------------------------
+   Eight, in four columns, which is the same eight the aperture above spins and
+   is as many marks as a 262px column holds at the point. They sit on the panel
+   with no row chrome, because this picture is a CHOICE and not a list. */
+.landing .lp-step .sdemo.doors { padding: var(--space-24); }
+.landing .lp-step .sdemo.doors .dgrid {
+  display: grid;
+  /* minmax(0, 56px) and not a flat 56: at the point the column is 252px wide
+     and four flat tiles plus their gaps would be 272, so the track has to be
+     allowed to give. The tiles shrink together and the grid stays four across
+     at every width the section renders at. The tiles themselves are sized by
+     logo.css, with the product's other seven host sizes. */
+  grid-template-columns: repeat(4, minmax(0, 56px));
+  gap: var(--space-16);
+  justify-content: center;
+}
+
+/* ---- the words -------------------------------------------------------------
+   Straight on the canvas. They were inside a card and the card said nothing
+   the column was not already saying. */
+.landing .lp-step h3 {
   margin: var(--space-0) var(--space-0) var(--space-8);
   font-size: var(--type-title);
 }
-.landing .lp-steps .lp-step p {
+.landing .lp-step p {
   margin: var(--space-0);
   font-size: var(--type-body);
   color: var(--text-muted);
 }
 
-/* ---- the vignette ----------------------------------------------------------
-   A recessed well between the marker and the words: the number says where you
-   are, the picture says what happens, the words say it in language. All three
-   wells are the same height so the headings under them stand on one line
-   across the section: the tallest content (three rows of step 2) is 148, and
-   146 with centring absorbs the other two. A height and not a min-height
-   because the well is a FRAME for a fixed picture, not a container for
-   flowing text. */
-.landing .lp-steps .sdemo {
-  display: grid;
-  align-content: center;
-  justify-items: start;
-  gap: var(--space-8);
-  height: 168px;
-  margin: var(--space-0) var(--space-0) var(--space-16);
-  padding: var(--space-16);
-  background: var(--bg-recessed);
-  border-radius: var(--radius-wash);
-  overflow: hidden;
+/* ---- three columns ---------------------------------------------------------
+   --bp-desktop's literal. The gap drops from 48 to 32 because side by side the
+   columns already separate themselves, and 32 is what the rail has to bridge. */
+@container (min-width: 56.25rem) {
+  .landing .lp-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-32);
+  }
+  /* the reach across the gap, so the three rails read as one road. The last
+     column stops at its own edge: a rail running off the end of the section
+     would be a road to nowhere, and it would also be the section's first
+     horizontal overflow. */
+  .landing .lp-step:not(:last-child)::before { right: calc(-1 * var(--space-32)); }
 }
-.landing .lp-steps .drow {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-  width: 100%;
-  min-width: 0;
-  /* A ROW IS A MINIATURE ROW, NOT MARKS FLOATING IN A WELL, and the dark theme
-     is what forced the honesty. The skeleton fill and the recessed well are
-     near-identical values in dark (--skeleton-dark against --panel-dark), so
-     bars drawn straight on the well vanished there: measured, step 2 read as
-     an empty box. A real row in this product sits on --bg-surface; so does
-     this one, and the contrast question disappears in both themes because the
-     pair surface-on-recessed is already answered by the tokens. */
-  background: var(--bg-surface);
-  border-radius: var(--radius-sm);
-  padding: var(--space-8) var(--space-16);
-}
-/* the marks inside a vignette row take the list's own 28, which is the size
-   .sline already gives a mark at row scale */
-.landing .lp-steps .drow .logo { width: 28px; height: 28px; }
-/* a bar in a vignette row takes the room the fixed pieces leave */
-.landing .lp-steps .drow .skel { flex: 1 1 auto; }
-.landing .lp-steps .drow .chip { flex: none; margin-left: auto; }
-/* the second and third rows of the forming list stand progressively quieter,
-   which is the deck's own depth grammar at thumbnail size */
-.landing .lp-steps .drow + .drow { opacity: 0.55; }
-.landing .lp-steps .drow + .drow + .drow { opacity: 0.3; }
-
-/* step one's tiles: a row of marks with air between them, not a row of the
-   list - so no surface, and the marks at their full 36 */
-.landing .lp-steps .sdemo.doors { justify-items: center; }
-.landing .lp-steps .sdemo.doors .drow {
-  width: auto;
-  background: none;
-  border-radius: var(--space-0);
-  padding: var(--space-0);
-}
-.landing .lp-steps .sdemo.doors .drow .logo { width: 36px; height: 36px; }
 
 /* ---- the entrance ----------------------------------------------------------
-   The same grammar as the rest of the page: each card introduces itself as it
-   enters the window, on its own view() timeline, offset left to right so the
-   path is read in order. `cover` and not `entry` for the reason
-   landing-orbit.css measured: an entry range against the element's own height
-   is a pop, a cover range is a rise.
+   The rail and the three numerals are ALREADY THERE and never move: the
+   structure stands, and the content arrives into it. That is why the animation
+   is on the panel and the words and not on the column - a staggered column
+   would carry its own rail with it, and three rails at three heights is a
+   broken line for as long as the scroll lasts.
 
-   THE CURVE IS THE SAME EXPO-OUT landing-orbit.css DECLARES and cannot be
-   read from here (it is declared on that component's own subtree). Stage 11
-   owns the motion scale and makes this one token; until then the literal
-   carries its origin, and the backlog carries the debt. */
+   `cover` and not `entry` for the reason landing-orbit.css measured: an entry
+   range against the element's own height is a pop, a cover range is a rise.
+   THE CURVE IS THE SAME EXPO-OUT landing-orbit.css DECLARES and cannot be read
+   from here (it is declared on that component's own subtree). Stage 11 owns the
+   motion scale and makes this one token; until then the literal carries its
+   origin, and the backlog carries the debt. */
 @supports (animation-timeline: view()) {
-  .landing .lp-steps .lp-step {
+  .landing .lp-step .sdemo,
+  .landing .lp-step h3,
+  .landing .lp-step p {
     animation-name: stepin;
     animation-fill-mode: both;
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     animation-timeline: view();
+    animation-range: cover 0% cover 26%;
   }
-  .landing .lp-steps .lp-step:nth-child(1) { animation-range: cover 0% cover 24%; }
-  .landing .lp-steps .lp-step:nth-child(2) { animation-range: cover 5% cover 29%; }
-  .landing .lp-steps .lp-step:nth-child(3) { animation-range: cover 10% cover 34%; }
+  .landing .lp-step:nth-child(2) .sdemo,
+  .landing .lp-step:nth-child(2) h3,
+  .landing .lp-step:nth-child(2) p { animation-range: cover 6% cover 32%; }
+  .landing .lp-step:nth-child(3) .sdemo,
+  .landing .lp-step:nth-child(3) h3,
+  .landing .lp-step:nth-child(3) p { animation-range: cover 12% cover 38%; }
 }
 @keyframes stepin {
   from { opacity: 0; transform: translate3d(0, 1.5rem, 0) scale(0.97); }
@@ -194,5 +283,7 @@
 /* base.css's global guard zeroes durations, but a scroll-driven animation has
    no duration to zero: the kill has to be by name */
 @media (prefers-reduced-motion: reduce) {
-  .landing .lp-steps .lp-step { animation-name: none; }
+  .landing .lp-step .sdemo,
+  .landing .lp-step h3,
+  .landing .lp-step p { animation-name: none; }
 }

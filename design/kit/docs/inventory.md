@@ -171,7 +171,7 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Landing shell | `.landing` | band: canvas / surface | 1 | `.landing` | `landing-shell.css` | `landing-shell.html`  | measure and rhythm grow at 47.5rem |
 | Landing orbit | `.lp-orbit` | column / spread | 0 | `.lp-orbit`, `.osay`, `.orbit`, `.obands`, `.orow`, `.otrack`, `.ochip`, `.ocount`, `.ototal` | `landing-orbit.css` | `landing-orbit.html`  | a spread at 72rem, a local third point declared as a candidate's and not registered. `.orbit` and what it holds are host-free: the hero places one and the story's stage places another |
 | Landing story | `.lp-story` | cards: over the list / beside it | 1 | `.lp-story`, `.storypin`, `.storyhead`, `.storyfigs`, `.storystack`, `.storyswap`, `.storyfield`, `.srow`, `.strack`, `.stile`, `.storylist`, `.sline`, `.swap`, `.storyasides`, `.scard`, `.cut1`, `.cut2`, `.cut3`, `.live`, `.gone` | `landing-story.css` | `landing-story.html`  | the line and the lead grow at 47.5rem; the cards move beside the list at 80rem; the list's travel is arithmetic, not a point |
-| Landing steps | `.lp-steps` | one path, three cards | 1 | `.lp-steps`, `.lp-step`, `.sdemo`, `.drow` | `landing-steps.css` | `landing-steps.html`  | organism, added 2026-08-15. Hosts logo (initials and is-skel), skel, chip and the numbered-steps marker; the vignettes carry no string the product does not already own |
+| Landing steps | `.lp-steps` | one rail, three ordinals, three product pictures | 1 | `.lp-steps`, `.lp-step`, `.sord`, `.sdemo`, `.dgrid`, `.drow` | `landing-steps.css` | `landing-steps.html`  | organism, added and then rebuilt 2026-08-15. Hosts logo (including the initials mode), amt and chip; carries no card and no string the product does not already own. `.sord` replaced `.snum`, which numbered-steps.css declared and no longer does |
 | Site footer | `.lp-footer` | form: stacked / four columns | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem |
 | Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
 | Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | does not adapt |
@@ -616,6 +616,13 @@ and node 1.1 itself says that block **is** GC3), the promise list (`.lp-trust` a
 a byte-identical rule), the account entry (`.signin` against `.acct`), the numbered step marker
 (`.snum` against `.steps li::before`), the intro paragraph, and the two-doors block (`.lp-paths`
 against `.doors`).
+
+**One of the seven closed on 2026-08-15, and not by being retired.** The step marker pair is gone:
+the founder's rebuild of the "How Tendd works" section made the landing's ordinal a display
+element on a rail (`.sord`, owned by `landing-steps.css`) and the cancel guide's marker stayed a
+small quiet box in a gutter. They are no longer two editions of one thing, so `.snum` was deleted
+from `numbered-steps.css` and nothing renders it. Six pairs left, and the count above still reads
+seven because it is the record of what was found on the day it was found.
 
 **One of the seven has already drifted, which is the argument in one line:** `.lp-btn` has no
 `min-height: 44px`, the single rule the rest of the stylesheet enforces on every control.

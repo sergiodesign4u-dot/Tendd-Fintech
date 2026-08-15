@@ -276,7 +276,6 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 .lp-card { border: 1px solid var(--line); padding: 20px; background: var(--frame); }
 .lp-card h3 { margin: 0 0 8px; font-size: 17px; }
 .lp-card p { margin: 0; color: var(--mid); font-size: 14px; }
-.lp-step .snum { display: inline-flex; width: 30px; height: 30px; align-items: center; justify-content: center; border: 1px solid var(--line); font-weight: 700; margin-bottom: 12px; }
 
 /* Trust list */
 .lp-trust ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 16px; }
@@ -317,6 +316,7 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
   .lp-quotes { grid-template-columns: repeat(3, 1fr); }
   .lp-footer .lp-wrap { grid-template-columns: 2fr 1fr 1fr 1fr; }
 }
+
 
 /* ============================================================
    THE LIVE SCREEN SHELL (.app)
@@ -1147,15 +1147,53 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
    on the section in index.html): one grey picture per step card, boxes and bars
    in the grey's own vocabulary. The chip inside step 3 is the same .chip the
    grey stage already draws. */
-.lp-step .sdemo { display: grid; align-content: center; justify-items: start; gap: 8px; height: 120px; margin: 0 0 12px; padding: 12px; background: #ececec; overflow: hidden; }
-.lp-step .sdemo.doors { justify-items: center; }
-.lp-step .drow { display: flex; align-items: center; gap: 8px; width: 100%; min-width: 0; }
-.lp-step .sdemo.doors .drow { width: auto; }
+/* THE THREE STEPS, REBUILT 2026-08-15 on the founder's decision written on the
+   section in index.html. The card is gone: what carries the section is a
+   hairline rail, an ordinal at display size sitting on it, and one framed
+   picture per step. The picture is the product's own list, with the canonical
+   names and amounts, because grey bars are what a page draws when it has
+   nothing to draw. Structure only; not one word of copy moved. */
+.lp-steps { display: grid; grid-template-columns: 1fr; gap: 40px; margin-top: 40px; }
+.lp-step { position: relative; margin: 0; min-width: 0; }
+/* the rail, at the middle of the 36px ordinal, drawn per column so it is right
+   stacked as well as side by side */
+.lp-step::before { content: ""; position: absolute; left: 0; right: 0; top: 18px; border-top: 1px solid var(--line); }
+.lp-step .sord { display: block; position: relative; z-index: 1; width: max-content; max-width: 100%; margin: 0 0 20px; padding-right: 20px; background: var(--frame); /* the stage the grey landing renders on, not --page: measured white behind this section */ font-size: 36px; font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: var(--mid); }
+.lp-step .sdemo { display: grid; align-content: center; height: 174px; margin: 0 0 20px; border: 1px solid var(--line); background: var(--frame); overflow: hidden; }
+.lp-step .drow { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 12px; }
+.lp-step .drow + .drow { border-top: 1px solid var(--line2); }
 .lp-step .dbox { flex: none; width: 30px; height: 30px; background: var(--skel); }
-.lp-step .dbox.plus { display: inline-flex; align-items: center; justify-content: center; background: none; border: 1px dashed var(--line); font-weight: 700; }
-.lp-step .dbar { flex: 1 1 auto; height: 11px; background: var(--skel); }
-.lp-step .dbar.w80 { flex: none; width: 60%; }
-.lp-step .dbar.w60 { flex: none; width: 45%; }
+.lp-step .dname { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 600; }
+.lp-step .damt { flex: none; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.lp-step .drow.is-off .dbox { opacity: 0.45; }
+.lp-step .drow.is-off .dname { color: var(--soft); font-weight: 400; }
 .lp-step .drow .chip { margin-left: auto; flex: none; border: 1px solid var(--line); padding: 2px 8px; font-size: 12px; color: var(--mid); }
-.lp-step .drow + .drow { opacity: 0.55; }
-.lp-step .drow + .drow + .drow { opacity: 0.3; }
+/* step one's tiles: eight, four across, the eighth the plus */
+.lp-step .sdemo.doors { padding: 20px; }
+.lp-step .sdemo.doors .dgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 52px)); gap: 12px; justify-content: center; }
+.lp-step .sdemo.doors .dbox { width: 100%; height: auto; aspect-ratio: 1; }
+.lp-step .dbox.plus { display: inline-flex; align-items: center; justify-content: center; background: none; border: 1px dashed var(--line); font-size: 20px; font-weight: 700; }
+
+/* The three steps go side by side at 1120 and not at 760 with the other grids,
+   and not at 900 where the coloured layer's own point is. The grey's landing is
+   not rendered in the window: it is rendered in the review stage, beside the
+   tree menu, so at a 900 window this section gets 650px and each of three
+   columns gets 182 - and the picture inside a column is a list with a name and
+   an amount in it, which ellipsised. Measured: 650 of stage at a 900 window,
+   250 of overhead, so the stage reaches the coloured layer's own 860 at about
+   1110. 1120 is that rounded up to the nearest step. The point is the GREY's
+   own and it does not travel: the coloured screens read a container, and their
+   container is the page, which has no menu beside it.
+   The rail reaches across the gap for all but the last, so the three read as one
+   road rather than three dashes. Added 2026-08-15 with the rebuild.
+
+   IT SITS HERE AND NOT WITH THE OTHER WIDTH RULES AT 760, which is where it was
+   written first. This file's step rules are declared 800 lines below that block,
+   at the same specificity, so a query up there lost to the one-column base rule
+   down here and all three steps stacked at every width. Measured, not guessed:
+   three headings at 426, 801 and 1176 on a 1440 window. */
+@media (min-width: 1120px) {
+  .lp-steps { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .lp-step:not(:last-child)::before { right: -32px; }
+}
+

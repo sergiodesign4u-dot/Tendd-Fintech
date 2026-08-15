@@ -211,7 +211,8 @@ which is the check that the method is the same one.
 2. **Not all of it is the `lp-` namespace.** The proof page says "All 37 uncovered tokens are the
    landing's `lp-` namespace". Counted: **24 of the 36 carry the `lp-` prefix and 12 do not** -
    `cols-3`, `fbrand`, `fcol`, `list`, `pcount`, `pctx`, `plabel`, `planline`, `planmicro`,
-   `ptotal`, `signin`, `snum`. All twelve are landing-only, so the conclusion the sentence was
+   `ptotal`, `signin`, `snum` (renamed `sord` on 2026-08-15, still one class and still uncovered).
+   All twelve are landing-only, so the conclusion the sentence was
    drawing is untouched: the gap is one page. What is wrong is the remedy it implies. Retiring the
    `lp-` twins, which is what `inventory.md` ends by promising, closes 24 of 36 and leaves a
    dozen unnamed classes behind it.
