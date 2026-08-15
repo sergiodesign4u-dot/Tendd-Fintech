@@ -442,7 +442,6 @@
       --ftravel: calc(100svh - 492px);
     }
   }
-  }
   /* between the spread point and 80rem the card still lies across the foot and
      the two figures are already in the corners, so it sits a figure above them */
   .landing .lp-orbit.lp-story.fromcircle .scard { position: absolute; bottom: var(--space-96); }
@@ -1173,23 +1172,6 @@
      scroll timeline has had `linear()` for longer.
      ==================================================================== */
   .landing .lp-orbit.lp-story.fromcircle .storypin {
-    /* THE CURVES ARE LOCAL AND DELIBERATELY UNREGISTERED, exactly as this
-       candidate's two width points are. Stage 11 owns the motion scale and has
-       not run; when it does, these three go to `tokens.css` as primitives with
-       the roles named there, and this block keeps only the assignment. Carried
-       in `design/kit/docs/backlog.md`. */
-    --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-leave: cubic-bezier(0.6, 0, 0.85, 0.2);
-    --ease-settle: linear(0 0%, 0.11 6%, 0.38 17%, 0.66 27%, 0.85 36%,
-                          0.95 45%, 1.008 56%, 1.015 66%, 1.006 80%, 1 100%);
-    /* the fourth curve, and it exists for exactly one journey. The two figures
-       cross most of a viewport, which is ten times any other travel on this
-       stage, and expo-out spends a travel's whole budget in its first fifth: on
-       600px that is a rocket that then creeps, which is the harshness the
-       founder pointed at between the first two pictures. A gentle in-out
-       spreads the same 600px across the whole range, and composed with the
-       conductor's own smoothstep it reads as one soft carry. */
-    --ease-travel: cubic-bezier(0.45, 0, 0.22, 1);
     animation-timing-function: var(--ease-leave);
     /* AND THE STAGE DOES NOT DISSOLVE AT THE END, it simply stops being pinned.
        The founder, 2026-08-15: "в конце давай не делать исчезновение всего
@@ -1906,4 +1888,127 @@
   .landing .storybeats .beat:nth-child(6) { top: 189svh; }                /* contain 86: the Times gone, 11     */
   .landing .storybeats .beat:nth-child(7) { top: 220svh; }                /* the foot of the stage              */
  }
+}
+
+/* ============================================================================
+   THE PHONE'S OWN ACT
+   The founder, 2026-08-15: "на мобильном более простую, но тоже анимации".
+   Below the point the stage is a column on purpose - the choreography is a
+   wide-screen affordance, and the release above says why. But a column does
+   not have to be a dead one: on the phone every thing on it INTRODUCES ITSELF
+   as it scrolls into the window, and that is the whole act.
+
+   SIMPLER IS STRUCTURAL HERE, NOT A SMALLER COPY. There is no pin, no shared
+   timeline, no stagger table and no conductor: each element reads its own
+   `view()` timeline, so the reader's own scroll position is the stagger - a
+   row that is lower on the page arrives later because it enters later, which
+   is the same fact. Fourteen rows need one rule instead of fourteen ranges.
+   Two keyframe sets, both three properties (opacity, travel, scale), no blur:
+   blur is a paint cost, and the phone is the one place this page must never
+   spend paint it does not have to.
+
+   THE SPECIFICITY IS :nth-child(n) AND THE REASON IS IMPORT ORDER. This file
+   is imported BEFORE landing-story.css, and that file's narrow release kills
+   animation by name at 0-5-0 (`.sline.cut`, `.scard:nth-child(n)`): written
+   plain, this block's entrances would tie at 0-5-0 and lose to the later
+   file - and only on the three cancelled rows, so eleven rows would rise and
+   three would pop, which is the invisible kind of wrong. `:nth-child(n)`
+   matches everything and costs one level.
+
+   A browser without scroll timelines ignores `animation-timeline`, runs the
+   animation on the time axis with its default duration of zero, and lands on
+   the final frame: the plain column, unharmed. The reduced-motion kill is at
+   the FOOT of this file because this block itself sits after the mid-file
+   releases, and a kill has to outlive what it kills.
+   ========================================================================== */
+@supports (animation-timeline: view()) {
+  /* the curves, hoisted out of the width gate so both acts read the one set.
+     LOCAL AND DELIBERATELY UNREGISTERED, like the candidate's width points:
+     stage 11 owns the motion scale, and when it runs these go to tokens.css
+     as primitives with their roles named there. Carried in
+     `design/kit/docs/backlog.md`. */
+  .landing .lp-orbit.lp-story.fromcircle .storypin {
+    --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-leave: cubic-bezier(0.6, 0, 0.85, 0.2);
+    --ease-settle: linear(0 0%, 0.11 6%, 0.38 17%, 0.66 27%, 0.85 36%,
+                          0.95 45%, 1.008 56%, 1.015 66%, 1.006 80%, 1 100%);
+    /* the travel curve exists for exactly one journey: the two figures cross
+       most of a viewport on the wide stage, ten times any other travel, and
+       expo-out on 600px is a rocket that then creeps */
+    --ease-travel: cubic-bezier(0.45, 0, 0.22, 1);
+  }
+
+ @container story (max-width: 59.99rem) {
+  /* THE WINDOW AND THE LIST COME OUT OF THE ONE CELL, and this is a live
+     defect this act FOUND, not one it made. The stage stacks the swap's two
+     children in a single grid area - that is the whole trick of the wide
+     choreography, one thing becoming another in place - and the narrow release
+     killed the animations but never unstacked the cell: on every phone with a
+     scroll-timeline browser the fourteen rows have been drawing straight
+     through the circle's chips. Nobody saw it because every phone probe
+     measured opacity and overflow, and two opaque things in one place are
+     clean by both. Caught by the first screenshot this stage's mobile act was
+     ever given. */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap {
+    grid-template-areas: none;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > * { grid-area: auto; }
+
+  /* the window poses: it is the biggest single thing on the column and the
+     only one that arrives by scale more than by travel */
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
+    animation-name: mpose;
+    animation-fill-mode: both;
+    animation-timing-function: var(--ease-arrive);
+    animation-timeline: view();
+    animation-range: cover 0% cover 26%;
+  }
+  /* and everything else rises: one rule, fourteen rows, the scroll is the
+     stagger */
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(n),
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) {
+    animation-name: mrise;
+    animation-fill-mode: both;
+    animation-timing-function: var(--ease-arrive);
+    animation-timeline: view();
+    /* `cover` AND NOT `entry`, and the difference is the whole feel. An entry
+       range is measured against the ELEMENT's own height, and a 44px row gives
+       a 24px window: the row pops. A cover range is measured against the whole
+       traversal - element plus viewport - so 15% of it is about 130px of
+       scroll, and the row rises. */
+    animation-range: cover 0% cover 15%;
+  }
+  .landing .lp-orbit.lp-story.fromcircle .storyhead,
+  .landing .lp-orbit.lp-story.fromcircle .ocount,
+  .landing .lp-orbit.lp-story.fromcircle .ototal {
+    animation-name: mrise;
+    animation-fill-mode: both;
+    animation-timing-function: var(--ease-arrive);
+    animation-timeline: view();
+    animation-range: cover 0% cover 16%;
+  }
+ }
+}
+
+/* the two entrances, and neither is a lone fade */
+@keyframes mrise {
+  from { opacity: 0; transform: translate3d(0, 1.25rem, 0) scale(0.97); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes mpose {
+  from { opacity: 0; transform: translate3d(0, 1rem, 0) scale(0.93); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+/* a reader who asked for no motion gets the column as it stands, and this kill
+   lives at the foot of the file because the act it kills does too */
+@media (prefers-reduced-motion: reduce) {
+  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit,
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(n),
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n),
+  .landing .lp-orbit.lp-story.fromcircle .storyhead,
+  .landing .lp-orbit.lp-story.fromcircle .ocount,
+  .landing .lp-orbit.lp-story.fromcircle .ototal { animation-name: none; }
 }

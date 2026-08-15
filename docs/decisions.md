@@ -7,6 +7,40 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - D-Hero: the phone gets its own act, and the act finds a defect
+
+The founder: "на мобильном более простую, но тоже анимации".
+
+**Simpler is structural, not a smaller copy of the desktop.** Below the point the stage
+stays a column - the choreography is a wide-screen affordance and the release says why -
+but the column stops being dead: everything on it introduces itself as it scrolls into the
+window. The circle poses (scale and rise); the rows, the figures and the cards rise. No
+pin, no shared timeline, no stagger table, no conductor: each element reads its own
+`view()` timeline, so the reader's scroll position IS the stagger and fourteen rows need
+one rule instead of fourteen ranges. Two keyframe sets, three properties each, and no blur:
+blur is a paint cost, and the phone is the one place this page must never spend paint it
+does not have to.
+
+**`cover` and not `entry`, and the difference is the whole feel.** An entry range is
+measured against the element's own height, and a 44px row gives a 24px window: the row
+pops. Fifteen per cent of a cover range is about 130px of scroll, and the row rises.
+Measured mid-entrance: a visible gradient of arriving rows instead of a switch.
+
+**The specificity is `:nth-child(n)` and the reason is import order.** This file is
+imported before `landing-story.css`, whose narrow release kills animation by name at the
+same 0-5-0 on exactly the three cancelled rows: written plain, eleven rows would rise and
+three would pop, which is the invisible kind of wrong.
+
+**The first screenshot the mobile act was ever given found a live phone defect.** The stage
+stacks the swap's two children in one grid cell - the whole trick of the wide choreography,
+one thing becoming another in place - and the narrow release killed the animations but
+never unstacked the cell: on every phone with a scroll-timeline browser, the fourteen rows
+had been drawing straight through the circle's chips. Nobody saw it because every phone
+probe measured opacity and overflow, and two opaque things in one place are clean by both.
+The phone block resets the swap to a flowing column. A second, unrelated one fell out of
+the same round: a stray brace left by an earlier edit had closed the width gate early, so
+`.scard { position: absolute }` was leaking to every width.
+
 ## 2026-08-15 - D-Hero: act one gets scroll room, and the figures stand by the deck
 
 The founder, on the built page: more softness in the transition from the first picture to
