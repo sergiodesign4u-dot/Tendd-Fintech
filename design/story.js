@@ -1,5 +1,9 @@
 /* ============================================================================
-   THE CONDUCTOR. Loaded by design/index-circle.html and by nothing else.
+   THE CONDUCTOR. Loaded by design/index.html and by nothing else.
+
+   It was written for design/index-circle.html, which was that page's candidate
+   hero until 2026-08-15. The founder chose it and it became design/index.html,
+   so this file moved with it and did not change a line.
 
    It does two small things and owns no style of either:
 

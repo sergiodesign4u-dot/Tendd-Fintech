@@ -199,20 +199,25 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
    .lp-preview on this page any more and no rule for one below. */
 .lp-story { padding: 32px 0 48px; border-top: 1px solid var(--line2); }
 .lp-story .storypin { display: grid; justify-items: center; gap: 24px; padding: 0 16px; }
-.lp-story .storyhead { display: grid; justify-items: center; gap: 4px; max-width: 52ch; text-align: center; }
+/* THE HEAD LOST ITS FIGURES AND ITS CENTRE LINE, 2026-08-15, with the founder's
+   decision written on the section in index.html. The label, the total, the count
+   and the caption used to sit here; they are the two bottom corners of the
+   founder's drawing now, .ocount and .ototal below. What is left is the heading
+   and its paragraph, left aligned under the promise, which is where the colour
+   layer's pin hands the screen to them. .storyfigs is deleted with them. */
+.lp-story .saystack { display: grid; gap: 20px; width: 100%; max-width: 52ch; justify-self: start; }
+.lp-story .osay { display: grid; justify-items: start; }
+.lp-story .storyhead { display: grid; gap: 4px; max-width: 52ch; }
 .lp-story .storyhead h2 { margin: 0; font-size: 22px; font-weight: 700; }
-.lp-story .storyhead .lead { margin: 0 0 8px; font-size: 14px; color: var(--mid); }
-.lp-story .storyhead .k { margin: 0; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--soft); }
-.lp-story .storyhead .muted { margin: 0; font-size: 12px; color: var(--soft); }
-.lp-story .storyfigs { display: grid; justify-items: center; gap: 2px; }
-.lp-story .storystack { display: grid; grid-template-areas: "one"; justify-items: center; }
+.lp-story .storyhead .lead { margin: 0; font-size: 14px; color: var(--mid); }
+.lp-story .storystack { display: grid; grid-template-areas: "one"; justify-items: start; }
 .lp-story .storystack > * { grid-area: one; margin: 0; }
 /* Only the first state of each stack is shown. The other three are the states
    the colour layer swaps to on the scroll; here they would print on top of one
    another, and the grey's job is to say they exist and in what order. */
 .lp-story .storystack > * + * { visibility: hidden; }
 .lp-story .storystack .figure { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
-.lp-story .storystack .count { font-size: 14px; color: var(--mid); }
+
 
 /* `overflow: hidden` CLIPS PAINT AND NOT MEASUREMENT, which cost this corpus 204
    sideways pixels once already and 1537 the day the story was written. A track
@@ -220,15 +225,23 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
    ancestor from MEASURING it. `min-width: 0` on the swap is what stops the grid
    item resolving to its content, and it is the whole fix. */
 .lp-story .storyswap { display: grid; justify-items: center; gap: 32px; width: 100%; min-width: 0; overflow: hidden; }
-.lp-story .storyfield { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-.lp-story .srow { display: flex; }
-.lp-story .strack { display: flex; width: max-content; }
-.lp-story .stile {
-  flex: none; width: 92px; aspect-ratio: 1;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-  margin-right: 12px; background: var(--frame); border: 1px solid var(--line2);
+/* THE ROUND WINDOW, 2026-08-15. It replaced a rectangular field of three
+   drifting tracks, and the shape is the structure rather than the decoration:
+   every other object on this page is a rectangle, so a circle is the one form
+   that reads as a VIEW INTO something bigger than the frame showing it. Five
+   bands of marks and prices run inside it and are clipped by its edge, which is
+   the point - the fourteen are never all countable at once, and the count in the
+   corner is what says how many there are, in words. */
+.lp-story .orbit { width: 100%; max-width: 420px; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 50%; overflow: hidden; display: grid; align-content: center; gap: 8px; padding: 0 8px; }
+.lp-story .obands { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.lp-story .orow { display: flex; }
+.lp-story .otrack { display: flex; width: max-content; }
+.lp-story .ochip {
+  display: inline-flex; align-items: center; gap: 6px; flex: none;
+  margin-right: 8px; padding: 4px 8px;
+  background: var(--frame); border: 1px solid var(--line2);
 }
-.lp-story .stile .amt { font-size: 13px; font-weight: 600; color: var(--ink); }
+.lp-story .ochip .oprice { font-size: 13px; font-weight: 600; color: var(--ink); }
 /* Written out rather than borrowed: every other .logo rule in this file is
    scoped to .app, and the landing is not .app. The dashed square is the grey's
    own convention for "a mark goes here", the same one .app .tile .logo uses. */
@@ -237,7 +250,7 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
   display: flex; align-items: center; justify-content: center;
   border: 1px dashed var(--line); font-size: 8px; color: var(--faint);
 }
-.lp-story .stile .logo { width: 34px; height: 34px; }
+.lp-story .ochip .logo { width: 30px; height: 30px; }
 
 .lp-story .storylist { list-style: none; width: 100%; max-width: 620px; margin: 0; padding: 8px; background: var(--frame); border: 1px solid var(--line); }
 .lp-story .sline { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 2px 8px; }
@@ -266,6 +279,14 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 .lp-story .sline.cut2,
 .lp-story .sline.cut3 { border-left: 2px dotted var(--line); padding-left: 6px; }
 
+/* THE TWO BOTTOM CORNERS of the founder's drawing. In grey they are two blocks
+   under the list, in reading order; the colour layer pins them to the corners of
+   the window and counts them down there. */
+.lp-story .ocount { margin: 0; align-self: start; justify-self: start; font-size: 14px; color: var(--mid); }
+.lp-story .ocount strong { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+.lp-story .ototal { display: grid; justify-items: end; justify-self: end; text-align: right; gap: 2px; }
+.lp-story .ototal .k { margin: 0; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--soft); }
+.lp-story .ototal .muted { margin: 0; font-size: 12px; color: var(--soft); }
 .lp-story .storyasides { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 16px; width: 100%; max-width: 1040px; }
 .lp-story .scard { padding: 16px; background: var(--frame); border: 1px solid var(--line2); }
 .lp-story .scard h3 { margin: 0 0 6px; font-size: 15px; }

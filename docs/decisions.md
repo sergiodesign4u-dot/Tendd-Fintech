@@ -7,6 +7,69 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - D-Hero closed: the round window is the landing
+
+The founder: "давай теперь перенесем index-circle.html на основу index.html".
+
+**Two heroes existed for one day so they could be looked at side by side.** A centred
+promise at `design/index.html`, and at `design/index-circle.html` the founder's own drawing
+of 2026-08-14: the promise off the centre line to the left, a round window of subscription
+platforms in the middle, the count in the bottom left corner and the example total in the
+bottom right, with the hero and the stage under it merged into ONE section that pins and
+moves in place. The round window won. It IS `design/index.html` now and the centred version
+is deleted.
+
+**The loser went with it, exactly as promised.** `design/kit/landing-orbit.html` had
+written, on the day the candidate was built, that when one was picked the loser would be
+deleted with its page, its registry row and its import, and the grey would follow the
+winner in the same step. All of it was done in this step:
+
+- `landing-hero.css` lost its three `.lp-hero` layout rules and is now two type roles and
+  no box: `.lp-h1` and `.lp-lead`, both rendered inside `.osay`. The class `.lp-hero` is
+  written by no page in either corpus, so the rules are deleted rather than left to rot.
+  The eyebrow, the actions and the reassurance line are still on the page word for word;
+  landing-orbit.css places them.
+- `landing-story.css` lost `.storyfigs` and `.storystack .count`, the wrapper that stood
+  the two figures one under the other in a centred head and the count's size inside it. On
+  the winner they are the window's two bottom corners, `.ocount` and `.ototal`.
+- `design/_nav.js` lost the `circle` state. It was never a product state and the label was
+  doing a second job; there is one landing and one row.
+
+**THE GREY FOLLOWED, which is the part a candidate is not allowed to do.** Blocks 2 and 3
+of `wireframes/index.html` are one section now, carrying the promise, the section's head,
+the round window with its five bands, the list of fourteen, the two corner figures and the
+three reason cards, in that order. The founder's decision is written on the section, beside
+the two earlier D-Hero decisions of 2026-08-14, because CLAUDE.md allows a later stage to
+change structure there only that way. Not one word of copy moved.
+
+**Two pieces of the coloured markup are deliberately not in the grey, and both are declared
+rather than forgotten:** the ribbons (an aria-hidden SVG of eight coloured strands orbiting
+the window) and the beats (seven empty spans `design/story.js` reads as scroll positions).
+Neither carries structure, content or copy: one is decoration and one is a timing rig. A
+wireframe that drew them would be describing the colour layer's machinery instead of the
+product's structure.
+
+**What is left open, and it is one thing.** `landing-orbit.css` asks its own container at
+**60rem, 75rem and 85rem**. System rule 8 allows two points, both in `tokens.css`, and says
+a third is the founder's. They were written while this was a candidate, where a local point
+is a sketch; it is a shipped screen now. Each was measured and each is real (60 is where the
+spread can exist, 75 is where the corner figures clear the reason card's column, 85 is the
+widest band), and they are asked of a NAMED container rather than of the page container,
+which is not obviously the same number the rule counts. Either they are registered with
+their origins or the composition is redesigned to ask the two that exist. A verification
+step is not allowed to pick that, so it is a backlog row and the founder's call.
+
+**Also open and deliberately not done in this step:** `.storyfield`, `.srow`, `.strack` and
+`.stile` - the three drifting tracks the centred stage gathered into a list - are now dead
+in both corpora, but the rules keyed off them reach twelve places in `landing-story.css`,
+including `sgather`, two container blocks and the reduced-motion release. Removing them is
+not a deletion but a FOLD: `.fromcircle` stops being a modifier and becomes the component.
+Doing that in the same step as moving the hero would have put a refactor of the stage under
+the page the founder had just approved. Backlog row, its own step, with the seven-beat probe
+and the deck scrub before and after.
+
+---
+
 ## 2026-08-15 - Landing steps, second look: the ordinal is the spine and the card is gone
 
 Same day, same section, after the founder looked at what was built: "ну честно говоря так

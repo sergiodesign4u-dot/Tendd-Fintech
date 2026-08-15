@@ -1,8 +1,22 @@
 /* ============================================================================
    Landing hero - organism
-   The first screenful of the public page: the promise, centred, and nothing
-   else. Eyebrow, headline, one paragraph, the two actions, and the sentence
-   that says the harder thing in the same breath as the ask.
+   THE PROMISE'S TYPE, and since 2026-08-15 that is all it is: the headline and
+   the paragraph under it, at the one size the public page spends --type-hero on.
+
+   IT USED TO BE THE WHOLE FIRST SCREENFUL, centred, with its own flex column and
+   its own centring of the actions and the reassurance line. That layout is
+   DELETED. The founder chose the round window on 2026-08-15 ("давай теперь
+   перенесем index-circle.html на основу index.html"), and on the winner the
+   promise is not a centred block: it stands off the centre line to the left,
+   inside `.osay`, as the first thing the one pinned section says before it hands
+   the screen to the window. landing-orbit.css owns that placement.
+
+   WHAT SURVIVES IS EXACTLY WHAT IS STILL RENDERED: `.lp-h1` and `.lp-lead`, both
+   of them inside `.osay` on the landing today. The three rules that went
+   (`.lp-hero > .lp-wrap`, `.lp-hero .actions`, `.lp-hero > .lp-wrap > .muted`)
+   matched a class that no page writes any more, in either corpus. Deleted rather
+   than left to rot, which is the same call `numbered-steps.css` made about
+   `.snum` on the same day.
 
    IT WAS TWO COLUMNS UNTIL 2026-08-14, AND THE FOUNDER TOOK THE SECOND ONE
    AWAY. The right column held a card with the example total and a field of
@@ -25,19 +39,10 @@
      spacing  --space-0, --space-8, --space-16, --space-24, --space-32
      type     --type-hero, --type-sub
      width    --container-text
-   Hosts     .btn and .k and .muted at their own sizes; nothing here re-sizes
-             another component.
+   Hosts     nothing. It sets two type roles and no box.
    Page      design/kit/landing-hero.html
-   Stands on 1 grey page and 1 coloured one.
+   Stands on 1 grey page and 1 coloured one, inside `.osay` on both.
    ============================================================================ */
-
-.landing .lp-hero > .lp-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding-block: var(--space-32);
-}
 
 /* ---- the headline --------------------------------------------------------
    The one place --type-hero is spent. Tracked in, because at this size the
@@ -48,7 +53,9 @@
    file sets a width of its own. 52ch is a READING measure, for prose a person
    works through; a headline is read in one glance and wants to break where the
    sentence does. 14ch puts "See what you're paying for." on its own lines and
-   "Calmly." alone underneath, which is the sentence's own shape. */
+   "Calmly." alone underneath, which is the sentence's own shape. It survived the
+   move off the centre line unchanged: the shape of the sentence does not depend
+   on which edge it is read from. */
 .landing .lp-h1 {
   margin: var(--space-8) var(--space-0) var(--space-16);
   font-size: var(--type-hero);
@@ -67,8 +74,8 @@
   max-width: var(--container-text);
 }
 
-/* The reassurance under the buttons. It is the harder half of the ask and it is
-   said in the same breath, which is principle 4: say what happens with the data,
-   every time. */
-.landing .lp-hero .actions { justify-content: center; }
-.landing .lp-hero > .lp-wrap > .muted { margin: var(--space-16) var(--space-0) var(--space-0); }
+/* THE REASSURANCE LINE'S RULE WENT WITH THE CENTRED BLOCK. It is still on the
+   page - "No bank connection needed to start. Read-only, we cannot move your
+   money." is the harder half of the ask said in the same breath, which is
+   principle 4 - but it is a `.muted` inside `.osay` now, and its margin belongs
+   to the block that places it. landing-orbit.css owns it. */
