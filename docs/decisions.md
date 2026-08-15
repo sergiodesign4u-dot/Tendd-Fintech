@@ -7,6 +7,38 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - D-Hero: act one gets scroll room, and the figures stand by the deck
+
+The founder, on the built page: more softness in the transition from the first picture to
+the second, and on desktop the two figures lower, level with the deck.
+
+**Softness in a scroll-driven scene is scroll room, and act one had the least of it.** The
+promise left over 12 points of the contain phase, the figures crossed most of a viewport in
+14, and the heading arrived in 8 - the tightest choreography on the stage carrying its
+biggest movement. Now the promise leaves over 0..18, the figures travel 0..26, the heading
+lands with them at 12..26, the window gives way at 26..40 and the deck arrives at 30..45:
+act one finishes before act two begins, where before they overlapped and the deck was
+already six plates tall at the second beat - caught by the beat probe, not by eye. Beat 2
+moved to contain 26 with the movement it marks, beat 3 to 42, and the fall's internal
+stops were re-solved for its new range so the three promotions still land exactly on the
+three cancellations.
+
+**A fourth easing, for exactly one journey.** The figures cross ~600px, ten times any other
+travel on this stage, and expo-out spends its whole budget in the first fifth: on that
+distance it is a rocket that then creeps, which is the harshness the founder pointed at.
+`--ease-travel` is a gentle in-out; composed with the conductor's own smoothstep it reads
+as one soft carry.
+
+**The figures land at 336px past 75rem, and the point is a measurement.** The founder drew
+them as two boxes either side of the deck's front card (y 302), not up on the heading's
+band. Not below 75rem: the example total is a 271px block right-aligned on a 40px gutter
+and the window is 44cqw, so at 1000 the total's left edge crossed the window's rim by 31px
+and at 1120 by 13; solved for 16px of clearance the crossing stops at about 1200. Below the
+point the figures keep the top band, where three rounds have verified them. The travel from
+the foot shortens by the same 288px the landing came down by, so the foot the figures rise
+from never moves. A third local width value on the candidate, beside 60 and 85rem, all
+carried in the backlog against hero B winning.
+
 ## 2026-08-15 - D-Hero: the conductor, and why the snap had to go entirely
 
 The founder, on the built page: the animation lags frame by frame under the scroll, and it

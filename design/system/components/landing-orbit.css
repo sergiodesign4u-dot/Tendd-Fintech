@@ -407,17 +407,38 @@
      figure over its word, which put neither of them on the column the promise
      under it starts from */
   .landing .lp-orbit.lp-story.fromcircle .ocount strong { text-align: left; }
-  /* THEY LIVE IN THE TOP ROW AND START AT THE BOTTOM OF THE STAGE, which is the
-     founder's three frames in one rule. The first screen has them in the bottom
-     corners, under the promise and either side of the window; the scroll carries
-     them up to the top corners as the promise leaves, and everything after that
-     happens between them. A grid area cannot be animated, so the placement is the
-     one they END in and the travel is a transform: the stage is `100svh - 64`
-     tall, the top row and its air are 126, so the distance to the foot is
-     `100svh - 190px`. Measured against their own bottom edge at 800, 900 and
-     1080. */
+  /* THEY START AT THE BOTTOM OF THE STAGE AND RISE TO WHERE THEY NOW LIVE,
+     which is the founder's three frames in one rule. The first screen has them
+     in the bottom corners, under the promise and either side of the window; the
+     scroll carries them up as the promise leaves, and everything after that
+     happens between them. A grid area cannot be animated, so the placement is
+     the one they END in and the travel is a transform. THE TRAVEL MOVED WITH
+     THE PLACEMENT: it was `100svh - 300px` when the figures landed at 48, and
+     the foot they start from must not move when the landing does, so the 288px
+     the landing came down by comes off the travel. `336 + (100svh - 588)` is
+     the same foot `48 + (100svh - 300)` was, at every height. */
   .landing .lp-orbit.lp-story.fromcircle .ocount,
   .landing .lp-orbit.lp-story.fromcircle .ototal { --ftravel: calc(100svh - 300px); }
+  /* THE FIGURES STAND LEVEL WITH THE DECK ON A WIDE DESKTOP, on the founder's
+     mark, 2026-08-15: "пониже цифры бы поставил", drawn as two boxes either
+     side of the deck's front card rather than up on the heading's band. 336
+     puts them across the front card's face (it sits at y 302). NOT below 75rem,
+     and that is a measurement: the example total is a 271px block right-aligned
+     on a 40px gutter, and the window is 44cqw, so at a 1000px window the
+     total's left edge crossed the window's rim by 31px and at 1120 by 13.
+     Solved for a 16px clearance the crossing stops at about 1200, so between
+     the composition point and there the figures keep the top band, where three
+     rounds have verified them. A third local width value on a candidate,
+     documented on the kit page with the other two. THE TRAVEL MOVES WITH THE
+     PLACEMENT: the foot the figures start from must not move when the landing
+     comes down 288px, so the 288 comes off the travel. */
+  @container story (min-width: 75rem) {
+    .landing .lp-orbit.lp-story.fromcircle .ocount,
+    .landing .lp-orbit.lp-story.fromcircle .ototal {
+      top: 336px;
+      --ftravel: calc(100svh - 588px);
+    }
+  }
   /* between the spread point and 80rem the card still lies across the foot and
      the two figures are already in the corners, so it sits a figure above them */
   .landing .lp-orbit.lp-story.fromcircle .scard { position: absolute; bottom: var(--space-96); }
@@ -723,7 +744,7 @@
      founder's second frame its last line is half off the top of the screen: the
      page is moving under it, and a block that only loses opacity reads as a light
      going out instead. */
-  .landing .lp-orbit.lp-story.fromcircle .osay { animation-name: sup; animation-range: contain 2% contain 14%; }
+  .landing .lp-orbit.lp-story.fromcircle .osay { animation-name: sup; animation-range: contain 0% contain 18%; }
 
   /* and the two figures come up from the foot to the head of the stage over the
      same stretch, so the reader watches one movement and not two */
@@ -733,7 +754,7 @@
     animation-fill-mode: both;
     animation-timing-function: linear;
     animation-timeline: --story;
-    animation-range: contain 2% contain 16%;
+    animation-range: contain 0% contain 26%;
   }
   /* THE HEADING WAITS FOR THE CORNERS TO LAND. It used to arrive at 8%, which is
      the middle of the count's climb up the left edge: "14 subscriptions" was drawn
@@ -745,7 +766,7 @@
      is the title of the picture, and the founder's drawing of the second half has
      it there with the deck fully formed under it. So it arrives once and holds -
      the stage's own release at 88% takes it with everything else. */
-  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: sin; animation-range: contain 8% contain 16%; }
+  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: sin; animation-range: contain 12% contain 26%; }
 
   /* THE SWAP IS A FIXED BOX ON THE CENTRE LINE, not a grid track. It holds the
      window and the list one on top of the other, both centred on the page, and
@@ -1023,7 +1044,7 @@
      stands and the cascade comes out of it. */
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
     animation-name: ofold;
-    animation-range: contain 16% contain 30%;
+    animation-range: contain 26% contain 40%;
   }
   /* AND THE SWAP STOPS CLIPPING, which is the one line that lets the dive be seen
      at all. The swap is 608 tall and the window 594 of it: clipped, the window
@@ -1111,7 +1132,7 @@
        whole), 37% is contain 54 (Netflix starts to go) and 50% is contain 62 (it
        is gone and the deck has closed over it). */
     animation-name: sfall;
-    animation-range: contain 20% contain 90%;
+    animation-range: contain 30% contain 90%;
     --scardslot: 0rem;
   }
 
@@ -1157,6 +1178,14 @@
     --ease-leave: cubic-bezier(0.6, 0, 0.85, 0.2);
     --ease-settle: linear(0 0%, 0.11 6%, 0.38 17%, 0.66 27%, 0.85 36%,
                           0.95 45%, 1.008 56%, 1.015 66%, 1.006 80%, 1 100%);
+    /* the fourth curve, and it exists for exactly one journey. The two figures
+       cross most of a viewport, which is ten times any other travel on this
+       stage, and expo-out spends a travel's whole budget in its first fifth: on
+       600px that is a rocket that then creeps, which is the harshness the
+       founder pointed at between the first two pictures. A gentle in-out
+       spreads the same 600px across the whole range, and composed with the
+       conductor's own smoothstep it reads as one soft carry. */
+    --ease-travel: cubic-bezier(0.45, 0, 0.22, 1);
     animation-timing-function: var(--ease-leave);
     /* AND THE STAGE DOES NOT DISSOLVE AT THE END, it simply stops being pinned.
        The founder, 2026-08-15: "в конце давай не делать исчезновение всего
@@ -1178,12 +1207,13 @@
     animation-fill-mode: both;
     animation-timing-function: var(--ease-leave);
     animation-timeline: --story;
-    animation-range: contain 14% contain 28%;
+    animation-range: contain 24% contain 38%;
   }
 
   .landing .lp-orbit.lp-story.fromcircle .osay { animation-timing-function: var(--ease-leave); }
+  /* the figures ride the travel curve, not the arrival one: see --ease-travel */
   .landing .lp-orbit.lp-story.fromcircle .ocount,
-  .landing .lp-orbit.lp-story.fromcircle .ototal { animation-timing-function: var(--ease-arrive); }
+  .landing .lp-orbit.lp-story.fromcircle .ototal { animation-timing-function: var(--ease-travel); }
   /* the heading no longer merely appears: `sheadin` brings it up and pulls it
      into focus, and the ease is what makes it stop rather than halt */
   .landing .lp-orbit.lp-story.fromcircle .storyhead {
@@ -1226,19 +1256,19 @@
   /* 0.9 apart and 7 long: plate 2 opens at 34 and plate 14 is home at 51.8,
      which is the beat at contain 52 where the deck is meant to be whole, and
      two points clear of the first cancellation at 54. */
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2):not(.cut) { animation-range: contain 21.0% contain 26.0%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3):not(.cut) { animation-range: contain 21.9% contain 26.9%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4):not(.cut) { animation-range: contain 22.8% contain 27.8%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5):not(.cut) { animation-range: contain 23.7% contain 28.7%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6):not(.cut) { animation-range: contain 24.6% contain 29.6%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7):not(.cut) { animation-range: contain 25.5% contain 30.5%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8):not(.cut) { animation-range: contain 26.4% contain 31.4%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9):not(.cut) { animation-range: contain 27.3% contain 32.3%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10):not(.cut) { animation-range: contain 28.2% contain 33.2%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11):not(.cut) { animation-range: contain 29.1% contain 34.1%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12):not(.cut) { animation-range: contain 30.0% contain 35.0%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13):not(.cut) { animation-range: contain 30.9% contain 35.9%; }
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14):not(.cut) { animation-range: contain 31.8% contain 36.8%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(2):not(.cut) { animation-range: contain 31.0% contain 35.5%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(3):not(.cut) { animation-range: contain 31.8% contain 36.3%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(4):not(.cut) { animation-range: contain 32.6% contain 37.1%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(5):not(.cut) { animation-range: contain 33.4% contain 37.9%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(6):not(.cut) { animation-range: contain 34.2% contain 38.7%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(7):not(.cut) { animation-range: contain 35.0% contain 39.5%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(8):not(.cut) { animation-range: contain 35.8% contain 40.3%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(9):not(.cut) { animation-range: contain 36.6% contain 41.1%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(10):not(.cut) { animation-range: contain 37.4% contain 41.9%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(11):not(.cut) { animation-range: contain 38.2% contain 42.7%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(12):not(.cut) { animation-range: contain 39.0% contain 43.5%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13):not(.cut) { animation-range: contain 39.8% contain 44.3%; }
+  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14):not(.cut) { animation-range: contain 40.6% contain 45.1%; }
 
   /* a cancelled plate leaves on the exit curve: it holds while the reader reads
      the word, then goes quickly */
@@ -1520,15 +1550,14 @@
    is the gap - and a gap is a translation. */
 @keyframes sfall {
   0%     { opacity: 0; transform: translate3d(0, 1.5rem, 0) scale(0.94); }
-  10%    { opacity: 1; }
+  5%     { opacity: 1; }
+  15%    { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
   30%    { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-  26%    { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-  40%    { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-  51.4%  { opacity: 1; transform: translate3d(0, var(--pb1), 0) scale(1); }
-  60%    { opacity: 1; transform: translate3d(0, var(--pb1), 0) scale(1); }
-  71.4%  { opacity: 1; transform: translate3d(0, var(--pb2), 0) scale(1); }
-  80%    { opacity: 1; transform: translate3d(0, var(--pb2), 0) scale(1); }
-  91.4%  { opacity: 1; transform: translate3d(0, var(--pb3), 0) scale(1); }
+  43.3%  { opacity: 1; transform: translate3d(0, var(--pb1), 0) scale(1); }
+  53.3%  { opacity: 1; transform: translate3d(0, var(--pb1), 0) scale(1); }
+  66.7%  { opacity: 1; transform: translate3d(0, var(--pb2), 0) scale(1); }
+  76.7%  { opacity: 1; transform: translate3d(0, var(--pb2), 0) scale(1); }
+  90%    { opacity: 1; transform: translate3d(0, var(--pb3), 0) scale(1); }
   100%   { opacity: 1; transform: translate3d(0, var(--pb3), 0) scale(1); }
 }
 
@@ -1730,7 +1759,7 @@
      two beats rather than on one. Card 1 is whole at contain 52 and 64 and gone
      by 78; card 2 is whole at 64 and 78 and gone by 92; card 3 arrives after 78
      and is whole at 92, where it stays. */
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1) { animation-range: contain 30% contain 70%; }
+  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1) { animation-range: contain 36% contain 70%; }
   .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { animation-range: contain 60% contain 86%; }
   .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { animation-range: contain 74% contain 84%; }
  }
@@ -1866,8 +1895,8 @@
 @supports (animation-timeline: view()) {
  @container story (min-width: 60rem) {
   .landing .storybeats .beat:nth-child(1) { top: var(--space-0); }        /* the promise, the window whole      */
-  .landing .storybeats .beat:nth-child(2) { top: 40svh; }                 /* contain 18: corners up, heading in */
-  .landing .storybeats .beat:nth-child(3) { top: 88svh; }                 /* contain 40: the deck, whole        */
+  .landing .storybeats .beat:nth-child(2) { top: 57svh; }                 /* contain 26: corners down, heading in */
+  .landing .storybeats .beat:nth-child(3) { top: 92svh; }                 /* contain 42: the deck, whole        */
   .landing .storybeats .beat:nth-child(4) { top: 128svh; }                /* contain 58: Netflix gone, 13       */
   .landing .storybeats .beat:nth-child(5) { top: 158svh; }                /* contain 72: Peloton gone, 12       */
   .landing .storybeats .beat:nth-child(6) { top: 189svh; }                /* contain 86: the Times gone, 11     */
