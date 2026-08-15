@@ -7,6 +7,42 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-15 - Landing steps: the section shows the product small, on one path
+
+The founder: "посмотри примеры, насмотрись и сделай красиво, будто ты супер UI designer" -
+on the "How Tendd works" section, which was three flat cards with hand-written numerals.
+
+**The reference sweep set the direction, not the style.** Refero (Wealthsimple, Cake
+Equity, GoFundMe, TidyCal and the pattern space around them): the step sections that read
+as expensive do not decorate with icon clip-art, they show the product small. This product
+already owns every atom needed to be true at thumbnail size, so each card carries an
+aria-hidden vignette built from them: step 1 is three real provider marks and a plus tile
+(the two doors of D2, the plus being `.logo`'s own initials mode); step 2 is a list
+FORMING - one full row and two skeleton rows, the product's own loading grammar, this
+page's first act said again; step 3 is one row going quiet under the canonical Cancelled
+chip. **No new strings, no invented prices, no icons, no petrol.** Rejected: an icon set
+(the first in the product, saying less than the atoms), a screenshot in a card (the mistake
+the hero corrected on 2026-08-14), and any edit to the three steps themselves.
+
+**The path is the cards' own top edge, continued.** Each marker rides the top border of its
+card and a hairline continues at that height through the gaps, so the three read as
+stations on one line. Marker geometry stays in `numbered-steps.css`; placement is the
+host's, which is the split that file prescribes.
+
+**The dark theme forced one honesty.** Skeleton bars drawn straight on the recessed well
+vanished in dark (`--skeleton-dark` against `--panel-dark` are near-identical), so a
+vignette row became what a real row is: a miniature surface card, and the contrast question
+dissolved into a token pair that already answers it.
+
+**A new organism, all five things:** `landing-steps.css`, `design/kit/landing-steps.html`,
+the `_nav.js` row, the `inventory.md` line, the `@import` in its level group. **And the
+grey changed structure, by the rule:** the founder's decision is written as a comment on
+the section in `wireframes/index.html`, and `_wf.css` draws the same vignettes in the
+grey's own boxes-and-bars vocabulary - one drawing at two fidelities. Not one word of the
+section's copy moved. Entrances ride each card's own `view()` timeline with `cover` ranges,
+offset left to right; the expo-out literal is knowingly repeated from `landing-orbit.css`
+(it cannot be read across subtrees) and the backlog's stage-11 easing row carries it.
+
 ## 2026-08-15 - D-Hero: the phone gets its own act, and the act finds a defect
 
 The founder: "на мобильном более простую, но тоже анимации".
