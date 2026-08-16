@@ -180,7 +180,7 @@ movement says what is about to happen - and held together by **one distance**.
 | **Advance** | a direction cue, one `--nudge` toward where it points | its target is hovered | step-forward link (down), nav row, door, alert item (right) |
 | **Lift** | an identity mark: up one `--nudge`, out to 1.06. **Or the button itself**, up one `--nudge` and no scale | the target it stands in is hovered, or the button itself is | the logo in a row, an alert, a tile or a door; the destination icon in a tab; the button, added 2026-08-16 |
 | **Press** | the object itself, down one `--nudge`, at `--dur-press`. On a lifted button, back to the surface instead | held | button, row, nav row, door, tile, alert, segment, cut control, tab, checkbox (as a scale) |
-| **The crop**, not a verb | the window over the brand's letter, half way toward the whole `d` | the lockup is hovered, word included | the brand mark. It is the signature's gesture held instead of played |
+| **The crop**, not a verb | the window over the brand's letter, out to the whole `d` and back into crop A, once | the lockup is hovered, word included | the brand mark. It is the signature played on demand, and it rests nowhere but crop A |
 
 **The button gained the other half of its gesture on 2026-08-16, and the founder found it by
 hovering one.** *"при ховере я не вижу анимации"*. The fade was there and it was measured: a
@@ -293,19 +293,42 @@ true by construction: the mark was declared **not interactive** in its own file 
 a target - it is a span inside a lockup, and on none of the 55 pages that carry one is that lockup a link.
 
 **It answers anyway, and in its own words.** What moves is the **window**, not the mark: a mark that
-rose and grew would be a lift, and a lift says the object is pressable. The crop opens half way
-toward the whole letter while the pointer is on the lockup and closes when it leaves. The rule hangs
-on `.lockup:hover` rather than on the square, because a person aiming at a 22px mark with the word
-beside it is aiming at the brand: hovering the word opens it too.
+rose and grew would be a lift, and a lift says the object is pressable. The rule hangs on
+`.lockup:hover` rather than on the square, because a person aiming at a 22px mark with the word
+beside it is aiming at the brand: hovering the word plays it too.
 
-**Half way, and the half is derived rather than chosen.** The crop constant is a **local custom
-property**, `--crop-whole: 0.42`, declared on `.brand` itself - a fact about this drawing that
-nothing else in the product can want, which is the argument `landing-story.css` and
-`landing-orbit.css` already make for theirs. The signature travels from it to 1; the hover stops at
-`calc((var(--crop-whole) + 1) / 2)`. **One crop number in the file, spent by two rules.** The
-midpoint was picked off a ladder of seven crops rendered at 5x: past it the letter detaches from the
-frame and the tile loses its silhouette, because the field is the same colour as the bar and only
-the ink draws the square.
+**The first version held the window half open, and the founder killed it within the hour** - *"не
+виглядає це, м'яко говорячи, не очень"*. The reason is in the drawing rather than in the value: the
+field of this mark is the same colour as the bar behind it, so what a person sees is the ink and
+only the ink. Open the window part way and the letter shrinks off the frame's edges, the rounded
+square stops being one, and what is left standing is a bowl with a stub of stem. **There is no good
+resting crop other than crop A**, which is not a defect in the number but what rule 1 of the mark
+means.
+
+**So nothing rests anywhere: the hover PLAYS the crop and comes home.** The window opens toward the
+whole letter and settles back into crop A, once, over `--dur-signature` - `--ease-leave` on the way
+open, because that half is a leaving, and `--ease-settle` on the way home, which is the signature's
+own landing curve. Both ends are crop A, so leaving mid-run lands where staying would have, and
+every frame in between is a frame of **motion**, which is what a drawing that is only good at its
+endpoints is allowed to have. It is the **signature on demand**: same distance, same length, same
+landing, given by the page on arrival and asked for by a person here.
+
+**One crop number in the file, spent by two rules.** It is a **local custom property**,
+`--crop-whole: 0.42`, declared on `.brand` itself - a fact about this drawing that nothing else in
+the product can want, which is the argument `landing-story.css` and `landing-orbit.css` already make
+for theirs. Move it and both the signature and the hover move with it. The ladder of seven crops
+rendered at 5x is still the evidence behind it, and it says something stronger than "pick a value":
+**every intermediate crop is a bad place to stop**, which is why the shipped gesture stops at none of
+them.
+
+**And the hover found a real bug in the signature, which is worth more than the hover.** A CSS
+animation list is matched **by position**. While the two rules shared one slot, taking the pointer
+off the public page's lockup put `brandclose` back into that slot - a name the browser had not seen a
+moment earlier - and **the arrival replayed on a mouse-out**: "once per load", broken by a hover.
+They now live in two slots, and the signature's slot is spelled identically in both rules through
+`--sig-name`, which holds `brandclose` on the one lockup with the modifier and `none` everywhere
+else. Neither rule rewrites the other's half, so neither can restart it. Verified on the real page:
+after leaving the lockup, `scale` reads `none` and nothing is running.
 
 **One line had to change for it to work at all, and it is invisible.** The mark's half of the
 signature ran with `animation-fill-mode: both`, which holds the last frame forever - and a held

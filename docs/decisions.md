@@ -7,6 +7,47 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-17 - The brand's hover is played, not held, and it found a bug in the signature
+
+The founder, on the version shipped an hour earlier, with a screenshot of the held pose: **"не
+виглядає це, м'яко говорячи, не очень"**. They are right, and the reason is in the drawing rather
+than in the value that was chosen.
+
+**The field of this mark is the same colour as the bar behind it.** So the plate a person sees is
+not a plate at all: it is the ink, and only the ink. At crop A the letter is bigger than the frame
+and crosses every edge, so the ink IS a rounded square. Open the window part way and the letter
+shrinks off those edges: the square stops being a square, and what is left standing is a bowl with a
+stub of stem beside it. **There is no good resting crop other than crop A**, and that is not a
+defect in the number - it is what rule 1 of the mark means. Any held hover on this drawing would
+have had the same problem at a different value, which is why the fix is not a better number.
+
+**So nothing rests anywhere.** The hover PLAYS the crop and comes home: the window opens toward the
+whole letter and settles back into crop A, once, over `--dur-signature`, `--ease-leave` on the way
+open (that half is a leaving) and `--ease-settle` on the way home (the signature's own landing).
+Both ends are crop A, so leaving mid-run lands exactly where staying would have, and every frame
+between them is a frame of **motion** - which is what a drawing that is only good at its endpoints
+is allowed to have. No new token, no new number, no second drawing: it is **the signature on
+demand**, given by the page on arrival and asked for by a person here.
+
+**Under `prefers-reduced-motion` it is nothing at all**, and that differs from the four verbs on
+purpose. A verb held as a state still answers the pointer: a lifted mark is simply already lifted.
+A gesture with both feet in the same place has nothing to say when it is not allowed to move, and
+inventing a pose for it would be inventing the exact pose this decision removed.
+
+**And it found a real bug in the signature, which is worth more than the hover.** A CSS animation
+list is matched **by position**: change the name in a slot and the browser starts a new animation,
+leave it alone and the one already there keeps its state. While the hover and the signature shared
+one slot on the same pseudo-element, taking the pointer OFF the public page's lockup put
+`brandclose` back into that slot - a name the browser had not seen a moment earlier - so **the
+arrival replayed on a mouse-out**. "Once per load", the fence written into U14 the day before,
+broken by a pointer. They now live in two slots, and the signature's slot is spelled identically in
+both rules through a second local property, `--sig-name`: `brandclose` on the one lockup that
+carries the modifier, `none` everywhere else. Neither rule rewrites the other's half, so neither can
+restart it. Verified on both surfaces: the signature still plays once on the landing, and after
+leaving the lockup `scale` reads `none` with nothing running.
+
+---
+
 ## 2026-08-16 - The brand answers a pointer, and the button rises to meet one
 
 The founder, hovering the lockup on the public page: **"при ховере я не вижу анимации"**. Both

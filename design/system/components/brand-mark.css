@@ -30,9 +30,10 @@
    beside it already says the name in text, and no :focus-visible and no [disabled]
    are declared here - if the lockup ever becomes a link the ring belongs to the
    link and not to this square. What IS declared, since 2026-08-16, is one hover,
-   and it hangs off the LOCKUP rather than off this element: the crop opens half
-   way toward the whole letter while a person is on the brand. The reasoning is at
-   the foot of this file, beside the signature it borrows its distance from.
+   and it hangs off the LOCKUP rather than off this element: the crop PLAYS - it
+   opens toward the whole letter and settles back into crop A, once, and holds no
+   pose anywhere. The reasoning, and the founder's verdict on the version that DID
+   hold one, are at the foot of this file beside the signature it is made of.
 
    ONE SIZE, AND THAT IS THE HONEST COUNT. 22px, in the app bar. The other sizes
    of this mark exist as EXPORTED FILES rather than as CSS, which is what the
@@ -86,23 +87,42 @@
   /* THE OPEN WINDOW, AND IT IS ONE NUMBER SPENT BY TWO RULES. At this scale the
      window shows the whole letter with about four units of air around it, and
      the two things below both need it: the signature starts here, and the hover
-     goes half way here. It is a LOCAL custom property rather than a token
+     goes out here and comes back. It is a LOCAL custom property rather than a token
      because it is a fact about this drawing and nothing else in the product can
      want it; landing-story.css and landing-orbit.css already carry local
      properties on exactly that argument. The signature's own reasoning, and why
      0.42 rather than the arithmetic 0.46, is at the foot of this file. */
   --crop-whole: 0.42;
+  /* THE SIGNATURE'S NAME, CARRIED AS A VALUE, and it is here because of a bug the
+     hover found on the one bar that carries both. A CSS animation list is matched
+     BY POSITION: change the name in a slot and the browser starts a new animation,
+     leave it alone and the one already running keeps its state. The hover and the
+     signature are two rules on the same pseudo-element, so while they shared one
+     slot, taking the pointer OFF the public page's lockup put `brandclose` back
+     into it - a name the browser had not seen a moment earlier - and the ARRIVAL
+     replayed on a mouse-out. "Once per load", broken by a hover.
+
+     So they live in two slots, and the signature's slot is spelled identically in
+     both rules through this property: `brandclose` on the one lockup that carries
+     the modifier, `none` everywhere else. Neither rule ever rewrites the other's
+     half, so neither can restart it. */
+  --sig-name: none;
 }
+.app .lockup.signature .brand, .landing .lockup.signature .brand { --sig-name: brandclose; }
 
 /* ---- the letter ------------------------------------------------------------
-   THE GLYPH IS DECLARED ONCE, HERE, AND THE SVG DOES THE CROPPING. The drawing
+   THE GLYPH IS DECLARED ONCE, HERE, AND THE FRAME DOES THE CROPPING. The drawing
    is a circle of radius 23 centred at (40,60) with a 15 unit wall, and a stem 15
-   wide running from y6 to y90 with a 7.5 cap. Crop A is the window x26 y34, 46
-   by 46. Rather than scale and offset a full-square image with mask-size and
-   mask-position, the viewBox IS the window: `viewBox='26 34 46 46'` renders that
-   region and clips the rest at the SVG viewport. One consequence worth the line:
-   a new crop is a new viewBox on the same four numbers of geometry, so rule 1,
-   the letter is never redrawn, is enforced by the file rather than by discipline.
+   wide running from y6 to y90 with a 7.5 cap, on `viewBox='0 0 100 100'` - the
+   whole letter, every time. Crop A is the window x26 y34, 46 by 46, and it is
+   written three lengths below as a box on that letter, with `overflow: hidden`
+   doing the clipping.
+
+   IT WAS `viewBox='26 34 46 46'` UNTIL 2026-08-16, which put the window inside the
+   image itself, and it changed for one reason: a viewBox cannot be animated, and
+   the crop had to move. Rule 1, the letter is never redrawn, is enforced one level
+   harder than before rather than one level less: there is exactly one drawing in
+   this file and a new crop is a new box, never a new image.
 
    The mask over currentColor is the machinery app-bar.css already uses for the
    chevron and the cross, with one difference that matters: those two take
@@ -163,9 +183,11 @@
      around what a person is already looking at. */
   transform-origin: 49% 57%;
   /* The crop is the only property of this element that ever changes, so it is the
-     only one on the list. --ease-arrive both ways: the window is opening toward
-     the person on the way in, and the way out is the same event undone rather
-     than something leaving the screen. */
+     only one on the list. IT IS NOT WHAT DRIVES THE HOVER - that is an animation
+     at the foot of this file - and it is kept for the one case the animation
+     cannot cover: a person leaving mid-run. Removing an animation snaps the
+     property back to its declared value, and this line turns that snap into
+     150ms of the same curve everything else in the product arrives on. */
   transition: scale var(--dur-state) var(--ease-arrive);
 }
 
@@ -224,11 +246,12 @@
    above already draws. Measured rather than reasoned: identical at 1x and 3x. */
 .app .lockup.signature .brand::before,
 .landing .lockup.signature .brand::before {
-  animation: brandclose var(--dur-signature) var(--ease-settle) backwards;
+  animation: var(--sig-name) var(--dur-signature) var(--ease-settle) backwards,
+             none var(--dur-signature);
 }
 
 
-/* ---- THE HOVER, and it is the crop answering rather than the mark moving -----
+/* ---- THE HOVER, and it is the crop PLAYED rather than the crop HELD -----------
    The founder, 2026-08-16, hovering the lockup on the public page: "при ховере я
    не вижу анимации". True, and it was true by construction: this file's own
    header said NOT INTERACTIVE, and every other atom that answers a pointer does
@@ -237,30 +260,58 @@
 
    IT ANSWERS ANYWAY, AND IT ANSWERS IN ITS OWN WORDS. What moves is not the mark,
    which would be a lift and would say the brand is a button. What moves is the
-   WINDOW: the crop opens half way toward the whole letter, so the shape a person
-   cannot read becomes one they nearly can, and closes again when they leave. That
-   is the concept's own sentence - THE TIGHTER THE CROP, THE MORE ABSTRACT THE
-   MARK - read out loud at the size of a hover, and it is the same gesture the
-   signature makes, held instead of played.
+   WINDOW: the concept's own sentence - THE TIGHTER THE CROP, THE MORE ABSTRACT THE
+   MARK - read out loud at the size of a hover.
 
-   HALF WAY, AND THE HALF IS DERIVED RATHER THAN CHOSEN. The signature travels
-   from --crop-whole to 1; this stops at the midpoint of that path, in the same
-   units, through the same custom property. So there is ONE crop number in this
-   file and not two, and moving it moves both. Rendered as a ladder of seven crops
-   at 5x before it was picked: past the midpoint the letter starts to detach from
-   the frame and the tile loses its silhouette, because the field is the same
-   colour as the bar and only the ink draws the square.
+   THE FIRST VERSION HELD THE WINDOW OPEN AND THE FOUNDER KILLED IT THE SAME HOUR:
+   "не виглядає це, м'яко говорячи, не очень". They were right, and the reason is
+   in the drawing rather than in the value. The field of this mark is the SAME
+   COLOUR as the bar behind it, so the plate a person sees is not a plate at all -
+   it is the ink, and only the ink. Open the window part way and the letter shrinks
+   off the frame's edges: the rounded square stops being a rounded square and the
+   thing left standing is a bowl with a stub of stem beside it. There is no good
+   RESTING crop other than crop A. That is not a defect in the value, it is what
+   rule 1 of the mark means: one letterform, one window, and the window is A.
+
+   SO NOTHING RESTS ANYWHERE. The hover PLAYS the crop and comes home: the window
+   opens toward the whole letter and settles back into crop A, once, in the length
+   of the signature. Every frame in between is a frame of MOTION, which is what a
+   drawing that is only good at its endpoints is allowed to have, and the endpoint
+   is always crop A. Leave mid-run and the mark is at crop A again, because that is
+   where both ends of this animation are.
+
+   IT IS THE SIGNATURE, ON DEMAND. Same distance (--crop-whole), same length
+   (--dur-signature), same landing curve (--ease-settle). The signature is that
+   gesture given by the page on arrival; this is the same gesture asked for by a
+   person. The opening half takes --ease-leave, because that half IS a leaving: the
+   crop lets go of the frame quickly and then hands over. There is no new token, no
+   new number and no second drawing anywhere in this file.
 
    THE HOST IS THE LOCKUP AND NOT THE MARK. A person aiming at a 22px square with
    a 46px word beside it is aiming at the brand, and the two halves are one object:
-   hovering the word opens the window too. It also means the rule stays out of the
-   way of the day the lockup becomes the way home - the anchor gets the ring, this
-   keeps the crop.
+   hovering the word plays it too. It also means the rule stays out of the way of
+   the day the lockup becomes the way home - the anchor gets the ring, this keeps
+   the crop.
 
    NO GUARD OF ITS OWN. base.css takes every duration to 0.01ms under
-   prefers-reduced-motion, so under stillness the window is simply already open
-   while the pointer is there: a state, exactly like a colour. */
+   prefers-reduced-motion, so under stillness the mark simply stays at crop A and
+   the hover is nothing at all. That is the correct answer here and it differs from
+   the four verbs on purpose: a verb held as a state still ANSWERS the pointer,
+   while a gesture with both feet at the same place has nothing to say when it is
+   not allowed to move. */
+@keyframes brandplay {
+  0%   { scale: 1;                animation-timing-function: var(--ease-leave); }
+  36%  { scale: var(--crop-whole); animation-timing-function: var(--ease-settle); }
+  100% { scale: 1; }
+}
 .app .lockup:hover .brand::before,
 .landing .lockup:hover .brand::before {
-  scale: calc((var(--crop-whole) + 1) / 2);
+  animation: var(--sig-name) var(--dur-signature) var(--ease-settle) backwards,
+             brandplay var(--dur-signature);
 }
+/* NO FILL MODE, AND THAT IS THE SAME TRAP THE SIGNATURE FELL INTO ONE COMMIT
+   EARLIER, avoided here rather than repeated: a filled animation outranks every
+   declaration under it forever. This one has nothing to hold anyway - it ends
+   where it started, at crop A - and leaving it unfilled means the element is
+   released the instant the pointer goes, which is what lets the transition three
+   blocks up carry the mark home if a person leaves mid-run. */

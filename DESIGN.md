@@ -548,7 +548,7 @@ pushes down.
 | **Advance** | a direction cue, one nudge toward where it points | its target is hovered |
 | **Lift** | an identity mark: up one nudge, out to 1.06. Or the button itself, up one nudge and no scale | the target it stands in is hovered, or the button itself is |
 | **Press** | the object itself, down one nudge, at 90ms. On a lifted button, back to the surface instead | held |
-| **The crop**, the brand's own and not a verb | the window over the letter, half way toward the whole `d` | the lockup is hovered, word included |
+| **The crop**, the brand's own and not a verb | the window over the letter, out to the whole `d` and back into crop A, once | the lockup is hovered, word included |
 
 ### The fade
 One rule, in `base.css`, on `:where(a, button, input, select, textarea, summary, label)`:
@@ -602,13 +602,18 @@ the public page's bar and once per load. It is an arrival rather than an answer,
 fenced by a modifier: inside the app the mark never moves. A mark that moves every time you open
 the product is not a signature.
 
-**And the same gesture, held, is the brand's answer to a pointer.** Hovering the lockup - the word
-as well as the mark - opens the window half way toward the whole letter and closes it again on the
-way out. What moves is the window and never the mark: a mark that rose and grew would be a lift,
-and a lift says the object is pressable, which the brand is not on any screen in this product. The
-distance is not a second number, it is the midpoint of the signature's own path, through the one
-crop constant both rules read. Unlike the signature this is not fenced: it is an answer, and an
-answer belongs everywhere the object stands.
+**And the same gesture, played, is the brand's answer to a pointer.** Hovering the lockup - the word
+as well as the mark - opens the window toward the whole letter and settles it back into crop A,
+once. What moves is the window and never the mark: a mark that rose and grew would be a lift, and
+a lift says the object is pressable, which the brand is not on any screen in this product.
+**It holds no pose, and that is the rule rather than the taste.** The mark's field is the same
+colour as the surface behind it, so what a person sees is the ink alone; any part-open crop shrinks
+the letter off the frame and the rounded square stops being one. There is no good resting crop
+other than crop A, so both ends of this gesture are crop A and everything between them is motion.
+It costs no second number: same distance, same length, same landing curve as the signature. Unlike
+the signature it is not fenced - it is an answer, and an answer belongs everywhere the object
+stands - and under `prefers-reduced-motion` it is nothing at all, because a gesture with both feet
+in one place has nothing to say when it may not move.
 
 **An exit is always shorter than its entrance.** A thing appearing should be there before you have
 finished noticing it; a thing leaving should not snatch itself away.
