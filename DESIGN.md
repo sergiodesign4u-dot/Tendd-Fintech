@@ -299,13 +299,19 @@ chosen against. The boundary that *identifies* a control is a separate role and 
 | `--line-container-hover` | line | `--bg-surface` | 1.47 | 1.47 | decorative |
 | `--line-action-soft` | line | `--bg-surface` | 1.18 | 1.20 | decorative, a hint under text that already carries 4.8:1 |
 
-**One role in the file is not a colour, and it is in neither table above.** `--wash-pricing`,
-added 2026-08-15, is an IMAGE: the atmospheric picture behind the pricing band, a watercolour mist
-rising off pale paper in the light theme and the same composition over dark water in the dark one.
-It is a role rather than a line in a component for the reason every role exists - it lives in both
-themes or it does not exist, and a picture that reverses between a paper theme and an ink theme is
-exactly that case. It is read UNDER a `background-color` and never instead of one, so a band has a
-ground before the picture loads.
+**Two roles in the file are not colours, and neither is in the tables above.** `--wash-pricing`
+(2026-08-15) and `--wash-final` (2026-08-16) are IMAGES: the atmospheric picture behind the pricing
+band, a watercolour mist rising off pale paper in the light theme and the same composition over dark
+water in the dark one; and the horizon behind the landing's closing band, still water under a pale
+sky, the same water at dusk. They are roles rather than lines in a component for the reason every
+role exists - a role lives in both themes or it does not exist, and a picture that reverses between
+a paper theme and an ink theme is exactly that case. Both are read UNDER a `background-color` and
+never instead of one, so a band has a ground before the picture loads.
+
+**Two bands carry a picture and seven do not, and the line between them is not taste.** The two
+that carry one are the two that ASK: pricing asks for money, the closing band asks for the sign-up.
+The seven that argue carry none. That is the whole of the rule, and the next block that wants a
+picture answers it.
 
 **The contrast is solved in the composition and not in the asset**, which is what lets the picture
 be a picture: the band lays its own ground over it at both ends, so the picture is a HORIZON that
@@ -318,8 +324,17 @@ fetches the asset. What is measured is the RENDERED pair and not the file: **5.7
 swept over nine widths in both themes, on a ground of 255,255,255 - the ink's own token contrast on
 bare paper. Two earlier pictures were
 lightened almost to nothing trying to make the asset carry the contrast alone, and that is the
-mistake this arrangement exists to correct. One band, and nowhere else: a texture that spreads
-stops being quiet.
+mistake this arrangement exists to correct.
+
+**The closing band solves the same problem the fourth way, because its text sits in the middle.**
+There is no gap to fade a picture out of when the message is at the centre of the band, so the
+message stands on a SHEET of `--bg-surface` instead: contrast solved structurally, with no
+per-width sweep, and by the material logic the whole system is built on - the thing you are looking
+at is the thing on paper. The sheet takes the one elevation, because paper laid on a picture with
+nothing under it reads as a hole cut in the picture. Its band fades only at the FOOT, into the
+footer's own paper, and not at the top: the picture's first rows measure 241,241,232 against a page
+ground of 238,243,244 in the light theme and 5,20,22 against 14,21,23 in the dark, so the sky
+already arrives at the colour of the band above it.
 
 The four state tokens are in that table because a state is a token and not a style: nothing
 inside a `:hover` or a `:focus-visible` block is a hex or a number anywhere in this system, which

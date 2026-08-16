@@ -7,6 +7,62 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - D-Wash amended: the closing band carries a horizon, and its message stands on paper
+
+The founder, on the last block of the landing: "давай теперь делать очень красиво ... надо добавить
+картинку фон".
+
+**This amends D-Wash and the amendment is named rather than slipped in.** D-Wash of 2026-08-15 says
+ONE band carries a picture, "not the page, not the trust band, not a card", on the ground that a
+texture which spreads stops being quiet. It is two now, and the edge is narrower than "two": **the
+two bands that carry a picture are the two that ASK** - one for money, one for the sign-up - and
+the seven that argue carry none. That is a rule with an edge rather than a licence, and the next
+block that wants a picture has to answer it.
+
+**A horizon and not a second mist.** Still water under a pale sky in the light theme, the same water
+at dusk in the dark one, in loose watercolour: the same palette and the same hand as the pricing
+wash, and a different motif, because a page that ends on the picture it already showed reads as a
+page that ran out of ideas. A horizon is also what an ending looks like. Two files on the system's
+own asset shelf, 34KB light and 22KB dark, read through `--wash-final`, the second non-colour role
+in `tokens.css`.
+
+**The message stands on a sheet, and the sheet is the wrap.** Contrast over a picture was solved
+three ways in three days and this is the fourth situation: here the text sits in the MIDDLE of the
+band, so there is no gap to fade the picture out of. Paper solves it structurally and permanently -
+no per-width sweep, and D-Concept's own material logic, which is that the thing you are looking at
+is the thing on paper. It costs no markup on either corpus, because the wrap is already the element
+that carries this block's measure and a sheet is a measure with paper under it. It takes the one
+elevation, for the reason the pricing cards recorded the day before: paper laid on a picture with
+nothing under it reads as a hole cut in the picture.
+
+**Both ends of the band are measured, and only one of them needed anything.** At the top the
+picture's own first rows are 241,241,232 against a page ground of 238,243,244 in the light theme,
+and 5,20,22 against 14,21,23 in the dark: the sky already arrives at the colour of the band above
+it, so nothing is done there and the hairline is removed instead, because a line drawn across a
+picture is a line and not a boundary. At the foot the band meets the footer, which is `--bg-surface`
+in both themes, so the water dissolves into the footer's own paper over the last 120px and the page
+ends with no seam.
+
+**Below the tablet point there is no picture and therefore no sheet.** A horizon is what a wide band
+stands on; a phone-width column would crop it to nothing, a sheet with no picture under it has
+nothing to lift the message off, and made a sheet the wrap ran its rounded corners into the
+viewport at 390, measured. A `background-image` inside a query that does not match is never fetched,
+so a phone downloads neither wash.
+
+**And the ask uncovered a desync that had been shipping since the rollout.** The lead was not
+centred in the one centred block on the page: `.lp-lead` is the hero's lead and carries a ~525px
+measure with no margins, because in the hero it stands in a left-aligned column. Measured at 1440,
+the sentence sat from 120 to 645 inside a wrap running 80 to 1360. The grey has had
+`margin-left: auto; margin-right: auto` on it since the wireframes, so it was a rollout desync and
+not a decision.
+
+**The band left `landing-shell.css`,** by the precedent set the day before: the shell holds the
+bands that are a FILL, and a fill plus a picture stopped being the same object. `landing-final.css`
+is the product's 69th component and its 26th organism, recounted by script off the `@import` groups
+in the same step.
+
+---
+
 ## 2026-08-16 - The FAQ, rebuilt: the card goes, the plus comes back, the heading takes a column
 
 The founder, with a reference: "давай делать ... сделай красиво". The reference shows a heading
