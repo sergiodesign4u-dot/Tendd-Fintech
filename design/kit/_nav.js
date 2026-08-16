@@ -56,7 +56,7 @@ window.KIT_NAV = {
        carries and the project comes back at the panel's foot. The note says census
        rather than scale on purpose: on 2026-08-16 this page holds what moves, not yet
        what should. */
-    { name: 'Motion',       file: 'motion.html',       page: 'motion.html',       note: 'the census: what moves, the four curves, and the 26 components that do not' }
+    { name: 'Motion',       file: 'motion.html',       page: 'motion.html',       note: 'four curves and five jobs, two durations, and one state change: colour over 150ms' }
   ],
 
   atoms: [

@@ -57,7 +57,13 @@
   display: inline-block; height: 12px;
   background: var(--bg-placeholder);
   border-radius: var(--radius-xs);
-  animation: pulse 1.4s ease-in-out infinite;
+  /* THE 1.4s IS A TOKEN SINCE 2026-08-16, and this component's own page has been
+     naming the appointment since stage 07: "not a token, and not in this file.
+     Stage 11 owns motion and will put the duration behind one". The value did not
+     move by a millisecond. `ease-in-out` stays a keyword and not a token: it is a
+     CSS default with a name, the loop breathes symmetrically in and out, and there
+     is nothing about it a second consumer could ever need to agree with. */
+  animation: pulse var(--dur-pulse) ease-in-out infinite;
 }
 .skel.line { display: block; height: 11px; margin: var(--space-4) var(--space-0); }
 

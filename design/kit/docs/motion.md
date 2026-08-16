@@ -13,7 +13,13 @@ frame of a broken one. So the census is the instrument, and it runs before any c
 
 ---
 
-## Part A. The census: what moves today, and by what
+## Part A. The census: what moved BEFORE this stage touched anything
+
+**Read this part as a photograph with a date on it.** Every number below is the product as it stood
+at the opening of stage 11 on 2026-08-16, before step 2 changed it the same day. It is kept
+unedited because it is the evidence Part B's decisions were taken from, and a census rewritten to
+match its own outcome stops being one. What the numbers are today is in Part B and on
+`motion.html`.
 
 Taken **2026-08-16** by script over `design/system/` (base.css, tokens.css, index.css, **69
 component files**, **3 patterns**), the **56 pages** of `design/`, `design/story.js` and
@@ -117,38 +123,105 @@ the census script rather than a thing somebody remembered to do.
 
 ---
 
-## Part B. What the census leaves the stage to decide
+## Part B. The four questions, and what was decided
 
-The census produces four questions. None of them is answerable by measuring, which is why they are
-listed here rather than settled here.
+The census produced four questions. None was answerable by measuring, which is why they were listed
+rather than settled at step 1. Founder, 2026-08-16: **do what is best**. Two are now answered in the
+code and two are answered in words, which is itself an answer rather than a gap.
 
-**1. Do the four curves become tokens, and at which level?** They are values, they are already
-named by job rather than by shape, and one of them is copied by hand into four files. The two-level
-rule says a raw curve is a primitive and a role points at it, so the honest shape is
-`--ease-expo-out` as the primitive and `--ease-arrive` as the role. The open half is whether four
-curves is the right number for a product whose motion is about to double.
+### 1. The curves become tokens, at two levels, and the split is a rule
 
-**2. Does the app get motion at all, and what kind?** 26 components change state instantly. Three
-answers are all defensible: leave it and write down why; give the whole system one transition on
-the two properties that carry a state change (colour and border); or design per component. This is
-the founder's call and it is the biggest one in the stage, because it is the only one that touches
-every screen.
+**Eleven tokens in `design/system/tokens.css`, in a MOTION block on the primitive side of the file.**
 
-**3. What happens between two states that are documented as two pages?** The product has 7 loading
-pages, 7 empty pages and 7 error pages. Every state change it documents is documented as a separate
-file, so the movement between them has no owner anywhere in this repo. Either the stage names what
-that movement is, or it says explicitly that a state change in this product is a page change and
-carries no motion.
+| Level | Tokens |
+|---|---|
+| **Shape** | `--curve-expo-out`, `--curve-expo-in`, `--curve-firm`, `--curve-spring` |
+| **Job** | `--ease-arrive`, `--ease-leave`, `--ease-settle`, `--ease-travel`, `--ease-state` |
+| **Durations, one level, named by job** | `--dur-state` 150ms, `--dur-pulse` 1.4s |
 
-**4. Is the landing's language the product's language, or is it the landing's?** Arrive-and-leave,
-an exit shorter than its entrance, and a curve for a long journey are a complete and coherent
-vocabulary. It was derived on one surface, and rule 4 of this system exists precisely because a
-scale derived from a sample of one is not a scale.
+**Why curves take two levels and durations take one.** A second level is earned exactly where two
+roles would otherwise spell the same value, which is rule 4 of this system read from the other end.
+`--ease-arrive` and `--ease-state` are both expo-out today and can part company, because an
+entrance is a thing appearing and a state change is a thing already on screen saying it heard you.
+The two durations share nothing, so a shape level under them would be a level with nothing in it.
+This test is now rule 1 of `design/system/CLAUDE.md`.
+
+**Why motion sits on the primitive side and takes no dark pair.** The primitive/semantic split of
+`tokens.css` is a split about the THEME axis: a colour is named twice because the same role points
+at a different value in the dark. No theme moves a curve. Motion's own axis is
+`prefers-reduced-motion`, which is a global kill in `base.css` rather than a per-token override.
+Rule 6 of `design/system/CLAUDE.md` was amended to say so rather than left to be read as broken.
+
+**No scale of durations, and none will be invented.** A scale needs a range the product moves
+across and this product moves across two values. The landing's own numbers are not candidates: the
+five marquee durations and the eight strand durations are LOOP LENGTHS, deliberately mutually prime
+so nothing on that stage repeats in step with anything else. They stay literals in the file that
+owns the loop. One principle is recorded with no token under it: **an exit is always shorter than
+its entrance.** It has no consumer in the app because the app has no entrances, and a token with no
+consumer is how a scale starts being fiction.
+
+**Nothing on the landing moved.** Proved rather than asserted: 30 choreography samples (opacity,
+transform, computed timing function, the running total, the count, and the cut-row heights) at 10
+scroll positions on 3 viewports, before and after, **0 differ**.
+
+### 2. The app gets one state change: colour, 150ms, and nothing that moves an object
+
+Declared once, in `base.css`, on `:where(a, button, input, select, textarea, summary, label)` - the
+same list the focus ring uses, at specificity 0 so any component can still override it.
+
+| Property | In | Why |
+|---|---|---|
+| `background-color` | yes | the most common state change in the product by a distance |
+| `border-color` | yes | every control that draws a resting edge draws its hover |
+| `color` | yes | links, the app bar's controls, the footer |
+| `text-decoration-color` | yes | the underline under an inline link moves with the ink |
+| `outline`, `outline-offset` | **NO** | **the one exclusion, and an accessibility decision rather than a taste one.** These appear in 19 of the 68 state rules and each must land instantly: a keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind the caret |
+| anything that moves an object | **NO** | transform, translate, scale, height, margin. A person reading fourteen subscriptions is never chased by a row that grows, lifts or slides |
+
+**150ms is chosen, not copied.** Under about 100ms a change reads as a cut and the transition buys
+nothing; over about 200ms a hover starts trailing the pointer, which on a list of rows is the
+opposite of calm. The stand's own chrome has run 0.22s and 0.15s since stage 07 and is not the
+source: the stand is not the product.
+
+**Three components declare it themselves**, because their host is not a native interactive element:
+`plan-option` is a `div` on all 6 screens; `preset-tile` is a `span` on 10 and a `button` on 6;
+`alert-item` is an `a` on 8 and a `div` on 4. One class with two element forms would otherwise fade
+on one and cut on the other, which is the invisible kind of wrong. All three read `--dur-state` and
+`--ease-state`, so none can drift. This is **usage rule U12** in `docs/architecture.md`, with a
+Limits note on each component page it names plus `button.html` and `subscription-row.html`.
+
+**Nothing at rest moved.** 36 deterministic frames (10 screens x 2 widths x 2 themes, minus the
+landing) byte-identical before and after. The 4 landing frames differ, and a same-code control run
+differs on exactly the same 4: that page's infinite loops run on a wall clock, so its first frame
+is not byte-deterministic and never was. The landing was checked by the choreography A/B above
+instead.
+
+### 3. Between two states documented as two pages: nothing, and that is the answer
+
+The product has 7 loading, 7 empty and 7 error pages, and every state change it documents is a
+separate file. Naming a transition between them would be designing a runtime this product does not
+have: there is no router, no client state, and nowhere for the movement to live. **The honest form
+of the answer is that a state change in Tendd today is a page change and carries no motion**, and
+the question returns when there is an application to attach it to. Written down rather than left
+silent, which is precisely the failure the census caught the app in.
+
+### 4. The landing's language is shared only where it has a consumer
+
+The four curves are shared, because five jobs now read them. The entrances, the ranges and the
+choreography stay on the landing. Rule 4 exists so that a scale is not derived from a sample of
+one, and the day a second surface needs an entrance it will be designed against two surfaces.
 
 ---
 
 ## Part C. Status
 
-Step 1 of the stage is done: the census above, the dead keyframe deleted, and this page. Nothing
-has been tokenised and no curve has moved. The `Animation` row of `/_nav.js` carries this page as
-`ready` and stays `done:false` until the four questions are answered in the code.
+**Step 1** (2026-08-16): the census above, one dead keyframe deleted, this page published at
+`ready:true, done:false`.
+
+**Step 2** (2026-08-16): eleven tokens, one usage rule, four hand-written curves removed, the
+skeleton's 1.4s behind a token, and the state change live on all 68 state rules. The curve stand on
+`motion.html` runs the four against `linear` on one clock, because a curve is the one value in this
+system a still frame cannot show.
+
+What the stage still owes before `done:true`: nothing in the code. The row flips when the founder
+has walked the page.

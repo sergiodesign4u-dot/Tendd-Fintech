@@ -1162,7 +1162,12 @@
      scrubbed video, which is the one thing a scroll-driven page must not read
      like.
 
-     So there are three curves and each one names a job:
+     So there are curves and each one names a job. They were three when this
+     paragraph was written, four by the end of the same day (`--ease-travel`, for
+     the one journey long enough that expo-out reads as a rocket that then creeps),
+     and since 2026-08-16 all four are TOKENS in `design/system/tokens.css` rather
+     than properties on the pin below. The jobs did not change and the values did
+     not move; what changed is that the rest of the system can now say them:
 
      - `--ease-arrive` is expo-out. It covers the whole distance early and
        spends the rest of its range closing the last few pixels, which is what
@@ -1931,21 +1936,24 @@
    releases, and a kill has to outlive what it kills.
    ========================================================================== */
 @supports (animation-timeline: view()) {
-  /* the curves, hoisted out of the width gate so both acts read the one set.
-     LOCAL AND DELIBERATELY UNREGISTERED, like the candidate's width points:
-     stage 11 owns the motion scale, and when it runs these go to tokens.css
-     as primitives with their roles named there. Carried in
-     `design/kit/docs/backlog.md`. */
-  .landing .lp-orbit.lp-story.fromcircle .storypin {
-    --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-leave: cubic-bezier(0.6, 0, 0.85, 0.2);
-    --ease-settle: linear(0 0%, 0.11 6%, 0.38 17%, 0.66 27%, 0.85 36%,
-                          0.95 45%, 1.008 56%, 1.015 66%, 1.006 80%, 1 100%);
-    /* the travel curve exists for exactly one journey: the two figures cross
-       most of a viewport on the wide stage, ten times any other travel, and
-       expo-out on 600px is a rocket that then creeps */
-    --ease-travel: cubic-bezier(0.45, 0, 0.22, 1);
-  }
+  /* THE CURVES LEFT THIS FILE ON 2026-08-16, at stage 11 step 2, and they left
+     exactly where this block said they would: they were declared here on the pin,
+     hoisted out of the width gate so both acts read one set, with the note "LOCAL
+     AND DELIBERATELY UNREGISTERED, like the candidate's width points: stage 11
+     owns the motion scale, and when it runs these go to tokens.css as primitives
+     with their roles named there."
+
+     They are `--ease-arrive`, `--ease-leave`, `--ease-settle` and `--ease-travel`
+     in `design/system/tokens.css`, at two levels: the shape (`--curve-expo-out`
+     and its three siblings) and the job. Nothing here changed by a millisecond -
+     every rule below still asks for the same four names and gets the same four
+     values - and what changed is that four other files stopped spelling
+     `cubic-bezier(0.16, 1, 0.3, 1)` by hand because they could not read a property
+     declared on this component's subtree.
+
+     `--ease-settle` needs no @supports guard where it is now DECLARED: a custom
+     property is an unparsed token stream at declaration, and its only use is still
+     inside this block, which is already behind the timeline's guard. */
 
  @container story (max-width: 59.99rem) {
   /* THE WINDOW AND THE LIST COME OUT OF THE ONE CELL, and this is a live

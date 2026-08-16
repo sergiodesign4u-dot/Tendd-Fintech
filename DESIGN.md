@@ -520,6 +520,52 @@ container and a divider are not controls: nothing about them has to be found by 
 keep the hairline and the surface stays as quiet as the language was chosen to be. Reaching for
 the control edge on a container is how a calm interface turns into a wireframe of boxes.
 
+## Motion
+
+**A control answers you by changing colour, and nothing in this product moves under a pointer.**
+That is the whole of the app's motion vocabulary and it is a decision rather than a shortage.
+A person reading fourteen subscriptions should never be chased by a row that grows, lifts or
+slides; calm over clever applies hardest at the one place a pointer touches the product.
+
+### The state change
+One rule, in `base.css`, on `:where(a, button, input, select, textarea, summary, label)`:
+`background-color`, `border-color`, `color` and `text-decoration-color` over **150ms** on
+`--ease-state`. Three components declare the same thing themselves because their host is not a
+native interactive element (`plan-option`, `preset-tile`, `alert-item`), reading the same two
+tokens so none of them can drift.
+
+**150ms is chosen.** Under about 100ms a change reads as a cut and the transition buys nothing;
+over about 200ms a hover starts trailing the pointer.
+
+**The focus ring is excluded on purpose**, and it is an accessibility decision rather than a taste
+one: a keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind
+the caret. Nineteen of the product's sixty-eight state rules draw that ring, and every one of them
+lands instantly.
+
+### The curves
+Four shapes, five jobs, all in `tokens.css`. They were measured on the public page's hero and moved
+into the system at stage 11.
+
+| Job | Shape | Where |
+|---|---|---|
+| `--ease-arrive` | expo-out `cubic-bezier(0.16, 1, 0.3, 1)` | everything that comes ON |
+| `--ease-leave` | its mirror `cubic-bezier(0.6, 0, 0.85, 0.2)` | everything that goes OFF |
+| `--ease-settle` | a spring, one overshoot of 1.5% | one place: a card seating itself |
+| `--ease-travel` | `cubic-bezier(0.45, 0, 0.22, 1)` | one journey long enough that expo-out creeps |
+| `--ease-state` | expo-out | a control answering a pointer or a key |
+
+### Named Rules
+**An exit is always shorter than its entrance.** A thing appearing should be there before you have
+finished noticing it; a thing leaving should not snatch itself away.
+
+**No scale of durations.** This product moves across two values, `--dur-state` and `--dur-pulse`,
+and a scale needs a range. The public page's loop lengths are deliberately mutually prime so
+nothing on it ever repeats in step, and a loop length is not a duration in the sense a scale means
+it.
+
+**Motion takes no dark pair.** No theme moves a curve. Its own axis is `prefers-reduced-motion`,
+and that is a global kill in `base.css` rather than a per-token override.
+
 ## Components
 
 ### Buttons

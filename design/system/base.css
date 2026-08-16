@@ -104,6 +104,58 @@ fieldset { border: 0; margin: 0; padding: 0; }
 }
 
 /* ============================================================================
+   ONE STATE CHANGE FOR THE WHOLE PRODUCT. Stage 11, step 2, 2026-08-16.
+
+   THE CENSUS IS THE REASON THIS EXISTS. Before today the product declared
+   ZERO transitions: 68 state rules across 28 component files, 26 of those files
+   with no motion of any kind, so every hover, press and selection in the app was
+   a hard cut. That is a defensible choice for a product whose first principle is
+   calm, and it was written down nowhere, which is the part that was not
+   defensible: a decision nobody recorded cannot be told apart from an omission.
+   Founder, 2026-08-16, on the census: do what is best.
+
+   WHAT MOVES IS COLOUR AND NOTHING ELSE. The four properties below are, exactly,
+   what the 68 state rules change: `background` (the most common by far),
+   `border-color`, `color` and `text-decoration-color`. Nothing on this list moves
+   an object. That is the whole design of it: a control says it heard you by
+   changing its own colour over 150ms, and a person reading a list of fourteen
+   subscriptions is never chased by a row that grows, lifts or slides. Calm over
+   clever, at the one place a pointer touches the product.
+
+   THE FOCUS RING IS DELIBERATELY NOT ON THE LIST, and it is the one exclusion
+   worth stating out loud. `outline` and `outline-offset` appear in 19 of the 68
+   state rules and every one of them must land INSTANTLY: a keyboard user tabbing
+   through a screen moves faster than 150ms per stop, so a faded ring is a ring
+   that is always behind the caret, and a ring that arrives late is an
+   accessibility defect rather than a soft touch. Transitions are opt-in by
+   property for exactly this reason.
+
+   THE SELECTOR IS THE SAME ONE THE RING USES, and that is not laziness. These
+   are the elements this system considers interactive; `:where()` holds them at
+   specificity 0 so any component can still override without !important, and it
+   costs nothing on an element that never changes colour.
+
+   THREE COMPONENTS FALL OUTSIDE IT AND DECLARE THE SAME THING THEMSELVES,
+   reading these tokens: `.plan-opt` is a div, `.tile` stands as a span on ten
+   screens and a button on six, and `.alert` is an anchor on eight and a div on
+   four. A class with two element forms would otherwise transition on one of them
+   and cut on the other, which is the invisible kind of wrong. base.css owns the
+   ELEMENT default; a component whose host is not a native interactive element
+   owns its own, and both read --dur-state and --ease-state so neither can drift.
+
+   AND THE GUARD ABOVE STOPS BEING THEORETICAL TODAY. The product-wide
+   prefers-reduced-motion block at the foot of this file has been setting
+   `transition-duration: 0.01ms !important` over zero declarations since stage 09.
+   From this line on it is load-bearing, which is the right order to have built
+   it in. */
+:where(a, button, input, select, textarea, summary, label) {
+  transition: background-color var(--dur-state) var(--ease-state),
+              border-color     var(--dur-state) var(--ease-state),
+              color            var(--dur-state) var(--ease-state),
+              text-decoration-color var(--dur-state) var(--ease-state);
+}
+
+/* ============================================================================
    THE PRODUCT'S DESKTOP LAYOUT HANGS ON THIS ONE DECLARATION.
 
    Three of this product's layouts are container queries, not media queries: the

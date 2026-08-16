@@ -7,6 +7,56 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - Motion is eleven tokens and one rule: colour over 150ms, and nothing moves
+
+Founder, on the census and its four open questions: **do what is best**. Two are answered in the
+code, two in words.
+
+**The curves are tokens, at two levels, and the split is now a rule.** Four shapes
+(`--curve-expo-out` and its three siblings) under five jobs (`--ease-arrive`, `--ease-leave`,
+`--ease-settle`, `--ease-travel`, `--ease-state`). A second level is earned exactly where two roles
+would otherwise spell the same value, which is rule 4 read from the other end: arrive and state are
+both expo-out today and can part company, so the curve is named once and the jobs point at it. The
+two durations share nothing, so they take one level and are named by job. Rejected: a shape level
+under the durations, which would have been a level with nothing in it, and a duration SCALE, which
+needs a range this product does not move across. Rejected on measurement rather than taste: the
+landing's five marquee and eight strand durations look like a scale and are loop lengths,
+deliberately mutually prime so nothing repeats in step.
+
+**Motion sits on the primitive side of `tokens.css` and takes no dark pair**, and rule 6 of
+`design/system/CLAUDE.md` was amended to say so rather than left to read as broken. The
+primitive/semantic split of that file is about the THEME axis, and no theme moves a curve; motion's
+own axis is `prefers-reduced-motion`, a global kill in `base.css` rather than a per-token override.
+
+**The app gets one state change and it moves colour only.** `background-color`, `border-color`,
+`color`, `text-decoration-color`, 150ms, `--ease-state`, declared once in `base.css` on the elements
+this system treats as interactive. Nothing on the list moves an object: a person reading fourteen
+subscriptions is never chased by a row that grows, lifts or slides. **The focus ring is excluded**,
+and that is an accessibility decision, not a taste one: 19 of the 68 state rules draw a ring and a
+keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind the
+caret. 150ms itself is chosen from a window, not copied: under 100 reads as a cut, over 200 trails
+the pointer.
+
+**Three components declare the transition themselves** because their host is not a native
+interactive element (`plan-option` a div, `preset-tile` a span on ten screens and a button on six,
+`alert-item` an anchor on eight and a div on four). One class with two element forms would fade on
+one and cut on the other. That is usage rule U12.
+
+**Two questions are answered in words, which is itself an answer.** Between two states this product
+documents as two separate pages there is NO motion, because naming one would design a runtime that
+does not exist here: no router, no client state, nowhere for the movement to live. And the
+landing's vocabulary is shared only where it has a consumer: the curves, because five jobs read
+them; not the entrances, ranges or choreography, because rule 4 exists so a scale is not derived
+from a sample of one.
+
+**Nothing that already existed moved, and that was proved rather than asserted.** 36 deterministic
+product frames byte-identical before and after; the landing's 4 frames differ and a same-code
+control differs on exactly the same 4, because that page's infinite loops run on a wall clock. The
+landing was checked instead by 30 choreography samples at 10 scroll positions on 3 viewports:
+**0 differ.** Four hand-written `cubic-bezier(0.16, 1, 0.3, 1)` literals left `landing-facts`,
+`landing-paths`, `landing-plan` and `landing-steps`, and the skeleton's 1.4s left
+`skeleton-bar.css` for `--dur-pulse` without moving a millisecond.
+
 ## 2026-08-16 - Stage 11 opens on a census, and the census is published while the stage runs
 
 Motion is the one thing in this system a screenshot cannot audit: a still frame of a scroll-driven

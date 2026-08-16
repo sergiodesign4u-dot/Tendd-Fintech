@@ -66,6 +66,17 @@
    a tile that is both: the pointer does not repaint the chosen tile, because
    the answer to "what happens if I press this" is that it is already chosen. */
 
+/* THE STATE CHANGE IS DECLARED ON THE TILE ITSELF, one of three such places in
+   the system. base.css puts the one transition on the elements this product
+   treats as interactive, and this tile stands as a `button` on six screens and a
+   `span` on ten: inheriting the element default would fade the button form and cut
+   the span form, which is one class behaving two ways and the invisible kind of
+   wrong. Same tokens as base.css, so the two cannot drift. Stage 11, 2026-08-16. */
+.app .tile, .landing .tile {
+  transition: border-color var(--dur-state) var(--ease-state),
+              background-color var(--dur-state) var(--ease-state);
+}
+
 .app .tile:hover, .landing .tile:hover {
   border-color: var(--line-control-hover);
   background: var(--bg-hover);

@@ -583,6 +583,123 @@
                                       328px and three at 780px. */
 
   /* ==========================================================================
+     MOTION. Stage 11, step 2, 2026-08-16. The fifth thing this file holds,
+     after colour, type, space and width.
+
+     IT SITS IN THE PRIMITIVE HALF AND CARRIES BOTH ITS LEVELS INSIDE ITSELF,
+     which is not a third level and not an exception hunting for one. The
+     primitive/semantic split of this file is a split about the THEME AXIS: a
+     colour is named twice because the same role points at a different value in
+     the dark, and geometry is named once because no theme moves a radius. Motion
+     has no theme axis either, so it belongs on this side of the file. What it
+     does have is the other reason a second level exists, and rule 4 is that
+     reason read from the other end: **a second level earns its place exactly
+     where two roles would otherwise spell the same value.** Today
+     `--ease-arrive` and `--ease-state` are both expo-out and can part company
+     (a hover is not an entrance), so the curve itself is named once and the two
+     jobs point at it. The durations share nothing, so they are named once, by
+     job, and there is no shape level under them.
+
+     THE VALUES ARE NOT NEW AND ARE NOT RE-DERIVED. Four of the five curves were
+     measured and named on the candidate hero on 2026-08-15, in
+     landing-orbit.css, on one selector inside `@supports`, with the note that
+     "stage 11 owns the motion scale, and when it runs these go to tokens.css as
+     primitives with their roles named there". This is that move. Nothing about
+     the landing's motion changes by a millisecond; what changes is that four
+     other files stop spelling one of them by hand.
+
+     WHY THE HAND-SPELLING HAPPENED, because it is the argument for this block in
+     one line: a custom property declared on one component's pin cannot be read
+     from another component, so landing-facts.css, landing-paths.css,
+     landing-plan.css and landing-steps.css each wrote
+     `cubic-bezier(0.16, 1, 0.3, 1)` for their own entrance. Five files, one
+     curve, one name and four literals. That is not the drift a token might
+     prevent; it is drift that had already happened when the census counted it.
+
+     THERE IS NO SCALE OF DURATIONS AND THIS FILE WILL NOT INVENT ONE. A scale
+     needs a range the product moves across, and this product moves across two
+     values: a control answering a pointer, and a placeholder breathing while it
+     waits. The landing's own numbers are NOT candidates: 47/39/33/43/36s for the
+     marquee rows and 13.3 to 19.3s for the eight strands are LOOP LENGTHS,
+     deliberately mutually prime so that nothing on that stage ever repeats in
+     step with anything else, and a loop length is not a duration in the sense a
+     scale means it. They stay literals in the file that owns the loop.
+
+     ONE PRINCIPLE IS RECORDED HERE WITH NO TOKEN UNDER IT, on purpose: an exit
+     is always shorter than its entrance. It governs the landing today through
+     `--ease-leave` plus a shorter range, and it has no consumer in the app,
+     because the app has no entrances yet. A token with no consumer is how a
+     scale starts being fiction, so the rule is written and the token is not.
+     ========================================================================== */
+
+  /* ---- the curves, level one: named by SHAPE ------------------------------ */
+
+  --curve-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+                         /* covers the distance early and spends the rest closing
+                            the last few pixels. What an object landing looks like */
+  --curve-expo-in:  cubic-bezier(0.6, 0, 0.85, 0.2);
+                         /* its mirror: slow to let go, then quick */
+  --curve-firm:     cubic-bezier(0.45, 0, 0.22, 1);
+                         /* accelerates and decelerates evenly. For a distance long
+                            enough that expo-out reads as a rocket that then creeps */
+  --curve-spring:   linear(0 0%, 0.11 6%, 0.38 17%, 0.66 27%, 0.85 36%,
+                           0.95 45%, 1.008 56%, 1.015 66%, 1.006 80%, 1 100%);
+                         /* one overshoot of one and a half per cent at 66. Any more
+                            and a calm product starts bouncing; this much is a card
+                            seating itself. `linear()` needs no @supports guard where
+                            it is DECLARED - a custom property is an unparsed token
+                            stream - and its only use is already inside the scroll
+                            timeline's guard, where every engine has had linear() for
+                            longer than it has had a timeline */
+
+  /* ---- the curves, level two: named by JOB -------------------------------- */
+
+  --ease-arrive: var(--curve-expo-out);
+                         /* everything that comes ON. Founder, 2026-08-15, on a stage
+                            that was already doing everything it had been asked to:
+                            "make it soft". Every animation there ran on `linear`, and
+                            on a scroll timeline linear is not a neutral default but
+                            the strongest decision in the file: it welds the object to
+                            the scrollbar, so nothing accelerates, arrives or settles */
+  --ease-leave:  var(--curve-expo-in);
+                         /* everything that goes OFF, and an exit is always shorter
+                            than an entrance */
+  --ease-settle: var(--curve-spring);
+                         /* used in exactly one place, the deck closing over a
+                            cancelled plate, because that is the one moment on that
+                            stage where something should feel like an OBJECT arriving
+                            at a stop rather than a value being interpolated */
+  --ease-travel: var(--curve-firm);
+                         /* one journey: the two figures crossing most of a viewport
+                            on the wide stage, ten times any other travel there */
+  --ease-state:  var(--curve-expo-out);
+                         /* A CONTROL ANSWERING A POINTER OR A KEY, and it is its own
+                            role at the same value as --ease-arrive by rule 4. They do
+                            different jobs and can part company: an entrance is a thing
+                            appearing and a state change is a thing already on screen
+                            saying it heard you. Expo-out is right for both today
+                            because both should feel answered immediately and land
+                            softly, which is the whole shape of the curve */
+
+  /* ---- the durations, one level, named by job ----------------------------- */
+
+  --dur-state: 150ms;    /* the state change: a hover, a press, a selection.
+                            CHOSEN RATHER THAN COPIED. Under about 100ms a change
+                            reads as a cut and the transition buys nothing; over
+                            about 200ms a hover starts trailing the pointer, which
+                            on a list of rows is the opposite of calm. 150 is the
+                            middle of that window on the 10ms grid. The stand's own
+                            chrome has run 0.22s and 0.15s since stage 07 and is not
+                            the source: the stand is not the product */
+  --dur-pulse: 1.4s;     /* the loading placeholder breathing. Written as a literal
+                            in skeleton-bar.css since stage 07, with the note on that
+                            component's page that "stage 11 owns motion and will put
+                            the duration behind one". This is that. The value did not
+                            move: it is slow enough to read as waiting rather than as
+                            activity, which is the one thing a skeleton must not
+                            promise */
+
+  /* ==========================================================================
      SEMANTIC - fills
      ========================================================================== */
 

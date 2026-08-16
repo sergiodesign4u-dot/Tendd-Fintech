@@ -90,6 +90,14 @@
   border: 1px solid var(--line-container);
   border-radius: var(--radius);
   background: var(--bg-surface);
+  /* THE STATE CHANGE IS DECLARED HERE AND NOT INHERITED, and this card is one of
+     the three places in the system where that is true. base.css puts the one
+     transition on the elements this product treats as interactive - a, button,
+     input, select, textarea, summary, label - and this card is a `div` on all six
+     screens that carry it, so it falls outside that list and would cut where every
+     other hover fades. Same tokens, so the two can never drift apart. Stage 11,
+     2026-08-16. */
+  transition: border-color var(--dur-state) var(--ease-state);
 }
 
 /* ---- positioning the atoms it hosts, and nothing else -------------------- */

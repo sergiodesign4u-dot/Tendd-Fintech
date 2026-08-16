@@ -1237,3 +1237,71 @@ span.kn-project-link { color: var(--kn-text-muted); opacity: 0.6; }
 .kit-shell-demo .kit-shell-fill i.w2 { width: 100%; }
 .kit-shell-demo .kit-shell-fill i.w3 { width: 84%; }
 .kit-shell-demo .kit-shell-fill i.tall { height: 56px; border-radius: var(--radius-sm); }
+
+/* ============================================================================
+   THE CURVE STAND, stage 11, 2026-08-16, and it is the reason this page exists
+   rather than a table of four cubic-beziers. A curve is the one value in this
+   system that cannot be read: nobody can look at `cubic-bezier(0.16, 1, 0.3, 1)`
+   and know that it lands, and nobody can tell it from `(0.45, 0, 0.22, 1)` on
+   paper at all. So the four run side by side against a shared clock and against
+   `linear`, which is the fifth track and is there as the CONTROL: it is what the
+   whole landing ran on until the founder said "make it soft", and seeing it beside
+   the other four is the entire argument in one second.
+
+   THE STAND RUNS AT 900ms AND THE PRODUCT RUNS AT 150, deliberately. A curve is a
+   shape and a shape needs time to be seen; at the product's own duration all five
+   tracks arrive together and the demo shows nothing. The number is written on the
+   page so nobody reads it as the scale.
+
+   It is the STAND's chrome, not the product's: these classes live here with the
+   panel and the swatches, and design/system/ has never heard of them. */
+.kit-curves { display: grid; gap: 10px; margin: 0 0 14px; }
+.kit-curve {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+.kit-curve > .lab { font-size: 12px; color: var(--text-muted); }
+.kit-curve > .lab b { display: block; font-size: 12.5px; color: var(--text-primary); font-weight: 600; }
+.kit-curve-track {
+  position: relative;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--bg-recessed);
+  border: 1px solid var(--line-divider);
+}
+.kit-curve-track > i {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 20px; height: 20px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: var(--bg-action);
+  translate: 0 0;
+  transition: translate 900ms var(--e, linear);
+}
+/* the run state is a class on the CONTAINER, so all five start on one frame and
+   the comparison is honest: five separate triggers would drift by a frame each */
+.kit-curves.is-run .kit-curve-track > i { translate: calc(100cqw - 26px) 0; }
+.kit-curve-track { container-type: inline-size; }
+.kit-curve.c1 .kit-curve-track > i { --e: var(--ease-arrive); }
+.kit-curve.c2 .kit-curve-track > i { --e: var(--ease-leave); }
+.kit-curve.c3 .kit-curve-track > i { --e: var(--ease-settle); }
+.kit-curve.c4 .kit-curve-track > i { --e: var(--ease-travel); }
+.kit-curve.c5 .kit-curve-track > i { --e: linear; }
+.kit-curve-run {
+  font: inherit; font-size: 13px; font-weight: 600;
+  padding: 8px 14px;
+  border: 1px solid var(--line-control);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  color: var(--text-action);
+  cursor: pointer;
+}
+.kit-curve-run:hover { border-color: var(--line-control-hover); background: var(--bg-hover); }
+
+@media (prefers-reduced-motion: reduce) {
+  .kit-curve-track > i { transition: none; }
+}

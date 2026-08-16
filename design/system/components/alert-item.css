@@ -43,6 +43,15 @@
   gap: var(--space-16);
   padding: var(--space-16);
   text-decoration: none; color: inherit;
+  /* THE STATE CHANGE IS DECLARED HERE, one of three such places in the system.
+     base.css puts the one transition on the elements this product treats as
+     interactive, and this item is an `a` on eight screens and a `div` on four: the
+     element default would fade one form and cut the other, which is one class
+     behaving two ways. Same tokens, so the two cannot drift. Stage 11, 2026-08-16.
+     Worth naming separately: the div form hovers at all, which is its own open
+     question and not this stage's - a block that answers a pointer and does
+     nothing when clicked is a promise it cannot keep. Recorded in backlog.md. */
+  transition: background-color var(--dur-state) var(--ease-state);
 }
 
 /* NOT CARRIED, 1 of 3: `.app .alert .logo { flex: none }`. logo.css declares
