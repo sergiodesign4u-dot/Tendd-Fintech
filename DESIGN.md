@@ -308,14 +308,16 @@ exactly that case. It is read UNDER a `background-color` and never instead of on
 ground before the picture loads.
 
 **The contrast is solved in the composition and not in the asset**, which is what lets the picture
-be a picture: the band lays its own ground over it, opaque to 42% of the band's height and gone by
-60%, so every word stands on the surface colour and the picture begins where the cards do. The two
-numbers are read off the page - the last line of text ends at 52% and the cards begin at 57%, so
-the fade is spent in the gap between them. What is measured is the RENDERED pair and not the file:
-**5.49:1** at the worst, swept over nine widths in both themes. Two earlier pictures were lightened
-almost to nothing trying to make the asset carry the contrast alone, and that is the mistake this
-arrangement exists to correct. One band, and nowhere else: a texture that spreads stops being
-quiet.
+be a picture: the band lays its own ground over it at both ends, so the picture is a HORIZON that
+runs from the tops of the price cards to their feet and nothing but opaque paper stands on it. The
+stops are pixels and not percentages, because what the fade has to land in is a gap between two
+elements and that gap is the same handful of pixels at every width where the band's own height runs
+from 1478px on a phone to 807 wide. What is measured is the RENDERED pair and not the file:
+**5.30:1** at the worst, swept over nine widths in both themes, on a ground of 241,246,245 against
+a 255 surface - the ink's own token contrast rather than a picture's. Two earlier pictures were
+lightened almost to nothing trying to make the asset carry the contrast alone, and that is the
+mistake this arrangement exists to correct. One band, and nowhere else: a texture that spreads
+stops being quiet.
 
 The four state tokens are in that table because a state is a token and not a style: nothing
 inside a `:hover` or a `:focus-visible` block is a hex or a number anywhere in this system, which

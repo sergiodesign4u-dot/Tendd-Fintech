@@ -7,6 +7,69 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - The pricing block, fifth build: a podium, a horizon, and less to read
+
+The founder, on the fourth build: "давай снова переделивать не нравятся мне карточки они
+скучние ... еще куча текста вверху а сами карточки сплюснутіе + надо 69 долл поставить по
+центру и виделть". Four clauses, four answers, and none of them is a repaint.
+
+**Less to read above the price.** Five lines stood between the heading and the first number:
+a lead, a reassurance about caps and cancelling, an eyebrow and a row of four included things.
+That is a lot of reading in the one section a person opens in order to see a number. The lead
+stays, because it is what the section is. The included list and the reassurance go BELOW the
+prices. This reverses the fourth build's order, which was argued as "what this is, then what
+it costs"; the heading and its lead already say what this is, and what follows a price is
+detail. Two lines above the cards instead of five.
+
+**The yearly price moves to the middle.** It was first, which is the reading order of a list.
+A row of three is not read as a list, it is seen as a shape, and the middle of a shape is its
+centre. Monthly, yearly, lifetime is also the ladder in order of commitment, so the
+recommended one now stands where the eye lands with the two it is compared with on either
+side of it.
+
+**The card is a plate and not a pane.** Centred content, so the price is on the card's axis
+and the card's axis is on the section's. The badge leaves the flow and straddles the card's
+top EDGE: it has now been in three places and each move is the previous one's measurement
+(stacked above the price it pushed the figure 31px down, beside the price it cost the card
+its axis, on the edge it costs no flow height at all). plan-option.css wrote `position:
+relative` on this card at stage 07 "for the badge, which is in the flow today and is given an
+anchor for the day it is not"; this is that day.
+
+**The recommended card is a podium.** It rises 32px out of the row at the TOP only, where the
+fourth build raised it at both ends. Raised at both ends it was simply taller and its divider
+and its button sat 16px off every neighbour's; raised at the top alone, its price stands 32px
+above the two prices it beats and its foot stays level, because the growing middle row
+swallows the whole difference. The thing a person compares goes up and the thing they act on
+stays put. It also takes a petrol edge, which is petrol's third job inside content under
+D-Concept: three ways to pay for one plan, with one already chosen for the reader and a badge
+that says why. Drawn as a repainted border plus a 1px spread shadow rather than as a 2px
+border, because a 2px border pushes the content 1px in and takes the raised price off the
+axis its neighbours share.
+
+**The picture became a horizon.** Rejected: leaving the fade as it was. The block grew a foot
+(the list and the reassurance now stand under the cards) and that foot needed paper. The band
+now lays its own ground over the picture at BOTH ends, so the wash runs from the tops of the
+cards to their feet and no word in the band stands on it. The stops moved from percentages to
+PIXELS, and that is a measurement rather than a preference: the fade has to land in a gap
+between two elements, that gap is 50 to 80px at every width, and the band's own height runs
+from 1478px on a phone to 807 wide, so 48% - the fourth build's number - is 709px down a
+phone band, halfway inside the second card. The bottom pair was set twice: 225/165 is what
+the cards' feet ask for and 20px short of what the LABEL under them asks for, measured at
+3.37:1 on a phone, so it is 260/200 and the worst rendered pair in the band is 5.30:1.
+
+**Left standing, measured.** The plan buttons still wrap to two lines between the tablet
+point and about 980px of window: that is the one button in the product allowed to wrap, a
+declared exception with its own measurement at `design/kit/button.html`, and shortening the
+label would put the same product line in two editions between the landing and Upgrade. The
+lifetime card's divider still sits about 10px off at exactly 760px, where its note wraps and
+a button label does not.
+
+**One thing the grey gained.** `_wf.css` zeroed the 44px floor under the lifetime card's
+note, so the grey's third divider stood 31px below the other two at the wide widths while the
+colour's stood level. The floor is back and the two corpora agree.
+
+---
+
 ## 2026-08-15 - D-Wash: the pricing band carries a picture, and exactly one band does
 
 The founder, on the pricing block: "може на фон какую ненавязчивую спокойную картинку сделать -
@@ -24,11 +87,14 @@ instead of one, so the band has a ground before the picture loads.
 ground is paper and stays paper: a texture that spreads stops being quiet.
 
 **The contrast is solved in the composition and not in the asset, and that is the whole trick.**
-The band lays its own ground over the picture, opaque to 42% of its height and gone by 60%, so
-every word stands on the surface colour and the picture begins where the cards do. Both numbers
-are read off the page: the last line of text ends at 52% of the band at the widest and the cards
-begin at 57%, so the fade is spent in the gap between them. What is measured is the RENDERED pair
-and not the file: 5.49:1 at the worst, swept over nine widths in both themes.
+The band lays its own ground over the picture at both ends, so the picture is a horizon running
+from the tops of the cards to their feet, and no word in the band stands on it. The stops are
+pixels rather than percentages, because the fade has to land in a gap between two elements and
+that gap is the same handful of pixels at every width, where the band's height runs from 1478px
+on a phone to 807 wide. What is measured is the RENDERED pair and not the file: 5.30:1 at the
+worst, swept over nine widths in both themes, on a ground of 241,246,245 against a 255 surface.
+The arrangement reached this shape over three builds: 42/60, then 48/64 as the cards grew, then
+the horizon of 2026-08-16, whose entry is above this one.
 
 **Who generated it, and how to replace it.** Codex cannot generate images; it is a coding agent
 and it is read-only in this repository. The two assets were generated from a written brief with

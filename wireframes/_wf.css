@@ -1235,24 +1235,52 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
    four lines in each of them: three identical lists is the block saying that
    the comparison it is drawn as does not exist. This is one plan and three ways
    to pay for it. No tick beside a line here either: the label says "included". */
-.lp-plan .plans { margin: 0 0 14px; text-align: left; }
-/* the included things: a LINE above the prices, not a bar under them. It was a
-   full-measure box until the founder saw it ("это ужасно", 2026-08-15): a white
-   bar under three white cards holding four short phrases is the leftover space
-   between two things with a border drawn round it. It also moved above the
-   prices, which is the order a person reads in: what this is, then what it
-   costs. */
-.lp-plan .plan-all { margin: 0 0 22px; }
+/* CENTRED, AND THE ROW STANDS OFF THE TEXT ABOVE IT, by the founder's decision
+   of 2026-08-16 written on the section in index.html. The card is a plate and
+   not a pane: the price is on the card's axis and the card's axis is on the
+   section's. The 40 above it is clearance for the badge of the raised card,
+   which straddles that card's top edge; 56 past the point where the raise
+   applies. */
+.lp-plan .plans { margin: 40px 0 0; text-align: center; }
+/* the included things: a LINE, not a bar. It was a full-measure box until the
+   founder saw it ("это ужасно", 2026-08-15): a white bar under three white
+   cards holding four short phrases is the leftover space between two things
+   with a border drawn round it. It stood ABOVE the prices for one day and went
+   back under them on 2026-08-16 ("еще куча текста вверху"): the heading and its
+   lead already say what this is, and what follows a price is detail. */
+.lp-plan .plan-all { margin: 40px 0 12px; }
 .lp-plan .plan-all .k { display: block; margin: 0 0 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); }
 .lp-plan .plan-all ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin: 0; padding: 0; }
 .lp-plan .plan-all li { font-size: 14px; color: var(--mid); }
 /* the card's body and its footer: the sentence ends in a divider, so the space
    the growing box absorbs sits inside a bounded body instead of floating
    between the text and the button */
-.lp-plan .plan-opt .p { border-bottom: 1px solid var(--line2); padding-bottom: 14px; margin-bottom: 14px; }
-.lp-plan .plan-opt .q { min-height: 0; padding: 0; }
+.lp-plan .plan-opt { position: relative; padding: 26px 20px; background: var(--frame); }
+.lp-plan .plan-opt .p { border-bottom: 1px solid var(--line2); padding-bottom: 20px; margin-bottom: 20px; }
+/* the lifetime card's note KEEPS the 44px floor the app's card gives it, and
+   under a divider that floor is what holds this card's footer to the height of
+   the two real buttons beside it, so all three dividers land on one line. It was
+   zeroed here until 2026-08-16, and the third divider stood 31px below the other
+   two at the wide widths because of it. */
+.lp-plan .plan-opt .q { min-height: 44px; padding: 0; text-align: center; display: flex; align-items: center; justify-content: center; }
+/* the badge straddles the edge it qualifies, on the card's own axis: a label on
+   the boundary reads as a title for what is under it, where the same label
+   inside the card is one more thing in the stack. It leaves the flow, so the
+   price is the first thing in every card and only the raise moves it. */
+.lp-plan .plan-opt .best {
+  position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
+  align-self: auto; margin: 0; background: var(--frame);
+}
+/* the recommended card is the one carrying the primary action, and it says so
+   with its edge at every width */
+.lp-plan .plan-opt:has(.btn.primary) { border-color: var(--ink); }
 @media (min-width: 760px) {
-  .lp-plan .plans { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .lp-plan .plans { grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 56px; }
+  /* AT THE TOP ONLY. Negative margin at both ends centres the extra height on
+     the row and takes the divider and the button off every neighbour's line;
+     off the top alone, the price rises 32 and the foot stays level, because the
+     growing sentence swallows the whole difference. */
+  .lp-plan .plan-opt:has(.btn.primary) { margin-top: -32px; }
 }
 
 /* The step vignettes, by the founder's decision of 2026-08-15 (see the comment
