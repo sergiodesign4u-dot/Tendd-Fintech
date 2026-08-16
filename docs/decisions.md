@@ -7,6 +7,47 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - Stage 11 opens on a census, and the census is published while the stage runs
+
+Motion is the one thing in this system a screenshot cannot audit: a still frame of a scroll-driven
+stage and a still frame of a broken one look the same. So the stage opens by counting, over the
+source, with comments stripped before anything is counted.
+
+**What it found is a distribution, not a number.** Zero `transition` declarations in the entire
+product; 7 of 72 files in the system declaring any motion; 30 of the 31 keyframes belonging to one
+page. The landing has a complete motion language and the other 54 screens have none of it: 68 state
+rules across 28 components, 26 of which change instantly. That is defensible for a product whose
+first principle is calm, and it is written down nowhere, so today it cannot be told apart from an
+omission. The four curves the landing runs on are declared **on one selector in one file**, which
+is exactly why four other files write the same expo-out curve by hand. The drift the token would
+prevent has already happened.
+
+**One dead keyframe fell out of the count.** `srise` in `landing-story.css`, defined and named by
+nothing: the head's entrance, kept after the file recorded the decision that the head does not make
+one. Deleted the same day. It was found by reading every `@keyframes` in the system against every
+`animation-name` in it, and that check is now part of the census script rather than a thing
+somebody remembers. Same class of leftover as the centred stage deleted the day before, one order
+of magnitude smaller, found by counting rather than by looking, which is the point.
+
+**The page is published at `ready:true, done:false`.** The `ready` flag existed in `/_nav.js` for
+this case and had never been used: the stage is not finished, the badge and the state class are
+unchanged, and the row is a link because the census is worth reading DURING the stage rather than
+after it. `design/kit/motion.html` stands in Foundations after Icons, with `docs/motion.md` behind
+it.
+
+**Nothing is tokenised, and that is the decision.** Four questions came out of the census and none
+is answerable by measuring: whether the curves become tokens and at which level; whether the app
+gets motion at all; what happens between two states that this product documents as two separate
+pages (7 loading, 7 empty, 7 error); and whether a vocabulary derived on one surface is the
+product's vocabulary or that surface's. The second is the founder's and it is the largest, because
+it is the only one that touches every screen. Rejected: naming a motion scale in the same step as
+the count. Rule 4 of this system exists because a scale derived from a sample of one is not a
+scale, and the sample here is one page.
+
+**Recounted in the same step:** the backlog row that carried this material claimed three easing
+curves where there are four, and 42 / 35 / 29s for three marquee tracks in `landing-story.css` that
+went with the centred stage the day before.
+
 ## 2026-08-16 - Before stage 11: the shape that lost is deleted, and five width literals are registered
 
 Asked before starting on motion: is anything owed first. Two things were, and both were owed to

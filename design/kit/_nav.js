@@ -48,7 +48,15 @@ window.KIT_NAV = {
        nothing: it carries this panel like every other page of the stand, and the
        project comes back at the foot of the panel. */
     { name: 'Width',        file: 'responsive.html',   page: 'responsive.html',   note: 'two points, the containers, the reading measure, the grid floor' },
-    { name: 'Icons',        file: 'icons.html',        page: 'icons.html',        note: 'four destination masks, fourteen merchant marks, two drawn marks' }
+    { name: 'Icons',        file: 'icons.html',        page: 'icons.html',        note: 'four destination masks, fourteen merchant marks, two drawn marks' },
+    /* MOTION STANDS LAST AND IT IS A FOUNDATION RATHER THAN A STAGE DOCUMENT, on the
+       same grounds Width was let in: a thing a screen is built out of belongs here even
+       while the stage that produced it is still running. It is the roadmap row of stage
+       11 and that costs it nothing, because this panel is what every page of the stand
+       carries and the project comes back at the panel's foot. The note says census
+       rather than scale on purpose: on 2026-08-16 this page holds what moves, not yet
+       what should. */
+    { name: 'Motion',       file: 'motion.html',       page: 'motion.html',       note: 'the census: what moves, the four curves, and the 26 components that do not' }
   ],
 
   atoms: [
@@ -170,7 +178,7 @@ window.KIT_NAV = {
   ],
 
   /* NOT PART OF THE SYSTEM, AND THAT IS WHY IT IS ITS OWN GROUP AT THE END rather
-     than a fifth foundation. Foundations are things a screen is built OUT OF; this
+     than another foundation. Foundations are things a screen is built OUT OF; this
      is evidence ABOUT what was built, and filing it beside Colour would say the
      system contains its own audit. Step 9, 2026-08-12. */
   verification: [

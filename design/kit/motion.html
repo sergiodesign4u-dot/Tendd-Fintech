@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motion - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<!--
+  THE ROADMAP ROW OF STAGE 11, AND IT CARRIES THE SYSTEM PANEL like every other
+  page of the stand, for the reason written into responsive.html on 2026-08-13: a
+  stage whose material has its own registry is better read from inside that
+  registry, with the project carried back at the foot of the panel.
+
+  IT IS PUBLISHED WHILE THE STAGE IS STILL RUNNING. `/_nav.js` carries the row as
+  `ready:true, done:false`, which is the flag that exists for exactly this: the
+  page is real, the stage is not finished, and the sidebar says so rather than
+  showing SOON over a page that already answers something.
+-->
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../index.html">The one page that moves &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <p class="kit-eyebrow">Stage 11 &middot; Animation &middot; step 1 of the stage</p>
+    <h1 class="big">Motion</h1>
+    <div class="kit-prose">
+      <p class="first">One surface of this product moves a great deal and the other fifty-four do not move at all. That is the whole finding of the census below, and it is why this stage opens by counting rather than by designing: a scale derived from the one page that has motion would be a scale derived from a sample of one.</p>
+      <p>A moving page is also the only artefact in this system a screenshot cannot audit. A still frame of a scroll-driven stage and a still frame of a broken one look the same, so everything on this page was measured by script over the source, with comments stripped before anything was counted. This file's own predecessors have twice reported a defect that turned out to be a sentence of prose.</p>
+    </div>
+    <div class="kit-meta">
+      <span><strong>0</strong> transitions in the product</span>
+      <span><strong>7</strong> of <strong>72</strong> files declare motion</span>
+      <span><strong>31</strong> keyframes, <strong>30</strong> of them one page's</span>
+      <span><strong>4</strong> curves, <strong>0</strong> tokens</span>
+      <span><strong>26</strong> components change state instantly</span>
+      <span>the stage is <strong>running</strong></span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="census">
+    <h2>The census: motion is one page's private language</h2>
+    <p class="note">Taken <b>2026-08-16</b> by script over <code>design/system/</code> (base.css, tokens.css, index.css, 69 component files, 3 patterns), the 56 pages of <code>design/</code>, <code>design/story.js</code> and <code>design/system/behaviour.js</code>, the stand, and <code>wireframes/</code> read-only.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What</th><th>How many</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td><code>transition</code> declarations in the system</td><td><b>0</b></td><td>the two greps that hit are the reduced-motion guard&rsquo;s own <code>transition-duration</code> and one sentence of prose in <code>faq-list.css</code></td></tr>
+          <tr><td>Files declaring any motion</td><td><b>7 of 72</b></td><td>six landing organisms plus <code>skeleton-bar.css</code></td></tr>
+          <tr><td><code>@keyframes</code> defined</td><td><b>31</b></td><td>1 in <code>base.css</code> (<code>pulse</code>), 30 across the landing&rsquo;s six files</td></tr>
+          <tr><td><code>animation-name</code> declarations</td><td><b>53</b>, of which <b>15</b> are <code>none</code></td><td>a third of the motion vocabulary on that page is spent switching motion off: the phone releases and the reduced-motion kills</td></tr>
+          <tr><td><code>animation-range</code> bounds</td><td><b>64</b> in <b>61</b> distinct values</td><td>orbit 35, story 19, facts 4, steps 3, paths 2, plan 2</td></tr>
+          <tr><td><code>animation-timing-function</code></td><td><b>25</b></td><td>19 read a curve by name, <b>5 say <code>linear</code></b>, 1 says <code>ease-in-out</code></td></tr>
+          <tr><td><code>@supports (animation-timeline: view())</code></td><td><b>10</b></td><td>every scroll-driven block is behind one</td></tr>
+          <tr><td>Easing curves declared anywhere</td><td><b>4</b></td><td>all four on <b>one selector in one file</b></td></tr>
+          <tr><td>Motion tokens in <code>tokens.css</code></td><td><b>0</b></td><td>no <code>--ease-*</code>, no <code>--dur-*</code>, no <code>--motion-*</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note">The totals are the whole product. <b>The distribution is the finding.</b> Nothing above is broken and nothing above was written carelessly; what is missing is that none of it is shared, so the language one page invented cannot be spoken by any other.</p>
+  </section>
+
+  <section class="kit-sec" id="curves">
+    <h2>Four curves, named by job, readable from nowhere</h2>
+    <p class="note"><code>landing-orbit.css</code> declares them inside <code>@supports</code>, on <code>.landing .lp-orbit.lp-story.fromcircle .storypin</code>. They came out of the founder&rsquo;s note of 2026-08-15 on a stage that was already doing everything it had been asked to: <i>make it soft</i>. Every animation on that page ran on <code>linear</code>, which on a scroll timeline is not a neutral default but the strongest decision in the file: it welds the object to the scrollbar, so nothing accelerates, nothing arrives and nothing settles.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Curve</th><th>Value</th><th>Its job</th></tr></thead>
+        <tbody>
+          <tr><td><code>--ease-arrive</code></td><td><code>cubic-bezier(0.16, 1, 0.3, 1)</code></td><td>expo-out. Covers the distance early and spends the rest closing the last few pixels, which is what an object landing looks like. <b>Everything that comes ON uses it</b></td></tr>
+          <tr><td><code>--ease-leave</code></td><td><code>cubic-bezier(0.6, 0, 0.85, 0.2)</code></td><td>its mirror: slow to let go, then quick. <b>Everything that goes OFF uses it</b>, and an exit is always shorter than an entrance</td></tr>
+          <tr><td><code>--ease-settle</code></td><td><code>linear()</code>, one overshoot of 1.5% at 66</td><td>a spring. Used in <b>exactly one place</b>, the deck closing over a cancelled plate, because that is the one moment on the stage where something should feel like an object arriving at a stop rather than a value being interpolated</td></tr>
+          <tr><td><code>--ease-travel</code></td><td><code>cubic-bezier(0.45, 0, 0.22, 1)</code></td><td>one journey only: the two figures crossing most of a viewport, ten times any other travel on the stage. Expo-out over 600px is a rocket that then creeps</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">The drift has already happened, and it is four files wide</h3>
+    <p class="note">A custom property declared on one component&rsquo;s pin cannot be read from another component. So <code>landing-facts.css</code>, <code>landing-paths.css</code>, <code>landing-plan.css</code> and <code>landing-steps.css</code> each write <code>cubic-bezier(0.16, 1, 0.3, 1)</code> <b>by hand</b> for their own entrance. <b>Five files, one curve, one name and four literals.</b> That is not the argument for a token in the abstract: it is the drift the token exists to stop, already in the code. The orbit file predicted it in a comment and named this stage as the place it gets fixed.</p>
+  </section>
+
+  <section class="kit-sec" id="durations">
+    <h2>Fifteen durations, and not one of them is a scale</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Group</th><th>Count</th><th>Values</th></tr></thead>
+        <tbody>
+          <tr><td>the five marquee rows of the wide orbit</td><td>5</td><td>47s, 39s, 33s, 43s, 36s</td></tr>
+          <tr><td>the eight strands</td><td>8</td><td>15.4, 17.1, 13.3, 18.6, 16.2, 14.1, 19.3, 15.9s, each with its own negative phase from -0.0s to -14.1s</td></tr>
+          <tr><td>the skeleton pulse</td><td>1</td><td>1.4s, written at stage 07</td></tr>
+          <tr><td>the reduced-motion guard</td><td>1</td><td>0.01ms</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The first two groups are deliberately mutually prime so that nothing on the stage ever loops in step with anything else, and they are <b>not candidates for a scale</b>: a loop length is not a duration in the sense a scale means it. The scale this stage owes is the one that does not exist yet, because <b>the product has no transitions to time.</b></p>
+  </section>
+
+  <section class="kit-sec" id="app">
+    <h2>The other fifty-four screens: 68 state changes, every one a hard cut</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What</th><th>How many</th></tr></thead>
+        <tbody>
+          <tr><td>rules carrying a state selector (<code>:hover</code>, <code>:focus-visible</code>, <code>:active</code>, <code>:checked</code>, <code>[aria-*]</code>, <code>.is-*</code>)</td><td><b>68</b>, in <b>28</b> files</td></tr>
+          <tr><td>of those files, how many declare any motion</td><td><b>2</b></td></tr>
+          <tr><td>state-carrying components that change instantly</td><td><b>26</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The 26 include every control a person actually touches: <code>button</code>, <code>switch-row</code>, <code>checkbox</code>, <code>select</code>, <code>text-input</code>, <code>tab-bar</code>, <code>nav-row</code>, <code>subscription-row</code>, <code>plan-option</code>, <code>preset-tile</code>, <code>door</code>, <code>panel</code>, <code>faq-list</code>, <code>app-bar</code>. <b>Nothing here is broken.</b> An instant state change is a legitimate choice, and for a product whose first principle is calm it is a defensible one. What it is not is a <b>recorded</b> choice: no file says &ldquo;this changes instantly, and here is why&rdquo;, so today it cannot be told apart from an omission.</p>
+    <p class="note"><b>The bottom sheet is the loudest case.</b> <code>dialog-sheet.css</code> is the product&rsquo;s only consumer of <code>--shadow</code> and it carries the three moments where this product asks a person to decide something: &ldquo;Add a source&rdquo;, &ldquo;Cancelling can be made deliberately hard, and it is not your fault&rdquo;, &ldquo;Delete everything Tendd holds for you?&rdquo;. It appears with no travel at all.</p>
+  </section>
+
+  <section class="kit-sec" id="guard">
+    <h2>The guard is correct, and it currently guards nothing</h2>
+    <p class="note"><code>base.css</code> carries the product-wide <code>prefers-reduced-motion</code> block: <code>animation-duration: 0.01ms</code>, <code>animation-iteration-count: 1</code>, <code>transition-duration: 0.01ms</code>, <code>scroll-behavior: auto</code>, all <code>!important</code>, on <code>*</code>. Its transition half reaches <b>zero declarations</b>, because there are none. It becomes load-bearing on the first line this stage writes, which is the right order: the guard was put in before the thing it guards, and it was put in because it had once been written at the wrong specificity and every skeleton pulsed forever for a person who had asked the operating system for stillness.</p>
+    <p class="note">Eight further <code>prefers-reduced-motion</code> blocks live in the six landing files and one more in <code>design/story.js</code>. <b>Nine motion guards for one page, one for the other fifty-four.</b></p>
+  </section>
+
+  <section class="kit-sec" id="dead">
+    <h2>One dead keyframe, found by the count and deleted the same day</h2>
+    <p class="note"><code>@keyframes srise</code> in <code>landing-story.css</code>: <b>defined, and named by nothing.</b> It was the story head&rsquo;s entrance until that file recorded the decision that the head does not make one, and the reason is written beside the rule that took it off: at <code>contain 0%</code>, the first frame anybody sees when the stage locks, its fill-mode held the heading at opacity 0 and the reader was handed fourteen unlabelled squares with no heading, no number and no reason. The reference went. The four lines of the keyframe stayed.</p>
+    <p class="note">Same class of leftover as the centred stage deleted the day before and one order of magnitude smaller, found the same way: by reading <b>every</b> <code>@keyframes</code> in the system against <b>every</b> <code>animation-name</code> in it. <b>31 defined, 31 named</b> after the deletion. The check is part of the census script now rather than a thing somebody remembers to run.</p>
+  </section>
+
+  <section class="kit-sec" id="questions">
+    <h2>What the census leaves to decide</h2>
+    <p class="note">Four questions, none of them answerable by measuring, which is why they are listed here rather than settled here.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>#</th><th>The question</th><th>What the census contributes</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><b>Do the four curves become tokens, and at which level?</b></td><td>They are values, they are already named by job rather than by shape, and one of them is copied by hand into four files. The two-level rule gives the shape: <code>--ease-expo-out</code> as the primitive, <code>--ease-arrive</code> as the role. The open half is whether four is the right number for a product whose motion is about to double</td></tr>
+          <tr><td>2</td><td><b>Does the app get motion at all, and what kind?</b></td><td>26 components change state instantly. Three answers are all defensible: leave it and write down why; give the system one transition on the two properties that carry a state change, colour and border; or design it per component. <b>The founder&rsquo;s call, and the biggest in the stage</b>, because it is the only one that touches every screen</td></tr>
+          <tr><td>3</td><td><b>What happens between two states that are documented as two pages?</b></td><td>The product has 7 loading pages, 7 empty pages and 7 error pages. Every state change it documents is documented as a separate file, so the movement between them has no owner anywhere in this repo. Either the stage names that movement, or it says plainly that a state change here is a page change and carries none</td></tr>
+          <tr><td>4</td><td><b>Is the landing&rsquo;s language the product&rsquo;s language?</b></td><td>Arrive and leave, an exit shorter than its entrance, and a curve for a long journey are a complete and coherent vocabulary. It was derived on one surface, and rule 4 of this system exists precisely because a scale derived from a sample of one is not a scale</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>What this page does not have yet, and why.</b> There is no live curve stand on it. A stand that lets you run the four curves against each other is worth building and it belongs to the step that decides which curves survive: built now it would specimen four values that question 1 may still change, and a specimen of a value that moves is how a stand starts lying.</p>
+  </section>
+
+  <footer class="kit-foot">
+    The full census, the audit and the four open questions are in <code>docs/motion.md</code>. The curves live for now in <code>design/system/components/landing-orbit.css</code>, scoped to one selector, and this stage is where they leave it. The page they were written for is <a href="../index.html">the landing</a>; the guard that will hold them is in <code>design/system/base.css</code>; the rule that decides where a value is allowed to live is in <a href="architecture.html">Architecture</a>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script>
+  window.NAV_BASE = '../../';
+  window.NAV_SECTIONS = [
+    { id:'census',    label:'The census' },
+    { id:'curves',    label:'The four curves' },
+    { id:'durations', label:'The durations' },
+    { id:'app',       label:'The other 54 screens' },
+    { id:'guard',     label:'The guard' },
+    { id:'dead',      label:'The dead keyframe' },
+    { id:'questions', label:'What is left to decide' },
+  ];
+</script>
+<script src="../../_nav.js"></script>
+<script src="_nav.js"></script>
+
+</body>
+</html>

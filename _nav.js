@@ -89,7 +89,14 @@ window.NAV = [
   // longer used by any of the three, because none of them renders a sidebar to hint at.
   { label:'Design System',       page:'design/kit/why.html', done:true },
   { label:'Responsive',          page:'design/kit/responsive.html', done:true },
-  { label:'Animation',           page:null, done:false },
+  // ANIMATION TOOK A PAGE ON 2026-08-16, AT ITS OWN STEP 1, and it is the first row in this
+  // registry to use `ready` for what `ready` was written for. The stage is not finished and
+  // `done` stays false, so the badge and the state class are unchanged; what `ready` buys is
+  // that the row is a LINK while the stage runs, because the census it opens on is the thing
+  // most worth reading during the stage rather than after it. Like Design System and
+  // Responsive, the page carries the system's own panel rather than this roadmap, and the
+  // roadmap comes back at the foot of that panel.
+  { label:'Animation',           page:'design/kit/motion.html', ready:true, done:false },
   // ROLLOUT WAS MISSING FROM THIS REGISTRY AND FROM THE README UNTIL 2026-08-13,
   // and it was found at stage 10 rather than at stage 12, which is the only
   // reason it cost nothing. The stage that builds the rest of the product in
