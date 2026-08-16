@@ -53,9 +53,37 @@
    found by touch. The role is still the right one either way - this line is a
    container edge doing a container edge's job, and the row IS the container. */
 .landing .lp-faq {
+  max-width: var(--container-column);
   border-top: 1px solid var(--line-container);
 }
 .landing .lp-faq details { border-bottom: 1px solid var(--line-container); }
+
+/* ---- ONE OPEN AT A TIME, AND IT IS AN HTML ATTRIBUTE ---------------------
+   The founder, 2026-08-16: "при откртие одного из пунктов другой закрівается".
+   That is `<details name="faq">`, four characters of markup and no script: a
+   named group of disclosures is exclusive by definition, the browser closes the
+   previous one, and the keyboard and announcement behaviour that made this
+   component `<details>` in the first place is exactly what carries the change.
+   This file's own header says every attribute it could add would repeat
+   something the element does better; this is the one attribute that does not.
+   Where a browser is too old to know the name it ignores it and the block
+   behaves as it did yesterday, which is the whole reason to do it this way.
+
+   IT IS ALSO HALF THE ANSWER TO "они длинние". Four questions with four answers
+   open is a wall of prose in a block that exists to hold prose out of the way;
+   one open at a time is the block at a quarter of its worst height, and a person
+   never has to close anything to see the next question. */
+
+/* ---- AND THE OTHER HALF: THE ROWS STOP GROWING ---------------------------
+   "давай пункті сдлеам уже а то они длинние и растянутіе", 2026-08-16. At 1440
+   the right column was 826px wide and the longest question in the block is 389,
+   measured, so more than half of every row was the gap between a question and
+   its mark. The list caps at --container-column, the 620 a single column of
+   content is allowed to reach, and the cap is READ rather than invented: the
+   answer already stops at the 52ch reading measure, and a question is the same
+   kind of reading. Past about 1100 the block simply stops growing, which is
+   what a measure is for. It costs nothing below: at the desktop point the
+   column is 550 and the cap never bites. */
 
 /* ---- the split, past the desktop point -----------------------------------
    The heading stops being a label over a list and becomes the block's left
@@ -100,7 +128,7 @@
   display: flex; align-items: center; justify-content: space-between;
   gap: var(--space-24);
   min-height: var(--tap);
-  padding: var(--space-24) var(--space-0);
+  padding: var(--space-24);
   font-size: var(--type-title);
   font-weight: 600;
   color: var(--text-primary);
@@ -109,6 +137,39 @@
 }
 .landing .lp-faq summary::-webkit-details-marker { display: none; }
 .landing .lp-faq summary:hover { color: var(--text-action); }
+
+/* ---- the open one is on paper --------------------------------------------
+   "и так же сделаем интереснее", 2026-08-16, and this is the answer the product
+   language already had rather than a decoration bought in for the occasion.
+   D-Concept's material is paper on a cool off-white ground: the thing you are
+   looking at is the thing on paper. This block stands on the page ground, so the
+   question a person has opened takes a sheet of --bg-surface under it and the
+   three they have not stay on the ground. With one open at a time, that sheet
+   moves down the list as they read, which is the whole interaction stated in one
+   material fact and no new colour, no new token and no motion.
+
+   THE HAIRLINES AROUND IT GO, or the sheet is a paper row with a line cut across
+   its corners. Three rules, and each one names a different edge: its own bottom,
+   the bottom of whatever sits above it, and the list's top border when the open
+   one is the first. `transparent` and not `none`, so nothing moves by a pixel.
+
+   THE ROW IS INSET AT ALL WIDTHS AND IN BOTH STATES, which is what stops the
+   text jumping sideways when the sheet appears under it. A closed row's text
+   therefore starts 24 in from the hairline's end, which is what a list row does
+   everywhere else in this product. */
+.landing .lp-faq details[open] {
+  background: var(--bg-surface);
+  border-radius: var(--radius);
+  border-bottom-color: transparent;
+}
+.landing .lp-faq details:has(+ details[open]) { border-bottom-color: transparent; }
+.landing .lp-faq:has(> details:first-child[open]) { border-top-color: transparent; }
+
+/* the row answers a pointer, because the whole row is the control and the label
+   alone was the only part of it saying so. --bg-hover is the recessed step, and
+   it steps the same direction on both themes against the page ground it stands
+   on: lighter than --bg-page in the light theme and lighter in the dark one. */
+.landing .lp-faq details:not([open]) > summary:hover { background: var(--bg-hover); border-radius: var(--radius); }
 
 /* THE MARK IS A PLUS THAT BECOMES A MINUS, which is what the grey has drawn
    since the wireframes and what the rollout replaced with a chevron on 2026-08.
@@ -146,7 +207,7 @@
    two blocks rather than as a question and its answer. */
 .landing .lp-faq details > p {
   margin: var(--space-0);
-  padding: var(--space-0) var(--space-0) var(--space-24);
+  padding: var(--space-0) var(--space-24) var(--space-24);
   font-size: var(--type-body);
   line-height: 1.6;
   color: var(--text-body);

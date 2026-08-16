@@ -54,6 +54,40 @@ at its own 1000px point: the stage it renders in is narrower than the window it 
 transition needs either a fixed height, which the copy does not have, or `interpolate-size`, which
 is a decision about how this product moves.
 
+**The same day, a second pass on the same block:** "давай пункті сдлеам уже а то они длинние и
+растянутіе и так же сделаем интереснее и при откртие одного из пунктов другой закрівается".
+
+**One open at a time is four characters of markup.** `<details name="faq">` is an exclusive group
+by definition: the browser closes the previous one, and the keyboard and announcement behaviour
+that made this component `<details>` in the first place is exactly what carries the change. This
+component's own rule says every attribute it could add would repeat something the element does
+better; this is the one attribute that does not. Where a browser is too old to know the name it
+ignores it and the block behaves as it did before, which is the reason to do it this way rather
+than with a script. It is also half the answer to "длинные": four answers open is a wall of prose
+in a block that exists to hold prose out of the way.
+
+**The other half: the rows stop growing.** At 1440 the right column was 826px and the longest
+question in the block is 389, measured, so more than half of every row was the gap between a
+question and its mark. The list caps at `--container-column`, 620, and the cap is read rather than
+invented: the answer already stops at the 52ch reading measure and a question is the same kind of
+reading. Past about 1100 the block simply stops growing. Below the desktop point it costs nothing,
+because the column is 550 there and the cap never bites.
+
+**"Интереснее" is answered with the product's own material and no new anything.** D-Concept's
+material is paper on a cool off-white ground: the thing you are looking at is the thing on paper.
+This block stands on the page ground, so the question a person has opened takes a sheet of
+`--bg-surface` and the three they have not stay on the ground. With one open at a time, that sheet
+moves down the list as they read. No new colour, no new token, no motion, and the accordion's whole
+state said in one material fact. Rejected: numbering the questions (it implies a sequence a FAQ
+does not have, and it puts generated text into the reading order), and petrol on the open row (the
+accent has three jobs and this page already spends it three times). The hairlines around the sheet
+go transparent, which is three rules naming three edges: its own bottom, the bottom of whatever
+sits above it, and the list's top border when the open one is first.
+
+**The grey took the shape and not the sheet.** The grey landing is white all the way through, so
+paper on paper says nothing there; it puts the open row one step the other way, on `--panel2`, and
+carries the same inset, the same cap and the same `name`.
+
 ---
 
 ## 2026-08-16 - The pricing block, fifth build: a podium, a horizon, and less to read
