@@ -385,6 +385,11 @@ The geometry stayed `px` on purpose - a width and a gutter are not text.
 ### Hierarchy
 - **Display** (700, 46px, line-height 1.02, -0.025em): the monthly total, and nothing else. One per
   screen, ever.
+- **Section** (700, 24px on a phone and **32px past the tablet point**, -0.015em): the subject of a
+  section on the public page, added 2026-08-16. It reads `--type-section`, which carries the same
+  value as `--type-figure` and is a token of its own: one of the two is a number about money on an
+  app screen and the other is a heading on a marketing page. The app has no such step, because an
+  app screen's subject is Display or Headline and never a band heading.
 - **Headline** (700, 18px): the subscription name on the detail screen, and the heading of an
   empty or error message.
 - **Title** (800, 16px, -0.02em): the wordmark in the app bar, with the `dd` pair a further

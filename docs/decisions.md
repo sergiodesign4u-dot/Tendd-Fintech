@@ -7,6 +7,57 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - The landing pass: a heading step, a row that aligns, an edge that dissolves, and a rule that was never running
+
+The founder, after the footer: a pass over the whole page rather than another block. It found
+four things, and only the first was a matter of taste.
+
+**One, the section headings were the app's step.** Every heading on the public page rendered at
+`--type-head`, 24px, at every width: the size the app gives the subject of a 780px column, set
+over a 1280px band under a 56px hero. **The desync was written in the code and not only on the
+screen.** `landing-shell.css` carried a rule inside the tablet query that set `--type-head` a
+second time, which is the value the base already gives: a query point with no change in it. The
+grey has stepped its own heading at that point since the wireframes, 23px to 27px, so the point is
+the contract and the flat value was the rollout's. The step is now `--type-section`, 32px, past
+the tablet point; a phone does not move. **It is a token of its own at the same value as
+`--type-figure`**, which is rule 4 read literally: two roles means two tokens even at one value
+today, and one of them is a number about money on an app screen while the other is a heading on a
+marketing page. Borrowing the figure's token would also break the naming this scale runs on, where
+every step is named for its job.
+
+**Two, a row whose two headings did not start on the same line.** The trust band's claim with no
+proof beside it was centred in its panel, on a written reason: a claim made only of words is the
+shorter box, a grid row stretches it, and at the top it would read as a panel someone forgot to
+finish. What that argument does not price is the row. Measured at 1440, the centred panel's
+heading started 60px in and its neighbour's 24px in, a 36px stagger between two headings on one
+line (24px at 1000, 8px at 760). Two headings on two different lines is a first order signal and
+reads as a mistake; trailing air inside one panel is second order and reads as room. The other
+half of that decision stands: the sentence with no proof is still one step larger.
+
+**Three, the closing band's top edge was a cut, and the first measurement of it was taken at one
+place.** `landing-final.css` said a top fade would be an effect with nothing to do, because the
+picture's first rows measured 241,241,232 against a page ground of 238,243,244. True at that x and
+false across the width: sampled every 100px, the light theme stepped to 227,234,222 at x=200,
+twenty-two units in the blue channel, drawn straight across 1440px. The dark theme was nearly clean
+at 8 units, which is why nothing looked wrong in the theme the band was built in. **A watercolour
+is not one colour, and a single sample is not a measurement.** The fade is `--space-96`, which is
+where the sheet begins, so the picture is at full strength behind the message; the worst step
+across the edge is now zero at all fourteen sample points in both themes.
+
+**Four, `.landing { background: var(--bg-page) }` had never applied.** A stray comment terminator
+in `landing-shell.css` closed its block one paragraph early, so seven lines of prose stood in the
+stylesheet as CSS; the parser read from there to the next brace as one selector and swallowed the
+rule with it. Measured: `.landing` computed `rgba(0, 0, 0, 0)`. **Nothing looked wrong**, because
+`base.css` paints the same `--bg-page` on `body`, so the landing was standing on the body's ground
+and looking exactly like a landing standing on its own. Two audits ran off the back of it: every
+stylesheet in the system, the grey and the kit was scanned for stray or unclosed comments (clean),
+and every `var()` in the system was checked against every declaration with comments stripped and
+fallbacks excluded (zero live variables undeclared). Noted for the next person: a CSS comment does
+not nest, so a comment terminator cannot be quoted inside one, which is how the repair broke the
+same block a second time before the scan caught it.
+
+---
+
 ## 2026-08-16 - The footer stands on a grid, and the page ends on a bar
 
 The founder, on the foot of the public page: "сделаем поинтереснее подвал?" Four things came out

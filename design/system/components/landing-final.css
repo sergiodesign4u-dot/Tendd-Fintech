@@ -77,20 +77,30 @@
    `background-color` UNDER IT AND ALWAYS, so the band has a ground before the
    picture loads and keeps it if the picture never does.
 
-   THE FADE IS AT THE FOOT ONLY, and both ends are measured rather than chosen.
-   At the TOP the picture's own first rows are 241,241,232 in the light theme
-   against a page ground of 238,243,244, and 5,20,22 against 14,21,23 in the
-   dark: the sky already arrives at the colour of the band above it, so a fade
-   there would be an effect with nothing to do, and the hairline goes instead -
-   a line drawn across a picture is a line, not a boundary. At the FOOT the
-   band meets the footer, which is --bg-surface in both themes, so the water
-   dissolves into the footer's own paper over the last 120px and the page ends
-   with no seam at all. */
+   THE FADE IS AT BOTH ENDS, AND THE TOP ONE WAS ADDED ON 2026-08-16 BECAUSE THE
+   FIRST MEASUREMENT OF IT WAS TAKEN AT ONE PLACE. This file said a top fade
+   would be an effect with nothing to do: the picture's first rows measured
+   241,241,232 in the light theme against a page ground of 238,243,244, so the
+   sky arrived at the colour of the band above it. That reading was true at the
+   x it was taken at and false across the width. A watercolour is not one colour:
+   sampled every 100px on the founder's pass, the light theme stepped 238,243,244
+   to 227,234,222 at x=200, twenty-two units in the blue channel, and a step that
+   size drawn straight across 1440px is a cut. The dark theme was nearly clean
+   (8 units), which is why nothing looked wrong in the theme the band was built
+   in. --space-96 of fade, which is also where the sheet begins, so the picture
+   is at full strength everywhere behind the message. Re-measured after: the
+   worst step across the edge is ZERO at all fourteen sample points, in both
+   themes. The hairline stays gone, because a line drawn across a picture is a
+   line and not a boundary. At the FOOT the band meets the footer, which is
+   --bg-surface in both themes, so the water dissolves into the footer's own
+   paper over the last 120px and the page ends with no seam at all. */
 @container (min-width: 47.5rem) {
   .landing .lp-section.lp-final {
     background-color: var(--bg-page);
     background-image:
-      linear-gradient(to bottom, transparent calc(100% - 120px), var(--bg-surface) 100%),
+      linear-gradient(to bottom,
+        var(--bg-page) 0, transparent var(--space-96),
+        transparent calc(100% - 120px), var(--bg-surface) 100%),
       var(--wash-final);
     background-size: cover;
     background-position: center;

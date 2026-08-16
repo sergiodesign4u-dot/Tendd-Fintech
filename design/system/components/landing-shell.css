@@ -15,6 +15,8 @@
    Reads
      colour   --bg-page, --bg-surface, --line-container
      spacing  --space-16, --space-24, --space-32, --space-48, --space-80, --space-96
+     type     --type-head (a section heading on a phone), --type-section (the
+              same heading past the tablet point, from 2026-08-16)
      width    --container-wide, --bp-tablet, --bp-desktop
    Page      design/kit/landing-shell.html
    Stands on 1 grey page and 1 coloured one: the landing is the only public
@@ -29,7 +31,23 @@
    The landing sits on the canvas like every other surface in this product, and
    the sections that need to stand apart take the surface fill rather than a
    border. One shadow exists in this system and it is not spent here: depth on a
-   public page is carried by the ground change, exactly as it is inside the app. */
+   public page is carried by the ground change, exactly as it is inside the app.
+
+   AND THE COMMENT BELOW WAS NOT INSIDE A COMMENT UNTIL 2026-08-16. A stray
+   comment terminator closed this block one paragraph early, so seven lines of
+   prose stood in the stylesheet as CSS. (The terminator cannot be quoted here
+   either, and that is the same fact from the other side: a CSS comment does not
+   nest, so the first one that appears anywhere in this block ends it.) The
+   parser then does what a parser does: it read from `THE ROLE`
+   to the next `{` as one selector, which swallowed `.landing` with it, and the
+   rule under it never applied. Measured on the page: `.landing` computed
+   `rgba(0, 0, 0, 0)`. NOTHING LOOKED WRONG, which is the whole reason it lasted -
+   base.css paints the same --bg-page on `body`, so the landing was standing on
+   the body's ground and looking exactly like a landing standing on its own. The
+   same trap the paragraph below describes, one level up: a rule that does not
+   apply and a rule that applies to the identical value are indistinguishable
+   until something underneath changes.
+
    THE ROLE IS --bg-page, AND IT SAID --bg-canvas UNTIL 2026-08-15. No such role
    exists: the var() resolved to nothing, the declaration fell to transparent,
    and the landing has been showing base.css's own --bg-page on `body` the whole
@@ -121,5 +139,12 @@
 @container (min-width: 47.5rem) {
   .landing .lp-wrap { padding: var(--space-0) var(--space-40); }
   .landing .lp-section { padding: var(--space-96) var(--space-0); }
-  .landing .lp-section > .lp-wrap > h2 { font-size: var(--type-head); }
+  /* THE STEP THIS RULE WAS ALWAYS FOR, filled in on 2026-08-16. It set
+     --type-head a second time, which is the same value the base already gives:
+     a query point with no change in it. The grey has stepped its own heading at
+     this point since the wireframes, 23px to 27px, so the point is the contract
+     and the flat value was the rollout's. --type-section is 32px and it is a
+     token of its own rather than --type-figure at the same number: see its
+     comment in tokens.css. A phone keeps --type-head. */
+  .landing .lp-section > .lp-wrap > h2 { font-size: var(--type-section); }
 }
