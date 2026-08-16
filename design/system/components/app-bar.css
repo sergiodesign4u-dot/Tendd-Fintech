@@ -221,11 +221,52 @@
   min-height: var(--tap);
   padding: var(--space-0) var(--space-8) var(--space-0) var(--space-0);
   font-size: var(--type-body);
+  /* 600 SINCE 2026-08-17, founder, looking at the bar: "давай сделаем может
+     жирным шрифтом и нормальную иконку назад". It was 400, the page's own body
+     weight, which is the weight of a SENTENCE. This is not a sentence, it is the
+     way out of the screen and the most used control in the bar, and at 400 beside
+     an 800 wordmark it read as a caption that happened to be clickable. 600 is
+     the weight this system already gives a control that carries a name: the same
+     step the nav row's title, the plan option and the door's pick line take. */
+  font-weight: 600;
   color: var(--text-body);
   text-decoration: none;
 }
-.app .appbar .back:hover,
 .app .appbar .close:hover { color: var(--text-primary); }
+
+/* ---- BACK IS INK AND ITS ARROW ADVANCES, and Close is neither ---------------
+   The two share the slot and stop sharing here, because they are not the same
+   kind of thing. BACK is a direction: it says where you go and it is taken
+   constantly. CLOSE is an exit from a flow, taken once, and a flow's own screen
+   should not be shouting its exit.
+
+   So Back rests in INK rather than in body ink. At 600 on --text-body it was
+   still one step behind the title it sits under, and the founder's complaint was
+   about exactly that reading. --text-primary is the ink every other named control
+   in this product takes at rest.
+
+   ITS HOVER IS THE ADVANCE VERB AND NOT A COLOUR STEP. Ink at rest leaves no
+   darker ink to go to, so the answer moves instead: the arrow travels one --nudge
+   TOWARD WHERE IT POINTS, which is U13's own rule and the same thing the nav row's
+   chevron does to the right. The label does not move - a word that shifts under
+   the pointer is the jump this bar spent a paragraph avoiding - and nothing here
+   reflows, because `translate` changes no box. */
+.app .appbar .back {
+  color: var(--text-primary);
+  /* THE GAP CAME BACK WITH THE ARROW, and it is measured rather than eyeballed.
+     The block below explains why the chevron needed none: it painted 7 of its 24
+     units, so its own mask left about 5.1px of air before the label - the same
+     air the character it replaced had. The arrow paints 14 of 24 and its stroke
+     reaches 20.25, so inside an 18px box the ink stops 2.81px from the edge and
+     the label landed against it. --space-2 puts the pair back at 4.8px, which is
+     the old air to within a third of a pixel. It is the smallest step on the
+     scale and it is spent exactly where the drawing needs it. */
+  gap: var(--space-2);
+}
+.app .appbar .back::before {
+  transition: translate var(--dur-state) var(--ease-arrive);
+}
+.app .appbar .back:hover::before { translate: calc(var(--nudge) * -1) 0; }
 
 /* ---- the two marks ---------------------------------------------------------
    NEITHER PATH IS NEW. The chevron is the one nav-row.css draws for "there is
@@ -241,8 +282,10 @@
    whole direction group at one size for exactly that reason. The three of them
    are now one family in the mark census instead of two drawn and two typed.
 
-   NO GAP BETWEEN THE MARK AND THE LABEL, and it is measured rather than left to
-   taste. The chevron paints 7 of 24 units, so inside a 16px box it is 4.67px of
+   NO GAP BETWEEN THE MARK AND THE LABEL - true of the CROSS, and true of the
+   chevron until the arrow replaced it on 2026-08-17. The `.back` rule above now
+   carries a --space-2, and the arithmetic for it is there; what follows is the
+   argument for why the cross still needs none, and the record of the chevron's. The chevron paints 7 of 24 units, so inside a 16px box it is 4.67px of
    ink with 5.67px of clearance on each side; the character it replaces had a
    5.39px advance plus a 3.94px word space, which is about 5.1px of air after the
    ink. The mask's own clearance already IS the gap, to within half a pixel, and
@@ -273,8 +316,25 @@
   -webkit-mask-size: contain; mask-size: contain;
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
 }
+/* THE MARK IS AN ARROW AND IT WAS A CHEVRON UNTIL 2026-08-17. The chevron was
+   the nav row's "there is more this way", mirrored, and the family argument for
+   it was real: one drawing, two directions. What it is not is a BACK icon. A
+   chevron on its own is a disclosure mark - it opens things all over this
+   product, twice on the same screen as this bar - so the one control that means
+   "leave this screen" was drawing the mark that means "go deeper". The arrow has
+   a shaft, it is the convention on both platforms this product ships to, and it
+   is the one mark in the bar nobody has to learn.
+
+   18px AND stroke 2.5, both against the 16px and stroke 2 of the family. A back
+   arrow beside a 600 label at 16px in a 2-unit stroke renders 1.33px of ink and
+   reads lighter than the word it belongs to; 18 at 2.5 is 1.87px, which sits on
+   the label's own weight. Rendered as a ladder of six before it was picked: 20px
+   at 2.5 puts the arrow above the type it labels, which is a bar shouting its
+   exit. The cross keeps 16 and 2, unchanged: it did not gain the weight and it
+   is not a direction. */
 .app .appbar .back::before {
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 5-7 7 7 7'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 5-7 7 7 7'/%3E%3C/svg%3E");
+  width: 18px; height: 18px;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H5m7-7-7 7 7 7'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H5m7-7-7 7 7 7'/%3E%3C/svg%3E");
 }
 .app .appbar .close::before {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 6l12 12M18 6L6 18'/%3E%3C/svg%3E");

@@ -7,6 +7,49 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-17 - The back control is bold, its mark is an arrow, and four links stopped leaving the product
+
+Founder, on the app bar: **"кнопочка и стрелочка Back - давай сделаем может жирным шрифтом и
+нормальную иконку назад"**, and separately: **"я би еще проверил линки на UI екранах, а то где-то мне
+попадалось что переходило на вайрфрейми"**. Both were right, and the second one was a real defect.
+
+**The weight.** `.back` and `.close` were 400, the page's body weight, which is the weight of a
+SENTENCE. This is the way out of the screen and the most used control in the bar, and at 400 beside
+an 800 wordmark it read as a caption that happened to be clickable. Both are 600 now, the step this
+system already gives a control that carries a name.
+
+**The ink.** `.back` rests in `--text-primary` rather than `--text-body`: at 600 on body ink it was
+still a step behind the title above it, which is what the complaint was actually looking at. `.close`
+keeps body ink and its colour hover: it is an exit from a flow, taken once, and a flow should not be
+shouting its way out.
+
+**The mark.** It was a mirrored chevron, and the family argument for it was real - one drawing, two
+directions, shared with the nav row. What it is not is a BACK icon: a chevron on its own is this
+product's *go deeper* mark, drawn twice on the same screens as this bar, so the one control meaning
+*leave this screen* was wearing the mark that means the opposite. It is now an **arrow with a
+shaft**, 18px at stroke 2.5 against the family's 16px at 2, because at 16/2 the ink renders 1.33px
+and reads lighter than the 600 label beside it. Picked off a rendered ladder of six: 20px at 2.5 puts
+the arrow above the type it labels. The cross is untouched.
+
+**The gap came back with the arrow.** The chevron painted 7 of its 24 units, so its own mask left
+about 5.1px of air - exactly what the character before it had, which is why the control carried no
+gap. The arrow paints 14 of 24 and its stroke reaches 20.25, so inside an 18px box the ink stops
+2.81px from the edge and the label landed against it. `--space-2` puts the pair back at 4.8px.
+
+**The hover is the advance verb rather than a colour step.** Ink at rest leaves no darker ink to go
+to, so the arrow travels one `--nudge` toward where it points, which is U13's own rule and what the
+nav row's chevron does to the right. The label does not move.
+
+**And the four links.** Every `href` on all 55 coloured pages was walked: **832 links, 0 pointing at
+a file that does not exist, and 4 leaving the coloured product for the frozen grey** - the back
+control on `path-choice` and `sign-in`, "Sign out" on `settings`, and "Delete everything" on
+`data-privacy-delete-confirm`. All four are the same fossil: they were written when `design/` had no
+landing of its own and `wireframes/index.html` was the only home in the repository. The coloured
+landing has existed since 2026-08-14; all four now point at it. Re-run after the fix: **0 links
+leave the product and 0 point nowhere.**
+
+---
+
 ## 2026-08-17 - Each step's rail ends at its own block
 
 Founder, with the three ends drawn on a screenshot of "How Tendd works": **"сепаратор би сделал би
