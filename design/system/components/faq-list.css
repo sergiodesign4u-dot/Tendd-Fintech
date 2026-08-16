@@ -12,25 +12,83 @@
    something the element does better. The one thing the element does not bring
    is a mark that says which way it is about to go, and that is drawn below.
 
+   REBUILT 2026-08-16, AND THE REBUILD IS A DESYNC REPAIR RATHER THAN A NEW
+   IDEA. The founder, with a reference: "давай делать ... сделай красиво". What
+   the reference shows is a heading standing on the left, the questions as open
+   rows on the page's own ground with a hairline between them, and a plus that
+   becomes a minus. Two of those three are what the FROZEN GREY has drawn since
+   the wireframes: `_wf.css` gives this block a top border, a border under each
+   question and a `+` that turns into a dash, with no card anywhere. The colour
+   rollout put the four rows inside a white card and swapped the mark for a
+   chevron, and neither was asked for by anything. So the card is gone, the mark
+   is a plus again, and the grey is the contract it always was. What is new is
+   the SPLIT: past the desktop point the heading takes a column of its own and
+   stays with the list while it scrolls.
+
    Reads
-     colour   --bg-surface, --line-container, --line-divider, --text-primary,
-              --text-body
-     spacing  --space-0, --space-4, --space-16, --space-24
-     geometry --radius, --tap, --ring
-     type     --type-sub, --type-body
+     colour   --line-container, --text-primary, --text-body
+     spacing  --space-0, --space-24, --space-64, --space-96
+     geometry --tap (the focus ring is base.css's and is not read here)
+     type     --type-title, --type-body
      width    --container-text
    Page      design/kit/faq-list.html
    Stands on 1 grey page and 1 coloured one.
    ============================================================================ */
 
-.landing .lp-faq {
-  background: var(--bg-surface);
-  border: 1px solid var(--line-container);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
+/* ---- the list ------------------------------------------------------------
+   NO CARD. Four questions in a white box on a canvas band read as one object a
+   person has to open; four rows on the band itself read as four things, which
+   is what they are. It also costs the block nothing to say so: the row IS the
+   divider and the boundary, exactly as the grey draws it.
 
-.landing .lp-faq details + details { border-top: 1px solid var(--line-divider); }
+   --line-container AND NOT --line-divider, which is the one value that had to
+   change when the card went. A divider is the line INSIDE a container and it is
+   tuned to sit on paper; measured on the page ground it is 1.01:1 against
+   --bg-page in the light theme, which is not a faint line but no line at all.
+   --line-container is 1.09:1 there and 1.46 in the dark theme, where the same
+   pair on paper is 1.23 and 1.33. So the light theme's line here is a little
+   quieter than the product's usual hairline and the dark theme's a little
+   louder, both by the ground they stand on rather than by a choice, and neither
+   owes a threshold: a divider is decorative and nothing in this block has to be
+   found by touch. The role is still the right one either way - this line is a
+   container edge doing a container edge's job, and the row IS the container. */
+.landing .lp-faq {
+  border-top: 1px solid var(--line-container);
+}
+.landing .lp-faq details { border-bottom: 1px solid var(--line-container); }
+
+/* ---- the split, past the desktop point -----------------------------------
+   The heading stops being a label over a list and becomes the block's left
+   half, which is what gives the questions the width to be read at 20px. It is
+   asked with `:has(.lp-faq)` and not with a class, because the section carries
+   no class of its own and this is a fact about what the section CONTAINS: the
+   markup is the same on both corpora and neither had to learn a name.
+
+   3 to 8 AND NOT A WIDTH. A fraction is right here where a literal is not: the
+   left column exists to hold four words, and what matters is that they wrap to
+   two or three lines rather than that the column is any particular number of
+   pixels. At the desktop point it is 206px and the heading takes three lines;
+   at 1440 it is 310 and takes two. Both read as a block of type, which a single
+   line in a wide column would not.
+
+   THE HEADING IS STICKY, and 96 is the sticky app bar plus air: the bar is 73px
+   tall on the landing, measured, so the heading parks 23px under it and stays
+   beside whichever question a person has opened. `align-self: start` is what
+   makes that possible at all - a stretched grid item is as tall as its row and
+   has nothing to stick inside. */
+@container (min-width: 56.25rem) {
+  .landing .lp-section:has(.lp-faq) > .lp-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+    column-gap: var(--space-64);
+    align-items: start;
+  }
+  .landing .lp-section:has(.lp-faq) > .lp-wrap > h2 {
+    position: sticky;
+    top: var(--space-96);
+    margin-bottom: var(--space-0);
+  }
+}
 
 /* ---- the question --------------------------------------------------------
    A control, so it takes the 44px floor and it takes the system's one focus
@@ -40,10 +98,10 @@
    readable. */
 .landing .lp-faq summary {
   display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-16);
+  gap: var(--space-24);
   min-height: var(--tap);
-  padding: var(--space-16) var(--space-24);
-  font-size: var(--type-sub);
+  padding: var(--space-24) var(--space-0);
+  font-size: var(--type-title);
   font-weight: 600;
   color: var(--text-primary);
   cursor: pointer;
@@ -52,22 +110,35 @@
 .landing .lp-faq summary::-webkit-details-marker { display: none; }
 .landing .lp-faq summary:hover { color: var(--text-action); }
 
-/* THE MARK IS THE CHEVRON THE SYSTEM ALREADY DRAWS, turned. It is the same path
-   nav-row.css uses for "there is more this way" and app-bar.css mirrors for
-   "back", at the same 16px box, over the same currentColor mask. So it darkens
-   with its label, needs no colour rule, and has no dark pair of its own. Down
-   when closed, up when open, and the rotation is the only thing that moves. */
+/* THE MARK IS A PLUS THAT BECOMES A MINUS, which is what the grey has drawn
+   since the wireframes and what the rollout replaced with a chevron on 2026-08.
+   Both are legible; the plus is the one this product already chose, and it is
+   the better of the two here for a reason a chevron cannot answer. A chevron
+   says WHICH WAY, and it says it about a row that could equally be a link to
+   another page - it is the same glyph nav-row.css uses for exactly that. A plus
+   says WHAT WILL HAPPEN: there is more of this, here, and it is about to be
+   added. On a block whose whole job is to answer an objection without making a
+   person leave the page, that difference is the block.
+
+   TWO BARS OUT OF ONE BOX. Drawn as two gradient stripes in the same 16px
+   square, so there is no second element, no glyph from a font and no icon file:
+   the horizontal one always shows and the vertical one collapses to nothing when
+   the answer is open. 1.5px is the weight the hairline family already uses at
+   this scale, painted in currentColor, so the mark darkens with its label, turns
+   petrol with it on hover, and owes no dark pair of its own.
+
+   NOT ANIMATED, and that is the same restraint the answer's height keeps below:
+   stage 11 owns motion, and a mark that eases while the block it belongs to
+   snaps open is worse than one that does neither. */
 .landing .lp-faq summary::after {
   content: ""; flex: none; width: 16px; height: 16px;
-  background: currentColor;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  -webkit-mask-size: contain; mask-size: contain;
-  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
-  -webkit-mask-position: center; mask-position: center;
-  transform: rotate(0deg);
+  background:
+    linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 16px no-repeat;
 }
-.landing .lp-faq details[open] > summary::after { transform: rotate(180deg); }
+.landing .lp-faq details[open] > summary::after {
+  background-size: 16px 1.5px, 1.5px 0;
+}
 
 /* ---- the answer ----------------------------------------------------------
    Body ink at the reading measure, and the top padding is zero because the
@@ -75,7 +146,7 @@
    two blocks rather than as a question and its answer. */
 .landing .lp-faq details > p {
   margin: var(--space-0);
-  padding: var(--space-0) var(--space-24) var(--space-24);
+  padding: var(--space-0) var(--space-0) var(--space-24);
   font-size: var(--type-body);
   line-height: 1.6;
   color: var(--text-body);

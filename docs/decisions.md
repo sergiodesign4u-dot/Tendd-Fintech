@@ -7,6 +7,55 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - The FAQ, rebuilt: the card goes, the plus comes back, the heading takes a column
+
+The founder, with a reference: "давай делать ... сделай красиво". The reference shows a heading
+standing on the left, the questions as open rows on the page's own ground with a hairline between
+them, and a plus that becomes a minus.
+
+**Two of those three are what the frozen grey has drawn since the wireframes.** `_wf.css` gives
+this block a top border, a border under each question, and a `+` that turns into a dash, with no
+card anywhere. The colour rollout put the four rows inside a white card and swapped the mark for a
+chevron, and nothing had asked for either. So this is a desync repair and not a redesign: the card
+is gone, the mark is a plus again, and the grey is the contract it always was. The founder's
+reference and the product's own frozen structure agreed with each other against what shipped.
+
+**The mark, on the merits and not only on the contract.** A chevron says WHICH WAY, and it is the
+same glyph `nav-row.css` uses for "there is more this way" on a row that leads to another page. A
+plus says WHAT WILL HAPPEN: there is more of this, here. On a block whose whole job is to answer
+an objection without making a person leave the page, that difference is the block. Drawn as two
+gradient stripes in one 16px box in `currentColor`, so there is no second element, no font glyph
+and no icon file, and the vertical stripe collapses when the answer opens.
+
+**The one value that had to change with the card.** `--line-divider` is the line INSIDE a
+container and is tuned to sit on paper; on the page ground it measures 1.01:1, which is not a
+faint line but no line at all. The block reads `--line-container` instead: 1.09:1 in the light
+theme here and 1.46 in the dark, where the same pair on paper is 1.23 and 1.33. Neither owes a
+threshold, because a divider is decorative and nothing in this block has to be found by touch.
+
+**What is genuinely new: the split.** Past the desktop point the heading takes a column of its own
+and sticks while the list scrolls. Asked with `:has(.lp-faq)` because the section carries no class,
+and this is a fact about what the section CONTAINS, so neither corpus had to learn a name. The
+columns are a FRACTION and not a width, 3 to 8: the left column exists to hold four words, and what
+matters is that they wrap into a block of type rather than that the column is any particular number
+of pixels. Measured, it is 206px at the desktop point (heading on three lines) and 310 at 1440 (two
+lines). Sticky at 96, which is the landing's sticky bar plus air; the bar is 73px, measured.
+
+**And the first answer stands open**, which is a product decision rather than a decorative one.
+Closed, this block is four questions and no evidence that answers exist, and the one it opens with
+is the most anxiety-reducing line on the page for the person this product is for: she arrives
+asking whether she has to hand over her bank, and the first word she reads is "No." The other
+three stay closed, because a block that opens everything is a page of text and not a set of
+questions. It is a state change on a frozen page, so the decision is written on the section in
+`wireframes/index.html`. The grey took the split and the larger question size in the same step,
+at its own 1000px point: the stage it renders in is narrower than the window it stands in.
+
+**Left where it was:** no animation on the disclosure. Stage 11 owns motion, and a height
+transition needs either a fixed height, which the copy does not have, or `interpolate-size`, which
+is a decision about how this product moves.
+
+---
+
 ## 2026-08-16 - The pricing block, fifth build: a podium, a horizon, and less to read
 
 The founder, on the fourth build: "давай снова переделивать не нравятся мне карточки они

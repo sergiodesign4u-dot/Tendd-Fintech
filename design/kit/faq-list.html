@@ -48,6 +48,7 @@
       <span><strong>1</strong> coloured page</span>
       <span>none</span>
       <span>added 2026-08-14</span>
+      <span>rebuilt 2026-08-16</span>
     </div>
   </header>
 
@@ -55,22 +56,26 @@
     <h2>What it is</h2>
         <p class="note"><b>That is not a technical preference.</b> <code>ia/docs/pages/</code> puts an FAQPage schema on this node, and a schema that describes text a crawler cannot read is a claim about a page that does not exist.</p>
     <p class="note"><b>No JavaScript and no ARIA.</b> <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> already are a disclosure widget: they carry the expanded state, the keyboard behaviour and the announcement, and every attribute this file could add would repeat something the element does better.</p>
+    <p class="note"><b>Rebuilt 2026-08-16, and the rebuild is a desync repair rather than a new idea.</b> The founder, with a reference: "давай делать ... сделай красиво". What the reference shows is a heading standing on the left, the questions as open rows on the page's own ground with a hairline between them, and a plus that becomes a minus. <b>Two of those three are what the frozen grey has drawn since the wireframes</b>: <code>_wf.css</code> gives this block a top border, a border under each question and a <code>+</code> that turns into a dash, with no card anywhere. The rollout put the four rows inside a white card and swapped the mark for a chevron, and nothing had asked for either. So the card is gone, the mark is a plus again, and the grey is the contract it always was. What is genuinely new is the split, and the first answer standing open.</p>
   </section>
 
   <section class="kit-sec" id="anatomy">
     <h2>Anatomy</h2>
     <ul class="kit-parts">
-      <li><code>.lp-faq</code> <span>the container: surface fill, container hairline, the system radius, and its children divided by the divider role</span></li>
+      <li><code>.lp-faq</code> <span><b>no container at all since 2026-08-16.</b> A top border and a border under each question, both <code>--line-container</code>, and the row is its own boundary. Four questions in a white box on a canvas band read as one object a person has to open; four rows on the band read as four things, which is what they are</span></li>
+      <li><code>.lp-section:has(.lp-faq) &gt; .lp-wrap</code> <span>the split, past the desktop point: the heading takes a column of its own and sticks while the list scrolls. Asked with <code>:has()</code> because the section carries no class and this is a fact about what it CONTAINS, so neither corpus had to learn a name</span></li>
       <li><code>summary</code> <span>a control, so it takes the 44px floor and the system's one focus ring from <code>base.css</code>. The browser's own triangle is removed in both engines, because two marks pointing different ways is how a disclosure stops being readable</span></li>
-      <li>the mark <span>the chevron the system already draws, turned. Same path as <code>nav-row.css</code> uses for "there is more this way" and <code>app-bar.css</code> mirrors for "back", same 16px box, same <code>currentColor</code> mask. It darkens with its label and has no dark pair of its own</span></li>
+      <li>the mark <span><b>a plus that becomes a minus,</b> which is what the grey has drawn since the wireframes. Two gradient stripes in one 16px box, 1.5px in <code>currentColor</code>: no second element, no font glyph, no icon file, and the vertical stripe collapses to nothing when the answer is open. A chevron says WHICH WAY and is the same glyph <code>nav-row.css</code> uses for a link to another page; a plus says WHAT WILL HAPPEN, and on a block whose job is to answer without making a person leave the page, that difference is the block</span></li>
       <li>the answer <span>body ink at the reading measure. The top padding is zero because the question above already spent it: a gap on both sides of the seam reads as two blocks rather than a question and its answer</span></li>
     </ul>
     <h3 class="kit-sub-h">Behaviour on width</h3>
-    <p class="note">It does not adapt. A question and its answer are one column at every width, and the reading measure already stops the answer running long.</p>
+    <p class="note"><b>One column until the desktop point, two after it.</b> Below <code>--bp-desktop</code> the heading sits over the list as it always did. Above it the wrap becomes a grid of <b>3 to 8</b>, a fraction rather than a width, because the left column exists to hold four words and what matters is that they wrap into a block of type rather than that the column is any particular number of pixels: measured, it is <b>206px</b> at the desktop point where the heading takes three lines and <b>310</b> at 1440 where it takes two. The heading is sticky at <code>--space-96</code>, which is the landing's sticky bar (73px, measured) plus air, and it needs <code>align-self: start</code> to be sticky at all - a stretched grid item is as tall as its row and has nothing to stick inside. The answer keeps the 52ch reading measure at every width, measured at 459px.</p>
   </section>
 
   <section class="kit-sec" id="limits">
     <h2>Limits</h2>
+    <p class="note"><b>The first answer stands open, and that is a product decision rather than a decorative one.</b> Closed, this block is four questions and no evidence that answers exist. The one it opens with is the most anxiety-reducing line on the page for the person this product is for: she arrives asking whether she has to hand over her bank, and the first word she reads here is "No." The other three stay closed, because a block that opens everything is a page of text and not a set of questions. It is a state change on a frozen page, so the founder's decision of 2026-08-16 is written on the section in <code>wireframes/index.html</code>.</p>
+    <p class="note"><b>The dividers are measured and they differ by theme, by the ground and not by a choice.</b> <code>--line-divider</code> is the line inside a container and is tuned to sit on paper: on the page ground it is <b>1.01:1</b>, which is not a faint line but no line at all, which is why this block reads <code>--line-container</code> instead. That is <b>1.09:1</b> here in the light theme and <b>1.46</b> in the dark, where the same pair on paper is 1.23 and 1.33. Neither owes a threshold - a divider is decorative and nothing in this block has to be found by touch.</p>
         <p class="note"><b>No animation here, and it is left for stage 11 rather than improvised.</b> A height transition on a disclosure needs either a fixed height, which the copy does not have, or <code>interpolate-size</code>, which is a decision about how this product moves and belongs to the stage that owns motion. An unfinished animation is worse than none: it is the one a person notices.</p>
   </section>
 

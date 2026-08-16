@@ -897,11 +897,22 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
    legitimate. A details element, so it opens with no script. */
 .lp-faq { margin-top: 10px; border-top: 1px solid var(--line2); }
 .lp-faq details { border-bottom: 1px solid var(--line2); }
-.lp-faq summary { padding: 16px 28px 16px 0; font-size: 16px; font-weight: 600; cursor: pointer; list-style: none; position: relative; }
+.lp-faq summary { padding: 20px 28px 20px 0; font-size: 18px; font-weight: 600; cursor: pointer; list-style: none; position: relative; }
 .lp-faq summary::-webkit-details-marker { display: none; }
 .lp-faq summary::after { content: "+"; position: absolute; right: 4px; top: 14px; color: var(--faint); font-weight: 400; font-size: 18px; }
 .lp-faq details[open] summary::after { content: "\2013"; }
-.lp-faq details p { margin: 0 0 16px; color: var(--mid); font-size: 14.5px; max-width: 64ch; }
+.lp-faq details p { margin: 0 0 20px; color: var(--mid); font-size: 14.5px; max-width: 64ch; }
+/* THE HEADING TAKES A COLUMN OF ITS OWN and stays with the list while it
+   scrolls, by the founder's decision of 2026-08-16 written on the section in
+   index.html. 1000 and not 760 because the stage this grey renders in is
+   narrower than the window it stands in: at a 900px window the pane is 650, and
+   two columns inside 650 gives the questions less width than one column does.
+   The colour layer asks the same thing of its own container. */
+@media (min-width: 1000px) {
+  .lp-wrap:has(.lp-faq) { display: grid; grid-template-columns: 3fr 8fr; column-gap: 48px; align-items: start; }
+  .lp-wrap:has(.lp-faq) > .lp-h2 { position: sticky; top: 24px; margin-bottom: 0; }
+  .lp-wrap:has(.lp-faq) > .lp-faq { margin-top: 0; }
+}
 
 @media (min-width: 760px) {
   .lp-paths { grid-template-columns: 1fr 1fr; gap: 22px; }
