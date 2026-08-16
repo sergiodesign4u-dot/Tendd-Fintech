@@ -511,6 +511,13 @@ against the rows in front of them.
 | welcome | final-cta | Sign in | link |
 | welcome | footer | A calm way to see and control your recurring payments. Built for people who are not into finance. | footer |
 | welcome | footer | Product / Company / Legal (How it works, Trust and security, Pricing, About, Contact, Careers, Privacy, Terms, Data and privacy) | footer |
+| welcome | footer-bar | (c) 2026 Tendd | footer |
+| welcome | footer-bar | Read-only. Tendd cannot move your money. | footer |
+
+The bar at the foot arrived on 2026-08-16, on the founder's decision, and it added one string
+rather than two: its second line is the D7 trust line word for word, the sentence this product
+repeats on purpose, and reusing it is not a second edition of it. The year in the first line is
+the only literal the public page carries that nothing else owns.
 
 ### path-choice
 

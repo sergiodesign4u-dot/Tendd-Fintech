@@ -651,7 +651,11 @@ and 0 coloured ones, and the launch screen does not exist. A variant with no hos
    letter together, and only A has it.
 
 **The wordmark** is Inter 800 at 16px with -0.02em, and the `dd` pair a further -0.09em until the
-bowls almost meet. **The last letter is petrol, everywhere, with no condition:** it reads
+bowls almost meet. Since 2026-08-16 it has **two sizes and not one**: 16px in a bar, and 24px under
+`.large` at the foot of the public page, which is the one place the word is the subject of its
+block rather than a label on a bar. Only the size changes. The tracking is deliberately not
+re-derived at the larger step: the concept gives -0.02em for a bar and -0.035em for a hero, 24px is
+neither, and a third value between them would have no source. **The last letter is petrol, everywhere, with no condition:** it reads
 `--text-action`, so the dark theme gives it the lightened petrol for nothing, and it measures
 6.2:1 light and 6.8:1 dark against the 4.5:1 ink threshold. The other four letters declare no
 colour at all and inherit the ink of whatever holds them; on a photograph or a partner page the

@@ -7,6 +7,56 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - The footer stands on a grid, and the page ends on a bar
+
+The founder, on the foot of the public page: "сделаем поинтереснее подвал?" Four things came out
+of it and only one of them is taste.
+
+**One, the columns did not stand on a grid, and that is the whole reason the block read cheap.**
+They were flex items at `flex: 0 1 auto`, so every column was as wide as its longest link.
+Measured at 1440: PRODUCT began at 925 and was 120 wide, COMPANY at 1092 and 68 wide, LEGAL at
+1208 and 112 wide, three parallel lists starting on intervals of 167 and 116. The gutters were
+even and the columns were not, which is the arrangement an eye reads as nobody having placed
+anything. **The grey has drawn `2fr 1fr 1fr 1fr` since the wireframes**, so this was a rollout
+desync and not a decision: the colour was built from the grey's markup and re-derived its layout
+in flex. The colour now uses the grey's own proportion.
+
+**Two, 346px of dead air** at 1440 and at every width above it. `flex: 1 1 40%` on the brand
+column means grow, so the brand box took 757 while the sentence inside it stops at the 52ch
+reading measure, about 459. The void sat between the sentence and the first column, which is
+exactly where a reader looks for the map.
+
+**Three, the seam, and it was the footer's own.** The closing band was given a picture the day
+before that dissolves into `--bg-surface`, which is the footer's ground, and the band's own border
+was removed so the water could run in. The footer's `border-top` was not, so a hairline was still
+drawn straight across the dissolve. It goes past the tablet point, where the picture is, and it
+**stays** below it, where there is none: there the closing band is `--bg-page` against the
+footer's `--bg-surface`, the two are 1.12:1 apart, and `tokens.css` says in as many words that the
+hairline is what separates them.
+
+**Four, the bar at the foot, and it is the only added structure.** The page ended on its last
+link, so it did not end. The bar is one hairline and two muted lines at `.fine`: the copyright,
+and the D7 trust line word for word. `site-footer.css` has refused an action since it was written,
+on the ground that the page's one action is stated three times already and a fourth would be
+asking after the argument has ended. **A fact is the opposite object:** the foot of a page is
+where a person who is still deciding looks for exactly that sentence. Asking again is a fourth
+ask; answering again is what a footer is for. Rejected for the same slot: a market and currency
+line (invented copy), and repeating the sentence that already stands three lines above it.
+
+**And the phone form changed with it.** A single stack of four blocks made the footer 887px tall
+at 390, more than a viewport of nothing but links, because twelve of them carry the 44px target
+floor. Two columns hold the same map in 675 and cost no legibility: the narrowest track at 360 is
+152px and the longest link, "Trust and security", sets at 112. Both corpora moved together.
+
+**The wordmark gained a second size**, `.large` at `--type-head`, declared on the atom rather than
+written from the footer, which is the third time this system has answered a host wanting to resize
+an atom that way (`.amt.figure`/`.display` on 2026-08-15, `.muted.fine` on 2026-08-16). At 16px
+the name closed the page at the size of the sentence beside it. Only the size changes: the
+tracking is not re-derived, because the concept gives -0.02em for a bar and -0.035em for a hero,
+24px is neither of those plates, and a value between them would have no source.
+
+---
+
 ## 2026-08-16 - D-Wash amended: the closing band carries a horizon, and its message stands on paper
 
 The founder, on the last block of the landing: "давай теперь делать очень красиво ... надо добавить

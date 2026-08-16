@@ -46,14 +46,16 @@
       <span>Organism</span>
       <span><strong>1</strong> grey page</span>
       <span><strong>1</strong> coloured page</span>
-      <span>form: stacked / four columns</span>
+      <span>form: two columns / four columns</span>
       <span>added 2026-08-14</span>
+      <span>rebuilt 2026-08-16</span>
     </div>
   </header>
 
   <section class="kit-sec" id="what">
     <h2>What it is</h2>
         <p class="note"><b>It is not the app's foot.</b> <code>.act-foot</code> is a pattern that closes a <b>task</b> with an action row and a way out. This closes a <b>page</b>, and it carries no action at all. The reason it carries none is the reason the pricing block is not a comparison table: the one action of this page is stated three times already, and a fourth in the footer would be asking after the argument has ended.</p>
+    <p class="note"><b>Rebuilt 2026-08-16, on the founder's ask: "сделаем поинтереснее подвал?"</b> Four things came out of it and only one of them is taste. <b>One, the columns did not stand on a grid.</b> They were flex items at <code>flex: 0 1 auto</code>, so each column was as wide as its longest link: measured at 1440, PRODUCT began at 925 and was 120 wide, COMPANY at 1092 and 68 wide, LEGAL at 1208 and 112 wide, three parallel lists starting on intervals of 167 and 116. The gutters were even and the columns were not, which is the arrangement an eye reads as nobody having placed anything. The grey has drawn <code>2fr 1fr 1fr 1fr</code> since the wireframes, so this was a rollout desync and not a decision. <b>Two, 346px of dead air</b> at 1440 and above: <code>flex: 1 1 40%</code> means grow, so the brand box took 757 while the sentence inside it stops at the 52ch reading measure, about 459, and the void sat exactly where a reader looks for the map. <b>Three, the seam</b> - see Limits. <b>Four, the bar at the foot</b>, which is the only added structure.</p>
     <p class="note"><b>The wordmark stands here and the mark does not.</b> D-Brand puts the mark at 22px in the app bar and as the favicon, and a second mark four thousand pixels down the page is a logo asking to be noticed rather than chrome framing a page. The word alone closes it - with the last letter petrol, which D-Brand says holds <b>everywhere, with no condition</b>, and which the grey wrote as plain text.</p>
   </section>
 
@@ -62,15 +64,19 @@
     <ul class="kit-parts">
       <li><code>.fbrand</code> <span>the wordmark and one sentence. The widest column and it leads, because a person who scrolled this far without deciding is being told once more, plainly, what the thing is</span></li>
       <li><code>.fcol h4</code> <span>the column head: caps, tracked, muted. Deliberately <b>not</b> the eyebrow atom - <code>.k</code> is a block mark inside content and this is a column head inside chrome. Same treatment, two jobs, and the day the eyebrow changes the footer should not follow it</span></li>
-      <li><code>.fcol a</code> <span>44px each, because a footer is where a thumb goes hunting</span></li>
+      <li><code>.fcol a</code> <span>44px each, because a footer is where a thumb goes hunting. The underline arrives on hover and the ink moves with it, which is the muted line's inline link read the other way round: that one is underlined at rest because it sits inside a sentence, this one stands alone in a list where nothing else is a link</span></li>
+      <li><code>.fbar</code> <span>the bar at the foot, added 2026-08-16: the copyright and the trust line, both <a href="muted-line.html">muted lines</a> at <code>.fine</code>, over one hairline in <code>--line-divider</code>. This block positions two atoms and draws one rule; it paints nothing</span></li>
     </ul>
     <h3 class="kit-sub-h">Behaviour on width</h3>
-    <p class="note">One point, the registered 47.5rem, where the four columns stand in a row with the brand column taking 40%.</p>
+    <p class="note">Both registered points, and each one is measured rather than picked. <b>Two columns below 47.5rem</b>: a single stack of four blocks made the footer 887px tall at 390, more than a viewport of nothing but links, because twelve of them carry the 44px target floor. Two columns hold the same map in 675 and cost no legibility - the narrowest track at 360 is 152px and the longest link, "Trust and security", sets at 112. <b>Four columns at 47.5rem</b>, on the grey's own <code>2fr 1fr 1fr 1fr</code>: measured at 1440 that is 422 for the brand and 211 apiece, with the three heads at 590, 850 and 1109, an even interval of 260. <b>At 56.25rem</b> the gutter opens from <code>--space-32</code> to <code>--space-48</code> and the bar's two ends part. Both wait for the second point for one measured reason: between 760 and 900 the four tracks are around 107px, "Trust and security" and "Data and privacy" are wider than that at <code>--type-body</code>, and a link that wraps inside a 44px box is a footer that looks broken.</p>
   </section>
 
   <section class="kit-sec" id="limits">
     <h2>Limits</h2>
         <p class="note"><b>No action, by decision.</b> See above: the page's one action is in the bar, the hero and the closing block, and that is three times. A footer button would be a fourth ask after the argument has ended.</p>
+    <p class="note"><b>A fact is not a fourth ask, which is why the bar may carry one.</b> The trust line in it is Dictionary D7 in <code>voice/docs/microcopy.md</code>, the one sentence this product repeats deliberately, and the foot of the page is where a person who is still deciding looks for exactly it. Asking again is a fourth ask; answering again is what a footer is for. Neither line is new copy: both are registered strings, and the year is the only literal on this block.</p>
+    <p class="note"><b>The seam, and it was this file's.</b> <a href="landing-final.html">The closing band</a> was given a picture on 2026-08-15 that dissolves into <code>--bg-surface</code>, which is this band's own ground, and its own border was removed so the water could run in. This file's <code>border-top</code> was not, so a hairline was still drawn straight across the dissolve. It goes past the tablet point, where the picture is, and it <b>stays</b> below it, where there is none: there the closing band is <code>--bg-page</code> against this band's <code>--bg-surface</code>, the two are 1.12:1 apart, and <code>tokens.css</code> says in as many words that the hairline is what separates them.</p>
+    <p class="note"><b>The word wears <code>.large</code> here.</b> At the bar's 16px the name closed the page at the size of the sentence beside it. The size is the modifier declared on <a href="brand-wordmark.html">the wordmark</a>, not a <code>font-size</code> written from this file, which is the rule this system names in three places.</p>
   </section>
 
   <section class="kit-sec" id="source">

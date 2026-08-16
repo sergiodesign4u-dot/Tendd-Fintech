@@ -74,7 +74,7 @@ the child**: doors are full cards and take air, tiles are chips and do not.
 | Amount | `.amt` | **size: base / `figure` / `display`** (`--type-body`, `--type-figure`, `--type-display`), a DECLARED axis since 2026-08-14, third size 2026-08-15 for the landing's plan price. 13.5 and 30 folded at step 5 | 69 | - | `amount.css` | `amount.html`  | does not adapt |
 | Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - | `big-total.css` | `big-total.html`  | does not adapt |
 | Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 32 coloured, 0 grey | - | `brand-mark.css` | `brand-mark.html`  | does not adapt |
-| Brand wordmark | `.wordmark` | one setting, and the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - | `brand-wordmark.css` | `brand-wordmark.html`  | does not adapt |
+| Brand wordmark | `.wordmark` | size: bar / large. the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - | `brand-wordmark.css` | `brand-wordmark.html`  | does not adapt |
 | Button | `.btn` | emphasis: fill / outline. `inverse` and `compact` both DELETED 2026-08-12, neither had a wearer | 85 | - | `button.css` | `button.html`  | does not adapt |
 
 **Built.** `design/system/components/button.css` + `design/kit/button.html`. The etalon of step 5,
@@ -176,7 +176,7 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Landing facts | `.lp-facts` | claim: with a proof / on its own. panel: anchor / short / wide | 1 | `.lp-trust ul` | `landing-facts.css` | `landing-facts.html`  | organism, added 2026-08-15, replacing the promise list on the landing. Four claims in recessed panels on the trust band, three of them beside the object that settles them; the panels turn their proof out to the right past the desktop point. Hosts pair list, button and switch row with its checkbox |
 | Landing plan | `.lp-plan` | one plan, three ways to pay, on the page's one wash | 1 | - | `landing-plan.css` | `landing-plan.html`  | organism, added 2026-08-15. The band, its plan row (moved here from `grid.css` with its `@media` turned into a `@container`) and the single included-list under all three prices. Reads `--wash-pricing`, the one non-colour role in `tokens.css`. Hosts plan option and eyebrow |
 | Landing final | `.lp-final` | the last word, on a sheet, on a horizon | 1 | - | `landing-final.css` | `landing-final.html`  | organism, added 2026-08-16, **moved out of `landing-shell.css`** the day it stopped being a fill: the band, the sheet its message stands on (the wrap itself) and the foot fade into the footer's paper. Reads `--wash-final`, the second non-colour role. Hosts the button and the muted line |
-| Site footer | `.lp-footer` | form: stacked / four columns | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem |
+| Site footer | `.lp-footer` | form: two columns / four columns, plus the bar at the foot | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem, the bar's two ends part at 56.25rem |
 | Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
 | Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | does not adapt |
 | Reveal step | `.rstep` | - | 1 | - | `reveal-step.css` | `reveal-step.html`  | does not adapt |

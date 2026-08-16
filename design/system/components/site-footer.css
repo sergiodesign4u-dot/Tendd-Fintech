@@ -11,16 +11,50 @@
    and a fourth in the footer would be asking after the argument has ended.
 
    Reads
-     colour   --bg-surface, --line-container, --text-primary, --text-body,
-              --text-muted
-     spacing  --space-0, --space-8, --space-16, --space-32, --space-48
-     type     --type-sub, --type-body, --type-meta
-     width    --container-text, --bp-tablet
-   Hosts     the brand lockup, drawn by brand-mark.css and brand-wordmark.css.
-             The mark stands here and in the landing bar and nowhere else on
-             this page, which is D-Brand's chrome-only rule read literally.
+     colour   --bg-surface, --line-container, --line-divider, --text-primary,
+              --text-body, --text-muted, --text-action
+     spacing  --space-0, --space-8, --space-16, --space-24, --space-32,
+              --space-48
+     type     --type-head (the wordmark's size modifier), --type-body,
+              --type-meta
+     width    --container-text, --bp-tablet, --bp-desktop
+   Hosts     the brand wordmark, drawn by brand-wordmark.css, and two muted
+             lines in the bar at the foot. The MARK is not repeated here, which
+             is D-Brand's chrome-only rule read literally.
    Page      design/kit/site-footer.html
    Stands on 1 grey page and 1 coloured one.
+
+   REBUILT 2026-08-16, ON THE FOUNDER'S ASK: "сделаем поинтереснее подвал?"
+   Four things came out of it and only one of them is taste. The other three
+   were defects this ask is what finally looked at.
+
+   ONE, THE COLUMNS DID NOT STAND ON A GRID, and that is the whole reason the
+   block read cheap. They were flex items at `flex: 0 1 auto`, so each column
+   was as wide as its longest link. Measured at 1440: PRODUCT began at 925 and
+   was 120 wide, COMPANY at 1092 and 68 wide, LEGAL at 1208 and 112 wide, so
+   three parallel lists started on intervals of 167 and 116. The gutters were
+   even and the columns were not, which is the arrangement the eye reads as
+   nobody having placed anything. THE GREY HAS DRAWN `2fr 1fr 1fr 1fr` SINCE
+   THE WIREFRAMES, so this was a rollout desync and not a decision, the second
+   one this week: the colour was built from the grey's markup and re-derived
+   its layout in flex.
+
+   TWO, 346px OF DEAD AIR at 1440 and at every width above it. `flex: 1 1 40%`
+   on the brand column means grow, so the brand box took 757 while the sentence
+   inside it stops at the 52ch reading measure, about 459. The void sat between
+   the sentence and the first column, which is exactly where a reader looks for
+   the map.
+
+   THREE, THE SEAM. `.lp-final` was given a picture on 2026-08-15 that dissolves
+   into --bg-surface, which is this band's own ground, and its own border was
+   removed so that the water could run in. THIS FILE'S border-top was not, so a
+   hairline was still drawn straight across the dissolve. It goes past the
+   tablet point, where the picture is, and it STAYS below it, where there is
+   none: there the closing band is --bg-page against this band's --bg-surface,
+   the two are 1.12:1 apart, and tokens.css says in as many words that the
+   hairline is what separates them.
+
+   FOUR, AND THE ONLY ADDED STRUCTURE: the bar at the foot. See its own block.
    ============================================================================ */
 
 .landing .lp-footer {
@@ -29,9 +63,21 @@
   border-top: 1px solid var(--line-container);
 }
 
+/* TWO ACROSS ON A PHONE, and it is a grid at every width rather than a stack that
+   becomes one. Measured before this: a single column of four stacked blocks made
+   the footer 887px tall at 390, more than a viewport of nothing but links, and
+   the reason is the 44px target floor on twelve of them. Two columns put the same
+   map in 675 and cost no legibility: the narrowest track at 360 is 152px
+   and the longest link, "Trust and security", sets at 112. The brand block and
+   the bar keep the full width, because a sentence and a rule are not columns. */
 .landing .lp-footer > .lp-wrap {
-  display: flex; flex-direction: column; gap: var(--space-32);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-24);
+  row-gap: var(--space-32);
+  align-items: start;
 }
+.landing .lp-footer .fbrand, .landing .lp-footer .fbar { grid-column: 1 / -1; }
 
 /* ---- the columns ---------------------------------------------------------
    Each one is a heading and a stack of links, and the links are 44px because a
@@ -53,34 +99,117 @@
    should not follow it. Written out here rather than borrowed, which is the
    same call chip.css makes about placement belonging to the host. */
 
+/* The link is a target and takes the 44px floor, and it is `flex-start` rather
+   than the row's default stretch so that a column of three links is a column of
+   three 44px boxes exactly as wide as their words. Left at stretch inside the
+   grid track below, the box would be the whole track and the underline under it
+   would run to the next column. */
 .landing .lp-footer .fcol a {
-  display: inline-flex; align-items: center;
+  display: inline-flex; align-items: center; align-self: flex-start;
   min-height: var(--tap);
   font-size: var(--type-body);
   color: var(--text-body);
   text-decoration: none;
 }
-.landing .lp-footer .fcol a:hover { color: var(--text-action); }
+/* THE UNDERLINE ARRIVES ON HOVER AND THE INK MOVES WITH IT, which is the muted
+   line's inline link read the other way round: that link is underlined at rest
+   because it sits inside a sentence and has to be findable there, and this one
+   stands alone in a list where nothing else is a link, so the colour alone
+   carries the affordance until a pointer is on it. Petrol here is chrome and
+   not a fourth job: D-Brand's rule is about the brand's own colour inside a
+   screen's CONTENT, and a footer is the frame around the page. */
+.landing .lp-footer .fcol a:hover {
+  color: var(--text-action);
+  text-decoration: underline;
+  text-decoration-color: var(--text-action);
+  text-underline-offset: 3px;
+}
 
 /* ---- the brand column ----------------------------------------------------
    The lockup and one sentence. It is the widest column and it leads, because a
    person who scrolled this far without deciding is being told once more, plainly,
-   what the thing is. */
+   what the thing is.
+
+   THE WORD WEARS `.large` HERE, 2026-08-16, and it is the size modifier declared
+   on brand-wordmark.css rather than a font-size written from this file. At 16px
+   the name was the same size as the sentence beside it, so the page closed on
+   nothing: a signature at the foot of a page is the one place the word is the
+   subject rather than a label on a bar. The gap under it opens from --space-8 to
+   --space-16 in the same step, because 24px of ink needs a step of air and not
+   half of one. */
 .landing .lp-footer .fbrand p {
-  margin: var(--space-8) var(--space-0) var(--space-0);
+  margin: var(--space-16) var(--space-0) var(--space-0);
   font-size: var(--type-body);
   line-height: 1.6;
   color: var(--text-muted);
   max-width: var(--container-text);
 }
 
+/* ---- the bar at the foot -------------------------------------------------
+   THE ONE THING THE FOUNDER'S ASK ADDED RATHER THAN FIXED, and the argument
+   for it is the same one the top of this file makes for carrying no action.
+   The page ended on its last link, so it did not end: a footer with a map and
+   no bar under it reads as a block that was cut off rather than closed. The
+   bar is the line that says who this is and what it can do, and both halves of
+   it are already-owned strings.
+
+   WHY A FACT AND NOT A FOURTH ASK. This file refuses a button on the ground
+   that the one action is stated three times above and a fourth would be asking
+   after the argument has ended. A fact is the opposite object: the trust line
+   is Dictionary D7 in voice/docs/microcopy.md, the one sentence this product
+   repeats deliberately, and the foot of the page is where a person who is
+   deciding looks for exactly it. Asking again is a fourth ask; answering again
+   is what a footer is for.
+
+   IT IS TWO MUTED LINES AT `.fine`, the size axis declared on that atom on
+   2026-08-15, so the bar paints nothing of its own: this file positions two
+   atoms and draws one hairline. --line-divider and not --line-container,
+   because the rule separates two parts of one block rather than bounding a
+   container, which is the split muted-line.css already made for its footnote. */
+.landing .lp-footer .fbar {
+  display: flex; flex-direction: column; gap: var(--space-8);
+  padding-top: var(--space-24);
+  border-top: 1px solid var(--line-divider);
+}
+
 /* ==========================================================================
-   PAST THE TABLET POINT, 47.5rem / 760px: the four columns stand in a row
+   PAST THE TABLET POINT, 47.5rem / 760px: the four columns stand on a grid
    ========================================================================== */
 @container (min-width: 47.5rem) {
+  /* THE SEAM, named in the header. The closing band above dissolves into this
+     band's own ground here, so a hairline across it is a line drawn on a
+     picture. Below this point there is no picture, the two grounds are 1.12:1
+     apart, and the hairline is what separates them. */
+  .landing .lp-footer { border-top-color: transparent; }
+
+  /* 2fr 1fr 1fr 1fr, WHICH IS THE GREY'S OWN GRID and not a new proportion.
+     The brand column holds a sentence at the 52ch measure and the three lists
+     hold two or three words each, so the tracks are the shape of the content
+     rather than a choice: measured at 1440 that is 422 for the brand and 211
+     apiece, with the three heads at 590, 850 and 1109, an even interval of 260
+     where they used to stand on 167 and 116. `minmax(0, ...)` on every track, because a grid track's
+     floor is `auto` and one long link would otherwise push the row wider than
+     its container. */
   .landing .lp-footer > .lp-wrap {
-    flex-direction: row; gap: var(--space-48); align-items: flex-start;
+    grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-32);
   }
-  .landing .lp-footer .fbrand { flex: 1 1 40%; min-width: 0; }
-  .landing .lp-footer .fcol:not(.fbrand) { flex: 0 1 auto; min-width: 0; }
+  .landing .lp-footer .fbrand { grid-column: auto; }
+}
+
+/* ==========================================================================
+   PAST THE DESKTOP POINT, 56.25rem / 900px
+   ========================================================================== */
+@container (min-width: 56.25rem) {
+  /* The gutter opens to a full step, and the bar's two ends part. Both wait
+     for this point rather than the one above for the same measured reason:
+     between 760 and 900 the four tracks are around 107px, "Trust and security"
+     and "Data and privacy" are wider than that at --type-body, and a link that
+     wraps to two lines inside a 44px box is a footer that looks broken. The
+     wider gutter would take another 5px off each track. */
+  .landing .lp-footer > .lp-wrap { column-gap: var(--space-48); }
+  .landing .lp-footer .fbar {
+    flex-direction: row; justify-content: space-between;
+    align-items: baseline; gap: var(--space-24);
+  }
 }

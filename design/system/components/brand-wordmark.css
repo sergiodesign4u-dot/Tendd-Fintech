@@ -6,6 +6,8 @@
 
    Reads
      type     --type-sub  (16px, the same step the bar always set)
+              --type-head (24px, `.large`, the signature at the foot of the
+              public page. See the modifier's own block)
      tracking two literals, and they are the brand's own: see below
    Page      design/kit/brand-wordmark.html
    Origin    design/concept/logo-crop.html, the wordmark plate and its spec plate.
@@ -81,6 +83,36 @@
   font-weight: 800;
   font-size: var(--type-sub);
   letter-spacing: -0.02em;
+}
+
+/* ---- `.large`, THE SIGNATURE SIZE, added 2026-08-16 ------------------------
+   The founder, on the public page's foot: "сделаем поинтереснее подвал?" At the
+   bar's 16px the name stood at the same size as the sentence beside it in the
+   footer, so the page closed on nothing at all. This is the one place in the
+   product where the word is the SUBJECT of its block rather than a label on a
+   bar, and --type-head is the step this scale gives that job by name.
+
+   IT IS A DECLARED MODIFIER AND NOT A HOST RULE, which is the whole reason it is
+   in this file rather than in site-footer.css. A host writing `font-size` onto a
+   hosted atom is the defect this system names in three places; amount.css
+   declared a size axis on 2026-08-15 and muted-line.css on 2026-08-16 for
+   exactly this reason, and this is the third.
+
+   ONLY THE SIZE CHANGES, and that follows the same precedent: weight 800 and the
+   -0.02em stay on the base rule above and are not restated. THE TRACKING IS NOT
+   RE-DERIVED EITHER, and it would be easy to: the file says a page above that a
+   tighter setting is what a larger size can carry, and the concept page gives a
+   -0.035em for the hero. But the concept's two values are read from two plates,
+   the bar's and the hero's, and 24px is neither of them. Inventing a third
+   between them would be a value with no source, which this system does not
+   allow. It is one step of the scale up and nothing else.
+
+   MEASURED IN BOTH THEMES: the word is --text-primary by inheritance and the
+   last letter --text-action, which the block below already carries at 6.2:1
+   light and 6.8:1 dark on --bg-surface. A larger glyph only improves that pair,
+   so nothing here needs a new number. */
+.app .wordmark.large, .landing .wordmark.large {
+  font-size: var(--type-head);
 }
 
 /* ---- the pair --------------------------------------------------------------

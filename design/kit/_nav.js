@@ -61,7 +61,7 @@ window.KIT_NAV = {
        The wordmark's 54 is the real grey count, because the word was always
        there; what changed is how it is set. */
     { name: 'Brand mark',        cls: '.brand',        page: 'brand-mark.html', was: null,                          axes: 'window: crop A. B and C locked at Concept, no host in the product yet', wf: 0 },
-    { name: 'Brand wordmark',    cls: '.wordmark',     page: 'brand-wordmark.html', was: null,                      axes: 'one setting, and the last letter is petrol with no condition (founder, 2026-08-12)', wf: 54 },
+    { name: 'Brand wordmark',    cls: '.wordmark',     page: 'brand-wordmark.html', was: null,                      axes: 'size: bar / large. the last letter is petrol with no condition (founder, 2026-08-12)', wf: 54 },
     { name: 'Button',            cls: '.btn',          page: 'button.html', was: null,                          axes: 'emphasis: fill / outline. inverse and compact both deleted 2026-08-12', wf: 85 },
     { name: 'Chart placeholder', cls: '.chart',        page: 'chart-placeholder.html', was: null,                          axes: '-',                                     wf: 4 },
     { name: 'Checkbox',          cls: '.check',        page: 'checkbox.html', was: '.switch input',                axes: '-',                                     wf: 2 },
@@ -140,7 +140,7 @@ window.KIT_NAV = {
     { name: 'Panel',             cls: '.panel',        page: 'panel.html', was: null,                          axes: 'head: banded h2 / summary disclosure / headless',  wf: 7 },
     { name: 'Reveal step',       cls: '.rstep',        page: 'reveal-step.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'Save-focus list',   cls: '.candidates',   page: 'save-focus-list.html', was: null,                          axes: '-',                                     wf: 1 },
-    { name: 'Site footer',       cls: '.lp-footer',    page: 'site-footer.html', was: null,                          axes: 'form: stacked / four columns at container 760', wf: 1 },
+    { name: 'Site footer',       cls: '.lp-footer',    page: 'site-footer.html', was: null,                          axes: 'form: two columns / four at container 760, and a bar at the foot', wf: 1 },
     { name: 'Tab bar',           cls: '.tabbar',       page: 'tab-bar.html', was: null,                          axes: 'form: bottom bar / left rail at container 760', wf: 28 }
   ],
 
