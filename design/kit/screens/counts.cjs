@@ -101,8 +101,17 @@ const countIn = (pages, cls) => {
    as unparsed rather than guessed at, because a wrong reading of a claim is
    worse than no reading: it would report drift that is not there. */
 const claimOf = (text) => {
-  const g = text.match(/Stands on (\d+) grey pages?/i) || text.match(/on (\d+) grey (?:pages?|ones)/i);
-  const c = text.match(/(\d+) coloured (?:screens?|pages?|ones)/i);
+  /* THE CANONICAL SENTENCE IS THE ONE THAT STARTS "Stands on", and the parser
+     reads THAT rather than the first number in the header. A header is prose: it
+     also says things like "on the 28 coloured screens of stage 08", which is a
+     figure NAMED to the corpus it was measured on and is allowed to stay. Reading
+     the first match reported two such sentences as drift after the real claim had
+     already been recounted. */
+  const i = text.indexOf('Stands on');
+  const sentence = i < 0 ? '' : (text.slice(i).match(/^[\s\S]*?\.(?=\s|$)/) || [text.slice(i)])[0];
+  const scope = sentence || text;
+  const g = scope.match(/(\d+) grey (?:pages?|ones?)/i);
+  const c = scope.match(/(\d+) (?:of the \d+ )?coloured (?:screens?|pages?|ones)/i);
   return { grey: g ? +g[1] : null, colour: c ? +c[1] : null };
 };
 

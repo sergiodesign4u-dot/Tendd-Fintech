@@ -89,14 +89,17 @@ window.NAV = [
   // longer used by any of the three, because none of them renders a sidebar to hint at.
   { label:'Design System',       page:'design/kit/why.html', done:true },
   { label:'Responsive',          page:'design/kit/responsive.html', done:true },
-  // ANIMATION TOOK A PAGE ON 2026-08-16, AT ITS OWN STEP 1, and it is the first row in this
-  // registry to use `ready` for what `ready` was written for. The stage is not finished and
-  // `done` stays false, so the badge and the state class are unchanged; what `ready` buys is
-  // that the row is a LINK while the stage runs, because the census it opens on is the thing
-  // most worth reading during the stage rather than after it. Like Design System and
-  // Responsive, the page carries the system's own panel rather than this roadmap, and the
-  // roadmap comes back at the foot of that panel.
-  { label:'Animation',           page:'design/kit/motion.html', ready:true, done:false },
+  // ANIMATION TOOK A PAGE ON 2026-08-16, AT ITS OWN STEP 1, and it was the first row in this
+  // registry to use `ready` for what `ready` was written for: the stage was unfinished, `done`
+  // stayed false so the badge and the state class were honest, and `ready` made the row a LINK
+  // while it ran, because the census it opened on was the thing most worth reading during the
+  // stage rather than after it. Like Design System and Responsive, the page carries the
+  // system's own panel rather than this roadmap, and the roadmap comes back at the foot of it.
+  //
+  // CLOSED 2026-08-17, by the founder, after the page was walked. `ready` is left in place
+  // rather than deleted: it costs nothing beside `done:true`, and the next stage that wants to
+  // publish a page mid-flight has the precedent in front of it instead of in the git history.
+  { label:'Animation',           page:'design/kit/motion.html', ready:true, done:true },
   // ROLLOUT WAS MISSING FROM THIS REGISTRY AND FROM THE README UNTIL 2026-08-13,
   // and it was found at stage 10 rather than at stage 12, which is the only
   // reason it cost nothing. The stage that builds the rest of the product in

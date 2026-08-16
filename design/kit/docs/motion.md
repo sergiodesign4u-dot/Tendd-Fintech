@@ -431,5 +431,7 @@ answers with a colour that is not on screen. All 7 checkboxes in the coloured pr
 `label.switch`, and that row fades, so nobody meets a dead hover today. The day a bare checkbox
 reaches a screen, the answer belongs to the row rather than to the box.
 
-What the stage still owes before `done:true`: nothing in the code. The row flips when the founder
-has walked the page.
+**Closed 2026-08-17.** The founder walked the page and the row in `/_nav.js` is `done:true`. What
+the stage leaves behind, beside the tokens and the verbs: an instrument the next stage inherits -
+`design/kit/screens/counts.cjs`, written at the close of this one - and one rule it comes with, that
+the script runs at the close of any stage which grows a corpus.
