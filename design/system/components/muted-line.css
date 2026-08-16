@@ -191,6 +191,39 @@
 .app .muted.lead,   .landing .muted.lead   { margin: var(--space-0) var(--space-0) var(--space-16); }
 .app .muted.spaced, .landing .muted.spaced { margin-top: var(--space-16); }
 
+/* ---- `.fine`, THE SUPPLEMENTARY SIZE, added 2026-08-16 -------------------
+   The name is about SIZE and not about tier, and that distinction is load
+   bearing: the Two Tiers Rule says ink and muted and no third grey, this atom
+   IS the second tier, and a third one is what DESIGN.md forbids by name. What
+   is new here is a second size on the tier that already exists.
+
+   The founder, on the pricing band's last line: "текст No cap on subscriptions
+   and no cap on banks in Free. Cancelling is free, always. сделать
+   дополнительним". A supplementary line under a block that has already made its
+   point is not the same object as the sentence that carries the point, and this
+   atom had one size for both.
+
+   IT IS A DECLARED MODIFIER AND NOT A HOST RULE, which is the whole reason it is
+   in this file. A host writing `font-size` onto a hosted atom is the defect this
+   system names in three places, and the answer everywhere else has been to
+   declare the axis on the atom and wear it in the markup: `amount.css` did
+   exactly this on 2026-08-15 for the plan price. So the muted line now has a size
+   axis of two, the base at --type-body and `.fine` at --type-meta.
+
+   IT ALSO GENERALISES A RULE THAT WAS ALREADY HERE. `.tile .muted` drops to
+   --type-meta a few lines below, written as a host exception at stage 08 because
+   there was no axis to reach for. That rule is left standing rather than folded
+   in, because folding it means taking a class into the markup of every preset
+   tile and this step does not own that markup; it is one row in docs/backlog.md,
+   and the axis is what makes it answerable.
+
+   THE INK DOES NOT CHANGE. --text-muted is 5.78:1 on the light surface and
+   6.40:1 on the dark one, the pair the token table in DESIGN.md carries, and
+   both clear the 4.5 an ink owes at any size, so
+   the step down is in SIZE and never into unreadable. A third tier of ink does
+   not exist in this product and this does not invent one. */
+.app .muted.fine, .landing .muted.fine { font-size: var(--type-meta); }
+
 /* ---- the block form's paragraph, and the reading measure ------------------
    The removal block holds its sentence in a paragraph of its own so that the
    standalone link below it is a sibling and not part of the running text. The

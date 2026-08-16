@@ -311,10 +311,12 @@ ground before the picture loads.
 be a picture: the band lays its own ground over it at both ends, so the picture is a HORIZON that
 runs from the tops of the price cards to their feet and nothing but opaque paper stands on it. The
 stops are pixels and not percentages, because what the fade has to land in is a gap between two
-elements and that gap is the same handful of pixels at every width where the band's own height runs
-from 1478px on a phone to 807 wide. What is measured is the RENDERED pair and not the file:
-**5.30:1** at the worst, swept over nine widths in both themes, on a ground of 241,246,245 against
-a 255 surface - the ink's own token contrast rather than a picture's. Two earlier pictures were
+elements and, from the tablet point up, every one of those gaps sits at a constant offset while the
+band's own height runs from 1566px on a phone to 828 wide. The picture is loaded past that point
+only: below it the cards are a stack rather than a row, a stack has no horizon, and a phone never
+fetches the asset. What is measured is the RENDERED pair and not the file: **5.78:1** at the worst,
+swept over nine widths in both themes, on a ground of 255,255,255 - the ink's own token contrast on
+bare paper. Two earlier pictures were
 lightened almost to nothing trying to make the asset carry the contrast alone, and that is the
 mistake this arrangement exists to correct. One band, and nowhere else: a texture that spreads
 stops being quiet.

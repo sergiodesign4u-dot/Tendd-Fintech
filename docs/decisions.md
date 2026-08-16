@@ -68,6 +68,28 @@ a button label does not.
 note, so the grey's third divider stood 31px below the other two at the wide widths while the
 colour's stood level. The floor is back and the two corpora agree.
 
+**The same day, the foot of the block: plates, and a supplementary size.** The founder, on the
+four included things: "мне вот єти слова сделать би красивее и как то их виделить", and on the
+line under them: "сделать дополнительним". The four were four runs of 14px body ink in a
+wrapping line, which is what a sentence looks like; they are not a sentence, they are the four
+things the price buys, and each of them is a THING. Each is a plate now, on `--bg-recessed` at
+`--type-sub` in the primary tier, which borrows a shape this page already owns rather than
+inventing one for four words: the trust band above sets its four claims on the same recessed
+ground. **Still no tick,** and the argument did not change with the shape: the eyebrow says
+"included", an ornament repeated on every line adds nothing the label has not, and the accent is
+already spent twice in this band. The reassurance under them wears `.fine`, a size modifier
+**declared on the muted line atom** rather than written as a host rule, because a host putting a
+font-size on a hosted atom is the defect three files here name; the ink does not change, so the
+step down is in size and never into unreadable. The muted line now has a declared size axis of
+two, which also gives the preset tile's old host exception something to fold into one day.
+
+**And the plates immediately invalidated the fade.** The block grew, and the stops read off the
+page an hour earlier put the list's eyebrow back inside the picture at 2.75:1 in the dark theme.
+That is the count-drift rule doing its job: the sweep was re-run in the same step, the stops
+were re-read, and the worst rendered pair is 5.78:1 on bare paper. It is also what forced the
+tablet-point query on the picture, because below that point the plate row wraps to one, two or
+three rows and the gap the fade has to land in stops being at a fixed offset at all.
+
 ---
 
 ## 2026-08-15 - D-Wash: the pricing band carries a picture, and exactly one band does
@@ -89,10 +111,11 @@ ground is paper and stays paper: a texture that spreads stops being quiet.
 **The contrast is solved in the composition and not in the asset, and that is the whole trick.**
 The band lays its own ground over the picture at both ends, so the picture is a horizon running
 from the tops of the cards to their feet, and no word in the band stands on it. The stops are
-pixels rather than percentages, because the fade has to land in a gap between two elements and
-that gap is the same handful of pixels at every width, where the band's height runs from 1478px
-on a phone to 807 wide. What is measured is the RENDERED pair and not the file: 5.30:1 at the
-worst, swept over nine widths in both themes, on a ground of 241,246,245 against a 255 surface.
+pixels rather than percentages, because the fade has to land in a gap between two elements and,
+from the tablet point up, every one of those gaps sits at a constant offset while the band's
+height runs from 1566px on a phone to 828 wide. The picture loads past that point only: a stack
+has no horizon. What is measured is the RENDERED pair and not the file: 5.78:1 at the worst,
+swept over nine widths in both themes, on a ground of 255,255,255.
 The arrangement reached this shape over three builds: 42/60, then 48/64 as the cards grew, then
 the horizon of 2026-08-16, whose entry is above this one.
 

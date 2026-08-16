@@ -71,7 +71,7 @@ window.KIT_NAV = {
     { name: 'Label',             cls: '.lbl',          page: 'label.html', was: null,                          axes: 'weight: quiet 12 / strong 16',          wf: 3 },
     { name: 'Logo',              cls: '.logo',         page: 'logo.html', was: null,                          axes: 'size by container: 20 / 22 / 30 / 32 / 36 / 52', wf: 111 },
     { name: 'Meta row',          cls: '.metarow',      page: 'meta-row.html', was: '.axis, .strip',                axes: 'rule: plain / ruled',                   wf: 5 },
-    { name: 'Muted line',        cls: '.muted',        page: 'muted-line.html', was: '.consequence, .context, .tone, .legal, .freshness, .removal, .pitch, p.notice, .p', axes: 'size: 12 / 12.5 / 13. rule: plain / ruled', wf: 48 },
+    { name: 'Muted line',        cls: '.muted',        page: 'muted-line.html', was: '.consequence, .context, .tone, .legal, .freshness, .removal, .pitch, p.notice, .p', axes: 'size: body / fine. rule: plain / ruled', wf: 48 },
     { name: 'Quiet line',        cls: '.quiet',        page: 'quiet-line.html', was: null,                          axes: '-',                                     wf: 12 },
     { name: 'Readout',           cls: '.readout',      page: 'readout.html', was: null,                          axes: '-',                                     wf: 2 },
     { name: 'Select',            cls: '.select',       page: 'select.html', was: '.field select',                axes: '-',                                     wf: 4 },

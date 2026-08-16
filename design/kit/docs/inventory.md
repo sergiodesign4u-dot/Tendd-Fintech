@@ -88,7 +88,7 @@ and the first component through the five-thing gate: css, page, registry row, in
 | Label | `.lbl` | weight: quiet 12 / strong 16 (`--type-meta`, `--type-sub`). 15 was never the value | 3 | - | `label.css` | `label.html`  | does not adapt |
 | Logo | `.logo` | size by container: 20 / 22 / 30 / 32 / 36 / 52 | 111 | - | `logo.css` | `logo.html`  | does not adapt |
 | Meta row | `.metarow` | rule: plain / ruled | 5 | `.axis`, `.strip` | `meta-row.css` | `meta-row.html`  | fluid |
-| Muted line | `.muted` | size: 12 / 12.5 / 13. rule: plain / ruled | 48 | `.consequence`, `.context`, `.tone`, `.legal`, `.freshness`, `.removal`, `.pitch`, `p.notice`, `.p` | `muted-line.css` | `muted-line.html`  | a reading measure |
+| Muted line | `.muted` | size: body / fine. rule: plain / ruled | 48 | `.consequence`, `.context`, `.tone`, `.legal`, `.freshness`, `.removal`, `.pitch`, `p.notice`, `.p` | `muted-line.css` | `muted-line.html`  | a reading measure |
 | Quiet line | `.quiet` | - | 12 | - | `quiet-line.css` | `quiet-line.html`  | does not adapt |
 | Readout | `.readout` | - | 2 | - | `readout.css` | `readout.html`  | a reading measure |
 | Select | `.select` | - | 4 | `.field select` | `select.css` | `select.html`  | does not adapt |

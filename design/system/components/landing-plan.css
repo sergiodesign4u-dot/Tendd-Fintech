@@ -50,11 +50,13 @@
    same step, because the block grew a foot that needed paper under it.
 
    Reads
-     colour   --bg-surface (the band's ground and the cards'), --line-container,
+     colour   --bg-surface (the band's ground and the cards'), --bg-recessed
+              (the four included things, as plates), --line-container,
               --line-selected (the recommended card's edge), --line-divider,
-              --text-body
-     paint    --wash-pricing (the band's picture, both themes)
-     radii    --radius
+              --text-primary, --text-body
+     paint    --wash-pricing (the band's picture, both themes, past the tablet
+              point only)
+     radii    --radius, --radius-sm
      spacing  --space-0, 8, 16, 24, 32, 48, 64
      type     --type-body, --type-sub
      width    --container-page (the lead's measure)
@@ -96,26 +98,41 @@
    to the border met it as a seam.
 
    THE STOPS ARE PIXELS, AND THAT IS THE MEASUREMENT TALKING. What the fade has
-   to land in is a GAP BETWEEN TWO ELEMENTS, and that gap is the same handful of
-   pixels at every width: swept at nine widths in both themes, the last line of
-   text ends 190px into the band at the widest and the raised card starts at
-   252px, at the narrowest 174 and 262, and the cards' feet stand 219 to 248px
-   above the band's bottom edge with the list's label 157 to 185 above it. The
-   band's HEIGHT is not stable at all - 1478px on a phone against 807 wide -
-   so a percentage is a fraction of the wrong thing: 48%, the number the fourth
-   build used, is 709px down a phone band, which is halfway inside the second
-   card. 185 to 265 from the top and 260 to 200 from the bottom are the same two
-   gaps stated once for every width: each fade opens where the text on that side
-   ends and closes clear of it, and each is 80 and 60 long rather than the
-   shortest it could be, because a fade a person can see the ends of is a
-   stripe. The bottom pair was 225 to 165 for one measurement, which is what the
-   card feet asked for and 20px short of what the LABEL under them asked for:
-   at 360 the list's eyebrow stands 185px above the band's edge and sat in the
-   tail of the fade at 3.37:1. Moved to 260 and 200, every word in the band
-   stands on paper and the worst rendered pair over nine widths in both themes
-   is 5.30:1, on a ground of 241,246,245 against a surface of 255 - which is the
-   eyebrow's own token contrast and not a picture's. A change to the block's
-   height runs the sweep again.
+   to land in is a GAP BETWEEN TWO ELEMENTS, not a fraction of a band: from the
+   tablet point up every one of those gaps sits at a CONSTANT pixel offset,
+   while the band's own height runs from 1566px on a phone to 828 wide. So a
+   percentage is a fraction of the wrong thing: 48%, the number the fourth build
+   used, is 751px down a phone band, halfway inside the second card. Read off
+   the page and identical at every width at 760 and above: the lead's last line
+   ends at 190, the raised card starts at 222 and the two quiet ones at 254,
+   their feet stand 266 above the bottom edge and the list's eyebrow 218 above
+   it. Hence 190 to 250 at the top and 262 to 220 at the bottom - each fade
+   opens where the text on its side ends and closes clear of it, and each is 60
+   and 42 long rather than the shortest it could be, because a fade a person can
+   see the ends of is a stripe.
+
+   AND THE PICTURE STOPS AT THE TABLET POINT, which is the only honest answer to
+   what a phone does here. Below it the three cards are a STACK and those
+   constants stop being constants: the plate row under them wraps to one, two or
+   three rows as the width falls, so the gap the bottom fade has to land in sits
+   202px above the band's edge at 640 and 298 at 360, while the cards' feet stand
+   at 250 and 346. No single offset is inside both, and no percentage either -
+   the two intervals do not even overlap (77.9 to 81.0 at 360 against 82.2 to
+   85.6 at 640). The alternative to a query was a fade that puts a picture behind
+   the smallest ink in the band at one width and not another, which is the exact
+   failure this arrangement was built to end. A horizon is what a ROW stands on;
+   a stack has no horizon, and on a phone the picture was nine tenths covered by
+   the cards anyway. It also means a phone never downloads the asset: a
+   `background-image` inside a query that does not match is never fetched.
+
+   A CHANGE TO THE BLOCK'S HEIGHT RUNS THE SWEEP AGAIN, and that is not a
+   politeness. The stops were read off the page on 2026-08-16 and invalidated the
+   same day, when the four included things became plates and the block grew: the
+   eyebrow landed back inside the fade at 2.75:1 in the dark theme. Found by
+   re-running the sweep in the same step, not by eye. Worst rendered pair after
+   the correction: 5.78:1 on a ground of 255,255,255, which is the muted ink's
+   own token contrast on paper. Every word in this band now stands on the bare
+   surface colour and not on a tinted one.
 
    NOTHING IN THIS BAND READS OVER THE PICTURE ANY MORE, and that is the release
    the horizon bought. Three builds spent their argument on how pale the asset
@@ -140,17 +157,21 @@
    and this page already spends its budget on the hero. */
 .landing .lp-section.lp-plan {
   background-color: var(--bg-surface);
-  background-image:
-    linear-gradient(
-      to bottom,
-      var(--bg-surface) 0, var(--bg-surface) 185px, transparent 265px,
-      transparent calc(100% - 260px), var(--bg-surface) calc(100% - 200px)
-    ),
-    var(--wash-pricing);
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
   text-align: center;
+}
+@container (min-width: 47.5rem) {
+  .landing .lp-section.lp-plan {
+    background-image:
+      linear-gradient(
+        to bottom,
+        var(--bg-surface) 0, var(--bg-surface) 190px, transparent 250px,
+        transparent calc(100% - 262px), var(--bg-surface) calc(100% - 220px)
+      ),
+      var(--wash-pricing);
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
 }
 
 /* the centring the grey has always had. The heading takes it by inheritance;
@@ -245,9 +266,17 @@
 }
 /* the reassurance that used to sit third from the top, now the block's last
    word. Same reason as the list: it answers a question a person has AFTER they
-   have seen the price, not before. */
+   have seen the price, not before.
+
+   IT IS SUPPLEMENTARY AND IT SAYS SO, 2026-08-16 ("сделать дополнительним"). It
+   wears `.fine`, the size modifier declared on the muted line, so this file sets
+   a MARGIN and nothing else: a host writing a font-size onto a hosted atom is
+   the defect three files here name by name, and the axis is what makes wearing
+   it possible. 24 of air above it, where the four plates take 8 between them,
+   so the reassurance reads as a note under the group rather than as a fifth
+   member of it. */
 .landing .lp-plan .plan-all + .muted {
-  margin-bottom: var(--space-0);
+  margin: var(--space-24) auto var(--space-0);
 }/* A WRAPPING ROW AND NOT A FOUR-COLUMN GRID. Four equal columns put "Export"
    alone in the middle of a 300px track and read as a table of one-word rows.
    A centred flex row with a gap lets the four sit as one line at the widths
@@ -257,14 +286,38 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-8) var(--space-24);
+  gap: var(--space-8);
   list-style: none;
   margin: var(--space-0);
   padding: var(--space-0);
 }
+/* EACH OF THE FOUR IS A PLATE, 2026-08-16, and the founder's words are the
+   whole brief: "мне вот єти слова сделать би красивее и как то их виделить".
+   They were four runs of 14px body ink in a wrapping line, which is what a
+   sentence looks like, and these are not a sentence: they are the four things
+   the price buys, and each of them is a THING. A plate is what this page
+   already says a thing is - the trust band above sets its four claims on the
+   same recessed ground - so this borrows a shape the page owns rather than
+   inventing one for four words.
+
+   THE INK GOES UP ONE STEP WITH IT, to --type-sub and the primary tier. Under
+   the eyebrow that names them, at body size and body ink, they read as the
+   caption of the row above; at 16 and full ink they read as the list they are.
+   They still do not compete with the prices, which are 46.
+
+   STILL NO TICK, and the argument has not changed with the shape. The eyebrow
+   says "included", and an ornament repeated on every line adds nothing the label
+   has not; the plate is what gives them presence, and a mark inside a plate
+   would be the second thing saying the same thing. --bg-recessed and not the
+   accent: this band already spends petrol twice, on the primary action and on
+   the recommended card's edge, and four more marks would be the fourth and
+   fifth. */
 .landing .lp-plan .plan-all li {
-  font-size: var(--type-body);
-  color: var(--text-body);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-sm);
+  background: var(--bg-recessed);
+  font-size: var(--type-sub);
+  color: var(--text-primary);
 }
 
 /* ---- the card's body and its footer ---------------------------------------
