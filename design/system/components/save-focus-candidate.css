@@ -133,3 +133,18 @@
   .app .cand { flex-wrap: wrap; padding: var(--space-4) var(--space-0) var(--space-8); }
   .app .cand .cut { margin-left: auto; }
 }
+
+/* ---- PRESS ----------------------------------------------------------------
+   2026-08-16. The cut control is the one thing on this row a person pushes, so it
+   takes the press and the row around it does not: the candidate is read, and only
+   its control is used. */
+.app .cand .cut, .landing .cand .cut {
+  transition: background-color var(--dur-state) var(--ease-state),
+              border-color var(--dur-state) var(--ease-state),
+              color var(--dur-state) var(--ease-state),
+              translate var(--dur-state) var(--ease-state);
+}
+.app .cand .cut:active, .landing .cand .cut:active {
+  translate: 0 var(--nudge);
+  transition-duration: var(--dur-press);
+}

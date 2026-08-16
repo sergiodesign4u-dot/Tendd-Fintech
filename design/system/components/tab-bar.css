@@ -230,3 +230,22 @@
     background: var(--bg-surface);
   }
 }
+
+/* ---- LIFT and PRESS -------------------------------------------------------
+   2026-08-16. The destination icon rises by one --nudge when its tab is hovered,
+   which is the same verb the merchant mark takes in a row and for the same reason:
+   the icon is what the destination IS. The tab presses by one on :active.
+
+   THE CURRENT TAB DOES NEITHER. It is where you already are, so answering a
+   pointer on it would offer a journey that does not exist, and the petrol ink plus
+   the 2px top edge already say it is the one you are standing on. */
+.app .tabbar a .ic { transition: translate var(--dur-state) var(--ease-arrive); }
+.app .tabbar a:hover:not(.cur) .ic { translate: 0 calc(var(--nudge) * -1); }
+.app .tabbar a {
+  transition: color var(--dur-state) var(--ease-state),
+              translate var(--dur-state) var(--ease-state);
+}
+.app .tabbar a:active:not(.cur) {
+  translate: 0 var(--nudge);
+  transition-duration: var(--dur-press);
+}

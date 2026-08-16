@@ -150,3 +150,40 @@
    inside a 56px square it read as a speck, which is exactly the complaint the
    founder made about that section's numbers. */
 .landing .doors .logo:not(.is-skel):not(:has(img)) { font-size: var(--type-title); }
+
+/* ---- LIFT, the third verb of the motion language --------------------------
+   2026-08-16, on the founder's word that the colour-only pass was not visible.
+   A merchant's mark rises by one --nudge and grows a little when the target it
+   stands in is hovered. It is the identity of the thing you are about to open, so
+   it is the right part of a row to answer a pointer: the AMOUNT must not move,
+   because a figure that moves is a figure you re-read, and this product exists to
+   stop people re-reading their money.
+
+   THE SCALE IS A LITERAL AND NOT A TOKEN, by this system's own rule for a value
+   with one consumer: 1.06 is declared once, here, for every host at once. It is
+   small enough that a 22px mark in a merchant group and a 52px one on a detail
+   hero grow by about the same optical amount.
+
+   IT IS SCOPED TO THE PRESSABLE FORM OF EVERY HOST. The row is a div on three
+   loading screens, the alert on one and the tile on one, and a placeholder that
+   lifts under the pointer is a promise nothing can keep. `:where()` costs no
+   specificity, so these rules stay exactly where they were written.
+
+   `.is-skel` IS EXCLUDED TWICE OVER, here as well as by the host, because the
+   skeleton's own file already carries the rule in words: a loading object must not
+   look hovered, focused or pressed. */
+.app .logo, .landing .logo {
+  transition: translate var(--dur-state) var(--ease-arrive),
+              scale var(--dur-state) var(--ease-arrive);
+}
+.app .row:where(a):hover .logo:not(.is-skel),
+.landing .row:where(a):hover .logo:not(.is-skel),
+.app .alert:where(a):hover .logo:not(.is-skel),
+.landing .alert:where(a):hover .logo:not(.is-skel),
+.app .tile:where(button):hover .logo:not(.is-skel),
+.landing .tile:where(button):hover .logo:not(.is-skel),
+.app .door:hover .logo:not(.is-skel),
+.landing .door:hover .logo:not(.is-skel) {
+  translate: 0 calc(var(--nudge) * -1);
+  scale: 1.06;
+}

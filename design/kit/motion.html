@@ -60,20 +60,20 @@
     <h1 class="big">Motion</h1>
     <div class="kit-prose">
       <p class="first">The stage opened on a count rather than a design, and the count is why everything below looks the way it does: one surface of this product moved a great deal, the other fifty-four did not move at all, and the four curves the moving one ran on were declared where nothing else could read them. A scale derived from that would have been a scale derived from a sample of one.</p>
-      <p>So motion is now <b>eleven tokens and one rule</b>. Four curves named by the job they do, one more for a control answering a pointer, two durations, and a single state change that moves colour and never an object. Everything on this page is live: hover the real components, run the real curves.</p>
+      <p>So motion is now <b>thirteen tokens and four verbs</b>. The first pass was colour and nothing else, and the founder&rsquo;s answer to it was the sentence this page is built around: <i>&ldquo;большинство анимаций я не вижу&rdquo;</i>. So things move now, and exactly one thing stops the movement becoming decoration: <b>every object in this product travels the same 2px, and nothing anywhere travels two.</b> Everything below is live - hover the real components, run the real curves.</p>
     </div>
     <div class="kit-meta">
       <span><strong>4</strong> curves, <strong>5</strong> jobs</span>
-      <span><strong>2</strong> durations, and no scale</span>
-      <span>state change: <strong>150ms</strong>, colour only</span>
-      <span><strong>4</strong> hand-written curves removed</span>
+      <span><strong>4</strong> verbs: fade, advance, lift, press</span>
+      <span><strong>one</strong> distance: <strong>2px</strong></span>
+      <span>hover <strong>150ms</strong>, press <strong>90ms</strong></span>
       <span>the ring: <strong>instant</strong>, on purpose</span>
       <span>was <strong>0</strong> transitions in the product</span>
     </div>
   </header>
 
   <section class="kit-sec" id="register">
-    <h2>The register: eleven tokens, in <code>tokens.css</code></h2>
+    <h2>The register: thirteen tokens, in <code>tokens.css</code></h2>
     <p class="note"><b>Two levels for the curves and one for the durations</b>, and the split is a decision rather than a habit. A second level is earned exactly where two roles would otherwise spell the same value, which is rule 4 of this system read from the other end: <code>--ease-arrive</code> and <code>--ease-state</code> are both expo-out today and can part company, so the curve is named once by shape and the jobs point at it. The two durations share nothing, so there is no shape level under them and inventing one would be a level with nothing in it.</p>
     <p class="note"><b>Motion sits in the primitive half of the file and takes no dark pair</b>, which is not an exception hunting for one. The primitive/semantic split of <code>tokens.css</code> is a split about the THEME axis: a colour is named twice because the same role points at a different value in the dark. No theme moves a curve. What motion has instead is <code>prefers-reduced-motion</code>, and that is a global kill in <code>base.css</code> rather than a per-token override.</p>
 
@@ -94,6 +94,9 @@
           <tr><td><code>--ease-state</code></td><td>&rarr; <code>--curve-expo-out</code></td><td><b>a control answering a pointer or a key.</b> Its own role at the same value by rule 4: an entrance is a thing appearing, a state change is a thing already on screen saying it heard you</td></tr>
           <tr><td colspan="3"><b>Durations, one level, named by job</b></td></tr>
           <tr><td><code>--dur-state</code></td><td><code>150ms</code></td><td>the state change. Under about 100ms it reads as a cut and the transition buys nothing; over about 200ms a hover starts trailing the pointer, which on a list of fourteen rows is the opposite of calm</td></tr>
+          <tr><td><code>--dur-press</code></td><td><code>90ms</code></td><td><b>a press, and it is faster than a hover on purpose.</b> A press answers a finger that is already down, so 150ms reads as lag where the same 150ms on a hover reads as soft. The release goes back on <code>--dur-state</code>: quick to take, calm to let go</td></tr>
+          <tr><td colspan="3"><b>Distance, one value, and it is the whole guard on the movement</b></td></tr>
+          <tr><td><code>--nudge</code></td><td><code>2px</code></td><td><b>the one distance anything in this product moves.</b> An arrow advances by it, a mark lifts by it, a control presses down by it, and nothing anywhere travels two. 2 rather than 1 because 1px vanishes on a 2x screen at 36px, and rather than 4 because at 4 a list of fourteen rows starts jumping under the pointer instead of answering it. It is geometry, so it is a primitive read directly and has no role above it: what a nudge MEANS is written by the verb that spends it</td></tr>
           <tr><td><code>--dur-pulse</code></td><td><code>1.4s</code></td><td>the loading placeholder breathing. A literal in <code>skeleton-bar.css</code> since stage 07, with the appointment written on that component&rsquo;s own page</td></tr>
         </tbody>
       </table>
@@ -122,7 +125,7 @@
   </section>
 
   <section class="kit-sec" id="state">
-    <h2>The state change: colour, 150ms, and nothing moves</h2>
+    <h2>The first verb: FADE. Colour, 150ms, every state</h2>
     <p class="note"><b>Hover these. They are the real components at the real duration.</b></p>
     <div class="kit-stage app full">
       <a class="row" href="#state" aria-label="Netflix, $17.99 a month, next in 2 days on 3 August">
@@ -162,7 +165,7 @@
           <tr><td><code>color</code></td><td><b>yes</b></td><td>links, the app bar&rsquo;s own controls, the footer</td></tr>
           <tr><td><code>text-decoration-color</code></td><td><b>yes</b></td><td>the underline under an inline link, which is a line and moves with the ink</td></tr>
           <tr><td><code>outline</code>, <code>outline-offset</code></td><td><b>NO</b></td><td><b>the one exclusion, and it is an accessibility decision rather than a taste one.</b> These appear in 20 of the 68 state rules and every one must land instantly: a keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind the caret</td></tr>
-          <tr><td>anything that moves an object</td><td><b>NO</b></td><td>transform, translate, scale, height, margin. A person reading fourteen subscriptions is never chased by a row that grows, lifts or slides. Calm over clever, at the one place a pointer touches the product</td></tr>
+          <tr><td>anything that moves an object</td><td><b>not here</b></td><td>movement is real in this product, and it belongs to the component that owns the object rather than to a blanket: a disabled button is still a button and must not press, a loading row is still a row and must not lift, and <code>base.css</code> cannot know either. See <a href="#verbs">the four verbs</a> below. Nothing that changes the size of a box is on any list: no <code>height</code>, no <code>margin</code>, no <code>padding</code>, so no movement in this product ever reflows a line of text</td></tr>
         </tbody>
       </table>
     </div>
@@ -181,6 +184,69 @@
     </div>
     <p class="note"><b>One side effect was found rather than designed, and it is kept.</b> A rule on <code>color</code> and <code>background-color</code> also fires when the THEME changes, so flipping Light to Dark on this stand now crossfades every control while the grounds behind them snap. Measured on <a href="button.html">button.html</a>: 50ms after the flip the primary button is already at <code>rgb(99,169,179)</code> on <code>rgb(37,44,45)</code>, near its final pair and never below its contrast floor at any frame. It reaches nothing in the product, which has no runtime theme switch, and where it does reach it reads as the controls answering first. Kept, and written down here so the next person does not have to work out whether it was intended.</p>
     <p class="note">All three read <code>--dur-state</code> and <code>--ease-state</code>, so none of them can drift from the rest of the product. The rule is <b>U12</b> in <a href="architecture.html">Architecture</a>: does the hover host answer to the element list? then nothing to write. Does it not? then one <code>transition</code> in the component file, reading the two tokens and never a literal.</p>
+  </section>
+
+  <section class="kit-sec" id="verbs">
+    <h2>The other three verbs: advance, lift, press</h2>
+    <p class="note">The colour pass shipped first and the founder&rsquo;s verdict on it was that it could not be seen. Three verbs answer that, and they were chosen so that <b>the movement always has a cause</b>: something moves only where the movement says what is about to happen. <b>One distance holds all three</b> - <code>--nudge</code>, 2px - which is what keeps a product with movement in it from becoming a product with decoration in it.</p>
+
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Verb</th><th>What moves</th><th>When</th><th>Who owns it</th></tr></thead>
+        <tbody>
+          <tr><td><b>Fade</b></td><td>colour: fill, edge, ink, underline</td><td>every state, 150ms</td><td><code>base.css</code>, and three components whose host is not a native element</td></tr>
+          <tr><td><b>Advance</b></td><td>a direction cue, one nudge toward where it points</td><td>its target is hovered</td><td><a href="step-forward-link.html">step-forward link</a> (down), <a href="nav-row.html">nav row</a>, <a href="door.html">door</a>, <a href="alert-item.html">alert item</a> (right)</td></tr>
+          <tr><td><b>Lift</b></td><td>an identity mark: up one nudge, and out to 1.06</td><td>the target it stands in is hovered</td><td><a href="logo.html">logo</a> in a row, an alert, a tile or a door; <a href="tab-bar.html">the destination icon</a> in a tab</td></tr>
+          <tr><td><b>Press</b></td><td>the object itself, down one nudge, at 90ms</td><td>held</td><td><a href="button.html">button</a>, <a href="subscription-row.html">row</a>, <a href="nav-row.html">nav row</a>, <a href="door.html">door</a>, <a href="preset-tile.html">tile</a>, <a href="alert-item.html">alert</a>, <a href="range-picker.html">segment</a>, <a href="save-focus-candidate.html">cut control</a>, <a href="tab-bar.html">tab</a>, <a href="checkbox.html">checkbox</a> (as a scale)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="kit-sub-h">Advance, live. Hover each one</h3>
+    <div class="kit-stage app full">
+      <a class="navrow" href="#verbs"><span>Data and privacy<span class="sub">What we read, and delete everything</span></span><span class="arrow"></span></a>
+    </div>
+    <div class="kit-stage app full">
+      <a class="door" href="#verbs"><h3>Connect your bank</h3><p>Read-only. Tendd cannot move your money.</p><span class="pick">Connect</span></a>
+    </div>
+    <p class="note">The chevron and the arrow both point right and both go to another screen, so both advance right. The step-forward link&rsquo;s arrow points <b>down</b> and advances down, because that link goes further down the same page rather than to another one. <b>A cue advances toward what it means</b>, which is the whole rule and the reason there is no fifth direction.</p>
+
+    <h3 class="kit-sub-h">Lift, live. Hover the row, then the tile</h3>
+    <div class="kit-stage app full">
+      <a class="row" href="#verbs" aria-label="Netflix, $17.99 a month, next in 2 days on 3 August">
+        <span class="logo"><img src="../visuals/logos/netflix.svg" alt=""></span>
+        <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
+        <span class="amt">$17.99</span>
+      </a>
+    </div>
+    <div class="kit-stage app">
+      <button type="button" class="tile"><span class="logo"><img src="../visuals/logos/spotify.svg" alt=""></span><span>Spotify Premium<span class="muted">Typically $11.99 a month</span></span></button>
+    </div>
+    <p class="note"><b>The mark answers and the figure never does.</b> A merchant&rsquo;s mark is the identity of the thing you are about to open, so it is the right part of a row to come forward. The amount beside it stays exactly where it is, and that is a rule rather than an omission: a number that moves is a number you re-read, and this product exists to stop people re-reading their money.</p>
+
+    <h3 class="kit-sub-h">Press, live. Hold one down</h3>
+    <div class="kit-stage app">
+      <a class="btn primary" href="#verbs">Connect your bank</a>
+      <a class="btn" href="#verbs">Add them yourself</a>
+    </div>
+    <p class="note">Down at <b>90ms</b> and back at <b>150</b>: quick to take, calm to let go. That asymmetry is the same one <code>--ease-leave</code> carries on the public page, read at a hundredth of the scale. A press has to answer a finger that is <b>already down</b>, so the hover&rsquo;s own 150ms reads as lag here where it reads as soft there.</p>
+
+    <h3 class="kit-sub-h">What deliberately does not move, and why</h3>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>What</th><th>The ground</th></tr></thead>
+        <tbody>
+          <tr><td>a <b>disabled</b> control</td><td>moving it answers a press the product will not honour. The disabled segment of the range picker is the Pro range on a Free account</td></tr>
+          <tr><td>a <b>loading</b> form</td><td>a placeholder has nothing to press. <code>skeleton-bar.css</code> has carried this rule in words since stage 07 and enforced only the cursor; on 2026-08-16 the row, the alert and the tile scoped their hover to the pressable element form, so all three now obey it</td></tr>
+          <tr><td>the <b>current</b> tab</td><td>it is where you already are, so answering a pointer on it offers a journey that does not exist</td></tr>
+          <tr><td>a <b>figure</b>: the amount, the monthly total</td><td>a number that moves is a number you re-read</td></tr>
+          <tr><td>a <b>card</b>, on hover</td><td>a lift needs a shadow to read as one, and the Flat Paper Rule gives this system exactly one shadow, spent elsewhere. What answers on a card is the edge, the fill and the arrow</td></tr>
+          <tr><td>the <b>focus ring</b></td><td>a keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind the caret</td></tr>
+          <tr><td>anything that <b>reflows</b></td><td>no <code>height</code>, no <code>margin</code>, no <code>padding</code> is on any list in this product, so no movement here ever pushes a line of text</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Under <code>prefers-reduced-motion</code> all four verbs stop being animations and become states: the guard in <code>base.css</code> takes every duration to 0.01ms, so a hovered mark is simply already lifted. <b>That is deliberate.</b> A 2px offset that appears instantly is not motion, it is a state exactly like a colour, and removing it would take the answer away from the person who asked for stillness rather than giving them one.</p>
   </section>
 
   <section class="kit-sec" id="census">
@@ -273,7 +339,8 @@
   window.NAV_SECTIONS = [
     { id:'register', label:'The register' },
     { id:'curves',   label:'The curves, running' },
-    { id:'state',    label:'The state change' },
+    { id:'state',    label:'Fade: the state change' },
+    { id:'verbs',    label:'Advance, lift, press' },
     { id:'census',   label:'The census' },
     { id:'guard',    label:'The guard' },
     { id:'open',     label:'What is still open' },

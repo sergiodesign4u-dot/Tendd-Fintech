@@ -187,3 +187,24 @@
   border-color: var(--line-divider);
   color: var(--text-muted);
 }
+
+/* ---- PRESS, the fourth verb of the motion language ------------------------
+   2026-08-16. Everything you can push goes down by one --nudge while it is held,
+   over --dur-press, and comes back on --dur-state: quick to take, calm to let go.
+   That asymmetry is the same one --ease-leave carries on the public page, read at
+   a hundredth of the scale.
+
+   IT IS ON THE BUTTON AND NOT IN base.css, because a press is a statement about
+   what an object IS rather than about which element renders it: a disabled button
+   is still a button and must not move, and base.css cannot know that. */
+.app .btn, .landing .btn {
+  transition: background-color var(--dur-state) var(--ease-state),
+              border-color var(--dur-state) var(--ease-state),
+              color var(--dur-state) var(--ease-state),
+              translate var(--dur-state) var(--ease-state);
+}
+.app .btn:active, .landing .btn:active {
+  translate: 0 var(--nudge);
+  transition-duration: var(--dur-press);
+}
+.app .btn[disabled]:active, .landing .btn[disabled]:active { translate: 0 0; }

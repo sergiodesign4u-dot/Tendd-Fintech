@@ -66,19 +66,13 @@
    a tile that is both: the pointer does not repaint the chosen tile, because
    the answer to "what happens if I press this" is that it is already chosen. */
 
-/* THE STATE CHANGE IS DECLARED ON THE TILE ITSELF, one of three such places in
-   the system. base.css puts the one transition on the elements this product
-   treats as interactive, and this tile has two element forms: 6 buttons on
-   add-subscription.html, and 10 spans, 6 of them on add-subscription-loading.html
-   and 4 on the landing. Inheriting the element default would fade the buttons and
-   cut the spans, which is one class behaving two ways and the invisible kind of
-   wrong. Same tokens as base.css, so the two cannot drift. Stage 11, 2026-08-16. */
-.app .tile, .landing .tile {
-  transition: border-color var(--dur-state) var(--ease-state),
-              background-color var(--dur-state) var(--ease-state);
-}
+/* THE STATE CHANGE IS DECLARED IN THIS FILE and not inherited, because the tile has
+   two element forms: a button 6 times on add-subscription.html and a span 10 times,
+   6 of those on that screen's loading state and 4 on the landing. It is at the FOOT
+   of this file, with the press, because on 2026-08-16 the two became one decision:
+   the button form fades and presses, and the span form does neither. */
 
-.app .tile:hover, .landing .tile:hover {
+.app .tile:where(button):hover, .landing .tile:where(button):hover {
   border-color: var(--line-control-hover);
   background: var(--bg-hover);
 }
@@ -104,4 +98,21 @@
 .app .tile:focus-visible, .landing .tile:focus-visible {
   outline: var(--ring) solid var(--color-focus);
   outline-offset: var(--ring);
+}
+
+/* ---- PRESS, and the hover is now SCOPED TO THE PRESSABLE FORM -------------
+   2026-08-16. The tile presses down by one --nudge on :active, and its merchant
+   mark lifts on hover through logo.css. The hover moved to `:where(button)` for
+   the reason the row and the alert moved theirs: the tile is a button 6 times on
+   add-subscription.html and a span 10 times, 6 of those on that screen's loading
+   state, and a placeholder must not answer a pointer, least of all now that the
+   answer moves. */
+.app .tile:where(button), .landing .tile:where(button) {
+  transition: border-color var(--dur-state) var(--ease-state),
+              background-color var(--dur-state) var(--ease-state),
+              translate var(--dur-state) var(--ease-state);
+}
+.app .tile:where(button):active, .landing .tile:where(button):active {
+  translate: 0 var(--nudge);
+  transition-duration: var(--dur-press);
 }

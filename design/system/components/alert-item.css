@@ -43,17 +43,13 @@
   gap: var(--space-16);
   padding: var(--space-16);
   text-decoration: none; color: inherit;
-  /* THE STATE CHANGE IS DECLARED HERE, one of three such places in the system.
-     base.css puts the one transition on the elements this product treats as
-     interactive, and this item has two element forms: 8 anchors on alerts.html and 4
-     divs on alerts-loading.html, which is the LOADING state. The element default
-     would fade the eight and cut the four, which is one class behaving two ways.
-     Same tokens, so the two cannot drift. Stage 11, 2026-08-16.
-     Worth naming separately: the loading form takes the hover fill at all, which is
-     its own open question and not this stage's. `.row.is-skel` in skeleton-bar.css
-     is the precedent - a loading row was given `cursor: default` for exactly this -
-     and no such rule exists here. Recorded in backlog.md. */
-  transition: background-color var(--dur-state) var(--ease-state);
+  /* THE STATE CHANGE IS DECLARED IN THIS FILE and not inherited, because this item
+     has two element forms: 8 anchors on alerts.html and 4 divs on
+     alerts-loading.html, which is the LOADING state, and the element default in
+     base.css would answer one and not the other. It is at the FOOT of this file
+     rather than here, with the advance and the press, because on 2026-08-16 the
+     three became one decision: the anchor form fades, advances and presses, and the
+     loading form does none of the three. See the last block. */
 }
 
 /* NOT CARRIED, 1 of 3: `.app .alert .logo { flex: none }`. logo.css declares
@@ -164,7 +160,7 @@
    stack in a divided list and a border under the pointer shifts the five
    below it. */
 
-.app .alert:hover, .landing .alert:hover {
+.app .alert:where(a):hover, .landing .alert:where(a):hover {
   background: var(--bg-hover);
 }
 
@@ -183,3 +179,29 @@
    screen, with no blur over the text, because a blur pretends there is
    something being withheld and an anxious person fills it in with the worst
    thing they can think of. The grey page says this in its own comment. */
+
+/* ---- ADVANCE and PRESS, and the hover is now SCOPED TO THE PRESSABLE FORM --
+   2026-08-16. The item's own line ends in an arrow pointing right, so it advances
+   right by one --nudge on hover; the item presses down by one on :active.
+
+   AND THE HOVER ITSELF MOVED TO `:where(a)`, which CLOSES the backlog row this
+   stage opened two hours earlier rather than carrying it. The item is an anchor 8
+   times on alerts.html and a div 4 times on alerts-loading.html, and until today
+   the hover painted both: a placeholder answered a pointer that had nothing to
+   press. That was survivable while the answer was a fill. It stops being
+   survivable the moment the answer also MOVES, which is exactly what the founder
+   asked for. `:where()` costs no specificity, so the rules sit where they sat. */
+.app .alert:where(a) .go::after, .landing .alert:where(a) .go::after {
+  display: inline-block;
+  transition: translate var(--dur-state) var(--ease-arrive);
+}
+.app .alert:where(a):hover .go::after,
+.landing .alert:where(a):hover .go::after { translate: var(--nudge) 0; }
+.app .alert:where(a), .landing .alert:where(a) {
+  transition: background-color var(--dur-state) var(--ease-state),
+              translate var(--dur-state) var(--ease-state);
+}
+.app .alert:where(a):active, .landing .alert:where(a):active {
+  translate: 0 var(--nudge);
+  transition-duration: var(--dur-press);
+}

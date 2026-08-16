@@ -7,6 +7,62 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - Motion gets four verbs, and one distance holds all of them
+
+The colour-only pass shipped in the morning. The founder's verdict on it, the same day: **"большинство
+анимаций я не вижу ... все атомы должны быть с анимациями"**. The direction is theirs and it is taken
+in full. What was added is a language rather than a pile of effects.
+
+**Three verbs beside the fade.** ADVANCE: a direction cue moves toward where it points when its
+target is hovered, which is the step-forward link's arrow (down, because that link goes further
+down the same page) and the nav row's chevron, the door's pick line and the alert's go line
+(right). LIFT: an identity mark rises and grows to 1.06 when the target it stands in is hovered,
+which is the merchant mark in a row, an alert, a tile or a door, and the destination icon in a tab.
+PRESS: anything pushable goes down while it is held, at `--dur-press` 90ms, and comes back at 150.
+
+**One distance, and it is the whole guard on the decision.** `--nudge` is 2px, everything moves by
+exactly one, and **nothing anywhere travels two**. 2 rather than 1 because 1px vanishes on a 2x
+screen at 36px, and rather than 4 because at 4 a list of fourteen rows starts jumping under the
+pointer instead of answering it. The single exception is the checkbox, where a 20px box cannot
+travel 2px without looking dislodged and the box IS the control, so its press is a scale to 0.94 -
+the mirror of the mark's 1.06 lift.
+
+**The rule that chose the verbs:** the movement always has a cause. Something moves only where the
+moving says what is about to happen. That is what stops this being decoration, and it is what
+produced the exclusions, which are as much of the language as the verbs are: a **disabled** control
+never moves (it would answer a press the product will not honour), a **loading** form never moves,
+the **current** tab never moves (it would offer a journey that does not exist), a **figure** never
+moves (a number that moves is a number you re-read, and this product exists to stop people
+re-reading their money), a **card** never lifts on hover (a lift needs a shadow and the Flat Paper
+Rule spends the only one elsewhere), and nothing that would **reflow** is on any list: no `height`,
+no `margin`, no `padding`, so no movement here ever pushes a line of text.
+
+**The verbs live in the components and the fade lives in `base.css`**, on the same test: a verb is
+a statement about what an object IS. A disabled button is still a button; a loading row is still a
+row. `base.css` cannot know either, and it owns only the one verb true of every interactive element
+regardless of what it is. Usage rule **U13**, with a Limits item on all twelve component pages it
+names.
+
+**A backlog row opened at breakfast closed by evening, because the movement made it untenable.**
+The row, the alert and the tile each answered a pointer in their LOADING form: `.row:hover`,
+`.alert:hover` and `.tile:hover` painted all 60, 12 and 16 placements rather than the pressable
+ones. It was survivable while the answer was a fill and stopped being survivable the moment the
+answer moved. All three hovers are scoped to the pressable element form now, through `:where(a)`
+and `:where(button)`, which cost no specificity, so nothing else in the cascade moved.
+
+**Under `prefers-reduced-motion` the verbs become states rather than animations.** The guard takes
+every duration to 0.01ms, so a hovered mark is simply already lifted. Deliberate: a 2px offset that
+appears instantly is not motion, it is a state exactly like a colour, and suppressing it would take
+the answer away from the person who asked for stillness rather than give them one.
+
+**Nothing at rest moved**: 36 deterministic frames byte-identical before and after, the landing's 4
+in the known noise set. Every verb proved by measurement rather than by looking - the advances read
+off `::after` computed styles, the lifts and presses off bounding boxes under a held pointer - and
+the four things that must NOT move (skeleton row, loading alert, loading tile, current tab) measured
+at zero on both hover and press.
+
+---
+
 ## 2026-08-16 - Motion is eleven tokens and one rule: colour over 150ms, and nothing moves
 
 Founder, on the census and its four open questions: **do what is best**. Two are answered in the

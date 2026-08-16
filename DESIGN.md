@@ -522,12 +522,26 @@ the control edge on a container is how a calm interface turns into a wireframe o
 
 ## Motion
 
-**A control answers you by changing colour, and nothing in this product moves under a pointer.**
-That is the whole of the app's motion vocabulary and it is a decision rather than a shortage.
-A person reading fourteen subscriptions should never be chased by a row that grows, lifts or
-slides; calm over clever applies hardest at the one place a pointer touches the product.
+**Four verbs, and one distance holds all of them.** Fade, advance, lift, press. Everything in this
+product that moves travels exactly 2px, and nothing anywhere travels two of them. That single
+number is what keeps a product with movement in it from becoming a product with decoration in it,
+and it is the reason movement is allowed here at all: calm over clever applies hardest at the one
+place a pointer touches the product.
 
-### The state change
+The rule that chooses the verbs is that **the movement always has a cause**: something moves only
+where the moving says what is about to happen. A cue advances toward what it means. An identity
+mark comes forward when you are about to open the thing it identifies. An object you push goes
+down while you push it. Nothing else moves, and the exclusions are as much of the language as the
+verbs.
+
+| Verb | What moves | When |
+|---|---|---|
+| **Fade** | colour: fill, edge, ink, underline | every state, 150ms |
+| **Advance** | a direction cue, one nudge toward where it points | its target is hovered |
+| **Lift** | an identity mark: up one nudge, out to 1.06 | the target it stands in is hovered |
+| **Press** | the object itself, down one nudge, at 90ms | held |
+
+### The fade
 One rule, in `base.css`, on `:where(a, button, input, select, textarea, summary, label)`:
 `background-color`, `border-color`, `color` and `text-decoration-color` over **150ms** on
 `--ease-state`. Three components declare the same thing themselves because their host is not a
@@ -554,7 +568,23 @@ into the system at stage 11.
 | `--ease-travel` | `cubic-bezier(0.45, 0, 0.22, 1)` | one journey long enough that expo-out creeps |
 | `--ease-state` | expo-out | a control answering a pointer or a key |
 
+Durations: `--dur-state` 150ms for a hover or a state, `--dur-press` 90ms for a press, because a
+press answers a finger that is already down. Quick to take, calm to let go.
+
 ### Named Rules
+**One distance.** `--nudge` is 2px and it is every move in the product. The one exception is the
+checkbox, where a 20px box cannot travel 2px without looking dislodged, so its press is a scale to
+0.94 - the mirror of the mark's 1.06 lift.
+
+**Nothing that reflows.** No `height`, no `margin`, no `padding` is on any transition list, so no
+movement in this product ever pushes a line of text.
+
+**What does not move, and why.** A disabled control (it would answer a press the product will not
+honour). A loading form (a placeholder has nothing to press). The current tab (it would offer a
+journey that does not exist). A figure - the amount, the monthly total - because **a number that
+moves is a number you re-read**, and this product exists to stop people re-reading their money. A
+card on hover, because a lift needs a shadow and the Flat Paper Rule spends the only one elsewhere.
+
 **An exit is always shorter than its entrance.** A thing appearing should be there before you have
 finished noticing it; a thing leaving should not snatch itself away.
 

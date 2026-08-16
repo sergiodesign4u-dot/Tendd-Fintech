@@ -118,3 +118,23 @@
    change how Settings renders, which this stage may not do, or add a class the
    product does not carry. It is on the component's page as an open row and step
    9 decides it. */
+
+/* ---- ADVANCE and PRESS ----------------------------------------------------
+   2026-08-16. The chevron points right and the row goes to another screen, so it
+   advances right by one --nudge when the row is hovered. The row itself presses
+   down by one on :active, over --dur-press, because a press has to answer a
+   finger that is already down; it comes back on --dur-state. Nothing here moves
+   more than the one distance. */
+.app .navrow .arrow, .landing .navrow .arrow {
+  transition: translate var(--dur-state) var(--ease-arrive),
+              color var(--dur-state) var(--ease-state);
+}
+.app .navrow:hover .arrow, .landing .navrow:hover .arrow { translate: var(--nudge) 0; }
+.app .navrow, .landing .navrow {
+  transition: background-color var(--dur-state) var(--ease-state),
+              translate var(--dur-state) var(--ease-state);
+}
+.app .navrow:active, .landing .navrow:active {
+  translate: 0 var(--nudge);
+  transition-duration: var(--dur-press);
+}

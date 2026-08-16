@@ -131,13 +131,14 @@ code and two are answered in words, which is itself an answer rather than a gap.
 
 ### 1. The curves become tokens, at two levels, and the split is a rule
 
-**Eleven tokens in `design/system/tokens.css`, in a MOTION block on the primitive side of the file.**
+**Thirteen tokens in `design/system/tokens.css`, in a MOTION block on the primitive side of the file.**
 
 | Level | Tokens |
 |---|---|
 | **Shape** | `--curve-expo-out`, `--curve-expo-in`, `--curve-firm`, `--curve-spring` |
 | **Job** | `--ease-arrive`, `--ease-leave`, `--ease-settle`, `--ease-travel`, `--ease-state` |
-| **Durations, one level, named by job** | `--dur-state` 150ms, `--dur-pulse` 1.4s |
+| **Durations, one level, named by job** | `--dur-state` 150ms, `--dur-press` 90ms, `--dur-pulse` 1.4s |
+| **Distance, one value** | `--nudge` 2px |
 
 **Why curves take two levels and durations take one.** A second level is earned exactly where two
 roles would otherwise spell the same value, which is rule 4 of this system read from the other end.
@@ -164,7 +165,53 @@ consumer is how a scale starts being fiction.
 transform, computed timing function, the running total, the count, and the cut-row heights) at 10
 scroll positions on 3 viewports, before and after, **0 differ**.
 
-### 2. The app gets one state change: colour, 150ms, and nothing that moves an object
+### 2. The app gets four verbs, and one distance holds all of them
+
+**It was one verb for half a day.** The first answer to this question was colour and nothing else:
+a control says it heard you by changing its own fill, edge, ink or underline over 150ms, and
+nothing moves. The founder's verdict on that pass, the same day, was that it could not be seen:
+*"большинство анимаций я не вижу ... все атомы должны быть с анимациями"*. So three more verbs
+were added, chosen so that **the movement always has a cause** - something moves only where the
+movement says what is about to happen - and held together by **one distance**.
+
+| Verb | What moves | When | Who owns it |
+|---|---|---|---|
+| **Fade** | colour: fill, edge, ink, underline | every state, `--dur-state` | `base.css`, plus three components whose host is not a native element |
+| **Advance** | a direction cue, one `--nudge` toward where it points | its target is hovered | step-forward link (down), nav row, door, alert item (right) |
+| **Lift** | an identity mark: up one `--nudge`, out to 1.06 | the target it stands in is hovered | the logo in a row, an alert, a tile or a door; the destination icon in a tab |
+| **Press** | the object itself, down one `--nudge`, at `--dur-press` | held | button, row, nav row, door, tile, alert, segment, cut control, tab, checkbox (as a scale) |
+
+**One distance, and it is the whole guard.** `--nudge` is 2px. An arrow advances by it, a mark
+lifts by it, a control presses down by it, and **nothing anywhere travels two**. 2 rather than 1
+because 1px vanishes on a 2x screen at 36px, and rather than 4 because at 4 a list of fourteen rows
+starts jumping under the pointer instead of answering it. The one exception is the checkbox: a 20px
+box cannot travel 2px without looking dislodged and the box IS the control, so its press is a scale
+to 0.94, the mirror of the mark's 1.06 lift.
+
+**The verbs live in the components and not in `base.css`**, and that is the same test U12 applies
+one level up: a verb is a statement about what an object IS. A disabled button is still a button
+and must not press; a loading row is still a row and must not lift; `base.css` cannot know either.
+What it does own is the one verb that is true of every interactive element regardless of what it
+is, which is the fade.
+
+**What deliberately does not move**, each with its ground: a **disabled** control (moving it
+answers a press the product will not honour), a **loading** form, the **current** tab (it would
+offer a journey that does not exist), a **figure** (a number that moves is a number you re-read),
+a **card on hover** (a lift needs a shadow, and the Flat Paper Rule spends the only one elsewhere),
+the **focus ring**, and anything that would **reflow**: no `height`, no `margin`, no `padding` is
+on any list in this product.
+
+**And the loading forms stopped answering the pointer at all.** The row, the alert and the tile
+each scoped their hover to the pressable element form (`:where(a)`, `:where(button)`, which cost no
+specificity), closing a backlog row opened two hours earlier. It was survivable while the answer
+was a fill. It stops being survivable the moment the answer moves.
+
+**Under `prefers-reduced-motion` all four verbs become states rather than animations**: the guard
+takes every duration to 0.01ms, so a hovered mark is simply already lifted. That is deliberate. A
+2px offset that appears instantly is not motion, it is a state exactly like a colour, and removing
+it would take the answer away from the person who asked for stillness rather than give them one.
+
+### The fade, in detail: colour, 150ms, on every state
 
 Declared once, in `base.css`, on `:where(a, button, input, select, textarea, summary, label)`, at
 specificity 0 so any component can still override it. That is the focus ring's list **plus
@@ -179,7 +226,7 @@ row instead - but `.switch` IS a `label` and it does change its fill under the p
 | `color` | yes | links, the app bar's controls, the footer |
 | `text-decoration-color` | yes | the underline under an inline link moves with the ink |
 | `outline`, `outline-offset` | **NO** | **the one exclusion, and an accessibility decision rather than a taste one.** These appear in 20 of the 68 state rules and each must land instantly: a keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind the caret |
-| anything that moves an object | **NO** | transform, translate, scale, height, margin. A person reading fourteen subscriptions is never chased by a row that grows, lifts or slides |
+| anything that moves an object | **not here** | movement is real in this product and belongs to the component that owns the object. Nothing that changes the size of a box is on any list: no `height`, no `margin`, no `padding`, so no movement here ever reflows a line of text |
 
 **150ms is chosen, not copied.** Under about 100ms a change reads as a cut and the transition buys
 nothing; over about 200ms a hover starts trailing the pointer, which on a list of rows is the

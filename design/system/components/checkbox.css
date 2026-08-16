@@ -177,3 +177,20 @@
   cursor: default;
   accent-color: var(--bg-recessed);
 }
+
+/* ---- PRESS, and it is the one place the nudge is a SCALE ------------------
+   2026-08-16. A 20px box cannot travel 2px without looking dislodged, and the box
+   IS the control rather than a part of one, so the press reads as the box
+   yielding under the finger: it shrinks by the same six per cent the merchant
+   mark's lift grows by, over --dur-press, and comes back on --dur-state. The tick
+   itself is drawn by the platform through `accent-color` and cannot be animated
+   at all, which is a fact about the native control and not a gap in this file. */
+.app .check, .landing .check {
+  transition: accent-color var(--dur-state) var(--ease-state),
+              scale var(--dur-state) var(--ease-state);
+}
+.app .check:active, .landing .check:active {
+  scale: 0.94;
+  transition-duration: var(--dur-press);
+}
+.app .check[disabled]:active, .landing .check[disabled]:active { scale: 1; }

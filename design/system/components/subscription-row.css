@@ -125,7 +125,7 @@
    where there was none, because a row that grew a border under the pointer
    would shift every row under it by a pixel on a list of fourteen. */
 
-.app .row:hover, .landing .row:hover {
+.app .row:where(a):hover, .landing .row:where(a):hover {
   background: var(--bg-hover);
 }
 
@@ -184,4 +184,25 @@
    point invented for somebody's device. */
 @container (width <= 28.75rem) {
   .app .cand .row { flex: 1 1 100%; }
+}
+
+/* ---- PRESS, and the hover is now SCOPED TO THE PRESSABLE FORM -------------
+   2026-08-16. The row presses down by one --nudge on :active. It carries no
+   advance, because it has no arrow and adding one to fourteen rows would put
+   fourteen new marks on the calmest screen in the product; what answers the
+   pointer here is the fill, and the merchant's mark lifting, which logo.css owns.
+
+   THE HOVER MOVED TO `:where(a)`, and this is the third component to do it today.
+   The row is an anchor in 47 of its 60 placements and a `div.row.is-skel` in the
+   other 13, on three loading screens, and the hover painted all 60. The skeleton's
+   own file has carried the rule in words since stage 07 - a loading object must
+   not look hovered, focused or pressed - and enforced only the cursor.
+   `:where()` costs no specificity, so nothing else in the cascade moves. */
+.app .row:where(a), .landing .row:where(a) {
+  transition: background-color var(--dur-state) var(--ease-state),
+              translate var(--dur-state) var(--ease-state);
+}
+.app .row:where(a):active, .landing .row:where(a):active {
+  translate: 0 var(--nudge);
+  transition-duration: var(--dur-press);
 }

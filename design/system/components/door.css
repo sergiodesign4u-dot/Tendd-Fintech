@@ -115,3 +115,25 @@
    choices would answer the question D2 exists to leave open. A path that cannot
    be taken right now is not a grey door; it is a screen that says what happened
    and offers the other one. */
+
+/* ---- ADVANCE and PRESS ----------------------------------------------------
+   2026-08-16. The door's own line ends in an arrow that points right, and taking
+   the door goes somewhere, so it advances right by one --nudge on hover. The card
+   presses down by one on :active over --dur-press. THE CARD DOES NOT LIFT on
+   hover and never will: a lift needs a shadow to read as one, and the Flat Paper
+   Rule gives this system exactly one shadow, which is spent elsewhere. What
+   answers the pointer here is the edge, the fill and the arrow. */
+.app .door .pick::after, .landing .door .pick::after {
+  display: inline-block;
+  transition: translate var(--dur-state) var(--ease-arrive);
+}
+.app .door:hover .pick::after, .landing .door:hover .pick::after { translate: var(--nudge) 0; }
+.app .door, .landing .door {
+  transition: background-color var(--dur-state) var(--ease-state),
+              border-color var(--dur-state) var(--ease-state),
+              translate var(--dur-state) var(--ease-state);
+}
+.app .door:active, .landing .door:active {
+  translate: 0 var(--nudge);
+  transition-duration: var(--dur-press);
+}

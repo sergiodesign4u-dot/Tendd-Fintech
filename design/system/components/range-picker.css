@@ -124,3 +124,19 @@
   outline: var(--ring) solid var(--color-focus);
   outline-offset: var(--ring);
 }
+
+/* ---- PRESS ----------------------------------------------------------------
+   2026-08-16. A segment is pushed, so it presses by one --nudge over --dur-press.
+   The disabled segment does not move: it is the Pro range on a Free account, and
+   moving it would answer a press the product will not honour. */
+.app .range button, .landing .range button {
+  transition: background-color var(--dur-state) var(--ease-state),
+              border-color var(--dur-state) var(--ease-state),
+              color var(--dur-state) var(--ease-state),
+              translate var(--dur-state) var(--ease-state);
+}
+.app .range button:active, .landing .range button:active {
+  translate: 0 var(--nudge);
+  transition-duration: var(--dur-press);
+}
+.app .range button[disabled]:active, .landing .range button[disabled]:active { translate: 0 0; }
