@@ -23,10 +23,13 @@
 
    THE RAIL IS THE SECTION'S SENTENCE. A hairline runs at the ordinals' own
    mid-line, is interrupted by each numeral (which carries the canvas behind it
-   and punches its own hole), and continues across the gap into the next column.
-   Read across, it is `1 ----- 2 ----- 3`: one road, three stations. The intro
-   promises "three steps, a few minutes"; the geometry now says the same
-   sentence before the words do.
+   and punches its own hole), and ENDS AT ITS OWN COLUMN'S EDGE - since
+   2026-08-17, by the founder's mark on a screenshot, with the three ends drawn
+   on it. Read across, it is `1 ---- 2 ---- 3` at three equal lengths rather than
+   one road passing through: each step carries its own rule, and the rule ends
+   where the step's own block ends. The intro promises "three steps, a few
+   minutes"; the geometry says the same sentence before the words do, and it now
+   says THREE rather than one.
 
    THE THREE PICTURES ARE TRUE, WHICH IS THE TASTE DECISION THAT SURVIVED.
      1. Connect or add     eight tiles: seven real provider marks and the plus,
@@ -55,18 +58,23 @@
      type     --type-step, --type-title, --type-body
    Hosts     .logo, .amt, .chip at their own sizes; this file declares the boxes
              they stand in and repaints none of them.
-   Owns      .lp-steps (the grid and the rail's reach), .lp-step (the column),
+   Owns      .lp-steps (the grid), .lp-step (the column and its rail),
              .sord (the ordinal), .sdemo (the one surface), .drow, .drow .name
    Page      design/kit/landing-steps.html
    Stands on the landing (both candidates) and its grey twin.
    ============================================================================ */
 
 /* ---- the columns -----------------------------------------------------------
-   Its own grid and not `.grid`: the rail has to bridge the gap between two
-   columns, so this file has to KNOW the gap and the column count, and
-   `.grid`'s auto-fill knows neither at authoring time. One column below the
-   point, three above it, and the point is --bp-desktop's literal (56.25rem)
-   read off `body`, which is the page container base.css declares. */
+   Its own grid and not `.grid`, and the reason was rewritten on 2026-08-17 when
+   the founder trimmed the rail. It used to be the bridge: the rail crossed the
+   gap, so this file had to KNOW the gap, which `.grid`'s auto-fill does not
+   expose. That reason is gone with the bridge, and the one underneath it is the
+   one that was always the stronger of the two: these are STEPS, so the count is
+   three or it is one, never the two-plus-one that an auto-fill grid lands on
+   when the container happens to fit two. `.grid` fills by a column floor; a
+   numbered sequence cannot wrap. One column below the point, three above it,
+   and the point is --bp-desktop's literal (56.25rem) read off `body`, which is
+   the page container base.css declares. */
 .landing .lp-steps {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -87,8 +95,9 @@
    Drawn per column rather than across the section, because a section-wide line
    is only true while the columns are side by side: stacked, it would be a line
    above the first step and nothing above the other two. Per column it is right
-   in both layouts, and the only thing the wide layout adds is the reach across
-   the gap.
+   in both layouts, and since 2026-08-17 the wide layout adds NOTHING to it: one
+   rail per column, from the column's left edge to its right edge, at both
+   widths. The block at the foot of this file carries the founder's reason.
 
    20px is half of --type-step's 40px line box, which is where the numeral's own
    middle is. It is geometry derived from one token and it is written as the
@@ -239,11 +248,24 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-32);
   }
-  /* the reach across the gap, so the three rails read as one road. The last
-     column stops at its own edge: a rail running off the end of the section
-     would be a road to nowhere, and it would also be the section's first
-     horizontal overflow. */
-  .landing .lp-step:not(:last-child)::before { right: calc(-1 * var(--space-32)); }
+  /* THE RAIL STOPS AT ITS OWN BLOCK, AND IT REACHED ACROSS THE GAP UNTIL
+     2026-08-17. Founder, with the three ends marked on a screenshot: "сепаратор
+     би сделал би макс длину до конца блока 1 2 3".
+
+     The rule that was here read `right: calc(-1 * var(--space-32))` on every
+     column but the last, and its argument was that three rails bridged into one
+     road. What it actually drew is what the screenshot shows: the first two
+     lines run past their own column and stop against the NEXT numeral, so each
+     rail ends on somebody else's step and only the third ends on its own. That
+     is not one road, it is three lines of two different lengths, and the eye
+     reads the gap-crossing as a tie between 1 and 2 rather than as a rail under
+     1.
+
+     Now all three end at their own column's right edge, which the base rule
+     above already says (`left: 0; right: 0`) - so the wide layout adds nothing
+     to the rail at all and this block is only about the columns and the gap.
+     The last column's own reason survives unchanged and is now the reason for
+     all three: a rail running past its block is a road to nowhere. */
 }
 
 /* ---- the entrance ----------------------------------------------------------

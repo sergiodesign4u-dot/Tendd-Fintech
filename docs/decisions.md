@@ -7,6 +7,40 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-17 - Each step's rail ends at its own block
+
+Founder, with the three ends drawn on a screenshot of "How Tendd works": **"сепаратор би сделал би
+макс длину до конца блока 1 2 3"**.
+
+**What was there.** `landing-steps.css` gave every column but the last
+`right: calc(-1 * var(--space-32))` at the desktop point, so the rail crossed the gap into the next
+column. The argument, written into the file on 2026-08-15, was that the three rails bridge into one
+road: `1 ----- 2 ----- 3`, one road and three stations.
+
+**What it actually drew.** The first two lines run past their own column and stop against the NEXT
+numeral, and only the third ends on its own block. So it is not one road, it is three lines at two
+different lengths, and the crossing reads as a tie between 1 and 2 rather than as a rule under 1.
+Measured at 1440: block one ends at 499 and its rail at 531, which is column two's left edge.
+
+**What ships.** The override is gone, so all three rails obey the base rule that was already there,
+`left: 0; right: 0`: one rail per column, ending exactly where its own block ends, flush with the
+card below it. The wide layout now adds nothing at all to the rail and its `@container` block is
+about the columns and the gap only. The last column's own reason survives and is now the reason for
+all three: **a rail running past its block is a road to nowhere.**
+
+**One argument had to be rebuilt rather than deleted.** The file's reason for owning a grid instead
+of using `.grid` WAS the bridge: the rail crossed the gap, so this file had to know the gap, which
+auto-fill does not expose. That reason is gone with it. What is left is the one underneath, and it
+was always the stronger: these are **steps**, so the count is three or it is one, never the
+two-plus-one an auto-fill grid lands on when the container happens to fit two. A numbered sequence
+cannot wrap.
+
+**The grey twin keeps the bridge**, at `wireframes/_wf.css:1404`, and that is correct rather than an
+oversight: the wireframes are frozen and a coloured page may differ from its grey original by
+styling. This is styling.
+
+---
+
 ## 2026-08-17 - The brand's hover is played, not held, and it found a bug in the signature
 
 The founder, on the version shipped an hour earlier, with a screenshot of the held pose: **"не
