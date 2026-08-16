@@ -32,7 +32,7 @@ this file's own predecessors have twice reported a defect that was a sentence of
 | What | How many | Where |
 |---|---|---|
 | `transition` declarations in `design/system/` | **0** | the two greps that hit are the reduced-motion guard's `transition-duration` and one sentence of prose in `faq-list.css` |
-| Files in the system declaring any motion | **7 of 72** | six landing organisms plus `skeleton-bar.css` |
+| Files in the system declaring any motion | **8 of 75** | six landing organisms, `skeleton-bar.css`, and `base.css` for the pulse keyframe and the guard. The denominator is every css file in `design/system/`: 3 at the root, 69 components, 3 patterns |
 | `@keyframes` defined in the system | **31** | 1 in `base.css` (`pulse`), 30 across the landing's six files |
 | `animation-name` declarations | **53**, of which **15 are `none`** | the landing. The 15 are the phone and reduced-motion releases: a third of the motion vocabulary on this page is spent switching motion off |
 | `animation-range` bounds | **64**, in **61 distinct values** | orbit 35, story 19, facts 4, steps 3, paths 2, plan 2 |
@@ -166,8 +166,11 @@ scroll positions on 3 viewports, before and after, **0 differ**.
 
 ### 2. The app gets one state change: colour, 150ms, and nothing that moves an object
 
-Declared once, in `base.css`, on `:where(a, button, input, select, textarea, summary, label)` - the
-same list the focus ring uses, at specificity 0 so any component can still override it.
+Declared once, in `base.css`, on `:where(a, button, input, select, textarea, summary, label)`, at
+specificity 0 so any component can still override it. That is the focus ring's list **plus
+`label`**, and the one addition is the switch row: a label is not focusable, so it has no business
+in the ring's list and `switch-row.css` draws that ring through `:has(input:focus-visible)` on the
+row instead - but `.switch` IS a `label` and it does change its fill under the pointer.
 
 | Property | In | Why |
 |---|---|---|
@@ -175,7 +178,7 @@ same list the focus ring uses, at specificity 0 so any component can still overr
 | `border-color` | yes | every control that draws a resting edge draws its hover |
 | `color` | yes | links, the app bar's controls, the footer |
 | `text-decoration-color` | yes | the underline under an inline link moves with the ink |
-| `outline`, `outline-offset` | **NO** | **the one exclusion, and an accessibility decision rather than a taste one.** These appear in 19 of the 68 state rules and each must land instantly: a keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind the caret |
+| `outline`, `outline-offset` | **NO** | **the one exclusion, and an accessibility decision rather than a taste one.** These appear in 20 of the 68 state rules and each must land instantly: a keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind the caret |
 | anything that moves an object | **NO** | transform, translate, scale, height, margin. A person reading fourteen subscriptions is never chased by a row that grows, lifts or slides |
 
 **150ms is chosen, not copied.** Under about 100ms a change reads as a cut and the transition buys
@@ -184,8 +187,10 @@ opposite of calm. The stand's own chrome has run 0.22s and 0.15s since stage 07 
 source: the stand is not the product.
 
 **Three components declare it themselves**, because their host is not a native interactive element:
-`plan-option` is a `div` on all 6 screens; `preset-tile` is a `span` on 10 and a `button` on 6;
-`alert-item` is an `a` on 8 and a `div` on 4. One class with two element forms would otherwise fade
+`plan-option` is a `div` in all 6 of its placements (3 on the landing, 3 on `upgrade.html`);
+`preset-tile` is a `button` 6 times on `add-subscription.html` and a `span` 10 times, 6 of them on
+that screen's loading state and 4 on the landing; `alert-item` is an `a` 8 times on `alerts.html`
+and a `div` 4 times on `alerts-loading.html`. One class with two element forms would otherwise fade
 on one and cut on the other, which is the invisible kind of wrong. All three read `--dur-state` and
 `--ease-state`, so none can drift. This is **usage rule U12** in `docs/architecture.md`, with a
 Limits note on each component page it names plus `button.html` and `subscription-row.html`.
@@ -213,7 +218,28 @@ one, and the day a second surface needs an entrance it will be designed against 
 
 ---
 
-## Part C. Status
+## Part C. The critique, on two instruments
+
+Claude in a browser and on its own scripts, Codex read-only on the source, taken independently and
+merged. **Five findings, all verified by re-reading the place before fixing, all closed. Nothing
+was dropped at verification.**
+
+| Who | Was | Became |
+|---|---|---|
+| **Claude** | **Four element-form counts stated occurrences as SCREENS**: "an `a` on eight screens and a `div` on four", "a `span` on ten screens", "a `div` on all six screens", "the row is an `a` on 47 screens" | Recounted per screen: the alert is an `a` 8 times on `alerts.html` and a `div` 4 times on `alerts-loading.html`; the tile a `button` 6 times and a `span` 10; the plan option a `div` in all 6 placements; the row an `a` in 47 of 60. **The corrected count changed an argument**: the non-native forms are almost all LOADING states |
+| **Claude** | "**19** of the 68 state rules draw a ring", in five files | **20**, recounted with comments stripped |
+| **Codex** | **The denominator did not match the corpus it named.** The census listed 75 files and reported "7 of **72**" | **8 of 75.** The ratio had silently dropped `base.css`, which carries the pulse keyframe and the guard |
+| **Codex** | **A promise this stage had already kept.** `base.css` still read "Stage 11 owns motion and will put durations behind tokens" beside the two tokens it had just put them behind | Rewritten to what happened, plus the fact worth keeping: the guard overrides by DURATION and not by name, so a token added tomorrow is guarded the day it is written |
+| **Codex** | **"The selector is the same one the ring uses" was false.** The ring takes six elements, the transition seven | The seventh is `label`, and it earns its place: a label is not focusable, so it has no business in the ring's list and `switch-row.css` draws that ring through `:has(input:focus-visible)` instead. But `.switch` IS a `label` and it does change its fill under the pointer |
+| **Codex** | **U12 named three components and none carried a Limits item**, which `architecture.md` requires of every rule in that table | A **Limits** sub-item on all three, in the house form, quoting the rule and linking back |
+
+**What the split says about the instruments.** Claude found what only a recount finds, on figures it
+had published itself; Codex found three things that are invisible unless you read one file against
+another. Neither list would have been produced by the other.
+
+---
+
+## Part D. Status
 
 **Step 1** (2026-08-16): the census above, one dead keyframe deleted, this page published at
 `ready:true, done:false`.

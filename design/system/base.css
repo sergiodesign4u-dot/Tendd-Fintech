@@ -123,22 +123,26 @@ fieldset { border: 0; margin: 0; padding: 0; }
    clever, at the one place a pointer touches the product.
 
    THE FOCUS RING IS DELIBERATELY NOT ON THE LIST, and it is the one exclusion
-   worth stating out loud. `outline` and `outline-offset` appear in 19 of the 68
+   worth stating out loud. `outline` and `outline-offset` appear in 20 of the 68
    state rules and every one of them must land INSTANTLY: a keyboard user tabbing
    through a screen moves faster than 150ms per stop, so a faded ring is a ring
    that is always behind the caret, and a ring that arrives late is an
    accessibility defect rather than a soft touch. Transitions are opt-in by
    property for exactly this reason.
 
-   THE SELECTOR IS THE SAME ONE THE RING USES, and that is not laziness. These
-   are the elements this system considers interactive; `:where()` holds them at
-   specificity 0 so any component can still override without !important, and it
-   costs nothing on an element that never changes colour.
+   THE SELECTOR IS THE RING'S LIST PLUS `label`, and the one addition is the
+   switch row. A label is not focusable, so it has no business in the ring's list
+   and switch-row.css draws that ring on the row through `:has(input:focus-visible)`
+   instead; but `.switch` IS a `label` and it does change its fill under the
+   pointer, so it belongs in this one. Everything else is the same list for the same
+   reason: these are the elements this system considers interactive. `:where()`
+   holds them at specificity 0 so any component can still override without
+   !important, and the rule costs nothing on an element that never changes colour.
 
    THREE COMPONENTS FALL OUTSIDE IT AND DECLARE THE SAME THING THEMSELVES,
-   reading these tokens: `.plan-opt` is a div, `.tile` stands as a span on ten
-   screens and a button on six, and `.alert` is an anchor on eight and a div on
-   four. A class with two element forms would otherwise transition on one of them
+   reading these tokens: `.plan-opt` is a div in all 6 of its placements, `.tile`
+   stands as a button 6 times and a span 10, and `.alert` as an anchor 8 times and a
+   div 4. A class with two element forms would otherwise transition on one of them
    and cut on the other, which is the invisible kind of wrong. base.css owns the
    ELEMENT default; a component whose host is not a native interactive element
    owns its own, and both read --dur-state and --ease-state so neither can drift.
@@ -207,9 +211,11 @@ img, svg { max-width: 100%; }
 /* And its guard, at the same specificity as the rule it guards. Written as a
    bare `.skel` against a scoped `.app .skel` it lost the cascade and did
    nothing at all: every skeleton pulsed forever for a person who had asked the
-   operating system for no motion. It looked correct in the file. Stage 11 owns
-   motion and will put durations behind tokens; this guard stays here, because a
-   person who asks for no motion asks the whole product, not one component. */
+   operating system for no motion. It looked correct in the file. Stage 11 PUT THE
+   DURATIONS BEHIND TOKENS on 2026-08-16, `--dur-state` and `--dur-pulse`, and this
+   guard stayed here, because a person who asks for no motion asks the whole
+   product and not one component. It overrides both by duration rather than by
+   name, so a token added tomorrow is guarded the day it is written. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

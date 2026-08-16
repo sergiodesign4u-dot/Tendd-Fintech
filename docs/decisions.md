@@ -32,14 +32,14 @@ own axis is `prefers-reduced-motion`, a global kill in `base.css` rather than a 
 `color`, `text-decoration-color`, 150ms, `--ease-state`, declared once in `base.css` on the elements
 this system treats as interactive. Nothing on the list moves an object: a person reading fourteen
 subscriptions is never chased by a row that grows, lifts or slides. **The focus ring is excluded**,
-and that is an accessibility decision, not a taste one: 19 of the 68 state rules draw a ring and a
+and that is an accessibility decision, not a taste one: 20 of the 68 state rules draw a ring and a
 keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind the
 caret. 150ms itself is chosen from a window, not copied: under 100 reads as a cut, over 200 trails
 the pointer.
 
 **Three components declare the transition themselves** because their host is not a native
-interactive element (`plan-option` a div, `preset-tile` a span on ten screens and a button on six,
-`alert-item` an anchor on eight and a div on four). One class with two element forms would fade on
+interactive element (`plan-option` a div in all 6 placements, `preset-tile` a button 6 times and a
+span 10, `alert-item` an anchor 8 times and a div 4). One class with two element forms would fade on
 one and cut on the other. That is usage rule U12.
 
 **Two questions are answered in words, which is itself an answer.** Between two states this product
@@ -64,7 +64,7 @@ stage and a still frame of a broken one look the same. So the stage opens by cou
 source, with comments stripped before anything is counted.
 
 **What it found is a distribution, not a number.** Zero `transition` declarations in the entire
-product; 7 of 72 files in the system declaring any motion; 30 of the 31 keyframes belonging to one
+product; 8 of the 75 css files in `design/system/` declaring any motion; 30 of the 31 keyframes belonging to one
 page. The landing has a complete motion language and the other 54 screens have none of it: 68 state
 rules across 28 components, 26 of which change instantly. That is defensible for a product whose
 first principle is calm, and it is written down nowhere, so today it cannot be told apart from an

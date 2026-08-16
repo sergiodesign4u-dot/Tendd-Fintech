@@ -161,21 +161,21 @@
           <tr><td><code>border-color</code></td><td><b>yes</b></td><td>every control that draws a resting edge draws its hover</td></tr>
           <tr><td><code>color</code></td><td><b>yes</b></td><td>links, the app bar&rsquo;s own controls, the footer</td></tr>
           <tr><td><code>text-decoration-color</code></td><td><b>yes</b></td><td>the underline under an inline link, which is a line and moves with the ink</td></tr>
-          <tr><td><code>outline</code>, <code>outline-offset</code></td><td><b>NO</b></td><td><b>the one exclusion, and it is an accessibility decision rather than a taste one.</b> These appear in 19 of the 68 state rules and every one must land instantly: a keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind the caret</td></tr>
+          <tr><td><code>outline</code>, <code>outline-offset</code></td><td><b>NO</b></td><td><b>the one exclusion, and it is an accessibility decision rather than a taste one.</b> These appear in 20 of the 68 state rules and every one must land instantly: a keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind the caret</td></tr>
           <tr><td>anything that moves an object</td><td><b>NO</b></td><td>transform, translate, scale, height, margin. A person reading fourteen subscriptions is never chased by a row that grows, lifts or slides. Calm over clever, at the one place a pointer touches the product</td></tr>
         </tbody>
       </table>
     </div>
 
     <h3 class="kit-sub-h">Where it is declared, and the three components that declare their own</h3>
-    <p class="note"><code>base.css</code> puts it on <code>:where(a, button, input, select, textarea, summary, label)</code>, which is the same list the focus ring uses and for the same reason: these are the elements this system treats as interactive, and <code>:where()</code> holds them at specificity 0 so any component can still override without <code>!important</code>.</p>
+    <p class="note"><code>base.css</code> puts it on <code>:where(a, button, input, select, textarea, summary, label)</code>, which is the focus ring&rsquo;s list <b>plus <code>label</code></b>. The one addition is the switch row: a label is not focusable, so it has no business in the ring&rsquo;s list and <code>switch-row.css</code> draws that ring on the row through <code>:has(input:focus-visible)</code> instead, but <code>.switch</code> IS a <code>label</code> and it does change its fill under the pointer. Everything else is the same list for the same reason: these are the elements this system treats as interactive, and <code>:where()</code> holds them at specificity 0 so any component can still override without <code>!important</code>.</p>
     <div class="kit-tab">
       <table>
         <thead><tr><th>Component</th><th>Its host</th><th>What it declares</th></tr></thead>
         <tbody>
-          <tr><td><a href="plan-option.html">Plan option</a></td><td><code>div</code> on all 6 screens</td><td><code>border-color</code>. It is not a control, which is the same reason the consolidation refused to treat it as one</td></tr>
-          <tr><td><a href="preset-tile.html">Preset tile</a></td><td><code>span</code> on 10 screens, <code>button</code> on 6</td><td><code>border-color</code> and <code>background-color</code>. One class with two element forms would otherwise fade on one and cut on the other</td></tr>
-          <tr><td><a href="alert-item.html">Alert item</a></td><td><code>a</code> on 8 screens, <code>div</code> on 4</td><td><code>background-color</code>, and the same argument</td></tr>
+          <tr><td><a href="plan-option.html">Plan option</a></td><td><code>div</code> in all <b>6</b> of its placements: 3 on the landing, 3 on <code>upgrade.html</code></td><td><code>border-color</code>. It is not a control, which is the same reason the consolidation refused to treat it as one</td></tr>
+          <tr><td><a href="preset-tile.html">Preset tile</a></td><td><b>6</b> <code>button</code> on <code>add-subscription.html</code>; <b>10</b> <code>span</code>, 6 of them on its loading state and 4 on the landing</td><td><code>border-color</code> and <code>background-color</code>. One class with two element forms would otherwise fade on one and cut on the other</td></tr>
+          <tr><td><a href="alert-item.html">Alert item</a></td><td><b>8</b> <code>a</code> on <code>alerts.html</code>; <b>4</b> <code>div</code> on <code>alerts-loading.html</code></td><td><code>background-color</code>, and the same argument</td></tr>
         </tbody>
       </table>
     </div>
@@ -192,7 +192,7 @@
         <tbody>
           <tr><td><code>transition</code> declarations in the product</td><td><b>0</b></td><td>1 in <code>base.css</code> and 3 in components, all reading the two tokens</td></tr>
           <tr><td>Motion tokens in <code>tokens.css</code></td><td><b>0</b></td><td><b>11</b></td></tr>
-          <tr><td>Files declaring any motion</td><td>7 of 72</td><td>11 of 72</td></tr>
+          <tr><td>Files declaring any motion</td><td><b>8 of 75</b></td><td><b>11 of 75</b></td></tr>
           <tr><td><code>@keyframes</code> in the system</td><td>31, and <b>30 of them one page&rsquo;s</b></td><td>unchanged. Keyframes belong to the choreography that owns them</td></tr>
           <tr><td>Easing curves declared anywhere</td><td>4, all on <b>one selector in one file</b></td><td>4 shapes and 5 jobs, in <code>tokens.css</code>, readable everywhere</td></tr>
           <tr><td>The same expo-out written out by hand</td><td><b>4 more files</b></td><td><b>0.</b> facts, paths, plan and steps read <code>--ease-arrive</code></td></tr>
@@ -224,6 +224,25 @@
         </tbody>
       </table>
     </div>
+  </section>
+
+  <section class="kit-sec" id="checked">
+    <h2>Checked on two instruments, and both of them found something</h2>
+    <p class="note">Claude in a browser and on its own scripts, Codex read-only on the source, taken independently and merged. <b>Five findings, all five verified by re-reading the place, all five closed.</b> Nothing was dropped at verification this round.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Who</th><th>Was</th><th>Became</th></tr></thead>
+        <tbody>
+          <tr><td><b>Claude</b>, recounting its own published figures</td><td><b>Four element-form counts stated occurrences as SCREENS.</b> &ldquo;an <code>a</code> on eight screens and a <code>div</code> on four&rdquo;, &ldquo;a <code>span</code> on ten screens&rdquo;, &ldquo;a <code>div</code> on all six screens&rdquo;, &ldquo;the row is an <code>a</code> on 47 screens&rdquo;. Every one was a tag count from a grep</td><td>Recounted per screen. The alert is an <code>a</code> <b>8 times on one screen</b> and a <code>div</code> <b>4 times on one other</b>; the tile a <code>button</code> 6 times and a <code>span</code> 10; the plan option a <code>div</code> in all 6 placements; the row an <code>a</code> in 47 of 60. <b>And the corrected count changed an argument</b>: the non-native forms are almost all LOADING states, which is a better reason to declare on the class and a worse look for the hover they carry</td></tr>
+          <tr><td><b>Claude</b></td><td>&ldquo;<b>19</b> of the 68 state rules draw a ring&rdquo;, published in five files</td><td><b>20.</b> Recounted with comments stripped</td></tr>
+          <tr><td><b>Codex</b></td><td><b>The denominator did not match the corpus it named.</b> The census listed <code>base.css</code>, <code>tokens.css</code>, <code>index.css</code>, 69 components and 3 patterns, which is <b>75</b> files, then reported &ldquo;7 of <b>72</b>&rdquo;</td><td><b>8 of 75</b>, and the numerator moved too: the ratio had silently dropped <code>base.css</code>, which carries the pulse keyframe and the guard</td></tr>
+          <tr><td><b>Codex</b></td><td><b>A promise this stage had already kept.</b> <code>base.css</code> still read &ldquo;Stage 11 owns motion and will put durations behind tokens&rdquo; beside the two tokens it had just put them behind</td><td>Rewritten to what happened, plus the fact worth keeping: the guard overrides by DURATION and not by name, so a token added tomorrow is guarded the day it is written</td></tr>
+          <tr><td><b>Codex</b></td><td><b>&ldquo;The selector is the same one the ring uses&rdquo; was false.</b> The ring takes six elements; the transition takes seven</td><td>The seventh is <code>label</code>, and it earns its place: a label is not focusable, so it has no business in the ring&rsquo;s list and <code>switch-row.css</code> draws that ring through <code>:has(input:focus-visible)</code> instead. But <code>.switch</code> IS a <code>label</code> and it does change its fill under the pointer</td></tr>
+          <tr><td><b>Codex</b></td><td><b>U12 named three components and none of them carried a Limits item</b>, which <code>architecture.md</code> requires of every rule in that table. The notes were written into their States sections instead</td><td>A <b>Limits</b> sub-item on all three, in the house form, quoting the rule and linking back. The States note kept only the half that is about the component</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>What the split says about the instruments.</b> Claude found what only a recount finds, on figures it had published itself; Codex found three things that are invisible unless you read one file against another. Neither list would have been produced by the other, which is the whole reason the rule says two.</p>
   </section>
 
   <footer class="kit-foot">
@@ -258,6 +277,7 @@
     { id:'census',   label:'The census' },
     { id:'guard',    label:'The guard' },
     { id:'open',     label:'What is still open' },
+    { id:'checked',  label:'Checked on two instruments' },
   ];
 </script>
 <script src="../../_nav.js"></script>
