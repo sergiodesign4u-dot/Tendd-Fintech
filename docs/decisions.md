@@ -7,6 +7,76 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - The brand answers a pointer, and the button rises to meet one
+
+The founder, hovering the lockup on the public page: **"при ховере я не вижу анимации"**. Both
+halves of that sentence were true, and they had different causes.
+
+**The brand: not a target, and it answers anyway.** `brand-mark.css` opened with the words NOT
+INTERACTIVE, and the mark is still not a target - it is a span inside a lockup that is a link on
+none of the 55 pages that carry one, carrying `aria-hidden` because the word beside it
+already says the name.
+What was added is one hover, and it hangs on `.lockup:hover` rather than on the square: a person
+aiming at a 22px mark with the word 46px to its right is aiming at the brand, so hovering the word
+opens it too.
+
+**What moves is the window and not the mark.** A mark that rose and grew would be a LIFT, and a
+lift says the object is pressable. The crop opens instead, half way toward the whole letter, and
+closes when the pointer leaves - the concept's own sentence, *the tighter the crop, the more
+abstract the mark*, read out loud at the size of a hover. It is **the signature's gesture held
+instead of played**: `--dur-signature` on `--ease-settle` when the page arrives, `--dur-state` on
+`--ease-arrive` when a person does.
+
+**The half is derived and there is one crop number in the file.** `--crop-whole: 0.42` is now a
+local custom property on `.brand` - a fact about this drawing that nothing else in the product can
+want, which is the argument `landing-story.css` and `landing-orbit.css` already make for theirs.
+The signature travels from it to 1; the hover stops at `calc((var(--crop-whole) + 1) / 2)`. Move
+the number and both move. The midpoint was picked off a ladder of seven crops rendered at 5x:
+**past it the letter detaches from the frame and the tile loses its silhouette**, because the field
+is the same colour as the bar and only the ink draws the square. Rejected on the same ladder: the
+concept's other two windows, B and C, which zoom IN - at 22px they turn the tile into a crescent
+and the mark stops having a silhouette at all.
+
+**One invisible line was load-bearing.** The mark's half of the signature ran with
+`animation-fill-mode: both`, which holds the last frame forever, and a held animation outranks every
+declaration below it in the cascade, `:hover` included. So the one lockup carrying the signature
+would have been the one lockup that could not answer a pointer. Both halves now run `backwards`.
+The word's half was **not** blocking anything and the first version of this entry said it was: that
+animation paints `color` on `.wordmark .hi` while the hover moves `scale` on `.brand::before`,
+a different node and a different property. It changed for the narrower reason that its forwards fill
+held a colour the base rule already paints, shadowing that property for nothing. Found by Codex on
+the read-only pass, verified by re-reading both files, and corrected here rather than left standing. It renders identically because
+each animation ends on exactly what its base rule already draws, `scale: 1` and `--text-action`:
+40 frames captured, **36 of them deterministic and all 36 byte-identical**. The other 4 are the
+public page at two widths in two themes and are not deterministic at all: the same 4 differ between
+two runs of unchanged code, because that page's loops are running when the shutter opens.
+
+**The button: the fade was real and it was about two per cent.** Measured before anything changed -
+a secondary button's hover takes its fill from `#ffffff` to `#f4f7f8`, with the edge moving one
+token step beside it, on the one control a person is most likely to hover before they trust the
+product. The press verb shipped the day before and answers only a held pointer, so between arriving
+at a button and pushing it there was nothing to see.
+
+**So the button rises one nudge to meet the pointer, and the press puts it back on the surface.**
+One gesture in two halves rather than two verbs stapled together, and that is why the pressed state
+of a lifted button is level and not a nudge below the line. **The distance rule holds untouched**:
+rest to hover is one `--nudge`, hover to press is one, rest to press is one, and nothing anywhere
+travels two. No colour token moved and no fade changed; what was added is 2px of `translate`, which
+is composited and reflows nothing.
+
+**The lift sits behind `@media (hover: hover)`, and that is a pointer query rather than a width
+query.** Rule 8 forbids `@media` in a SCREEN file; this is a component, and the reason for the
+query is the gesture itself, which needs a pointer that can rest somewhere without committing. On a
+touch screen the block never applies and a tap pushes the button down by one nudge exactly as it
+shipped; the same fallback covers the keyboard, where `:active` fires with no `:hover` beside it.
+Inside the query the pressed rule is written `:hover:active`, so the specificity says what the rule
+means - the press OF A LIFTED BUTTON - instead of relying on which line came last.
+
+Usage rules U13 (the lift half) and U14 (the crop half). Both stands are live: the brand's on
+`design/kit/brand-mark.html#states`, the button's on `design/kit/motion.html#verbs`.
+
+---
+
 ## 2026-08-16 - The brand gets one move, and it was written down two stages ago
 
 The founder: **"давай на логотип сделаем анимашку, у нас где-то было расписано как делать
@@ -26,7 +96,7 @@ at the moment it lands, which is D-Brand's own rule made visible.
 press are all ANSWERS: something moves because a person did something. This is an ARRIVAL. Nobody
 asked for it, so it is fenced rather than free: **one surface** (the public page's bar), **once per
 load**, never inside the app. The `.signature` modifier on the lockup IS the fence, and the app's
-32 lockups deliberately do not carry it. Usage rule U14.
+54 app pages that carry a lockup deliberately do not carry it. Usage rule U14.
 
 **`--ease-settle` gets its second consumer**, and it is the curve's own brief: declared for "an
 OBJECT arriving at a stop rather than a value being interpolated", with the public page's deck as

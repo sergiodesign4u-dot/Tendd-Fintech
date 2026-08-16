@@ -534,12 +534,21 @@ mark comes forward when you are about to open the thing it identifies. An object
 down while you push it. Nothing else moves, and the exclusions are as much of the language as the
 verbs.
 
+**On a button the lift and the press are one gesture in two halves.** The button rises to meet the
+pointer and the press puts it back on the surface, which is why a lifted button presses to level
+rather than to a nudge below the line. Every neighbouring state is exactly one nudge apart, so the
+distance rule holds: rest to hover, hover to press, rest to press. The lift half sits behind
+`@media (hover: hover)`, a pointer query and not a width query, because the gesture needs a pointer
+that can rest somewhere without committing; on a touch screen and at the keyboard a press simply
+pushes down.
+
 | Verb | What moves | When |
 |---|---|---|
 | **Fade** | colour: fill, edge, ink, underline | every state, 150ms |
 | **Advance** | a direction cue, one nudge toward where it points | its target is hovered |
-| **Lift** | an identity mark: up one nudge, out to 1.06 | the target it stands in is hovered |
-| **Press** | the object itself, down one nudge, at 90ms | held |
+| **Lift** | an identity mark: up one nudge, out to 1.06. Or the button itself, up one nudge and no scale | the target it stands in is hovered, or the button itself is |
+| **Press** | the object itself, down one nudge, at 90ms. On a lifted button, back to the surface instead | held |
+| **The crop**, the brand's own and not a verb | the window over the letter, half way toward the whole `d` | the lockup is hovered, word included |
 
 ### The fade
 One rule, in `base.css`, on `:where(a, button, input, select, textarea, summary, label)`:
@@ -553,8 +562,9 @@ over about 200ms a hover starts trailing the pointer.
 
 **The focus ring is excluded on purpose**, and it is an accessibility decision rather than a taste
 one: a keyboard user moves faster than 150ms per stop, so a faded ring is always one control behind
-the caret. Nineteen of the product's sixty-eight state rules draw that ring, and every one of them
-lands instantly.
+the caret. Twenty of the sixty-eight state rules the stage 11 census counted draw that ring, and every one of
+them lands instantly. The pair of figures is named to that census and is not re-derived here: it was 19 in this file until 2026-08-16, which was
+the recount's own correction arriving everywhere except here.
 
 ### The curves
 Four shapes, five jobs, all in `tokens.css`. They were measured on the public page's hero and moved
@@ -591,6 +601,14 @@ whole letter and closes into crop A while the wordmark's last letter takes petro
 the public page's bar and once per load. It is an arrival rather than an answer, which is why it is
 fenced by a modifier: inside the app the mark never moves. A mark that moves every time you open
 the product is not a signature.
+
+**And the same gesture, held, is the brand's answer to a pointer.** Hovering the lockup - the word
+as well as the mark - opens the window half way toward the whole letter and closes it again on the
+way out. What moves is the window and never the mark: a mark that rose and grew would be a lift,
+and a lift says the object is pressable, which the brand is not on any screen in this product. The
+distance is not a second number, it is the midpoint of the signature's own path, through the one
+crop constant both rules read. Unlike the signature this is not fenced: it is an answer, and an
+answer belongs everywhere the object stands.
 
 **An exit is always shorter than its entrance.** A thing appearing should be there before you have
 finished noticing it; a thing leaving should not snatch itself away.

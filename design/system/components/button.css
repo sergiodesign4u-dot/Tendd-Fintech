@@ -131,9 +131,15 @@
 
 
 /* ---- states: token overrides, never a style of their own -----------------
-   hover and active change fill, ink and edge. They do not move the element, do
-   not change its size and do not add a border where there was none: a border
-   appearing on hover shifts every neighbour by a pixel, and that is the jump. */
+   hover and active change fill, ink and edge. They do not change the element's
+   size and do not add a border where there was none: a border appearing on hover
+   shifts every neighbour by a pixel, and that is the jump.
+
+   THIS BLOCK SAID "THEY DO NOT MOVE THE ELEMENT" UNTIL 2026-08-16, when the press
+   verb arrived and then the lift after it. The sentence it was defending is the
+   one still standing above: nothing here REFLOWS. `translate` is composited and
+   changes no box, so a lifted button pushes nothing sideways and a pressed one
+   moves no neighbour. Both are at the foot of this file with their own reasoning. */
 
 .app .btn:hover, .landing .btn:hover {
   background: var(--bg-hover);
@@ -208,3 +214,48 @@
   transition-duration: var(--dur-press);
 }
 .app .btn[disabled]:active, .landing .btn[disabled]:active { translate: 0 0; }
+
+
+/* ---- AND THE LIFT THAT COMES BEFORE IT, 2026-08-16 -------------------------
+   MEASURED FIRST, BECAUSE THE FOUNDER'S SENTENCE WAS ABOUT THIS BUTTON. Hovering
+   the secondary button on the public page takes its fill from #ffffff to
+   #f4f7f8: a step of about two per cent, on the one control in this product a
+   person is most likely to hover before they trust it. The edge moves too, by one
+   token step. Both are real and both are, at arm's length, nothing. The press
+   verb shipped the same day and answers only a held pointer, so between arriving
+   at a button and pushing it there was nothing to see.
+
+   SO THE BUTTON RISES TO MEET THE POINTER AND THE PRESS PUTS IT BACK ON THE
+   SURFACE. That is one gesture in two halves rather than two verbs stapled
+   together, and it is why the pressed state here is `0` and not the nudge below
+   the line: from the lift, the surface IS one nudge down. THE DISTANCE RULE HOLDS
+   UNTOUCHED - rest to hover is one nudge, hover to press is one nudge, rest to
+   press is one nudge, and nothing anywhere travels two.
+
+   THE QUERY IS `(hover: hover)` AND IT IS NOT A WIDTH QUERY. Rule 8 forbids
+   `@media` in a SCREEN file and this is a component; the reason for the query is
+   that the whole gesture depends on a pointer that can rest somewhere without
+   committing. On a touch screen there is no such state, so the block never
+   applies and the plain press above stays exactly as it shipped: a tap pushes the
+   button down by one nudge. The same fallback covers the keyboard, where
+   `:active` fires with no `:hover` beside it and the button pushes down rather
+   than standing still.
+
+   `:hover:active` RATHER THAN `:active` INSIDE THE QUERY, so the specificity says
+   what the rule means instead of relying on which line came last: it is the press
+   OF A LIFTED BUTTON, and the unlifted press keeps its own rule ten lines up.
+
+   DISABLED STAYS FLAT, and that is the same argument as its press: a control that
+   will not honour the click must not answer the pointer that is about to make it.
+   The one rule this file already had for a disabled hover repaints; this adds the
+   half that stops it moving. */
+@media (hover: hover) {
+  .app .btn:hover, .landing .btn:hover {
+    translate: 0 calc(var(--nudge) * -1);
+  }
+  .app .btn:hover:active, .landing .btn:hover:active {
+    translate: 0 0;
+    transition-duration: var(--dur-press);
+  }
+  .app .btn[disabled]:hover, .landing .btn[disabled]:hover { translate: 0 0; }
+}

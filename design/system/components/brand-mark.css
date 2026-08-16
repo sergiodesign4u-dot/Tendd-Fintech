@@ -24,11 +24,15 @@
    exactly one of it. Two things that differ in what they mean must differ in what
    they are called, or the first person to grep for the logo finds 112 answers.
 
-   NOT INTERACTIVE. It is never a target: it sits inside a lockup that is not a
-   link on any of the 28 screens, and it carries aria-hidden in the markup because
-   the wordmark beside it already says the name in text. No :hover, no
-   :focus-visible, no [disabled] are declared, and if the lockup ever becomes a
-   link the ring belongs to the link and not to this square.
+   NOT A TARGET, AND IT ANSWERS A POINTER ANYWAY, WHICH IS TWO STATEMENTS RATHER
+   THAN ONE. It is never a target: it sits inside a lockup that is not a link on
+   any of the 55 pages that carry one, it carries aria-hidden in the markup because the wordmark
+   beside it already says the name in text, and no :focus-visible and no [disabled]
+   are declared here - if the lockup ever becomes a link the ring belongs to the
+   link and not to this square. What IS declared, since 2026-08-16, is one hover,
+   and it hangs off the LOCKUP rather than off this element: the crop opens half
+   way toward the whole letter while a person is on the brand. The reasoning is at
+   the foot of this file, beside the signature it borrows its distance from.
 
    ONE SIZE, AND THAT IS THE HONEST COUNT. 22px, in the app bar. The other sizes
    of this mark exist as EXPORTED FILES rather than as CSS, which is what the
@@ -79,6 +83,15 @@
   border-radius: 23.4%;
   background: var(--bg-surface);
   overflow: hidden;
+  /* THE OPEN WINDOW, AND IT IS ONE NUMBER SPENT BY TWO RULES. At this scale the
+     window shows the whole letter with about four units of air around it, and
+     the two things below both need it: the signature starts here, and the hover
+     goes half way here. It is a LOCAL custom property rather than a token
+     because it is a fact about this drawing and nothing else in the product can
+     want it; landing-story.css and landing-orbit.css already carry local
+     properties on exactly that argument. The signature's own reasoning, and why
+     0.42 rather than the arithmetic 0.46, is at the foot of this file. */
+  --crop-whole: 0.42;
 }
 
 /* ---- the letter ------------------------------------------------------------
@@ -149,6 +162,11 @@
      crop and not of the animation: scale about it and the window opens and closes
      around what a person is already looking at. */
   transform-origin: 49% 57%;
+  /* The crop is the only property of this element that ever changes, so it is the
+     only one on the list. --ease-arrive both ways: the window is opening toward
+     the person on the way in, and the way out is the same event undone rather
+     than something leaving the screen. */
+  transition: scale var(--dur-state) var(--ease-arrive);
 }
 
 
@@ -193,10 +211,56 @@
    0.42 gives it about four units of air, so the letter arrives inside the frame
    rather than against it. */
 @keyframes brandclose {
-  from { scale: 0.42; }
+  from { scale: var(--crop-whole); }
   to   { scale: 1; }
 }
+/* `backwards` AND NOT `both`, CHANGED 2026-08-16 WHEN THE HOVER ARRIVED, and the
+   change is invisible and load-bearing. `both` holds the animation's LAST frame
+   forever, and a held animation outranks every declaration below it in the
+   cascade - including a :hover. So with `both` the one lockup that carries the
+   signature would have been the one lockup that could not answer a pointer.
+   `backwards` releases the element the moment the run ends, and it renders the
+   same because the animation ends on scale 1, which is exactly what the base rule
+   above already draws. Measured rather than reasoned: identical at 1x and 3x. */
 .app .lockup.signature .brand::before,
 .landing .lockup.signature .brand::before {
-  animation: brandclose var(--dur-signature) var(--ease-settle) both;
+  animation: brandclose var(--dur-signature) var(--ease-settle) backwards;
+}
+
+
+/* ---- THE HOVER, and it is the crop answering rather than the mark moving -----
+   The founder, 2026-08-16, hovering the lockup on the public page: "при ховере я
+   не вижу анимации". True, and it was true by construction: this file's own
+   header said NOT INTERACTIVE, and every other atom that answers a pointer does
+   it because it is a target. The brand is not a target on any of the 55 pages that carry
+   it: counted 2026-08-16, no lockup in `design/` is an anchor.
+
+   IT ANSWERS ANYWAY, AND IT ANSWERS IN ITS OWN WORDS. What moves is not the mark,
+   which would be a lift and would say the brand is a button. What moves is the
+   WINDOW: the crop opens half way toward the whole letter, so the shape a person
+   cannot read becomes one they nearly can, and closes again when they leave. That
+   is the concept's own sentence - THE TIGHTER THE CROP, THE MORE ABSTRACT THE
+   MARK - read out loud at the size of a hover, and it is the same gesture the
+   signature makes, held instead of played.
+
+   HALF WAY, AND THE HALF IS DERIVED RATHER THAN CHOSEN. The signature travels
+   from --crop-whole to 1; this stops at the midpoint of that path, in the same
+   units, through the same custom property. So there is ONE crop number in this
+   file and not two, and moving it moves both. Rendered as a ladder of seven crops
+   at 5x before it was picked: past the midpoint the letter starts to detach from
+   the frame and the tile loses its silhouette, because the field is the same
+   colour as the bar and only the ink draws the square.
+
+   THE HOST IS THE LOCKUP AND NOT THE MARK. A person aiming at a 22px square with
+   a 46px word beside it is aiming at the brand, and the two halves are one object:
+   hovering the word opens the window too. It also means the rule stays out of the
+   way of the day the lockup becomes the way home - the anchor gets the ring, this
+   keeps the crop.
+
+   NO GUARD OF ITS OWN. base.css takes every duration to 0.01ms under
+   prefers-reduced-motion, so under stillness the window is simply already open
+   while the pointer is there: a state, exactly like a colour. */
+.app .lockup:hover .brand::before,
+.landing .lockup:hover .brand::before {
+  scale: calc((var(--crop-whole) + 1) / 2);
 }

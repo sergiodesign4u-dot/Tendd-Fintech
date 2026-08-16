@@ -178,8 +178,19 @@ movement says what is about to happen - and held together by **one distance**.
 |---|---|---|---|
 | **Fade** | colour: fill, edge, ink, underline | every state, `--dur-state` | `base.css`, plus three components whose host is not a native element |
 | **Advance** | a direction cue, one `--nudge` toward where it points | its target is hovered | step-forward link (down), nav row, door, alert item (right) |
-| **Lift** | an identity mark: up one `--nudge`, out to 1.06 | the target it stands in is hovered | the logo in a row, an alert, a tile or a door; the destination icon in a tab |
-| **Press** | the object itself, down one `--nudge`, at `--dur-press` | held | button, row, nav row, door, tile, alert, segment, cut control, tab, checkbox (as a scale) |
+| **Lift** | an identity mark: up one `--nudge`, out to 1.06. **Or the button itself**, up one `--nudge` and no scale | the target it stands in is hovered, or the button itself is | the logo in a row, an alert, a tile or a door; the destination icon in a tab; the button, added 2026-08-16 |
+| **Press** | the object itself, down one `--nudge`, at `--dur-press`. On a lifted button, back to the surface instead | held | button, row, nav row, door, tile, alert, segment, cut control, tab, checkbox (as a scale) |
+| **The crop**, not a verb | the window over the brand's letter, half way toward the whole `d` | the lockup is hovered, word included | the brand mark. It is the signature's gesture held instead of played |
+
+**The button gained the other half of its gesture on 2026-08-16, and the founder found it by
+hovering one.** *"при ховере я не вижу анимации"*. The fade was there and it was measured: a
+secondary button's fill goes from `#ffffff` to `#f4f7f8`, about **two per cent**, on the one control
+a person is most likely to hover before they trust the product. So the button **rises one nudge to
+meet the pointer**, and the press puts it **back on the surface** rather than a nudge below the
+line - one gesture in two halves, and every neighbouring state exactly one nudge apart, so the
+distance rule below holds untouched. The lift sits behind `@media (hover: hover)`, which is a
+pointer query and not a width query: the gesture needs a pointer that can rest somewhere without
+committing, and on a touch screen and at the keyboard the plain press stays as it shipped.
 
 **One distance, and it is the whole guard.** `--nudge` is 2px. An arrow advances by it, a mark
 lifts by it, a control presses down by it, and **nothing anywhere travels two**. 2 rather than 1
@@ -264,7 +275,7 @@ cannot, which is the concept's sentence played forwards.
 **It is fenced because it is an arrival and not an answer.** The four verbs all move because a
 person did something; this one moves because a page opened. So it runs on **one surface** (the
 public page's bar), **once per load**, and **never inside the app**: the `.signature` modifier on
-the lockup is the fence and the app's 32 lockups do not carry it. A mark that moves every time you
+the lockup is the fence and the 54 app pages that carry a lockup do not carry it (counted 2026-08-16: 55 pages in `design/` carry a lockup and exactly one of them, the public page, carries `.signature`). A mark that moves every time you
 open the product is not a signature.
 
 **What it cost, and it is not nothing.** The crop used to be the SVG's own `viewBox`, which a
@@ -274,6 +285,39 @@ to the device pixel at 1x, 2x and 3x, petrol area differs by 3 pixels in 2557 at
 rendering is not**: all 108 marks in the product differ, because the outline now falls on a
 different sub-pixel phase. At the shipping size that is 69 of 484 pixels, all on the edge, and side
 by side at 3x the two are indistinguishable. Stated rather than claimed away.
+
+### 2c. And the same gesture held: the crop answers a pointer, on every screen
+
+The founder, the next morning, hovering the lockup: *"при ховере я не вижу анимации"*. True, and
+true by construction: the mark was declared **not interactive** in its own file and it still is not
+a target - it is a span inside a lockup, and on none of the 55 pages that carry one is that lockup a link.
+
+**It answers anyway, and in its own words.** What moves is the **window**, not the mark: a mark that
+rose and grew would be a lift, and a lift says the object is pressable. The crop opens half way
+toward the whole letter while the pointer is on the lockup and closes when it leaves. The rule hangs
+on `.lockup:hover` rather than on the square, because a person aiming at a 22px mark with the word
+beside it is aiming at the brand: hovering the word opens it too.
+
+**Half way, and the half is derived rather than chosen.** The crop constant is a **local custom
+property**, `--crop-whole: 0.42`, declared on `.brand` itself - a fact about this drawing that
+nothing else in the product can want, which is the argument `landing-story.css` and
+`landing-orbit.css` already make for theirs. The signature travels from it to 1; the hover stops at
+`calc((var(--crop-whole) + 1) / 2)`. **One crop number in the file, spent by two rules.** The
+midpoint was picked off a ladder of seven crops rendered at 5x: past it the letter detaches from the
+frame and the tile loses its silhouette, because the field is the same colour as the bar and only
+the ink draws the square.
+
+**One line had to change for it to work at all, and it is invisible.** The mark's half of the
+signature ran with `animation-fill-mode: both`, which holds the last frame forever - and a held
+animation outranks every declaration below it, `:hover` included. So the one lockup carrying the
+signature would have been the one lockup that could not answer a pointer. Both halves now run
+`backwards`, which still holds the ink through the delay and releases the element when the run ends;
+each animation ends on exactly what its base rule already draws, so nothing renders differently.
+**Only the mark's half was blocking anything** - the word's half paints `color` on a different node -
+and it changed for the narrower reason that a forwards fill holding a value the base rule already
+paints shadows that property for nothing. That correction came from the second instrument. Measured: 40 frames captured, **36 of them deterministic
+and all 36 byte-identical**; the other 4 are the public page at two widths in two themes and are not
+deterministic at all, since the same 4 differ between two runs of unchanged code.
 
 ### 3. Between two states documented as two pages: nothing, and that is the answer
 
@@ -310,6 +354,23 @@ was dropped at verification.**
 **What the split says about the instruments.** Claude found what only a recount finds, on figures it
 had published itself; Codex found three things that are invisible unless you read one file against
 another. Neither list would have been produced by the other.
+
+### Round 2, the same day: the hover pass, six findings, six closed
+
+Run again after the crop hover and the button lift, on the same two instruments and the same rule -
+verify by re-reading the place before touching it. **Codex found all six; Claude's own pass on the
+render found none it had not already fixed while building.** That is worth recording rather than
+smoothing over: this round was checking prose against a corpus, which is the half a browser cannot
+see, and the browser half had already been walked while the code was written.
+
+| Who | Was | Became |
+|---|---|---|
+| **Codex** | **A cascade claim that was false on one of the two files it was written in.** `brand-wordmark.css` said its `both` would have stopped the lockup answering a hover | Only the mark's half blocked the hover: the word's half paints `color` on `.wordmark .hi` while the hover moves `scale` on `.brand::before`. The change stands on the narrower ground - a forwards fill holding a value the base rule already paints shadows that property for nothing |
+| **Codex** | **"The app's 32 lockups"**, in six places | **54.** Counted 2026-08-16: 55 pages in `design/` carry a lockup and exactly one, the public page, carries `.signature` |
+| **Codex** | **"a link on none of the 33 screens"**, in four places | **55**, the same count read from the other end, and no lockup in `design/` is an anchor |
+| **Codex** | **"36 of 40 deterministic frames"** called all forty deterministic | 40 captured, **36 deterministic and all 36 byte-identical**; the other 4 are the public page and are not deterministic at all |
+| **Codex** | **The README said thirteen motion tokens** where the register says fourteen | **Fourteen.** The row had dropped `--dur-pulse` on the way from the register to the summary |
+| **Codex** | **Three live counts on `motion.html` had gone stale in a day**: "1 transition and 3 in components", "11 tokens", "11 of 75 files", and a keyframe row saying "unchanged" | Recounted by script: **19 transitions in 15 files, 14 tokens, 23 of 75 files, 33 keyframes**. The stale column was written while the four verbs were being added, which is exactly the trap the live-count rule exists for |
 
 ---
 

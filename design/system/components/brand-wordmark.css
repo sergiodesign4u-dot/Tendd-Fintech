@@ -165,9 +165,27 @@
 
    THE DELAY IS DERIVED AND NOT CHOSEN. It is the signature's own length minus a
    state change, so the colour finishes exactly when the window does, and moving
-   either token moves this with it. `both` holds the ink through the delay; without
-   it the letter would start petrol, turn ink for nine hundred milliseconds and
-   turn back, which is the same rule played backwards.
+   either token moves this with it. `backwards` holds the ink through the delay;
+   without it the letter would start petrol, turn ink for nine hundred milliseconds
+   and turn back, which is the same rule played backwards.
+
+   IT WAS `both` FOR ONE DAY, AND THE HONEST REASON IT IS NOW `backwards` IS
+   NARROWER THAN THE ONE FIRST WRITTEN HERE. The first version of this comment said
+   `both` would have stopped the signature's lockup answering a hover. That is true
+   of brand-mark.css and it was NOT true of this file, and the external critic said
+   so: this animation paints `color` on `.wordmark .hi`, and the hover moves `scale`
+   on `.brand::before` - a different node and a different property, so the forwards
+   fill here blocked nothing.
+
+   What is true is smaller and still worth the change. The forwards half was doing
+   NOTHING: the animation ends on --text-action, which is exactly what the rule
+   above already paints, so it held a value that was already there while shadowing
+   every later declaration on this property. The day the last letter gains a state
+   of its own - a hover, a theme-level exception, anything - `both` would have eaten
+   it silently. `backwards` keeps the only half that does work, which is holding the
+   ink through the delay, and it means the signature's two halves are spelled the
+   same way for one reason each rather than the same way for one reason quoted
+   twice.
 
    IT IS DECLARED HERE AND READS THE HOST'S MODIFIER, which is the pattern this
    system already uses for a size set by a container: the atom owns its own rule
@@ -180,5 +198,5 @@
 .app .lockup.signature .wordmark .hi,
 .landing .lockup.signature .wordmark .hi {
   animation: brandlast var(--dur-state) var(--ease-arrive)
-             calc(var(--dur-signature) - var(--dur-state)) both;
+             calc(var(--dur-signature) - var(--dur-state)) backwards;
 }
