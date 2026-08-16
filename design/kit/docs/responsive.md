@@ -421,9 +421,21 @@ measured local threshold from a point somebody invented for a device.
 | Threshold | Where | What it decides | Why it is not a point |
 |---|---|---|---|
 | **28.75rem** (460px) | `save-focus-candidate.css`, and the third rule of the same block in `subscription-row.css` for a cascade reason | the cut control drops to its own line and pushes to the end; the row takes the full width | it is a fact about one row: a merchant name, an amount and a second control stop sharing a line. It says nothing about the screen, and on a desktop a candidate can stand in a 546px column and need the same answer |
+| **60rem** (960px), and **59.99rem** as its max-width companion | `landing-orbit.css` x6 and x2, `landing-story.css` x1, all asking the NAMED container `story` | whether the hero's stage can hold the spread at all: below it the window, the list and the cards stack, above it they stand around the pinned window | it is a fact about one stage. It asks the section by name and not the page, so it is not a question about the product's layout at all: the same page at the same width answers differently if the stage is ever narrower than the band it stands in |
+| **75rem** (1200px) | `landing-orbit.css` x1, container `story` | the two corner figures clear the reason card's column and take their outer positions | the same: a fact about the width of one composition |
+| **85rem** (1360px) | `landing-orbit.css` x1, container `story` | the widest band of the stage, where the spread stops growing | the same |
+| **80rem** (1280px) | `landing-story.css` x2, the PAGE container | the reason cards stand beside the list instead of under it | it is the one threshold here that asks the page, and it is not an invented number: 80rem is `--container-wide`, already declared in the width block, and the arithmetic is in the file (the list is 620, its edge 310 from the centre, 24 of air puts a card's inner edge at 334, and a card stops being a card under 17rem, which puts the true point at 1260; 80rem is the next declared value above it) |
+| **42.5rem of HEIGHT** (680px) | `landing-orbit.css` x1 and `landing-story.css` x1, `@media (max-height: ...)` | the pinned stage gives up and lays itself out as an ordinary column | it is the only height question in the product, and it cannot be a container query at all: reading a container's height needs `container-type: size`, which stops the box growing to its contents, which is the very thing this branch exists to allow. Measured: the threshold is between 640, which fails, and 780, which works |
 
-Everything else in the product asks one of the two points. **The 28.75rem is the only local
-threshold in the system today**, which is worth stating rather than leaving to be inferred: the
+**Registered 2026-08-16, on the founder's word.** The five rows under the first one had been live
+since the landing was built and appeared in no register, which is exactly the thing this table
+exists to prevent. The alternative was redesigning the hero to ask the two points, and it was
+rejected on the ground that four of the five do not ask the page at all: they ask a named
+container, which is a question about one composition rather than about the product's layout. What
+they owed was their origins, and those are above.
+
+Everything else in the product asks one of the two points. **28.75rem is the only local threshold
+on an APP screen**, which is worth stating rather than leaving to be inferred: the
 register is short because the product is, not because it was not looked for.
 
 **Zero pixels moved when those two blocks became container queries**, and the reason is worth

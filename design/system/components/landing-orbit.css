@@ -256,8 +256,13 @@
   mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 88%);
   -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 88%);
 }
-/* clipped by the band and not by anything above it, for the reason written
-   beside `.srow` in landing-story.css */
+/* clipped by the band and not by anything above it, and the reason is worth
+   keeping now that the rule it pointed at is gone: a track carries its set
+   twice and runs far wider than the page, the only thing standing between that
+   and the document is this `overflow`, and the no-motion branch turns the
+   parent's clipping OFF because the box has to grow to its contents there. The
+   centred stage had the same pair and shipped 2664px of sideways scroll at 1440
+   before it was found by asking for the overflow in BOTH motion settings. */
 .landing .orow { display: flex; overflow: hidden; }
 .landing .otrack {
   display: flex;

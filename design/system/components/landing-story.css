@@ -1,10 +1,10 @@
 /* ============================================================================
    Landing story - organism
    The public page's one long argument, told once, in a stage that holds still
-   while the reader scrolls. A field of fourteen subscriptions drifts, gathers
-   to the middle, becomes the list this product gives you, and then three of
-   them are cancelled in front of you while the total steps down and the reason
-   for each one is stated beside it.
+   while the reader scrolls. A round window of fourteen subscriptions contracts
+   into the list this product gives you, and then three of them are cancelled in
+   front of you while the total steps down and the reason for each one is stated
+   beside it.
 
    IT REPLACES TWO COMPONENTS AND THE REASON IS THE FOUNDER'S: "все это
    смотрится очень плоско", 2026-08-14. `landing-window.css` (a field in the
@@ -16,10 +16,12 @@
    and their imports, because a component that no page holds does not exist.
 
    THE SHAPE IS THE ARGUMENT, TWICE.
-     A FIELD says a subscription stack is not something anybody sat down and
+     A WINDOW says a subscription stack is not something anybody sat down and
      made. It arrives, one charge at a time, from more directions than a person
      is watching. That is the problem, and it is stated in the only place on this
-     surface where it may be: the public page, before the promise.
+     surface where it may be: the public page, before the promise. (Until
+     2026-08-16 the first shape was a FIELD of three drifting bands, and that is
+     the shape the deletion below removed: the window won on 2026-08-15.)
      A LIST says what the product does about it. Same fourteen, same prices, one
      column, one total. The reader watches the second thing be made out of the
      first, which is a demonstration rather than a claim.
@@ -64,7 +66,7 @@
 
 /* ---- the section, and it is TALL only where the stage can work --------------
    The height and the pin live inside @supports at the foot of this file. A
-   browser without scroll-driven animation gets an ordinary section: the field,
+   browser without scroll-driven animation gets an ordinary section: the window,
    then the list, then the three cards, stacked and readable, which is a whole
    picture missing only the choreography. Declaring the height here and the
    motion there would give that browser a five-screen scroll through one frozen
@@ -171,27 +173,30 @@
   color: var(--text-primary);
 }
 
-/* ---- `.fromcircle`, and it is a MODIFIER rather than an override -----------
-   The landing opens on a round window of the fourteen. The stage opens on the
-   SAME window, and the window contracts into the list instead of three tracks
-   gathering into it. It was written for `design/index-circle.html` while that
-   was a candidate; the founder chose it on 2026-08-15 and it IS the landing now,
-   so this modifier is on the only page this component stands on. Folding it into
-   the base is a rename of two shapes into one and is recorded in
-   design/kit/docs/backlog.md rather than done in the same step as the move. The founder
-   asked for the transformation to take roughly a screen and a half and to flow
-   softly from one into the other, so the section is taller there and the two
-   ranges overlap rather than meet.
+/* ---- `.fromcircle` IS THE COMPONENT NOW, and the other shape is gone -------
+   The landing opens on a round window of the fourteen, and the window contracts
+   into the list. Until 2026-08-16 this file also carried the shape that lost:
+   three drifting bands of tiles that gathered into the same list, written while
+   `design/index-circle.html` was a candidate. The founder chose the window on
+   2026-08-15 and the centred stage went with its page, so `.storyfield`, `.srow`,
+   `.strack`, `.stile`, `@keyframes sdrift`, `@keyframes sgather` and the four
+   rules that switched them off are DELETED here rather than left inert.
 
-   Declared here, as a class in the markup, because the alternative is the thing
-   the architecture forbids by name: a host writing `.lp-orbit + .lp-story
-   .storyfield { display: none }` is an undeclared variant, and the next person
-   to read this file would have no way to know the component has two shapes.
-   A component with two shapes says so in its own file.
+   THEY WERE WRITTEN BY NO PAGE IN EITHER CORPUS, counted before the cut: zero
+   occurrences of any of the five class names in `design/index.html` and zero in
+   `wireframes/index.html`. What they cost was not bytes: the file read as a
+   component with two shapes when the product renders one, and the FIRST thing
+   stage 11 does is take an inventory of what moves. An inventory taken over
+   rules that never run measures the wrong product.
 
-   It exists for as long as the candidate does. If the centred hero wins, this
-   block is deleted with the page that reads it, and landing-orbit.css with it. */
-.landing .lp-story.fromcircle .storyfield { display: none; }
+   THE CLASS ITSELF STAYS IN THE MARKUP AND IN THE SELECTORS, and that half of
+   backlog.md's row is answered NO rather than left open. `.fromcircle` stops
+   being a modifier by this deletion; dropping the word would be a rename across
+   257 selector sites, 59 here and 198 in landing-orbit.css, every one of them
+   carrying a scroll-driven rule, and it would take each of them from 0-3-0 to
+   0-2-0 against a file whose cascade was tuned in place. It buys a shorter name
+   and risks the one thing on this page that cannot be checked by looking at a
+   still. The name is now what it says: this component is the window. */
 .landing .lp-story.fromcircle .storyswap > .orbit { width: min(100%, 24rem); }
 
 /* THE HEAD LOSES ITS FIGURE, ITS COUNT AND ITS CAPTION on this page, and the
@@ -210,7 +215,7 @@
 }
 .landing .lp-story.fromcircle .storyhead h2 { font-size: var(--type-head); }
 
-/* ---- the field and the list -----------------------------------------------
+/* ---- the window and the list ----------------------------------------------
    Stacked here, one above the other, which is the honest order for a browser
    with no stage: this is the problem, and this is what the product does with it.
    On the stage they are moved into ONE cell, so the second is made out of the
@@ -232,83 +237,6 @@
   justify-items: center;
   gap: var(--space-40);
   width: 100%;
-}
-
-/* ============================================================================
-   THE FIELD
-   ========================================================================== */
-
-/* Three bands, and they do not travel the same way: the top one right, the
-   middle one left, the bottom one right. At equal speeds three bands read as one
-   mechanism with three parts; at three speeds they read as three things
-   arriving independently, which is the point being made. Between 18 and 22
-   pixels a second, slower than reading. */
-.landing .storyfield {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-  width: 100%;
-  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
-}
-/* A BAND CLIPS ITSELF, and it was leaning on its grandparent to do it. Each
-   track carries its set twice and runs to 3386px on purpose, and the only thing
-   standing between that and the page was `overflow: hidden` on the swap - which
-   the no-motion branch turns OFF, because the swap has to grow to its contents
-   there. At 1440 with motion off this landing had 2664px of sideways scroll: the
-   whole marquee, laid out across the document. Found by asking for the overflow
-   in both motion settings rather than one. */
-.landing .srow { display: flex; overflow: hidden; }
-.landing .strack {
-  display: flex;
-  width: max-content;
-  will-change: transform;
-  animation: sdrift linear infinite;
-}
-.landing .srow:nth-child(1) .strack { animation-duration: 42s; animation-direction: reverse; }
-.landing .srow:nth-child(2) .strack { animation-duration: 35s; }
-.landing .srow:nth-child(3) .strack { animation-duration: 29s; animation-direction: reverse; }
-
-/* One keyframe and one direction, with `reverse` on the two bands that travel
-   the other way. Two mirrored blocks would be two places to change the distance,
-   and the distance is the thing the seam depends on.
-
-   THE TRACK CARRIES ITS SET TWICE AND TRAVELS EXACTLY HALF ITS OWN WIDTH, so
-   the second set lands where the first began. That arithmetic only closes if
-   every tile carries its own trailing gap: with `gap` on the track there are
-   2n-1 gaps for 2n tiles, half the width falls half a gap short of one set, and
-   the band jumps once a cycle. Written as a margin there are 2n, and it does
-   not. */
-@keyframes sdrift {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
-
-/* ---- a tile ---------------------------------------------------------------
-   A mark and a price in a square, because the field has to read as a FIELD of
-   things rather than as a list. The list is what the product gives you a moment
-   later, and the whole hand-off depends on those being two different shapes.
-   No name on a tile: the job here is RECOGNITION, a person seeing their own
-   Netflix, their own thing they forgot. The names arrive with the list.
-
-   The shadow is the one place this component leaves the flat-paper rule, and it
-   is why: these tiles are the only objects in the product that are meant to read
-   as LOOSE, lying at different depths, not yet gathered. The list they become
-   carries no shadow at all, and that difference is the argument. */
-.landing .stile {
-  flex: none;
-  width: clamp(4.75rem, 15cqw, 7.5rem);
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-8);
-  margin-right: var(--space-16);
-  background: var(--bg-surface);
-  border: 1px solid var(--line-container);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
 }
 
 /* ============================================================================
@@ -488,7 +416,6 @@
     gap: var(--space-0);
   }
   .landing .storyswap > * { grid-area: one; }
-  .landing .storyfield { position: absolute; left: var(--space-0); right: var(--space-0); }
 
   /* ---- everything on this stage reads one clock --------------------------
      Longhands and never the `animation` shorthand: the shorthand RESETS
@@ -496,7 +423,6 @@
      because it does so silently the range simply stops existing. That cost this
      page a whole afternoon once. */
   .landing .storypin,
-  .landing .storyfield,
   .landing .storylist,
   .landing .storystack > *,
   .landing .sline.cut,
@@ -508,20 +434,16 @@
     animation-timeline: --story;
   }
 
-  /* ---- beat 1: the field gathers ----------------------------------------
-     Each band travels to the middle line and shrinks as it goes. The travel is
-     a variable on the row rather than three keyframe blocks, so the distance
-     has one owner. */
-  .landing .storyfield { animation-name: sgather; animation-range: contain 2% contain 22%; }
-  .landing .srow:nth-child(1) { --sy: 5.5rem; }
-  .landing .srow:nth-child(2) { --sy: 0rem; }
-  .landing .srow:nth-child(3) { --sy: -5.5rem; }
+  /* BEAT 1 WAS THE FIELD GATHERING, and it left with the shape it belonged to
+     on 2026-08-16: three bands travelling to the middle line over
+     `contain 2%` to `contain 22%`. The window's own dive owns that range now,
+     in landing-orbit.css. */
 
   /* ---- beat 2: the list is made out of it -------------------------------
-     It rises into the place the field is leaving, and the overlap between the
+     It rises into the place the window is leaving, and the overlap between the
      two ranges is what the eye reads as one movement rather than two. */
     /* ONE ANIMATION AND NOT TWO, because both of them would be a transform.
-     The list rises into the place the field is leaving, and then, where the
+     The list rises into the place the window is leaving, and then, where the
      stage is too short to show fourteen lines and a reason card at once, it
      travels under the card so the line being cancelled is always on screen.
      Written as two animations the second would simply replace the first.
@@ -868,11 +790,9 @@
 }
 
 /* ---- the keyframes --------------------------------------------------------
-   Four of them do one thing each and are shared by everything on the stage,
-   which is what keeps twenty timed rules above readable. */
-@keyframes sgather {
-  to { transform: translate3d(0, 0, 0) scale(0.72); opacity: 0; }
-}
+   Three of them do one thing each and are shared by everything on the stage,
+   which is what keeps the timed rules above readable. `sgather`, the fourth,
+   left with the field it gathered on 2026-08-16. */
 @keyframes srise {
   from { transform: translate3d(0, 2.5rem, 0); opacity: 0; }
   to   { transform: none; opacity: 1; }
@@ -949,22 +869,16 @@
   100%{ opacity: 0; }
 }
 
-/* the bands converge on the middle line; the distance is a variable on the row
-   so the three of them have one owner and not three keyframe blocks */
-@supports (animation-timeline: view()) {
-  .landing .srow { will-change: transform; }
-  .landing .storyfield { transform-origin: 50% 50%; }
-}
-
 /* ============================================================================
    NO MOTION, AND THE STATIC STATE IS THE HONEST ONE
    base.css already collapses every animation in the product for a person who has
-   asked the system for no motion, and for the drifting bands that blanket is
-   enough: they carry no fill-mode, so they return to translate3d(0,0,0), a full
-   band standing still. Everything on the stage carries `both`, so it needs
-   naming: collapsed, each would land on its last keyframe, which is the field
-   gone, three lines cancelled and a total of $144.92 with no reason on screen
-   for any of it.
+   asked the system for no motion. Everything on the stage carries `both`, so it
+   needs naming: collapsed, each would land on its last keyframe, which is the
+   window gone, three lines cancelled and a total of $144.92 with no reason on
+   screen for any of it. (The drifting bands used to be the exception this
+   paragraph opened with: they carried no fill-mode, so the blanket alone left
+   them standing still. They were deleted on 2026-08-16 with the rest of the
+   shape that lost.)
 
    THE SPECIFICITY MISTAKE IS THE SAME ONE HERE. Each rule below is written at
    the specificity of the rule it cancels, including `> *:nth-child(n)` to carry
@@ -983,16 +897,16 @@
      collapses to 0 and the list is drawn outside a box of nothing. Found at
      320 x 640 on the candidate page; it was true here too and no check had
      looked, because every check measured the list and none measured its parent. */
-  /* AND ITS TRACK IS `minmax(0, 1fr)`, WHICH IS THE WHOLE FIX FOR 2664px OF
+  /* AND ITS TRACK IS `minmax(0, 1fr)`, WHICH WAS THE WHOLE FIX FOR 2664px OF
      SIDEWAYS SCROLL. With the swap's `overflow: hidden` gone - it has to go, or
      the box has nothing to grow to - its one grid track is `auto`, an auto track
-     sizes to max-content, and the max-content of a marquee band is both of its
-     copies laid end to end: 4104px at 1440. The band clips its own track now
-     (see `.srow`), but a band that is itself 4104 wide has nothing to clip
-     against, so the track has to be told it may not exceed its box first. */
+     sizes to max-content, and the max-content of a marquee band was both of its
+     copies laid end to end: 4104px at 1440. The marquee itself is gone since
+     2026-08-16 and the floor stays: an auto track under a static swap is the
+     same trap for the next wide thing that stands in it, and the rule costs
+     nothing to keep. */
   .landing .storyswap { position: static; container-type: normal; overflow: visible;
     grid-template-columns: minmax(0, 1fr); }
-  .landing .storyfield { position: static; animation-name: none; }
   .landing .storypin,
   .landing .storylist,
   .landing .lp-story.fromcircle .storyswap > .orbit,

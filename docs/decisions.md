@@ -7,6 +7,53 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - Before stage 11: the shape that lost is deleted, and five width literals are registered
+
+Asked before starting on motion: is anything owed first. Two things were, and both were owed to
+the stage that comes next rather than to the pixels.
+
+**The dead shape in `landing-story.css` is gone.** The founder chose the round window on
+2026-08-15 and the centred stage went with its page, but its rules stayed: `.storyfield`, `.srow`,
+`.strack`, `.stile`, `@keyframes sdrift`, `@keyframes sgather` and the four rules that switched
+them off, 89 lines, written by no page in either corpus. **The reason it could not wait is stage
+11 itself:** the first thing that stage does is take an inventory of what moves, and an inventory
+taken over rules that never run measures the wrong product.
+
+**The rename is answered no.** backlog.md called this a FOLD, where `.fromcircle` stops being a
+modifier and the word comes off every selector. It comes off none of them. That is a rename across
+**257 selector sites**, 59 in `landing-story.css` and 198 in `landing-orbit.css`, every one
+carrying a scroll-driven rule and every one dropping from 0-3-0 to 0-2-0 in a file whose cascade
+was tuned in place. It buys a shorter name and risks the one thing on the page that cannot be
+checked from a still. The class is the component's name now, and both files say so.
+
+**Proved inert rather than assumed.** The stage was captured at twelve fixed scroll offsets on six
+viewports in both themes, before and after, and then a second time on the same code to establish
+what the harness itself is worth: the noise floor is text-width jitter from font loading, and every
+surviving difference was that. `.lp-story` is 2880px at 1440 and 2701 at 390 on both sides of the
+cut. **The first harness lied twice before it told the truth**, which is worth keeping: it scrolled
+to a fraction of a measured height, so the two runs sat at different offsets on a scroll-driven
+page and reported the whole choreography as changed; and it read the page before the web font
+settled, so text boxes differed by a few pixels. Fixed offsets, `document.fonts.ready`, and a
+run-against-itself control.
+
+**And five width literals are registered rather than the three the backlog named.** The row said
+`60rem`, `75rem` and `85rem` in `landing-orbit.css`. Recounted by script with comments stripped,
+the system also asks `59.99rem` as 60's max-width companion, **`80rem` of the PAGE container** in
+`landing-story.css`, and one question that is not about width at all, `@media (max-height:
+42.5rem)` twice. They go into the container-threshold register with their origins, and the
+alternative - redesigning the hero to ask the two points - was rejected on the ground that four of
+the five ask the NAMED container `story`, which is a question about one composition and not about
+the product's layout, while `80rem` is `--container-wide`, a value the width block already
+declares.
+
+**The census on `responsive.html` was stale in the same place.** It said every width query resolves
+to one of THREE registered values, `47.5rem` x8, `56.25rem` x5, `28.75rem` x2 - true when it was
+published, on a corpus with no landing in it. Today: 47.5 x18, 56.25 x10, 28.75 x2 and 80 x2 of the
+page container, 60 x6 / 59.99 x3 / 75 x1 / 85 x1 of the stage, plus the height pair. 45 literals in
+nine groups, recounted in the same step as the change.
+
+---
+
 ## 2026-08-16 - The landing pass: a heading step, a row that aligns, an edge that dissolves, and a rule that was never running
 
 The founder, after the footer: a pass over the whole page rather than another block. It found
