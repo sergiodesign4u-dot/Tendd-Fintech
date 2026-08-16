@@ -7,6 +7,45 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-16 - The brand gets one move, and it was written down two stages ago
+
+The founder: **"давай на логотип сделаем анимашку, у нас где-то было расписано как делать
+анимацию"**. It was. `design/concept/logo-crop.html`, the direction chosen out of thirteen at
+Concept, is one letter drawn on a 100 unit square with a window cut out of it, three canonical
+windows (crop A `26 34 46 46`, B `48 40 34 34`, C `58 20 26 26`), and one sentence holding them
+together: **the tighter the crop, the more abstract the mark**. That page demonstrates it with an
+eight second loop panning across all three.
+
+**What ships is not that loop, and the difference is the decision.** A loop in a bar is a thing
+that moves fifty times a day in a product whose first principle is calm. What ships is one move,
+once, on arrival: the window opens to the whole letter and closes into crop A, so the mark begins
+as a `d` a person can read and becomes a mark they cannot. The wordmark's last letter takes petrol
+at the moment it lands, which is D-Brand's own rule made visible.
+
+**It is a fifth thing beside the four verbs and it is declared as one.** Fade, advance, lift and
+press are all ANSWERS: something moves because a person did something. This is an ARRIVAL. Nobody
+asked for it, so it is fenced rather than free: **one surface** (the public page's bar), **once per
+load**, never inside the app. The `.signature` modifier on the lockup IS the fence, and the app's
+32 lockups deliberately do not carry it. Usage rule U14.
+
+**`--ease-settle` gets its second consumer**, and it is the curve's own brief: declared for "an
+OBJECT arriving at a stop rather than a value being interpolated", with the public page's deck as
+its only user until now. A window closing onto a letter and clicking into place is the same event,
+and the overshoot of one and a half per cent is what makes it a click rather than a stop. The start
+is scale 0.42 and not the arithmetic 0.46, because at 0.46 the stem's cap sits on the frame's edge.
+
+**What it cost, and it is stated rather than claimed away.** The crop used to be the SVG's own
+`viewBox`, which a transform cannot reach. The mark now draws the whole letter into an oversized
+box and the frame does the cropping, off the same four numbers. **The drawing is identical and the
+rendering is not**: measured before and after on all 108 marks in the product, every one differs,
+because the outline falls on a different sub-pixel phase. The extents match to the device pixel at
+1x, 2x and 3x and the petrol area differs by 3 pixels in 2557 at 3x; at the shipping size that is
+69 of 484 pixels, all of them on the edge, and side by side at 3x the two are indistinguishable.
+Neither rasterisation is more correct, and without the change the crop cannot move at all. Accepted
+on that trade.
+
+---
+
 ## 2026-08-16 - Motion gets four verbs, and one distance holds all of them
 
 The colour-only pass shipped in the morning. The founder's verdict on it, the same day: **"большинство

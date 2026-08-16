@@ -569,7 +569,8 @@ into the system at stage 11.
 | `--ease-state` | expo-out | a control answering a pointer or a key |
 
 Durations: `--dur-state` 150ms for a hover or a state, `--dur-press` 90ms for a press, because a
-press answers a finger that is already down. Quick to take, calm to let go.
+press answers a finger that is already down, `--dur-pulse` 1.4s for a loading placeholder, and
+`--dur-signature` 900ms for the brand's one move. Quick to take, calm to let go.
 
 ### Named Rules
 **One distance.** `--nudge` is 2px and it is every move in the product. The one exception is the
@@ -584,6 +585,12 @@ honour). A loading form (a placeholder has nothing to press). The current tab (i
 journey that does not exist). A figure - the amount, the monthly total - because **a number that
 moves is a number you re-read**, and this product exists to stop people re-reading their money. A
 card on hover, because a lift needs a shadow and the Flat Paper Rule spends the only one elsewhere.
+
+**The brand moves once, and only where it is presenting itself.** The mark's window opens to the
+whole letter and closes into crop A while the wordmark's last letter takes petrol, over 900ms, on
+the public page's bar and once per load. It is an arrival rather than an answer, which is why it is
+fenced by a modifier: inside the app the mark never moves. A mark that moves every time you open
+the product is not a signature.
 
 **An exit is always shorter than its entrance.** A thing appearing should be there before you have
 finished noticing it; a thing leaving should not snatch itself away.

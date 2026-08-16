@@ -1305,3 +1305,36 @@ span.kn-project-link { color: var(--kn-text-muted); opacity: 0.6; }
 @media (prefers-reduced-motion: reduce) {
   .kit-curve-track > i { transition: none; }
 }
+
+/* ---- the signature stand, stage 11, 2026-08-16 ----------------------------
+   The brand's one move happens at 22px, which is the size it ships at and too
+   small to study. So the stand shows it twice: once at its real size, and once
+   magnified. `scale` on the lockup and not a bigger mark, because a bigger mark
+   would be a size this component does not have - brand-mark.css declares exactly
+   one, and inventing a second here would make the stand a liar about the system.
+   What is magnified is the RENDER, so what a person watches is the shipping
+   object through a magnifying glass rather than a different object. */
+.kit-stage .lockup {
+  /* THE ROW, COPIED FROM THE BAR AND SAID SO. `.lockup` gets its flex row, its
+     44px floor and its 8px gap from `.app .appbar .lockup` and from
+     `.landing .lp-nav .lockup`, both of which need a BAR ancestor that this stand
+     does not have. Without this the specimen stacks the mark above the word and
+     shows a lockup the product has never rendered. Three values, all read off
+     those two rules, which is why this is a stand fixing its own frame rather
+     than a component quietly gaining a fourth host. */
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  gap: var(--space-8);
+}
+/* THE ROOM RESERVES WHAT THE TRANSFORM DOES NOT. A `scale` paints large and lays
+   out small, so the magnified lockup drew straight over the paragraph above it and
+   the heading below. The room is a real box at the rendered height, and it clips,
+   so the magnifying glass has a rim. */
+.kit-sig-room {
+  /* `width: 100%` IS LOAD-BEARING. Inside the stage's flex row the room's width
+     would be its CONTENT's width, and the content lays out unscaled: 110px, which
+     clipped the magnified mark in half and cut the word off entirely. */
+  width: 100%; height: 120px; overflow: hidden;
+  display: flex; align-items: center;
+}
+.kit-sig-big { transform: scale(4); transform-origin: left center; }

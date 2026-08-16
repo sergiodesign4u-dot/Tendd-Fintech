@@ -73,6 +73,7 @@
    competing with the type beside it. */
 .app .brand, .landing .brand {
   flex: none;
+  position: relative;
   display: block;
   width: 22px; height: 22px;
   border-radius: 23.4%;
@@ -113,14 +114,43 @@
    themes with the size threshold unused. */
 .app .brand::before, .landing .brand::before {
   content: "";
-  display: block;
-  width: 100%; height: 100%;
+  position: absolute;
+  /* CROP A, WRITTEN AS A BOX. The letter is 100 units and the window is 46, so
+     the box is 100/46 of the frame and it is pulled left by 26/46 and up by
+     34/46 - which is the SAME four numbers the viewBox carried, arranged so that
+     a transform can reach them. `overflow: hidden` on the frame does the clipping
+     the viewBox used to do.
+
+     AND IT IS NOT PIXEL-IDENTICAL, WHICH IS WORTH WRITING DOWN RATHER THAN
+     CLAIMING OTHERWISE. Measured before and after on all 108 marks in the product
+     at 2x, every one of them differs. The DRAWING does not: the extents are the
+     same to the device pixel at 1x, 2x and 3x, and the petrol area differs by 3
+     pixels in 2557 at 3x. What changed is the rasteriser's edge, because the
+     letter is now scaled into the frame from a 100 unit box instead of from a 46
+     unit one, so its outline falls on a different sub-pixel phase. At the shipping
+     size, 22px, that is 69 of 484 pixels touched and all of them on the outline;
+     at 160px it is 0.94 per cent. Side by side at 3x the two are indistinguishable.
+     Neither rasterisation is more correct than the other, and the trade is one the
+     stage asked for: without this the crop cannot move, and the crop moving is the
+     identity's own sentence. */
+  width: 217.391%;  height: 217.391%;
+  left: -56.522%;   top: -73.913%;
   background-color: var(--text-action);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='26 34 46 46'%3E%3Ccircle cx='40' cy='60' r='23' fill='none' stroke='%23000' stroke-width='15'/%3E%3Crect x='64' y='6' width='15' height='84' rx='7.5' fill='%23000'/%3E%3C/svg%3E");
-          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='26 34 46 46'%3E%3Ccircle cx='40' cy='60' r='23' fill='none' stroke='%23000' stroke-width='15'/%3E%3Crect x='64' y='6' width='15' height='84' rx='7.5' fill='%23000'/%3E%3C/svg%3E");
+  /* THE WINDOW IS THE FRAME NOW, AND THE viewBox IS THE WHOLE LETTER, which is
+     rule 1 of the mark enforced one level harder than before: the drawing cannot
+     even be re-cut by accident, because there is only ever one of it and the crop
+     is three lengths above. A new crop is a new box, not a new image. */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='40' cy='60' r='23' fill='none' stroke='%23000' stroke-width='15'/%3E%3Crect x='64' y='6' width='15' height='84' rx='7.5' fill='%23000'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='40' cy='60' r='23' fill='none' stroke='%23000' stroke-width='15'/%3E%3Crect x='64' y='6' width='15' height='84' rx='7.5' fill='%23000'/%3E%3C/svg%3E");
   -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  /* THE ORIGIN IS THE LETTER UNIT THAT SITS AT THE FRAME'S CENTRE, (49, 57), and
+     it is here rather than in the signature block because it is a property of the
+     crop and not of the animation: scale about it and the window opens and closes
+     around what a person is already looking at. */
+  transform-origin: 49% 57%;
 }
+
 
 /* NO `.landing` TWIN, AND THAT IS DELIBERATE. Forty-six of the fifty-five
    component files carry a `.landing` prefix beside `.app`, inherited from
@@ -128,3 +158,45 @@
    not exist, and wireframes/index.html is grey and frozen. Declaring the twin
    here would add a fifty-sixth dead selector to a list the backlog already wants
    shortened. When the coloured landing is built, this is one line. */
+
+/* ---- THE SIGNATURE, and it is the one thing in this product that moves without
+   being asked -------------------------------------------------------------------
+   The founder, 2026-08-16: "давай на логотип сделаем анимашку, у нас где-то было
+   расписано как делать анимацию". It was, and it is `design/concept/logo-crop.html`:
+   the direction the founder chose out of thirteen is one letter with a window cut
+   out of it, three canonical windows, and one sentence holding them together -
+   THE TIGHTER THE CROP, THE MORE ABSTRACT THE MARK. The concept page demonstrates
+   that with an eight second loop that pans across all three.
+
+   THIS IS NOT THAT LOOP, AND THE DIFFERENCE IS THE WHOLE DESIGN. A loop in the
+   app bar is a thing that moves fifty times a day in a product whose first
+   principle is calm. What ships is one move, once, on arrival: the window opens
+   to the WHOLE LETTER and closes into crop A. So the mark begins as a `d` you can
+   read and becomes a mark you cannot, which is the concept's own sentence played
+   forwards in three quarters of a second.
+
+   IT IS A FIFTH THING BESIDE THE FOUR VERBS AND IT IS DECLARED AS ONE. Fade,
+   advance, lift and press are all ANSWERS: something moves because a person did
+   something. This one is an ARRIVAL, nobody asked for it, and that is exactly why
+   it is fenced: it runs on ONE surface (the public page's bar), ONCE per load, and
+   never inside the app. The modifier is the fence - no `.signature`, no movement -
+   and the app bar's 32 marks do not carry it.
+
+   --ease-settle IS THE RIGHT CURVE AND THIS IS ITS SECOND CONSUMER. It was
+   declared for "an OBJECT arriving at a stop rather than a value being
+   interpolated", with the deck as its only user. A window closing onto a letter
+   and clicking into place is the same event, and the one and a half per cent
+   overshoot is what makes it a click rather than a stop.
+
+   0.42 AND NOT 0.46, which would be the arithmetic answer for "the whole letter":
+   at 0.46 the window is exactly 100 units and the stem's cap sits on the edge.
+   0.42 gives it about four units of air, so the letter arrives inside the frame
+   rather than against it. */
+@keyframes brandclose {
+  from { scale: 0.42; }
+  to   { scale: 1; }
+}
+.app .lockup.signature .brand::before,
+.landing .lockup.signature .brand::before {
+  animation: brandclose var(--dur-signature) var(--ease-settle) both;
+}

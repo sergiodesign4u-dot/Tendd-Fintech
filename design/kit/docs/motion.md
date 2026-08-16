@@ -131,13 +131,13 @@ code and two are answered in words, which is itself an answer rather than a gap.
 
 ### 1. The curves become tokens, at two levels, and the split is a rule
 
-**Thirteen tokens in `design/system/tokens.css`, in a MOTION block on the primitive side of the file.**
+**Fourteen tokens in `design/system/tokens.css`, in a MOTION block on the primitive side of the file.**
 
 | Level | Tokens |
 |---|---|
 | **Shape** | `--curve-expo-out`, `--curve-expo-in`, `--curve-firm`, `--curve-spring` |
 | **Job** | `--ease-arrive`, `--ease-leave`, `--ease-settle`, `--ease-travel`, `--ease-state` |
-| **Durations, one level, named by job** | `--dur-state` 150ms, `--dur-press` 90ms, `--dur-pulse` 1.4s |
+| **Durations, one level, named by job** | `--dur-state` 150ms, `--dur-press` 90ms, `--dur-pulse` 1.4s, `--dur-signature` 900ms |
 | **Distance, one value** | `--nudge` 2px |
 
 **Why curves take two levels and durations take one.** A second level is earned exactly where two
@@ -247,6 +247,33 @@ landing) byte-identical before and after. The 4 landing frames differ, and a sam
 differs on exactly the same 4: that page's infinite loops run on a wall clock, so its first frame
 is not byte-deterministic and never was. The landing was checked by the choreography A/B above
 instead.
+
+### 2b. A fifth thing that is not a verb: the signature
+
+The founder, the same day: *"давай на логотип сделаем анимашку, у нас где-то было расписано как
+делать анимацию"*. It was written down: `design/concept/logo-crop.html`, the direction chosen out
+of thirteen, is one letter with a window cut out of it, three canonical windows, and one sentence -
+**the tighter the crop, the more abstract the mark**. That page demonstrates it with an eight second
+loop across all three.
+
+**What ships is not that loop.** One move, once, on arrival: the window opens to the whole letter
+and closes into crop A over `--dur-signature` on `--ease-settle`, and the wordmark's last letter
+takes petrol at the moment it lands. The mark begins as a `d` you can read and becomes a mark you
+cannot, which is the concept's sentence played forwards.
+
+**It is fenced because it is an arrival and not an answer.** The four verbs all move because a
+person did something; this one moves because a page opened. So it runs on **one surface** (the
+public page's bar), **once per load**, and **never inside the app**: the `.signature` modifier on
+the lockup is the fence and the app's 32 lockups do not carry it. A mark that moves every time you
+open the product is not a signature.
+
+**What it cost, and it is not nothing.** The crop used to be the SVG's own `viewBox`, which a
+transform cannot reach, so the mark now draws the whole letter into an oversized box and the frame
+crops it. The four numbers are the same four numbers and the drawing is identical - extents match
+to the device pixel at 1x, 2x and 3x, petrol area differs by 3 pixels in 2557 at 3x - but **the
+rendering is not**: all 108 marks in the product differ, because the outline now falls on a
+different sub-pixel phase. At the shipping size that is 69 of 484 pixels, all on the edge, and side
+by side at 3x the two are indistinguishable. Stated rather than claimed away.
 
 ### 3. Between two states documented as two pages: nothing, and that is the answer
 

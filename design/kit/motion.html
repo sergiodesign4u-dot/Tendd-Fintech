@@ -60,11 +60,11 @@
     <h1 class="big">Motion</h1>
     <div class="kit-prose">
       <p class="first">The stage opened on a count rather than a design, and the count is why everything below looks the way it does: one surface of this product moved a great deal, the other fifty-four did not move at all, and the four curves the moving one ran on were declared where nothing else could read them. A scale derived from that would have been a scale derived from a sample of one.</p>
-      <p>So motion is now <b>thirteen tokens and four verbs</b>. The first pass was colour and nothing else, and the founder&rsquo;s answer to it was the sentence this page is built around: <i>&ldquo;большинство анимаций я не вижу&rdquo;</i>. So things move now, and exactly one thing stops the movement becoming decoration: <b>every object in this product travels the same 2px, and nothing anywhere travels two.</b> Everything below is live - hover the real components, run the real curves.</p>
+      <p>So motion is now <b>fourteen tokens, four verbs and one signature</b>. The first pass was colour and nothing else, and the founder&rsquo;s answer to it was the sentence this page is built around: <i>&ldquo;большинство анимаций я не вижу&rdquo;</i>. So things move now, and exactly one thing stops the movement becoming decoration: <b>every object in this product travels the same 2px, and nothing anywhere travels two.</b> Everything below is live - hover the real components, run the real curves.</p>
     </div>
     <div class="kit-meta">
       <span><strong>4</strong> curves, <strong>5</strong> jobs</span>
-      <span><strong>4</strong> verbs: fade, advance, lift, press</span>
+      <span><strong>4</strong> verbs, and <strong>1</strong> signature</span>
       <span><strong>one</strong> distance: <strong>2px</strong></span>
       <span>hover <strong>150ms</strong>, press <strong>90ms</strong></span>
       <span>the ring: <strong>instant</strong>, on purpose</span>
@@ -73,7 +73,7 @@
   </header>
 
   <section class="kit-sec" id="register">
-    <h2>The register: thirteen tokens, in <code>tokens.css</code></h2>
+    <h2>The register: fourteen tokens, in <code>tokens.css</code></h2>
     <p class="note"><b>Two levels for the curves and one for the durations</b>, and the split is a decision rather than a habit. A second level is earned exactly where two roles would otherwise spell the same value, which is rule 4 of this system read from the other end: <code>--ease-arrive</code> and <code>--ease-state</code> are both expo-out today and can part company, so the curve is named once by shape and the jobs point at it. The two durations share nothing, so there is no shape level under them and inventing one would be a level with nothing in it.</p>
     <p class="note"><b>Motion sits in the primitive half of the file and takes no dark pair</b>, which is not an exception hunting for one. The primitive/semantic split of <code>tokens.css</code> is a split about the THEME axis: a colour is named twice because the same role points at a different value in the dark. No theme moves a curve. What motion has instead is <code>prefers-reduced-motion</code>, and that is a global kill in <code>base.css</code> rather than a per-token override.</p>
 
@@ -95,6 +95,7 @@
           <tr><td colspan="3"><b>Durations, one level, named by job</b></td></tr>
           <tr><td><code>--dur-state</code></td><td><code>150ms</code></td><td>the state change. Under about 100ms it reads as a cut and the transition buys nothing; over about 200ms a hover starts trailing the pointer, which on a list of fourteen rows is the opposite of calm</td></tr>
           <tr><td><code>--dur-press</code></td><td><code>90ms</code></td><td><b>a press, and it is faster than a hover on purpose.</b> A press answers a finger that is already down, so 150ms reads as lag where the same 150ms on a hover reads as soft. The release goes back on <code>--dur-state</code>: quick to take, calm to let go</td></tr>
+          <tr><td><code>--dur-signature</code></td><td><code>900ms</code></td><td><b>the brand&rsquo;s one move</b>, and the only duration here that is not answering a person. Long because it is an arrival rather than a reply: a hover has to keep up with a hand, and this has to be watched</td></tr>
           <tr><td colspan="3"><b>Distance, one value, and it is the whole guard on the movement</b></td></tr>
           <tr><td><code>--nudge</code></td><td><code>2px</code></td><td><b>the one distance anything in this product moves.</b> An arrow advances by it, a mark lifts by it, a control presses down by it, and nothing anywhere travels two. 2 rather than 1 because 1px vanishes on a 2x screen at 36px, and rather than 4 because at 4 a list of fourteen rows starts jumping under the pointer instead of answering it. It is geometry, so it is a primitive read directly and has no role above it: what a nudge MEANS is written by the verb that spends it</td></tr>
           <tr><td><code>--dur-pulse</code></td><td><code>1.4s</code></td><td>the loading placeholder breathing. A literal in <code>skeleton-bar.css</code> since stage 07, with the appointment written on that component&rsquo;s own page</td></tr>
@@ -249,6 +250,14 @@
     <p class="note">Under <code>prefers-reduced-motion</code> all four verbs stop being animations and become states: the guard in <code>base.css</code> takes every duration to 0.01ms, so a hovered mark is simply already lifted. <b>That is deliberate.</b> A 2px offset that appears instantly is not motion, it is a state exactly like a colour, and removing it would take the answer away from the person who asked for stillness rather than giving them one.</p>
   </section>
 
+  <section class="kit-sec" id="signature">
+    <h2>And a fifth thing, which is not a verb: the signature</h2>
+    <p class="note">The founder, 2026-08-16: <i>&ldquo;давай на логотип сделаем анимашку, у нас где-то было расписано как делать анимацию&rdquo;</i>. It was: <a href="../concept/logo-crop.html">the crop direction</a>, the one chosen out of thirteen, is a single letter with a window cut out of it and one sentence holding it together - <b>the tighter the crop, the more abstract the mark</b>. That page demonstrates it with an eight second loop panning across all three canonical windows.</p>
+    <p class="note"><b>What ships is one move, once, on arrival.</b> The window opens to the whole letter and closes into crop A, so the mark begins as a <code>d</code> you can read and becomes a mark you cannot. The last letter of the word takes petrol at the moment it lands.</p>
+    <p class="note"><b>Why it is not a fifth verb.</b> Fade, advance, lift and press are <b>answers</b>: something moves because a person did something. This is an <b>arrival</b>, nobody asked for it, and that is exactly why it is fenced rather than free: <b>one surface</b> (the public page&rsquo;s bar), <b>once per load</b>, never inside the app. The modifier on the lockup is the fence, and the app&rsquo;s 32 lockups do not carry it. A mark that moves every time you open the product is not a signature, it is a fidget.</p>
+    <p class="note"><b><code>--ease-settle</code> gets its second consumer here</b>, and it is the curve&rsquo;s own brief: it was declared for an object arriving at a stop rather than a value being interpolated. A window closing onto a letter and clicking into place is that event. Full specimen, both at the shipping size and magnified, on <a href="brand-mark.html#signature">Brand mark</a>.</p>
+  </section>
+
   <section class="kit-sec" id="census">
     <h2>The census this came out of</h2>
     <p class="note">Taken <b>2026-08-16</b> by script over <code>design/system/</code>, the 56 pages of <code>design/</code>, <code>design/story.js</code>, the stand, and <code>wireframes/</code> read-only, with comments stripped before anything was counted. Motion is the one artefact in this system a screenshot cannot audit: a still frame of a scroll-driven stage and a still frame of a broken one look the same.</p>
@@ -341,6 +350,7 @@
     { id:'curves',   label:'The curves, running' },
     { id:'state',    label:'Fade: the state change' },
     { id:'verbs',    label:'Advance, lift, press' },
+    { id:'signature',label:'The signature' },
     { id:'census',   label:'The census' },
     { id:'guard',    label:'The guard' },
     { id:'open',     label:'What is still open' },
