@@ -895,7 +895,7 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 
 /* Block 9. Real questions as real text, which is what makes the FAQPage schema
    legitimate. A details element, so it opens with no script. */
-.lp-faq { margin-top: 10px; max-width: 620px; border-top: 1px solid var(--line2); }
+.lp-faq { margin-top: 10px; width: 100%; max-width: 620px; border-top: 1px solid var(--line2); }
 .lp-faq details { border-bottom: 1px solid var(--line2); }
 .lp-faq summary { padding: 20px 44px 20px 20px; font-size: 18px; font-weight: 600; cursor: pointer; list-style: none; position: relative; }
 .lp-faq summary::-webkit-details-marker { display: none; }
@@ -921,7 +921,12 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 @media (min-width: 1000px) {
   .lp-wrap:has(.lp-faq) { display: grid; grid-template-columns: 3fr 8fr; column-gap: 48px; align-items: start; }
   .lp-wrap:has(.lp-faq) > .lp-h2 { position: sticky; top: 24px; margin-bottom: 0; }
-  .lp-wrap:has(.lp-faq) > .lp-faq { margin-top: 0; }
+  /* the list holds the right edge while the heading holds the page's left rail,
+     by the founder's decision of 2026-08-16 written on the section in
+     index.html: every other heading on this landing starts at the wrap's left
+     edge, so centring the pair would take this one off a line eight blocks
+     stand on. */
+  .lp-wrap:has(.lp-faq) > .lp-faq { margin-top: 0; margin-left: auto; }
 }
 
 @media (min-width: 760px) {

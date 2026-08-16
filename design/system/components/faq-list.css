@@ -53,6 +53,15 @@
    found by touch. The role is still the right one either way - this line is a
    container edge doing a container edge's job, and the row IS the container. */
 .landing .lp-faq {
+  /* `width` AND `max-width` TOGETHER, and the pair is load bearing rather than
+     belt and braces. An auto margin on a grid item takes the item off stretch
+     and sizes it to its content, so `margin-left: auto` alone collapsed the list
+     to 477px - the longest question plus its padding and its mark - and the
+     answer's 52ch measure then ran wider than the sheet holding it. Measured.
+     With a definite 100% the item is its column's width, the cap takes it to
+     620, and the auto margin has 206px of leftover to absorb instead of the
+     list's own width. */
+  width: 100%;
   max-width: var(--container-column);
   border-top: 1px solid var(--line-container);
 }
@@ -116,6 +125,21 @@
     top: var(--space-96);
     margin-bottom: var(--space-0);
   }
+  /* THE LIST GOES TO THE RIGHT EDGE, 2026-08-16. Capping the rows at 620 left
+     the column 206px wider than the list at 1440, and that air sat between the
+     questions and the edge of the page, which reads as a block that stopped
+     rather than a block that was placed. The founder offered two ways out:
+     "блок с ответами перенесем больше в правую часть или по центру весь блок
+     поставим". This is the first, and the reason to prefer it is the page's
+     LEFT RAIL: every other section's heading on this landing starts at the
+     wrap's left edge, so centring the pair would take this one heading off a
+     line eight other blocks stand on, and a heading 143px in from a rail every
+     neighbour keeps reads as a mistake rather than as a composition. Pushed
+     right instead, the heading holds the rail, the questions hold the opposite
+     edge, and the air is between them where it is doing something. Centring is
+     one line if the founder prefers it: `margin-inline: auto` here and the same
+     on the heading's column. */
+  .landing .lp-section:has(.lp-faq) .lp-faq { margin-left: auto; }
 }
 
 /* ---- the question --------------------------------------------------------

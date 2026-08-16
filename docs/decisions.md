@@ -88,6 +88,19 @@ sits above it, and the list's top border when the open one is first.
 paper on paper says nothing there; it puts the open row one step the other way, on `--panel2`, and
 carries the same inset, the same cap and the same `name`.
 
+**And then the list moved to the right edge**, on the founder's own choice of two: "блок с
+ответами перенесем больше в правую часть или по центру весь блок поставим". The cap had left 206px
+of air inside the column at 1440, sitting between the questions and the edge of the page, which
+reads as a block that stopped rather than one that was placed. The first option was taken and the
+reason is the page's LEFT RAIL: every other section's heading on this landing starts at the wrap's
+left edge, so centring the pair would take this one heading off a line eight other blocks stand on,
+and a heading indented from a rail every neighbour keeps reads as a mistake rather than as a
+composition. Centring is one line if the founder prefers it, and the line is named in the
+component. One thing had to be measured rather than assumed: an auto margin takes a grid item off
+stretch and sizes it to its content, so `margin-left: auto` alone collapsed the list to 477px and
+the answer's 52ch measure then ran wider than the sheet holding it; `width: 100%` beside the cap is
+what makes the margin absorb the leftover instead of the list's own width.
+
 ---
 
 ## 2026-08-16 - The pricing block, fifth build: a podium, a horizon, and less to read
