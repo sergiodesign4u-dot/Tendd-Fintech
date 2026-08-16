@@ -407,5 +407,29 @@ skeleton's 1.4s behind a token, and the state change live on all 68 state rules.
 `motion.html` runs the four against `linear` on one clock, because a curve is the one value in this
 system a still frame cannot show.
 
+**Step 3** (2026-08-16, the same day): the founder could not see the colour-only pass, so three
+verbs followed it, then the signature, then the brand's hover and the button's lift. Fourteen tokens
+in the register and the census recounted by script.
+
+**Step 4** (2026-08-17): the hover the founder rejected on sight was replaced - the crop is played
+rather than held - and the fix uncovered the animation-slot bug that had the arrival replaying on a
+mouse-out.
+
+**Step 5** (2026-08-17), the sweep the founder asked for: *"проверь все атомы что у них есть
+анимация"*. **All 71 rows of the component registry**, each on its own stand, probed at rest, under
+the pointer and under a held button, reading the computed style of the component **and every element
+inside it**, pseudo-elements included; where a stand has no live specimen the probe moved to the
+product page that carries it. **Everything that is a target answers, and nothing that is not moves.**
+The full table is on `motion.html` under "Every component, walked with a pointer".
+
+Two things worth keeping from it. **The first pass reported the tab bar and the merchant mark as
+dead**, because it had hovered the CURRENT tab and a mark standing outside a row: an audit that picks
+its own probe can produce a false negative as easily as a false positive, so each "nothing" was
+re-probed the way a person actually hovers it. And **one honest note**: the checkbox's own hover
+paints `accent-color`, the colour of the box once it is CHECKED, so an unchecked box on its own
+answers with a colour that is not on screen. All 7 checkboxes in the coloured product sit inside a
+`label.switch`, and that row fades, so nobody meets a dead hover today. The day a bare checkbox
+reaches a screen, the answer belongs to the row rather than to the box.
+
 What the stage still owes before `done:true`: nothing in the code. The row flips when the founder
 has walked the page.
