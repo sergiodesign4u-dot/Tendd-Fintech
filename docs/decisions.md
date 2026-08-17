@@ -7,6 +7,164 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-17 - Stage 12 closes, and SAME was never available to a screen inside the shell
+
+Founder: **"давай ставим done:true"**, after the account was written and walked.
+
+**What closed.** The screens of this stage were built across four stages and its ACCOUNT was
+never written, which is the thing a stage is judged on. It is written now at
+`design/rollout.html`: the corpus paired both ways (55 grey, 55 coloured, no orphan on either
+side), an audit row per screen, the four-part ban re-proved on all 55 files rather than the 32 it
+was last proved on, and the width column of the inventory recounted on 72 entries where stage 10
+filled 60. Every figure comes from an instrument that derives its corpus from a registry rather
+than from a list somebody typed, and each keeps its output beside it: `rollout12.cjs`,
+`width12.cjs`, `shape12.cjs`, `fp12.cjs`, `inert12.cjs`, and `counts.cjs` extended.
+
+**The audit correction, and it is the one finding worth more than the sixteen rows that held.**
+Stage 10 wrote what a wider window SHOULD give the person on each screen, in three categories:
+SAME, WIDER by grid, WIDER by air, with new behaviour nowhere. Ten of those seventeen rows had no
+coloured screen to check against. Measured on the built product at a real 360 and a real 1440,
+thirteen hold, **new behaviour is still zero on all seventeen**, and the four that do not hold are
+one finding: **an app-frame screen cannot be SAME.** A flow screen grows to `--container-column`,
+620, and stops, which is exactly what "SAME, container" meant; a screen inside the shell is handed
+the pane, and past the desktop point that pane is 1220 whatever the screen would prefer.
+Connections and Settings were written SAME in a table whose other seven shell screens were all
+WIDER, and no instrument could have caught it because neither screen had been coloured yet. Cancel
+Guide was the fourth and a different mistake: a category that contradicted its own how-column,
+which already read "point 900, two columns already". The note was right.
+
+**What was rejected.** Re-deriving the categories was not: they stand, with three rows corrected
+and the reasoning printed beside them. What this stage refused is the tempting version of the
+correction - rewriting stage 10's table in place so it looks as though it was always right. The
+table keeps the corpus it was written against and the correction sits under it, because a record
+that silently updates itself stops being evidence.
+
+---
+
+## 2026-08-17 - A reading measure belongs to the line, not to the box around it
+
+The stage-12 width sweep, 55 pages by 58 widths, found **seven prose blocks reading past the
+system's 52ch measure**, four of them on screens no sweep had ever walked: a cancellation step at
+**81.2 characters**, the landing story head's lead at 80.2, the Connect Bank email hint at 77.6,
+the Pro gate's sentence at 77.3, a blocked step at 60.8, the prose card at 59.5 and the share
+snapshot's privacy paragraph at 58.3. All seven are fixed, in five component files.
+
+**The rule they leave behind.** `ch` is a unit of the ELEMENT'S OWN FONT. The story head already
+carried `max-width: var(--container-text)`, so it looked measured; the head is 16px and the lead
+inside it two type steps smaller, so the same box read 52ch for the heading and 80 for the
+sentence. A cap on a container measures the container. The measure goes on the element that holds
+the words, every time.
+
+**One computed width, and it is the only one in the system.** The numbered step carries a 40px
+gutter for its numeral and `box-sizing` is border-box, so `--container-text` alone would have given
+the sentence about 47 characters. It is `calc(var(--container-text) + var(--space-40))`, built out
+of two declared values rather than a third number nobody can justify.
+
+**The prose card's open question is answered, and it is the first of the two answers stage 10
+offered.** 560 stays as the width of the CARD, a box with padding, a border, three sentences and a
+list; the paragraph and the list items inside take the system's measure like every other prose leaf.
+The alternative, 560 standing as a declared exception with a 59.5ch line inside it, was rejected on
+the ground above: the card is not the thing being read, the sentence is.
+
+**And the last unregistered width number in the product went with them.** The landing story head
+capped itself at `38rem`, a literal written on 2026-08-15 with the hero the founder chose, which is
+after stage 10's register closed. It was not registered, it was replaced: the same head is already
+given `width: min(var(--container-column), 44cqw)` in its stage form, so the cap is
+`--container-column` now. One box, one owner, 12px wider below the stage's own threshold and
+identical above it.
+
+**Measured both ways:** zero boxes differ at 360 on all 55 pages, which is the half of the promise
+that is not allowed to move, and at 1440 sixteen pages and 137 boxes moved, of which 32 changed
+width and every one of those is one of the seven rules.
+
+---
+
+## 2026-08-17 - The shell's blanket goes to zero specificity, and the seventh unbinding was the sheet
+
+The shell releases every direct child of `.screen` past the desktop point, because a screen's blocks
+are allowed to use the pane there instead of reading down a column. It was written
+`.app > .screen > * { max-width: none }`, which is **0-2-0**, and a component that declares its own
+measure as `.app .readout` is also 0-2-0 and loses on source order, because `app-shell.css` is an
+organism and is imported after every atom. **Six measures were unbound that way**, one at a time,
+each found only when somebody measured that exact element: the form column, the Pro gate, the plan
+row, the readout, the groups cap and a standalone muted line. Five was a pattern; six was a
+generator.
+
+**The named list was tried first and rejected on two grounds.** The plan `backlog.md` carried was to
+replace `*` with the blocks that may widen. Read off the corpus at 1440 the list is fourteen
+selectors, and one member has no name to be listed by: the skeleton frame on
+`history-trends-loading` is a bare `<div aria-hidden="true">`, and that file's own comment says the
+frame must not move when the numbers land, so it has to widen exactly as the chart it stands in for.
+Naming it would mean inventing a hook in markup the freeze governs. The second ground is worse than
+the first: a list has to be remembered by every block added after it.
+
+**`:where()` does the same reversal with no list.** Both blankets and the detail re-release are
+written inside it, so they match what they always matched at specificity zero: anything that
+declares a measure of its own now wins, at any specificity, in any file, written by somebody who has
+never read the comment, and anything silent about width still gets `--container-page` at the tablet
+point and the pane past the desktop one.
+
+**It found the seventh on the way out, and the seventh is the only one that was still live.**
+`dialog-sheet.css` has declared `max-width: 480px` since stage 08 with its reason on the rule - a
+sheet asks one question, and a column narrower than the flow's 620 makes that question look like one
+question - and it had never once rendered past the tablet point. The sheet ran the full 588 column
+on `cancel-guide-blocked`, `connections-add-source` and `data-privacy-delete-confirm`. Measured:
+**zero boxes at 360, three pages and 49 boxes at 1440, every one of them that sheet.** The change
+restores what the component already says rather than deciding anything new, and it is one line to
+revert if the wider sheet was the wanted look.
+
+---
+
+## 2026-08-17 - Three rows answered by measuring rather than by fixing
+
+**The focus order in the rail form.** Opened at stage 10 on one screen at one width: the rail's head
+takes focus first and its four destinations last, with the content pane between them. Re-read at
+stage 12 across **all 55 coloured pages at 360 and at 1440**: every page tabs `bar, content, nav`,
+or a subset where a screen has no rail, and **not one page changes its order with width**. There is
+no width-dependent defect; there is one order, the same on a phone and on a desk, and it is content
+before navigation - the order a skip link exists to create artificially. Rejected: reordering the DOM
+by width, which needs script or duplicated markup and puts four destinations in front of the first
+word for anybody tabbing on a phone. Left open as the founder's option: a skip link, which is a new
+product string and belongs to `voice/docs/microcopy.md` before it belongs to a layout stage.
+
+**`.lead` is not owed a component.** The row assumed two meanings and there are three. `.muted.lead`
+is a declared margin modifier of the muted line, on 9 coloured pages, and it keeps the word. Bare
+`.lead` stands on exactly two pages, in two hosts, with two rules and two jobs: the nudge over the
+save-focus candidates and the sentence under the landing's story head. By rule 1 of `inventory.md`
+those are host slots, the same shape as `.gate > p` and `.oncard .k`. Promoting a name that three
+rules disagree about is how a collision becomes a component. The true fix is a rename, and a rename
+is markup, which the freeze puts behind a founder's decision written into the file it changes.
+
+**A stand owns its chrome.** `design/kit/kit.html` carried a `<style>` block and the row called it
+the one page in the stand that a screen-level reading of `CLAUDE.md` would call a violation. A
+screen-level reading is the wrong reading: the ban is on a SCREEN, and this is a stand, which is the
+licence `design/overview.html` already carries in writing and `design/rollout.html` uses too. Moving
+59 lines of one page's furniture into the shared `_page.css` was rejected on that ground. What the
+page actually lacked was a way in: `kit.html` and `shell.html` are both in `design/kit/_nav.js` now,
+in the System group, and the registry reads 85 of 85.
+
+---
+
+## 2026-08-17 - The counter reads both copies of the sentence it checks
+
+`counts.cjs` had verified the per-component footprint since stage 11 and reported zero drift. It was
+reading the **CSS header alone**, and that sentence lives twice: every component page repeats it as
+"Lives in ... Stands on ...". The half it did not read is the half that drifted -
+`brand-mark.css` said 55 coloured pages while `brand-mark.html` said 32. **An instrument that checks
+one of two copies reports the copy it checks, not the claim.**
+
+It reads both now, in separate columns because the two can be wrong separately, and the first run of
+the second column found **18 pages disagreeing** on a corpus the old run called clean. All 18 were
+rewritten with recomputed figures and regenerated screen lists, by hand, because several carry a
+breakdown a script must not flatten. Of the other 28 occurrences of a stale corpus figure, 19 were
+live claims and are recounted and 9 are stage records that now name the corpus they were measured
+on. **Nine of the live ones were the same "checked rather than assumed" sweep in nine files**, all
+run when the corpus was 28 or 32 pages: re-typing the number would have been asserting as measured
+something about a product that no longer exists, so they were re-run instead, by `inert12.cjs`, over
+both corpora at 55 pages each. Every one still reads zero.
+
+---
+
 ## 2026-08-17 - The back control is bold, its mark is an arrow, and four links stopped leaving the product
 
 Founder, on the app bar: **"кнопочка и стрелочка Back - давай сделаем может жирным шрифтом и

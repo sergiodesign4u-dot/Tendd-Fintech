@@ -116,7 +116,19 @@ window.NAV = [
   // design/kit/, because this stage's material is the SCREENS and the kit's is the system;
   // it carries the project roadmap, the way design/overview.html does, since the coloured
   // screen registry is the panel of a screen and not of a stage account.
-  { label:'Rollout',             page:'design/rollout.html', ready:true, done:false },
+  //
+  // CLOSED 2026-08-17, by the founder, the same day it took the page: "давай ставим
+  // done:true". `ready` is left beside `done` exactly as the animation row left it, and
+  // for the record it made the row a link for about four hours rather than a stage.
+  //
+  // WHAT "done" COVERS HERE, because this stage's screens were built before it opened and
+  // the word could be read as covering them: the ACCOUNT. 55 grey pages paired against 55
+  // coloured with no orphan on either side, an audit row per screen measured at 360 and
+  // 1440, the four-part ban re-proved on all 55 files, the inventory's width column
+  // recounted on 72 entries, and eight rows addressed to the stage closed - three of them
+  // by measuring rather than by fixing. Three things are left to the founder and none of
+  // them is a defect: a skip link, a rename, and one line to revert the dialog sheet's 480.
+  { label:'Rollout',             page:'design/rollout.html', ready:true, done:true },
   { label:'Handoff',             page:null, done:false },
 ];
 
