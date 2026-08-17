@@ -409,7 +409,7 @@ so the hairline is the load-bearing separator in both directions and the pair ho
 relationship rather than merely existing. The destinations read at **5.37:1 at rest and 6.23:1
 current** light, **5.77:1 and 6.82:1** dark.
 
-### Found and not fixed: the focus order in the rail form
+### Found at stage 10, answered at stage 12: the focus order in the rail form
 
 Measured on `design/home.html` at 1440 across 23 focusable controls. The rail's head takes focus
 **first**, the eighteen controls of the content pane come next, and the four destinations, which
@@ -424,6 +424,18 @@ markup, which on a phone would put four destinations in front of the content for
 tabs, so the order has to differ by width in the DOM. That is a decision about 53 pages rather
 than 33, and it is carried in `backlog.md` for stage 12, where the remaining screens get their
 markup for the first time.
+
+**Stage 12 answered it by measuring the whole product instead of one screen, 2026-08-17.** The
+tab order was read on **all 55 coloured pages at 360 and at 1440**: every page tabs `bar, content,
+nav`, or a subset of it where a screen has no rail, and **not one page changes its order with
+width**. So there is no width-dependent defect to repair. There is one order, the same one on a
+phone and on a desk, and it is content before navigation - which is the order a skip link exists
+to create artificially on sites that do not have it. The three ways out were weighed and named:
+reordering the DOM by width needs script or duplicated markup and puts four destinations in front
+of the first word for anybody tabbing on a phone; a skip link is a new product string and belongs
+to `voice/docs/microcopy.md` before it belongs to a layout stage; keeping the order costs nothing
+and is what shipped. **The row is closed as a decision, with the skip link left as the founder's
+option**, since it is the only one of the three that would improve anything.
 
 ### The blanket that released the pane, and what it cost until 2026-08-17
 

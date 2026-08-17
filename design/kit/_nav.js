@@ -31,9 +31,18 @@ window.KIT_NAV = {
      Width is deliberately NOT repeated here even though it is the roadmap page of
      stage 10: it is a foundation of this system before it is a stage document, and
      one page in two groups of one panel is a second entrance to one room. */
+  /* TWO PAGES JOINED THIS GROUP ON 2026-08-17, and they joined it because they
+     existed and were reachable from nowhere. `rollout12.cjs` counts the folder
+     against this registry: 85 pages on disk, 83 named. The two it named are not
+     strays - one is the flat showcase stage 07 built and the README still links,
+     the other is the template a screen is copied from - and a page that is
+     material but appears in no registry is exactly what `CLAUDE.md` calls an
+     artefact with no visible place. */
   system: [
     { name: 'Why the system is like this', file: 'why.html', page: 'why.html', note: 'the guide: why it looks like this, how to use it, how to grow it' },
-    { name: 'Tokens and components',       file: 'overview.html', page: 'overview.html', note: 'the account of stage 08, its steps and the whole material as cards' }
+    { name: 'Tokens and components',       file: 'overview.html', page: 'overview.html', note: 'the account of stage 08, its steps and the whole material as cards' },
+    { name: 'The screen template',         file: 'shell.html', page: 'shell.html', note: 'the markup a coloured screen is copied from: the shell, the bar, the pane, the carrier' },
+    { name: 'The flat kit, stage 07',      file: 'kit.html', page: 'kit.html', note: 'every component on one page, as stage 07 built it, before the per-component pages replaced it' }
   ],
 
   foundations: [
