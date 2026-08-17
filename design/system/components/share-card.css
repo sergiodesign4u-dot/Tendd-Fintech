@@ -87,3 +87,25 @@
   font-size: var(--type-body);
   color: var(--text-body);
 }
+
+/* ---- the proof beside the card, and it is a lodger rather than a part ------
+   `.oncard` is the block under the picture that names the three things on it:
+   an eyebrow and one paragraph, on `share-snapshot` and its two states. It is a
+   ONE-OFF WITH NO COMPONENT - nothing in `design/system/` declares `.oncard`
+   itself - and this rule does not make it one. What it does is give its
+   paragraph the reading measure, because the stage 12 width sweep caught it at
+   **58.3 characters to a line**, 588px at a 640 window, and an unowned block is
+   still a block a person reads.
+
+   WHY HERE. There is a precedent and a principle and they agree. `eyebrow.css`
+   already reaches into this same block for `.oncard .k`, so the pattern of a
+   component owning a slice of it exists; and of the two files that could hold
+   this, the eyebrow is an atom that would be declaring a paragraph's width,
+   while this file is the component the block stands beside and whose own header
+   already says that "the copy beside it names the three things that are on it,
+   which is proof rather than a promise". The subject of the rule is the thing
+   the rule is about.
+
+   THE ROW STAYS OPEN. `.oncard` still has no home of its own and `docs/
+   backlog.md` still carries it beside `.lead`: a measure is not an owner. */
+.app .oncard p, .landing .oncard p { max-width: var(--container-text); }

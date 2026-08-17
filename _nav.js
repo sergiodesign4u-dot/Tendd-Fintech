@@ -107,7 +107,16 @@ window.NAV = [
   // per screen, the ban on a width rule in a screen file, the width column of
   // the inventory. A consumer with no row in either owner of status is a stage
   // that nothing schedules and nobody checks off. Founder, 2026-08-13.
-  { label:'Rollout',             page:null, done:false },
+  //
+  // IT TOOK A PAGE ON 2026-08-17, on the same `ready` the animation row used and for
+  // the same reason: the screens of this stage have been on disk since before it opened,
+  // so the thing worth reading during it is the ACCOUNT of them, and a row with no link
+  // hides that until the stage ends. `done` stays false until the founder walks the page,
+  // which is how stage 11 closed. The page is design/rollout.html rather than a page under
+  // design/kit/, because this stage's material is the SCREENS and the kit's is the system;
+  // it carries the project roadmap, the way design/overview.html does, since the coloured
+  // screen registry is the panel of a screen and not of a stage account.
+  { label:'Rollout',             page:'design/rollout.html', ready:true, done:false },
   { label:'Handoff',             page:null, done:false },
 ];
 

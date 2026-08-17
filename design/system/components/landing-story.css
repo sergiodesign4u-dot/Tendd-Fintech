@@ -118,8 +118,17 @@
   line-height: 1.25;
   color: var(--text-primary);
 }
+/* THE MEASURE GOES ON THE LINE, and this element is the reason the rule is
+   worth stating rather than assuming. `.storyhead` above carries
+   `max-width: var(--container-text)`, so the head looked measured; but `ch` is a
+   unit of the ELEMENT'S OWN FONT, the head is 16px and this lead is two type
+   steps under it, so the same box that reads 52ch for the heading read **80.2
+   characters** for the sentence, measured at a 720 window by the stage 12 sweep.
+   It was the worst measure on the public page and the second worst in the
+   product. A cap on a container measures the container. */
 .landing .storyhead .lead {
   margin: var(--space-0) var(--space-0) var(--space-8);
+  max-width: var(--container-text);
   font-size: var(--type-body);
   color: var(--text-muted);
 }
@@ -207,11 +216,22 @@
    centre of gravity. Here the head is the heading and its paragraph, quiet and
    left aligned, and the two numbers stay in the corners they arrived in and
    count down there. */
+/* 38rem WAS A LITERAL IN NO REGISTER AND IT IS `--container-column` NOW,
+   2026-08-17, stage 12. The value arrived on 2026-08-15 with the hero the
+   founder chose, which is after stage 10's width register closed, and it was the
+   only unregistered width number left in the product: `docs/responsive.md` keeps
+   a register precisely so that a grep cannot tell a measured threshold from a
+   number somebody guessed at. It is not registered here, it is REPLACED, and the
+   replacement was already in this component: the same head is given
+   `width: min(var(--container-column), 44cqw)` in the stage form thirty rules
+   further down `landing-orbit.css`. One box, one owner, one declared value.
+   38rem is 608px and `--container-column` is 620, so the head is 12px wider
+   below the stage's own threshold and identical above it. */
 .landing .lp-story.fromcircle .storyhead {
   justify-self: start;
   justify-items: start;
   text-align: left;
-  max-width: 38rem;
+  max-width: var(--container-column);
 }
 .landing .lp-story.fromcircle .storyhead h2 { font-size: var(--type-head); }
 

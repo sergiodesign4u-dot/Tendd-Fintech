@@ -66,9 +66,32 @@
    read once; this one is read a line at a time while a person is doing
    something else on another screen, and the second tier is the wrong place for
    an instruction being followed. */
+/* THE READING MEASURE, AND IT IS THE ONLY ONE IN THIS SYSTEM WITH ARITHMETIC IN
+   IT. Added 2026-08-17, stage 12, from the width sweep over the whole coloured
+   product: a step on `design/cancel-guide.html` read **81.2 characters to a
+   line** at a 750 window, 718px, which was the worst line in the product and the
+   worst possible place for one. This file already argues in its own header that
+   this list is read a line at a time while a person is doing something else on
+   another screen, and that is why the ink here is full rather than muted; an
+   81ch instruction is that argument thrown away.
+
+   WHY NOT PLAIN `--container-text`. `box-sizing` is `border-box` everywhere, so
+   a 52ch cap on this element would be 52ch of BOX and the numeral's 40px gutter
+   eats into it: the sentence would read about 47 characters, which is short of
+   the measure rather than at it. The 40 is `padding-left` on this same rule, so
+   the cap is the measure plus the gutter and the words land at 52ch exactly.
+   This is the one place the system computes a width, and it computes it out of
+   two declared values rather than arriving at a third number.
+
+   THE MEASURE IS ON THE LINE AND NOT ON THE LIST. Capping `.steps` would give
+   the same pixels today and the wrong rule tomorrow: the sweep's other finding
+   was a 52ch cap set on a box at 16px with a 12px line inside it, reading 80ch,
+   because `ch` is a unit of the element's own font. A measure belongs to the
+   element that holds the words. */
 .app .steps li, .landing .steps li {
   position: relative;
   padding: var(--space-4) var(--space-0) var(--space-16) var(--space-40);
+  max-width: calc(var(--container-text) + var(--space-40));
   font-size: var(--type-body);
   color: var(--text-primary);
 }

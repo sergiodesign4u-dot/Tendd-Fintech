@@ -133,18 +133,18 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Charge list | `.charges` | state: marked | 5 | - | `charge-list.css` | `charge-list.html`  | does not adapt |
 | Detail hero | `.hero` | - | 6 | - | `detail-hero.css` | `detail-hero.html`  | does not adapt |
 | Door | `.door` | content: with a pick line / without | 4 | - | `door.css` | `door.html`  | does not adapt |
-| Form field | `.field` | host: div / form (the search) | 8 | - | `form-field.css` | `form-field.html`  | does not adapt |
+| Form field | `.field` | host: div / form (the search) | 8 | - | `form-field.css` | `form-field.html`  | a reading measure on the hint, since 2026-08-17. No query |
 | Group head | `.group-head` | rule: banded / plain | 16 | - | `group-head.css` | `group-head.html`  | does not adapt |
 | Merchant chip group | `.rgroup` | - | 1 | - | `merchant-chip-group.css` | `merchant-chip-group.html`  | fluid |
 | Nav row | `.navrow` | - | 2 | - | `nav-row.css` | `nav-row.html`  | does not adapt |
-| Numbered steps | `.steps` | - | 3 | - | `numbered-steps.css` | `numbered-steps.html`  | does not adapt |
+| Numbered steps | `.steps` | - | 3 | - | `numbered-steps.css` | `numbered-steps.html`  | a reading measure on the step, since 2026-08-17: `--container-text` plus the numeral gutter, the one computed width in the system. No query |
 | Pair list | `.pairs` | markup: dt/dd / span. content: values / sentences | 19 | `.facts`, `.unlocks` | `pair-list.css` | `pair-list.html`  | does not adapt |
 | Plan option | `.plan-opt` | host: app / landing | 2 | - | `plan-option.css` | `plan-option.html`  | does not adapt |
 | Preset tile | `.tile` | state: pressed | 2 | - | `preset-tile.css` | `preset-tile.html`  | does not adapt |
 | Promise list | `.promises` | - | 3 | - | `promise-list.css` | `promise-list.html`  | a reading measure |
 | Range picker | `.range` | availability x selection: rest / pressed / disabled / disabled+pressed | 3 | - | `range-picker.css` | `range-picker.html`  | does not adapt |
 | Save-focus candidate | `.cand` | - | 1 | - | `save-focus-candidate.css` | `save-focus-candidate.html`  | container threshold, 28.75rem, + fluid |
-| Share card | `.sharecard` | - | 2 | - | `share-card.css` | `share-card.html`  | does not adapt |
+| Share card | `.sharecard` | - | 2 | - | `share-card.css` | `share-card.html`  | a reading measure since 2026-08-17, and it is on `.oncard`, the one-off standing beside the card, rather than on the card itself |
 | Subscription row | `.row` | state: skeleton. host: list / candidate | 8 | - | `subscription-row.css` | `subscription-row.html`  | container threshold, 28.75rem, + fluid |
 | Summary | `.summary` | content: with a total / without | 5 | - | `summary.css` | `summary.html`  | does not adapt |
 | Switch row | `.switch` | - | 2 | - | `switch-row.css` | `switch-row.html`  | does not adapt |
@@ -152,36 +152,56 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Trust block | `.trust` | - | 11 | - | `trust-block.css` | `trust-block.html`  | does not adapt |
 | Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without | 13 | `.attention`, `.notice`, `.decoder` | `wash-block.css` | `wash-block.html`  | a reading measure |
 
-## Organisms (14)
+## Organisms (26)
 
 | Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
 |---|---|---|---|---|---|---|---|
 | App bar | `.appbar` | form: row / column rail at container 760 | 54 | - | `app-bar.css` | `app-bar.html`  | point |
 | App shell | `.app` | form: steady / flow / detail | 54 | - | `app-shell.css` | `app-shell.html`  | point + fluid |
-| Card | `.card` | - | 3 | `.locked`, `.source` | `card.css` | `card.html`  | a reading measure, 560px, and no query since stage 10 |
+| Card | `.card` | - | 3 | `.locked`, `.source` | `card.css` | `card.html`  | a reading measure, 560px on the card and `--container-text` on the prose inside it since 2026-08-17, and no query since stage 10 |
 | Category group | `.group` | - | 12 | - | `category-group.css` | `category-group.html`  | point |
 | Dashboard head | `.head` | exists only at container 900 | 5 | - | `dashboard-head.css` | `dashboard-head.html`  | point + fluid |
 | Dialog sheet | `.sheet` | full width, then a card at container 760 | 3 | - | `dialog-sheet.css` | `dialog-sheet.html`  | point |
 | Divided list | `.divlist` | inset: bare / inside a panel | 4 | `.alerts`, `.navrows` | `divided-list.css` | `divided-list.html`  | does not adapt |
 | Empty block | `.empty` | - | 2 | - | `empty-block.css` | `empty-block.html`  | a reading measure |
 | Grid | `.grid` | columns: 1 to 2 / 2 to 3. gap by child size | 8 | `.doors`, `.tiles`, `.plans` | `grid.css` | `grid.html`  | point + fluid |
-| FAQ list | `.lp-faq` | - | 1 | `.lp-faq` | `faq-list.css` | `faq-list.html`  | does not adapt |
-| Landing bar | `.lp-nav` | links: hidden / shown | 1 | `.lp-nav` | `landing-bar.css` | `landing-bar.html`  | links appear at 47.5rem |
-| Landing hero | `.lp-h1`, `.lp-lead` | - | 1 | `.lp-h1`, `.lp-lead` | `landing-hero.css` | `landing-hero.html`  | the promise's TYPE and no box. It owned `.lp-hero`'s centred column until 2026-08-15; the founder chose the round window, and the three layout rules were deleted with the page that wrote the class. It stands inside `.osay` now |
+| FAQ list | `.lp-faq` | - | 1 | `.lp-faq` | `faq-list.css` | `faq-list.html`  | point 56.25rem: the heading stands beside the list and sticks to it while a question is open; the answer keeps the 52ch measure |
+| Landing bar | `.lp-nav` | links: hidden / shown | 1 | `.lp-nav` | `landing-bar.css` | `landing-bar.html`  | point 47.5rem: the links appear. The bar itself wraps at any width |
+| Landing hero | `.lp-h1`, `.lp-lead` | - | 1 | `.lp-h1`, `.lp-lead` | `landing-hero.css` | `landing-hero.html`  | two reading measures and no query at all: 14ch on the promise, because a promise is not prose, and 52ch on the lead |
 | Landing shell | `.landing` | band: canvas / surface | 1 | `.landing` | `landing-shell.css` | `landing-shell.html`  | measure and rhythm grow at 47.5rem |
-| Landing orbit | `.lp-orbit` | column / spread | 1 | `.lp-orbit`, `.osay`, `.orbit`, `.obands`, `.orow`, `.otrack`, `.ochip`, `.ocount`, `.ototal` | `landing-orbit.css` | `landing-orbit.html`  | THE LANDING'S HERO since 2026-08-15, a candidate before that. A spread at 72rem, and three local points (60, 75, 85rem) still unregistered, which is now a backlog row rather than a candidate's licence. `.orbit` and what it holds are host-free: the hero places one and the story's stage places another |
-| Landing story | `.lp-story` | cards: over the list / beside it | 1 | `.lp-story`, `.storypin`, `.storyhead`, `.storystack`, `.storyswap`, `.storylist`, `.sline`, `.swap`, `.storyasides`, `.scard`, `.cut1`, `.cut2`, `.cut3`, `.live`, `.gone` | `landing-story.css` | `landing-story.html`  | `.storyfigs` and `.storystack .count` deleted 2026-08-15 with the centred hero; `.storyfield`, `.srow`, `.strack`, `.stile`, `@keyframes sdrift` and `@keyframes sgather` deleted 2026-08-16, the shape that lost, 89 lines. `.fromcircle` stays in the markup and in the selectors: it is the component's name now rather than a modifier, and dropping the word would be a rename across 257 selector sites. The line and the lead grow at 47.5rem; the cards move beside the list at 80rem; the list's travel is arithmetic, not a point |
-| Landing steps | `.lp-steps` | one rail, three ordinals, three product pictures | 1 | `.lp-steps`, `.lp-step`, `.sord`, `.sdemo`, `.dgrid`, `.drow` | `landing-steps.css` | `landing-steps.html`  | organism, added and then rebuilt 2026-08-15. Hosts logo (including the initials mode), amt and chip; carries no card and no string the product does not already own. `.sord` replaced `.snum`, which numbered-steps.css declared and no longer does |
-| Landing paths | `.lp-paths` | door: bank / presets | 1 | `.lp-paths`, `.lp-path`, `.pdemo` | `landing-paths.css` | `landing-paths.html`  | organism, added 2026-08-15. Two doors side by side above the desktop point, stacked below it; each ends in a peek at the screen it opens, masked away at the card's edge. Hosts the card's own `.top` and `.kind`, logo, chip, pair list and preset tile |
-| Landing facts | `.lp-facts` | claim: with a proof / on its own. panel: anchor / short / wide | 1 | `.lp-trust ul` | `landing-facts.css` | `landing-facts.html`  | organism, added 2026-08-15, replacing the promise list on the landing. Four claims in recessed panels on the trust band, three of them beside the object that settles them; the panels turn their proof out to the right past the desktop point. Hosts pair list, button and switch row with its checkbox |
-| Landing plan | `.lp-plan` | one plan, three ways to pay, on the page's one wash | 1 | - | `landing-plan.css` | `landing-plan.html`  | organism, added 2026-08-15. The band, its plan row (moved here from `grid.css` with its `@media` turned into a `@container`) and the single included-list under all three prices. Reads `--wash-pricing`, the one non-colour role in `tokens.css`. Hosts plan option and eyebrow |
-| Landing final | `.lp-final` | the last word, on a sheet, on a horizon | 1 | - | `landing-final.css` | `landing-final.html`  | organism, added 2026-08-16, **moved out of `landing-shell.css`** the day it stopped being a fill: the band, the sheet its message stands on (the wrap itself) and the foot fade into the footer's paper. Reads `--wash-final`, the second non-colour role. Hosts the button and the muted line |
+| Landing orbit | `.lp-orbit` | column / spread | 1 | `.lp-orbit`, `.osay`, `.orbit`, `.obands`, `.orow`, `.otrack`, `.ochip`, `.ocount`, `.ototal` | `landing-orbit.css` | `landing-orbit.html`  | container thresholds, every one of them local and every one asking the named container `story`: 60rem the spread, 75rem the corner figures, 85rem the widest band. Plus the only height question in the product, 42.5rem |
+| Landing story | `.lp-story` | cards: over the list / beside it | 1 | `.lp-story`, `.storypin`, `.storyhead`, `.storystack`, `.storyswap`, `.storylist`, `.sline`, `.swap`, `.storyasides`, `.scard`, `.cut1`, `.cut2`, `.cut3`, `.live`, `.gone` | `landing-story.css` | `landing-story.html`  | point 47.5rem, where the line and the lead grow, then 80rem of the PAGE container, where the cards move beside the list; the list travel is arithmetic rather than a point. Its head caps itself at **38rem**, a literal in no register: backlog row, 2026-08-17 |
+| Landing steps | `.lp-steps` | one rail, three ordinals, three product pictures | 1 | `.lp-steps`, `.lp-step`, `.sord`, `.sdemo`, `.dgrid`, `.drow` | `landing-steps.css` | `landing-steps.html`  | point 56.25rem: three columns, each rail ending at its own block |
+| Landing paths | `.lp-paths` | door: bank / presets | 1 | `.lp-paths`, `.lp-path`, `.pdemo` | `landing-paths.css` | `landing-paths.html`  | point 56.25rem: two doors side by side, stacked below it |
+| Landing facts | `.lp-facts` | claim: with a proof / on its own. panel: anchor / short / wide | 1 | `.lp-trust ul` | `landing-facts.css` | `landing-facts.html`  | point twice: two columns at 47.5rem, and at 56.25rem each wide claim turns its proof out beside it. The claim keeps the 52ch measure |
+| Landing plan | `.lp-plan` | one plan, three ways to pay, on the page's one wash | 1 | - | `landing-plan.css` | `landing-plan.html`  | point 47.5rem, three rules deep: the three prices stand in a row, the band wash follows them, and the chosen plan lifts out of the row |
+| Landing final | `.lp-final` | the last word, on a sheet, on a horizon | 1 | - | `landing-final.css` | `landing-final.html`  | point 47.5rem: the closing message becomes a sheet on the wash, with a horizon into the footer paper |
 | Site footer | `.lp-footer` | form: two columns / four columns, plus the bar at the foot | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem, the bar's two ends part at 56.25rem |
 | Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
-| Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | does not adapt |
+| Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | a reading measure since 2026-08-17, on the gate's sentence. No query |
 | Reveal step | `.rstep` | - | 1 | - | `reveal-step.css` | `reveal-step.html`  | does not adapt |
 | Save-focus list | `.candidates` | - | 1 | - | `save-focus-list.css` | `save-focus-list.html`  | does not adapt |
 | Tab bar | `.tabbar` | form: bottom bar / left rail at container 760 | 28 | - | `tab-bar.css` | `tab-bar.html`  | point |
+
+## The eight public-page organisms: what each one is, and what it hosts
+
+**Moved here at stage 12, 2026-08-17, out of the width column of the table above.** Eight of the
+twelve entries that arrived after stage 10 had their "behaviour at width" cell filled with what the
+organism IS: when it was added, what it replaced, which components it hosts. All of it is worth
+keeping and none of it is an answer to the question that column asks, which is why the column read
+as filled on 72 rows while nine of them said nothing about width. The width answers are in the
+table; the provenance is here, verbatim.
+
+| Organism | What it is, and what it hosts |
+|---|---|
+| **Landing hero** | the promise's TYPE and no box. It owned `.lp-hero`'s centred column until 2026-08-15; the founder chose the round window, and the three layout rules were deleted with the page that wrote the class. It stands inside `.osay` now |
+| **Landing orbit** | THE LANDING'S HERO since 2026-08-15, a candidate before that. `.orbit` and what it holds are host-free: the hero places one and the story's stage places another. Its three local thresholds were unregistered until 2026-08-16 and are in the container-threshold register now |
+| **Landing story** | `.storyfigs` and `.storystack .count` deleted 2026-08-15 with the centred hero; `.storyfield`, `.srow`, `.strack`, `.stile`, `@keyframes sdrift` and `@keyframes sgather` deleted 2026-08-16, the shape that lost, 89 lines. `.fromcircle` stays in the markup and in the selectors: it is the component's name now rather than a modifier, and dropping the word would be a rename across 257 selector sites |
+| **Landing steps** | organism, added and then rebuilt 2026-08-15. Hosts logo (including the initials mode), amt and chip; carries no card and no string the product does not already own. `.sord` replaced `.snum`, which numbered-steps.css declared and no longer does |
+| **Landing paths** | organism, added 2026-08-15. Each door ends in a peek at the screen it opens, masked away at the card's edge. Hosts the card's own `.top` and `.kind`, logo, chip, pair list and preset tile |
+| **Landing facts** | organism, added 2026-08-15, replacing the promise list on the landing. Four claims in recessed panels on the trust band, three of them beside the object that settles them. Hosts pair list, button and switch row with its checkbox |
+| **Landing plan** | organism, added 2026-08-15. The band, its plan row (moved here from `grid.css` with its `@media` turned into a `@container`) and the single included-list under all three prices. Reads `--wash-pricing`, the one non-colour role in `tokens.css`. Hosts plan option and eyebrow |
+| **Landing final** | organism, added 2026-08-16, **moved out of `landing-shell.css`** the day it stopped being a fill: the band, the sheet its message stands on (the wrap itself) and the foot fade into the footer's paper. Reads `--wash-final`, the second non-colour role. Hosts the button and the muted line |
 
 ## Patterns (3), added at stage 09
 

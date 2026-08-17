@@ -97,6 +97,20 @@ another category only when there is ground for it.
 
 **SAME 8** (2, 3, 5, 6, 11, 12, 15, 17) · **WIDER 9** (grid 6, air 3) · **NEW BEHAVIOUR 0**
 
+> **CHECKED AGAINST THE BUILT PRODUCT AT STAGE 12, 2026-08-17, and three rows of this table were
+> wrong.** Ten of the seventeen rows above had no coloured screen to check against when they were
+> written. Measured by `design/kit/screens/shape12.cjs` at a real 360 and a real 1440: thirteen
+> rows hold, **new behaviour is still zero on all seventeen**, and the three that do not hold are
+> one finding rather than three. **SAME was never available to a screen inside the shell.** A flow
+> screen grows to `--container-column`, 620, and stops, which is what "SAME, container" meant;
+> a shell screen is handed the pane, and past the desktop point that pane is 1220 whatever the
+> screen would prefer. Rows 15 Connections and 17 Settings are shell screens written SAME, and
+> Connections also puts its source doors 1 to 2. Row 10 Cancel Guide is the third, and it is a
+> category that contradicted its own how-column, which already read "point 900, two columns
+> already": the note was right. Row 13 History and Trends is a fourth disagreement in wording only,
+> where "WIDER grid" was written for a chart that grows, which is air. The full row-by-row is on
+> `design/rollout.html`.
+
 ### Why new behaviour is zero, and that is an answer rather than a gap
 
 Mechanically the split-view threshold is met twice. `ia/docs/flows.md:171` gives the pair
@@ -452,6 +466,12 @@ that row in a column of its own. The rule is now true instead of accidentally tr
 > window. Four of the six adapt at the registered 47.5rem and two do not, so the shape of the table
 > is unchanged and its numbers are not. They are recounted in one pass when the corpus stops
 > moving, which is `backlog.md`'s open count-drift row; until then this section reads 60 and 57.
+>
+> **THAT TRIGGER FIRED ON 2026-08-17 AND THE RECOUNT IS BELOW THE TABLE, not inside it.** The
+> stage 10 table keeps the corpus it was measured on, which is the rule this repository runs on:
+> a record that silently updates itself stops being evidence. The corpus is **72 entries and 69
+> component files** today, the recount is the second table, and the whole account of it is
+> `design/rollout.html`.
 
 **23 of the 60 entries in `inventory.md` adapt, and 37 do not.** The column there is filled on
 every row, and an empty one would have meant "behaves unknown on a wide screen". Counted from the
@@ -466,6 +486,46 @@ CSS by script rather than from memory, and recounted after step 6, which moved t
 | **a reading measure**, and no query at all | 7 | readout, text block, empty block, muted line, wash block, promise list, card |
 | **point + measure**, on a pattern | 1 | list column |
 | **does not adapt** | 37 | the rest, and nothing is written on their pages: an empty "does not adapt" note on thirty-seven pages is noise, not documentation |
+
+### The recount, stage 12, on 72 entries and 69 component files
+
+Taken 2026-08-17 by `design/kit/screens/rollout12.cjs`, which reads the signs out of each
+component's CSS and prints them beside what the inventory claims, so a disagreement is a flag
+rather than an impression. It was run twice: **35 adapt and 37 do not** on the corpus as the stage
+opened it, and **39 adapt and 33 do not** after the stage fixed the seven reading measures its
+sweep found. The first number carries the useful fact - **every one of the twelve entries added
+since stage 10 adapts**, eleven of them the public page's organisms - and the second carries the
+five components that gained a measure in this stage: the form field, the numbered steps, the panel
+and the share card each declared nothing about width before it, and the card moved from a bare cap
+to a measure on the line inside it.
+
+| How it adapts | Stage 10, on 60 | Stage 12, on 72 |
+|---|---|---|
+| **point** only | 5 | **9** |
+| **point + fluid** | 4 | **6** |
+| **point + fluid + a reading measure** | 0 | **5** |
+| **container threshold + fluid** | 2 | **2** |
+| **container thresholds + fluid + a measure** | 0 | **1** |
+| **fluid** only | 4 | **4** |
+| **a reading measure**, and no query at all | 7 | **12** |
+| **a cap and no query** | 1 (counted with the measures) | **0**, the card joined the row above |
+| **point + measure**, on a pattern | 1 | counted in the point row |
+| **does not adapt** | 37 | **33** |
+
+**The instrument had to be taught one distinction before it agreed with the hand count**, and the
+distinction is worth more than the agreement. `flex-wrap: wrap` means the component's ARRANGEMENT
+answers the width it is given: the row becomes two lines and then three. `flex: 1` on a child means
+the component DIVIDES whatever width it is handed - the four tabs, the three range segments, the
+plan's title beside its price - and arranges itself the same way at 320 and at 1920. Reading only
+for `clamp()` and `auto-fit` puts the action row and the meta row in "does not adapt"; reading any
+`flex` as fluid pulls the range picker, the preset tile and the plan option out of it. With the two
+apart, the script reproduces all 60 of stage 10's verdicts.
+
+**Nine cells were wrong and were corrected in the same pass.** Eight of the twelve new entries had
+their width cell filled with what the organism IS rather than what it does with width, and the
+ninth, the FAQ list, read "does not adapt" while its file carries a desktop point and a reading
+measure. The displaced provenance is now its own section under the organisms table in
+`inventory.md`, verbatim.
 
 **Three rows moved at step 6 and it is worth saying which way.** Wash block and promise list were
 in the "does not adapt" 39 and are now in the measure group, because the sweep found their prose

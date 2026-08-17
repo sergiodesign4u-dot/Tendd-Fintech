@@ -21,7 +21,8 @@
 
    THE TWO CORPORA.
      grey      wireframes/*.html    minus overview.html, the hub
-     coloured  design/*.html        minus overview.html, the hub
+     coloured  design/*.html        minus overview.html and rollout.html, its
+                                       two stands
    Both hubs are stands rather than product screens, which is the same rule the
    inventory's own counting basis states.
 
@@ -68,9 +69,15 @@ const components = [...navSrc.matchAll(/\{\s*name:\s*'([^']+)',\s*cls:\s*'([^']*
    be the same lie one level down. Those rows fall back to the registry's
    recorded `wf` figure, marked as recorded rather than recomputed. */
 
-/* ---- the corpora ---------------------------------------------------------- */
+/* ---- the corpora ----------------------------------------------------------
+   A STAND IS NOT A PRODUCT SCREEN, and design/ grew a second one on 2026-08-17:
+   rollout.html, stage 12's own account, beside overview.html, the hub of pairs.
+   Neither carries product markup, so neither has ever moved a count; what it
+   would move is the corpus SIZE this script prints, and a corpus that says 56
+   where the product is 55 is the same class of drift the file exists to end. */
+const STANDS = ['overview.html', 'rollout.html'];
 const corpus = (dir) => fs.readdirSync(path.join(ROOT, dir))
-  .filter(f => f.endsWith('.html') && f !== 'overview.html')
+  .filter(f => f.endsWith('.html') && !STANDS.includes(f))
   .map(f => ({ file: dir + '/' + f, html: fs.readFileSync(path.join(ROOT, dir, f), 'utf8') }));
 
 const grey = corpus('wireframes');

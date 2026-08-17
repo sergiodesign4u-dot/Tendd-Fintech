@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rollout - The account of the coloured product - Tendd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- NO PRE-PAINT THEME SCRIPT, for the same reason design/overview.html has
+     none: this is a stage account rather than a product screen, it carries the
+     project roadmap through ../_nav.js, and that chrome is theme-blind. A page
+     with no switch has no business remembering a choice made on another one. -->
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
+<style>
+  /* THE STAGE PAGE'S OWN LOOK, in one namespace, `ro-`.
+
+     A stage account is a stand and not a product screen, so it is allowed a
+     style block where a screen is not; what it is not allowed is a bare product
+     name. `design/overview.html` learned that the hard way when half of its
+     classes were `.card`, `.badge` and `.name`, each meaning one thing here and
+     another in the system, and the fix was to put everything the hub owns
+     behind `as-`. This page starts where that one ended up. Every colour is a
+     semantic role, never a literal: the roles are the only thing on this page
+     that also ships. */
+
+  .ro-wrap { max-width: 1000px; margin: 0 auto; padding: 40px 28px 72px; }
+  .ro-wrap a:not([class]) { color: var(--text-action); }
+  .ro-wrap a:not([class]):hover { color: var(--text-primary); }
+
+  .ro-head h1 { margin: 0 0 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); }
+  .ro-head .ro-sub { margin: 0 0 18px; color: var(--text-muted); font-size: 15px; max-width: 60ch; }
+  .ro-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .ro-meta span { font-size: 12px; color: var(--text-body); background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: 999px; padding: 4px 11px; }
+  .ro-meta span strong { color: var(--text-action); font-weight: 700; }
+
+  .ro-sec { margin: 0 0 40px; }
+  .ro-sec > h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line-container); }
+  .ro-sec > p { margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: var(--text-body); max-width: 78ch; }
+  .ro-sec > p b { color: var(--text-primary); }
+
+  /* A TABLE IS THE ONE THING ON THIS PAGE THAT CAN OUTGROW IT, so it scrolls
+     inside its own box and the page body never does. The rule the width sweep
+     enforces on 55 product screens applies to the page that reports it. */
+  .ro-scroll { overflow-x: auto; margin: 0 0 14px; }
+  table.ro-t { border-collapse: collapse; width: 100%; font-size: 13px; }
+  table.ro-t th, table.ro-t td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line-container); }
+  table.ro-t th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 700; white-space: nowrap; }
+  table.ro-t td { color: var(--text-body); }
+  table.ro-t td b { color: var(--text-primary); }
+  table.ro-t code { font-size: 12px; color: var(--text-primary); }
+  table.ro-t tr:last-child td { border-bottom: 0; }
+
+  .ro-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+  .ro-tag.ro-ok { color: var(--text-on-action); background: var(--bg-action); }
+  .ro-tag.ro-quiet { color: var(--text-status); background: var(--bg-status); }
+  .ro-tag.ro-open { color: var(--text-primary); background: var(--bg-callout); border: 1px solid var(--line-container); }
+
+  .ro-num { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 0 0 18px; }
+  .ro-num div { background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: var(--radius); padding: 14px 16px; }
+  .ro-num b { display: block; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); }
+  .ro-num span { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .ro-note { margin: 0 0 14px; padding: 12px 14px; background: var(--bg-callout); border-radius: var(--radius-xs); font-size: 13px; line-height: 1.6; color: var(--text-body); }
+  .ro-note b { color: var(--text-primary); }
+
+  .ro-foot { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line-container); font-size: 12.5px; line-height: 1.7; color: var(--text-muted); }
+  .ro-foot code { color: var(--text-body); }
+</style>
+</head>
+<body>
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - Rollout</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="ro-wrap">
+
+  <div class="ro-head">
+    <h1>Rollout</h1>
+    <p class="ro-sub">Stage 12. The rest of the product in colour, and the account of it: what
+      was built, what each screen does with a wider window, and what is measured rather than
+      remembered.</p>
+    <div class="ro-meta">
+      <span><strong>17</strong> screens</span>
+      <span><strong>55</strong> pages, every one with a coloured twin</span>
+      <span><strong>0</strong> orphans on either side</span>
+      <span><strong>0</strong> screens carrying a style of their own</span>
+      <span><strong>3190</strong> width measurements</span>
+      <span><strong>7</strong> reading measures fixed</span>
+      <span><strong>0</strong> boxes moved at 360</span>
+    </div>
+  </div>
+
+  <section class="ro-sec" id="what">
+    <h2>What this stage is, and why its account came last</h2>
+    <p>The screens of this stage were built before the account of it was written, and across four
+      stages rather than one. Stage 07 coloured a sample of seven screens to prove the language,
+      stage 09 built <a href="alerts.html">Alerts</a> out of the system alone to prove the system,
+      the public page arrived on its own in August, and the remaining ten screens were coloured in
+      one pass afterwards, because <b>a screen is built once, when everything it needs already
+      exists</b>. What was missing was never the pixels. It was the thing a stage is judged on: a
+      page of its own, a row per screen, and a number that a script can reproduce.</p>
+    <p>So this page reports rather than plans. Every figure on it comes from one of three
+      instruments in <code>design/kit/screens/</code>, each re-runnable and each deriving its
+      corpus from a registry rather than from a list somebody typed:
+      <code>rollout12.cjs</code> reads the source, <code>width12.cjs</code> walks all 55 pages
+      across 58 widths in a browser, and <code>shape12.cjs</code> reads what each screen does
+      between a real 360 and a real 1440.</p>
+  </section>
+
+  <section class="ro-sec" id="corpus">
+    <h2>The corpus: 55 and 55, and nothing on either side alone</h2>
+    <div class="ro-num">
+      <div><b>55</b><span>grey pages in <code>wireframes/</code></span></div>
+      <div><b>55</b><span>coloured pages in <code>design/</code></span></div>
+      <div><b>0</b><span>grey with no coloured twin</span></div>
+      <div><b>0</b><span>coloured with no grey original</span></div>
+    </div>
+    <p>Both counts exclude <code>overview.html</code> on each side, because a hub is a stand and
+      not a product screen: the same basis the component counter and the inventory already use.
+      <b>The pairing is the whole of what "the rollout is built" means</b>, and it is now a
+      pairing rather than a claim: the two folders are read, matched by filename, and any file
+      alone on its side is named. The count was 28 coloured pages when stage 09 closed and 32 when
+      stage 10 did.</p>
+  </section>
+
+  <section class="ro-sec" id="audit">
+    <h2>The audit row per screen, which stage 10 asked this stage for</h2>
+    <p>Stage 10 wrote one row per screen saying what a wider window <i>should</i> give the person
+      standing there, in three categories and a fourth that stayed empty: <b>SAME</b>, <b>WIDER by
+      grid</b>, <b>WIDER by air</b>, and <b>new behaviour</b> nowhere. Ten of those seventeen rows
+      had no coloured screen to check against at the time. Here is the built product measured
+      against them, at a real 360 and a real 1440, with the scrollbar suppressed so the container
+      is the number it says.</p>
+    <div class="ro-scroll">
+    <table class="ro-t">
+      <thead><tr><th>Screen</th><th>Pages</th><th>Stage 10 said</th><th>The built screen does</th><th>Pane 360 &rarr; 1440</th><th>What changes arrangement</th></tr></thead>
+      <tbody>
+        <tr><td><b>Welcome</b> 1.1</td><td>1</td><td>WIDER grid</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 1440</td><td>the three steps 1&rarr;3, the footer 1&rarr;4, and six control rows unwrap</td></tr>
+        <tr><td><b>Path Choice</b> 1.2</td><td>1</td><td>SAME</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 620</td><td>the two doors 1&rarr;2 inside the column</td></tr>
+        <tr><td><b>Connect Bank</b> 1.3</td><td>5</td><td>SAME</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 620</td><td>nothing but the action row</td></tr>
+        <tr><td><b>Add a Subscription</b> 1.4</td><td>4</td><td>WIDER grid</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 620</td><td>the preset tiles 2&rarr;3, and the grid is inside a 620 column rather than in a wide pane</td></tr>
+        <tr><td><b>Guided Reveal</b> 1.5</td><td>2</td><td>SAME</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 620</td><td>nothing but a two-item list</td></tr>
+        <tr><td><b>Sign In</b> 1.6</td><td>3</td><td>SAME</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 620</td><td>nothing</td></tr>
+        <tr><td><b>Home</b> 2.6</td><td>5</td><td>WIDER grid</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 1220</td><td>the dashboard head 1&rarr;2, the doors 1&rarr;2, the groups 1&rarr;3</td></tr>
+        <tr><td><b>Subscription Detail</b> 2.7</td><td>6</td><td>WIDER grid</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 1220</td><td>the screen itself 1&rarr;2: two columns of 546px, counted rather than placed</td></tr>
+        <tr><td><b>Alerts</b> 3.8</td><td>4</td><td>WIDER air</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 1220</td><td>nothing structural: a list of events is rows, which is what the plan said</td></tr>
+        <tr><td><b>Cancel Guide</b> 4.9</td><td>3</td><td>WIDER air</td><td><span class="ro-tag ro-open">the category was wrong</span></td><td>360 &rarr; 1220</td><td>the screen itself 1&rarr;2. <b>Stage 10's own how-column said "point 900, two columns already"</b> and its category said air. The note was right and the category was not</td></tr>
+        <tr><td><b>Cancel Win</b> 4.10</td><td>1</td><td>SAME</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 620</td><td>nothing. One number in the middle, which is the whole screen</td></tr>
+        <tr><td><b>Share Snapshot</b> 4.11</td><td>3</td><td>SAME</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 620</td><td>nothing</td></tr>
+        <tr><td><b>History and Trends</b> 5.12</td><td>5</td><td>WIDER grid</td><td><span class="ro-tag ro-open">wider by air</span></td><td>360 &rarr; 1220</td><td>the chart grows and nothing re-arranges. The plan's reason was "a chart is the one thing that genuinely grows with width", which is air: the word was wrong, the behaviour is the one asked for</td></tr>
+        <tr><td><b>Upgrade to Pro</b> 5.13</td><td>4</td><td>WIDER grid</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 760</td><td>the plan row 1&rarr;3</td></tr>
+        <tr><td><b>Connections</b> 6.14</td><td>4</td><td>SAME</td><td><span class="ro-tag ro-open">wider by grid</span></td><td>360 &rarr; 1220</td><td>the source doors 1&rarr;2. <b>SAME was never available to this screen</b>: it stands in the shell, and past the desktop point the shell gives its pane 1220</td></tr>
+        <tr><td><b>Data and Privacy</b> 6.15</td><td>2</td><td>WIDER air</td><td><span class="ro-tag ro-ok">as planned</span></td><td>360 &rarr; 1220</td><td>nothing. Continuous prose, held at the reading measure</td></tr>
+        <tr><td><b>Settings</b> 6.16</td><td>2</td><td>SAME</td><td><span class="ro-tag ro-open">wider by air</span></td><td>360 &rarr; 1220</td><td>nothing re-arranges, but the pane is 1220. The same finding as Connections, without the grid</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="ro-note"><b>The one thing the audit had wrong is worth more than the sixteen it had
+      right, and it is not a defect in a screen.</b> Three of the four disagreements are the same
+      disagreement: <b>an app-frame screen cannot be SAME.</b> A flow screen grows from a phone to
+      <code>--container-column</code>, 620, and stops, which is exactly what "SAME, container"
+      meant. A screen inside the shell is handed the pane, and past the desktop point that pane is
+      1220 whatever the screen would prefer. Connections and Settings were written SAME in a table
+      whose other seven shell screens were all WIDER, and no instrument existed to catch it because
+      neither screen had been coloured yet. The fourth, Cancel Guide, was a category that contradicted
+      its own note. <b>New behaviour is still zero</b>, on all seventeen, and that half of the audit
+      holds exactly as written.</div>
+  </section>
+
+  <section class="ro-sec" id="ban">
+    <h2>A screen carries no style of its own, re-proved on all 55</h2>
+    <p>The rule in <code>CLAUDE.md</code> is four bans and one of them is the width rule stage 10
+      asked this stage to re-check: no style block, no style attribute, no <code>@media</code>, no
+      class the system does not define, and no width literal anywhere in a screen file. Stage 10
+      proved it on 32 pages. <b>It is re-proved here on all 55, by script, over the source rather
+      than over the render.</b></p>
+    <div class="ro-scroll">
+    <table class="ro-t">
+      <thead><tr><th>What was looked for</th><th>Found</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;style&gt;</code> blocks</td><td><b>0</b></td><td>all 55 coloured screen files</td></tr>
+        <tr><td><code>style=""</code> attributes</td><td><b>0</b></td><td>all 55</td></tr>
+        <tr><td><code>@media</code> and <code>@container</code></td><td><b>0</b> and <b>0</b></td><td>all 55</td></tr>
+        <tr><td>a width declaration of any kind</td><td><b>0</b></td><td>all 55. <code>width</code>, <code>min-width</code>, <code>max-width</code> and <code>inline-size</code>, comments stripped first because a screen is allowed to talk about width</td></tr>
+        <tr><td>stylesheets besides <code>system/index.css</code> and <code>_screen.css</code></td><td><b>0</b></td><td>all 55</td></tr>
+        <tr><td>classes the system does not define</td><td><b>0</b></td><td>all 55, matched whole against every selector in <code>design/system/</code>, the reviewer chrome, and the three classes a script writes</td></tr>
+        <tr><td>links leaving the colour for the frozen grey</td><td><b>0</b> of <b>581</b></td><td>the first sweep, run on a hunch, found four. They were fixed on 2026-08-17 and the check is standing now</td></tr>
+        <tr><td>links whose target does not exist</td><td><b>0</b> of <b>581</b></td><td>every internal href resolved against the file system</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="ro-note"><b>Zero was the expected answer and the check is still worth its run,</b>
+      because the previous zero was measured on a corpus 23 pages smaller and the twenty screens
+      built since got their markup for the first time. A ban nobody re-runs is a ban that was true
+      once.</div>
+  </section>
+
+  <section class="ro-sec" id="width">
+    <h2>The width column, recounted on the whole system</h2>
+    <p>Every row of <code>docs/inventory.md</code> carries a "behaviour at width" cell, and an
+      empty one would mean "behaves unknown on a wide screen". Stage 10 filled it on <b>60</b>
+      entries and left a note saying the count would be re-taken <b>when the corpus stopped
+      moving</b>, which is this stage. The corpus is <b>72</b> now: 69 component files and 3
+      patterns.</p>
+    <div class="ro-scroll">
+    <table class="ro-t">
+      <thead><tr><th>How it adapts</th><th>Stage 10, on 60</th><th>Stage 12, on 72</th><th>Which</th></tr></thead>
+      <tbody>
+        <tr><td>a <b>point</b>, one of the two registered</td><td>5</td><td><b>9</b></td><td>app bar, category group, chart placeholder, dialog sheet, groups column set, tab bar, landing shell, landing final, list column</td></tr>
+        <tr><td>point + <b>fluid</b></td><td>4</td><td><b>6</b></td><td>app shell, dashboard head, grid, landing bar, landing plan, landing steps</td></tr>
+        <tr><td>point + fluid + <b>a reading measure</b></td><td>0</td><td><b>5</b></td><td>faq list, landing facts, landing paths, landing story, site footer</td></tr>
+        <tr><td><b>a container threshold</b> + fluid</td><td>2</td><td><b>2</b></td><td>save-focus candidate, subscription row</td></tr>
+        <tr><td>container thresholds + fluid + a measure</td><td>0</td><td><b>1</b></td><td>landing orbit, and its three local thresholds ask a named container rather than the page</td></tr>
+        <tr><td><b>fluid</b> only</td><td>4</td><td><b>4</b></td><td>action row, alert item, meta row, merchant chip group</td></tr>
+        <tr><td><b>a reading measure</b>, and no query at all</td><td>7</td><td><b>12</b></td><td>readout, text block, empty block, muted line, wash block, promise list, landing hero, and <b>the five this stage added</b>: card, form field, numbered steps, panel, share card</td></tr>
+        <tr><td><b>a cap and no query</b></td><td>1</td><td><b>0</b></td><td>the card was the only one and it is in the row above now: 560 stayed as the card's width and the prose inside it took the measure</td></tr>
+        <tr><td><b>does not adapt</b></td><td>37</td><td><b>33</b></td><td>the rest, and nothing is written on their pages: an empty "does not adapt" note on thirty-three pages is noise</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="ro-note"><b>Every one of the twelve entries added since stage 10 adapts</b>, which took the
+      adapting half from 23 to 35: eleven landing organisms and the FAQ list, all built for a page
+      that is one long column on a phone and a laid-out page on a desk. <b>The fixes at the foot of
+      this page then moved four more</b>, so the final reading is <b>39 adapt and 33 do not</b>:
+      the form field, the numbered steps, the panel and the share card each declare a reading
+      measure now where they declared nothing, and the card moved from a bare cap to a measure. <b>The instrument reproduces every verdict
+      stage 10 wrote by hand</b>, which is what makes the two columns comparable, and getting there
+      needed one distinction: <code>flex-wrap: wrap</code> means the arrangement answers the width,
+      <code>flex: 1</code> means the component divides whatever it is handed and arranges itself the
+      same way at 320 and at 1920.</div>
+    <p><b>Nine cells were wrong and are corrected.</b> Eight of the twelve new entries had their
+      width cell filled with what the organism <i>is</i> rather than what it does with width, which
+      is the column answering a different question; the ninth, the FAQ list, said "does not adapt"
+      while its file carries a desktop point and a reading measure. Both are in
+      <code>docs/inventory.md</code> now, and the prose that was displaced is under the organisms
+      table rather than deleted.</p>
+  </section>
+
+  <section class="ro-sec" id="sweep">
+    <h2>The width sweep: 55 pages by 58 widths, and what it caught</h2>
+    <p>Stage 10 swept 32 pages and its argument for sweeping rather than sampling was exact: <b>a
+      defect lives between the points</b>, and the worst width is the one where the content has
+      stopped fitting and the query has not fired. Twenty-three pages had never been walked. The
+      run is <b>3190 measurements</b>, and it drives the browser itself rather than asking a person
+      to press Run.</p>
+    <div class="ro-num">
+      <div><b>0</b><span>documents scrolling sideways</span></div>
+      <div><b>0</b><span>panes scrolling sideways</span></div>
+      <div><b>0</b><span>elements leaving the viewport</span></div>
+      <div><b>0</b><span>pages changing the number of navigation carriers</span></div>
+    </div>
+    <p>Two of those four are not the clean answers they look like, and both are worth the sentence.
+      <b>The pane check is the one that found the 28px band at stage 10</b>, where a layout scrolled
+      sideways inside <code>.screen</code> while the document stayed clean; it is asked of every
+      scroll container on the page here, and it is silent on all 55. And <b>the landing runs 128
+      elements past the window on purpose</b>: a marquee track is wider than its box and hidden by
+      it. The first run of the sweep reported all of them at all 58 widths, which is a fault in the
+      instrument rather than in the page, so a clipped element is now counted separately instead of
+      being reported or silently dropped.</p>
+
+    <p><b>What it did find is prose, and all six are fixed.</b> Six blocks read past the system's
+      52ch measure, four of them on screens that had never been swept. Each fix is a measure on the
+      element that holds the words, in the component that owns it, and the re-run reads <b>zero
+      prose leaves past 52ch anywhere in the product</b>, worst 52.0:</p>
+    <div class="ro-scroll">
+    <table class="ro-t">
+      <thead><tr><th>Where</th><th>Read</th><th>At</th><th>What it was, and what closed it</th><th>Now</th></tr></thead>
+      <tbody>
+        <tr><td><code>cancel-guide</code>, a step</td><td><b>81.2ch</b></td><td>750</td><td><code>.steps li</code> had no reading measure at all: the worst line in the product, on the one component whose brief is an instruction being followed on another screen. <b>`numbered-steps.css`</b>, and it is the system's one computed width: <code>calc(var(--container-text) + var(--space-40))</code>, because border-box would otherwise let the numeral's gutter eat eight characters</td><td><span class="ro-tag ro-ok">52ch</span></td></tr>
+        <tr><td><code>index</code>, the story head's lead</td><td><b>80.2ch</b></td><td>720</td><td><code>.lp-story.fromcircle .storyhead</code> capped itself at <b>38rem</b>, a raw literal in no register, and the lead inside it is two type steps smaller, so the same box was 52ch for the heading and 80 for the sentence. <b>`landing-story.css`</b>: the literal is replaced by <code>--container-column</code>, which the same head is already given in the stage form, and the lead took its own measure</td><td><span class="ro-tag ro-ok">52ch</span></td></tr>
+        <tr><td><code>connect-bank</code>, the email hint</td><td><b>77.6ch</b></td><td>640</td><td><code>.field .hint</code> had no measure. Six of the twenty fields carry a fragment and this one carries a paragraph, on the screen where a person decides whether to trust us. <b>`form-field.css`</b>, and at <code>--type-meta</code> the same token is 394px rather than 459: <code>ch</code> follows the font</td><td><span class="ro-tag ro-ok">52ch</span></td></tr>
+        <tr><td><code>cancel-guide-blocked</code>, a step</td><td><b>60.8ch</b></td><td>760</td><td>the same rule as the first row</td><td><span class="ro-tag ro-ok">52ch</span></td></tr>
+        <tr><td><code>history-trends-locked</code>, the prose card</td><td><b>59.5ch</b></td><td>600</td><td>the card's 560 against the system's 52ch, both deliberate and disagreeing, and open since stage 10 as a founder's question. <b>`card.css`</b>, and it is the first of the two answers it was given: 560 stays as the width of the CARD, the paragraph and the list items inside take the measure</td><td><span class="ro-tag ro-ok">52ch</span></td></tr>
+        <tr><td><code>share-snapshot</code>, the privacy paragraph</td><td><b>58.3ch</b></td><td>640</td><td>a bare <code>p</code> inside <code>.oncard</code>, a one-off with no component and therefore no measure. <b>`share-card.css`</b>, where the eyebrow already reaches into the same block. <b>A measure is not an owner:</b> the one-off row stays open</td><td><span class="ro-tag ro-ok">52ch</span></td></tr>
+        <tr><td><code>cancel-guide</code>, the Pro gate's sentence</td><td><b>77.3ch</b></td><td>750</td><td><b>The seventh, and it was uncovered by fixing the first.</b> The sweep reports the worst leaf per page, and this one stood behind the 81.2ch step on the same screen. A chain rather than a rule anybody broke: the panel takes the screen's width, the gate takes the panel's, and nothing between the words and the shell had ever been asked how long a line should be. <b>`panel.css`</b>, five gates on five screens</td><td><span class="ro-tag ro-ok">52ch</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="ro-note"><b>Two of the six carry a lesson the token cannot fix by itself.</b>
+      <code>--container-text</code> is 52ch, and <code>ch</code> is a unit of the element's own
+      font: a 52ch cap set on a container at 16px does not give a 12px line inside it a 52ch
+      measure, it gives it about 69. The story head is that exact shape, and it is the argument for
+      putting the measure on the line rather than on the box around it. <b>All seven are fixed, on the
+      founder's word, and the pixels are accounted for both ways.</b> At <b>360 the difference is
+      zero on all 55 pages</b>, box for box, which is the half of the promise that is not allowed
+      to move and which holds by construction: every one of these caps is wider than a phone. At
+      1440, <b>16 pages and 137 boxes changed</b>, and every changed WIDTH is one of the seven
+      rules - 32 boxes, five selectors - while the other 105 are boxes that grew a line taller or
+      moved down under one that did. Nothing else in the product moved.</div>
+  </section>
+
+  <section class="ro-sec" id="open">
+    <h2>What is open, named rather than left to be noticed</h2>
+    <div class="ro-scroll">
+    <table class="ro-t">
+      <thead><tr><th>What</th><th>State</th><th>Where it closes</th></tr></thead>
+      <tbody>
+        <tr><td><b>Seven prose blocks past the reading measure</b>, above</td><td><span class="ro-tag ro-ok">closed</span></td><td>five component files: numbered steps, form field, card, panel, share card. Zero leaves past 52ch in the product now</td></tr>
+        <tr><td><b>38rem, a width literal in no register</b>, in <code>landing-story.css</code></td><td><span class="ro-tag ro-ok">closed</span></td><td>not registered but replaced, by the <code>--container-column</code> the same head is already given in the stage form. <b>The product now holds no unregistered width number</b></td></tr>
+        <tr><td><b><code>.oncard</code> and <code>.lead</code> are one-offs with no component</b>, and both now have a measure declared by a neighbour</td><td><span class="ro-tag ro-open">open</span></td><td>a measure is not an owner. Either they become components or they take a class that already is one</td></tr>
+        <tr><td><b>The focus order in the rail form</b>: the rail's head takes focus first and its four destinations last, with the whole screen between them</td><td><span class="ro-tag ro-open">open</span></td><td>markup, and it was addressed to this stage while twenty screens were still unbuilt. They are built now, so the decision is about all 55 pages rather than 33, and CSS cannot repair it</td></tr>
+        <tr><td><b>The shell's blanket on <code>.app &gt; .screen &gt; *</code></b>, which has unbound six reading measures one at a time</td><td><span class="ro-tag ro-open">open</span></td><td>a rewrite of one rule into a named list of what may widen, and it needed the 20 screens of this stage to exist first. They do now</td></tr>
+        <tr><td><b>The count-drift row</b>: every per-component figure written by hand in forty places</td><td><span class="ro-tag ro-ok">closed in part</span></td><td>the instrument arrived at stage 11 (<code>counts.cjs</code>) and its trigger was "when stage 12 stops adding screens". It has stopped: <b>0 per-component claims disagree with the corpus</b>, and the width column, this table, the README and the two hubs are recounted. <b>What is not closed is the row above it</b>: the sentences on the component pages still describe a 28 or 32 page product</td></tr>
+        <tr><td><b>The component pages still describe a 28 or 32 page coloured corpus</b>, 48 times across 24 files</td><td><span class="ro-tag ro-open">open</span></td><td>the numbers on those pages are right and instrumented; the sentences around them point at a corpus that is 23 pages smaller than the product. Counted: 78 occurrences in 31 files, of which 30 in 7 are stage records naming what they measured. It is a reading pass rather than a count, which is why the script that found it cannot fix it</td></tr>
+        <tr><td><b>Two pages in <code>design/kit/</code> are in no registry</b>, <code>kit.html</code> and <code>shell.html</code></td><td><span class="ro-tag ro-open">open</span></td><td>the first is the flat showcase the system replaced and already has a backlog row; the second is the shell template. Named here so the next audit does not find them again as a surprise</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <footer class="ro-foot">
+    The coloured screens live flat in <code>design/</code> beside this page, the hub of pairs is
+    <a href="overview.html">Screens in color</a>, and the system they are assembled from is
+    <a href="kit/why.html">design/system/</a>. The three instruments are
+    <code>design/kit/screens/rollout12.cjs</code>, <code>width12.cjs</code> and
+    <code>shape12.cjs</code>, and their output is kept beside them as
+    <code>rollout12.txt</code>, <code>width12.txt</code> and <code>shape12.txt</code>, so a claim on
+    this page can be re-run rather than believed. The grey wireframes stay frozen in
+    <a href="../wireframes/overview.html">wireframes/</a> and the cross-link runs one way only.
+  </footer>
+</div>
+
+<script>
+(function(){var s=document.getElementById('sidebar-panel'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script>
+  window.NAV_BASE = '../';
+  window.NAV_SECTIONS = [
+    { id:'corpus', label:'The corpus' },
+    { id:'audit',  label:'The audit per screen' },
+    { id:'ban',    label:'No style of its own' },
+    { id:'width',  label:'The width column' },
+    { id:'sweep',  label:'The width sweep' },
+    { id:'open',   label:'What is open' },
+  ];
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>

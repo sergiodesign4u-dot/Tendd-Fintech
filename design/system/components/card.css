@@ -303,6 +303,26 @@
    of the ladder in docs/responsive.md and this is its second instance. */
 .app > .screen > .card.prose { max-width: 560px; }   /* _wf.css:1021 */
 
+/* AND THE LINE INSIDE IT TAKES THE SYSTEM'S MEASURE, 2026-08-17, which is the
+   open question stage 10 refused to answer inside a verification step and the
+   founder settled at stage 12. The two numbers were both deliberate and they
+   disagreed: 560 is this card's own named width and `--container-text` is 52ch,
+   and inside the card's padding the paragraph landed at 526px, **59.5 characters
+   to a line**, eight past the measure. The sweep priced it at a 600 window and
+   the backlog carried it as "either 560 becomes the card's measure with the
+   paragraph reading 52ch inside it, or 560 stands as the declared exception".
+
+   IT IS THE FIRST OF THE TWO, and the reason generalises past this card: the
+   measure belongs to the element that holds the words. 560 stays as the width of
+   the CARD, which is a box with padding, a border and three sentences plus a
+   list in it; the paragraph and the list items inside read 52ch like every other
+   prose leaf in the product. Nothing moves below 560, where neither cap has
+   room to do anything, and the card's own geometry is untouched at every width.
+   The subject stays declared: `> p` and `> li` and not `*`, so a chip, a row or
+   a button inside a prose card keeps its own width. */
+.app > .screen > .card.prose > p,
+.app > .screen > .card.prose > ul > li { max-width: var(--container-text); }
+
 /* NO STATES, and the reason is one line: a card is not interactive. Neither
    form is an anchor, a button or a summary on any of the 55 grey pages or the 32
    coloured ones, neither carries tabindex or a role, and neither answers a
