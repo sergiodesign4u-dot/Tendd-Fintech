@@ -745,33 +745,57 @@
     plates inside it were 310 wide and hung off the side of the page. Under the
     point this file has nothing to say and landing-story.css's column is the whole
     answer, which is also what makes the three releases below short. */
- @container story (min-width: 60rem) {
-  .landing .lp-orbit.lp-story.fromcircle .saystack {
-    grid-template-areas: "one";
-    gap: var(--space-0);
-    position: relative;
-    z-index: 1;
-    /* `min-width: 0` AND `justify-items: start`, and between them they are what
-       keeps the promise on the page. The headline is deliberately wider than its
-       column; without a floor of zero the stack takes the headline's max-content
-       as its own width, and a stack wider than its track is laid out from its
-       CENTRE - so at a 1000px window the first word of "See what you're paying
-       for" started at -20, off the left edge of the page. The overflow is meant
-       to lie across the window on the right, never off the gutter on the left. */
-    min-width: 0;
-    justify-items: start;
-    /* STATIC, and the z-index moves to the promise itself. This stack used to be
-       `position: relative` so it would paint over the window, and that made it the
-       containing block of everything absolute inside it - including the section's
-       heading, which is meant to be centred on the PAGE and came out centred on
-       the say column instead, drawn straight through "14 subscriptions" at 1440.
-       A positioned ancestor is a decision about every descendant, not only about
-       paint order. */
-    position: static;
-  }
-  .landing .lp-orbit.lp-story.fromcircle .osay { position: relative; z-index: 1; }
-  .landing .lp-orbit.lp-story.fromcircle .saystack > * { grid-area: one; align-self: start; min-width: 0; }
+ /* ---- AND THE HEAD'S CHOREOGRAPHY IS NOT THE SPREAD, 2026-08-18 -------------
+    The gate above was put in for the SPREAD: absolute placement measured in
+    `cqw`, which is meaningless on a phone. The promise trading places with the
+    heading is not that. It is one cell holding two blocks and two animations
+    deciding which of them is on screen, it costs nothing at any width, and it is
+    the first beat of the story the founder asked the phone to tell. It was swept
+    behind the point with the spread because it was written in the same breath,
+    and the cost was invisible while the phone had no stage: the promise and the
+    heading simply stacked, 547px of head on a 780px stage, which is the
+    arithmetic that made "the figures are pushed off the bottom" true and the
+    release look necessary. Six rules move out of the gate here; the spread's own
+    placement and the two figures' climb to the top band stay inside it. */
+ .landing .lp-orbit.lp-story.fromcircle .saystack {
+   grid-template-areas: "one";
+   gap: var(--space-0);
+   /* `min-width: 0` AND `justify-items: start`, and between them they are what
+      keeps the promise on the page. The headline is deliberately wider than its
+      column; without a floor of zero the stack takes the headline's max-content
+      as its own width, and a stack wider than its track is laid out from its
+      CENTRE - so at a 1000px window the first word of "See what you're paying
+      for" started at -20, off the left edge of the page. The overflow is meant
+      to lie across the window on the right, never off the gutter on the left. */
+   min-width: 0;
+   justify-items: start;
+   /* STATIC, and the z-index moves to the promise itself. This stack used to be
+      `position: relative` so it would paint over the window, and that made it the
+      containing block of everything absolute inside it - including the section's
+      heading, which is meant to be centred on the PAGE and came out centred on
+      the say column instead, drawn straight through "14 subscriptions" at 1440.
+      A positioned ancestor is a decision about every descendant, not only about
+      paint order. AND ON A PHONE IT IS LOAD-BEARING A SECOND WAY: the promise
+      fills the whole pin there, and `inset: 0` has to resolve against the pin. */
+   position: static;
+ }
+ .landing .lp-orbit.lp-story.fromcircle .osay { position: relative; z-index: 1; }
+ .landing .lp-orbit.lp-story.fromcircle .saystack > * { grid-area: one; align-self: start; min-width: 0; }
+ .landing .lp-orbit.lp-story.fromcircle .osay,
+ .landing .lp-orbit.lp-story.fromcircle .storyhead {
+   animation-fill-mode: both;
+   animation-timing-function: linear;
+   animation-timeline: --story;
+ }
+ /* the promise LEAVES UPWARD rather than dissolving where it stands: the page is
+    moving under it, and a block that only loses opacity reads as a light going
+    out instead */
+ .landing .lp-orbit.lp-story.fromcircle .osay { animation-name: sup; animation-range: contain 0% contain 18%; }
+ /* and the heading takes the cell it leaves. It arrives once and holds; the
+    stage's own release takes it with everything else. */
+ .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: sin; animation-range: contain 12% contain 26%; }
 
+ @container story (min-width: 60rem) {
   /* THE SECTION'S HEADING TAKES THE TOP CENTRE, on the founder's mark: in their
      drawing of the second half it stands centred above the deck with the count on
      its left and the total on its right, all three on one band. It leaves the
@@ -794,20 +818,11 @@
     z-index: 2;
   }
 
-  .landing .lp-orbit.lp-story.fromcircle .osay,
-  .landing .lp-orbit.lp-story.fromcircle .storyhead {
-    animation-fill-mode: both;
-    animation-timing-function: linear;
-    animation-timeline: --story;
-  }
   /* the promise leaves first, the heading takes its place, and the heading is
      gone again before the list has finished rising into the middle of the stage:
-     nothing is ever both on screen and in the list's way */
-  /* the promise LEAVES UPWARD rather than dissolving where it stands. In the
-     founder's second frame its last line is half off the top of the screen: the
-     page is moving under it, and a block that only loses opacity reads as a light
-     going out instead. */
-  .landing .lp-orbit.lp-story.fromcircle .osay { animation-name: sup; animation-range: contain 0% contain 18%; }
+     nothing is ever both on screen and in the list's way. Both animations and
+     the plumbing under them are declared above this gate since 2026-08-18: they
+     are the story and not the spread, and the phone tells the same story. */
 
   /* and the two figures come up from the foot to the head of the stage over the
      same stretch, so the reader watches one movement and not two */
@@ -828,8 +843,8 @@
      on the left, where the deck would have landed on it; centred above the deck it
      is the title of the picture, and the founder's drawing of the second half has
      it there with the deck fully formed under it. So it arrives once and holds -
-     the stage's own release at 88% takes it with everything else. */
-  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: sin; animation-range: contain 12% contain 26%; }
+     the stage's own release at 88% takes it with everything else. The rule that
+     says so is above this gate with its twin. */
 
   /* THE SWAP IS A FIXED BOX ON THE CENTRE LINE, not a grid track. It holds the
      window and the list one on top of the other, both centred on the page, and
@@ -1456,6 +1471,16 @@
 
 @media (max-height: 42.5rem) {
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-name: none; }
+  /* THE HEAD'S TWO ANIMATIONS ARE IN THIS LIST SINCE 2026-08-18, and they were
+     not before because they could not reach here: the promise leaving and the
+     heading arriving were gated at 60rem, and a short screen that is also wide
+     is rare enough that nobody met it. They run at every width now, so this
+     release owes them the same kill it gives everything else - without it the
+     promise fades out over the short section's own contain phase, 62px of scroll
+     at 390 x 640, and the column's first block is gone for good. */
+  .landing .lp-orbit.lp-story.fromcircle .osay,
+  .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: none; }
+  .landing .lp-orbit.lp-story.fromcircle .saystack { grid-template-areas: none; gap: var(--space-24); }
   .landing .lp-orbit.lp-story.fromcircle { min-height: 0; }
   .landing .lp-orbit.lp-story.fromcircle .storypin { position: static; height: auto; min-height: 0; }
   .landing .lp-orbit.lp-story.fromcircle .storyswap {
@@ -1540,7 +1565,70 @@
    that had let go. Measured at 390 x 844, where the window went from 1 to 0 over
    the same scroll that moved nothing else. */
 @container story (max-width: 59.99rem) {
-  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit { animation-name: none; }
+  /* THE WINDOW'S DIVE IS BACK ON, 2026-08-18. This block used to open by killing
+     it, and the comment above still describes why that was right AT THE TIME: the
+     stage was released under 60rem, so the window was the one object still
+     animating on a stage that had let go. The stage runs on a phone now, so the
+     window hands over to the list here exactly as it does at the desk, and the
+     line that switched it off would put the phone back to one still circle over a
+     list that arrives from nowhere. */
+  /* THE PROMISE FILLS THE PIN INSTEAD OF TAKING A ROW IN IT, 2026-08-18, and the
+     arithmetic is in landing-story.css beside the release this replaced. At the
+     desk the promise is a column with the window beside it; a phone has one
+     column, so laid out in the head row it is 421px of a 780px stage and the
+     list is left 97. Over the stage instead, on the page's own ground, it is the
+     first beat exactly as it is at the desk - same `sup`, same range, same 18% -
+     and what it uncovers when it lifts is a stage already fully laid out.
+
+     `inset: 0` resolves against `.storypin`, which is sticky and therefore a
+     containing block; `.saystack` stays `position: static` for that reason at
+     both widths. This rule lives here rather than in landing-story.css because
+     the promise is the candidate's own block at 0-5-0 and no 0-3-0 rule in an
+     earlier file can move it. */
+  /* `height: 100%` AND NOT `bottom: 0`, and the two are not the same thing here.
+     The promise is a grid ITEM of the say stack and it carries `grid-area: one`;
+     absolutely positioned, its containing block is the pin, but the grid area it
+     still names keeps the box sizing to its own content, so `top: 0; bottom: 0`
+     resolved to 400px - the promise's own height - and left 380px of stage
+     showing under it. Measured both ways at 390 x 844: 400 with the insets, 780
+     with the percentage. The percentage reads the pin's padding box, which is
+     exactly the box this has to cover. */
+  /* AND IT IS GUARDED BY HEIGHT AS WELL AS WIDTH, which is the exact complement
+     of the release above rather than a second opinion about it. Below 42.5rem of
+     height the stage lets go and the section is a column; a promise absolutely
+     placed over a column covers it, and worse, `sup` still runs on the short
+     section's own tiny contain phase, so it faded out after 62px of scroll and
+     left the column's first block invisible with its space still taken. Measured
+     at 390 x 640 before the guard. `not all and` and not `min-height`, because
+     the two would both match at exactly 680px and the release has to win there.
+
+     AND THE SAME GUARD IS OWED TO THE READER WHO ASKED FOR NO MOTION, for the
+     same reason and by the same arithmetic: that release also turns the pin back
+     into a column, and it is written 180 lines ABOVE this rule, so it cannot undo
+     it by cascade. A rule that only makes sense while the stage is running has to
+     ask whether the stage is running, rather than be switched off afterwards by
+     whoever remembers. Both releases are conditions here, not corrections. */
+  @media (prefers-reduced-motion: no-preference) {
+  @media not all and (max-height: 42.5rem) {
+  .landing .lp-orbit.lp-story.fromcircle .osay {
+    position: absolute;
+    top: 0;
+    inset-inline: 0;
+    height: 100%;
+    /* AND IT PAYS THE STAGE'S GUTTER ITSELF. An absolutely placed box is laid
+       out against its containing block's PADDING box, so the pin's own 40px is
+       inside the area this fills rather than around it: written without this the
+       headline started at x=0 and "we cannot move your money" ran to the last
+       pixel of the screen. The same number as `.storypin`'s padding-inline,
+       because it is standing in the same column as everything the pin holds. */
+    padding-inline: var(--space-40);
+    z-index: 3;
+    display: grid;
+    align-content: center;
+    background: var(--bg-page);
+  }
+  }
+  }
   /* AND THE STRANDS ARE BEHIND THE POINT LIKE EVERYTHING ELSE HERE. The svg is
      `--owidth / 0.705` wide, which is 142% of whatever the window is: above the
      point the window is capped at 44cqw and there is room on both sides for the
@@ -2006,77 +2094,30 @@
      property is an unparsed token stream at declaration, and its only use is still
      inside this block, which is already behind the timeline's guard. */
 
- @container story (max-width: 59.99rem) {
-  /* THE WINDOW AND THE LIST COME OUT OF THE ONE CELL, and this is a live
-     defect this act FOUND, not one it made. The stage stacks the swap's two
-     children in a single grid area - that is the whole trick of the wide
-     choreography, one thing becoming another in place - and the narrow release
-     killed the animations but never unstacked the cell: on every phone with a
-     scroll-timeline browser the fourteen rows have been drawing straight
-     through the circle's chips. Nobody saw it because every phone probe
-     measured opacity and overflow, and two opaque things in one place are
-     clean by both. Caught by the first screenshot this stage's mobile act was
-     ever given. */
-  .landing .lp-orbit.lp-story.fromcircle .storyswap {
-    grid-template-areas: none;
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-40);
-  }
-  .landing .lp-orbit.lp-story.fromcircle .storyswap > * { grid-area: auto; }
+ /* THE MOBILE ACT IS GONE, 2026-08-18, AND THE STAGE ITSELF TOOK ITS PLACE.
+    What stood here was a second, smaller piece of choreography for the phone: the
+    swap unstacked into a column, the window posed, and every row, card and figure
+    rose on its own `view()` timeline as it came up the screen. It was written
+    because the stage was released under 60rem and the column it left behind had no
+    motion at all, so this act was the honest answer to the layout that existed.
 
-  /* the window poses: it is the biggest single thing on the column and the
-     only one that arrives by scale more than by travel */
-  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
-    animation-name: mpose;
-    animation-fill-mode: both;
-    animation-timing-function: var(--ease-arrive);
-    animation-timeline: view();
-    animation-range: cover 0% cover 26%;
-  }
-  /* and everything else rises: one rule, fourteen rows, the scroll is the
-     stagger */
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(n),
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) {
-    animation-name: mrise;
-    animation-fill-mode: both;
-    animation-timing-function: var(--ease-arrive);
-    animation-timeline: view();
-    /* `cover` AND NOT `entry`, and the difference is the whole feel. An entry
-       range is measured against the ELEMENT's own height, and a 44px row gives
-       a 24px window: the row pops. A cover range is measured against the whole
-       traversal - element plus viewport - so 15% of it is about 130px of
-       scroll, and the row rises. */
-    animation-range: cover 0% cover 15%;
-  }
-  .landing .lp-orbit.lp-story.fromcircle .storyhead,
-  .landing .lp-orbit.lp-story.fromcircle .ocount,
-  .landing .lp-orbit.lp-story.fromcircle .ototal {
-    animation-name: mrise;
-    animation-fill-mode: both;
-    animation-timing-function: var(--ease-arrive);
-    animation-timeline: view();
-    animation-range: cover 0% cover 16%;
-  }
- }
+    The founder's screenshot ended that layout: `landing-story.css` no longer
+    releases the stage on width, so the phone now runs the same pinned stage the
+    desk does, in the narrow arrangement that file had already written. Two acts
+    for one section, each undoing the other's placement, is how the swap ended up
+    stacked and unstacked in the same breath - and this one had to go rather than
+    be re-tuned, because everything it animated is now animated by the stage's own
+    clock. `mrise` and `mpose` go with it; nothing else in the product reads them.
+
+    The one finding this act made is kept where it belongs, in `landing-story.css`
+    at the release it deleted: a rule on `.lp-story` written inside a query on the
+    container `.lp-story` declares can never match. */
 }
 
-/* the two entrances, and neither is a lone fade */
-@keyframes mrise {
-  from { opacity: 0; transform: translate3d(0, 1.25rem, 0) scale(0.97); }
-  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-}
-@keyframes mpose {
-  from { opacity: 0; transform: translate3d(0, 1rem, 0) scale(0.93); }
-  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-}
-
-/* a reader who asked for no motion gets the column as it stands, and this kill
-   lives at the foot of the file because the act it kills does too */
-@media (prefers-reduced-motion: reduce) {
-  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit,
-  .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(n),
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n),
-  .landing .lp-orbit.lp-story.fromcircle .storyhead,
-  .landing .lp-orbit.lp-story.fromcircle .ocount,
-  .landing .lp-orbit.lp-story.fromcircle .ototal { animation-name: none; }
-}
+/* `mrise` and `mpose` were declared here and went with the act that read them,
+   2026-08-18. A keyframe set with no consumer is the one kind of dead code this
+   file has deleted before (`sdrift` and `sgather`, 2026-08-16), and for the same
+   reason: the first thing any motion census does is take an inventory of what
+   moves, and an inventory taken over rules nothing runs measures the wrong
+   product. The reduced-motion kill that switched them off went too - the stage's
+   own kill, further up this file, already covers every object they touched. */

@@ -7,6 +7,89 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - The phone runs the same stage as the desk, and the release that stopped it had never fully applied
+
+Founder, on a screenshot of the story section on a phone: **"ты какую-то ерунду
+делаешь, посмотри, мы не можем сделать такую же идею, как и на десктопе?"** We
+can, and it needed no new choreography: the narrow arrangement of the stage was
+already written in `landing-story.css` and had never once run.
+
+**WHAT THE SCREENSHOT ACTUALLY SHOWED, AND IT IS ONE LINE OF CSS THAT COULD NOT
+MATCH.** The block that released the stage under 60rem opened with
+`.landing .lp-story.fromcircle { min-height: 0 }` written inside
+`@container story (max-width: 59.99rem)` - and `.lp-story` is the element that
+DECLARES the container named `story`. A container query is answered by an
+ANCESTOR container, so a rule on the container itself, asked of its own
+container, matches nothing and is dropped in silence. Every other rule in the
+block addressed a descendant and landed. Measured at 390 x 844: the pin released
+to `position: static` with 1529px of content, while the section kept the 320svh -
+**2701px** - it had reserved for a stage that was no longer running. **1172px of
+nothing**, one blank screen, at every phone width, for as long as the release
+existed. The three reason cards stacked in one cell with no clock to show them
+one at a time, and the last of them lay across the live list. That is the picture
+the founder photographed.
+
+**THE ONE NUMBER THAT MADE THE RELEASE LOOK NECESSARY, AND IT WAS FIXABLE.** The
+release's own comment said the figures were pushed off the bottom of the stage at
+360 x 740, and that was true: the promise and the heading share one cell, so laid
+out in the head row the head is **547px of a 780px stage** and the list gets 97.
+On a phone the promise fills the pin instead of taking a row in it, on the page's
+own ground, and lifts away at 18% to uncover a stage that is already laid out.
+Same `sup`, same range, same beat as the desk. The head row is then the heading
+alone and the arithmetic is ordinary: 126 of head, 62 of figures, two gaps of 24,
+544 left for a list that is 460 tall.
+
+**THE HEAD'S CHOREOGRAPHY WAS NOT THE SPREAD AND HAD BEEN GATED WITH IT.** The
+60rem gate in `landing-orbit.css` exists for absolute placement measured in
+`cqw`, which is meaningless on a phone. The promise trading places with the
+heading is one cell and two animations; it costs nothing at any width. Six rules
+moved out of the gate, the spread's own placement and the figures' climb to the
+top band stayed in.
+
+**AND THE SEPARATE MOBILE ACT WENT.** A second, smaller piece of choreography had
+been written for the column the release left behind - every block rising on its
+own `view()` timeline. It was the honest answer to the layout that existed. Two
+acts for one section, each undoing the other's placement, is how the swap ended
+up stacked by one and unstacked by the other in the same breath, so it was
+deleted rather than re-tuned: everything it animated is animated by the stage's
+own clock now. `mrise` and `mpose` went with it, and the system's keyframes are
+recounted by script at **39 in `components/` and 40 in `design/system/`**.
+
+**TWO DEFECTS THE PORT ITSELF CREATED, BOTH FOUND BY SCREENSHOT AND BOTH CLOSED.**
+The three cards' ranges overlap by six points and then six again, which is right
+when they are three boxes on three parts of the stage and a smear when they are
+one cell: "Clear, never judged" was readable through "Everything in one place".
+The windows are adjacent below 60rem, 25 to 43 and 43 to 61, and the second most
+visible card now measures **0.000 at 121 scroll stops on each of six phone
+sizes**. And a card is a surface, so a fill at half opacity is a window: it
+arrives over live rows here, where at the desk it arrives over the page's margin.
+The strip it lies in takes a scrim of the page's own colour, drawn on
+`.storyasides` because that box is the card's cell and does not fade with the
+cards in it. **Not on the swap**, which was the first attempt and was wrong by
+43px: a mask there fades the round window's bottom too, the window being centred
+in the same box with its lower edge 101px above the floor. `--scardslot` moved
+from the list to the pin so a sibling can read it - one line, same value.
+
+**WHAT IS UNCHANGED, MEASURED.** The desk: every element of the section
+fingerprinted at five widths from 1024 to 1920 by five scroll positions, 10 725
+records, and **every differing record is a marquee chip, its mark or its price,
+differing in `x` alone**. The marquee runs on a wall clock, so running the same
+code twice differs by MORE records than the change does - 4738 against 2763.
+Nothing else in the section moves by a pixel at any desk width. A short screen:
+`@media (max-height: 42.5rem)` still lets the stage go where four rows, a card
+and two figures do not fit, and being a `@media` its own `min-height: 0` reaches
+the section and works - **1px unused at 390 x 640** against 1172 before. Reduced
+motion: the same, and the promise stays in the flow there.
+
+**AND THE RULE THAT COMES OUT OF IT.** A rule that only makes sense while the
+stage is running has to ASK whether the stage is running, rather than be switched
+off afterwards by whoever remembers. The promise's placement is written inside
+both releases as conditions - not reduced motion, not a short screen - because
+the releases are declared above it in the same file and could not have undone it
+by cascade.
+
+---
+
 ## 2026-08-17 - The pair of figures becomes one sentence on a phone, after two fixes that were both right and both not the defect
 
 Founder, on the third look: **"та ничего не менятся, как было так и осталось"**,

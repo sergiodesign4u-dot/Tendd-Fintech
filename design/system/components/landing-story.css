@@ -762,40 +762,62 @@
     .landing .lp-story.fromcircle .sline.cut { height: auto; min-height: var(--srow-h); overflow: visible; }
     .landing .lp-story.fromcircle .scard { opacity: 1; }
   }
-  /* AND THE SAME BELOW THE SPREAD. Once the promise moved into the stage it
-     takes the whole head row, and on a phone that leaves the list and the two
-     figures fighting over what is left: at 360 x 740 the figures were pushed off
-     the bottom of the stage. The choreography is a wide-screen affordance. Under
-     72rem the section is a column - the promise, the window, the list, the
-     reasons, the two figures - which is the same picture a browser with no
-     scroll timeline gets, and every word of it is readable. */
-  @container story (max-width: 59.99rem) {
-    .landing .lp-story.fromcircle { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
-    .landing .lp-story.fromcircle .storypin { position: static; height: auto; }
-    .landing .lp-story.fromcircle .storyswap { overflow: visible; container-type: normal; }
-    .landing .lp-story.fromcircle .storyswap > .orbit,
-    .landing .lp-story.fromcircle .storylist,
-    .landing .lp-story.fromcircle .storystack > *:nth-child(n),
-    .landing .lp-story.fromcircle .sline.cut,
-    .landing .lp-story.fromcircle .sline.cut .swap > .live,
-    .landing .lp-story.fromcircle .sline.cut .swap > .gone,
-    .landing .lp-story.fromcircle .scard:nth-child(n) { animation-name: none; }
-    .landing .lp-story.fromcircle .storystack > * + * { opacity: 0; }
-    .landing .lp-story.fromcircle .sline.cut .swap > .gone { opacity: 0; }
-    /* THE FRAME COMES OFF WITH THE PIN, AND IT IS WRITTEN AT 0-5-0 BECAUSE THE
-       RULE IT UNDOES IS. The list's twelve-row window only makes sense while
-       something is scrolling it: with the choreography off, twelve rows of a
-       frame and fourteen rows of list means two subscriptions cut off the
-       bottom and nothing ever coming to show them. Written at 0-4-0 like its
-       neighbours this line loses to the frame and does nothing, which is the
-       silent kind of wrong. */
-    .landing .lp-orbit.lp-story.fromcircle .storylist {
-      height: auto; max-height: none; overflow: visible;
-      mask-image: none; -webkit-mask-image: none; transform: none;
-    }
-    .landing .lp-story.fromcircle .sline.cut { height: auto; min-height: var(--srow-h); overflow: visible; }
-    .landing .lp-story.fromcircle .scard { opacity: 1; }
-  }
+  /* THE WIDTH RELEASE IS GONE, 2026-08-18, ON THE FOUNDER'S SCREENSHOT OF A
+     PHONE: "ты какую-то ерунду делаешь, мы не можем сделать такую же идею, как
+     и на десктопе?" We can, and the narrow arrangement of the stage was already
+     written - three rows, the two figures as one sentence under the list, the
+     reason card across the list's foot with `--scardslot` as the room it needs.
+     It had simply never run, because a block right here switched the whole
+     choreography off under 60rem and handed the phone a column instead.
+
+     AND THE RELEASE WAS HALF-APPLIED, WHICH IS WHAT THE FOUNDER WAS LOOKING AT.
+     Its first line was `.landing .lp-story.fromcircle { min-height: 0 }` and it
+     never once applied: a query on the container named `story` is answered by an
+     ANCESTOR container, and `.lp-story` IS that container, so a rule on the
+     section itself, written inside a query on the section's own container, has
+     no container to match and is silently dropped. Every rule below it was
+     addressed to a descendant, so those all landed. Measured at 390 x 844: the
+     pin released to `position: static` and 1529px of content, while the section
+     kept the 320svh - 2701px - it had reserved for a stage that was no longer
+     running. **1172px of nothing**, one full blank screen, which is exactly the
+     frame the founder photographed. It stood at every phone width since the
+     release was written.
+
+     THE ONE THING THE RELEASE WAS RIGHT ABOUT IS KEPT AND IT IS A HEIGHT
+     QUESTION RATHER THAN A WIDTH ONE. `@media (max-height: 42.5rem)` above still
+     lets the stage go on a short screen, where four rows, a card and two figures
+     genuinely do not fit; it is a `@media` and not a `@container`, so its own
+     `min-height: 0` reaches the section and works. */
+
+  /* ---- THE PROMISE OWNS THE FIRST BEAT, AND ON A PHONE IT OWNS THE WHOLE
+     STAGE WHILE IT DOES ------------------------------------------------------
+     At the desk the promise is a column on the left and the window is beside it,
+     so the two share the stage and the promise leaves that column at 18%. A
+     phone has one column, so "beside" does not exist: laid out in the head row
+     the promise is 421px of a 780px stage, and a head that tall leaves the list
+     97px once the figures and the reason card have taken theirs. That number is
+     the whole reason the width release was ever written.
+
+     So on a phone the promise is not IN the head row, it is OVER the stage: it
+     fills the pin, on the page's own ground, and lifts away at 18% to reveal a
+     stage that is already fully laid out underneath. Nothing about the beat
+     changes - same `sup`, same range, same 18% - only what it is covering while
+     it is there. `inset: 0` resolves against `.storypin`, which is `sticky` and
+     therefore a containing block; `.saystack` is deliberately `position: static`
+     for the same reason at both widths, and landing-orbit.css says so at the
+     line.
+
+     The head row is then the heading alone, 126px at 390, and the arithmetic
+     that was impossible becomes ordinary: 126 of head, 62 of figures, two gaps
+     of 24, and 544 left for a list that is 460 tall.
+
+     THE RULE ITSELF IS IN landing-orbit.css, and it has to be. The promise is
+     the candidate's own block: `.landing .lp-orbit.lp-story.fromcircle .osay`
+     is 0-5-0 and this file cannot reach it at 0-3-0 from an earlier `@import`.
+     Written here it computed `position: relative` and the head row stayed 425px
+     tall, which is the silent kind of wrong this file's neighbours keep
+     recording: a rule that parses, matches nothing that matters, and leaves the
+     measurement it was meant to change exactly where it was. */
 
   /* THE HEAD DOES NOT ANIMATE, and that is the decision the first cut of this
      file got wrong. It carried `srise` over contain 6% to 20%, which meant that
@@ -878,6 +900,63 @@
   .landing .scard:nth-child(2) { animation-name: sturn; animation-range: contain 43% contain 67%; }
   .landing .scard:nth-child(3) { animation-name: sin;   animation-range: contain 61% contain 67%; }
 
+  /* ---- AND ON A PHONE THE THREE OF THEM HAND OVER RATHER THAN CROSS-FADE ----
+     2026-08-18, found by a screenshot at 320 x 800 the first time the stage ran
+     narrow. The ranges above overlap by six points and by six again, which is
+     right where the cards are three separate boxes on three parts of the stage:
+     one is fading out on the left while the next fades in on the right, and the
+     eye reads a relay. Narrow they are all in ONE cell, so the same six points
+     draw two paragraphs through each other at half opacity and neither is
+     readable - the same smear this file already fixed once for the total, and
+     the fix is the same one: `shand`'s rule, out before in.
+
+     The three windows are made adjacent and nothing else moves. `sturn` is
+     0 to 1 over its first 26 points and 1 to 0 over its last 26, so an 18-point
+     window reads: in by 29.7, held to 38.3, gone by 43 - and the cancellation it
+     explains is at 35, inside the hold. The second is the same shape against 53.
+     The third arrives at 61 with `sin` and stays, which is what it does at the
+     desk too, so it needs no range of its own here beyond the new boundary. */
+  @container story (max-width: 59.99rem) {
+    .landing .lp-story.fromcircle .scard:nth-child(1) { animation-range: contain 25% contain 43%; }
+    .landing .lp-story.fromcircle .scard:nth-child(2) { animation-range: contain 43% contain 61%; }
+
+    /* ---- AND THE CARD LANDS ON GROUND RATHER THAN ON LIVE ROWS ------------
+       A card is a surface with a fill, and a fill at 0.5 opacity is a window:
+       caught at 320 x 800 mid-handover, "Clear, never judged" was readable
+       through four subscription rows and the rows through it. At the desk the
+       card arrives over the page's own margin and there is nothing behind it to
+       show through, which is why the fade has never had to answer for itself.
+
+       So the strip the card lies in gets a scrim: the page's own colour, opaque
+       under the card and gone two rem above it, drawn on `.storyasides` because
+       that box is the card's own cell and does not fade with the cards inside
+       it. It is exactly the room `--scardslot` already reserves, so nothing is
+       hidden that the list was ever allowed to use - and it is the reason the
+       slot moved up to the pin, where a sibling can read it.
+
+       NOT ON THE SWAP, which was the first attempt and was wrong by 43px: a
+       mask there would fade the bottom of the round window too, and the window
+       is centred in the same box - its lower edge sits 101px above the swap's
+       floor, inside the 144px the scrim covers. */
+    .landing .lp-story.fromcircle .storyasides { position: relative; }
+    .landing .lp-story.fromcircle .storyasides::before {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      height: calc(var(--scardslot) + var(--space-32));
+      background: linear-gradient(to top, var(--bg-page) 65%, transparent);
+      pointer-events: none;
+      /* BEHIND THE CARDS AND IN FRONT OF THE LIST, which is one number because
+         `.storyasides` already carries `z-index: 1` and is therefore a stacking
+         context: a negative child paints below the box's own in-flow content and
+         above everything outside it. Without it the scrim is a positioned box
+         and the cards are static, so the page's colour was drawn over the card
+         it exists to protect. */
+      z-index: -1;
+    }
+  }
+
   /* ---- and the stage lets go ---------------------------------------------
      The last quarter of the pin had nothing happening in it, which is a quarter
      of a screen-height of scroll spent on a still frame. It now carries the
@@ -912,9 +991,19 @@
      the card lies across the foot of the stage below 80rem, and 11rem is its
      height plus its air. Past 80rem it stands beside the list and covers
      nothing, so the slot is zero. */
+  /* AND THE SLOT IS DECLARED ON THE SWAP RATHER THAN ON THE LIST SINCE
+     2026-08-18, which is a move of one line and not a change of value. Two
+     things need the number now: the list, which travels by it, and the swap,
+     whose window has to stop where the card starts. A custom property inherits
+     downward, so declared on the swap the list still reads it and there is one
+     declaration; declared on the list, the swap could not see it at all and the
+     scrim below would have had to spell 11rem a second time. It goes on the PIN
+     rather than on the swap because the two readers are the swap's own subtree
+     and `.storyasides`, which is the swap's SIBLING: the nearest box both of them
+     inherit from is the pin. */
+  .landing .storypin { --scardslot: 11rem; }
   .landing .storyswap { container-type: size; }
   .landing .storylist {
-    --scardslot: 11rem;
     --stravel: min(0px, calc(100cqh - 100% - var(--scardslot)));
   }
   .landing .scard { left: 50%; bottom: var(--space-0); transform: translateX(-50%); width: min(28rem, 100%); }
@@ -931,7 +1020,7 @@
      1024 to 1360: at 1024 a 307px card starting at 40 ends at 347 and the list
      starts at 202. Anchoring to the centre cannot make that mistake. */
   @container (min-width: 80rem) {
-    .landing .storylist { --scardslot: 0rem; }
+    .landing .storypin { --scardslot: 0rem; }
     .landing .scard {
       bottom: auto; top: 50%; transform: none;
       /* `50%` OF THE STAGE AND NOT `50cqw`. Both look like half the page and one
