@@ -7,6 +7,576 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-17 - The pair of figures becomes one sentence on a phone, after two fixes that were both right and both not the defect
+
+Founder, on the third look: **"та ничего не менятся, как было так и осталось"**,
+with a screenshot that DID show both previous fixes. Asked to choose, they picked
+**one line under the list**.
+
+**THE TWO FIXES BEFORE THIS ONE WERE REAL AND NEITHER WAS THE DEFECT.** The first
+gave the block one alignment instead of two; the second gave each column the width
+its content actually wants, and the label went from two lines to one, the caption
+from three to two, the block from 127px to 92. Both are measured and both hold.
+**And the block still read wrong, because what was wrong with it was not
+typography: it is TWO OBJECTS.** A count in one column and a total in another,
+floating on the canvas between a list and a card, with nothing saying they belong
+to each other or to the list above. On the wide stage they are annotations pinned
+to two corners of one picture and **the picture supplies the relation**; on a phone
+there is no stage, so the relation has to be in the sentence.
+
+**SO ON A PHONE THEY ARE ONE SENTENCE.** `14 subscriptions · $192.90`, then `a
+month, for what you have signed up for`, then `EXAMPLE, NOT YOUR DATA`. One flow,
+full width, left aligned, 102px.
+
+**NO NEW STRING.** Every word is the one the markup already carries, in the order
+it carries it, and the separator is a middot drawn by CSS, which is punctuation
+rather than copy. The founder's sketch reads "$192.90 a month", which would want
+the caption shortened; that is a second edition of a line with one owner, so it is
+a Voice decision and is reported rather than taken.
+
+**A SENTENCE NEEDS ONE PARENT TO FLOW THROUGH, WHICH IS THE WHOLE OF THE MARKUP
+CHANGE.** `display: contents` on the total was tried first and it is the wrong tool
+by one level: it promotes the total's three children into the GRID, not into the
+count's row, so they came back as grid items and overlapped. `.ofigs` is a flow
+root and nothing else: no copy, no meaning, no rule of its own above the point.
+
+**AND THE STACK HAD TO GO INLINE, NOT ONLY THE FIGURE INSIDE IT.** Setting
+`display: inline` on the four values left the count reading as two lines, 41px
+tall, because `.storystack` is a GRID and a grid is block-level: the figure was
+inline inside a box that still took the whole line, so "14" sat above
+"subscriptions" exactly as before. `inline-grid` keeps the four-value countdown
+intact and lets the sentence run through it.
+
+**A WRAPPER ADDED FOR ONE LAYOUT HAS TO VANISH IN THE OTHER, NOT MERELY STOP
+STYLING, AND THAT COST 242px OF SIDEWAYS SCROLL TO LEARN.** Reset to `display:
+block` at the desk, `.ofigs` is still a box in the flow, and the two absolutely
+placed figures shrink-to-fit against a different available width: the total came
+out **64px wide with its label on three lines and its caption on five**, and the
+page scrolled **185 at 1024 and 242 at 1280**. `display: contents` takes the
+wrapper out of the box tree entirely and the wide layout is the one that shipped.
+
+**AND A RESET HAS TO NAME THE VALUE IT IS RESTORING.** The first desk reset wrote
+`font-size: inherit` on the amount, which is not what the amount had: it took it to
+the block's 16px and the total's stack read **17px tall against 34**. "Whatever the
+parent says" is a different value from "what this element said before somebody
+overrode it". The value is `landing-story.css`'s own `.storystack .figure`.
+
+**VERIFIED, ELEVEN WIDTHS FROM 320 TO 1920.** On a phone the label is one line at
+every width and the caption one at all but 320, where it is two; 0 sideways scroll
+everywhere. **At the desk the block is identical to HEAD to the pixel**: the count
+89 by 55 and the total 271 by 74 at 1024, 1280, 1600 and 1920, the figure back at
+`--type-figure`, and 0 sideways scroll. The stage ledger reads 0 violations on all
+55 screens with `.ofigs` defined by the system.
+
+---
+
+## 2026-08-17 - Two mobile defects on the public page, and both are one shape written for a wide layout and read on a phone
+
+Founder, on a phone, twice: **"баг, бегают цифирки, такого не должно быть, давай к
+правому краю"** and **"тут тоже на мобилке не понятно что и зачем, как баг
+выглядит"**. Neither is a rendering fault. Both are a rule that is correct in the
+layout it was written for and wrong in the one it also reaches, which is the third
+time this file records that sentence today.
+
+**THE FIGURES RAN DOWN THE LIST, AND IT IS THIS FILE'S OWN SENTENCE READ OVER THE
+SET.** `.sline` was a flex line, so the state cell was sized by its own label and
+nothing else: `Active` measures 45 and the `Cancelled` stack 62. The state is the
+LAST item, so its right edge is the row's and **its left edge moves**, and the
+amount sits immediately before it: measured at 320, the price stood at **two
+different offsets from its own row's right edge, 78 and 61**, so fourteen figures
+read as a column that wobbles. `landing-story.css` has said since it was written
+that the swap cell is sized by the wider of its two labels so that nothing to its
+left moves when the state changes. That is true within one row and was never true
+across the list.
+
+**SO THE ROW IS A GRID AND THE LAST TRACK IS A NUMBER.** 62px, the measured width
+of the widest state cell in this list. Fixing that one track fixes the amount
+**without touching the amount**: the price is still sized by its own digits, and
+because the track after it no longer moves, every right edge lands on one line.
+`tabular-nums` was already doing its half and had nothing to align against.
+Measured after: **one distinct offset at 320, 360, 390, 430 and 760**, against two
+before, and **the same eight names ellipsise before and after**, so the fixed track
+cost the name column nothing. The widest state cell reads 62 on a phone and 60 at
+the desk, and **0 of 14 rows have the state overlapping the amount at any of seven
+widths**.
+
+**THE TWELVE DISTINCT EDGES PAST 1024 ARE NOT THIS DEFECT AND WERE NOT FIXED.**
+The story stage scales each plate on a ramp, `--pscale` per `nth-child`, so the
+rows are deliberately different widths there. Before this change they read 99, 74,
+71, 68 and down; after, 97, 87, 83, 80 and down. It is the ramp in both cases.
+
+**AND THE PAIR OF FIGURES ON A PHONE HAD ONE BLOCK IN TWO ALIGNMENTS.** The count
+and the total sit in two columns of 143px on a phone, which is deliberate and has
+its own note. The total kept the `text-align: right` it wears in the WIDE layout,
+where it is pinned to the far corner of the stage and reading it inward is
+correct. At 143px that turns its label into two ragged-left lines and its caption
+into three, standing beside a count that starts at its own left edge. **Same
+block, two alignments, and what the eye reads is not a pair but breakage.**
+
+Both now start from their own left edge, and the alignment comes back at 60rem
+with the corner placement that earns it. It is said in two properties, `text-align`
+on the block and `justify-items` on the stack of values, because the figure is a
+grid of four and the label and the caption are paragraphs: **written once they part
+company at the one width nobody re-reads**, which is how the base came to carry a
+wide layout's alignment in the first place.
+
+**AND ALIGNING IT WAS NOT ENOUGH, WHICH THE FOUNDER SAID IN FOUR WORDS: "тут
+что-то ничего не поменялось на мобилку".** The alignment was right and the block
+still read wrong, because the defect underneath it was WIDTH. **The pair is a
+count and a total and they are not the same object.** The count is two short
+words, 86px at every phone width and never more. The total is a label, a figure
+and a caption, and its label alone, "Example, not your data", wants **158px** to
+stand on one line. Split down the middle at 390 they get 143 each: **the count
+wastes 57 and the total is 57 short**, so the label breaks in two, the caption
+breaks in three, and four stacked fragments beside two words read as a block that
+failed rather than as a pair.
+
+`auto minmax(0, 1fr)` gives each of them what it is. Measured after: the label is
+**one line** at 360, 390 and 430 where it was two, the caption is two where it was
+three, and the block is **92px tall against 127**, which the pinned stage does not
+have to find room for because that row was already the taller of the two.
+
+**AND THE STACK ITSELF WAS CENTRING EVERY FIGURE OVER ITS OWN WORD.**
+`.storystack` is a two-consumer grid, the count's figure and the total's, and its
+base was `justify-items: center`: "14" sat centred above "subscriptions" and the
+amount above its caption. On a phone the pair reads left to right down one edge,
+and **a figure floating over the middle of its label is the one thing in that pair
+that starts nowhere**. The base is `start` now. The wide layout takes it back
+where it earns it, and the count's figure has carried `text-align: left` there
+since the founder's mark of 2026-08-14 for exactly this reason: said then about
+one layout, and true in both.
+
+**VERIFIED**: eight widths from 320 to 1920. Amount offsets 1 distinct through
+760; the total reads `left` / `start` on a phone and `right` / `end` past 1024;
+0 sideways scroll and 0 console errors at every width.
+
+---
+
+## 2026-08-17 - A field rather than a front, one chevron rather than two, and the third step cancels
+
+Three founder notes on one screenshot, and two of them **overturn the two entries
+below**, which is why they are written here rather than edited into them.
+
+**"мне не нравится эти волны, давай оставим одну и не как линию, а как
+заполненную, такую на всю карточку круг идет". THE ANSWER IS NOT A FRONT AT ALL,
+IT IS A FIELD.** Three shapes were tried in one evening: one thin ring at 0.45,
+rejected as a sonar ping; two thin rings, the drop's train of fronts, rejected as
+well; and now one filled circle. **A ring, however soft, draws an EDGE**, and an
+edge on a white panel is a shape a person tracks - at any frame the eye has an
+outline to follow, which is exactly why one ring read as sonar and two read as
+ripples somebody counted. A filled circle has no edge to follow at this alpha:
+what crosses the panel is a change in the ground, and the only thing that reads is
+that something happened where the plus was pressed. That is what the beat is for.
+
+**0.10 AND NOT 0.26, AND THE AREA IS THE WHOLE REASON.** The ring painted about a
+fifth of the circle; this paints all of it. Holding the same apparent weight over
+five times the area is roughly a fifth of the alpha, and 0.10 of `--bg-action` on
+paper is about six values per channel at the peak: a tint a person feels rather
+than sees. **`--ease-arrive` is the one thing that survived both rewrites** - the
+circle is thrown out by the press and the surface takes it back - and
+**`--ease-travel` is back to one consumer**, because its reason was about a FRONT
+crossing a distance and a field has no front.
+
+**"и мне кажется этот логотип поломался" AGAIN. ONE CHEVRON AND NOT TWO.** The
+entry below corrects the Strava mark from a rhombus to the real pair, and the real
+pair was rejected on sight the same evening. It is right at 150px and wrong at 36:
+the lower element is **fourteen pixels of white that the eye resolves as a separate
+shape hanging under the upper one** rather than as part of one mark. So the tile
+keeps the silhouette Strava is known by and drops the element that only works
+large. **A mark is not correct in the abstract, it is correct at the size it is
+seen**, and every one of these fourteen is seen at 36. That sentence is the one
+worth carrying forward when the set is finally sourced from press pages.
+
+---
+
+**"по принципу как второй, но сложнее: нам надо показать, что мы отменяем
+нетфликс, он canceled становится и уходит вверх, и все двигается вверх, и так по
+кругу". THE THIRD STEP CANCELS NOW.** It is step two's machinery plus one beat, and
+the beat is the point: the row standing at the TOP changes state before it leaves.
+The heading is *Cancel and save*, and the still picture could only ever show the
+RESULT of that sentence - one row already cancelled, with nothing to say when it
+became so. **The loop shows the verb.**
+
+**THE TWO ENDS OF A ROW SHARE ONE SLOT AND WHICH IS VISIBLE IS THE STATE.** Every
+row carries both its amount and its Cancelled chip now. **The chip is the one in
+flow and the amount lies over it**, absolutely placed at the same right edge, and
+that way round is what keeps the row's geometry still: the chip is the wider of
+the two, so the space is reserved for the wider one and nothing reflows when the
+state changes. The other way round - amount in flow, chip over it - would put a
+chip with a background on top of the name, which is a defect wearing the look of a
+bug.
+
+**THE STATE IS FOUR PROPERTIES ON THREE ELEMENTS AND NOT ONE OPACITY ON THE ROW**,
+which is this component's own oldest rule: an opacity on the row takes the
+Cancelled chip down with it, and the chip is the one thing in that row a person has
+to be able to read. The mark dims to 0.45, the name steps back to muted and to 400,
+the amount goes and the chip arrives. **`--ease-state` and not `--ease-arrive`**,
+on the register's own line: an entrance is a thing appearing, a state change is a
+thing already on screen saying it heard you, and nothing arrives here.
+
+**THE TWO ENDS HAND OVER, THEY DO NOT CROSS-FADE, AND THE FIRST CUT DID CROSS.** It
+looked exactly like the bug it was not: for 180ms "Cancelled" and "$11.99" were
+both half painted in the same 70 pixels, one word legibly on top of another. Two
+texts sharing one slot have to take turns. Driven over the whole beat at 15ms
+steps, **the highest simultaneous visibility of the two is 0.000**.
+
+**THE DELAY IS SET ON THE ROW AND ON ALL OF ITS CHILDREN AT ONCE**, `> *`, because
+`animation-delay` does not inherit and five elements that have to agree about which
+beat they are in cannot be given the number five times without one of them
+drifting.
+
+**WHAT THE RESERVED CHIP COSTS, MEASURED RATHER THAN LEFT OUT: ONE 16px BAND.**
+Reserving the chip's width on every row takes 15px off the name column in step
+three, and at **900 to about 915** - the narrowest form of the three-column layout,
+immediately above the rung - "Spotify Premium" ellipsises. Clean at every other
+width from 320 to 1920, and step two clean everywhere. It is the same band the
+row's 8px gap was chosen for in the first place, it degrades through the ellipsis
+`.name` already declares, and the vignette is `aria-hidden` decoration. The
+alternative is a shorter label for that row, which is a Voice question and not a
+CSS one, so it is reported rather than taken.
+
+**VERIFIED**: both lists driven by clock. Step three at rest is Netflix cancelled
+at the top, Spotify and iCloud active, Notion off-panel; at 0.8s Netflix is
+cancelling; at 2.0s it is leaving with the rest moving up and Notion entering; at
+2.4s Netflix has reset off-panel and Spotify is at the top, active; at 3.0s Spotify
+is cancelling. **Reduced motion asserted in the page: zero animations under either
+panel, four rows `position: static` at 0, 65, 130 and 195, and step three's still
+picture is the cancelled row with its chip and every other row with its amount** -
+which is the markup this block shipped with. **81 widths from 320 to 1920: 0
+sideways scroll, 0 console errors, 0 requests over 400.** Keyframes recounted by
+script: `components/` **41**, `design/system/` **42**.
+
+---
+
+## 2026-08-17 - A drop rather than a ping, and the second step browses itself
+
+Two founder notes an hour apart, and the first one **supersedes a choice the entry
+below argues for**, which is why it is written here rather than edited into it.
+
+**"давай более нежную сделаем как будто капля упала в воду". ONE RING IS A PULSE
+AND TWO ARE A DROP.** Water does not answer an impact with a single edge; it
+answers with a train of them, each weaker and each starting behind the one in
+front. The first cut was a single band at 0.45, and read back against that brief
+it was a sonar ping: correct as a wave, wrong as water. There are two rings now on
+one origin, the second **360ms behind the first and at three fifths of its
+strength**, which is the smallest train that reads as a train rather than as a
+ring somebody drew twice. The band went from 60/78/100 per cent of the radius to
+**70/82/96**, roughly half as thick and with both edges inside the circle so the
+outer one feathers out instead of being cut off by the element's own box, and the
+peak went **0.45 to 0.26**.
+
+**AND THE CURVE REVERSED WITH IT, WHICH IS THE PART WORTH THE SPACE.** The entry
+below chooses `--ease-travel` and gives its reason: travel is the even curve, and
+an even curve stops the front covering its journey in one flash. That reasoning
+was right about the flash and wrong about water. **A ring on a surface does not
+travel evenly** - the impact throws it out and the surface takes it back, so it is
+quick at the centre and slow at the rim, which is expo-out exactly. The flash is
+answered by LENGTH instead: the ripple runs **1.08s to 3.06s** where it used to be
+done by 2.34, so both rings are still spreading, faintly, under the services as
+they land. **`--ease-travel` goes back to one consumer**, and the pages that
+claimed it had two are corrected rather than left to be believed.
+
+---
+
+**"одна подписка уходит вверх, а внизу добавляется другая, будто двигаем список,
+просматриваем наших подписок". THE SECOND STEP'S PICTURE MOVES NOW.** It passes
+the same test the other two had to: the heading says *See it all, calmly* and the
+paragraph under it is about a list a person scrolls, and the still picture showed
+three rows with no reason to believe there were any more. **The movement is the
+word ALL, drawn.**
+
+**FOUR ROWS IS THE MINIMUM AND THAT IS ARITHMETIC RATHER THAN TASTE.** The panel
+is a three-row window. The moment the top row leaves, the bottom slot is empty and
+something has to be entering it in the same 600ms, and that cannot be the row that
+is leaving. So the markup gained a fourth: **Notion at $8.00**, the canonical
+dataset's own row from `voice/docs/microcopy.md`, so no string is invented. With
+motion off it is clipped by the `overflow: hidden` this panel already declares,
+which is what an unscrolled list looks like, and the still picture is unchanged to
+the pixel. **The grey twin keeps three**, and that is deliberate rather than an
+omission: the grey has no motion, so a fourth row there is a row nothing can ever
+reveal, and its panel is 174px against the colour's 194 in any case. The landing
+pair already carries one stated divergence, the 1120 point against 900.
+
+**`align-content: start` IS THE OTHER HALF AND WITHOUT IT THE STILL PICTURE
+BREAKS.** `.sdemo` centres its content, which is a no-op while three rows fill
+194px exactly. Four rows are 260, so centred they hang 33px off both ends and **the
+top row renders cut in half**. Start-aligned, the fourth simply falls off the
+bottom.
+
+**THE ROWS COME OUT OF FLOW SO THAT ONE KEYFRAMES CAN DRIVE ALL FOUR.** In flow
+each row's rest position differs, so "move up one slot" is a different pair of
+numbers per row and needs four keyframe blocks that have to agree with each other
+forever. Absolute and left/right pinned, every row's origin is the same point, the
+slots are four numbers written once, and the phase is carried by a **negative
+`animation-delay`**: -6.75s, -4.5s and -2.25s are three quarters, a half and a
+quarter of the cycle, so at t=0 the four already stand at slots 0, 1, 2 and below,
+in markup order, with no fill mode and no first-cycle special case.
+
+**THE SLOTS ARE -1, 64, 129, 194 AND THE -1 IS LOAD-BEARING.** Every row carries a
+top hairline here, the first one included, because any of the four can end up in
+the middle of the stack and a missing separator is the one thing this movement
+could break. That would put a hairline at the very top of the panel, one pixel
+under its own border, reading as a double rule. Sliding the whole ladder up by one
+pixel clips exactly that hairline and nothing else. **The wrap is instant and
+off-panel**: a row leaves at -66, its own height above the top edge, and one
+thousandth of a percent later it is at 194, below the bottom edge, both outside a
+box that clips.
+
+**GUARDED BY `no-preference` RATHER THAN KILLED BY NAME, WHICH IS THE OPPOSITE OF
+THE OTHER TWO MOVEMENTS AND THE REASON IS THE DIFFERENCE.** This one changes
+LAYOUT and not only motion, so killing the animation alone would leave four
+absolutely positioned rows stacked on one point. Under reduced motion none of
+these rules exist at all. Measured with the media feature asserted in the page:
+four rows `position: static` at 0, 65, 130 and 195, **zero animations under the
+panel**, and the fourth off the bottom.
+
+**VERIFIED**: driven by clock at eight moments of the cycle. At rest Netflix,
+Spotify and iCloud stand at 0, 65 and 130 with Notion off-panel; mid-transition
+all four are visible and moving together; at 2.4s Netflix is below and Notion is
+the third row; at 8.99s the four are back where they started. **81 widths from 320
+to 1920: 0 sideways scroll, 0 rows wider than their panel, 0 console errors and 0
+requests over 400.** The keyframe count is recounted rather than incremented:
+`components/` holds **38** and `design/system/` **39**, and the census row on the
+motion page now says which of the two it is counting.
+
+---
+
+## 2026-08-17 - The press got an answer, and one of the fourteen marks was not approximate but wrong
+
+Two things off one screenshot of the landing's first step, an hour after the loop
+went in. **"логотип почему-то один сломался"** and **"и при нажатии хочется на
+заднем фоне какую типа волну пустить в бренд цвет"**.
+
+**THE MARK: THE OFFSET BETWEEN TWO CHEVRONS IS THE WHOLE OF THE STRAVA LOGO, AND
+THE FILE HAD LOST IT.** The lower chevron carried the real coordinates, apex at
+x=15.387. The upper one was a redraw with its apex moved to 13.828 from the real
+10.463. That put the two on nearly the same vertical axis, and two chevrons
+stacked on one axis close into a **symmetric rhombus with a notch in it**, which
+is what shipped and what the eye read as "an A in a diamond". Both are the real
+coordinates now; the group's transform centres the drawing's own bounds (x 3.463
+to 20.537) rather than the viewBox, at a scale that puts it 36 tall in the 64
+box, the same optical size as the Netflix N beside it.
+
+**WHY THAT IS WORTH AN ENTRY AND NOT ONLY A COMMIT.** `icons.html` already
+declares all fourteen provider marks approximate, and an approximation reads as a
+slightly-off logo. This one did not: it read as a confidently drawn mark of
+**something else**, which is the exact failure mode that page warns about for the
+stock catalogue it rejected, "a brand query resolves to the nearest generic". So
+the debt is not only sourcing. **Nothing in this repository can tell a wrong mark
+from a rough one**: every instrument here reads a rendered page, and a rhombus
+renders as cleanly as a chevron. All fourteen were re-rendered at 150px and walked
+by eye the same day. This was the only one.
+
+**THE WAVE: THE PRESS WAS THE ONE BEAT OF THE CYCLE WITH NO CONSEQUENCE ON
+SCREEN.** The plus went down and came back up, the grid began filling a fraction
+later, and the two read as two things that happened rather than as one causing the
+other. A petrol wave now leaves the plus at the frame it is pressed and **the
+first service lands inside it**: the front is still crossing at 2.34s and the
+first tile appears at 1.88s. That is the same test the loop itself had to pass,
+the one the four verbs were chosen under: the movement always has a cause.
+
+**A FRONT AND NOT A DISC, WHICH IS WHAT THE WORD WAVE ASKS FOR.** A flat fill
+scaling up is a colour swelling; an annulus scaling up is something travelling. It
+is one `radial-gradient(closest-side, ...)` on one pseudo-element, so both edges
+are feathered and the ring has no drawn outline to give it away as a circle.
+**`--ease-travel` gets its second consumer**, on the register's own brief for it:
+the curve for a long distance, where expo-out is "a rocket that then creeps". A
+front that covers 90 per cent of its journey in the first fifth is a flash.
+
+**`--bg-action` AND NOT A LITERAL, AND THE ROLE IS THE ARGUMENT RATHER THAN THE
+COLOUR.** Petrol has three permitted jobs and the primary action is one of them;
+this ripple is the primary action of that picture answering a press, so it takes
+the fill role that answer already has. It is therefore a real colour in both
+themes with no new token and no pair to keep. **Checked with a theme control
+rather than assumed**, because these pages boot their theme from `localStorage`
+and setting an attribute is not setting the theme: the ground moves
+`rgb(238,243,244)` to `rgb(14,21,23)` and the wave follows the role from `#1c6a76`
+to `#6bb0ba`. `DESIGN.md` puts the BRAND's petrol in the chrome; this is not the
+brand appearing in content, it is the action's own ink doing the action's own job.
+
+**THE ORIGIN NEEDS NO ARITHMETIC AND THE COVER NEEDS NO PIXEL.** The grid is
+centred in the panel's content box and the panel's padding is equal on four sides,
+so the content box's centre IS the panel's centre and that is where the plus is:
+`50% / 50%` and a self-centring translate, with no second number that could drift
+from the first. The circle is **140% of the panel's width** rather than a size,
+because it must beat the diagonal of a box 194 tall and 250 to 390 wide: radius
+175 against a 173 diagonal at the narrow end, 273 against 213 at the wide one, and
+the margin grows with the box. The `overflow: hidden` already on `.sdemo` for the
+row corners does the second job for free, clipping the circle to the panel's
+rounded rectangle, so what a person sees is colour crossing a surface rather than
+a disc growing on one.
+
+**PEAK 0.45 AT ONE FRAME, DOWN FROM 0.55 AFTER ONE LOOK.** At that weight the ring
+was the loudest thing in the section for a third of a second, which is a banner
+rather than a beat, and this product's first principle is calm over clever.
+
+**VERIFIED**: driven by clock rather than watched, on the time-based animations
+only, because `.sdemo` also carries a scroll-driven entrance and setting
+`currentTime` on a progress-based animation throws. Peak 0.45 at 1.26s, 0.08 at
+1.9s with the first service landing, 0 by 2.34s with four landed. **81 widths from
+320 to 1920: 0 sideways scroll, 0 frames where the enlarged plus leaves its panel,
+0 console errors and 0 requests over 400**, with the overflow probe proved on an
+injected 4000px box.
+
+---
+
+## 2026-08-17 - The first step of How it works moves, and it is the second loop this product has
+
+Founder, with the tile on a screenshot: **"сначала кнопка по центру квадратик и
+плюсом нажимается и появляются аппликейшены по очереди таким образом и плюсик в
+конце потом плюсик увеличивается и снова анимация проигрывается, короче ее надо
+сделать loop"**.
+
+**IT PASSES THE RULE THE FOUR VERBS WERE CHOSEN UNDER, WHICH IS THE ONLY REASON
+IT EXISTS.** Stage 11 wrote that the movement always has a cause: something moves
+only where the movement says what is about to happen. The heading under this tile
+says *Connect or add* and the paragraph says *add your subscriptions yourself from
+400+ services*, and the still picture showed the RESULT of that sentence and never
+the act. Eight tiles already there, with the one control among them reading as an
+eighth logo. **The cause here is the press and the effect is the grid filling**,
+which is what the block claims in words two lines below it.
+
+**NINE SECONDS, AND 42 PER CENT OF THEM ARE THE STILL PICTURE.** From 2.97s to
+6.75s all eight tiles stand exactly as the static markup draws them. That shape is
+what decides whether a loop is a vignette or a carousel: the resting state has to
+be the majority state, and principle 1 of this product is calm over clever. The
+duration is a literal in `landing-steps.css` by the system's own rule for a value
+with one consumer, the same rule that keeps the lift's 1.06 out of the register.
+
+**THE TWO DISTANCES ARE COMPUTED FROM THE GRID AND NOT MEASURED OFF A
+SCREENSHOT.** The plus is the eighth tile, column 4 of row 2, so the centre of a
+four by two grid is one and a half tiles and one and a half gaps to its left and
+half a tile and half a gap above it. A percentage on `translate` resolves against
+the element's own border box, so `-150%` IS one and a half tiles whatever the
+track computes to, and this track is `minmax(0, 56px)` and does shrink. The gap
+reads `--space-16` rather than 16. Nothing in the rule knows a pixel of the
+layout, and the sweep proves it: at all **81 widths from 320 to 1920** the
+enlarged centred plus stays inside its panel and no document scrolls sideways.
+
+**`translate` AND `scale` AND NOT `transform`**, because those are the two
+properties `logo.css` already animates on this same element for the lift, and
+written as a shorthand the two would overwrite each other. An animation outranks
+the transition declared there, and these tiles have no hover host anyway: the lift
+is scoped to `.door:hover` and this grid sits in a `div.sdemo.doors`.
+
+**`animation-fill-mode: backwards` IS LOAD-BEARING AND IT IS THE WHOLE REASON THE
+FIRST CYCLE IS NOT WRONG.** Each tile waits out a delay of up to 2.7s before its
+animation starts, and with the default fill mode it would render its static self,
+visible, for that whole time and then blink out the moment the animation began.
+`backwards` shows the 0% frame during the delay, which is the hidden one. There is
+no `forwards`: an infinite animation has no end to fill.
+
+**AND THE REDUCED-MOTION KILL IS BY NAME FOR A STRONGER REASON THAN THE ENTRANCES
+HAVE.** `base.css` zeroes the duration and forces one iteration, which lands an
+infinite loop on its LAST frame: the plus alone in the middle and seven services
+gone. **That is not a stiller version of the picture, it is a different picture
+with the content removed.** With the name killed the tiles render exactly as the
+markup writes them. Checked by cancelling the animations in the browser: all eight
+read opacity 1, no scale, no translate.
+
+**READ OFF THE CLOCK RATHER THAN WATCHED**, because sampling a running loop is a
+race and setting `currentTime` is a measurement. The eight animations were paused
+and driven to twelve moments: 0.9s the plus alone, centred, at 1.3; 1.08s pressed
+at 1.08; 1.9s home with one service landed; 2.4s four; 2.97s all seven; 6.75s all
+seven still; 7.92s the last gone and the plus still in its slot; **8.99s centred at
+1.3 again, which is the 0% frame to three decimal places**, so the loop has no
+seam. 0 console errors.
+
+**WHAT IT COSTS, STATED RATHER THAN LEFT OUT:** it runs off screen too. There is no
+CSS that pauses a time-driven animation on visibility, and `animation-timeline`
+binds progress to scroll, which is a different movement and not this one. The bill
+is a compositor tick on eight elements that browsers already throttle in a
+background tab, against a script on a page that would otherwise need none.
+
+**AND THE COUNT IT MOVED HAD AN UNNAMED SCOPE.** The motion census reads
+"`@keyframes` in the system: 33". Recounted by script with comments stripped, that
+figure counts `components/` and never said so: `components/` held 33 before today
+and `design/system/` held 34, the difference being `pulse` in `base.css`. Both name
+a true thing. They are 35 and 36 now, and the row says which it is counting.
+
+---
+
+## 2026-08-17 - Two rules written for a set, both reasoned off a subset, and both found in a picture
+
+Founder: **"давай визуал править"**, with a screenshot of `design/path-choice.html` at a desk
+width. Two defects on it, and neither is findable by any instrument this repository owns: both
+pages render with no console error, no sideways scroll at any of 58 widths, no style of their own
+and no class the system does not define. **Every sweep here asks whether a page is correct. A
+picture asks whether it looks right, and these two only fail the second question.**
+
+**THEY ARE THE SAME DEFECT TWICE.** A rule was written over a SET of placements and its reason
+was read off a subset of that set, so the rule is right where somebody looked and wrong where
+nobody did. Both files even state the reason out loud, which is what made the two findable in
+minutes once the screen was measured: the wrong sentence was sitting beside the wrong rule.
+
+**THE EXIT LINK STOOD AT 0px FROM THE DOOR ABOVE IT.** `grid.css` takes the bottom margin off
+`.grid.roomy` and explains: "a door row DOES have a host: the empty block on 3 pages and the
+dialog sheet on 1, and both already space it." Counted over the four door rows the product has,
+the empty block hosts **two**, `connections-empty` and `home-empty`; the sheet hosts one; and
+`path-choice` has no host at all. So the grid's zero met `.quiet`'s zero and "Do this later"
+rendered flush against the bottom edge of the door it is the alternative to, at every width, on
+the one screen the whole product forks on. **The same pairing reads 24 after a tile row and 16
+after an action row**, which makes this the only distance in the product nobody had chosen.
+
+The margin comes back from the SHELL, `.app > .screen > .grid.roomy` at `--space-24`, 0-4-0
+against `grid.css`'s 0-3-0 so it wins on arithmetic rather than on import order. **Rejected:
+writing it in `grid.css`.** That file's own opening sentence is "the margin is the host's and is
+written here until it has a host to go to", and a block whose only parent is `.screen` has one.
+`app-shell.css` already carries the identical rule for `nav.actions` four lines away. The three
+placements that are inside a host keep their zero and not one of them moves.
+
+**A 44px TARGET INSIDE A SENTENCE TORE THE FOOTNOTE OPEN.** `muted-line.css` gives the ruled
+footnote's link the tap floor as an `inline-flex` box, on the stated ground that "the footnote is
+a `p` whose link is the last thing in its own sentence". Read off all six placements that is true
+of four and **false of `path-choice` and `data-privacy`**, where text follows the link. An atomic
+inline-level box hands its height to the line it stands in, so one line box of five was 44px tall
+in the middle of an 18px paragraph and the trust line read as two paragraphs with a hole between
+them: **79px at 1440 where three lines of 18 and one of 44 is exactly 79, against the 53 the
+leading asks for, and 97 against 71 at 360.**
+
+**AND BEING LAST IN A SENTENCE IS STILL BEING IN ONE**, which is the half of this that was not on
+the screenshot. "US banks connect through Plaid. More regions soon. [What we read]" is an inline
+link in a paragraph too, and the other four placements were paying the same 26px at the foot of
+the block where nobody looks. All six are one rule now: **`padding-block` on an inline element**,
+which grows the hit area, paints nothing and does not enter the line box calculation at all. The
+link is still 44px to a finger and the paragraph is back to its own leading.
+
+**THE VALUE IS DERIVED FROM A MEASUREMENT AND THE FIRST DERIVATION WAS WRONG BY 3px**, which is
+worth the space because it is the same class of error as the two defects. It read
+`calc((var(--tap) - 1.5em) / 2)`, subtracting the LINE, and an inline box does not fill its line:
+its content box is the font's ascent plus descent, 15px for Inter at `--type-meta` against a line
+of 18. The links came out 41. The term is the content box, read in a browser: 44 minus 15, halved,
+14.5 a side, and the hit box reads 44 exactly. **A number reasoned from the property next to the
+right one is still a number nobody measured.**
+
+**REJECTED, and it is the option the criterion itself offers.** WCAG 2.5.8 exempts a target that
+"is in a sentence or its size is otherwise constrained by the line-height of non-target text", so
+taking the floor off these six and writing the exemption down would have been compliant and one
+line shorter. It is not taken because a 44px target that costs nothing is better than a 17px
+target that is allowed. **Also rejected: naming the two shapes in the markup.** CSS cannot tell a
+link that ends a sentence from one inside it, `quiet-line.css` has said so since stage 08, and the
+distinction would need a class in frozen wireframe markup, which is a founder's decision and not a
+fix for a spacing defect.
+
+**VERIFIED BY BOX FINGERPRINT over all 55 coloured pages at 360 and at 1440**, animation and
+transition frozen, the before pass taken off a stashed tree so the two runs differ by nothing but
+the three files: **6 pages differ and they are exactly the 6 that host the ruled footnote's link**,
+30 boxes at 360 and 18 at 1440. Every differing box is the paragraph losing its 26px, the link's
+new position, or an ancestor absorbing the change, plus `path-choice`'s quiet line moving down 24.
+**49 pages are identical to the pixel.**
+
+**ONE THING IS FOUND AND NOT FIXED, and it is bigger than both.** Past the 900 container point
+`.app > .screen` becomes a flex column, and **a flex column does not collapse margins**. Every
+adjacent pair inside a screen where both siblings declare one therefore gets a bigger gap on a
+desk than on a phone: measured over all 55 pages at 780 and 1024, **10 pairs on 10 pages**, 24 to
+40 on six of them, 16 to 32 and 16 to 24 on the two share screens, and 24 to **48** on
+`path-choice` and `sign-in`. Nobody chose any of the ten. The honest repair is a `row-gap` on the
+flex column with the margins inside it deleted, which is one number replacing eleven and moves
+every flow screen, so it is the founder's and it is a row in `design/kit/docs/backlog.md` rather
+than a change made under a fix for something else.
+
+---
+
 ## 2026-08-17 - Stage 12 closes, and SAME was never available to a screen inside the shell
 
 Founder: **"давай ставим done:true"**, after the account was written and walked.

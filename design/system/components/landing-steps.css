@@ -313,3 +313,432 @@
   .landing .lp-step h3,
   .landing .lp-step p { animation-name: none; }
 }
+
+/* ---- step one's vignette moves, and it is the only loop in the product -----
+   Founder, 2026-08-17: "сначала кнопка по центру квадратик и плюсом нажимается
+   и появляются аппликейшены по очереди таким образом и плюсик в конце потом
+   плюсик увеличивается и снова анимация проигрывается, короче ее надо сделать
+   loop".
+
+   WHAT IT SHOWS, AND IT IS THE STEP'S OWN SENTENCE RATHER THAN DECORATION. The
+   heading under this tile says "Connect or add" and the paragraph says "add your
+   subscriptions yourself from 400+ services". The still picture showed the
+   RESULT of that and never the act, so the one control in the grid, the plus,
+   read as an eighth logo. The loop shows the act: the plus is the only thing on
+   the panel, it is pressed, seven services arrive in the order a person would
+   add them, and the plus ends up where the still picture always had it. It is
+   the same rule the four verbs were chosen under, on the motion page: THE
+   MOVEMENT ALWAYS HAS A CAUSE. Here the cause is the press and the effect is the
+   grid filling, which is exactly what the block is claiming in words.
+
+   NINE SECONDS, AND ALMOST FOUR OF THEM ARE THE STILL PICTURE. The cycle is a
+   literal in this file by the system's own rule for a value with one consumer,
+   and it is the second loop this repository has written: the crop page's
+   signature runs eight. The shape of the nine matters more than the number.
+   From 2.97s to 6.75s all eight tiles stand exactly as the static markup draws
+   them, which is 42 per cent of the cycle, so the thing a reader sees most of
+   the time is the finished grid and the movement is the minority state. A loop
+   whose resting state is the majority is the difference between a vignette and
+   a carousel, and this product's first principle is calm over clever.
+
+   THE TWO DISTANCES ARE COMPUTED FROM THE GRID AND NOT MEASURED OFF A
+   SCREENSHOT. The plus is the eighth tile, column 4 of row 2, and the centre of
+   a 4-by-2 grid is 1.5 tiles and 1.5 gaps to its left and half a tile and half a
+   gap above it. A percentage on `translate` resolves against the element's own
+   border box, so `-150%` IS one and a half tiles whatever the track computes to,
+   and the track here is `minmax(0, 56px)` and does shrink. The gap reads
+   `--space-16` rather than 16, so a change to the grid's air moves the plus with
+   it. Nothing in this rule knows a pixel of the layout.
+
+   `translate` AND `scale` AND NOT `transform`, because that is the pair
+   `logo.css` already animates on this same element for the lift, and the two
+   would overwrite each other written as a shorthand. An animation outranks the
+   transition declared there, so the lift is not fighting this and the tiles in
+   this grid have no hover host anyway: `.sdemo.doors` is a div, and the lift is
+   scoped to `.door:hover`, which is a different class.
+
+   `backwards` IS LOAD-BEARING AND IT IS THE WHOLE REASON THE FIRST CYCLE IS NOT
+   WRONG. Each tile waits out a delay of up to 2.7s before its animation starts,
+   and with the default fill mode it would render its static self, visible, for
+   that whole time and then blink out the moment the animation began. `backwards`
+   makes the delay show the 0% frame, which is the hidden one. There is no
+   `forwards`, because an infinite animation has no end to fill.
+
+   THE REDUCED-MOTION KILL IS BY NAME, in the block above rather than by the
+   global guard, and here the reason is stronger than it is for the entrance.
+   `base.css` zeroes the duration and forces one iteration, which would land this
+   loop on its LAST frame: the plus alone in the middle and seven services gone.
+   That is not a stiller version of the picture, it is a different picture with
+   the content removed. With the name killed the tiles render exactly as the
+   markup writes them, which is the still vignette this block shipped with.
+
+   IT RUNS OFF SCREEN TOO, and that is accepted rather than unnoticed. There is
+   no CSS that pauses a time-driven animation on visibility; `animation-timeline`
+   binds progress to scroll, which is a different movement and not this one. The
+   cost is a compositor tick on eight elements that browsers already throttle in
+   a background tab, against a script on a page that would otherwise need none. */
+.landing .lp-step .sdemo.doors .dgrid .logo {
+  animation-duration: 9s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: backwards;
+  animation-timing-function: var(--ease-arrive);
+}
+/* the seven services. One keyframes for all of them and the ORDER is the delay:
+   150ms apart, starting at 1.8s, which is the frame the plus reaches its slot.
+   They leave in the order they arrived, because a delay shifts a cycle rather
+   than one end of it, and first in first out is what a list does anyway. */
+.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(-n+7) {
+  animation-name: doorstile;
+}
+.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(1) { animation-delay: 1800ms; }
+.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(2) { animation-delay: 1950ms; }
+.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(3) { animation-delay: 2100ms; }
+.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(4) { animation-delay: 2250ms; }
+.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(5) { animation-delay: 2400ms; }
+.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(6) { animation-delay: 2550ms; }
+.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(7) { animation-delay: 2700ms; }
+/* the plus, on the same nine seconds and no delay, so it owns the clock the
+   seven are read against */
+.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(8) {
+  animation-name: doorsplus;
+}
+
+@keyframes doorstile {
+  0%,  0.01% { opacity: 0; scale: 0.6; }
+  3%         { opacity: 1; scale: 1; }
+  55%        { opacity: 1; scale: 1; }
+  58%, 100%  { opacity: 0; scale: 0.6; }
+}
+@keyframes doorsplus {
+  /* alone in the middle of the panel, one third over size */
+  0%, 10% {
+    translate: calc(-150% - var(--space-16) * 1.5) calc(-50% - var(--space-16) / 2);
+    scale: 1.3;
+  }
+  /* the press. Down and back, and it is the shortest move in the cycle for the
+     same reason --dur-press is the shortest duration in the register: quick to
+     take, calm to let go */
+  12% {
+    translate: calc(-150% - var(--space-16) * 1.5) calc(-50% - var(--space-16) / 2);
+    scale: 1.08;
+  }
+  14% {
+    translate: calc(-150% - var(--space-16) * 1.5) calc(-50% - var(--space-16) / 2);
+    scale: 1.3;
+  }
+  /* to its own slot, at its own size, where the static markup has it */
+  20%, 88% { translate: 0 0; scale: 1; }
+  /* and back out, after the last service has gone */
+  97%, 100% {
+    translate: calc(-150% - var(--space-16) * 1.5) calc(-50% - var(--space-16) / 2);
+    scale: 1.3;
+  }
+}
+/* ---- the press answers on the panel, in the product's own accent ----------
+   Founder, 2026-08-17: "и при нажатии хочется на заднем фоне какую типа волну
+   пустить в бренд цвет".
+
+   IT IS THE PRESS'S ANSWER AND NOT AN EFFECT, which is the same test the loop
+   itself had to pass. Until now the press was the one beat of the cycle with no
+   consequence on screen: the plus went down and came back up and the grid began
+   filling a fraction later, so the two read as two things that happened rather
+   than as one causing the other. The wave leaves the plus at the frame it is
+   pressed and the first service lands inside it. That is what ties them.
+
+   `--bg-action` AND NOT A LITERAL, and the role is the argument rather than the
+   colour. Petrol has three permitted jobs and the primary action is one of them;
+   this ripple is the primary action of this picture answering a press, so it
+   takes the fill role that answer already has, which also means it is a real
+   colour in both themes with no new token and no pair to keep. `DESIGN.md` puts
+   the brand's own petrol in the chrome; this is not the brand appearing in the
+   content, it is the action's own ink doing the action's own job.
+
+   THE ORIGIN IS THE PANEL'S CENTRE BECAUSE THAT IS WHERE THE PLUS IS. The grid
+   is centred in the panel's content box by `justify-content` and `align-content`
+   and the panel's padding is equal on all four sides, so the content box's
+   centre IS the panel's centre, and the plus is translated to it. `50% / 50%`
+   with a self-centring margin therefore needs no arithmetic and no second
+   number that could drift from the one above.
+
+   140% OF THE PANEL, AND IT IS A COVER RATHER THAN A SIZE. The circle has to
+   reach the far corner of a box that is 194 tall and anywhere from about 250 to
+   about 390 wide, so its radius must beat the diagonal at every one of those. At
+   140% of the width the radius is 175 at the narrow end against a 173 diagonal
+   and 273 at the wide end against 213: the margin grows with the box, which a
+   fixed pixel size would not do.
+
+   `overflow: hidden` ON `.sdemo` IS WHAT MAKES IT A WAVE AND NOT A BLOB. It is
+   already there, declared as load-bearing for the row corners, and it does the
+   second job here for free: the circle is clipped to the panel's rounded
+   rectangle, so what a person sees is colour crossing a surface rather than a
+   disc growing on one. `position: relative` is scoped to `.doors` and not to
+   every `.sdemo`, because only this one has anything to position. */
+.landing .lp-step .sdemo.doors { position: relative; }
+
+/* ---- the press answers with one filled circle -----------------------------
+   REWRITTEN TWICE ON 2026-08-17 AND THIS IS THE THIRD SHAPE. The founder's word
+   both times, and the two rejections are worth keeping because together they say
+   what this panel can carry.
+
+     1. ONE THIN RING at 0.45. Rejected as a sonar ping: correct as a wave,
+        wrong as water. "давай более нежную сделаем как будто капля упала в воду".
+     2. TWO THIN RINGS, a drop's train of fronts. Rejected as well: "мне не
+        нравится эти волны, давай оставим одну и не как линию, а как заполненную,
+        такую на всю карточку круг идет".
+
+   SO THE ANSWER IS NOT A FRONT AT ALL, IT IS A FIELD. A ring, however soft, draws
+   an EDGE, and an edge on a white panel is a shape a person tracks: at any frame
+   the eye has an outline to follow, which is why one ring reads as sonar and two
+   read as ripples somebody counted. A filled circle has no edge to follow at this
+   alpha; what crosses the panel is a change in the ground, and the only thing
+   that reads is that something happened where the plus was pressed. That is what
+   the beat is for.
+
+   0.10 AND NOT 0.26, AND THE AREA IS THE WHOLE REASON. The ring at 0.26 painted a
+   band about a fifth of the circle; this paints all of it. Holding the same
+   apparent weight over five times the area means roughly a fifth of the alpha,
+   and 0.10 of --bg-action on paper is a tint a person feels rather than sees.
+   Measured against the panel's own ground, that is a change of about six values
+   per channel at the peak.
+
+   --ease-arrive, WHICH IS THE ONE THING THAT SURVIVED BOTH REWRITES. The circle
+   is thrown out by the press and the surface takes it back: quick at the centre,
+   slow at the rim. --ease-travel was tried at shape one and its reason, the even
+   curve for a long distance, is a reason about a FRONT crossing a distance. A
+   field has no front. --ease-travel is therefore back to one consumer, and this
+   sentence is why rather than a quiet reversal.
+
+   140% OF THE PANEL, AND IT IS A COVER RATHER THAN A SIZE. The circle has to
+   reach the far corner of a box 194 tall and anywhere from about 250 to 390 wide,
+   so its radius must beat the diagonal at every one of those: 175 against a 173
+   diagonal at the narrow end, 273 against 213 at the wide one. The margin grows
+   with the box, which a fixed pixel size would not do. The `overflow: hidden`
+   already on `.sdemo` for the row corners clips it to the panel's rounded
+   rectangle, so the circle is never seen as a circle.
+
+   THE ORIGIN NEEDS NO ARITHMETIC. The grid is centred in the panel's content box
+   and the padding is equal on four sides, so the content box's centre IS the
+   panel's centre, and that is where the plus is when it is pressed. */
+.landing .lp-step .sdemo.doors { position: relative; }
+.landing .lp-step .sdemo.doors::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 50%;
+  width: 140%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--bg-action);
+  opacity: 0;
+  pointer-events: none;
+  animation: doorswave 9s infinite var(--ease-arrive);
+}
+/* the tiles ride above it. `.dgrid` and not each tile, so one stacking context
+   covers all eight and the plus keeps its own animation untouched. */
+.landing .lp-step .sdemo.doors .dgrid { position: relative; z-index: 1; }
+
+/* nothing at all until the plus goes down, and 12% is that frame to the
+   percentage: it is the same 12% `doorsplus` presses at. Out through the corners
+   WHILE the first services are landing, which is the point of the timing: the
+   first tile appears at 1.88s and the circle is still opening until 3.06s, so the
+   wash delivers them rather than preceding them. */
+@keyframes doorswave {
+  0%, 12%      { opacity: 0;    scale: 0.12; }
+  14%          { opacity: 0.10; scale: 0.24; }
+  34%          { opacity: 0;    scale: 1; }
+  34.01%, 100% { opacity: 0;    scale: 0.12; }
+}
+
+/* ---- step two browses itself ----------------------------------------------
+   Founder, 2026-08-17: "значит смысл в чем это будет список который двигается,
+   все оставляем так же, просто внутри блока одна подписка уходит вверх, а внизу
+   добавляется другая, будто двигаем список, просматриваем наших подписок".
+
+   IT PASSES THE SAME TEST STEP ONE'S LOOP HAD TO PASS. The heading says "See it
+   all, calmly" and the paragraph under it is about a list a person scrolls. The
+   still picture showed three rows and no reason to believe there were more; the
+   movement is the word ALL, drawn.
+
+   FOUR ROWS IS THE MINIMUM AND THAT IS ARITHMETIC RATHER THAN TASTE. The panel
+   is a three-row window. The moment the top row leaves, the bottom slot is empty
+   and something has to be entering it in the same 600ms - which cannot be the
+   row that is leaving. So the markup gained a fourth, Notion at $8.00, taken from
+   the canonical dataset in voice/docs/microcopy.md rather than invented. With
+   motion off it is clipped by the `overflow: hidden` this panel already declares,
+   which is exactly what an unscrolled list looks like, and the still picture is
+   unchanged to the pixel.
+
+   `align-content: start` IS THE OTHER HALF OF THAT, AND WITHOUT IT THE STILL
+   PICTURE BREAKS. `.sdemo` centres its content, which is a no-op while three rows
+   fill 194px exactly. Four rows are 260, so centred they would hang 33px off both
+   ends and the top row would render cut in half. Start-aligned, the fourth simply
+   falls off the bottom.
+
+   THE ROWS COME OUT OF FLOW SO THAT ONE KEYFRAMES CAN DRIVE ALL FOUR. In flow,
+   each row's rest position differs, so "move up one slot" is a different pair of
+   numbers per row and would need four keyframe blocks that must agree. Absolute
+   and left/right pinned, every row's origin is the same point, the slots are four
+   numbers written once, and the phase is carried by a NEGATIVE `animation-delay`:
+   -6.75s, -4.5s and -2.25s are three quarters, a half and a quarter of the cycle,
+   so at t=0 the four rows already stand at slots 0, 1, 2 and below. No
+   `fill-mode`, no first-cycle special case, and the order on screen at rest is
+   the order in the markup.
+
+   THE SLOTS ARE -1, 64, 129, 194 AND THE -1 IS LOAD-BEARING. Every row carries a
+   top hairline here, including the first, because any of the four can end up in
+   the middle of the stack and a missing separator is the one thing this movement
+   could break. That would put a hairline at the very top of the panel, one pixel
+   under its own border, reading as a double rule. Sliding the whole ladder up by
+   one pixel clips exactly that hairline and nothing else: the row at the top slot
+   loses a line it must not draw, and every row below keeps the line it must.
+
+   THE WRAP IS INSTANT AND IT HAPPENS OFF-PANEL. A row leaves at -66, which is its
+   own height above the top edge, and the next keyframe is a thousandth of a
+   percent later at 194, which is below the bottom edge. Both are outside a box
+   that clips, so the jump cannot be seen; what can be seen is 600ms of four rows
+   moving together and then 1.65s of stillness.
+
+   THE WHOLE BLOCK IS INSIDE `no-preference` RATHER THAN KILLED BY NAME LATER,
+   which is the opposite of how the two movements above are guarded, and the
+   reason is that this one changes LAYOUT and not only motion. Killing the
+   animation alone would leave four absolutely positioned rows stacked on one
+   point. Under reduced motion none of these rules exist at all and the panel is
+   the three-row picture it has always been. */
+.landing .lp-step:nth-child(2) .sdemo { align-content: start; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .landing .lp-step:nth-child(2) .sdemo { position: relative; }
+  .landing .lp-step:nth-child(2) .sdemo .drow {
+    position: absolute;
+    left: var(--space-0);
+    right: var(--space-0);
+    border-top: 1px solid var(--line-divider);
+    animation: drowscroll 9s infinite var(--ease-arrive);
+  }
+  .landing .lp-step:nth-child(2) .sdemo .drow:nth-child(2) { animation-delay: -6.75s; }
+  .landing .lp-step:nth-child(2) .sdemo .drow:nth-child(3) { animation-delay: -4.5s; }
+  .landing .lp-step:nth-child(2) .sdemo .drow:nth-child(4) { animation-delay: -2.25s; }
+}
+/* four beats of 2.25s: 600ms of travel and 1.65s of rest, which is a list being
+   read rather than a list being shuffled. The four numbers are the slots. */
+@keyframes drowscroll {
+  0%,      18.33%  { translate: 0 -1px; }
+  25%              { translate: 0 -66px; }
+  25.001%, 43.33%  { translate: 0 194px; }
+  50%,     68.33%  { translate: 0 129px; }
+  75%,     93.33%  { translate: 0 64px; }
+  100%             { translate: 0 -1px; }
+}
+
+/* ---- step three cancels, in a loop ----------------------------------------
+   Founder, 2026-08-17: "по принципу как второй, но сложнее: по смыслу нам надо
+   показать, что например мы отменяем нетфликс, он canceled становится и уходит
+   вверх, и все двигается вверх, и так по кругу".
+
+   IT IS STEP TWO'S MACHINERY PLUS ONE BEAT, AND THE BEAT IS THE POINT. The
+   scrolling half is the same four slots, the same four numbers, the same negative
+   delays; what this step adds is that the row standing at the TOP changes state
+   before it leaves. Netflix is active, it becomes Cancelled, then it goes. The
+   heading is "Cancel and save" and the still picture could only ever show the
+   result of that sentence: one row already cancelled, with nothing to say when it
+   became so. The loop shows the verb.
+
+   THE TWO ENDS OF A ROW SHARE ONE SLOT, AND WHICH IS VISIBLE IS THE STATE. Every
+   row now carries both its amount and its Cancelled chip. THE CHIP IS THE ONE IN
+   FLOW and the amount lies over it, absolutely placed at the same right edge,
+   which is the way round that keeps the row's geometry still: the chip is the
+   wider of the two, so the space is reserved for the wider one and nothing
+   reflows when the state changes. The other way round - amount in flow, chip
+   over it - would put a chip with a background on top of the name, which is a
+   defect wearing the look of a bug.
+
+   THE STATE IS FOUR PROPERTIES ON THREE ELEMENTS AND NOT ONE OPACITY ON THE ROW,
+   which is this component's own oldest rule: an opacity on the row takes the
+   Cancelled chip down with it, and the chip is the one thing in that row a person
+   has to be able to read. So the mark dims, the name steps back to muted and to
+   400, the amount goes and the chip arrives - four animations that carry the same
+   shape and the same clock, over --dur-state's own two frames.
+
+   THE DELAY IS SET ON THE ROW AND ON ALL OF ITS CHILDREN AT ONCE, `> *`, because
+   `animation-delay` does not inherit and five elements that must agree about
+   which beat they are in cannot be given the number five times without one of
+   them drifting.
+
+   --ease-state AND NOT --ease-arrive, and it is the register's own line: an
+   entrance is a thing appearing, a state change is a thing already on screen
+   saying it heard you. Nothing arrives here. A row that is already in front of
+   you changes what it says about itself.
+
+   THE STILL PICTURE IS UNCHANGED AND THAT IS WHAT THE TWO BASE RULES BUY. Outside
+   the animation the cancelled row hides its amount and every other row hides its
+   chip, which is exactly the markup this block shipped with, `is-off` included.
+   Under reduced motion those two rules are all that applies. */
+.landing .lp-step:nth-child(3) .sdemo { align-content: start; }
+.landing .lp-step:nth-child(3) .drow { position: relative; }
+.landing .lp-step:nth-child(3) .drow .amt {
+  position: absolute;
+  right: var(--space-16);
+  top: 50%;
+  translate: var(--space-0) -50%;
+}
+.landing .lp-step:nth-child(3) .drow:not(.is-off) .chip { opacity: 0; }
+.landing .lp-step:nth-child(3) .drow.is-off .amt { opacity: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .landing .lp-step:nth-child(3) .sdemo { position: relative; }
+  .landing .lp-step:nth-child(3) .sdemo .drow {
+    position: absolute;
+    left: var(--space-0);
+    right: var(--space-0);
+    border-top: 1px solid var(--line-divider);
+    animation: drowscroll 9s infinite var(--ease-arrive);
+  }
+  .landing .lp-step:nth-child(3) .drow .logo { animation: dcancmark 9s infinite var(--ease-state); }
+  .landing .lp-step:nth-child(3) .drow .name { animation: dcancname 9s infinite var(--ease-state); }
+  .landing .lp-step:nth-child(3) .drow .amt  { animation: dcancamt  9s infinite var(--ease-state); }
+  .landing .lp-step:nth-child(3) .drow .chip { animation: dcancchip 9s infinite var(--ease-state); }
+  .landing .lp-step:nth-child(3) .drow:nth-child(2),
+  .landing .lp-step:nth-child(3) .drow:nth-child(2) > * { animation-delay: -6.75s; }
+  .landing .lp-step:nth-child(3) .drow:nth-child(3),
+  .landing .lp-step:nth-child(3) .drow:nth-child(3) > * { animation-delay: -4.5s; }
+  .landing .lp-step:nth-child(3) .drow:nth-child(4),
+  .landing .lp-step:nth-child(3) .drow:nth-child(4) > * { animation-delay: -2.25s; }
+}
+/* the cancel lands at 8% and is done by 10%, which is 720ms into the row's turn
+   at the top and 180ms wide: a state change, not an entrance. It holds until 25%,
+   the frame the row leaves, and resets one thousandth of a percent later while
+   the row is above the panel and clipped. */
+@keyframes dcancmark {
+  0%, 8%        { opacity: 1; }
+  10%, 25%      { opacity: 0.45; }
+  25.001%, 100% { opacity: 1; }
+}
+@keyframes dcancname {
+  0%, 8%        { color: var(--text-primary); font-weight: 600; }
+  10%, 25%      { color: var(--text-muted);   font-weight: 400; }
+  25.001%, 100% { color: var(--text-primary); font-weight: 600; }
+}
+/* THE TWO ENDS HAND OVER, THEY DO NOT CROSS-FADE, and the first cut did cross
+   and looked exactly like the bug it was not: for 180ms "Cancelled" and "$11.99"
+   were both half painted in the same 70 pixels, one word legibly on top of
+   another. Two texts sharing one slot have to take turns. The amount is gone by
+   9.5% and the chip does not begin until then, so there is no frame in the cycle
+   where both are on screen: 135ms out, 135ms in, and the pair is --dur-state's
+   own 150 read as two halves of one exchange rather than as one dissolve. */
+@keyframes dcancamt {
+  0%, 8%        { opacity: 1; }
+  9.5%, 25%     { opacity: 0; }
+  25.001%, 100% { opacity: 1; }
+}
+@keyframes dcancchip {
+  0%, 9.5%      { opacity: 0; }
+  11%, 25%      { opacity: 1; }
+  25.001%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing .lp-step .sdemo.doors .dgrid .logo,
+  .landing .lp-step .sdemo.doors::before { animation-name: none; }
+}

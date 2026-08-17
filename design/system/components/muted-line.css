@@ -329,12 +329,73 @@
    variant's, and the variant already has a token in the markup. Measured after
    the change: five removal links at 44px and eleven footnote links at 44px,
    both unchanged, and the two consequence links still the height of their
-   line. */
-.app .muted > p ~ a,     .landing .muted > p ~ a,
-.app .muted.ruled > a,   .landing .muted.ruled > a {
+   line.
+
+   THE RULED FOOTNOTE LEFT THIS SELECTOR ON 2026-08-17, and it left because the
+   sentence above about it is not true. "The footnote is a `p` whose link is the
+   last thing in its own sentence" was read off four of its six placements. On
+   the other two the link is INSIDE the sentence with text after it, and those
+   two are the shape the first paragraph here warns about: `path-choice` says
+   "By starting you agree to our [Terms and Privacy Policy]. Tendd asks for
+   read-only access and never for permission to move money", and `data-privacy`
+   says "The full privacy policy is at [tendd.com/privacy]." The 44px box landed
+   mid-paragraph and stretched one line box out of five, so the footnote read as
+   two paragraphs with a hole between them: measured at 1440, the paragraph is
+   79px where three lines of 18 and one of 44 is exactly 79, against the 54 the
+   leading asks for. At 360 it is 97 against 72. Reported by the founder on a
+   screenshot, which is where a stretched line box is visible and where a
+   computed height is not.
+
+   AND BEING LAST IN A SENTENCE IS STILL BEING IN ONE, so the other four are the
+   same case and not a different one: "US banks connect through Plaid. More
+   regions soon. [What we read]" is an inline link in a paragraph, and it was
+   paying the same 26px, at the foot of the block where nobody looked. */
+.app .muted > p ~ a,     .landing .muted > p ~ a {
   display: inline-flex;
   align-items: center;
   min-height: var(--tap);
+}
+
+/* THE FLOOR AS PADDING RATHER THAN AS A BOX, and it is the whole repair.
+   A target does not have to be a box to be 44px. Vertical padding on an INLINE
+   element grows the element's hit area and paints nothing, and it does not enter
+   the line box calculation at all: only an atomic inline-level box, which is what
+   `inline-flex` makes, hands its height to the line. So the link keeps the floor
+   the criterion asks for and the paragraph keeps the leading the reader asks for,
+   which is the pair the old rule could not hold at once.
+
+   THE VALUE IS DERIVED FROM A MEASUREMENT AND THE MEASUREMENT IS NAMED, because
+   the first version of this line was wrong by 3px and wrong for an interesting
+   reason. It read `calc((var(--tap) - 1.5em) / 2)`, subtracting the LINE, and an
+   inline box does not fill its line: its content box is the font's own ascent
+   plus descent, which for Inter at `--type-meta` is 15px against a line of 18.
+   The links came out 41px. So the term is the content box, measured in the
+   browser rather than computed from the leading: 44 - 15 is 29, half is 14.5,
+   and the hit box reads 44 exactly.
+
+   `px` AND NOT `em` FOR THE SUBTRAHEND, and it is rule 3 rather than a shortcut:
+   padding is geometry. A reader who enlarges text grows the content box, so the
+   target grows past 44 and never under it, which is what a floor is for.
+
+   WHAT IT COSTS, MEASURED ON ALL SIX PLACEMENTS: the four end-of-sentence
+   footnotes lose the 26px their last line was adding under them, and the two
+   mid-sentence ones close the hole. Every link is still 44px tall to a finger.
+   The hit area now overlaps the line above and the line below by 14.5px, and
+   that is checked rather than assumed: no other target stands within 15px of any
+   of the six on any page, so no two targets overlap.
+
+   WCAG 2.5.8 EXEMPTS THIS LINK ANYWAY, "the target is in a sentence or its size
+   is otherwise constrained by the line-height of non-target text", so the plain
+   alternative was to take the floor off and write the exemption down. It is not
+   taken because a 44px target that costs nothing is better than a 17px target
+   that is allowed. `.trust > a` and `.muted > p ~ a` keep the BOX: those are
+   direct children on their own line with nothing after them, which is the shape
+   a box is right for, and not one of their 15 placements moves. */
+.app .muted.ruled > a, .landing .muted.ruled > a {
+  /* 15px is the measured inline content box of --type-meta in Inter, not a
+     spacing step: it is the term the floor is missing, and it is named here so
+     the 14.5 is never read as a value somebody chose. */
+  padding-block: calc((var(--tap) - 15px) / 2);
 }
 
 /* No :focus-visible here on purpose. base.css draws one ring for the whole

@@ -177,9 +177,25 @@
 }
 .landing .ototal .amt.figure { margin: var(--space-0); }
 .landing .ototal .muted { margin: var(--space-0); }
-/* the stack of values a figure takes as the scroll cancels things, right aligned
-   because the block it lives in is */
-.landing .ototal .storystack { justify-items: end; }
+/* BOTH FIGURES READ FROM THEIR OWN LEFT EDGE UNTIL THE STAGE PUTS THEM IN
+   CORNERS, 2026-08-17. Founder, on a phone: "тут тоже на мобилке не понятно что
+   и зачем, как баг выглядит".
+
+   The right alignment was written for the wide layout, where this block sits in
+   the far corner of the stage and reading it inward is correct, and it was
+   written in the BASE, where a phone reads it too. On a phone the pair is two
+   columns of 143px, and at that width right alignment turns the label into two
+   ragged-left lines and the caption into three, standing beside a count that
+   starts at its own left edge. Same block, two alignments, and what the eye reads
+   is not a pair but breakage.
+
+   So the base is left, which is mobile-first read literally, and the corner
+   placement in the 60rem block takes the alignment back with the position that
+   earns it. `text-align` on the block and `justify-items` on the stack are one
+   decision in two properties, because the figure is a grid of four values and
+   the label and caption are paragraphs; they have to be said twice or they part
+   company at the one width nobody re-reads. */
+.landing .ototal { text-align: left; }
 
 /* ---- the window, and it has TWO HOSTS on the same page ---------------------
    The hero opens on it and the stage below opens on it again, contracting into
@@ -403,14 +419,49 @@
      bottom edge came out at 1292 in an 800px window and only past 1280, which is
      the one width band nobody had re-measured. Naming the edge you are not using
      is how you take an edge back. */
+  /* THE SENTENCE IS A PHONE SHAPE AND IT IS TAKEN OFF HERE, BOTH HALVES OF IT.
+     Below this point the two figures flow through `.ofigs` as one line of prose,
+     which means the wrapper is a flex row and the total is `display: contents`.
+     Both of those survive into this block unless they are said again, and both
+     break it: a flex row with two absolutely placed children is a zero-height box
+     that still lays out, and a total that is `contents` HAS NO BOX to place in a
+     corner at all. Measured before this reset: the page scrolled sideways 115px
+     at 1024 and 82 at 1280, and the total's own rectangle read 0 by 0 at every
+     desk width. A layout that is only written once is written for whichever half
+     the author was looking at. */
+  /* `contents` AND NOT `block`, AND THE DIFFERENCE IS 242px OF SIDEWAYS SCROLL.
+     Reset to `block`, the wrapper is still a box in the flow and the two
+     absolutely placed figures shrink-to-fit against a different available width:
+     the total came out 64px wide with its label on three lines and its caption on
+     five, and the page scrolled 185 at 1024 and 242 at 1280. `contents` takes the
+     wrapper out of the box tree entirely, so above this point the count and the
+     total are direct children of the pin again and the wide layout is the one
+     that shipped, unchanged. A wrapper added for one layout has to VANISH in the
+     other, not merely stop styling. */
+  .landing .lp-orbit.lp-story.fromcircle .ofigs { display: contents; }
+  .landing .lp-orbit.lp-story.fromcircle .ofigs > .ototal { display: grid; }
+  .landing .lp-orbit.lp-story.fromcircle .ofigs .storystack { display: grid; }
+  .landing .lp-orbit.lp-story.fromcircle .ofigs .ocount strong { display: block; font-size: var(--type-figure); }
+  /* THE FIGURE'S OWN SIZE AND NOT `inherit`, which was the first reset and was
+     wrong by half a line box. `inherit` took the amount down to the block's 16px
+     and the total's stack read 17px tall against 34 at HEAD: a reset has to name
+     the value it is restoring, because "whatever the parent says" is a different
+     value from "what this element said before somebody overrode it". The value is
+     `landing-story.css`'s own `.storystack .figure`. */
+  .landing .lp-orbit.lp-story.fromcircle .ofigs .amt.figure { font-size: var(--type-figure); }
+  .landing .lp-orbit.lp-story.fromcircle .ofigs > .ocount::after { content: none; }
   .landing .lp-orbit.lp-story.fromcircle .ocount {
     position: absolute; top: var(--space-48); bottom: auto; left: var(--story-gutter);
     margin: var(--space-0); text-align: left;
   }
   .landing .lp-orbit.lp-story.fromcircle .ototal {
     position: absolute; top: var(--space-48); bottom: auto; right: var(--story-gutter);
+    /* the alignment comes back with the corner that earns it: this block is
+       pinned to the right edge of the stage here, and a figure in a right corner
+       reads inward. Its stack is turned with it two lines down. */
     text-align: right;
   }
+  .landing .lp-orbit.lp-story.fromcircle .ototal .storystack { justify-items: end; }
   /* left aligned on the grid, on the founder's mark: the count used to centre its
      figure over its word, which put neither of them on the column the promise
      under it starts from */

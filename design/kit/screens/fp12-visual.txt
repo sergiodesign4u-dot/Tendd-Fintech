@@ -1,0 +1,129 @@
+READ THIS FIRST. The line below says "the promise is zero" and this run reads 6,
+and that is the intended result rather than a failure. The instrument's stock
+promise is written for a change that must not move a phone; this change is a
+repair to two spacing rules and it is deliberate at BOTH widths.
+
+Run 2026-08-17 over the fix for the two defects on design/path-choice.html:
+the door row's missing margin (app-shell.css) and the tap floor as padding
+rather than as a box (muted-line.css). The `before` pass was taken off a
+stashed tree, so the two runs differ by nothing but those files plus grid.css,
+which is comment only.
+
+WHAT TO CHECK IN THE LIST BELOW: exactly 6 pages differ and they are the 6 that
+host `.muted.ruled > a` - path-choice, connect-bank-empty, connections,
+connections-empty, connections-reconnect, data-privacy. The other 49 are
+identical to the pixel at both widths. Every differing box is the footnote
+paragraph losing its 26px, the link's new position, or an ancestor absorbing
+it, plus path-choice's quiet line moving down the 24 the door row gave back.
+
+FINGERPRINT DIFF, 55 pages at 360 and at 1440
+  pages differing at 360:  6   (the promise is zero)
+  pages differing at 1440: 6
+  boxes differing at 360:  30
+  boxes differing at 1440: 18
+
+  path-choice.html@360  4 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>p.quiet#1
+        was 16,509,328,21  now 16,533,328,21
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>p.quiet#1>a#1
+        was 16,511,79,17  now 16,535,79,17
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>p.muted.ruled#1
+        was 16,554,328,97  now 16,578,328,71
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>p.muted.ruled#1>a#1
+        was 177,571,143,44  now 177,582,142,44
+  path-choice.html@1440  4 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>p.quiet#1
+        was 426,381,588,21  now 426,405,588,21
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>p.quiet#1>a#1
+        was 426,383,79,17  now 426,407,79,17
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>p.muted.ruled#1
+        was 426,450,394,79  now 426,474,394,53
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>p.muted.ruled#1>a#1
+        was 587,467,143,44  now 587,478,142,44
+  connect-bank-empty.html@360  2 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>section.muted.ruled#1
+        was 16,357,328,79  now 16,357,328,53
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>section.muted.ruled#1>a#1
+        was 230,392,75,44  now 230,379,75,44
+  connect-bank-empty.html@1440  2 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>section.muted.ruled#1
+        was 426,344,394,79  now 426,344,394,53
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen#1>section.muted.ruled#1>a#1
+        was 596,379,75,44  now 596,366,75,44
+  connections.html@360  7 boxes
+     >div.layout#1
+        was 0,40,360,1379  now 0,40,360,1353
+     >div.layout#1>div.stage.stage-app#1
+        was 0,40,360,1379  now 0,40,360,1353
+     >div.layout#1>div.stage.stage-app#1>div.app#1
+        was 0,40,360,1379  now 0,40,360,1353
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1
+        was 0,101,360,1318  now 0,101,360,1292
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1
+        was 16,117,328,1198  now 16,117,328,1172
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1
+        was 16,1236,328,79  now 16,1236,328,53
+     ... and 1 more
+  connections.html@1440  3 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1
+        was 260,72,620,984  now 260,72,620,958
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1
+        was 260,995,394,61  now 260,995,394,35
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1>a#1
+        was 562,1012,78,44  now 562,999,78,44
+  connections-empty.html@360  3 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1
+        was 16,117,328,561  now 16,117,328,535
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1
+        was 16,599,328,79  now 16,599,328,53
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1>a#1
+        was 16,634,78,44  now 16,621,78,44
+  connections-empty.html@1440  3 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1
+        was 260,72,620,402  now 260,72,620,376
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1
+        was 260,413,394,61  now 260,413,394,35
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1>a#1
+        was 562,430,78,44  now 562,417,78,44
+  connections-reconnect.html@360  7 boxes
+     >div.layout#1
+        was 0,40,360,1354  now 0,40,360,1328
+     >div.layout#1>div.stage.stage-app#1
+        was 0,40,360,1354  now 0,40,360,1328
+     >div.layout#1>div.stage.stage-app#1>div.app#1
+        was 0,40,360,1354  now 0,40,360,1328
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1
+        was 0,101,360,1293  now 0,101,360,1267
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1
+        was 16,117,328,1173  now 16,117,328,1147
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1
+        was 16,1211,328,79  now 16,1211,328,53
+     ... and 1 more
+  connections-reconnect.html@1440  3 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1
+        was 260,72,620,980  now 260,72,620,954
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1
+        was 260,991,394,61  now 260,991,394,35
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1>a#1
+        was 562,1008,78,44  now 562,995,78,44
+  data-privacy.html@360  7 boxes
+     >div.layout#1
+        was 0,40,360,1371  now 0,40,360,1345
+     >div.layout#1>div.stage.stage-app#1
+        was 0,40,360,1371  now 0,40,360,1345
+     >div.layout#1>div.stage.stage-app#1>div.app#1
+        was 0,40,360,1371  now 0,40,360,1345
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1
+        was 0,101,360,1310  now 0,101,360,1284
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1
+        was 16,117,328,1190  now 16,117,328,1164
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1
+        was 16,1246,328,61  now 16,1246,328,35
+     ... and 1 more
+  data-privacy.html@1440  3 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1
+        was 260,72,620,1067  now 260,72,620,1041
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1
+        was 260,1078,394,61  now 260,1078,394,35
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>div.rows-col#1>p.muted.ruled#1>a#1
+        was 415,1095,107,44  now 415,1082,106,44

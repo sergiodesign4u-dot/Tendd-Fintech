@@ -164,10 +164,20 @@
    places and sizes both. Neither class is written by any page in either corpus
    any more, so both rules are deleted rather than left to rot. The STACK itself
    stays: it is the mechanism, and both corners still use it. */
+/* `start` AND NOT `center`, 2026-08-17. The stack has two consumers, the count's
+   figure and the total's, and centring put each figure over the middle of its own
+   word: "14" sat centred above "subscriptions" and the total's amount above its
+   caption. On a phone the pair reads left to right down one edge, and a figure
+   floating over the middle of its label is the one thing in that pair that starts
+   nowhere. The wide layout takes the alignment back where it earns it: the total
+   is pinned to the right corner of the stage past 60rem and its stack turns with
+   it, and the count's figure has carried `text-align: left` there since the
+   founder's mark of 2026-08-14 for exactly this reason, said then about one
+   layout and true in both. */
 .landing .storystack {
   display: grid;
   grid-template-areas: "one";
-  justify-items: center;
+  justify-items: start;
 }
 .landing .storystack > * {
   grid-area: one;
@@ -286,14 +296,45 @@
    price, state. The category line the app's row carries is dropped: at fourteen
    at once it is noise, and the grouping it names is not what this stage is
    about. */
+/* THE FIGURES RAN DOWN THE LIST UNTIL 2026-08-17 AND IT IS THE SAME SENTENCE
+   THIS FILE ALREADY WRITES ABOUT THE SWAP, READ OVER THE SET. Founder, on a
+   phone: "баг, бегают цифирки, такого не должно быть, давай к правому краю".
+
+   The row was a flex line, so the state cell was sized by its own label and
+   nothing else: `Active` measures 45 and the `Cancelled` stack 62, and the state
+   is the LAST item, so its right edge is the row's and its left edge moves. The
+   amount sits immediately before it, so **the amount's right edge moved by 17px
+   from row to row** and fourteen prices stood at four different columns. The note
+   under `.swap` below has said since it was written that the cell is sized by the
+   wider of the two so that nothing to its left moves when the state changes; that
+   is true within one row and was never true across the list.
+
+   SO THE ROW IS A GRID AND THE LAST TRACK IS A NUMBER. 62px is the measured width
+   of the widest state cell in this list, the `Cancelled` stack, read at 390 and
+   unchanged at every width because `--type-meta` does not move. Fixing that one
+   track fixes the amount without touching the amount: the price is still sized by
+   its own digits, and because the track after it no longer moves, every right edge
+   lands on one line. `tabular-nums` was already doing its half of the job and had
+   nothing to align against.
+
+   `minmax(0, 1fr)` FOR THE NAME AND NOT `1fr`, for the reason this file records
+   twice already: a track's automatic minimum is its content, so a long name would
+   push the price out rather than ellipsise. The `flex` declarations below are left
+   where they are - they cost nothing in a grid and deleting them is a second
+   change in a step that is making one. */
 .landing .sline {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto 62px;
   align-items: center;
   gap: var(--space-8);
   min-height: var(--srow-h);
   padding: var(--space-2) var(--space-8);
   border-radius: var(--radius-sm);
 }
+/* the pill keeps its own width and sits at the end of a track that does not
+   move: a 62px cell with a 36px `Trial` in it is a column, not a wide chip. */
+.landing .sline > .chip,
+.landing .sline > .swap { justify-self: end; }
 /* ---- a line that is about to go -------------------------------------------
    A cancelled line does not just go grey now: it flies up out of the list and
    the lines under it come up to fill the space, which is what makes the stack
@@ -535,7 +576,25 @@
      card, which is what `--scardslot` is for; here nothing overlays anything, so
      the slot is zero. */
   .landing .lp-story.fromcircle .storypin {
-    grid-template-columns: 1fr 1fr;
+    /* THE TWO COLUMNS ARE NOT EQUAL, 2026-08-17, and equal is what made the
+       total unreadable. Founder, after the alignment was fixed and the block
+       still read wrong: "тут что-то ничего не поменялось на мобилку".
+
+       The pair is a COUNT and a TOTAL and they are not the same object. The
+       count is two short words, 86px at every phone width and never more. The
+       total is a label, a figure and a caption, and its label alone,
+       "Example, not your data", wants 158px to stand on one line. Split down
+       the middle at 390 they get 143 each: the count wastes 57 and the total is
+       57 short, so the label breaks in two, the caption breaks in three, and
+       four stacked fragments beside two words read as a block that failed
+       rather than as a pair.
+
+       `auto minmax(0, 1fr)` gives each of them what it is: the count takes its
+       own 86 and the total takes everything left, which is 200 at 390 and 170 at
+       360. Measured after: the label is ONE line at both, the caption is two,
+       and the block is 41px shorter, which the pinned stage does not have to
+       find anywhere because the row was already the taller of the two. */
+    grid-template-columns: auto minmax(0, 1fr);
     /* THREE ROWS AND NOT FOUR. A row of its own for the reason card cost the
        list 150px it does not have on a phone once the promise is in the head
        row: at 360 x 740 the two figures were pushed off the bottom of the stage
@@ -546,7 +605,7 @@
     grid-template-areas:
       "head  head"
       "swap  swap"
-      "count total";
+      "figs  figs";
   }
   .landing .lp-story.fromcircle .storyhead { grid-area: head; }
   /* on the candidate the head row holds the promise and the heading, which
@@ -566,8 +625,89 @@
     grid-area: one; position: static; width: auto;
     margin-top: var(--space-0); transform: none;
   }
-  .landing .lp-story.fromcircle .ocount { grid-area: count; justify-self: start; }
-  .landing .lp-story.fromcircle .ototal { grid-area: total; justify-self: end; text-align: right; }
+  /* ---- ONE SENTENCE AND NOT TWO COLUMNS, 2026-08-17 --------------------
+     Founder, after the alignment and then the widths were both fixed and the
+     block still read wrong: "та ничего не менятся, как было так и осталось",
+     and the choice out of four was "один рядок під списком".
+
+     THE TYPOGRAPHY WAS THE SECOND DEFECT AND THE FIRST ONE WAS THAT THIS IS TWO
+     OBJECTS. Aligned, widened and set on one line each, they were still a count
+     in one column and a total in another, floating on the canvas between a list
+     and a card, with nothing saying they belong to each other or to the list
+     above. On the wide stage they are annotations pinned to two corners of one
+     picture and the picture supplies the relation; on a phone there is no stage,
+     so the relation has to be in the sentence.
+
+     A SENTENCE NEEDS ONE PARENT TO FLOW THROUGH, WHICH IS THE WHOLE OF THE
+     MARKUP CHANGE. `display: contents` on the total was tried first and it is
+     the wrong tool by one level: it promotes the total's three children into the
+     GRID, not into the count's row, so they came back as grid items and
+     overlapped. `.ofigs` is a flow root and nothing else - no copy, no meaning,
+     no rule of its own above the point, where the two blocks go back to being
+     absolutely placed in the corners and the wrapper is inert.
+
+     NO NEW STRING. Every word is the one the markup already carries, in the
+     order it carries it, and the separator is a middot drawn by CSS, which is
+     punctuation rather than copy. Shortening the caption to "a month" would read
+     tighter and it is a second edition of a line that has one owner, so it is a
+     Voice decision and not this file's.
+
+     THE FOUR-VALUE STACKS SURVIVE UNTOUCHED. Both figures are `.storystack`
+     grids that count down as the scroll cancels things, 14 to 11 and 192.90 to
+     144.92; they are inline items in a sentence now and their own inner grid is
+     unchanged, so the countdown reads exactly as it does on the stage. */
+  .landing .lp-story.fromcircle .ofigs {
+    grid-area: figs;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--space-8);
+    row-gap: var(--space-2);
+  }
+  /* the total stops being a box and becomes three words in the same row */
+  .landing .lp-story.fromcircle .ofigs > .ototal {
+    display: contents;
+  }
+  .landing .lp-story.fromcircle .ofigs > .ocount { order: 1; margin: var(--space-0); }
+  .landing .lp-story.fromcircle .ofigs .storystack:not(.ocount .storystack) { order: 2; }
+  .landing .lp-story.fromcircle .ofigs > .ototal > .storystack { order: 2; }
+  .landing .lp-story.fromcircle .ofigs > .ototal > .muted { order: 3; }
+  /* the label closes the sentence on a line of its own: 100% of the row is what
+     forces the break, and it is the only basis used here */
+  .landing .lp-story.fromcircle .ofigs > .ototal > .k { order: 4; flex-basis: 100%; }
+  /* the separator is punctuation and not a string: it stands between the two
+     figures and never at the end of a line, because it is drawn on the count */
+  .landing .lp-story.fromcircle .ofigs > .ocount::after {
+    content: "\00b7";
+    color: var(--text-muted);
+    margin-inline-start: var(--space-8);
+  }
+  /* the two figures come down to the size a sentence can hold. --type-title and
+     not --type-figure: at 40px the amount alone is two thirds of a phone's line,
+     and a figure that cannot share a line is a column by another name. */
+  /* THE STACK ITSELF HAS TO GO INLINE AND NOT ONLY THE FIGURE INSIDE IT. Setting
+     `display: inline` on the four values left the count reading as two lines, 41px
+     tall, because `.storystack` is a GRID and a grid is block-level: the figure
+     was inline inside a box that still took the whole line, so "14" sat above
+     "subscriptions" exactly as before. `inline-grid` keeps the four-value stack
+     and its countdown intact and lets the sentence run through it. */
+  .landing .lp-story.fromcircle .ofigs .storystack { display: inline-grid; }
+  .landing .lp-story.fromcircle .ofigs .ocount strong,
+  .landing .lp-story.fromcircle .ofigs .amt.figure {
+    font-size: var(--type-title);
+  }
+  .landing .lp-story.fromcircle .ocount { justify-self: start; }
+  /* BOTH FIGURES READ FROM THEIR OWN LEFT EDGE HERE, 2026-08-17. Founder, on a
+     phone: "тут тоже на мобилке не понятно что и зачем, как баг выглядит".
+     This rule used to place the total against the right edge of its column and
+     turn its text with it, which is the wide layout's shape borrowed by the
+     narrow one. In a 143px column that makes the label two ragged-left lines and
+     the caption three, standing beside a count that starts at its own left edge:
+     one block, two alignments, and what the eye reads is breakage rather than a
+     pair. Started and left-aligned, they are two labelled figures side by side,
+     which is what they are. The stage takes the right alignment back at 60rem,
+     with the corner placement that earns it. */
+  .landing .lp-story.fromcircle .ototal { grid-area: total; justify-self: start; text-align: left; }
   .landing .lp-story.fromcircle .storylist { --scardslot: 11rem; }
 
   @container (min-width: 80rem) {

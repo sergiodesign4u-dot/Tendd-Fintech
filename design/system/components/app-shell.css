@@ -169,6 +169,33 @@
    at the other layout. */
 .app > .screen > nav.actions { margin: var(--space-24) var(--space-0) var(--space-0); }
 
+/* ---- the door row when it has no host, and it is the same rule read again ---
+   grid.css takes the 24px off the bottom of `.grid.roomy` on purpose, and it
+   writes the reason: "a door row DOES have a host: the empty block on 3 pages
+   and the dialog sheet on 1, and both already space it." Counted 2026-08-17
+   over the four placements the product actually has, that sentence is off by
+   one. The empty block hosts two, `connections-empty` and `home-empty`; the
+   sheet hosts one, `connections-add-source`; and the FOURTH, `path-choice`, has
+   no host at all - the door row is a direct child of `.screen`, with the quiet
+   line straight under it.
+
+   SO TWO ZEROS MET. `.grid.roomy` ends at margin-bottom 0 and `.quiet` begins
+   at margin-top 0, and the exit link rendered at exactly 0px from the bottom
+   edge of the door it is the alternative to, at every width, on the one screen
+   the whole product forks on. Reported by the founder on a screenshot. The same
+   pairing elsewhere reads 24 after a tile row and 16 after an action row, so
+   this was the only distance in the product nobody had chosen.
+
+   THE HOST IS THE SHELL, WHICH IS WHY THE RULE IS HERE AND NOT IN grid.css.
+   That file's own words are "the margin is the host's and is written here until
+   it has a host to go to". A block whose only parent is `.screen` has one, and
+   the note above about `nav.actions` is the same sentence about a different
+   component. 0-4-0 against grid.css's 0-3-0, so it wins on arithmetic rather
+   than on import order, and it reaches exactly one placement of four: the three
+   that are inside a host keep their zero, because their host still spaces
+   them. */
+.app > .screen > .grid.roomy { margin-bottom: var(--space-24); }
+
 /* ---- the shell's own columns, and the floor a shrinkable track needs -------
    Four classes that carry no component and never will: `.form-col` and
    `.rows-col` are the two content columns a screen can ask for, and `.col1` and

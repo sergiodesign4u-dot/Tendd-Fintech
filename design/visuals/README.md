@@ -92,6 +92,30 @@ replacement from official press pages before the stage closes:
 
 `amazon-prime`, `disney-plus`, `hulu`, `chatgpt`, `strava`, `peloton`, `nyt`, `economist`.
 
+**One of those eight was not approximate, it was WRONG, and it stood for three days.** Founder,
+2026-08-17, on a screenshot of the landing: "логотип почему-то один сломался". The Strava mark is
+two chevrons and **the offset between them is the whole mark**: the upper apex sits at x=10.463 and
+the lower at 15.387, so the lower sits down and to the RIGHT. The file kept the real coordinates
+for the lower one and carried a redraw of the upper one with its apex moved to 13.828, which put
+the two on nearly the same axis, and two chevrons stacked on one axis close into a **symmetric
+rhombus with a notch in it**. It read as "an A in a diamond". Both are the real coordinates now,
+and the group centres the drawing's own bounds rather than the viewBox.
+
+**And the corrected pair was rejected on sight too.** With both chevrons on their real coordinates the
+mark is right at 150px and wrong at 36: the lower element is fourteen pixels of white that the eye
+resolves as a separate shape hanging under the upper one rather than as part of one mark. The tile
+keeps the silhouette Strava is known by and drops the element that only works large. **A mark is not
+correct in the abstract, it is correct at the size it is seen**, and every one of these fourteen is
+seen at 36.
+
+**What it says about the other thirteen.** An approximation reads as a slightly-off logo, and that
+is the risk this file already names. A wrong shape does not: it reads as a confident mark of
+something else, which is the same failure this file rejects the stock catalogue for. **And nothing
+in this repository can tell the two apart** - every instrument here reads a rendered page, and a
+rhombus renders as cleanly as a chevron. All fourteen were re-rendered at 150px and walked by eye
+the same day; this was the only one. Any replacement pass should end the same way, with the set
+looked at rather than only diffed.
+
 Four of those eight (Disney+, Hulu, the Economist, Peloton) have no glyph in real life at all,
 only a wordmark, and a wordmark cannot be read inside a 36px square, so a monogram may turn out
 to be the permanent answer for them. The other four have a real glyph and should get it.

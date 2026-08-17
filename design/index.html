@@ -219,11 +219,20 @@
           <li class="sline"><span class="logo"><img src="visuals/logos/economist.svg" alt=""></span><span class="name">The Economist</span><span class="amt">$19.00</span><span class="chip">Active</span></li>
         </ul>
       </div>
-      <p class="ocount"><span class="storystack"><strong>14</strong><strong>13</strong><strong>12</strong><strong>11</strong></span> subscriptions</p>
-      <div class="ototal">
-        <p class="k">Example, not your data</p>
-        <span class="storystack"><span class="amt figure">$192.90</span><span class="amt figure">$174.91</span><span class="amt figure">$161.92</span><span class="amt figure">$144.92</span></span>
-        <p class="muted">a month, for what you have signed up for</p>
+      <!-- THE TWO FIGURES GET A WRAPPER, 2026-08-17, by the founder's decision
+           ("один рядок під списком"). On the wide stage they are pinned to two
+           corners of one picture and the picture supplies the relation between
+           them; on a phone there is no stage, so the relation has to be in the
+           sentence, and a sentence needs one parent to flow through. `.ofigs`
+           carries no meaning and no copy: it is the flow root the phone layout
+           needs and the corner placement above the point ignores. -->
+      <div class="ofigs">
+        <p class="ocount"><span class="storystack"><strong>14</strong><strong>13</strong><strong>12</strong><strong>11</strong></span> subscriptions</p>
+        <div class="ototal">
+          <p class="k">Example, not your data</p>
+          <span class="storystack"><span class="amt figure">$192.90</span><span class="amt figure">$174.91</span><span class="amt figure">$161.92</span><span class="amt figure">$144.92</span></span>
+          <p class="muted">a month, for what you have signed up for</p>
+        </div>
       </div>
       <div class="storyasides">
         <article class="scard"><h3>Everything in one place</h3><p>Every subscription and recurring charge, pulled together and grouped by category. One calm list instead of a dozen forgotten logins.</p></article>
@@ -270,6 +279,16 @@
             <div class="drow"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span class="name">Netflix</span><span class="amt">$17.99</span></div>
             <div class="drow"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span class="name">Spotify Premium</span><span class="amt">$11.99</span></div>
             <div class="drow"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span><span class="name">iCloud+</span><span class="amt">$2.99</span></div>
+            <!-- THE FOURTH ROW IS THE ANIMATION'S MATERIAL, added 2026-08-17 by the
+                 founder's decision ("одна подписка уходит вверх а внизу добавляется
+                 другая будто двигаем список"). A three-row window cannot be kept full
+                 by three rows: the moment one leaves the top, the bottom slot is empty
+                 and nothing exists to fill it. Four is the minimum, and the fourth
+                 waits below the panel's own overflow until the list moves. Notion at
+                 $8.00 is the canonical dataset's own row, voice/docs/microcopy.md, so
+                 no string is invented here. With motion off it is simply clipped, which
+                 is what an unscrolled list looks like. -->
+            <div class="drow"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span><span class="name">Notion</span><span class="amt">$8.00</span></div>
           </div>
           <h3>See it all, calmly</h3>
           <p>Tendd finds your recurring charges and shows them in one clear list, with your real monthly total as the biggest thing on screen.</p>
@@ -277,9 +296,19 @@
         <article class="lp-step">
           <span class="sord">3</span>
           <div class="sdemo" aria-hidden="true">
-            <div class="drow is-off"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span class="name">Netflix</span><span class="chip">Cancelled</span></div>
-            <div class="drow"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span class="name">Spotify Premium</span><span class="amt">$11.99</span></div>
-            <div class="drow"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span><span class="name">iCloud+</span><span class="amt">$2.99</span></div>
+            <!-- EVERY ROW CARRIES BOTH ITS AMOUNT AND ITS CHIP since 2026-08-17, by
+                 the founder's decision ("отменяем нетфликс, он canceled становится и
+                 уходит вверх, и так по кругу"). The two never show together: the chip
+                 stands in the row and the amount lies over it, and which of the two is
+                 visible is the state. With motion off the still picture is unchanged -
+                 the cancelled row shows its chip and hides its amount, every other row
+                 does the opposite, and `is-off` still carries the dimming. The fourth
+                 row is the animation's material, exactly as in step 2, and Notion at
+                 $8.00 is the canonical dataset's own row. -->
+            <div class="drow is-off"><span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span><span class="name">Netflix</span><span class="chip">Cancelled</span><span class="amt">$17.99</span></div>
+            <div class="drow"><span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span><span class="name">Spotify Premium</span><span class="chip">Cancelled</span><span class="amt">$11.99</span></div>
+            <div class="drow"><span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span><span class="name">iCloud+</span><span class="chip">Cancelled</span><span class="amt">$2.99</span></div>
+            <div class="drow"><span class="logo"><img src="visuals/logos/notion.svg" alt=""></span><span class="name">Notion</span><span class="chip">Cancelled</span><span class="amt">$8.00</span></div>
           </div>
           <h3>Cancel and save</h3>
           <p>Spot what you no longer use and cancel it with a step-by-step guide. Feel the small win when the number goes down.</p>
