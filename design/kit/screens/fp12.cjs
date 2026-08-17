@@ -12,6 +12,7 @@
    RUN IT:  node design/kit/screens/fp12.cjs before   (writes fp12-before.json)
             node design/kit/screens/fp12.cjs after    (writes fp12-after.json
                                                        and prints the diff)
+            node design/kit/screens/fp12.cjs before shell   (a labelled pair)
    ============================================================================ */
 
 const fs = require('fs');
@@ -22,7 +23,12 @@ const { execSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '../../..');
 const { chromium } = require(execSync('npm root -g').toString().trim() + '/playwright');
 const WHICH = process.argv[2] === 'after' ? 'after' : 'before';
-const OUT = path.join(__dirname, `fp12-${WHICH}.json`);
+/* AN OPTIONAL LABEL, so a second change gets its own pair instead of overwriting
+   the first one's baseline. `node fp12.cjs before shell` writes
+   fp12-before-shell.json, and the `after` run of the same label diffs against
+   it. A record that is overwritten by the next change stops being a record. */
+const LABEL = process.argv[3] ? '-' + process.argv[3].replace(/[^\w-]/g, '') : '';
+const OUT = path.join(__dirname, `fp12-${WHICH}${LABEL}.json`);
 
 function pagesFromRegistry() {
   const src = fs.readFileSync(path.join(ROOT, 'design/_nav.js'), 'utf8');
@@ -104,7 +110,7 @@ const PROBE = () => {
 
   if (WHICH === 'before') { console.log('fp12-before.json written'); return; }
 
-  const before = JSON.parse(fs.readFileSync(path.join(__dirname, 'fp12-before.json'), 'utf8'));
+  const before = JSON.parse(fs.readFileSync(path.join(__dirname, `fp12-before${LABEL}.json`), 'utf8'));
   const L = [];
   const per = {};
   Object.keys(data).forEach(k => {

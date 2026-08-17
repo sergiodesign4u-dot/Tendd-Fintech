@@ -62,6 +62,18 @@
    question and a narrower column makes that question look like one question.
 
    `auto` is not a length and is not on the spacing scale; it stays as written. */
+/* AND IT HAS ONLY RENDERED PAST THE TABLET POINT SINCE 2026-08-17. The measure
+   above is 0-2-0 and `app-shell.css` released every direct child of the screen
+   with `.app > .screen > * { max-width: none }`, also 0-2-0, in a file imported
+   after this one: the sheet lost on source order and ran the full flow column,
+   588px at 1440, on all three of its screens. It is the SEVENTH element the
+   shell's blanket unbound and the only one still live, the other six having been
+   repaired one at a time as somebody happened to measure them. Stage 12 put the
+   blanket inside `:where()`, which drops it to zero specificity, and this rule
+   now renders what it has said since stage 08: a 480px column, centred, under
+   the 620 the flow column takes, because a sheet asks one question and a
+   narrower column makes that question look like one question. Nothing moves on a
+   phone, where 480 is wider than the screen. */
 .app .sheet { max-width: 480px; margin: var(--space-0) auto; }
 
 /* ---- the door row inside it, and this is a MARGIN and nothing more ---------

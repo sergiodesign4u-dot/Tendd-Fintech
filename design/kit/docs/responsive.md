@@ -425,6 +425,30 @@ tabs, so the order has to differ by width in the DOM. That is a decision about 5
 than 33, and it is carried in `backlog.md` for stage 12, where the remaining screens get their
 markup for the first time.
 
+### The blanket that released the pane, and what it cost until 2026-08-17
+
+The shell releases every direct child of `.screen` past the desktop point, because a screen's
+blocks are allowed to use the pane there instead of reading down a column. It was written
+`.app > .screen > * { max-width: none }`, which is **0-2-0**, and a component that declares its own
+measure as `.app .readout` is also 0-2-0 and loses on source order: `app-shell.css` is an organism
+and is imported after every atom. **Six measures were unbound that way, one at a time**, each found
+by somebody measuring that exact element - the form column, the Pro gate, the plan row, the
+readout, the groups cap, and at this stage's own step 6 a standalone muted line.
+
+Stage 12 closed it by putting both blankets, and the detail re-release, inside **`:where()`**. The
+selector matches what it always matched at **specificity zero**, so anything that declares a measure
+of its own now wins, at any specificity and in any file, and anything silent about width still gets
+`--container-page` at the tablet point and the pane past the desktop one. The named list this was
+first planned as turned out to be unwritable: fourteen selectors, one of which is a bare
+`<div aria-hidden="true">`, the skeleton frame on `history-trends-loading`, which must widen exactly
+as the chart it stands in for.
+
+**It found the seventh on the way out.** `dialog-sheet.css` has declared `max-width: 480px` since
+stage 08 with its reason on the rule, and the sheet had never once rendered it past the tablet
+point: it ran the full 588 flow column on all three of its screens. Measured across all 55 coloured
+pages: **zero boxes at 360, and at 1440 exactly three pages and 49 boxes, every one of them that
+sheet**.
+
 ## Container thresholds
 
 A container threshold is **local** and does not become a token: it belongs to one component in one

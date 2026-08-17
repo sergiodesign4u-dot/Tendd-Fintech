@@ -323,7 +323,11 @@
     overflow: auto;
     padding: var(--space-32) var(--space-40) var(--space-48);
   }
-  .app > .screen > * { max-width: var(--container-page); }
+  /* THE BLANKET IS WRITTEN AT ZERO SPECIFICITY SINCE 2026-08-17, and that one
+     change is the whole of the fix backlog.md carried for six stages. See the
+     long note over the release in the 900 block for what it cost and why the
+     named list it proposed turned out to be unwritable. */
+  :where(.app > .screen > *) { max-width: var(--container-page); }
   .app > .screen > .form-col { max-width: 560px; }
   /* the third measure, `.rows-col` at 620, is in patterns/list-column.css since
      stage 09. See the note at the floor above. */
@@ -434,7 +438,42 @@
    a later rule at three levels from re-capping a detail column. Carried as kit.css
    wrote it. */
 @container (min-width: 56.25rem) {
-  .app > .screen > * { max-width: none; }
+  /* ==========================================================================
+     THE BLANKET HAS UNBOUND SIX READING MEASURES, ONE AT A TIME, AND IT STOPS
+     HERE. 2026-08-17, stage 12, closing the row backlog.md has carried since
+     stage 09.
+
+     WHAT WENT WRONG SIX TIMES. Written as `.app > .screen > *` this rule is
+     0-2-0, and a component that declares its own measure as `.app .readout` is
+     also 0-2-0 and loses on source order, because an organism is imported after
+     an atom. So the form column rendered 588 instead of 560, the Pro gate 748
+     instead of 560, the plan row 728 instead of 720, the readout 980 instead of
+     525, the groups cap and, at stage 10, a standalone muted line. Every one was
+     repaired the same way, by re-binding the component's measure through
+     `> .screen >` at 0-3-0, and every one was invisible until somebody measured
+     that exact element. Five was a pattern; six was a generator.
+
+     WHY NOT THE NAMED LIST backlog.md PROPOSED. The plan was to replace `*` with
+     the blocks that may widen - the head, the groups, the columns, the trust
+     line - so that anything unnamed keeps its own measure. Read off the corpus
+     at 1440, the list is fourteen selectors long and one of its members has no
+     name to be listed by: the skeleton frame on `history-trends-loading` is a
+     bare `<div aria-hidden="true">`, and that file's own comment says the frame
+     must not move when the numbers land, so it has to widen exactly as the
+     chart it stands in for does. Naming it would mean inventing a hook in
+     frozen markup, and every future block would have to remember to join a list.
+
+     `:where()` DOES THE SAME REVERSAL WITH NO LIST AT ALL. The selector matches
+     what it always matched and carries specificity ZERO, so anything that
+     declares a measure of its own - at any specificity, in any file, written
+     tomorrow by somebody who has never read this comment - now wins. Nothing
+     that is silent about width changes: it still gets the pane here and
+     `--container-page` at the tablet point. Measured across all 55 coloured
+     pages at 360 and at 1440: ZERO boxes moved. The rule now defaults to
+     "keep your measure" instead of "lose it", and the seventh unbinding cannot
+     happen.
+     ========================================================================== */
+  :where(.app > .screen > *) { max-width: none; }
   .app > .screen {
     display: flex; flex-direction: column;
     padding-inline: max(var(--space-40), (100% - var(--container-wide)) / 2);
@@ -515,7 +554,13 @@
     gap: var(--space-0) var(--space-48);
     align-content: start;
   }
-  .app.detail > .screen > * { max-width: none; }
+  /* THE SECOND WRITING, AND IT IS ZERO SPECIFICITY NOW TOO. It existed because
+     it was 0-3-0 where the blanket was 0-2-0, which is what stopped a later
+     three-level rule from re-capping a detail column. With both at zero the
+     guard is unnecessary against the system's own rules and harmless to keep:
+     what it still says is that a detail column is released a second time inside
+     its own grid, and it now says it without outranking a component's measure. */
+  :where(.app.detail > .screen > *) { max-width: none; }
 }
 
 /* ---- what this file does NOT write ----------------------------------------

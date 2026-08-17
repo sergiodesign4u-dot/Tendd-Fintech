@@ -241,7 +241,8 @@ measured, 2026-08-11:
 
 &lt;div class="app flow"&gt;      one centred column, no tab bar
 &lt;div class="app detail"&gt;    two tracks past a 900 container</code>
-  </section>
+      <p class="note"><b>The blanket that releases the pane is written at zero specificity since 2026-08-17, and that one change closed a six-year-old-looking bug six stages old.</b> It read <code>.app &gt; .screen &gt; * { max-width: none }</code>, which is 0-2-0, and a component declaring its own measure as <code>.app .readout</code> is also 0-2-0 and loses on source order, because this file is an organism and is imported after every atom. <b>Six measures were unbound that way, one at a time</b>, each found only when somebody measured that exact element: the form column at 588 instead of 560, the Pro gate at 748, the plan row at 728, the readout at 980 instead of 525, the groups cap, and a standalone muted line at stage 10. The planned fix was a named list of what may widen; read off the corpus it is fourteen selectors long and one member has no name to be listed by, so both blankets and the detail re-release went inside <code>:where()</code> instead. <b>Anything that declares a measure now wins; anything silent about width still gets the pane.</b> Zero boxes moved at 360 across all 55 coloured pages, and the three that moved at 1440 are the dialog sheet, below.</p>
+</section>
 
   <footer class="kit-foot">
     Drawn by <code>design/system/components/app-shell.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. The container it queries is declared on <code>body</code> in <code>design/system/base.css</code>, with the measurement that put it there; the four <code>order</code> declarations were held for this component in <code>docs/backlog.md</code> and named in three other component files before it existed.
