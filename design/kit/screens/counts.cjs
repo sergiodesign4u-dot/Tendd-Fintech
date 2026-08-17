@@ -151,6 +151,17 @@ for (const c of components) {
   const cssName = pageToCss(c.page);
   const head = cssName ? fs.readFileSync(path.join(cssDir, cssName), 'utf8').split('*/')[0] : '';
   const claim = claimOf(head);
+  /* AND THE STAND SAYS IT A SECOND TIME. Until 2026-08-17 this script read the
+     CSS header alone, which is exactly half of where the sentence lives: every
+     component page repeats it in its "Lives in ... Stands on ..." note. The half
+     it did not read is the half that drifted - `brand-mark.css` said 55 coloured
+     pages and `brand-mark.html` said 32, and the run came back with zero
+     disagreements. An instrument that checks one of two copies reports the copy
+     it checks, not the claim. The page's figure is parsed with the same reader
+     and reported in its own column, because the two can be wrong separately. */
+  const pageFile = path.join(ROOT, 'design/kit', c.page || '');
+  const pageText = (c.page && fs.existsSync(pageFile)) ? fs.readFileSync(pageFile, 'utf8').replace(/<[^>]+>/g, '') : '';
+  const pageClaim = claimOf(pageText);
   /* A recomputed ZERO against a non-zero claim is not a drift, it is a MISS: the
      grey draws that thing without the class this registry knows it by (the
      destination icons are masks on a bare span there). Reported separately, so a
@@ -159,26 +170,34 @@ for (const c of components) {
   const greyMiss = claim.grey !== null && claim.grey > 0 && g.pages === 0;
   if (claim.grey !== null && g.pages !== null && !greyMiss && claim.grey !== g.pages) off.push('grey ' + claim.grey + ' -> ' + g.pages);
   if (claim.colour !== null && claim.colour !== k.pages) off.push('coloured ' + claim.colour + ' -> ' + k.pages);
+  const pageOff = [];
+  const pageGreyMiss = pageClaim.grey !== null && pageClaim.grey > 0 && g.pages === 0;
+  if (pageClaim.grey !== null && g.pages !== null && !pageGreyMiss && pageClaim.grey !== g.pages) pageOff.push('grey ' + pageClaim.grey + ' -> ' + g.pages);
+  if (pageClaim.colour !== null && pageClaim.colour !== k.pages) pageOff.push('coloured ' + pageClaim.colour + ' -> ' + k.pages);
   rows.push({ ...c, css: cssName, greyComputable, greyMiss, greyPages: g.pages, greyPlaces: g.places,
-              colourPages: k.pages, colourPlaces: k.places, claim, drift: off,
+              colourPages: k.pages, colourPlaces: k.places, colourFiles: k.files, claim, drift: off,
+              pageClaim, pageDrift: pageOff,
               unparsed: cssName && claim.grey === null && claim.colour === null });
 }
 
 if (AS_JSON) { console.log(JSON.stringify(rows, null, 1)); process.exit(0); }
 
 const drifted = rows.filter(r => r.drift.length);
+const pageDrifted = rows.filter(r => r.pageDrift.length);
 const unparsed = rows.filter(r => r.unparsed);
 console.log('corpora: ' + grey.length + ' grey pages, ' + colour.length + ' coloured pages');
 console.log('components in the registry with a class: ' + rows.length);
-console.log('claims that disagree with the corpus: ' + drifted.length);
+console.log('css headers that disagree with the corpus:  ' + drifted.length);
+console.log('component pages that disagree with the corpus: ' + pageDrifted.length);
 console.log('headers whose count sentence this script will not parse: ' + unparsed.length + '\n');
 
-const show = SHOW_ALL ? rows : drifted;
+const show = SHOW_ALL ? rows : [...new Set([...drifted, ...pageDrifted])];
 for (const r of show) {
   console.log(r.name.padEnd(22) + r.cls.padEnd(14) +
     (r.greyComputable ? ('grey ' + r.greyPages + 'p/' + r.greyPlaces) : 'grey (needs DOM)').padEnd(18) +
     ('colour ' + r.colourPages + 'p/' + r.colourPlaces).padEnd(16) +
-    (r.drift.length ? 'DRIFT: ' + r.drift.join(', ') : r.unparsed ? 'claim not parsed' : 'ok'));
+    (r.drift.length ? 'CSS DRIFT: ' + r.drift.join(', ') : r.unparsed ? 'claim not parsed' : 'css ok') +
+    (r.pageDrift.length ? '   PAGE DRIFT: ' + r.pageDrift.join(', ') : ''));
 }
 if (!SHOW_ALL && unparsed.length) {
   console.log('\nnot parsed (read these by hand):');
