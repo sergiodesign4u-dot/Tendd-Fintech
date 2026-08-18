@@ -483,7 +483,8 @@
      `animation-range` and `animation-timeline` to their initial values, and
      because it does so silently the range simply stops existing. That cost this
      page a whole afternoon once. */
-  .landing .storypin,
+  /* `.storypin` is not in this list and has not been since 2026-08-18: the stage
+     itself does not move, only what stands on it. */
   .landing .storylist,
   .landing .storystack > *,
   .landing .sline.cut,
@@ -957,17 +958,29 @@
     }
   }
 
-  /* ---- and the stage lets go ---------------------------------------------
-     The last quarter of the pin had nothing happening in it, which is a quarter
-     of a screen-height of scroll spent on a still frame. It now carries the
-     hand-off: the stage fades as the section releases it, and "How Tendd works"
-     arrives into the space it leaves. `both` holds it at full opacity for
-     everything before 88%, so this costs the rest of the story nothing. */
-  .landing .storypin { animation-name: sout; animation-range: contain 88% contain 100%; }
-  /* the candidate's stage holds eight points longer, because its last cancellation
-     is at 90 rather than 74: written at the component's timing the stage was
-     already fading while The New York Times was still turning over */
-  .landing .lp-orbit.lp-story.fromcircle .storypin { animation-range: contain 94% contain 100%; }
+  /* ---- AND THE STAGE LETS GO WITHOUT DISSOLVING, 2026-08-18 --------------
+     This is where the pin used to fade out over its last twelve per cent (six,
+     on the candidate), on the reading that the last quarter of the pin held a
+     still frame and the fade could carry the hand-off to "How Tendd works". The
+     founder killed it on the desk on 2026-08-15 - "в конце давай не делать
+     исчезновение всего каскада, а просто продолжим скролл дальше" - but the
+     answer was written inside `landing-orbit.css`'s 60rem gate, so only the desk
+     ever got it, and on 2026-08-18 they met the same thing on the phone:
+     **"уберем цей момент что типа оно так вот делает, исчезает, а пускай
+     остается, а то пустой экран очень странно выглядит"**.
+
+     Measured before the fix: the pin's used `animation-name` was `none` at 1024,
+     1280, 1440 and 1920 and `sout` at 320, 360, 390, 414 and 768. At 390 x 844
+     the stage reached opacity 0 at scroll 1990 while the top of "How Tendd
+     works" was still 816px below the fold - 812px of scroll, a whole viewport,
+     showing an empty page. At 768 x 1024 it was 992.
+
+     THE PREMISE WAS WRONG, NOT THE WIDTH. There was never a still frame to
+     cover: past `contain 100%` the sticky releases and the stage travels up out
+     of view under its own weight while the next section comes in behind it. The
+     fade was not filling dead scroll, it was emptying live scroll. So the pin
+     carries no animation at all now, at any width, and the decision lives in the
+     component that owns the pin rather than in one of its two arrangements. */
 
   /* narrow: the card lies across the foot of the list, on paper, with the list
      fading under it. Wide: it stands beside the list with room to spare. The
@@ -1166,7 +1179,6 @@
      nothing to keep. */
   .landing .storyswap { position: static; container-type: normal; overflow: visible;
     grid-template-columns: minmax(0, 1fr); }
-  .landing .storypin,
   .landing .storylist,
   .landing .lp-story.fromcircle .storyswap > .orbit,
   .landing .storystack > *:nth-child(n),

@@ -7,6 +7,62 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - The stage stops dissolving, and the fix for it was three days old
+
+The founder, on a phone, with a screenshot of a page faded almost to nothing:
+**"уберем цей момент что типа оно так вот делает, исчезает, а пускай остается, а
+то пустой экран очень странно выглядит"**. It is word for word the same decision
+they made on 2026-08-15 - **"в конце давай не делать исчезновение всего каскада,
+а просто продолжим скролл дальше"** - and that one had been implemented. It had
+been implemented **inside `landing-orbit.css`'s `@container story (min-width:
+60rem)`**, so it reached the desk and nowhere else, and the phone went on running
+the shared component's fade for three days.
+
+**MEASURED BEFORE THE FIX.** The pin's used `animation-name` was `none` at 1024,
+1280, 1440 and 1920 and `sout` at 320, 360, 390, 414 and 768. At 390 x 844 the
+stage reached opacity 0 at scroll 1990 while the top of "How Tendd works" was
+still 816px below the fold: **812px of scroll, one whole viewport, showing an
+empty page**. At 768 x 1024 it was 992. That is what the founder photographed.
+
+**THE PREMISE WAS WRONG, NOT THE WIDTH, WHICH IS WHY THE FIX IS A DELETION.** The
+fade was added on the reading that the last quarter of the pin held a still frame
+and the fade could carry the hand-off to the section after it. There is no still
+frame: past `contain 100%` the sticky releases and the stage travels up out of
+view under its own weight while the next section comes in behind it. The fade was
+not filling dead scroll, it was emptying live scroll. So the pin now carries no
+animation at all, at any width - out of `landing-story.css`'s timeline group and
+out of its reduced-motion kill list, both of which had nothing left to cancel -
+and `landing-orbit.css` keeps neither the rule nor the `--ease-leave` curve that
+sat beside it, a timing function that had been shaping nothing since the day it
+was written.
+
+**AND THE DECISION MOVED TO THE COMPONENT THAT OWNS THE PIN.** It was written in
+the candidate arrangement, which is one of the story's two arrangements, so it
+could only ever be true of one of them. `.storypin` is declared in
+`landing-story.css`; the rule about what `.storypin` does belongs there. Related:
+`.lp-story` without `.lp-orbit.fromcircle` exists on no page in this repo, so the
+shared fade had in fact been running on exactly one surface, the phone, of the
+only two pages that use the component at all.
+
+**Verified.** Nine sizes from 320 to 1920: the pin's `animation-name` is `none`
+and its range `normal` at every one, and the section's height is unchanged at
+every one. Past the release, at 390 x 844, 768 x 1024 and 1440 x 900, **the pin's
+bottom edge and the next section's top edge are the same number at every scroll
+stop** - no gap and no overlap. Fourteen viewport sizes by two motion
+preferences, walking the whole page: 0 sideways scroll, 0 console errors, and the
+pin never below opacity 1.00 anywhere. Every other animated element on the stage
+still reads `--story` with `both` at both 390 and 1440. `rollout12.cjs`: 0
+violations on all 55 screens.
+
+**Ground:** the founder's two sentences above, and CLAUDE.md's rule that a fix
+goes to the component and not to one screen. What the two of them together say,
+and what this is the third instance of in a week: **the width gate is where a
+correction goes to die**. A rule about BEHAVIOUR written inside a query about
+LAYOUT is true of one size and silent everywhere else, and it is silent in the
+direction nobody screenshots.
+
+---
+
 ## 2026-08-18 - The story leaves the width gate, and a 24px gap that was 0 on every screen
 
 Two founder notes in one pass, and they turn out to be the same mistake twice: a

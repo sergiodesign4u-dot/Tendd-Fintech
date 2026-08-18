@@ -1332,18 +1332,15 @@
      `@supports (animation-timeline: view())`, and every engine that has a
      scroll timeline has had `linear()` for longer.
      ==================================================================== */
-  .landing .lp-orbit.lp-story.fromcircle .storypin {
-    animation-timing-function: var(--ease-leave);
-    /* AND THE STAGE DOES NOT DISSOLVE AT THE END, it simply stops being pinned.
-       The founder, 2026-08-15: "в конце давай не делать исчезновение всего
-       каскада, а просто продолжим скролл дальше". The shared component fades the
-       whole pin out over the last twelve per cent, which is right where a stage
-       hands over to a section that has to be read next; here the deck is the
-       last thing the reader was given and fading it out takes it away from them.
-       With the animation off the sticky simply releases at the foot of the
-       section and the page carries on under it. */
-    animation-name: none;
-  }
+  /* THE STAGE DOES NOT DISSOLVE AT THE END. That rule stood HERE, inside this
+     gate, from 2026-08-15 - which is why only the desk ever ran it, and why the
+     founder had to ask for the same thing a second time on 2026-08-18 after
+     meeting the fade on a phone. It is not here any more and it is not anywhere
+     else in this file either: the pin now carries no animation in
+     `landing-story.css`, the component that owns it, and the measurement that
+     moved it is written there. Its `--ease-leave` curve went with it - a timing
+     function on an element whose `animation-name` is `none` times nothing, and
+     this one had been shaping nothing since the day it was written. */
 
   /* the strands leave with the window they are drawn around, over the same
      stretch and on the same curve: they open outward by six per cent as the
