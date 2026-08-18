@@ -52,6 +52,52 @@
     { name: 'Settings', base: 'settings.html', states: ['no-account'] }
   ];
 
+  /* ==========================================================================
+     WHERE A WAIT GOES, 2026-08-19. The founder, on `connect-bank-loading`:
+     **"для меня тупик ... а что тут может быть дальше - success или ошибка или
+     что-то еще, как сделать так, чтобы это не шло как в продукт, но было
+     понятно, куда двигаться дальше"**.
+
+     THE DEAD END IS CORRECT AND IT IS A RULE. U7: a wait carries no control at
+     all, because an edge a person takes is a control and an edge the system
+     takes is not. Counted over all 55 coloured screens, exactly TWO have no link
+     out of `.app`, and they are U7's own two pages: `connect-bank-loading` and
+     `upgrade-processing`. Every other wait carries a tab bar and is walkable.
+
+     SO THE ANSWER GOES ON THE STAND AND NEVER INTO THE SCREEN. This strip is
+     drawn by the reviewer's chrome, outside `.app`, from data that lives here.
+     Nothing is added to the 55 screen files: no markup, no class, no link. Turn
+     the chrome off - which is what a build does - and the wait is exactly the
+     wait the product ships.
+
+     THE EDGES ARE NOT THIS FILE'S TO INVENT. Their owner is `ia/docs/flows.md`
+     (flow A: SyncLoad -> ConnOK -> the reveal, the error or the empty) and the
+     node comment on `connect-bank-cancelled.html`, which is where the fourth
+     outcome was added on 2026-08-04: "Plaid Link returns four outcomes and the
+     map had three". `upgrade-processing` states its own success in its own copy:
+     "When it is done you go straight back to Your trends, open." Two entries,
+     each copied from a named source, and a wait that is coloured later without
+     an entry still gets a strip - see the fallback in `nextStep()`.
+     ========================================================================== */
+  var AFTER = {
+    'connect-bank-loading.html': {
+      why: 'A wait carries no control, by rule (U7): an edge the system takes is not a control. In the product this screen moves on its own when the bank answers, and Plaid Link returns four outcomes.',
+      doors: [
+        ['guided-reveal.html', 'Charges found', 'the reveal begins'],
+        ['connect-bank-empty.html', 'Nothing found', 'connected, nothing recurring yet'],
+        ['connect-bank-error.html', 'Could not connect', 'the bank link failed'],
+        ['connect-bank-cancelled.html', 'You backed out', 'the bank window was closed']
+      ]
+    },
+    'upgrade-processing.html': {
+      why: 'A wait carries no control, by rule (U7), and this one must not offer one twice over: a way out in the middle of a charge is the thing this screen must never offer. In the product it moves on its own.',
+      doors: [
+        ['history-trends.html', 'It went through', 'straight back to Your trends, open'],
+        ['upgrade-payment-failed.html', 'The card was declined', 'nothing was charged']
+      ]
+    }
+  };
+
   function stateFile(base, state) {
     return base.replace('.html', '-' + state + '.html');
   }
@@ -126,6 +172,49 @@
     return html;
   }
 
+  /* THE STRIP ITSELF. It is built only where the screen has NO link out of
+     `.app`, which is the runtime form of the same question U7 answers, so it
+     cannot appear on a screen that is walkable and cannot be forgotten on a wait
+     that is coloured tomorrow. Where such a screen has no entry in AFTER, the
+     strip still draws and says so, listing the siblings the registry knows: a
+     reviewer is never left in front of a page with nothing to click and no
+     explanation of why. */
+  function nextStep() {
+    var app = document.querySelector('.app');
+    if (!app || app.querySelector('a[href$=".html"]')) return;
+    var here = current();
+    var e = AFTER[here], doors, why;
+    if (e) {
+      doors = e.doors; why = e.why;
+    } else {
+      /* the fallback: the siblings of whatever screen this is a state of */
+      doors = [];
+      for (var i = 0; i < SCREENS.length; i++) {
+        var sc = SCREENS[i], mine = (here === sc.base);
+        for (var k = 0; k < sc.states.length; k++) if (here === stateFile(sc.base, sc.states[k])) mine = true;
+        if (!mine) continue;
+        if (here !== sc.base) doors.push([sc.base, sc.name, 'the screen this is a state of']);
+        for (var j = 0; j < sc.states.length; j++) {
+          var f = stateFile(sc.base, sc.states[j]);
+          if (f !== here) doors.push([f, sc.states[j], 'another state of ' + sc.name]);
+        }
+      }
+      why = 'This screen has no way out, and no next step is declared for it in design/_nav.js. What follows is every other state of the same screen, from the registry.';
+    }
+    var html = '<p class="scr-next-h">The stand, not the product</p>' +
+               '<p class="scr-next-w">' + esc(why) + '</p><div class="scr-next-d">';
+    for (var d = 0; d < doors.length; d++) {
+      html += '<a href="' + doors[d][0] + '"><b>' + esc(doors[d][1]) + '</b>' +
+              '<span>' + esc(doors[d][2]) + '</span></a>';
+    }
+    html += '</div>';
+    var box = document.createElement('aside');
+    box.className = 'scr-next';
+    box.setAttribute('aria-label', 'Where this screen goes, for review');
+    box.innerHTML = html;
+    document.body.appendChild(box);
+  }
+
   function mount() {
     var el = document.getElementById('ui-screen-nav');
     if (!el) return;
@@ -137,6 +226,7 @@
     var stored = 'light';
     try { stored = localStorage.getItem(KEY) || 'light'; } catch (e) {}
     setTheme(stored);
+    nextStep();
   }
 
   if (document.readyState === 'loading') {

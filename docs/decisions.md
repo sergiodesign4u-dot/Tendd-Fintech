@@ -7,6 +7,65 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-19 - The way out of a wait belongs to the stand, not to the screen
+
+The founder, standing on `connect-bank-loading`: **"для меня тупик ... а что тут
+может быть дальше - success или ошибка или что-то еще, как сделать так, чтобы это
+не шло как в продукт, но было понятно, куда двигаться дальше"**.
+
+**THE DEAD END IS CORRECT, AND IT IS A RULE.** U7: a wait carries no control at
+all, because an edge a person TAKES is a control and an edge the system takes is
+not. A button on a wait offers an action the product does not have, and on
+`upgrade-processing` it would offer the one thing that screen must never offer, a
+way out of a charge in flight. Counted over all 55 coloured screens, exactly
+**two** have no link out of `.app`, and they are U7's own two pages. Every other
+wait carries a tab bar and is walkable.
+
+So the screen is right and the PROTOTYPE is wrong: a reviewer meets a page with
+nothing to click and no way to reach the outcomes it leads to. Those are two
+different problems and they have two different homes.
+
+**THE ANSWER IS THE REVIEWER'S CHROME.** `design/_nav.js` draws a strip outside
+`.app` naming where the wait can land, and `design/_screen.css` gives it the
+chrome's own sage palette so it can never be mistaken for the product. **Nothing
+was added to any of the 55 screen files**: no markup, no class, no link, no style.
+Turn the chrome off, which is exactly what a build does, and the wait is the wait
+that ships. The rollout ledger's own checks are unchanged by construction, and
+that was verified rather than assumed: 0 style blocks, 0 classes the system does
+not define, 606 internal links, all the same numbers as before.
+
+**IT FINDS ITS OWN SCREENS.** The strip is built where the screen has no
+`a[href$=".html"]` inside `.app`, which is the runtime form of the question U7
+answers. So it cannot appear on a screen that is walkable, and it cannot be
+forgotten on a wait that is coloured next month. Where such a screen has no
+declared next step, the strip still draws and says so, listing the sibling states
+the registry knows: a reviewer is never left in front of a page with nothing to
+click and no explanation of why.
+
+**THE EDGES ARE NOT THE CHROME'S TO INVENT, AND EACH ONE NAMES ITS SOURCE.** Flow
+A in `ia/docs/flows.md` gives the three outcomes of the sync (the reveal, the
+error, the empty); the node comment on `connect-bank-cancelled.html` gives the
+fourth, added on 2026-08-04 with the sentence "Plaid Link returns four outcomes
+and the map had three"; `upgrade-processing` states its own success in its own
+copy, "When it is done you go straight back to Your trends, open". Two entries,
+six doors.
+
+**AND THE SIX DOORS ARE CHECKED BY THE LEDGER.** A href nobody checks is a href
+that rots, and these six live in a script rather than in any file section 4 of
+`rollout12.cjs` reads. That section now parses the map out of `design/_nav.js` and
+resolves its targets against the tree, in the same run and by the same standard as
+the other 606: **6 links, 0 missing**.
+
+**WHAT WAS REJECTED.** A strip in normal flow under the screen: the stage gives
+`.app` exactly `100dvh - var(--c-toggle-h)` past a 760px container, so a block
+under it pushes the review page taller than the window, which is the same +40px
+defect the toggle's own subtraction exists to cure. A fixed box in the corner
+takes no height at all. And a "next" control inside the screen, which is what a
+prototyping tool would do: it would put a button on a wait, and the wait having no
+button is the whole point of the rule.
+
+---
+
 ## 2026-08-19 - One screen, one measure, and the frame steps off the picture
 
 The founder, on the finished trend screen at a 1920 window: **"пока еще слабовато

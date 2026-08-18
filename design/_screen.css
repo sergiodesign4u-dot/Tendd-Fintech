@@ -292,6 +292,62 @@
    since round 3 (wireframes/_wf.css:37). */
 .stage.stage-flush { padding: 0; }
 
+/* ---------- where a wait goes, and it is the stand talking -----------------
+   2026-08-19. The founder, standing on `connect-bank-loading`: "для меня тупик
+   ... а что тут может быть дальше - success или ошибка или что-то еще, как
+   сделать так, чтобы это не шло как в продукт, но было понятно, куда двигаться
+   дальше". The dead end is correct and it is usage rule U7: a wait carries no
+   control, because an edge the system takes is not one. Exactly two coloured
+   screens have no link out of `.app` and both are U7's own pages.
+
+   So the way forward is the REVIEWER'S and never the product's. `design/_nav.js`
+   builds this strip outside `.app`, from data it holds itself, and adds nothing
+   to any of the 55 screen files - no markup, no class, no link. Turn the chrome
+   off and the wait is the wait that ships.
+
+   IT IS FIXED AND IT IS IN THE CORNER, and both are for the same reason. The
+   stage gives `.app` exactly `100dvh - var(--c-toggle-h)` past a 760px
+   container, so a strip in normal flow under the screen would push the review
+   page taller than the window - the exact +40px defect the toggle's own
+   subtraction exists to cure, three rules above this one. A fixed box takes no
+   height at all. The corner keeps it clear of the 250px rail on the left and of
+   a tab bar at the foot, which no dead-end screen has anyway.
+
+   z-index 140: under the drawer (200) and under its overlay (150), over the
+   toggle strip (100). A reviewer who opens the screen list is not asking to read
+   this at the same time.
+
+   The palette is the chrome's own `--c-` set, so it follows the theme switch
+   with the panel and cannot be mistaken for the product: the product's own
+   surfaces are `--bg-*` and nothing in `design/system/` is drawn in sage. */
+.scr-next {
+  position: fixed; right: 16px; bottom: 16px; z-index: 140;
+  width: min(340px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 13px 15px 11px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(20, 27, 29, 0.06), 0 14px 34px -16px rgba(20, 27, 29, 0.40);
+}
+.scr-next-h {
+  margin: 0 0 6px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--c-accent);
+}
+.scr-next-w { margin: 0 0 10px; font-size: 12px; line-height: 1.45; color: var(--c-text-secondary); }
+.scr-next-d { display: grid; gap: 4px; }
+.scr-next-d a {
+  display: block; text-decoration: none;
+  padding: 7px 9px; border-radius: var(--c-radius-sm);
+  border: 1px solid var(--c-border-light);
+  transition: background 0.15s, border-color 0.15s;
+}
+.scr-next-d a:hover { background: var(--c-accent-light); border-color: var(--c-accent); }
+.scr-next-d a:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+.scr-next-d b { display: block; font-size: 12.5px; font-weight: 600; color: var(--c-text); }
+.scr-next-d span { display: block; font-size: 11.5px; color: var(--c-text-muted); }
+
 /* The chrome's own motion guard. `base.css` carries the global one for the
    product; this covers the drawer, which the product does not know about. */
 @media (prefers-reduced-motion: reduce) {

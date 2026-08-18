@@ -301,6 +301,19 @@ linkRows.forEach(r => {
   if (r.toGrey.length) p(`      ${r.file} -> grey: ${r.toGrey.join(', ')}`);
   if (r.broken.length) p(`      ${r.file} -> missing: ${r.broken.join(', ')}`);
 });
+/* AND THE LINKS THAT ARE NOT IN A SCREEN FILE AT ALL, 2026-08-19. The reviewer's
+   chrome grew a "where this wait goes" strip on the two screens that have no way
+   out by rule (U7), and its hrefs live in `design/_nav.js` rather than in any of
+   the 55 files this section reads. A href nobody checks is a href that rots, so
+   the AFTER map is parsed here and its targets are resolved against the tree, in
+   the same run and by the same standard as every other link in colour. */
+const chromeSrc = read('design/_nav.js');
+const afterBlock = chromeSrc.slice(chromeSrc.indexOf('var AFTER = {'), chromeSrc.indexOf('function stateFile'));
+const afterTargets = [...afterBlock.matchAll(/\['([a-z0-9-]+\.html)'/g)].map(m => m[1]);
+const afterBroken = afterTargets.filter(t => !fs.existsSync(path.join(ROOT, 'design', t)));
+p(`   links in the chrome's "where this wait goes" strip ${afterTargets.length}`);
+p(`   of those, whose target does not exist              ${afterBroken.length}`);
+afterBroken.forEach(t => p(`      design/_nav.js AFTER -> missing: ${t}`));
 p('');
 
 p('5. BEHAVIOUR AT WIDTH, read out of the component CSS');
