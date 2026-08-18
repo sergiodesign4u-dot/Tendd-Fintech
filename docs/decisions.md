@@ -7,6 +7,66 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - The trend line stops being a ruler, and June turns out not to be missing
+
+The founder, on the same page an hour later: **"ти считаешь це гарним? сделай
+нормальним и современним, а не как будто вайрфрейми ми перенесли"**. Fair. The
+box had been repaired - a height that had never applied past 900, a 5.2 to 1
+ratio nobody chose, a plot 6 per cent inside its own labels - and what was left
+inside it was still **a dead straight segment**, which is the one shape that
+always reads as a placeholder.
+
+**IT WAS STRAIGHT FOR A STATED REASON AND THE REASON'S PREMISE WAS WRONG.**
+`design/history-trends.html` carried this since stage 07: "June sits on the line
+between them because the copy gives no June figure, and inventing one on a screen
+about money is worse than a placeholder." The refusal is right. The premise is
+not: **June is not missing, it is derivable from this same screen.** The "What
+moved" list directly under the chart says **ChatGPT Plus is new since June, $20.00
+a month**, and **172.90 + 20.00 is exactly 192.90**. Netflix's $2.50 is dated
+Jul 28 on `subscription-detail-price-change` and has not been charged yet, so it
+is not in July's total. The three monthly totals are **172.90, 192.90, 192.90**:
+the total jumped when one subscription arrived and has held since. Nothing is
+invented; the middle value is read off two facts the screen already states, and
+it is the shape the copy above the chart calls "the shape of it".
+
+**AND THE CURVE EASES INTO THE PLATEAU RATHER THAN TURNING A CORNER**, because a
+monthly total is a level and not an event: it did not spike on a day, it stepped
+up and stayed. `M0 80 C 45 80, 100 28, 150 28 L300 28`, one cubic into June's x
+and flat to July's. May sits two units above the bottom gridline and the plateau
+six below the top one, so the plot uses its band instead of hugging the middle.
+IA node 5.12 block 5 says "the monthly recurring total across the range, one
+line, no donut, no stacked categories", and this is the first version of the plot
+that draws a value per month rather than two values and an interpolation.
+
+**BUILT AND REJECTED, WRITTEN DOWN SO IT IS NOT TRIED AGAIN.** Round end dots on
+the two measured months: under `preserveAspectRatio="none"` a circle is drawn as
+an ellipse, and `vector-effect` fixes a stroke's WIDTH and not a cap's shape -
+measured, the dots came out **23 by 13** at a 1140 box, and the zero-length
+round-cap trick fails identically. A column chart would be immune to every
+distortion problem and is refused by the node's own "one line".
+
+**ONE THING IS THE FOUNDER'S AND IS NOT TAKEN HERE.** A **petrol** line would
+transform this chart more than anything above. D-Concept spends petrol inside a
+screen's content on the primary action, the current selection and the trust line,
+and a data line is none of the three. Named, measured and left alone.
+
+**The one copy change**, flagged for Voice: the chart's accessible name said "the
+same figures as the sentence above", which stopped being the whole truth the
+moment June was drawn. It now reads "Line chart of your monthly total from May to
+July. It rises in June, when one subscription was added, and holds level after
+it. The figures are the sentence above."
+
+**Verified.** 14 viewport sizes by two themes by four pages: 168 below the tablet
+point and 220 above it everywhere, band and label row the same width everywhere,
+0 sideways scroll, 0 console errors. Shrink sweep: 0 crushed children at three
+desktop sizes. `rollout12.cjs`: 0 violations.
+
+**Ground:** the founder's sentence. What it is really about: **a refusal to invent
+data is not the same as having no data**, and the difference is worth re-checking
+before a screen ships a shape that says nothing.
+
+---
+
 ## 2026-08-18 - The trend chart, and it was not ugly so much as absent
 
 The founder, on the chart placeholder's page: **"че то мне вот это вообще не
