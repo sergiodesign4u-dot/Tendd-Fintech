@@ -129,7 +129,15 @@ window.NAV = [
   // by measuring rather than by fixing. Three things are left to the founder and none of
   // them is a defect: a skip link, a rename, and one line to revert the dialog sheet's 480.
   { label:'Rollout',             page:'design/rollout.html', ready:true, done:true },
-  { label:'Handoff',             page:null, done:false },
+  // HANDOFF HAS A PAGE FROM 2026-08-18, and `ready` beside `done` exactly as the two
+  // rows above it left it: the page exists and the stage is not closed, which is the
+  // one state this registry can say out loud. What the page reports is the census, the
+  // LIFT TEST - design/system/ copied into an empty directory and used to assemble a
+  // screen it had never seen, 0 failed requests and 0 console errors in both themes -
+  // the run surface a receiver meets, and the open list counted off backlog.md rather
+  // than remembered. The one dependency the folder cannot carry is the typeface, and
+  // that is the finding the lift test exists to have produced.
+  { label:'Handoff',             page:'handoff/handoff.html', ready:true, done:false },
 ];
 
 (function () {

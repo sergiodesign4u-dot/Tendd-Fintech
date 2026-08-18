@@ -37,7 +37,12 @@ const groups = {
   'system css':              f => /^design\/system\/.*\.css$/.test(f),
   'system js':               f => /^design\/system\/.*\.js$/.test(f),
   'stand pages':             f => /^design\/kit\/[^/]+\.html$/.test(f),
-  'stage pages, other':      f => /^(research|ia|voice)\/.*\.html$/.test(f),
+  /* `handoff/` joined this group on 2026-08-18, the day the stage got a page. It
+     had been landing in "everything else", which is where a file goes when nobody
+     has told the census it exists - and a census that cannot see its own stage's
+     page is the first thing that page would have to correct. */
+  'stage pages, other':      f => /^(research|ia|voice|handoff)\/.*\.html$/.test(f)
+                                  || /^design\/(overview|rollout)\.html$/.test(f),
   'md, loaded at session':   f => f === 'CLAUDE.md' || f === 'design/system/CLAUDE.md',
   'md, everything else':     f => f.endsWith('.md') && f !== 'CLAUDE.md' && f !== 'design/system/CLAUDE.md',
   'instruments (.cjs)':      f => f.endsWith('.cjs'),

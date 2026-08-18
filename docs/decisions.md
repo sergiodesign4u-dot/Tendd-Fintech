@@ -7,6 +7,52 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - Handoff gets a page, and the census could not see its own stage
+
+The last roadmap row had `page: null` since the project began, which is the one
+state a registry can hold and a stage cannot close in: **an artefact with no
+visible place does not exist for the person who decides**, and a stage whose
+account is nowhere is a stage nobody can walk.
+
+**WHAT THE PAGE REPORTS, AND WHAT IT REFUSES TO BE.** Four things: the census of
+what is on disk, the lift test, the run surface a receiver meets in the first
+minute, and the open list counted off `backlog.md` rather than recalled. It
+refuses to be a summary - twelve stage accounts already exist and each is better
+at its own subject than a paragraph here would be. What a receiver needs from
+this page is the things that are true of the WHOLE and are written down nowhere
+else.
+
+**ONE NUMBER ON IT IS WORTH THE PAGE ON ITS OWN.** The product is **7333 lines of
+html** and the argument for it is **23819 lines of markdown**, three times as
+much. That ratio is the pipeline's shape rather than an accident: every value
+carries the decision that put it there.
+
+**AND THE CENSUS COULD NOT SEE ITS OWN STAGE.** Adding the page put it in
+"everything else", which is where a file goes when nobody has told the census it
+exists - and a census that cannot see its own stage's page is the first thing
+that page would have to correct. The classifier was corrected rather than the
+number: `handoff/` joined the stage-pages group, and `design/overview.html` and
+`design/rollout.html` joined it too, because they had been miscounted the same
+way the whole time. Stage pages went 33 to **36** and "everything else" 231 to
+228; the total is **618**.
+
+**THE REGISTRY ROW USES `ready` BESIDE `done`**, exactly as the Animation and
+Rollout rows established: `ready:true, done:false` says the page exists and the
+stage is not closed, which is the one state this registry can say out loud, and
+without it a live account is unreachable from the roadmap for the whole length of
+its own stage - which is exactly when it is most worth opening.
+
+**Verified.** The page serves with 0 failed requests, 0 console errors and 0
+sideways scroll at 390 and at 1440; every one of its internal links resolves; the
+roadmap marks the row `is-active` on the page itself and `Next` with a working
+link from everywhere else. `rollout12.cjs`: 0 violations, pairing still 55 and
+55. `quality13.cjs`: unchanged.
+
+**What the stage still owes:** the critique on two instruments, and the founder's
+walk. Everything else it was for is on the page.
+
+---
+
 ## 2026-08-18 - The lift test: the system travels, and it carries one thing it cannot
 
 Stage 13's whole claim is that `design/system/` is liftable. It had been asserted
