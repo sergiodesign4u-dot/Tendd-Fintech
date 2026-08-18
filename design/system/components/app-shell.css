@@ -518,6 +518,65 @@
     padding-inline: max(var(--space-40), (100% - var(--container-wide)) / 2);
   }
 
+  /* ---- A SCREEN BUILT AROUND A PICTURE ENDS WHERE THE PICTURE ENDS, 2026-08-19
+     The founder, on History and trends at a 1920 window: "что то растянуто на всю
+     ширину что то нет ... я бы хотел чтобы это выглядело круто, а не дёшево".
+     Measured on the live page before the fix, the direct children of one screen:
+
+       1280  the text block, the trend list, the action row
+        780  the chart and its month labels
+        525  the readout sentence
+        459  the two muted lines
+        384  the range control
+
+     Five right edges, and the widest two disagree by 500px. The chart was the
+     only block that had been given a measure (`--container-page`, in
+     chart-placeholder.css, the day the plot became real), so everything around it
+     ran on to the pane while the picture stopped in the middle of the screen.
+
+     THE MEASURE MOVES TO THE PANE AND OFF THE CHART, which is the same repair
+     this block already made for the groups column set in 2026-08-13: a cap inside
+     a cap is drift, and the block that knows the right width is the one that owns
+     the whole content box. `--container-page` (780) is not a new number - it is
+     what the shell itself hands every block between the two points, so past the
+     desktop point this screen keeps reading at the width it reads at on a tablet
+     and gains only air on both sides. chart-placeholder.css drops its own cap in
+     the same step; the pair `.chart + .metarow` no longer needs one, because two
+     blocks in one 780 box are the same width by construction.
+
+     `:has(.chart)` AND NOT A CLASS, exactly as `:has(.plans)` above: the screen
+     that is built around a picture is identifiable by what is inside it, and a
+     class would be markup on a product screen. It matches the four History and
+     trends pages and nothing else in the product - the plot, the free two-month
+     plot, the empty frame and the loading skeleton - which is the whole family
+     that shares this shape.
+
+     AND THE FIFTH STATE OF THAT SCREEN HAS NO CHART, which is why the second
+     selector is here rather than in a later commit. `history-trends-error` is a
+     status block, two buttons and a quiet line, so `:has(.chart)` cannot see it,
+     and it measured 1280 while its four siblings measured 780: one screen that
+     changes width when it fails. `.interruption` is what it and `history-trends-
+     empty` actually are, and `:not(.flow)` is what keeps the pattern's three other
+     wearers out - `add-subscription-error`, `guided-reveal-empty` and
+     `upgrade-payment-failed` are all inside the onboarding chain, which owns its
+     own 620 column and is not touched here. Counted at 1920 over all 55 coloured
+     screens: the two selectors together match five pages and every one of them is
+     a state of History and trends. The rule generalises the right way - an
+     interruption is one message and one way out, and a message has no use for a
+     dashboard's width.
+
+     IT IS THE PADDING AND NOT A max-width ON `.screen`, for the reason written
+     above: `.screen` is the pane that scrolls, and a max-width here would drag
+     the scrollbar into the middle of the window. Only the content box narrows.
+     0-3-0 against the 0-2-0 of the rule it follows, so it wins without !important
+     and without touching any other screen. Home keeps 1280, because its group set
+     genuinely becomes three columns there and measured 434px tall at 1280 against
+     552 at 980; Alerts and Settings keep the 620 of the list-column pattern. */
+  .app > .screen:has(.chart),
+  .app:not(.flow) > .screen.interruption {
+    padding-inline: max(var(--space-40), (100% - var(--container-page)) / 2);
+  }
+
   /* ---- AND A SCROLLING PANE MAY NOT COMPRESS WHAT IS IN IT, 2026-08-18 ------
      The line above is what makes this pane a flex column, and the tablet block
      above gives it a DEFINITE height: `.app` is a grid at `height: 100dvh` and

@@ -16,11 +16,12 @@
      flush-text         a paragraph or heading sits under 12px from a surface
      empty-box          a bordered box with nothing in it
 
-   TWO FALSE POSITIVES ARE FIXED IN THE INSTRUMENT RATHER THAN TOLERATED IN THE
+   THREE FALSE POSITIVES ARE FIXED IN THE INSTRUMENT RATHER THAN TOLERATED IN THE
    REPORT, because a check that cries wolf is a check people stop reading: a
-   preset tile is a card and not a one-line control, and a checkbox's target is
-   the label around it and not the input inside it. Both exclusions are one line
-   each and both are named at the line.
+   preset tile is a card and not a one-line control, a checkbox's target is the
+   label around it and not the input inside it, and the chart's value axis and end
+   dot are placed by coordinate rather than by flow. Every exclusion is one line
+   and every one is named at the line.
 
    RUN IT:  node design/kit/screens/quality13.cjs
    Clean, 2026-08-18: two flush-text pairs remain in the whole corpus and both are
@@ -51,6 +52,12 @@ const PROBE = () => {
   document.querySelectorAll('main *').forEach(e=>{
     const p=e.parentElement; if(!p) return;
     const ps=cs(p); if(ps.overflowX!=='visible') return;
+    /* the value axis sits in the chart's own gutter and the end dot sits ON the
+       curve at 100%: both are placed by coordinate, so the parent's content box is
+       not their frame of reference. They surfaced here on 2026-08-19, the day the
+       plotted chart dropped its frame and with it the clip that had been hiding a
+       geometry that was always this way. */
+    if(e.matches('.chart .yaxis, .chart .mark .pin')) return;
     const pr=R(p), er=R(e);
     if(er.width===0||pr.width===0) return;
     const padR=parseFloat(ps.paddingRight)||0, padL=parseFloat(ps.paddingLeft)||0;

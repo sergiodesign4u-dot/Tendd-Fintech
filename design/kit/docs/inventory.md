@@ -80,7 +80,7 @@ the child**: doors are full cards and take air, tiles are chips and do not.
 **Built.** `design/system/components/button.css` + `design/kit/button.html`. The etalon of step 5,
 and the first component through the five-thing gate: css, page, registry row, inventory line,
 `@import` in its own level group.
-| Chart placeholder | `.chart` | - | 4 | - | `chart-placeholder.css` | `chart-placeholder.html`  | point |
+| Chart placeholder | `.chart` | **frame: drawn / stepped back**, decided by `:has(.plot)` and never by a class (2026-08-19): a fill and a hairline are what you draw when there is nothing to draw | 4 | - | `chart-placeholder.css` | `chart-placeholder.html`  | point |
 | Checkbox | `.check` | - | 2 | `.switch input` | `checkbox.css` | `checkbox.html`  | does not adapt |
 | Chip | `.chip` | tone: quiet / trial / pro. `cancelled` has no wearer; `trial`'s only wearer is the grey landing, so `--bg-trial` has never rendered | 36 | `.tag`, `.badge`, `.best`, `.plan` | `chip.css` | `chip.html`  | does not adapt |
 | Destination icon | `.ic-*` | one per destination | 112 | - | `destination-icon.css` | `destination-icon.html`  | does not adapt |

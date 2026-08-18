@@ -79,6 +79,41 @@
   background-origin: content-box;
 }
 
+/* ---- AND THE FRAME IS WHAT YOU DRAW WHEN THERE IS NOTHING TO DRAW ---------
+   2026-08-19, the founder on the finished chart: "пока еще слабовато ... я бы
+   хотел чтобы это выглядело круто, а не дёшево". Two things made it cheap and the
+   other one was a width; this is the material.
+
+   A grey slab with a hairline round it, holding a line, is the shape of a
+   PLACEHOLDER, which is what this component is called for a reason and what it
+   drew for two stages. Every chart the founder put up as a reference had no box at
+   all: dashed rules, a value axis, a line, and the page's own paper behind them.
+   The picture IS the container once there is a picture.
+
+   So the fill and the frame stay exactly where they are still doing work - the
+   empty frame on `history-trends-empty`, which node 5.12 block 8 asks for out
+   loud, and the loading skeleton, which must not move when the numbers land - and
+   they step off the two states that plot something. `:has(.plot)` is the test, and
+   it is the honest one: it asks whether there is a line in the box, which is the
+   whole question. Nothing else changes: the dashed rules, the axis, the gutter,
+   the cursor and the 220px band are the same on all four.
+
+   `border-color: transparent` and not `border: none`: the border still takes its
+   1px on every side, so the plot area keeps the exact geometry it had and the
+   three background rules keep landing on the same three per cents. Measured after:
+   the box is the same 220 by 780 and the line has not moved. */
+.app .chart:has(.plot), .landing .chart:has(.plot) {
+  background-color: transparent;
+  border-color: transparent;
+  /* AND THE CLIP GOES WITH THE FRAME. `overflow: hidden` on the base is there to
+     hold a stroke that reaches the edge inside a rounded corner; with no corner
+     and no fill there is nothing to hold it inside, and the one thing that WANTS
+     to cross the edge is the dot on the last point, which sits at exactly 100%
+     and would render as a half-disc against nothing. The plot itself is
+     width 100% height 100% and overflows by nothing. */
+  overflow: visible;
+}
+
 /* ---- THE VALUE AXIS, AND THE GUTTER IT LIVES IN --------------------------
    Only where there is something to label: `:has(.yaxis)` is what keeps the
    locked, empty and loading frames full width, because a gutter of empty space
@@ -165,14 +200,23 @@
    where masking is missing the area keeps `--plot-area`, the flat petrol tint
    declared above, and the chart is the one it was five minutes before this rule.
    The two alphas are written here rather than tokenised because they are the
-   SHAPE of one gradient in one place, not a value the product reuses: 0.30 at
+   SHAPE of one gradient in one place, not a value the product reuses: 0.22 at
    the curve is where the wash stops competing with the 2.5px line above it, and
-   0.02 at the foot is not zero so the frame's own fill still shows through. */
+   the foot is 0.
+
+   THE TWO NUMBERS MOVED ON 2026-08-19, AND THE REASON IS THE FRAME RULE ABOVE.
+   They were 0.30 and 0.02, chosen against the recessed fill this box used to
+   carry: 0.02 was deliberately not zero, so the grey slab still showed through the
+   foot of the wash. There is no slab under a plot any more, so 0.02 of petrol over
+   paper is a flat film with a visible straight edge where the closed path ends,
+   and 0.30 over paper is a mass rather than a shadow the line casts. 0.22 to 0 is
+   the same gradient read against paper: the wash reaches nothing at the foot, so
+   it has no edge at all. */
 @supports (mask-image: linear-gradient(#000, #000)) or (-webkit-mask-image: linear-gradient(#000, #000)) {
   .app .chart .area, .landing .chart .area {
     fill: var(--plot-line);
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.02));
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.02));
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.00));
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.00));
   }
 }
 
@@ -196,6 +240,38 @@
   stroke: var(--plot-line);
   stroke-width: 2.5;
   stroke-linejoin: round;
+}
+
+/* ---- THE END OF THE LINE, 2026-08-19 --------------------------------------
+   A dot on the last point, built by behaviour.js beside the cursor and placed in
+   the same coordinate system: the layer takes the axis gutter as its left inset,
+   so `--lx` and `--ly` are per cent of the PLOT area and not of the box, exactly
+   as `--cx` and `--cy` are.
+
+   The halo is `--bg-surface` and not a border, and that is the whole of why the
+   dot reads on a line of its own colour: a 3px ring of the page's own paper cuts
+   the dot out of the curve it sits on, which a border in the same petrol could
+   not do. It is a box-shadow rather than an outline because an outline would
+   follow the border-radius of nothing.
+
+   IT STANDS DOWN FOR THE CURSOR. `:has(.cursor.on)` is the whole interaction:
+   while a person is reading a month, the cursor owns the dot on the curve, and
+   two dots on one point is a question the reader should never be asked. */
+.app .chart .mark {
+  position: absolute;
+  inset: var(--space-0) var(--space-0) var(--space-0) var(--chart-gutter);
+  pointer-events: none;
+  transition: opacity var(--dur-state) var(--ease-state);
+}
+.app .chart:has(.cursor.on) .mark { opacity: 0; }
+.app .chart .mark .pin {
+  position: absolute;
+  left: var(--lx, 100%); top: var(--ly, 50%);
+  width: 9px; height: 9px;
+  margin: -4.5px var(--space-0) var(--space-0) -4.5px;
+  border-radius: 50%;
+  background: var(--plot-line);
+  box-shadow: 0 0 0 3px var(--bg-surface);
 }
 
 /* ---- THE CURSOR: THE ONE THING ON THIS SCREEN A PERSON CAN DO --------------
@@ -271,23 +347,20 @@
    without the fade. base.css collapses the duration; this says so out loud
    because the layer is created by a script and nothing else would. */
 
-/* ---- THE BAND HAS A MEASURE, AND SO DOES THE LABEL ROW UNDER IT ------------
-   Past the desktop point the shell lets a block take the whole pane, so the chart
-   was 1140 wide against a 220 height: a 5.2 to 1 band holding one line, next to a
-   sentence that stops at its own reading measure around 500. The plot did not look
-   wrong because of what was in it, it looked wrong because of its shape.
+/* ---- THE BAND HAD A MEASURE OF ITS OWN FOR ONE DAY, AND GAVE IT BACK --------
+   2026-08-18 this file declared `.app .chart, .app .chart + .metarow { max-width:
+   var(--container-page) }`, because past the desktop point the shell lets a block
+   take the whole pane and the chart was rendering 1140 wide against a 220 height:
+   a 5.2 to 1 band holding one line. Capping the picture fixed the picture and made
+   the SCREEN worse - it left the chart stopping at 780 in the middle of a list that
+   ran to 1280, which is what the founder saw the next morning.
 
-   --container-page, 780, is the measure the shell itself hands a block between the
-   two points, so this is the screen's own number rather than a new one: 3.5 to 1
-   at the cap, and 3.3 at a 1024 window where the pane is narrower than the cap
-   anyway. The LABEL ROW takes it too, because the two only read as one object
-   while they are the same width, and it is `+ .metarow` rather than a rule in
-   meta-row.css because what is being stated is a fact about this pair.
-
-   It beats the shell's release without a fight: that blanket is `:where()` since
-   2026-08-17 and carries specificity zero, which is exactly the case it was
-   rewritten for. */
-.app .chart, .app .chart + .metarow { max-width: var(--container-page); }
+   THE CAP IS NOW ON THE PANE, in app-shell.css, `.app > .screen:has(.chart)`, and
+   the number is the same 780. So the chart is the width of its screen's content box
+   like every other block, the label row is the same width as the chart by
+   construction rather than by a second declaration, and this component states no
+   width at all. A cap inside a cap is the drift stage 09 existed to remove; the
+   full arithmetic and the five measures that disagreed are written at the rule. */
 
 /* The one responsive rule this component owns. It is a CONTAINER query, not a
    media query: the box grows when the screen it stands on is given the width,

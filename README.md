@@ -33,8 +33,9 @@ npm run check        # the rollout ledger and the quality sweep, the two that mu
 npm run census       # what is on disk, what is open, what a receiver needs
 ```
 
-`npm run check:width`, `check:inert` and `fp:before` / `fp:after` are the rest; the box
-fingerprint is the one to run around any change that is supposed to move nothing.
+`npm run check:width`, `check:inert`, `check:edges`, `check:pages` and `fp:before` /
+`fp:after` are the rest; the box fingerprint is the one to run around any change that is
+supposed to move nothing, and `check:edges` is the one to run after any change to a width.
 
 **Lifting the design system out.** `design/system/` is the whole visual language and it
 travels alone: 76 files, every `url()` inside it resolving inside it. Copied into an empty

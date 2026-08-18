@@ -7,6 +7,112 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-19 - One screen, one measure, and the frame steps off the picture
+
+The founder, on the finished trend screen at a 1920 window: **"пока еще слабовато
+... что то растянуто на всю ширину что то нет ... я бы хотел чтобы это выглядело
+круто, а не дёшево"**. Two defects, and only one of them was where it looked.
+
+**FIVE RIGHT EDGES ON ONE SCREEN.** Measured on the live `history-trends` before
+anything was touched, the direct children of the screen:
+
+| width | blocks |
+|---|---|
+| **1280** | the text block, the trend list, the action row |
+| **780** | the chart and its month labels |
+| **525** | the readout sentence |
+| **459** | the two muted lines |
+| **384** | the range control |
+
+Nothing was broken by any single one of them. Each block was doing what its own
+file said, and the screen read as cheap because no two of them agreed. **The chart
+was the only block with a measure**, given to it the day before, so the picture
+stopped in the middle of a list that ran on to the pane.
+
+**THE CAP MOVED TO THE PANE AND OFF THE BLOCK.** `.app > .screen:has(.chart)` in
+`app-shell.css` takes the same 780 (`--container-page`, the width the shell itself
+hands a block between the two points, so no new number entered the system), and
+`chart-placeholder.css` states no width at all. It is a `padding-inline` and not a
+`max-width` on `.screen`, for the reason the 2026-08-13 repair already wrote down:
+`.screen` is the pane that scrolls, and a cap there drags the scrollbar into the
+middle of the window. `:has(.chart)` and not a class, exactly as `:has(.plans)`
+one screen over: a screen built around a picture is identifiable by what is inside
+it, and a class would be markup on a product screen.
+
+**AND THE FIFTH STATE OF THAT SCREEN HAS NO CHART.** `history-trends-error` is a
+status block, two buttons and a quiet line, so `:has(.chart)` cannot see it, and
+it measured 1280 while its four siblings measured 780: **one screen that changes
+width when it fails**. The second selector is `.app:not(.flow) > .screen.interruption`,
+which is what that page and `history-trends-empty` actually are; `:not(.flow)`
+keeps the pattern's three other wearers out, all of them inside the onboarding
+chain, which owns its own 620. Counted at 1920 over all 54 app screens: the two
+selectors match five pages and every one is a state of History and trends.
+
+**THE MATERIAL WAS THE OTHER HALF, AND IT WAS THIS COMPONENT'S OWN.** A grey slab
+with a hairline round it, holding a line, is the shape of a PLACEHOLDER, which is
+what the component is called and what it drew for two stages. Every chart the
+founder put up as a reference had no box at all: dashed rules, a value axis, a
+line, and the page's own paper behind them. **The picture IS the container once
+there is a picture.** So the fill and the frame stay where they still do work -
+the honest empty frame that node 5.12 block 8 asks for, and the loading skeleton
+that must not move when the numbers land - and step off the two states that plot
+something. `:has(.plot)` is the test: it asks whether there is a line in the box.
+
+**NOTHING LOST CONTRAST BY IT, AND THAT WAS CHECKED RATHER THAN ASSUMED.** The
+line reads **6.23:1** on paper against 5.78 on the fill in the light theme, and
+**6.82:1** against 6.15 in the dark; the axis labels read **5.78:1** against 5.37
+and **6.4:1** against 5.77. `border-color: transparent` rather than `border: none`,
+so the border still takes its 1px on every side and the three background rules keep
+landing on the same three per cents: the box is the same 220 tall and the line has
+not moved.
+
+**THE WASH WAS RE-CUT FOR PAPER.** The mask ran 0.30 to 0.02, and the 0.02 was
+deliberately not zero so the grey slab showed through the foot of it. With no slab,
+0.02 of petrol over paper is a flat film with a visible straight edge where the
+closed path ends. **0.22 to 0** is the same gradient read against paper: it reaches
+nothing at the foot, so it has no edge at all.
+
+**AND THE LINE GOT AN END.** A curve that ran to the frame and stopped read as a
+shape cut off by the box; the cursor answers a pointer and is invisible until there
+is one, so at rest the plot had no terminal at all. The dot on the last point is
+what a chart of a running total puts there, and it says what the sentence above the
+chart says: this is where you are now. It is built by `behaviour.js` from the same
+array the curve comes from, in the same per-cent coordinate system as the cursor,
+and it stands down while the cursor is on, because two dots on one point is a
+question a reader should never be asked. **It cost the clip**: the dot sits at
+exactly 100% and would render as a half-disc against a box that hides its overflow,
+so a plotted chart is `overflow: visible` - which it can afford, because there is
+no rounded fill left for a stroke to escape.
+
+**U15, AND THE FOUR ROWS THE STAGE BEFORE LAST NEVER PUBLISHED.** The rule is
+written down rather than left as a fix: *one content measure per screen, and every
+state of a screen ends in the same place; a block narrows itself only for READING,
+because that limit is a property of the text.* Writing it exposed something else:
+`docs/architecture.md` has held **fourteen** usage rules since stage 11 and
+`design/kit/architecture.html` published **eleven** of them, so `motion.html` had
+been pointing at "U12 in Architecture" for three days and Architecture stopped at
+U11. U12, U13, U14 and the new U15 are on the page now, and the two live counts
+that said "eleven" are corrected on it and on `why.html`.
+
+**THE INSTRUMENT IS `design/kit/screens/edges13.cjs`**, and what it PRINTS and what
+it CHECKS are deliberately two different things. It prints every distinct width
+among the direct children of every app screen, split into blocks that declare a
+measure and blocks that ask the pane for one, because whether four edges read as
+one object is a judgement and this file's job is to put the numbers in front of the
+eye that makes it. It CHECKS the falsifiable half: every state of one screen ends
+in the same place. **12 families, 0 split, 1 declared exception** - `upgrade` takes
+59rem for its plan row and its three states do not carry one - and 13 screens where
+every block owns its measure and there is nothing to compare.
+
+**ONE THING WENT INTO AN INSTRUMENT AND IT IS NOT A FIX.** Dropping the clip made
+`quality13.cjs` see a geometry that was always this way: the value axis sits in the
+chart's own gutter and the end dot sits ON the curve, so both cross the parent's
+content box by construction. Both are placed by coordinate rather than by flow, so
+the content box is not their frame of reference. The exclusion is one line, named at
+the line, and it is the third of three in that file.
+
+---
+
 ## 2026-08-18 - Twelve rows were addressed to a stage that had ended
 
 The founder asked one question - **"а мы все починили и сделали, или что-то

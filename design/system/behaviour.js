@@ -302,6 +302,33 @@
     if (plot) plot.setAttribute('d', d);
     if (area) area.setAttribute('d', d + ' L' + W + ' 100 L0 100 Z');
 
+    /* ---- THE LAST POINT IS MARKED, AND IT IS THE ONE THING HERE THAT IS TRUE
+       WITH NOBODY TOUCHING IT. 2026-08-19. The cursor answers a pointer and is
+       invisible until there is one, so a line that ran edge to edge and simply
+       stopped had no terminal at all: it read as a shape that had been cut off by
+       the frame rather than as a reading that ends at this month. A dot on the
+       final point is what every chart of a running total puts there, and it says
+       the one thing the sentence above the chart also says: this is where you are
+       now.
+
+       IT IS BUILT HERE AND NOT IN THE MARKUP for the same reason the cursor is:
+       the coordinates come from `data-points` and `data-scale`, which only this
+       file reads, and a hand-written dot would be a second copy of the geometry
+       to keep in step. With no script the chart is a line and its labels, exactly
+       as it was.
+
+       It hides while the cursor is on, in css, because the cursor puts its own
+       dot on the curve and two dots on one point is a bug a reader has to think
+       about. */
+    var last = g[g.length - 1];
+    var mark = document.createElement('span');
+    mark.className = 'mark';
+    mark.innerHTML = '<span class="pin"></span>';
+    var pin = mark.firstChild;
+    pin.style.setProperty('--lx', round((last.x / W) * 100) + '%');
+    pin.style.setProperty('--ly', round(last.y) + '%');
+    box.appendChild(mark);
+
     var cursor = document.createElement('div');
     cursor.className = 'cursor';
     cursor.innerHTML = '<span class="guide"></span><span class="dot"></span>' +
