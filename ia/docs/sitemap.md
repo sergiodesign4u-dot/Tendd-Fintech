@@ -314,7 +314,7 @@ that owns them and referenced by name everywhere else)
 | Node | Name | Type | Includes | Scope | Specified in |
 |---|---|---|---|---|---|
 | 0.1 | App Header (GC1) | section | brand, title, one action; states onboarding / signed-in / no-account-yet | MVP | navigation.md |
-| 0.2 | Global Tab Bar (GC2) | section | four destinations (Home, Alerts, Save, You); states default / hidden / new-on-alerts | MVP | navigation.md |
+| 0.2 | Global Tab Bar (GC2) | section | five destinations (Home, Trends, Alerts, Save, You); states default / hidden / new-on-alerts | MVP | navigation.md |
 | 0.3 | Recurring Summary Strip (GC3) | section | count, monthly total, context line, trust line | MVP | core.md |
 | 0.4 | Subscription List Item (GC4) | section | logo, name, amount, next date, status tag | MVP | core.md |
 | 0.5 | Alert Banner (GC5) | section | what changed, one action | MVP | alerts.md |
@@ -485,7 +485,7 @@ Mobile-first. The global navigation is a bottom tab bar (thumb reach on a
 phone), scaling to a left rail on desktop. It is deliberately small so the
 product stays calm (design principle: one thing at a time).
 
-### 1. Global navigation (4 items)
+### 1. Global navigation (5 items)
 
 Each item is an entry point into one main job cluster, chosen because a
 distinct job lives behind it, not because a category is conventional.
@@ -493,25 +493,41 @@ distinct job lives behind it, not because a category is conventional.
 | Tab | Opens | Job cluster behind it | Why it earns a global slot |
 |-----|-------|----------------------|----------------------------|
 | **Home** | Home / Subscription List | J-MAIN (see all recurring charges calmly) + E1 | The reason the product exists. It must be reachable in zero taps, so it is the default tab. |
+| **Trends** | History and Trends | J-MAIN over time + E1 (the anxiety that returns every month) | **Added 2026-08-18, founder's decision.** Home answers "what am I paying for now" and this answers "has it been moving", which is the same money and a different question. It sits second because those two are one cluster and the three after them are where a person ACTS. It is not a locked door: Free carries one comparison of its own here (D3). |
 | **Alerts** | Alerts / Activity | J4 (stay ahead of surprises) | This is also the return engine. Research BP4: without an external hook this segment does not come back, so the surprise surface is promoted to a permanent home. |
 | **Save** | Cancel hub (Cancel Guide + cancel candidates + wins) | J2 (cut) + E2 (the win) | The emotional peak and the upgrade trigger live here. It is Claudia's primary job and Emma's secondary one, so it gets a calm, dedicated door instead of being buried in a menu. |
 | **You** | Settings / Profile (into Data and Privacy, Connections, Plan) | E3 (feel safe, control data) + J1 (trust) | Trust is ongoing, not just onboarding. Ravi needs one-tap data deletion and connection control to always be findable. |
 
-History and Trends does NOT get a global tab: it is Pro-gated (D3), and a
-mostly-locked tab would irritate free users and break the calm promise. It
-is reached contextually from Home.
+**TRENDS BECAME A TAB ON 2026-08-18, AND THE PARAGRAPH THAT REFUSED IT IS KEPT
+HERE BECAUSE ITS CONDITION IS THE WHOLE ARGUMENT.** It read: "History and Trends
+does NOT get a global tab: it is Pro-gated (D3), and a mostly-locked tab would
+irritate free users and break the calm promise. It is reached contextually from
+Home."
 
-**Re-asked by the founder on 2026-08-18 and held, with the reason strengthened
-rather than repeated.** The question was whether Trends should get a fifth tab
-instead of a quiet secondary on Home. Counted before answering: in the whole
-coloured product **every entry point leads to `history-trends-locked.html`**, and
-nothing leads to the screen with the chart except its own error state, because
-the canonical person is on Free. So the objection above was not a prediction, it
-was already the fact: the entry led to a wall. A tab would not have filled the
-screen, it would have advertised the wall from every other one. The founder's
-answer was to fill the screen first - node 5.12 block 8 is rewritten the same day
-so a free person gets one real comparison of their own - and to come back to the
-tab afterwards. **The tab is open, not refused.** Upgrade is not a tab either: it appears
+That was right for as long as it was true, and counting proved how true: in the
+whole coloured product **every entry point led to `history-trends-locked.html`**,
+and nothing led to the screen with the chart except its own error state, because
+the canonical person is on Free. The entry led to a wall, so a tab would not have
+filled the screen, it would have advertised the wall from every other one.
+
+**The condition was then removed rather than argued around.** Earlier the same
+day node 5.12 block 8 was rewritten on the founder's decision: a free person now
+gets one real comparison of their own here - this month against last, in words
+and as a two-month plot - and the lock sits under it stating what Pro adds. The
+tab is no longer mostly-locked, because the room is no longer mostly empty. The
+founder asked a second time, and the honest answer had changed with the screen.
+
+**What it costs, measured rather than assumed.** Five items at a 320px viewport
+are 64px each with no wrap, no tab-bar overflow and no page overflow; at 390 they
+are 78px each. On the desktop rail an item is 219px wide whatever the count, so
+the fifth costs nothing there at all. The order is Home, Trends, Alerts, Save,
+You: Home and Trends are one cluster (the same money, now and over time) and the
+three after them are where a person acts.
+
+**And the door on Home closed as it opened.** "See your trends" left the
+secondary row on Home, home-savefocus and home-error: a room with a permanent
+door on every screen does not also need a second one in a row whose other item is
+an action rather than a place. Upgrade is not a tab either: it appears
 at the gate, in context, not as a standing invitation to pay.
 
 ### 2. Depth to the main job
@@ -542,8 +558,8 @@ path (0 to 1) are within the three-tap limit.
 
 | Visibility | Meaning | Screens |
 |-----------|---------|---------|
-| **Global** (always visible) | The 4 tab bar destinations | Home / Subscription List, Alerts / Activity, Save (Cancel hub), You (Settings / Profile) |
-| **Contextual** (appears inside a flow) | Reached by acting on something, not from the tab bar | Guided Reveal, Subscription Detail, Add Subscription, Cancel Guide, Cancel Win Moment, Share Snapshot, History and Trends, Upgrade / Tendd Pro |
+| **Global** (always visible) | The 5 tab bar destinations | Home / Subscription List, History and Trends, Alerts / Activity, Save (Cancel hub), You (Settings / Profile) |
+| **Contextual** (appears inside a flow) | Reached by acting on something, not from the tab bar | Guided Reveal, Subscription Detail, Add Subscription, Cancel Guide, Cancel Win Moment, Share Snapshot, Upgrade / Tendd Pro |
 | **Deep** (rare, one-time or infrequent actions) | Two or more levels in, or seen once | Welcome, Activation Path Choice, Connect Bank (onboarding chain), Connections / Accounts, Data and Privacy, plan and billing management inside Settings, export inside History and Trends |
 
 The activation chain (Path Choice, Connect Bank, Add Subscription, Guided

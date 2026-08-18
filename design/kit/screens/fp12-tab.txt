@@ -1,0 +1,806 @@
+READ THIS FIRST. 28 pages differ at both widths and that is exactly right: the
+tab bar gained a fifth destination, and 28 coloured pages carry a tab bar. The
+set of pages that moved and the set of pages with a tab bar were compared
+directly and are IDENTICAL - no page without a tab bar moved, and no page with
+one stayed still.
+
+Run 2026-08-18 over D-Tab: Trends becomes the second destination. Files: 56 tab
+bars (28 grey, 28 coloured), destination-icon.css (one new mask, which is what
+that file promised a fifth destination would cost), the three Home pages losing
+the now-duplicated "See your trends" secondary, and the IA that had to change
+first.
+
+WHAT ELSE TO CHECK: the five History and Trends pages carry the new item as
+current and Home gave up aria-current on them. rollout12.cjs reports pairing
+still 55 and 55, 606 internal links and 0 broken.
+
+FINGERPRINT DIFF, 55 pages at 360 and at 1440
+  pages differing at 360:  28   (the promise is zero)
+  pages differing at 1440: 28
+  boxes differing at 360:  410
+  boxes differing at 1440: 301
+
+  home.html@360  16 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>nav.actions#1>a.btn#2
+        was 185,1557,141,44  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     ... and 10 more
+  home.html@1440  11 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>nav.actions#1>a.btn#2
+        was 429,225,141,44  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     ... and 5 more
+  home-empty.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 9 more
+  home-empty.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was absent  now 27,266,22,22
+     ... and 4 more
+  home-error.html@360  16 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>nav.actions#1>a.btn#2
+        was 185,1699,141,44  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     ... and 10 more
+  home-error.html@1440  11 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>nav.actions#1>a.btn#2
+        was 429,367,141,44  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     ... and 5 more
+  home-loading.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 9 more
+  home-loading.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was absent  now 27,266,22,22
+     ... and 4 more
+  home-savefocus.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>nav.actions#1>a.btn#2
+        was 185,1791,141,44  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     ... and 9 more
+  home-savefocus.html@1440  12 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>main.screen#1>nav.actions#1>a.btn#2
+        was 429,267,141,44  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,253,219,48  now 0,301,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-save#1
+        was 27,266,22,22  now 27,314,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3
+        was 0,301,219,48  now 0,253,219,48
+     ... and 6 more
+  subscription-detail.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 9 more
+  subscription-detail.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was absent  now 27,266,22,22
+     ... and 4 more
+  subscription-detail-unrecognized.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 9 more
+  subscription-detail-unrecognized.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was absent  now 27,266,22,22
+     ... and 4 more
+  subscription-detail-price-change.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 9 more
+  subscription-detail-price-change.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was absent  now 27,266,22,22
+     ... and 4 more
+  subscription-detail-payment-failed.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 9 more
+  subscription-detail-payment-failed.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was absent  now 27,266,22,22
+     ... and 4 more
+  subscription-detail-error.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 9 more
+  subscription-detail-error.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was absent  now 27,266,22,22
+     ... and 4 more
+  subscription-detail-loading.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 9 more
+  subscription-detail-loading.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was absent  now 27,266,22,22
+     ... and 4 more
+  alerts.html@360  13 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 90,838,90,62  now 144,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now 169,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now 188,845,7,7
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 72,838,72,62
+     ... and 7 more
+  alerts.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,205,219,48  now 0,253,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now 27,266,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now 46,263,7,7
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 0,253,219,48  now 0,205,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     ... and 4 more
+  alerts-empty.html@360  12 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 90,838,90,62  now 144,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now 169,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 214,848,22,22  now absent
+     ... and 6 more
+  alerts-empty.html@1440  9 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,205,219,48  now 0,253,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now 27,266,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 0,253,219,48  now 0,205,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     ... and 3 more
+  alerts-error.html@360  12 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 90,838,90,62  now 144,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now 169,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 214,848,22,22  now absent
+     ... and 6 more
+  alerts-error.html@1440  9 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,205,219,48  now 0,253,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now 27,266,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 0,253,219,48  now 0,205,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     ... and 3 more
+  alerts-loading.html@360  12 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 90,838,90,62  now 144,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now 169,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 214,848,22,22  now absent
+     ... and 6 more
+  alerts-loading.html@1440  9 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,205,219,48  now 0,253,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now 27,266,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 0,253,219,48  now 0,205,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     ... and 3 more
+  cancel-guide.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 9 more
+  cancel-guide.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was absent  now 27,266,22,22
+     ... and 4 more
+  cancel-guide-no-guide.html@360  15 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 9 more
+  cancel-guide-no-guide.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#3>span.ic.ic-you#1
+        was 27,314,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#1>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app.detail#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was absent  now 27,266,22,22
+     ... and 4 more
+  history-trends.html@360  16 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 10 more
+  history-trends.html@1440  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,185,219,48  now 0,233,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 27,198,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,233,219,48  now 0,185,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,246,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,243,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,294,22,22  now absent
+     ... and 8 more
+  history-trends-locked.html@360  16 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 10 more
+  history-trends-locked.html@1440  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,185,219,48  now 0,233,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 27,198,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,233,219,48  now 0,185,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,246,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,243,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,294,22,22  now absent
+     ... and 8 more
+  history-trends-empty.html@360  16 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 10 more
+  history-trends-empty.html@1440  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,185,219,48  now 0,233,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 27,198,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,233,219,48  now 0,185,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,246,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,243,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,294,22,22  now absent
+     ... and 8 more
+  history-trends-error.html@360  16 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 10 more
+  history-trends-error.html@1440  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,185,219,48  now 0,233,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 27,198,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,233,219,48  now 0,185,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,246,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,243,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,294,22,22  now absent
+     ... and 8 more
+  history-trends-loading.html@360  16 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 34,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 90,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 180,838,90,62  now 144,838,72,62
+     ... and 10 more
+  history-trends-loading.html@1440  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,185,219,48  now 0,233,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-home#1
+        was 27,198,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,233,219,48  now 0,185,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1
+        was 27,246,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-alerts#1>span.dot#1
+        was 46,243,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-save#1
+        was 27,294,22,22  now absent
+     ... and 8 more
+  connections.html@360  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3
+        was 180,838,90,62  now 144,838,72,62
+     ... and 8 more
+  connections.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,301,219,48  now 0,349,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-you#1
+        was 27,314,22,22  now 27,362,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     ... and 4 more
+  connections-empty.html@360  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3
+        was 180,838,90,62  now 144,838,72,62
+     ... and 8 more
+  connections-empty.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,301,219,48  now 0,349,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-you#1
+        was 27,314,22,22  now 27,362,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     ... and 4 more
+  connections-reconnect.html@360  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3
+        was 180,838,90,62  now 144,838,72,62
+     ... and 8 more
+  connections-reconnect.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,301,219,48  now 0,349,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-you#1
+        was 27,314,22,22  now 27,362,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     ... and 4 more
+  data-privacy.html@360  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3
+        was 180,838,90,62  now 144,838,72,62
+     ... and 8 more
+  data-privacy.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,301,219,48  now 0,349,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-you#1
+        was 27,314,22,22  now 27,362,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     ... and 4 more
+  settings.html@360  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3
+        was 180,838,90,62  now 144,838,72,62
+     ... and 8 more
+  settings.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 46,215,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-save#1
+        was 27,266,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,301,219,48  now 0,349,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-you#1
+        was 27,314,22,22  now 27,362,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-trends#1
+        was absent  now 27,218,22,22
+     ... and 4 more
+  settings-no-account.html@360  14 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1
+        was 0,838,90,62  now 0,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#1>span.ic.ic-home#1
+        was 34,848,22,22  now 25,848,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2
+        was 90,838,90,62  now 72,838,72,62
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 124,848,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 143,845,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3
+        was 180,838,90,62  now 144,838,72,62
+     ... and 8 more
+  settings-no-account.html@1440  10 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1
+        was 27,170,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-alerts#1>span.dot#1
+        was 46,167,7,7  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#3>span.ic.ic-save#1
+        was 27,218,22,22  now absent
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1
+        was 0,253,219,48  now 0,301,219,48
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a.cur#1>span.ic.ic-you#1
+        was 27,266,22,22  now 27,314,22,22
+     >div.layout#1>div.stage.stage-app#1>div.app#1>nav.tabbar#1>a#2>span.ic.ic-trends#1
+        was absent  now 27,170,22,22
+     ... and 4 more

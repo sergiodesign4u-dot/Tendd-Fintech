@@ -328,6 +328,7 @@ rewritten above. Their compositions come from the second bank round
 | history-trends | trend-list | The New York Times reads $17.00 a month, not $4.25 | One fixture for one subscription across the product. $4.25 was a July invention and it contradicted the canonical set on Home |
 | history-trends | export | The export line now names the free export beside the Pro one | D-Export: a plain copy of your own data is free and lives on node 6.15, and the screen that sells the analytical one is where that split has to be visible |
 | history-trends-locked | whole screen | **New.** The frame, the person's own category labels, what Pro adds, and the gate | Node 5.12.4, numbered on 2026-08-05. Emma is on Free everywhere else in the product, so this is the only view of this screen she can have, and node 5.13 says she came to the upgrade screen "from Your trends" |
+| home | "See your trends" in the secondary row | **retired 2026-08-18** | Trends became a tab bar destination the same day, so the secondary was a second door to a room that now has one on every screen. The row keeps "Add a subscription", the only item in it that is an action rather than a place. The label lives on as the tab's, shortened to "Trends" |
 | history-trends-locked | an empty frame and five category words | **a real readout and two real months**, 2026-08-18 | The founder, on the coloured screen: "оно как то виглядає типа пусто и не понятно что показіваем и зачем". Free now gets ONE comparison of its own - this month against last - and the frame draws those two months. The category labels went with the change: two of the person's own months carrying their own total is more theirs than five category words. The lock keeps everything it listed; one line of it gained "and so are these two months" |
 | history-trends-empty | state-message | "We have less than three months so far" gained the date the first line appears | Node 5.12.1 is not the lock: this person has paid, so the screen owes them a date and never an offer |
 | history-trends-error | whole screen | **New.** Node 5.12.3 | It says what is unaffected in the same breath: the list, the total and the alerts are a different request |
@@ -927,6 +928,7 @@ below.
 | history-trends | export | Your history as a spreadsheet, for reading it somewhere else. Part of Tendd Pro. A plain copy of everything we hold is free and lives in Data and privacy. | body |
 | history-trends-locked | header | Free | status |
 | history-trends-locked | lock | Trends are part of Tendd Pro | heading |
+| tab bar | destination | Trends | label |
 | history-trends-locked | readout | Your monthly total is $192.90 a month, the same as it was in June. | body |
 | history-trends-locked | chart | Line chart of your monthly total for June and July, the two months a free plan shows | label |
 | history-trends-locked | lock | Your list, your total and your alerts stay free and uncapped, and so are these two months. What Pro adds is the rest of the past: | body |

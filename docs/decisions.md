@@ -7,6 +7,71 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - D-TAB: Trends becomes the second destination, and the door on Home closes
+
+The founder, after the free layer shipped: **"а почему би не вивести це в
+отдельний пункт меню?"** - the second time in an hour. The first time the answer
+was "not yet, fill the screen first". **The screen had just been filled, so the
+answer changed with it**, and that is the whole entry.
+
+**THE REFUSAL WAS CONDITIONAL AND THE CONDITION WAS GONE.** `ia/docs/sitemap.md`
+said: "History and Trends does NOT get a global tab: it is Pro-gated (D3), and a
+mostly-locked tab would irritate free users and break the calm promise." Counting
+had made that stronger an hour earlier - every entry point in the coloured
+product led to `history-trends-locked.html`, and nothing led to the chart except
+its own error state. **Then node 5.12 block 8 was rewritten**: a free person gets
+one real comparison of their own, in words and as a two-month plot, with the lock
+under it. The tab is no longer mostly-locked because the room is no longer mostly
+empty. The paragraph is kept in the sitemap rather than deleted, because its
+condition is the argument.
+
+**WHAT IT COSTS, MEASURED BEFORE IT WAS DECIDED.** A fifth item at a 320px
+viewport is **64px wide, with no wrap, no tab-bar overflow and no page
+overflow**; 78px at 390. On the desktop rail an item is **219px whatever the
+count**, so the fifth costs nothing there at all. The narrow end was the only
+real risk and it was measured first.
+
+**SECOND PLACE, AND THAT IS THE ONE JUDGEMENT IN THE CHANGE.** Home, Trends,
+Alerts, Save, You. Home answers "what am I paying for now" and Trends answers
+"has it been moving": the same money and a different question, so they are one
+cluster, and the three after them are where a person ACTS.
+
+**THE ICON WAS DRAWN SIX WAYS BEFORE ONE WAS KEPT.** A bare rising line reads two
+steps lighter than Home or Save at 22px, and the set's weight is set by those
+two. The one kept is a **framed box with the product's own curve inside it** -
+the same rise-then-level the chart draws - so it sits at Save's weight and it is
+the picture rather than a symbol for it. Recounted by script over all five
+destinations, painted box plus one stroke, longest side: **17.30 to 19.70
+modules, median 18.70**. The old line said "16.10 to 19.70, median 17.75" over
+four; its method could not be reproduced, so the figure is re-derived and the
+method is now named beside it.
+
+**THE PROHIBITION WORKED AND WAS THEN SPENT.** `destination-icon.html` carried a
+forbidden row: "a fifth is not an icon problem, it is a navigation model
+changing, and that is a decision for `ia/docs/sitemap.md` and not for this file."
+That is exactly the order this change went in: the sitemap first, the icon
+second. The row is rewritten rather than deleted, and the rule stands for a
+sixth.
+
+**AND THE DOOR ON HOME CLOSED AS THIS ONE OPENED.** "See your trends" left the
+secondary row on `home`, `home-savefocus` and `home-error`. A room with a
+permanent door on every screen does not also need a second one in a row whose
+other item is an action rather than a place. The row keeps "Add a subscription",
+and the grey's comment goes from "two quiet secondaries" to one.
+
+**Verified.** 56 tab bars rewritten, 28 grey and 28 coloured, one insertion
+each; on the five History and Trends pages the new item is current and Home gave
+up `aria-current`. `rollout12.cjs`: 0 violations, pairing still 55 and 55, 606
+internal links and 0 broken. 9 sizes by 2 themes: 0 sideways scroll, 0 console
+errors.
+
+**Ground:** the founder asked twice. What is worth keeping: **a refusal with a
+condition in it is a promise to re-answer when the condition changes**, and the
+honest thing when someone asks again is to check whether your own reason still
+holds rather than to repeat it.
+
+---
+
 ## 2026-08-18 - Trends stops being a wall: Free gets one comparison, and the tab stays open
 
 The founder, two questions in one message: **"у нас есть трендс и они сейчас так
