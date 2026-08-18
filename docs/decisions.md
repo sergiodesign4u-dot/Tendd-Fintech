@@ -7,6 +7,56 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - The lift test: the system travels, and it carries one thing it cannot
+
+Stage 13's whole claim is that `design/system/` is liftable. It had been asserted
+in three places and measured in none, so it was measured: the folder was copied
+into an empty directory and **one screen the system had never seen was assembled
+there out of its classes alone** - shell, app bar, brand lockup, big total, the
+interactive trend chart, the segmented range, a prose card, a divided list, the
+trust block and the five-destination tab bar.
+
+**IT PASSES.** Served from that directory at 390 and at 1440, in both themes:
+**0 failed requests, 0 console errors**, every role painted, the chart's cursor
+built by `behaviour.js`, no element left unstyled, no sideways scroll. 76 files,
+1.4MB, and every `url()` inside the folder resolves inside it - including
+`assets/`, which is why those four webp washes are part of the lift rather than
+decoration.
+
+**AND IT CARRIES ONE DEPENDENCY IT CANNOT PROVIDE: THE TYPEFACE.** `base.css`
+asks for `'Inter'` by name and nothing in the folder provides it - no
+`@font-face`, no file, no import. **The lift test passed without noticing,
+because the machine it ran on has Inter installed**, which is exactly the shape
+of failure a handoff exists to prevent. It is written down now in the two places
+a person looks: `design/system/CLAUDE.md` in a section called "What this folder
+does NOT carry", with the exact link all 57 pages use, the five weights actually
+in use (400, 500, 600, 700, 800 - a subset that drops 800 loses the wordmark) and
+the self-hosting alternative; and at the declaration in `base.css`, because that
+is the line somebody greps for.
+
+**THE RUN SURFACE, WHICH THE CENSUS HAD FOUND EMPTY.** No `package.json`, one
+file in the whole repository telling a person how to run anything, and the
+instruments resolving playwright from a global npm root - one of them,
+`fp.cjs`, from **an absolute path inside one machine's npx cache**, which is the
+least liftable line in the repository. Now: a `package.json` whose only reason to
+exist is that dependency, with `npm run check`, `census`, `serve` and the rest;
+`node_modules/` ignored; every instrument resolving **local first, global after**,
+so it runs for a receiver who typed `npm install` and still runs on the machine
+that has no local install. And the README carries a "Running it" section, so the
+census's own count of files that tell a person how to run this went from 1 to 2.
+
+**Verified.** Both instruments still run after the resolver change and both stay
+clean. Box fingerprint over all 55 coloured pages against a baseline taken from a
+stashed tree: **0 pages and 0 boxes at either width**, which is what a change to
+comments, a package file, a README section and a require line owes.
+
+**Ground:** stage 13's own census, which asked "is it liftable" and could only
+answer "nothing references outside the folder". That is a static answer to a
+question that is really about a receiver's machine, and the difference between
+the two is a typeface nobody had noticed was missing.
+
+---
+
 ## 2026-08-18 - The founder stops being the corpus sweep
 
 **"го делать чтобы все было круто"**. The honest reading of that, after a week in

@@ -170,7 +170,7 @@ deps.forEach(f => [...read(f).matchAll(/require\(([^)]*)\)/g)].forEach(m => {
   if (!q.startsWith('.') && !['fs', 'path', 'http', 'child_process', 'url', 'os'].includes(q)) ext.add(q || 'computed at runtime');
 }));
 say('what the instruments need beyond node: ' + ([...ext].join(', ') || 'nothing'));
-say('   (a computed require is playwright, resolved from the global npm root rather than a local install)');
+say('   (a computed require is playwright: local node_modules first since 2026-08-18, the global npm root after)');
 
 say('');
 say('=== 9. THE ROADMAP ITSELF ===');

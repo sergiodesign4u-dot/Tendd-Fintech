@@ -28,7 +28,7 @@ const http = require('http');
 const { execSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '../../..');
-const { chromium } = require(execSync('npm root -g').toString().trim() + '/playwright');
+const { chromium } = (() => { try { return require('playwright'); } catch (e) { return require(execSync('npm root -g').toString().trim() + '/playwright'); } })();
 
 const STANDS = ['overview.html', 'rollout.html'];
 const listOf = dir => fs.readdirSync(path.join(ROOT, dir))

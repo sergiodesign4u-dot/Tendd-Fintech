@@ -40,8 +40,13 @@ const http = require('http');
 const { execSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '../../..');
-const GLOBAL = execSync('npm root -g').toString().trim();
-const { chromium } = require(GLOBAL + '/playwright');
+/* LOCAL FIRST, GLOBAL AFTER, since 2026-08-18: a receiver who runs `npm install`
+   in this repository gets playwright in `node_modules/` and never had a global
+   one, and the stage 13 census found this line naming an absolute path inside one
+   machine's npm cache. The fallback is kept because the machine this was written
+   on has no local install and the instruments must keep running there too. */
+const { chromium } = (() => { try { return require('playwright'); } catch (e) {
+  return require(execSync('npm root -g').toString().trim() + '/playwright'); } })();
 
 const argv = process.argv.slice(2);
 const argOf = name => {

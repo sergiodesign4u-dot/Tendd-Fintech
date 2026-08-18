@@ -21,7 +21,7 @@ const http = require('http');
 const { execSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '../../..');
-const { chromium } = require(execSync('npm root -g').toString().trim() + '/playwright');
+const { chromium } = (() => { try { return require('playwright'); } catch (e) { return require(execSync('npm root -g').toString().trim() + '/playwright'); } })();
 const WHICH = process.argv[2] === 'after' ? 'after' : 'before';
 /* AN OPTIONAL LABEL, so a second change gets its own pair instead of overwriting
    the first one's baseline. `node fp12.cjs before shell` writes

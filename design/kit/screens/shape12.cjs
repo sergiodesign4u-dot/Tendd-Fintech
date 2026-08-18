@@ -33,7 +33,7 @@ const http = require('http');
 const { execSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '../../..');
-const { chromium } = require(execSync('npm root -g').toString().trim() + '/playwright');
+const { chromium } = (() => { try { return require('playwright'); } catch (e) { return require(execSync('npm root -g').toString().trim() + '/playwright'); } })();
 
 /* stage 10's audit, Part B of docs/responsive.md, one entry per screen */
 const PLAN = {

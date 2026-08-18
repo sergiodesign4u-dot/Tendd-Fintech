@@ -12,6 +12,34 @@ Rules for this repository: [CLAUDE.md](./CLAUDE.md). Decision log:
 [docs/bank-connection.md](./docs/bank-connection.md). Entry for the external critic:
 [AGENTS.md](./AGENTS.md).
 
+## Running it
+
+Nothing is built. Every page in this repository is static html that opens from a plain
+file server, and the deploy is Jekyll copying the tree.
+
+```
+python3 -m http.server 8080     # or: npm run serve, then open http://localhost:8080
+```
+
+The **instruments** are node scripts in `design/kit/screens/`, each one deriving its
+corpus from a registry rather than from a typed list, and each one serving the repository
+to a headless browser itself. They need playwright and nothing else:
+
+```
+npm install          # playwright, the only dependency, and the only reason package.json exists
+npm run check        # the rollout ledger and the quality sweep, the two that must stay clean
+npm run census       # what is on disk, what is open, what a receiver needs
+```
+
+`npm run check:width`, `check:inert` and `fp:before` / `fp:after` are the rest; the box
+fingerprint is the one to run around any change that is supposed to move nothing.
+
+**Lifting the design system out.** `design/system/` is the whole visual language and it
+travels alone: 76 files, every `url()` inside it resolving inside it. Copied into an empty
+directory on 2026-08-18 and used to assemble a screen it had never seen, it rendered with
+**0 failed requests and 0 console errors in both themes**. It carries exactly one dependency
+it cannot provide, the typeface, and `design/system/CLAUDE.md` names it with the link.
+
 ## Status
 
 | Stage | Page | Status |

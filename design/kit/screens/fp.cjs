@@ -1,7 +1,13 @@
 /* DOM fingerprint of every coloured product screen, at both viewports.
    Keyed by DOCUMENT ORDER, not by class, so a class rename does not break the pair.
    Usage: node fp.cjs <output.json> */
-const { chromium } = require('/Users/sergiyshevchenko/.npm/_npx/e41f203b7505f1fb/node_modules/playwright-core');
+/* LOCAL FIRST, GLOBAL AFTER, since 2026-08-18. This line used to be an ABSOLUTE
+   PATH into one machine's npx cache - `/Users/<name>/.npm/_npx/<hash>/...` - which
+   is the single least liftable line in the repository and the stage 13 census
+   named it. It now resolves the same way every other instrument here does. */
+const { execSync } = require('child_process');
+const { chromium } = (() => { try { return require('playwright'); } catch (e) {
+  return require(execSync('npm root -g').toString().trim() + '/playwright'); } })();
 const fs = require('fs');
 
 const PAGES = ["add-subscription-empty","add-subscription-error","add-subscription-loading","add-subscription","guided-reveal-empty","guided-reveal","history-trends-empty","history-trends-error","history-trends-loading","history-trends-locked","history-trends","home-empty","home-error","home-loading","home-savefocus","home","settings-no-account","settings","subscription-detail-error","subscription-detail-loading","subscription-detail-payment-failed","subscription-detail-price-change","subscription-detail-unrecognized","subscription-detail","upgrade-current-plan","upgrade-payment-failed","upgrade-processing","upgrade"];

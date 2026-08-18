@@ -31,6 +31,14 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: var(--space-0);
+  /* THE ONE DEPENDENCY THIS FOLDER DOES NOT CARRY. Inter is asked for by name and
+     nothing in design/system/ provides it: no @font-face, no file, no import. The
+     host page loads it - all 57 pages in design/ use the Google Fonts link, and a
+     receiver may self-host instead - and design/system/CLAUDE.md carries the exact
+     link, the five weights that are actually used, and what breaks without them.
+     Written here because this is the line a person greps for. The fallback chain
+     is deliberate: a page with no Inter is readable and not broken, it is simply
+     not Tendd. */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: var(--text-primary);
   background: var(--bg-page);
