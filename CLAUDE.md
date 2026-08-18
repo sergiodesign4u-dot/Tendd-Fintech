@@ -35,9 +35,9 @@ change or failed payment (J4).
 
 **Free tier** is the whole calm view, uncapped: value before any bank connection, connect a
 bank read-only through Plaid or add subscriptions yourself, the categorized list, basic
-details, the monthly total, basic alerts. **Tendd Pro** is depth, not a visibility unlock:
-history and trends, cancel support, advanced alerts, household view, the analytical
-export of history, priority support. A plain export of your own data is free (D-Export). Out of MVP: full budgeting, investments, native app, bill negotiation, bill pay.
+details, the monthly total, basic alerts, **this month against last on Trends** (D3). **Tendd Pro**
+is depth: 3 / 6 / 12 months and the trend list, cancel support, advanced alerts, household view,
+the analytical export, priority support. A plain export of your own data is free (D-Export). Out of MVP: full budgeting, investments, native app, bill negotiation, bill pay.
 
 **Markets:** US and EU (US and Plaid first, per D5). **Stack hypothesis:** Next.js on
 Vercel, Postgres, Plaid (US) and TrueLayer or GoCardless (EU), Stripe, PostHog.
@@ -51,8 +51,8 @@ Founder, June 14 2026 (ground in `research/docs/strategy.md` section 6):
 
 - **D1** Gradual reveal with a paired action (count, then categories, then the total).
 - **D2** Manual entry plus presets at launch, as an equal second path.
-- **D3** The paywall sits at depth (history, trends, advanced alerts), never at basic
-  visibility and never at the cancel moment.
+- **D3** The paywall sits at depth, never at basic visibility and never at the cancel moment; from
+  2026-08-18 Free also gets **one comparison on Trends**, this month against last.
 - **D4** Pro is 7.99 a month or 69 a year.
 - **D5** US and Plaid first, EU deferred.
 - **D-Free** (July 2026) No cap on subscriptions and no cap on bank connections in Free: a

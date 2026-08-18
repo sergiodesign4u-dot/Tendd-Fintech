@@ -7,6 +7,69 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - Trends stops being a wall: Free gets one comparison, and the tab stays open
+
+The founder, two questions in one message: **"у нас есть трендс и они сейчас так
+мовити спрятани в кнопке на главной странице, возможно стоит сделать пункт меню
+под трендс?"** and **"оно как то виглядає типа пусто и не понятно что показіваем
+и зачем, нам нужно вистроять понятное флоу"**.
+
+**THE FIRST QUESTION HAD AN ANSWER IN THE FILE, AND COUNTING MADE IT STRONGER.**
+`ia/docs/sitemap.md` refuses the tab: "a mostly-locked tab would irritate free
+users and break the calm promise. It is reached contextually from Home."
+Counted before answering: in the whole coloured product **every entry point leads
+to `history-trends-locked.html`**, and nothing leads to the screen with the chart
+except its own error state, because the canonical person is on Free. So the
+refusal was not a prediction, it was already the fact - the entry led to a wall.
+A tab would not fill the screen, it would advertise the wall from every other
+one. **The founder's answer: fill the screen first, come back to the tab. The tab
+is open, not refused**, and the sitemap now says so with the count in it.
+
+**THE SECOND QUESTION IS THE REAL ONE, AND THE FOUNDER CHOSE THE SHAPE.** Free
+gets ONE real comparative layer - this month against last - and 3 / 6 / 12
+months, the trend list and the export stay Pro. Three things change on node
+5.12.4 and nowhere else:
+
+  1. **A real readout arrives.** "Your monthly total is $192.90 a month, the same
+     as it was in June." A true fact about their own money, before they are asked
+     for anything.
+  2. **The frame stops being empty.** It draws the two months Free is allowed to
+     draw. Block 8 used to put five category words under an empty frame as the
+     honest preview; **two of the person's own months carrying their own total is
+     more theirs than five category words**, so the preview is now the thing
+     itself at the size Free gets.
+  3. **The range moves into the lock.** Three inert controls at the top of a
+     screen are the first thing a free person meets and they do nothing. Inside
+     the card they are what they always were, the shape of what Pro opens,
+     standing beside the sentence that says so.
+
+**THE FLAT LINE IS THE TRUTH AND IT IS ALSO THE MESSAGE.** June and July are both
+$192.90, so the free plot is level. That is not a weak demo, it is this product's
+own job said in one picture: nothing moved, and you are fine. The month it DID
+move - May to June, when ChatGPT Plus arrived - is exactly what Pro's three-month
+range shows, so the gate sells the thing the free view makes you curious about.
+
+**WHAT THIS COSTS D3, AND IT IS SMALL AND NAMED.** The paywall still sits at
+depth. One comparison of the current month against the last is closer to basic
+visibility than to history: Home already prints the total, and the second half of
+the sentence is the only new thing. `CLAUDE.md` carries the amendment inside D3
+and inside the Free tier sentence, and the file is back at 200 lines.
+
+**THE GREY MOVED, WHICH IS RARE AND IS WRITTEN WHERE IT MOVED.** This is a
+STRUCTURE change to `wireframes/history-trends-locked.html`, which is only legal
+by a founder's decision written into the file it changes. The whole argument is
+in that file at the block it changes, and the coloured twin carries a short
+pointer to it, so the pair still differs by styling only.
+
+**Verified.** `rollout12.cjs`: 0 violations, the pair still 55 and 55. The free
+chart's cursor works with two points: hovering the right half reads "$192.90 Jul".
+
+**Ground:** the founder's two questions. What the pass is about: **"should this
+get a tab" is almost never answerable before "is there anything behind it"**, and
+the honest order is to fill the room before you put a door on it.
+
+---
+
 ## 2026-08-18 - D-PLOT: petrol gets a fourth job, and the wash under the line fades
 
 The founder, on the finished interactive chart: **"да стало получше, давай теперь

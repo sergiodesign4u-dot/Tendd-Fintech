@@ -45,7 +45,7 @@ subscription. Out to node 5.13 when it is locked, back to node 2.7.
 | 5 | The chart: the monthly recurring total across the range | J-MAIN | One line, no donut, no stacked categories |
 | 6 | The trend list: per category or per subscription, with a quiet status word (Higher, New, Steady) | J-MAIN, J4, D-Concept | A word, not a red arrow. "Higher" is a fact; a red arrow is a verdict |
 | 7 | Export as CSV, Pro | D3, D-Export | **The analytical export.** The plain export of what we hold is free and lives on node 6.15. D-Export names the split |
-| 8 | For a free person: a real preview frame with their own category labels behind the lock, then GC7 into node 5.13 | D3, principle 4 | An honest "here is the shape of what you would see" persuades better than a decorative blur, and a fake blur is a lie about our own product |
+| 8 | For a free person: **one real comparison of their own** - this month against last, in words and as a two-month plot - then the lock and GC7 into node 5.13 | D3, principle 4 | **Rewritten 2026-08-18, founder's decision.** It read "a real preview frame with their own category labels behind the lock". The frame was honest and it was also empty, and the founder said so: "виглядає типа пусто и не понятно что показіваем и зачем". An honest preview is still the rule; what changed is that the preview is now the thing itself at the size Free gets. Two of the person's own months carrying their own total is more theirs than five category words, and it is still not depth: the paywall stays where D3 puts it, on 3 / 6 / 12 months, the trend list and the export. The three range controls move inside the lock, where they are the shape of what Pro opens rather than three inert buttons a free person meets first |
 
 **Named and not added:** a budget line or a target (we are not a budgeting app, and a target
 turns every reading into a pass or a fail), a comparison against other people, a
@@ -68,7 +68,7 @@ the present, and this screen is the past. GC7 Pro Gate, in block 8 only.
 | Node | State | Reads like | Trigger |
 |---|---|---|---|
 | - | Pro, with data | Blocks 1 to 7 | A Pro plan and three months or more of history |
-| 5.12.4 | Trends behind the Pro gate | The same frame, the person's own labels, the lock and the upgrade action | A free plan (D3) |
+| 5.12.4 | Trends behind the Pro gate | **One real comparison of their own** - this month against last, in words and as a two-month plot - then the lock and the upgrade action. It read "the same frame, the person's own labels" until 2026-08-18 | A free plan (D3) |
 | 5.12.1 | Still gathering history | "Trends need a few months to be worth looking at." | Under three months of data, on a paid plan |
 | 5.12.2 | Loading history | A skeleton chart, "Adding up your last few months." | Fetching |
 | 5.12.3 | Could not load trends | "We could not load your trends. Try again." | Load failed |

@@ -499,7 +499,19 @@ distinct job lives behind it, not because a category is conventional.
 
 History and Trends does NOT get a global tab: it is Pro-gated (D3), and a
 mostly-locked tab would irritate free users and break the calm promise. It
-is reached contextually from Home. Upgrade is not a tab either: it appears
+is reached contextually from Home.
+
+**Re-asked by the founder on 2026-08-18 and held, with the reason strengthened
+rather than repeated.** The question was whether Trends should get a fifth tab
+instead of a quiet secondary on Home. Counted before answering: in the whole
+coloured product **every entry point leads to `history-trends-locked.html`**, and
+nothing leads to the screen with the chart except its own error state, because
+the canonical person is on Free. So the objection above was not a prediction, it
+was already the fact: the entry led to a wall. A tab would not have filled the
+screen, it would have advertised the wall from every other one. The founder's
+answer was to fill the screen first - node 5.12 block 8 is rewritten the same day
+so a free person gets one real comparison of their own - and to come back to the
+tab afterwards. **The tab is open, not refused.** Upgrade is not a tab either: it appears
 at the gate, in context, not as a standing invitation to pay.
 
 ### 2. Depth to the main job
