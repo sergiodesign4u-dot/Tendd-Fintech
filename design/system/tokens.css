@@ -787,19 +787,32 @@
          origin: DESIGN.md > Colors > Neutral, Skeleton #e2e9ea, "loading placeholders,
          pulsing at 1.4s and stopped entirely under prefers-reduced-motion".
          Today: 2 var(), 2 files */
-  --plot-area:    var(--stone);
-      /* THE GROUND UNDER A PLOTTED LINE, added 2026-08-18 on the founder's "надо
-         сделать красиво" about the trend chart. fill, 1 rule, 1 file, 1 element in
-         the product: the area between the line and the foot of its frame.
-         WHY A ROLE AND NOT A REACH FOR A PRIMITIVE: this is the only place in the
-         product where a shape is filled to say "this is the same quantity as the
-         line above it", and a component may not read --stone directly. It reads the
-         same value the quiet status chip does because a plot's ground is exactly one
-         step off the recessed frame it lies in, which is what --stone is on --panel.
-         NOT PETROL, and that is the same sentence chart-placeholder.css already makes
-         about the line: petrol has three jobs and a data fill is not one of them.
-         Both themes, and the dark pair is --stone-dark for the same reason: one step
-         off --panel-dark, in the direction that theme's steps go. */
+  --plot-line:    var(--petrol);
+      /* THE PLOTTED LINE, and PETROL'S FOURTH JOB. Added 2026-08-18 by the founder,
+         in one sentence: "давай теперь черним поменяем на брендовий, чуть градиентов
+         добавим". Until that sentence the line was --text-body and this file, the
+         component and its page all carried the same refusal: petrol is spent on the
+         primary action, the current selection and the trust line, and a data line
+         would be a fourth claim on the one raised voice the system allows. The
+         refusal was correct and the founder is the only person who could lift it.
+         They did. D-Concept is amended in CLAUDE.md, and the ground is in
+         docs/decisions.md under D-Plot.
+         WHY IT SURVIVES THE ONE VOICE RULE. The fourth job is not a fourth PLACE: a
+         screen that carries a plotted line carries exactly one, and no screen in the
+         product carries both a plot and a primary action inside the same zone -
+         history-trends puts its only filled button below the trend list, and the Pro
+         gate has no line at all. Counted rather than assumed: 1 element, 1 screen.
+         Read by chart-placeholder.css for the line, the cursor's dot, the value in
+         the readout card, and, inside a @supports, the fill of the area under it. */
+  --plot-area:    var(--petrol-tint);
+      /* THE GROUND UNDER THE LINE, and it is the FLAT FALLBACK since the founder
+         asked for a gradient. Where CSS masking is available, the area takes
+         --plot-line and a mask fades it from the curve down to nothing, which is the
+         "чуть градиентов"; where it is not, this flat tint is what paints, and it is
+         the tint the selected wash already uses, so the two can never disagree about
+         what a petrol wash is. It was --stone until 2026-08-18, when the line stopped
+         being --text-body and a neutral ground under a coloured line stopped making
+         sense. Both themes. */
   --bg-action:    var(--petrol);
       /* the ONE filled action of a zone: 33 buttons across the product.
          fill. taste: the primary action is one of petrol's three permitted jobs.
@@ -1186,7 +1199,8 @@
   --bg-status:    var(--stone-dark);
   --bg-trial:     var(--teal-wash-dark);
   --bg-placeholder: var(--skeleton-dark);
-  --plot-area:    var(--stone-dark);
+  --plot-line:    var(--petrol-dark);
+  --plot-area:    var(--petrol-tint-dark);
   --bg-action:    var(--petrol-dark);
   --control-accent: var(--petrol-dark);
   --bg-chip-accent: var(--petrol-tint-dark);

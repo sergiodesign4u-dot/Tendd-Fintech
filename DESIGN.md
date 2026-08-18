@@ -198,8 +198,9 @@ deliberately desaturated so that no state in the product can shout.
 
 ### Primary
 - **Petrol** (#1c6a76): the identity colour and the only saturated thing on a screen. It is spent
-  on exactly three jobs: the primary action, the current selection (the active tab, the selected
-  row, the chosen plan), and the trust line's shield. **Petrol Deep** (#175a64) is its pressed and
+  on exactly four jobs: the primary action, the current selection (the active tab, the selected
+  row, the chosen plan), the trust line's shield, and, since D-Plot on 2026-08-18, the plotted
+  line on the trend chart with its point, its readout and the wash under it. **Petrol Deep** (#175a64) is its pressed and
   hover state; **Petrol Tint** (#e7edee) backs the Pro label and the selected row in the master
   pane, and is the only place the accent appears as a surface.
 
@@ -352,9 +353,11 @@ file, which is the result the step exists to produce: a theme that needs compone
 theme sitting on a system that only looks like one.
 
 ### Named Rules
-**The One Voice Rule.** Petrol appears on the primary action, the current selection and the trust
-line. Anywhere else it is decoration, and decoration in this palette is a bug. A screen with two
-petrol objects competing for the eye has already failed the rule.
+**The One Voice Rule.** Petrol appears on the primary action, the current selection, the trust
+line and the plotted line. Anywhere else it is decoration, and decoration in this palette is a bug.
+A screen with two petrol objects competing for the eye has already failed the rule, and the fourth
+job was granted on that test rather than around it: the plot is one element on one screen, and no
+screen in the product carries a plot and a filled action inside the same zone.
 
 **The No Red Rule.** There is no red in this system and there will not be one. A price rise is
 amber, a real failure is clay, and both are desaturated to the point where they read as

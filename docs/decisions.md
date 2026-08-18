@@ -7,6 +7,71 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - D-PLOT: petrol gets a fourth job, and the wash under the line fades
+
+The founder, on the finished interactive chart: **"да стало получше, давай теперь
+черним поменяем на брендовий, чуть градиентов добавим"**. That is a decision only
+they could take, and it was left open for them two commits earlier.
+
+**WHAT WAS REFUSED, AND BY WHOM.** The plotted line was `--text-body`, and three
+places carried the same refusal in the same words: `chart-placeholder.css` since
+stage 07, `tokens.css` at `--plot-area`, and the component's page. Petrol is spent
+inside a screen's content on the primary action, the current selection and the
+trust line, and a data line would be a fourth claim on the one raised voice this
+system allows. **The refusal was right.** A builder may not lift it; the founder
+is the only person who can, and the backlog row that carried it said exactly that.
+
+**IT SURVIVES THE RULE IT AMENDS, AND THAT WAS THE TEST.** The One Voice Rule's
+real content is "a screen with two petrol objects competing for the eye has
+already failed". A fourth JOB is not a fourth PLACE: a screen that carries a
+plotted line carries exactly one, and **no screen in the product carries a plot
+and a filled action inside the same zone** - `history-trends` puts its only
+filled button below the trend list, and the Pro gate has no line at all. Counted
+rather than assumed: 1 element, 1 screen. The cursor's vertical rule stays
+`--line-container` for the same reason: it is neither the line nor the number a
+person reads off it.
+
+**THE VALUE HAS A NAME.** `--plot-line` (`--petrol` / `--petrol-dark`), read four
+times: the line, the cursor's dot, the value in the readout card, and the fill of
+the wash under it. `--plot-area` changed from `--stone` to `--petrol-tint`,
+because a neutral ground under a coloured line stopped making sense the moment
+the line stopped being ink. Measured on the frame it lies in: the line **5.78:1
+light and 6.15:1 dark**, the wash 1.10 and 1.08, which is decorative by decision
+exactly as the placeholder fill is.
+
+**THE GRADIENT IS A MASK AND NOT AN SVG GRADIENT.** A `<linearGradient>` lives in
+`<defs>` and is referenced by id, so every screen carrying a chart would carry a
+copy of the paint in its own markup - the exact thing this component spent a
+commit removing an hour earlier - and two charts on one page would need two ids
+or silently share one. A mask is one CSS declaration on a class the system
+already owns: no id, no `<defs>`, no markup. **Behind `@supports`**, so the
+fallback is real rather than assumed: where masking is missing the area keeps the
+flat tint and the chart is the one it was five minutes before.
+
+**2.5 AND NOT 2 ON THE STROKE**, and it is not drift: a near-black line at 2px
+carries by value and a petrol one does not, because the accent sits far closer to
+the recessed fill than the ink did. Half a pixel puts the line back at the weight
+it read at the day before.
+
+**Where it is written.** `CLAUDE.md`'s D-Concept names the fourth job in the
+locked list - folded into that decision rather than added beside it, because the
+file's own budget rule says a new rule enters by amending an existing one, and
+the count is back at 200 lines. `DESIGN.md` says four jobs in two places, the
+palette entry and the One Voice Rule.
+
+**Verified.** Computed on the live screen in both themes: stroke and dot and
+readout all `#1c6a76` light and `#6bb0ba` dark, the mask applied, the guide still
+the neutral hairline. 9 sizes by 2 themes by 5 pages: 0 sideways scroll, 0
+console errors, plot and label row the same width everywhere. `rollout12.cjs`: 0
+violations.
+
+**Ground:** the founder's sentence, and the refusal that was standing there
+waiting for it. The thing worth keeping: **a rule a builder may not break is not
+the same as a rule that is wrong**, and the honest form of "I think this should be
+petrol" is a backlog row addressed to the person who owns the palette.
+
+---
+
 ## 2026-08-18 - The chart answers a pointer, and three buttons become one control
 
 The founder, third round on the same screen, with a dashboard chart as the

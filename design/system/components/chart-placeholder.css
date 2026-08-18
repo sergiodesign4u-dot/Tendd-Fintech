@@ -6,9 +6,10 @@
    Reads
      colour   --bg-recessed     the fill
               --line-divider    the frame, and the gridlines since 2026-08-18
-              --text-muted      the fallback string, when there is one
-              --text-body       the plotted line
-              --plot-area       the ground under it
+              --text-muted      the fallback string, and the value axis
+              --plot-line       the plotted line, its dot and its readout
+              --plot-area       the flat ground under it, where there is no mask
+              --line-container  the cursor's rule, which is deliberately NOT petrol
      geometry --radius-sm  (straight from primitive), --container-page
    Page      design/kit/chart-placeholder.html
    Stands on 4 grey pages, in 4 places, all four of them History and trends.
@@ -135,15 +136,54 @@
    sentence above the chart does not say. */
 .app .chart .area, .landing .chart .area { fill: var(--plot-area); stroke: none; }
 
-/* THE LINE. --text-body, and the reason is in the header: petrol is spent on the
-   primary action, the current selection and the trust line, and a data line would
-   be a fourth claim on the one raised voice this system allows. `butt` caps and
-   not `round`, because the path now runs edge to edge and a round cap would put
-   half a dot outside the frame for `overflow: hidden` to cut. */
+/* ---- AND IT FADES, WHICH IS THE "ЧУТЬ ГРАДИЕНТОВ" -------------------------
+   A flat wash under a coloured line reads as a filled shape; a wash that fades
+   out under it reads as the line casting a value downward, which is what every
+   chart a person has ever used does. The fade is a MASK and not an SVG gradient,
+   and that is the one decision in this block:
+
+     an SVG <linearGradient> lives in <defs> and is referenced BY ID, so every
+     screen carrying a chart would carry a copy of the paint in its own markup -
+     the exact thing this file spent a commit removing an hour earlier - and two
+     charts on one page would need two ids or share one silently.
+
+     a mask is one CSS declaration, on the class the system already owns, with no
+     id, no <defs> and no markup at all.
+
+   BEHIND @supports, so the fallback is a real one rather than an assumption:
+   where masking is missing the area keeps `--plot-area`, the flat petrol tint
+   declared above, and the chart is the one it was five minutes before this rule.
+   The two alphas are written here rather than tokenised because they are the
+   SHAPE of one gradient in one place, not a value the product reuses: 0.30 at
+   the curve is where the wash stops competing with the 2.5px line above it, and
+   0.02 at the foot is not zero so the frame's own fill still shows through. */
+@supports (mask-image: linear-gradient(#000, #000)) or (-webkit-mask-image: linear-gradient(#000, #000)) {
+  .app .chart .area, .landing .chart .area {
+    fill: var(--plot-line);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.02));
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.30), rgba(0, 0, 0, 0.02));
+  }
+}
+
+/* THE LINE, AND IT IS PETROL SINCE 2026-08-18. This rule read --text-body and
+   this comment carried the refusal: petrol is spent on the primary action, the
+   current selection and the trust line, and a data line would be a fourth claim
+   on the one raised voice this system allows. The refusal was right and only the
+   founder could lift it. They did, in one sentence: "давай теперь черним
+   поменяем на брендовий". D-Concept is amended in CLAUDE.md and the ground is
+   D-Plot in docs/decisions.md; the role is `--plot-line`, so the value is named
+   once and this file reads it four times.
+
+   2.5 AND NOT 2, and it is not drift: a near-black line at 2px carries by value
+   and a petrol one does not, because the accent sits far closer to the recessed
+   fill than the ink did. Half a pixel is what puts the line back at the weight it
+   read at yesterday. `butt` caps and not `round`, because the path runs edge to
+   edge and a round cap would put half a dot outside the frame for
+   `overflow: hidden` to cut. */
 .app .chart .plot, .landing .chart .plot {
   fill: none;
-  stroke: var(--text-body);
-  stroke-width: 2;
+  stroke: var(--plot-line);
+  stroke-width: 2.5;
   stroke-linejoin: round;
 }
 
@@ -183,12 +223,15 @@
   left: var(--cx, 50%); width: 1px;
   background: var(--line-container);
 }
+/* the dot is the line's own colour and the guide is NOT: petrol's fourth job is
+   the plotted line and the number a person reads off it, and a vertical rule
+   across the frame is neither. It keeps the container hairline. */
 .app .chart .cursor .dot {
   position: absolute; left: var(--cx, 50%); top: var(--cy, 50%);
   width: 10px; height: 10px; margin: -5px var(--space-0) var(--space-0) -5px;
   border-radius: 50%;
   background: var(--bg-surface);
-  border: 2px solid var(--text-body);
+  border: 2px solid var(--plot-line);
 }
 .app .chart .cursor .tip {
   position: absolute;
@@ -206,7 +249,7 @@
 .app .chart .cursor .tip b {
   font-size: var(--type-sub);
   font-weight: 600;
-  color: var(--text-body);
+  color: var(--plot-line);
   font-variant-numeric: tabular-nums;
 }
 .app .chart .cursor .tip span {
