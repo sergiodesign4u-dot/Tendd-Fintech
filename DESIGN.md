@@ -185,7 +185,7 @@ refuse is the finance-app reflex: red numbers, alarm badges, dark dashboards, a 
 sentence would do.
 
 **Key Characteristics:**
-- One accent, spent three ways, and never on decoration.
+- One accent, spent four ways, and never on decoration.
 - Status is a quiet grey badge. Alarm is not a colour we own.
 - The monthly total is the largest object on screen by a wide margin (46px against a 14.5px row).
 - Real logos and real merchant names; never a cryptic code where a name is known, never stock art.
@@ -668,7 +668,7 @@ object in clay. Both are 12px radius, both are flat, and neither carries an icon
 the alert.
 
 ### Navigation
-The tab bar is four destinations with an icon over an 11px label. The current tab is petrol and
+The tab bar is five destinations with an icon over an 11px label (four until D-Tab, 2026-08-18). The current tab is petrol and
 weight 700, and on the desktop rail it also takes a 3px petrol left border and a paper fill. A
 quiet dot may sit on Alerts; there is never a count.
 
@@ -834,9 +834,12 @@ worked around, and the rules with the checks that catch a violation are in
 ## Do's and Don'ts
 
 ### Do:
-- **Do** spend petrol on the primary action, the current selection and the trust line, and inside a
-  screen's content nowhere else. The brand mark is the fourth place and it is not a fourth job: it
-  is an identity, it lives in the chrome, and it never appears among the content. See The brand.
+- **Do** spend petrol on the primary action, the current selection, the trust line and the plotted
+  line, and inside a screen's content nowhere else. The plotted line is the fourth JOB, granted by
+  the founder on 2026-08-18 (D-Plot) and surviving the rule it amends: one element on one screen,
+  and no screen carries a plot and a filled action inside the same zone. The brand mark is a
+  fourth PLACE and not a job: it is an identity, it lives in the chrome, and it never appears among
+  the content. See The brand.
 - **Do** keep the monthly total at Display size and alone at that size.
 - **Do** use the grey status badge for state, and show it only when the state is not the default.
 - **Do** separate surfaces with a hairline and a background change.

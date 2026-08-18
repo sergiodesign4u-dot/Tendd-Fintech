@@ -82,9 +82,15 @@ Confirmed that product-model.md v2 is used (not v1) in all downstream documents.
 
 ## 5. Em Dash Check
 
-Checked all .md and .html files for the em dash character (Unicode U+2014: "—") using Python.
+Checked all .md and .html files for the em dash character, U+2014, using Python.
 
 **Result: Zero em dashes found in any file.** All separators use hyphens (-) or spaced hyphens ( - ) as required.
+
+**The line above named the character by printing it, until 2026-08-18.** So this file, whose
+whole result is "zero em dashes found in any file", was the one file in the repository holding
+one. Found by the stage 13 critique on the read-only instrument, and the fix is the only one
+that keeps the sentence true: a check that must name a forbidden character names it by code
+point and never by drawing it.
 
 ---
 

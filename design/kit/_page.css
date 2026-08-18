@@ -264,6 +264,29 @@ span.kn-project-link { color: var(--kn-text-muted); opacity: 0.6; }
 .kit-tab th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 600; border-bottom-color: var(--line-container); }
 .kit-tab td:last-child { color: var(--text-muted); }
 .kit-tab code, .kit-code { font-size: 11.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text-body); }
+
+/* ---- A PATH IS ONE WORD AND A PHONE IS 320 WIDE, 2026-08-18 ---------------
+   Found by the stage 13 sweep, which is the first one to walk the pages that
+   TALK about the product rather than the product: `width12.cjs` reports "no
+   document scrolls sideways at any stop" over all 110 product screens, and it is
+   true, and the 127 pages around them had never been swept at all.
+
+   Six stand pages scrolled sideways at 320 for one reason: a `<code>` in a note,
+   holding a path like `design/system/components/subscription-row.css`, is a
+   single unbreakable token. Measured: 316px of code in a 264px column on
+   `interruption`, 308 on `subscription-row`, 300 on `checkbox`, 292 on
+   `eyebrow`, `readout` and `summary`.
+
+   `anywhere` and not `break-word`: both break the token, and only `anywhere`
+   also lets the browser count the broken form when it measures min-content, so
+   the COLUMN stops being 316 wide in the first place. Scoped to the stand's own
+   wrap, which is belt and braces - `_page.css` never loads on a product screen -
+   and to every `code` inside it: a command block is `white-space: pre-wrap`
+   already, so `anywhere` only ever fires there on a token that would otherwise
+   leave the page, and the tables keep their own scrollers regardless. Written as
+   one selector after the first cut scoped it to `p`, `li` and `td` and left the
+   same path in a `footer` pushing `subscription-row` out by 4px. */
+.kit-wrap code { overflow-wrap: anywhere; }
 .kit-tab .n { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .kit-tab .ok { color: var(--text-action); font-weight: 600; }
 .kit-tab .dec { color: var(--text-muted); }

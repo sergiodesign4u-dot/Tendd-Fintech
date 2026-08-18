@@ -29,7 +29,10 @@
    ============================================================================ */
 
 const fs=require('fs'),path=require('path'),http=require('http'),{execSync}=require('child_process');
-const ROOT='/Users/sergiyshevchenko/Claud Projects/Fintech Tendd';
+/* Derived, not typed. Written as an absolute path into one machine's home when this
+   file was made, which is the same defect the stage 13 census had just named in
+   fp.cjs; caught by the stage 13 critique on the day it was written. */
+const ROOT=path.resolve(__dirname,'../../..');
 const {chromium}=(() => { try { return require('playwright'); } catch (e) { return require(execSync('npm root -g').toString().trim() + '/playwright'); } })();
 const T={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp'};
 const srv=http.createServer((q,res)=>{const f=path.join(ROOT,decodeURIComponent(q.url.split('?')[0]));if(!fs.existsSync(f)||fs.statSync(f).isDirectory()){res.writeHead(404);res.end();return;}res.writeHead(200,{'Content-Type':T[path.extname(f)]||'application/octet-stream'});fs.createReadStream(f).pipe(res);});

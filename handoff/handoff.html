@@ -124,22 +124,30 @@
       <table class="ho-t">
         <thead><tr><th>Group</th><th class="ho-n">Files</th><th class="ho-n">Lines</th><th>What it is</th></tr></thead>
         <tbody>
-          <tr><td><b>Product screens, colour</b></td><td class="ho-n">55</td><td class="ho-n">7333</td><td>What ships. 17 screens, 38 states, every one with a grey twin</td></tr>
-          <tr><td><b>Product screens, grey</b></td><td class="ho-n">55</td><td class="ho-n">5218</td><td>The structure contract, frozen since Voice</td></tr>
-          <tr><td><b>The design system</b></td><td class="ho-n">76</td><td class="ho-n">19263</td><td>75 css and 1 js. The thing that is meant to travel</td></tr>
-          <tr><td>The stand</td><td class="ho-n">85</td><td class="ho-n">19674</td><td><code>design/kit/</code>: a page per component, per pattern, per foundation</td></tr>
-          <tr><td>Stage pages</td><td class="ho-n">36</td><td class="ho-n">17829</td><td>One account per stage, this page included. It reads 36 and not 33 because the census could not see its own stage until the day the page existed, and the classifier was corrected rather than the number</td></tr>
-          <tr><td>Markdown</td><td class="ho-n">71</td><td class="ho-n">23819</td><td>2 loaded into every session, 69 read on demand</td></tr>
+          <tr><td><b>Product screens, colour</b></td><td class="ho-n">55</td><td class="ho-n">7278</td><td>What ships. 17 screens, 38 states, every one with a grey twin</td></tr>
+          <tr><td><b>Product screens, grey</b></td><td class="ho-n">55</td><td class="ho-n">5163</td><td>The structure contract, frozen since Voice</td></tr>
+          <tr><td><b>The design system</b></td><td class="ho-n">76</td><td class="ho-n">19197</td><td>75 css and 1 js. The thing that is meant to travel</td></tr>
+          <tr><td>The stand</td><td class="ho-n">85</td><td class="ho-n">19589</td><td><code>design/kit/</code>: a page per component, per pattern, per foundation</td></tr>
+          <tr><td>Stage pages</td><td class="ho-n">36</td><td class="ho-n">17820</td><td>One account per stage, this page included - which makes this the one row that moves when the page does, so it is the census's checked-in run and not a live figure. It reads 36 and not 33 because the census could not see its own stage until the day the page existed, and the classifier was corrected rather than the number</td></tr>
+          <tr><td>Markdown</td><td class="ho-n">71</td><td class="ho-n">23805</td><td>2 loaded into every session, 69 read on demand</td></tr>
           <tr><td>Instruments</td><td class="ho-n">12</td><td class="ho-n">2102</td><td><code>.cjs</code> in <code>design/kit/screens/</code>, each re-runnable</td></tr>
           <tr><td>Everything else</td><td class="ho-n">228</td><td class="ho-n">-</td><td>Assets, the registries, the fingerprint json a stage left behind</td></tr>
         </tbody>
       </table>
     </div>
-    <p><b>Two numbers are worth reading together.</b> The product is 7333 lines of html and the
-      argument for it is 23819 lines of markdown, three times as much. That ratio is the
-      pipeline's shape rather than an accident: every value in the system carries the decision
-      that put it there, and a decision with no ground is the thing this repository spends its
-      words refusing.</p>
+    <p><b>Two numbers are worth reading together.</b> The product is 7278 lines of html and the
+      argument for it is 23805 lines of markdown, more than three times as much (measured
+      2026-08-18; the second number grows every time a decision is written down, which is the
+      point). That ratio is the pipeline's shape rather than an accident: every value in the
+      system carries the decision that put it there, and a decision with no ground is the thing
+      this repository spends its words refusing.</p>
+    <p><b>And these figures were each one line per file too high until the critique of this
+      stage.</b> The census counted lines with <code>split("\n").length</code>, which returns an
+      extra element for the empty string after a file's final newline, so every group total was
+      inflated by the number of files in it. The read-only pass found it from the outside: it
+      flagged this page saying "<code>CLAUDE.md</code>, 200 lines" against the census's own 201,
+      and the page was right. <b>A census that is off by one on every file is worse than no
+      census, because the error is invisible at any single row.</b></p>
   </section>
 
   <section class="ho-sec" id="lift">
@@ -231,6 +239,39 @@ npm run census                  # this page's numbers, recomputed</code>
       named where they were found, each with the measurement that found it.</p>
   </section>
 
+  <section class="ho-sec" id="critique">
+    <h2>The critique, on two instruments</h2>
+    <p>Run 2026-08-18 the way <code>CLAUDE.md</code> requires it: <b>Codex read-only on the
+      source</b> and <b>Claude in a browser on the render</b>, taken independently and merged
+      afterwards, with a column saying who found what. <b>22 findings, 22 closed, none dropped at
+      verification</b> - and the two most valuable ones were each produced by checking the other
+      instrument's work rather than by either instrument alone.</p>
+    <div class="ho-scroll">
+      <table class="ho-t">
+        <thead><tr><th>Was</th><th>Became</th><th>Found by</th></tr></thead>
+        <tbody>
+          <tr><td><b>Six places in <code>ia/docs/pages/navigation.md</code> still said four tabs</b>, including a decision line that named a fifth tab as "exactly the density and alarm this segment avoids" and an accessibility contract promising "a landmark with four links"</td><td>All six carry five. The refusal is kept and dated rather than deleted, with the condition that removed it and the measurement that replaced it: 64px an item at 320, 219px on the rail whatever the count. The ceiling is now at six</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b><code>DESIGN.md</code> described a four-destination tab bar</b> and its Do-block still forbade petrol "inside a screen's content nowhere else" after D-Plot had granted the fourth job in the same document</td><td>Five destinations, and the Do-block names the plotted line and the test it passed. A normative rule that contradicts its own document is worse than a stale figure</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b><code>tokens.css</code> justified <code>--plot-line</code> with "the Pro gate has no line at all. Counted rather than assumed: 1 element, 1 screen"</b></td><td>2 elements on 2 screens. The sentence was measured correctly in the morning and the founder gave the Pro gate its own two-month plot in the afternoon: the count moved under a claim that was never re-run. The ARGUMENT survives - the gate's plot is above the lock and its filled action inside it, so no zone carries both</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b><code>quality13.cjs</code> carried an absolute path into one machine's home</b>, on the same day the census had named exactly that defect in <code>fp.cjs</code></td><td><code>path.resolve(__dirname, '../../..')</code>, like every other instrument</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b>This page said "four markdown files are named by no page"</b> while being an html page that names all four</td><td>The census reads zero, and the paragraph says why out loud: naming them here is what closed it</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b>Two figures in <code>README.md</code> had drifted</b>: the width column's "39 adapt and 33 do not", and a sentence crediting all twelve instruments with serving the repository to a browser</td><td>40 and 32, and the two that never touch a browser are named</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b>The file that reports "zero em dashes found in any file" contained one</b>, inside the sentence naming the character it had searched for</td><td>Named by code point, U+2014, and never by drawing it. The result it reports is true again</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b>"Petrol has three jobs" in <code>range-picker.css</code></b>, written the same day D-Plot made it four</td><td>Four - and the finding was a thread: pulling it found <b>24 more places</b> saying three, in nine system files, twelve kit pages, <code>DESIGN.md</code> and a concept page. All 25 corrected</td><td><span class="ho-tag ho-quiet">Codex</span> found one, <span class="ho-tag ho-ok">Claude</span> swept the rest</td></tr>
+          <tr><td><b><code>chart-placeholder.html</code> still asserted "The line is not petrol, and that is the decision worth keeping"</b> two sections above the one explaining that it now is</td><td>The refusal is quoted as what it was, with a link to the day it was lifted. A page arguing with itself is the worst kind of stale</td><td><span class="ho-tag ho-ok">Claude</span></td></tr>
+          <tr><td><b>Ten of the 127 pages that are not product screens scrolled sideways at 320</b>, the worst by 85px - and nothing had ever swept them. <code>width12.cjs</code> covers the 110 product screens and reports zero, truthfully</td><td><b>0 of 127.</b> Four causes, each with a solved form already in the product: a grid floor taller than its container, a <code>&lt;code&gt;</code> holding an unbreakable path, a flex item with no <code>min-width: 0</code>, and a column count written by hand in an inline style. <code>pages13.cjs</code> is checked in beside the others</td><td><span class="ho-tag ho-ok">Claude</span></td></tr>
+          <tr><td><b><code>logo-crop.html</code> logged three console errors</b>: <code>&lt;svg&gt; attribute height: Expected length, "auto"</code></td><td>The attribute is gone and <code>preserveAspectRatio</code> says what it was for. The svg still renders 520 by 520</td><td><span class="ho-tag ho-ok">Claude</span></td></tr>
+          <tr><td><b>THE ONE THAT CAME FROM DISAGREEING.</b> Codex flagged this page's "<code>CLAUDE.md</code>, 200 lines" against the census's own 201 and called the page wrong. The page was right</td><td>The census counted lines with <code>split("\n").length</code>, which returns an extra element after a file's final newline: <b>every line figure it had ever printed was inflated by one per file</b>, and with 618 files the group totals were out by the number of files in them. Fixed at the function, every figure on this page recounted. A census off by one on every file is worse than no census, because the error is invisible at any single row</td><td><span class="ho-tag ho-quiet">Codex</span> found the disagreement, <span class="ho-tag ho-ok">Claude</span> found which side was wrong</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>Nothing was dropped at verification</b>, which is unusual and is worth one sentence
+      rather than a celebration: the read-only pass was given a scope of files changed on one day,
+      and a narrow scope is what makes a critic precise. The one finding that could have been
+      dropped - "the page says 200 and the instrument says 201" - turned out to be the most
+      valuable in the run, because the instrument was the wrong one.</p>
+  </section>
+
   <section class="ho-sec" id="doors">
     <h2>The doors: where a receiver should start</h2>
     <div class="ho-scroll">
@@ -238,7 +279,7 @@ npm run census                  # this page's numbers, recomputed</code>
         <thead><tr><th>If you want</th><th>Open</th></tr></thead>
         <tbody>
           <tr><td>The product, every screen, in colour</td><td><a href="../design/overview.html">design/overview.html</a></td></tr>
-          <tr><td>The rules this repository is built under</td><td><a href="../CLAUDE.md">CLAUDE.md</a>, 200 lines, loaded into every session</td></tr>
+          <tr><td>The rules this repository is built under</td><td><a href="../CLAUDE.md">CLAUDE.md</a>, 200 lines exactly, by its own budget rule, loaded into every session</td></tr>
           <tr><td>Why any single value is what it is</td><td><a href="../docs/decisions.md">docs/decisions.md</a>, newest on top, never edited</td></tr>
           <tr><td>The visual language as a document</td><td><a href="../DESIGN.md">DESIGN.md</a>, generated from the shipped code</td></tr>
           <tr><td>The design system, and why it is like this</td><td><a href="../design/kit/why.html">design/kit/why.html</a></td></tr>
@@ -248,13 +289,15 @@ npm run census                  # this page's numbers, recomputed</code>
         </tbody>
       </table>
     </div>
-    <p>Four markdown files are named by no page and that is a finding rather than a tidy-up
-      pending: <code>AGENTS.md</code> and <code>DESIGN-artifacts.md</code> are named by other
-      markdown and are read by a person who arrives through the text rather than the sidebar;
-      <code>research/docs/product-model.md</code> and <code>research/docs/quality-check.md</code>
-      are the research stage's working papers and the second is named by nothing at all. They are
-      listed here because <b>an artefact with no visible place does not exist for the person who
-      decides</b>, and this table is the smallest honest place for them.</p>
+    <p><b>Four markdown files had no visible place until this table existed, and the census now
+      reads zero.</b> They are <code>AGENTS.md</code>, <code>DESIGN-artifacts.md</code>,
+      <code>research/docs/product-model.md</code> and <code>research/docs/quality-check.md</code> -
+      the last was named by nothing at all, not even by another markdown file. Naming them here
+      is what closed it, and that is worth saying out loud rather than quietly enjoying:
+      <code>handoff13.cjs</code> counts "md files named by at least one html", this page is an
+      html, and the paragraph you are reading is the naming. <b>An artefact with no visible place
+      does not exist for the person who decides</b>, and a doors table is the smallest honest
+      place there is.</p>
   </section>
 
   <footer class="ho-foot">
@@ -276,6 +319,7 @@ npm run census                  # this page's numbers, recomputed</code>
     { id:'lift',   label:'The lift test' },
     { id:'run',    label:'The run surface' },
     { id:'open',   label:'What is open' },
+    { id:'critique', label:'The critique' },
     { id:'doors',  label:'The doors' },
   ];
 </script>

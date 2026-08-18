@@ -7,6 +7,74 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - The critique of stage 13: 22 findings, and the two best came from disagreeing
+
+Run on two instruments the way `CLAUDE.md` requires: **Codex read-only on the
+source** and **Claude in a browser on the render**, taken independently and merged
+with a "who found it" column. **22 findings, 22 closed, none dropped at
+verification.** The full table is on `handoff/handoff.html`; what belongs here is
+the three that changed something bigger than themselves.
+
+**ONE: THE COUNT DRIFT NOBODY SWEEPS FOR.** Codex found `range-picker.css` saying
+"the second of petrol's three jobs" - a comment written the same day D-Plot made
+it four. Pulling that thread found **24 more places** saying three: nine files in
+`design/system/`, twelve kit pages, `DESIGN.md` twice and a concept page. The
+lesson is not "update your comments": **a decision that changes a COUNT has to be
+followed by a grep for that count in the same commit**, because the count is
+spread across every file that ever justified itself by it, and none of them is
+wrong on its own line.
+
+**TWO: TEN PAGES NOTHING SWEPT.** `width12.cjs` walks the 110 product screens
+across 58 widths and reports "no document scrolls sideways at any stop". True,
+and it had been true for two stages. The **127 pages around them** - every stage
+account, every stand page, every IA node - had never been swept at all, and a
+receiver opening this project on a phone meets those pages first. Ten of them
+scrolled sideways at 320, the worst by **85px**. Four causes, and every one had a
+solved form already in the product: a grid floor taller than its own container
+(the system has carried `min(floor, 100%)` since stage 10 and the pages that talk
+about the system had not), a `<code>` holding an unbreakable path, a flex item
+with no `min-width: 0`, and a column count written by hand in an inline style.
+**0 of 127 now**, and `pages13.cjs` is checked in beside the others so the gap
+cannot reopen quietly.
+
+**THREE: THE ONE THAT CAME FROM DISAGREEING.** Codex flagged the handoff page's
+"`CLAUDE.md`, 200 lines" against the census's own 201 and called the page wrong.
+**The page was right.** The census counted lines with `split("\n").length`, which
+returns an extra element for the empty string after a file's final newline: every
+line figure it had ever printed was **inflated by one per file**, and with 618
+files the group totals were out by the number of files in them. Fixed at the
+function; every figure on the handoff page recounted. A census off by one on every
+file is worse than no census, because the error is invisible at any single row -
+you can only see it by comparing two instruments that should agree.
+
+**AND THE REST, IN ONE LINE EACH.** Six places in `ia/docs/pages/navigation.md`
+still specified four tabs, including a decision line naming a fifth as "exactly
+the density and alarm this segment avoids" and an accessibility contract promising
+"a landmark with four links"; `DESIGN.md` described a four-destination bar and
+kept a Do-block forbidding what the same document had already granted;
+`tokens.css` justified `--plot-line` with "the Pro gate has no line at all. 1
+element, 1 screen", true in the morning and false by the afternoon;
+`quality13.cjs` carried an absolute path into one machine's home on the very day
+the census named that defect elsewhere; this page claimed "four markdown files are
+named by no page" while being the page that names them; two README figures had
+drifted; `chart-placeholder.html` still asserted "the line is not petrol" two
+sections above the one explaining that it is; `logo-crop.html` logged three
+console errors from `<svg height="auto">`; and **the file whose entire result is
+"zero em dashes found in any file" contained one**, inside the sentence naming the
+character it had searched for.
+
+**Nothing was dropped at verification**, which is unusual and is worth a sentence
+rather than a celebration: the read-only pass was given a scope of files changed
+on one day, and a narrow scope is what makes a critic precise.
+
+**Ground:** `CLAUDE.md`'s rule that critique runs on two instruments, taken
+independently and merged. What this run is evidence for: **the value is not in
+either instrument, it is in the disagreement.** The best finding of the day is one
+where the critic was wrong, and finding out which side was wrong is what exposed
+an error in every number the census had ever printed.
+
+---
+
 ## 2026-08-18 - Handoff gets a page, and the census could not see its own stage
 
 The last roadmap row had `page: null` since the project began, which is the one

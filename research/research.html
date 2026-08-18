@@ -265,7 +265,9 @@
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      /* min() since 2026-08-18: a floor taller than its own container is what made
+         this page the widest sideways scroll in the repository at 320. */
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
       gap: 16px;
       margin-top: 16px;
     }
@@ -391,9 +393,17 @@
       margin-top: 2px;
     }
 
+    /* `min-width: 0` since 2026-08-18. A flex item's automatic minimum is its own
+       min-content, so this half refused to go under 154px beside a 140px label and
+       the row asked for 294 in the 286 a 320 screen gives it: eight pixels of
+       sideways scroll, the widest of the ten the stage 13 sweep found. `anywhere`
+       is the second half, because the 154 is one unbreakable string and a floor of
+       zero on its own would not have reached it. */
     .funnel-content {
       padding: 14px 18px;
       flex: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .funnel-content h4 {
@@ -461,7 +471,7 @@
     /* Hypothesis cards */
     .hypothesis-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(420px, 100%), 1fr));
       gap: 16px;
       margin-top: 16px;
     }
@@ -783,7 +793,7 @@
       <p style="color:var(--text-secondary)">One visual summary of the refreshed research. Framework: Jeff Gothelf, Lean UX Canvas v2.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:14px">
 
       <div style="border:1px solid var(--border, #e3e0da);border-radius:12px;padding:18px 20px">
         <div style="font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">1. Business Problem</div>
@@ -1142,7 +1152,7 @@
     <p style="font-size:12.5px;color:var(--text-muted);margin-top:8px">Sources: <cite><a href="https://www.ynab.com/">ynab.com</a>, <a href="https://www.monarchmoney.com/">monarchmoney.com</a>, <a href="https://pocketguard.com/">pocketguard.com</a>, <a href="https://simplifimoney.com/">simplifimoney.com</a></cite></p>
 
     <!-- 3 Patterns + 3 Differences -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:24px;margin-top:32px">
       <div>
         <h3>3 Common Patterns</h3>
         <div class="card" style="margin-top:10px">
@@ -1376,7 +1386,7 @@
 
     <div class="card" style="margin-top:24px;background:var(--accent-light);border-color:var(--accent-mid)">
       <h3>Why This Combination Works</h3>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:16px;margin-top:12px">
         <div>
           <h4>Reason 1 - JTBD</h4>
           <p style="font-size:13.5px">Solves the financial-avoidance problem. The Guided Reveal gives the anxious user one thing to do: "let me show you." No choices, no empty dashboard, no configuration before value.</p>

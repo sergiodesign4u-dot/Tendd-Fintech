@@ -23,7 +23,16 @@ const walk = (dir, out = []) => {
   }
   return out;
 };
-const lines = p => read(p).split('\n').length;
+/* COUNTED THE WAY `wc -l` COUNTS, since 2026-08-18. It was `split('\n').length`,
+   which returns one extra element for the empty string after a file's final
+   newline - so every line figure this census printed was inflated by one PER
+   FILE, and with 618 files the group totals were out by the number of files in
+   them. Found by the stage 13 critique: the read-only pass flagged the handoff
+   page saying "CLAUDE.md, 200 lines" against this file's own 201, and the page
+   was right. A census that is off by one on every file is worse than no census,
+   because the error is invisible at any single row. */
+const lines = p => { const t = read(p); if (t === '') return 0;
+  return t.split('\n').length - (t.endsWith('\n') ? 1 : 0); };
 const say = (...a) => console.log(...a);
 const pad = (s, n) => String(s).padStart(n);
 

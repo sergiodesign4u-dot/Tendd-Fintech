@@ -66,9 +66,12 @@
   .guard b { font-weight: 700; }
 
   /* ---------- Directions grid ---------- */
+  /* `min(340px, 100%)` and not a bare 340, 2026-08-18: a floor taller than its own
+     container is what made this page scroll sideways by 34px at 320, found by the
+     stage 13 sweep of the pages that talk about the product. */
   .grid {
     display: grid; gap: 22px;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
     align-items: start;
   }
   .dir {
