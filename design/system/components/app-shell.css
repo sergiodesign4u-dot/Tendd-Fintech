@@ -518,6 +518,32 @@
     padding-inline: max(var(--space-40), (100% - var(--container-wide)) / 2);
   }
 
+  /* ---- AND A SCROLLING PANE MAY NOT COMPRESS WHAT IS IN IT, 2026-08-18 ------
+     The line above is what makes this pane a flex column, and the tablet block
+     above gives it a DEFINITE height: `.app` is a grid at `height: 100dvh` and
+     this screen is its cell. A flex column with a definite height and more
+     content than fits compresses every child whose `flex-shrink` is the default
+     1. A block with `height: auto` has its own content as an automatic minimum
+     and cannot lose anything; a block that DECLARES a height has no such floor
+     and loses all of it.
+
+     Swept over all 54 coloured app screens at 1024 x 768, 1440 x 900 and
+     1920 x 1080, by setting `flex-shrink: 0` and diffing: exactly ONE element in
+     the product declares a height, and it was being crushed. The trend chart on
+     `history-trends` renders 162.31 of its 220 at 1440 x 1000, 62.31 at
+     1440 x 900 and **2px at 1024 x 768**, where the month labels stand under
+     nothing at all. It depends on the window's HEIGHT, which is why five stages
+     of width sweeps never saw it, and the founder found it by looking.
+
+     `:where()` for the same reason the release above it is written that way: the
+     rule carries specificity zero, so a block that genuinely wants to give way
+     inside the pane can say so in its own file and win. Nothing says so today.
+     The pane already scrolls (`overflow: auto`, tablet block), so what the
+     children no longer lose, the scrollbar carries. Measured after: 2 boxes move
+     across 55 pages, both of them this chart, both of them to the height their
+     own component declares. */
+  :where(.app > .screen > *) { flex-shrink: 0; }
+
   /* the same foot as above, minus the screens this block reorders. See the long
      note at the rule below the columns for why the guard is `:has(> .head)` and
      what it measured. */

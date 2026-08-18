@@ -5,9 +5,11 @@
 
    Reads
      colour   --bg-recessed     the fill
-              --line-divider    the frame
+              --line-divider    the frame, and the gridlines since 2026-08-18
               --text-muted      the fallback string, when there is one
-     geometry --radius-sm  (straight from primitive)
+              --text-body       the plotted line
+              --plot-area       the ground under it
+     geometry --radius-sm  (straight from primitive), --container-page
    Page      design/kit/chart-placeholder.html
    Stands on 4 grey pages, in 4 places, all four of them History and trends.
 
@@ -50,15 +52,69 @@
 /* The plot fills the frame. It is a direct-child selector so that an icon
    dropped inside the box some day does not silently become the chart.
 
-   The SVG is MARKUP, not CSS, and that is deliberate: the data is different on
-   every page, so the shape cannot live in a stylesheet. What this rule
-   guarantees is that whatever is drawn stretches to the box the component owns.
-   The stroke work belongs with the markup and is stated on the page: every
-   stroke carries vector-effect="non-scaling-stroke", so a line stays one pixel
-   at 360 and at 1280 rather than being scaled by preserveAspectRatio="none"; and
-   the x positions of the points line up with the meta row's labels underneath,
-   which is the only thing that makes the two read as one object. */
+   The GEOMETRY is markup and the PAINT is not, and the line between them moved on
+   2026-08-18. The shape has to be markup: the data is different on every page, so
+   it cannot live in a stylesheet. Every colour used to be markup too, written as a
+   presentation attribute on the SVG - which is a screen carrying a style of its
+   own in the one place the rollout ledger cannot see it, because it greps for
+   `style=` and for classes and an SVG attribute is neither. The three parts are
+   named now (`.grid`, `.area`, `.plot`) and this file paints them.
+
+   WHAT STAYS IN THE MARKUP: `vector-effect="non-scaling-stroke"`, so a line stays
+   two pixels at 360 and at 1280 rather than being scaled by
+   preserveAspectRatio="none". It is a presentation attribute rather than the CSS
+   property of the same name because the CSS form is the newer half of SVG2 and
+   the attribute is supported everywhere the product runs. */
 .app .chart > svg, .landing .chart > svg { display: block; width: 100%; height: 100%; }
+
+/* ---- the three parts of a plot ------------------------------------------
+   THE GRIDLINES ARE --line-divider AND NOT --line-container, which is the same
+   step the frame took above and for the same reason. On the recessed fill the
+   container edge read as banding rather than as a scale: three bars across a
+   1140px box, heavier than the plot they were meant to sit behind. They are kept
+   rather than deleted because on three of the four pages they are the WHOLE
+   picture - the empty, the locked and the loading state have no line in them,
+   and an empty frame with no rule in it is a box rather than a chart that has
+   nothing to show yet. */
+.app .chart .grid line, .landing .chart .grid line { stroke: var(--line-divider); }
+
+/* THE GROUND UNDER THE LINE. Added 2026-08-18 on the founder's "надо сделать
+   красиво": a two-pixel diagonal across a 1140 by 162 box reads as a scratch on
+   the paper and not as a picture of anything. The area is what makes the plot an
+   object. It carries no claim the line does not already make - it is the same
+   path, closed to the foot of the frame - so nothing is asserted that the
+   sentence above the chart does not say. */
+.app .chart .area, .landing .chart .area { fill: var(--plot-area); stroke: none; }
+
+/* THE LINE. --text-body, and the reason is in the header: petrol is spent on the
+   primary action, the current selection and the trust line, and a data line would
+   be a fourth claim on the one raised voice this system allows. `butt` caps and
+   not `round`, because the path now runs edge to edge and a round cap would put
+   half a dot outside the frame for `overflow: hidden` to cut. */
+.app .chart .plot, .landing .chart .plot {
+  fill: none;
+  stroke: var(--text-body);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+/* ---- THE BAND HAS A MEASURE, AND SO DOES THE LABEL ROW UNDER IT ------------
+   Past the desktop point the shell lets a block take the whole pane, so the chart
+   was 1140 wide against a 220 height: a 5.2 to 1 band holding one line, next to a
+   sentence that stops at its own reading measure around 500. The plot did not look
+   wrong because of what was in it, it looked wrong because of its shape.
+
+   --container-page, 780, is the measure the shell itself hands a block between the
+   two points, so this is the screen's own number rather than a new one: 3.5 to 1
+   at the cap, and 3.3 at a 1024 window where the pane is narrower than the cap
+   anyway. The LABEL ROW takes it too, because the two only read as one object
+   while they are the same width, and it is `+ .metarow` rather than a rule in
+   meta-row.css because what is being stated is a fact about this pair.
+
+   It beats the shell's release without a fight: that blanket is `:where()` since
+   2026-08-17 and carries specificity zero, which is exactly the case it was
+   rewritten for. */
+.app .chart, .app .chart + .metarow { max-width: var(--container-page); }
 
 /* The one responsive rule this component owns. It is a CONTAINER query, not a
    media query: the box grows when the screen it stands on is given the width,
@@ -73,3 +129,26 @@
 @container (min-width: 47.5rem) {
   .app .chart { height: 220px; }
 }
+
+/* ---- AND THE 220 HAD NEVER RENDERED PAST 900, 2026-08-18 -------------------
+   The founder pointed at the chart and said it was not beautiful. It was also not
+   there. Past the desktop point `.app` is a grid with `height: 100dvh` and
+   `.app > .screen` is a flex column inside it, so the screen has a DEFINITE
+   height and every flex child with the default `flex-shrink: 1` is compressed to
+   fit. A block with `height: auto` has its content as an automatic minimum and
+   cannot shrink; this box declares a height, so it is the only element in the
+   whole coloured product that can. Measured before the fix, on the live
+   `history-trends`:
+
+     1440 x 1000   162.31px of the 220 it declares
+     1440 x  900    62.31px
+     1024 x  768     2px
+
+   Two pixels. On the Pro screen, at an ordinary laptop size, the chart was gone
+   and the month labels stood under nothing. It depended on the window's HEIGHT,
+   which is why five stages of width sweeps never saw it.
+
+   THE FIX IS IN app-shell.css AND NOT HERE, because it is a fact about a pane
+   that scrolls rather than about a chart: a scrolling pane must not compress its
+   children, and the same trap waits for the next block that declares a height.
+   `flex: none` on this box would have fixed this box and left the trap. */

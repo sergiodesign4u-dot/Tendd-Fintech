@@ -7,6 +7,90 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - The trend chart, and it was not ugly so much as absent
+
+The founder, on the chart placeholder's page: **"че то мне вот это вообще не
+нравится, надо сделать красиво"**. It was not beautiful. It was also, at an
+ordinary laptop size, two pixels tall.
+
+**THE 220 HAD NEVER RENDERED PAST 900.** Past the desktop point `.app` is a grid
+at `height: 100dvh` and `.app > .screen` is a flex column inside it, so the
+screen has a DEFINITE height and every flex child with the default
+`flex-shrink: 1` is compressed to fit. A block with `height: auto` has its own
+content as an automatic minimum and cannot lose anything; a block that DECLARES a
+height has no such floor. Swept over all 54 coloured app screens at three desktop
+sizes by setting `flex-shrink: 0` and diffing: **exactly one element in the whole
+product declares a height, and it was being crushed.** On the live
+`history-trends`, the chart renders **162.31px of its 220 at 1440 x 1000, 62.31
+at 1440 x 900, and 2px at 1024 x 768** - where the month labels stand under
+nothing at all. It depends on the window's HEIGHT, which is why five stages of
+width sweeps never found it and a founder found it by looking.
+
+The fix is in `app-shell.css` and not in the component: a scrolling pane must not
+compress its children, and the same trap waits for the next block that declares a
+height. `:where(.app > .screen > *) { flex-shrink: 0 }`, at specificity zero for
+the same reason the release beside it is written that way.
+
+**THE BAND HAD NO MEASURE.** With the height back it was 1140 by 220 at a 1440
+window: **a 5.2 to 1 band holding one line**, next to a sentence that stops at its
+own reading measure around 500. It takes `--container-page`, 780 - the measure the
+shell itself hands a block between the two points, so this is the screen's own
+number and not a new one. 3.5 to 1 at the cap, 3.3 at 1024. The label row takes
+the same cap, because the two only read as one object while they are the same
+width.
+
+**THE PLOT AND ITS LABELS HAD NEVER LINED UP, AND THE FILE SAID THEY DID.** The
+path ran `18 to 282` of a 300 viewBox, 6 per cent inside the box on each side,
+while the month labels sit flush to its edges. Measured at 1440: the ends stood
+**57px and 61px** from the centres of "May" and "Jul". Both `chart-placeholder.html`
+and `icons.html` claimed the x positions lined up. The path runs 0 to 300 now.
+
+**AND IT GAINED A GROUND.** A two-pixel diagonal across a wide recessed box reads
+as a scratch on the paper. The area is the same path closed to the foot of the
+frame, filled with a new role `--plot-area` (`--stone` light, `--stone-dark` dark,
+1.09 and 1.08 against the frame it lies in). It asserts nothing the line does not
+already assert, which is the condition it had to meet: **June still has no dot and
+no vertex of its own**, because the copy gives no June figure and inventing one on
+a screen about money is worse than a placeholder. Round end dots were built and
+measured and **rejected**: under `preserveAspectRatio="none"` a circle is an
+ellipse, and `vector-effect` fixes the stroke width and not the cap's shape.
+
+**THE PAINT LEFT THE MARKUP.** Every colour on this plot was an SVG presentation
+attribute on a product screen - a screen carrying a style of its own in the one
+place `rollout12.cjs` cannot see it, because it greps for `style=` and for class
+names and an SVG attribute is neither. The three parts are named (`.grid`,
+`.area`, `.plot`) and `chart-placeholder.css` paints them. `vector-effect` stays
+an attribute: the CSS property is the newer half of SVG2 and the attribute is
+supported everywhere the product runs. The gridlines moved from
+`--line-container` to `--line-divider` in the same pass, because on the recessed
+fill the container edge read as banding across a 1140px box; they are kept and
+not deleted, since on three of the four pages they are the whole picture.
+
+**Grey untouched, and that is the established reading of the rule.** The plot has
+never existed in `wireframes/`: all four grey charts carry a string
+(`[chart: monthly total, May to Jul]`), and the landing's ribbon SVG is the same
+shape - the grey states the slot in words and colour draws it. So "a coloured page
+may differ from its grey by styling only" is not strained here; nothing
+structural moved.
+
+**Verified.** 14 viewport sizes by two themes by four pages: the box is 168 tall
+below the tablet point and **220 above it at every one**, the band and the label
+row are the same width at every one, 0 sideways scroll, 0 console errors. The
+shrink sweep now reports **0 crushed children** at 1024 x 768, 1440 x 900 and
+1920 x 1080. Box fingerprint over all 55 coloured pages: **four pages move and
+they are the four History and trends states**; at 360 only one moves, by two
+boxes, which is the path going edge to edge and the area arriving.
+`rollout12.cjs`: 0 violations, and the three new SVG class names are defined in
+the system, so the "classes the system does not define" count stays 0.
+
+**Ground:** the founder's sentence. What the pass is really about: **"it does not
+look good" is worth measuring before it is worth restyling.** The complaint was
+about taste and three of the four things under it were arithmetic - a height that
+never applied, a ratio nobody chose, and an alignment the documentation asserted
+and the geometry denied.
+
+---
+
 ## 2026-08-18 - Seven sentences flush on the block under them, and a row filed under the wrong gap
 
 The founder, still on the paywall: **"нам би еще отступы покрутить би"**, with a

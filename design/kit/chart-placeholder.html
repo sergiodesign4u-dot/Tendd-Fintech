@@ -52,7 +52,7 @@
     <h2>Anatomy</h2>
     <p class="note">One zone and one content slot, which is what makes it an atom. Everything below is drawn by <code>design/system/components/chart-placeholder.css</code> through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from. The SVG in the box is the markup from <a href="../history-trends.html">History and trends</a>, copied without a change except the two token names, which the screens wrote in <code>kit.css</code>'s vocabulary until step 6 moved them onto the system's.</p>
     <div class="kit-stage app col">
-      <div class="chart" role="img" aria-label="Line chart of your monthly total from May to July, the same figures as the sentence above"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g><path d="M18 76 L150 51 L282 26" fill="none" stroke="var(--text-body)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></div>
+      <div class="chart" role="img" aria-label="Line chart of your monthly total from May to July, the same figures as the sentence above"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g class="grid" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g><path class="area" d="M0 76 L150 51 L300 26 L300 100 L0 100 Z"/><path class="plot" d="M0 76 L150 51 L300 26" vector-effect="non-scaling-stroke"/></svg></div>
       <p class="metarow"><span>May</span><span>Jun</span><span>Jul</span></p>
     </div>
     <ul class="kit-callouts">
@@ -60,14 +60,15 @@
       <li><code>.chart &gt; svg</code> <span>the plot, stretched to the full box. A direct-child selector, so an icon dropped in the box some day does not silently become the chart</span></li>
       <li><code>overflow: hidden</code> <span>holds a stroke that reaches the edge inside the corner</span></li>
       <li><code>vector-effect</code> <span>on every stroke in the markup, set to <code>non-scaling-stroke</code>. The reason is under this list</span></li>
-      <li><code>.metarow</code> <span>not this component. The labels underneath are the <a href="meta-row.html">meta row</a>, which was <code>.axis</code> until step 6, and the x positions of the three points line up with them, which is the only thing that makes the two read as one object</span></li>
+      <li><code>.metarow</code> <span>not this component. The labels underneath are the <a href="meta-row.html">meta row</a>, which was <code>.axis</code> until step 6, and and since 2026-08-18 the plot runs the FULL width of the box, so the two share one measure rather than the plot sitting 6 per cent inside it. The old inset was the reason they did not read as one object: measured before, the line's ends stood 57px and 61px away from the centres of &ldquo;May&rdquo; and &ldquo;Jul&rdquo; at a 1440 window, while this page claimed they lined up. The label row now takes the band's cap as well, so the two are the same width at every size</span></li>
     </ul>
     <p class="note"><b>Why every stroke carries <code>vector-effect="non-scaling-stroke"</code>.</b> The SVG is written with <code>preserveAspectRatio="none"</code>, so the 300 by 100 viewBox is stretched unevenly to fill whatever width the box is given. Without the effect the stroke stretches with it, and a gridline that is one pixel at 360px is a different thickness at 1280. With it, the geometry scales and the ink does not.</p>
-    <p class="note"><b>Measured on this page:</b> the box renders 168px tall with a 10px corner and a 1px frame, and the SVG inside it fills 100% by 100% of the content box. The label text sits at 11px in the muted tier, 5.37:1 on the recessed fill in the light theme and 5.77:1 in the dark.</p>
+    <p class="note"><b>Measured on this page:</b> the box renders 780 by 220 with a 10px corner and a 1px frame, and the SVG inside it fills 100% by 100% of the content box. It was 168 tall here until 2026-08-18: the stand is not a size container, so the container query below could not fire, and the specimen showed the phone's height on a desktop. It reads the band's own cap now. The label text sits at 11px in the muted tier, 5.37:1 on the recessed fill in the light theme and 5.77:1 in the dark.</p>
   
     <h3 class="kit-sub-h">Behaviour at width</h3>
     <p class="note"><b>From <code>--bp-tablet</code>, 47.5rem: the height goes to 220px.</b> One declaration, and it is the only component in the system whose adaptation is vertical. A chart is the one thing on a wide screen that genuinely uses the width, and a band that stays phone-height inside a 980px pane reads as a placeholder for something missing rather than as a chart.</p>
-    <p class="note">The threshold is the register's own, and the width itself is never declared: the chart is 100% of whatever column it stands in. See <a href="responsive.html#points">Width</a>.</p>
+    <p class="note"><b>And the 220 had never once rendered past 900.</b> The founder pointed at this box and said it was not beautiful; it was also not there. Past the desktop point <code>.app</code> is a grid at <code>height: 100dvh</code> and the screen inside it is a flex column, so the screen has a DEFINITE height and every flex child with the default <code>flex-shrink: 1</code> is compressed to fit. A block with <code>height: auto</code> has its content as an automatic minimum and cannot lose anything; this box declares a height, so it is <b>the only element in the whole coloured product that can</b>. Measured on the live screen before the fix: <b>162.31px of 220 at 1440 x 1000, 62.31 at 1440 x 900, and 2px at 1024 x 768</b>, where the month labels stood under nothing at all. It depended on the window's HEIGHT, which is why five stages of width sweeps never found it. The repair is in <a href="app-shell.html">the shell</a> and not here, because it is a fact about a pane that scrolls rather than about a chart.</p>
+    <p class="note"><b>The band has a measure now, and so does the label row under it.</b> The threshold above is the register's own, and the width used to be undeclared: the chart took 100% of whatever column it stood in, which past the desktop point is the whole pane. That made it 1140 by 220 at a 1440 window, <b>a 5.2 to 1 band holding one line</b>, standing next to a sentence that stops at its own reading measure around 500. The plot did not look wrong because of what was in it. It takes <code>--container-page</code>, 780, which is the measure the shell itself hands a block between the two points, so this is the screen's own number and not a new one: <b>3.5 to 1 at the cap and 3.3 at a 1024 window</b>. The label row takes it too, because the two only read as one object while they are the same width. See <a href="responsive.html#points">Width</a>.</p>
   </section>
 
   <section class="kit-sec" id="variants">
@@ -90,14 +91,14 @@
             <td class="val">3 gridlines<br>+ 1 path, 3 points</td>
             <td><a href="../history-trends.html">History and trends</a>. <b>Drawn at stage 07</b>, because the grey renders <code>[chart: monthly total, May to Jul]</code> as literal text, and a build note printed on a coloured screen is the wireframe convention outliving its stage. The three points are the same three figures the sentence above the box states in words</td>
           </tr>
-          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g><path d="M18 76 L150 51 L282 26" fill="none" stroke="var(--text-body)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span></span></td></tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g class="grid" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g><path class="area" d="M0 76 L150 51 L300 26 L300 100 L0 100 Z"/><path class="plot" d="M0 76 L150 51 L300 26" vector-effect="non-scaling-stroke"/></svg></span></span></td></tr>
           <tr>
             <td><b>The frame alone</b></td>
             
             <td class="val">3 gridlines<br>no path</td>
             <td><a href="../history-trends-locked.html">the Pro gate</a>, and it is <b>not the same object one state later</b>. The gridlines are there and the line is not, above the person's own five category labels. Every source in the references blurs a decorative chart behind its paywall; a blur is a lie about our own product, and an honest empty frame persuades better (node 5.12.4)</td>
           </tr>
-          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g></svg></span></span></td></tr>
+          <tr><td colspan="3"><span class="kit-stage app full wide"><span class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g class="grid" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g></svg></span></span></td></tr>
           <tr>
             <td class="kit-empty">A literal string</td>
             
@@ -110,12 +111,12 @@
     <h3 class="kit-sub-h">The two, at full width</h3>
     <p class="note">The matrix shows them at the width of a table cell, which is enough to tell them apart and not enough to read. Here is the same box on the two screens that carry a drawn one, at the width a screen gives it. Read them as a pair: the gate is not the plot with something taken away from it visually, it is the plot with <b>the data absent</b>, and everything that is true without the data is still on screen.</p>
     <div class="kit-stage app col">
-      <div class="chart" role="img" aria-label="Line chart of your monthly total from May to July"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g><path d="M18 76 L150 51 L282 26" fill="none" stroke="var(--text-body)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></div>
+      <div class="chart" role="img" aria-label="Line chart of your monthly total from May to July"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g class="grid" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g><path class="area" d="M0 76 L150 51 L300 26 L300 100 L0 100 Z"/><path class="plot" d="M0 76 L150 51 L300 26" vector-effect="non-scaling-stroke"/></svg></div>
       <p class="metarow"><span>May</span><span>Jun</span><span>Jul</span></p>
     </div>
     <p class="note"><b>History and trends,</b> Pro. Three gridlines and a three point path. The x positions of the points line up with the three month labels underneath.</p>
     <div class="kit-stage app col">
-      <div class="chart" role="img" aria-label="An empty chart frame with your own category labels, showing where your trends would be drawn"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g></svg></div>
+      <div class="chart" role="img" aria-label="An empty chart frame with your own category labels, showing where your trends would be drawn"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g class="grid" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g></svg></div>
       <p class="metarow"><span>Streaming</span><span>Software</span><span>Music</span><span>Fitness</span><span>News</span></p>
     </div>
     <p class="note"><b>The Pro gate,</b> and the labels under it are the person's own five categories rather than a sample. Same frame, same gridlines, no path. Nothing is blurred, nothing is faked, and the sentence beside it says what Pro adds.</p>
@@ -150,7 +151,7 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">Draw the frame honestly</span>
-        <div class="kit-stage app full wide"><span class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g></svg></span></div>
+        <div class="kit-stage app full wide"><span class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><g class="grid" stroke-width="1" vector-effect="non-scaling-stroke"><line x1="0" y1="22" x2="300" y2="22"/><line x1="0" y1="50" x2="300" y2="50"/><line x1="0" y1="78" x2="300" y2="78"/></g></svg></span></div>
         <p>Behind the gate the frame is real, the category labels under it are the person's own, and the line is simply absent. Nothing is blurred and nothing is invented. What Pro adds is stated in a sentence beside it, which is a claim that can be checked, unlike a smudge.</p>
       </div>
       <div class="no">
@@ -163,7 +164,7 @@
       <div class="yes">
         <span class="hd">Let the box own the height</span>
         <div class="kit-stage app full wide"><span class="chart">[chart: waiting for a third month]</span></div>
-        <p>Empty, waiting or drawn, the box is 168px tall. The frame reserves its space from the first paint, so the page does not jump when the data lands and does not shrink when there is none. The centring is what makes the fallback string sit properly in the middle of it.</p>
+        <p>Empty, waiting or drawn, the box is the same size: 168px tall on a phone and 220 past the tablet point, capped at 780 wide. The frame reserves its space from the first paint, so the page does not jump when the data lands and does not shrink when there is none. The centring is what makes the fallback string sit properly in the middle of it.</p>
       </div>
       <div class="no">
         <span class="hd">Never let a build note ship</span>
@@ -196,18 +197,22 @@
     <code class="kit-cmd">&lt;div class="chart" role="img" aria-label="Line chart of your monthly total from May to July,
      the same figures as the sentence above"&gt;
   &lt;svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"&gt;
-    &lt;g stroke="var(--line-container)" stroke-width="1" vector-effect="non-scaling-stroke"&gt;
+    &lt;g class="grid" stroke-width="1" vector-effect="non-scaling-stroke"&gt;
       &lt;line x1="0" y1="22" x2="300" y2="22"/&gt;
       &lt;line x1="0" y1="50" x2="300" y2="50"/&gt;
       &lt;line x1="0" y1="78" x2="300" y2="78"/&gt;
     &lt;/g&gt;
-    &lt;path d="M18 76 L150 51 L282 26" fill="none" stroke="var(--text-body)" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/&gt;
+    &lt;path class="area" d="M0 76 L150 51 L300 26 L300 100 L0 100 Z"/&gt;
+    &lt;path class="plot" d="M0 76 L150 51 L300 26" vector-effect="non-scaling-stroke"/&gt;
   &lt;/svg&gt;
 &lt;/div&gt;
 &lt;p class="metarow"&gt;&lt;span&gt;May&lt;/span&gt;&lt;span&gt;Jun&lt;/span&gt;&lt;span&gt;Jul&lt;/span&gt;&lt;/p&gt;
 
-The gate is the same block with the &lt;path&gt; removed. Nothing else changes.</code>
+Geometry only: three class names and no colour. Every stroke and fill on this
+plot is in chart-placeholder.css since 2026-08-18, because a colour written as an
+SVG attribute is a screen carrying a style of its own in the one place the
+rollout ledger cannot see it. The gate, the empty state and the loading state are
+the same block with the two &lt;path&gt;s removed. Nothing else changes.</code>
   </section>
 
   <footer class="kit-foot">
