@@ -7,6 +7,60 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - Twelve rows were addressed to a stage that had ended
+
+The founder asked one question - **"а мы все починили и сделали, или что-то
+осталось еще?"** - and counting the answer found something the count itself had
+been hiding. Of the 36 open rows in `backlog.md`, **twelve were addressed to stage
+12, which closed on 2026-08-17**.
+
+**A ROW WHOSE OWNER NO LONGER EXISTS IS NEITHER DONE NOR REFUSED.** It lies there,
+and every later count carries it as "open" while nobody is able to act on it. That
+is worse than an open row, because it looks like work in a queue and is not in
+anyone's queue.
+
+**EACH OF THE TWELVE WAS RE-READ AND RE-MEASURED BEFORE IT WAS RE-ADDRESSED**, and
+the measuring is most of what the sweep produced.
+
+**Four closed, because the thing they were waiting for had happened and nobody had
+looked.** `design/index.html` exists and is the coloured public landing, so the row
+saying the folder has no index page is answered and has been since the landing was
+coloured. The share card's total renders at **32px**, which is the value its named
+change promised, so the reverse-check row did its job. The step marker's 4px shift
+has shipped and measures a **14px marker-to-text gap** (40px padding, 26px marker),
+with `numbered-steps.css` carrying the same sentence at the rule. And the
+`.landing` scope row lost its premise: the page it called "grey only" is coloured.
+
+**One dropped at verification, and the row was WRONG rather than stale.** It said
+`.muted.spaced` is byte identical to the base and could be deleted. The base is
+`.app .screen > .muted`, a DIRECT CHILD rule, and **two of the three wearers in
+colour are not direct children of a screen** - the consequence line on
+`cancel-guide-no-guide` and the delete warning on `data-privacy`. All three compute
+`margin-top: 16px`, and for those two the modifier is the only thing supplying it.
+Deleting it would have moved two screens.
+
+**Six went to the founder**, because what is left in each is a decision and not
+work: the icon set's optical balance (and its 22 and 106 per cent keep the corpus
+they were measured on, which is FOUR icons, a fifth having joined the same day), a
+size primitive for the 26px marker, the `.cut` merge, the `.plans` axis, a quieter
+step for `.muted`, and whether a token origin is owed per name or per run.
+
+**One went back as work**: the eleven ARIA and form-semantics findings from stage
+07, which is the largest real task left in the file and the only row a builder can
+simply do.
+
+**Verified.** The backlog now has **0 rows addressed to a stage that has ended**;
+54 say closed against 51 before; 19 name the founder and 7 are work with no stage
+on them. `rollout12.cjs` 0 violations, `pages13.cjs` 0 of 127, the handoff page
+0 sideways, 0 requests failed, 0 console errors.
+
+**Ground:** the founder's question, and the rule it produced, which is now written
+into `backlog.md` itself: **an owner column is only as good as the owners in it, so
+a stage that closes owes a pass over every row still addressed to it.** Nothing in
+that file may name a stage that has ended.
+
+---
+
 ## 2026-08-18 - The critique of stage 13: 22 findings, and the two best came from disagreeing
 
 Run on two instruments the way `CLAUDE.md` requires: **Codex read-only on the
