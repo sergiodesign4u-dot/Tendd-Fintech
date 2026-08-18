@@ -7,6 +7,59 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-19 - "No link at all" was the wrong test, and the founder found it in an hour
+
+The strip that answers a dead end shipped in the morning against exactly two
+screens: the ones with no link out of `.app`. By the afternoon the founder was
+standing on `sign-in-sent` with the same complaint - **"и тут получается та же
+проблема, не видно, куда двигаться дальше - правильный имейл и ты перешёл дальше,
+или ошибка"** - and that screen has two controls.
+
+**THE TWO SCREENS LOOK NOTHING ALIKE AND THE DEFECT IS THE SAME.** "Send another
+link" and "Use a different email" both go BACKWARDS. What moves this screen
+forward happens in a mail client. So counting controls finds the wait and misses
+the hand-off, and the thing they share is not markup at all: **the step that moves
+the screen forward happens somewhere the prototype cannot go.** The system takes
+it, or the person leaves to take it.
+
+**SO THE CLASS IS DECLARED AND NOT INFERRED.** The map grew from 2 screens to
+**9**: the eight waits, found by asking which screens carry a skeleton or
+`aria-busy`, and the one hand-off. 23 doors. The "no link at all" check stays
+underneath as a net, so a wait coloured next month is never silently a dead end,
+and the declared entry is tried first because a screen with a way out that is not
+a way FORWARD is invisible to any structural test.
+
+**THE GRAPH WAS BUILT BECAUSE TWO ANECDOTES ARE NOT A NUMBER.** `walk13.cjs`
+reads every `href` inside `.app` across the 55 coloured screens - 273 links - and
+asks three questions:
+
+| | |
+|---|---|
+| **no forward door** | every link points at a screen that links back, so a reviewer can only retreat. **4**, and the check is that every one has a declared next step. One is a named exception, verified: `history-trends-locked`'s forward door IS `upgrade.html`, which links back because the gate is where you came from. **0 unanswered** |
+| **unreachable by clicking** | **21 of 55** by product links alone. With the chrome's doors counted, **8**. The strip recovers **13 states** that could only be reached from the side panel |
+| **what the chrome declares** | 9 screens, 23 doors, and **0 of them on a screen that is neither a wait nor the one hand-off**. A map that grows onto ordinary screens has stopped being about this problem |
+
+The remaining 8 are not a defect and the instrument says so out loud: no product
+screen links to `home-error`, and none should - that screen IS Home when the
+refresh fails. The number is there to be read rather than driven to zero.
+
+**AND THE STRIP LEARNED TO CLEAR THE TAB BAR, MEASURED RATHER THAN GUESSED.** Six
+of the nine screens carry one, and below the shell's point that bar is a 63px
+block along the bottom of the window, straight under a box pinned 16px off the
+same edge. The height is READ off the bar at mount and again on resize, because 63
+is the product's number and the chrome may not hold a copy of it: `tab-bar.css`
+declares `min-height: 48px` and the rest is padding and a label, so a literal
+would be right today and silently wrong after any change to either. The test is
+geometric rather than a width - is this bar on the bottom edge, and is it wider
+than it is tall - because the same bar is a 220px rail at 760.
+
+**STILL NOTHING IN A SCREEN FILE.** 23 doors, 9 screens, and the rollout ledger
+reads the same numbers it read yesterday: 0 style blocks, 0 classes the system
+does not define, 606 internal links. The 23 are resolved against the tree by
+section 4 of `rollout12.cjs`: **0 missing**.
+
+---
+
 ## 2026-08-19 - The way out of a wait belongs to the stand, not to the screen
 
 The founder, standing on `connect-bank-loading`: **"для меня тупик ... а что тут

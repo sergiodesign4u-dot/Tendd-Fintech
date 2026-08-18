@@ -62,7 +62,22 @@
      all, because an edge a person takes is a control and an edge the system
      takes is not. Counted over all 55 coloured screens, exactly TWO have no link
      out of `.app`, and they are U7's own two pages: `connect-bank-loading` and
-     `upgrade-processing`. Every other wait carries a tab bar and is walkable.
+     `upgrade-processing`.
+
+     AND "NO LINK AT ALL" WAS THE WRONG TEST, WHICH THE FOUNDER FOUND THE SAME
+     HOUR by standing on `sign-in-sent`: "и тут получается та же проблема, не
+     видно, куда двигаться дальше - правильный имейл и ты перешёл дальше, или
+     ошибка". That screen has two controls and both of them go BACKWARDS - send
+     another link, use a different email - because the step that moves it forward
+     happens in a mail client. Counted over the click graph of all 55: one screen
+     is a cul-de-sac by that reading and 21 states cannot be reached by clicking
+     at all, most of them the outcomes of a wait.
+
+     SO THE TEST IS DECLARED AND NOT INFERRED. A screen is in this map when its
+     forward step is somewhere the prototype cannot go: the system takes it (the
+     eight waits) or the person leaves to take it (the mail link). The "no link at
+     all" check stays underneath as a net, so a wait coloured next month is never
+     silently a dead end.
 
      SO THE ANSWER GOES ON THE STAND AND NEVER INTO THE SCREEN. This strip is
      drawn by the reviewer's chrome, outside `.app`, from data that lives here.
@@ -79,6 +94,9 @@
      each copied from a named source, and a wait that is coloured later without
      an entry still gets a strip - see the fallback in `nextStep()`.
      ========================================================================== */
+  var WAIT = 'A wait carries no control, by rule (U7): an edge the system takes is not a control, so this screen has no button by design. In the product it moves on its own, and these are the places it can land.';
+  var WAIT_TAB = 'A wait carries no control, by rule (U7). The tab bar underneath leaves the screen; it does not move this one forward. In the product the wait ends by itself, and these are the places it can land.';
+
   var AFTER = {
     'connect-bank-loading.html': {
       why: 'A wait carries no control, by rule (U7): an edge the system takes is not a control. In the product this screen moves on its own when the bank answers, and Plaid Link returns four outcomes.',
@@ -94,6 +112,58 @@
       doors: [
         ['history-trends.html', 'It went through', 'straight back to Your trends, open'],
         ['upgrade-payment-failed.html', 'The card was declined', 'nothing was charged']
+      ]
+    },
+    'sign-in-sent.html': {
+      why: 'The step that moves this screen forward is not on it and not in the product: the person opens their mail and taps the link. Both controls here go backwards, which is why it reads as a dead end. The link itself lands in one of two places.',
+      doors: [
+        ['home.html', 'The link worked', 'back in your list, signed in'],
+        ['sign-in-expired.html', 'The link had expired', 'it works once and then stops']
+      ]
+    },
+    'home-loading.html': {
+      why: WAIT_TAB,
+      doors: [
+        ['home.html', 'The list landed', 'fourteen subscriptions and the monthly total'],
+        ['home-empty.html', 'There is nothing to add up yet', 'connected, and no list to show'],
+        ['home-error.html', 'It could not be refreshed', 'the last update is shown instead']
+      ]
+    },
+    'alerts-loading.html': {
+      why: WAIT_TAB,
+      doors: [
+        ['alerts.html', 'There is something to know', 'the few things worth knowing about'],
+        ['alerts-empty.html', 'All clear', 'nothing needs your attention'],
+        ['alerts-error.html', 'They could not be loaded', 'nothing is wrong with your money']
+      ]
+    },
+    'history-trends-loading.html': {
+      why: WAIT_TAB,
+      doors: [
+        ['history-trends.html', 'The months landed', 'three months, and what moved'],
+        ['history-trends-empty.html', 'There is not enough history', 'fewer than three months so far'],
+        ['history-trends-error.html', 'They could not be loaded', 'something on our side did not answer']
+      ]
+    },
+    'subscription-detail-loading.html': {
+      why: WAIT_TAB,
+      doors: [
+        ['subscription-detail.html', 'The record landed', 'the full detail of one subscription'],
+        ['subscription-detail-error.html', 'The rest could not be loaded', 'the head is there, the record is not']
+      ]
+    },
+    'add-subscription-loading.html': {
+      why: WAIT,
+      doors: [
+        ['add-subscription.html', 'The service list landed', '400+ presets, and a search'],
+        ['add-subscription-error.html', 'The list could not be loaded', 'adding by hand still works']
+      ]
+    },
+    'share-snapshot-loading.html': {
+      why: WAIT,
+      doors: [
+        ['share-snapshot.html', 'The card was drawn', 'nothing is shared until you tap Share'],
+        ['share-snapshot-error.html', 'The card could not be made', 'the cancel win is saved either way']
       ]
     }
   };
@@ -181,9 +251,12 @@
      explanation of why. */
   function nextStep() {
     var app = document.querySelector('.app');
-    if (!app || app.querySelector('a[href$=".html"]')) return;
-    var here = current();
-    var e = AFTER[here], doors, why;
+    if (!app) return;
+    var here = current(), e = AFTER[here], doors, why;
+    /* declared first, the net second: a screen with a way out that is not a way
+       FORWARD is invisible to any structural test, and `sign-in-sent` is the
+       proof - two controls, both of them backwards */
+    if (!e && app.querySelector('a[href$=".html"]')) return;
     if (e) {
       doors = e.doors; why = e.why;
     } else {
@@ -213,6 +286,31 @@
     box.setAttribute('aria-label', 'Where this screen goes, for review');
     box.innerHTML = html;
     document.body.appendChild(box);
+
+    /* AND IT CLEARS THE TAB BAR, MEASURED RATHER THAN GUESSED. Six of the nine
+       screens this strip stands on carry a tab bar, and below the shell's own
+       point that bar is a 63px block along the bottom of the window - straight
+       under a box pinned 16px off the same edge. Past the point it is a 220px
+       rail down the left and there is nothing to clear.
+
+       The height is READ off the bar instead of written here, because 63 is the
+       product's number and the chrome may not hold a copy of it: `tab-bar.css`
+       declares `min-height: 48px` and the rest is padding and a label, so a
+       literal would be right today and silently wrong after any change to
+       either. The test is geometric and not a width: is this bar sitting on the
+       bottom edge of the window, and is it wider than it is tall. On resize it
+       is measured again, because the same bar becomes a rail at 760. */
+    function lift() {
+      var tab = document.querySelector('.tabbar');
+      var px = 0;
+      if (tab) {
+        var r = tab.getBoundingClientRect();
+        if (Math.abs(r.bottom - window.innerHeight) < 2 && r.width > r.height) px = Math.round(r.height);
+      }
+      box.style.setProperty('--lift', px + 'px');
+    }
+    lift();
+    window.addEventListener('resize', lift);
   }
 
   function mount() {
