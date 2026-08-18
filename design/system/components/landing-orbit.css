@@ -793,7 +793,79 @@
  .landing .lp-orbit.lp-story.fromcircle .osay { animation-name: sup; animation-range: contain 0% contain 18%; }
  /* and the heading takes the cell it leaves. It arrives once and holds; the
     stage's own release takes it with everything else. */
- .landing .lp-orbit.lp-story.fromcircle .storyhead { animation-name: sin; animation-range: contain 12% contain 26%; }
+ .landing .lp-orbit.lp-story.fromcircle .storyhead {
+   animation-name: sheadin;
+   animation-range: contain 12% contain 26%;
+   animation-timing-function: var(--ease-arrive);
+ }
+
+ /* ---- AND NEITHER IS THE REST OF THE STORY, 2026-08-18 ---------------------
+    Founder, on the phone running the stage for the first time: **"анимации на
+    мобилке очень далеки от оригинала"**. They were, and the reason is the same
+    one that held the head back a day earlier, read over a bigger set. This
+    component owns TWO kinds of rule inside the 60rem gate and they were never
+    separated: the SPREAD, which is geometry measured in `cqw` and a deck of
+    fourteen overlapping plates, and the STORY, which is what the objects do.
+    The phone was running the shared keyframes from `landing-story.css` - a row
+    folding away, a badge crossfading, a total crossfading, a card appearing -
+    where the desk was running this file's own, and the shared four are the ones
+    the file itself calls "the entrance that always reads as cheap".
+
+    So the story comes out of the gate and the spread stays in. Nothing here
+    needs a width: a row that goes quiet, holds long enough for the word to be
+    read and then lifts away is the same beat at 390 as at 1440, and a total
+    that rolls instead of dissolving is the most important number on the stage
+    at either size. What stays behind the point is the deck itself - `sfall`'s
+    three promotions, `pdrop`'s fourteen-plate cascade and the depth ramp they
+    read - because those are statements about a picture that only exists there.
+
+    The ranges are not touched: they come from `landing-story.css`, which has
+    carried a narrow set (35, 53, 71) and a wide one all along. */
+ /* the window goes out of focus on its way out rather than being turned down */
+ .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
+   animation-name: ovanish;
+   animation-timing-function: var(--ease-leave);
+ }
+ .landing .lp-orbit.lp-story.fromcircle .osay { animation-timing-function: var(--ease-leave); }
+ /* A CANCELLED LINE LEAVES, IT DOES NOT DEFLATE. The shared `sgo` recedes and
+    folds; `spart` goes quiet, turns its badge, HOLDS for a fifth of the beat so
+    that "Cancelled" is readable on a line that is still there, then lifts five
+    rem, drops four per cent, goes out of focus and is gone while its height
+    collapses under it. Fast, still, fast is what makes a movement look
+    expensive, and it is the one beat this whole section exists to show. */
+ .landing .lp-orbit.lp-story.fromcircle .sline.cut {
+   animation-name: spart;
+   animation-timing-function: var(--ease-leave);
+ }
+ .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .live {
+   animation-name: schipout;
+   animation-timing-function: var(--ease-leave);
+ }
+ .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .gone {
+   animation-name: schipin;
+   animation-timing-function: var(--ease-arrive);
+ }
+ /* the four totals and the four counts ROLL rather than crossfading: two
+    numbers at half opacity in one cell is a smear and neither is readable, and
+    rolled there is one number at a time and the direction says which way the
+    total is going */
+ .landing .lp-orbit.lp-story.fromcircle .storystack > * {
+   animation-timing-function: var(--ease-arrive);
+ }
+ .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(1) { animation-name: srollout; }
+ .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(2),
+ .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(3) { animation-name: sroll; }
+ .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(4) { animation-name: srollin; }
+ /* and a reason card glides in from the side it lives on. `--sglide` is that
+    side and it is ZERO below the side point, where all three lie across the
+    list's foot and the arrival is vertical - so this keyframe set was written
+    for the narrow case as much as the wide one and had simply never reached it. */
+ .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) {
+   animation-timing-function: var(--ease-arrive);
+ }
+ .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1),
+ .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { animation-name: sglide; }
+ .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { animation-name: sglidehold; }
 
  @container story (min-width: 60rem) {
   /* THE SECTION'S HEADING TAKES THE TOP CENTRE, on the founder's mark: in their
@@ -1120,8 +1192,17 @@
      with nothing at the end of it. The founder, 2026-08-14: "круг в центре
      остается... и трансформируем в каскадные 3д плитки". So it gives way where it
      stands and the cascade comes out of it. */
+  /* AND THE NAME IS NOT WRITTEN HERE ANY MORE, ONLY THE RANGE, 2026-08-18. This
+     rule said `ofold` and was overruled twenty lines later by `ovanish` at the
+     same specificity, so what the desk actually ran was `ovanish` over this
+     range. The moment `ovanish` moved out of this gate to reach the phone, the
+     order flipped and the desk quietly went back to `ofold`: measured, the
+     window at 1024 read `ofold` where it had read `ovanish`, and the marquee
+     under it moved 4px. Two rules that set one property at one specificity are
+     decided by which is written last, which is not a decision anybody takes on
+     purpose. The name has one owner now and this rule states the one thing that
+     is genuinely different at the desk: WHEN. */
   .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
-    animation-name: ofold;
     animation-range: contain 26% contain 40%;
   }
   /* AND THE SWAP STOPS CLIPPING, which is the one line that lets the dive be seen
@@ -1276,21 +1357,14 @@
     animation-range: contain 24% contain 38%;
   }
 
-  .landing .lp-orbit.lp-story.fromcircle .osay { animation-timing-function: var(--ease-leave); }
+  /* THE STORY'S OWN SEVEN RULES MOVED OUT OF THIS GATE ON 2026-08-18 and are
+     declared above it: the window leaving out of focus, the promise's exit
+     curve, the heading's arrival, the cancellation, the badge's turn, the
+     rolling figures and the gliding reason cards. None of them is a fact about
+     a wide screen. What is left in here is the SPREAD and the DECK. */
   /* the figures ride the travel curve, not the arrival one: see --ease-travel */
   .landing .lp-orbit.lp-story.fromcircle .ocount,
   .landing .lp-orbit.lp-story.fromcircle .ototal { animation-timing-function: var(--ease-travel); }
-  /* the heading no longer merely appears: `sheadin` brings it up and pulls it
-     into focus, and the ease is what makes it stop rather than halt */
-  .landing .lp-orbit.lp-story.fromcircle .storyhead {
-    animation-name: sheadin;
-    animation-timing-function: var(--ease-arrive);
-  }
-  /* the window goes out of focus on its way out */
-  .landing .lp-orbit.lp-story.fromcircle .storyswap > .orbit {
-    animation-name: ovanish;
-    animation-timing-function: var(--ease-leave);
-  }
   /* THE DECK IS THE ONE THING THAT SETTLES. Its range carries two different
      movements - the arrival at the front of it and the promotion at 50% - and
      the spring shapes both: the deck comes up and seats itself, and later the
@@ -1336,37 +1410,6 @@
   .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(13):not(.cut) { animation-range: contain 39.8% contain 44.3%; }
   .landing .lp-orbit.lp-story.fromcircle .sline:nth-child(14):not(.cut) { animation-range: contain 40.6% contain 45.1%; }
 
-  /* a cancelled plate leaves on the exit curve: it holds while the reader reads
-     the word, then goes quickly */
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut {
-    animation-name: spart;
-    animation-timing-function: var(--ease-leave);
-  }
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .live {
-    animation-name: schipout;
-    animation-timing-function: var(--ease-leave);
-  }
-  .landing .lp-orbit.lp-story.fromcircle .sline.cut .swap > .gone {
-    animation-name: schipin;
-    animation-timing-function: var(--ease-arrive);
-  }
-
-  /* the four totals and the four counts roll instead of crossfading */
-  .landing .lp-orbit.lp-story.fromcircle .storystack > * {
-    animation-timing-function: var(--ease-arrive);
-  }
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(1) { animation-name: srollout; }
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(2),
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(3) { animation-name: sroll; }
-  .landing .lp-orbit.lp-story.fromcircle .storystack > *:nth-child(4) { animation-name: srollin; }
-
-  /* and a reason card glides in from the side it lives on */
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(n) {
-    animation-timing-function: var(--ease-arrive);
-  }
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(1),
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(2) { animation-name: sglide; }
-  .landing .lp-orbit.lp-story.fromcircle .scard:nth-child(3) { animation-name: sglidehold; }
 
  }
 }

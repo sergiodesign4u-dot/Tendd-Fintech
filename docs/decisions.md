@@ -7,6 +7,75 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - The story leaves the width gate, and a 24px gap that was 0 on every screen
+
+Two founder notes in one pass, and they turn out to be the same mistake twice: a
+rule that reads correctly in the file and never once did what it says on a
+screen.
+
+**"АНИМАЦИИ НА МОБИЛКЕ ОЧЕНЬ ДАЛЕКИ ОТ ОРИГИНАЛА", AND THEY WERE.** The phone got
+the stage yesterday and ran it with the SHARED keyframes: a row folding away, a
+badge crossfading, a total crossfading, a card appearing. The desk ran
+`landing-orbit.css`'s own set, and that file's own page calls the shared four
+"the entrance that always reads as cheap". The gate at 60rem was holding two
+different kinds of rule and nobody had separated them: the **spread**, which is
+geometry in `cqw` and a deck of fourteen overlapping plates, and the **story**,
+which is what the objects do.
+
+**SEVEN RULES CAME OUT OF THE GATE AND THE DECK STAYED IN.** The window leaving
+out of focus (`ovanish`), the promise's exit curve, the heading's arrival
+(`sheadin`), the cancellation (`spart` - goes quiet, turns its badge, HOLDS for a
+fifth of the beat so that "Cancelled" can be read on a line that is still there,
+then lifts five rem out of focus while its height collapses), the badge's turn
+with a scale (`schipin`/`schipout`), the four totals and four counts ROLLING
+rather than crossfading, and the reason cards gliding in. Not one of them needs a
+width, and `sglide`'s own `--sglide` is already zero below the side point, so
+that keyframe set had been written for the narrow case and had simply never
+reached it. What stayed behind the point is the deck itself: `sfall`'s three
+promotions, `pdrop`'s fourteen-plate cascade and the depth ramp they read.
+
+**AND MOVING ONE OF THEM FOUND A RULE DECIDED BY SOURCE ORDER RATHER THAN BY
+ANYBODY.** The window's rule inside the gate said `animation-name: ofold` and was
+overruled twenty lines later by `ovanish` at the **same specificity**, so what
+the desk actually ran was `ovanish`. The moment `ovanish` moved above the gate to
+reach the phone, the order flipped and the desk went quietly back to `ofold` -
+caught by the fingerprint, which read `ofold` at 1024 where it had read `ovanish`
+and put 4px of movement into the marquee under it. The name has one owner now and
+the gated rule states the only thing genuinely different at the desk: **when**.
+Measured after: the desk differs from yesterday's HEAD by **2513 records of
+10 725**, every one a marquee chip, its mark or its price, moving in `x` alone -
+under the noise floor of running the same code twice.
+
+**"С РАССТОЯНИЯМИ ОТ ТЕКСТА ДО БЛОКА СЕЙЧАС В ПРИТИК", AND IT WAS 0px AT EVERY
+WIDTH.** `landing-facts.css` declares `.fdemo { margin-top: var(--space-24) }`
+and the very next rule gives `:last-child` an `auto` top margin. The proof is the
+last child in all three cards that carry one, so the 24 was overwritten every
+time - and an auto margin in a flex column is whatever **free space** is left. A
+card exactly as tall as its contents has none, so the used value was zero. Read
+at nine widths from 320 to 1920: **0px on all three cards at every one of them**,
+since the day the rule was written. It survived because past the desktop point
+two of the three put their proof BESIDE the text, where there is no seam to look
+at.
+
+**AN AUTO MARGIN CANNOT CARRY A MINIMUM, SO THE MINIMUM COMES FROM THE OTHER SIDE
+OF THE SEAM.** The sentence pays it, `.lp-fact:has(.fdemo) > p`, and the proof
+keeps the `auto` that pushes it to the floor of a card stretched by its
+neighbour: whichever is larger wins, which is what the two rules together were
+always meant to say. Scoped with `:has()` because the one claim with nothing to
+show ends on its sentence, and given back inside the desktop block where the
+proof stands beside the text. Measured after: **24px on all three cards from 320
+to 760**, the two-column arrangement identical, and a sweep of the whole public
+page for a paragraph sitting under 12px from a bordered or filled block below it
+returns **0 pairs** at 390 and at 1440.
+
+**THE SENTENCE BOTH HALVES SHARE.** A declaration is not a distance. `24px`
+written where a later rule can replace the property, and `auto` written where
+there is no free space, both read as intent in the file and measure as nothing on
+the screen - and neither can be caught by reading the CSS, only by measuring the
+gap.
+
+---
+
 ## 2026-08-18 - The phone runs the same stage as the desk, and the release that stopped it had never fully applied
 
 Founder, on a screenshot of the story section on a phone: **"ты какую-то ерунду

@@ -131,6 +131,24 @@
   font-size: var(--type-body);
   color: var(--text-body);
 }
+/* THE GAP TO THE PROOF BELONGS TO THE SENTENCE, 2026-08-18, and it is here
+   because on the box below it never once applied. Founder, on a phone: the
+   distances from the text to the block are flush. Measured, and it was worse
+   than a phone defect: `.fdemo` declares `margin-top: var(--space-24)` and the
+   very next rule gives `:last-child` an `auto` top margin - the demo is the last
+   child in all three cards that have one, so the 24 is overwritten every time,
+   and an auto margin in a flex column is whatever FREE SPACE is left. In a card
+   that is exactly as tall as its contents there is none, so the used value is 0.
+   Read at nine widths from 320 to 1920: the gap was **0px at every one of them**
+   on all three cards, and it had been since the rule was written.
+
+   An auto margin cannot carry a minimum, so the minimum has to come from the
+   other side of the seam. The sentence pays it and the demo keeps the `auto`
+   that pushes it to the floor of a stretched card: whichever is larger wins,
+   which is what the two rules together were always meant to say. Scoped with
+   `:has()` because the one claim with nothing to show ends on its sentence, and
+   a bottom margin on the last thing in that card is 24px of nothing. */
+.landing .lp-fact:has(.fdemo) > p { margin-bottom: var(--space-24); }
 
 /* A CLAIM WITH NOTHING TO SHOW SAYS IT LOUDER, and the rule states exactly
    that: one step up in size for the panel that carries no proof. It is not
@@ -187,8 +205,10 @@
    subtree with something focusable in it is a defect in the accessible tree,
    not a decoration. `pointer-events: none` answers the pointer for the whole
    box at once instead of repainting the button and the row that live in it. */
+/* the top margin is `auto` and nothing else: see the sentence's own bottom
+   margin above for why a number here could never be read */
 .landing .lp-fact .fdemo {
-  margin: var(--space-24) var(--space-0) var(--space-0);
+  margin: var(--space-0);
   padding: var(--space-8) var(--space-16);
   border: 1px solid var(--line-container);
   border-radius: var(--radius-sm);
@@ -247,6 +267,12 @@
     align-self: center;
     margin: var(--space-0);
   }
+  /* and the sentence gives its gap back here, because the proof is BESIDE it in
+     this arrangement rather than under it: 24px under the last line of column
+     one is a gap to nothing, and it would make the text column the taller of
+     the two on the anchor card */
+  .landing .lp-fact.anchor > p,
+  .landing .lp-fact.wide > p { margin-bottom: var(--space-0); }
 }
 
 /* ---- the entrance ---------------------------------------------------------
