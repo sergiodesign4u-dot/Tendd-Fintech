@@ -7,6 +7,69 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - Seven sentences flush on the block under them, and a row filed under the wrong gap
+
+The founder, still on the paywall: **"нам би еще отступы покрутить би"**, with a
+picture of the context line sitting on the top edge of the plan row. One look,
+and the instrument turned it into a corpus.
+
+**THE MUTED LINE DECLARES A TOP MARGIN AND NO BOTTOM.** That is exactly right for
+the job it usually has - a footnote hanging under the block it explains, with
+nothing after it - and wrong for the other job the same markup does: a line of
+context standing BEFORE the thing it introduces. The last block on a screen and
+the block before the offer are the same element in this system.
+
+**COUNTED, NOT GUESSED.** Sixteen of these lines stand as a direct child of a
+screen across the 54 coloured app pages: **twelve are last** and four are
+followed by something, and all four measured **0px** at 390 and at 1440 - "Saved
+as you go" sitting on "See your subscriptions" on `add-subscription`, the same
+shape on `history-trends`, a muted line on a quiet line on
+`upgrade-current-plan`, and the founder's own on `upgrade`. The same sweep found
+three more one level down, inside `.card`: the two consequence sentences on
+`connections` and the reconnect sentence on `connections-reconnect`, each with
+the button that carries it out sitting on the sentence's last line.
+
+**TWO STEPS, BECAUSE THERE ARE TWO HOSTS.** 24 at screen level, which is what
+`.grid` already carries under itself and what `app-shell.css` gives the screen's
+action row above itself; 16 inside a card, which is the card's own padding and
+its internal rhythm. The card's own evidence agrees: of the five action rows
+inside a card, the two that do NOT follow a muted line already stand at 24 and
+16. `:not(:last-child)` is what leaves the twelve footnotes untouched.
+
+**AND IT CANNOT DOUBLE IN THE FLEX COLUMN**, which is the trap this repo has an
+open row about. Measured before the change: **all seven next siblings compute
+`margin-top: 0px`**, so there is no second margin for this one to add to at
+either width, and the result is identical at 390 and 1440.
+
+**THE PLAN ROW WAS FILED UNDER THE WRONG HALF OF grid.css's OWN AXIS.** The door
+row's block states it in one sentence: "the axis is the child's WEIGHT: two whole
+bordered cards of equal standing take air, six chips do not", and takes
+`--space-16` on that ground. The plan row is THREE whole bordered cards of equal
+standing, each 293px wide, and it was taking **the 8px this file gives six
+chips**. Its bottom margin was a third value too: the base carries 24 under a
+grid, the door row takes it back to 0 because it has a host, and the plan row had
+16 with "Maybe later" standing under it. Both were carried "byte for byte from
+before the fold", which is how a number survives without ever being chosen. Gap
+to 16, margin to 24, and the caps follow: the row 56rem to **57rem**, the screen
+58 to **59rem**. The card is **293.33 either way** - the whole change is air
+between cards.
+
+**Verified.** Zero text-to-surface pairs under 16px remain anywhere in the
+coloured corpus that are not a declared value (the five `.gate` pairs at 8 and
+the loading skeleton at 8 are chosen). All seven repaired pairs read exactly 24
+or exactly 16 at 390 and at 1440. Box fingerprint over all 55 coloured pages at
+both widths: **exactly six pages move, and they are the six the sweep named**.
+The wrap threshold on the plan button moves 897 to 913 with the wider gap, and
+that number is corrected everywhere it was written. `rollout12.cjs`: 0 violations
+on all 55 screens.
+
+**Ground:** the founder's sentence, and this file's own rule that a value changes
+by a named decision. What the pass is really about: **a margin written for one of
+an element's two jobs is silent on the other**, and the only way to find that is
+to sweep the corpus for the distance rather than to read the rule.
+
+---
+
 ## 2026-08-18 - The paywall: three prices on two lines, and a cap that answered the wrong string
 
 The founder, on `design/upgrade.html`: **"нашел проблемную страницу, выглядит не

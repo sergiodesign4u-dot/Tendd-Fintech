@@ -146,6 +146,49 @@
    written down because the day one of them moves is the day it matters. */
 .app .screen > .muted, .landing .screen > .muted { margin-top: var(--space-16); }
 
+/* ---- AND IT OWES A DISTANCE BELOW ITSELF WHEN SOMETHING FOLLOWS, 2026-08-18 --
+   The founder, on the coloured Upgrade screen: "нам би еще отступы покрутить би",
+   with a picture of a sentence sitting flush on the top edge of the plan row.
+   The rule above declares a top margin and no bottom, which is exactly right for
+   the job this line usually has - a footnote hanging under the block it explains,
+   with nothing after it. It is wrong for the other job the same markup does:
+   a line of context standing BEFORE the thing it introduces. The last block on a
+   screen and the block before the offer are the same element in this system.
+
+   COUNTED RATHER THAN GUESSED, over all 54 coloured app screens: 16 of these
+   lines exist, **12 are the last block on their screen** and 4 are followed by
+   something. All four measured **0px** at 390 and at 1440 - "Saved as you go" on
+   `add-subscription` sitting on "See your subscriptions", the same shape on
+   `history-trends`, a muted line on a quiet line on `upgrade-current-plan`, and
+   the founder's own on `upgrade`. `:not(:last-child)` is what keeps the twelve
+   footnotes untouched, so this rule moves four elements on four pages.
+
+   24 AND NOT 16, and it adds to nothing. 24 is the screen's block step: `.grid`
+   carries it under itself and `app-shell.css` gives the screen's action row the
+   same above itself. And it cannot double in the flex column past the desktop
+   point, which is the trap this file's neighbours keep falling into: measured
+   before the change, **all four next siblings compute `margin-top: 0px`**, so
+   there is no second margin for this one to add to at either width. */
+.app .screen > .muted:not(:last-child),
+.landing .screen > .muted:not(:last-child) { margin-bottom: var(--space-24); }
+
+/* AND THE SAME SENTENCE INSIDE A CARD, at the card's step rather than the
+   screen's. The instrument that found the four above found three more one level
+   down, all on `.card`: "Disconnecting stops Tendd from reading new charges" and
+   "Removing this source deletes the 3 subscriptions you typed" on `connections`,
+   and the reconnect sentence on `connections-reconnect`, each with the button
+   that carries it out sitting on the last line of the sentence. Same root - this
+   atom declares no bottom margin anywhere - and a different host, so a different
+   step: 16 is the card's own padding and its internal rhythm, where 24 is the
+   screen's between two blocks. The evidence is in the card too: of the five
+   action rows inside a card, the two that are NOT after a muted line already
+   stand at 24 (after a pair list, which pays for itself) and 16 (after a list in
+   a prose card). Measured before the change, all three sit at exactly 0px at 390
+   and at 1440, and all three next siblings compute `margin-top: 0px`, so this
+   adds to nothing in the flex column either. */
+.app .card > .muted:not(:last-child),
+.landing .card > .muted:not(:last-child) { margin-bottom: var(--space-16); }
+
 .app .summary .muted, .landing .summary .muted,
 .app .rstep .muted,   .landing .rstep .muted { margin-top: var(--space-8); }
 

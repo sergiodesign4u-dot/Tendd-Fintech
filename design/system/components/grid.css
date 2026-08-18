@@ -189,10 +189,37 @@
    the map does not declare and this file will not invent one. See the header.
    `.landing` is here because the plan row is the one component in this system
    with two hosts. */
+/* ---- THE GAP AND THE MARGIN, BOTH ON THIS FILE'S OWN AXIS, 2026-08-18 -------
+   Founder: "нам би еще отступы покрутить би". Two of this rule's three values
+   were carried "byte for byte from before the fold" and neither had a reason.
+
+   THE GAP WAS THE TILE ROW'S. The door row's block above states the axis in one
+   sentence: "the axis is the child's WEIGHT: two whole bordered cards of equal
+   standing take air, six chips do not", and it takes --space-16 on that ground.
+   The plan row is THREE whole bordered cards of equal standing, each of them
+   293px wide and holding a price, a sentence, a full-width button and a
+   four-line list, and it was taking the 8px this file gives six chips. Roomy and
+   Tight are this component's own words; the plan row was filed under the wrong
+   one. 16, the door row's value, for the same reason the door row has it.
+
+   THE BOTTOM MARGIN WAS A THIRD VALUE. The base carries 24 under a grid and the
+   door row takes it back to 0 because it has a host; the plan row had 16, which
+   is neither, and under it stands "Maybe later" - a real exit at the same weight
+   as the buttons in the cards, sitting 16px from a row of bordered surfaces.
+   It takes the base's 24.
+
+   NO TOP MARGIN, and that is deliberate rather than an omission: the block above
+   it on the only screen that carries it is a muted line, and muted-line.css now
+   pays the 24 below itself. One distance, one owner.
+
+   THE CAP MOVES WITH THE GAP AND THE CARD DOES NOT. 3 x 282.78 + 2 x 16 is
+   880.34 rather than 864.34, so the register goes 56rem to 57rem and the screen
+   58 to 59. Measured after: the card is 293.33 at both, to the hundredth - the
+   whole change is air between cards and nothing else. */
 .app .plans, .landing .plans {
   display: grid;
-  gap: var(--space-8);
-  margin: var(--space-0) var(--space-0) var(--space-16);
+  gap: var(--space-16);
+  margin: var(--space-0) var(--space-0) var(--space-24);
 }
 
 /* ---- the landing's plan row: GONE FROM THIS FILE ON 2026-08-15 -------------
@@ -403,7 +430,7 @@
    the container block because a cap that only holds between two points is the
    bug, not the feature. `.plans` is a direct child of `.screen` on both pages
    that carry it, checked before the selector was tightened. */
-/* ---- AND THE CAP IS 56rem SINCE 2026-08-18, RECOMPUTED FROM THE THING IT WAS
+/* ---- AND THE CAP IS 57rem SINCE 2026-08-18, RECOMPUTED FROM THE THING IT WAS
    ALWAYS AIMING AT ------------------------------------------------------------
    720 came from stage 07, and app-shell.css states its purpose in one sentence:
    the three cards "were crushed to 185px each and both the button label and
@@ -416,24 +443,28 @@
 
    THE NEW NUMBER IS THAT LABEL PLUS THE CARD AROUND IT. 248.78 of button, 32 of
    the card's padding and 2 of its border is 282.78 a card; three of those and two
-   8px gaps is 864.34. The registers above it are 54.5rem (872, 2.55 of slack),
-   55rem (880, 5.2), 55.5rem (888, 7.87) and 56rem (896, 10.55): 56 is the first
+   16px gaps is 880.34. The registers above it are 55.5rem (888, 2.55 of slack),
+   56rem (896, 5.22), 56.5rem (904, 7.89) and 57rem (912, 10.55): 57 is the first
    at or above half a --space-16 of slack, and slack is the point, because a
    fallback font or a rounding must not cost the one line this cap exists to buy.
+   It read 56 for a few hours, against the tile row's 8px gap, until that gap was
+   corrected to the door row's 16 in the same session. The card is 293.33 either
+   way: the extra 16 is air between cards and nothing else.
 
    IN rem AND NOT px, WHICH THE 720 WAS. A cap measured off a string has to grow
    with the string: at a 20px root the label is a quarter wider and a px cap would
-   wrap it again, where 56rem widens with it. That is the same argument the four
+   wrap it again, where 57rem widens with it. That is the same argument the four
    --container-* tokens are written in rem for.
 
-   BELOW A 928px WINDOW THE LABEL STILL WRAPS, and that is stated rather than
+   BELOW A 913px WINDOW THE LABEL STILL WRAPS, and that is stated rather than
    hidden: the cap is a ceiling, so between the row's 760 container point and the
    window where the cap starts binding the three cards are narrower than 282.78
    and the button takes two lines exactly as before. Closing that band needs
    either a shorter label, which belongs to voice/docs/microcopy.md and to the
    founder, or a stacked arrangement in the band, which is a layout decision
-   nobody has asked for. Measured after: the wrap stops at a 897px window. */
-.app > .screen > .plans { max-width: 56rem; }
+   nobody has asked for. Measured after: the wrap stops at a 913px window, and
+   the cap itself starts binding at 944. */
+.app > .screen > .plans { max-width: 57rem; }
 
 /* ---- the landing's own step, and it is a MEDIA query ----------------------
    Deliberately not a container query, and kit.css said why at the line it was
@@ -471,7 +502,7 @@
    reads `document.querySelector('.grid:has(.tile)')`, which names the
    relationship rather than the container.
 
-   app-shell.css runs `.app.flow > .screen:has(.plans) { max-width: 58rem }`
+   app-shell.css runs `.app.flow > .screen:has(.plans) { max-width: 59rem }`
    to widen the one step of the onboarding chain that is not prose. `.plans`
    still exists, so it still holds today. When the plan row is finally named, it
    must become `:has(.plan-opt)` and NOT `:has(.grid)`: the tile row is also
