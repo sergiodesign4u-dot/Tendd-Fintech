@@ -1,0 +1,52 @@
+READ THIS FIRST. The line below says "the promise is zero" and this run reads 1
+at 360, and that is the intended result rather than a failure. The stock promise
+is written for a change that must not move a phone; the badge leaving the flow
+is a repair at every width, and it is the phone's card that gets 32px shorter.
+
+Run 2026-08-18 over the fix for the three defects the founder photographed on
+design/upgrade.html: the badge pushing one card's price 32px below the other two
+(plan-option.css), the plan row's cap recomputed from the button label it was
+widened for (grid.css) and the screen cap that follows it (app-shell.css). The
+`before` pass was taken off a stashed tree, so the two runs differ by nothing but
+those three files.
+
+WHAT TO CHECK IN THE LIST BELOW: exactly ONE page differs, at either width, and
+it is upgrade.html. design/index.html carries the same molecule and is
+byte-identical at both widths, because landing-plan.css declares its own three
+columns and its own badge placement at its own specificity. That is the whole
+proof that the change stayed inside the host that asked for it.
+
+FINGERPRINT DIFF, 55 pages at 360 and at 1440
+  pages differing at 360:  1   (the promise is zero)
+  pages differing at 1440: 1
+  boxes differing at 360:  45
+  boxes differing at 1440: 47
+
+  upgrade.html@360  45 boxes
+     >div.layout#1
+        was 0,40,360,1564  now 0,40,360,1532
+     >div.layout#1>div.stage.stage-app#1
+        was 0,40,360,1564  now 0,40,360,1532
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1
+        was 0,40,360,1564  now 0,40,360,1532
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen.act-foot#1
+        was 0,101,360,1503  now 0,101,360,1471
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen.act-foot#1>div.plans#1
+        was 16,269,328,1153  now 16,269,328,1121
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen.act-foot#1>div.plans#1>div.plan-opt#1
+        was 16,269,328,393  now 16,269,328,361
+     ... and 39 more
+  upgrade.html@1440  47 boxes
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen.act-foot#1
+        was 340,101,760,799  now 256,101,928,799
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen.act-foot#1>div.textblock#1
+        was 356,125,728,57  now 272,125,896,57
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen.act-foot#1>div.textblock#1>h1#1
+        was 356,125,728,28  now 272,125,896,28
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen.act-foot#1>div.textblock#1>p#1
+        was 356,161,459,21  now 272,161,459,21
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen.act-foot#1>p.muted#1
+        was 356,222,459,42  now 272,222,459,42
+     >div.layout#1>div.stage.stage-app#1>div.app.flow#1>main.screen.act-foot#1>p.muted#1>strong#1
+        was 494,224,79,17  now 410,224,79,17
+     ... and 41 more

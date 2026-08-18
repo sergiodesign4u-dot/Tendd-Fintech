@@ -122,9 +122,49 @@
    that this one is written in the host's file rather than in the chip's, and it
    was written there before this wave: the rename kept it where it stood rather
    than moving a rule and renaming it in the same breath. */
+/* ---- AND IT COSTS THE CARD NO FLOW HEIGHT, 2026-08-18 --------------------
+   The founder, on the coloured Upgrade screen: "выглядит не очень". The loudest
+   thing in that screenshot is three prices that do not start on one line. Only
+   the yearly card carries a badge, the badge was a block in the flow above the
+   price, so `$69` stood 32px below `$7.99` and `Lifetime` at every width from
+   768 up - on the one screen whose whole job is a comparison between three
+   numbers.
+
+   THE ANSWER WAS ALREADY WRITTEN, IN ONE HOST. landing-plan.css solved this on
+   2026-08-15 and recorded the three arrangements it tried: "Stacked above the
+   price it pushed the yearly figure 31px below the other two, so the numbers a
+   person compares did not start on one line. Beside the price, in a second
+   column, it fixed that and cost the card its axis... On the top EDGE it costs
+   no flow height at all, so the price is the first thing in every card." It even
+   quoted this file's own `position: relative` and called it "the day" the anchor
+   was needed. That fix stayed inside `.landing .lp-plan`, and the app's card
+   kept the defect for three days - the same shape as the story's release: a
+   correction written in one arrangement rather than in the component.
+
+   SO THE FLOW HEIGHT IS THE COMPONENT'S RULE AND THE PLACE IS THE HOST'S. Out
+   of the flow here, with `margin: 0`, so the amount is the first box in the
+   column on every card and the three prices share a line by construction.
+   landing-plan.css already declares `top`, `left` and a translate for the
+   straddling badge, which is unchanged; what is new is that it no longer has to
+   undo a margin the component set.
+
+   TOP RIGHT AND NOT THE TOP EDGE, on this host only, and the reason is the
+   axis the landing named. The landing's card is centred, so a corner badge has
+   no edge to belong to and the straddle is the only placement that keeps the
+   card symmetrical. The app's card is left-aligned: the corner IS its axis, and
+   a badge that straddles the top border of a card standing shoulder to shoulder
+   with two others would read as a label for the row rather than for the card.
+   Measured, so the corner is not a guess: the badge is 66 wide, `$69` is 60.41,
+   and the narrowest card content this screen has ever had is 201 - 74.6px of
+   clear air between them at the tightest width in the product, and more at
+   every other. */
 .app .plan-opt .chip, .landing .plan-opt .chip {
-  align-self: flex-start;
-  margin: var(--space-0) var(--space-0) var(--space-8);
+  position: absolute;
+  margin: var(--space-0);
+}
+.app .plan-opt .chip {
+  top: var(--space-16);
+  right: var(--space-16);
 }
 
 /* Full width, so the three actions line up across the row of cards. This is the

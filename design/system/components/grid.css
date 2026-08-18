@@ -347,16 +347,44 @@
              (328 + 8) / 168 = 2, the two that were declared on the base rule.
              The fluid form reproduces BOTH declared counts exactly, at every
              width, which is why it costs nothing to take.
-     plans   13.125rem, 210px, local and not a token: one row, one place. The
-             band is (160, 234]: over 160 so two plans never share a 360 screen,
-             at or under 234 so three fit the 720 cap. 210 sits in the middle of
-             a band 74px wide.
+     plans   THE PLAN ROW LEFT THIS FAMILY ON 2026-08-18 and the paragraph that
+             stood here, sizing its floor at 13.125rem, went with it. See the
+             block under this one: it turned out to be the door row's question
+             and not the tile row's, and this file was already arguing both
+             sides of it in two places.
    ============================================================================ */
 @container (min-width: 47.5rem) {
   .app .grid, .landing .grid { grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-min), 100%), 1fr)); }
   .app .grid.roomy, .landing .grid.roomy { grid-template-columns: 1fr 1fr; }
-  .app .plans, .landing .plans { grid-template-columns: repeat(auto-fill, minmax(min(13.125rem, 100%), 1fr)); }
+  /* THREE, DECLARED, SINCE 2026-08-18. See the block below for the arithmetic
+     that forced it and for the contradiction inside this file that it settles. */
+  .app .plans, .landing .plans { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* ============================================================================
+   THE PLAN ROW IS THE DOOR ROW'S QUESTION, NOT THE TILE ROW'S, 2026-08-18
+
+   Stage 10 folded the plan row into the fluid family with the sentence "how many
+   presets fit is a fact about the width available and the narrow floor of a tile;
+   nobody chose three". That is true of presets. It is not true here, and this
+   file was already saying so forty lines further down, about the same row on the
+   other page: "the landing's pricing block holds exactly THREE plan options, so
+   three is content and not a fit question. Fluid would put four or five tracks
+   across a wide window and leave two of them empty on the one block whose whole
+   job is a comparison between three named things." One row, one product, two
+   opposite arguments in one file. The second one is right, and it is the door
+   row's argument word for word: D4 names two prices and the third card is the
+   lifetime plan, so there will never be a fourth.
+
+   IT WAS DORMANT ONLY BECAUSE THE CAP WAS TOO LOW TO EXPOSE IT. With the row
+   capped at 720 the pane is 728 at most, and (728 + 8) / (210 + 8) = 3.37, so
+   auto-fill happened to give three. Raising the cap below to 896 makes it
+   (896 + 8) / 218 = 4.14: FOUR tracks, the last one empty, and three cards
+   shrunk to 218 on the screen that asks for money. The declared count cannot
+   make that mistake at any cap, and it changes nothing at the old one: measured
+   at nine widths from 320 to 1920 before the cap moved, the row is three
+   columns of exactly the same width either way.
+   ============================================================================ */
 
 /* THE PLAN ROW'S CAP, AND IT IS ALIVE AGAIN AS OF 2026-08-13. Founder's
    decision at stage 10 step 1: close it in this stage rather than carry it.
@@ -375,7 +403,37 @@
    the container block because a cap that only holds between two points is the
    bug, not the feature. `.plans` is a direct child of `.screen` on both pages
    that carry it, checked before the selector was tightened. */
-.app > .screen > .plans { max-width: 720px; }
+/* ---- AND THE CAP IS 56rem SINCE 2026-08-18, RECOMPUTED FROM THE THING IT WAS
+   ALWAYS AIMING AT ------------------------------------------------------------
+   720 came from stage 07, and app-shell.css states its purpose in one sentence:
+   the three cards "were crushed to 185px each and both the button label and
+   'Everything in Tendd Pro' wrapped". The arithmetic behind it answered the
+   eyebrow and not the button. Measured on design/upgrade.html at 1440: the
+   eyebrow needs 181.23 and had 201, so it fits; the widest button label,
+   "Start Tendd Pro - $7.99 a month", needs 248.78 and had 201. IT WRAPPED AT
+   EVERY WIDTH FROM 768 TO 1920, for as long as the cap has existed, on the one
+   control the whole screen is built around.
+
+   THE NEW NUMBER IS THAT LABEL PLUS THE CARD AROUND IT. 248.78 of button, 32 of
+   the card's padding and 2 of its border is 282.78 a card; three of those and two
+   8px gaps is 864.34. The registers above it are 54.5rem (872, 2.55 of slack),
+   55rem (880, 5.2), 55.5rem (888, 7.87) and 56rem (896, 10.55): 56 is the first
+   at or above half a --space-16 of slack, and slack is the point, because a
+   fallback font or a rounding must not cost the one line this cap exists to buy.
+
+   IN rem AND NOT px, WHICH THE 720 WAS. A cap measured off a string has to grow
+   with the string: at a 20px root the label is a quarter wider and a px cap would
+   wrap it again, where 56rem widens with it. That is the same argument the four
+   --container-* tokens are written in rem for.
+
+   BELOW A 928px WINDOW THE LABEL STILL WRAPS, and that is stated rather than
+   hidden: the cap is a ceiling, so between the row's 760 container point and the
+   window where the cap starts binding the three cards are narrower than 282.78
+   and the button takes two lines exactly as before. Closing that band needs
+   either a shorter label, which belongs to voice/docs/microcopy.md and to the
+   founder, or a stacked arrangement in the band, which is a layout decision
+   nobody has asked for. Measured after: the wrap stops at a 897px window. */
+.app > .screen > .plans { max-width: 56rem; }
 
 /* ---- the landing's own step, and it is a MEDIA query ----------------------
    Deliberately not a container query, and kit.css said why at the line it was
@@ -413,7 +471,7 @@
    reads `document.querySelector('.grid:has(.tile)')`, which names the
    relationship rather than the container.
 
-   app-shell.css:155 runs `.app.flow > .screen:has(.plans) { max-width: 760px }`
+   app-shell.css runs `.app.flow > .screen:has(.plans) { max-width: 58rem }`
    to widen the one step of the onboarding chain that is not prose. `.plans`
    still exists, so it still holds today. When the plan row is finally named, it
    must become `:has(.plan-opt)` and NOT `:has(.grid)`: the tile row is also

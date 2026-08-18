@@ -143,11 +143,20 @@
 
 /* THE ONE SCREEN IN THE CHAIN THAT IS NOT PROSE, and the widening is a named
    decision from stage 07 rather than drift. A row of three plan cards asks for
-   720px of its own in grid.css and could never reach it inside 620, so the three
+   a width of its own in grid.css and could never reach it inside 620, so the three
    were crushed to 185px each and both the button label and "Everything in Tendd
-   Pro" wrapped. 760 is exactly the 720 the plan row asks for plus the screen's own
+   Pro" wrapped. This cap is exactly the width the plan row asks for plus the screen's own
    two 16px margins, and no more, so every other step of the chain keeps its
-   reading measure. `:has()` rather than a class, because the screen that carries a
+   reading measure.
+
+   IT WAS 760px UNTIL 2026-08-18 AND IS 58rem, 928px, NOW. The 720 it was built
+   on answered the eyebrow (181.23 needed, 201 given) and not the button (248.78
+   needed, 201 given), so the label this screen was widened FOR went on wrapping
+   at every width from 768 to 1920 for as long as the cap existed. grid.css
+   recomputed the row at 56rem from that label, and this follows it: 56rem plus
+   the two 16px margins is 58rem. The arithmetic, the registers that were
+   rejected and the band below 928 where the label still wraps are written at the
+   cap in grid.css and not repeated here. `:has()` rather than a class, because the screen that carries a
    plan row is identifiable by what is inside it and adding a class would be
    markup on a product screen.
 
@@ -157,7 +166,7 @@
    620 to 760 and their content column from 588 to 728. Both measured. `.plans`
    is NOT renamed this round, because the plan row is one column at the narrow end
    where the tile row is two and the two cannot share a base. */
-.app.flow > .screen:has(.plans) { max-width: 760px; }
+.app.flow > .screen:has(.plans) { max-width: 58rem; }
 
 /* ---- the screen's own action row, and this is the margin that left action-row.css
    One name means one margin, and a margin between blocks belongs to the host.

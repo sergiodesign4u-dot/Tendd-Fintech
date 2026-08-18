@@ -7,6 +7,81 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - The paywall: three prices on two lines, and a cap that answered the wrong string
+
+The founder, on `design/upgrade.html`: **"нашел проблемную страницу, выглядит не
+очень"**. Three defects, and two of them turn out to be the same mistake this
+week has now produced three times: a correction written inside one arrangement
+instead of inside the component.
+
+**THE PRICES DID NOT START ON ONE LINE.** Only the yearly card carries a "Best
+value" badge, the badge was a block in the flow above the price, so `$69` stood
+**32px below** `$7.99` and `Lifetime` at every width from 768 to 1920 - on the
+one screen whose whole job is a comparison between three numbers. The answer had
+been written on 2026-08-15, in `landing-plan.css`, complete with the reasoning
+for all three arrangements it tried and a quotation of `plan-option.css`'s own
+`position: relative` ("the day" the anchor was needed). It went into
+`.landing .lp-plan` and the app's card kept the defect. **So the flow height is
+now the component's rule and the place is the host's:** the chip is out of the
+column with `margin: 0` in `plan-option.css`, the landing keeps its straddle,
+and this host puts it in the top right corner. Corner and not top edge on the
+axis argument the landing itself made: a centred card has no corner to belong
+to, a left-aligned card in a row of three would read a straddling badge as a
+label for the row. Measured: badge 66, `$69` 60.41, narrowest card content 201,
+so 74.6px of clear air at the tightest width in the product.
+
+**THE BUTTON LABEL WRAPPED INSIDE THE CAP THAT WAS WIDENED BECAUSE IT WRAPPED.**
+`app-shell.css` states stage 07's ground in one sentence: at 620 the three cards
+"were crushed to 185px each and both the button label and 'Everything in Tendd
+Pro' wrapped", so the screen went to 760 and the row to 720. Measured now: the
+eyebrow needs **181.23** and had 201, so it fits; the widest button label,
+"Start Tendd Pro - $7.99 a month", needs **248.78** and had 201. **The
+arithmetic had been done against the eyebrow.** The label went on taking two
+lines, with "year" alone on the second, at every width from 768 up, for as long
+as the cap existed. Recomputed from the label: 248.78 + 32 of card padding + 2 of
+border = 282.78 a card, three of those and two 8px gaps = 864.34, and 56rem (896)
+is the first register at or above half a `--space-16` of slack - slack being the
+point, because a fallback font must not cost the one line the cap buys. The
+screen follows at 58rem. **In rem and not px**, which the 720 was: a cap measured
+off a string has to grow with the string.
+
+**AND THE ROW STOPPED COUNTING ITSELF.** `grid.css` was arguing both sides of one
+question forty lines apart: stage 10 folded the plan row into the fluid family
+("nobody chose three"), and the same file defends `repeat(3, 1fr)` for the same
+row on the landing ("three is content and not a fit question"). The second is
+right, and it is the door row's argument word for word: D4 names two prices and
+the third card is the lifetime plan. It was dormant only because the cap was too
+low to expose it - at a 728 pane `auto-fill` gives 3.37 and rounds to three, but
+at 896 it gives **4.14: four tracks, the last one empty**, and three cards
+shrunk to 218. The declared count cannot make that mistake at any cap and
+changes nothing at the old one.
+
+**WHAT IS STILL OPEN, AND IT IS THE FOUNDER'S.** Below a **928px window** the
+label still wraps: the cap is a ceiling, so between the row's 760 container point
+and the window where it binds, the cards are narrower than 282.78. Measured after
+the change, the wrap stops at **897**. Closing the band needs either a shorter
+label - which is an interface string, owned by `voice/docs/microcopy.md`, where
+"Start Tendd Pro - $69 a year" and "Start Tendd Pro - $7.99 a month" are both
+inventoried - or a stacked arrangement inside the band. Neither is the builder's
+to take.
+
+**Verified.** The whole coloured corpus fingerprinted at 360 and 1440, 55 pages:
+**one page differs at either width**, `upgrade.html`, and the landing's plan row
+is byte-identical. Price rows 0px apart at every three-column width from 760 to
+1920. Sideways scroll swept at every integer width from 320 to 1920 on the
+changed screen: none. `rollout12.cjs`: 0 violations on all 55 screens, and no new
+local width threshold, because this change adds no query at all - two caps and a
+count.
+
+**Ground:** the founder's sentence, and CLAUDE.md's rule that a value changes by
+a named decision carrying its origin. The third instance this week of the same
+shape, and worth naming as such: **a correction is only as wide as the selector
+it is written under.** Written under `.landing .lp-plan`, under
+`@container story (min-width: 60rem)`, or under a number derived from the wrong
+string, it is true of one arrangement and silent everywhere else.
+
+---
+
 ## 2026-08-18 - The stage stops dissolving, and the fix for it was three days old
 
 The founder, on a phone, with a screenshot of a page faded almost to nothing:
