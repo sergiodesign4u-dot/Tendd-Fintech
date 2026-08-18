@@ -5,11 +5,11 @@
 
    Reads
      colour   --bg-recessed     the fill
-              --line-divider    the frame, and the gridlines since 2026-08-18
+              --line-divider    the frame
+              --line-container  the gridlines, and the cursor's rule
               --text-muted      the fallback string, and the value axis
               --plot-line       the plotted line, its dot and its readout
               --plot-area       the flat ground under it, where there is no mask
-              --line-container  the cursor's rule, which is deliberately NOT petrol
      geometry --radius-sm  (straight from primitive), --container-page
    Page      design/kit/chart-placeholder.html
    Stands on 4 grey pages, in 4 places, all four of them History and trends.
@@ -58,9 +58,20 @@
      bars: the founder's reference had dashed rules and so does every chart people
      read without thinking. `background-origin: content-box` keeps them out of the
      axis gutter; the fill still covers the whole box, because a background COLOUR
-     always paints the padding box whatever the origin says. */
+     always paints the padding box whatever the origin says.
+
+     AND THEY ARE --line-container, HOURS AFTER BEING MOVED OFF IT. The move to
+     --line-divider was right for what they were then: three SOLID rules across an
+     uncapped 1140px box read as banding rather than as a scale, so they were
+     softened. Both halves of that reason are gone - the rules are dashed now and
+     the band is capped at --container-page - and the softening had started
+     costing the thing they exist for. Measured: --line-divider on --bg-recessed
+     is 1.09:1, and a 1px dash at 1.09 on a 1x display is not there. On the empty,
+     the locked and the loading frame the rules ARE the picture, so an invisible
+     rule turns the honest preview back into the grey slab the founder called out.
+     --line-container is 1.16:1 on the same fill: still a hairline, and there. */
   --chart-rule: repeating-linear-gradient(to right,
-      var(--line-divider) 0 4px, transparent 4px 10px);
+      var(--line-container) 0 4px, transparent 4px 10px);
   background-image: var(--chart-rule), var(--chart-rule), var(--chart-rule);
   background-size: 100% 1px;
   background-position: 0 10%, 0 50%, 0 90%;

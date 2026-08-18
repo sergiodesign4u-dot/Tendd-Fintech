@@ -83,3 +83,29 @@
 
    No :focus-visible either: base.css draws one ring for the whole system at
    specificity 0, and a text link has nothing to add to it. */
+
+/* ---- AND ONE CASE THE STRUCTURE REACHES PERFECTLY, 2026-08-18 -------------
+   Found by a quality sweep over all 55 coloured screens at two widths and two
+   themes: `data-privacy` carries `<nav class="actions quiet"><a>Your sources</a>`
+   and that anchor measured **86.97 by 21** with no padding, which is under the
+   floor and under WCAG 2.5.8's 24px besides.
+
+   IT IS NOT THE CASE THE PARAGRAPH ABOVE REFUSES. That one is a link that might
+   be inside a sentence, and CSS cannot tell. This one is inside a `nav.actions`,
+   which is a row of controls by definition and never a sentence, so the selector
+   is exact and the exemption does not apply: WCAG 2.5.8 excuses a target "in a
+   sentence or otherwise constrained by the line-height of non-target text", and
+   a lone anchor in a control row is neither.
+
+   PADDING AND A MATCHING NEGATIVE MARGIN, so the target is 44 and the layout is
+   the layout it was: the border box grows to the floor and the margin box stays
+   21, which is muted-line.css's own answer to the same question with one more
+   term. 21px is the measured line box of this link, named so the 11.5 is never
+   read as a value somebody chose. Checked before it was written: the nearest
+   other target on that screen is **53px away**, so a 44px box overlaps nothing.
+   One placement in the whole product, and the grey has no `.actions.quiet` at
+   all - the class is the coloured copy's, which is styling and legal. */
+.app .actions.quiet > a, .landing .actions.quiet > a {
+  padding-block: calc((var(--tap) - 21px) / 2);
+  margin-block: calc((21px - var(--tap)) / 2);
+}

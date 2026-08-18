@@ -7,6 +7,74 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - The founder stops being the corpus sweep
+
+**"го делать чтобы все было круто"**. The honest reading of that, after a week in
+which every correction started with a founder looking at a picture: build the
+instrument that finds the next one, run it, and fix what it says.
+
+**SIX CHECKS, 55 SCREENS, TWO WIDTHS, TWO THEMES.** `quality13.cjs` asks the six
+questions this week's corrections turned out to be instances of: the document
+scrolling sideways, an element crossing its parent's content box, a control label
+on more than one line, a control under the tap floor, a paragraph sitting under
+12px from a surface, and a bordered box with nothing in it.
+
+**FOUR KINDS CAME BACK AND TWO WERE THE INSTRUMENT'S OWN FAULT.** A preset tile
+is a card, not a one-line control; a checkbox's target is the label around it,
+not the input inside it. Both are fixed in the file rather than tolerated in the
+report, because a check that cries wolf is a check people stop reading.
+
+**THE TWO REAL ONES.**
+
+  1. **A standalone exit link with a 21px hit area.** `data-privacy` carries
+     `<nav class="actions quiet"><a>Your sources</a>`, measured **86.97 by 21**
+     with no padding: under the 44px floor and under WCAG 2.5.8's 24px.
+     `quiet-line.css` refuses the floor with a good reason and had logged the
+     case it could not reach - a link that might be inside a sentence. **This is
+     not that case**: a `nav.actions` is a row of controls by definition and never
+     a sentence, so the selector is exact and the exemption does not apply.
+     Padding plus a matching negative margin, which is `muted-line.css`'s answer
+     to the same question: the border box grows to 44, the margin box stays 21,
+     nothing moves. Nearest other target on that screen is 53px away, checked
+     before it was written.
+  2. **The gate's sentence sat 8px above its buttons on five pages**, and
+     `panel.css` said itself where the 8 came from: "10px under it folds down to
+     --space-8" - a rounding from stage 08, not a distance anybody chose. 16 is
+     the step this system settled the same week for a sentence and the block under
+     it inside a surface, against 24 between two blocks on a screen. A gate is a
+     surface.
+
+**AND ONE THING THE SWEEP EXPOSED THAT THE SWEEP DID NOT FIND.** The empty,
+locked and loading chart frames were a grey slab again at 1x. The gridlines were
+moved to `--line-divider` hours earlier, correctly, because three SOLID rules
+across an uncapped 1140px box read as banding. Both halves of that reason had
+gone - the rules are dashed now and the band is capped - and the softening had
+started costing the thing they exist for: **`--line-divider` is 1.09:1 on the
+recessed fill, and a 1px dash at 1.09 is not there on a 1x display**. On three of
+the four states the rules ARE the picture. Back to `--line-container`, 1.16:1:
+still a hairline, and visible.
+
+**WHAT IS LEFT, WITH A NUMBER ON IT.** `.group-head.plain` produces three
+distances for one job: a plain group head sits **2px** above what it labels on 31
+placements, and the `plain` modifier sits **8px** above a `ul` on 5 and **16px**
+above a `div` or an `ol` on 4, because the follower's own top margin is doing the
+arithmetic. Not fixed, because fixing it means choosing which of the three is
+right and that is a decision about a component nobody has asked about. Recorded
+in `backlog.md` with the counts so the next person starts from a number.
+
+**Verified.** After the two fixes the whole coloured corpus reports **two
+text-to-surface pairs under 12px and both are legitimate**: a loading skeleton
+and a group head. Every other check reads zero at both widths in both themes. Box
+fingerprint over all 55 pages: **six move** - the five gates by 8px and the one
+anchor growing its hit area - and the gridline colour moves no box at all, which
+is what paint owes. `rollout12.cjs`: 0 violations.
+
+**Ground:** the founder's sentence, read as a mandate to build the check rather
+than to keep polishing by eye. The thing worth keeping: **a correction found by
+looking is a correction; the same correction found by a run is a rule.**
+
+---
+
 ## 2026-08-18 - D-TAB: Trends becomes the second destination, and the door on Home closes
 
 The founder, after the free layer shipped: **"а почему би не вивести це в
