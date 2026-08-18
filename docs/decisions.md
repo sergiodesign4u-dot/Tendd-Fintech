@@ -7,6 +7,85 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-18 - The chart answers a pointer, and three buttons become one control
+
+The founder, third round on the same screen, with a dashboard chart as the
+reference: **"нам би надо сделать его активнім, что им можно будет пользоваться,
+двигать мишкой и смотреть сколько когда було затрат"**, and, fairly, **"почему ты,
+если не знаешь как рисовать, не смотришь це в интернете"**. Plus two more:
+**"я не понимаю, что это у нас тут вообще огромные кнопки зачем-то"** and a note
+that the empty frame needs real states.
+
+**THE REFERENCE HAD FOUR THINGS THIS CHART DID NOT.** A value axis, dashed rules,
+a hover readout and a marked point. It has all four now.
+
+**THE GRIDLINES LEFT THE MARKUP AND BECAME THE FRAME'S OWN BACKGROUND.** Three
+dashes drawn by the box cost nothing, are identical on every state by
+construction, and put the y positions where the axis labels read them from: one
+owner for 10 / 50 / 90 instead of two copies across four files. Dashed rather
+than solid is the whole difference between a scale and a set of bars.
+`background-origin: content-box` keeps them out of the axis gutter, and a
+background COLOUR still paints the whole padding box whatever the origin says.
+
+**THE VALUE AXIS APPEARS ONLY WHERE THERE IS SOMETHING TO LABEL**, through
+`:has(.yaxis)`: a gutter of empty space beside a frame with nothing in it is
+worse than no gutter. **A bug caught before it shipped:** the gutter was declared
+on `.chart` and the label row is its SIBLING, so the row's own
+`var(--chart-gutter)` resolved to nothing, the declaration was dropped as
+invalid, and the months sat 40px left of the points they name. A custom property
+inherits downward and never sideways. It is declared on `.app`.
+
+**THE CURSOR IS BUILT BY behaviour.js AND NEVER BY THE MARKUP.** With no script
+the screen is a plot, its months and its axis, and `role="img"` still describes
+it. The script adds a layer, and only where the box carries `data-points`. It
+also **recomputes the path from that same array** and writes it back over the
+authored one, so the curve a person hovers and the number the card shows cannot
+disagree: measured, the generated `d` is character-for-character the authored
+one. Arrow keys, Home, End and Escape work; the box takes `tabindex` from the
+script rather than the markup, because an element that can be focused and does
+nothing is worse than one that cannot.
+
+**THE DOT IS AN HTML CIRCLE AND NOT AN SVG ONE**, which is what made the whole
+thing possible. Under `preserveAspectRatio="none"` an SVG circle is drawn as an
+ellipse - measured, 23 by 13 at a 1140 box - and `vector-effect` fixes a stroke's
+width, not a cap's shape. A box outside the SVG is stretched by nothing:
+measured, **10 by 10 at 390 and at 1440**. The card flips under the point when
+the point is high, because the frame clips, and is clamped horizontally.
+
+**THREE BUTTONS BECAME ONE SEGMENTED CONTROL.** The range picker was three
+separate bordered buttons at `flex: 1` of an uncapped pane: measured,
+**250.67px a segment at 1440**, three 250 by 44 slabs heavier than the chart they
+choose the range for. Now a recessed track, three transparent segments, no border
+on any of them, capped at **24rem** - which is arithmetic: "12 months" needs about
+102px a segment, three of those plus the track's 4px of padding is roughly 322,
+and 24rem is the next register with air in it. Below 600 the track is 100% of the
+column so a segment keeps the 44px floor. **The selection was deliberately not
+touched:** it keeps `--bg-selected` and `--text-action`, because petrol on the
+current selection is the second of its three permitted jobs, and lifting the
+selection onto a white pill would have quietly spent that decision.
+
+**WHAT IS NOT DONE, AND IT IS THE FOUNDER'S.** They also asked for the empty
+states to be worked out properly - "пустой без подписок, если есть 1 сервис или
+несколько". The chart's own empty frame is a node decision and stands: node 5.12
+block 8 refuses a blurred decorative chart and asks for an honest frame with the
+person's own labels. What is genuinely missing is **screen** states the IA does
+not have: node 5.12's table names five and none of them is "one subscription" or
+"none at all". Adding those is a wireframe and IA change, not a styling one.
+
+**Verified.** 9 sizes by 2 themes by 5 pages: 0 sideways scroll, 0 console
+errors, and the plot and its label row share a padding and a width at every one.
+The track is 384 by 52 from a 600px window up and 100% of the column below.
+Hover at 2% reads "$172.90 May" and at 50% "$192.90 Jun"; the dot measures 10 by
+10 at both widths. Box fingerprint over all 55 coloured pages: **four pages move
+and they are the four History and trends states**. `rollout12.cjs`: 0 violations,
+and `yaxis` is defined in the system so the class count stays 0.
+
+**Ground:** the founder's three sentences. And the fair one under them: when the
+answer is a common object, look at how the world already draws it before
+inventing a quieter version of nothing.
+
+---
+
 ## 2026-08-18 - The trend line stops being a ruler, and June turns out not to be missing
 
 The founder, on the same page an hour later: **"ти считаешь це гарним? сделай

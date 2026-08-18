@@ -41,13 +41,69 @@
    is stretched to the full box by the rule below and is not affected by it.
    overflow: hidden holds a stroke that reaches the edge inside the corner. */
 .app .chart, .landing .chart {
+  position: relative;
   display: flex; align-items: center; justify-content: center;
   height: 168px; overflow: hidden;
   border: 1px solid var(--line-divider);
   border-radius: var(--radius-sm);
-  background: var(--bg-recessed);
+  background-color: var(--bg-recessed);
   font-size: var(--type-meta); color: var(--text-muted);
+  /* THE GRIDLINES ARE THE BOX'S OWN BACKGROUND SINCE 2026-08-18, and they used to
+     be three <line> elements repeated in the markup of four pages. Three dashes
+     drawn by the frame cost nothing, are identical on every state by
+     construction, and put the y positions where the axis labels below read them
+     from: one owner for 10/50/90 instead of two copies that can drift. Dashed
+     rather than solid, which is the whole difference between a scale and a set of
+     bars: the founder's reference had dashed rules and so does every chart people
+     read without thinking. `background-origin: content-box` keeps them out of the
+     axis gutter; the fill still covers the whole box, because a background COLOUR
+     always paints the padding box whatever the origin says. */
+  --chart-rule: repeating-linear-gradient(to right,
+      var(--line-divider) 0 4px, transparent 4px 10px);
+  background-image: var(--chart-rule), var(--chart-rule), var(--chart-rule);
+  background-size: 100% 1px;
+  background-position: 0 10%, 0 50%, 0 90%;
+  background-repeat: no-repeat;
+  background-origin: content-box;
 }
+
+/* ---- THE VALUE AXIS, AND THE GUTTER IT LIVES IN --------------------------
+   Only where there is something to label: `:has(.yaxis)` is what keeps the
+   locked, empty and loading frames full width, because a gutter of empty space
+   beside a frame with nothing in it is worse than no gutter. The x labels take
+   the same inset from the same custom property, so the plot and its months stay
+   one object; that is the pairing this component already owns through
+   `+ .metarow`.
+
+   40px is the width of "$200" at --type-label plus its 8px of air, measured,
+   and it is --space-40 rather than a literal. */
+/* DECLARED ON THE SHELL AND NOT ON THE BOX, and that is not tidiness: the label
+   row is the chart's SIBLING, and a custom property inherits downward and never
+   sideways. Written on `.chart`, the row's own `var(--chart-gutter)` resolved to
+   nothing, the declaration was dropped as invalid, and the months sat 40px to
+   the left of the points they name - which is the exact defect this pairing was
+   introduced to end. Measured and caught before it shipped. */
+.app { --chart-gutter: var(--space-40); }
+.app .chart:has(.yaxis) { padding-left: var(--chart-gutter); }
+.app .chart:has(.yaxis) + .metarow { padding-left: var(--chart-gutter); }
+.app .chart .yaxis {
+  position: absolute; left: var(--space-0); top: var(--space-0); bottom: var(--space-0);
+  width: var(--chart-gutter);
+  margin: var(--space-0); padding: var(--space-0);
+  list-style: none;
+}
+.app .chart .yaxis li {
+  position: absolute; right: var(--space-8);
+  translate: 0 -50%;
+  font-size: var(--type-label);
+  line-height: 1;
+  color: var(--text-muted);
+}
+/* the three stops are the three rules above, in the same order and from the same
+   three numbers */
+.app .chart .yaxis li:nth-child(1) { top: 10%; }
+.app .chart .yaxis li:nth-child(2) { top: 50%; }
+.app .chart .yaxis li:nth-child(3) { top: 90%; }
 
 /* The plot fills the frame. It is a direct-child selector so that an icon
    dropped inside the box some day does not silently become the chart.
@@ -67,16 +123,9 @@
    the attribute is supported everywhere the product runs. */
 .app .chart > svg, .landing .chart > svg { display: block; width: 100%; height: 100%; }
 
-/* ---- the three parts of a plot ------------------------------------------
-   THE GRIDLINES ARE --line-divider AND NOT --line-container, which is the same
-   step the frame took above and for the same reason. On the recessed fill the
-   container edge read as banding rather than as a scale: three bars across a
-   1140px box, heavier than the plot they were meant to sit behind. They are kept
-   rather than deleted because on three of the four pages they are the WHOLE
-   picture - the empty, the locked and the loading state have no line in them,
-   and an empty frame with no rule in it is a box rather than a chart that has
-   nothing to show yet. */
-.app .chart .grid line, .landing .chart .grid line { stroke: var(--line-divider); }
+/* ---- the two parts of a plot --------------------------------------------
+   The gridlines left the markup on 2026-08-18 and are the frame's own background;
+   see the rule at the top of this file. What is left in the SVG is the data. */
 
 /* THE GROUND UNDER THE LINE. Added 2026-08-18 on the founder's "надо сделать
    красиво": a two-pixel diagonal across a 1140 by 162 box reads as a scratch on
@@ -97,6 +146,76 @@
   stroke-width: 2;
   stroke-linejoin: round;
 }
+
+/* ---- THE CURSOR: THE ONE THING ON THIS SCREEN A PERSON CAN DO --------------
+   The founder, 2026-08-18: **"нам би надо сделать его активнім, что им можно
+   будет пользоваться, двигать мишкой и смотреть сколько когда было затрат"**,
+   with a dashboard chart as the reference. So the chart answers a pointer now:
+   a rule down the month under the cursor, a dot on the curve, and a card with
+   that month's total.
+
+   IT IS BUILT BY behaviour.js AND NOT BY THE MARKUP, and that is the whole of
+   the progressive enhancement: with no script the screen is exactly what it was
+   an hour ago, a plot and its labels, and `role="img"` still describes it. The
+   script adds the layer, and only where the box carries `data-points`.
+
+   THE DOT IS AN HTML CIRCLE AND NOT AN SVG ONE, which is the finding that made
+   this possible at all. The plot is stretched with `preserveAspectRatio="none"`,
+   so an SVG circle is drawn as an ellipse - measured, 23 by 13 at a 1140 box -
+   and `vector-effect` fixes a stroke's width, not a cap's shape. A box outside
+   the SVG is not stretched by anything, so `border-radius: 50%` is a circle at
+   every width. `--cx` and `--cy` are set by the script in per cent of the plot
+   area, which is the one coordinate system both sides agree on.
+
+   The card flips under the point when the point is high and sits above it when
+   the point is low, because the frame clips: the script sets `--tipflip`. It is
+   clamped horizontally by `--tipx` for the same reason. */
+.app .chart .cursor {
+  position: absolute;
+  inset: var(--space-0) var(--space-0) var(--space-0) var(--chart-gutter);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-state) var(--ease-state);
+}
+.app .chart .cursor.on { opacity: 1; }
+.app .chart .cursor .guide {
+  position: absolute; top: var(--space-0); bottom: var(--space-0);
+  left: var(--cx, 50%); width: 1px;
+  background: var(--line-container);
+}
+.app .chart .cursor .dot {
+  position: absolute; left: var(--cx, 50%); top: var(--cy, 50%);
+  width: 10px; height: 10px; margin: -5px var(--space-0) var(--space-0) -5px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 2px solid var(--text-body);
+}
+.app .chart .cursor .tip {
+  position: absolute;
+  left: var(--tipx, 50%); top: var(--cy, 50%);
+  translate: -50% var(--tipflip, calc(-100% - 14px));
+  display: grid; gap: var(--space-2);
+  padding: var(--space-8) var(--space-16);
+  border: 1px solid var(--line-container);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+  text-align: center;
+}
+.app .chart .cursor .tip b {
+  font-size: var(--type-sub);
+  font-weight: 600;
+  color: var(--text-body);
+  font-variant-numeric: tabular-nums;
+}
+.app .chart .cursor .tip span {
+  font-size: var(--type-label);
+  color: var(--text-muted);
+}
+/* A person who has asked for no motion still gets the reading, it just arrives
+   without the fade. base.css collapses the duration; this says so out loud
+   because the layer is created by a script and nothing else would. */
 
 /* ---- THE BAND HAS A MEASURE, AND SO DOES THE LABEL ROW UNDER IT ------------
    Past the desktop point the shell lets a block take the whole pane, so the chart

@@ -41,22 +41,50 @@
    wrote it.
    ============================================================================ */
 
+/* ---- ONE TRACK, THREE SEGMENTS, SINCE 2026-08-18 -------------------------
+   The founder, on the coloured Pro gate at a desktop width: **"я не понимаю, что
+   это у нас тут вообще огромные кнопки зачем-то"**. They were three separate
+   bordered buttons, each `flex: 1` of an uncapped pane, so on a 780px screen the
+   range picker was three 250 by 44 slabs across the top of the page - heavier
+   than the chart whose range they choose, and heavier than the primary action
+   further down. Measured before: 250.67px a segment at a 1440 window.
+
+   A SEGMENTED CONTROL IS ONE OBJECT WITH THREE PARTS, and that is the change: a
+   recessed track, three transparent segments inside it, and no border on any of
+   them. The three borders are what made the group read as three controls; with
+   the track carrying the shape, the selection is a figure on a ground instead of
+   an outline among outlines. The SELECTED segment is untouched and stays petrol,
+   because that is the second of petrol's three jobs and a locked decision - see
+   the rule below.
+
+   THE CAP IS 24rem AND IT IS ARITHMETIC. "12 months" is the widest label; at
+   --type-body with 16px of side padding a segment needs about 102px, so three of
+   them plus the track's own 4px of padding need roughly 322. 24rem is 384, the
+   next register with real air in it. Below that width the track is simply 100%
+   of the column, so the segments keep the 44px floor on a phone.
+
+   `flex: 1` STAYS and its old reason with it: the three segments divide the
+   track between them, so "12 months" and "3 months" are the same size and the
+   group reads as one object rather than as three buttons of different lengths. */
 .app .range, .landing .range {
   display: flex;
-  gap: var(--space-8);
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 24rem;
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  background: var(--bg-recessed);
   margin: var(--space-0) var(--space-0) var(--space-24);
 }
 
-/* `flex: 1` and not a width: the three segments divide whatever the screen
-   gives them, so "12 months" and "3 months" are the same size and the group
-   reads as one object rather than as three buttons of different lengths. */
 .app .range button, .landing .range button {
   flex: 1;
   min-height: var(--tap);
-  border: 1px solid var(--line-control);
+  padding: var(--space-0) var(--space-16);
+  border: 0;
   border-radius: var(--radius-sm);
-  background: var(--bg-surface);
-  color: var(--text-body);
+  background: transparent;
+  color: var(--text-muted);
   font: inherit;
   font-size: var(--type-body);
   cursor: pointer;
@@ -70,9 +98,11 @@
    happens if I press this", and the answer for the current range is "nothing
    you have not already got". */
 
+/* the hover is the ink coming up rather than an edge appearing: there is no edge
+   on a segment now, and a second fill inside a filled track read as a state
+   nobody had asked for */
 .app .range button:hover, .landing .range button:hover {
-  border-color: var(--line-control-hover);
-  background: var(--bg-hover);
+  color: var(--text-body);
 }
 
 /* Selection is an ATTRIBUTE and not a class, and that is the right hook rather
@@ -85,7 +115,6 @@
    accent inks the label. This is the "current selection", the second of the
    three jobs the One Voice Rule lets petrol do. */
 .app .range button[aria-pressed="true"], .landing .range button[aria-pressed="true"] {
-  border-color: var(--line-selected);
   background: var(--bg-selected);
   color: var(--text-action);
   font-weight: 600;
@@ -97,8 +126,7 @@
    paint. */
 .app .range button[disabled], .landing .range button[disabled] {
   cursor: default;
-  background: var(--bg-recessed);
-  border-color: var(--line-divider);
+  background: transparent;
   color: var(--text-muted);
 }
 
@@ -108,8 +136,7 @@
    two axes stay legible because they are spent on different properties. */
 .app .range button[disabled][aria-pressed="true"],
 .landing .range button[disabled][aria-pressed="true"] {
-  background: var(--bg-recessed);
-  border-color: var(--line-divider);
+  background: var(--bg-surface);
   color: var(--text-muted);
   font-weight: 600;
 }
