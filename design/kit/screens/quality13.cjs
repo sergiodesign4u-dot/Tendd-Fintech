@@ -90,7 +90,17 @@ const PROBE = () => {
     if(surf(n)) target=n; else { const k=[...n.children].filter(surf); if(k.length&&k.length===n.children.length) target=k[0]; }
     if(!target) return;
     const rs=[...e.getClientRects()]; if(!rs.length) return;
-    const gap=Math.round(R(target).top-rs[rs.length-1].bottom);
+    /* SIDE BY SIDE IS NOT FLUSH, 2026-08-19. This check compares a paragraph with
+       its next sibling on the assumption that siblings stack, which is true of
+       every screen in this product until one puts two of them in the columns of a
+       grid. The export band on History and trends does: its sentence and its
+       action row are 518px apart horizontally and overlap by 18px vertically, and
+       the check called that -18px flush. Two boxes that share no horizontal range
+       cannot be flush against each other, so the pair is skipped rather than
+       excluded by name: it is a fact about the geometry and not about that band. */
+    const ra=rs[rs.length-1], rt=R(target);
+    if(Math.min(ra.right,rt.right)-Math.max(ra.left,rt.left)<=0) return;
+    const gap=Math.round(rt.top-ra.bottom);
     if(gap<12&&gap>-40) push('flush-text',e,gap+'px to '+n.tagName.toLowerCase()+'.'+String(n.className).split(' ')[0]);
   });
   // 6 an empty bordered box

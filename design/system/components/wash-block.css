@@ -299,10 +299,14 @@
     align-items: center;
     column-gap: var(--space-40);
   }
+  /* `1 / 3` AND NOT `1 / -1`: `-1` names the last line of the EXPLICIT row grid,
+     and this grid declares no rows, so `-1` resolves back to line 1 and the row
+     spans nothing. Numeric lines create implicit rows and span them properly. The
+     band's left column is exactly two: what this is, and the honest footnote. */
   .app .wash:has(> .actions) > .actions,
   .landing .wash:has(> .actions) > .actions {
     grid-column: 2;
-    grid-row: 1 / -1;
+    grid-row: 1 / 3;
     margin: var(--space-0);
   }
 }

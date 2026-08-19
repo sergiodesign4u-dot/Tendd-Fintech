@@ -101,3 +101,37 @@
    is not itself a target. Checked rather than assumed. Its one moving part is
    the skeleton inside it while the number arrives, and that belongs to the
    skeleton bar. */
+
+/* ---- AND IT HOLDS A SECOND COLUMN WHERE IT HOLDS A SOURCE, 2026-08-19 -------
+   The founder drew a box in the empty right half of this strip on History and
+   trends and pointed at it. The hole is arithmetic rather than an oversight: the
+   figure is about 255px wide, the sentence stops at 52ch because it is prose, and
+   the strip is 1140. Half of it was air.
+
+   WHAT WENT IN IS NOT DECORATION. That screen was the only one in the product
+   with figures on it and no statement of where they came from, which is design
+   principle 4 unmet. The trust block stands BESIDE the number rather than at the
+   foot, which is where Home puts it, because here the number and its provenance
+   are one reading: this is the total, and this is who told us.
+
+   `:has(> .trust)` and not a modifier class, as everywhere else here. It matches
+   one strip today. Below the desktop point nothing changes and the block falls
+   under the sentence, in the same place in the source order. */
+@container (min-width: 56.25rem) {
+  .app .summary:has(> .trust), .landing .summary:has(> .trust) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+    column-gap: var(--space-48);
+    align-items: start;
+  }
+  /* `1 / 3` AND NOT `1 / -1`, and this is worth knowing before the next two-column
+     band is written here. `-1` names the last line of the EXPLICIT row grid, and
+     this grid declares no rows at all - every row of it is implicit - so `-1`
+     resolves back to line 1 and the block occupies row ONE alone. Measured with
+     it: the figure's row grew to 101px to fit a source block beside it and the
+     sentence fell 60px away from its own number. Numeric lines create implicit
+     rows and span them properly, and the left column here is exactly two: the
+     figure, and the one readout of the three that is not hidden. */
+  .app .summary:has(> .trust) > .trust,
+  .landing .summary:has(> .trust) > .trust { grid-column: 2; grid-row: 1 / 3; }
+}

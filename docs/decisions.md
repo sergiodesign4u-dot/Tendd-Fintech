@@ -120,6 +120,38 @@ own source, so the rule was recounted rather than left naming a corpus it no
 longer had. The summary strip, the wash and the big total all gained a page and
 all three were recounted by `counts.cjs` in the same step.
 
+**AND THEN THE FOUNDER DREW A BOX IN THE EMPTY HALF OF THE STRIP.** The hole is
+arithmetic rather than an oversight: a 46px figure is about 255px wide, a sentence
+stops at 52ch because it is prose, and the strip is 1140. Half of it was air.
+
+**What went into it is not decoration.** History and trends was **the only screen
+in the product with figures on it and no statement of where they came from**,
+which is design principle 4 unmet, and nobody had noticed because until that hour
+the screen had no figure to point at. The trust block stands BESIDE the number
+rather than at the foot, where Home puts it, because here the number and its
+provenance are one reading: this is the total, and this is who told us. Its three
+lines are this screen's own and not Home's - Home's block names the LIST, this one
+names the HISTORY, and one product line may not exist in two editions. U8 went
+from 4 screens to 5 and was recounted. **It costs something on a phone**, where
+those three small lines sit between the sentence and the picture; that is the
+price of putting a source next to its figure and it is stated rather than hidden.
+
+**A CSS TRAP WORTH WRITING DOWN, because it will be met again.** `grid-row: 1 /
+-1` does not span the rows of a grid that declares none: `-1` names the last line
+of the EXPLICIT row grid, and with every row implicit it resolves back to line 1,
+so the block occupies row ONE alone. Measured with it in place: the figure's row
+grew to 101px to fit the source block beside it and the sentence fell 60px away
+from its own number. `1 / 3` creates the implicit rows and spans them. The same
+line was wrong in the export band an hour earlier and looked almost right, which
+is how it survived: the button sat 20px high of centre and nothing else moved.
+
+**AND THE INSTRUMENT LEARNED SOMETHING TOO.** `quality13.cjs` reported the export
+band's sentence as 18px flush against its own action row. It was not: the two are
+518px apart horizontally and merely overlap vertically, because they are the two
+columns of a grid, and the check compared them on the assumption that siblings
+stack. It now skips any pair that shares no horizontal range, which is a fact
+about geometry rather than an exception for one band. Back to its 24 baseline.
+
 ---
 
 ## 2026-08-19 - Two rules were unscoped, and one of them had been wrong for six days
