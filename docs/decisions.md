@@ -73,6 +73,55 @@ JavaScript, because copy has an owner.
 
 ---
 
+## 2026-08-19 - The trend screen had no number on it, and its button had no sentence
+
+The founder read the rebuilt screen and stopped on two things: the readout
+"смотрится как-то просто и странновато", and so does the export button - "может
+их как-то объединить". Both are the same complaint said twice: an element with
+nothing around it does not look built.
+
+**THE READOUT WAS THE SMALLEST THING ON A SCREEN ABOUT A NUMBER.** One 14px
+sentence between a full-width rule and a full-width picture, and it read as a
+stray caption because it was the only thing there. Every other screen in this
+product that states a number states it big - Home at 46px, the detail hero and
+the plan price at 32 - and this one had none, while design principle 2 says the
+most important number is the biggest thing on the screen. So the summary strip
+Home already owns arrives here: **$192.90** at 46px, the sentence under it, and
+not a word of the sentence changed.
+
+**THE FIGURE IS THE TOTAL AND NOT THE CHANGE**, and this is the part worth
+keeping. "Up $20" is what the screen is FOR, and it is still exactly what the
+sentence says. But a big number in this product means an AMOUNT, and making one
+mean a difference needs a sign or a word inside the figure - "+$20", "Up $20 a
+month" - which is the cleverness the product refuses, and a plus sign next to a
+person's money is the nearest this design language gets to an alarm. So the
+anchor is where you are now, the same $192.90 the plot's end dot marks, and it
+does not move when the range does. Only the story under it changes, which is the
+right thing to be moving.
+
+**THE EXPORT AND ITS SENTENCE ARE ONE BAND.** A bare outlined button on the
+canvas with a long muted paragraph under it is two orphans, and they are one
+object: D-Export's whole point is that this export is the Pro one and the plain
+copy is free, which is a sentence a button cannot say by itself. The band is the
+neutral wash this system already uses for a quiet strip of context on three other
+screens; the copy is split at the sentence boundary it already had, so the order
+reads offer, action, honest footnote. Past the tablet point the action moves into
+the band's right column and spans both text rows, because a paragraph stops at
+52ch and the right half of a 1140 band was empty air. `:has(> .actions)` and not a
+modifier class, for the reason every other guard here is written that way.
+
+**WHAT WE REJECTED.** Putting the export beside the readout at the top, which is
+the most literal reading of "объединить": an export is an action on the whole
+history and belongs after the thing it exports, and a control up there would
+compete with the picture. And a big "+$20", above.
+
+**WHAT MOVED IN THE COUNTS.** `.total` went from 4 screens to 5, which is U9's
+own source, so the rule was recounted rather than left naming a corpus it no
+longer had. The summary strip, the wash and the big total all gained a page and
+all three were recounted by `counts.cjs` in the same step.
+
+---
+
 ## 2026-08-19 - Two rules were unscoped, and one of them had been wrong for six days
 
 Both found by the same rebuild, and both are about a declaration that was written

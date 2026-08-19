@@ -27,7 +27,10 @@
      geometry --radius-wash, --tap  (straight from primitive: geometry has
               nothing to override, so it needs no role)
    Page      design/kit/wash-block.html
-   Stands on 9 grey pages, 13 places, and 8 coloured ones, 12 places.
+   Stands on 10 grey pages, 14 places, and 9 coloured ones, 13 places.
+   Recounted 2026-08-19 by `design/kit/screens/counts.cjs`, when the export band on
+   History and trends became a neutral wash; 9/13 and 8/12 was the count of the
+   rollout and correct on that corpus.
    Recounted 2026-08-17 by `design/kit/screens/counts.cjs`, which is the
    instrument the backlog asked for: nothing here is remembered. The
    inventory's "13" is the sum of
@@ -268,6 +271,42 @@
    The code tone is the only wash with a loading state: on the detail screen it
    holds two skeleton bars where the label and the string will land. The host
    sets the gap between them, the skeleton bar atom draws the bars. */
+/* ---- A WASH THAT CARRIES AN ACTION PUTS IT BESIDE THE WORDS, 2026-08-19 -----
+   The founder, on the coloured History and trends: the export button "смотрится
+   как-то просто и странновато ... может их как-то объединить". It was a bare
+   outlined button standing on the canvas with a long muted paragraph under it,
+   and the two are one thing - what this export is, and the button that does it.
+   A neutral wash is what this system already uses for a quiet band of context
+   (three screens), so the band is the component and this is the only rule it
+   needed.
+
+   Below the tablet point the three parts stack in source order, which is the
+   order a person reads them: what it is, the action, the honest footnote. Past
+   it the band is 1140 wide and a paragraph in it stops at 52ch, so the right
+   half was empty air; the action moves there and spans both text rows, which is
+   what makes the band read as ONE object rather than as a button that happens to
+   have a sentence near it.
+
+   `:has(> .actions)` and not a modifier class, for the same reason as everywhere
+   else here: whether a band carries an action is a fact about what is inside it,
+   and the three washes that carry only prose are not asked to declare that they
+   do not. It matches one band today. The action row's own bottom margin goes,
+   because in this arrangement there is nothing under it to be spaced from. */
+@container (min-width: 47.5rem) {
+  .app .wash:has(> .actions), .landing .wash:has(> .actions) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: var(--space-40);
+  }
+  .app .wash:has(> .actions) > .actions,
+  .landing .wash:has(> .actions) > .actions {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    margin: var(--space-0);
+  }
+}
+
 .app .wash.code .skel + .skel, .landing .wash.code .skel + .skel {
   margin-top: var(--space-8);
 }

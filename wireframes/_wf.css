@@ -642,6 +642,23 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 .app .notice p { margin: 0; font-size: 13.5px; color: var(--mid); }
 .app .notice a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; color: var(--ink); }
 
+/* A notice that carries an action puts it beside the words once there is room,
+   2026-08-19. Below the point the three parts stack in the order a person reads
+   them: what it is, the action, the honest footnote. */
+.app .notice > .actions { margin: 14px 0 0; }
+.app .notice > .consequence { margin: 8px 0 0; }
+@container (min-width: 760px) {
+  .app .notice:has(> .actions) {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center; column-gap: 40px;
+  }
+  .app .notice:has(> .actions) > .actions { grid-column: 2; grid-row: 1 / -1; margin: 0; }
+}
+
+/* The sentence under the figure on 5.12, and it takes the same step the context
+   line under a total already takes. */
+.app .summary .readout { margin: 8px 0 0; }
+
 /* 2.6.1 empty. Two doors of equal weight: neither is the recommended one (D2),
    so they share a row on a wide screen rather than stacking with one on top. */
 .app .empty { margin: 0 0 24px; }

@@ -150,7 +150,7 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Switch row | `.switch` | - | 2 | - | `switch-row.css` | `switch-row.html`  | does not adapt |
 | Text block | `.textblock` | scope: page 24 / block 21 / inset 17 | 44 | `.lede`, `.state` | `text-block.css` | `text-block.html`  | a reading measure |
 | Trust block | `.trust` | - | 11 | - | `trust-block.css` | `trust-block.html`  | does not adapt |
-| Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without | 13 | `.attention`, `.notice`, `.decoder` | `wash-block.css` | `wash-block.html`  | a reading measure |
+| Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without / **with an action row** | 14 | `.attention`, `.notice`, `.decoder` | `wash-block.css` | `wash-block.html`  | a reading measure, and since 2026-08-19 point 47.5rem on the one band that carries an action: the row moves beside the words |
 
 ## Organisms (27)
 
