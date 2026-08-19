@@ -70,13 +70,29 @@
   display: flex;
   gap: var(--space-2);
   width: 100%;
-  max-width: 24rem;
-  padding: var(--space-4);
+  max-width: 20rem;
+  padding: var(--space-2);
   border-radius: var(--radius);
   background: var(--bg-recessed);
   margin: var(--space-0) var(--space-0) var(--space-24);
 }
 
+/* ---- IT GOT SMALLER, 2026-08-19, ON THE FOUNDER'S DECISION -----------------
+   "кнопки переключения очень большие". Measured before: 384 wide and 52 tall - a
+   24rem track with 4px of padding around a 44px segment - sitting alone on a line
+   across a 1280 screen. It read as the biggest object above the fold on a screen
+   whose subject is a number.
+
+   Two values move and neither is the tap target. `max-width` 24rem to 20rem, so
+   three segments are 104 rather than 126, and the track's padding --space-4 to
+   --space-2, so the control is 48 tall rather than 52. `min-height: var(--tap)`
+   on the segment does not move and may not: 44px is the floor a pointer target
+   may not go under, and shrinking a control by shrinking what a thumb has to hit
+   is the one way to get this wrong. The control lost 90px of width and 4px of
+   height; the thing a person presses is exactly the size it was.
+
+   The other half of the founder's sentence was "и не работают", which is not a
+   size and is not in this file. It is in behaviour.js, under THE RANGE CONTROL. */
 .app .range button, .landing .range button {
   flex: 1;
   min-height: var(--tap);

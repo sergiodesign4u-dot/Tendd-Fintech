@@ -25,11 +25,19 @@
    that is a prefix of it, so `history-trends-error` belongs to `history-trends`
    and `cancel-win` belongs to nobody.
 
+   AND ONE MORE, ADDED THE SAME EVENING: **every interruption ends in the same
+   place.** An interruption outside the onboarding chain is pulled out of its
+   family and checked against the other interruptions instead, because it is not
+   the screen it replaces - it is one message and one way out, at
+   `--container-page` wherever it stands. See the note at the rule.
+
    RUN IT:  node design/kit/screens/edges13.cjs
-   Clean, 2026-08-19: 0 families split. It was 1 an hour earlier - History and
-   trends measured 780 in four states and 1280 in the error, which has no chart
-   for `:has(.chart)` to find. Closed by the second selector of the same rule in
-   app-shell.css, `.app:not(.flow) > .screen.interruption`.
+   Clean, 2026-08-19: 0 families split, 1 width across the interruptions. The
+   family check went 1 -> 0 -> 1 -> 0 in a day: History and trends measured 780 in
+   four states and 1280 in its error until `.app:not(.flow) > .screen.interruption`
+   closed it, then split again when the founder widened the screen to Home's 1280
+   and its two interruptions stayed at 780 - which was the right answer arriving
+   through the wrong test.
    ============================================================================ */
 const fs = require('fs'), path = require('path'), http = require('http'), { execSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '..', '..', '..');
@@ -65,6 +73,8 @@ srv.listen(0, '127.0.0.1', async () => {
     const r = await p.evaluate(() => {
       const sc = document.querySelector('.app > .screen');
       if (!sc) return null;                        /* the landing is not an app screen */
+      const app = sc.parentElement;
+      const interruption = sc.classList.contains('interruption') && !app.classList.contains('flow');
       const free = [], held = [];
       [...sc.children].forEach(el => {
         const w = Math.round(el.getBoundingClientRect().width);
@@ -72,11 +82,11 @@ srv.listen(0, '127.0.0.1', async () => {
         const name = el.tagName.toLowerCase() + (typeof el.className === 'string' && el.className ? '.' + el.className.split(' ')[0] : '');
         (getComputedStyle(el).maxWidth === 'none' ? free : held).push({ w, name });
       });
-      return { free, held };
+      return { free, held, interruption };
     });
     if (!r) continue;
     const uniq = a => [...new Set(a.map(x => x.w))].sort((x, y) => y - x);
-    rows.push({ n: f.replace('.html', ''), fam: family(f.replace('.html', '')), free: uniq(r.free), held: uniq(r.held), all: r });
+    rows.push({ n: f.replace('.html', ''), fam: family(f.replace('.html', '')), free: uniq(r.free), held: uniq(r.held), int: r.interruption, all: r });
   }
   console.log('EVERY RIGHT EDGE, AT 1920 - node design/kit/screens/edges13.cjs');
   console.log('app screens read: ' + rows.length + '\n');
@@ -91,7 +101,21 @@ srv.listen(0, '127.0.0.1', async () => {
      block owns its measure is not asking the pane for one, so there is nothing to
      compare. Counted out loud below rather than dropped in silence. */
   const solo = rows.filter(x => !x.free.length);
-  for (const x of rows) if (x.free.length) (fams[x.fam] = fams[x.fam] || []).push(x);
+  /* AN INTERRUPTION IS MEASURED AGAINST INTERRUPTIONS, 2026-08-19, and it is a
+     generalisation and not an escape hatch. `.screen.interruption` outside the
+     onboarding chain is one message and one way out; the shell gives it
+     `--container-page` on every screen it appears on, and it does not become a
+     different object because the screen it replaces happens to be a dashboard.
+     History and trends is where the two first met: its three data views take
+     Home's 1280 on the founder's decision, its empty and its error are
+     interruptions at 780. Comparing those five as one family asks the error
+     message to be as wide as the chart, which is the wrong answer.
+     They are pulled out of the family comparison and CHECKED AS THEIR OWN SET
+     below, which is a stricter test than the one they left: every interruption in
+     the product has to end at the same place, across screens and not only across
+     the states of one. */
+  const ints = rows.filter(x => x.int && x.free.length);
+  for (const x of rows) if (x.free.length && !x.int) (fams[x.fam] = fams[x.fam] || []).push(x);
   /* ONE NAMED EXCEPTION, and it is a decision rather than a defect: `upgrade`
      carries the plan row and takes 59rem for it (app-shell.css, 2026-08-18, the
      arithmetic in grid.css), while its three states carry no plan row and keep the
@@ -108,5 +132,11 @@ srv.listen(0, '127.0.0.1', async () => {
     console.log('    declared  ' + k + ': ' + DECLARED[k] + '  [' + fams[k].map(x => x.n + ' ' + x.free[0]).join(', ') + ']');
   for (const k of split) for (const x of fams[k]) console.log('    SPLIT  ' + k + '  ->  ' + x.n + '  ' + x.free[0]);
   if (!split.length) console.log('  no screen changes width between its states');
+
+  const intW = [...new Set(ints.map(x => x.free[0]))];
+  console.log('\nEVERY INTERRUPTION ENDS IN THE SAME PLACE');
+  console.log('  interruptions outside the flow: ' + ints.length + '   distinct widths: ' + intW.length +
+    (intW.length === 1 ? '  (' + intW[0] + ')' : '  SPLIT: ' + intW.join(' ')));
+  for (const x of ints) console.log('    ' + x.n.padEnd(38) + x.free[0]);
   await b.close(); srv.close();
 });

@@ -55,17 +55,31 @@
 
   <main class="screen" aria-busy="true">
 
-    <div class="textblock">
-      <h1>Your trends</h1>
-      <p role="status" aria-live="polite">Adding up your last few months. This usually takes a moment.</p>
+    <!-- STRUCTURE FOLLOWS THE SCREEN IT IS THE WAIT FOR, 2026-08-19. The Pro view
+         gained Home's head and a two-column body on the founder's decision, and a
+         skeleton that is not the shape of what arrives is a second layout the person
+         has to re-read the moment it lands. The grey original carries the argument. -->
+    <div class="head">
+
+      <div class="textblock">
+        <h1>Your trends</h1>
+        <p role="status" aria-live="polite">Adding up your last few months. This usually takes a moment.</p>
+      </div>
+
+      <!-- The range control is real while the numbers arrive: it is the frame, and
+           it does not move when they land. It carries no data here, so behaviour.js
+           leaves it alone - there is nothing yet for it to switch. -->
+      <div class="range" role="group" aria-label="Choose a time range">
+        <button type="button" aria-pressed="true">3 months</button>
+        <button type="button" aria-pressed="false">6 months</button>
+        <button type="button" aria-pressed="false">12 months</button>
+      </div>
+
     </div>
 
-    <!-- The range control is real while the numbers arrive: it is the frame, and
-         it does not move when they land. -->
-    <div class="range" role="group" aria-label="Choose a time range">
-      <button type="button" aria-pressed="true">3 months</button>
-      <button type="button" aria-pressed="false">6 months</button>
-      <button type="button" aria-pressed="false">12 months</button>
+    <div aria-hidden="true">
+      <span class="skel line w80"></span>
+      <span class="skel line w50"></span>
     </div>
 
     <!-- A skeleton in the shape of the chart, never a spinner over the screen:
@@ -74,30 +88,47 @@
          numbers arrive and do not move when they land, which is the same reason
          the range control above is real rather than greyed. The literal [chart]
          that stood here until 2026-08-12 was the wireframe's placeholder
-         notation reading as a note to the team, printed to the person. -->
-    <div aria-hidden="true">
-      <span class="skel line w80"></span>
-      <span class="skel line w50"></span>
-      <div class="chart"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"></svg></div>
-    </div>
+         notation reading as a note to the team, printed to the person.
+         It is a direct child of the screen since 2026-08-19, which is what gives it
+         the 300px the loaded chart takes at this width: a box that grows when the
+         data lands is the jump a skeleton exists to prevent. -->
+    <div class="chart" aria-hidden="true"><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"></svg></div>
 
-    <section class="group" aria-hidden="true">
-      <div class="group-head"><span class="skel line"></span><span class="skel line"></span></div>
-      <ul>
-        <li><div class="row is-skel">
-          <span class="logo is-skel"></span>
-          <span class="body"><span class="skel line w60"></span><span class="skel line w80"></span></span>
-        </div></li>
-        <li><div class="row is-skel">
-          <span class="logo is-skel"></span>
-          <span class="body"><span class="skel line w50"></span><span class="skel line w70"></span></span>
-        </div></li>
-        <li><div class="row is-skel">
-          <span class="logo is-skel"></span>
-          <span class="body"><span class="skel line w70"></span><span class="skel line w60"></span></span>
-        </div></li>
-      </ul>
-    </section>
+    <div class="grid roomy">
+
+      <section class="group" aria-hidden="true">
+        <div class="group-head"><span class="skel line"></span><span class="skel line"></span></div>
+        <ul>
+          <li><div class="row is-skel">
+            <span class="logo is-skel"></span>
+            <span class="body"><span class="skel line w60"></span><span class="skel line w80"></span></span>
+          </div></li>
+          <li><div class="row is-skel">
+            <span class="logo is-skel"></span>
+            <span class="body"><span class="skel line w50"></span><span class="skel line w70"></span></span>
+          </div></li>
+          <li><div class="row is-skel">
+            <span class="logo is-skel"></span>
+            <span class="body"><span class="skel line w70"></span><span class="skel line w60"></span></span>
+          </div></li>
+        </ul>
+      </section>
+
+      <!-- The second column is the category bars with no lengths yet. The track is
+           the whole skeleton it needs: an empty track IS what a bar looks like before
+           its figure arrives, so there is no grey block standing in for one. -->
+      <section class="group" aria-hidden="true">
+        <div class="group-head"><span class="skel line"></span><span class="skel line"></span></div>
+        <ul class="bars">
+          <li><span class="skel line w60"></span><span class="skel line w50"></span><span class="bar"></span></li>
+          <li><span class="skel line w50"></span><span class="skel line w50"></span><span class="bar"></span></li>
+          <li><span class="skel line w70"></span><span class="skel line w50"></span><span class="bar"></span></li>
+          <li><span class="skel line w40"></span><span class="skel line w50"></span><span class="bar"></span></li>
+          <li><span class="skel line w60"></span><span class="skel line w50"></span><span class="bar"></span></li>
+        </ul>
+      </section>
+
+    </div>
 
   </main>
 

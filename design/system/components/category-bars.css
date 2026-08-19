@@ -1,0 +1,88 @@
+/* ============================================================================
+   Category bars - organism
+   Where the monthly total goes, one row per category: the name, the amount, and
+   a bar as long as the amount is large. It answers a different question from the
+   trend line above it - the line says how the total MOVED, these say what it is
+   MADE OF - and the two are never the same picture.
+
+   Built 2026-08-19, on the founder's question. The screen carried the sentence
+   "By category. Streaming is up $6 since March" and nothing else, and the founder
+   read it and said: "я так понимаю должен бути график со столбиками по
+   категориями а его нет". They were right twice. There was no picture, and the
+   sentence was also measuring the wrong window: it said "since March" under a
+   three-month view that starts in May.
+
+   Reads
+     colour   --text-body, --bg-recessed, --bg-measure
+     line     --line-divider
+     spacing  --space-0, --space-8, --space-16
+     geometry --radius-xs
+     type     --type-body
+   Page      design/kit/category-bars.html
+   Stands on 2 grey pages and 2 coloured ones: history-trends with its five figures,
+   and history-trends-loading with five empty tracks and no figures at all.
+   Hosts     the Amount atom, whose fifth host this is.
+
+   THE AMOUNT IS THE AMOUNT ATOM and this file states nothing about it. A figure in
+   this product is tabular, 600, one line and --text-primary wherever it stands, and
+   a bar chart is not a reason for a second opinion about that. Only two things here
+   are this component's own: the name beside it, and the track under both.
+
+   THE BAR IS NOT PETROL, and that is a decision rather than an oversight. It is
+   --bg-measure, which resolves to --edge, the founder's non-text contrast value.
+   D-Concept spends petrol on ONE element inside a screen's content, and on this
+   screen that element is the plotted line. Two pictures in the same colour would
+   make the screen argue with itself about which one matters. The ground is in
+   tokens.css beside --bg-measure.
+
+   THE LENGTH IS DERIVED AND NOT WRITTEN. Each row carries `data-value`, the same
+   figure its own `.v` prints, and behaviour.js sets every bar against the largest
+   value in the list. The `<rect width>` in the markup is the answer with no
+   script, exactly as the chart's `d` is: the file that owns the geometry is the
+   one that reads the data, and a hand-kept percentage next to a hand-kept amount
+   is two numbers that drift apart the first time a price changes.
+
+   RELATIVE TO THE LARGEST, NOT TO THE TOTAL. Five categories that sum to the
+   total would each take a fifth of the width at most, and the two largest, 54.96
+   and 53.98, would be a hair apart at 28 per cent of a column. Against the
+   largest they are 100 and 98, which is the fact the picture is for: these two
+   are the same size and everything else is smaller.
+   ============================================================================ */
+
+.app .bars {
+  list-style: none;
+  margin: var(--space-0) var(--space-0) var(--space-16);
+  padding: var(--space-0);
+}
+
+.app .bars > li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--space-8) var(--space-16);
+  padding: var(--space-8) var(--space-0);
+}
+
+.app .bars > li + li { border-top: 1px solid var(--line-divider); }
+
+.app .bars .name {
+  font-size: var(--type-body);
+  color: var(--text-body);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The track spans both columns on its own row: the name and the amount are the
+   reading, the bar is the comparison, and a comparison that has to line up
+   across five rows cannot start at a different place on each of them. */
+.app .bars .bar {
+  grid-column: 1 / -1;
+  height: 8px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-recessed);
+  overflow: hidden;
+}
+
+.app .bars .bar svg { display: block; width: 100%; height: 100%; }
+.app .bars .bar rect { fill: var(--bg-measure); }

@@ -46,7 +46,8 @@
    ------------------------------------------------------------------------------
 
    THE FOUR SIBLING `order` DECLARATIONS ARE HERE AND THEY ONLY MEAN ANYTHING
-   TOGETHER. head 1, the action row 2, groups 3, trust 4. Three of the four were
+   TOGETHER, AND SINCE 2026-08-19 ONLY ON A SCREEN THAT HAS A GROUPS COLUMN SET.
+   head 1, the action row 2, groups 3, trust 4. Three of the four were
    correctly REFUSED by the component that owns the element they name, because
    ordering siblings is the parent's job: trust-block.css made the call first for
    `order: 4` and named it in its header, dashboard-head.css did the same for
@@ -518,10 +519,13 @@
     padding-inline: max(var(--space-40), (100% - var(--container-wide)) / 2);
   }
 
-  /* ---- A SCREEN BUILT AROUND A PICTURE ENDS WHERE THE PICTURE ENDS, 2026-08-19
-     The founder, on History and trends at a 1920 window: "что то растянуто на всю
-     ширину что то нет ... я бы хотел чтобы это выглядело круто, а не дёшево".
-     Measured on the live page before the fix, the direct children of one screen:
+  /* ---- ONE SCREEN, ONE MEASURE, AND THE FOUNDER PICKED THE OTHER ONE ------
+     Written 2026-08-19 in the morning and rewritten the same evening, and both
+     halves are kept because the second only makes sense against the first.
+
+     THE MORNING. The founder, on History and trends at a wide window: "что то
+     растянуто на всю ширину что то нет ... я бы хотел чтобы это выглядело круто,
+     а не дёшево". Measured on the live page, the direct children of that screen:
 
        1280  the text block, the trend list, the action row
         780  the chart and its month labels
@@ -532,47 +536,41 @@
      Five right edges, and the widest two disagree by 500px. The chart was the
      only block that had been given a measure (`--container-page`, in
      chart-placeholder.css, the day the plot became real), so everything around it
-     ran on to the pane while the picture stopped in the middle of the screen.
+     ran on to the pane while the picture stopped in the middle of the screen. The
+     repair was right and it stands: the measure came off the chart and onto the
+     pane, because a cap inside a cap is drift and the block that knows the right
+     width is the one that owns the whole content box. What was wrong was the
+     VALUE. The pane was set to 780, which made every block agree by making the
+     screen narrow.
 
-     THE MEASURE MOVES TO THE PANE AND OFF THE CHART, which is the same repair
-     this block already made for the groups column set in 2026-08-13: a cap inside
-     a cap is drift, and the block that knows the right width is the one that owns
-     the whole content box. `--container-page` (780) is not a new number - it is
-     what the shell itself hands every block between the two points, so past the
-     desktop point this screen keeps reading at the width it reads at on a tablet
-     and gains only air on both sides. chart-placeholder.css drops its own cap in
-     the same step; the pair `.chart + .metarow` no longer needs one, because two
-     blocks in one 780 box are the same width by construction.
+     THE EVENING, and this is the founder's decision: "растянул бы её как и
+     страницу Home ... по такой же бы сетке". Trends is a dashboard and not a
+     document. It gets the same 1280 Home gets, and the blocks stop disagreeing
+     the way Home's do - by being laid out, not by being capped. The head runs the
+     full width with the range control in its right cell, the picture runs the
+     full width under it, and What moved and By category sit side by side in a
+     `.grid.roomy`. Every line of prose on the screen still stops at
+     `--container-text` because prose is read, and that is a measure the LINE owns
+     rather than the screen: see the usage rule in architecture.md.
 
-     `:has(.chart)` AND NOT A CLASS, exactly as `:has(.plans)` above: the screen
-     that is built around a picture is identifiable by what is inside it, and a
-     class would be markup on a product screen. It matches the four History and
-     trends pages and nothing else in the product - the plot, the free two-month
-     plot, the empty frame and the loading skeleton - which is the whole family
-     that shares this shape.
+     So there is no `:has(.chart)` selector any more. It matched the four charted
+     History and trends pages and nothing else, and all four now take the default
+     1280 above.
 
-     AND THE FIFTH STATE OF THAT SCREEN HAS NO CHART, which is why the second
-     selector is here rather than in a later commit. `history-trends-error` is a
-     status block, two buttons and a quiet line, so `:has(.chart)` cannot see it,
-     and it measured 1280 while its four siblings measured 780: one screen that
-     changes width when it fails. `.interruption` is what it and `history-trends-
-     empty` actually are, and `:not(.flow)` is what keeps the pattern's three other
-     wearers out - `add-subscription-error`, `guided-reveal-empty` and
-     `upgrade-payment-failed` are all inside the onboarding chain, which owns its
-     own 620 column and is not touched here. Counted at 1920 over all 55 coloured
-     screens: the two selectors together match five pages and every one of them is
-     a state of History and trends. The rule generalises the right way - an
-     interruption is one message and one way out, and a message has no use for a
-     dashboard's width.
+     WHAT KEEPS ITS OWN MEASURE IS THE INTERRUPTION, and the second selector is
+     all that survives from the morning. `history-trends-error` is a status block,
+     two buttons and a quiet line; `history-trends-empty` is the same shape around
+     an empty frame. Both are the interruption pattern, and an interruption is one
+     message and one way out - a message has no use for a dashboard's width, and
+     it does not become a different screen because the screen it replaces is wide.
+     `:not(.flow)` keeps the pattern's three other wearers out: `add-subscription-
+     error`, `guided-reveal-empty` and `upgrade-payment-failed` are inside the
+     onboarding chain, which owns its own 620 column and is not touched here.
 
-     IT IS THE PADDING AND NOT A max-width ON `.screen`, for the reason written
-     above: `.screen` is the pane that scrolls, and a max-width here would drag
-     the scrollbar into the middle of the window. Only the content box narrows.
-     0-3-0 against the 0-2-0 of the rule it follows, so it wins without !important
-     and without touching any other screen. Home keeps 1280, because its group set
-     genuinely becomes three columns there and measured 434px tall at 1280 against
-     552 at 980; Alerts and Settings keep the 620 of the list-column pattern. */
-  .app > .screen:has(.chart),
+     IT IS THE PADDING AND NOT A max-width ON `.screen`: `.screen` is the pane
+     that scrolls, and a max-width here would drag the scrollbar into the middle
+     of the window. Only the content box narrows. 0-3-0 against the 0-2-0 of the
+     rule it follows, so it wins without !important. */
   .app:not(.flow) > .screen.interruption {
     padding-inline: max(var(--space-40), (100% - var(--container-page)) / 2);
   }
@@ -603,15 +601,46 @@
      own component declares. */
   :where(.app > .screen > *) { flex-shrink: 0; }
 
-  /* the same foot as above, minus the screens this block reorders. See the long
-     note at the rule below the columns for why the guard is `:has(> .head)` and
-     what it measured. */
-  .app > .screen:not(:has(> .head)) > :last-child { margin-bottom: var(--space-0); }
+  /* the same foot as above, minus the screens this block reorders. The guard was
+     `:has(> .head)` until 2026-08-19 and is now `:has(> .groups)`, for the reason
+     written under the four `order` lines below: a head is no longer what identifies
+     a reordered screen. Only home-empty changes, and it changes the right way. */
+  .app > .screen:not(:has(> .groups)) > :last-child { margin-bottom: var(--space-0); }
 
-  .app > .screen > .head       { order: 1; }
-  .app > .screen > nav.actions { order: 2; margin: var(--space-0) var(--space-0) var(--space-24); }
-  .app > .screen > .groups     { order: 3; }
-  .app > .screen > .trust      { order: 4; }
+  .app > .screen > nav.actions { margin: var(--space-0) var(--space-0) var(--space-24); }
+
+  /* ---- THE FOUR ORDERS BELONG TO THE DASHBOARD AND NOT TO EVERY SCREEN --------
+     2026-08-19. They were written unscoped, `.app > .screen > .head { order: 1 }`
+     and the three below it, because at the time Home was the only screen with a
+     head and Home had all four blocks. Two things broke that.
+
+     THE BUG THAT WAS ALREADY LIVE. `home-empty` has a head and no groups, no action
+     row and no trust block. Its head took `order: 1` and its empty block kept the
+     default 0, so past the desktop point the screen printed the empty state FIRST
+     and the summary under it. Measured before the fix, at 1440: `.empty` at y=72,
+     `.head` at y=290. It had been that way since the ordering was written and no
+     sweep caught it, because every instrument here checks widths and this is an
+     order.
+
+     THE SCREEN THAT FOUND IT. History and trends took Home's head on the founder's
+     decision the same day, and landed its whole head at the FOOT of the screen for
+     exactly the same arithmetic. Two screens with the same symptom is the point at
+     which the rule, and not the screen, is wrong.
+
+     The guard is `:has(> .groups)` because the groups column set is what this
+     reordering is FOR: the two secondaries move above the list only where there is
+     a list running in balanced columns, and under the shorter of two columns is
+     where they read as leftovers. A screen with no groups has no such problem and
+     wants its source order, which is the mobile-first order every screen is
+     authored in. Four screens match, and they are the four the rule was written
+     for: home, home-error, home-loading, home-savefocus.
+
+     The margin above stays unscoped: it is the action row's spacing at this width
+     and it was never part of the ordering. */
+  .app > .screen:has(> .groups) > .head       { order: 1; }
+  .app > .screen:has(> .groups) > nav.actions { order: 2; }
+  .app > .screen:has(> .groups) > .groups     { order: 3; }
+  .app > .screen:has(> .groups) > .trust      { order: 4; }
 
   /* THE TWO COLUMNS COUNT THEMSELVES, AND THAT IS A REPAIR MEASURED AT STAGE 10.
      It was `minmax(300px, 1fr) minmax(320px, 1fr)` with the two columns placed by

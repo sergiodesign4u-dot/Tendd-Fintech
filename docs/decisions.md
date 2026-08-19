@@ -7,6 +7,107 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-19 - Trends stopped being a queue, and the founder chose the wide answer
+
+Four complaints in one message, on the coloured History and trends: **"растянул бы
+её как и страницу Home ... по такой же бы сетке"**, **"структурно переделал бы эту
+страницу, сейчас на ней всё как-то друг за другом, непонятно"**, **"кнопки
+переключения очень большие и не работают"**, and **"тут By category ... должен быть
+график со столбиками по категориям, а его нет"**. All four are answered and none of
+them on a screen file.
+
+**THE WIDTH, AND IT OVERTURNS THIS MORNING'S ANSWER RATHER THAN CONTRADICTING IT.**
+The morning found five right edges on this screen and moved the measure off the
+chart and onto the pane. That repair stands; what was wrong was the VALUE, 780,
+which made every block agree by making the screen narrow. The founder's answer is
+Home's 1280, and the blocks now stop disagreeing the way Home's do - by being laid
+out. `:has(.chart)` is gone from `app-shell.css`. What survives from the morning is
+the second selector, the interruption, and it generalised: an interruption is one
+message and one way out at `--container-page` **wherever it stands**, so
+`history-trends-empty` and `history-trends-error` stay at 780 while the three data
+views take 1280. `edges13.cjs` was rewritten to check that as its own set, which is
+a stricter test than the family one it left: **12 families, 0 split; 2
+interruptions, 1 width.**
+
+**THE STRUCTURE.** Home's `.head` now holds the lede and the range control in one
+row with a rule under them; the picture runs the full width under it; **What moved**
+and **By category** sit side by side in a `.grid.roomy`; the export closes it. That
+grid earned a change of its own: a roomy grid holding no `.door` takes a 48px column
+gutter, because 16px between two bordered boxes reads as a gap and 16px between two
+borderless lists reads as one list that has been chopped. The Pro gate followed the
+width and took the same treatment - the two months a free plan draws on the left, the
+lock on the right - because a two-month line stretched across a dashboard with a
+560px card under it is exactly what "дёшево" describes.
+
+**THE CONTROL WORKS, AND THE DATA IS ON THE BUTTON THAT SELECTS IT.** Each segment
+carries `data-points` and `data-scale`; `behaviour.js` moves them onto the chart and
+asks it to redraw from its own attributes. Everything else that changes with the
+range is declared in the markup through `data-view`, so a sentence written for three
+months stays product copy with an owner rather than a string a script assembles. The
+size came down too, 384 by 52 to 320 by 48, and **the tap target did not move**:
+44px is a floor, and shrinking a control by shrinking what a thumb has to hit is the
+one way to get it wrong.
+
+**THE TWELVE MONTHS ARE DERIVED AND NOT INVENTED.** 143.91 to 192.90, three steps:
+Adobe Creative Cloud arrives in November, Disney+ goes 7.99 to 13.99 in April, ChatGPT
+Plus arrives in June. Every step is a subscription on Home at the price Home prints,
+and the arithmetic closes in both directions - 143.91 + 22.99 + 6.00 + 20.00 = 192.90.
+It is written down once, in `docs/bank-connection.md`, and nowhere else.
+
+**BY CATEGORY BECAME A PICTURE, AND THE QUESTION FOUND A SECOND DEFECT.** The line
+said "Streaming is up $6 since March" **under a view that begins in May**. The bars
+are the composition now, which does not move with the range; the sentence under them
+is the change over the chosen range, and it is correct in all three. The bars are
+measured against the LARGEST of the five and never against the total: five shares of
+192.90 would put Streaming and Software a hair apart at a fifth of the width, and
+"these two are the same size" is the fact the picture exists for. They are **not
+petrol**: the plotted line is this screen's one petrol element and two pictures in
+one colour make the screen argue with itself.
+
+**WHAT WE REJECTED.** A colour per category, because amber and clay already mean *a
+price changed* and *something failed*, and a category is neither. Building the bar
+lengths by hand, because a percentage kept beside an amount drifts the first time a
+price changes; they are derived from `data-value` and the `rect` in the markup is the
+same arithmetic for a page with no script. And generating the range copy in
+JavaScript, because copy has an owner.
+
+---
+
+## 2026-08-19 - Two rules were unscoped, and one of them had been wrong for six days
+
+Both found by the same rebuild, and both are about a declaration that was written
+for one screen and applied to all of them.
+
+**THE ORDER.** `.app > .screen > .head { order: 1 }` and its three siblings exist to
+lift the two secondaries above Home's balanced columns. Written unscoped, the single
+`order: 1` sends the ONLY ordered block to the FOOT of any screen that has it and
+nothing else, because every unordered sibling keeps the default 0. That is what
+happened the instant Trends took the same head - and, measured, it is what
+`home-empty` had been doing since the ordering was written: `.empty` at y=72 and
+`.head` at y=290 at 1440. **No sweep caught it, because every instrument in this
+project checks widths and this is an order.** The whole set is now guarded on
+`:has(> .groups)`, the block the reordering is actually for. Now U17.
+
+**THE MEASURE.** `card.css` declared the prose card's 52ch as
+`.app > .screen > .card.prose > p`. The Pro gate moved that card into a column, the
+guard stopped matching, and the width sweep priced the paragraph at **77.3ch at a 750
+window** against 52ch everywhere else in the product. A measure that belongs to the
+LINE cannot be conditional on where the box around the line is parked, so it lost the
+`> .screen >`. The 560 above it kept its guard and should: that one is the width of a
+BLOCK on a screen, and inside a column the column decides.
+
+**AND `[hidden]` WAS NOT A FACT.** The three range views are hidden in the authored
+markup, so that with no script the screen is the three-month view and not all three
+stacked. Two components in the system out-declare the attribute: `.metarow` is
+`display: flex` and `.muted` is `display: block`, both 0-2-0 against the browser's own
+0-1-0, so `hidden` on either of them did nothing at all, silently. The fix is one
+rule at the END of `index.css` - the file that owns cascade ORDER - rather than
+`!important`, a compound-selector trick, or the runtime inline style stage 08 used on
+`.tile`. That workaround was right for a filter that only exists when a script runs
+and is wrong for markup that has to be correct without one. Now U16.
+
+---
+
 ## 2026-08-19 - "No link at all" was the wrong test, and the founder found it in an hour
 
 The strip that answers a dead end shipped in the morning against exactly two

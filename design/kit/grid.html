@@ -226,6 +226,8 @@
     </div>
     <h3 class="kit-sub-h">Limits</h3>
     <p class="note"><b>U6, composition.</b> A grid of doors is one of the two legal ways out of a <code class="kit-code">.textblock.status</code>, and the only one on <code class="kit-code">connections-add-source</code>. A status block with neither is a dead end. Full table with sources and how to check: <a href="architecture.html#usage">Usage rules</a>.</p>
+    <h3 class="kit-sub-h">Limits</h3>
+    <p class="note"><b>A pair of doors keeps the 16px gutter; two columns of content take 48.</b> Every <code class="kit-code">.grid.roomy</code> in the product held a pair of doors until 2026-08-19, and a door is a bordered box: 16px between two edges reads as a gap because there are two edges to see it against. History and trends puts two category groups in this box and the Pro gate puts a chart beside a card, and a group has no border at all, so at 16px two columns of text read as one column that has been chopped. 48 is not a new number: it is the column gap the <a href="groups-column-set.html">groups column set</a> already uses for exactly this. <b>The guard names the doors and not the content</b>, <code class="kit-code">:not(:has(&gt; .door))</code>, which is the way round that ages: the four door screens are a closed set built at this gutter and correct at it, and anything else that lands in a roomy grid is content and gets the content gutter without being asked to declare it.</p>
   </section>
 
   <section class="kit-sec" id="states">
@@ -240,7 +242,7 @@
       <table>
         <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
         <tbody>
-          <tr><td>the roomy gap</td><td><code>--space-16</code></td><td>primitive, straight. 12px before the fold, a tie that went to the larger</td></tr>
+          <tr><td>the roomy gap</td><td><code>--space-16</code></td><td>primitive, straight. 12px before the fold, a tie that went to the larger. Since 2026-08-19 the COLUMN gap becomes <code>--space-48</code> past the tablet point on a roomy grid that holds no door: see below</td></tr>
           <tr><td>the tight gap</td><td><code>--space-8</code></td><td>primitive, straight. 10px before the fold</td></tr>
           <tr><td>the space under a tile grid</td><td><code>--space-24</code></td><td>primitive, straight. 22px before the fold</td></tr>
           <tr><td>the space under a plan row</td><td><code>--space-16</code></td><td>primitive, straight. 12px before the fold</td></tr>
@@ -260,7 +262,8 @@
           <tr><td><code>.grid.roomy</code> columns</td><td class="n">1</td><td class="n">2</td><td>the query fires</td></tr>
           <tr><td><code>.grid</code> columns</td><td class="n">2</td><td class="n">3</td><td>the query fires</td></tr>
           <tr><td><code>.plans</code> columns</td><td class="n">1</td><td class="n">3</td><td>the query fires, and it is the third column value the registry does not name</td></tr>
-          <tr><td><code>.grid.roomy</code> gap</td><td class="n">16px</td><td class="n">16px</td><td class="dec">unchanged, and unchanged on purpose: this is the axis the fold removed</td></tr>
+          <tr><td><code>.grid.roomy</code> gap, holding doors</td><td class="n">16px</td><td class="n">16px</td><td class="dec">unchanged, and unchanged on purpose: this is the axis the fold removed</td></tr>
+          <tr><td><code>.grid.roomy</code> gap, holding anything else</td><td class="n">16px</td><td class="n">48px column</td><td class="dec">2026-08-19: two columns of content need a wider gutter than two bordered boxes</td></tr>
         </tbody>
       </table>
     </div>

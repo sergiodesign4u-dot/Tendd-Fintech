@@ -296,11 +296,8 @@
     var g = geometry(box, pts);
     if (!g) return;
 
-    var d = path(g);
     var plot = box.querySelector('.plot');
     var area = box.querySelector('.area');
-    if (plot) plot.setAttribute('d', d);
-    if (area) area.setAttribute('d', d + ' L' + W + ' 100 L0 100 Z');
 
     /* ---- THE LAST POINT IS MARKED, AND IT IS THE ONE THING HERE THAT IS TRUE
        WITH NOBODY TOUCHING IT. 2026-08-19. The cursor answers a pointer and is
@@ -320,14 +317,27 @@
        It hides while the cursor is on, in css, because the cursor puts its own
        dot on the curve and two dots on one point is a bug a reader has to think
        about. */
-    var last = g[g.length - 1];
     var mark = document.createElement('span');
     mark.className = 'mark';
     mark.innerHTML = '<span class="pin"></span>';
     var pin = mark.firstChild;
-    pin.style.setProperty('--lx', round((last.x / W) * 100) + '%');
-    pin.style.setProperty('--ly', round(last.y) + '%');
     box.appendChild(mark);
+
+    /* THE CURVE, THE GROUND UNDER IT AND THE END DOT ARE ONE DRAW, and it is a
+       function rather than a run of statements because since 2026-08-19 the range
+       control can hand this box a different set of months. Everything below this
+       point - the cursor, its listeners, the keyboard - is built once and reads
+       `pts` and `g` through the closure, so a redraw replaces the data without
+       replacing the element or stacking a second set of listeners on it. */
+    function draw() {
+      var d = path(g);
+      if (plot) plot.setAttribute('d', d);
+      if (area) area.setAttribute('d', d + ' L' + W + ' 100 L0 100 Z');
+      var last = g[g.length - 1];
+      pin.style.setProperty('--lx', round((last.x / W) * 100) + '%');
+      pin.style.setProperty('--ly', round(last.y) + '%');
+    }
+    draw();
 
     var cursor = document.createElement('div');
     cursor.className = 'cursor';
@@ -372,6 +382,20 @@
       return Math.min(pts.length - 1, Math.max(0, Math.round(f * (pts.length - 1))));
     }
 
+    /* The one thing this box exposes to the rest of the file. It re-reads its own
+       two attributes rather than taking an argument, so the range control's only
+       job is to write the data where the chart already keeps it. */
+    box.redraw = function () {
+      var np = parse(box);
+      if (np.length < 2) return;
+      var ng = geometry(box, np);
+      if (!ng) return;
+      pts = np;
+      g = ng;
+      hide();
+      draw();
+    };
+
     box.addEventListener('pointermove', function (e) { show(nearest(e.clientX)); });
     box.addEventListener('pointerleave', hide);
     box.addEventListener('pointercancel', hide);
@@ -395,6 +419,135 @@
   function init() {
     var boxes = document.querySelectorAll('.chart[data-points]');
     for (var i = 0; i < boxes.length; i++) build(boxes[i]);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+/* ============================================================================
+   THE RANGE CONTROL, 2026-08-19, and it is the fourth thing in this file. It is
+   here because a control that does nothing is a defect and not a style.
+
+   The founder walked the trend screen and wrote: "кнопки переключения очень
+   большие и не работают". Both halves were true. The size went to
+   range-picker.css, which is where a size belongs. This is the other half: three
+   segments that had never moved a pixel on the screen behind them since the
+   wireframe.
+
+   IT IS THE SAME SHAPE AS THE CHART ABOVE. The data lives in the markup, on the
+   button that selects it, and this file only moves it: `data-points` and
+   `data-scale` are copied onto every chart in the screen and the chart is asked
+   to redraw itself from its own attributes. Nothing here knows the geometry.
+
+   WHAT SWITCHES BESIDES THE PICTURE. Any element in the screen carrying
+   `data-view` declares which ranges it belongs to, as a space-separated list of
+   the same keys the buttons use. That is how a sentence written for three months
+   and a row that only moved over twelve can both be product copy with an owner in
+   microcopy.md rather than a string built by a script. Buttons are skipped: a
+   `data-view` on a button names what it SELECTS, not where it appears.
+
+   WITH THIS FILE ABSENT the screen is the three-month view, whole and correct,
+   and the control looks pressed on "3 months" because the markup says so. That is
+   the same bargain the chart makes.
+   ============================================================================ */
+(function () {
+  'use strict';
+
+  function views(scope) {
+    var all = scope.querySelectorAll('[data-view]'), out = [], i;
+    for (i = 0; i < all.length; i++) {
+      if (all[i].tagName !== 'BUTTON') out.push(all[i]);
+    }
+    return out;
+  }
+
+  function apply(group, key) {
+    var scope = group.closest('.screen') || document;
+    var btns = group.querySelectorAll('button[data-view]'), i;
+    var src = null;
+    for (i = 0; i < btns.length; i++) {
+      var on = btns[i].getAttribute('data-view') === key;
+      btns[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on) src = btns[i];
+    }
+    if (!src) return;
+
+    var vs = views(scope);
+    for (i = 0; i < vs.length; i++) {
+      var list = (vs[i].getAttribute('data-view') || '').split(/\s+/);
+      vs[i].hidden = list.indexOf(key) < 0;
+    }
+
+    var pts = src.getAttribute('data-points');
+    var scale = src.getAttribute('data-scale');
+    var label = src.getAttribute('data-label');
+    var charts = scope.querySelectorAll('.chart[data-points]');
+    for (i = 0; i < charts.length; i++) {
+      if (pts) charts[i].setAttribute('data-points', pts);
+      if (scale) charts[i].setAttribute('data-scale', scale);
+      if (label) charts[i].setAttribute('aria-label', label);
+      if (typeof charts[i].redraw === 'function') charts[i].redraw();
+    }
+  }
+
+  function init() {
+    var groups = document.querySelectorAll('.range'), i;
+    for (i = 0; i < groups.length; i++) {
+      (function (group) {
+        if (!group.querySelector('button[data-view]')) return;
+        group.addEventListener('click', function (e) {
+          var b = e.target.closest('button[data-view]');
+          if (!b || b.disabled || !group.contains(b)) return;
+          apply(group, b.getAttribute('data-view'));
+        });
+        var on = group.querySelector('button[data-view][aria-pressed="true"]');
+        if (on) apply(group, on.getAttribute('data-view'));
+      })(groups[i]);
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+/* ============================================================================
+   THE CATEGORY BARS, 2026-08-19, the fifth and the shortest.
+
+   One arithmetic step, and it is here for the reason the chart's path is: the
+   length of a bar is derived from a figure the same row already prints, and two
+   hand-kept numbers beside each other drift the first time a price changes.
+
+   Each `li` carries `data-value`. The longest bar in a list is the largest value
+   in that list, and every other bar is its share of it - relative to the LARGEST
+   and never to the total, because five categories summing to the total would put
+   the two biggest, 54.96 and 53.98, within a hair of each other at a fifth of the
+   width, and "these two are the same size" is the whole reason the picture is
+   there.
+
+   The `<rect width>` in the markup is the answer with no script running, computed
+   by this same arithmetic and written down on the component's page.
+   ============================================================================ */
+(function () {
+  'use strict';
+
+  function size(list) {
+    var items = list.querySelectorAll('li[data-value]'), max = 0, i, v;
+    for (i = 0; i < items.length; i++) {
+      v = parseFloat(items[i].getAttribute('data-value'));
+      if (isFinite(v) && v > max) max = v;
+    }
+    if (!(max > 0)) return;
+    for (i = 0; i < items.length; i++) {
+      v = parseFloat(items[i].getAttribute('data-value'));
+      var rect = items[i].querySelector('.bar rect');
+      if (rect && isFinite(v)) rect.setAttribute('width', String(Math.round((v / max) * 1000) / 10));
+    }
+  }
+
+  function init() {
+    var lists = document.querySelectorAll('.bars');
+    for (var i = 0; i < lists.length; i++) size(lists[i]);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -24,51 +24,117 @@
 
   <main class="screen">
 
-    <div class="lede">
-      <h1>Your trends</h1>
-      <p>How your monthly total has moved over time. Nothing to act on here, just the shape of it.</p>
-    </div>
+    <!-- ==================================================================
+         STRUCTURE CHANGED 2026-08-19, ON THE FOUNDER'S DECISION, and this is
+         the file the argument belongs in because this is the file it changes.
 
-    <!-- Three ranges. Type H found more in every source and every extra one is a
-         decision asked of a person who came here to read. -->
-    <div class="range" role="group" aria-label="Choose a time range">
-      <button type="button" aria-pressed="true">3 months</button>
-      <button type="button" aria-pressed="false">6 months</button>
-      <button type="button" aria-pressed="false">12 months</button>
+         The founder walked the coloured 5.12 at a wide window and wrote four
+         things in one message:
+
+           "растянул бы её как и страницу Home ... по такой же бы сетке"
+           "структурно переделал бы эту страницу, сейчас на ней всё как-то
+            друг за другом, непонятно"
+           "кнопки переключения очень большие и не работают"
+           "тут By category ... должен быть график со столбиками по категориям,
+            а его нет"
+
+         What changes here, and only here:
+
+         1. THE HEAD. The lede and the range control share one row, with a rule
+            under them, which is the head Home has had since the dashboard block
+            was written. On a phone it is two blocks in a row, exactly as it was.
+
+         2. TWO COLUMNS INSTEAD OF A QUEUE. What moved and By category answer two
+            different questions - the history, and the composition - and they sat
+            one under the other because a phone has one column and nobody revisited
+            it. They are a pair now, side by side once there is room.
+
+         3. BY CATEGORY IS A PICTURE. It was one sentence, `.bycat`, and the founder
+            is right that a bar per category is what belongs there. The sentence
+            stays, under the bars, as their summary. Its old wording said "up $6
+            since March" under a view that starts in May, which is a second thing
+            the question found.
+
+         4. THE RANGE CONTROL SWITCHES THE SCREEN. That is behaviour and the grey
+            has no script, so it is stated and not shown, exactly as the plot is:
+            the coloured stage draws the picture and moves the data, this page
+            fixes what the blocks are. The three ranges are one screen and not
+            three states (conventions section 7): a state is a condition the screen
+            is in, and a range is a control's value.
+         ================================================================== -->
+
+    <div class="head">
+
+      <div class="lede">
+        <h1>Your trends</h1>
+        <p>How your monthly total has moved over time. Nothing to act on here, just the shape of it.</p>
+      </div>
+
+      <!-- Three ranges. Type H found more in every source and every extra one is a
+           decision asked of a person who came here to read. -->
+      <div class="range" role="group" aria-label="Choose a time range">
+        <button type="button" aria-pressed="true">3 months</button>
+        <button type="button" aria-pressed="false">6 months</button>
+        <button type="button" aria-pressed="false">12 months</button>
+      </div>
+
     </div>
 
     <!-- The fact in words, ABOVE the chart. This is the whole of type H: in every
          source the number lives inside the picture, and growth zone 3 says a
-         picture is what makes this person close a finance app. -->
+         picture is what makes this person close a finance app. One sentence per
+         range; this page carries the three-month one, which is the range the
+         control arrives pressed on. -->
     <p class="readout">Your monthly total went from <strong>$172.90 in May</strong> to <strong>$192.90 in July</strong>, up about <strong>$20</strong> across three months.</p>
 
     <div class="chart" role="img" aria-label="Line chart of your monthly total from May to July, the same figures as the sentence above">[chart: monthly total, May to Jul]</div>
     <p class="axis"><span>May</span><span>Jun</span><span>Jul</span></p>
 
-    <!-- The trend list. A word, never a coloured arrow: "Higher" is a fact and a
-         red arrow is a verdict (D-Concept, and node 5.12 block 6). -->
-    <section class="group" aria-label="What moved">
-      <div class="group-head"><h2>What moved</h2></div>
-      <ul>
-        <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, up 2 dollars 50 cents since May, now 17 dollars 99 a month, Streaming">
-          <span class="logo">[logo]</span>
-          <span class="body"><span class="name">Netflix</span><span class="when">Up $2.50 since May, now $17.99 a month</span></span>
-          <span class="tag">Higher</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, new since June, 20 dollars a month, Software">
-          <span class="logo">[logo]</span>
-          <span class="body"><span class="name">ChatGPT Plus</span><span class="when">New since June, $20.00 a month</span></span>
-          <span class="tag">New</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="The New York Times, no change since March, 17 dollars a month, News">
-          <span class="logo">[logo]</span>
-          <span class="body"><span class="name">The New York Times</span><span class="when">No change since March, $17.00 a month</span></span>
-          <span class="tag">Steady</span>
-        </a></li>
-      </ul>
-    </section>
+    <div class="pair">
 
-    <p class="bycat"><span class="k">By category</span>Streaming is up $6 since March. Everything else held steady.</p>
+      <!-- The trend list. A word, never a coloured arrow: "Higher" is a fact and a
+           red arrow is a verdict (D-Concept, and node 5.12 block 6). -->
+      <section class="group" aria-label="What moved">
+        <div class="group-head"><h2>What moved</h2></div>
+        <ul>
+          <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, up 2 dollars 50 cents since May, now 17 dollars 99 a month, Streaming">
+            <span class="logo">[logo]</span>
+            <span class="body"><span class="name">Netflix</span><span class="when">Up $2.50 since May, now $17.99 a month</span></span>
+            <span class="tag">Higher</span>
+          </a></li>
+          <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, new since June, 20 dollars a month, Software">
+            <span class="logo">[logo]</span>
+            <span class="body"><span class="name">ChatGPT Plus</span><span class="when">New since June, $20.00 a month</span></span>
+            <span class="tag">New</span>
+          </a></li>
+          <li><a class="row" href="subscription-detail.html" aria-label="The New York Times, no change since May, 17 dollars a month, News">
+            <span class="logo">[logo]</span>
+            <span class="body"><span class="name">The New York Times</span><span class="when">No change since May, $17.00 a month</span></span>
+            <span class="tag">Steady</span>
+          </a></li>
+        </ul>
+      </section>
+
+      <!-- Where the total goes, one bar per category. The five amounts are the five
+           subtotals on Home and they sum to $192.90. A bar is measured against the
+           LARGEST of the five and not against the total: five shares of the total
+           would put Streaming and Software, 54.96 and 53.98, a hair apart at a fifth
+           of the width, and "these two are the same size" is the fact the picture is
+           for. The rect widths here are that arithmetic; the coloured stage recomputes
+           them from the amounts rather than trusting them. -->
+      <section class="group" aria-label="By category">
+        <div class="group-head"><h2>By category</h2><span class="subtotal">$192.90 a month</span></div>
+        <ul class="bars">
+          <li data-value="54.96"><span class="name">Streaming</span><span class="amt">$54.96</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="100" height="8"/></svg></span></li>
+          <li data-value="53.98"><span class="name">Software</span><span class="amt">$53.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="98.2" height="8"/></svg></span></li>
+          <li data-value="36.00"><span class="name">News</span><span class="amt">$36.00</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="65.5" height="8"/></svg></span></li>
+          <li data-value="24.98"><span class="name">Fitness</span><span class="amt">$24.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="45.5" height="8"/></svg></span></li>
+          <li data-value="22.98"><span class="name">Music</span><span class="amt">$22.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="41.8" height="8"/></svg></span></li>
+        </ul>
+        <p class="bycat">Software is up $20.00 since May, when ChatGPT Plus arrived. Everything else held steady.</p>
+      </section>
+
+    </div>
 
     <!-- D-Export names the split out loud, on the screen that sells one of the
          two exports. A plain copy of your own data is free and lives on 6.15. -->

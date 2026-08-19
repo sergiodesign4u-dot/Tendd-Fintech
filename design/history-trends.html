@@ -57,67 +57,154 @@
 
   <main class="screen act-foot">
 
-    <div class="textblock">
-      <h1>Your trends</h1>
-      <p>How your monthly total has moved over time. Nothing to act on here, just the shape of it.</p>
-    </div>
+    <!-- STRUCTURE CHANGED 2026-08-19, ON THE FOUNDER'S DECISION. The grey original
+         carries the whole argument at the block it changes; this is its coloured
+         twin and differs from it by styling only. In short, four things in one
+         sentence: "растянул бы её как и страницу Home ... по такой же бы сетке ...
+         кнопки переключения очень большие и не работают ... должен быть график со
+         столбиками по категориям а его нет". So the screen takes Home's 1280 and
+         Home's head, the range control is smaller and real, What moved and By
+         category sit side by side instead of one after another, and By category is
+         a picture rather than a sentence. -->
 
-    <!-- Three ranges. Type H found more in every source and every extra one is a
-         decision asked of a person who came here to read. -->
-    <div class="range" role="group" aria-label="Choose a time range">
-      <button type="button" aria-pressed="true">3 months</button>
-      <button type="button" aria-pressed="false">6 months</button>
-      <button type="button" aria-pressed="false">12 months</button>
+    <!-- The head is Home's: the subject on the left, the one control on the right,
+         a rule under both. On a phone it is two blocks in a row, as it always was. -->
+    <div class="head">
+
+      <div class="textblock">
+        <h1>Your trends</h1>
+        <p>How your monthly total has moved over time. Nothing to act on here, just the shape of it.</p>
+      </div>
+
+      <!-- Three ranges. Type H found more in every source and every extra one is a
+           decision asked of a person who came here to read.
+
+           EACH BUTTON CARRIES THE DATA IT SELECTS, and behaviour.js does nothing but
+           move it onto the chart, which redraws itself from its own two attributes.
+           The twelve monthly totals are one series and every figure in it is derived
+           from the subscriptions on Home; the arithmetic is written down once, in
+           docs/bank-connection.md, and never in two places. -->
+      <div class="range" role="group" aria-label="Choose a time range">
+        <button type="button" aria-pressed="true" data-view="r3" data-scale="160 200" data-points="May 172.90|Jun 192.90|Jul 192.90" data-label="Line chart of your monthly total from May to July. It rises in June, when one subscription was added, and holds level after it. The figures are the sentence above">3 months</button>
+        <button type="button" aria-pressed="false" data-view="r6" data-scale="160 200" data-points="Feb 166.90|Mar 166.90|Apr 172.90|May 172.90|Jun 192.90|Jul 192.90" data-label="Line chart of your monthly total from February to July. It steps up twice, in April and in June, and holds level in between and after. The figures are the sentence above">6 months</button>
+        <button type="button" aria-pressed="false" data-view="r12" data-scale="140 200" data-points="Aug 143.91|Sep 143.91|Oct 143.91|Nov 166.90|Dec 166.90|Jan 166.90|Feb 166.90|Mar 166.90|Apr 172.90|May 172.90|Jun 192.90|Jul 192.90" data-label="Line chart of your monthly total across twelve months, from last August to July. It steps up three times, in November, in April and in June, and holds level in between. The figures are the sentence above">12 months</button>
+      </div>
+
     </div>
 
     <!-- The fact in words, ABOVE the chart. This is the whole of type H: in every
          source the number lives inside the picture, and growth zone 3 says a
-         picture is what makes this person close a finance app. -->
-    <p class="readout">Your monthly total went from <strong>$172.90 in May</strong> to <strong>$192.90 in July</strong>, up about <strong>$20</strong> across three months.</p>
+         picture is what makes this person close a finance app. One sentence per
+         range, and the two that are not showing are hidden in the markup, so with
+         no script running the screen is the three-month view and nothing else. -->
+    <p class="readout" data-view="r3">Your monthly total went from <strong>$172.90 in May</strong> to <strong>$192.90 in July</strong>, up about <strong>$20</strong> across three months.</p>
+    <p class="readout" data-view="r6" hidden>Your monthly total went from <strong>$166.90 in February</strong> to <strong>$192.90 in July</strong>, up about <strong>$26</strong> across six months.</p>
+    <p class="readout" data-view="r12" hidden>Your monthly total went from <strong>$143.91 last August</strong> to <strong>$192.90 in July</strong>, up about <strong>$49</strong> across the year.</p>
 
-    <!-- THE PLOT DRAWS THREE MONTHLY TOTALS AND DERIVES THE MIDDLE ONE, 2026-08-18.
-         Until today it drew a straight line from $172.90 to $192.90 with June
-         sitting on it, on the ground that the copy gives no June figure. That was
-         true of the sentence above and false of the screen: the "What moved" list
-         under the chart says ChatGPT Plus is NEW SINCE JUNE at $20.00 a month, and
-         172.90 + 20.00 is exactly 192.90. Netflix's $2.50 is dated Jul 28 on
-         subscription-detail-price-change and has not been charged yet, so it is not
-         in July's total. So the three months are 172.90, 192.90, 192.90: the total
-         jumped when one subscription arrived and has held since, which is the shape
-         the copy above calls "the shape of it". Nothing is invented; the middle
-         value is read off two facts this same screen states.
+    <!-- THE PLOT DRAWS THE MONTHLY TOTAL AND DERIVES NOTHING IT CANNOT SHOW.
+         The three-month series is the one this screen has drawn since 2026-08-18
+         and it is unchanged: 172.90, 192.90, 192.90. The total jumped when one
+         subscription arrived and has held since, which is the shape the copy above
+         calls "the shape of it", and both outer figures are stated in the sentence
+         while the middle one is read off two facts this same screen carries -
+         ChatGPT Plus is new since June at $20.00, and 172.90 + 20.00 is 192.90.
 
-         The curve eases into the plateau rather than turning a corner, because a
+         The six and twelve month series extend the same line backwards and add no
+         new kind of fact: a subscription arrives, or a price moves, and the level
+         holds in between. Every step is a subscription on Home at the price Home
+         prints. The path in the markup is the three-month curve and is what draws
+         with no script; behaviour.js recomputes it from `data-points` whenever the
+         range changes, so the curve and the sentence cannot disagree.
+
+         The curve eases into a plateau rather than turning a corner, because a
          monthly total is a level and not an event. The path runs 0 to 300 so its
-         ends sit over the May and Jul labels, and the label row shares the band's
-         cap so the two are one object. Every colour is in chart-placeholder.css. -->
-    <div class="chart" role="img" data-points="May 172.90|Jun 192.90|Jul 192.90" data-scale="160 200" aria-label="Line chart of your monthly total from May to July. It rises in June, when one subscription was added, and holds level after it. The figures are the sentence above"><ul class="yaxis" aria-hidden="true"><li>$200</li><li>$180</li><li>$160</li></ul><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="area" d="M0 64.2 C50 64.2, 100 24.2, 150 24.2 C200 24.2, 250 24.2, 300 24.2 L300 100 L0 100 Z"/><path class="plot" d="M0 64.2 C50 64.2, 100 24.2, 150 24.2 C200 24.2, 250 24.2, 300 24.2" vector-effect="non-scaling-stroke"/></svg></div>
-    <p class="metarow"><span>May</span><span>Jun</span><span>Jul</span></p>
+         ends sit over the first and last labels, and the label row shares the
+         band's width because they are the same content box. Every colour is in
+         chart-placeholder.css. -->
+    <div class="chart" role="img" data-points="May 172.90|Jun 192.90|Jul 192.90" data-scale="160 200" aria-label="Line chart of your monthly total from May to July. It rises in June, when one subscription was added, and holds level after it. The figures are the sentence above"><ul class="yaxis" data-view="r3 r6" aria-hidden="true"><li>$200</li><li>$180</li><li>$160</li></ul><ul class="yaxis" data-view="r12" aria-hidden="true" hidden><li>$200</li><li>$170</li><li>$140</li></ul><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="area" d="M0 64.2 C50 64.2, 100 24.2, 150 24.2 C200 24.2, 250 24.2, 300 24.2 L300 100 L0 100 Z"/><path class="plot" d="M0 64.2 C50 64.2, 100 24.2, 150 24.2 C200 24.2, 250 24.2, 300 24.2" vector-effect="non-scaling-stroke"/></svg></div>
+    <p class="metarow" data-view="r3"><span>May</span><span>Jun</span><span>Jul</span></p>
+    <p class="metarow" data-view="r6" hidden><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span></p>
+    <p class="metarow" data-view="r12" hidden><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span></p>
 
-    <!-- The trend list. A word, never a coloured arrow: "Higher" is a fact and a
-         red arrow is a verdict (D-Concept, and node 5.12 block 6). -->
-    <section class="group" aria-label="What moved">
-      <div class="group-head"><h2>What moved</h2></div>
-      <ul>
-        <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, up 2 dollars 50 cents since May, now 17 dollars 99 a month, Streaming">
-          <span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span>
-          <span class="body"><span class="name">Netflix</span><span class="when">Up $2.50 since May, now $17.99 a month</span></span>
-          <span class="chip">Higher</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, new since June, 20 dollars a month, Software">
-          <span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span>
-          <span class="body"><span class="name">ChatGPT Plus</span><span class="when">New since June, $20.00 a month</span></span>
-          <span class="chip">New</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="The New York Times, no change since March, 17 dollars a month, News">
-          <span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span>
-          <span class="body"><span class="name">The New York Times</span><span class="when">No change since March, $17.00 a month</span></span>
-          <span class="chip">Steady</span>
-        </a></li>
-      </ul>
-    </section>
+    <!-- Two blocks that answer two questions, side by side once there is room for
+         two columns and stacked when there is not. What moved is the history, By
+         category is the composition, and putting one under the other made the
+         screen a queue: "сейчас на ней всё как-то друг за другом, непонятно". -->
+    <div class="grid roomy">
 
-    <p class="muted"><span class="k">By category</span>Streaming is up $6 since March. Everything else held steady.</p>
+      <!-- The trend list. A word, never a coloured arrow: "Higher" is a fact and a
+           red arrow is a verdict (D-Concept, and node 5.12 block 6). A row states
+           which ranges it belongs to: Disney+ moved in April, so it is not in the
+           three-month view, and Adobe arrived in November, so it is only in the
+           year. The steady row is written once per range because "no change since
+           March" is not a true sentence inside a window that starts in May. -->
+      <section class="group" aria-label="What moved">
+        <div class="group-head"><h2>What moved</h2></div>
+        <ul>
+          <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, up 2 dollars 50 cents since May, now 17 dollars 99 a month, Streaming">
+            <span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span>
+            <span class="body"><span class="name">Netflix</span><span class="when">Up $2.50 since May, now $17.99 a month</span></span>
+            <span class="chip">Higher</span>
+          </a></li>
+          <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, new since June, 20 dollars a month, Software">
+            <span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span>
+            <span class="body"><span class="name">ChatGPT Plus</span><span class="when">New since June, $20.00 a month</span></span>
+            <span class="chip">New</span>
+          </a></li>
+          <li data-view="r6 r12" hidden><a class="row" href="subscription-detail.html" aria-label="Disney Plus, up 6 dollars since March, now 13 dollars 99 a month, Streaming">
+            <span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span>
+            <span class="body"><span class="name">Disney+</span><span class="when">Up $6.00 since March, now $13.99 a month</span></span>
+            <span class="chip">Higher</span>
+          </a></li>
+          <li data-view="r12" hidden><a class="row" href="subscription-detail.html" aria-label="Adobe Creative Cloud, new since November, 22 dollars 99 a month, Software">
+            <span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span>
+            <span class="body"><span class="name">Adobe Creative Cloud</span><span class="when">New since November, $22.99 a month</span></span>
+            <span class="chip">New</span>
+          </a></li>
+          <li data-view="r3"><a class="row" href="subscription-detail.html" aria-label="The New York Times, no change since May, 17 dollars a month, News">
+            <span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span>
+            <span class="body"><span class="name">The New York Times</span><span class="when">No change since May, $17.00 a month</span></span>
+            <span class="chip">Steady</span>
+          </a></li>
+          <li data-view="r6" hidden><a class="row" href="subscription-detail.html" aria-label="The New York Times, no change since February, 17 dollars a month, News">
+            <span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span>
+            <span class="body"><span class="name">The New York Times</span><span class="when">No change since February, $17.00 a month</span></span>
+            <span class="chip">Steady</span>
+          </a></li>
+          <li data-view="r12" hidden><a class="row" href="subscription-detail.html" aria-label="The New York Times, no change all year, 17 dollars a month, News">
+            <span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span>
+            <span class="body"><span class="name">The New York Times</span><span class="when">No change all year, $17.00 a month</span></span>
+            <span class="chip">Steady</span>
+          </a></li>
+        </ul>
+      </section>
+
+      <!-- BY CATEGORY IS A PICTURE SINCE 2026-08-19. It was one muted sentence, and
+           the founder read it and said a bar chart by category is what belongs here.
+           They were right twice: there was no picture, and the sentence said "up $6
+           since March" under a view that begins in May.
+
+           The bars are the composition NOW and do not move with the range, because
+           where the money goes today is one fact and how it got there is the block
+           on the left. What the range does change is the sentence under them. The
+           five amounts are the five subtotals on Home and they sum to $192.90; the
+           lengths are derived from them by behaviour.js, against the largest of the
+           five rather than against the total. -->
+      <section class="group" aria-label="By category">
+        <div class="group-head"><h2>By category</h2><span class="subtotal">$192.90 a month</span></div>
+        <ul class="bars">
+          <li data-value="54.96"><span class="name">Streaming</span><span class="amt">$54.96</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="100" height="8"/></svg></span></li>
+          <li data-value="53.98"><span class="name">Software</span><span class="amt">$53.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="98.2" height="8"/></svg></span></li>
+          <li data-value="36.00"><span class="name">News</span><span class="amt">$36.00</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="65.5" height="8"/></svg></span></li>
+          <li data-value="24.98"><span class="name">Fitness</span><span class="amt">$24.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="45.5" height="8"/></svg></span></li>
+          <li data-value="22.98"><span class="name">Music</span><span class="amt">$22.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="41.8" height="8"/></svg></span></li>
+        </ul>
+        <p class="muted fine" data-view="r3">Software is up $20.00 since May, when ChatGPT Plus arrived. Everything else held steady.</p>
+        <p class="muted fine" data-view="r6" hidden>Software is up $20.00 and Streaming $6.00 since February. Everything else held steady.</p>
+        <p class="muted fine" data-view="r12" hidden>Software is up $42.99 and Streaming $6.00 since last August. Everything else held steady.</p>
+      </section>
+
+    </div>
 
     <!-- D-Export names the split out loud, on the screen that sells one of the
          two exports. A plain copy of your own data is free and lives on 6.15. -->

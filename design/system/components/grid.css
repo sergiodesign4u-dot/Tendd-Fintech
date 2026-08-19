@@ -383,6 +383,25 @@
 @container (min-width: 47.5rem) {
   .app .grid, .landing .grid { grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-min), 100%), 1fr)); }
   .app .grid.roomy, .landing .grid.roomy { grid-template-columns: 1fr 1fr; }
+
+  /* A PAIR OF DOORS KEEPS THIS GUTTER; TWO COLUMNS OF CONTENT NEED A WIDER ONE.
+     2026-08-19. Every .grid.roomy in the product until today held a pair of doors,
+     and a door is a bordered box: 16px between two edges reads as a gap because
+     there are two edges to see it against. History and trends puts two category
+     groups in this box - What moved and By category - and the Pro gate puts a chart
+     beside a card. A group has no border at all, so at 16px two columns of text
+     read as one column that has been chopped. 48px is not a new number: it is the
+     column gap the groups column set already uses for exactly this, a set of
+     borderless groups running side by side.
+
+     THE GUARD NAMES THE DOORS AND NOT THE CONTENT, which is the way round that
+     ages. `:has(> .door)` is a closed set of four screens that were built at this
+     gutter and are correct at it; anything else that ever lands in a roomy grid is
+     content, and content wants the content gutter without being asked to declare
+     it. A modifier class would have put that declaration on every screen instead. */
+  .app .grid.roomy:not(:has(> .door)), .landing .grid.roomy:not(:has(> .door)) {
+    column-gap: var(--space-48);
+  }
   /* THREE, DECLARED, SINCE 2026-08-18. See the block below for the arithmetic
      that forced it and for the contradiction inside this file that it settles. */
   .app .plans, .landing .plans { grid-template-columns: repeat(3, minmax(0, 1fr)); }

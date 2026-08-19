@@ -43,7 +43,7 @@
     <h1>Colour</h1>
     <p class="lead">Two levels and a pair of themes. The values below are what the product has been painted with since Concept; the roles are what stage 08 read out of where each value actually stands. Nothing here is new except the dark ramp, which had nothing to be carried from.</p>
     <div class="kit-meta">
-      <span><strong>22</strong> primitives, light</span><span><strong>22</strong> primitives, dark</span><span><strong>27</strong> roles + <strong>4</strong> state + <strong>3</strong> component tokens, all paired</span><span>0 failing pairs</span>
+      <span><strong>22</strong> primitives, light</span><span><strong>22</strong> primitives, dark</span><span><strong>32</strong> roles + <strong>4</strong> state + <strong>3</strong> component tokens, all paired</span><span>0 failing pairs</span>
     </div>
   </header>
 
@@ -105,7 +105,7 @@
 
   <section class="kit-sec" id="roles">
     <h2>Semantic: the roles, both themes at once</h2>
-    <p class="note">Twenty-seven roles, four state tokens and three component tokens: <b>34 declarations at this level, 34 pairs.</b> Each one points at a primitive through <code>var()</code> and each one is written twice, in <code>:root</code> and in <code>[data-theme="dark"]</code>, at the moment it is declared. <b>The pair is a property of the level, not an event.</b> A role without a pair does not exist, because the way to notice a missing one is to switch the theme, which is to say never.</p>
+    <p class="note">Thirty-two roles, four state tokens and three component tokens: <b>39 declarations at this level, 39 pairs.</b> <b>Recounted 2026-08-19 off <code>tokens.css</code> itself</b>, which is where a count of a file is taken from: this sentence said twenty-seven and 34, a figure that was correct on the corpus of 2026-08-12 and went stale twice without being re-run, at <code>--plot-line</code> and <code>--plot-area</code> on 2026-08-18 and at <code>--bg-measure</code> today. <b>Thirty-seven of the thirty-nine have a card below</b>; the two that do not are <code>--wash-pricing</code> and <code>--wash-final</code>, the public page's two band washes, which are component tokens and are shown on the landing's own components rather than as swatches here. Each one points at a primitive through <code>var()</code> and each one is written twice, in <code>:root</code> and in <code>[data-theme="dark"]</code>, at the moment it is declared. <b>The pair is a property of the level, not an event.</b> A role without a pair does not exist, because the way to notice a missing one is to switch the theme, which is to say never.</p>
     <p class="note"><b>This count was wrong twice, and the second time is the instructive one.</b> It read <b>25</b> until 2026-08-12, when <code>--line-failure</code> and <code>--line-action-soft</code> arrived from the component rounds and the sentence above them did not. It then read <b>31</b> until 2026-08-13, and the three tokens below marked <i>component token</i> were not on this page at all: not a card, not a table row, not a mention. The recount that fixed 25 was taken off <b>this stand</b> instead of off <code>tokens.css</code>, so it could only ever find what the stand already showed. A count of a file is taken from the file. Nothing was broken in the product by any of it: all 34 are paired and all 34 clear their threshold.</p>
     <p class="note">Both themes are shown side by side deliberately, whatever the theme of this page. The pairs are material, not the state of a toggle. <b>The pair is not mirrored:</b> contrast runs against the opposite ground, so on dark the accent climbs the scale rather than reusing the same primitive, and three roles visibly disagree with their light halves. The loudest is <code>--text-on-action</code>: white on the lightened petrol would measure 1.9:1, so on dark it takes the dark canvas instead.</p>
     <div class="kit-roles">
@@ -174,6 +174,12 @@
         <span class="rs">fill</span>
         <div class="kit-pair"><div class="kit-chip" data-theme="light"><span class="lbl">Light</span><span class="demo f--plot-area">&nbsp;</span><span class="val">--petrol-tint #e7edee</span></div><div class="kit-chip" data-theme="dark"><span class="lbl">Dark</span><span class="demo f--plot-area">&nbsp;</span><span class="val">--petrol-tint-dark #123037</span></div></div>
         <p class="why">the ground under the line, and the <b>flat fallback</b> since the gradient arrived: where CSS masking is available the wash is <code>--plot-line</code> faded from the curve down to nothing, and where it is not, this paints. It was <code>--stone</code> until 2026-08-18, when the line stopped being ink and a neutral ground under a coloured line stopped making sense. Measured 1.10 light, 1.08 dark, against <code>--bg-recessed</code></p>
+      </div>
+      <div class="kit-role">
+        <span class="rn">--bg-measure</span>
+        <span class="rs">fill</span>
+        <div class="kit-pair"><div class="kit-chip" data-theme="light"><span class="lbl">Light</span><span class="demo f--bg-measure">&nbsp;</span><span class="val">--edge #7b8d91</span></div><div class="kit-chip" data-theme="dark"><span class="lbl">Dark</span><span class="demo f--bg-measure">&nbsp;</span><span class="val">--edge-dark #7f9296</span></div></div>
+        <p class="why">the filled part of a bar that states a quantity, added 2026-08-19 with the <a href="category-bars.html">category bars</a>. <b>Deliberately not petrol:</b> the bars stand under the plotted line on the same screen, and D-Concept spends petrol on one element inside a screen's content. It is <code>--edge</code>, the founder's non-text contrast value, because a bar is a shape a person has to SEE rather than a line. Measured 3.22 light, 4.65 dark, against <code>--bg-recessed</code>, over a 3.0 floor</p>
       </div>
       <div class="kit-role">
         <span class="rn">--bg-placeholder</span>
@@ -357,6 +363,7 @@
           <tr><td><code>--bg-placeholder</code></td><td>fill</td><td><code>--bg-surface</code></td><td class="n">1.23</td><td class="n">1.15</td><td class="n">3.0</td><td><span class="dec">decorative, by decision</span></td></tr>
           <tr><td><code>--plot-line</code></td><td>stroke, ink</td><td><code>--bg-recessed</code></td><td class="n">5.78</td><td class="n">6.15</td><td class="n">3.0</td><td>passes</td></tr>
           <tr><td><code>--plot-area</code></td><td>fill</td><td><code>--bg-recessed</code></td><td class="n">1.10</td><td class="n">1.08</td><td class="n">3.0</td><td><span class="dec">decorative, by decision</span></td></tr>
+          <tr><td><code>--bg-measure</code></td><td>fill</td><td><code>--bg-recessed</code></td><td class="n">3.22</td><td class="n">4.65</td><td class="n">3.0</td><td>passes</td></tr>
           <tr><td><code>--bg-action</code></td><td>fill</td><td><code>--bg-surface</code></td><td class="n">6.23</td><td class="n">6.82</td><td class="n">3.0</td><td><span class="ok">passes</span></td></tr>
           <tr><td><code>--bg-action-strong</code></td><td>fill</td><td><code>--bg-surface</code></td><td class="n">7.83</td><td class="n">7.91</td><td class="n">3.0</td><td><span class="ok">passes</span></td></tr>
           <tr><td><code>--control-accent</code></td><td>fill</td><td><code>--bg-surface</code></td><td class="n">6.23</td><td class="n">6.82</td><td class="n">3.0</td><td><span class="ok">passes</span></td></tr>

@@ -142,6 +142,45 @@ row is honest. What the bank side can do instead is the far end of the same even
 stream whose first full charge has landed is "you are now paying for this", which is detectable
 and is arguably the more useful of the two alerts.
 
+**The twelve monthly totals on Trends.** Added 2026-08-19, when the range control on
+`history-trends.html` became real and had to have something to switch to. This is the whole
+series, and every step in it is a subscription on Home at the price Home prints. **Nothing here
+is invented; it is the same fourteen rows read backwards through three dated events.**
+
+| Month | Monthly total | What moved |
+|---|---|---|
+| Aug 2025 | $143.91 | |
+| Sep 2025 | $143.91 | |
+| Oct 2025 | $143.91 | |
+| Nov 2025 | $166.90 | Adobe Creative Cloud arrives, **+22.99** |
+| Dec 2025 | $166.90 | |
+| Jan 2026 | $166.90 | |
+| Feb 2026 | $166.90 | |
+| Mar 2026 | $166.90 | |
+| Apr 2026 | $172.90 | Disney+ goes 7.99 to 13.99, **+6.00** |
+| May 2026 | $172.90 | |
+| Jun 2026 | $192.90 | ChatGPT Plus arrives, **+20.00** |
+| Jul 2026 | $192.90 | |
+
+It closes in both directions: 143.91 + 22.99 + 6.00 + 20.00 = **192.90**, the figure on Home.
+The three ranges are the last 3, 6 and 12 completed months of it, and the readout sentence over
+each one states its two ends. **"Monthly total" here is the COMMITMENT level and not the amount
+charged** - what you have signed up for at the end of that month - which is the same definition
+`home.html` prints under its own figure, and it is why Netflix's rise, dated Jul 28 and not yet
+charged, does not appear in July.
+
+Two things were repaired by writing it down. The screen's "By category" line said **"Streaming
+is up $6 since March"** under a view that begins in May, and Netflix's $2.50 was being counted
+twice - once as a price change and once inside the Streaming rise. The $6 is Disney+, in April,
+and it is now stated in the range that contains it.
+
+**Where the real thing comes from.** `average_amount` by `frequency`, summed per calendar month
+over `days_requested`, which is the same arithmetic as the Home total run once per month rather
+than once. A stream that started mid-window contributes from its first full month. **Twelve
+months needs twelve months of history**, and section 4 already says Recurring wants at least 180
+days to detect well: a person who connected a bank in May has a six-month view at best, which is
+what node 5.12.1, "still gathering", exists for.
+
 **Display name and category.** "Netflix" rather than `NETFLIX.COM 866-579-7172` comes from our
 merchant dictionary, which is the same list behind the 400+ presets on node 1.4
 (`add-subscription.html`, "Pick from 400+ services"). One dictionary serves both sources, which

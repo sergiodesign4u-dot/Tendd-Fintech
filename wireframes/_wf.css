@@ -602,10 +602,26 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
      dashboard that order puts them under the shorter of two balanced columns,
      where they read as leftovers rather than as the way on. */
   .app .screen { display: flex; flex-direction: column; }
-  .app .head { order: 1; }
-  .app .secondary { order: 2; margin: 0 0 26px; }
-  .app .groups { order: 3; }
-  .app .trust { order: 4; }
+  /* SCOPED TO A SCREEN THAT HAS THE GROUPS, 2026-08-19. Unscoped, `.head { order: 1 }`
+     sent the head to the FOOT of any screen that has a head and no groups, because
+     every other block keeps the default 0. It did that on home-empty from the day it
+     was written, and it did it to History and trends the moment that screen took the
+     same head. The reordering exists for the balanced columns and nowhere else. */
+  .app .screen:has(> .groups) .head { order: 1; }
+  .app .screen:has(> .groups) .secondary { order: 2; margin: 0 0 26px; }
+  .app .screen:has(> .groups) .groups { order: 3; }
+  .app .screen:has(> .groups) .trust { order: 4; }
+  .app .secondary { margin: 0 0 26px; }
+
+  /* The trend screen's head holds the range control in the right cell. It needs a
+     width because its segments are `flex: 1`, so a shrink-to-fit box collapses them
+     onto two lines; 320 is what three segments of this control want. */
+  .app .head > .range { justify-self: end; margin: 0; width: 320px; max-width: 100%; }
+
+  /* Two columns of content, and it is not .doors: a door is a bordered box and
+     12px between two edges reads as a gap, where two borderless lists at 12px read
+     as one list that has been chopped. */
+  .app .pair { grid-template-columns: 1fr 1fr; column-gap: 44px; }
 }
 
 @container (min-width: 1340px) {
@@ -632,6 +648,7 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 .app .empty h2 { margin: 0 0 6px; font-size: 17px; }
 .app .empty > p { margin: 0 0 18px; font-size: 13.5px; color: var(--soft); max-width: 52ch; }
 .app .doors { display: grid; gap: 12px; }
+.app .pair { display: grid; gap: 12px; }
 .app .door {
   display: block; border: 1px solid var(--line); background: var(--frame);
   padding: 16px; text-decoration: none; color: inherit;
@@ -1165,6 +1182,19 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 .app .bycat { margin: 0 0 24px; font-size: 13px; color: var(--mid); }
 .app .bycat .k { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); margin: 0 0 4px; }
 
+/* The category bars, 2026-08-19. On 5.12 they are what `.bycat` used to be: the
+   founder read one muted sentence where a picture belongs and said so. The length
+   is an SVG rect and not a width in a style attribute, for the same reason the
+   plot's path will be one: the grey page has no script and must still be right. */
+.app .bars { list-style: none; margin: 0 0 16px; padding: 0; }
+.app .bars li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 8px 16px; padding: 8px 0; }
+.app .bars li + li { border-top: 1px solid var(--line2); }
+.app .bars .name { font-size: 13.5px; color: var(--mid); }
+.app .bars .amt { font-size: 13.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.app .bars .bar { grid-column: 1 / -1; height: 8px; background: var(--panel); overflow: hidden; }
+.app .bars .bar svg { display: block; width: 100%; height: 100%; }
+.app .bars .bar rect { fill: var(--soft); }
+
 /* The lock. An honest frame with the person's own labels, never a blurred fake:
    a blur is a lie about our own product (node 5.12 block 8). */
 .app .locked { border: 1px solid var(--line); padding: 18px; margin: 0 0 22px; }
@@ -1276,6 +1306,12 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
 .app .oncard { border: 1px solid var(--line2); padding: 14px; margin: 0 0 22px; font-size: 13px; color: var(--mid); }
 .app .oncard .k { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); margin: 0 0 6px; }
 .app .oncard p { margin: 0; }
+
+@container (min-width: 900px) {
+  /* A band gets taller when it gets wider. Only a chart that IS the screen's block:
+     on 5.12.4 the picture stands in a column beside the lock and keeps its 220. */
+  .app .screen > .chart { height: 300px; }
+}
 
 @container (min-width: 760px) {
   .app .chart { height: 220px; }

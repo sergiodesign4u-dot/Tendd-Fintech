@@ -43,7 +43,7 @@ The count is a class count, not a component count: `.row`, `.row .name`, `.row .
 
 # Part 1. The system after consolidation
 
-**69 components: 20 atoms, 23 molecules, 26 organisms.** Recounted 2026-08-16 off the `@import` groups in `design/system/index.css`, by script and in the same step as the change. (68 before the landing's closing band left the shell on 2026-08-16 and became an organism of its own; 64 before the founder's four rebuilds of 2026-08-15, which added the landing steps, the landing paths, the landing facts and the landing plan; 57 until the public page, when five organisms arrived with the landing on 2026-08-14 and the landing story replaced two shorter-lived ones the same day; 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
+**70 components: 20 atoms, 23 molecules, 27 organisms.** Recounted 2026-08-19 off the `@import` groups in `design/system/index.css`, by script and in the same step as the change. (69 before the category bars arrived on 2026-08-19, when the founder asked why By category was a sentence and not a picture.) (68 before the landing's closing band left the shell on 2026-08-16 and became an organism of its own; 64 before the founder's four rebuilds of 2026-08-15, which added the landing steps, the landing paths, the landing facts and the landing plan; 57 until the public page, when five organisms arrived with the landing on 2026-08-14 and the landing story replaced two shorter-lived ones the same day; 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
 step 2 the same material was 68 rows, and the pre-consolidation tables are not reproduced here:
 they were a list of what the product draws, and this is a list of what the system HAS. The
 ledgers further down record how the count moved, screen by screen and stage by stage.
@@ -152,13 +152,14 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Trust block | `.trust` | - | 11 | - | `trust-block.css` | `trust-block.html`  | does not adapt |
 | Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without | 13 | `.attention`, `.notice`, `.decoder` | `wash-block.css` | `wash-block.html`  | a reading measure |
 
-## Organisms (26)
+## Organisms (27)
 
 | Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
 |---|---|---|---|---|---|---|---|
 | App bar | `.appbar` | form: row / column rail at container 760 | 54 | - | `app-bar.css` | `app-bar.html`  | point |
 | App shell | `.app` | form: steady / flow / detail | 54 | - | `app-shell.css` | `app-shell.html`  | point + fluid |
 | Card | `.card` | - | 3 | `.locked`, `.source` | `card.css` | `card.html`  | a reading measure, 560px on the card and `--container-text` on the prose inside it since 2026-08-17, and no query since stage 10 |
+| Category bars | `.bars` | - | 1 | - | `category-bars.css` | `category-bars.html`  | fluid |
 | Category group | `.group` | - | 12 | - | `category-group.css` | `category-group.html`  | point |
 | Dashboard head | `.head` | exists only at container 900 | 5 | - | `dashboard-head.css` | `dashboard-head.html`  | point + fluid |
 | Dialog sheet | `.sheet` | full width, then a card at container 760 | 3 | - | `dialog-sheet.css` | `dialog-sheet.html`  | point |

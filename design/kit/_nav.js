@@ -69,7 +69,7 @@ window.KIT_NAV = {
   ],
 
   atoms: [
-    { name: 'Amount',            cls: '.amt',          page: 'amount.html', was: null,                          axes: 'size: 14 / 32 / 46, a declared modifier at each step', wf: 69 },
+    { name: 'Amount',            cls: '.amt',          page: 'amount.html', was: null,                          axes: 'size: 14 / 32 / 46, a declared modifier at each step', wf: 92 },
     { name: 'Big total',         cls: '.total',        page: 'big-total.html', was: null,                          axes: 'size by container: 46 / 32. 40 folded at step 5',            wf: 8 },
     /* THE TWO BRAND ATOMS, 2026-08-12. `wf` counts GREY pages, and the mark's is
        0 on purpose rather than by oversight: it is the first component in this
@@ -90,7 +90,7 @@ window.KIT_NAV = {
     { name: 'Meta row',          cls: '.metarow',      page: 'meta-row.html', was: '.axis, .strip',                axes: 'rule: plain / ruled',                   wf: 5 },
     { name: 'Muted line',        cls: '.muted',        page: 'muted-line.html', was: '.consequence, .context, .tone, .legal, .freshness, .removal, .pitch, p.notice, .p', axes: 'size: body / fine. rule: plain / ruled', wf: 48 },
     { name: 'Quiet line',        cls: '.quiet',        page: 'quiet-line.html', was: null,                          axes: '-',                                     wf: 12 },
-    { name: 'Readout',           cls: '.readout',      page: 'readout.html', was: null,                          axes: '-',                                     wf: 2 },
+    { name: 'Readout',           cls: '.readout',      page: 'readout.html', was: null,                          axes: '-',                                     wf: 3 },
     { name: 'Select',            cls: '.select',       page: 'select.html', was: '.field select',                axes: '-',                                     wf: 4 },
     { name: 'Skeleton bar',      cls: '.skel',         page: 'skeleton-bar.html', was: null,                          axes: 'width set, and one height for the total', wf: 89 },
     { name: 'Step-forward link', cls: '.next',         page: 'step-forward-link.html', was: null,                          axes: '-',                                     wf: 2 },
@@ -127,8 +127,9 @@ window.KIT_NAV = {
     { name: 'App bar',           cls: '.appbar',       page: 'app-bar.html', was: null,                          axes: 'form: row / column rail at container 760', wf: 54 },
     { name: 'App shell',         cls: '.app',          page: 'app-shell.html', was: null,                          axes: 'form: steady / flow / detail',          wf: 54 },
     { name: 'Card',              cls: '.card',         page: 'card.html', was: '.locked, .source',             axes: '-',                                     wf: 3 },
+    { name: 'Category bars',     cls: '.bars',         page: 'category-bars.html', was: null,                          axes: '-',                                     wf: 2 },
     { name: 'Category group',    cls: '.group',        page: 'category-group.html', was: null,                          axes: '-',                                     wf: 12 },
-    { name: 'Dashboard head',    cls: '.head',         page: 'dashboard-head.html', was: null,                          axes: 'exists only at container 900',          wf: 5 },
+    { name: 'Dashboard head',    cls: '.head',         page: 'dashboard-head.html', was: null,                          axes: 'exists only at container 900',          wf: 7 },
     { name: 'Dialog sheet',      cls: '.sheet',        page: 'dialog-sheet.html', was: null,                          axes: 'full width, then a card at container 760', wf: 3 },
     { name: 'Divided list',      cls: '.divlist',      page: 'divided-list.html', was: '.alerts, .navrows',            axes: 'inset: bare / inside a panel',          wf: 4 },
     { name: 'Empty block',       cls: '.empty',        page: 'empty-block.html', was: null,                          axes: '-',                                     wf: 2 },

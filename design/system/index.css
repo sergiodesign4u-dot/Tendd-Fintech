@@ -86,7 +86,8 @@
 
 /* ------------------------------------------------------------ organisms ---
    Hosts a molecule, or is a screen shell, or is a container of repeated units.
-   25 in the system, eleven of them the public page's: five at the rollout, the
+   27 in the system since the category bars arrived on 2026-08-19, eleven of them the
+   public page's: five at the rollout, the
    landing story on 2026-08-14, the landing orbit the same day as a candidate
    second hero, and the landing steps, paths, facts and plan on 2026-08-15, when
    the founder rebuilt those four blocks. The orbit stopped being a candidate the
@@ -100,6 +101,7 @@
 @import url("components/reveal-step.css");
 @import url("components/card.css");
 @import url("components/category-group.css");
+@import url("components/category-bars.css");
 @import url("components/divided-list.css");
 @import url("components/grid.css");
 @import url("components/save-focus-list.css");
@@ -153,3 +155,27 @@
 @import url("patterns/interruption.css");
 @import url("patterns/act-foot.css");
 @import url("patterns/list-column.css");
+
+/* --------------------------------------------------------------- the last word ---
+   ONE RULE LIVES IN THIS FILE RATHER THAN IN A COMPONENT, and it is here because
+   what it needs is not specificity but ORDER, which is the one thing this file owns.
+
+   `[hidden]` is a fact about an element: it is not in the page. The browser says so
+   at 0-1-0, from its own stylesheet, and any component that declares `display` beats
+   it. Two in this system do it on elements a screen legitimately hides: `.metarow` is
+   `display: flex` and `.muted` is `display: block`, both at 0-2-0. Authoring
+   `hidden` on either of them today does nothing at all, silently, and the markup
+   looks correct while the screen shows every state at once.
+
+   behaviour.js met the same trap on `.tile` in stage 08 and worked around it with a
+   runtime inline style, which was right for a filter that only exists when a script
+   runs. It is not right for a screen that must be correct with no script: the three
+   range views of History and trends are hidden in the AUTHORED markup, so that with
+   nothing running the screen is the three-month view and not all three stacked.
+
+   0-2-0 against 0-2-0 is a tie, and a tie is settled by source order. This is the
+   last line of the last file, so it wins over every component without !important,
+   without a compound-selector trick, and without touching the two components, whose
+   own `display` values are correct for an element that IS in the page.
+   -------------------------------------------------------------------------------- */
+.app [hidden], .landing [hidden] { display: none; }

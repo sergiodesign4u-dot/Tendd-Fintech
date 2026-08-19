@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Category bars - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/behaviour.js" defer></script>
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Category bars</h1>
+    <p class="lead">Where the monthly total goes, one row per category: the name, the amount, and a bar as long as the amount is large. It answers a different question from the trend line above it, and the difference is the whole reason it exists: the line says how the total <b>moved</b>, these say what it is <b>made of</b>.</p>
+    <div class="kit-meta">
+      <span>Organism</span><span><strong>2</strong> grey pages</span><span><strong>2</strong> coloured</span><span><strong>5</strong> rows</span><span>1 axis: none</span><span>no states, not interactive</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="why">
+    <h2>Why it was built, 2026-08-19</h2>
+    <p class="note">History and trends carried the sentence <b>"By category. Streaming is up $6 since March"</b> and nothing else. The founder read it and said: <i>"я так понимаю должен бути график со столбиками по категориями а его нет"</i>. They were right twice over. There was no picture where a picture belongs, and the sentence was also measuring the wrong window: it said <b>since March</b> under a three-month view that begins in May.</p>
+    <p class="note">So the sentence became a picture and stayed a sentence. The bars are the composition <b>now</b>, which does not change when the range changes; the line under them is the change over the chosen range, and it is the only part of the block the range control touches. Two facts, one block, and neither is doing the other's job.</p>
+  </section>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note">A list, and inside every row three slots: the name, the <a href="amount.html">amount atom</a>, and the track. Everything below is drawn by <code>design/system/components/category-bars.css</code> through the same entry point a product screen loads, so this page cannot drift from the screen: there is no second copy of the CSS here to drift from. The five figures are the five category subtotals on <a href="../home.html">Home</a> and they sum to $192.90.</p>
+    <div class="kit-stage app col">
+      <ul class="bars">
+        <li data-value="54.96"><span class="name">Streaming</span><span class="amt">$54.96</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="100" height="8"/></svg></span></li>
+        <li data-value="53.98"><span class="name">Software</span><span class="amt">$53.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="98.2" height="8"/></svg></span></li>
+        <li data-value="36.00"><span class="name">News</span><span class="amt">$36.00</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="65.5" height="8"/></svg></span></li>
+        <li data-value="24.98"><span class="name">Fitness</span><span class="amt">$24.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="45.5" height="8"/></svg></span></li>
+        <li data-value="22.98"><span class="name">Music</span><span class="amt">$22.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="41.8" height="8"/></svg></span></li>
+      </ul>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.bars</code> <span>the list. No fill, no edge and no radius of its own: everything a person sees belongs to a row</span></li>
+      <li><code>&gt; li</code> <span>a two column grid with the track spanning both, so name and amount read across and the bar starts in the same place on every row. A hairline between rows and nothing above the first</span></li>
+      <li><code>data-value</code> <span>the figure the row's own amount prints. It is what the length is derived from, and it is the reason there is no second number to keep in step</span></li>
+      <li><code>.name</code> <span>the category, at <code>--type-body</code> in <code>--text-body</code>, truncating rather than wrapping: a category name is one line or the rows stop lining up</span></li>
+      <li><code>.amt</code> <span>the <a href="amount.html">amount atom</a>, and this file states nothing about it. Tabular, 600, one line, <code>--text-primary</code>: what a figure is everywhere in this product</span></li>
+      <li><code>.bar</code> <span>the track, 8px on <code>--bg-recessed</code>, clipping its fill at <code>--radius-xs</code></span></li>
+      <li><code>rect</code> <span>the fill, in <code>--bg-measure</code>. An SVG rect in a 0 to 100 viewBox under <code>preserveAspectRatio="none"</code>, which is a percentage written as geometry rather than as a style attribute</span></li>
+    </ul>
+    <p class="note"><b>Measured on this page:</b> rows at 8px of padding with a 1px <code>--line-divider</code> between them, the track 8px tall with a 6px radius, the name at 14px in <code>--text-body</code> and the amount at 14px in <code>--text-primary</code>. The fill is <code>--edge</code>, <b>3.22:1</b> against the track in the light theme and <b>4.65:1</b> in the dark, which clears the 3:1 a non-text shape has to clear. Against the surface the track sits on it is 3.46 and 5.15, so the bar is visible whether or not the eye finds the track.</p>
+
+    <h3 class="kit-sub-h">Behaviour at width</h3>
+    <p class="note"><b>Fluid, and it has no point and no threshold.</b> The name column takes what is left after the amount, the track takes the whole row. It is correct at 360 and correct in a 546px column beside another list, which is where the product actually puts it. See <a href="responsive.html#points">Width</a>.</p>
+  </section>
+
+  <section class="kit-sec" id="derived">
+    <h2>The length is derived, and that is the point of the component</h2>
+    <p class="note">Each row carries <code>data-value</code>, the same figure its own amount prints. <code>design/system/behaviour.js</code> reads the list, finds the largest value in it, and sets every <code>rect</code> as a share of that. Nothing about the arithmetic lives in a screen file.</p>
+    <p class="note"><b>Against the largest and never against the total.</b> Five categories that sum to the total would each take a fifth of the width at most, and the two biggest, 54.96 and 53.98, would sit a hair apart at about 28 per cent of a column: the picture would be five short stubs and the one fact it exists to show would be invisible. Against the largest they are 100 and 98.2, which is exactly the reading: <b>these two are the same size and everything else is smaller</b>.</p>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Category</th><th>Amount</th><th>Share of the largest</th><th>Share of the total</th></tr></thead>
+        <tbody>
+          <tr><td>Streaming</td><td>$54.96</td><td><b>100</b></td><td>28.5</td></tr>
+          <tr><td>Software</td><td>$53.98</td><td><b>98.2</b></td><td>28.0</td></tr>
+          <tr><td>News</td><td>$36.00</td><td><b>65.5</b></td><td>18.7</td></tr>
+          <tr><td>Fitness</td><td>$24.98</td><td><b>45.5</b></td><td>13.0</td></tr>
+          <tr><td>Music</td><td>$22.98</td><td><b>41.8</b></td><td>11.9</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The markup carries the answer too, and that is not a duplicate.</b> The <code>rect width</code> written into the page is what draws with no script running, computed by the same arithmetic, exactly as the plot's <code>d</code> is on the <a href="chart-placeholder.html">chart placeholder</a>. The script recomputes it and writes over it, so the file that owns the geometry is the file that reads the data, and a hand-kept percentage beside a hand-kept amount cannot drift apart the first time a price changes.</p>
+  </section>
+
+  <section class="kit-sec" id="colour">
+    <h2>The bar is not petrol, and that is a decision</h2>
+    <p class="note">It is <code>--bg-measure</code>, which resolves to <code>--edge</code>, the founder's non-text contrast value and the only neutral in the system guaranteed to be seen as a shape rather than as a line.</p>
+    <p class="note"><b>D-Concept spends petrol on one element inside a screen's content</b>, and on History and trends that element is the plotted line, which the founder made petrol on 2026-08-18. A bar chart in the same colour, directly under that line, would make the screen argue with itself about which picture is the important one. The answer is the line: the bars say where the money goes, the line says how the total moved, and only the second is what a person opens this screen for. The ground is in <code>tokens.css</code> beside the token.</p>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">One quiet neutral, whatever the row</span>
+        <div class="kit-stage app full wide"><ul class="bars">
+          <li data-value="54.96"><span class="name">Streaming</span><span class="amt">$54.96</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="100" height="8"/></svg></span></li>
+          <li data-value="22.98"><span class="name">Music</span><span class="amt">$22.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="41.8" height="8"/></svg></span></li>
+        </ul></div>
+        <p>Every bar is the same colour. Length is the only variable, which is what makes five of them comparable at a glance.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never a colour per category</span>
+        <div class="kit-stage app full wide"><span class="muted">Streaming in petrol, Software in amber, News in clay</span></div>
+        <p>A colour per category is a legend the person has to learn, and in this system amber and clay already mean <b>a price changed</b> and <b>something failed</b>. Spending them on "this row is Music" would make a category look like a problem, which is the one thing this product never does.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">Use it for <b>a small, closed set of parts of one whole</b>, where the reading is which parts are large and which are small. Five categories is the set it was built for and the set the product has.</p>
+    <p class="note">Do not use it for a ranking that has no whole, and do not use it for time. A quantity over months is the <a href="chart-placeholder.html">chart placeholder</a>, which is what the same screen puts above it; a list of things with a status each is the <a href="subscription-row.html">subscription row</a>. The test is whether the numbers add up to something a person would recognise. Here they add up to $192.90, which is the figure on Home.</p>
+  </section>
+
+  <section class="kit-sec" id="states">
+    <h2>States</h2>
+    <p class="note"><b>None, and that is a decision rather than an omission.</b> No row is a link, a button or a field on any page in the product, and <code>category-bars.css</code> declares no <code>:hover</code>, no <code>:focus-visible</code> and no <code>[disabled]</code>. Making a category clickable would promise a per-category screen, and there is no node for one.</p>
+    <p class="note"><b>The loading state is the empty track</b>, and it needs nothing from this file. On <a href="../history-trends-loading.html">the wait</a> the rows carry no <code>data-value</code>, so the script leaves them alone and the track draws with no fill: an empty track is already what a bar looks like before its figure arrives, so there is no grey block standing in for one.</p>
+  </section>
+
+  <section class="kit-sec" id="tech">
+    <h2>The technical half</h2>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
+        <tbody>
+          <tr><td>the fill of a bar</td><td><code>--bg-measure</code></td><td><code>--edge</code>, the founder's non-text contrast decision. New on 2026-08-19 and in both themes. A role and not a reuse: the bar is a quantity, and no existing role in this system meant that</td></tr>
+          <tr><td>the track under it</td><td><code>--bg-recessed</code></td><td><code>--panel</code>, the recessed step. The same ground the chart placeholder's frame stands on when it has nothing to draw</td></tr>
+          <tr><td>the name</td><td><code>--text-body</code></td><td><code>--slate</code>. Sentence case, not the eyebrow: the block already has one uppercase label, its group head, and a second tier of caps under it would make the category names compete with it</td></tr>
+          <tr><td>the amount</td><td>none of this file's</td><td>the <a href="amount.html">amount atom</a>, whose fifth host this is</td></tr>
+          <tr><td>the line between rows</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>, the softer of the two: it divides content and encloses nothing</td></tr>
+          <tr><td>geometry</td><td><code>--radius-xs</code></td><td>6px, the chip and the skeleton. On an 8px track it reads as a rounded end, which is what a measure wants and what a rule does not</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Lives in <code>design/system/components/category-bars.css</code>, with the arithmetic in <code>design/system/behaviour.js</code> under THE CATEGORY BARS. Stands on <b>2</b> grey pages and <b>2</b> coloured ones: <a href="../history-trends.html">History and Trends</a> with its five figures, and <a href="../history-trends-loading.html">the wait</a> with five empty tracks and no figures at all.</p>
+    <code class="kit-cmd">&lt;ul class="bars"&gt;
+  &lt;li data-value="54.96"&gt;
+    &lt;span class="name"&gt;Streaming&lt;/span&gt;
+    &lt;span class="amt"&gt;$54.96&lt;/span&gt;
+    &lt;span class="bar" aria-hidden="true"&gt;&lt;svg viewBox="0 0 100 8" preserveAspectRatio="none"
+      focusable="false"&gt;&lt;rect width="100" height="8"/&gt;&lt;/svg&gt;&lt;/span&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+data-value is the figure, and the only one this component needs.
+The rect width is the same arithmetic, for a page with no script.</code>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+    <p class="note"><b>U15, one content measure per screen.</b> This block states no width. It is as wide as the column it stands in, which on History and trends is one half of a <code>.grid.roomy</code>, and it never asks for a measure of its own. See <a href="architecture.html">Architecture</a>.</p>
+    <p class="note"><b>Five rows is the set, not a limit that is enforced.</b> The arithmetic works for any number of rows, but the block was designed against a closed set that fits without scrolling beside another list. A category taxonomy that grew past about eight would need a different answer, and inventing that answer before there is a taxonomy is how a system gets a variant nobody uses.</p>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>design/system/components/category-bars.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads; the lengths by <code>design/system/behaviour.js</code>. The picture above it on the same screen is the <a href="chart-placeholder.html">chart placeholder</a>; the list beside it is a <a href="category-group.html">category group</a>. The founder's decision that built it is in <code>docs/decisions.md</code>.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="../../_nav.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

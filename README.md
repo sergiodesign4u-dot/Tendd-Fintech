@@ -71,11 +71,11 @@ no HTML in it and can be lifted into a repository that has never heard of Tendd.
 - **[Why the system is like this](./design/kit/why.html)** - the guide, and the first thing to read.
   Five attributes from Concept, three borrowed sources and four refusals, where every value came
   from, and the rule for adding to it.
-- **[The whole system](./design/kit/overview.html)** - the hub: 69 components by level, 3 patterns,
+- **[The whole system](./design/kit/overview.html)** - the hub: 70 components by level, 3 patterns,
   4 foundations pages, and the inventory.
 - **[Patterns](./design/kit/patterns.html)** - the three settled compositions, the four candidates
   waiting for a third screen, and why the threshold is three and not two.
-- **[Architecture](./design/kit/architecture.html)** - the two ladders, the naming, the 11 usage
+- **[Architecture](./design/kit/architecture.html)** - the two ladders, the naming, the 17 usage
   rules with their sources, and how to contribute.
 - **[The proof](./design/kit/pixel-proof.html)** - every number this stage produced, who found what,
   what was dropped at verification and why.
