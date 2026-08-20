@@ -478,11 +478,18 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
   display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
   padding: 0 0 6px; margin: 0 0 2px; border-bottom: 1px solid var(--line2);
 }
-.app .group-head h2 { margin: 0; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); }
+.app .group-head :where(h1,h2,h3,h4) { margin: 0; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--soft); }
 .app .group-head .subtotal { font-size: 12px; color: var(--soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
 /* Above a list the head is a band with a rule under it. Above a block that is
    not a list (the preset tiles, the cancel steps) it is only a title. */
 .app .group-head.plain { border: 0; padding: 0; margin: 0 0 12px; }
+/* The head that carries its section's own ACTION, 2026-08-20, on the founder's
+   decision. A heading at one end and a thing at the other is the definition of
+   this block; until now the far slot had only ever held a subtotal. A control has
+   no baseline worth sharing with a 12px label, so the row centres, and it needs
+   the gap between two blocks under it rather than the 2px a label needs. */
+.app .group-head:has(> .secondary) { align-items: center; flex-wrap: wrap; row-gap: 8px; margin: 0 0 24px; }
+.app .group-head > .secondary { margin: 0; }
 .app .group ul { list-style: none; margin: 0; padding: 0; }
 
 /* GC4: the whole row is the target, and the days lead the date. */
@@ -608,10 +615,14 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
      every other block keeps the default 0. It did that on home-empty from the day it
      was written, and it did it to History and trends the moment that screen took the
      same head. The reordering exists for the balanced columns and nowhere else. */
-  .app .screen:has(> .groups) .head { order: 1; }
-  .app .screen:has(> .groups) .secondary { order: 2; margin: 0 0 26px; }
-  .app .screen:has(> .groups) .groups { order: 3; }
-  .app .screen:has(> .groups) .trust { order: 4; }
+  .app .screen:has(> .groups) > .head { order: 1; }
+  /* SLOT 2 IS THE HEAD OF THE LIST SINCE 2026-08-20, not the action row: the row
+     is a child of that head now, so it is placed by its host. Written as a CHILD
+     selector because the five category heads inside the column set carry the same
+     class and must not be reordered. */
+  .app .screen:has(> .groups) > .group-head { order: 2; }
+  .app .screen:has(> .groups) > .groups { order: 3; }
+  .app .screen:has(> .groups) > .trust { order: 4; }
   .app .secondary { margin: 0 0 26px; }
 
   /* The trend screen's head holds the range control in the right cell. It needs a

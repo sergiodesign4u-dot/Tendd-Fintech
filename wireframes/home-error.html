@@ -48,11 +48,36 @@
          Software" was the founder's question and the order was the answer.
          Highest first makes the vertical flow a rule a person can feel. Ground in
          docs/decisions.md. -->
+      <!-- THE LIST NAMES ITSELF, AND ITS ACTION SITS AT THE FAR END OF THAT NAME.
+           Founder's decision, 2026-08-20, written here because it changes STRUCTURE
+           and not styling: "я бы перенес кнопку в правую часть а в левой поставил бы
+           что то типа заголовка Subscription list". Past the desktop point this row
+           used to be one outline button alone against 1370px of empty pane, which is
+           the same complaint the trend screen's summary strip got three days ago and
+           the same answer: a row with one thing in it is a row with a hole in it.
+           The heading is the Group head molecule doing the job it already does 41
+           times in this product, with the section's own ACTION in the slot that
+           normally carries a subtotal. No new component and no new class: `:has()`
+           reads the content, the way `.summary:has(> .trust)` and `.wash:has(>
+           .actions)` already do.
+           "Your subscriptions" AND NOT "Subscription list": it is the string the
+           back control of all twelve detail pages already carries for this exact
+           region, so naming it twice in two ways would put one place under two
+           owners. It also names the region for a screen reader, which nothing did
+           before: `.groups` had no heading of its own on any state of this screen.
+           The category heads under it stepped from h2 to h3 in the same edit, which
+           is the outline this page always should have had and is the shape
+           guided-reveal already writes. -->
+      <div class="group-head">
+        <h2>Your subscriptions</h2>
+        <nav class="secondary" aria-label="More"><a href="add-subscription.html">Add a subscription</a></nav>
+      </div>
+
       <div class="groups">
 
         <section class="group">
           <div class="group-head">
-            <h2>Streaming (4)</h2>
+            <h3>Streaming (4)</h3>
             <span class="subtotal">$54.96 a month</span>
           </div>
           <ul>
@@ -83,7 +108,7 @@
 
     <section class="group">
           <div class="group-head">
-            <h2>Software (4)</h2>
+            <h3>Software (4)</h3>
             <span class="subtotal">$53.98 a month</span>
           </div>
           <ul>
@@ -112,7 +137,7 @@
 
     <section class="group">
           <div class="group-head">
-            <h2>News (2)</h2>
+            <h3>News (2)</h3>
             <span class="subtotal">$36.00 a month</span>
           </div>
           <ul>
@@ -131,7 +156,7 @@
 
     <section class="group">
           <div class="group-head">
-            <h2>Fitness (2)</h2>
+            <h3>Fitness (2)</h3>
             <span class="subtotal">$24.98 a month</span>
           </div>
           <ul>
@@ -151,7 +176,7 @@
 
     <section class="group">
           <div class="group-head">
-            <h2>Music (2)</h2>
+            <h3>Music (2)</h3>
             <span class="subtotal">$22.98 a month</span>
           </div>
           <ul>
@@ -171,16 +196,6 @@
       </div><!-- /groups -->
 
 
-      <!-- One quiet secondary since 2026-08-18. The job of this screen is to look, not to add. -->
-      <nav class="secondary" aria-label="More">
-        <a href="add-subscription.html">Add a subscription</a>
-        <!-- "See your trends" LEFT THIS ROW ON 2026-08-18, ON THE FOUNDER'S DECISION,
-           and it is written here because the grey is the contract. They asked twice why
-           Trends was "спрятани в кнопке на главной странице" rather than a destination of
-           its own. It is a destination now, second in the tab bar, so this secondary became
-           a second door to a room that already has one on every screen. The row keeps "Add
-           a subscription", which is the only thing here that is an ACTION and not a place. -->
-      </nav>
 
       <!-- GC6 Data source and trust -->
       <section class="trust" aria-label="Where these figures come from">

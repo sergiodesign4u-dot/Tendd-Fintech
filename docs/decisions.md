@@ -7,6 +7,81 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-20 - The list took a name, and the one crossing from Free to Pro was a dead end
+
+Founder, two things in one message: a screenshot of Home at desktop width with the
+add button circled and an arrow to the empty half of its row, **"я бы перенес кнопку
+в правую часть а в левой поставил бы что то типа заголовка Subscription list"**, and
+a report from clicking through the product, **"есть такое ощущение непонятки где Free
+а где Pro"**.
+
+**THE ROW HAD ONE THING IN IT AND THEREFORE A HOLE IN IT.** Measured at 1440: one
+outline button, 1370px of empty pane beside it. This is the third time the same shape
+has come back in four days - the trend screen's summary strip, the export button, now
+this - and the answer is the one the other two got: put the thing that belongs in the
+empty half there. What belonged here is the list's own NAME, which the screen had
+never had.
+
+**IT IS THE GROUP HEAD MOLECULE AND NOT A NEW COMPONENT.** "A heading at one end, a
+thing at the other, a hairline under both" is that molecule's definition, written
+long before anybody needed the far slot to be a control. The subtotal was never the
+point of the far slot; it was the only thing that had ever stood in it. So the head
+of the list is the same object as the five category heads under it, with the section's
+own action where a subtotal usually goes. `:has(> .actions)` reads the content, which
+is the device `.summary:has(> .trust)` and `.wash:has(> .actions)` already use, so the
+product screen carries no class that exists only to explain itself. Two properties
+change: the row centres, because a 48px control has no baseline worth sharing with a
+12px label and on `baseline` it hung 18px below the hairline, and it wraps, because at
+320 the label broke into "YOUR / SUBSCRIPTIONS" beside a button twice its height. New
+count: 46 coloured places, 3 of them this form.
+
+**THE WORDS ARE "YOUR SUBSCRIPTIONS" AND NOT "SUBSCRIPTION LIST".** The founder said
+"что то типа", so the string was chosen rather than transcribed. "Your subscriptions"
+is what the back control of all twelve detail pages already calls this exact region;
+naming one place twice in two ways is the thing one-owner-per-string forbids. It is
+also the first accessible name `.groups` has ever had, and the category heads stepped
+from h2 to h3 in the same edit, which is the document outline this page always should
+have had and the shape guided-reveal already wrote.
+
+**WHAT IT COST ON A PHONE, SAID OUT LOUD.** The head and its action are one block, so
+the button moved from below the list to above it at every width, not only at the
+desktop the founder was looking at. The 2026-08-18 note on that row says the add
+action sits after the list "because the job of this screen is to look, not to add",
+and that reason is about the row's CONTENTS, which have not changed: it is still one
+quiet secondary. A list whose name sits under the list is simply wrong, and there is
+no honest way to have the name above and the button below without writing the button
+twice. Flagged to the founder rather than buried.
+
+**THE FREE AND PRO WALK, MEASURED RATHER THAN FELT.** The founder's second complaint
+is a real defect and not a matter of taste, and the numbers are these. Twenty-one
+pages send the Trends tab to `history-trends-locked`, the gate; **zero** send it to
+`history-trends`, the open view, which was reachable from nothing but the reviewer's
+own sidebar. `upgrade-processing.html` carries the sentence "when it is done you go
+straight back to Your trends, open" and carried **no outgoing link at all**, so the
+single crossing from Free to Pro in the whole product dead ended at the exact moment
+it promised delivery. That sentence now carries the link it always described.
+`add-subscription-loading.html` had already set the convention: the way on out of a
+wait is a link inside the sentence that describes it, never a button the wait does
+not have.
+
+**WHAT IS STILL OPEN, AND IT IS THE FOUNDER'S.** The four other tabs of the open trend
+view lead to screens that say Free, because Home, Alerts and Save do not differ by
+plan - which is D3 working exactly as written, the paywall at depth and nowhere else.
+Making them differ means Pro twins of three screens and their states, six or more
+pages that would differ from their originals by one word. The alternative is to say
+plainly that the plans part company on exactly two screens, Trends and the plan row of
+Settings, and to mark the crossing rather than duplicate the product. That is a
+product decision and it is not taken here.
+
+**AND THE INSTRUMENT WAS CHECKING HALF OF EVERY CLAIM.** `counts.cjs` parsed "16 grey
+pages, 36 places" and kept the 16. Both numbers are counted off the corpus, both are
+in the sentence, and only one was ever compared - the same defect the script's own
+header records about checking one of two COPIES, made again about one of two NUMBERS.
+It reads both since today. The sweep found exactly two headers wrong: `group-head.css`,
+five places out in each corpus, and `muted-line.css`, which had said 85 since
+2026-08-17 and had been 87 since the trend screen was rebuilt the day before. Nobody
+could have known, because nothing had ever looked.
+
 ## 2026-08-20 - The plan chip went to the right edge, and only one of the two bars could move
 
 Founder, one line, the morning after the chip went everywhere: **"давай Free

@@ -10,7 +10,7 @@
      colour   --text-muted     (the heading and the figure alike)
      lines    --line-divider   (the hairline under the banded form)
    Page      design/kit/group-head.html
-   Stands on 16 grey pages, 36 places, and 17 coloured ones, 41 places.
+   Stands on 16 grey pages, 41 places, and 17 coloured ones, 46 places.
    Recounted 2026-08-17 by `design/kit/screens/counts.cjs`, which is the
    instrument the backlog asked for: nothing here is remembered.
 
@@ -106,8 +106,56 @@
 .app .group-head .skel, .landing .group-head .skel { width: 104px; margin: var(--space-0); }
 .app .group-head .skel + .skel, .landing .group-head .skel + .skel { width: 90px; }
 
-/* No states. A group head is a label on a section: it holds no anchor, no
-   button and no disclosure on any of the 55 grey pages or the 32 coloured ones,
-   and the sections it opens are not collapsible in this product. Checked rather
-   than assumed, including against the one disclosure the app shell does have,
-   which is a `details.panel summary` and a different component. */
+/* ---- the head that carries its section's own action ----------------------
+   NEW ON 2026-08-20, ON THE FOUNDER'S DECISION, and it is the reason the
+   paragraph under it had to be rewritten. Home at 1440 put one outline button on
+   a row of its own with 1370px of empty pane beside it. The answer is the answer
+   this product already gave the trend screen's summary strip three days earlier:
+   a row with one thing in it is a row with a hole in it, so the list's own name
+   went into the hole and the action moved to the far end of the name.
+
+   IT IS THIS MOLECULE AND NOT A NEW ONE. A heading at one end, a thing at the
+   other, a hairline under both: that is the whole definition above, written
+   before anybody needed the far slot to be a control. The subtotal was never the
+   point of the far slot, it was the only thing that had ever stood in it.
+
+   NO MODIFIER CLASS. `:has(> .actions)` reads the CONTENT, which is the same
+   device `.summary:has(> .trust)` and `.wash:has(> .actions)` already use, and it
+   keeps the product screen free of a class that exists only to explain itself.
+
+   TWO PROPERTIES CHANGE AND NOTHING ELSE.
+     align-items  a 48px control has no baseline worth sharing with a 12px label:
+                  on `baseline` the button's own text sat on the label's line and
+                  the control hung 18px below the hairline. `center` is what a row
+                  of unequal heights wants and it is the only alignment in this
+                  file that is not the default one.
+     margin       --space-24 under it instead of --space-2. Two pixels is the air
+                  a 12px label needs before its own list; a 48px control needs the
+                  gap this product puts between two blocks, or the first category
+                  head reads as the button's caption.
+     flex-wrap    a subtotal always fits beside its label and a control does not.
+                  Measured at 320, the narrowest width this product supports: the
+                  label is about 130px, the button 197px, and the row has 288px, so
+                  something has to give. Unwrapped it was the LABEL that broke, into
+                  "YOUR / SUBSCRIPTIONS" beside a button twice its height. Wrapped,
+                  the button drops to a line of its own under a label that stays
+                  whole, which is the failure this row should have. The row gap is
+                  --space-8 because the two are one block, not two.
+   The bottom padding is NOT touched: 8px under the tallest child is the same
+   hairline distance every other group head has. */
+.app .group-head:has(> .actions), .landing .group-head:has(> .actions) {
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: var(--space-8);
+  margin: var(--space-0) var(--space-0) var(--space-24);
+}
+
+/* No states OF ITS OWN, and that sentence needed rewriting on 2026-08-20. Until
+   that day a group head held no anchor, no button and no disclosure on any page
+   in either corpus, and the line here said so. It now hosts an Action row on the
+   three states of Home that have a list, so it hosts a control - and it still
+   declares no state, because the control brought its own. Nothing below this file
+   paints a hover, a focus ring or a pressed form: the button does that in
+   `button.css` and would do it identically standing anywhere else. The sections a
+   head opens are still not collapsible anywhere in this product, which is the
+   part of the old sentence that survives unchanged. */

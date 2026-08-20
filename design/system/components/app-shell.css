@@ -636,9 +636,22 @@
      for: home, home-error, home-loading, home-savefocus.
 
      The margin above stays unscoped: it is the action row's spacing at this width
-     and it was never part of the ordering. */
+     and it was never part of the ordering.
+
+     SLOT 2 STOPPED BEING THE ACTION ROW ON 2026-08-20 AND BECAME THE HEAD OF THE
+     LIST. Founder, looking at Home at 1440: the row held one outline button and
+     1370px of nothing, so the list's own name moved into it and the button moved to
+     the far end of that name. What sits in slot 2 is now a `.group-head`, the same
+     molecule the five category heads under it are, with the action in the slot that
+     usually carries a subtotal. The action row is still there and still ordered;
+     it is simply a child of the head rather than a sibling of it, so it is
+     positioned by its host and no longer by this file.
+
+     `> .group-head` and not `.group-head`: the five heads INSIDE the column set are
+     descendants of `.groups` and are not direct children of `.screen`, so they never
+     match. Checked on all four screens the guard admits. */
   .app > .screen:has(> .groups) > .head       { order: 1; }
-  .app > .screen:has(> .groups) > nav.actions { order: 2; }
+  .app > .screen:has(> .groups) > .group-head { order: 2; }
   .app > .screen:has(> .groups) > .groups     { order: 3; }
   .app > .screen:has(> .groups) > .trust      { order: 4; }
 

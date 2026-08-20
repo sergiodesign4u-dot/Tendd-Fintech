@@ -62,15 +62,16 @@
       <li><code>:where(h1,h2,h3,h4)</code> <span>the heading slot, matched at any level. 12px, weight 600, uppercase, tracked out by 0.06em, in the muted tier. <code>:where()</code> contributes no specificity, which is what keeps this rule from outranking anything</span></li>
       <li><code>.subtotal</code> <span>the figure at the far end. Same size and same tier as the heading, tabular, and never wrapping</span></li>
       <li><code>.plain</code> <span>the modifier that takes the rule off and stands the block further from what follows</span></li>
+      <li><code>:has(&gt; .actions)</code> <span>the far slot holding a CONTROL instead of a figure, since 2026-08-20. Read off the content and not off a modifier, the way <code>.summary:has(&gt; .trust)</code> and <code>.wash:has(&gt; .actions)</code> already are. The row centres, wraps, and takes the gap between two blocks under it; nothing else changes</span></li>
       <li><code>border-bottom</code> <span><code>--line-divider</code>, decorative: it separates rather than identifies, so it owes no contrast threshold</span></li>
-      <li><code>align-items</code> <span><code>baseline</code>, so a 12px word and a 12px number sit on one optical line rather than on two</span></li>
+      <li><code>align-items</code> <span><code>baseline</code>, so a 12px word and a 12px number sit on one optical line rather than on two. <code>center</code> in the one form that carries a control: a 48px button has no baseline worth sharing with a 12px label, and on <code>baseline</code> it hung 18px below the hairline</span></li>
     </ul>
     <p class="note"><b>It hosts no atom, and the figure is deliberately not one.</b> <code>.subtotal</code> looks like a place for the <a href="amount.html">Amount</a> and is not: it never takes the amount's weight or its primary ink, because here the money is a fact about the group rather than the subject of the line. Two things that would be the same object at the same value are still two objects when their jobs differ, which is the naming rule in <code>docs/architecture.md</code> applied one level up from tokens.</p>
   </section>
 
   <section class="kit-sec" id="variants">
     <h2>Variants and sizes</h2>
-    <p class="note"><b>One axis, and it is about what stands underneath.</b> Banded is the default and draws a rule; plain takes the rule off. The choice is made by the thing below the head, never by the importance of the section.</p>
+    <p class="note"><b>Two axes, and the second one arrived on 2026-08-20.</b> The first is about what stands UNDERNEATH: banded is the default and draws a rule, plain takes the rule off, and the choice is made by the thing below the head rather than by the importance of the section. The second is about what stands in the FAR SLOT: a figure, which is all it had ever held, or the section's own action. Nothing in the definition of this molecule ever said the far slot was a number; the subtotal was simply the only thing that had stood there.</p>
     <div class="kit-matrix">
       <table>
         <thead>
@@ -86,16 +87,23 @@
             <td><b>Banded</b> <code>.group-head</code></td>
             
             <td class="val">8px padding<br>2px margin<br>1px --line-divider</td>
-            <td>24 of the 31 coloured occurrences, and every one of them a <code>div</code> wrapping a heading. Category groups on Home, the field groups and the plan line on Settings</td>
+            <td><b>34</b> of the 46 coloured occurrences, and every one of them a <code>div</code> wrapping a heading. Category groups on Home, the field groups and the plan line on Settings</td>
           </tr>
           <tr><td colspan="3"><div class="kit-stage app full wide"><div class="group-head"><h2>Streaming (4)</h2><span class="subtotal">$54.96 a month</span></div></div></td></tr>
           <tr>
             <td><b>Plain</b> <code>.group-head.plain</code></td>
             
             <td class="val">0 padding<br>16px margin<br>no border</td>
-            <td>7 coloured occurrences, and every one of them is written directly on a heading: two <code>h2</code> on Add a Subscription and its loading state, five <code>h3</code> on the guided reveal. Which is exactly the pair of screens that broke it</td>
+            <td><b>9</b> coloured occurrences, and every one of them is written directly on a heading: <code>h2</code> on Add a Subscription and its loading state, <code>h3</code> on the guided reveal. Which is exactly the pair of screens that broke it</td>
           </tr>
           <tr><td colspan="3"><div class="kit-stage app full wide"><h2 class="group-head plain">Most tracked</h2></div></td></tr>
+          <tr>
+            <td><b>Carrying the section's action</b> <code>.group-head:has(&gt; .actions)</code></td>
+            
+            <td class="val">centred<br>wraps at 320<br>24px margin</td>
+            <td><b>3</b> coloured occurrences and 3 grey: the head of the list on <a href="../home.html">Home</a> and on its error and Save-focus states. Founder's decision, 2026-08-20, on a desktop row that held one outline button and 1370px of nothing beside it</td>
+          </tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="group-head"><h2>Your subscriptions</h2><nav class="actions" aria-label="More"><a class="btn" href="../home.html">Add a subscription</a></nav></div></div></td></tr>
         </tbody>
       </table>
     </div>
@@ -141,7 +149,7 @@
     <h2>When to use it</h2>
     <p class="note">A group head opens a <b>section of like things</b>: four streaming subscriptions, three preset tiles, the fields that make up your details. It is the quietest possible way to say "a new kind of thing starts here", and quiet is the requirement rather than a preference: Home carries five of them in a column and a person is meant to scan past four of them to find the one they came for.</p>
     <p class="note">Uppercase at 12px with tracking does the work a heavier weight would otherwise do. It is small caps behaviour without a second typeface, which matters because <code>DESIGN.md</code> forbids a display face by name: one family for the whole product, and a second family is how a calm interface starts sounding like two products.</p>
-    <p class="note">The figure at the far end is context, in the plain money language sense: "Streaming (4)" and "$54.96 a month" together say what the group is and what it costs, and neither is useful alone. On Settings the same slot holds the word "Free", which is the same job with no arithmetic in it.</p>
+    <p class="note">The figure at the far end is context, in the plain money language sense: "Streaming (4)" and "$54.96 a month" together say what the group is and what it costs, and neither is useful alone. On Settings the same slot holds the word "Free", which is the same job with no arithmetic in it. <b>Since 2026-08-20 it also holds a control</b>, on the head of Home's list: "Your subscriptions" against "Add a subscription". That is the same sentence shape one step further - what the group is, and the one thing you can do to it - and it is why this needed no new component. What the slot may never hold is a SECOND heading: two headings on one line is a row with no subject.</p>
   </section>
 
   <section class="kit-sec" id="rule">
@@ -193,7 +201,7 @@
     </div>
     <p class="note"><b>Three values moved and none was re-decided.</b> The gap was 12px and is 16, the padding under the heading was 6px and is 8, the plain form's bottom margin was 12px and is 16. Nearest step, ties to the larger, straight from the founder's review of the foundations. Everything else measured identical before and after on the real <a href="../home.html">Home</a> screen: 12px, weight 600, 0.72em-equivalent tracking, the muted ink, the 2px bottom margin and the divider colour.</p>
     <p class="note"><b>One rule of this component lives in another file, and it is named in both.</b> <code>.app .rgroup .group-head { margin: 0 0 8px }</code> belongs to the <a href="merchant-chip-group.html">merchant chip group</a>, because it is that molecule positioning this one. It ties with <code>.group-head.plain</code> at 0-3-0 and is decided by source order, which the <code>@import</code> order settles by itself: alphabetically inside the molecule level, <code>group-head.css</code> comes before <code>merchant-chip-group.css</code>, so the host wins. Measured on this system: 8px, as the product renders today.</p>
-    <p class="note">Lives in <code>design/system/components/group-head.css</code>. Stands on 16 grey pages in 36 places and on <b>17</b> coloured ones in <b>41</b>, which is more than the grey has: the five places past it are on screens the grey writes without a head. A sample of the coloured screens carrying it: <a href="../home.html">Home</a> and three of its states, <a href="../add-subscription.html">Add a Subscription</a> and its loading state, <a href="../guided-reveal.html">Guided Reveal</a>, <a href="../history-trends.html">History and Trends</a> and its loading state, <a href="../settings.html">Settings</a>, <a href="../settings-no-account.html">Settings with no account</a>, <a href="../alerts.html">Alerts</a> and its empty and loading states.</p>
+    <p class="note">Lives in <code>design/system/components/group-head.css</code>. Stands on 16 grey pages in <b>41</b> places and on <b>17</b> coloured ones in <b>46</b>, recounted 2026-08-20 by <code>design/kit/screens/counts.cjs</code>, which reads the places as well as the pages since that day. The colour is more than the grey: the five places past it are on screens the grey writes without a head. A sample of the coloured screens carrying it: <a href="../home.html">Home</a> and three of its states, <a href="../add-subscription.html">Add a Subscription</a> and its loading state, <a href="../guided-reveal.html">Guided Reveal</a>, <a href="../history-trends.html">History and Trends</a> and its loading state, <a href="../settings.html">Settings</a>, <a href="../settings-no-account.html">Settings with no account</a>, <a href="../alerts.html">Alerts</a> and its empty and loading states.</p>
     <code class="kit-cmd">&lt;div class="group-head"&gt;
   &lt;h2&gt;Streaming (4)&lt;/h2&gt;
   &lt;span class="subtotal"&gt;$54.96 a month&lt;/span&gt;

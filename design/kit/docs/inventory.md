@@ -134,7 +134,7 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Detail hero | `.hero` | - | 6 | - | `detail-hero.css` | `detail-hero.html`  | does not adapt |
 | Door | `.door` | content: with a pick line / without | 4 | - | `door.css` | `door.html`  | does not adapt |
 | Form field | `.field` | host: div / form (the search) | 8 | - | `form-field.css` | `form-field.html`  | a reading measure on the hint, since 2026-08-17. No query |
-| Group head | `.group-head` | rule: banded / plain | 16 | - | `group-head.css` | `group-head.html`  | does not adapt |
+| Group head | `.group-head` | rule: banded / plain · far slot: a figure / the section's action | 16 | - | `group-head.css` | `group-head.html`  | does not adapt |
 | Merchant chip group | `.rgroup` | - | 1 | - | `merchant-chip-group.css` | `merchant-chip-group.html`  | fluid |
 | Nav row | `.navrow` | - | 2 | - | `nav-row.css` | `nav-row.html`  | does not adapt |
 | Numbered steps | `.steps` | - | 3 | - | `numbered-steps.css` | `numbered-steps.html`  | a reading measure on the step, since 2026-08-17: `--container-text` plus the numeral gutter, the one computed width in the system. No query |

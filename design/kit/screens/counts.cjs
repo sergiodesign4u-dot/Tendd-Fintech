@@ -117,9 +117,23 @@ const claimOf = (text) => {
   const i = text.indexOf('Stands on');
   const sentence = i < 0 ? '' : (text.slice(i).match(/^[\s\S]*?\.(?=\s|$)/) || [text.slice(i)])[0];
   const scope = sentence || text;
-  const g = scope.match(/(\d+) grey (?:pages?|ones?)/i);
-  const c = scope.match(/(\d+) (?:of the \d+ )?coloured (?:screens?|pages?|ones)/i);
-  return { grey: g ? +g[1] : null, colour: c ? +c[1] : null };
+  /* AND IT READS THE PLACES TOO, 2026-08-20, WHICH IS THE OTHER HALF OF EVERY
+     CLAIM. Until this day the parser took "16 grey pages, 36 places" and kept the
+     16. Both numbers are counted off the corpus and both are in the sentence, so
+     an instrument that checks one of them reports one of them - which is the same
+     defect the paragraph below records about checking one of two COPIES, made
+     once more about one of two NUMBERS. Found by the founder's rebuild of Home:
+     the group head gained a place on three pages, the run came back with zero
+     drift, and the header was five places out in the grey and five in the colour.
+     The sweep on the day it was written found exactly two headers wrong,
+     `group-head.css` and `muted-line.css`, and the second had been wrong for
+     longer than anybody could say, because nothing had ever looked. The places
+     group is optional: most sentences do not carry one, and a missing number is
+     not a wrong one. */
+  const g = scope.match(/(\d+) grey (?:pages?|ones?)(?:,\s*(\d+) places?)?/i);
+  const c = scope.match(/(\d+) (?:of the \d+ )?coloured (?:screens?|pages?|ones)(?:,\s*(\d+) places?)?/i);
+  return { grey: g ? +g[1] : null, colour: c ? +c[1] : null,
+           greyPlaces: g && g[2] ? +g[2] : null, colourPlaces: c && c[2] ? +c[2] : null };
 };
 
 const cssDir = path.join(ROOT, 'design/system/components');
@@ -170,6 +184,11 @@ for (const c of components) {
   const greyMiss = claim.grey !== null && claim.grey > 0 && g.pages === 0;
   if (claim.grey !== null && g.pages !== null && !greyMiss && claim.grey !== g.pages) off.push('grey ' + claim.grey + ' -> ' + g.pages);
   if (claim.colour !== null && claim.colour !== k.pages) off.push('coloured ' + claim.colour + ' -> ' + k.pages);
+  /* A recomputed zero is a MISS rather than a drift for the pages above, and the
+     same guard covers the places: where the grey draws the thing under no class
+     this registry knows, its place count is 0 and means nothing. */
+  if (claim.greyPlaces !== null && g.places !== null && g.pages !== 0 && claim.greyPlaces !== g.places) off.push('grey places ' + claim.greyPlaces + ' -> ' + g.places);
+  if (claim.colourPlaces !== null && claim.colourPlaces !== k.places) off.push('colour places ' + claim.colourPlaces + ' -> ' + k.places);
   const pageOff = [];
   const pageGreyMiss = pageClaim.grey !== null && pageClaim.grey > 0 && g.pages === 0;
   if (pageClaim.grey !== null && g.pages !== null && !pageGreyMiss && pageClaim.grey !== g.pages) pageOff.push('grey ' + pageClaim.grey + ' -> ' + g.pages);
