@@ -47,7 +47,7 @@
     <div class="kit-meta">
       <span><strong>14</strong> marks measured</span>
       <span><strong>10</strong> on the 24 by 24 cell</span>
-      <span>the four destinations run <strong>17.30</strong> to <strong>19.70</strong> modules, median <strong>18.70</strong></span>
+      <span>the four destinations run <strong>17.30</strong> to <strong>19.70</strong> modules, median <strong>18.10</strong></span>
       <span><strong>0</strong> break the safe area</span>
       <span><strong>14</strong> merchant marks, deliberately not measured</span>
     </div>
@@ -98,8 +98,8 @@
 
       <ol class="kit-icg-rules">
         <li><b>One cell and one viewBox for the whole set.</b> 24 by 24, on all nine, so the module is one user unit. The mask is painted at <code>mask-size: contain</code> inside a 22px square (<code>.app .tabbar a .ic</code>), which makes one module 0.9167px on screen. Everything below is stated in modules, because that is the only unit the drawing is authored in.</li>
-        <li><b>The safe area is two modules, so paint lives in 2..22.</b> All nine hold it. The audit below gives the clearance on each side; the tightest number in the set is 0.15 of a module, and two glyphs sit at it.</li>
-        <li><b>The boundary is checked on the paint, not on the curve.</b> A stroke sits astride its path, so at 1.7 the ink reaches 0.85 past the line on either side. The roof of <code>.ic-home</code> and the frame of <code>.ic-trends</code> both run from 3.00 to 21.00 on the centreline, which is one clean module inside the band, and the stroke eats 0.85 of that module. At stroke 2.0 they would paint exactly onto the safe line. At 2.2 they would break it. <b>Nothing in this set can be widened without re-measuring.</b></li>
+        <li><b>The safe area is two modules, so paint lives in 2..22.</b> All nine hold it. The audit below gives the clearance on each side; the tightest number in the set is 0.15 of a module, and <b>one glyph sits at it</b>, <code class="kit-code">.ic-home</code>. It was two until 2026-08-21: <code class="kit-code">.ic-save</code> shared the number and retired with the Save tab, and the chart's frame, which ran the same 3.00 to 21.00, was replaced by an axis corner that clears at 1.15.</li>
+        <li><b>The boundary is checked on the paint, not on the curve.</b> A stroke sits astride its path, so at 1.7 the ink reaches 0.85 past the line on either side. The roof of <code>.ic-home</code> runs from 3.00 to 21.00 on the centreline, which is one clean module inside the band, and the stroke eats 0.85 of that module. At stroke 2.0 it would paint exactly onto the safe line. At 2.2 it would break it. It is the tightest mark in the set and it has been the only one since 2026-08-21: the chart's frame ran the same 3.00 to 21.00 and the axis corner that replaced it runs 4.00 to 20.00, so its clearance went 0.65 to 1.15. <b>Nothing in this set can be widened without re-measuring.</b></li>
         <li><b>The set is aligned on a baseline, not on a centre.</b> Horizontally every glyph is centred on its own ink at exactly x = 12.000, verified by rasterising, not by trusting the coordinates. Vertically the painted bottom is 20.85 on three of the four; the bell's clapper on <code>.ic-alerts</code> is the one thing allowed below it, at 21.63. The painted tops vary over a whole module and are not held, which is correct: an icon row reads off its feet.</li>
         <li><b>Stroke ends do not land on whole modules here, and the rule that says they should would not pay.</b> Of 30 nodes across the four glyphs, 5 sit on a whole module, 16 on a half and 9 on neither. The reason to want whole modules is crispness, and crispness needs the module to map onto a device pixel: 24 units rendered into 22px makes a module 0.9167px, so no module boundary is a pixel boundary at any node. The honest rule for this set is the half-module grid it actually uses.</li>
       </ol>
@@ -111,7 +111,7 @@
 
     <p class="note"><b>Equal bounding box is not equal weight.</b> A disc inscribed in the 20 by 20 safe area covers 314.16 of its 400 square modules, which is 78.5 percent of the square that contains it; to carry the same area it has to grow to a diameter of 22.57 and overshoot the box by 12.8 percent. That is the arithmetic behind the rule, and it is why a set drawn to one rectangle makes its round forms look undersized. <b>So this set is deliberately not one size.</b></p>
 
-    <p class="note">What it does hold is the <b>height</b>. <b>Recounted 2026-08-21 over the set as it now stands</b>, which is four again but not the same four: Trends joined on the 18th and Save was retired on the 21st. The painted heights run <b>16.70 to 18.50</b> modules, a spread of <b>11 percent</b>. The widths run <b>16.10 to 19.70</b>, a spread of <b>22 percent</b>, and the split is by form rather than by importance: the two glyphs carrying a long horizontal, the roof and the chart frame, are the wide ones, and the head and shoulders is the narrow one. A cap height held while the width follows the drawing is what a stroke set is supposed to do.</p>
+    <p class="note">What it does hold is the <b>height</b>. <b>Recounted 2026-08-21 over the set as it now stands</b>, which is four again but not the same four: Trends joined on the 18th, Save was retired on the 21st, and Trends was redrawn the same day. The painted heights run <b>16.70 to 18.50</b> modules, a spread of <b>11 percent</b>. The widths run <b>16.10 to 19.70</b>, a spread of <b>22 percent</b>, and the split is by form rather than by importance: the two glyphs carrying a long horizontal, the roof and the chart frame, are the wide ones, and the head and shoulders is the narrow one. A cap height held while the width follows the drawing is what a stroke set is supposed to do.</p>
 
     <div class="kit-icg-set">
       <figure class="kit-icg-fig">
@@ -147,13 +147,13 @@
           <defs><pattern id="icg-c3" width="1" height="1" patternUnits="userSpaceOnUse"><path class="mod" d="M0 0H1V1" stroke-width="0.1"/></pattern></defs>
           <rect x="0" y="0" width="24" height="24" fill="url(#icg-c3)"/>
           <g class="paint" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3.5 4.5h17v15h-17z"/><path d="M6.5 16C10 16 10.5 8 14 8h4"/>
+            <path d="M4 4.5v15h16"/><path d="M7 16C10.5 16 11 8 14.5 8H19"/>
           </g>
-          <rect class="box" x="2.65" y="3.65" width="18.7" height="16.7" stroke-width="0.1"/>
+          <rect class="box" x="3.15" y="3.65" width="17.7" height="16.7" stroke-width="0.1"/>
           <rect class="safe" x="2" y="2" width="20" height="20" stroke-width="0.12"/>
           <rect class="cell" x="0" y="0" width="24" height="24" stroke-width="0.1"/>
         </svg>
-        <figcaption><b>.ic-trends</b>18.70 x 16.70<br>x 2.65..21.35<br>y 3.65..20.35<br>clearance 2.65</figcaption>
+        <figcaption><b>.ic-trends</b>17.70 x 16.70<br>x 3.15..20.85<br>y 3.65..20.35<br>clearance 1.15</figcaption>
       </figure>
 
       <figure class="kit-icg-fig">
@@ -259,14 +259,14 @@
 
     <p class="note">A box says how much room a glyph takes. It does not say how heavy it looks, and weight is what the eye compares when four marks sit in one row. So each glyph was also rasterised and its <b>ink</b> counted: the share of the 24 by 24 cell that is actually painted.</p>
 
-    <div class="kit-icg-bar"><span class="nm">.ic-trends</span><span class="tr"><i class="g-trends"></i></span><span class="v">23.82% ink</span></div>
     <div class="kit-icg-bar"><span class="nm">.ic-home</span><span class="tr"><i class="g-home"></i></span><span class="v">21.12% ink</span></div>
     <div class="kit-icg-bar"><span class="nm">.ic-alerts</span><span class="tr"><i class="g-alerts"></i></span><span class="v">15.62% ink</span></div>
+    <div class="kit-icg-bar"><span class="nm">.ic-trends</span><span class="tr"><i class="g-trends"></i></span><span class="v">14.71% ink</span></div>
     <div class="kit-icg-bar"><span class="nm">.ic-you</span><span class="tr"><i class="g-you"></i></span><span class="v">13.14% ink</span></div>
 
     <div class="kit-icg-carry">
-      <p><b>The finding, and it is carried rather than fixed. Re-measured 2026-08-21 and it survived losing its worst case.</b> The boxes differ by <b>22 percent</b> and the ink by <b>81 percent</b>. <code class="kit-code">.ic-trends</code> carries <b>1.81 times</b> the paint of <code class="kit-code">.ic-you</code>, and the two stand in the same 22px row of the same tab bar. It was 106 percent while <code class="kit-code">.ic-save</code> was in the set, and retiring that destination took a quarter of the gap out without anyone drawing anything - which is the tell. <b>The cause is not stroke weight and never was.</b> All four are drawn at 1.7 on the same 24 cell; what differs is PATH LENGTH, and the two heaviest are the two that close a box. A rectangle at this size carries roughly twice the perimeter of an open glyph, so the real question is whether this set is boxed or open, not which glyph to thin.</p>
-      <p>It is written here and not repaired here, because a repair belongs in <code class="kit-code">design/system/components/destination-icon.css</code> and in <code class="kit-code">kit.html</code> beside it, never on a page that only describes them. The two candidate repairs are on record and both were rewritten when the set changed: open the frame of <code class="kit-code">.ic-trends</code> so the chart is a corner rather than a box, or lift <code class="kit-code">.ic-you</code> toward the safe line it currently clears by 3.15 modules. Both change a shipped glyph on 29 pages, so both are a named decision and not a tidy-up.</p>
+      <p><b>The finding was carried for eleven days and closed on 2026-08-21, and it took two moves to close it.</b> It began at <b>106 percent</b> of ink spread over a set of four, <code class="kit-code">.ic-save</code> against <code class="kit-code">.ic-you</code>. <b>The first move was not a drawing at all:</b> the Save tab was retired, its glyph went with it, and the spread fell to <b>81 percent</b> without a line being redrawn - which is what said the problem was the SET rather than any one mark. <b>The second was the founder choosing candidate B</b> off four drawn options, each measured before it was offered: <code class="kit-code">.ic-trends</code> gave up its frame for an axis corner and went <b>23.82 to 14.71</b>. The spread is now <b>61 percent</b>, the heaviest mark is the house rather than the chart, and the boxes still differ by 22 percent, which is the width of a roof against the width of a head. <b>The cause was never stroke weight.</b> All four are drawn at 1.7 on the same 24 cell; what differs is PATH LENGTH, and the mark that closed a box carried roughly twice the perimeter of an open glyph. The candidate that simply deleted the box was drawn too and rejected on its own number: the chart fell to 10.60 and became the lightest thing in the bar, taking the spread to <b>99 percent</b>. A mark needs enough structure to hold its own beside three neighbours.</p>
+      <p>It is written here and not repaired here, because a repair belongs in <code class="kit-code">design/system/components/destination-icon.css</code> and in <code class="kit-code">kit.html</code> beside it, never on a page that only describes them. The first of the two candidate repairs is the one that shipped: the frame of <code class="kit-code">.ic-trends</code> opened into a corner. The second is still on record and still available if the row ever needs to come tighter - lift <code class="kit-code">.ic-you</code> toward the safe line it clears by 3.15 modules - and it stays a named decision rather than a tidy-up, because it changes a shipped glyph on 29 pages. The four drawn candidates and their numbers are kept in <code class="kit-code">design/kit/screens/icon-candidates.html</code>.</p>
     </div>
   </section>
 
@@ -287,7 +287,7 @@
         <tbody>
           <tr><td><code>.ic-home</code></td><td class="n">0 0 24 24</td><td class="n">1.7</td><td class="n">2.15 2.65 21.85 20.85</td><td class="n">19.70 x 18.20</td><td class="n">0.15</td><td class="n">21.12%</td><td class="ok">holds</td></tr>
           <tr><td><code>.ic-alerts</code></td><td class="n">0 0 24 24</td><td class="n">1.7</td><td class="n">3.55 3.15 20.45 21.63</td><td class="n">16.90 x 18.48</td><td class="n">0.37</td><td class="n">15.62%</td><td class="ok">holds</td></tr>
-          <tr><td><code>.ic-trends</code></td><td class="n">0 0 24 24</td><td class="n">1.7</td><td class="n">2.65 3.65 21.35 20.35</td><td class="n">18.70 x 16.70</td><td class="n">2.65</td><td class="n">23.82%</td><td class="ok">holds</td></tr>
+          <tr><td><code>.ic-trends</code></td><td class="n">0 0 24 24</td><td class="n">1.7</td><td class="n">3.15 3.65 20.85 20.35</td><td class="n">17.70 x 16.70</td><td class="n">1.15</td><td class="n">14.71%</td><td class="ok">holds</td></tr>
           <tr><td><code>.ic-you</code></td><td class="n">0 0 24 24</td><td class="n">1.7</td><td class="n">3.95 3.55 20.05 20.85</td><td class="n">16.10 x 17.30</td><td class="n">1.15</td><td class="n">13.14%</td><td class="ok">holds</td></tr>
           <tr><td><code>.logo</code>, unmatched</td><td class="n">0 0 52 52</td><td class="n">2.2</td><td class="n">19.30 13.90 32.70 36.00</td><td class="n">6.18 x 10.20</td><td class="n">6.42</td><td class="n">2.84%</td><td class="dec">not a 24 cell</td></tr>
           <tr><td><code>.chart &gt; svg</code></td><td class="n">0 0 300 100</td><td class="n">2, in device px</td><td class="n">18 26 282 76, geometry only</td><td class="dec">stretches with its box</td><td class="dec">no safe area declared</td><td class="dec">-</td><td class="dec">not a 24 cell</td></tr>
@@ -311,7 +311,7 @@
         <tbody>
           <tr><td><code>.ic-home</code></td><td>Home, the calm view</td><td>a roof over a doorway</td><td class="dec">nothing else</td></tr>
           <tr><td><code>.ic-alerts</code></td><td>Alerts</td><td>a bell with a clapper</td><td class="dec">the unread <code>.dot</code>, 7px, top right, outside the square</td></tr>
-          <tr><td><code>.ic-trends</code></td><td>Trends</td><td>a framed box with the product's own curve inside it</td><td class="dec">nothing else</td></tr>
+          <tr><td><code>.ic-trends</code></td><td>Trends</td><td>an axis corner with the product's own curve rising off it</td><td class="dec">nothing else</td></tr>
           <tr><td><code>.ic-you</code></td><td>You, settings and account</td><td>a head and shoulders</td><td class="dec">nothing else</td></tr>
         </tbody>
       </table>

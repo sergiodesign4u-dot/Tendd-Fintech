@@ -7,6 +7,56 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-21 - The icon set came even, and the first half of the fix was not a drawing
+
+Founder: **"давай B"**, off four candidates drawn and measured before any of them
+was offered. The chart glyph gives up its frame for an axis corner. `.ic-trends`
+goes from `M3.5 4.5h17v15h-17z` plus its curve to `M4 4.5v15h16` plus
+`M7 16C10.5 16 11 8 14.5 8H19`, and that is the whole change to the product.
+
+**THE ROW IS EVEN AT 61 PER CENT, DOWN FROM 106.** Ink, as the share of the 24 cell
+actually painted, rasterised at 40 samples per module with an alpha floor of 10:
+
+    home  21.12    alerts  15.62    trends  14.71    you  13.14
+
+**AND THE FIRST HALF OF THAT FIX WAS NOT A DRAWING AT ALL.** The finding opened at
+**106 per cent** over a set of four, `.ic-save` against `.ic-you`, and it had been
+carried as a founder's decision for eleven days. Retiring the Save tab the same
+morning took it to **81 per cent** with no line redrawn, which is what said the
+problem was the SET and not any one mark. The redraw took it to **61**. A finding
+that moves when you delete something is a finding about composition.
+
+**WHAT THE CANDIDATES WERE FOR, AND THE ONE THAT WAS DRAWN TO BE REJECTED.** Four
+options went into `design/kit/screens/icon-candidates.html`, each measured before it
+was shown, because a redraw chosen off an argument is a redraw done twice. The one
+worth keeping on record is **C, "just take the box off"**: it is the obvious move,
+it is what anybody would try first, and it makes the row **worse** - the chart falls
+to 10.60, becomes the lightest thing in the bar, and the spread goes to **99 per
+cent**. A mark needs enough structure to hold its own beside three neighbours. **E**,
+which also dropped the house's door, measured 25 per cent and was the recommendation;
+the founder took B, so the door stays and E stays on record as the next move if the
+row ever needs to come tighter.
+
+**WHAT MOVED WITH THE GLYPH.** The painted box went 18.70 x 16.70 to **17.70 x
+16.70** and the clearance from the safe line went **0.65 to 1.15**, so the chart is
+no longer the second-tightest mark in the set: `.ic-home` is the only one near the
+line now, at 0.15, and the note in `icons.html` that named the two of them together
+names one. The ink chart re-normalised to a new heaviest, `.ic-home` at 21.12,
+which is a `_page.css` edit and not a markup one, because the bar widths are
+measurements and this system keeps a measurement in the stylesheet with its
+arithmetic beside it.
+
+**AND `destination-icon.html` HAD BEEN SHOWING THREE GLYPHS UNDER A HEADING THAT
+SAID FOUR.** `.ic-trends` joined the product on 2026-08-18 and never reached that
+page: not the swatch row, not the live row, not the meaning table. It was found
+while replacing the Save glyph, not by looking for it, and it is the second page in
+two days caught describing a set it had stopped matching - `icons.html` was the
+first.
+
+**Instruments:** rollout12 none, width12 none, counts 0 drift, edges13 12 families 0
+split, pages13 0 of 129, aria13 0 of 6, plans13 4 clean, design13 11 of 11, inert12
+29 bars and 116 links a side.
+
 ## 2026-08-21 - The Save tab was a door into the room you were standing in
 
 Founder, clicking through the coloured product: **"зачем нам страница Save (save
