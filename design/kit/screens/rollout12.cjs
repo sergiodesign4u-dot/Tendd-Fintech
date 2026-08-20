@@ -21,6 +21,20 @@
                     column of docs/inventory.md can be checked against the code
      6  REGISTRY    the component registry against the CSS files and against the
                     inventory's own tables
+     7  PLACEHOLDER a grey placeholder string surviving into LIVE coloured
+                    markup, comments excluded
+
+   CHECK 7 WAS ADDED 2026-08-20 BY A FOUNDER FINDING, and it is the cheapest
+   check in the file. `home-one` and `home-few` shipped with `[logo]` rendering
+   on the page instead of the merchant mark, because they were generated from
+   their grey originals and the grey placeholder came with them. Nothing here
+   saw it: `counts.cjs` counts the CLASS and the class was correct, the width
+   sweep measures boxes and the box was the right size, and the ban on a screen's
+   own style has nothing to say about content. The founder saw it by looking at
+   the page. The family is derived from the grey rather than listed here: any
+   `[...]` standing alone as an element's whole text on a grey page is a
+   placeholder, which today is `[logo]`, `[ ? ]` and the four `[chart...]`
+   strings, and a seventh added tomorrow is caught without editing this file.
 
    IT WRITES NOTHING. Every fix under it is a human decision: a claim carries a
    breakdown, a class that looks undefined can be a state written by a script,
@@ -250,6 +264,29 @@ const result = {
 
 if (AS_JSON) { console.log(JSON.stringify(result, null, 2)); process.exit(0); }
 
+/* --- 7. a grey placeholder in live coloured markup ------------------------- */
+/* THE FAMILY IS READ OFF THE GREY, NOT LISTED. A placeholder is a bracketed
+   string standing alone as an element's whole text on a grey page, which is what
+   the grey does when it cannot draw a thing: the merchant mark, the unidentified
+   charge, the chart. Comments are stripped from both sides first, because every
+   coloured page EXPLAINS the placeholder it replaced and the explanation is not
+   the defect. */
+const stripComments = t => t.replace(/<!--[\s\S]*?-->/g, '');
+const PH_RX = />\s*(\[[^\]<>]{0,40}\])\s*</g;
+const placeholders = new Set();
+grey.forEach(f => {
+  const t = stripComments(fs.readFileSync(path.join(ROOT, 'wireframes', f), 'utf8'));
+  let m; PH_RX.lastIndex = 0;
+  while ((m = PH_RX.exec(t)) !== null) placeholders.add(m[1]);
+});
+const placeholderHits = [];
+colour.forEach(f => {
+  const t = stripComments(fs.readFileSync(path.join(ROOT, 'design', f), 'utf8'));
+  let m; PH_RX.lastIndex = 0;
+  while ((m = PH_RX.exec(t)) !== null)
+    if (placeholders.has(m[1])) placeholderHits.push({ file: f, token: m[1] });
+});
+
 /* --- the ledger ----------------------------------------------------------- */
 const L = [];
 const p = s => L.push(s);
@@ -383,5 +420,12 @@ invHeadings.forEach(h => {
   const actual = invRows[h.level] || 0;
   p(`   inventory ${h.level.padEnd(10)} heading says ${String(h.claims).padStart(3)}, table holds ${String(actual).padStart(3)}  ${actual === h.claims ? 'ok' : 'DRIFT'}`);
 });
+p('');
+
+p('7. GREY PLACEHOLDERS IN LIVE COLOURED MARKUP');
+p(`   placeholder strings found in the grey              ${placeholders.size}: ${[...placeholders].join(' ')}`);
+p(`   coloured pages rendering one                       ${new Set(placeholderHits.map(h => h.file)).size}`);
+if (placeholderHits.length) placeholderHits.forEach(h => p(`   STILL A PLACEHOLDER  ${h.file}  ${h.token}`));
+else p('   none: every coloured page draws the thing its grey original could only name');
 
 console.log(L.join('\n'));

@@ -109,7 +109,30 @@ on ("the 28 coloured screens of the day", "at stage 09") and a named old number 
 drift. The favicon claim on the design hub was **132 against an actual 186**, true on
 2026-08-12 and not since.
 
-**INSTRUMENTS AFTER ALL OF IT.** rollout12 VIOLATIONS none; width12 none, and **zero
+**AND THEN THE FOUNDER LOOKED AT THE PAGE AND FOUND THE ONE THING NINE
+INSTRUMENTS HAD NOTHING TO SAY ABOUT.** "а чего у нас состония One Few без лого?"
+Both new coloured pages rendered the literal string **`[logo]`** where the
+merchant mark belongs. They were generated from their grey originals, and the
+grey placeholder came across with the markup. Every instrument in the folder was
+looking somewhere else: `counts.cjs` counts the CLASS and the class was right,
+the width sweep measures boxes and the box was the right size, `rollout12`'s ban
+on a screen's own style has nothing to say about content, and `aria13` reads
+names rather than text. Nine checks and none of them reads what the page SAYS.
+
+**THE FIX IS THE FILE AND THE CHECK, and the check is the cheaper half.**
+`rollout12.cjs` gained a seventh: **a grey placeholder surviving into live
+coloured markup**, comments stripped from both sides because every coloured page
+explains the placeholder it replaced and the explanation is not the defect. The
+family is **derived from the grey rather than listed** - any bracketed string
+standing alone as an element's whole text on a grey page - which today finds six
+(`[logo]`, `[ ? ]` and four `[chart...]` strings) and will find a seventh without
+this file being edited. It was proved by breaking a page on purpose: with one
+mark put back to `[logo]` the run reports `STILL A PLACEHOLDER home-one.html
+[logo]`, and zero with it restored. An instrument that has never failed is not an
+instrument yet.
+
+**INSTRUMENTS AFTER ALL OF IT.** rollout12 VIOLATIONS none, and check 7 reports
+0 pages rendering a placeholder; width12 none, and **zero
 prose leaves past 52ch for the first time**; counts 0 drift in both directions; edges13
 12 families 0 split; pages13 0 of 129; aria13 0 of 6; plans13 4 checks clean at 17 pages
 and 43 places; design13 11 of 11; walk13 0; inert12 clean at 30 bars and 150 links a
