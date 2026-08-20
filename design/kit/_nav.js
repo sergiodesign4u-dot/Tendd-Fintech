@@ -113,7 +113,6 @@ window.KIT_NAV = {
     { name: 'Preset tile',       cls: '.tile',         page: 'preset-tile.html', was: null,                          axes: 'state: pressed',                        wf: 2 },
     { name: 'Promise list',      cls: '.promises',     page: 'promise-list.html', was: null,                          axes: '-',                                     wf: 3 },
     { name: 'Range picker',      cls: '.range',        page: 'range-picker.html', was: null,                          axes: 'availability x selection: rest / pressed / disabled / disabled+pressed', wf: 3 },
-    { name: 'Save-focus candidate', cls: '.cand',      page: 'save-focus-candidate.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'Share card',        cls: '.sharecard',    page: 'share-card.html', was: null,                          axes: '-',                                     wf: 2 },
     { name: 'Subscription row',  cls: '.row',          page: 'subscription-row.html', was: null,                          axes: 'state: skeleton. host: list / candidate', wf: 8 },
     { name: 'Summary',           cls: '.summary',      page: 'summary.html', was: null,                          axes: 'content: with a total / without',       wf: 5 },
@@ -125,6 +124,7 @@ window.KIT_NAV = {
 
   organisms: [
     { name: 'App bar',           cls: '.appbar',       page: 'app-bar.html', was: null,                          axes: 'form: row / column rail at container 760', wf: 54 },
+    { name: 'Save-focus candidate', cls: '.cand',      page: 'save-focus-candidate.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'App shell',         cls: '.app',          page: 'app-shell.html', was: null,                          axes: 'form: steady / flow / detail',          wf: 54 },
     { name: 'Card',              cls: '.card',         page: 'card.html', was: '.locked, .source',             axes: '-',                                     wf: 3 },
     { name: 'Category bars',     cls: '.bars',         page: 'category-bars.html', was: null,                          axes: '-',                                     wf: 2 },

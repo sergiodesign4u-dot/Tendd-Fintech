@@ -5,7 +5,6 @@
 
    Reads
      colour   --bg-status, --text-status        (quiet, the default)
-              --bg-trial, --text-trial          (a free trial)
               --bg-selected, --text-action      (the accent tone)
      geometry --radius-xs  (straight from primitive: a radius has nothing to
               override. Named on 2026-08-10 for exactly this component, because
@@ -130,7 +129,6 @@
      quiet   a state of a subscription or a connection, and the plan a person is
              on. DESIGN.md: "Status is a quiet grey badge. Alarm is not a colour
              we own"
-     trial   a free trial, the one cool pair in the palette
      accent  a recommendation the product itself is making, and the one place a
              chip is allowed to carry petrol
 
@@ -143,7 +141,15 @@
    that would drop it to 3:1. Measured on the light theme: quiet 5.77, trial
    6.75, accent 5.26. */
 
-.app .chip.trial, .landing .chip.trial { background: var(--bg-trial); color: var(--text-trial); }
+/* `.chip.trial` WAS HERE UNTIL 2026-08-20, and it is the census's oldest hole
+   closing from the other end. The variant had no CSS rule anywhere until stage 09
+   declared one; then the rule had no wearer, because the one place in colour that
+   says Trial, the Peloton row on Home, carries plain `class="chip"` and renders the
+   quiet tone. A rule nothing wears and a wearer with no rule are the same defect
+   measured from two sides. The founder settled it on D-Concept's own words: status
+   is a quiet gray badge, never a colour, and a trial is a status. `--bg-trial` and
+   `--text-trial` went with it, and the one cool pair in the palette went with them:
+   one rule, two roles, four primitives, zero pixels. */
 
 /* The accent tone, and it is the only one this component keeps that is not worn
    yet under its own name. The chip it paints says "Best value", not "Pro": every
@@ -227,6 +233,31 @@
 }
 .app p.chip, .landing p.chip { margin: var(--space-0) var(--space-0) var(--space-24); }
 .app .alert .what .chip, .landing .alert .what .chip { margin: var(--space-0) var(--space-0) var(--space-0) var(--space-4); }
+
+/* THE SIXTH, AND IT ARRIVED FROM plan-option.css ON 2026-08-20. It is the only one
+   of the six that takes the chip OUT of the flow, and the reason is in that file at
+   length: only the yearly card carries a badge, and as a block above the price it
+   pushed `$69` 32px below `$7.99` on the one screen whose whole job is a comparison
+   between three numbers. Out of the flow it costs the card no flow height, so the
+   amount is the first box in the column on every card and the three prices share a
+   line by construction.
+   TOP RIGHT AND NOT THE TOP EDGE, and that split is why `.landing` is not on the
+   second rule: the landing's plan card is centred, so a corner badge has no edge to
+   belong to and its own file straddles the top border instead; the app's card is
+   left-aligned, so the corner IS its axis. Two hosts, one component, two placements,
+   and the difference is written down in both.
+   It came here because five placements of one atom in one file and a sixth in
+   another is a rule about where rules live answering itself differently in two
+   places. Zero pixels: same selectors, same values, and this file is imported
+   before its old home. */
+.app .plan-opt .chip, .landing .plan-opt .chip {
+  position: absolute;
+  margin: var(--space-0);
+}
+.app .plan-opt .chip {
+  top: var(--space-16);
+  right: var(--space-16);
+}
 /* The card's top row, and the SLOT is what it is scoped to. `.source` folded
    into `.card` and `.badge` into `.chip`, and the straight rename of this line
    would have been `.app .card .chip`, which is a different rule wearing the same

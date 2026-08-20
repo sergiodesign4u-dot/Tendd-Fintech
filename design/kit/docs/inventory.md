@@ -43,7 +43,7 @@ The count is a class count, not a component count: `.row`, `.row .name`, `.row .
 
 # Part 1. The system after consolidation
 
-**70 components: 20 atoms, 23 molecules, 27 organisms.** Recounted 2026-08-19 off the `@import` groups in `design/system/index.css`, by script and in the same step as the change. (69 before the category bars arrived on 2026-08-19, when the founder asked why By category was a sentence and not a picture.) (68 before the landing's closing band left the shell on 2026-08-16 and became an organism of its own; 64 before the founder's four rebuilds of 2026-08-15, which added the landing steps, the landing paths, the landing facts and the landing plan; 57 until the public page, when five organisms arrived with the landing on 2026-08-14 and the landing story replaced two shorter-lived ones the same day; 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
+**70 components: 20 atoms, 22 molecules, 28 organisms.** Recounted 2026-08-20 off the `@import` groups in `design/system/index.css`, by script and in the same step as the change. (The total did not move on 2026-08-20 and the split did: the save-focus candidate climbed from molecule to organism on the founder's decision, on the ladder's own definition - it hosts a molecule. It had been filed a rung low since the molecule round, and the reason it stayed was never the ladder but the `@import` order that moving it changes.) (69 before the category bars arrived on 2026-08-19, when the founder asked why By category was a sentence and not a picture.) (68 before the landing's closing band left the shell on 2026-08-16 and became an organism of its own; 64 before the founder's four rebuilds of 2026-08-15, which added the landing steps, the landing paths, the landing facts and the landing plan; 57 until the public page, when five organisms arrived with the landing on 2026-08-14 and the landing story replaced two shorter-lived ones the same day; 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
 step 2 the same material was 68 rows, and the pre-consolidation tables are not reproduced here:
 they were a list of what the product draws, and this is a list of what the system HAS. The
 ledgers further down record how the count moved, screen by screen and stage by stage.
@@ -82,7 +82,7 @@ and the first component through the five-thing gate: css, page, registry row, in
 `@import` in its own level group.
 | Chart placeholder | `.chart` | **frame: drawn / stepped back**, decided by `:has(.plot)` and never by a class (2026-08-19): a fill and a hairline are what you draw when there is nothing to draw | 4 | - | `chart-placeholder.css` | `chart-placeholder.html`  | point |
 | Checkbox | `.check` | - | 2 | `.switch input` | `checkbox.css` | `checkbox.html`  | does not adapt |
-| Chip | `.chip` | tone: quiet / trial / pro. `cancelled` has no wearer; `trial`'s only wearer is the grey landing, so `--bg-trial` has never rendered | 36 | `.tag`, `.badge`, `.best`, `.plan` | `chip.css` | `chip.html`  | does not adapt |
+| Chip | `.chip` | tone: quiet / pro. **`trial` was retired 2026-08-20** with `--bg-trial`, `--text-trial` and the four teal primitives under them: a rule with no wearer in colour, and D-Concept says a status is a quiet grey badge. `cancelled` had gone the same way at stage 08 | 36 | `.tag`, `.badge`, `.best`, `.plan` | `chip.css` | `chip.html`  | does not adapt |
 | Destination icon | `.ic-*` | one per destination | 112 | - | `destination-icon.css` | `destination-icon.html`  | does not adapt |
 | Eyebrow | `.k` | - | 4 | `.num` | `eyebrow.css` | `eyebrow.html`  | does not adapt |
 | Label | `.lbl` | weight: quiet 12 / strong 16 (`--type-meta`, `--type-sub`). 15 was never the value | 3 | - | `label.css` | `label.html`  | does not adapt |
@@ -124,7 +124,7 @@ recorded here rather than given a component of its own. Its rule lives in `app-b
 names two more hosts for it, the share card's band and a launch screen, and the share card stands
 on 2 grey pages and 0 coloured ones. When the second host is built, this becomes a molecule.
 
-## Molecules (23)
+## Molecules (22)
 
 | Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
 |---|---|---|---|---|---|---|---|
@@ -143,7 +143,6 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Preset tile | `.tile` | state: pressed | 2 | - | `preset-tile.css` | `preset-tile.html`  | does not adapt |
 | Promise list | `.promises` | - | 3 | - | `promise-list.css` | `promise-list.html`  | a reading measure |
 | Range picker | `.range` | availability x selection: rest / pressed / disabled / disabled+pressed | 3 | - | `range-picker.css` | `range-picker.html`  | does not adapt |
-| Save-focus candidate | `.cand` | - | 1 | - | `save-focus-candidate.css` | `save-focus-candidate.html`  | container threshold, 28.75rem, + fluid |
 | Share card | `.sharecard` | - | 2 | - | `share-card.css` | `share-card.html`  | a reading measure since 2026-08-17, and it is on `.oncard`, the one-off standing beside the card, rather than on the card itself |
 | Subscription row | `.row` | state: skeleton. host: list / candidate | 8 | - | `subscription-row.css` | `subscription-row.html`  | container threshold, 28.75rem, + fluid |
 | Summary | `.summary` | content: with a total / without | 5 | - | `summary.css` | `summary.html`  | does not adapt |
@@ -152,10 +151,11 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Trust block | `.trust` | - | 11 | - | `trust-block.css` | `trust-block.html`  | does not adapt |
 | Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without / **with an action row** | 14 | `.attention`, `.notice`, `.decoder` | `wash-block.css` | `wash-block.html`  | a reading measure, and since 2026-08-19 point 47.5rem on the one band that carries an action: the row moves beside the words |
 
-## Organisms (27)
+## Organisms (28)
 
 | Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
 |---|---|---|---|---|---|---|---|
+| Save-focus candidate | `.cand` | - | 1 | - | `save-focus-candidate.css` | `save-focus-candidate.html`  | container threshold, 28.75rem, + fluid |
 | App bar | `.appbar` | form: row / column rail at container 760 | 54 | - | `app-bar.css` | `app-bar.html`  | point |
 | App shell | `.app` | form: steady / flow / detail | 54 | - | `app-shell.css` | `app-shell.html`  | point + fluid |
 | Card | `.card` | - | 3 | `.locked`, `.source` | `card.css` | `card.html`  | a reading measure, 560px on the card and `--container-text` on the prose inside it since 2026-08-17, and no query since stage 10 |
@@ -309,7 +309,7 @@ nobody can reconstruct what `.decoder` was folded into.
 | `.lbl` | `.lbl`, kept, with `.strong` | 1 | 3 |
 | `.badge`, `.best`, `.plan` | `.chip` plus tone | 14 | 21 |
 | `.tag` | `.chip` (quiet) | 12 | 15 |
-| `.tag.trial` | `.chip.trial` | 0 | 1 |
+| `.tag.trial` | ~~`.chip.trial`~~, retired 2026-08-20 | 0 | 1 |
 | `.tag.cancelled` | **deleted at step 6, not renamed** | 0 | **0**, this row said 1 |
 | `.axis` | `.metarow` | 3 | 3 |
 | `.strip` | `.metarow.ruled` | 0 | 2 |
@@ -351,13 +351,13 @@ waiting at all, they had been CONSUMED by the renaming map and left standing her
 | The landing, entire | `index.html` | 39 classes in the `lp-` namespace | **The largest hole in the system.** 37 of the landing's 60 tokens are outside it, and 48 of the 57 component files carry a `.landing` selector with ZERO pages wearing it. See the step 9 dry run |
 | Guided reveal step | `guided-reveal.html` | `.rstep`, `.num`, `.next`, `.rgroup`, `.tone`, `.lbl` | live, the page is coloured |
 | Cancel win | `cancel-win.html` | `.win`, `.freed`, `.year`, `.honest` | waiting: the page is still grey |
-| Save-focus candidate list | `home-savefocus.html` | `.candidates`, `.cand`, `.cut` | live, the page is coloured. **`.lead` left this row on 2026-08-12 and is not a one-off**: it stands on 3 coloured pages and 4 grey ones, so listing it here made a shared class read as a local one. It is owed a component and has none: see the section under the list below |
+| Save-focus candidate list | `home-savefocus.html` | `.candidates`, `.cand`, `.btn.soft` (`.cut` until 2026-08-20) | live, the page is coloured. **`.lead` left this row on 2026-08-12 and is not a one-off**: it stands on 3 coloured pages and 4 grey ones, so listing it here made a shared class read as a local one. It is owed a component and has none: see the section under the list below |
 | Pro lock frame | `history-trends-locked.html` | `.locked` | **CONSUMED by the map**, `.locked` to `.card`. Not a one-off since step 6 and should not have been listed |
 | By-category line | `history-trends.html` | `.bycat`, `.k` | live, the page is coloured |
 | What is on this card | `share-snapshot.html` | `.oncard`, `.k` | waiting: the page is still grey |
 | Pitch line | `upgrade.html` | `.pitch` | **CONSUMED by the map**, `.pitch` to `.muted` at 13px. Not a one-off since step 6 |
 | Plain-answer intro | `data-privacy.html` | `.intro` | waiting: the page is still grey |
-| The landing preview list | `index.html` | `.list`, `.tag.trial`, **and neither has any CSS rule** | `.chip.trial` now HAS a rule and two tokens, `--bg-trial` and `--text-trial`, and this is still its only wearer. The role has never once rendered |
+| The landing preview list | `index.html` | `.list`, `.tag.trial`, **and neither has any CSS rule** | `.chip.trial` had a rule and two tokens for eight days and **not one wearer in either corpus** - re-counted 2026-08-20, zero `trial` in any class attribute across all 110 pages, so this row's own claim of a grey wearer was wrong too. **Retired 2026-08-20:** the role never once rendered anywhere, and the founder settled it on D-Concept - a status is a quiet grey badge |
 
 Folded into a component rather than counted as a one-off: `.newdot`, `.what`, `.go`, `.prices`
 into Alert item; `.count`, `.win-line` into Share card; `.w90`, `.skel-list` into Skeleton bar.
@@ -367,7 +367,7 @@ page's markup.
 ## Nine things the kit has to resolve, found by the level pass
 
 1. **Four chip look-alikes with four owners and no base:** `.tag`, `.badge`, `.plan-opt .best`, `.appbar .plan` are near-identical bordered micro-labels.
-2. **Three button geometries with no shared base:** `.btn`, `.secondary a` (twinned by `.cand .cut`), and `.range button`. A fourth, `.lp-btn`, lives on the landing.
+2. **Three button geometries with no shared base:** `.btn`, `.secondary a` (twinned by `.cand .cut` until the two merged on 2026-08-20), and `.range button`. A fourth, `.lp-btn`, lives on the landing.
 3. **Two identical dots:** `.tabbar .ic .dot` and `.newdot` are byte-identical geometry under different owners.
 4. **Seven slot names with no base rule**, sized only by their host: `.amt` (4 rules), `.logo` (6), `.p` (5), `.total` (3), `.context` (3), `.lbl` (3), `.k` (2).
 5. **`.lead` is overloaded:** `.consequence.lead` and `.candidates .lead` are unrelated rules sharing a class name.
@@ -525,7 +525,7 @@ class today. The kit needs **one component that takes an element**, not two comp
 
 Twelve, ordered by how orphaned they are.
 
-1. **`a.cut`** (`home-savefocus.html`) - one page, and dimensionally identical to `nav.secondary a`.
+1. **~~`a.cut`~~** (`home-savefocus.html`) - one page, dimensionally identical to `nav.secondary a`, and **merged into `.btn.soft` on 2026-08-20**.
 2. **`a.next`** (`guided-reveal.html`) - the only downward-pointing control in the product.
 3. **`a.signin`** (`index.html`) - one instance, own class, and its own job duplicated 186 lines later as a bare link.
 4. **The `.range` button** (three history pages) - a segmented control with three states and **no class name at all**. Selectable only as `.range button`, therefore unreferenceable from a component library.

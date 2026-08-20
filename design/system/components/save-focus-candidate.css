@@ -61,18 +61,20 @@
    contrast decision of 2026-08-11 names `.cand .cut` in the six rules that take
    the darker edge. --tap and not --row: it is a button-shaped control standing
    inside a 56px line, and 44px is its own floor. */
-.app .cand .cut, .landing .cand .cut {
-  flex: none;
-  display: inline-flex; align-items: center;
-  min-height: var(--tap);
-  padding: var(--space-0) var(--space-16);
-  border: 1px solid var(--line-control);
-  border-radius: var(--radius-sm);
-  background: var(--bg-surface);
-  font-size: var(--type-body);
-  color: var(--text-body);
-  text-decoration: none;
-}
+/* THE SIX RULES THAT MADE `.cut` A FAMILY WERE HERE UNTIL 2026-08-20, and they
+   are gone because the control is a Button. Measured on the rendered page after
+   the fold, `.cut` was `.btn` minus two things: identical min-height 44, padding
+   0 16px, --type-body, border, radius, fill, ink and focus ring, differing only in
+   font-weight (400 against 600) and in a hover that moves edge and ink but not
+   fill. Two controls that agree on seventeen properties are one control. Founder,
+   2026-08-20; the measurement had been in `docs/backlog.md` for four stages
+   waiting for somebody to say so.
+   IT IS NOW `class="btn quiet"`, and `button.css` carries both differences as the
+   `.quiet` modifier with the argument for each. What stays in THIS file is the two
+   rules that are the host's rather than the control's: where it sits when the row
+   wraps, and the press, which belongs to the row's story rather than to buttons in
+   general. Both are re-pointed at `.btn` below.
+   Zero pixels, measured at 360 and 1440 in both themes. */
 
 /* ---- states: token overrides, never a style of their own ------------------
    The cut is a link and has them. The candidate itself is an `li` holding two
@@ -85,11 +87,6 @@
    would be a visual change with no line in any of the three lists that are
    allowed to produce one. The edge STRENGTHENS under the pointer: 3.46:1 at
    rest on the light surface and 5.78:1 here, which is what a hover is for. */
-.app .cand .cut:hover, .landing .cand .cut:hover {
-  border-color: var(--line-control-hover);
-  color: var(--text-primary);
-}
-
 /* focus-visible, not focus: the ring is for the person arriving by keyboard and
    is noise for the person who just clicked. base.css declares one ring for the
    whole system inside :where(), which holds it at specificity 0; this
@@ -98,11 +95,6 @@
    earns its place on this control more than on most: the cut sits immediately
    after a full-width row in the tab order, and a keyboard user needs to see
    that the focus has moved from "open it" to "end it". */
-.app .cand .cut:focus-visible, .landing .cand .cut:focus-visible {
-  outline: var(--ring) solid var(--color-focus);
-  outline-offset: var(--ring);
-}
-
 /* NO DISABLED STATE. A candidate that cannot be cancelled is not listed as a
    candidate. And no destructive tone: D3 puts no paywall at the cancel moment
    and DESIGN.md spends clay on OUR failure only, never on a thing a person
@@ -131,20 +123,20 @@
    measured at 360 and 1280 on all 32 coloured pages. */
 @container (width <= 28.75rem) {
   .app .cand { flex-wrap: wrap; padding: var(--space-4) var(--space-0) var(--space-8); }
-  .app .cand .cut { margin-left: auto; }
+  .app .cand .btn { margin-left: auto; }
 }
 
 /* ---- PRESS ----------------------------------------------------------------
    2026-08-16. The cut control is the one thing on this row a person pushes, so it
    takes the press and the row around it does not: the candidate is read, and only
    its control is used. */
-.app .cand .cut, .landing .cand .cut {
+.app .cand .btn, .landing .cand .btn {
   transition: background-color var(--dur-state) var(--ease-state),
               border-color var(--dur-state) var(--ease-state),
               color var(--dur-state) var(--ease-state),
               translate var(--dur-state) var(--ease-state);
 }
-.app .cand .cut:active, .landing .cand .cut:active {
+.app .cand .btn:active, .landing .cand .btn:active {
   translate: 0 var(--nudge);
   transition-duration: var(--dur-press);
 }

@@ -84,10 +84,17 @@
 
   --hairline:         #e4e9ea;   /* container edges */
   --hairline-soft:    #eef2f3;   /* dividers inside a container */
-  --hairline-strong:  #cdd7d9;   /* origin: .btn:hover in kit.css. It reads through
-                                    --line-container-hover, declared at the molecule
-                                    round: see that role for why one consumer was
-                                    enough here and is not enough in general */
+  /* --hairline-strong AND --hairline-strong-dark WERE HERE UNTIL 2026-08-20 and
+     they left together with the one thing that read them. The chain is worth
+     keeping because it is three deletions and only the first was decided: the
+     founder dropped `.plan-opt:hover`, so `--line-container-hover` had no reader
+     in the system, so these two primitives had no role. Each step follows from the
+     one above it and none of them is a taste call. #cdd7d9 was the light value and
+     #303c3f the dark one, computed rather than picked so the container edge gained
+     the same amount under the pointer in both themes - which is a good decision
+     about a state that no longer exists. DESIGN.md names #cdd7d9 exactly once and
+     only NEGATIVELY, as the value the control hover was moved OFF, so nothing in
+     the document goes stale with them. */
   --edge:             #7b8d91;   /* origin: the founder's non-text contrast decision,
                                     2026-08-11. The lightest value on the hairline hue
                                     that clears 3:1 on all three grounds a control sits on */
@@ -108,8 +115,11 @@
 
   --stone:            #e9eeef;   /* the quiet status chip */
   --stone-ink:        #4f5e62;
-  --teal-wash:        #dfeef0;   /* the trial chip, the one cool pair */
-  --teal-ink:         #185862;
+  /* --teal-wash AND --teal-ink WERE HERE UNTIL 2026-08-20, #dfeef0 and #185862, and
+     they were the one COOL pair in a palette of warm ones. They existed for exactly
+     one thing, the trial chip, and the founder retired that on the ground D-Concept
+     already states: a status in this product is a quiet grey badge, never a colour.
+     A hue family with one consumer stops being a family the day that consumer goes. */
 
   /* ==========================================================================
      PRIMITIVE - colour, the dark ramp
@@ -134,13 +144,6 @@
 
   --hairline-dark:      #2a3538;
   --hairline-soft-dark: #212b2e;
-  --hairline-strong-dark: #303c3f;  /* LIGHTER than --hairline-dark, where in the light
-                                    theme strong is DARKER than plain. Computed rather
-                                    than picked: 1.47:1 on the dark surface, the same
-                                    step the light pair makes (1.23 to 1.47), so the
-                                    container edge gains the same amount under the
-                                    pointer in both themes. Added at the molecule round
-                                    with --line-container-hover */
   --edge-dark:          #7f9296;
 
   --skeleton-dark:    #202b2d;
@@ -158,8 +161,6 @@
 
   --stone-dark:       #232e31;
   --stone-ink-dark:   #a9b6b9;
-  --teal-wash-dark:   #10333a;
-  --teal-ink-dark:    #8fc9d2;
 
   /* ==========================================================================
      PRIMITIVE - geometry. No roles, no theme, no dark pair: nothing here has
@@ -209,6 +210,27 @@
      file and line, at the value it already serves. It is the --space-56 case rather
      than the --opacity-disabled case: a step in a scale, declared whole. */
   --tap-rail: 48px;      /* the rail form's row height */
+
+  /* THE STACKING ORDER, 2026-08-20, FOUNDER, AND IT IS TWO NAMES FOR WHAT LOOKED
+     LIKE THREE LITERALS. The whole product's z-index was `1` on the money field's
+     currency prefix, `5` on the app bar and `6` on the tab bar, and the backlog
+     asked for four stages whether three literals, two of them adjacent, earn a
+     scale. They do not. What the two chrome values ARE is not two numbers but ONE
+     RELATIONSHIP: where the app bar and the tab bar meet, the bottom chrome wins.
+     `app-bar.css` already spent a paragraph saying so, and a comment that has to
+     explain a relationship between two literals in two different files is a token
+     waiting to be declared - the third literal moves and nothing tells the other
+     two.
+     THE `1` IS NOT HERE, and that is the whole shape of the decision. It is local
+     to one grid item inside one field, it relates to nothing outside its own
+     component, and naming it would make this a scale, which is the thing being
+     refused. Two names for one relationship, not a ladder for a product that has
+     three layers.
+     UNITLESS, so they are integers rather than lengths, and they sit here with the
+     geometry because a stacking order is geometry: nothing about them is a colour,
+     a size or a step on a grid. Zero pixels move; both values are what they were. */
+  --z-appbar: 5;         /* the top chrome */
+  --z-tabbar: 6;         /* the bottom chrome, and it wins where they meet */
 
   /* ==========================================================================
      PRIMITIVE - the type scale
@@ -779,11 +801,14 @@
          #e9eeef), 6px radius, not uppercased"; the value has no entry in the Colors
          section, it is named where the badge is. Today: 1 var(), 1 file, which is the
          same 1 rule the kit-era figure counted: this role never grew and never had to */
-  --bg-trial:     var(--teal-wash);
-      /* the trial chip: 1 rule on 1 page. Kept because a chip tone is a domain state
-         and the pair (--bg-trial, --text-trial) is what makes it one. fill.
-         origin: DESIGN.md > Components > Badges > Trial, "the same shape in the cool
-         trial pair (#185862 on #dfeef0)". Today: 1 var(), 1 file */
+  /* --bg-trial AND --text-trial WERE HERE, and they are the third pair this system
+     has retired for one reason: a tone with no wearer. `.tone-attention` went at
+     stage 08, `--line-container-hover` went this morning, and the trial pair goes
+     now. THE GROUND IS D-CONCEPT rather than tidiness: status is a quiet gray badge
+     and a trial is a status. The one place in the product that says Trial, the
+     Peloton row on Home, was already rendering the quiet tone, because its markup
+     never carried the modifier - which is how a rule and its wearer can both be
+     missing and neither one show up. Zero pixels move anywhere. */
   --bg-placeholder: var(--skeleton);
       /* loading: 2 usages on 89 grey pages (.skel, .logo.is-skel). fill.
          origin: DESIGN.md > Colors > Neutral, Skeleton #e2e9ea, "loading placeholders,
@@ -1019,10 +1044,6 @@
          6.7:1 dark.
          origin: DESIGN.md > Components > Badges > Status, the ink half of "grey on grey
          (#4f5e62 on #e9eeef)". Today: 1 var(), 1 file */
-  --text-trial:   var(--teal-ink);
-      /* the trial chip's label: 1 rule, 1 page. ink. 6.8:1 light, 7.4:1 dark.
-         origin: DESIGN.md > Components > Badges > Trial, the ink half of "the cool trial
-         pair (#185862 on #dfeef0)". Today: 1 var(), 1 file */
 
   /* ==========================================================================
      SEMANTIC - lines. Threshold 3:1 for anything that identifies a control;
@@ -1150,30 +1171,25 @@
          text-input. Every control that draws a resting edge draws its hover, and no
          other kind of object draws one. That is what a state token being complete looks
          like, and it is checkable rather than asserted */
-  --line-container-hover: var(--hairline-strong);
-      /* the edge of a CARD under the pointer: 1 usage (.plan-opt:hover). line,
-         decorative, exactly as --line-container is: 1.23:1 rest to 1.47:1 hover
-         light, 1.33:1 to 1.47:1 dark.
-         Two roles rather than one because a container edge and a control edge do
-         different jobs: a control's edge is how the control is FOUND, so its hover
-         has to clear 3:1, and a card's edge is decoration, so its hover only has to
-         be visible as a change. --line-control-hover was rejected for this on that
-         ground, not on the value.
-         ADDED at the molecule round for a mechanical reason worth stating: without
-         it the plan card's hover has nothing correct to read, and the agent building
-         it correctly refused to invent a token, so the hover rendered as no change
-         at all. Dropping a state IS a visual change, and this stage has three named
-         sources of visual change and this is none of them. Carrying it unchanged was
-         the only move that needed no permission. Whether the hover should exist at
-         all is a separate question and stays with the founder in backlog.md.
-         origin: NOT a Colors entry, and the exception is worth stating rather than
-         faking. The value is --hairline-strong #cdd7d9, which DESIGN.md names exactly
-         once and only NEGATIVELY, as the value the control hover was moved OFF ("it is
-         not the old #cdd7d9"). There is no positive entry to carry over, so the origin
-         stays the primitive's own, ".btn:hover in kit.css", recorded on --hairline-strong
-         above. A value that survived a decision by not being the subject of it has no
-         plate line, and inventing one here would put a fact in the file that no reader
-         could check. Today: 1 var(), 1 file (plan-option.css), the same single usage */
+      /* --line-container-hover WAS HERE, 2026-08-12 to 2026-08-20, and it is
+         recorded rather than simply removed because the reason it existed is a good
+         one and the reason it went is a better one. It was the edge of a CARD under
+         the pointer, a second role beside --line-control-hover because a container
+         edge and a control edge do different jobs: a control's edge is how the
+         control is FOUND, so its hover has to clear 3:1, and a card's edge is
+         decoration, so its hover only has to be visible as a change. That argument
+         still holds and is why --line-control-hover was refused for the job.
+         IT WAS ADDED FOR A MECHANICAL REASON. Without it the plan card's hover had
+         nothing correct to read, the agent building it refused to invent a token,
+         and the hover rendered as no change at all - and dropping a state is a
+         visual change no named source of that round had asked for. Carrying it was
+         the only move that needed permission from nobody.
+         THE FOUNDER ANSWERED THE QUESTION UNDERNEATH ON 2026-08-20: a card that
+         cannot be clicked should not answer a pointer. The hover went, this role
+         had no reader, and --hairline-strong and --hairline-strong-dark had no
+         role. Three deletions, one decision. It had exactly one consumer for its
+         whole life, which is the shape this file warns about in its own words at
+         --opacity-disabled. */
   --color-focus: var(--petrol);
       /* the focus ring, and focus-visible rather than focus: the ring is for the
          person arriving by keyboard and is noise for the person who clicked.
@@ -1221,7 +1237,6 @@
   --bg-attention: var(--amber-wash-dark);
   --bg-failure:   var(--clay-wash-dark);
   --bg-status:    var(--stone-dark);
-  --bg-trial:     var(--teal-wash-dark);
   --bg-placeholder: var(--skeleton-dark);
   --plot-line:    var(--petrol-dark);
   --plot-area:    var(--petrol-tint-dark);
@@ -1261,7 +1276,6 @@
   --text-attention: var(--amber-dark);
   --text-failure: var(--clay-dark);
   --text-status:  var(--stone-ink-dark);
-  --text-trial:   var(--teal-ink-dark);
 
   /* lines */
   --line-control:  var(--edge-dark);
@@ -1283,7 +1297,6 @@
   --line-control-hover: var(--muted-dark);
       /* the resting edge is 5.15:1 here and this is 6.40:1, so the boundary
          strengthens in the dark theme too */
-  --line-container-hover: var(--hairline-strong-dark);
       /* 1.33:1 rest to 1.47:1 hover, against 1.23 to 1.47 light. The DIRECTION
          inverts: the light value is darker than the plain hairline and this one is
          lighter, because the ground swapped ends */

@@ -33,11 +33,12 @@ see all my recurring charges in one calm view, so that I feel in control without
 finance person." Secondary: cancel what I do not use (J3), never be surprised by a price
 change or failed payment (J4).
 
-**Free tier** is the whole calm view, uncapped: value before any bank connection, connect a
-bank read-only through Plaid or add subscriptions yourself, the categorized list, basic
-details, the monthly total, basic alerts, **this month against last on Trends** (D3). **Tendd Pro**
-is depth: 3 / 6 / 12 months and the trend list, cancel support, advanced alerts, household view,
-the analytical export, priority support. A plain export of your own data is free (D-Export). Out of MVP: full budgeting, investments, native app, bill negotiation, bill pay.
+**Free tier** is the whole calm view, uncapped: value before any bank connection, a read-only bank
+through Plaid or your own entries, the categorized list, basic details, the monthly total, basic
+alerts, **this month against last on Trends** (D3). **Tendd Pro** is depth, and it is the four things
+the screens sell: 3 / 6 / 12 months and the trend list, full cancel guides, advanced alerts, the
+analytical export. A plain export of your own data is free (D-Export). Out of MVP: full budgeting,
+investments, native app, bill negotiation, bill pay, household view, priority support.
 
 **Markets:** US and EU (US and Plaid first, per D5). **Stack hypothesis:** Next.js on
 Vercel, Postgres, Plaid (US) and TrueLayer or GoCardless (EU), Stripe, PostHog.
@@ -140,7 +141,8 @@ COMPOSITION on three screens is a pattern: a file in `design/system/patterns/` p
 assembled from components and declaring no style of its own; on two it stays markup. A USAGE RULE
 is a row in `design/kit/docs/architecture.md` with its "where it comes from" filled, plus a Limits
 item on every component page it names. **A value is never re-derived:** it changes by a named
-decision ("variable, value, why") and carries its origin in a comment beside it. A **screen carries
+decision ("variable, value, why") and carries its origin in a comment beside it or in the block
+comment governing its run. A **screen carries
 no style of its own**: no style block, no style attribute, no `@media`, no class the system does
 not define. **`rem` is what a reader resizes and `px` is geometry:** the type scale and the two
 width points, not spacing; a query cannot read a `var()`, so a point is a register and its literal

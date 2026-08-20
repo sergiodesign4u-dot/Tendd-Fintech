@@ -7,7 +7,7 @@
 
    Reads
      colour   --bg-surface, --text-body, --text-muted, --line-container,
-              --line-container-hover, --line-divider
+              --line-divider
      spacing  --space-0, --space-2, --space-8, --space-16, --space-24
      geometry --radius, --tap
      type     --type-body, --type-meta
@@ -157,15 +157,20 @@
    Measured, so the corner is not a guess: the badge is 66 wide, `$69` is 60.41,
    and the narrowest card content this screen has ever had is 201 - 74.6px of
    clear air between them at the tightest width in the product, and more at
-   every other. */
-.app .plan-opt .chip, .landing .plan-opt .chip {
-  position: absolute;
-  margin: var(--space-0);
-}
-.app .plan-opt .chip {
-  top: var(--space-16);
-  right: var(--space-16);
-}
+   every other.
+
+   AND THE RULE ITSELF MOVED TO chip.css ON 2026-08-20, on the founder's decision.
+   Everything above stays here because it is the ARGUMENT and the argument is about
+   this card; what left is the four declarations. Five host placements of that atom
+   lived in `chip.css` and this was the sixth living somewhere else, which the
+   backlog had carried as a row since the molecule round: one atom, six placements,
+   two files. Both readings were defensible, which was the problem - this rule
+   states where a chip SITS in this card, which is a fact about the card, and the
+   other five state the same kind of fact and live with the chip. One had to win.
+   One atom, one file. Nothing renders differently: `chip.css` is imported before
+   this file, the selectors are unchanged at 0-3-0, and the rules are written at the
+   end of that file's placement block so their order against the other five is the
+   order they always had. */
 
 /* Full width, so the three actions line up across the row of cards. This is the
    whole of what a host may do to a button. */
@@ -314,7 +319,25 @@
    hover, and it is a CONTROL edge. DESIGN.md forbids it on a container by name
    ("reaching for the control edge on a container is how a calm interface turns
    into a wireframe of boxes"), and at 5.78:1 it would draw a hard dark line
-   around a card whose whole job is to be quiet. */
-.app .plan-opt:hover, .landing .plan-opt:hover {
-  border-color: var(--line-container-hover);
-}
+   around a card whose whole job is to be quiet.
+
+   AND THE FOUNDER TOOK THE OTHER ANSWER ON 2026-08-20: THE HOVER IS GONE. The
+   narrow question this rule was left standing for - should a card that cannot be
+   clicked answer a pointer at all - is answered no. `.plan-opt` is a `div` holding
+   a `button`: it cannot be focused, cannot be pressed and has no accessible role,
+   and an edge that strengthens under the pointer is this product promising a click
+   it does not deliver. Every other hover in this system sits on something that
+   answers one. The button inside keeps its own state and is the thing that was
+   always meant to be pressed.
+
+   `--line-container-hover` WENT WITH IT, and that is the second half rather than a
+   side effect: this file was its only reader in the whole system, so the role would
+   have been a declaration nothing renders - the exact defect this project calls a
+   hole, and the one `.tone-attention` was retired for. It was declared on
+   2026-08-12 to bring this hover back and it survived eight days, which is the
+   honest life of a token created for one consumer.
+
+   Measured before removal, on `design/upgrade.html` at 1280: the card's edge went
+   rgb(228, 233, 234) to rgb(205, 215, 217) under the pointer and nothing else on
+   the card moved. That is the whole pixel cost of this decision, on three cards on
+   one screen. */

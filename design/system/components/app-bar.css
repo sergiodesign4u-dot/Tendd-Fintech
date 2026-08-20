@@ -84,17 +84,22 @@
    moment one of them grows a property the other already has, source order is
    the only thing deciding, and a reordered file makes that decision silently.
 
-   z-index 5 sits one under the tab bar's 6, and the pair is deliberate: where
-   they meet, the bottom chrome wins. `--z-appbar` and `--z-tabbar` were both
-   proposed at stage 07 and both deferred to stage 08, which created neither, so
-   these two are the only literals in the file that are not a border width.
+   `--z-appbar` sits one under the tab bar's `--z-tabbar`, and the pair is
+   deliberate: where they meet, the bottom chrome wins. BOTH TOKENS EXIST FROM
+   2026-08-20, ON THE FOUNDER'S DECISION, AND THIS PARAGRAPH IS WHY. The
+   relationship between the two values was carried in prose, here and in
+   tab-bar.css, in two files, with nothing but two comments holding them one apart.
+   They were proposed at stage 07, deferred to stage 08, and refused by stage 09's
+   geometry triage on the ground that three literals are not a scale - which was
+   right about the third one, the money field's `1`, and wrong about these two,
+   because they are not two values. They are one relationship. Zero pixels: 5 is 5.
 
    gap 12px folds UP to --space-16 on the founder's 8px grid, so the three slots
    of the row stand 4px further apart than they did. It is the second of the
    three legal sources of a visual change and it is the only spacing move this
    component makes at the mobile width. */
 .app > .appbar {
-  position: sticky; top: 0; z-index: 5;
+  position: sticky; top: 0; z-index: var(--z-appbar);
   gap: var(--space-16);
 }
 

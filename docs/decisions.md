@@ -7,6 +7,82 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-20 - Twenty-one decisions taken in one sitting, and three of them were already true
+
+Founder, on the whole sheet: **"так вроде все ок и делаем"**. Every recommendation
+taken. Nineteen backlog rows closed, two business questions settled, three rounds
+left. What follows is what actually happened when each answer met the file it was
+about, because four of the twenty-one did not survive contact unchanged.
+
+**THE ONE THAT CASCADED.** Dropping the plan card's hover was one decision and it
+removed four things: the rule, `--line-container-hover` (this system's only reader
+of it), and `--hairline-strong` with its computed dark pair (the role's only
+readers). Each step follows from the one above and only the first was a choice. The
+role was declared on 2026-08-12 after a long argument and lived eight days, which
+is the honest life of a token created for one consumer - a shape `tokens.css`
+already warns about in its own words. Retiring the trial chip did the same: one
+rule, two roles, four teal primitives, and the palette lost its only cool pair.
+Measured before removal so the cost is named rather than assumed: the card's edge
+went rgb(228,233,234) to rgb(205,215,217) under the pointer, on three cards on one
+screen, and nothing else moved.
+
+**THE ONE THAT CHANGED ITS ANSWER ON READING.** `.muted` was recommended to gain
+the quieter step on six lines that grew 2px in the fold. Opening those six found
+what the row never said: they are the reassurance under an error or an empty state -
+"Nothing about your plan or your data changed. If it keeps happening, tell us and we
+will look at it." **Making the reassurance smaller than the problem is the opposite
+of what this product is for.** They stay at body size. The founder approved the edit
+sight unseen and this is the reading after opening the file; it is theirs to
+overrule.
+
+**THE ONE THAT CHANGED NOTHING, WHICH IS THE FINDING.** "Try again" was recorded as
+standing in three weights on four error screens. Re-counted: **seven** screens, and
+read against what else is on each one, all seven already follow a single rule -
+`.btn primary` where the error IS the screen (five), quiet where the content is
+still there (two: `home-error` keeps the whole list, `add-subscription-error` keeps
+the manual form). The three weights were a rule nobody had written down, not a
+drift. Written down now, nothing touched.
+
+**THREE ROWS WERE CLOSED BY CODE THAT ALREADY EXISTED.** `--tap-rail` was declared
+at stage 09 and `tab-bar.css` has read it since 2026-08-12, while the row went on
+measuring a literal that is not there. `.muted.fine` was declared on 2026-08-16.
+That is the second and third time this week a row outlived its own answer, and it
+is why the sheet's own instruction is to re-read a row before answering it.
+
+**AND ONE NAME WAS WRONG FOR AN HOUR.** `.cut` merged into the Button as
+`.btn.quiet` - and `.quiet` is already the Quiet line component, on 14 pages, so
+the markup would have worn two components at once and taken `.app .quiet`'s type
+and ink on top of the button's. `counts.cjs` caught it in one run, as a Quiet line
+appearing on a fifteenth page nobody had put one on. It is `.btn.soft`. This is the
+same trap the divided list's gap was moved to avoid on the same morning, one word
+meaning two things, and it was walked into anyway within the hour.
+
+**WHAT WENT INTO `CLAUDE.md`.** Two of the twenty-one bind future work rather than
+this repository, so they had to go into the loaded file: household view and
+priority support left the Pro list, which now names the four things the screens
+actually sell, and the origin rule gained five words - a value carries its origin
+"in a comment beside it **or in the block comment governing its run**". The second
+is the answer to the four-way disagreement about counting token comments: the rule
+as written was asking for something the file deliberately does not do, and does not
+do for a good reason. The file is at **203 lines against its own budget of 200**,
+three over from three founder decisions, and no honest compression was found.
+
+**WHAT IS LEFT: three rounds, not three questions.** The empty states as a set
+(needs a node, a grey page and a coloured twin each, with IA and Voice), the failed
+renewal on an account already on Pro (the anxious case for this audience, with no
+screen), and the icon redraw - which now has a fresh number under it. The 22 and
+106 per cent named a corpus of FOUR icons and the set has been five since
+`.ic-trends` joined. Recounted at 390 with a 4x scale factor, painted subpixels
+inside each 22px box: home 1824, trends 2071, alerts 1489, **save 2255**, **you
+1128**. The ink spread is **100 per cent** and the same two icons are the extremes,
+so the finding holds and barely moved. The element boxes are identical at 22 by 22,
+so the old "22 per cent" was about the drawn glyph's own bounding box and this
+measurement does not reproduce it.
+
+**Instruments after all of it:** rollout12 none twice, width12 none over 55 by 58,
+quality13 at its 24 baseline, pages13 0 of 129, edges13 12 families 0 split, counts
+0 drift, aria13 0 of 6, plans13 4 clean, design13 11 of 11 agreeing.
+
 ## 2026-08-20 - The backlog got a page where it can be answered, and one of its rows was already closed
 
 Founder: **"давай"**, on building the decision sheet. It is

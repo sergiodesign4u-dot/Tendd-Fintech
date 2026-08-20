@@ -58,7 +58,7 @@
           <span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; not opened in 3 weeks</span></span>
           <span class="amt">$12.99</span>
         </a>
-        <a class="cut" href="#anatomy" aria-label="Cancel Peloton App">Cancel</a>
+        <a class="btn soft" href="#anatomy" aria-label="Cancel Peloton App">Cancel</a>
       </div>
       <div class="cand">
         <a class="row" href="#anatomy" aria-label="The New York Times, $17.00 a month, next in 10 days, on 11 August, not opened in 6 weeks">
@@ -66,17 +66,17 @@
           <span class="body"><span class="name">The New York Times</span><span class="when">next in 10 days &middot; not opened in 6 weeks</span></span>
           <span class="amt">$17.00</span>
         </a>
-        <a class="cut" href="#anatomy" aria-label="Cancel The New York Times">Cancel</a>
+        <a class="btn soft" href="#anatomy" aria-label="Cancel The New York Times">Cancel</a>
       </div>
     </div>
     <ul class="kit-callouts">
       <li><code>.cand</code> <span>the molecule itself, and it is an <code>li</code>, not a link: it holds two anchors and has no target of its own. In the product it lives inside <code>.candidates</code>, the <a href="save-focus-list.html">Save-focus list</a> organism, which is why the pair above stands bare here</span></li>
       <li><code>.row</code> <span><b>the subscription row</b>, unchanged. Same class, same markup, same single accessible name as on Home. Its two host rules live in <a href="subscription-row.html">subscription-row.css</a>, and they are position only: <code>flex: 1</code> and <code>min-width: 0</code></span></li>
-      <li><code>.cut</code> <span>the second control, and the only thing this file draws from scratch. Its own <code>href</code>, its own accessible name ("Cancel Peloton App"), its own 44px floor from <code>--tap</code></span></li>
+      <li><code>.btn.soft</code> <span>the second control. Its own <code>href</code>, its own accessible name ("Cancel Peloton App"), its own 44px floor. <b>It was <code>.cut</code> until 2026-08-20</b>, six rules in this file, and it is the one thing this component used to draw from scratch and now draws nothing of: measured after the fold it was <code>.btn</code> minus a font-weight and a hover fill, so it became the Button with the <code>.soft</code> modifier and the family went. This file keeps two rules about it and both are the host's: where it sits when the row wraps, and the press</span></li>
       <li><code>border-bottom</code> <span>the candidate draws its own divider, the way the switch row does and the opposite of the subscription row. <code>:last-child</code> takes it back, because the list around it carries no separator rule of any kind</span></li>
       <li><code>.when</code> <span>the row's second line, carrying different content here: "trial ends in 17 days &middot; not opened in 3 weeks". The reason for the candidacy goes in the row's own slot rather than in a new one</span></li>
     </ul>
-    <p class="note"><b>Its level is read and not re-derived, and there is a tension in it worth naming.</b> <code>docs/inventory.md</code> records this as a molecule, and this page follows it. By the letter of the component ladder in <code>docs/architecture.md</code> a thing that hosts a molecule is an organism, and what this hosts is the subscription row. Nothing here depends on the answer, since the level decides only the <code>@import</code> group and the shelf on the hub, and both are correct today either way: the candidate is imported among the molecules, above nothing that contains it. It is written down rather than quietly settled, and step 9 owns it.</p>
+    <p class="note"><b>It is an ORGANISM from 2026-08-20, and it was filed a rung low for four stages.</b> The ladder in <code>docs/architecture.md</code> says a thing that hosts a molecule is an organism, and what this hosts is the subscription row. The reason it stayed a molecule was never the ladder - it was that moving it changes the <code>@import</code> order in <code>index.css</code>, which nobody wanted to do mid-round. The founder settled it. Measured after the move: the 460px reflow still fires between 460 and 461, unchanged, which is the one thing the order could have broken.</p>
   
     <h3 class="kit-sub-h">Behaviour at width</h3>
     <p class="note"><b>A container query and not a media query since stage 10, at 28.75rem (460px).</b> Under the threshold the candidate wraps, the cut control drops to its own line and pushes itself to the end, and the padding changes. The third rule of the block lives in <code>subscription-row.css</code> for a cascade reason and now carries the same container condition: the two halves have to agree or the reflow happens on one line and not the other.</p>
@@ -85,7 +85,7 @@
 
   <section class="kit-sec" id="variants">
     <h2>Variants and sizes</h2>
-    <p class="note"><b>The candidate has one form, so there is no matrix to draw.</b> Both instances in the product render identically, and the census measured <code>.cut</code> among the sixteen families with a single value on every property, at both viewports. What it does have is a width behaviour, which is not a variant: below 460px the cut leaves the row's line and takes the end of its own.</p>
+    <p class="note"><b>The candidate has one form, so there is no matrix to draw.</b> Both instances in the product render identically, and the census measured <code>.cut</code>, as it then was, among the sixteen families with a single value on every property, at both viewports. What it does have is a width behaviour, which is not a variant: below 460px the cut leaves the row's line and takes the end of its own.</p>
     <div class="kit-tab">
       <table>
         <thead><tr><th>Width</th><th>What happens</th><th>Why</th></tr></thead>
