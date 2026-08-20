@@ -7,6 +7,78 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-20 - One product and not two, and my count of it was wrong by six screens
+
+Founder, choosing between building Pro twins of Home, Alerts and Settings and
+saying plainly where the plans part company: **"Типа Б ок. Но тут больше вопрос в
+прозрачности и как вся система будет работать, но это скорее всего вопрос бизнеса
+и как мы будем его формировать."** B is taken. The transparency half is answered
+below; the business half is listed at the foot and not answered here.
+
+**THE DECISION.** There is no Pro twin of any screen and there will not be. Under
+D3 the paywall sits at depth, so most of this product does not know which plan you
+are on - and that is the calm rather than a gap in it. A screen states the boundary
+at the point a person meets it, in one shape: what stays free, what Pro adds, a way
+to see it, a way past it. Everywhere else the app-bar chip is the whole of the
+difference. D3 in `CLAUDE.md` was generalised to carry it rather than a new rule
+added beside it, which took that file to 201 lines against its own budget of 200.
+No honest compression was found; it is named here rather than fixed by inventing
+one.
+
+**AND THE ANSWER I GAVE THE DAY BEFORE WAS WRONG.** I said the plans differ on two
+screens, Trends and the plan row of Settings. That was remembered rather than
+counted, which is the one thing this repository has a written rule against.
+Counted: **the boundary is named in the screen itself on 16 of the 55 coloured
+pages, in 41 places, across 8 distinct screens** - Trends, Alerts, Subscription
+detail in four states, the cancel guide and its blocked state, Data and privacy,
+Settings and its no-account state, and the four pages of the upgrade family. The
+product was already doing the thing I was about to recommend building.
+
+**WHAT THE CENSUS FOUND WORTH KEEPING.** Emma carries Free on 14 pages and Pro on
+5, identically in both corpora; 36 pages carry no chip because there is no account
+yet to have a plan. Every one of the 8 statements follows the shape above, and two
+of them are better than the rule requires: the cancel guide says "the steps above
+are free and always will be" before it mentions Pro at all, which is D3's "never at
+the cancel moment" written into the copy rather than assumed, and
+`upgrade-current-plan` answers the question nobody had asked - what happens when
+you stop paying - in full, naming the date and saying that the free half stays.
+
+**THE INSTRUMENT, AND THE TEST IT HAD TO NARROW.** `design/kit/screens/plans13.cjs`
+recomputes all of the above and asks four questions that would each mean the
+decision had stopped being true. Its first version asked "does every offer carry a
+way to decline" and flagged five pages; every one of the five was a false positive
+and the reason is worth keeping. The two Pro alerts on Alerts are ROWS in a list
+and the list goes on past them. "Manage plan" on Settings is an account control and
+not a sell. The Pro line on the blocked cancel guide is a sentence under two free
+actions. The gate is a screen whose SUBJECT is the plan. An explicit "Maybe later"
+is right where the offer interrupts something, and 7 of the 12 offering pages carry
+one; requiring it everywhere would have made a rule out of one of its shapes. The
+test now asks what D3 actually says - is selling the only thing left to do on this
+screen - and it is 0 on all 55. The narrowed test and the wrong one are both in the
+file, because the narrowing is the finding.
+
+**THE VISIBLE PLACE** is a named section on `design/overview.html`, "Which plan you
+are looking at", which is the page a person walks the coloured screens from and
+therefore the page where "непонятки где Free а где Pro" is actually felt.
+
+**THE BUSINESS QUESTIONS THIS UNCOVERED, AND THEY ARE THE FOUNDER'S.** Three, and
+each of them is a place where a screen will have to say something it does not say
+today.
+
+1. **Pro sells four things and `CLAUDE.md` promises six.** Every screen that lists
+   Pro lists history and trends, advanced alerts, full cancel guides and the
+   export. The Product section of `CLAUDE.md` adds **household view** and
+   **priority support**, and neither appears anywhere in either corpus or in any
+   node. Either they are in Pro at launch and four screens are short, or they are
+   not and the binding file is.
+2. **`upgrade.html` sells a Lifetime tier that D4 does not know about**, marked
+   "not on sale yet, we are still working out the price". A price that does not
+   exist is honest on a prototype and is a decision the moment it ships.
+3. **There is no trial and no lapse.** Nothing in the product offers a trial of
+   Pro, and `upgrade-payment-failed` covers a failed FIRST payment, not a renewal
+   that fails on an account already on Pro. The second is the anxious case for this
+   audience and it has no screen.
+
 ## 2026-08-20 - The list took a name, and the one crossing from Free to Pro was a dead end
 
 Founder, two things in one message: a screenshot of Home at desktop width with the
