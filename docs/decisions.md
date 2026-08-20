@@ -73,6 +73,50 @@ JavaScript, because copy has an owner.
 
 ---
 
+## 2026-08-19 - A tab destination does not get a back button, and a plan is not a screen label
+
+The founder, last of the evening: **"мне не нравится что у нас в трендс есть
+кнопка назад когда это стало отдельным пунктом, наверное стоит убрать её оттуда,
+и бейдж Free или Pro скорее всего надо поставить напротив имени или же напротив
+лого"**. Two halves, one leftover.
+
+**THE BAR WAS THE DETAIL VARIANT AND THE SCREEN HAD STOPPED BEING A DETAIL.**
+History and trends used to be reached from Home through a secondary link, so it
+was given the detail bar: back, lockup, plan chip. On 2026-08-18 it became a tab
+bar destination and that secondary link was retired the same day - and nobody
+looked at the bar again. Counted over both corpora: **five screens are tab
+destinations, and the other four all carry the same bar**, the lockup and the
+account link, with no back control anywhere. Trends was the only exception, for
+one day.
+
+**The rule that comes out of it is U18:** a tab destination carries the account
+link and never a back control; a screen below one carries the back control and
+never the account link. **16 destination pages, 12 pages below one, 0 wrong in
+either direction** once this was fixed, with one named exception -
+`settings-no-account` carries neither, because there is no account to link to.
+A back control on a destination offers to leave a place you did not arrive at
+from anywhere in particular, and the way out of a destination is the tab bar it
+has always had.
+
+**THE PLAN CHIP WENT INSIDE THE ACCOUNT LINK, which is one step past what was
+asked and is the point of it.** "Beside the name" would have been a badge
+floating next to a control. The plan is a fact about the ACCOUNT, so it belongs
+TO the control that opens the account: it lands on the one screen where a plan
+can be changed, and it is one target instead of two. `chip.css` takes back the
+`margin-left: auto` it gives every other chip in that bar, which is the whole
+cost.
+
+**WHAT WE REJECTED: putting the badge on every screen.** It would follow from
+"the plan is an account fact", and it is wrong twice. A grey **Free** chip on
+every screen of a product built to lower money anxiety is a permanent quiet nag,
+which is what D3 forbids the paywall from being. And the plan changes what is on
+the screen in exactly one place - Trends, where Free gets the gate and Pro gets
+the depth - so anywhere else the badge would be a label with no consequence. It
+is not a usage rule either: this folder's own idle control says a counter that
+has seen one screen has described a screen rather than found a rule.
+
+---
+
 ## 2026-08-19 - The trend screen had no number on it, and its button had no sentence
 
 The founder read the rebuilt screen and stopped on two things: the readout

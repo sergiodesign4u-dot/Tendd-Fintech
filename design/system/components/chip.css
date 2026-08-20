@@ -200,6 +200,13 @@
 
 .app .row .chip, .landing .row .chip { margin-left: auto; }
 .appbar .chip { margin-left: auto; }
+
+/* EXCEPT INSIDE THE ACCOUNT LINK, 2026-08-19. The rule above pushes the chip to
+   the far end of the bar, which is right while the chip is a sibling of the
+   lockup. On History and trends the plan chip moved INTO the account link, so
+   `auto` would push it away from the name it belongs to, inside a control 120px
+   wide. The gap between them is the link's own, declared in app-bar.css. */
+.app .appbar .acct .chip, .landing .appbar .acct .chip { margin-left: var(--space-0); }
 .app p.chip, .landing p.chip { margin: var(--space-0) var(--space-0) var(--space-24); }
 .app .alert .what .chip, .landing .alert .what .chip { margin: var(--space-0) var(--space-0) var(--space-0) var(--space-4); }
 /* The card's top row, and the SLOT is what it is scoped to. `.source` folded
