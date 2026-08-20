@@ -33,6 +33,7 @@ From `../blocks.md`, type C.
 | 4 | The list, grouped by category, each group with its own subtotal | J-MAIN, J3, design principle 2 | TAKE, DIFFERENTLY (Subo): grouped by default, no sort menu at MVP |
 | 5 | The item (GC4): logo, real merchant name, amount, "in 6 days" | GC4, growth zone 2, J3, J4 | TAKE plus TAKE-DIFFERENTLY: the days lead, the date follows |
 | 6 | Add a subscription, quiet secondary | D2, J-MAIN | TAKE, DIFFERENTLY: the job of this screen is to look, not to add |
+| 6b | **The cancel nudge, shown only when it is true**: the subscriptions this person has not opened in a while, each with its own way out, and what cutting them would save | J3, E2, D3 | TAKE, DIFFERENTLY: everyone puts this behind a tab or a card called Savings; here it is a block under the list, so it is a fact about the list rather than a place to be sent |
 | 7 | Data source and trust line (GC6): where these numbers come from and when they were last checked | GC6, design principle 4 | TAKE: **exists in none of the six sources** |
 | 8 | Tab bar (GC2) | GC2 | TAKE |
 
@@ -56,7 +57,6 @@ and cancel-candidate variants. GC6 Data Source and Trust, short variant.
 | 2.6.1 | Empty list | **Both paths offered**, in the same words used at node 1.2 | Nothing tracked yet |
 | 2.6.2 | Refreshing | A skeleton of the list, not a spinner over it | A sync in progress |
 | 2.6.3 | Sync failed, last known list | The figures stay visible and dated, with one calm line saying they are not fresh, and a way into node 6.14 | The connection is stale or broken |
-| 2.6.4 | Save focus | The same list with the cancel-candidate variant of the item raised; "no pressure, just a nudge" | The person came here to cut (from node 3.8 or a Pro nudge) |
 | 2.6.5 | One subscription | The strip in the singular, one row, no category head, and the way on stated once under the list | Exactly one thing tracked |
 | 2.6.6 | A short list | The same, ungrouped, ordered by the next charge date | Two to five things tracked |
 
@@ -98,6 +98,27 @@ route survives all the way to the empty list.
 **On 2.6.3:** the sync-failed state is why block 7 exists. A silently stale list is a list
 that is quietly wrong, and the person has no way to know.
 
+**2.6.4 WAS RETIRED 2026-08-21 AND ITS CONTENT BECAME BLOCK 6b.** Founder, clicking through
+the coloured product: "зачем нам страница Save (save focus) когда она очень похожа на Home".
+Measured before it was answered: the state was 2099px tall at 390 and 331 of them were its
+own, so **84 per cent of its scroll was this screen repeated**, and **nothing in the product
+linked to it except the tab bar** - the two triggers this table named, node 3.8 and a Pro
+nudge, were specified and never built. The Save tab went with it and the bar is four
+destinations again.
+
+**This is a restoration rather than a deletion.** `../pages/core.md`, the base layer, listed
+the cancel nudge as block 4 of this screen from the first draft: "a small group (2 you might
+not be using) that is collapsed on default Home and pinned-open in save-focus". The 2026-08-05
+rebuild kept the state and dropped the block, so the nudge lost its home and kept only its
+mode. It comes back without the mode and without the collapse: one block, shown only when it
+is true, which is the rule block 3 already follows. It sits AFTER the list for the same reason
+block 6 does - the job of this screen is to look, not to cut - and in the head it would have
+pushed the list off a 390 x 844 phone entirely.
+
+**The savings figure moved with it, out of the summary strip.** In the retired state the strip
+read "a month. You could save up to $29.99 by cutting 2 you might not be using", which made
+the calm view a savings pitch. It is a fact about two rows, so it is stated on them.
+
 ## Filters and facets
 
 None at MVP. A list of ten to twenty items does not need them, and offering them implies the
@@ -115,8 +136,8 @@ carries the rest.
   spending or waste; no score, no red, no advice; the biggest thing on screen is one number the
   person can act on -> **where exactly:** the summary strip caption (block 2), the amber-not-red
   attention row (block 3), and the absence of any chart or score on the screen at all.
-- **E2 the small win** appears here in the save-focus state only, as the savings line, and its
-  home is node 4.10.
+- **E2 the small win** appears here in block 6b, as the line that says what cutting these would
+  save, and its home is node 4.10.
 
 ## Responsive
 
@@ -149,6 +170,7 @@ fourteen at once, which is J-MAIN read literally. A row opens node 2.7, at every
 ## Status
 
 **Locked:** the summary strip as the largest element, grouping by category with subtotals, the
-conditional attention row, the trust line, no upsell, no chart, no filters at MVP, and from
+conditional attention row, the trust line, no upsell, no chart, no filters at MVP, the cancel
+nudge as a conditional block rather than a destination (2026-08-21), and from
 2026-08-20 the count ladder: 0, 1, a few, many, with the grouping threshold at six.
 **Open:** none.

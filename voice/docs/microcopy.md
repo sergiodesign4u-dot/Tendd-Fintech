@@ -25,6 +25,11 @@ missing asset, not missing copy.
 
 ## Rewrite log (was / became)
 
+**Two page names in this log no longer exist and are not rewritten: `home-savefocus`, retired
+2026-08-21 with the Save tab, and the strings that moved with it.** A rewrite log records what
+was decided on the day it was decided; renaming its subject afterwards would make the record
+say something that did not happen. The live inventory below is the one that is kept current.
+
 The running record of every product line changed in Steps 5 to 7, screen by
 screen. Step 5 does the sample (the Home set); Steps 6 and 7 add the rest. Lines
 not listed for a rewritten screen were checked against voice.md and already
@@ -435,7 +440,8 @@ would be a line of product copy this file cannot own. **`Cancelled`** is the one
 word on the whole page, and it is spelled the way `cancel-win` already spells it ("You
 just cancelled Netflix"), not the American single-l. The three that are cancelled are
 the three the product itself names: Netflix, which `cancel-win` cancels, and Peloton
-App and The New York Times, the two `home-savefocus` flags as not opened. Their prices
+App and The New York Times, the two the cancel nudge on `home` flags as not opened (it was
+`home-savefocus` until 2026-08-21). Their prices
 are the fixture prices, so $192.90 minus $47.98 is $144.92 and a reader can check it
 against the rows in front of them.
 
@@ -696,7 +702,7 @@ same either way, and the mail that arrives is the one that fits.
 
 ## Cluster C: Home and Subscription Detail
 
-### home (+ empty, one, few, error, loading, savefocus)
+### home (+ empty, one, few, error, loading)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
@@ -730,12 +736,10 @@ same either way, and the mail that arrives is the one that fits.
 | home-error | trust-line | (the GC6 lines as on home, with the link pointing at connections) | body |
 | home-error | trust-line | Your sources | link |
 | home-loading | summary-strip | Getting your subscriptions. This usually takes a moment. | body |
-| home-savefocus | summary-strip | a month. You could save up to $29.99 a month by cutting 2 you might not be using. | body |
-| home-savefocus | trust-line | (the GC6 lines as on home) | body |
-| home-savefocus | cancel-candidates | Two you have not opened in a while. No pressure, just a nudge. | body |
-| home-savefocus | cancel-candidates | trial ends in 17 days · not opened in 3 weeks | body |
-| home-savefocus | cancel-candidates | next in 10 days · not opened in 6 weeks | body |
-| home-savefocus | cancel-candidates | Cancel | button |
+| home | cancel-nudge | Two you have not opened in a while. No pressure, just a nudge. Cutting both would save you $29.99 a month. | body |
+| home | cancel-nudge | trial ends in 17 days · not opened in 3 weeks | body |
+| home | cancel-nudge | next in 10 days · not opened in 6 weeks | body |
+| home | cancel-nudge | Cancel | button |
 | home-one | summary-strip | You're paying for 1 subscription | body |
 | home-one | list-row | Spotify Premium / in 6 days &middot; Aug 7 / $11.99 | body |
 | home-one | way-on | That is the whole list. Add more as you think of them, or connect your bank and Tendd finds the rest. | body |
@@ -1038,6 +1042,17 @@ below.
 | upgrade-renewal-failed | primary-action | Update your payment method | button |
 | upgrade-renewal-failed | secondary-action | Not now | button |
 | upgrade-renewal-failed | consequence | If it has not gone through by 8 May, your plan goes back to Free. Nothing is deleted and nothing is capped: your subscriptions, your monthly total, your basic alerts and this month against last stay exactly as they are. The 3, 6 and 12 month views, the full cancel guides and the advanced alerts come back the moment a payment works. | body |
+
+**On the cancel nudge, 2026-08-21, and it is one line where there were two.** The Save tab
+was retired and its block moved onto Home, which merged two strings into one: the summary
+strip's "a month. You could save up to $29.99 a month by cutting 2 you might not be using"
+and the block's own "Two you have not opened in a while. No pressure, just a nudge." **The
+strip goes back to "a month, for what you have signed up for" on every state of Home**, because
+a savings figure in the biggest thing on the screen makes the calm view a pitch, and this
+product's first principle is that the calm view sells nothing. The figure is a fact about two
+rows, so it is stated on them: **"Cutting both would save you $29.99 a month."** "Cutting both"
+and not "by cutting 2 you might not be using", which counted the same two things twice in one
+sentence.
 
 **On the renewal line, 2026-08-20, and why it is not the payment-failed line with a
 different date.** `upgrade-payment-failed` can afford to be short because nothing is at

@@ -691,8 +691,9 @@ object in clay. Both are 12px radius, both are flat, and neither carries an icon
 the alert.
 
 ### Navigation
-The tab bar is five destinations with an icon over a 12px label, `--type-meta` (four until D-Tab,
-2026-08-18). The current tab is petrol and weight **600**, and on the desktop rail it also takes a
+The tab bar is four destinations with an icon over a 12px label, `--type-meta`. **The count has
+been four twice**: four until D-Tab on 2026-08-18 added Trends, five until 2026-08-21 removed
+Save, whose destination was Home in a state. The current tab is petrol and weight **600**, and on the desktop rail it also takes a
 3px petrol left border and a paper fill. A quiet dot may sit on Alerts; there is never a count.
 **The label read 11px here and the weight read 700 until 2026-08-20**, against `tab-bar.css:109`
 and `:131`; the other two claims in this paragraph were checked at the same time and both hold.

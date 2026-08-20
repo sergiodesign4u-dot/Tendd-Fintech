@@ -165,7 +165,7 @@ The base page is the success state. Every other page below is a numbered node in
 | Add Subscription (1.4) | `add-subscription.html` | 1.4.1 `add-subscription-loading` preset library loading · 1.4.2 `add-subscription-error` presets unavailable, the manual form still works · 1.4.3 `add-subscription-empty` no preset matches |
 | Guided Reveal (1.5) | `guided-reveal.html` | 1.5.1 `guided-reveal-empty` nothing to reveal yet |
 | Sign In (1.6) | `sign-in.html` | 1.6.1 `sign-in-sent` check your email, with the address stated back · 1.6.2 `sign-in-expired` that link has expired, in the reconnect register |
-| Home (2.6) | `home.html` | 2.6.1 `home-empty` both doors offered · 2.6.2 `home-loading` refreshing · 2.6.3 `home-error` sync failed, last known list stays visible and dated · 2.6.4 `home-savefocus` the Save tab · **2.6.5 `home-one`** one subscription, singular and ungrouped · **2.6.6 `home-few`** a short list, ungrouped, by the next charge date |
+| Home (2.6) | `home.html` | 2.6.1 `home-empty` both doors offered · 2.6.2 `home-loading` refreshing · 2.6.3 `home-error` sync failed, last known list stays visible and dated · **2.6.5 `home-one`** one subscription, singular and ungrouped · **2.6.6 `home-few`** a short list, ungrouped, by the next charge date |
 | Subscription Detail (2.7) | `subscription-detail.html` | **2.7.1 `subscription-detail-unrecognized`** the decoder line is all we have · **2.7.2 `subscription-detail-price-change`** old price beside new · **2.7.3 `subscription-detail-payment-failed`** and what usually happens next · 2.7.4 `subscription-detail-loading` · 2.7.5 `subscription-detail-error` could not load |
 | Alerts (3.8) | `alerts.html` | 3.8.1 `alerts-empty` nothing needs your attention · 3.8.2 `alerts-loading` · 3.8.3 `alerts-error` could not reach your alerts |
 | Cancel Guide (4.9) | `cancel-guide.html` | **4.9.1 `cancel-guide-no-guide`** the general way, plus ask us to add this one · **4.9.2 `cancel-guide-blocked`** could not cancel, not your fault |
@@ -190,7 +190,17 @@ four are renames; the list is at the bottom.
 | Round 2, LATER | 3 (Share Snapshot, History and Trends, Upgrade) | **11** (3 base plus 8 states) |
 | Round 3, the auth model, 2026-08-10 | 1 (Sign In) | **5** (1 base plus 2 states, plus 6.16.1 and 5.13.3 on screens that already existed) |
 | Round 4, the count ladder and the failed renewal, 2026-08-20 | 0 new screens | **3** (2.6.5, 2.6.6 and 5.13.4, all on screens that already existed) |
-| **Total** | **17** | **58** |
+| Round 5, the Save tab retired, 2026-08-21 | 0 new screens | **-1** (2.6.4 `home-savefocus` retired; its block moved onto `home`) |
+| **Total** | **17** | **57** |
+
+**Round 5 took a page away, which is the first time this stage has removed one.** The founder,
+clicking through the coloured product: "зачем нам страница Save (save focus) когда она очень
+похожа на Home". Measured before it was answered - `home-savefocus` was 2099px tall at 390 and
+331 of them were its own, so 84 per cent of its scroll was `home` repeated - and **nothing in
+the product linked to it except the tab bar**: the two triggers node 2.6 named for it, node 3.8
+and a Pro nudge, were specified and never built. The block it carried came back onto `home` as
+a conditional block under the list, which is where `ia/docs/pages/core.md` put it in the base
+layer before the 2026-08-05 rebuild dropped it. The tab bar is four destinations again.
 
 **Round 4 re-opened it a second time, and for a different kind of gap.** Round 3 added
 screens the map had specified and the grey had never drawn. Round 4 adds three states nobody

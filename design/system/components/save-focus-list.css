@@ -46,8 +46,45 @@
    On home-savefocus the list sits in the second slot of the dashboard head and
    the category list follows it. Nothing else: the framing line and the
    candidates each carry their own spacing. */
+/* THE MEASURE ARRIVED 2026-08-21, WITH THE MOVE OUT OF THE HEAD. Until that day
+   this block lived in the second slot of the Dashboard head and took that
+   column's width for free, about 610px at 1440. On Home it is a direct child of
+   the screen and would take the whole 1140px pane, which would make its rows more
+   than twice the width of the widest row this product has ever drawn - 545px, on
+   the state this block came from. 620 is the single-column cap the system already
+   declares and the same number the List column pattern reads: a column of rows is
+   the thing the number was chosen for. Usage rule U15 allows it by name. */
 .app .candidates, .landing .candidates {
   margin: var(--space-0) var(--space-0) var(--space-24);
+}
+
+/* ---- standing on the screen rather than in the head, 2026-08-21 ------------
+   THE TOP EDGE IS NEW AND THE MOVE IS WHY. Inside the Dashboard head this block
+   was one of two cells in a grid and the head's own bottom rule told it apart
+   from what followed. On Home it stands under the list, and without an edge its
+   lead sentence reads as one more line of the last category column. The rule is
+   the one the Trust block already uses at the foot of a screen - a divider
+   hairline and the space of a block above it - because the two blocks are doing
+   the same thing in the same place: closing the screen with something that is
+   about the list rather than in it.
+
+   SCOPED TO THE PLACEMENT AND NOT TO THE BLOCK. The head placement, if it ever
+   comes back, must not grow a second line: `.head` supplies its own.
+
+   THE BLOCK TAKES THE PANE AND ITS CONTENTS TAKE THE MEASURES, and that split is
+   the whole of the layout. Capping the BLOCK at 620 was tried first and drawn: at
+   1440 it put a 620px rule under a 1140px list with a 1140px rule under it again,
+   two hairlines of different lengths on one screen, which reads as a mistake
+   rather than as a measure. So the block ends where every other block on Home ends
+   - which is also what usage rule U15 asks of it - and the two things inside it
+   that have a right measure declare it themselves: the list of rows at
+   `--container-column`, the sentence at `--container-text`. */
+.app > .screen > .candidates, .landing > .screen > .candidates {
+  padding-top: var(--space-24);
+  border-top: 1px solid var(--line-divider);
+}
+.app > .screen > .candidates > ul, .landing > .screen > .candidates > ul {
+  max-width: var(--container-column);
 }
 
 /* ---- the framing line -----------------------------------------------------
@@ -71,6 +108,16 @@
   margin: var(--space-0) var(--space-0) var(--space-8);
   font-size: var(--type-body);
   color: var(--text-muted);
+  /* THE READING MEASURE, ADDED 2026-08-21 WITH THE MOVE AND FOUND BY AN
+     INSTRUMENT RATHER THAN BY EYE. In the head this sentence sat in a grid cell
+     narrow enough that it never reached the measure. On Home the block is capped
+     at 620, which is right for a column of ROWS and wrong for a line of prose:
+     `width12.cjs` read it at 70.1ch in a 620px box at a 680px width, against the
+     52ch this system declares. The block keeps its 620 and the sentence takes its
+     own, which is usage rule U15 read exactly - a measure belongs to the line, not
+     to the box around it. It is the third repair of this shape in two days, after
+     `quiet-line.css` and `trust-block.css`. */
+  max-width: var(--container-text);
 }
 
 /* ---- the list itself ------------------------------------------------------

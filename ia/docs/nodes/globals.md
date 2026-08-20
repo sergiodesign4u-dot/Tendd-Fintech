@@ -70,8 +70,14 @@ rows). On desktop it folds into the top of the left rail rather than staying a s
 
 **Where it appears.** Every steady-state screen. Hidden across the whole onboarding chain.
 
-**Content, in order.** Home to node 2.6, Alerts to node 3.8, Save to node 2.6 in its save-focus
-state, You to node 6.16. Icon plus a visible text label, never icon-only.
+**Content, in order.** Home to node 2.6, Trends to node 5.12, Alerts to node 3.8, You to node
+6.16. Icon plus a visible text label, never icon-only.
+
+**FOUR, AND IT HAS BEEN FOUR TWICE.** Trends joined on 2026-08-18 on the founder's decision and
+Save left on 2026-08-21 on the founder's question - "зачем нам страница Save когда она очень
+похожа на Home" - so the count went 4, 5, 4 in three days and the set is not the set it started
+as. Each move went sitemap first, component second, which is the order the prohibition below
+demands.
 
 **Variants.** Bottom bar on mobile, left rail on desktop. **This is the main breakpoint delta
 of the whole product**, decided once here so no screen re-decides it.
@@ -83,9 +89,12 @@ when something is new since the last visit.
 changes by persona or by plan: D3 gates what sits behind a destination, never the destination
 itself, and a navigation that stays put is itself calming.
 
-**Save is not a screen.** It is the FLAG 1 resolution: the Save tab opens Home parameterized,
-with the cancel candidates pinned open, the summary strip showing what could be saved, and an
-inline cancel affordance on each candidate row.
+**Save is not a destination either, since 2026-08-21.** FLAG 1 asked where the Save tab should
+land and answered "Home, parameterized", which solved the build question and left the
+navigation one standing: a destination that is not a place. Measured, the state was 2099px tall
+at 390 with 331 of them its own, and nothing but the tab bar linked to it. The cancel
+candidates are now block 6b of node 2.6, shown only when they are true, and the bar carries
+four destinations instead of a door into a room you were already standing in.
 
 **Strings:** `voice/docs/microcopy.md`. **Next stage:** one component, two layouts.
 
@@ -101,8 +110,10 @@ reveal that produces it.
 **Content, in order.** (1) the subscription count, (2) the monthly total, rendered as the
 biggest number on the screen, (3) one context line.
 
-**Variants.** Default ("what you have signed up for") and save-focus ("you could save up to $X
-a month").
+**Variants.** One, "what you have signed up for". **The savings variant retired 2026-08-21**
+with the Save tab: "you could save up to $X a month" made the calm view a savings pitch, and
+the figure is a fact about two rows rather than about the total, so it is stated on them in
+block 6b of node 2.6.
 
 **States.** Populated, loading (a calm placeholder while the numbers resolve, not a spinner
 over them), empty (an invite, never a bare $0).

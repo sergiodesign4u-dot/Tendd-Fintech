@@ -17,8 +17,8 @@ working against the person.
 
 ## URL and breadcrumbs
 
-`/s/<id>/cancel`. Breadcrumb: back to the subscription. In from node 2.7 or the save-focus
-state of node 2.6. Out to node 4.10.
+`/s/<id>/cancel`. Breadcrumb: back to the subscription. In from node 2.7 or the cancel nudge, block 6b
+of node 2.6 (it was the save-focus state until 2026-08-21). Out to node 4.10.
 
 ## Content blocks, mobile-first priority
 

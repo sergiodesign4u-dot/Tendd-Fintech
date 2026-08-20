@@ -4,7 +4,7 @@
 - **Type:** Pages (Cancel Guide, Cancel Win Moment, Share Snapshot), Dialogs (could-not-cancel help), States (success, no-guide-yet, could-not-cancel, Pro-locked, loading, generating, share-error).
 - **Superseded 2026-08-05.** Nodes 4.9 to 4.11 are specified one per file in `../nodes/`. The page `ia/cancel.html` was retired; this file stays as the base-layer record.
 - **Job:** J2 (identify and cancel unused subscriptions) on Cancel Guide, E2 (the small win) on Cancel Win Moment, S1 (share the discovery) on Share Snapshot. Primary persona Claudia (her whole session aims here); Emma and Ravi arrive from a specific subscription.
-- **Related:** entered from 2.7 Subscription Detail (Cancel action) or the 2.6 save-focus view; the full guide and direct link are gated by GC7 into 5.13 Upgrade; the win seeds the Snapshot entity. Reuses GC1, GC7 (pro.md).
+- **Related:** entered from 2.7 Subscription Detail (Cancel action) or the cancel nudge on 2.6 (the save-focus view until 2026-08-21); the full guide and direct link are gated by GC7 into 5.13 Upgrade; the win seeds the Snapshot entity. Reuses GC1, GC7 (pro.md).
 
 ---
 

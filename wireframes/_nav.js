@@ -55,7 +55,6 @@ window.WF_NAV = {
         { node: '2.6.1', slug: 'empty',     label: 'both doors offered', built: true },
         { node: '2.6.2', slug: 'loading',   label: 'refreshing',         built: true },
         { node: '2.6.3', slug: 'error',     label: 'sync failed, last known list', built: true },
-        { node: '2.6.4', slug: 'savefocus', label: 'save focus',         built: true },
         { node: '2.6.5', slug: 'one',       label: 'one subscription',   built: true },
         { node: '2.6.6', slug: 'few',       label: 'a short list, ungrouped', built: true }
       ]},

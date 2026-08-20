@@ -363,7 +363,6 @@ designs only the happy path; that is exactly the gap this node closes.
 | 2.6.1 | Empty list | state (empty) | -> 1.3, -> 1.4 | all / J-MAIN | MVP |
 | 2.6.2 | Refreshing | state (loading) | -> 2.6 | all / J-MAIN | MVP |
 | 2.6.3 | Sync failed, last known list | state (error) | -> 2.6 retry, -> 6.14 | all / J-MAIN | MVP |
-| 2.6.4 | Save focus | state (role) | -> 4.9 | C, E / J2 | MVP |
 | 2.6.5 | One subscription | state (count) | -> 2.7, -> 1.4, -> 1.3 | B, E / J-MAIN | MVP |
 | 2.6.6 | A short list | state (count) | -> 2.7, -> 1.4, -> 1.3 | B, E / J-MAIN | MVP |
 | 2.7 | Subscription Detail | page | -> 4.9, -> 5.12, -> 3.8 | all / J3 + J4 | MVP |
@@ -457,12 +456,12 @@ numbered here, where node numbers are owned. `pages/account.md` was corrected to
 | 9.4 | Consent banner | dialog | LATER | Conditional on region, `[?]` |
 | 9.5 | Toasts | section | MVP | Lightweight feedback, no page of its own |
 
-**Count: 24 specified nodes (7 global, 17 screens) plus 5 system nodes, with 41
+**Count: 24 specified nodes (7 global, 17 screens) plus 5 system nodes, with 40
 state and dialog nodes hanging off the screens.** Of the 17 screens, 14 are MVP.
 
-**RECOUNTED 2026-08-20 BY SCRIPT, AND IT WAS ALREADY WRONG BEFORE THIS CHANGE.**
-Three states landed that day - 2.6.5, 2.6.6 and 5.13.4 - which takes the figure to
-41. But the number written here was **37 against an actual 38**: the extra one is
+**RECOUNTED 2026-08-20 BY SCRIPT, AND IT WAS ALREADY WRONG BEFORE THAT CHANGE.**
+Three states landed that day - 2.6.5, 2.6.6 and 5.13.4 - which took the figure to
+41, and 2.6.4 retired with the Save tab the next morning, which takes it to 40. But the number written here was **37 against an actual 38**: the extra one is
 5.12.4, "Trends behind the Pro gate", added on 2026-08-18 when Trends became a tab,
 and the sentence at the foot of the file was never re-read. It is the same class of
 drift `counts.cjs` exists to catch on the components, on a file no instrument
@@ -777,15 +776,22 @@ two opposite rules for the same lock.
 ## Flags from Prompt 2 (resolved)
 
 - **FLAG 1** (the Save tab had no dedicated landing screen): resolved in
-  pages/core.md. The Save tab lands on a save-focus state of Home, not a new
-  screen.
+  pages/core.md, and **re-resolved on 2026-08-21 the other way**. The first answer
+  was "a save-focus state of Home, not a new screen", which settled the build
+  question and left the navigation one: a destination that is not a place.
+  Measured three days after the state was coloured, it was 2099px tall at 390 with
+  331 of them its own, and nothing but the tab bar ever linked to it. **There is
+  no Save tab.** The cancel candidates are block 6b of node 2.6, shown only when
+  they are true.
 - **FLAG 2** (Connect Bank and Add Subscription reused outside onboarding):
   resolved in pages/account.md. One "Add a source" action re-enters both
   in-app through a chooser.
 
 ## Locked decisions (this layer)
 
-- Save tab is a save-focus state of Home; no new screen (core.md).
+- ~~Save tab is a save-focus state of Home; no new screen (core.md).~~ **Superseded
+  2026-08-21: there is no Save tab. The cancel nudge is a conditional block on
+  Home, which is where `pages/core.md` put it in the base layer.**
 - Add a source re-enters onboarding screens in-app; no duplicates (account.md).
 - Equal-weight, no-preselect Path Choice; persistent manual fallback on the bank path (onboarding.md).
 - Guided Reveal stays one screen, three steps, total never alone (onboarding.md).

@@ -3,7 +3,7 @@
 - **Node:** 0 Global chrome. The two elements that frame every steady-state screen: GC1 App Header and GC2 Global Tab Bar. They are true global chrome (present on every non-onboarding screen), so they get their own file rather than living inside one cluster. The reusable Sections GC3 to GC7 are NOT here; each is specified in the cluster where it belongs (GC3 and GC4 in core.md, GC5 in alerts.md, GC6 in account.md, GC7 in pro.md) and referenced by name elsewhere.
 - **Type:** Section (App Header), Section (Global Tab Bar), State matrix.
 - **Superseded 2026-08-05.** GC1 and GC2 are specified in `../nodes/globals.md`, rendered at `ia/globals.html`. The page `ia/navigation.html` was retired with the other cluster renders; this file stays as the base-layer record it was written as.
-- **Job:** navigation chrome serves no single job; it carries every job cluster into reach. The five tabs map to job clusters (Home to J-MAIN, Trends to J-MAIN over time plus E1, Alerts to J4, Save to J2 plus E2, You to E3 plus J1), per the Navigation section of sitemap.md.
+- **Job:** navigation chrome serves no single job; it carries every job cluster into reach. The four tabs map to job clusters (Home to J-MAIN, Trends to J-MAIN over time plus E1, Alerts to J4, You to E3 plus J1). **J2 and E2 lost their tab on 2026-08-21 and did not lose their place**: the cancel nudge is block 6b of node 2.6, shown only when it is true, per the Navigation section of sitemap.md.
 - **Related:** every page in the library sits inside this chrome except the onboarding chain (node 1), where both are hidden. Reuses nothing; is reused by everything.
 
 ---
@@ -29,7 +29,7 @@ Block order (left to right on mobile top bar): (1) back or menu control, (2) scr
 
 ### GC2 - Global Tab Bar
 
-Block order (five destinations, left to right): (1) Home -> 2.6, (2) Trends -> 5.12, (3) Alerts -> 3.8, (4) Save -> 2.6 in save-focus (FLAG 1 resolution), (5) You -> 6.16. **Trends was added 2026-08-18 on the founder's decision**, in second place because Home and Trends are one cluster - the same money, now and over time - and the three after them are where a person acts; the ground and what it cost at 320px are in the Navigation section of sitemap.md. Each has an icon plus a text label. A quiet "new" dot may sit on Alerts (see alerts.md); no numeric badge. Hidden across onboarding (node 1).
+Block order (four destinations, left to right): (1) Home -> 2.6, (2) Trends -> 5.12, (3) Alerts -> 3.8, (4) You -> 6.16. **Save was retired 2026-08-21**, founder: "зачем нам страница Save (save focus) когда она очень похожа на Home" - its destination was Home in a state, 84 per cent of that state's scroll was Home repeated, and nothing but the bar itself linked to it. The count therefore went 4, 5, 4 in three days. **Trends was added 2026-08-18 on the founder's decision**, in second place because Home and Trends are one cluster - the same money, now and over time - and the three after them are where a person acts; the ground and what it cost at 320px are in the Navigation section of sitemap.md. Each has an icon plus a text label. A quiet "new" dot may sit on Alerts (see alerts.md); no numeric badge. Hidden across onboarding (node 1).
 
 ---
 
@@ -40,7 +40,7 @@ Block order (five destinations, left to right): (1) Home -> 2.6, (2) Trends -> 5
 | Element | Emma (bank) | Ravi (privacy) | Claudia (cutter) | Free | Pro |
 |---------|-------------|----------------|------------------|------|-----|
 | **App Header** | Standard. Source context reads "from [Bank]". | Standard. Source context reads "Added by you". If trialing with no account, You surfaces "Create an account to save". | Standard. | Plan chip reads "Free" in the You area (GC7). | Plan chip reads "Pro" badge (GC7). |
-| **Global Tab Bar** | Five tabs; lives mostly on Home and Save. | Five tabs; lives on Home and You (data control). | Five tabs; lives on Save and Alerts. | Five identical tabs. Save and its cancel candidates are fully usable (cancel is free, D3); the History link inside Home is gated. | Four identical tabs. Gated surfaces (History, advanced alerts, full guides) are unlocked; no tab changes. |
+| **Global Tab Bar** | Four tabs; lives mostly on Home. | Four tabs; lives on Home and You (data control). | Four tabs; lives on Home and Alerts. | Four identical tabs. The cancel nudge and its guides are fully usable (cancel is free, D3); the depth behind Trends is gated. | Four identical tabs. Gated surfaces (the 3, 6 and 12 month views, advanced alerts, full guides) are unlocked; no tab changes. |
 
 The tab SET never changes by persona or plan; only what is gated behind a tab's destinations changes (D3). This keeps navigation stable and predictable, which is itself calming.
 
@@ -83,7 +83,7 @@ This is the source of the main breakpoint delta for the whole product: GC2 is a 
 ## Locked (draft, 2026-07-03) / Open
 
 - **Locked (draft, 2026-07-03):**
-  - Five tabs (Home, Trends, Alerts, Save, You), no red counts, quiet new-dot only.
+  - Four tabs (Home, Trends, Alerts, You), no red counts, quiet new-dot only.
   - Tab bar hidden across onboarding.
   - Header carries at most one contextual action.
   - Bottom bar becomes a left rail on desktop; header folds into the top of it (realized in Wireframes, 2026-07-04).

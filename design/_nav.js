@@ -33,7 +33,7 @@
     { name: 'Connect Bank', base: 'connect-bank.html', states: ['loading', 'error', 'empty', 'cancelled'] },
     { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['empty'] },
     { name: 'Sign In', base: 'sign-in.html', states: ['sent', 'expired'] },
-    { name: 'Home', base: 'home.html', states: ['empty', 'one', 'few', 'error', 'loading', 'savefocus'] },
+    { name: 'Home', base: 'home.html', states: ['empty', 'one', 'few', 'error', 'loading'] },
     { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['unrecognized', 'price-change', 'payment-failed', 'error', 'loading'] },
     /* Alerts, added 2026-08-13 at stage 09 step 5, the self-sufficiency test of
        the design system: the eighth screen, and the first one coloured after the
@@ -60,7 +60,7 @@
 
      THE DEAD END IS CORRECT AND IT IS A RULE. U7: a wait carries no control at
      all, because an edge a person takes is a control and an edge the system
-     takes is not. Counted over all 58 coloured screens, exactly TWO have no link
+     takes is not. Counted over all 57 coloured screens, exactly TWO have no link
      out of `.app`, and they are U7's own two pages: `connect-bank-loading` and
      `upgrade-processing`.
 
@@ -81,7 +81,7 @@
 
      SO THE ANSWER GOES ON THE STAND AND NEVER INTO THE SCREEN. This strip is
      drawn by the reviewer's chrome, outside `.app`, from data that lives here.
-     Nothing is added to the 58 screen files: no markup, no class, no link. Turn
+     Nothing is added to the 57 screen files: no markup, no class, no link. Turn
      the chrome off - which is what a build does - and the wait is exactly the
      wait the product ships.
 

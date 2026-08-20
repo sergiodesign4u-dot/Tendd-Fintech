@@ -18,7 +18,7 @@
      spacing  --space-0, --space-16, --space-24, --space-32, --space-40,
               --space-48, --space-64
    Page      design/kit/app-shell.html
-   Stands on 57 grey pages, which is every page in wireframes/ except the landing
+   Stands on 56 grey pages, which is every page in wireframes/ except the landing
    (index.html) and the stage hub (overview.html). All 57 of them are coloured. The
    three forms split 22 steady, 27 flow and 8 detail, identically in both corpora,
    recounted 2026-08-20: it read 20/26/8 grey and 16/10/6 colour, which was the
@@ -527,7 +527,7 @@
      declares a measure of its own - at any specificity, in any file, written
      tomorrow by somebody who has never read this comment - now wins. Nothing
      that is silent about width changes: it still gets the pane here and
-     `--container-page` at the tablet point. Measured across all 58 coloured
+     `--container-page` at the tablet point. Measured across all 57 coloured
      pages at 360 and at 1440: ZERO boxes moved. The rule now defaults to
      "keep your measure" instead of "lose it", and the seventh unbinding cannot
      happen.
@@ -672,7 +672,14 @@
   .app > .screen:has(> .groups) > .head       { order: 1; }
   .app > .screen:has(> .groups) > .group-head { order: 2; }
   .app > .screen:has(> .groups) > .groups     { order: 3; }
-  .app > .screen:has(> .groups) > .trust      { order: 4; }
+  /* THE SET GAINED A FIFTH SLOT 2026-08-21, when the Save tab was retired and its
+     cancel nudge came back onto Home as a conditional block. It is ordered for the
+     reason the whole set is ordered rather than left alone: an unordered sibling
+     takes `order: 0` and prints ABOVE the summary, which is usage rule U17 and the
+     bug `home-empty` shipped with. After the groups and before the trust line,
+     which is the order `ia/docs/pages/core.md` gave it in the base layer. */
+  .app > .screen:has(> .groups) > .candidates { order: 4; }
+  .app > .screen:has(> .groups) > .trust      { order: 5; }
 
   /* THE TWO COLUMNS COUNT THEMSELVES, AND THAT IS A REPAIR MEASURED AT STAGE 10.
      It was `minmax(300px, 1fr) minmax(320px, 1fr)` with the two columns placed by

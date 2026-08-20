@@ -7,6 +7,84 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-21 - The Save tab was a door into the room you were standing in
+
+Founder, clicking through the coloured product: **"зачем нам страница Save (save
+focus) когда она очень похожа на Home"**. Then, on the recommendation: **"давай как
+ти рекомендуешь"**. The tab is retired, the block it carried is back on Home, and
+the bar is four destinations again.
+
+**THE QUESTION WAS ANSWERED WITH NUMBERS BEFORE IT WAS ANSWERED WITH AN OPINION.**
+At 390 the state was **2099px tall and 331 of them were its own** - the candidates
+block. The rest was the identical 14-row grouped list (1146px), the identical trust
+block (127px) and the same summary with one sentence changed. **84 per cent of its
+scroll was Home repeated**, and the markup matched word for word at **83 per cent**.
+
+**AND THE SECOND MEASUREMENT WAS THE ONE THAT SETTLED IT.** Counted over the whole
+coloured corpus: **31 pages link to `home-savefocus.html`, and 29 of them are the tab
+bar**; the other two are the page itself and the hub. Node 2.6's own state table said
+the trigger was "the person came here to cut (from node 3.8 or a Pro nudge)". **Both
+of those were specified and neither was ever built.** The only way into the room was
+the door in the wall of every other room.
+
+**THE IA HAD ASKED THIS EXACT QUESTION AND ANSWERED HALF OF IT.** It is FLAG 1, in
+`ia/docs/sitemap.md`: "the Save tab had no dedicated landing screen", resolved as "the
+Save tab lands on a save-focus state of Home, not a new screen". That settled the BUILD
+question - do not draw a screen you do not need - and left the NAVIGATION one standing:
+a destination that is not a place. What the founder was looking at is the half that was
+left.
+
+**WHAT WAS RESTORED, AND IT IS NOT AN INVENTION.** `ia/docs/pages/core.md`, the base
+layer, specified the nudge as **block 4 of Home** from its first draft: "a small group
+(2 you might not be using) that is collapsed on default Home and pinned-open in
+save-focus". The 2026-08-05 rebuild kept the state and dropped the block, so the nudge
+lost its home and kept only its mode. It comes back **without the mode and without the
+collapse**: one block, shown only when it is true, which is the rule the attention row
+above it has always followed.
+
+**AFTER THE LIST AND NOT BEFORE IT, AND THAT WAS MEASURED TOO.** In the head - where
+it stood on the retired state - Home would have opened on a total, a price-change
+banner and a cancel nudge with the list entirely below a 390 x 844 fold. It sits after
+the groups for the same reason the add action does: the job of this screen is to look,
+not to cut. That is also the order the base layer gave it.
+
+**THE SAVINGS FIGURE MOVED WITH IT AND THAT IS A VOICE DECISION.** The retired state
+put it in the summary strip: "a month. You could save up to $29.99 a month by cutting 2
+you might not be using". A savings figure inside the biggest thing on the screen makes
+the calm view a pitch, and the first principle says the calm view sells nothing. The
+strip goes back to "a month, for what you have signed up for" on every state of Home,
+and the figure is stated where it is true - on the two rows: **"Cutting both would save
+you $29.99 a month."**
+
+**TWO SYSTEM RULES CAME OUT OF THE MOVE, AND BOTH ARE PLACEMENT RATHER THAN TASTE.**
+The block was a grid cell inside the Dashboard head and took that column's width for
+free; as a child of the screen it would take the whole 1140px pane, which is **more than
+twice the widest row this product has ever drawn** (545px, on the state it came from).
+It takes `--container-column`, 620, the number U15 names for a column of rows. And it
+gains a top hairline, because the head's own bottom rule used to tell it apart from what
+followed and now nothing does: without one its lead sentence reads as a fifteenth row.
+The shell's ordered set went from four slots to five - head 1, group-head 2, groups 3,
+**candidates 4**, trust 5 - because an unordered sibling takes `order: 0` and prints
+above the summary, which is U17 and the bug `home-empty` shipped with.
+
+**WHAT IT COST TO REMOVE ONE PAGE.** 60 tab bars rewritten, 30 grey and 30 coloured.
+The corpus went 58 to 57 in both halves, so **20 css headers and 19 component pages
+drifted at once** and were recounted by script. `.ic-save` was deleted from
+`destination-icon.css` rather than left as a mask nothing wears, which took the icon
+catalogue with it: `icons.html` had **never learned about `.ic-trends`**, added on
+2026-08-18, so its chart, its geometry table, its figures and its finding were all
+describing a set of four that had not existed for three days.
+
+**AND THE ICON FINDING SURVIVED LOSING ITS OWN WORST CASE, WHICH IS THE TELL.**
+Re-measured over the four that remain, at 40 samples per module of the 24 cell with an
+alpha floor of 10: **trends 23.82%, home 21.12%, alerts 15.62%, you 13.14%**. The ink
+spread was 106 per cent with `.ic-save` in the set and is **81 per cent** without it -
+a quarter of the gap went without anybody drawing anything. The method reproduces the
+retired figures within 0.2 of a point, so the two runs are one measurement rather than
+two opinions. **The cause is not stroke weight**: all four are drawn at 1.7 on the same
+cell, and the two heaviest are the two that close a box. The open question is whether
+this set is boxed or open, and it is still the founder's.
+
 ## 2026-08-20 - The count ladder, the failed renewal, and a recount that found more than it added
 
 Founder: **"го дальше тогда делать все что нужно"**. Two of the three open rounds are

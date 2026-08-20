@@ -48,7 +48,7 @@ one place, so a screen inherits it rather than re-deciding it.
 | 1.3 Connect Bank | Plaid Link manages its own focus trap, and it is not ours to fix. On return, focus goes to the status region so "syncing" and the outcome are announced |
 | 1.4 Add Subscription | The catalogue is searchable by keyboard, and every failure state ends at the manual form, which is a real labelled form |
 | 1.5 Guided Reveal | Each step advance moves focus and is announced. The count, the categories and the total are text, not an image |
-| 2.6 Home | The banner uses `role="status"` so it is announced without stealing focus. Save focus announces itself on entry ("showing subscriptions you might not use") |
+| 2.6 Home | The banner uses `role="status"` so it is announced without stealing focus. The cancel nudge announces itself when it arrives, through `role="status"` on its own lead line, so a screen reader is told once and is not interrupted (it was the save-focus state until 2026-08-21) |
 | 2.7 Subscription Detail | Focus lands on the merchant name. Cancel is a real button with a confirming step, never a one-tap destructive action. The unrecognized-charge and payment-failure prompts sit in a live region |
 | 3.8 Alerts | A list, one item per event. A new alert is announced once, politely |
 | 4.9 Cancel Guide | The steps are a real ordered list; "open the account page" and "I cancelled it" are two distinct, clearly named controls, because confusing them is the failure that costs the person the cancellation |
