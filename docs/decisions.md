@@ -7,6 +7,70 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-20 - The design document stopped being prose about numbers
+
+Founder: **"гоу делать"**, on the four rows marked ready to execute. All four are
+closed and none of them by patching a number.
+
+**THE TYPOGRAPHY ROW WAS NOT ABOUT FIFTEEN PLACES.** It read "the typographic
+prose in `DESIGN.md` disagrees with the code in fifteen places", with the ruling
+already made - the document moves to the code - and it had been open for four
+stages. Opening it found something worse than fifteen wrong numbers: **the
+Hierarchy list described seven steps and the scale has eleven.** A design document
+that describes seven elevenths of its own type scale is not describing the scale,
+it is describing the part somebody remembered.
+
+Of the seven, four were wrong. Body read 14.5px against a `--type-body` of 14,
+Meta 12.5 against 12, Label 10.5 against 10 - three half-pixels left over from
+before the scale was tokenized, which nothing brought forward - and "Headline,
+700, 18px" against a `--type-title` of 20px that declares **no weight at all**,
+because it keeps the browser's bold for an `h1`.
+
+**THE NAMES WERE THE WORSE HALF.** "Title" in the document meant the wordmark at
+16px. `--type-title` in the code is 20px and means the subscription name. A reader
+following the document to the code arrived at a different step, which is a failure
+mode no amount of correct numbers would have fixed.
+
+**SO THE FIX IS THAT EVERY STEP NOW NAMES ITS TOKEN**, and that is the half that
+makes the ruling stick. Prose about a number is a claim, and a claim no instrument
+can read is how a document drifts for four stages with the fix already decided.
+`design/kit/screens/design13.cjs` reads every step out of `DESIGN.md`, resolves it
+against `tokens.css` at 16px per rem, checks a clamp at BOTH ends because a fluid
+step has two numbers a reader can hold you to and neither is the middle, and
+reports a step the document never mentions as a finding of its own. **11 of 11
+agree, 0 unnamed.**
+
+**THE TAB BAR'S TWO CLOSED IN THE SAME EDIT**: an 11px label against a
+`--type-meta` of 12, and a current destination at weight 700 against a
+`tab-bar.css` of 600. The other two claims in that paragraph were re-checked at
+the same time and both hold, which is worth writing down: the rail's left border
+is 3px of petrol and its fill is paper.
+
+**AND THE INSTRUMENT WAS WRONG TWICE BEFORE IT WAS RIGHT**, both times loudly
+enough to catch in one run. It sliced `tokens.css` from the first `:root` in the
+file, which is inside a comment eighteen lines above the declaration, and came
+back with an empty scale and every claim reported as "no such token". Then it read
+"`--type-meta` (four until D-Tab, 2026-08-18)" as a size claim: a parenthesis with
+no px in it is a mention and there is nothing to check about it. Both guards are
+in the file with the reason.
+
+**THE TWO VOICE ROWS.** The preset search's result counts were written into
+`behaviour.js` on 2026-08-11 and never given an owner. All three are now ONE row
+rather than the two the backlog asked for, because they are one pattern and
+splitting them lets the singular drift from the plural; the zero case was never
+new, it is the exact line `add-subscription-empty` already carries. The Amount
+placeholder got its row with the reason it changed - with the sign drawn beside
+the input, `$0.00` rendered `$ $0.00` - and with why the hint beside it keeps its
+dollar sign: "Enter an amount, like $9.99" is a sentence about money, not a field
+that takes digits.
+
+**WHAT IS LEFT OF THAT GROUP: one row, and it is a decision rather than work.**
+"Try again" stands in three weights on four error screens - `.btn primary` on two,
+a plain `.btn` on one, and a bare link inside a wash on `home-error`. `census.md`
+sets out the three readings and deliberately chooses none, because which one is
+right depends on whether retrying is the screen's main action or its aside, and
+that is the founder's call.
+
 ## 2026-08-20 - The oldest row in the backlog closed, and it closed by being re-asked
 
 Founder: **"давай чинить дыры какие есть и что и как мы будем решать?"** The

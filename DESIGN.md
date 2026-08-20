@@ -386,26 +386,49 @@ changed that setting, proved across 8 596 element records on all 32 coloured scr
 The geometry stayed `px` on purpose - a width and a gutter are not text.
 
 ### Hierarchy
-- **Display** (700, 46px, line-height 1.02, -0.025em): the monthly total, and nothing else. One per
-  screen, ever.
-- **Section** (700, 24px on a phone and **32px past the tablet point**, -0.015em): the subject of a
-  section on the public page, added 2026-08-16. It reads `--type-section`, which carries the same
-  value as `--type-figure` and is a token of its own: one of the two is a number about money on an
-  app screen and the other is a heading on a marketing page. The app has no such step, because an
-  app screen's subject is Display or Headline and never a band heading.
-- **Headline** (700, 18px): the subscription name on the detail screen, and the heading of an
-  empty or error message.
-- **Title** (800, 16px, -0.02em): the wordmark in the app bar, with the `dd` pair a further
-  -0.09em. It tracks IN, and it did the opposite until 2026-08-12. The old rule read "it tracks
-  OUT, not in: it is the only word on a screen that is a name rather than a sentence", and it was
-  right for a product with **no mark in it**, where the word carried the identity alone and needed
-  air to be read at 16px. A mark now stands beside it, so the word stopped being the thing being
-  recognised and became half of it, and a mark is set as one shape. The premise moved; the value
-  followed. See The brand, below.
-- **Body** (600, 14.5px): the merchant name in a row, the primary reading line.
-- **Meta** (400, 12.5px): the amount, the next date, the source line. Always muted.
-- **Label** (600, 10.5px): badges. Not uppercased and not tracked out, because a shouting label on
-  a calm row is the same defect as a red one.
+
+**REWRITTEN FROM THE CODE, 2026-08-20, and every step now names its token.** This list carried
+seven steps and the scale has eleven; four of the seven had the wrong number, and the three
+smallest were half a pixel out each because they were written before the scale was tokenized and
+nothing ever brought them forward. The names were the worse half: "Title" here meant the wordmark
+at 16px while `--type-title` in the code is 20px and means the subscription name, so a reader
+following the document to the code arrived at a different step. Prose about a number is a claim,
+and a claim with no instrument behind it is how a document drifts for four stages;
+`design/kit/screens/design13.cjs` now reads every step below out of this file and checks it
+against `tokens.css`, so this list cannot go stale again without saying so.
+
+- **Hero** `--type-hero` (clamp 40px to 56px, 800, line-height 1.02, -0.03em): the landing's own h1,
+  and the only fluid step in the scale. It exists because a marketing page opens on a sentence and
+  an app screen opens on a number.
+- **Display** `--type-display` (46px, 700, line-height 1.02, -0.025em): the monthly total, and
+  nothing else. One per screen, ever.
+- **Step** `--type-step` (40px, 800, line-height 1, -0.03em): the ordinal of a step in a sequence
+  on the landing. Between Display and Figure and one clear step from each, because it is the only
+  large number in this product that is **not** money.
+- **Figure** `--type-figure` (32px, 700, -0.02em): a subscription's own amount, and a plan price.
+- **Section** `--type-section` (32px, 700, -0.015em, and `--type-head` on a phone): the subject of
+  a section on the public page, added 2026-08-16. Same value as Figure and a token of its own: one
+  of the two is a number about money on an app screen and the other is a heading on a marketing
+  page. The app has no such step, because an app screen's subject is Display or Head.
+- **Head** `--type-head` (24px, 700, line-height 1.18, -0.015em): the subject of an app screen,
+  and the wordmark in the site footer.
+- **Title** `--type-title` (20px, line-height 1.2): the subscription name on the detail screen, and
+  the heading of an empty or error message. **No weight of its own:** it keeps the browser's bold
+  for an `h1`, which is the one place in this system where that is deliberate rather than an
+  oversight.
+- **Sub** `--type-sub` (16px, 600): the merchant name in a row. It is also the wordmark in the app
+  bar, at 800 and -0.02em with the `dd` pair a further -0.09em. The wordmark tracks IN, and it did
+  the opposite until 2026-08-12. The old rule read "it tracks OUT, not in: it is the only word on a
+  screen that is a name rather than a sentence", and it was right for a product with **no mark in
+  it**, where the word carried the identity alone and needed air to be read at 16px. A mark now
+  stands beside it, so the word stopped being the thing being recognised and became half of it, and
+  a mark is set as one shape. The premise moved; the value followed. See The brand, below.
+- **Body** `--type-body` (14px): the primary reading line, and the widest-read step in the system -
+  38 of the 76 component files ask for it.
+- **Meta** `--type-meta` (12px): the amount's date, the source line, the group head, the tab bar's
+  label. Usually muted, and 22 component files read it.
+- **Label** `--type-label` (10px, 600, line-height 1.6): chips. Not uppercased and not tracked out
+  on a row, because a shouting label on a calm row is the same defect as a red one.
 
 ### Named Rules
 **The One Number Rule.** Exactly one object on a screen is set in Display, and it is the number
@@ -668,9 +691,11 @@ object in clay. Both are 12px radius, both are flat, and neither carries an icon
 the alert.
 
 ### Navigation
-The tab bar is five destinations with an icon over an 11px label (four until D-Tab, 2026-08-18). The current tab is petrol and
-weight 700, and on the desktop rail it also takes a 3px petrol left border and a paper fill. A
-quiet dot may sit on Alerts; there is never a count.
+The tab bar is five destinations with an icon over a 12px label, `--type-meta` (four until D-Tab,
+2026-08-18). The current tab is petrol and weight **600**, and on the desktop rail it also takes a
+3px petrol left border and a paper fill. A quiet dot may sit on Alerts; there is never a count.
+**The label read 11px here and the weight read 700 until 2026-08-20**, against `tab-bar.css:109`
+and `:131`; the other two claims in this paragraph were checked at the same time and both hold.
 
 ### Trust Line (signature)
 A 12px muted line with a 15px petrol shield masked in front of it, sitting directly under the
