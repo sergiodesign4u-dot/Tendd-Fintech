@@ -401,7 +401,7 @@ one nobody asks until after they have built the screen: **what may I not do with
 
 **These are not anti-rules and they do not belong on a component page.** An anti-rule is a
 SUBSTITUTION: "not a chip here, a label". There is something else to take, so it lives beside the
-component you should not have taken. The eighteen rules below are two other kinds, and neither can
+component you should not have taken. The nineteen rules below are two other kinds, and neither can
 be written as a substitution, because no other component is the answer:
 
 - **composition** is how many, and next to what. "No more than one filled action per zone." The
@@ -444,6 +444,7 @@ four possible sources and one is enough:
 | **U16** | **`[hidden]` is a fact about an element, and a component may not out-declare it.** The browser hides a hidden element at 0-1-0 from its own stylesheet, so any component that declares `display` beats it and the attribute silently does nothing. Two in this system do it on elements a screen legitimately hides: `.metarow` is `display: flex` and `.muted` is `display: block`, both 0-2-0. The answer is ONE rule at the end of `index.css`, `.app [hidden], .landing [hidden] { display: none }`, which wins on source order and touches nothing else. Never `!important`, never a compound-selector trick, and never a runtime inline style where the markup has to be right with no script | context | **built 2026-08-19**, when History and trends gained three range views that are hidden in the AUTHORED markup so that with no script the screen is the three-month view and not all three stacked + the census of the 70 component files: exactly two declare `display` on an element a screen hides + the precedent it corrects, `behaviour.js` on `.tile` at stage 08, which worked around the same trap with a runtime style because that filter only exists when a script runs | index.css, meta-row, muted-line | is the element hidden in the markup? then check its component does not declare `display`. If it does, the fix is the last line of `index.css` and not a class |
 | **U17** | **A screen-level `order` belongs to the layout that needs it, never to every screen.** The four desktop orders - head 1, action row 2, groups 3, trust 4 - are scoped `.app > .screen:has(> .groups)`, because they exist to lift the two secondaries above a list running in balanced columns and nowhere else. Unscoped, one `order: 1` sends the ONLY ordered block to the foot of any screen that has it and nothing else, since every unordered sibling keeps the default 0 | composition | **founder, 2026-08-19**, when History and trends took Home's head and landed the whole head at the bottom of the screen + the bug that was already live and that nobody had caught: measured on `home-empty` at 1440, `.empty` at y=72 and `.head` at y=290, the empty state printed above the summary from the day the ordering was written. Every instrument in this folder checks widths; this is an order | app-shell, dashboard-head, groups-column-set, trust-block | is the screen's DOM order wrong at desktop? then order the WHOLE set and guard it on the block that makes the layout, never on the one block you are moving |
 | **U18** | **A tab destination carries the account link and never a back control; a screen below one carries the back control and never the account link.** The five destinations are Home, Trends, Alerts, Save and You. A back control on a destination offers to leave a place the person did not arrive at from anywhere in particular, and the way out of a destination is the tab bar it already has | context | **founder, 2026-08-19**: "мне не нравится что у нас в трендс есть кнопка назад когда это стало отдельным пунктом" + the counter over both corpora: **16 destination pages, 12 pages below one, 0 wrong in either direction** once History and trends was fixed. It had been the only destination with a back control since 2026-08-18, when Trends became a tab and the bar it was given as a DETAIL screen was never looked at again | app-bar, tab-bar | is the screen one of the five destinations? then the account link and no back. Is it below one? then the back control and no account link |
+| **U19** | **The plan chip is a child of the account link, and it appears wherever that link does.** A plan is a fact about the ACCOUNT, so it belongs to the control that opens the account: it lands on Settings, where a plan can be read and changed, and never on the upgrade screen, which is what keeps it a statement rather than a sell. Where there is no account link - the four Upgrade screens - it stays a sibling of the lockup and takes the `margin-left: auto` chip.css gives it | composition + context | **founder, 2026-08-19**: "Free должно быть везде а не только в трендс", overruling the narrower answer shipped an hour earlier + the counter over both corpora: **15 pages carry the account link and all 15 carry the chip inside it; 4 carry it as a sibling; 0 carry it beside the greeting.** The narrower answer and its argument are kept in `docs/decisions.md`, because a rejected reason that turns out to be overruled is worth more than a rule with no history | app-bar, chip | is there an account link? then the chip is inside it. Is there none? then it is a sibling of the lockup |
 
 **The exceptions are named, not implied.** A rule with an unwritten exception is a rule people
 learn to ignore.
@@ -464,18 +465,19 @@ learn to ignore.
   the rule until it fits.
 
 **The idle control, which is the same one every declared list in this folder carries.** A rule
-that forbids something the product never does anyway is not a safe rule, it is a dead row. Twelve of
-the eighteen are counted on screens that exist: U1 on 17 screens, U2 on 54 pages, U3 on 17 screens,
+that forbids something the product never does anyway is not a safe rule, it is a dead row. Thirteen
+of the nineteen are counted on screens that exist: U1 on 17 screens, U2 on 54 pages, U3 on 17 screens,
 U4 and U5 on 12 screens each, U6 on 16 status blocks, U8 on 5, U9 on 5, U10 on 3, U15 on 54, U17 on
 the 5 screens that carry a `.head` without a `.groups` or the other way round, U18 on 28 pages,
-16 destinations and 12 below one.
+16 destinations and 12 below one, U19 on 19 pages.
 Six are carried on a decision or on a census of FILES rather than on a count of screens, and every
 one says so in its source column: U7 (two pages), U11 (one page), U16 (two component files of 70),
 and the three motion rules U12, U13 and U14, which stand on the stage 11 census and on a founder's
 verdict. **(Nine of eleven until 2026-08-16, when the motion stage added three rules and did not
 come back to this paragraph; eleven until 2026-08-19 morning, fifteen until that evening, and
 seventeen when the founder's rebuild of History and trends added U16 and U17; U18 the same night,
-when they took the back control off it.)** **What was deliberately NOT made into a rule**:
+when they took the back control off it, and U19 the morning after, when they overruled the answer
+that had kept the plan badge on one screen.)** **What was deliberately NOT made into a rule**:
 `.summary`, `.hero` and `.empty` also never appear twice on a screen, and every one of them stands
 on one or two screens in the whole product. (`.head` and `.chart` were on that list until
 2026-08-19, when History and trends took both and the sentence stopped being true of them.) A counter that has seen one screen has not found a rule, it has

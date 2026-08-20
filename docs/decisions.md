@@ -73,6 +73,44 @@ JavaScript, because copy has an owner.
 
 ---
 
+## 2026-08-19 - The plan goes everywhere, and the argument against it was mine
+
+An hour after the badge moved into the account link on History and trends, the
+founder looked at the rail and said: **"Free должно быть везде, а не только в
+трендс"**.
+
+**THE ARGUMENT I HAD WRITTEN AGAINST IT IS KEPT, unedited, in the entry above**,
+because a rejected reason that turns out to be overruled is worth more than a
+rule with no history. It was: a grey **Free** chip on every screen of a product
+built to lower money anxiety is a permanent quiet reminder of the tier you are
+not on, and the plan changes what is on the screen in exactly one place. The
+founder weighed it and decided otherwise, and the ground they decided on is
+better than the one I was defending: **the greeting already says who you are, and
+the plan is part of who you are.** A person who does not know which plan they are
+on is a person who cannot reason about what they are seeing, and hiding it until
+they go looking is the opposite of Trust through transparency.
+
+**WHAT KEEPS IT A STATEMENT RATHER THAN A SELL**, which is the line D3 actually
+draws: the chip carries no offer, no arrow and no wording of its own, and the link
+it sits in goes to **Settings**, where a plan can be read and changed. It never
+goes to the upgrade screen. A badge that took a person to a paywall from every
+screen in the product would be the thing D3 forbids; a badge that takes them to
+their own account is the account link doing its job with one more fact in it.
+
+**Counted after, over both corpora: 15 pages carry the account link and all 15
+carry the chip inside it; 4 more carry it as a sibling of the lockup, on the
+Upgrade screens, which greet nobody.** That is U19. The chip atom went from 20
+pages to 26 and was recounted, and so was the bar's plan slot, 9 to 19.
+
+**One thing this makes visible and did not before.** The canonical person is on
+Free everywhere in the sample, so Home, Alerts, Save, You and the Pro gate all
+read **Free**, while `history-trends.html` reads **Pro**: that page is the second
+plan's view of node 5.12 and the chip is now what tells the two apart at a glance.
+Walking the product from Home never crosses the two, because Home's Trends tab
+goes to the gate.
+
+---
+
 ## 2026-08-19 - A tab destination does not get a back button, and a plan is not a screen label
 
 The founder, last of the evening: **"мне не нравится что у нас в трендс есть
