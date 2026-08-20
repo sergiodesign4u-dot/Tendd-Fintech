@@ -84,7 +84,12 @@
    footer is where a thumb goes hunting. */
 .landing .lp-footer .fcol { display: flex; flex-direction: column; }
 
-.landing .lp-footer .fcol h4 {
+/* :where() AND NOT h4, 2026-08-20. The footer columns were h4 under a page whose
+   last heading is an h2, which is a level skipped, so they became h3. Binding the
+   look to the LEVEL is what broke `group-head.css` twice, and this file was one
+   heading away from the same defect: matched at any level it cannot break again,
+   and `:where()` contributes no specificity so the rule keeps the weight it had. */
+.landing .lp-footer .fcol :where(h1,h2,h3,h4) {
   margin: var(--space-0) var(--space-0) var(--space-8);
   font-size: var(--type-meta);
   font-weight: 700;

@@ -7,6 +7,72 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-20 - The oldest row in the backlog closed, and it closed by being re-asked
+
+Founder: **"давай чинить дыры какие есть и что и как мы будем решать?"** The
+biggest hole is the one the backlog itself names: "the largest piece of real WORK
+left in this file, and the one row here a builder can simply do" - eleven ARIA and
+form-semantics findings, carried through four stages since stage 07.
+
+**IT WAS NOT RECOUNTED, IT WAS RE-ASKED, AND THAT IS THE WHOLE METHOD.** The
+eleven were measured on **28 coloured pages**. The product is **55**. A list of
+defects measured on half a product is not a list of that product's defects, and
+patching the number without re-running the sweep would have been worse than
+leaving it. So `design/kit/screens/aria13.cjs` puts six questions to all 110 pages
+instead: a fieldset with no name, an `aria-label` on an element ARIA discards it
+on, a wait that does not declare `aria-busy`, a form control with no accessible
+name, a link or button with no accessible name, a heading level skipped.
+
+**18 FINDINGS IN 18 PAGES, 9 PER CORPUS, AND TWO OF THE SIX QUESTIONS CAME BACK
+CLEAN ON THE FIRST RUN.** Zero form controls without an accessible name and zero
+links or buttons without one, across 110 pages. That is worth as much as the
+findings: it is the half of the accessibility question this product had already
+got right and nobody had ever been able to say so.
+
+**THE FOUR THAT WERE THERE, AND HOW EACH WAS ANSWERED.**
+
+- **6 fieldsets with no name**, the three states of Add a subscription in both
+  corpora. Named with `aria-label` rather than a `legend`, and the choice is not a
+  shortcut: a `fieldset` maps to role `group`, which DOES take a name from the
+  author, so nothing is discarded - while a `legend` is a VISIBLE heading, on the
+  screen whose own comment says every extra thing here is a reason to close the
+  tab. The string is in `microcopy.md`, because an accessible name is an interface
+  string and has one owner like every other.
+- **8 `p.total` carrying an `aria-label` ARIA throws away.** `paragraph` takes no
+  name from the author. The attribute read like a fix and did nothing, which is
+  worse than its absence, because it stopped anybody looking again. It came off
+  rather than moving somewhere it would work: the sentence above the figure and
+  the one under it already say what it is, which is the same reading a sighted
+  person gets.
+- **2 waits not declaring `aria-busy`** - `home-loading`, the twelfth finding,
+  logged on 2026-08-19 and fixed here. Seven of the eight waits declared it.
+- **2 heading levels skipped**: the landing footer's columns were `h4` under a page
+  whose last heading is an `h2`. They became `h3`, and `site-footer.css` stopped
+  binding the look to the LEVEL. That last part is the real repair: binding a look
+  to a heading level is what broke `group-head.css` twice, and this file was one
+  heading away from the same defect. It matches `:where(h1,h2,h3,h4)` now, the
+  answer this system already settled.
+
+**ALL SIX QUESTIONS NOW ANSWER 0**, and the instrument stays so the next person
+can disagree with that. rollout12 none, width12 none over 55 by 58, quality13 at
+its 24 baseline, pages13 0 of 128. Measured after: the footer headings render 12px
+uppercase in both corpora, exactly as before.
+
+**AND THE FIRST VERSION OF CHECK A WAS WRONG IN THE INSTRUCTIVE DIRECTION.** It
+asked for a `legend` rather than for a NAME, so it went on reporting six findings
+after all six had been answered. The defect is a group nobody can hear the name
+of, not a missing tag. Narrowed the same way `plans13.cjs` was narrowed yesterday,
+and for the same reason: a check that tests one shape of the answer has made a
+rule out of that shape.
+
+**WHAT IS LEFT, COUNTED.** 31 rows in `backlog.md` still say open. **19 are
+decisions addressed to the founder**, not work; 3 are marked ready to execute and
+decided (the two `DESIGN.md` drifts and the Voice strings); 3 are copy owned by
+Voice; 3 are recorded rather than repairable and say so; and 3 are product rounds
+of their own, the largest being that **the empty states of the product are not
+designed as a set**, which is the founder's own row from 2026-08-18 and needs IA
+and Voice with them.
+
 ## 2026-08-20 - One product and not two, and my count of it was wrong by six screens
 
 Founder, choosing between building Pro twins of Home, Alerts and Settings and

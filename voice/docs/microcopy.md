@@ -597,6 +597,7 @@ the only literal the public page carries that nothing else owns.
 | add-subscription | appbar | ‹ Back | link |
 | add-subscription | appbar | Step 2 of 3 | status |
 | add-subscription | title | Add a subscription | heading |
+| add-subscription | form-group | Details of this subscription | accessible name |
 | add-subscription | title | Pick from 400+ services, or add your own. Nothing leaves your control. | body |
 | add-subscription | field | Find a service | field-label |
 | add-subscription | field | Search 400+ services | hint |
