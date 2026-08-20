@@ -7,6 +7,49 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-20 - The backlog got a page where it can be answered, and one of its rows was already closed
+
+Founder: **"давай"**, on building the decision sheet. It is
+`design/kit/open-decisions.html`, a row in the kit registry beside The proof and in
+the same group, because it is the same kind of thing: not material a screen is
+built out of, but evidence about what was built - here about what has NOT been
+decided.
+
+**TWENTY-FOUR, AND THE NUMBER I GAVE THE DAY BEFORE WAS NINETEEN.** Extracted
+again rather than remembered: **21 rows in `backlog.md` name the founder as owner**,
+plus the 3 business questions the plan census raised. The nineteen came from
+reading a summary of the file instead of the file.
+
+**GROUPED BY WHAT AN ANSWER COSTS, NOT BY WHERE THE ROW WAS FOUND.** Values and
+tokens (6), names and levels (5), look and behaviour (5), layout axes (3), two
+product rounds, three business questions. The first two groups move no pixel at
+all, and that is the point of the ordering: a founder can clear eleven rows in one
+sitting without anything changing on a screen, and what is left is the part that
+genuinely needs looking at a screen.
+
+**SEVEN OF THE TWENTY-FOUR ARE RECOMMENDED "CLOSE IT", AND THAT IS NOT A
+FORMALITY.** In each the measurement already answers the question and what is
+missing is somebody writing the answer down so the next audit does not raise it as
+new. Two rows on the page were raised twice already by two different instruments.
+
+**AND ONE ROW WAS ANSWERED IN THE CODE FOUR DAYS AGO AND NOBODY CLOSED IT.** "A
+size modifier is owed to `.muted`" has been open since the molecule round.
+`muted-line.css:284` declares `.muted.fine` at `--type-meta` and has done since
+2026-08-16; it is worn on two pages. What is actually left is much smaller than
+the row says: `.consequence` and `.freshness` grew 2px in the fold and never got
+the quieter step back, which is two classes in the markup rather than a system
+question. Found by opening the file the row is about, which is the whole argument
+for re-reading a row before answering it.
+
+**THE RECOMMENDATIONS ARE ARGUED FROM MEASUREMENTS AND THEY LEAN ONE WAY.** Four of
+the six value rows recommend NOT creating a token, because four of them have one
+wearer and the system's own rule is that a second level is earned where two roles
+would otherwise spell the same value. The one that recommends creating two is the
+z-index pair, on the ground that 5 and 6 are not two values but one relationship -
+where the two chromes meet, the bottom one wins - and `app-bar.css` already spends
+a paragraph explaining it. **A comment explaining a relationship is a token waiting
+to be declared**, and that is the sentence the whole group turns on.
+
 ## 2026-08-20 - The design document stopped being prose about numbers
 
 Founder: **"гоу делать"**, on the four rows marked ready to execute. All four are

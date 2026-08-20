@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open decisions - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="overview.html">&larr; The whole system</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<div class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Open decisions</h1>
+    <p class="lead">Twenty-four questions that are the founder's rather than a builder's, gathered out of <code class="kit-code">design/kit/docs/backlog.md</code> and the plan census, each with what has been measured under it, the options as they honestly stand, and a recommendation. Nothing here is a bug: every row is a place where two answers are both defensible and somebody has to choose. The backlog stays the source; this page is where it is readable in one sitting.</p>
+    <div class="kit-meta">
+      <span>Decisions</span><span><strong>24</strong> open</span><span><strong>21</strong> from the backlog</span><span><strong>3</strong> business</span><span><strong>6</strong> groups</span><span>each with a recommendation</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="how">
+    <h2>How to read it</h2>
+    <p class="note"><b>Answer a group at a time, not a row at a time.</b> The six groups are sorted by what an answer costs rather than by where the row was found: the first two move no pixel at all, the third moves a few, and the last two are rounds of work. A group can be answered with one word if the recommendations hold, and a row that needs its own conversation is better spotted against the five beside it than alone in a 443-line file.</p>
+    <p class="note"><b>Where a recommendation says "close it", the work is a paragraph rather than a change.</b> Seven of the twenty-four end that way: the measurement already answers the question and what is missing is somebody saying so out loud, in writing, so the next audit does not raise it again as new. That is not a formality here - two rows on this page were raised twice already by two different instruments, and one of them, the <code class="kit-code">.muted</code> size, was ANSWERED IN THE CODE on 2026-08-16 and nobody closed the row.</p>
+    <p class="note"><b>Every number on this page was re-measured on 2026-08-20 or names the corpus it was measured on.</b> One row says so explicitly and it matters: the icon set's 22 and 106 per cent were counted over FOUR icons and there are five. That row's recommendation is therefore to re-measure before deciding, which is the only recommendation on this page that asks for work before an answer.</p>
+  </section>
+
+  <section class="kit-sec" id="values">
+    <h2>Values and tokens</h2>
+    <p class="note">Six rows, and five of them ask the same question in different clothes: does this number earn a name? The system has two levels and the rule is that a second level is earned where two roles would otherwise spell the same value. Four of these have ONE wearer, which is why the recommendation is mostly no.</p>
+    <div class="kit-tab">
+    <table>
+      <thead><tr><th>The question</th><th>What is measured</th><th>The options</th><th>Recommended</th></tr></thead>
+      <tbody>
+        <tr><td><b>A size primitive for the 26px step marker</b></td><td>One wearer. <code class="kit-code">numbered-steps.css:93</code>, 26 by 26, on 3 coloured screens and 3 grey. <code class="kit-code">--tap</code> is 44 and <code class="kit-code">--row</code> is 56, and it is neither</td><td>Create a size scale, or keep the literal with its reason at the line</td><td><b>Keep the literal. A primitive one file reads is a token nobody else can be wrong about, and the reason is already written where the value is</b></td></tr>
+        <tr><td><b><code class="kit-code">--tap-rail</code> for two min-height literals</b></td><td>Two wearers with TWO DIFFERENT values: <code class="kit-code">tab-bar.css:219</code> at 48px and <code class="kit-code">alert-item.css:110</code> at 40px</td><td>One token, two tokens, or neither</td><td><b>Neither, and correct the row's premise: 48 is the rail's anchor floor and 40 is an alert's row. Two values for two jobs is not a debt, it is two decisions</b></td></tr>
+        <tr><td><b>A z-index scale</b></td><td>Three live declarations in the whole system: 1 on the money field's prefix, 5 on the app bar, 6 on the tab bar</td><td>Two tokens for the chrome pair, a full scale, or three literals</td><td><b>Two tokens, <code class="kit-code">--z-appbar</code> and <code class="kit-code">--z-tabbar</code>. The 5 and the 6 are not two values, they are one RELATIONSHIP - where the two meet, the bottom chrome wins - and app-bar.css already spends a paragraph explaining it. A comment explaining a relationship is a token waiting to be declared. The 1 is local and stays</b></td></tr>
+        <tr><td><b>Is a token's origin owed per NAME or per RUN?</b></td><td>Four counts of the same thing and they are four different questions: 0, 22, 31, 96. <code class="kit-code">tokens.css</code> declares 175 lines for 137 names and carries 38 comments saying "origin:"</td><td>Per name, which means about 137 end-of-line comments, or per run, which is what the file already does</td><td><b>Per run, and amend the wording in <code class="kit-code">CLAUDE.md</code> to say so. The rule as written asks for something the file deliberately does not do and does not do for a good reason: a block comment governing a run of related values reads better than 137 fragments</b></td></tr>
+        <tr><td><b>"Role surface": an ink role painted through <code class="kit-code">background-color</code></b></td><td>Exactly two: <code class="kit-code">brand-mark.css:110</code> and <code class="kit-code">trust-block.css:176</code>, both <code class="kit-code">background-color: var(--text-action)</code></td><td>A defect, so two more roles are owed; or a false positive, because that is how a CSS mask draws a glyph</td><td><b>False positive, close the row with the reading written down. Both are the paint behind <code class="kit-code">mask-image</code>, and <code class="kit-code">brand-mark.css</code> already measures the mark as INK at 4.5:1 rather than as a surface at 3:1, which is the same call taken once already</b></td></tr>
+        <tr><td><b>The <code class="kit-code">.switch</code> checkbox is 20px against WCAG 2.5.8's 24px</b></td><td>The wrapping label is the pointer target at 44px or more, and since stage 09 the focus ring lands on the label too</td><td>Resize the control, or record the reading and close</td><td><b>Close it. WCAG measures the TARGET and the target is the label. Resizing a control that is not the target to satisfy a rule about targets is a change that helps nobody</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+  <section class="kit-sec" id="names">
+    <h2>Names, levels and where a rule lives</h2>
+    <p class="note">Five rows about the map rather than about pixels. None of them moves a pixel; all of them decide where the next person looks.</p>
+    <div class="kit-tab">
+    <table>
+      <thead><tr><th>The question</th><th>What is measured</th><th>The options</th><th>Recommended</th></tr></thead>
+      <tbody>
+        <tr><td><b>Does <code class="kit-code">.cut</code> merge into <code class="kit-code">.btn</code>?</b></td><td>Identical on 17 properties after the fold: min-height 44, padding 0 16px, font-size 14px. It differs in font-weight, 400 against 600, and in a hover that moves edge and ink but not fill. 2 controls</td><td>Merge with a declared modifier, or keep it as its own family with the difference written down</td><td><b>Merge. Declare <code class="kit-code">.btn.quiet</code> and delete <code class="kit-code">.cut</code>: a weight is a variant, and two controls that agree on seventeen properties are one control</b></td></tr>
+        <tr><td><b>Is <code class="kit-code">.cand</code> a molecule or an organism?</b></td><td>It hosts a molecule, which the ladder calls an organism. <code class="kit-code">inventory.md:146</code> files it as a molecule</td><td>Move it, or write down why the ladder bends here</td><td><b>Move it. The only cost is the <code class="kit-code">@import</code> order in <code class="kit-code">index.css</code>, which is mechanical, and a ladder with one silent exception stops being a ladder</b></td></tr>
+        <tr><td><b>The sixth host placement of the Chip lives in another file</b></td><td>Five are in <code class="kit-code">chip.css</code>; the sixth is <code class="kit-code">plan-option.css:106</code>, which takes the chip out of the flow into the card's corner</td><td>Move the sixth to chip.css, or move the five to their hosts</td><td><b>Move the sixth. One atom, one file: the card's rule states where a chip SITS, and so do the other five</b></td></tr>
+        <tr><td><b>Where does the <code class="kit-code">.divlist</code> bottom margin belong?</b></td><td><code class="kit-code">divided-list.css:99</code> keys it to the shell's column, <code class="kit-code">.app .rows-col &gt; .divlist</code></td><td>A <code class="kit-code">.spaced</code> modifier, which collides with <code class="kit-code">muted-line.css</code>'s meaning of the same word; or a rule in <code class="kit-code">app-shell.css</code></td><td><b><code class="kit-code">app-shell.css</code>, which is exactly what <code class="kit-code">action-row.css</code> already did with its own 24px. One word meaning two things in one system is the worse of the two</b></td></tr>
+        <tr><td><b>Should 48 component files each carry the <code class="kit-code">.landing</code> scope?</b></td><td>48 of 57 name it. Since <code class="kit-code">design/index.html</code> exists, every one of those rules is live in BOTH corpora rather than in the grey only</td><td>Keep the doubled selector, or scope once on an ancestor</td><td><b>Keep it, and close the row. The premise it was written on is gone, and the doubled selector is what lets a component be lifted into either host without knowing which one it landed in</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+  <section class="kit-sec" id="look">
+    <h2>Look and behaviour</h2>
+    <p class="note">Five taste calls. Each one has a measurement under it, and none of them is a bug.</p>
+    <div class="kit-tab">
+    <table>
+      <thead><tr><th>The question</th><th>What is measured</th><th>The options</th><th>Recommended</th></tr></thead>
+      <tbody>
+        <tr><td><b>Should a card that cannot be clicked answer the pointer?</b></td><td><code class="kit-code">.plan-opt</code> is a div holding a button: no focus, no role, no press. Its edge goes rgb(228,233,234) to rgb(205,215,217) under the pointer, measured at 1280</td><td>Keep the hover, or drop it and leave the state to the button inside</td><td><b>Drop it. A hover promises a click, the card does not deliver one, and this product's whole argument is that it does not mislead. The button keeps its own state</b></td></tr>
+        <tr><td><b>The icon set is optically unbalanced</b></td><td>22 per cent between painted boxes and 106 per cent in INK, <code class="kit-code">.ic-save</code> against <code class="kit-code">.ic-you</code>. <b>Measured on FOUR icons and the set is now five</b></td><td>Redraw, leave it, or re-measure first</td><td><b>Re-measure over five before deciding, and I can do that without a decision. The figures name a corpus that no longer exists, and a redraw chosen off a stale number is a redraw done twice</b></td></tr>
+        <tr><td><b>The Trial chip has a rule and no wearer in colour</b></td><td><code class="kit-code">chip.css:135</code> declares <code class="kit-code">.chip.trial</code> on two roles. The one place that says Trial, the Peloton row on Home, renders the quiet tone because its markup is <code class="kit-code">class="chip"</code></td><td>Put <code class="kit-code">.chip.trial</code> in the markup, or delete the rule and both roles</td><td><b>Delete them. D-Concept says a status is a quiet grey badge, and a trial is a status. <code class="kit-code">.tone-attention</code> went this way already</b></td></tr>
+        <tr><td><b>"Sign out" wears the nav row with no modifier</b></td><td><code class="kit-code">settings.html</code>, one <code class="kit-code">a.navrow</code> with the same chevron every other row carries</td><td>A quiet variant, or a deliberate sameness with the reason written down</td><td><b>A variant, without the chevron. A chevron means "deeper" - it opens things twice on that same screen - and the one row that LEAVES should not draw the mark that means going further in. Same argument that replaced the back chevron with an arrow on 2026-08-17</b></td></tr>
+        <tr><td><b>"Try again" stands in three weights on four error screens</b></td><td><code class="kit-code">.btn primary</code> on two, plain <code class="kit-code">.btn</code> on one, a bare link inside a wash on <code class="kit-code">home-error</code></td><td>Uniform primary, uniform plain, or a rule keyed to whether the screen still shows content</td><td><b>Uniform plain <code class="kit-code">.btn</code>, and never a bare link. The filled tier in this product belongs to the action that moves a person forward, not to recovering from our own failure - and three weights with no rule under them is how the fourth screen gets a fourth</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+  <section class="kit-sec" id="layout">
+    <h2>Layout axes</h2>
+    <p class="note">Three, and each one needs a value or a string rather than a rewrite.</p>
+    <div class="kit-tab">
+    <table>
+      <thead><tr><th>The question</th><th>What is measured</th><th>The options</th><th>Recommended</th></tr></thead>
+      <tbody>
+        <tr><td><b>Does <code class="kit-code">.plans</code> fold into <code class="kit-code">.grid</code>?</b></td><td>They stopped being the same rule on 2026-08-18: 3 fixed columns against auto-fill, a 57rem cap against none, a 16px gap against 8, and tracks of 293.33 against 201.328 at a 1440 window</td><td>Fold with a modifier nobody has declared, or keep it as its own component</td><td><b>Keep it, and write its axis down. Two rules that agree on one number are a folding candidate; two rules with different counts, caps and widths are two rules</b></td></tr>
+        <tr><td><b>Does <code class="kit-code">.muted</code> owe a quieter size?</b></td><td><b>Mostly answered already and nobody closed the row.</b> <code class="kit-code">.muted.fine</code> was declared on 2026-08-16 at <code class="kit-code">--type-meta</code> and is worn on 2 pages. What is left is narrower: <code class="kit-code">.consequence</code> and <code class="kit-code">.freshness</code> grew 2px in the fold and never got it back</td><td>Put <code class="kit-code">.fine</code> on those two, or accept that they read at the base size now</td><td><b>Put <code class="kit-code">.fine</code> on them. The modifier exists, the markup is two classes, and the row shrinks from a system question to an edit</b></td></tr>
+        <tr><td><b>The plan button label wraps below a 913px window</b></td><td>Measured at 913. <code class="kit-code">button.css</code> lets it wrap rather than overflow, deliberately, since the 24px-root fix of 2026-08-13</td><td>A shorter string, or the plan row stacks inside the band</td><td><b>A shorter string, and it is Voice's: "Start Pro - $69 a year". Cheaper than a layout change and it fixes the same reading on a phone</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+  <section class="kit-sec" id="rounds">
+    <h2>Two product rounds</h2>
+    <p class="note">Not decisions in one line: each needs a node, a grey page and a coloured twin. Listed here so they are chosen rather than drifted into.</p>
+    <div class="kit-tab">
+    <table>
+      <thead><tr><th>The question</th><th>What is measured</th><th>The options</th><th>Recommended</th></tr></thead>
+      <tbody>
+        <tr><td><b>Does <code class="kit-code">path-choice</code> owe a way across to Sign in?</b></td><td>The landing offers both doors twice, and <code class="kit-code">sign-in</code> leads back with "No account yet? Start here". <code class="kit-code">path-choice</code> leads back to neither: the browser's back button and nothing on the screen</td><td>One quiet line under the two doors, which is a new product string; or nothing, because the fork is one tap from the landing</td><td><b>Add the line. This is the audience that does not recover from a dead end, and a person who tapped the wrong door is exactly the person the product was built to keep</b></td></tr>
+        <tr><td><b>The empty states are not designed as a set</b></td><td>Founder, 2026-08-18. Node 5.12 names five states and none of them is "one subscription" or "no subscriptions at all", and it is not only that screen</td><td>Scope it screen by screen, or run one pass over the whole product</td><td><b>One pass, and start with an inventory rather than a design: every screen's zero, one and few. I can produce that inventory without a decision, and then the set is chosen from a list instead of from memory</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+  <section class="kit-sec" id="business">
+    <h2>Three business questions</h2>
+    <p class="note">Raised on 2026-08-20 by the plan census. Each is a place where a screen will have to say something it does not say today, and none of them is a design call.</p>
+    <div class="kit-tab">
+    <table>
+      <thead><tr><th>The question</th><th>What is measured</th><th>The options</th><th>Recommended</th></tr></thead>
+      <tbody>
+        <tr><td><b>Pro sells four things and <code class="kit-code">CLAUDE.md</code> promises six</b></td><td>Every screen that lists Pro lists history and trends, advanced alerts, full cancel guides, export. The Product section adds <b>household view</b> and <b>priority support</b>, which appear in no screen, no node and neither corpus</td><td>They are in Pro at launch, so four screens are short; or they are not, so the binding file is</td><td><b>Cut them from <code class="kit-code">CLAUDE.md</code> for the MVP. Household view is a second product inside this one and priority support is an operations promise before there are operations. Both can come back as a named decision</b></td></tr>
+        <tr><td><b><code class="kit-code">upgrade.html</code> sells a Lifetime tier D4 does not know about</b></td><td>Marked "not on sale yet, we are still working out the price"</td><td>Price it and add it to D4, or take the card off the screen until it exists</td><td><b>Keep the card. An honest "not yet" is on-voice and it tells a person the door exists; a price invented to fill it is the one thing that would not be</b></td></tr>
+        <tr><td><b>There is no trial and no failed renewal</b></td><td><code class="kit-code">upgrade-payment-failed</code> covers a failed FIRST payment. Nothing covers a renewal that fails on an account already on Pro, and nothing anywhere offers a trial</td><td>Add a trial, add the lapse screen, both, or neither for the MVP</td><td><b>The lapse screen, not the trial. This is the anxious case for this audience - the depth they have been reading disappears and nobody told them why - and D4 already prices the plan without a trial</b></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+  <footer class="kit-foot">
+    The source is <code>design/kit/docs/backlog.md</code> and it stays the source: this page carries no row the backlog does not have, and a row answered here is closed there with the answer and the date. The three business questions have no backlog row yet, because they were raised by <code>design/kit/screens/plans13.cjs</code> on the day this page was written and belong to the product rather than to the system. What this page cannot do is decide anything: every recommendation on it is one reading, argued from a measurement, and the measurement is the part that has to survive disagreement.
+  </footer>
+</div>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script>
+  window.NAV_SECTIONS = [
+    { id:'how',      label:'How to read it' },
+    { id:'values',   label:'Values and tokens' },
+    { id:'names',    label:'Names, levels and where a rule lives' },
+    { id:'look',     label:'Look and behaviour' },
+    { id:'layout',   label:'Layout axes' },
+    { id:'rounds',   label:'Two product rounds' },
+    { id:'business', label:'Three business questions' },
+  ];
+</script>
+<script src="../../_nav.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -192,7 +192,14 @@ window.KIT_NAV = {
      is evidence ABOUT what was built, and filing it beside Colour would say the
      system contains its own audit. Step 9, 2026-08-12. */
   verification: [
-    { name: 'The proof', file: 'pixel-proof.html', page: 'pixel-proof.html', note: 'the pixel comparison, the critique by class with who found it, and the three numbers still open' }
+    { name: 'The proof', file: 'pixel-proof.html', page: 'pixel-proof.html', note: 'the pixel comparison, the critique by class with who found it, and the three numbers still open' },
+    /* THE SECOND ROW OF THIS GROUP, 2026-08-20, and it belongs here for the same
+       reason as the first: it is not a thing a screen is built out of, it is
+       evidence about what was built - in this case about what has NOT been decided.
+       Founder: "давай". The backlog stays the source; this is where its 21 founder
+       rows plus the 3 business questions are readable in one sitting, each with a
+       recommendation. */
+    { name: 'Open decisions', file: 'open-decisions.html', page: 'open-decisions.html', note: 'the 24 questions that are the founder\'s, each with what is measured, the options and a recommendation' }
   ]
 };
 
