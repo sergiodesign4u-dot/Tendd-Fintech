@@ -211,6 +211,20 @@
    from the name it belongs to, inside a control 120px wide. The gap between them is
    the link's own, declared in app-bar.css. */
 .app .appbar .acct .chip, .landing .appbar .acct .chip { margin-left: var(--space-0); }
+
+/* AND IT COMES BACK IN THE RAIL, 2026-08-20, on the founder's decision. Past a
+   760px container the bar is a column and the account link is stretched to the
+   rail's width by app-bar.css, so `auto` no longer pushes the chip away from the
+   name inside a 120px control: it pushes it to the far side of a line whose left
+   end IS the name. Same property, opposite answer, because the two forms of this
+   bar are two different boxes - which is the reason the component is one of the
+   two objects in this product that change form rather than size.
+
+   Later in this file than the rule it overrides and at the same 0-4-0, so source
+   order decides and no `!important` is anywhere near it. */
+@container (min-width: 47.5rem) {
+  .app .appbar .acct .chip, .landing .appbar .acct .chip { margin-left: auto; }
+}
 .app p.chip, .landing p.chip { margin: var(--space-0) var(--space-0) var(--space-24); }
 .app .alert .what .chip, .landing .alert .what .chip { margin: var(--space-0) var(--space-0) var(--space-0) var(--space-4); }
 /* The card's top row, and the SLOT is what it is scoped to. `.source` folded

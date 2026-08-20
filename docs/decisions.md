@@ -7,6 +7,55 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-20 - The plan chip went to the right edge, and only one of the two bars could move
+
+Founder, one line, the morning after the chip went everywhere: **"давай Free
+поставим в правую часть"**.
+
+**ONLY THE RAIL COULD ANSWER IT, AND THAT IS THE WHOLE FINDING.** The app bar is
+one of the two objects in this product that change FORM rather than size at a
+breakpoint, and the two forms had two different answers to the same request.
+Measured before anything was touched, on `home.html`: in the ROW at 390 the account
+link is the trailing slot, so the chip already ended at 370 of a 390 screen, 4px
+inside the bar's inner edge, which is the link's own padding and the only air left.
+There was nowhere further right for it to go. In the RAIL at 1440 the bar is a
+column of shrink-to-fit items, so the link was 99px wide inside a 220px track and
+the chip sat at 115 with **105px of empty rail to its right**: a badge glued to a
+name in the middle of an empty column, which is what the founder was looking at.
+
+**THE FIX IS ONE DECLARATION IN EACH OF TWO FILES, SPLIT BY WHO OWNS WHAT.** The
+link stretches to the rail's width (`align-self: stretch`, `app-bar.css`, inside the
+760 block that already turns the bar into a column), and the chip takes back the
+`margin-left: auto` that `chip.css` gives every other chip in that bar. The push
+stays in `chip.css`, beside the `margin-left: 0` it undoes, on this project's own
+convention that a host positioning an atom is still the atom's file: one atom, one
+file, three answers, in the order the cascade reads them. `app-bar.css` supplies
+only the BOX those answers resolve against, which is the part that was ever the
+bar's.
+
+**SAME PROPERTY, OPPOSITE ANSWER, AND IT IS NOT AN INCONSISTENCY.** Yesterday
+`chip.css` took `auto` away with a reason written into it: inside a control 120px
+wide, `auto` pushes the plan away from the name it belongs to. That reason is true
+of the ROW and false of the RAIL, because in the rail the link IS the line, so
+`auto` pushes the chip to the far end of the greeting's own line rather than away
+from anything. The two rules are not a contradiction to be resolved; they are one
+component being asked the same question in two boxes, which is what "changes form
+rather than size" means when it stops being a phrase on a page.
+
+**WHAT IT COST ANYWHERE ELSE: nothing, and that was checked rather than assumed.**
+No `.app.flow` page carries an account link, in either corpus, so the stretch
+reaches no bar that stays a row past the point; the four Upgrade screens keep their
+sibling chip and their `auto` at every width. The row form did not move by a pixel
+on any of the 15 pages. Measured after, across both corpora, both themes and three
+widths: **30 page-states, the chip ending at the bar's inner right edge to within a
+pixel in every rail, and at the link's own 4px of padding in every row** - one
+distinct value each, no page disagreeing with the other fourteen.
+
+**NOT A SCREEN FILE WAS OPENED.** Two component declarations, their grey mirror,
+and the four documents that describe them. The instruments: rollout12 `VIOLATIONS:
+none` twice with 0 unknown classes, width12 `none` over 55 pages x 58 widths,
+pages13 0 of 128, quality13 back on its 24-flush-text baseline, counts 0 drift.
+
 ## 2026-08-19 - Trends stopped being a queue, and the founder chose the wide answer
 
 Four complaints in one message, on the coloured History and trends: **"растянул бы

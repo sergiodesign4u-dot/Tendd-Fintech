@@ -1193,6 +1193,13 @@ details.wfp > summary::before { content: "\2261  "; color: var(--faint); }
    away from the name it belongs to, inside a control 120px wide. */
 .app .appbar .acct { gap: 8px; }
 .app .appbar .acct .plan { margin-left: 0; }
+/* And it comes back in the rail, 2026-08-20, founder: in a column the link is
+   stretched to the rail's width, so `auto` pushes the plan to the far end of the
+   greeting's own line rather than away from the name. */
+@container (min-width: 760px) {
+  .app .appbar .acct { align-self: stretch; }
+  .app .appbar .acct .plan { margin-left: auto; }
+}
 
 /* Three ranges, not seven: every extra range is a decision asked of someone who
    came here to read. */

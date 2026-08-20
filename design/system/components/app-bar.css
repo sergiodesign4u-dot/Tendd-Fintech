@@ -509,9 +509,28 @@
   .app .appbar .lockup { order: -1; }
 
   /* Same specificity as the base rule above, 0-3-0, and later in the file, so it
-     wins by source order. Preserved in kit.css's own order for that reason. */
+     wins by source order. Preserved in kit.css's own order for that reason.
+
+     `align-self: stretch` IS THE RAIL'S ANSWER TO A ONE LINE QUESTION, 2026-08-20,
+     founder, looking at the rail: "davai Free postavim v pravuyu chast". In the ROW
+     the link is the trailing slot, so the chip inside it already ends 20px from the
+     right edge of the screen and there is nowhere further right to go. In the RAIL
+     the bar is a column of shrink-to-fit items, so the link was 99px wide inside a
+     220px rail and the chip sat at 115, with 105px of rail to its right: a badge
+     glued to a name in the middle of an empty column.
+
+     Stretched, the link is the rail's own width, and the chip takes back the
+     `margin-left: auto` chip.css gives every other chip in this bar - declared
+     there, beside the `0` it undoes, because a host positioning an atom is still
+     the atom's file. The greeting stays at the rail's left edge, the plan stands at
+     its right, and the pair reads as the two ends of one line instead of one lump.
+
+     It costs nothing anywhere else: no `.app.flow` screen carries an account link
+     (checked, 0 of 26 grey and 0 coloured), and the flow bar is the only bar that
+     stays a row past this point. */
   .app .appbar .acct {
     padding: var(--space-0);
     font-size: var(--type-meta);
+    align-self: stretch;
   }
 }
