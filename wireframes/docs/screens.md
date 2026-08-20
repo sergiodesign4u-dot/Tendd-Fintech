@@ -165,14 +165,14 @@ The base page is the success state. Every other page below is a numbered node in
 | Add Subscription (1.4) | `add-subscription.html` | 1.4.1 `add-subscription-loading` preset library loading · 1.4.2 `add-subscription-error` presets unavailable, the manual form still works · 1.4.3 `add-subscription-empty` no preset matches |
 | Guided Reveal (1.5) | `guided-reveal.html` | 1.5.1 `guided-reveal-empty` nothing to reveal yet |
 | Sign In (1.6) | `sign-in.html` | 1.6.1 `sign-in-sent` check your email, with the address stated back · 1.6.2 `sign-in-expired` that link has expired, in the reconnect register |
-| Home (2.6) | `home.html` | 2.6.1 `home-empty` both doors offered · 2.6.2 `home-loading` refreshing · 2.6.3 `home-error` sync failed, last known list stays visible and dated · 2.6.4 `home-savefocus` the Save tab |
+| Home (2.6) | `home.html` | 2.6.1 `home-empty` both doors offered · 2.6.2 `home-loading` refreshing · 2.6.3 `home-error` sync failed, last known list stays visible and dated · 2.6.4 `home-savefocus` the Save tab · **2.6.5 `home-one`** one subscription, singular and ungrouped · **2.6.6 `home-few`** a short list, ungrouped, by the next charge date |
 | Subscription Detail (2.7) | `subscription-detail.html` | **2.7.1 `subscription-detail-unrecognized`** the decoder line is all we have · **2.7.2 `subscription-detail-price-change`** old price beside new · **2.7.3 `subscription-detail-payment-failed`** and what usually happens next · 2.7.4 `subscription-detail-loading` · 2.7.5 `subscription-detail-error` could not load |
 | Alerts (3.8) | `alerts.html` | 3.8.1 `alerts-empty` nothing needs your attention · 3.8.2 `alerts-loading` · 3.8.3 `alerts-error` could not reach your alerts |
 | Cancel Guide (4.9) | `cancel-guide.html` | **4.9.1 `cancel-guide-no-guide`** the general way, plus ask us to add this one · **4.9.2 `cancel-guide-blocked`** could not cancel, not your fault |
 | Cancel Win (4.10) | `cancel-win.html` | none |
 | Share Snapshot (4.11) | `share-snapshot.html` | 4.11.1 `share-snapshot-loading` making your card · 4.11.2 `share-snapshot-error` |
 | History and Trends (5.12) | `history-trends.html` | 5.12.1 `history-trends-empty` still gathering, and it is not the lock · 5.12.2 `history-trends-loading` · **5.12.3 `history-trends-error`** · **5.12.4 `history-trends-locked`** the frame, the person's own labels, and the gate |
-| Upgrade (5.13) | `upgrade.html` | **5.13.1 `upgrade-processing`** setting up your plan · **5.13.2 `upgrade-payment-failed`** · 5.13.3 `upgrade-current-plan` the plan you are on, and the only place Pro can be cancelled |
+| Upgrade (5.13) | `upgrade.html` | **5.13.1 `upgrade-processing`** setting up your plan · **5.13.2 `upgrade-payment-failed`** · 5.13.3 `upgrade-current-plan` the plan you are on, and the only place Pro can be cancelled · **5.13.4 `upgrade-renewal-failed`** the renewal that failed on an account already on Pro |
 | Connections (6.14) | `connections.html` | 6.14.1 `connections-empty` both doors again · **6.14.2 `connections-reconnect`** a source needs attention · **6.14.3 `connections-add-source`** the chooser dialog |
 | Data and Privacy (6.15) | `data-privacy.html` | **6.15.1 `data-privacy-delete-confirm`** two doors, no alarm colouring |
 | Settings (6.16) | `settings.html` | 6.16.1 `settings-no-account` no account yet, the steady state of the manual path |
@@ -189,7 +189,19 @@ four are renames; the list is at the bottom.
 | **Round 1, MVP** | 13 | **39** (13 base plus 26 states) |
 | Round 2, LATER | 3 (Share Snapshot, History and Trends, Upgrade) | **11** (3 base plus 8 states) |
 | Round 3, the auth model, 2026-08-10 | 1 (Sign In) | **5** (1 base plus 2 states, plus 6.16.1 and 5.13.3 on screens that already existed) |
-| **Total** | **17** | **55** |
+| Round 4, the count ladder and the failed renewal, 2026-08-20 | 0 new screens | **3** (2.6.5, 2.6.6 and 5.13.4, all on screens that already existed) |
+| **Total** | **17** | **58** |
+
+**Round 4 re-opened it a second time, and for a different kind of gap.** Round 3 added
+screens the map had specified and the grey had never drawn. Round 4 adds three states nobody
+had specified anywhere: the founder, clicking through the product on 2026-08-18, asked for
+"состояния пустой без например подписок и их отсутствие, если есть сервисы например 1 или
+несколько", and the map's answer was that node 2.6 named four states and all four were about
+the CONNECTION rather than the COUNT. The third, node 5.13.4, is the same shape on the other
+side of the paywall: 5.13.2 covers a first payment that fails, which costs a person nothing,
+and nothing anywhere covered a RENEWAL failing on an account already paying. Both went through
+the same chain as any other structure change - the node first, then the grey, then the colour -
+and the founder's decision is written into each new file, as the freeze requires.
 
 **Round 3 re-opened a stage marked Done, and that was the point of naming it a round.** The
 auth model closed the last structural `[?]` in the map and it added screens, so the grey set

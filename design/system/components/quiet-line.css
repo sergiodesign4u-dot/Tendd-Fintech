@@ -16,7 +16,9 @@
               the pointer
      lines    --line-container (the link's underline at rest)
    Page      design/kit/quiet-line.html
-   Stands on 12 grey pages and 13 coloured ones, one place each. The 4 was the
+   Stands on 14 grey pages, 15 places, and 15 coloured ones, 16 places. "One place
+   each" stopped being true when path-choice took a second line; recounted
+   2026-08-20. The 4 was the
    coloured corpus of stage 08. Recounted 2026-08-17 by
    `design/kit/screens/counts.cjs`, which is the instrument the backlog asked
    for: nothing here is remembered.
@@ -36,11 +38,45 @@
    two files would disagree about which one wins. The inheritance is the
    behaviour, so the inheritance is what is kept.
    The 22px below is the gap to whatever follows, which is usually the end of
-   the screen. */
+   the screen.
+
+   THE MEASURE ARRIVED 2026-08-20, AND AN INSTRUMENT ASKED FOR IT. Every quiet
+   line in the product until that day was an exit LINK - "Do this later", "Back
+   to your settings" - and a link four words long has never needed a reading
+   measure, so this component shipped without one for two stages. Node 2.6.5 put
+   the first SENTENCE in a quiet line, and `width12.cjs` read it at **81.2ch on a
+   718px box at a 750px width**, against the 52ch this system declares. That is
+   usage rule U15 read literally: a paragraph narrows itself for reading, and the
+   number it narrows to is `--container-text`.
+
+   IT MOVES NOTHING THAT WAS ALREADY SHIPPED, measured rather than assumed: every
+   `.quiet` on all 13 pages that carried one before this day holds a single line
+   of link text well inside 52ch, so the box shrinks around content that was
+   never using the room. The measurement is in docs/decisions.md with the
+   before-and-after widths. */
 .app .quiet, .landing .quiet {
   margin: var(--space-0) var(--space-0) var(--space-24);
   font-size: var(--type-body);
+  max-width: var(--container-text);
 }
+
+/* ---- inside a category group, 2026-08-20 -----------------------------------
+   THE SIXTH HOST, and the first one that is not the screen. Node 2.6.5 and node
+   2.6.6 put the line at the foot of the LIST rather than at the foot of the
+   screen, and the placement is deliberate on two counts: past the desktop point
+   the shell orders four siblings of `.screen:has(> .groups)`, so an unordered
+   fifth would take order 0 and print above the summary (usage rule U17, and the
+   bug it was written for); and inside the group the sentence keeps the list's own
+   column instead of spanning the whole pane.
+
+   A LIST AND THE SENTENCE UNDER IT ARE NOT THE SAME OBJECT. The rows carry their
+   own hairlines and their own padding, so with no gap the paragraph reads as a
+   fifteenth row without a divider. 16 and not 24: the line belongs to the list it
+   closes, and the 24 above the trust block is what separates the list from what
+   comes after it. The rule is here rather than in category-group.css because a
+   component's placement inside a host is the component's own business - the same
+   call chip.css made for its six hosts. */
+.app .group > .quiet { margin-top: var(--space-16); }
 
 /* ---- the inline link, and it is the whole point of the component ---------
    Every quiet line in the product contains one. Copied byte for byte from
@@ -85,7 +121,7 @@
    specificity 0, and a text link has nothing to add to it. */
 
 /* ---- AND ONE CASE THE STRUCTURE REACHES PERFECTLY, 2026-08-18 -------------
-   Found by a quality sweep over all 55 coloured screens at two widths and two
+   Found by a quality sweep over all 58 coloured screens at two widths and two
    themes: `data-privacy` carries `<nav class="actions quiet"><a>Your sources</a>`
    and that anchor measured **86.97 by 21** with no padding, which is under the
    floor and under WCAG 2.5.8's 24px besides.

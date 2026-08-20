@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home, a short list - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- THE THEME BEFORE THE FIRST PAINT. Three lines, inline, above the stylesheet
+     on purpose: a switch that runs on DOMContentLoaded leaves one frame of white
+     on every load in the dark theme, and a flash is the most visible thing a dark
+     theme can get wrong. design/_nav.js draws the control and owns the same key. -->
+<script>(function(){try{if(localStorage.getItem('tendd-screen-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+<body>
+
+<!--
+  Home / Subscription List, node 2.6.6, the count ladder: a short list.
+  Three subscriptions, ungrouped, by the next charge date. Below six items the
+  groups would each hold one row, so the flat list is the state.
+  Assembled from system classes. This page carries no style of its own: no page-level
+  style block, no style attribute, no class that design/system/ does not define.
+  Structure and copy are a verbatim copy of wireframes/home-few.html.
+  Links to screens that are not coloured yet point back into wireframes/.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<div class="app">
+
+  <header class="appbar">
+    <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+    <a class="acct" href="settings.html" aria-label="Hi Emma, you are on the free plan, open your account">Hi, Emma<span class="chip">Free</span></a>
+  </header>
+  <main class="screen">
+
+    <!-- NODE 2.6.6, THE COUNT LADDER'S SECOND RUNG. A NEW STATE ON A FROZEN
+         CONTRACT, and it is the same founder's decision as node 2.6.5: "если есть
+         сервисы например 1 или несколько" (2026-08-18), executed 2026-08-20.
+
+         WHERE THE LIST STARTS GROUPING, AND IT IS MEASURED RATHER THAN CHOSEN.
+         The flat list groups from SIX items up. Read in a browser on the coloured
+         home.html with the attention row and the category heads suppressed, a
+         flat list shows five rows entirely above the tab bar at 360 x 780, the
+         narrowest phone this product supports, and six at 390 x 844. The sixth
+         row is the first thing a person has to scroll to reach, and scrolling is
+         what makes chunking worth its chrome. Below that the groups are
+         singletons: five headings and five subtotals over five rows that repeat
+         them.
+
+         AND THE ORDER IS NOT THE SAME ORDER. Grouped, the categories run by
+         monthly spend, highest first, which is the founder's decision of
+         2026-08-13 and is written into home.html. Flat, the list runs by the next
+         charge date, soonest first. A handful of rows has no groups to rank, and
+         "what comes off next" is the only order a person can feel in three lines.
+         The two rules do not compete: they apply on either side of six.
+
+         THREE, AND NOT FOUR OR FIVE, because three is the count at which the
+         product's own categories would each hold exactly one item, which is the
+         case the flat list exists for. -->
+
+    <div class="head">
+      <!-- GC3 Recurring summary strip -->
+      <section class="summary">
+        <h1>You're paying for 3 subscriptions</h1>
+        <p class="total">$32.97</p>
+        <p class="context">a month, for what you have signed up for</p>
+      </section>
+    </div>
+
+    <div class="group-head">
+      <h2>Your subscriptions</h2>
+      <nav class="actions" aria-label="More"><a class="btn" href="add-subscription.html">Add a subscription</a></nav>
+    </div>
+
+    <div class="groups">
+
+      <!-- A group with no head, by the next charge date, soonest first. -->
+      <section class="group">
+        <ul>
+          <li><a class="row" href="subscription-detail.html" aria-label="iCloud Plus, $2.99 a month, next tomorrow on 2 August, active">
+            <span class="logo">[logo]</span>
+            <span class="body"><span class="name">iCloud+</span><span class="when">tomorrow &middot; Aug 2</span></span>
+            <span class="amt">$2.99</span>
+          </a></li>
+          <li><a class="row" href="subscription-detail.html" aria-label="Netflix, $17.99 a month, next in 2 days on 3 August, active">
+            <span class="logo">[logo]</span>
+            <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
+            <span class="amt">$17.99</span>
+          </a></li>
+          <li><a class="row" href="subscription-detail.html" aria-label="Spotify Premium, $11.99 a month, next in 6 days on 7 August, active">
+            <span class="logo">[logo]</span>
+            <span class="body"><span class="name">Spotify Premium</span><span class="when">in 6 days &middot; Aug 7</span></span>
+            <span class="amt">$11.99</span>
+          </a></li>
+        </ul>
+        <!-- THE WAY ON, INSIDE THE LIST'S OWN SECTION. It is not a
+             direct child of the screen on purpose: past the desktop point the
+             shell orders four siblings of `:has(> .groups)` and an unordered
+             fifth takes order 0, which sends it above the summary. That is
+             usage rule U17 and it is a live trap, not a hypothetical: it is
+             what `home-empty` did from the day the ordering was written.
+             Inside the group the line also keeps the list's own measure
+             instead of spanning the whole pane. -->
+        <p class="quiet">That is the whole list. Add more as you think of them, or <a href="connect-bank.html">connect your bank</a> and Tendd finds the rest.</p>
+      </section>
+
+    </div><!-- /groups -->
+
+    <!-- GC6 Data source and trust -->
+    <section class="trust" aria-label="Where these figures come from">
+      <p>3 subscriptions, added by you.</p>
+      <p>No bank is connected, so nothing is read from anywhere.</p>
+      <p>Last updated by you, today, 9:14 AM.</p>
+      <a href="data-privacy.html">Data and privacy</a>
+    </section>
+
+  </main>
+  <nav class="tabbar" aria-label="Global navigation">
+    <a class="cur" href="home.html" aria-current="page"><span class="ic ic-home"></span>Home</a>
+    <a href="history-trends-locked.html"><span class="ic ic-trends"></span>Trends</a>
+    <a href="alerts.html"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
+    <a href="home-savefocus.html"><span class="ic ic-save"></span>Save</a>
+    <a href="settings.html"><span class="ic ic-you"></span>You</a>
+  </nav>
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

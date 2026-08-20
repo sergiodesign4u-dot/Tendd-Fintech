@@ -364,6 +364,8 @@ designs only the happy path; that is exactly the gap this node closes.
 | 2.6.2 | Refreshing | state (loading) | -> 2.6 | all / J-MAIN | MVP |
 | 2.6.3 | Sync failed, last known list | state (error) | -> 2.6 retry, -> 6.14 | all / J-MAIN | MVP |
 | 2.6.4 | Save focus | state (role) | -> 4.9 | C, E / J2 | MVP |
+| 2.6.5 | One subscription | state (count) | -> 2.7, -> 1.4, -> 1.3 | B, E / J-MAIN | MVP |
+| 2.6.6 | A short list | state (count) | -> 2.7, -> 1.4, -> 1.3 | B, E / J-MAIN | MVP |
 | 2.7 | Subscription Detail | page | -> 4.9, -> 5.12, -> 3.8 | all / J3 + J4 | MVP |
 | 2.7.1 | Unrecognized charge | state (empty) | -> 2.7 named | all / J3 | MVP |
 | 2.7.2 | Price change | state (domain) | -> 4.9, -> 2.7 keep | E, C / J4 | MVP |
@@ -405,6 +407,7 @@ designs only the happy path; that is exactly the gap this node closes.
 | 5.13.1 | Setting up your plan | state (processing) | -> the originating gate | all / D4 | LATER |
 | 5.13.2 | Payment did not go through | state (error) | -> 5.13 retry | all / D4 | LATER |
 | 5.13.3 | The plan you are on | state | -> 6.16 | all / D3 + D4 | LATER |
+| 5.13.4 | Pro did not renew | state (error) | -> 5.13 retry, -> 5.12 | all / D4 + D-Free | LATER |
 
 **5.12.3, 5.13.1 and 5.13.2 added 2026-08-04.** `pages/pro.md` named these three
 states and gave them no numbers, so the two screens that decide whether money moves
@@ -454,8 +457,17 @@ numbered here, where node numbers are owned. `pages/account.md` was corrected to
 | 9.4 | Consent banner | dialog | LATER | Conditional on region, `[?]` |
 | 9.5 | Toasts | section | MVP | Lightweight feedback, no page of its own |
 
-**Count: 24 specified nodes (7 global, 17 screens) plus 5 system nodes, with 37
+**Count: 24 specified nodes (7 global, 17 screens) plus 5 system nodes, with 41
 state and dialog nodes hanging off the screens.** Of the 17 screens, 14 are MVP.
+
+**RECOUNTED 2026-08-20 BY SCRIPT, AND IT WAS ALREADY WRONG BEFORE THIS CHANGE.**
+Three states landed that day - 2.6.5, 2.6.6 and 5.13.4 - which takes the figure to
+41. But the number written here was **37 against an actual 38**: the extra one is
+5.12.4, "Trends behind the Pro gate", added on 2026-08-18 when Trends became a tab,
+and the sentence at the foot of the file was never re-read. It is the same class of
+drift `counts.cjs` exists to catch on the components, on a file no instrument
+reads. Counted here by matching every table row whose first cell is a three-part
+node number, over the whole file.
 The SEO engine (`ia/docs/pages/seo.md`) is a cross-cutting specification, not a
 node with a screen.
 

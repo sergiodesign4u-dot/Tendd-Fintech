@@ -76,6 +76,30 @@ its destination.
 | 5.13.1 | Setting up your plan | "Setting up your Pro plan..." | Payment in progress |
 | 5.13.2 | Payment did not go through | "That payment did not go through. Try another method." | Payment failed |
 | 5.13.3 | The plan you are on | What is included, when it renews and for how much, and a plain way out | A person already on Pro opens the plan row on node 6.16 |
+| 5.13.4 | Pro did not renew | The same fact with a date on it, what is not going anywhere, and one way to fix it | A RENEWAL failed on an account already on Pro |
+
+**5.13.4 was added 2026-08-20, on the founder's go-ahead, and it is the anxious
+half of a pair that only had its easy half.** 5.13.2 is a FIRST payment declined:
+nothing was ever charged, the person is on Free, and the worst outcome is that
+they stay exactly where they already were. 5.13.4 is the other one. The money is
+already flowing, the plan is already theirs, and what a normal product sends here
+is a red bar about access being lost. For an audience whose whole reason for being
+here is money anxiety, that is the single most damaging message the product could
+send.
+
+**What the state does, and it is D-Free read out loud.** The thing at risk is
+DEPTH, and the calm view is not depth. So the two places a frightened person
+actually reads - the fact list and the line under the action - say that the
+subscriptions, the monthly total, the basic alerts and this month against last are
+Free, uncapped, and are not going anywhere whatever happens to this payment. The
+downgrade is real and is named with its date; what it costs is named exactly, and
+what it does not cost is named first. The plan chip in the bar still reads Pro,
+because it still is, and the close control goes back to the Pro screen and not to
+the locked one: sending a paying person to a locked door would be the product
+taking away the thing it is telling them it has not taken away.
+
+**No clay and no red**, the same rule 2.7.3 and 5.13.2 already follow: a payment
+that did not go through is a fact with a next step.
 
 **There is no success screen.** On success the person is returned to the gate they came from,
 with the thing they wanted now open. Celebrating a payment would put the product's most

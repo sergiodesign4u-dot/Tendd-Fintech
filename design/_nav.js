@@ -33,7 +33,7 @@
     { name: 'Connect Bank', base: 'connect-bank.html', states: ['loading', 'error', 'empty', 'cancelled'] },
     { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['empty'] },
     { name: 'Sign In', base: 'sign-in.html', states: ['sent', 'expired'] },
-    { name: 'Home', base: 'home.html', states: ['empty', 'error', 'loading', 'savefocus'] },
+    { name: 'Home', base: 'home.html', states: ['empty', 'one', 'few', 'error', 'loading', 'savefocus'] },
     { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['unrecognized', 'price-change', 'payment-failed', 'error', 'loading'] },
     /* Alerts, added 2026-08-13 at stage 09 step 5, the self-sufficiency test of
        the design system: the eighth screen, and the first one coloured after the
@@ -46,7 +46,7 @@
     { name: 'Cancel Win', base: 'cancel-win.html', states: [] },
     { name: 'Share Snapshot', base: 'share-snapshot.html', states: ['loading', 'error'] },
     { name: 'History and Trends', base: 'history-trends.html', states: ['locked', 'empty', 'error', 'loading'] },
-    { name: 'Upgrade to Pro', base: 'upgrade.html', states: ['current-plan', 'processing', 'payment-failed'] },
+    { name: 'Upgrade to Pro', base: 'upgrade.html', states: ['current-plan', 'processing', 'payment-failed', 'renewal-failed'] },
     { name: 'Connections', base: 'connections.html', states: ['empty', 'reconnect', 'add-source'] },
     { name: 'Data and Privacy', base: 'data-privacy.html', states: ['delete-confirm'] },
     { name: 'Settings', base: 'settings.html', states: ['no-account'] }
@@ -60,7 +60,7 @@
 
      THE DEAD END IS CORRECT AND IT IS A RULE. U7: a wait carries no control at
      all, because an edge a person takes is a control and an edge the system
-     takes is not. Counted over all 55 coloured screens, exactly TWO have no link
+     takes is not. Counted over all 58 coloured screens, exactly TWO have no link
      out of `.app`, and they are U7's own two pages: `connect-bank-loading` and
      `upgrade-processing`.
 
@@ -81,7 +81,7 @@
 
      SO THE ANSWER GOES ON THE STAND AND NEVER INTO THE SCREEN. This strip is
      drawn by the reviewer's chrome, outside `.app`, from data that lives here.
-     Nothing is added to the 55 screen files: no markup, no class, no link. Turn
+     Nothing is added to the 58 screen files: no markup, no class, no link. Turn
      the chrome off - which is what a build does - and the wait is exactly the
      wait the product ships.
 
@@ -125,6 +125,8 @@
       why: WAIT_TAB,
       doors: [
         ['home.html', 'The list landed', 'fourteen subscriptions and the monthly total'],
+        ['home-few.html', 'A short list landed', 'three, ungrouped, by what comes off next'],
+        ['home-one.html', 'One landed', 'the singular, and the way the list grows'],
         ['home-empty.html', 'There is nothing to add up yet', 'connected, and no list to show'],
         ['home-error.html', 'It could not be refreshed', 'the last update is shown instead']
       ]

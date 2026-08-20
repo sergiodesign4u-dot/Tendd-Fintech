@@ -55,7 +55,9 @@ window.WF_NAV = {
         { node: '2.6.1', slug: 'empty',     label: 'both doors offered', built: true },
         { node: '2.6.2', slug: 'loading',   label: 'refreshing',         built: true },
         { node: '2.6.3', slug: 'error',     label: 'sync failed, last known list', built: true },
-        { node: '2.6.4', slug: 'savefocus', label: 'save focus',         built: true }
+        { node: '2.6.4', slug: 'savefocus', label: 'save focus',         built: true },
+        { node: '2.6.5', slug: 'one',       label: 'one subscription',   built: true },
+        { node: '2.6.6', slug: 'few',       label: 'a short list, ungrouped', built: true }
       ]},
       { node: '2.7', name: 'Subscription Detail', file: 'subscription-detail.html', ia: '2-7-subscription-detail.html',
         flow: 'C and D, one tap from the list', scope: 'MVP', built: true, states: [
@@ -103,7 +105,8 @@ window.WF_NAV = {
         flow: 'only from a real gate', scope: 'LATER', built: true, states: [
         { node: '5.13.1', slug: 'processing',     label: 'setting up your plan', built: true },
         { node: '5.13.2', slug: 'payment-failed', label: 'payment did not go through', built: true },
-        { node: '5.13.3', slug: 'current-plan',   label: 'the plan you are on',   built: true }
+        { node: '5.13.3', slug: 'current-plan',   label: 'the plan you are on',   built: true },
+        { node: '5.13.4', slug: 'renewal-failed', label: 'Pro did not renew',     built: true }
       ]}
     ]},
 

@@ -57,6 +57,39 @@ and cancel-candidate variants. GC6 Data Source and Trust, short variant.
 | 2.6.2 | Refreshing | A skeleton of the list, not a spinner over it | A sync in progress |
 | 2.6.3 | Sync failed, last known list | The figures stay visible and dated, with one calm line saying they are not fresh, and a way into node 6.14 | The connection is stale or broken |
 | 2.6.4 | Save focus | The same list with the cancel-candidate variant of the item raised; "no pressure, just a nudge" | The person came here to cut (from node 3.8 or a Pro nudge) |
+| 2.6.5 | One subscription | The strip in the singular, one row, no category head, and the way on stated once under the list | Exactly one thing tracked |
+| 2.6.6 | A short list | The same, ungrouped, ordered by the next charge date | Two to five things tracked |
+
+**ON 2.6.5 AND 2.6.6, ADDED 2026-08-20, FOUNDER'S DECISION.** "нам надо тогда
+проделать состояния пустой без например подписок и их отсутствие, если есть
+сервисы например 1 или несколько и так далее" (2026-08-18). The four states above
+are all about the CONNECTION - empty, refreshing, failed, focused. None of them is
+about the COUNT, and the count is what this screen is: D1 is the reveal built on
+it and every string here is written in the plural.
+
+**Where the list starts grouping: SIX, and it is measured rather than chosen.**
+Read in a browser on the coloured Home with the attention row and the category
+heads suppressed, a flat list shows five rows entirely above the tab bar at
+360 x 780, the narrowest phone in scope, and six at 390 x 844. The sixth row is
+the first one a person has to scroll to reach, and scrolling is what makes
+chunking worth the heading and the subtotal it costs. Below six, every group holds
+one row, so a group is a heading and a subtotal standing over a row that already
+says the same number - three renderings of one figure inside 200px.
+
+**And the ORDER is not the same order on either side of six.** Grouped, the
+categories run by monthly spend, highest first (founder, 2026-08-13). Flat, the
+rows run by the next charge date, soonest first: a handful of rows has no groups
+to rank, and "what comes off next" is the only order a person can feel in three
+lines.
+
+**A sparse list is the MANUAL path's normal state**, which is why both doors stay
+open on these two the way they do at node 1.2 and on 2.6.1: the bank path does not
+produce a list of one. The trust line says so instead of claiming a read-only
+access that does not exist here.
+
+**The heading over the list stays plural on all six states.** "Your subscriptions"
+is the region's NAME and the string the back control of every detail page already
+carries; naming one place two ways by count would put it under two owners.
 
 **On 2.6.1:** Monarch's empty state offers exactly one way out, "connect an account to get
 started". That is the bank wall again, one screen later. Ours offers both doors, so the manual
@@ -116,5 +149,6 @@ fourteen at once, which is J-MAIN read literally. A row opens node 2.7, at every
 ## Status
 
 **Locked:** the summary strip as the largest element, grouping by category with subtotals, the
-conditional attention row, the trust line, no upsell, no chart, no filters at MVP.
+conditional attention row, the trust line, no upsell, no chart, no filters at MVP, and from
+2026-08-20 the count ladder: 0, 1, a few, many, with the grouping threshold at six.
 **Open:** none.

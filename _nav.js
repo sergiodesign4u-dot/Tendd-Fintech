@@ -122,7 +122,7 @@ window.NAV = [
   // for the record it made the row a link for about four hours rather than a stage.
   //
   // WHAT "done" COVERS HERE, because this stage's screens were built before it opened and
-  // the word could be read as covering them: the ACCOUNT. 55 grey pages paired against 55
+  // the word could be read as covering them: the ACCOUNT. 58 grey pages paired against 55
   // coloured with no orphan on either side, an audit row per screen measured at 360 and
   // 1440, the four-part ban re-proved on all 55 files, the inventory's width column
   // recounted on 72 entries, and eight rows addressed to the stage closed - three of them

@@ -696,7 +696,7 @@ same either way, and the mail that arrives is the one that fits.
 
 ## Cluster C: Home and Subscription Detail
 
-### home (+ empty, error, loading, savefocus)
+### home (+ empty, one, few, error, loading, savefocus)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
@@ -736,6 +736,18 @@ same either way, and the mail that arrives is the one that fits.
 | home-savefocus | cancel-candidates | trial ends in 17 days · not opened in 3 weeks | body |
 | home-savefocus | cancel-candidates | next in 10 days · not opened in 6 weeks | body |
 | home-savefocus | cancel-candidates | Cancel | button |
+| home-one | summary-strip | You're paying for 1 subscription | body |
+| home-one | list-row | Spotify Premium / in 6 days &middot; Aug 7 / $11.99 | body |
+| home-one | way-on | That is the whole list. Add more as you think of them, or connect your bank and Tendd finds the rest. | body |
+| home-one | way-on | connect your bank | link |
+| home-one | trust-line | 1 subscription, added by you. | body |
+| home-one | trust-line | No bank is connected, so nothing is read from anywhere. | body |
+| home-one | trust-line | Last updated by you, today, 9:14 AM. | body |
+| home-few | summary-strip | You're paying for 3 subscriptions | body |
+| home-few | list-row | (three GC4 rows, by the next charge date, soonest first) | body |
+| home-few | way-on | (the home-one line, unchanged) | body |
+| home-few | trust-line | 3 subscriptions, added by you. | body |
+| home-few | trust-line | (the other two lines as on home-one) | body |
 
 ### subscription-detail (+ price-change, payment-failed, unrecognized, loading, error)
 
@@ -966,7 +978,7 @@ below.
 | history-trends-error | secondary-action | Back to your subscriptions | button |
 | history-trends-error | reassurance | Nothing about your plan or your data changed. If it keeps happening, tell us and we will look at it. | body |
 
-### upgrade (+ processing, payment-failed, current-plan)
+### upgrade (+ processing, payment-failed, current-plan, renewal-failed)
 
 | Screen | Zone | Line | Type |
 |--------|------|------|------|
@@ -1016,6 +1028,26 @@ below.
 | upgrade-current-plan | feature-list | Export (Your history as a spreadsheet) | body |
 | upgrade-current-plan | primary-action | Cancel Tendd Pro | link |
 | upgrade-current-plan | later | Back to your settings | link |
+| upgrade-renewal-failed | appbar | Close | link |
+| upgrade-renewal-failed | appbar | Pro | status |
+| upgrade-renewal-failed | title | Tendd Pro did not renew | heading |
+| upgrade-renewal-failed | title | Your bank did not approve the payment on 1 May, so nothing was charged. This happens most often with a card that has expired, or with a bank that wants to confirm a repeat payment. | body |
+| upgrade-renewal-failed | facts | What was charged / Nothing. There is no payment to reverse | field-label |
+| upgrade-renewal-failed | facts | Your plan / Still Tendd Pro until 8 May, while the payment is tried again | field-label |
+| upgrade-renewal-failed | facts | Your subscriptions / All 14 are here, with the monthly total and your alerts | field-label |
+| upgrade-renewal-failed | primary-action | Update your payment method | button |
+| upgrade-renewal-failed | secondary-action | Not now | button |
+| upgrade-renewal-failed | consequence | If it has not gone through by 8 May, your plan goes back to Free. Nothing is deleted and nothing is capped: your subscriptions, your monthly total, your basic alerts and this month against last stay exactly as they are. The 3, 6 and 12 month views, the full cancel guides and the advanced alerts come back the moment a payment works. | body |
+
+**On the renewal line, 2026-08-20, and why it is not the payment-failed line with a
+different date.** `upgrade-payment-failed` can afford to be short because nothing is at
+stake: the person is on Free, nothing was charged, and the worst case is that they stay
+where they are. Here the plan is already theirs and the money is already flowing, so the
+sentence has to carry a date, a grace period and a downgrade - and it has to put what is
+NOT lost before what is. The order is deliberate and it is D-Free read out loud: nothing
+deleted, nothing capped, the list and the total and this month against last unchanged;
+then, and only then, the four things that pause. **"Not now" and not "Maybe later"**,
+because "later" is what you say to an offer and this is not an offer.
 
 **On the cancel line, and the three things it does not say.** No discount, no "are you
 sure you want to lose", no "tell us why". A product whose whole promise is that

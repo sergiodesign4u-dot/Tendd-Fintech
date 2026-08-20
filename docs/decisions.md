@@ -7,6 +7,114 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-20 - The count ladder, the failed renewal, and a recount that found more than it added
+
+Founder: **"го дальше тогда делать все что нужно"**. Two of the three open rounds are
+built and the third is measured. Three states landed - `home-one` (2.6.5), `home-few`
+(2.6.6) and `upgrade-renewal-failed` (5.13.4) - which took both corpora from 55 pages
+to 58, and growing the corpus is what turned this from a build into an audit.
+
+**THE FOUNDER'S ROW, AND WHAT WAS ACTUALLY MISSING.** The ask was written on
+2026-08-18: "нам надо тогда проделать состояния пустой без например подписок и их
+отсутствие, если есть сервисы например 1 или несколько и так далее". Node 2.6 had four
+states and **every one of them was about the CONNECTION** - empty, refreshing, sync
+failed, save focus. None was about the COUNT, and the count is what this screen is: D1
+is the reveal built on it and every string on `home.html` is plural. At one
+subscription the grammar breaks and the category group becomes a heading and a subtotal
+standing over a single row that says the same number, so the monthly total, the
+subtotal and the amount are three renderings of $11.99 inside 200px.
+
+**WHERE THE LIST STARTS GROUPING IS SIX, AND IT IS MEASURED RATHER THAN CHOSEN.** Read
+in a browser on the coloured Home with the attention row and the category heads
+suppressed, a flat list shows **five rows entirely above the tab bar at 360 x 780**,
+the narrowest phone in scope, and **six at 390 x 844**. The sixth row is the first a
+person has to scroll to reach, and scrolling is what makes chunking worth the heading
+and the subtotal it costs. Below six every group holds one row.
+
+**AND THE ORDER IS NOT THE SAME ORDER ON EITHER SIDE OF SIX.** Grouped, the categories
+run by monthly spend, highest first, which is the founder's decision of 2026-08-13.
+Flat, the rows run by the next charge date, soonest first: three rows have no groups to
+rank, and "what comes off next" is the only order a person can feel in three lines.
+
+**NOTHING WAS ADDED TO `design/system/` TO BUILD THE TWO PAGES, AND THAT WAS THE TEST.**
+The list keeps the `.groups` wrapper with a single headless `.group` inside it, so the
+column set does what it was built to do: `columns: 300px` fits as many columns as the
+groups need, one group takes one, five take three. A short list therefore looks like a
+short list and Home does not acquire a second desktop layout. **Two other shapes were
+tried on paper and both were measured out.** A full-pane single group gives a 1140px
+row at 1440, and the widest row this product has ever drawn is 545 on `home-savefocus`.
+The List column pattern at its declared 620 was the better-looking answer and it breaks
+the pattern's own contract, which is "an intro first, then whatever the screen groups";
+the intro here is the summary strip, outside the column.
+
+**THE WAY ON SITS INSIDE THE LIST'S OWN SECTION, AND THE REASON IS USAGE RULE U17.**
+Past the desktop point the shell orders four siblings of `.screen:has(> .groups)`, so an
+unordered fifth would take `order: 0` and print **above the summary** - which is exactly
+what `home-empty` did from the day the ordering was written. Inside the group the line
+also keeps the list's own column instead of spanning the pane.
+
+**THE FAILED RENEWAL IS THE ANXIOUS HALF OF A PAIR THAT ONLY HAD ITS EASY HALF.** Node
+5.13.2 is a FIRST payment declined: nothing was charged, the person is on Free, and the
+worst outcome is that they stay where they already were. 5.13.4 is the other one - the
+money is already flowing, the plan is already theirs, and what a normal product sends
+here is a red bar about access being lost. For an audience whose reason for being here
+is money anxiety that is the most damaging message the product could send. **What the
+screen does instead is D-Free read out loud:** the thing at risk is DEPTH, and the calm
+view is not depth, so the fact list and the line under the action both say that the
+subscriptions, the monthly total, the basic alerts and this month against last are
+Free, uncapped, and are not going anywhere. The downgrade is real and carries its date;
+what it costs is named exactly, and what it does not cost is named first. The chip in
+the bar still reads **Pro** and the close goes back to the Pro screen, not the locked
+one: sending a paying person to a locked door would be the product taking away the thing
+it is telling them it has not taken away.
+
+**THEN THE RECOUNT, AND IT FOUND FIVE THINGS THAT WERE ALREADY WRONG.** Growing a corpus
+means recounting every claim about it in the same step, by script. `counts.cjs` reported
+**22 css headers and 23 component pages** disagreeing at once. Fixing them surfaced
+numbers no instrument can see, because they are written in a noun the parser does not
+look for:
+
+1. **The tab bar said "112 anchors, exactly four on every one of them".** It has been
+   **five** since 2026-08-18, when Trends became a tab. 150 anchors on 30 pages, both
+   corpora. The same sentence also said "22 of the 28 are coloured", which the rollout
+   ended. One sentence, three wrong numbers, only one of them caused by today.
+2. **The destination icon said 28 pages and 112 places** for the same reason.
+3. **The logo said "136 places" for both corpora and "the two corpora agree place for
+   place".** They do not: **182 grey against 207 coloured**, 25 apart, all of it on the
+   landing - the one page colour may differ on by more than styling. The pages have
+   always agreed; the PLACES were never checked, because "in 136 places" does not sit
+   where `counts.cjs` looks for a places figure.
+4. **The subscription row said "60 rows in each"**; it is 64 grey and 68 coloured.
+5. **`ia/docs/sitemap.md` said 37 state nodes against an actual 38** before today, the
+   extra being 5.12.4 from 2026-08-18. It is 41 now.
+
+**AND THE WIDTH SWEEP FOUND THE LAST PROSE LEAF IN THE PRODUCT.** `width12.cjs` reported
+exactly one line past the 52ch measure across all 58 coloured pages: **91.6ch in a 694px
+box at 750px**, the first sentence of the trust block on `history-trends`. The trust
+block had never declared a measure, because every other trust line in the product is
+short enough not to need one. Given `--container-text`, and swept: **the only change
+anywhere is that one sentence wrapping to two lines at 750 and its block growing 18px.**
+`.quiet` took the same repair for the same reason an hour earlier, and there measuring
+it mattered more - the cap changes the BOX on 13 pages that already shipped, and the
+link inside every one of them is pixel-identical at 390, 750 and 1440.
+
+**THE CORPUS SIZE ITSELF WAS WRITTEN IN 98 PLACES AND ALL OF THEM SAID 55 OR 54.** These
+are universals - "no `aria-invalid` on all 55 grey pages", "a span on all 55 coloured
+pages and all 54 grey ones". Every one was **re-verified on the new corpus before the
+number was moved**, not after: zero `aria-invalid`, zero `textarea`, zero custom switch,
+zero style attributes, zero `<style>` blocks, and zero anchors inside a promise list, a
+charge list, an unlocks list, a text block, a lede or a state, across 58 and 58. Then 98
+substitutions, with 15 skipped because their sentence names the corpus it was measured
+on ("the 28 coloured screens of the day", "at stage 09") and a named old number is not
+drift. The favicon claim on the design hub was **132 against an actual 186**, true on
+2026-08-12 and not since.
+
+**INSTRUMENTS AFTER ALL OF IT.** rollout12 VIOLATIONS none; width12 none, and **zero
+prose leaves past 52ch for the first time**; counts 0 drift in both directions; edges13
+12 families 0 split; pages13 0 of 129; aria13 0 of 6; plans13 4 checks clean at 17 pages
+and 43 places; design13 11 of 11; walk13 0; inert12 clean at 30 bars and 150 links a
+side; quality13 at its 24-flush baseline.
+
 ## 2026-08-20 - Twenty-one decisions taken in one sitting, and three of them were already true
 
 Founder, on the whole sheet: **"так вроде все ок и делаем"**. Every recommendation
