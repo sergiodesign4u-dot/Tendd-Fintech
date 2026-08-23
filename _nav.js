@@ -155,7 +155,15 @@ window.NAV = [
   // would already be announcing a finished project. `ready:true, done:false` says exactly what
   // `wip` was asked to say. It flips at the close, by the founder, the way the Animation and
   // Rollout rows above flipped: after the page is walked.
-  { label:'Handoff',             page:'handoff/handoff.html', ready:true, done:false },
+  //
+  // CLOSED 2026-08-23 BY THE FOUNDER, after the page was walked, the way the Animation and
+  // Rollout rows above closed. What `done` covers here is the PACKAGE and not the product:
+  // the page and its five documents, the route checked by an instrument rather than by eye,
+  // the exam sat twice by strangers and passed twice, and the critique on two instruments
+  // plus the design audit. The product work the handoff wrote down as open is a round of its
+  // own and is not what this flag reports. There is no stage after this one, so no row takes
+  // the Next badge from here.
+  { label:'Handoff',             page:'handoff/handoff.html', ready:true, done:true },
 ];
 
 (function () {
