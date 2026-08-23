@@ -22,6 +22,14 @@ named page, and the list with the page and the control for each is on
 `connect-bank-error` and by node 1.3.4, which had no page before; Flow B by the
 saved-as-you-go list and the retreat on `guided-reveal-empty`; Flow C by the
 alternative steps and the two non-terminal choices on `cancel-guide-blocked`;
+
+**THE THIRD EXIT FROM PATH CHOICE WAS DRAWN ON 2026-08-23, and the drawing was what had been
+behind.** `path-choice.html` has offered "Do this later" into the empty list since it was built,
+with the reason written on the screen: *the retreat is the default in the As-Is journey, so the
+product survives it - doing nothing lands on your own empty list, not on a locked door.* The
+transition existed in the markup and in no flow, which the behaviour spec of stage 13 found and
+could not resolve on its own: either the drawing was behind the product or the exit was
+unintended, and both are the founder's. Founder, 2026-08-23: **the drawing was behind.**
 Flow D by node 2.7.3, which had no page before. The diagrams below still draw
 them, because the drawing is the record of where the product can fail, not a
 list of open bugs.
@@ -41,6 +49,8 @@ flowchart TD
   Welcome["Welcome / Value Intro"] --> PathQ{"Bank or privacy path?"}
   PathQ -->|Privacy| AddSub["Add Subscription"]
   PathQ -->|Bank| ConnectBank["Connect Bank"]
+  PathQ -->|"Do this later"| HomeEmpty(["Empty: your own list, nothing in it yet"])
+  HomeEmpty --> AddSub
   ConnectBank --> SyncLoad(["Loading: syncing your bank"])
   SyncLoad --> ConnOK{"Connection succeeded?"}
   ConnOK -->|no| ConnErr(["Error: could not connect"])
@@ -57,7 +67,7 @@ flowchart TD
   Reveal --> Home["Home / Subscription List"]
   Home --> Success(["Success: sees all charges calmly"])
 
-  class SyncLoad,ConnErr,NoneEmpty state
+  class SyncLoad,ConnErr,NoneEmpty,HomeEmpty state
   class Success success
   class StuckExit dead
 ```

@@ -59,6 +59,29 @@ and cancel-candidate variants. GC6 Data Source and Trust, short variant.
 | 2.6.3 | Sync failed, last known list | The figures stay visible and dated, with one calm line saying they are not fresh, and a way into node 6.14 | The connection is stale or broken |
 | 2.6.5 | One subscription | The strip in the singular, one row, no category head, and the way on stated once under the list | Exactly one thing tracked |
 | 2.6.6 | A short list | The same, ungrouped, ordered by the next charge date | Two to five things tracked |
+| 2.6.7 | One is cancelled | The big number counts only what is still being paid for; one quiet line under it names the cancelled one and the date it stops; the row keeps its amount and takes the same grey status chip the trial uses | A person reported a cancellation on node 4.9 and the next charge date has not passed |
+
+**ON 2.6.7, ADDED 2026-08-23, FOUNDER'S DECISION, closing the largest open question in the
+behaviour spec.** What happens to a subscription after a person says they cancelled it was
+written down nowhere: not here, not in `flows.md`, not in `docs/bank-connection.md`. It is the
+aftermath of the product's most important emotional beat, and it decides what the number on this
+screen means.
+
+**THE ANSWER IS THE HONEST ONE RATHER THAN THE PLEASANT ONE.** The subscription **stays in the
+list, marked**, and **leaves the monthly total at once**. It disappears on its own once the next
+charge date has passed with no charge. Two things it deliberately is not:
+
+- **not gone immediately.** Tendd does not know that a cancellation worked. It knows a person
+  said so. A row that vanishes on somebody's word turns a wrong click, or a cancellation the
+  merchant did not honour, into money leaving an account that this product is no longer watching,
+  and Principle 4 says show the source of every figure.
+- **not still in the total.** The total is what the person is choosing to pay for, and they have
+  chosen to stop. Leaving the figure unmoved after the win screen has just said the money is
+  freed up would make this screen argue with the one before it.
+
+**The disappearance is silent and is not a second event.** No confirmation, no "we checked", no
+toast: the row is simply not there next time. A product that congratulates a person twice for one
+decision is asking for attention it has not earned.
 
 **ON 2.6.5 AND 2.6.6, ADDED 2026-08-20, FOUNDER'S DECISION.** "нам надо тогда
 проделать состояния пустой без например подписок и их отсутствие, если есть

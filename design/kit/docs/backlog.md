@@ -6,9 +6,9 @@ finding that gets lost. Stages 09 to 13 read this and close what their own mater
 
 ## Where this file stands
 
-**Counted on 2026-08-23 by `design/kit/screens/handoff13.cjs`, section 7, and not by hand: 110
-table rows, 80 saying closed, 40 open by the reading that a row with anything unfinished in it is
-an open row, 4 addressed to stage 13 and 0 addressed to a stage that has ended.** The instrument
+**Counted on 2026-08-23 by `design/kit/screens/handoff13.cjs`, section 7, and not by hand: 114
+table rows, 94 saying closed, 30 open by the reading that a row with anything unfinished in it is
+an open row, and 0 addressed to a stage that has ended.** The instrument
 is the owner of these five numbers from today; everything below is the history of how the file
 got here, each block keeping the corpus it was counted on. Re-run it rather than trusting this
 paragraph a month from now.
@@ -519,6 +519,14 @@ sidebar did.
 | **2330 text nodes below the contrast floor, across 39 of the 129 pages.** Not a long tail: **eight colour literals caused 2203 of them**, copied from page to page across the documentation half of the project, and two of the eight caused 1871 between them | The documentation half was written before the design system and each page declares its own palette in its own style block. Nothing had ever measured any of it, because no instrument read these pages | **CLOSED 2026-08-23.** Ten literals darkened, each computed against **the worst surface it actually sits on** rather than against white - a first pass measured against white alone and 58 findings survived on the panel greys. **2330 to 6**, and the 6 are text on pages that DEMONSTRATE a colour: the contrast-grade letters in a table about ratios, and a token swatch. A picture of a colour is not interface text, and they are left visible rather than excluded by a typed list | **CLOSED** |
 | **87 of 129 pages had no `main` landmark**, including all 82 stand pages. A page with a nav, an h1 and a footer and no `main` gives a screen reader nothing to skip TO - which is what a skip link would skip to, if the product had one | Same blind spot. The shape was set by the first stand page and copied eighty-one times | **CLOSED 2026-08-23. 0 of 129.** The element name was the whole change: no stylesheet in this repository selects a wrapper by tag | **CLOSED** |
 | **11 stand pages draw more than one `h1`, and 8 pages skip a heading level.** `dashboard-head` draws eight `h1`s | On a stand page a specimen of a heading IS a heading, so most of this is the normal shape of the surface rather than a defect. Three of the eight skips are on real documents and are real | **Not fixed, and separated instead**: the check reports the three questions apart, because rolled into one number the specimens bury the documents. That is how 87 pages read as one problem when they were two | **Open. Whoever opens those three documents next** |
+
+## Found on 2026-08-23 by adding one screen to a corpus of 57
+
+One row, and it is about the instrument that guards every other change.
+
+| What was found | Why it stood | Where it goes | State |
+|---|---|---|---|
+| **The box fingerprint measured the frame as well as the product.** `fp12.cjs` walked `document.body`, which on every screen includes the reviewer's chrome: the panel listing every screen, the theme switch, the roadmap. Adding one screen grew that panel by one row, so the instrument reported **5051 boxes changed on all 58 pages** for a change that touched two files | It had never been asked. Every earlier use of this file compared a corpus against itself, and the chrome only moves when the CORPUS does - which had not happened between two fingerprints until today. The promise it exists to check has always been about the product | **CLOSED 2026-08-23.** It walks `.app` or `.landing`, the root every screen declares the product to start at, with `body` as the fallback. Re-baselined and re-run: **0 pages and 0 boxes differ** | **CLOSED** |
 
 ## What is deliberately NOT in this file
 

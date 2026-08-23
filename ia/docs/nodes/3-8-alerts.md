@@ -46,6 +46,17 @@ From `../blocks.md`, type E.
 | 7 | What we tell you about, a link into node 6.16 | J4 | TAKE, DIFFERENTLY: one place instead of a reminder toggle on every subscription |
 | 8 | Tab bar (GC2) | GC2 | TAKE |
 
+**THE ONE DOT THIS PRODUCT DOES DRAW, decided 2026-08-23.** The tab bar carries a small quiet dot
+on the Alerts destination, and until today this node refused the whole family without saying
+anything about the one that had shipped. The rule: **it appears when an alert arrives that was
+not there last time, and it clears the moment the Alerts screen is opened**, whether or not every
+alert on it was read. It carries **no number, ever**, and it never takes a colour that reads as an
+alarm: it reads the body ink role like the rest of the bar. What separates it from what is refused
+below is that a count is a demand and a dot is an offer - "there is something here" is an
+invitation to look, "3 unread" is a debt. Clearing it on arrival rather than on reading is the
+same distinction one layer down: a person who opened the screen has been told, and asking them to
+tick each line is the anxiety machine in a smaller box.
+
 **Named and not added:** unread counts, badges and red dots (D-Concept: status is a quiet gray
 badge, never red; a red badge on a money app is an anxiety machine, and our person already
 avoids opening it); search, a filter row and a multi-column audit table (the enterprise

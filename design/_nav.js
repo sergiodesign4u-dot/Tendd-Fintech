@@ -33,7 +33,12 @@
     { name: 'Connect Bank', base: 'connect-bank.html', states: ['loading', 'error', 'empty', 'cancelled'] },
     { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['empty'] },
     { name: 'Sign In', base: 'sign-in.html', states: ['sent', 'expired'] },
-    { name: 'Home', base: 'home.html', states: ['empty', 'one', 'few', 'error', 'loading'] },
+        /* `cancelled`, node 2.6.7, added 2026-08-23 by a founder's decision closing N6 of the
+       behaviour spec. The state a person lands on after reporting a cancellation: the big
+       number counts only what is still being paid for, one quiet line names the cancelled
+       one and the date it stops, and the row keeps its amount with the grey status chip the
+       trial already uses. Nothing was added to design/system/ to build it. */
+    { name: 'Home', base: 'home.html', states: ['empty', 'one', 'few', 'cancelled', 'error', 'loading'] },
     { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['unrecognized', 'price-change', 'payment-failed', 'error', 'loading'] },
     /* Alerts, added 2026-08-13 at stage 09 step 5, the self-sufficiency test of
        the design system: the eighth screen, and the first one coloured after the

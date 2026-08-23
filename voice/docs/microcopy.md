@@ -147,6 +147,7 @@ together.
 | history-trends-empty | state-message | ... the shape of your spending will be here. | ... the shape of your monthly total will be here. | D9 / Principle 3 (no spending/exposure frame) |
 | history-trends | chart summary | your monthly recurring total went from $172.90 in May ... | your monthly total went from $172.90 in May ... | D9 (canonical "monthly total"; matches the header) |
 | data-privacy | export | Exporting your spend history as a CSV ... | Exporting your history as a CSV ... | D9 / Principle 3 (drop "spend") |
+| home-cancelled | summary-strip + list-row | (no lines existed) | Four lines for the state after a person reports a cancellation | 2026-08-23, founder, closing N6. **The big number counts what you are PAYING for and drops to 13 immediately**, because that is the answer to the question the screen exists to answer; the cancelled one is named quietly on the line under it rather than folded into the count, because "14 (13 active)" makes a person do arithmetic to learn something calm. The row keeps its amount and its badge is the quiet grey chip the trial already uses - D-Concept, status is never red - and its when-line says the date the money actually stops, which is the one fact the person cannot see anywhere else |
 | settings | appearance | (no line existed) | How Tendd looks + Dark mode (Easier on the eyes at night. Nothing else changes.) | 2026-08-23, founder: the theme becomes a product feature and not only a system capability. The heading names the place in plain dictionary words rather than instructing; the hint answers the only question a person asks of a dark mode in a money app, which is whether anything else moves |
 | cancel-guide-no-guide | detail-head (data fix) | $4.25 / month, you can always resubscribe later | $17.00 / month, you can always resubscribe later | Data fixture: The New York Times is $17.00/month in the canonical dataset. |
 
@@ -709,6 +710,10 @@ same either way, and the mail that arrives is the one that fits.
 |--------|------|------|------|
 | home | header | Hi, Emma | body |
 | home | summary-strip | You're paying for 14 subscriptions | body |
+| home-cancelled | summary-strip | You're paying for 13 subscriptions | body |
+| home-cancelled | summary-strip | One more is cancelled and stops on 18 August. | body |
+| home-cancelled | list-row | Cancelled | status |
+| home-cancelled | list-row | cancelled - stops Aug 18 | body |
 | home | summary-strip | a month, for what you have signed up for | body |
 | home | alert-banner | Netflix went up by $2.50, now $17.99 a month. | body |
 | home | alert-banner | See what changed → | link |

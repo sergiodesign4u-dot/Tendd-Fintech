@@ -159,6 +159,56 @@ question a builder WILL answer tomorrow, correctly or not.
 
 | # | Question | Why it has no source | Costs |
 |---|---|---|---|
+## The seven that were NOT DECIDED, and the day they were
+
+**All seven closed on 2026-08-23**, by the founder, at the close of stage 13. The table below is
+kept exactly as it was written, because a spec that quietly deletes its own open list is a spec
+that cannot be trusted with the next one; what each row got is above it here.
+
+| # | Decided |
+|---|---|
+| **N1, N4, N5** | **A minimum validation contract, written into this spec and onto no screen.** The section "What the forms refuse" below is it |
+| **N2** | **Approved as a fifth source.** `docs/bank-connection.md` states triggers and nothing else does; `CLAUDE.md` already gives it a place. Ten trigger cells keep their source |
+| **N3** | **The drawing was behind the product.** "Do this later" into the empty list is in `ia/docs/flows.md` now, Flow A, with the reason the screen already carried |
+| **N6** | **The subscription stays, marked, and leaves the total at once.** Below, in full |
+| **N7** | **The dot appears on an alert that was not there last time and clears when the Alerts screen is opened.** No number, ever. Written into node 3.8, which had refused the whole family without mentioning the one that shipped |
+
+## What the forms refuse
+
+Decided 2026-08-23 (N1, N4, N5). **It is a contract and not a redesign**: no screen changed, no
+state was added, and every rule here is what a build enforces rather than what a prototype draws.
+The shape is one rule for all three forms, because three different answers to the same question
+is how a product stops feeling like one product.
+
+| Field | Accepted | Refused | Where |
+|---|---|---|---|
+| Email | Non-empty, one `@`, at least one dot after it. Trimmed of surrounding space | Anything else | `connect-bank`, `sign-in`, `settings-no-account` |
+| Amount | Greater than zero, at most two decimals, the person's own currency | Zero, negative, empty, a lone separator | `add-subscription` |
+| Name | 1 to 40 characters after trimming | Empty, or only whitespace | `add-subscription` |
+| Frequency | One of the listed values | Anything typed | `add-subscription` |
+| Next charge | A date that has not passed | A past date, an unparseable one | `add-subscription` |
+| Another sign-in link | Once per 60 seconds | A second request inside that window, which is answered and not silently dropped | `sign-in-sent` |
+
+**Three rules about WHEN, and they matter more than the list.**
+
+1. **The primary action is inactive until the form can be submitted**, so the commonest failure
+   never becomes an error message at all. This is Principle 1: the calm version of validation is
+   the one a person does not meet.
+2. **An error appears after a person has tried, and never while they are typing.** A field that
+   turns red mid-word is telling someone they are wrong before they have finished being right.
+3. **One line, under the field it belongs to**, in the error role the system already carries, and
+   in plain words. Never a dialog, never a summary at the top, never more than one at a time.
+
+**The resend is answered rather than dropped.** Asking twice inside the window says so and says
+when: a silent no-op and a mail loop are the two shapes a builder picks from when nothing is
+written, and both are worse than a sentence.
+
+**What this deliberately does NOT do:** it states no message wording. Every line is Voice's, it
+lands in `voice/docs/microcopy.md` first, and this spec names the rule rather than the string, in
+the same way it names a component rather than its css.
+
+---
+
 | **N1** | What happens on an empty or malformed email? | Three screens carry the field: `connect-bank`, `sign-in`, `settings-no-account`. All three declare `type="email"` and no `required`, no `pattern`, and in all three the action is a link rather than a form submit, so nothing gates it. The node locks the field and its reason and states no rule | Any real build must decide it, and a builder with no rule will invent one |
 | **N2** | Is `docs/bank-connection.md` an approved source for this spec? | The pack names three sources plus the grey exception. This file is the only one that states triggers, and `CLAUDE.md` already gives it a place | If refused, ten trigger cells in the states table lose their source and the spec cannot say when anything appears |
 | **N3** | `path-choice` has a third exit that `flows.md` does not draw | The transition exists in the markup (`screen:path-choice.html`) and in no flow | Either the drawing is behind the product, or the exit is unintended. Both are the founder's, and neither is a defect until it is called one |
@@ -256,6 +306,39 @@ guide warns the pressure is coming, so it is expected rather than surprising.
 **What is NOT stated anywhere: what happens to the subscription after it is reported cancelled.**
 Nothing in the nodes, in `flows.md` or in `bank-connection.md` says whether the item leaves the
 list, stays marked, or waits for the bank to confirm it. That is **N6**.
+
+---
+
+## After a cancellation: what happens to the subscription, and to the number
+
+Decided 2026-08-23 (N6), and it was the largest thing this spec could not write. Nothing in the
+nodes, in `flows.md` or in `docs/bank-connection.md` said whether a subscription a person reports
+as cancelled leaves the list, stays marked, or waits for the bank. It is the aftermath of the
+product's most important emotional beat and it decides what the number on Home means.
+
+| Step | What happens | Source |
+|---|---|---|
+| The report | A person taps the confirmation on the cancel guide and lands on the win screen | `flows.md` Flow C, `screen:cancel-guide.html` |
+| The way back | The win screen's action opens Home **in the state its own figure describes**, and not the unchanged list | `node:2-6-home.md` 2.6.7, `screen:cancel-win.html` |
+| The count | The big number counts what is still being PAID for and drops by one, immediately | `node:2-6-home.md` 2.6.7 |
+| The total | The monthly total drops by that subscription's amount, immediately | `node:2-6-home.md` 2.6.7 |
+| The row | Stays in the list, keeps its amount, takes the same quiet grey status chip the trial uses, and its when-line reads the date the money actually stops | `screen:home-cancelled.html`, `node:2-6-home.md` 2.6.7 |
+| The quiet line | One line under the total names the cancelled one and that date. It is the one fact a person cannot read anywhere else on the screen | `node:2-6-home.md` 2.6.7 |
+| The disappearance | Once the next charge date has passed with no charge, the row is simply not there. Silent, and not a second event | `node:2-6-home.md` 2.6.7 |
+
+**The two things it deliberately is not, because both are what a builder with no rule would
+pick.** It is **not gone immediately**: Tendd does not know a cancellation worked, it knows a
+person said so, and a row that vanishes on somebody's word turns a wrong click, or a merchant who
+did not honour it, into money leaving an account this product has stopped watching. And it is
+**not still in the total**: the total is what a person is choosing to pay for and they have chosen
+to stop, so leaving the figure unmoved would make Home argue with the screen one tap before it.
+
+**What a real build owes on top of this, and it is one thing rather than a list.** The rule needs
+the next charge date and it needs to know whether a charge arrived on it. Both are in the bank
+data this product already reads (`bank:the charge`), so this adds no new source; what it adds is
+a scheduled comparison. **Nothing here is a message**: if a build wants to say something when the
+row leaves, that line is Voice's and does not exist yet, and the decision above is that it says
+nothing.
 
 ---
 

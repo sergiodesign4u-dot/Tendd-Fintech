@@ -7,6 +7,57 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-23 - The seven the spec refused to guess, answered
+
+The behaviour spec of stage 13 wrote every row with a source and moved seven questions it could
+not source into a list addressed to a person. **All seven closed the same day.** They are here in
+one entry because they were one decision about the same thing: a spec that guesses is worse than
+a spec with a hole, and the way to close a hole is to decide rather than to infer.
+
+**N6, AND IT WAS THE LARGEST THING IN THE PACKAGE. What happens to a subscription after a person
+reports they cancelled it.** Nothing anywhere said. **The answer is the honest one rather than the
+pleasant one: it stays in the list, marked, and leaves the monthly total at once**, and it
+disappears on its own once the next charge date has passed with no charge, silently.
+
+Two readings were available and both are what a builder with no rule picks. **Not gone
+immediately**, because Tendd does not know a cancellation worked - it knows a person said so, and
+a row that vanishes on somebody's word turns a wrong click, or a merchant who did not honour it,
+into money leaving an account this product has stopped watching. **Not still in the total**,
+because the total is what a person is choosing to pay for and they have chosen to stop; leaving
+the figure unmoved would make Home argue with the win screen one tap before it.
+
+What it cost: node **2.6.7**, four lines through Voice, one state in both editions
+(`home-cancelled`), two registry rows, and one changed destination - the win screen's action now
+opens the state its own figure describes. **And nothing at all in `design/system/`**: the chip,
+the row and the strip are what every other Home state already uses, which is the answer to
+whether the system was finished.
+
+**N7. The dot on the Alerts tab.** It appears when an alert arrives that was not there last time
+and clears the moment the Alerts screen is opened, whether or not every line on it was read. No
+number, ever. Node 3.8 had refused the whole family - unread counts, badges, red dots - without
+saying anything about the one that had shipped, and it says it now: **a count is a demand and a
+dot is an offer.** Clearing on arrival rather than on reading is the same distinction one layer
+down: a person who opened the screen has been told, and asking them to tick each line is the
+anxiety machine in a smaller box.
+
+**N1, N4, N5. A minimum validation contract, written into the spec and onto no screen.** One rule
+for all three forms, because three answers to the same question is how a product stops feeling
+like one product. The three rules about WHEN matter more than the field list: **the primary
+action is inactive until the form can be submitted**, so the commonest failure never becomes an
+error at all; **an error appears after a person has tried and never while they are typing**; and
+it is **one line under the field it belongs to**, never a dialog and never a summary. The resend
+is answered rather than dropped: a silent no-op and a mail loop are the two shapes a builder
+picks from when nothing is written, and both are worse than a sentence. No wording is stated
+here: every line is Voice's.
+
+**N2. `docs/bank-connection.md` is an approved source for the spec.** It is the only file that
+states triggers and `CLAUDE.md` already gives it a place; refusing it would have stripped the
+source from ten trigger cells to keep a rule about which files count.
+
+**N3. The drawing was behind the product.** `path-choice` has offered "Do this later" into the
+empty list since it was built, with the reason on the screen: the retreat is the default in the
+As-Is journey, so the product survives it. The edge is in Flow A now.
+
 ## 2026-08-23 - The instrument that reads a page which is not a screen
 
 The one row the unfreeze round did not close was the reason it had anything to close: **nothing

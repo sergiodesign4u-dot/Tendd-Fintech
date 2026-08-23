@@ -76,7 +76,14 @@ const PROBE = () => {
       walk(k, key);
     });
   };
-  walk(document.body, '');
+  /* THE PRODUCT AND NOT THE FRAME, since 2026-08-23. This walked `document.body`, which
+     includes the reviewer's chrome: the panel that lists every screen, the theme switch, the
+     roadmap. So ADDING A SCREEN moved a box on all 58 pages - the panel grew by one row - and
+     the instrument reported 5051 boxes changed for a change that touched two files. The
+     promise this file exists to check is about the PRODUCT, and `.app` or `.landing` is where
+     the product starts; `design/rollout.html` says so in the markup of every screen. Nothing
+     that was ever a real finding here was outside that root. */
+  walk(document.querySelector('.app') || document.querySelector('.landing') || document.body, '');
   return out;
 };
 

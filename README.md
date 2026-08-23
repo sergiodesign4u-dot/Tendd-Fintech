@@ -31,7 +31,7 @@ accessibility lives, and who decides what is still open.
 | [`ia/`](./ia/structure.html) | The structure: a sitemap, the flows, one page per node, and one accessibility contract |
 | [`wireframes/`](./wireframes/overview.html) | The grey structure contract, frozen since Voice. Read-only, and the answer to why every screen exists twice |
 | [`voice/`](./voice/voice.html) | The voice, and the line inventory that owns every interface string |
-| [`design/`](./design/index.html) | The product in colour: 17 screens across 57 pages, and [the map of all of them](./design/overview.html) |
+| [`design/`](./design/index.html) | The product in colour: 17 screens across 58 pages, and [the map of all of them](./design/overview.html) |
 | [`design/system/`](./design/system/CLAUDE.md) | The code of the design system, liftable whole, with its own rules file |
 | [`design/kit/`](./design/kit/why.html) | The stand that shows it: a page per component, the foundations, the architecture, the backlog |
 | [`handoff/`](./handoff/handoff.html) | This project, handed over: the page and its five documents |
@@ -81,7 +81,7 @@ page; the two are checked against each other by `handoff13.cjs`.
 | 02 | User Research | [personas](./research/personas.html), [JTBD](./research/jtbd.html) | Done, June 2026 |
 | 03 | CJM, as-is and to-be | [as-is](./research/cjm-as-is.html), [to-be](./research/cjm-to-be.html) | Done, July 2026 |
 | 04 | Information Architecture | [ia/structure.html](./ia/structure.html) | Done, August 2026. Two layers, one page per node, the block bank, the seven global elements, one accessibility contract |
-| 05 | Wireframes | [wireframes/overview.html](./wireframes/overview.html) | Done, August 2026. 17 screens across 57 grey pages, one per state. Five rounds, the last of which removed a page rather than adding one |
+| 05 | Wireframes | [wireframes/overview.html](./wireframes/overview.html) | Done, August 2026. 17 screens across 58 grey pages, one per state. Five rounds, the last of which removed a page rather than adding one |
 | 06 | Voice | [voice/voice.html](./voice/voice.html) | Done, July 2026. The voice and the line inventory; every product string in the repository is owned here |
 | 07 | Concept | [directions](./design/concept/directions.html), [concept](./design/concept/concept.html) | Done, July 2026. Petrol and Paper, found and locked |
 | 08 | UI + Visual | [design/overview.html](./design/overview.html) | Done, August 2026. The kit read out of the whole product rather than out of a sample, and the first seven screens in colour |

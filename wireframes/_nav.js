@@ -56,7 +56,14 @@ window.WF_NAV = {
         { node: '2.6.2', slug: 'loading',   label: 'refreshing',         built: true },
         { node: '2.6.3', slug: 'error',     label: 'sync failed, last known list', built: true },
         { node: '2.6.5', slug: 'one',       label: 'one subscription',   built: true },
-        { node: '2.6.6', slug: 'few',       label: 'a short list, ungrouped', built: true }
+        { node: '2.6.6', slug: 'few',       label: 'a short list, ungrouped', built: true },
+        /* 2.6.7, added 2026-08-23 by a founder's decision closing N6 of the behaviour spec:
+           what happens to a subscription after a person reports they cancelled it. The
+           structure contract is frozen since Voice and changes only by a decision written
+           into the file it changes, and that sentence is at the head of home-cancelled.html
+           itself. Nothing new in the grey vocabulary: the strip, the row and the tag are
+           what every other Home state already uses. */
+        { node: '2.6.7', slug: 'cancelled', label: 'one cancelled, still listed', built: true }
       ]},
       { node: '2.7', name: 'Subscription Detail', file: 'subscription-detail.html', ia: '2-7-subscription-detail.html',
         flow: 'C and D, one tap from the list', scope: 'MVP', built: true, states: [
