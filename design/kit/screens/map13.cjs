@@ -60,8 +60,26 @@ function playwright() {
   process.exit(1);
 }
 
-const STANDS = ['overview.html', 'rollout.html'];
-const SCREENS = list('design', '.html').filter(f => !STANDS.includes(f));
+/* THE PRODUCT CORPUS IS READ OFF THE REGISTRY, since 2026-08-23, and not off a typed list of
+   what to leave out. `design/_nav.js` names every coloured screen and its states, and a file it
+   does not name is not a product screen whatever it is called. The exclusion used to be the
+   literal ['overview.html', 'rollout.html'], which meant that the next page added beside the
+   screens would silently join the product corpus and be measured as one. Found by the read-only
+   pass of stage 13, whose sharpest form of it was that map13.cjs promised in its own header that
+   nothing here is typed by hand. The two names are still computed and printed, so a page that
+   drops out of the registry is visible rather than merely absent. */
+const NAV_SRC = fs.readFileSync(path.join(ROOT, 'design', '_nav.js'), 'utf8');
+const REGISTERED = (() => {
+  const set = new Set();
+  for (const m of NAV_SRC.matchAll(/base:\s*'([^']+)'\s*,\s*states:\s*\[([^\]]*)\]/g)) {
+    const base = m[1];
+    set.add(base);
+    for (const s of m[2].matchAll(/'([^']+)'/g)) set.add(base.replace('.html', '') + '-' + s[1] + '.html');
+  }
+  return set;
+})();
+const isProductScreen = f => REGISTERED.has(f);
+const SCREENS = list('design', '.html').filter(isProductScreen);
 
 /* --- the class vocabulary of each component file -------------------------- */
 /* Same selector reader rollout12.cjs uses: everything before a { on a rule
@@ -405,7 +423,7 @@ const IN_BROWSER = () => {
   const p = s => out.push(s);
   p('THE CORRESPONDENCE MAP - node design/kit/screens/map13.cjs');
   p('');
-  p(`screens in the corpus              ${SCREENS.length}   (design/*.html minus ${STANDS.join(' and ')})`);
+  p(`screens in the corpus              ${SCREENS.length}   (every file design/_nav.js names; on disk and unregistered: ${list('design', '.html').filter(f => !isProductScreen(f)).join(', ')})`);
   p(`rows in the map (screen x zone)    ${map.length}`);
   p(`components and patterns            ${UNITS.length}   (${COMPONENT_FILES.length} components, ${PATTERN_FILES.length} patterns)`);
   p(`tokens declared in tokens.css      ${ALL_TOKENS.size}   (${primitives.size} primitive, ${semantic.size} semantic)`);

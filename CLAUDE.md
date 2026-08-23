@@ -186,9 +186,10 @@ The full route, folder by folder with what to open first in each, is the table o
 ## Handoff
 
 **The package is `handoff/`**: the page plus `docs/` (behaviour, map, a11y, onboarding-gaps,
-one-shot). It **references the code and never copies it** - a hex, a pixel value, a ready
-interface string or a css fragment inside that folder is a defect; a MEASURED figure is not a
-copy, and it names what measured it and when. Every behaviour row names its source, and a row
+one-shot). **The documents reference the code and never copy it**: a hex, a spacing value, a
+ready product string or a css fragment inside `handoff/docs/` is a defect. Two things are not
+copies and are allowed - a MEASURED figure, which names what measured it and when, and the stage
+page's own look, which is chrome like every other stage account's and reaches no screen. Every behaviour row names its source, and a row
 with no source goes to a NOT DECIDED list addressed to the founder rather than into the spec.
 The map is read off the code and its reverse list is produced by INVERSION of the same data,
 never by a second pass. **"Confirmed" means a run NOW with a named instrument**, never a memory

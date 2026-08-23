@@ -40,7 +40,7 @@ const pad = (s, n) => String(s).padStart(n);
 /* THE CORPUS IS WHAT GIT CARRIES, since 2026-08-23, and not what happens to sit in the
    working directory. This file's own question is "what does a person who did not build
    this actually receive", and git is the authority on that: the clean-clone test of step 6
-   received 566 files where this walk had been counting 648, and the 82 it was counting are
+   received 568 files where this walk had been counting 648, and the 80 it was counting are
    the screenshot logs of a local tool, the course notes and one macOS artefact - every one
    of them named in `.gitignore` and none of them ever handed to anybody. A census of a
    receiver's package that counts files the receiver never gets is off in the one direction

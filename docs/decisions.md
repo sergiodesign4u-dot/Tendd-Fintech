@@ -7,6 +7,63 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-23 - Four things that were true on purpose and written down nowhere
+
+Stage 13 sent two readers with no memory of this project through it and asked them what
+they could not work out. Four of their findings came back with the same verdict, and it is
+the one that costs the most to leave alone: **so intentionally, and recorded in no file.**
+A decision nobody wrote down is indistinguishable from an accident to the next person, and
+the next person here is a stranger by definition. They are written down now, as the state
+they are actually in, with the founder's call still open on three of them.
+
+**1. Dark is a system capability that is fully paid for and a product feature that has never
+been specified.** Every semantic role exists in `:root` and in `[data-theme="dark"]` or it does
+not exist, which is a rule of stage 08 and is checked rather than promised. What has no owner is
+the product side: **Settings offers no theme control, `microcopy.md` has no line for one, and
+`prefers-color-scheme` appears zero times in the entire system** - in `base.css`, in `tokens.css`
+and in both chrome stylesheets. So a person whose machine is set to dark meets the light product.
+`design/system/CLAUDE.md` says the theme is set "however the product decides to set it" and
+nothing decides it. The switch a reviewer sees belongs to `design/_screen.css` and is chrome.
+**Recorded, not decided.** A control is a new product STRING, so Voice owns the wording once the
+answer exists. The three live options are a control in Settings, follow the machine, or stay
+light-only and say so.
+
+**2. The tab bar has four destinations in the code and seventeen surfaces still say five.**
+Home, Trends, Alerts, You, since the Save tab was retired on 2026-08-21. `docs/decisions.md` is
+excluded on purpose: a decision log is supposed to hold the state it recorded. Of the seventeen,
+**two were corrected on 2026-08-23** - the two documents stage 13 was allowed to edit,
+`design/kit/docs/architecture.md` U18 and `design/kit/docs/responsive.md`, and in the second the
+NUMBER was already right while both of its members were wrong. The rest are frozen product,
+frozen wireframes, or another stage's material. **Open**: correct them, or date each one to the
+corpus it was written on.
+
+**3. Two coloured screens carry a class the design system does not define.** `rollout12.cjs`
+check 2 reports `context` on `home-few.html` and `home-one.html`, and it has reported it since
+those two screens landed on 2026-08-20. No backlog row had ever named it, and `README.md` was
+calling `npm run check` "the two that must stay clean" while one of the two was not. **Open**:
+declare the class in the system, or take it off the two screens. Both are frozen product.
+
+**4. The file the kit registry calls "the markup a coloured screen is copied from" is stale in
+three ways.** `design/kit/shell.html`: the `.app` element is closed by a `</main>`, its tab bar
+carries three destinations against the product's four, and it puts a back control on a
+destination, which is exactly what usage rule U18 forbids. Nothing checks a template: every
+instrument here reads the product or the system, and the file a new screen would be COPIED from
+is neither. **Open, and urgent in one direction only** - `handoff/docs/one-shot.md` names it out
+loud as a registry that currently lies, and points a receiver at the nearest real screen instead.
+
+**AND THE FATE OF TWO EXAM SCREENS, decided out loud rather than left in the product.** Stage 13
+had two strangers build a real feature each from `handoff/docs/one-shot.md` alone - Export your
+data at four states, Weekly digest at three. Both passed every instrument. **Both were deleted,
+branch B, reverted by git so the deletion is provable rather than promised.** The reason is not
+the quality of the work: accepting either means taking the pixel comparison the whole of stage 12
+stands on again, on a corpus of 60 or 61 rather than 57, at the last step of the last stage. An
+unaccepted screen in the product is worse than an absent one, and a screen accepted by reopening
+a closed stage is worse than both. What the exams were for is kept: two lists of what a stranger
+could not work out, thirteen paragraphs of the prompt that exist because of them, two findings
+about the product now in the backlog, and one about an instrument, fixed.
+
+---
+
 ## 2026-08-21 - The icon set came even, and the first half of the fix was not a drawing
 
 Founder: **"давай B"**, off four candidates drawn and measured before any of them

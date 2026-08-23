@@ -222,10 +222,14 @@ split is the whole of it:
 **It does not tell you what to build.** The feature is the one blank, and it is the one thing
 this repository cannot decide for you.
 
-**It does not repeat a single value.** There is no hex, no pixel number, no interface string and
-no css fragment anywhere above, and that is deliberate rather than terse: a copy of a value goes
-stale within a week and keeps a confident face while it does. Every line here names the file that
-owns the thing and stops.
+**It does not repeat a single value.** No hex, no spacing value, no product string and no css
+fragment anywhere above: every line names the file that owns the thing and stops, because a copy
+of a value goes stale within a week and keeps a confident face while it does. **The one number
+it does print is a measurement and not a value** - the 28px band of sideways scroll that survived
+two accepted stages - and it is there because that is the argument for sweeping the width rather
+than sampling its ends. The read-only pass of this stage caught this paragraph claiming "no pixel
+number" forty lines after printing one, which is the same class of defect it was written to warn
+about.
 
 **It does not replace the founder.** Two lists in this package are addressed to a person and not
 to a builder: the questions in `onboarding-gaps.md` that are true on purpose and written down

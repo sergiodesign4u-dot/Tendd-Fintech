@@ -61,8 +61,26 @@ function playwright() {
   process.exit(1);
 }
 
-const STANDS = ['overview.html', 'rollout.html'];
-const ALL = list('design', '.html').filter(f => !STANDS.includes(f));
+/* THE PRODUCT CORPUS IS READ OFF THE REGISTRY, since 2026-08-23, and not off a typed list of
+   what to leave out. `design/_nav.js` names every coloured screen and its states, and a file it
+   does not name is not a product screen whatever it is called. The exclusion used to be the
+   literal ['overview.html', 'rollout.html'], which meant that the next page added beside the
+   screens would silently join the product corpus and be measured as one. Found by the read-only
+   pass of stage 13, whose sharpest form of it was that map13.cjs promised in its own header that
+   nothing here is typed by hand. The two names are still computed and printed, so a page that
+   drops out of the registry is visible rather than merely absent. */
+const NAV_SRC = fs.readFileSync(path.join(ROOT, 'design', '_nav.js'), 'utf8');
+const REGISTERED = (() => {
+  const set = new Set();
+  for (const m of NAV_SRC.matchAll(/base:\s*'([^']+)'\s*,\s*states:\s*\[([^\]]*)\]/g)) {
+    const base = m[1];
+    set.add(base);
+    for (const s of m[2].matchAll(/'([^']+)'/g)) set.add(base.replace('.html', '') + '-' + s[1] + '.html');
+  }
+  return set;
+})();
+const isProductScreen = f => REGISTERED.has(f);
+const ALL = list('design', '.html').filter(isProductScreen);
 /* the spine: one screen of every shape the product has, for --fast */
 const SPINE = ['index.html', 'path-choice.html', 'connect-bank.html', 'add-subscription.html',
   'guided-reveal.html', 'home.html', 'home-loading.html', 'subscription-detail.html',

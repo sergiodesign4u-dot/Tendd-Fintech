@@ -6,12 +6,13 @@
    calls "the largest piece of real WORK left, and the one row here a builder can
    simply do". Two things were true of it and only one was known: none of the
    eleven is a taste call, and ALL ELEVEN WERE COUNTED ON 28 COLOURED PAGES. The
-   corpus is 55. A list of defects measured on half a product is not a list of
+   corpus is the whole product, 57 coloured screens as of 2026-08-23 and read off
+   `design/_nav.js` rather than off a number in this comment. A list of defects measured on half a product is not a list of
    that product's defects, and this repository's own rule says a claim counted off
    a corpus is recounted when the corpus grows, by script and never from memory.
 
-   So this file does not fix the eleven. It asks the same questions of all 110
-   pages and reports what is there today.
+   So this file does not fix the eleven. It asks the same questions of every page in
+   both corpora and reports what is there today.
 
    THE CHECKS, and every one of them is a fact rather than an opinion:
 
@@ -46,9 +47,31 @@ const { execSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '../../..');
 const { chromium } = (() => { try { return require('playwright'); } catch (e) { return require(execSync('npm root -g').toString().trim() + '/playwright'); } })();
 
-const STANDS = ['overview.html', 'rollout.html'];
+/* THE PRODUCT CORPUS IS READ OFF THE REGISTRY, since 2026-08-23, and not off a typed list of
+   what to leave out. `design/_nav.js` names every coloured screen and its states, and a file it
+   does not name is not a product screen whatever it is called. The exclusion used to be the
+   literal ['overview.html', 'rollout.html'], which meant that the next page added beside the
+   screens would silently join the product corpus and be measured as one. Found by the read-only
+   pass of stage 13, whose sharpest form of it was that map13.cjs promised in its own header that
+   nothing here is typed by hand. The two names are still computed and printed, so a page that
+   drops out of the registry is visible rather than merely absent. */
+const NAV_SRC = fs.readFileSync(path.join(ROOT, 'design', '_nav.js'), 'utf8');
+const REGISTERED = (() => {
+  const set = new Set();
+  for (const m of NAV_SRC.matchAll(/base:\s*'([^']+)'\s*,\s*states:\s*\[([^\]]*)\]/g)) {
+    const base = m[1];
+    set.add(base);
+    for (const s of m[2].matchAll(/'([^']+)'/g)) set.add(base.replace('.html', '') + '-' + s[1] + '.html');
+  }
+  return set;
+})();
+const isProductScreen = f => REGISTERED.has(f);
+/* the grey corpus has no registry of coloured screens to check against, so it keeps the
+   two names it has always excluded; they are the hub of each folder and nothing else. */
+const HUBS = new Set(['overview.html', 'rollout.html']);
 const listOf = dir => fs.readdirSync(path.join(ROOT, dir))
-  .filter(f => f.endsWith('.html') && !STANDS.includes(f)).sort().map(f => dir + '/' + f);
+  .filter(f => f.endsWith('.html') && (dir === 'design' ? isProductScreen(f) : !HUBS.has(f)))
+  .sort().map(f => dir + '/' + f);
 
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp' };
 const serve = () => new Promise(resolve => {
@@ -132,7 +155,7 @@ const NAMES = { A: 'a fieldset with no name at all', B: 'aria-label on an elemen
      to stop. Found at stage 13 by reading this instrument's own output. */
   const nColour = pages.filter(u => u.startsWith('design/')).length;
   const nGrey = pages.length - nColour;
-  console.log('pages swept: ' + pages.length + '  (' + nColour + ' coloured + ' + nGrey + ' grey, the two stand pages excluded)');
+  console.log('pages swept: ' + pages.length + '  (' + nColour + ' coloured + ' + nGrey + ' grey; the coloured side is every screen design/_nav.js names, the grey side is its folder minus the hub)');
   console.log('');
   console.log('=== FINDINGS BY KIND ===');
   for (const k of Object.keys(NAMES)) {

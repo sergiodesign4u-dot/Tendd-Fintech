@@ -14,7 +14,9 @@
    system takes it (a wait) or the person leaves to take it (a mail link). That
    is the class, and it has to be declared rather than inferred.
 
-   WHAT IT ASKS, three things, over the 55 coloured screens.
+   WHAT IT ASKS, three things, over every coloured screen `design/_nav.js` names.
+   That was 55 when this file was written and is 57 today; the number is not in the
+   code any more, so this comment cannot go stale a third time.
 
      1  NO FORWARD DOOR. Every link this screen has points at a screen that links
         back to it, so a reviewer standing here can only retreat. Every screen in
@@ -33,16 +35,34 @@
         hand-off. A map that grows onto ordinary screens has stopped being about
         this problem.
 
-   The graph reads only what is INSIDE `.app`, so the side panel's fifty-five
-   links and the chrome's own strip do not make everything reachable by accident.
+   The graph reads only what is INSIDE `.app`, so the side panel's links and the
+   chrome's own strip do not make everything reachable by accident.
 
    RUN IT:  node design/kit/screens/walk13.cjs
    ============================================================================ */
 const fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..', '..', '..');
-const STANDS = new Set(['overview.html', 'rollout.html']);
+/* THE PRODUCT CORPUS IS READ OFF THE REGISTRY, since 2026-08-23, and not off a typed list of
+   what to leave out. `design/_nav.js` names every coloured screen and its states, and a file it
+   does not name is not a product screen whatever it is called. The exclusion used to be the
+   literal ['overview.html', 'rollout.html'], which meant that the next page added beside the
+   screens would silently join the product corpus and be measured as one. Found by the read-only
+   pass of stage 13, whose sharpest form of it was that map13.cjs promised in its own header that
+   nothing here is typed by hand. The two names are still computed and printed, so a page that
+   drops out of the registry is visible rather than merely absent. */
+const NAV_SRC = fs.readFileSync(path.join(ROOT, 'design', '_nav.js'), 'utf8');
+const REGISTERED = (() => {
+  const set = new Set();
+  for (const m of NAV_SRC.matchAll(/base:\s*'([^']+)'\s*,\s*states:\s*\[([^\]]*)\]/g)) {
+    const base = m[1];
+    set.add(base);
+    for (const s of m[2].matchAll(/'([^']+)'/g)) set.add(base.replace('.html', '') + '-' + s[1] + '.html');
+  }
+  return set;
+})();
+const isProductScreen = f => REGISTERED.has(f);
 const dir = path.join(ROOT, 'design');
-const files = fs.readdirSync(dir).filter(f => f.endsWith('.html') && !STANDS.has(f));
+const files = fs.readdirSync(dir).filter(f => f.endsWith('.html') && isProductScreen(f));
 
 const out = {}, wait = {};
 for (const f of files) {

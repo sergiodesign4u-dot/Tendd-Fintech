@@ -6,9 +6,9 @@ finding that gets lost. Stages 09 to 13 read this and close what their own mater
 
 ## Where this file stands
 
-**Counted on 2026-08-23 by `design/kit/screens/handoff13.cjs`, section 7, and not by hand: 107
-table rows, 80 saying closed, 37 open by the reading that a row with anything unfinished in it is
-an open row, 2 addressed to stage 13 and 0 addressed to a stage that has ended.** The instrument
+**Counted on 2026-08-23 by `design/kit/screens/handoff13.cjs`, section 7, and not by hand: 110
+table rows, 80 saying closed, 40 open by the reading that a row with anything unfinished in it is
+an open row, 4 addressed to stage 13 and 0 addressed to a stage that has ended.** The instrument
 is the owner of these five numbers from today; everything below is the history of how the file
 got here, each block keeping the corpus it was counted on. Re-run it rather than trusting this
 paragraph a month from now.
@@ -484,6 +484,26 @@ not a backlog row.
 |---|---|---|---|
 | **A rewrite the log records was applied by halves.** `voice/docs/microcopy.md` line 149 logs the `data-privacy / export` body as "Exporting your **spend** history as a CSV ..." becoming "Exporting your history as a CSV ...", on the ground of D9 and Principle 3, whose whole point is dropping the word "spend". Line 1138 of the same file, and `design/data-privacy.html` line 114, both still read "Exporting your **spend** history as a spreadsheet". The CSV half of that rewrite landed and the "spend" half did not | Nothing checks a rewrite log against the inventory printed in the same file. The two halves of one row were applied by two different passes and the second one did not run, and a log that records a change nobody applied reads exactly like a log that records one that was | **Not fixed. Frozen product**, and a product STRING besides, which is Voice's before it is anybody's. One word in two files | **Open. Voice, then the founder** |
 | **A shipped button breaks its own voice rule, in three places.** `voice/docs/voice.md` line 186: buttons are "Tendd's labels, so they say 'your', never first-person 'my' or 'I'." The label is **Download my data**, and it stands in `voice/docs/microcopy.md` line 1139, in `design/data-privacy.html` line 116 and in `design/data-privacy-delete-confirm.html` line 72 | It is one label on one screen, and the rule that forbids it is four hundred lines away in a different file. No instrument compares a line in the inventory against the rules of the voice, and this is the first time anybody read the two side by side | **Not fixed.** A string, so Voice owns the wording and the change lands in `microcopy.md` first and on the two screens after the freeze lifts | **Open. Voice, then the founder** |
+
+## Found on 2026-08-23 by the browser pass of stage 13
+
+One row. The critique of this stage runs on two instruments, and this is the half a read-only
+pass cannot reach: it is only visible when the page is open.
+
+| What was found | Why it stood | Where it goes | State |
+|---|---|---|---|
+| **The hamburger on a stage account says "All screens" and opens the roadmap.** `design/_screen.css` line 167 generates that label after `.nav-toggle`, and on a coloured screen it is exactly right: the button opens the coverage map. `design/rollout.html` and `handoff/handoff.html` load the same stylesheet and the same button opens the PROJECT ROADMAP, which is thirteen stages and not one screen | The label was written for the 28 coloured screens of stage 07 and put in css rather than in markup precisely so that it would reach every screen without 28 edits. It reached two pages that are not screens along with them, and nothing looks at a generated word | **Corrected on `handoff/handoff.html` only**, in its own style block, because `_screen.css` is loaded by all 57 accepted screens and one line there moves the render of every one. `design/rollout.html` is frozen html and cannot take the same override | **Open. The founder** |
+
+## Found on 2026-08-23 by the audit of stage 13, on the chrome nothing sweeps
+
+Two rows, and both are about the same blind spot: **every instrument in this repository takes the
+product and its grey twin, and stops.** The pages that carry the project's own navigation have
+never been measured by any of them.
+
+| What was found | Why it stood | Where it goes | State |
+|---|---|---|---|
+| **The project's sidebar fails WCAG 1.4.3 on every page that shows section links.** `.nav-section` in `/_nav.css` line 50 reads `var(--nav-muted)` at 13px, and `--nav-muted` is declared at line 10 as the colour for "SOON: not started, not a link". Measured against the panel: **2.65:1, where the floor for that size is 4.5:1.** Only the current link escapes, because that one takes `--nav-active`. Twenty pages declare `NAV_SECTIONS` | The token was chosen for a NON-LINK - a stage nobody can open yet - and reused for a link that a person is meant to click. `a11y13.cjs` sweeps the 57 coloured screens, `aria13.cjs` sweeps those and their 57 grey twins, and neither has ever opened a stage account | **Not fixed. One token, and it moves no box** - but it repaints the sidebar of twenty pages, and a colour change at the closing ritual of the last stage belongs to a founder's walk and not to a builder's last commit | **Open. The founder** |
+| **No stage account in this project has a `main` landmark.** Each has a `nav`, an `h1` and a `footer`, and the content sits in a `div`. A page with landmarks and no `main` gives a screen reader nothing to skip to, which is the thing a skip link would skip to if the product had one | Same blind spot. The shape was set by the first stage account and copied eleven times, and nothing measures those pages | **Corrected on `handoff/handoff.html` only.** The other eleven are frozen or belong to closed stages; one element each, whenever they are next opened | **Open. The founder** |
 
 ## What is deliberately NOT in this file
 
