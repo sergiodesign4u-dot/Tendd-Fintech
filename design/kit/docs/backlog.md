@@ -6,12 +6,17 @@ finding that gets lost. Stages 09 to 13 read this and close what their own mater
 
 ## Where this file stands
 
-**Counted on 2026-08-23 by `design/kit/screens/handoff13.cjs`, section 7, and not by hand: 105
-table rows, 80 saying closed, 35 open by the reading that a row with anything unfinished in it is
-an open row, 1 addressed to stage 13 and 0 addressed to a stage that has ended.** The instrument
+**Counted on 2026-08-23 by `design/kit/screens/handoff13.cjs`, section 7, and not by hand: 107
+table rows, 80 saying closed, 37 open by the reading that a row with anything unfinished in it is
+an open row, 2 addressed to stage 13 and 0 addressed to a stage that has ended.** The instrument
 is the owner of these five numbers from today; everything below is the history of how the file
 got here, each block keeping the corpus it was counted on. Re-run it rather than trusting this
 paragraph a month from now.
+
+**Four rows landed after that run, on the evening of 2026-08-23, with node 6.17**, and a re-run
+of the same instrument answers **111 rows, 80 saying closed, 41 open, 3 addressed to stage 13**.
+The paragraph above keeps the corpus it was measured on, which is the rule; this sentence is the
+recount, in the step that changed the file.
 
 ## How the count got here, counted on 2026-08-12 after step 9
 
@@ -465,6 +470,20 @@ and copying it copied a defect that had never been measured on either page.
 | What was found | Why it stood | Where it goes | State |
 |---|---|---|---|
 | **The callout block on a stage account has no reading measure.** `.ro-note` on `design/rollout.html` carries no `max-width`, so at desktop width it runs the whole wrap: **116ch measured in the note's own font**, beside section prose that is capped at 78ch in the same file. The same block on `handoff/handoff.html` was fixed the day it was found | Nothing sweeps a stage page for a measure. The width instruments read the product screens and the pages sweep reads for sideways scroll, and a 116ch line does neither: it fits, it renders, and it is simply hard to read. It is the stage 12 lesson one file over - `ch` is a unit of the element's own font, so the measure belongs to the line | **Not fixed. `design/*.html` is frozen** after the acceptance of stage 12, and `rollout.html` is inside that glob. One declaration, whenever the freeze lifts | **Open. The founder** |
+
+## Found on 2026-08-23 by the first feature built from the documentation alone
+
+Two rows, and neither of them is about the feature. `handoff/docs/one-shot.md` was handed to a
+reader with no memory of this project, who followed it to the letter and built one screen with
+four states; **the screen was a probe and was deleted**, so what survives is only what it found
+about the product that was already here. Both were verified against the files before being
+believed. Everything the exercise found about the PROMPT was closed by editing the prompt and is
+not a backlog row.
+
+| What was found | Why it stood | Where it goes | State |
+|---|---|---|---|
+| **A rewrite the log records was applied by halves.** `voice/docs/microcopy.md` line 149 logs the `data-privacy / export` body as "Exporting your **spend** history as a CSV ..." becoming "Exporting your history as a CSV ...", on the ground of D9 and Principle 3, whose whole point is dropping the word "spend". Line 1138 of the same file, and `design/data-privacy.html` line 114, both still read "Exporting your **spend** history as a spreadsheet". The CSV half of that rewrite landed and the "spend" half did not | Nothing checks a rewrite log against the inventory printed in the same file. The two halves of one row were applied by two different passes and the second one did not run, and a log that records a change nobody applied reads exactly like a log that records one that was | **Not fixed. Frozen product**, and a product STRING besides, which is Voice's before it is anybody's. One word in two files | **Open. Voice, then the founder** |
+| **A shipped button breaks its own voice rule, in three places.** `voice/docs/voice.md` line 186: buttons are "Tendd's labels, so they say 'your', never first-person 'my' or 'I'." The label is **Download my data**, and it stands in `voice/docs/microcopy.md` line 1139, in `design/data-privacy.html` line 116 and in `design/data-privacy-delete-confirm.html` line 72 | It is one label on one screen, and the rule that forbids it is four hundred lines away in a different file. No instrument compares a line in the inventory against the rules of the voice, and this is the first time anybody read the two side by side | **Not fixed.** A string, so Voice owns the wording and the change lands in `microcopy.md` first and on the two screens after the freeze lifts | **Open. Voice, then the founder** |
 
 ## What is deliberately NOT in this file
 

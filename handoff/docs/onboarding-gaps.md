@@ -189,3 +189,191 @@ because a handoff that only lists holes cannot tell the founder what already lan
 **Nothing in this step was fixed.** Not the two undefined classes, not the template, not the
 twelve tab-bar surfaces, not the front matter. The product was accepted at stage 12 and a fix
 here would void every pixel comparison it stands on.
+
+---
+
+# The exam, run 1: Export your data
+
+Step 7 does the same thing as step 1 with the direction reversed. Step 1 asked a stranger what it
+could not understand; the exam asks a stranger to BUILD something and finds out what the writing
+was missing by watching where it goes wrong. **The only instruction the reader was given was
+`handoff/docs/one-shot.md`**, plus a feature and a size, and the size was named before the run
+rather than after it: **one screen, four states, four files.** A reader who does not stumble on a
+feature of two states has proved nothing.
+
+The feature is **Export your data**, taken from `docs/decisions.md` D-Export. It was chosen
+because it is a trap of a particular shape: the screen does not exist, and the STRINGS partly do.
+`design/data-privacy.html` already mentions the export, and `voice/docs/microcopy.md` already
+carries thirteen lines about it. What the exam wanted to know is whether a stranger finds the
+lines that exist or writes new ones beside them.
+
+## Proof the ban held, and the finding inside the proof
+
+The reading journal is 43 files and **not one forbidden path appears in it**. The reader also
+disclosed, without being asked, three recursive greps that walked forbidden folders while
+searching for the word "export". That disclosure is worth more than the compliance, and it is
+the methodological finding of this run:
+
+**A path ban enforced as "do not open this file" does not bind `grep -r`.** A recursive search is
+a reading instrument. It walks every file under the folder it is given, and filtering its OUTPUT
+afterwards does not undo the reading; it only hides it from the person holding the log.
+
+Verified rather than accepted, by asking which of the forbidden files could have produced a line
+at all:
+
+| Forbidden path | Lines containing "export" | Could it have leaked |
+|---|---|---|
+| `handoff/docs/onboarding-gaps.md` | **0** | No. The one file that holds the answers could not have produced a single line |
+| `design/kit/docs/census.md` | 0 | No |
+| `design/rollout.html`, `design/kit/pixel-proof.html` | 0 | No |
+| `design/kit/docs/tokens-audit.md` | 2 | Both are about exported cuts of the brand mark for the favicon. Nil substance |
+| `wireframes/docs/critique.md` | 1 | Substantive: it names the free download against the Pro CSV. It was in the grep whose 4MB output went to a file, and the reader named the six paths that appeared in the 2KB preview it actually saw; this was not among them |
+| `design/overview.html` | 2 | Substantive, same grep, same answer |
+
+**So the run stands**, and the ban for run 2 was rewritten to say what this one learned: scope the
+search, or exclude the paths inside the command, rather than filtering the output afterwards.
+
+## What the exam found, and what closed it
+
+Two of the reader's findings were about the PRODUCT and survive the exam. Both were verified
+against the files before being believed, and both are now rows in `design/kit/docs/backlog.md`.
+
+| Found | Verified at | Verdict |
+|---|---|---|
+| **A rewrite the log records was applied by halves.** `microcopy.md` line 149 logs the export body losing the word "spend" on the ground of D9 and Principle 3. Line 1138 of the same file and `design/data-privacy.html` line 114 still carry it; only the CSV half of the rewrite landed | `voice/docs/microcopy.md` 149 and 1138, `design/data-privacy.html` 114 | **Holds.** A log that records a change nobody applied reads exactly like one that records a change somebody did |
+| **A shipped button breaks its own voice rule, in three places.** `voice/docs/voice.md` line 186 says buttons say "your" and never "my". The label is "Download my data" | `voice/docs/voice.md` 186, `microcopy.md` 1139, `design/data-privacy.html` 116, `design/data-privacy-delete-confirm.html` 72 | **Holds.** No instrument compares a line in the inventory against the rules of the voice, and this is the first time the two were read side by side |
+
+Everything else the reader produced was about the PROMPT, and a hole in the prompt is closed by
+editing the prompt rather than by filing it. Eight paragraphs of `one-shot.md` exist because of
+this run:
+
+| What the reader had to decide alone | What the prompt says now |
+|---|---|
+| **Is this feature a new screen, or a state of an existing one?** The reader chose a new screen. The IA had already answered: node 6.15's States table carries an `Exporting` row, so it is a state. The reader had opened that table | Section 4 opens with the decision and hands it to `ia/docs/nodes/`: a row in a node's States table means a state file and no registry row of your own |
+| **Which existing screen do I copy?** The prompt said "the nearest screen of the same shape" and then pointed at Part A of the map, which lists COMPONENTS. Two different selection procedures, and they choose different files | Shape first, map second, in that order, with what shape means spelled out. A file with the right parts and the wrong frame is the harder of the two to unpick |
+| **`microcopy.md` and `voice.md` contradict each other on a shipped label.** The prompt said "the string that exists there is the string, verbatim" and the voice rules forbid that string. The reader obeyed both, which put "my" and "your" one tap apart in one flow | The shipped string wins, the disagreement is a backlog row, and re-authoring a line is Voice's job and not the builder's |
+| **"add the screen to `ia/docs/nodes/`" has two readings**: write a new node document, or add a row to an existing node's table. The second is a line; the first drags in a page, because a document no page shows does not exist here | Both readings are named, with the cost of the expensive one stated rather than absorbed |
+| **What does "both themes" actually ask for**, when the accessibility instrument already measures both? | The instrument proves the two resting states, because it runs with reduced motion emulated on purpose. What it cannot prove is the switch between them, and that is what the human look is for |
+| **Nothing said what to do about the counts** when a new screen grows the corpus | A section of its own: recount what a person typed, name the corpus of what a machine measured, and write one row rather than re-running four instruments |
+| **Is my screen reachable at all?** The reader built four correct pages that nothing in the product links to, and found out from `walk13.cjs` after the fact | The check is named, with the tell: a States row whose trigger reads "X tapped" means something else is supposed to BE that tap |
+| **The prompt counted the rows of another document** and was one short within the hour, because the feature it produced added one | The count is gone, and the paragraph says why a prompt may not state the length of a document it does not own |
+
+## The screen itself: branch B, and it is deleted
+
+The pack makes the fate of an exam screen a fork, and this one took **B: the screen was a probe
+and is gone.** Four html files, a registry row, twenty-four new lines in the inventory and its
+published page, a NOT DECIDED row, a recount in the README - all reverted by git, so the deletion
+is provable rather than promised.
+
+**The reason is not that the work was bad.** It passed: check 2 of the ledger clean on all four
+files, the quality sweep byte-identical to its baseline, 3222 text nodes and 926 tab stops with
+zero contrast and zero focus findings, zero prose past the measure across 58 widths, both themes
+correct. Branch A would have accepted it as new work - and accepting it means the pixel
+comparison the whole of stage 12 stands on has to be taken again, on a corpus of 61 rather than
+57, at the last step of the last stage. **An unaccepted screen in the product is worse than an
+absent one, and a screen accepted by reopening a closed stage is worse than both.**
+
+What the exam was for is the list, and the list is above.
+
+---
+
+# The exam, run 2: Weekly digest
+
+The second run exists to find out whether the first run's repairs held. It was a different reader
+on a different feature, handed the same prompt after eight paragraphs of it had been rewritten,
+and sized before the run: **one screen, three states, three files.**
+
+The feature is **Weekly digest**, row L1 of the backlog in `research/docs/cjm-to-be.md`, the only
+row there still marked "partly new". It was chosen to test the opposite of what run 1 tested: the
+export had strings and no screen, and the digest has almost no strings and appears in the IA only
+as one switch inside somebody else's screen. Run 1 exercised "find the line that exists"; run 2
+exercises "there is no line, so go through Voice", and it exercises the branch the first run's
+fix created, the one that decides whether a feature is a new screen at all.
+
+## Proof the ban held, and it held better because run 1 said how
+
+The ban for this run carried the sentence run 1 produced: **scope the search or exclude the paths
+inside the command, rather than filtering the output afterwards.** The reader ran **no recursive
+search at all**. Every one was a single file or a non-recursive glob, and the one `grep -r` it
+began was abandoned before it ran.
+
+It also did the one thing that makes a journal worth keeping: it declared the near miss.
+`ia/docs/sitemap.md` carries a `## Critique` at line 681, which is a forbidden section inside an
+allowed file. The reader located the heading first, read lines 1 to 680 only, and disclosed that
+it had twice loaded the whole file into a script that printed counts. **A file read by a program
+that prints nine numbers is not a file read**, and saying so unprompted is the behaviour the
+journal exists to produce.
+
+## The verdict the pack asks for, said plainly
+
+**The second list is not shorter.** Thirteen confident-and-possibly-wrong readings became twelve.
+That is not an improvement and it is not reported as one.
+
+What did change is which readings, and that is measurable too:
+
+| | Run 1 | Run 2 |
+|---|---|---|
+| Could not work out | 6 | 6 |
+| Understood confidently, could be wrong | 13 | 12 |
+| Paragraphs of the prompt named as having done real work | not asked | **5, each with what it saved** |
+| Items repeating a difficulty from the previous run | - | **1** |
+
+The five the second reader named are worth recording, because a prompt is only tested by somebody
+who did not write it: **pick by shape first** ("the single most useful sentence in the document":
+it sent the reader to the right file and away from the one with the right parts and the wrong
+frame); **the block quote about the stale template**, which is proof that naming your own broken
+registry out loud works; **the reachability check**, which "predicted my main finding precisely
+and told me what to do with it before I hit it", and without which the reader says it would have
+edited a frozen screen; **the split between a count somebody typed and a figure a machine
+measured**, which turned a day of re-running instruments into one recount and four dated notes;
+and **the two-step growth rule**, which is why it never considered writing css anywhere.
+
+**The one repeat is the paragraph run 1's own fix created.** The screen-or-state test said "no
+row in a States table means a new screen", and the cautionary tale beside it said the last reader
+who concluded new screen was wrong. The digest is not in a States table; it is one block of node
+6.16's Content blocks table, and that block already ships as a switch on Settings. So the rule and
+the story pointed at two different tables, the reader read the paragraph three times and broke the
+tie against the feature brief rather than against the prompt. **The two readers got the same
+question wrong in opposite directions**, which is why it is a three-row table now: States table,
+Content blocks table, nowhere at all - and a fourth line saying that if the table does not settle
+it, that is a finding rather than a judgement call.
+
+**A prompt that is measurably better and still produces a list that long is working and is not
+finished.** The honest form of that sentence is the number, not the comfort.
+
+## What run 2 closed, and what it found
+
+Five more paragraphs of `one-shot.md` exist because of this run:
+
+| What the reader had to decide alone | What the prompt says now |
+|---|---|
+| Screen, state, or an edit to a screen that already ships | The three-row table above, and the instruction to write it down rather than choose quietly |
+| **`ia/docs/sitemap.md` owns node numbers**, and the prompt never named it. The reader found it only by reading the sitemap for the numbering scheme, and it also carries hand-typed counts of nodes, screens and states | Named in the registration list, with its counts pointed at section 7 |
+| **`voice/microcopy.md` has a published page** and `CLAUDE.md`'s live rule obliges rebuilding it in the same step. The prompt stopped at the document | Named, with the reason it has to be: **no instrument in this repository catches the omission**, so the only thing standing between a receiver and a page a version behind is this sentence |
+| **Is a screen whose only door sits on a frozen file finished?** The instrument reports it, the prompt said it was a backlog row rather than a fix, and nothing said whether the feature was done | It ships unreachable, with the row, and that is done rather than half-done. The alternative is a builder who cannot finish until a founder answers, which is the state the prompt exists to prevent |
+| **A node that declares a state and refuses it a page.** Node 6.16 says of its own wait, "the skeleton stays unnumbered: it is chrome, not a distinct destination", while every other screen numbers and builds its wait | The exception is named with its precedent, and with the instruction not to generalise from it without the same sentence in your own node |
+
+**One finding about an instrument, and it is the same class this stage keeps finding.**
+`walk13.cjs` printed *"still unreachable, and every one is a state no product screen should link
+to"* - a verdict, hard-coded, true of the corpus it was written on. The new screen landed in that
+list as a BASE screen and the instrument told it that it belonged there. It reads `design/_nav.js`
+now and says which entries are base screens, because **a base screen nothing opens is a finding
+and a state nothing opens is expected**, and an instrument that cannot tell the two apart is
+answering a question nobody asked. Fixed rather than filed: an instrument is not the product.
+
+**Nothing else survived.** Run 2's four backlog rows were all about its own screen - nothing
+opens it, it has no grey twin, the corpus grew, and whether the digest is Pro - and all four went
+with the screen.
+
+## Branch B again, and the same reason
+
+Three html files, an IA node document and its page, three registry rows, twenty-three copy lines
+in the inventory and its published page, node 6.17 written into the sitemap with its three counts
+recounted, a NOT DECIDED row, a README recount. All reverted. The corpus is 57 pages, as it was.
+
+It passed as thoroughly as run 1 did: the ledger clean on all three files, 3228 text nodes and
+954 tab stops at zero failures across sixty screens by two themes, zero prose past the measure at
+3480 measurements, one width measure across the state family, zero of 130 pages scrolling
+sideways. **And accepting it still means taking the pixel comparison of stage 12 again, on a
+larger corpus, at the last step of the last stage.** What the exam was for is the two lists and
+the thirteen paragraphs they wrote, and those are kept.

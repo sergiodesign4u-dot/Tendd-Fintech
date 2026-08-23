@@ -108,8 +108,18 @@ p('2. UNREACHABLE BY CLICKING');
 p('   by product links alone           ' + orphP.length + ' of ' + files.length);
 p('   with the chrome\'s doors counted  ' + orphC.length + ' of ' + files.length +
   '   (the strip recovers ' + (orphP.length - orphC.length) + ')');
-p('   still unreachable, and every one is a state no product screen should link to:');
-orphC.forEach(f => p('      ' + f.replace('.html', '')));
+/* THIS LINE USED TO PRINT A VERDICT AND NOT A MEASUREMENT, until 2026-08-23: it said
+   "and every one is a state no product screen should link to", which was true of the
+   corpus it was written on and would have gone on saying so about a BASE screen that
+   nothing opens. Found by the second exam of stage 13, whose new screen landed in this
+   list as a base and was told by the instrument that it belonged there. A base screen
+   is read out of `design/_nav.js` rather than guessed from the file name, because a
+   hyphen is not a state marker: `history-trends` and `path-choice` are base screens. */
+const bases = [...nav.matchAll(/base:\s*'([^']+)'/g)].map(m => m[1]);
+const orphBase = orphC.filter(f => bases.includes(f));
+p('   still unreachable: ' + orphC.length + ', of them base screens ' + orphBase.length +
+  (orphBase.length ? ' - A BASE SCREEN NOTHING OPENS IS A FINDING' : ' - every one is a state, which is expected'));
+orphC.forEach(f => p('      ' + f.replace('.html', '') + (bases.includes(f) ? '   BASE SCREEN' : '')));
 p('');
 p('3. WHAT THE CHROME DECLARES: ' + Object.keys(declared).length + ' screens, ' +
   Object.values(declared).reduce((a, d) => a + d.length, 0) + ' doors');
