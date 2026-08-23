@@ -106,7 +106,14 @@ fieldset { border: 0; margin: 0; padding: 0; }
    row, and it lives in switch-row.css with checkbox.css standing its own ring
    down, because it is two lines in two files and half of it renders two
    concentric rings on every preference. */
-:where(a, button, input, select, textarea, summary):focus-visible {
+/* `[tabindex]` JOINED THE LIST ON 2026-08-23, and it closes the one hole the stage 13
+   accessibility run found in this rule. `behaviour.js` makes the trend chart's box focusable
+   at runtime so the keyboard can reach the cursor it builds; the box is a `div`, so it fell
+   outside the six element names above and wore the ENGINE's `outline: auto` instead. It
+   measured 5.78:1 in Chromium and passed there, which is exactly the shape of a defect that
+   travels badly: the number belonged to the browser and not to this system. Anything this
+   product deliberately makes focusable now wears the same ring as everything else. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: var(--ring) solid var(--color-focus);
   outline-offset: var(--ring);
 }

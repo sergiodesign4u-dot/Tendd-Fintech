@@ -428,4 +428,51 @@ p(`   coloured pages rendering one                       ${new Set(placeholderHi
 if (placeholderHits.length) placeholderHits.forEach(h => p(`   STILL A PLACEHOLDER  ${h.file}  ${h.token}`));
 else p('   none: every coloured page draws the thing its grey original could only name');
 
+p('');
+
+/* ============================================================================
+   8. THE TEMPLATE, checked against the product it claims to start.  2026-08-23.
+
+   `design/kit/_nav.js` registers `design/kit/shell.html` as "the markup a coloured
+   screen is copied from", and until today NOTHING in this repository read it.
+   Every instrument here takes the product or the system, and a template is
+   neither - so the file a new screen would be copied from was free to rot, and
+   it had: it named three destinations where the product has four, it put a back
+   control on a destination against usage rule U18, and it closed a `div` with a
+   `</main>`. Found by a reader with no memory of this project who was sent to
+   build a screen from the documentation alone and was pointed here by the
+   registry. A registry that lies is worse than no registry.
+   ============================================================================ */
+const shellPath = path.join(ROOT, 'design', 'kit', 'shell.html');
+p('8. THE TEMPLATE A NEW SCREEN IS COPIED FROM');
+if (!fs.existsSync(shellPath)) {
+  p('   design/kit/shell.html is MISSING, and design/kit/_nav.js names it');
+} else {
+  const raw = fs.readFileSync(shellPath, 'utf8');
+  /* comments stripped first: this file explains itself in markup-shaped prose */
+  const shell = raw.replace(/<!--[\s\S]*?-->/g, '');
+  const unbalanced = ['div', 'main', 'header', 'nav', 'section', 'ul', 'li', 'label']
+    .map(t => ({ t, o: (shell.match(new RegExp('<' + t + '[ >]', 'g')) || []).length,
+                    c: (shell.match(new RegExp('</' + t + '>', 'g')) || []).length }))
+    .filter(x => x.o !== x.c);
+  p(`   tag pairs unbalanced                              ${unbalanced.length}` +
+    (unbalanced.length ? '  ' + unbalanced.map(x => `${x.t} ${x.o}/${x.c}`).join(', ') : ''));
+
+  const tabs = (shell.match(/<nav class="tabbar"[\s\S]*?<\/nav>/) || [''])[0];
+  const shellDests = (tabs.match(/<a /g) || []).length;
+  /* what the PRODUCT answers, read off a real screen rather than typed here */
+  const homeSrc = fs.readFileSync(path.join(ROOT, 'design', 'home.html'), 'utf8');
+  const homeTabs = (homeSrc.match(/<nav class="tabbar"[\s\S]*?<\/nav>/) || [''])[0];
+  const productDests = (homeTabs.match(/<a /g) || []).length;
+  p(`   destinations in the template                      ${shellDests}, and the product has ${productDests}  ${shellDests === productDests ? 'ok' : 'DRIFT'}`);
+
+  const isDestination = /<nav class="tabbar"/.test(shell);
+  const hasBack = /class="back"/.test(shell);
+  const hasAcct = /class="acct"/.test(shell);
+  p(`   U18: a destination carries the account link and no back control  ` +
+    (isDestination && hasBack ? 'VIOLATED, it carries a back control'
+      : isDestination && !hasAcct ? 'VIOLATED, it carries neither'
+      : 'ok'));
+}
+
 console.log(L.join('\n'));

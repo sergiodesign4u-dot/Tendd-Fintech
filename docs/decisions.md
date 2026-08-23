@@ -7,6 +7,64 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-23 - The freeze was lifted at the close, and eleven rows were paid in one round
+
+Founder, asked at the close of stage 13 whether the product stays frozen and everything open
+becomes a dated decision, or is unfrozen and fixed: **"розморозити повністю".** So the pixel
+comparison stage 12 stands on was taken again rather than protected, and this is what it cost
+and what it bought.
+
+**THE PROMISE HELD ANYWAY, WHICH IS THE INTERESTING PART.** The box fingerprint over all 57
+screens at two widths reports **zero boxes moved at 360** and **68 boxes moved at 1440, on two
+screens only** - and those two are `home-few` and `home-one`, whose unstyled line was corrected.
+**Every other change in this round is inert at every width where the content already fits**, and
+that is not luck: it is what a fix belonging to the system rather than to a screen looks like.
+
+**NINE SCREENS SCROLLED SIDEWAYS AT 200% TEXT ZOOM AND NONE DOES.** Three causes, three
+declarations, three component files. The one worth keeping is the first: a `nowrap` that is right
+at every ordinary size and impossible at twice the text, released by **a container query written
+in `rem` against `body`**. A `rem` query reads the viewport in units of the READER's text, so one
+threshold below 20rem fires under zoom and nowhere in the product's own sweep, which starts at
+320px, or 20rem exactly. **This is the mechanism stage 10 refused to write its two width points
+in pixels for, and the first time that refusal has paid for itself.** The other two are the shapes
+this product already knew: `min-width: 0` on a flex item that cannot shrink below its own content,
+and `minmax(0, 1fr)` where `.grid.roomy` had a bare `1fr` - because `1fr` is `minmax(auto, 1fr)`
+and `auto` refuses to shrink a column below its content.
+
+**THE FOCUS RING REACHES ANYTHING THIS PRODUCT MAKES FOCUSABLE.** `[tabindex]` joined the six
+element names in `base.css`. The trend chart's numbers did not move, 5.78 light and 6.40 dark;
+what changed is that they belong to this system instead of to Chromium's `outline: auto`.
+
+**THE SIDEBAR PASSED WCAG AA FOR THE FIRST TIME.** `.nav-section` was drawn in the grey the
+registry reserves for a stage nobody can open yet: 2.65:1 at 13px, on twenty pages, since
+`_nav.css` was written. It is the product's own muted ink now, 5.78:1 and still a full step
+quieter than a normal link. **What hid it is worth more than the fix: no instrument in this
+repository sweeps a stage page.** The accessibility run takes the 57 coloured screens, the
+semantics run takes those and their grey twins, and both stop. That is still true and it is the
+row this round did not close.
+
+**THE TEMPLATE WAS FIXED AND GIVEN AN INSTRUMENT.** `design/kit/shell.html` is what the kit
+registry calls "the markup a coloured screen is copied from", and it named three destinations
+against the product's four, put a back control on a destination against U18, and closed a `div`
+with a `</main>`. All three corrected, and `rollout12.cjs` has a check 8 now that reads it against
+the product: tag balance, the destination count taken off `home.html` rather than typed, and U18.
+**Nothing had ever read that file**, because every instrument here takes the product or the
+system and a template is neither.
+
+**AND TWO THINGS THAT WERE NOT WHAT THEIR ROWS SAID.** The `context` class on two screens was
+never a missing class: it is the GREY name, the renaming map turns it into `muted` in colour, and
+the two newest screens had copied the grey and skipped the rename - so that line had been
+rendering with browser defaults on both. And the row claiming no stage account has a `main`
+landmark was wrong: **13 of 21 already had one and 7 did not**, counted rather than assumed. Both
+are the same lesson twice in one day: a row written from a glance is a row that has not been run.
+
+**Also closed:** the callout measure on the stage accounts (116ch beside prose capped at 78),
+the hamburger that said "All screens" and opened the roadmap, a rewrite the line inventory's own
+log recorded as done and that had been applied by halves, and a shipped button label that broke
+the voice's rule on how a button addresses a person, in six places.
+
+**Eleven rows closed. The backlog went from 40 open of 110 to 29.**
+
 ## 2026-08-23 - Four things that were true on purpose and written down nowhere
 
 Stage 13 sent two readers with no memory of this project through it and asked them what
@@ -16,8 +74,23 @@ A decision nobody wrote down is indistinguishable from an accident to the next p
 the next person here is a stranger by definition. They are written down now, as the state
 they are actually in, with the founder's call still open on three of them.
 
-**1. Dark is a system capability that is fully paid for and a product feature that has never
-been specified.** Every semantic role exists in `:root` and in `[data-theme="dark"]` or it does
+**1. DECIDED THE SAME DAY: dark becomes a product feature, with a control in Settings.**
+Founder, 2026-08-23, choosing between a control, following the operating system, and staying
+light-only. What ships is **one switch in a group of its own, "How Tendd looks"**, above the rows
+that leave the screen - a group and not a fifth switch under "What Tendd tells you about",
+because that block answers what Tendd TELLS you and this one answers what it LOOKS like. Two new
+lines in `voice/docs/microcopy.md`, block 5 of node 6.16, and a section in
+`handoff/docs/behaviour.md` saying what a real build still owes: **where the choice lives**, on
+the account or in the browser, which is a data-model decision and not a copy one. **And the
+product still does not follow the machine**: `prefers-color-scheme` stays at zero occurrences,
+on the ground that a person who has chosen a theme has said what they want, and a money app that
+changes appearance because the sun went down is doing something its user did not ask for. The
+structure was added to the frozen grey twin as well, with this decision written into that file,
+which is the only way `CLAUDE.md` allows the structure contract to change after Voice.
+
+**The state it was in until that answer, kept because it is the finding rather than the fix:
+dark was a system capability that was fully paid for and a product feature that had never been
+specified.** Every semantic role exists in `:root` and in `[data-theme="dark"]` or it does
 not exist, which is a rule of stage 08 and is checked rather than promised. What has no owner is
 the product side: **Settings offers no theme control, `microcopy.md` has no line for one, and
 `prefers-color-scheme` appears zero times in the entire system** - in `base.css`, in `tokens.css`
@@ -28,7 +101,18 @@ nothing decides it. The switch a reviewer sees belongs to `design/_screen.css` a
 answer exists. The three live options are a control in Settings, follow the machine, or stay
 light-only and say so.
 
-**2. The tab bar has four destinations in the code and seventeen surfaces still say five.**
+**2. DECIDED: the seventeen stale tab-bar surfaces are DATED, not corrected.** Founder,
+2026-08-23. They were written before the Save tab was retired on 2026-08-21 and they keep the
+corpus they were written on, which is exactly what `CLAUDE.md`'s live-count rule provides for a
+claim that is not recounted: it keeps its corpus, NAMED. This entry is the naming. The two
+documents stage 13 was already allowed to edit were corrected on 2026-08-23 and are not among
+them. **Nothing else is touched**, and the reason is that correcting a sentence inside a closed
+stage's material buys a consistent read of a file nobody is reading against a real risk of
+rewriting history that was true when it was written. A reader who finds "five destinations" in
+`ia/docs/pages/navigation.md` or on a kit page is reading a document dated before 2026-08-21, and
+this log is where they find that out.
+
+**The state, kept as the measurement:**
 Home, Trends, Alerts, You, since the Save tab was retired on 2026-08-21. `docs/decisions.md` is
 excluded on purpose: a decision log is supposed to hold the state it recorded. Of the seventeen,
 **two were corrected on 2026-08-23** - the two documents stage 13 was allowed to edit,

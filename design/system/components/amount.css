@@ -47,6 +47,8 @@
 .app .amt, .landing .amt {
   font-variant-numeric: tabular-nums;
   font-weight: 600;
+  /* `nowrap` and NOT `pre`: released under text zoom by the block at the foot of
+     this file, where a figure that cannot fit is the whole page's problem. */
   white-space: nowrap;
   color: var(--text-primary);
   /* THE SIZE IS ON THE BASE SINCE 2026-08-14, and it used to be on four hosts.
@@ -177,3 +179,32 @@
    from being a list of four targets per line) or inside a card that has its own
    button. Hovering the number itself does nothing, and a hover written here
    would document something the product cannot do. */
+
+/* ============================================================================
+   THE TEXT-ZOOM RELEASE, 2026-08-23, and it is the two width points of stage 10
+   doing the job they were written for.
+
+   WCAG 1.4.4 asks that text scale to 200% without the page scrolling sideways.
+   The stage 13 accessibility run measured it for the first time and found nine
+   screens failing, all of them on a phone and none at desktop width. The reason
+   is a `nowrap` that is right at every ordinary size and impossible at twice the
+   text: a label that may not fold cannot fit a 390px viewport once its own font
+   has doubled.
+
+   THE MECHANISM IS ALREADY HERE. `base.css` makes `body` an inline-size
+   container, and a container query written in `rem` reads the viewport IN UNITS
+   OF THE READER'S TEXT. At the browser default a 360px viewport is 22.5rem and a
+   390px one is 24.4rem; with the root at 32px the same 390px viewport is 12.2rem.
+   So one threshold below 20rem fires under text zoom and NOWHERE ELSE in the
+   product's own width sweep, which starts at 320px, or 20rem exactly.
+
+   This is why stage 10 refused to put the points in `px`, and it is the first
+   time that refusal has paid for itself.
+   ============================================================================ */
+@container (max-width: 20rem) {
+  /* A NUMBER STILL NEVER FOLDS, and that is why this releases the run and not the
+     digits: `$17.99 a month` breaks after the figure, never inside it, because
+     `tabular-nums` and the absence of any space inside the number do the holding.
+     Measured on cancel-win, the worst of the nine at 83px over. */
+  .app .amt, .landing .amt { white-space: normal; }
+}

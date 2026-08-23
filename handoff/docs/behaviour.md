@@ -349,6 +349,35 @@ Same shape as Connect Bank, so **N1** covers all three.
 
 ---
 
+## The theme, and where it is stored
+
+Added 2026-08-23, when the founder answered the question stage 13 had put to them: **dark
+becomes a product feature and not only a system capability.** It is the only row in this file
+written after the rest, and it is here rather than inside a flow because it belongs to no
+journey: it is a preference a person sets once and never thinks about again.
+
+| Step | What happens | Source |
+|---|---|---|
+| The control | One switch in a group of its own on Settings, "How Tendd looks", above the rows that leave the screen | `node:6-16-settings.md` block 5, `screen:settings.html` |
+| Off | The light palette, which is what `:root` carries. This is the default and the state the switch ships in | `screen:settings.html` |
+| On | The dark palette, which is what `[data-theme="dark"]` carries. Every semantic colour role exists in both or it does not exist, checked rather than promised since stage 08 | `screen:settings.html` |
+| The scope | The whole product, immediately, with no reload and no second confirmation. There is nothing to save and nothing to undo | `node:6-16-settings.md` block 5 |
+
+**What a real build owes, and this package deliberately does not.** The switch here draws the
+state and does not keep it, exactly like the four alert switches above it: this is a clickable
+product with no runtime and no persistence, which is the package boundary and not an oversight.
+A build has to decide **where the choice lives** - on the account, so it follows a person to a
+second device, or in the browser, so it is per-device - and that is one line in a data model
+rather than a question this file can answer from the files it is allowed to read.
+
+**One thing that is decided and worth stating, because its absence was a finding.** The product
+does **not** follow the operating system. `prefers-color-scheme` appears zero times in
+`base.css`, in `tokens.css` and in both chrome stylesheets, and it stays that way: a person who
+has chosen a theme here has said what they want, and a money app that changes appearance because
+the sun went down is doing something its user did not ask for. The switch is the only input.
+
+---
+
 ## Nine states no click can reach, and why that is right
 
 `walk13.cjs` reports 9 of the 57 screens as unreachable by clicking even with the reviewer's

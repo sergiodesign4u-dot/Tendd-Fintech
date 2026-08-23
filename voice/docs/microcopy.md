@@ -147,6 +147,7 @@ together.
 | history-trends-empty | state-message | ... the shape of your spending will be here. | ... the shape of your monthly total will be here. | D9 / Principle 3 (no spending/exposure frame) |
 | history-trends | chart summary | your monthly recurring total went from $172.90 in May ... | your monthly total went from $172.90 in May ... | D9 (canonical "monthly total"; matches the header) |
 | data-privacy | export | Exporting your spend history as a CSV ... | Exporting your history as a CSV ... | D9 / Principle 3 (drop "spend") |
+| settings | appearance | (no line existed) | How Tendd looks + Dark mode (Easier on the eyes at night. Nothing else changes.) | 2026-08-23, founder: the theme becomes a product feature and not only a system capability. The heading names the place in plain dictionary words rather than instructing; the hint answers the only question a person asks of a dark mode in a money app, which is whether anything else moves |
 | cancel-guide-no-guide | detail-head (data fix) | $4.25 / month, you can always resubscribe later | $17.00 / month, you can always resubscribe later | Data fixture: The New York Times is $17.00/month in the canonical dataset. |
 
 Consistency judgments (resolved, no change):
@@ -1135,8 +1136,8 @@ what it says first is what the person is actually afraid of: the list stays.
 | data-privacy | permissions | Use my activity to improve Tendd | field-label |
 | data-privacy | permissions | Off by default. We never sell your data either way. | hint |
 | data-privacy | export | Your data | heading |
-| data-privacy | export | Download everything Tendd holds for you. This is your right and it is free. Exporting your spend history as a spreadsheet is a separate Tendd Pro feature, on Your trends. | body |
-| data-privacy | export | Download my data | button |
+| data-privacy | export | Download everything Tendd holds for you. This is your right and it is free. Exporting your history as a spreadsheet is a separate Tendd Pro feature, on Your trends. | body |
+| data-privacy | export | Download your data | button |
 | data-privacy | delete | Deleting removes your subscriptions, your sources and your account. It cannot be undone. | body |
 | data-privacy | delete | Delete everything | button |
 | data-privacy | policy | The full privacy policy is at tendd.com/privacy. | body |
@@ -1145,7 +1146,7 @@ what it says first is what the person is actually afraid of: the list stays.
 | data-privacy-delete-confirm | consequence | Your subscriptions / deleted, including the 3 you typed | field-label |
 | data-privacy-delete-confirm | consequence | Your bank connection / disconnected at Chase, and the read access ends | field-label |
 | data-privacy-delete-confirm | consequence | Your account / closed, and you are signed out | field-label |
-| data-privacy-delete-confirm | export | Want a copy first? Download my data is free and takes a moment. | body |
+| data-privacy-delete-confirm | export | Want a copy first? Download your data is free and takes a moment. | body |
 | data-privacy-delete-confirm | primary-action | Delete everything | button |
 | data-privacy-delete-confirm | primary-action | Keep my data | button |
 
@@ -1171,6 +1172,8 @@ what it says first is what the person is actually afraid of: the list stays.
 | settings | notifications | A payment does not go through (Like "A payment to Amazon Prime did not go through".) | field-label |
 | settings | notifications | A free trial is ending soon (Part of Tendd Pro.) | field-label |
 | settings | notifications | Weekly email digest (A calm Sunday summary of what is coming up.) | field-label |
+| settings | appearance | How Tendd looks | heading |
+| settings | appearance | Dark mode (Easier on the eyes at night. Nothing else changes.) | field-label |
 | settings | settings-row | Your sources (Banks and manual entries you track) | body |
 | settings | settings-row | Data and privacy (What we read, and delete everything) | body |
 | settings | settings-row | Help and support (Guides and how to reach us) | body |

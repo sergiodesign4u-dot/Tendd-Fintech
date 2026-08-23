@@ -178,8 +178,15 @@
    bordered cards of equal standing take air, six chips do not. The column count
    travels with it here because a door and a tile happen to differ on both axes
    at once; it is not what the word means. */
+/* `minmax(0, 1fr)` AND NOT `1fr`, 2026-08-23. `1fr` is shorthand for `minmax(auto, 1fr)`,
+   and `auto` refuses to shrink a column below its own content - so the chart, whose
+   y-axis gutter is padding rather than a child, held this column 58px wider than the
+   pane at 200% text and the Pro gate scrolled sideways. The plain `.grid` above has
+   carried the same defence since stage 10, inside its `minmax(min(...), 1fr)`; the
+   roomy variant was written as a single `1fr` and never got it. Nothing moves at any
+   width where the content already fits, which is every width the sweep measures. */
 .app .grid.roomy, .landing .grid.roomy {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-16);
   margin-bottom: var(--space-0);
 }
@@ -382,7 +389,7 @@
    ============================================================================ */
 @container (min-width: 47.5rem) {
   .app .grid, .landing .grid { grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-min), 100%), 1fr)); }
-  .app .grid.roomy, .landing .grid.roomy { grid-template-columns: 1fr 1fr; }
+  .app .grid.roomy, .landing .grid.roomy { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 
   /* A PAIR OF DOORS KEEPS THIS GUTTER; TWO COLUMNS OF CONTENT NEED A WIDER ONE.
      2026-08-19. Every .grid.roomy in the product until today held a pair of doors,

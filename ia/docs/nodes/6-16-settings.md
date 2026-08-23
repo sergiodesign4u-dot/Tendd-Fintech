@@ -34,9 +34,10 @@ From `../blocks.md`, type G.
 | 2 | **Your details: email and currency, and nothing else** | principle 4 | TAKE, DIFFERENTLY (Uber): ours holds an email and a currency. We have no reason to hold a name or a phone number, and not holding them is easier to explain than protecting them |
 | 3 | The plan row: Free or Pro, what Free includes, and manage plan into node 5.13 | D3, D4 | TAKE: **the right home for the plan.** Stated once, in the place a person goes to look for it |
 | 4 | **What we tell you about**: which alerts arrive, the channel they arrive by, and the weekly digest on or off | J4 | TAKE: one place that answers what will reach you, instead of a reminder toggle on every subscription the way the category does it. This is where the link from node 3.8 lands |
-| 5 | A row into node 6.14, Your sources | J1, E3 | TAKE |
-| 6 | A row into node 6.15, Data and privacy | J5, E3 | TAKE, and Uber's split confirmed: the data question and the preferences question are different questions and different screens |
-| 7 | Help, and sign out | | TAKE |
+| 5 | **How Tendd looks: dark mode on or off** | E3 | **ADDED 2026-08-23 by a founder's decision at the close of stage 13.** A group of its own and not a fifth switch inside block 4: that block answers what Tendd TELLS you and this one answers what it LOOKS like. The ground is that `design/system/` has carried both themes since stage 08, every semantic colour role paired in `[data-theme="dark"]` or refused, while the product had no control, no string and no `prefers-color-scheme` anywhere - a capability fully paid for and a feature never specified. **What it stores and where is in `handoff/docs/behaviour.md`**, and it is the one thing this node does not decide |
+| 6 | A row into node 6.14, Your sources | J1, E3 | TAKE |
+| 7 | A row into node 6.15, Data and privacy | J5, E3 | TAKE, and Uber's split confirmed: the data question and the preferences question are different questions and different screens |
+| 8 | Help, and sign out | | TAKE |
 
 **Named and not added:** an avatar and photo upload (nothing traces to it, and the product has
 no social surface), a phone number, and a two-column settings layout with a category sidebar,

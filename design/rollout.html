@@ -64,11 +64,21 @@
   .ro-num b { display: block; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); }
   .ro-num span { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-  .ro-note { margin: 0 0 14px; padding: 12px 14px; background: var(--bg-callout); border-radius: var(--radius-xs); font-size: 13px; line-height: 1.6; color: var(--text-body); }
+  /* MAX-WIDTH, AND IN THE NOTE'S OWN ch, 2026-08-23. This block had none, so at desktop
+     width it ran the full wrap: 116ch measured, beside section prose capped at 78ch in this
+     same file. It is the stage 12 lesson landing on the stage 12 page - `ch` is a unit of the
+     element's own font, so the measure belongs to the line and never to the box around it. */
+  .ro-note { margin: 0 0 14px; padding: 12px 14px; background: var(--bg-callout); border-radius: var(--radius-xs); font-size: 13px; line-height: 1.6; color: var(--text-body); max-width: 78ch; }
   .ro-note b { color: var(--text-primary); }
 
   .ro-foot { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line-container); font-size: 12.5px; line-height: 1.7; color: var(--text-muted); }
   .ro-foot code { color: var(--text-body); }
+
+  /* THE HAMBURGER'S LABEL. `design/_screen.css` generates "All screens" after `.nav-toggle`,
+     and on a coloured screen that is right: the button opens the coverage map. On a STAGE
+     ACCOUNT the same button opens the project roadmap, thirteen stages and not one screen.
+     Corrected here rather than in `_screen.css`, which all 57 screens load. */
+  .nav-toggle::after { content: "The roadmap"; }
 </style>
 </head>
 <body>
@@ -85,7 +95,7 @@
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-<div class="ro-wrap">
+<main class="ro-wrap">
 
   <div class="ro-head">
     <h1>Rollout</h1>
@@ -361,7 +371,7 @@
     re-run rather than believed. The grey wireframes stay frozen in
     <a href="../wireframes/overview.html">wireframes/</a> and the cross-link runs one way only.
   </footer>
-</div>
+</main>
 
 <script>
 (function(){var s=document.getElementById('sidebar-panel'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();

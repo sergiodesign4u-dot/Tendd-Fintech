@@ -70,7 +70,13 @@
   display: flex;
   gap: var(--space-2);
   width: 100%;
-  max-width: 20rem;
+  /* `min(20rem, 100%)`, 2026-08-23, and it is the same shape the system has carried
+     against a grid floor since stage 10. The cap is arithmetic on the widest LABEL,
+     so it is rightly in `rem` and grows with the reader's text - which means that at
+     200% it stopped capping anything: 20rem is 640px against a 390px viewport, and
+     the Pro gate scrolled sideways by 46. A cap that can exceed its own container is
+     not a cap. */
+  max-width: min(20rem, 100%);
   padding: var(--space-2);
   border-radius: var(--radius);
   background: var(--bg-recessed);
@@ -95,6 +101,13 @@
    size and is not in this file. It is in behaviour.js, under THE RANGE CONTROL. */
 .app .range button, .landing .range button {
   flex: 1;
+  /* `min-width: 0`, 2026-08-23. A flex item's default `min-width: auto` refuses to
+     shrink below its own content, so at 200% text the three segments held the
+     track 25px wider than the viewport and the Pro gate scrolled sideways by 46.
+     This is one of the four causes `pages13.cjs` had already named elsewhere in
+     the product; it had never been asked of a control. Nothing moves at any size
+     where the segments already fit, which is every size the sweep measures. */
+  min-width: 0;
   min-height: var(--tap);
   padding: var(--space-0) var(--space-16);
   border: 0;

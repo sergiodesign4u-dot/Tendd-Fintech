@@ -6,7 +6,8 @@
    halves of it are checked here: **at 360 the difference must be zero**, which
    is the promise mobile-first makes, and at 1440 every changed box has to belong
    to a named row. So this file does not judge. It records the box of every
-   painted element on all 55 pages at both widths, and a second run diffs itself
+   painted element on every page the registry names, at both widths, and a second run
+   diffs itself
    against the first.
 
    RUN IT:  node design/kit/screens/fp12.cjs before   (writes fp12-before.json)
@@ -97,7 +98,15 @@ const PROBE = () => {
   const data = {};
   for (const file of pagesFromRegistry()) {
     await page.goto(`http://127.0.0.1:${port}/design/${file}`, { waitUntil: 'load' });
+    /* WAIT HARDER THAN `document.fonts.ready`, since 2026-08-23. That promise resolves for
+       the fonts requested SO FAR, and at `load` a face the stylesheet has not asked for yet
+       is not in the set - so it can settle before Inter is in. One run in the stage 13
+       product round reported 137 boxes moved at 1440 against a baseline no later run could
+       reproduce, and every one of those boxes was a `ch`-derived reading measure, which is a
+       unit of the font. Waiting for the second frame after the promise costs nothing and
+       makes the answer the same twice. */
     await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
     for (const w of [360, 1440]) {
       await page.setViewportSize({ width: w, height: 900 });
       await page.waitForTimeout(40);
@@ -126,7 +135,7 @@ const PROBE = () => {
   });
   const at360 = Object.keys(per).filter(k => k.endsWith('@360'));
   const at1440 = Object.keys(per).filter(k => k.endsWith('@1440'));
-  L.push('FINGERPRINT DIFF, 55 pages at 360 and at 1440');
+  L.push(`FINGERPRINT DIFF, ${Object.keys(before).length / 2} pages at 360 and at 1440`);
   L.push(`  pages differing at 360:  ${at360.length}   (the promise is zero)`);
   L.push(`  pages differing at 1440: ${at1440.length}`);
   L.push(`  boxes differing at 360:  ${at360.reduce((n, k) => n + per[k].length, 0)}`);

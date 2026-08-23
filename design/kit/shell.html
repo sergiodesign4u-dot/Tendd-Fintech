@@ -91,7 +91,15 @@
 
 <!-- .layout and .stage are the REVIEW frame, not the product. They host the
      navigation panel and they do not travel to a real build. Everything from
-     <main> down is the product. -->
+     `.app` down is the product.
+
+     ALL THREE OF THIS FILE'S DEFECTS WERE FOUND ON 2026-08-23, by a reader with no memory
+     of this project who was sent to build a screen from the documentation alone and was
+     pointed here by the kit registry. It said Trends did not exist, it put a back control on
+     a destination against U18, and it closed this `div` with a `</main>`. Nothing in this
+     repository checks a template: every instrument reads the product or the system, and the
+     file a new screen is COPIED from is neither. It is checked by `rollout12.cjs` now, which
+     reads `design/kit/shell.html` against the same four-part ban it holds the product to. -->
 
 <div class="app" aria-label="Screen name">
 
@@ -99,9 +107,13 @@
        on the You tab, one contextual action. On the Pro cluster that third slot
        carries the plan chip instead of an action: it is status, not a thing to do. -->
   <header class="appbar">
-    <a class="back" href="#">Back</a>
+    <!-- U18, AND THIS TEMPLATE BROKE IT UNTIL 2026-08-23. A tab DESTINATION carries the
+         account link and never a back control; a screen BELOW one carries the back control
+         and never the account link. The shell below is a destination, because it has a tab
+         bar, so it takes the account link. Copying a screen that sits below a destination?
+         Swap the two: `<a class="back" href="#">Back</a>` in the first slot and no `.acct`. -->
     <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
-    <span class="step">Step 2 of 3</span>
+    <a class="acct" href="#">Hi, Emma<span class="chip">Free</span></a>
   </header>
 
   <!-- The screen body. One column on mobile. Wrap in .rows-col for a settings
@@ -118,11 +130,12 @@
        Removed entirely on .app.flow. -->
   <nav class="tabbar" aria-label="Global navigation">
     <a class="cur" href="#" aria-current="page"><span class="ic ic-home"></span>Home</a>
+    <a href="#"><span class="ic ic-trends"></span>Trends</a>
     <a href="#"><span class="ic ic-alerts"><span class="dot" role="img" aria-label="new alerts"></span></span>Alerts</a>
     <a href="#"><span class="ic ic-you"></span>You</a>
   </nav>
 
-</main>
+</div>
 
 </div><!-- /stage -->
 </div><!-- /layout -->

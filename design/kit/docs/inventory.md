@@ -506,7 +506,7 @@ Ten real cases. The four that looked like drift and were not are dropped at veri
 | Back to your subscriptions | 3 | `a.btn`, `a.btn.primary`, bare link in `nav.secondary` |
 | Add them yourself | 2 | `a.btn` on three pages, `a.btn.primary` on `connect-bank-empty` |
 | Maybe later | 2 | `a.btn` on the upgrade pair, `button.btn` on five detail pages |
-| Download my data | 2 | bare link in `p.quiet`, `button.btn` |
+| Download your data | 2 | bare link in `p.quiet`, `button.btn` |
 | Sign in | 2 | `a.signin` and a bare link in `p.lp-micro`, **on the same page** |
 | Your sources | 3 hosts | `section.trust`, `nav.secondary`, `section.legal`: three hosts, three sizes, one job |
 | Data and privacy | 2 hosts | `section.trust` at 12px against `p.consequence` with no rule at all |
