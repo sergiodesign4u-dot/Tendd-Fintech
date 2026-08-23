@@ -7,6 +7,46 @@ README table and in `done:true` in `/_nav.js`.
 
 ---
 
+## 2026-08-23 - The instrument that reads a page which is not a screen
+
+The one row the unfreeze round did not close was the reason it had anything to close: **nothing
+in this repository has ever swept a stage page.** `a11y13.cjs` read the 57 coloured screens,
+`aria13.cjs` read those and their 57 grey twins, and both stopped. A receiver meets a stage page
+BEFORE any product screen, because the roadmap is how they arrive.
+
+**IT WAS TWO HOLES AND NOT ONE, which is why it lasted.** The corpus never included those pages
+AND the contrast walker rooted itself at `.app` or `.landing` and returned nothing when it found
+neither - so even a corpus that included them would have measured zero. One argument on one
+function, one edition of the contrast machinery, and a check 5 that reads 129 pages.
+
+**WHAT IT FOUND WAS NOT A TAIL, IT WAS A SHAPE.** 2330 text nodes below the floor across 39
+pages, and **eight colour literals caused 2203 of them** - two of the eight caused 1871 between
+them. The documentation half of this project was written before the design system and every page
+declares its own palette in its own style block, so one grey copied into thirty-eight files fails
+thirty-eight times. **Ten literals darkened closed 2330 down to 6.**
+
+**AND THE FIRST PASS WAS WRONG IN A WAY WORTH KEEPING.** Each literal was darkened against
+`#ffffff` and 58 findings survived, all of them on the three panel greys the same pages declare.
+**A ratio is a pair, and the pair that matters is the worst surface an element actually sits
+on**, not the lightest one in the file. The second pass computes against every surface the
+instrument saw the ink on.
+
+**THE SIX THAT REMAIN ARE LEFT VISIBLE ON PURPOSE.** They are the contrast-grade letters in a
+table about contrast ratios and a token swatch on a colour page: text that DEMONSTRATES a colour
+rather than interface text. Excluding them would need a typed list of selectors, which is the
+thing this repository refuses everywhere else, so the report names them and says why instead. One
+exclusion was added and it is the standard's own: WCAG 1.4.3 exempts text in a disabled control.
+
+**87 OF 129 PAGES HAD NO `main` LANDMARK**, including all 82 stand pages, and that is 0 now. The
+element name was the whole change, because no stylesheet here selects a wrapper by tag. What is
+left is separated rather than fixed: 11 stand pages draw more than one `h1`, and on a stand page
+a specimen of a heading IS a heading. **Rolled into one number the specimens buried the three
+real documents**, which is how 87 pages read as one problem when they were two.
+
+**Nothing in the product moved that was not deliberately changed.** The fingerprint over all 57
+screens names five: the two whose unstyled line was corrected, the two that took a copy fix, and
+Settings, which gained the theme control.
+
 ## 2026-08-23 - The freeze was lifted at the close, and eleven rows were paid in one round
 
 Founder, asked at the close of stage 13 whether the product stays frozen and everything open

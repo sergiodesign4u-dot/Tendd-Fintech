@@ -169,9 +169,18 @@ window.__a11y = (function () {
     ratio: ratio, parse: parse, surfaceOf: surfaceOf, visible: visible, label: label,
 
     /* --- 1. contrast ---------------------------------------------------- */
-    text: function () {
+    /* rootSel ADDED 2026-08-23, and no backticks in this comment on purpose: the
+       whole block is a template literal and one of them ends it.
+       This function used to root itself at the app or the landing and return
+       nothing when it found neither, which is every page in this repository that
+       is not a product screen. That is how a WCAG AA failure sat unmeasured on
+       twenty stage pages for the whole project: the corpus never included them,
+       AND the walker would have refused them anyway. One argument, one edition of
+       the contrast machinery, and check 5 below is its consumer. */
+    text: function (rootSel) {
       var out = [];
-      var root = document.querySelector('.app') || document.querySelector('.landing');
+      var root = rootSel ? document.querySelector(rootSel)
+                         : (document.querySelector('.app') || document.querySelector('.landing'));
       if (!root) return out;
       var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
       var seen = new Set(), node;
@@ -187,12 +196,21 @@ window.__a11y = (function () {
            as the worst failure in the product. It is measured as a mark below
            instead, which is what it is. */
         if (parseFloat(s.fontSize) < 1) continue;
+        /* A DISABLED CONTROL IS EXEMPT, and WCAG says so rather than this file:
+           1.4.3 excludes text that is part of an inactive user interface
+           component. The concept page draws one on purpose, to show what the
+           disabled state looks like, and reading it as a failure would make the
+           check unreadable to keep a rule the standard does not have. */
+        if (el.closest('[disabled],:disabled,[aria-disabled="true"]')) continue;
         var fg = parse(s.color); if (!fg) continue;
         var surf = surfaceOf(el);
         var ink = fg.a < 1 ? over(fg, surf) : fg;
         var size = parseFloat(s.fontSize), weight = parseInt(s.fontWeight, 10) || 400;
         var large = size >= 24 || (size >= 18.66 && weight >= 700);
+        var hex = function (c) { return '#' + [c.r, c.g, c.b].map(function (v) {
+          return ('0' + Math.round(v).toString(16)).slice(-2); }).join(''); };
         out.push({ sel: label(el), size: size, weight: weight, large: large,
+                   ink: hex(ink), surface: hex(surf),
                    ratio: Math.round(ratio(ink, surf) * 100) / 100, need: large ? 3 : 4.5,
                    text: node.nodeValue.trim().slice(0, 40) });
       }
@@ -444,6 +462,63 @@ document.documentElement.setAttribute('data-theme','${t}');`;
     }
   }
 
+  /* ==========================================================================
+     5. THE PAGES AROUND THE PRODUCT.  Added 2026-08-23.
+
+     Everything above reads the 57 coloured screens. `aria13.cjs` reads those and
+     their 57 grey twins. NOTHING in this repository has ever read a stage
+     account, a stand page or an IA node - and a receiver meets those pages before
+     any product screen, because the roadmap is how they arrive.
+
+     What that blind spot cost is one measured number: `.nav-section` in
+     `/_nav.css`, the sub-links under the active stage, were drawn in the grey the
+     registry reserves for a stage nobody can open yet. 2.65:1 at 13px, on twenty
+     pages, since the file was written, and found by hand at the closing audit
+     rather than by any instrument. This is that instrument.
+
+     One theme, because these pages are chrome and chrome is theme-blind here; and
+     contrast plus landmarks, because a tab pass over 129 pages costs more than it
+     is worth while the ring is one rule in one file. Corpus derived the way
+     `pages13.cjs` derives it: everything that is not a product screen.
+     ========================================================================== */
+  const chromeFails = [], landmarkFails = [];
+  let chromeNodes = 0;
+  const ALL_HTML = (function walkAll(dir, out) {
+    for (const e of fs.readdirSync(path.join(ROOT, dir || '.'), { withFileTypes: true })) {
+      const rel = dir ? dir + '/' + e.name : e.name;
+      if (e.isDirectory()) {
+        if (['.git', 'node_modules', 'docs-course', '.playwright-mcp', '.impeccable', '.github', '.claude', 'screens'].includes(e.name)) continue;
+        walkAll(rel, out);
+      } else if (e.name.endsWith('.html')) out.push(rel);
+    }
+    return out;
+  })('', []);
+  const isProduct = f => (/^design\/[^/]+\.html$/.test(f) && isProductScreen(f.split('/').pop()))
+                      || (/^wireframes\/[^/]+\.html$/.test(f) && f !== 'wireframes/overview.html');
+  const CHROME = ALL_HTML.filter(f => !isProduct(f));
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 950 }, colorScheme: 'light', reducedMotion: 'reduce' });
+    const page = await ctx.newPage();
+    for (const file of CHROME) {
+      await page.goto(`http://127.0.0.1:${port}/${file}`, { waitUntil: 'load' });
+      await page.evaluate(() => document.fonts.ready);
+      await page.waitForTimeout(60);
+      await page.addScriptTag({ content: HELPERS });
+      const r = await page.evaluate(() => {
+        var rows = window.__a11y.text('body');
+        var hs = [].slice.call(document.querySelectorAll('h1,h2,h3,h4,h5,h6')).map(function (h) { return +h.tagName[1]; });
+        var skips = 0;
+        for (var i = 1; i < hs.length; i++) if (hs[i] - hs[i - 1] > 1) skips++;
+        return { rows: rows, mains: document.querySelectorAll('main,[role=main]').length,
+                 h1: document.querySelectorAll('h1').length, skips: skips };
+      });
+      chromeNodes += r.rows.length;
+      r.rows.filter(x => x.ratio < x.need).forEach(x => chromeFails.push(Object.assign({ file }, x)));
+      if (r.mains !== 1 || r.h1 !== 1 || r.skips) landmarkFails.push({ file, mains: r.mains, h1: r.h1, skips: r.skips });
+    }
+    await ctx.close();
+  }
+
   await browser.close();
   server.close();
 
@@ -494,6 +569,32 @@ document.documentElement.setAttribute('data-theme','${t}');`;
   p(`   still moving under reduce          ${motionReduced.length}`);
   motionReduced.slice(0, 20).forEach(m => p(`      ${m.file}  ${m.sel}  transition ${m.t}s  animation ${m.a}s${m.infinite ? '  INFINITE' : ''}`));
   p('');
+  p('5. THE PAGES AROUND THE PRODUCT, which nothing had ever read');
+  p(`   pages swept                        ${CHROME.length}   (every html that is not a product screen or its grey twin)`);
+  p(`   text nodes measured                ${chromeNodes}`);
+  p(`   below threshold                    ${chromeFails.length}`);
+  chromeFails.slice(0, 30).forEach(f =>
+    p(`      ${f.ratio.toFixed(2)} < ${f.need}  ${f.file}  ${f.sel}  "${f.text}"`));
+  if (chromeFails.length) p('      ^ read these before believing them: text on a page that DEMONSTRATES a colour is a');
+  if (chromeFails.length) p('        picture of a colour and not interface text. The residue here is exactly that, and it');
+  if (chromeFails.length) p('        is left visible rather than excluded by a typed list of selectors.');
+  /* THE THREE ARE REPORTED APART, since 2026-08-23, because only one of them is
+     always a defect. A page with no `main` gives a screen reader nothing to skip
+     to, and that is a finding anywhere. A page with SEVERAL `h1`s is a finding on
+     a document and is the normal shape of a stand page, whose whole content is
+     specimens of a component that happens to be a heading: `dashboard-head`
+     draws eight of them on purpose. Rolled into one number the second kind buries
+     the first, which is how 87 pages read as one problem when they were two. */
+  const noMain = landmarkFails.filter(f => f.mains !== 1);
+  const manyH1 = landmarkFails.filter(f => f.mains === 1 && f.h1 !== 1);
+  const skipped = landmarkFails.filter(f => f.skips > 0);
+  p(`   pages with no single main landmark                                       ${noMain.length}`);
+  noMain.slice(0, 20).forEach(f => p(`      ${f.file}   main ${f.mains}`));
+  p(`   pages with more than one h1                                              ${manyH1.length}   (a stand page draws specimens, and a specimen of a heading is a heading)`);
+  manyH1.slice(0, 20).forEach(f => p(`      ${f.file}   h1 ${f.h1}`));
+  p(`   pages skipping a heading level                                           ${skipped.length}`);
+  skipped.slice(0, 20).forEach(f => p(`      ${f.file}   level skips ${f.skips}`));
+  p('');
   p('4. ZOOM 200%, root font size 32px, WCAG 1.4.4');
   p(`   screens x widths measured          ${SCREENS.length * 2}`);
   p(`   scrolling sideways                 ${zoomFails.length}`);
@@ -503,7 +604,8 @@ document.documentElement.setAttribute('data-theme','${t}');`;
     fs.writeFileSync(path.join(__dirname, 'a11y13.json'), JSON.stringify({
       screens: SCREENS, contrastFails, lineFails, focusFails,
       focusByType: [...focusByType.values()], motionReduced, zoomFails,
-      counts: { textNodes, lineNodes, tabStops }
+      chrome: CHROME, chromeFails, landmarkFails,
+      counts: { textNodes, lineNodes, tabStops, chromeNodes }
     }, null, 1));
     p('');
     p('wrote design/kit/screens/a11y13.json');
