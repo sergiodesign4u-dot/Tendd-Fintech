@@ -354,7 +354,7 @@ level was settled at 03a, and this stage decides only the shape they take when t
 
 | Question | Answer | Where it is written |
 |---|---|---|
-| How many top-level destinations | **four**: Home, Alerts, Save, You | `ia/docs/sitemap.md`, Global navigation. Each carries a job cluster; History and Trends is deliberately not among them, because a mostly-locked tab would break the calm promise |
+| How many top-level destinations | **four**: Home, Trends, Alerts, You | `ia/docs/sitemap.md`, Global navigation. Each carries a job cluster. **The four are not the four this row named until 2026-08-23**: the refusal it recorded, that History and trends is deliberately not among them because a mostly-locked tab would break the calm promise, was lifted on 2026-08-18 when Trends became a destination, and Save was retired on 2026-08-21. The number never moved and both members of it did |
 | Is there a second level that must stay visible | **no** | the same file: Settings, Connections and Data and Privacy sit behind You as *deep*, Subscription Detail and the rest are *contextual*, and Upgrade appears at a gate |
 | Does any screen take side space for new behaviour | **no** | the audit: split view declined, ground in part B |
 

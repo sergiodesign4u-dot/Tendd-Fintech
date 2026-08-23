@@ -120,7 +120,14 @@ const shown = [];
 const hidden = [];
 for (const m of mds) {
   const base = path.basename(m);
-  const hit = htmlSrc.filter(h => h.s.includes(base) || h.s.includes(m));
+  /* A BOUNDARY MATCH AND NOT A SUBSTRING, since 2026-08-23. `includes('map.md')` is true of
+     every page that names `sitemap.md`, so `handoff/docs/map.md` was reported as shown by
+     eleven pages while nothing in the repository named it at all. The check that exists to
+     find an artefact with no visible place was the one hiding one. A preceding `/` is fine,
+     a preceding letter is not. */
+  const esc = base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp('(^|[^A-Za-z0-9_.-])' + esc);
+  const hit = htmlSrc.filter(h => re.test(h.s) || h.s.includes(m));
   (hit.length ? shown : hidden).push(m + (hit.length ? '   named on ' + hit.length + ' page(s)' : ''));
 }
 say('md files: ' + mds.length + ', named by at least one html: ' + shown.length + ', named by none: ' + hidden.length);
@@ -130,7 +137,7 @@ say('md files: ' + mds.length + ', named by at least one html: ' + shown.length 
 for (const h of hidden) {
   const f = h.split(' ')[0];
   const base = path.basename(f);
-  const inMd = mds.filter(m => m !== f && read(m).includes(base));
+  const inMd = mds.filter(m => m !== f && new RegExp('(^|[^A-Za-z0-9_.-])' + base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).test(read(m)));
   say('   NOT NAMED BY ANY PAGE: ' + f + (inMd.length ? '   (named by ' + inMd.length + ' md: ' + inMd.slice(0, 3).join(', ') + ')' : '   (named by nothing at all)'));
 }
 
@@ -160,8 +167,16 @@ say('   say open:              ' + saysOpen.length);
 say('   say both:              ' + both.length + '   (a row with anything unfinished is an open row)');
 say('   say neither:           ' + neither.length + '   (read by hand, they are prose rows and section notes)');
 say('   OPEN by that reading:  ' + (saysOpen.length) + ' of ' + rows.length);
+/* TWO READINGS AND NOT ONE, since 2026-08-23. The strict test is the owner column, which
+   this file writes capitalised; the loose one is any mention of the word. They were 20 and 20
+   on 2026-08-19 and they are not now, because the founder took twenty-one decisions on
+   2026-08-20 and the rows that record them still say the word in their prose. Printing one
+   number would make a closed decision look like an open one. */
 const founder = rows.filter(r => /\bFounder\b/.test(r));
-say('rows naming the founder as owner: ' + founder.length);
+const founderLoose = rows.filter(r => /founder/i.test(r));
+const founderOpen = founder.filter(r => saysOpen.includes(r));
+say('rows naming the founder as OWNER (capitalised): ' + founder.length + ', of them still open: ' + founderOpen.length);
+say('rows mentioning the founder anywhere: ' + founderLoose.length);
 const st13 = rows.filter(r => /stage 13|\bhandoff\b/i.test(r));
 say('rows naming stage 13 or the handoff: ' + st13.length);
 st13.forEach(r => say('   ' + r.slice(0, 150).replace(/\s+/g, ' ')));

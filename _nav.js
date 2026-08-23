@@ -137,6 +137,24 @@ window.NAV = [
   // the run surface a receiver meets, and the open list counted off backlog.md rather
   // than remembered. The one dependency the folder cannot carry is the typeface, and
   // that is the finding the lift test exists to have produced.
+  //
+  // THE STAGE ITSELF OPENED 2026-08-23, and it takes no new flag to say so. The pack asks
+  // for `wip:true` here; this registry renders `done` and `ready` and nothing else, so a
+  // third flag would be a value that reaches no reader - the one thing CLAUDE.md refuses
+  // everywhere else. `ready:true, done:false` ALREADY says "the page exists and the stage
+  // is running", which is exactly what wip means, and the date lives in this comment where
+  // the two rows above it keep theirs. What the stage adds beside the page is handoff/docs/:
+  // the behaviour spec, the screen-to-token map, the accessibility checklist, the prompt for
+  // adding a feature, and the log of what a stranger could not understand.
+  //
+  // THE PAGE WAS REBUILT AT STEP 5, 2026-08-23, and `done` deliberately stays false. The pack
+  // for this stage asks for `done:true` here at step 5 and for `wip` to come off at step 8 -
+  // which works only in a registry that HAS a `wip`. This one renders `done` and `ready` and
+  // nothing else, so setting `done:true` now would leave nothing at all saying the stage is
+  // still running: the exam has not been sat, the critique has not been taken, and the roadmap
+  // would already be announcing a finished project. `ready:true, done:false` says exactly what
+  // `wip` was asked to say. It flips at the close, by the founder, the way the Animation and
+  // Rollout rows above flipped: after the page is walked.
   { label:'Handoff',             page:'handoff/handoff.html', ready:true, done:false },
 ];
 

@@ -4,7 +4,16 @@ Opened at the molecule round of step 5, earlier than the pack schedules it, for 
 findings were arriving faster than the steps that own them, and a finding with no home is a
 finding that gets lost. Stages 09 to 13 read this and close what their own material closes.
 
-## Where this file stands, counted on 2026-08-12 after step 9
+## Where this file stands
+
+**Counted on 2026-08-23 by `design/kit/screens/handoff13.cjs`, section 7, and not by hand: 105
+table rows, 80 saying closed, 35 open by the reading that a row with anything unfinished in it is
+an open row, 1 addressed to stage 13 and 0 addressed to a stage that has ended.** The instrument
+is the owner of these five numbers from today; everything below is the history of how the file
+got here, each block keeping the corpus it was counted on. Re-run it rather than trusting this
+paragraph a month from now.
+
+## How the count got here, counted on 2026-08-12 after step 9
 
 **54 rows. 20 closed. 34 open. 0 rows dropped at verification.**
 
@@ -422,6 +431,40 @@ labels.
 | **CLOSED 2026-08-18. A standalone exit link with a 21px hit area.** `data-privacy` carries `<nav class="actions quiet"><a>Your sources</a>`, measured **86.97 by 21** with no padding: under the 44px floor and under WCAG 2.5.8's 24px | `quiet-line.css` refuses the floor with a good reason and logs the case it cannot reach - a link that might be inside a sentence. This is not that case: a `nav.actions` is a row of controls by definition and never a sentence, so the selector is exact and the exemption does not apply | **`quiet-line.css`**, `padding-block` with a matching negative `margin-block`, which is `muted-line.css`'s answer to the same question with one more term: the border box grows to 44 and the margin box stays 21. Nearest other target on that screen is 53px away, checked before it was written | **Closed.** Box fingerprint over all 55 pages: one box changed and it is this anchor |
 | **CLOSED 2026-08-18. The gate's sentence sat 8px above its buttons, and the 8 was a rounding rather than a decision.** Five pages: `cancel-guide` and the four `subscription-detail` states | `panel.css` said so itself: "10px under it folds down to --space-8". It arrived by rounding kit.css's 10 onto the grid at stage 08, and it is visibly tighter than the sentence's own leading | **`panel.css`**, `--space-16`: the step this system settled the same week for a sentence and the block under it inside a surface, against 24 between two blocks on a screen. A gate is a surface | **Closed.** 5 pages move by 8px and nothing else does |
 | **`.group-head.plain` produces three different distances for one job.** Counted over the coloured corpus at 1440: a plain `group-head` sits **2px** above what it labels on 31 placements, `.group-head.plain` sits **8px** above a `ul` on 5 and **16px** above a `div` or an `ol` on 4 | The follower's own top margin is doing the arithmetic, so the modifier's distance depends on what happens to come after it rather than on anything the modifier says | **Not fixed here, because fixing it means choosing which of the three is right**, and that is a decision about a component nobody has asked about. Recorded with the counts so the next person starts from a number | **Open. Whoever opens the group head next** |
+
+## Found on 2026-08-23 by the accessibility run of stage 13
+
+Two rows, both real, neither fixed here. Stage 13 documents what was built and does not finish
+the product: an edit after the acceptance of stage 12 voids every pixel comparison it stands on.
+The instrument is `design/kit/screens/a11y13.cjs`, its output is checked in beside it, and the
+full checklist with the other thirteen rows, all confirmed, is `handoff/docs/a11y.md`.
+
+| What was found | Why it stood | Where it goes | State |
+|---|---|---|---|
+| **Nine screens scroll sideways at 200% text zoom.** Root font size set to 32px, twice the browser default, which is what WCAG 1.4.4 asks and what a person with low vision actually does. **At 1440 nothing fails.** At 390: `cancel-win` by 83px, `history-trends-locked` by 46, `upgrade-renewal-failed` by 39, `upgrade-payment-failed` by 28, `cancel-guide` by 20, `history-trends` and `history-trends-loading` by 6, `alerts` and `alerts-empty` by 4 | The width sweep of stage 10 moved the VIEWPORT and held the text. This is the same question on the other axis, and nothing had ever asked it. The four worst are screens whose content is a fixed horizontal composition: a won-back figure, a locked range control, a payment notice | **Not fixed. Founder's**, because four of the nine need a composition decision rather than a value, and the other five are a hairline over the edge that one measure would answer | **Open. The founder** |
+| **The trend chart wears the browser's focus ring rather than the system's.** `design/system/behaviour.js` sets `tabIndex = 0` on the chart box so the keyboard can reach the cursor it builds; the box is a `div`, and `base.css` names the ring for `a, button, input, select, textarea, summary`. So the one interactive element in the product that is not a native control is the one outside the rule | It passes today and that is why nobody saw it: measured 5.78:1 in light and 6.40:1 in dark. But `outline: auto` is drawn by the ENGINE, so the number belongs to Chromium and not to this product | **Not fixed. One selector in `base.css`**, which is a change to the system and therefore a decision rather than an edit at this stage | **Open. The founder, then whoever opens `base.css` next** |
+
+## Found on 2026-08-23 by the clean-context reader of stage 13
+
+Three rows, and every one of them is a place where the CODE is consistent and the writing around
+it is not. They were produced by sending a reader with no memory of this project through it twice
+and verifying each finding against the files before believing it; the whole log with its
+verdicts, including the findings that were dropped, is `handoff/docs/onboarding-gaps.md`.
+
+| What was found | Why it stood | Where it goes | State |
+|---|---|---|---|
+| **Seventeen surfaces still say the tab bar has five destinations, or still name Save.** The code has answered four since 2026-08-21, when the Save tab was retired. `docs/decisions.md` is excluded on purpose, because a decision log is supposed to hold the state it recorded. The seventeen are five coloured screens, seven stand pages, `design/overview.html`, `app-shell.css`, four IA and Voice documents and the wireframe hub | The retirement moved the CODE and the count, and nothing recounts prose. The surfaces are spread across five stages, and no single stage owns them | **Two were corrected on 2026-08-23**, the two this stage may edit: `design/kit/docs/architecture.md` U18 and `design/kit/docs/responsive.md`, and in the second the number was already four while both of the wrong members were named. The rest are frozen product, frozen wireframes, or another stage's material | **Open. The founder**: correct them, or date each one to the corpus it was written on |
+| **Two coloured screens carry a class the design system does not define.** `rollout12.cjs` check 2 reports `context` on `home-few.html` and `home-one.html`, and no row in this file had ever named it | The instrument has reported it since the two screens landed on 2026-08-20, and `README.md` was calling `npm run check` "the two that must stay clean" while one of the two was not | **Not fixed. Either declare the class in the system or take it off the two screens**, and both are frozen product after the acceptance of stage 12 | **Open. The founder** |
+| **The file the kit registry calls "the markup a coloured screen is copied from" is stale in three ways.** `design/kit/shell.html`: the `.app` element opened at line 96 is closed by a `</main>`, its tab bar carries three destinations against the product's four, and it puts a back control on a destination, which is exactly what usage rule U18 forbids | Nothing checks a template. Every instrument in this repository reads the product or the system, and the file a new screen would be COPIED from is neither | **Not fixed. `design/kit/*.html` is frozen for this stage.** It is urgent in one direction only: the prompt this stage writes for adding a feature may not point a receiver at that file until it is fixed or replaced | **Open. The founder** |
+
+## Found on 2026-08-23 by the acceptance sweep of the handoff page
+
+One row. The stage page of the handoff was built by copying the shape of `design/rollout.html`,
+and copying it copied a defect that had never been measured on either page.
+
+| What was found | Why it stood | Where it goes | State |
+|---|---|---|---|
+| **The callout block on a stage account has no reading measure.** `.ro-note` on `design/rollout.html` carries no `max-width`, so at desktop width it runs the whole wrap: **116ch measured in the note's own font**, beside section prose that is capped at 78ch in the same file. The same block on `handoff/handoff.html` was fixed the day it was found | Nothing sweeps a stage page for a measure. The width instruments read the product screens and the pages sweep reads for sideways scroll, and a 116ch line does neither: it fits, it renders, and it is simply hard to read. It is the stage 12 lesson one file over - `ch` is a unit of the element's own font, so the measure belongs to the line | **Not fixed. `design/*.html` is frozen** after the acceptance of stage 12, and `rollout.html` is inside that glob. One declaration, whenever the freeze lifts | **Open. The founder** |
 
 ## What is deliberately NOT in this file
 

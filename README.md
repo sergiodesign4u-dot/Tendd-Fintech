@@ -1,88 +1,110 @@
 # Tendd
 
 Tendd helps people who are not into finance see and control their recurring payments and
-subscriptions, turning money anxiety into calm, everyday clarity. Mobile-first responsive
-web app, desktop in scope.
+subscriptions, turning money anxiety into calm, everyday clarity. A mobile-first responsive web
+app, desktop in scope. Not a budgeting app: a calm, low-friction visibility and control layer for
+recurring spend, for people who feel anxious about money and avoid finance apps.
 
-**Live: https://sergiodesign4u-dot.github.io/Tendd-Fintech/** (the project entry page; every
-stage below opens from its sidebar).
+**This README is an index, not a report.** Every section is a sentence or two and a link. What
+happened in a stage is written on that stage's own page, which is better at its own subject than
+a paragraph here could be.
 
-Rules for this repository: [CLAUDE.md](./CLAUDE.md). Decision log:
-[docs/decisions.md](./docs/decisions.md). Where every figure on a screen comes from:
-[docs/bank-connection.md](./docs/bank-connection.md). Entry for the external critic:
-[AGENTS.md](./AGENTS.md).
+## The four addresses
+
+| | |
+|---|---|
+| **The product**, every screen in colour | https://sergiodesign4u-dot.github.io/Tendd-Fintech/design/index.html |
+| **The design system**, and why it is like this | https://sergiodesign4u-dot.github.io/Tendd-Fintech/design/kit/why.html |
+| **The repository** | https://github.com/sergiodesign4u-dot/Tendd-Fintech |
+| **The project entry**, the roadmap of all thirteen stages | https://sergiodesign4u-dot.github.io/Tendd-Fintech/ |
+
+**If you are receiving this project, start at [handoff/handoff.html](./handoff/handoff.html).** It
+is the one page that answers what is being handed over, what this package is and is not, which
+theme is the main one, how the product behaves, what each screen is assembled from, where
+accessibility lives, and who decides what is still open.
+
+## What is where
+
+| Folder | What is in it |
+|---|---|
+| [`research/`](./research/research.html) | Who this is for: the market, four personas, the jobs, and the journey before and after |
+| [`ia/`](./ia/structure.html) | The structure: a sitemap, the flows, one page per node, and one accessibility contract |
+| [`wireframes/`](./wireframes/overview.html) | The grey structure contract, frozen since Voice. Read-only, and the answer to why every screen exists twice |
+| [`voice/`](./voice/voice.html) | The voice, and the line inventory that owns every interface string |
+| [`design/`](./design/index.html) | The product in colour: 17 screens across 57 pages, and [the map of all of them](./design/overview.html) |
+| [`design/system/`](./design/system/CLAUDE.md) | The code of the design system, liftable whole, with its own rules file |
+| [`design/kit/`](./design/kit/why.html) | The stand that shows it: a page per component, the foundations, the architecture, the backlog |
+| [`handoff/`](./handoff/handoff.html) | This project, handed over: the page and its five documents |
+
+At the root: [CLAUDE.md](./CLAUDE.md) the rules, [docs/decisions.md](./docs/decisions.md) the
+decision log, [DESIGN.md](./DESIGN.md) the visual language read out of the shipped code,
+[docs/bank-connection.md](./docs/bank-connection.md) where every figure on a screen comes from,
+and [AGENTS.md](./AGENTS.md) the entry for an outside critic.
 
 ## Running it
 
-Nothing is built. Every page in this repository is static html that opens from a plain
-file server, and the deploy is Jekyll copying the tree.
+Nothing is built. Every page is static html that opens from a plain file server, and the deploy
+is Jekyll copying the tree.
 
 ```
 python3 -m http.server 8080     # or: npm run serve, then open http://localhost:8080
+npm install                     # playwright, the only dependency, and the only reason package.json exists
+npm run check                   # the rollout ledger and the quality sweep
+npm run check:route             # every link in every page and document, and the click depth from the entry page
+npm run census                  # what is on disk, what is open, what a receiver needs
 ```
 
-The **instruments** are node scripts in `design/kit/screens/`, each deriving its corpus
-from the tree or a registry rather than from a typed list. Most of them serve the
-repository to a headless browser themselves and need playwright; two do not touch a
-browser at all - `handoff13.cjs` counts the tree and `ledger09.cjs` reads two checked-in
-json files:
+The **instruments** are node scripts in `design/kit/screens/`, each deriving its corpus from the
+tree or from a registry rather than from a typed list, and each writing its output beside itself.
+Most serve the repository to a headless browser and need playwright; two never open one -
+`handoff13.cjs` counts the tree and `ledger09.cjs` reads two checked-in json files. The rest are
+`check:width`, `check:inert`, `check:edges`, `check:pages`, `check:walk`, `check:map`,
+`check:a11y`, `check:aria` and `fp:before` / `fp:after`. The box fingerprint is the one to run
+around any change that is supposed to move nothing, `check:edges` after any change to a width,
+`check:walk` after any change to where a screen can go, and `check:route` after anything moves.
 
-```
-npm install          # playwright, the only dependency, and the only reason package.json exists
-npm run check        # the rollout ledger and the quality sweep, the two that must stay clean
-npm run census       # what is on disk, what is open, what a receiver needs
-```
-
-`npm run check:width`, `check:inert`, `check:edges`, `check:pages`, `check:walk` and
-`fp:before` / `fp:after` are the rest; the box fingerprint is the one to run around any
-change that is supposed to move nothing, `check:edges` after any change to a width, and
-`check:walk` after any change to where a screen can go.
-
-**Lifting the design system out.** `design/system/` is the whole visual language and it
-travels alone: 76 files, every `url()` inside it resolving inside it. Copied into an empty
-directory on 2026-08-18 and used to assemble a screen it had never seen, it rendered with
-**0 failed requests and 0 console errors in both themes**. It carries exactly one dependency
-it cannot provide, the typeface, and `design/system/CLAUDE.md` names it with the link.
+**Lifting the design system out.** `design/system/` is the whole visual language and it travels
+alone: every `url()` inside it resolves inside it. Copied into an empty directory on 2026-08-18
+and used to assemble a screen it had never seen, it rendered with **0 failed requests and 0
+console errors in both themes**. It carries exactly one dependency it cannot provide, the
+typeface, and `design/system/CLAUDE.md` names it with the link.
 
 ## Status
 
-| Stage | Page | Status |
-|---|---|---|
-| Foundation Research | [research/research.html](./research/research.html) | Done, June 2026 |
-| User Research (Personas + JTBD) | [research/personas.html](./research/personas.html), [research/jtbd.html](./research/jtbd.html) | Done, June 2026 |
-| CJM (As-Is + To-Be) | [research/cjm-as-is.html](./research/cjm-as-is.html), [research/cjm-to-be.html](./research/cjm-to-be.html) | Done, July 2026 |
-| Information Architecture (IA) | [ia/structure.html](./ia/structure.html), [ia/sitemap.html](./ia/sitemap.html), [ia/globals.html](./ia/globals.html), [ia/accessibility.html](./ia/accessibility.html) | Done, August 2026. Two layers: base (flows, concept map) and detail (one page per node, the block bank, the seven global elements, one accessibility contract). The nine cluster pages were retired into it. **Updated 2026-08-10:** the auth model closed the last structural `[?]` and added node 1.6 Sign In, state 6.16.1 and Flow E; node 5.13.3 gave Pro a cancel door; the alert channel, the telemetry classes and the trial data source were settled. Ground: [docs/decisions.md](./docs/decisions.md) |
-| Wireframes | [wireframes/overview.html](./wireframes/overview.html) | Done, August 2026. Rebuilt from scratch against the upgraded IA: 16 screens, **50 pages**, one per state node, live screens with no zone annotations. Critique taken on two instruments and closed; `wireframes/index.html` is the product home, `overview.html` the hub. **Round 3, 2026-08-10:** the auth model re-opened the stage on purpose and brought it back level with the IA, so the set is now **17 screens, 55 pages**. New: `sign-in` with its two states (node 1.6), `settings-no-account` (6.16.1), `upgrade-current-plan` (5.13.3), and the email field on `connect-bank`. The landing's "Sign in" link pointed at Settings until then. **Round 4, 2026-08-20:** three states nobody had specified, so the set is **17 screens, 58 pages**. The count ladder on Home (`home-one` 2.6.5, `home-few` 2.6.6) - node 2.6 named four states and every one was about the CONNECTION, none about the COUNT, and the count is what the screen is - and `upgrade-renewal-failed` (5.13.4), the renewal that fails on an account already paying, which 5.13.2 does not cover. **Round 5, 2026-08-21:** the first page this stage has ever removed. The founder asked why the Save tab existed when it landed on a screen 84 per cent identical to Home; measured, `home-savefocus` was 2099px tall at 390 with 331 of them its own, and nothing but the tab bar linked to it. The state retired, its cancel nudge came back onto `home` as a conditional block under the list, and the tab bar is four destinations again. **17 screens, 57 pages** |
-| Voice | [voice/voice.html](./voice/voice.html) | Done, July 2026. **Updated 2026-08-10:** the line inventory gained the Sign In screen with its two states, the Connect Bank email field, node 6.16.1 and node 5.13.3, as Round 3 of the rewrite log. **Round 4, 2026-08-11:** the fourteen copy divergences UI + Visual found, closed here rather than in colour, because Voice owns product copy and the grey changes first. The worst was the project's own open-question notation printed as product copy on the paywall and on the landing. Two voice rules moved with them: the empty-state example and the "Maybe later" rule, narrowed to "a real exit always present" |
-| Concept | [design/concept/directions.html](./design/concept/directions.html), [design/concept/concept.html](./design/concept/concept.html) | Done, July 2026 |
-| UI + Visual | [design/overview.html](./design/overview.html) | **Done, August 2026.** Done means three things and not a fourth. **The language** is `DESIGN.md`, generated from the shipped code, every token carrying its origin. **The kit is for the whole product**, not for the sample: 69 components read out of all 55 grey pages, one flat `design/kit/kit.css`, the showcase at [kit.html](./design/kit/kit.html), the count and the control census in `design/kit/docs/inventory.md`. **The sample is 7 screens, 28 pages** in colour, every state of every one of them, each assembled from the kit and carrying no style of its own. The sixth screen, Guided Reveal, was added at the strategy check: the first five were chosen for component coverage and left H0, the assumption the product is a bet on, with no coloured screen. The seventh, Settings, was added as the saturation test and needed nothing new in the kit, which is what an inventory read from the whole product rather than from the sample buys. **The other ten screens stayed grey on purpose** and were coloured in one pass afterwards, because a screen is built once, when everything it needs already exists. **That pass has landed**: counted 2026-08-17, `design/` carries a coloured twin for every one of the 55 grey pages, with no orphan on either side, and not one of them holds a style of its own. **Stage 12 owed the ACCOUNT rather than the screens, and it is written: [Rollout](./design/rollout.html), 2026-08-17.** The figures in this row are stage 07's and keep the corpus they were measured on, which is why they still read 7 screens and 28 pages; the current corpus is 17 and 55 and it is counted on the rollout page. Critique closed on three instruments and the audit on four: 31 fixes, all into the kit, none onto a screen, the last seven being the control edge the founder scoped to controls only ([was to became](./design/overview.html#delta)) |
-| Design System | [design/kit/why.html](./design/kit/why.html) | **Done, August 2026.** One roadmap row and not two: tokens and components live in the same place, and a row whose page is a section of another row's page is a second entrance to one room. The row opens on the guide, [why the system is like this](./design/kit/why.html); the stage 08 account keeps its own page at [overview](./design/kit/overview.html) and names this row through `NAV_ACTIVE`. **The code** is `design/system/`, liftable whole and carrying its own `CLAUDE.md`: `tokens.css` at **two levels** (70 primitive, 34 at the semantic level, every one of the 34 paired in `[data-theme="dark"]`), `base.css`, `index.css` importing by level, **57 component files** and **3 patterns** - all four figures measured at the close of stage 09 and named to it, because the landing of stage 10 grew the component corpus afterwards and these were not recounted. **The stand** is `design/kit/`: a page per component with six blocks, four foundations pages, a page per pattern, and the registry that draws its own panel. **Stage 09 added no component and that is what it was for**: it lifted three settled compositions out of the components with **0 unexplained pixels** across 3998 elements, wrote **11 usage rules** each with its source, put the growth rule into the code in four files, and then built one product screen the system had never seen, [Alerts](./design/alerts.html), out of `design/system/` alone: 44 system classes, 0 new CSS, 0 new tokens, 0 new copy. **Checked on two instruments** at both ends, Codex on the source and a browser pass on the render. The evidence is one page, [the proof](./design/kit/pixel-proof.html). **What is open is named there rather than hidden**, and the largest is structural: a per-component coloured count is written by hand in forty places and nothing recomputes it, which is why 21 components went stale the day the corpus grew. It is a row in [the backlog](./design/kit/docs/backlog.md) addressed to stage 13 |
-| Responsive | [design/kit/responsive.html](./design/kit/responsive.html) | **Done, August 2026.** The stage does not add responsiveness, it names the responsiveness that has run since stage 04 and moves it into the system. The census found **18 different width numbers and not one token**, and the 32 coloured screens holding **zero** width rules of any kind, so the usual work of dragging rules out of screen files was empty here. **Two points, both in `rem`**, both with a written origin: `--bp-tablet` 47.5rem for the shell and `--bp-desktop` 56.25rem for the moment the content stops being a column; one local container threshold, 28.75rem; the column count deliberately **not** a token. The third number, 1340, was removed rather than blessed. The audit carries a row for each of the **17** screens: 8 same, 9 wider, **0 new behaviour**, with three sources behind the zero. **Checked against the built product at stage 12, 2026-08-17: thirteen rows hold, the zero holds on all seventeen, and the four that do not hold are one finding - SAME was never available to a screen inside the shell.** Verification is a **width sweep, 32 pages by 50 widths, 1600 measurements**: it found five defects a three-width screenshot cannot see, including a line of prose at **150 characters** and a 28px band where the detail screen scrolled sideways inside its own pane. The pixel promise is asymmetric and both halves hold: **zero difference at 360 on all 32 pages, box and ink**, and every one of the 688 changed boxes at 1440 belongs to a named row |
-| Animation | [design/kit/motion.html](./design/kit/motion.html) | **Done, August 2026**, closed by the founder on 2026-08-17 after walking the page. The stage opened on a **census** rather than a design, because motion is the one artefact here a screenshot cannot audit. It found the distribution rather than a number: **zero `transition` declarations in the whole product**, 8 of 75 files declaring any motion, **30 of the 31 keyframes belonging to one page**, and all four of the landing's curves declared on **one selector in one file** - which is why four other files wrote the same expo-out by hand. The other 54 screens carried **68 state rules across 28 components, 26 of them cutting instantly**. It also found and deleted one **dead keyframe**. Motion is now **fourteen tokens and four verbs**: four curve shapes under five jobs, four durations and one distance. (Thirteen until the recount of 2026-08-16, which dropped `--dur-pulse` on the way from the register to this row.) **Fade** is colour over 150ms, declared once in `base.css` (usage rule **U12**); the colour-only pass shipped first and the founder's verdict was that it could not be seen, so three more verbs followed the same day (**U13**). **Advance**: a direction cue moves toward where it points on hover. **Lift**: an identity mark rises and grows when the target it stands in is hovered, **and since the second hover pass the button itself does too**, up one nudge and no scale. **Press**: anything pushable goes down while it is held, at 90ms - and on a lifted button it lands **back on the surface** rather than below the line, so the lift and the press are one gesture in two halves. **One distance holds all of them** - `--nudge`, 2px - and nothing anywhere travels two, because every neighbouring state sits exactly one nudge from the next; that single number is what keeps movement from becoming decoration. The exclusions are as much of the language as the verbs: a disabled control, a loading form, the current tab, a **figure** (a number that moves is a number you re-read), a card on hover, the **focus ring** (a keyboard user moves faster than 150ms per stop), and anything that would reflow. The verbs live in the components because a verb is a statement about what an object IS and `base.css` cannot know that. **And a fifth thing that is not a verb: the signature** (**U14**). The brand's mark opens its window to the whole letter and closes it into crop A while the wordmark's last letter takes petrol - the idea was written down at Concept, in the crop direction whose sentence is *the tighter the crop, the more abstract the mark*. The concept page demonstrates it as an eight second loop; what ships is **one move, once, on arrival, on the public page's bar only**, because a mark that moves every time you open the product is not a signature. **And the signature has an answering half, added the next morning when the founder hovered the lockup and saw nothing** (*"при ховере я не вижу анимации"*): hovering the brand **plays the crop** - the window opens toward the whole letter and settles back into crop A, once - on every screen, unfenced, because an answer belongs everywhere the object stands. What moves is the window and never the mark: a mark that rose and grew would be a lift, and a lift says the object is pressable. **The first version HELD the window half open and the founder killed it within the hour** (*"не виглядає це, м'яко говорячи, не очень"*), and the reason is better than the fix: the mark's field is the same colour as the bar, so what a person sees is the ink alone, and any part-open crop shrinks the letter off the frame until the rounded square stops being one. **There is no good resting crop other than crop A**, so the hover rests at none: both its ends are crop A and everything between them is motion. **One crop number in the file and two rules spend it**, and the hover found a real bug in the other one - a CSS animation list is matched by position, so while the two shared a slot, taking the pointer off the public page's lockup **replayed the arrival on a mouse-out**. Two slots and one more local property closed it. The button's fade was measured in the same breath and it is why the founder was right: a secondary button's hover moves its fill by about **two per cent**, `#ffffff` to `#f4f7f8`. It cost a refactor of the mark from a `viewBox` crop to a box crop, and that is **not pixel-identical**: the drawing and its extents match to the device pixel, the rendering differs on the outline of all 108 marks, and both facts are on the page rather than smoothed over. **Two questions are answered in words**: no motion between two states this product documents as two pages, because there is no runtime to attach it to, and the landing's vocabulary is shared only where it has a consumer. **Nothing that existed moved**: 36 deterministic frames byte-identical, and the landing checked by 30 choreography samples at 10 scroll positions on 3 viewports, **0 differ**. **Critique on two instruments, five findings, all five verified and closed**: Claude caught its own published counts stating occurrences as screens (and the corrected count changed an argument, because the non-native element forms turned out to be loading states), Codex caught a denominator that did not match the corpus it named, a promise the stage had already kept, a selector claim that was false by one element, and three Limits items U12 owed . **Round 2, the next morning, six more findings and six closed**, all six Codex's: a cascade claim false on one of the two files it was written in, two stale corpus figures ("32 lockups", "33 screens"), forty frames called deterministic when 36 are, thirteen motion tokens where the register says fourteen, and three live counts on the stage page that had gone stale in a day. **And the founder's own sweep closed it**: *"проверь все атомы что у них есть анимация"* - all **71 rows of the component registry**, each on its own stand, probed at rest, under the pointer and under a held button, reading the component and every element inside it. Everything that is a target answers and nothing that is not moves; the first pass reported the tab bar and the merchant mark as dead because it had hovered the CURRENT tab and a mark standing outside a row, which is in the account rather than smoothed away |
-| Rollout | [design/rollout.html](./design/rollout.html) | **Done, August 2026**, closed by the founder on 2026-08-17 the same day the account was written and walked. The screens had been on disk since before the stage opened; what it owed and delivered is the ACCOUNT. **The corpus is 17 screens, 38 states, 55 pages, and every one of the 55 has a coloured twin with no orphan on either side** - a pairing read off both folders rather than a claim. **The audit row stage 10 asked for exists per screen**, measured at a real 360 and a real 1440: thirteen of the seventeen rows hold, **new behaviour is still zero on all seventeen**, and the four that do not hold are one finding - **SAME was never available to a screen inside the shell**, because a flow screen stops at the 620 column and a shell screen is handed a 1220 pane. **The ban is re-proved on all 55 and not on 32**: zero style blocks, zero style attributes, zero queries, zero width declarations, zero classes the system does not define, zero of 581 links leaving the colour for the frozen grey. **The width column of the inventory is recounted on 72 entries** (was 60): 35 adapt and 37 do not as the stage opened, which is the same 37, because **every one of the twelve entries added since stage 10 adapts**; nine cells were wrong and are corrected, eight of them answering a different question than the column asks. **The sweep is 55 pages by 58 widths, 3190 measurements**, and it is clean on all four structural checks; what it found is prose. **Seven blocks read past the 52ch measure, the worst at 81.2ch on a cancellation step, and all seven are fixed** in five component files, each by putting the measure on the element that holds the words rather than on the box around it - which is the lesson, because `ch` is a unit of the element's own font and a 52ch cap on a 16px container gave an 12px line inside it 80 characters. **The last unregistered width number in the product went with them**: the landing story head's `38rem` is `--container-column` now, the value the same head is already given in its stage form. The pixels are accounted both ways: **zero boxes moved at 360 on all 55 pages**, and at 1440 sixteen pages and 137 boxes moved, every changed width one of the seven rules. The recount after the fixes was **39 adapt and 33 do not**; it is **40 and 32** since 2026-08-18, the plan row having become a declared count with a cap of its own. Three re-runnable instruments in `design/kit/screens/`, each deriving its corpus from a registry rather than from a typed list. **What this row said until today, kept because it is the shape of the debt rather than a regret:** the stage was added to the roadmap on 2026-08-13, having been missing from this table and from `/_nav.js` since the project began, and it was found at stage 10 rather than at stage 12, which is the only reason it cost nothing. Its five debts were a page of its own, the per-screen audit row, the width-rule ban re-checked, the width column of the inventory, and the rows in this table describing the old 28-page sample. All five are paid above. **Every row addressed to this stage is closed**, eight of them, four inherited from stages 09 and 10 and four found by its own instruments, and three closed as a decision with the measurement behind it rather than as a fix. The last two closed on 2026-08-17: **the shell's blanket** went inside `:where()`, which drops it to specificity zero so that any component declaring a measure now wins, and it found the **seventh unbinding** on the way out - the dialog sheet has said 480px since stage 08 and had never once rendered it past the tablet point; and the **focus order** was answered by measuring all 55 pages at both widths, where every page tabs bar, content, nav and not one changes with width. **Three things are left to the founder and none is a defect**: a skip link (a new string, so Voice first), a rename for a class name carrying three meanings (markup, so behind the freeze), and one line to revert the sheet's 480 if the wider sheet was wanted rather than accidental |
-| Handoff | [handoff/handoff.html](./handoff/handoff.html) | **In progress, August 2026.** The stage writes no product: everything a receiver gets was built by the twelve stages above it, and the only question left is whether it TRAVELS. **The lift test is the substance and it is measured rather than asserted**: `design/system/` was copied into an empty directory and one screen the system had never seen was assembled there out of its classes alone, and it rendered with **0 failed requests, 0 console errors, both themes correct, 0 elements unstyled and no sideways scroll** at 390 and at 1440. Every `url()` inside the folder resolves inside it, `assets/` included. **It carries exactly one dependency it cannot provide - the typeface** - and the test passed without noticing because the machine it ran on has Inter installed, which is the shape of failure a handoff exists to prevent; it is written down now in `design/system/CLAUDE.md` and at the declaration in `base.css`, with the exact link, the five weights in use and what breaks without them. **The run surface the census found empty is repaired**: a `package.json` whose only reason to exist is playwright, `npm run check / census / serve`, and every instrument resolving it local-first instead of from a global root - one of them, `fp.cjs`, had an absolute path inside one machine's npx cache. **What is open is counted rather than recalled**: 36 rows of 98, 20 of them the founder's, 1 addressed to this stage. Still owed: the critique on two instruments, and the founder's walk |
+Thirteen stages, and this table is the only status table in the project. The other owner of the
+same truth is `done:true` in [`/_nav.js`](./_nav.js), which is what draws the roadmap on every
+page; the two are checked against each other by `handoff13.cjs`.
 
-## Design System
+| # | Stage | Page | Status |
+|---|---|---|---|
+| 01 | Foundation Research | [research/research.html](./research/research.html) | Done, June 2026 |
+| 02 | User Research | [personas](./research/personas.html), [JTBD](./research/jtbd.html) | Done, June 2026 |
+| 03 | CJM, as-is and to-be | [as-is](./research/cjm-as-is.html), [to-be](./research/cjm-to-be.html) | Done, July 2026 |
+| 04 | Information Architecture | [ia/structure.html](./ia/structure.html) | Done, August 2026. Two layers, one page per node, the block bank, the seven global elements, one accessibility contract |
+| 05 | Wireframes | [wireframes/overview.html](./wireframes/overview.html) | Done, August 2026. 17 screens across 57 grey pages, one per state. Five rounds, the last of which removed a page rather than adding one |
+| 06 | Voice | [voice/voice.html](./voice/voice.html) | Done, July 2026. The voice and the line inventory; every product string in the repository is owned here |
+| 07 | Concept | [directions](./design/concept/directions.html), [concept](./design/concept/concept.html) | Done, July 2026. Petrol and Paper, found and locked |
+| 08 | UI + Visual | [design/overview.html](./design/overview.html) | Done, August 2026. The kit read out of the whole product rather than out of a sample, and the first seven screens in colour |
+| 09 | Design System | [design/kit/why.html](./design/kit/why.html) | Done, August 2026. Two token levels, 73 components and patterns, 17 usage rules, the growth rule written into the code, and one product screen built out of the system to prove it stands alone |
+| 10 | Responsive | [design/kit/responsive.html](./design/kit/responsive.html) | Done, August 2026. Two width points in `rem`, both with a written origin; one number removed rather than blessed; verified by a width sweep rather than by three screenshots |
+| 11 | Animation | [design/kit/motion.html](./design/kit/motion.html) | Done, August 2026. Opened on a census rather than a design. Fourteen tokens, four verbs, one distance, and a signature that is not a verb |
+| 12 | Rollout | [design/rollout.html](./design/rollout.html) | Done, August 2026. The account: every grey page paired with a coloured twin, an audit row per screen, the ban on a screen carrying a style of its own re-proved on all of them |
+| 13 | Handoff | [handoff/handoff.html](./handoff/handoff.html) | **In progress, August 2026.** The stage writes no product. What it adds is the four questions no page answered - what this package is and is not, which theme is the main one, who decides what is open, and what is deliberately not done - plus the behaviour spec, the screen-to-token map, the accessibility checklist read by a run rather than by memory, and the log of what a stranger could not work out alone |
+
+## The design system
 
 `design/kit/` is the stand and `design/system/` is the thing it shows. They are one row on the
 roadmap and two folders on disk, and the split is the whole idea: **the folder with the code has
-no HTML in it and can be lifted into a repository that has never heard of Tendd.**
+no html in it and can be lifted into a repository that has never heard of Tendd.**
 
-- **[Why the system is like this](./design/kit/why.html)** - the guide, and the first thing to read.
-  Five attributes from Concept, three borrowed sources and four refusals, where every value came
-  from, and the rule for adding to it.
-- **[The whole system](./design/kit/overview.html)** - the hub: 70 components by level, 3 patterns,
-  4 foundations pages, and the inventory.
-- **[Patterns](./design/kit/patterns.html)** - the three settled compositions, the four candidates
-  waiting for a third screen, and why the threshold is three and not two.
-- **[Architecture](./design/kit/architecture.html)** - the two ladders, the naming, the 17 usage
+- [**Why the system is like this**](./design/kit/why.html) - the guide, and the first thing to
+  read: the attributes from Concept, the borrowed sources and the refusals, and the rule for
+  adding to it.
+- [**The whole system**](./design/kit/overview.html) - the hub: every component by level, the
+  patterns, the foundations pages, and the inventory.
+- [**Architecture**](./design/kit/architecture.html) - the two ladders, the naming, the usage
   rules with their sources, and how to contribute.
-- **[The proof](./design/kit/pixel-proof.html)** - every number this stage produced, who found what,
-  what was dropped at verification and why.
-- **[The backlog](./design/kit/docs/backlog.md)** - what the stage found and deliberately did not fix.
-
-**One screen in the product was built by the system rather than for it**, on 2026-08-13, as the test
-of whether the system stands on its own: [Alerts](./design/alerts.html) and its
-[empty](./design/alerts-empty.html), [error](./design/alerts-error.html) and
-[loading](./design/alerts-loading.html) states. Nothing was added to the system to make it fit, and
-what was missing was written into the backlog instead of drawn onto the screen.
+- [**The proof**](./design/kit/pixel-proof.html) - every number the stage produced, who found
+  what, and what was dropped at verification.
+- [**The backlog**](./design/kit/docs/backlog.md) - what the stages found and deliberately did
+  not fix.

@@ -56,13 +56,29 @@
   .ho-num b { display: block; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); }
   .ho-num span { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-  .ho-note { margin: 0 0 14px; padding: 12px 14px; background: var(--bg-callout); border-radius: var(--radius-xs); font-size: 13px; line-height: 1.6; color: var(--text-body); }
+  /* MAX-WIDTH ON THE NOTE, and the number is in the note's OWN ch. Copied in shape from
+     design/rollout.html, this block had none, so at desktop width it ran the full wrap: 116ch
+     measured, against the 78ch the section prose beside it keeps. It is the stage 12 lesson
+     landing on the page that reports it - `ch` is a unit of the element's own font, so the
+     measure belongs to the line and never to the box around it. The inherited copy on
+     rollout.html is frozen and is named in the backlog instead. */
+  .ho-note { margin: 0 0 14px; padding: 12px 14px; background: var(--bg-callout); border-radius: var(--radius-xs); font-size: 13px; line-height: 1.6; color: var(--text-body); max-width: 78ch; }
   .ho-note b { color: var(--text-primary); }
 
   .ho-cmd { display: block; white-space: pre-wrap; background: var(--bg-recessed); border: 1px solid var(--line-divider); border-radius: var(--radius-xs); padding: 12px 14px; margin: 0 0 14px; font-size: 12.5px; line-height: 1.7; color: var(--text-body); }
 
   .ho-foot { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line-container); font-size: 12.5px; line-height: 1.7; color: var(--text-muted); }
+  .ho-foot, .ho-head .ho-sub { max-width: 78ch; }
   .ho-foot code { color: var(--text-body); }
+  /* THE THREE DOORS, added at step 5 of stage 13. They are the one block on this page a
+     receiver is meant to use before reading anything, so they are the one block that is
+     not prose and not a table. */
+  .ho-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin: 0 0 18px; }
+  .ho-links a { display: block; background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: var(--radius); padding: 14px 16px; text-decoration: none; }
+  .ho-links a:hover { border-color: var(--line-selected); }
+  .ho-links b { display: block; font-size: 14px; font-weight: 700; color: var(--text-primary); }
+  .ho-links span { display: block; font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .ho-links code { display: block; font-size: 11.5px; color: var(--text-action); margin-top: 7px; word-break: break-all; }
 </style>
 </head>
 <body>
@@ -83,76 +99,285 @@
 
   <div class="ho-head">
     <h1>Handoff</h1>
-    <p class="ho-sub">Stage 13, the last row. What is being handed over, what it needs from the
-      machine it lands on, and what is still open - each of them counted by an instrument rather
-      than remembered.</p>
+    <p class="ho-sub">Stage 13, the last row. What is being handed over, where to start reading
+      it, how it behaves, what each screen is made of, and what is still open - each of them
+      counted by an instrument rather than remembered.</p>
     <div class="ho-meta">
-      <span><strong>632</strong> files</span>
-      <span><strong>76</strong> in the design system</span>
+      <span><strong>648</strong> files</span>
+      <span><strong>77</strong> in the design system</span>
       <span><strong>0</strong> references leaving it</span>
       <span><strong>1</strong> dependency it cannot carry</span>
-      <span><strong>18</strong> re-runnable instruments</span>
-      <span><strong>37</strong> rows open of 99</span>
-      <span><strong>20</strong> of them the founder's</span>
+      <span><strong>21</strong> re-runnable instruments</span>
+      <span><strong>3418</strong> links, <strong>0</strong> dead</span>
+      <span><strong>35</strong> rows open of 105</span>
     </div>
   </div>
 
-  <section class="ho-sec" id="what">
-    <h2>What a handoff is here, and what it is not</h2>
-    <p>This stage writes no product. Everything a receiver gets was built by the twelve stages
-      above it, and the only question left is whether it <b>travels</b>: whether a person who has
-      never opened this repository can serve it, run its checks, lift the design system into
-      another project and find out what is unfinished without asking anybody.</p>
-    <p>So this page reports four things and nothing else: <b>the census</b> of what is on disk,
-      <b>the lift test</b> that took the design system's central claim and measured it, <b>the run
-      surface</b> a receiver meets on the first minute, and <b>the open list</b>, counted off
-      <code>design/kit/docs/backlog.md</code> rather than recalled. Every figure here comes from
-      <code>design/kit/screens/handoff13.cjs</code>, which is re-runnable and derives its corpus
-      from the tree rather than from a list somebody typed.</p>
-    <div class="ho-note"><b>The one thing this page refuses to be is a summary.</b> Twelve stage
-      accounts already exist and each one is better at its own subject than a paragraph here would
-      be. What a receiver needs from this page is the things that are true of the WHOLE and are
-      written down nowhere else.</div>
+  <section class="ho-sec" id="start">
+    <h2>Start here: three doors and the entry they hang off</h2>
+    <p>Everything below is reachable from these four addresses, and the same four are written in
+      <a href="../README.md">README.md</a> in the same pass, because a README is the page a person
+      opens on GitHub and sending them one click further for the address of the product would be
+      the route into nowhere this stage exists to fix.</p>
+    <div class="ho-links">
+      <a href="https://sergiodesign4u-dot.github.io/Tendd-Fintech/design/index.html"><b>The product</b><span>Every screen in colour, 17 of them across 57 pages. Opens on Home, the same node the folder opens on.</span><code>sergiodesign4u-dot.github.io/Tendd-Fintech/design/index.html</code></a>
+      <a href="https://sergiodesign4u-dot.github.io/Tendd-Fintech/design/kit/why.html"><b>The design system</b><span>The stand that shows it: why it is like this, a page per component, the foundations and the growth rule.</span><code>sergiodesign4u-dot.github.io/Tendd-Fintech/design/kit/why.html</code></a>
+      <a href="https://github.com/sergiodesign4u-dot/Tendd-Fintech"><b>The repository</b><span>The whole thing, including everything no page shows: the decision log, the instruments, the raw measurements.</span><code>github.com/sergiodesign4u-dot/Tendd-Fintech</code></a>
+      <a href="https://sergiodesign4u-dot.github.io/Tendd-Fintech/"><b>The project entry</b><span>The roadmap: thirteen stages, each with its own account. This is where the sidebar on every page points back to.</span><code>sergiodesign4u-dot.github.io/Tendd-Fintech/</code></a>
+    </div>
+    <div class="ho-scroll">
+      <table class="ho-t">
+        <thead><tr><th>If you want</th><th>Open</th></tr></thead>
+        <tbody>
+          <tr><td>Every screen, in colour, with its states</td><td><a href="../design/overview.html">design/overview.html</a></td></tr>
+          <tr><td>How the product behaves, flow by flow</td><td><a href="docs/behaviour.md">handoff/docs/behaviour.md</a></td></tr>
+          <tr><td>What any one screen is assembled from</td><td><a href="docs/map.md">handoff/docs/map.md</a></td></tr>
+          <tr><td>Where accessibility lives and how to re-check it</td><td><a href="docs/a11y.md">handoff/docs/a11y.md</a></td></tr>
+          <tr><td>What a stranger could not work out on their own</td><td><a href="docs/onboarding-gaps.md">handoff/docs/onboarding-gaps.md</a></td></tr>
+          <tr><td>The rules this repository is built under</td><td><a href="../CLAUDE.md">CLAUDE.md</a>, loaded into every session</td></tr>
+          <tr><td>Why any single value is what it is</td><td><a href="../docs/decisions.md">docs/decisions.md</a>, newest on top, never edited</td></tr>
+          <tr><td>The visual language as a document</td><td><a href="../DESIGN.md">DESIGN.md</a>, generated from the shipped code</td></tr>
+          <tr><td>Where every figure on a screen comes from</td><td><a href="../docs/bank-connection.md">docs/bank-connection.md</a></td></tr>
+          <tr><td>To lift the system into another project</td><td><code>design/system/</code> plus its own <code>CLAUDE.md</code></td></tr>
+          <tr><td>To review this as an outside critic</td><td><a href="../AGENTS.md">AGENTS.md</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>Eight markdown files have had no visible place at one point or another, and this
+      section is what closed them.</b> Four were closed in August: <code>AGENTS.md</code> and
+      <a href="../DESIGN-artifacts.md">DESIGN-artifacts.md</a>, the draft the design document grew
+      out of, and <a href="../research/docs/product-model.md">research/docs/product-model.md</a>
+      and <a href="../research/docs/quality-check.md">research/docs/quality-check.md</a>, the last
+      of which was named by nothing at all, not even by another document. The four documents of
+      this stage joined them the day they were written. It is worth saying out loud rather than
+      quietly enjoying: <code>handoff13.cjs</code> counts "md files named by at least one html",
+      this is an html, and the naming is the sentence you are reading. <b>An artefact with no
+      visible place does not exist for the person who decides</b>, and three of these four fell
+      out of the count again the moment this page was rewritten, which is the whole argument for
+      running the census rather than remembering it.</p>
+    <div class="ho-note"><b>And the check that finds them was itself hiding one.</b> It asked
+      whether any page contains the file's name as a SUBSTRING, so
+      <code>handoff/docs/map.md</code> counted as shown by eleven pages, every one of which was
+      naming <code>ia/docs/sitemap.md</code>. Corrected on 2026-08-23 to a boundary match: a
+      preceding slash is fine, a preceding letter is not. The instrument whose whole job is
+      finding an artefact nobody can reach had been unable to see one for five days.</div>
+  </section>
+
+  <section class="ho-sec" id="boundary">
+    <h2>The package boundary: what this is, and what it is not</h2>
+    <p><b>This is a clickable product, not an application.</b> There is no data layer, no API, no
+      router, no persistence and no session. Nothing here talks to a bank, charges a card or
+      remembers anything between two page loads. A reviewer can walk every flow end to end and a
+      developer can read every rule, and neither of those is running software.</p>
+    <p><b>Every STATE is its own file.</b> 17 screens carry 38 states between them and that is 57
+      html files: <code>home.html</code>, <code>home-loading.html</code>,
+      <code>home-empty.html</code>, <code>home-error.html</code>, <code>home-few.html</code>,
+      <code>home-one.html</code> are one screen. A real build collapses those 57 files back into
+      17 screens with states, and <b>nothing in this repository says who owns that translation</b>
+      - it is the first decision a receiver makes and it is named here because it was written down
+      nowhere.</p>
+    <div class="ho-scroll">
+      <table class="ho-t">
+        <thead><tr><th>What is real and ships as it stands</th><th>What is not here at all</th></tr></thead>
+        <tbody>
+          <tr><td><b>The design system.</b> css that is production code, lifted and measured. See the lift test below</td><td><b>A backend.</b> No database, no auth, no Plaid, no Stripe, no telemetry. The stack in <code>CLAUDE.md</code> is a hypothesis and nothing here depends on it</td></tr>
+          <tr><td><b>The copy.</b> Every string on every screen is final and owned by <code>voice/docs/microcopy.md</code>, which is where a new one comes from</td><td><b>State.</b> A filter does not filter, a form does not submit, a switch does not persist. The one exception is the trend chart's cursor</td></tr>
+          <tr><td><b>The structure.</b> One IA node per screen, one flow per journey, and the behaviour spec that joins them</td><td><b>A router.</b> Navigation is an anchor from one file to another. What that becomes is the receiver's decision</td></tr>
+          <tr><td><b>The behaviour.</b> Steps, states, edge cases and validation, every row naming its source</td><td><b>Anything out of MVP.</b> Budgeting, investments, a native app, bill negotiation, bill pay, a household view. Named in <code>CLAUDE.md</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>Two scripts exist and they are not the same kind of thing.</b>
+      <code>design/system/behaviour.js</code> belongs to the system, is the only javascript it
+      owns, travels with it, and draws the trend chart's cursor: 7 of the 57 screens load it.
+      <code>design/story.js</code> belongs to the landing and drives its scroll choreography:
+      1 screen loads it. Everything else on every screen is html and css.</p>
+  </section>
+
+  <section class="ho-sec" id="theme">
+    <h2>Which theme is the main one</h2>
+    <p><b>Light is the main one, and dark is complete.</b> The light palette is the one written on
+      <code>:root</code>; the dark palette is written on <code>[data-theme="dark"]</code> and
+      overrides it role by role. Every semantic role in the system exists in both or it does not
+      exist at all, which is a rule of stage 08 and is checked rather than promised.</p>
+    <p><b>The switch you see on a screen is not part of the product.</b> It belongs to
+      <code>design/_screen.css</code>, the reviewer's chrome, together with the panel that names
+      the screen and its IA node. Chrome is not shipped, and the map of the product deliberately
+      does not include it.</p>
+    <div class="ho-note"><b>So dark is a system capability that is fully paid for and a product
+      feature that has never been specified.</b> The product has no theme control and no string
+      for one: Settings does not offer it and <code>microcopy.md</code> has no line for it.
+      <code>design/system/CLAUDE.md</code> says the theme is set "however the product decides to
+      set it" and nothing decides it. <b>A clean-context reader asked this and could not answer
+      it from any file</b>, which is why it is written here. Whether the product ships a theme
+      control, follows the operating system, or stays light-only is a decision and it is in the
+      list further down.</div>
+  </section>
+
+  <section class="ho-sec" id="route">
+    <h2>The route through the repository</h2>
+    <p>Thirteen stages, one folder each, and every one of them opens on a page rather than on a
+      folder listing. The order below is the order the work happened in, which is also the order
+      that makes it readable: each stage's material is the previous stage's answer.</p>
+    <div class="ho-scroll">
+      <table class="ho-t">
+        <thead><tr><th>Folder</th><th>What is in it</th><th>Where to start</th></tr></thead>
+        <tbody>
+          <tr><td><code>index.html</code></td><td>The entry page. It renders the roadmap from <code>_nav.js</code>, which is the single registry of the project: a stage is switched on in one place and nowhere else</td><td><a href="../index.html">index.html</a></td></tr>
+          <tr><td><code>research/</code></td><td>Who this is for and what they are trying to do: the market, four personas, the jobs, and the journey before and after</td><td><a href="../research/research.html">research.html</a></td></tr>
+          <tr><td><code>ia/</code></td><td>The structure: a sitemap, the flows, one page per node with the block bank, the seven global elements and one accessibility contract</td><td><a href="../ia/structure.html">structure.html</a></td></tr>
+          <tr><td><code>wireframes/</code></td><td><b>The grey structure contract, frozen since Voice, and the answer to why every screen exists twice.</b> One grey page per state, real copy, no colour. It is read-only and it is <b>not</b> a source of truth: after the rollout the coloured screen is the product, and this folder is process history</td><td><a href="../wireframes/overview.html">overview.html</a></td></tr>
+          <tr><td><code>voice/</code></td><td>The voice, and the line inventory that owns every interface string in the product</td><td><a href="../voice/voice.html">voice.html</a></td></tr>
+          <tr><td><code>design/</code></td><td>The product in colour. The folder opens on the product home; the map of all 57 pages is the hub beside it</td><td><a href="../design/index.html">index.html</a>, <a href="../design/overview.html">overview.html</a></td></tr>
+          <tr><td><code>design/system/</code></td><td><b>The code of the design system</b>, liftable whole and carrying its own <code>CLAUDE.md</code>: tokens at two levels, the base, the components, the patterns</td><td><a href="../design/system/CLAUDE.md">CLAUDE.md</a></td></tr>
+          <tr><td><code>design/kit/</code></td><td>The stand that shows it: a page per component, the foundations, the architecture and the backlog</td><td><a href="../design/kit/why.html">why.html</a></td></tr>
+          <tr><td><code>handoff/</code></td><td>This page and its four documents. It adds what no other page answers and it repeats nothing</td><td>you are here</td></tr>
+          <tr><td>at the root</td><td><code>CLAUDE.md</code> the rules, <code>docs/decisions.md</code> the log, <code>DESIGN.md</code> the language read out of the code, <code>AGENTS.md</code> the entry for an outside critic, <code>README.md</code> the index</td><td><a href="../README.md">README.md</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>The route is checked and not asserted.</b>
+      <code>design/kit/screens/route13.cjs</code> resolves every <code>href</code> and
+      <code>src</code> in all 245 pages against the file that writes it, every markdown link in
+      all 71 documents, and then walks the project in a real browser from the entry page: <b>3418
+      links, 0 dead; 60 markdown links, 0 dead; 0 pages carrying a markdown link pasted into
+      html</b>. A browser is not optional there, because the roadmap on every page is drawn by
+      <code>_nav.js</code> at runtime and a static read of the entry page sees none of it.</p>
+  </section>
+
+  <section class="ho-sec" id="behaviour">
+    <h2>How it behaves</h2>
+    <p>A screen shows a state. What it does not show is what leads to that state, what happens at
+      the edges, and what a field will refuse. That is
+      <a href="docs/behaviour.md"><b>handoff/docs/behaviour.md</b></a>, and the thing that makes it
+      a specification rather than a plausible description is the <b>source column</b>: every row
+      names the file it was read from, and a row with no source is not written into the spec at
+      all. It goes to a list addressed to a person.</p>
+    <div class="ho-num">
+      <div><b>5</b><span>flows, all five described</span></div>
+      <div><b>0</b><span>deliberately not described</span></div>
+      <div><b>5</b><span>kinds of source, each declared</span></div>
+      <div><b>7</b><span>rows that had no source</span></div>
+      <div><b>9</b><span>states no click can reach</span></div>
+    </div>
+    <p><b>The roll-call closes at five.</b> Flows in <code>ia/docs/flows.md</code> = described 5 +
+      deliberately not 0. The five sources are the screen file, the flow, the IA node, the figures
+      document, and the grey wireframe - and the last of them is <b>used zero times in all five
+      flows</b>, which is the honest version of "the grey is not a source of truth": it was
+      available and it was never needed.</p>
+    <p><b>Nine states cannot be reached by clicking, and every one of them is right.</b> The click
+      graph reports them, and the spec answers each with the real trigger a build will fire: a
+      bank connection that goes stale, a merchant with no cancellation guide, a person who has
+      never had an account, a renewal that fails on a card that was working. <b>The largest single
+      reason is that the canonical person in this package is on Free</b>, so the two screens that
+      only a paying account ever sees have nothing to link them.</p>
+  </section>
+
+  <section class="ho-sec" id="map">
+    <h2>What each screen is made of</h2>
+    <p><a href="docs/map.md"><b>handoff/docs/map.md</b></a> is read off the code by
+      <code>design/kit/screens/map13.cjs</code>, which serves the repository to a browser, walks
+      all 57 screens, and writes its raw output beside itself. It is in three parts and the third
+      is the working one.</p>
+    <div class="ho-scroll">
+      <table class="ho-t">
+        <thead><tr><th>Part</th><th>Rows</th><th>What it answers</th></tr></thead>
+        <tbody>
+          <tr><td><b>A. Screen to zones and components</b></td><td class="ho-n">57</td><td>What is on this screen, how many regions its markup declares, and how many of them the line inventory addresses</td></tr>
+          <tr><td><b>B. Component to the tokens it reads</b></td><td class="ho-n">73</td><td>Every <code>var()</code> inside that component's own css, and its reach in screens</td></tr>
+          <tr><td><b>C. Token to the screens it stands on</b></td><td class="ho-n">163</td><td><b>If I change this value, what moves.</b> Derived by INVERTING A and B rather than by walking the code a second time</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>The inversion is two knees deep and that is the whole of why it works.</b> A component
+      reads colour only through a semantic role, so a flat inversion would name no primitive at
+      all and the entire primitive level would report as unused. The chain followed is component
+      to semantic role to primitive, in both themes, since a dark role points at a dark
+      primitive.</p>
+    <p><b>The roll-call closes and the idle control is a number rather than an impression.</b>
+      Screens named by the registry 57 = mapped 57, with nothing on disk that the registry does
+      not name and nothing named that is not on disk. <b>Zero components stand on no screen</b>,
+      asked here for the third time and against the whole product rather than a sample. <b>Three
+      tokens are reached by no chain</b>, and all three are accounted for: two are the width
+      points, which a container query cannot read through a <code>var()</code>, so the token holds
+      the decision and the literal in the query is its application; the third was declared idle
+      and kept, with the date, in the file that declares it.</p>
+  </section>
+
+  <section class="ho-sec" id="a11y">
+    <h2>Accessibility</h2>
+    <p><a href="docs/a11y.md"><b>handoff/docs/a11y.md</b></a> introduces nothing. Accessibility was
+      built at stages 08 to 11; what was missing was not the work but the PROOF. So every row
+      carries four things and the third is the one that matters: <b>item, where it is in the code,
+      how to check it, and a status of exactly two words</b>. "Confirmed" means a run on
+      2026-08-23 with the instrument named in the row, never a memory of stage 08 doing it, and a
+      row for which no instrument can be named never gets the word.</p>
+    <div class="ho-num">
+      <div><b>3100</b><span>text nodes measured, 0 below threshold</span></div>
+      <div><b>908</b><span>tab stops, 0 with no indicator</span></div>
+      <div><b>572</b><span>control borders and marks, 0 below 3:1</span></div>
+      <div><b>17</b><span>elements loop when motion is allowed, 0 under reduce</span></div>
+      <div><b>11</b><span>rows confirmed of 15</span></div>
+      <div><b>2</b><span>new debts, both in the backlog</span></div>
+    </div>
+    <p><b>Two rows are real failures and neither was fixed here.</b> Nine screens scroll sideways
+      when text is set to twice its default size, all of them on a phone and none at desktop
+      width; and the trend chart is made focusable at runtime, is not a native control, and
+      therefore wears the browser's own focus ring rather than the system's. Both went to
+      <a href="../design/kit/docs/backlog.md">the backlog</a> as debts with their measurements,
+      because the product was accepted at stage 12 and an edit now would void every pixel
+      comparison it stands on.</p>
+    <div class="ho-note"><b>The zoom failure is the width sweep's own lesson arriving one axis
+      later.</b> Stage 10 swept 58 widths by moving the viewport and holding the text. A person
+      with low vision does the opposite: they hold the viewport and move the text. Nobody had ever
+      asked the question in that direction, and the answer is different.</div>
+    <p><b>And the instrument had to be made deterministic before any of its numbers could be
+      believed.</b> Its first two full runs reported catastrophic contrast failures, sixteen in one
+      and twenty-eight in the next, on different screens each time, and none of them reproduced in
+      isolation. The cause is in the system: every interactive element transitions its colours over
+      the state duration, so asserting a theme starts a cross-fade across the whole page and a
+      sample taken inside it compares one theme's ink against a surface halfway to the other. The
+      contrast and focus passes now run with reduced motion emulated, which makes the product's own
+      reduce block zero every duration; the motion pass needs a context of its own, since measuring
+      the baseline inside a reduced one would report the reduce block as the product's motion,
+      which is a check that always passes and proves nothing. <b>Two consecutive runs now return
+      byte-identical output, and that determinism is part of what "confirmed" means.</b></p>
   </section>
 
   <section class="ho-sec" id="census">
     <h2>The census: what is on disk</h2>
     <p>Counted by group rather than by folder, because a receiver's first question is not "how
       many files" but "how much of this is the product, how much is the argument for it, and how
-      much is scaffolding I can ignore".</p>
+      much is scaffolding I can ignore". Every figure comes from
+      <code>design/kit/screens/handoff13.cjs</code>, which derives its corpus from the tree rather
+      than from a list somebody typed.</p>
     <div class="ho-scroll">
       <table class="ho-t">
         <thead><tr><th>Group</th><th class="ho-n">Files</th><th class="ho-n">Lines</th><th>What it is</th></tr></thead>
         <tbody>
-          <tr><td><b>Product screens, colour</b></td><td class="ho-n">55</td><td class="ho-n">7705</td><td>What ships. 17 screens, 38 states, every one with a grey twin</td></tr>
-          <tr><td><b>Product screens, grey</b></td><td class="ho-n">55</td><td class="ho-n">5531</td><td>The structure contract, frozen since Voice</td></tr>
-          <tr><td><b>The design system</b></td><td class="ho-n">77</td><td class="ho-n">20152</td><td>76 css and 1 js. The thing that is meant to travel</td></tr>
-          <tr><td>The stand</td><td class="ho-n">87</td><td class="ho-n">19986</td><td><code>design/kit/</code>: a page per component, per pattern, per foundation</td></tr>
-          <tr><td>Stage pages</td><td class="ho-n">36</td><td class="ho-n">17911</td><td>One account per stage, this page included - which makes this the one row that moves when the page does, so it is the census's checked-in run and not a live figure. It reads 36 and not 33 because the census could not see its own stage until the day the page existed, and the classifier was corrected rather than the number</td></tr>
-          <tr><td>Markdown</td><td class="ho-n">71</td><td class="ho-n">24987</td><td>2 loaded into every session, 69 read on demand</td></tr>
-          <tr><td>Instruments</td><td class="ho-n">18</td><td class="ho-n">2887</td><td><code>.cjs</code> in <code>design/kit/screens/</code>, each re-runnable</td></tr>
-          <tr><td>Everything else</td><td class="ho-n">233</td><td class="ho-n">-</td><td>Assets, the registries, the fingerprint json a stage left behind</td></tr>
+          <tr><td><b>Product screens, colour</b></td><td class="ho-n">57</td><td class="ho-n">7873</td><td>What ships. 17 screens, 38 states, every one with a grey twin</td></tr>
+          <tr><td><b>Product screens, grey</b></td><td class="ho-n">57</td><td class="ho-n">5627</td><td>The structure contract, frozen since Voice</td></tr>
+          <tr><td><b>The design system</b></td><td class="ho-n">77</td><td class="ho-n">20284</td><td>76 css and 1 js. The thing that is meant to travel</td></tr>
+          <tr><td>The stand</td><td class="ho-n">87</td><td class="ho-n">19980</td><td><code>design/kit/</code>: a page per component, per pattern, per foundation</td></tr>
+          <tr><td>Stage pages</td><td class="ho-n">36</td><td class="ho-n">18201</td><td>One account per stage, this page included - which makes this the one row that moves when the page does, so it is the census's checked-in run and not a live figure</td></tr>
+          <tr><td>Markdown</td><td class="ho-n">75</td><td class="ho-n">26631</td><td>2 loaded into every session, 73 read on demand</td></tr>
+          <tr><td>Instruments</td><td class="ho-n">21</td><td class="ho-n">4161</td><td><code>.cjs</code> in <code>design/kit/screens/</code>, each re-runnable</td></tr>
+          <tr><td>Everything else</td><td class="ho-n">238</td><td class="ho-n">-</td><td>Assets, the registries, the fingerprint json a stage left behind</td></tr>
         </tbody>
       </table>
     </div>
-    <p><b>Two numbers are worth reading together.</b> The product is 7705 lines of html and the
-      argument for it is 24987 lines of markdown, more than three times as much (measured
-      2026-08-20; the second number grows every time a decision is written down, which is
-      the point, and it grew 698 lines across the day the founder said the trend screen looked
-      cheap, found twice that a screen would not tell him what came next, and then had that
-      screen rebuilt around a grid, a working range control, a picture where a sentence had
-      been, a figure where the screen had no number at all, the source of that figure beside
-      it, the bar of a tab destination that had been carrying a detail screen's back button
-      for a day, and the plan badge on every screen that greets a person by name). That ratio is the pipeline's shape rather than an accident: every value in the
-      system carries the decision that put it there, and a decision with no ground is the thing
-      this repository spends its words refusing.</p>
-    <p><b>And these figures were each one line per file too high until the critique of this
-      stage.</b> The census counted lines with <code>split("\n").length</code>, which returns an
-      extra element for the empty string after a file's final newline, so every group total was
-      inflated by the number of files in it. The read-only pass found it from the outside: it
-      flagged this page saying "<code>CLAUDE.md</code>, 200 lines" against the census's own 201,
-      and the page was right. <b>A census that is off by one on every file is worse than no
-      census, because the error is invisible at any single row.</b></p>
+    <p><b>Two numbers are worth reading together.</b> The product is 7873 lines of html and the
+      argument for it is 26631 lines of markdown, more than three times as much. That ratio is the
+      pipeline's shape rather than an accident: every value in the system carries the decision that
+      put it there, and a decision with no ground is the thing this repository spends its words
+      refusing.</p>
+    <p><b>These figures were each one line per file too high until the critique of this stage.</b>
+      The census counted lines with a split on the newline, which returns an extra element for the
+      empty string after a file's final newline, so every group total was inflated by the number of
+      files in it. The read-only pass found it from the outside, by flagging a line count on this
+      page against the census's own and calling the page wrong; the page was right. <b>A census
+      that is off by one on every file is worse than no census, because the error is invisible at
+      any single row.</b></p>
   </section>
 
   <section class="ho-sec" id="lift">
@@ -162,19 +387,19 @@
       measured: the folder was copied into an empty directory and one screen the system had never
       seen was assembled there out of its classes alone - the shell, the app bar, the brand lockup,
       the big total, the interactive trend chart, the segmented range, a prose card, a divided
-      list, the trust block and the five-destination tab bar.</p>
+      list, the trust block and the tab bar.</p>
     <div class="ho-num">
       <div><b>0</b><span>failed requests</span></div>
       <div><b>0</b><span>console errors</span></div>
       <div><b>0</b><span>elements left unstyled</span></div>
-      <div><b>0</b><span>sideways scroll, 390 and 1440</span></div>
+      <div><b>0</b><span>sideways scroll, phone and desktop</span></div>
       <div><b>2</b><span>themes, both correct</span></div>
       <div><b>1</b><span>dependency it cannot carry</span></div>
     </div>
-    <p>Every <code>url()</code> inside the folder resolves inside it, including
-      <code>assets/</code> - which is why those four webp washes are part of the lift rather than
-      decoration. The chart's cursor was built by <code>behaviour.js</code>, the only javascript
-      the system owns, and it works in the empty folder exactly as it works in the product.</p>
+    <p>Every <code>url()</code> inside the folder resolves inside it, <code>assets/</code>
+      included - which is why those four washes are part of the lift rather than decoration. The
+      chart's cursor was built by <code>behaviour.js</code>, the only javascript the system owns,
+      and it works in the empty folder exactly as it works in the product.</p>
     <h3>And one dependency it cannot provide</h3>
     <p><code>base.css</code> asks for <b>Inter</b> by name and nothing in the folder provides it:
       no <code>@font-face</code>, no file, no import. <b>The lift test passed without noticing,
@@ -182,10 +407,9 @@
       a handoff exists to prevent. It is written down now in the two places a person looks -
       <code>design/system/CLAUDE.md</code> under "What this folder does NOT carry", and at the
       declaration in <code>base.css</code>, which is the line somebody greps for.</p>
-    <div class="ho-note"><b>Five weights are actually used</b>: 400, 500, 600, 700 and 800. A
-      subset that drops 800 loses the wordmark. The fallback chain in <code>base.css</code> is
-      deliberate and safe, so a page with no Inter is readable and not broken - it is simply not
-      Tendd.</div>
+    <div class="ho-note"><b>Five weights are actually used</b>: a subset that drops the heaviest
+      loses the wordmark. The fallback chain in <code>base.css</code> is deliberate and safe, so a
+      page with no Inter is readable and not broken - it is simply not Tendd.</div>
   </section>
 
   <section class="ho-sec" id="run">
@@ -193,32 +417,41 @@
     <p>The census asked what a receiver needs before they can open anything, and in its first run
       the answer was <b>almost nothing existed</b>: no <code>package.json</code>, one file in the
       whole repository telling a person how to run something, and every instrument resolving
-      playwright from a global npm root - one of them, <code>fp.cjs</code>, from an absolute path
-      inside one machine's npx cache, which was the least liftable line here.</p>
+      playwright from a global npm root - one of them from an absolute path inside one machine's
+      npx cache, which was the least liftable line here.</p>
     <code class="ho-cmd">python3 -m http.server 8080     # nothing is built; every page is static html
 
 npm install                     # playwright, the only dependency there is
 npm run check                   # the rollout ledger and the quality sweep
+npm run check:route             # every link, and the two-click promise of this page
 npm run census                  # this page's numbers, recomputed</code>
-    <p>Every instrument now resolves playwright <b>local first and global after</b>, so it runs
-      for a receiver who typed <code>npm install</code> and still runs on a machine that never had
-      one. <code>node_modules/</code> is ignored; nothing in this repository is built from it and
+    <p>Every instrument resolves playwright <b>local first and global after</b>, so it runs for a
+      receiver who typed <code>npm install</code> and still runs on a machine that never had one.
+      <code>node_modules/</code> is ignored; nothing in this repository is built from it and
       nothing is published.</p>
+    <div class="ho-note"><b>One instrument still carried the absolute path, and it was found at
+      this step.</b> The census named that defect in one file on 2026-08-18 and the critique found
+      it again in a second file the same day; both were fixed and a third was not, because both
+      sweeps were looking at the files they had been pointed at. The route check reads every
+      instrument rather than the ones a stage remembers. Fixed 2026-08-23.</div>
     <div class="ho-scroll">
       <table class="ho-t">
         <thead><tr><th>Instrument</th><th>What it answers</th><th>Clean?</th></tr></thead>
         <tbody>
-          <tr><td><code>rollout12.cjs</code></td><td>Pairing, the ban on a screen carrying a style of its own, links, the registry against the code</td><td><span class="ho-tag ho-ok">0 violations</span></td></tr>
+          <tr><td><code>rollout12.cjs</code></td><td>Pairing, the ban on a screen carrying a style of its own, links, the registry against the code</td><td><span class="ho-tag ho-open">2 undefined classes</span></td></tr>
           <tr><td><code>quality13.cjs</code></td><td>Six checks over 57 screens by two widths by two themes: overflow, a control's label, a tap target, a flush distance, an empty box</td><td><span class="ho-tag ho-ok">clean</span></td></tr>
+          <tr><td><code>route13.cjs</code></td><td>Every link in every page and every document, a markdown link pasted into html, the click depth from the entry page measured in a browser, and the three doors agreeing across their two places</td><td><span class="ho-tag ho-ok">the route holds</span></td></tr>
+          <tr><td><code>map13.cjs</code></td><td>Screen to zone to component to token, taken off the rendered product, with the reverse list produced by inversion</td><td><span class="ho-tag ho-ok">roll-call closed</span></td></tr>
+          <tr><td><code>a11y13.cjs</code></td><td>Contrast in both themes, a real tab pass, motion under reduce, and text at twice its size</td><td><span class="ho-tag ho-open">9 screens at 200%</span></td></tr>
+          <tr><td><code>aria13.cjs</code></td><td>Six semantics questions over every page in both corpora: a group with no name, a label ARIA discards, a wait that does not declare itself, a control with no accessible name, a heading level skipped</td><td><span class="ho-tag ho-ok">0 of 6</span></td></tr>
+          <tr><td><code>walk13.cjs</code></td><td>The click graph: every link inside the app across the 57 screens. Which screens leave a reviewer no way forward, which states cannot be reached by clicking, and what the chrome declares against what it stands on</td><td><span class="ho-tag ho-ok">0 unanswered</span></td></tr>
           <tr><td><code>width12.cjs</code></td><td>The width sweep: every page across 58 widths</td><td><span class="ho-tag ho-quiet">on demand</span></td></tr>
+          <tr><td><code>edges13.cjs</code></td><td>Every right edge on every app screen at the widest stop, and the check behind the usage rule that says one screen keeps one measure across its states</td><td><span class="ho-tag ho-ok">0 split</span></td></tr>
+          <tr><td><code>pages13.cjs</code></td><td>Every page that is not a product screen, at the three narrowest stops</td><td><span class="ho-tag ho-ok">0 scroll sideways</span></td></tr>
+          <tr><td><code>design13.cjs</code></td><td><code>DESIGN.md</code> against <code>tokens.css</code>: every type step the document names, resolved and compared</td><td><span class="ho-tag ho-ok">11 of 11 agree</span></td></tr>
+          <tr><td><code>plans13.cjs</code></td><td>Where the product parts company by plan, and the four ways the "one product, not two" decision could stop being true</td><td><span class="ho-tag ho-ok">4 checks clean</span></td></tr>
           <tr><td><code>fp12.cjs</code></td><td>The box fingerprint, before and after any change that should move nothing</td><td><span class="ho-tag ho-quiet">on demand</span></td></tr>
           <tr><td><code>inert12.cjs</code></td><td>"Checked rather than assumed", re-run on the whole product</td><td><span class="ho-tag ho-quiet">on demand</span></td></tr>
-          <tr><td><code>pages13.cjs</code></td><td>The 128 pages that are not product screens, at 320, 360 and 390</td><td><span class="ho-tag ho-ok">0 scroll sideways</span></td></tr>
-          <tr><td><code>edges13.cjs</code></td><td>Every right edge on every app screen at 1920, and the check behind usage rule U15: one screen, one measure, across its states</td><td><span class="ho-tag ho-ok">0 split</span></td></tr>
-          <tr><td><code>walk13.cjs</code></td><td>The click graph: 257 links inside <code>.app</code> across the 57 screens. Which screens leave a reviewer no way forward, which states cannot be reached by clicking, and what the chrome declares against what it stands on</td><td><span class="ho-tag ho-ok">0 unanswered</span></td></tr>
-          <tr><td><code>design13.cjs</code></td><td><code>DESIGN.md</code> against <code>tokens.css</code>: every type step the document names, resolved and compared, a clamp checked at both ends, and a step the document never mentions reported as a finding of its own</td><td><span class="ho-tag ho-ok">11 of 11 agree</span></td></tr>
-          <tr><td><code>aria13.cjs</code></td><td>Six semantics questions over all 110 pages: a fieldset with no name, an <code>aria-label</code> on an element ARIA discards it on, a wait that does not declare <code>aria-busy</code>, a control with no accessible name, a heading level skipped</td><td><span class="ho-tag ho-ok">0 of 6</span></td></tr>
-          <tr><td><code>plans13.cjs</code></td><td>Where the product parts company by plan: the chip on every page, the 41 places a screen names the boundary, and the four ways the "one product, not two" decision could stop being true</td><td><span class="ho-tag ho-ok">4 checks clean</span></td></tr>
           <tr><td><code>handoff13.cjs</code></td><td>This page's census</td><td><span class="ho-tag ho-quiet">on demand</span></td></tr>
         </tbody>
       </table>
@@ -226,6 +459,11 @@ npm run census                  # this page's numbers, recomputed</code>
     <p>The remaining six are the ledgers and pixel proofs of stages 08 to 12 and are kept for the
       same reason their stage pages are: <b>a claim with no instrument behind it is a claim, and
       the instrument is how the next person disagrees with it</b>.</p>
+    <div class="ho-note"><b>Two of the fifteen above are not clean, and they are on this page
+      rather than smoothed over.</b> <code>rollout12.cjs</code> reports two screens carrying a
+      class the system does not define, which the README has been calling "the two that must stay
+      clean" while one of them was not; and <code>a11y13.cjs</code> reports the zoom failure named
+      above. Both are frozen product, so both are backlog rows and decisions rather than fixes.</div>
   </section>
 
   <section class="ho-sec" id="open">
@@ -233,41 +471,87 @@ npm run census                  # this page's numbers, recomputed</code>
     <p>Read off <code>design/kit/docs/backlog.md</code> by a script that classifies each row by
       what it says about itself, so the number cannot drift from the file.</p>
     <div class="ho-num">
-      <div><b>99</b><span>rows in the backlog</span></div>
-      <div><b>54</b><span>say closed</span></div>
-      <div><b>37</b><span>open by that reading</span></div>
-      <div><b>20</b><span>the founder's, and they are decisions</span></div>
-      <div><b>7</b><span>work with no stage on them</span></div>
+      <div><b>105</b><span>rows in the backlog</span></div>
+      <div><b>80</b><span>say closed</span></div>
+      <div><b>35</b><span>open by that reading</span></div>
+      <div><b>24</b><span>say both, and a row with anything unfinished is open</span></div>
+      <div><b>1</b><span>addressed to this stage</span></div>
       <div><b>0</b><span>addressed to a stage that has ended</span></div>
     </div>
     <p><b>The one row addressed to this stage is the largest structural debt in the repository</b>:
       a per-component coloured footprint is written by hand in forty places and nothing recomputes
       it, which is why twenty-one component pages went stale the day the corpus grew. It has an
-      instrument now, <code>counts.cjs</code>, and what it does not have is the discipline of
-      being run - which is the honest state of it and is why it is still open.</p>
-    <p>Of the 37, <b>20 are the founder's</b> and are decisions rather than defects: what a fifth
-      of them ask is whether a rule should bend, and a builder may not answer that. The rest are
-      named where they were found, each with the measurement that found it.</p>
-    <p><b>The newest of the twenty was raised by the founder on 2026-08-19</b> and is written down
-      rather than answered: the landing offers two doors, "Get started free" and "Sign in", and
-      each of them leads back to the other, but <code>path-choice</code> - the screen behind the
-      first door - leads back to neither. Whether the second step owes a way across is a product
-      string and therefore Voice's and the founder's, so nothing was changed on either ground.
-      <b>The strip above it read 20 while this block read 19 until the same day</b>, because the
-      owner sweep of 2026-08-18 moved one row out of the founder's column and corrected the block
-      and not the strip. Both are read off the file now.</p>
-    <p><b>And counting them found something the count had been hiding.</b> Twelve open rows were
-      addressed to <b>stage 12, which closed on 2026-08-17</b> - an owner that no longer exists,
-      so the row is neither done nor refused and every later count carries it as open without
-      anyone being able to act on it. All twelve were re-read and re-measured before they were
-      re-addressed: <b>four closed</b> because the thing they waited for had happened and nobody
-      had looked (<code>design/index.html</code> exists; the share card's total renders at 32px;
-      the step marker's shift shipped and measures a 14px gap; the <code>.landing</code> scope row
-      lost its premise), <b>one was dropped at verification</b> because the row was wrong rather
-      than stale, <b>six went to the founder</b> as decisions, and <b>one went back as work</b> -
-      the eleven ARIA and form-semantics findings from stage 07, the largest real task left in
-      the file and the only row a builder can simply do. <b>Nothing in the backlog now names a
-      stage that has ended.</b></p>
+      instrument, <code>counts.cjs</code>, and what it does not have is the discipline of being
+      run - which is the honest state of it and is why it is still open.</p>
+    <p><b>The count of the founder's own rows moved from twenty to five between two runs, and the
+      reason is not drift.</b> The founder took twenty-one decisions on 2026-08-20 and the rows
+      that record them still carry the word in their prose. The census now prints two readings
+      rather than one - rows where the founder is the OWNER, and rows that mention the founder
+      anywhere - because a single number would have made a closed decision look like an open one.</p>
+  </section>
+
+  <section class="ho-sec" id="decides">
+    <h2>Who decides after the handover</h2>
+    <p>Two lists in this package are addressed to a <b>person</b> and not to a builder, and
+      without an addressee the first row of either stops the work. They are not defects. Each one
+      is a place where the code is consistent, the documentation is silent, and somebody has to
+      say which way it goes.</p>
+    <h3>Four things that are so on purpose and are written down nowhere</h3>
+    <p>From <a href="docs/onboarding-gaps.md">the onboarding log</a>, where a clean-context reader
+      was sent through the repository twice and every one of its findings was verified line by line
+      against the files before it was believed.</p>
+    <div class="ho-scroll">
+      <table class="ho-t">
+        <thead><tr><th>The question</th><th>What is actually true</th><th>What is owed</th></tr></thead>
+        <tbody>
+          <tr><td><b>How many destinations does the tab bar have?</b></td><td>Four, in the code, since the Save tab was retired. Seventeen surfaces outside the decision log still say five or name Save</td><td>Either correct them or date them. Two of the seventeen belong to this stage and can be corrected here; the rest are frozen product, frozen documents, or somebody else's stage</td></tr>
+          <tr><td><b>Which theme is the main one, and is dark a product feature?</b></td><td>Light is the main one, dark is complete, and the product has no control and no string for it. Described above</td><td>A decision: a theme control, follow the operating system, or light-only. It is a product string, so Voice owns the wording once the answer exists</td></tr>
+          <tr><td><b>Two screens carry a class the system does not define</b></td><td><code>rollout12.cjs</code> reports it on two Home states and no backlog row had ever named it</td><td>A decision: declare the class in the system or take it off the two screens. Both are frozen product, so neither happens here</td></tr>
+          <tr><td><b>Is the stand's shell really the file a new screen is copied from?</b></td><td>The kit registry says it is, and it is stale in three ways: unbalanced markup, a tab bar with fewer destinations than the product has, and a control that a usage rule forbids in that position</td><td>A decision, and it is urgent in one direction only: the prompt this stage writes may not point a receiver at that file until it is either fixed or replaced</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Seven behaviours that no file states</h3>
+    <p>From <a href="docs/behaviour.md">the behaviour spec</a>, which refuses to write a row it
+      cannot source. In order of what a build hits first.</p>
+    <div class="ho-scroll">
+      <table class="ho-t">
+        <thead><tr><th>What is undecided</th><th>Why it is not guessed here</th></tr></thead>
+        <tbody>
+          <tr><td><b>What happens to a subscription after the person reports it cancelled</b></td><td>Nothing in the nodes, the flows or the figures document says whether it leaves the list, stays marked, or waits for the bank to confirm. It changes the count on the main screen, which is what the product IS</td></tr>
+          <tr><td><b>Whether the figures document is an approved source for this spec</b></td><td>It is the only file that states triggers, and the pack names three sources and it is not one of them. Everything read from it is marked, so the answer is one line either way</td></tr>
+          <tr><td><b>What an empty or malformed email does</b></td><td>Three screens carry the field, all three declare the type and none declares a requirement or a pattern, and the action beside it is a link rather than a submit</td></tr>
+          <tr><td><b>What is valid in the four Add Subscription fields</b></td><td>Only the amount carries a pattern and it admits an empty string and a lone separator. The other three are unconstrained</td></tr>
+          <tr><td><b>Whether asking for another sign-in link has a limit</b></td><td>The screen points its resend at itself, and no node or flow states a cooldown, a cap, or what the person is told</td></tr>
+          <tr><td><b>When the alerts dot appears and when it clears</b></td><td>The node refuses unread counts, badges and red dots, and the dot carries no number - so the rule that turns it on is a product decision and not an inference</td></tr>
+          <tr><td><b>A third exit the flows do not draw</b></td><td>The transition exists in the markup and in no flow. Either the drawing is behind the product or the exit is</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ho-note"><b>Who owns what, so a receiver does not have to guess.</b> A new product
+      STRING is Voice's before it is anybody's, and the founder's after that. A rule that would
+      have to bend is the founder's alone. A defect with an instrument behind it is a builder's and
+      belongs in the backlog. <b>The lists above are the first kind and the second, which is
+      exactly why nothing in them was quietly decided here.</b></div>
+  </section>
+
+  <section class="ho-sec" id="notdone">
+    <h2>What is deliberately not done</h2>
+    <p>So that a decision is not read as a hole. Everything here was available and was refused,
+      and each refusal has a reason that survives being written down.</p>
+    <div class="ho-scroll">
+      <table class="ho-t">
+        <thead><tr><th>Not done</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td><b>Nothing in the product was fixed in this stage</b></td><td>The product was accepted at stage 12 against a pixel comparison of the whole corpus. An edit now voids that comparison, so a hole found here becomes a row in <a href="../design/kit/docs/backlog.md">the backlog</a> with its measurement. Documentation is written normally, and adding a row to the backlog IS the way of not touching the product</td></tr>
+          <tr><td><b>No skip link</b></td><td>It is a new product string, and a string belongs to Voice before it belongs to accessibility. Named at stage 12 as one of three things left, and still true</td></tr>
+          <tr><td><b>No focus trap in a dialog</b></td><td>Every state in this package is its own file, so a dialog is a page and there is nothing to trap focus inside. A real build owes a trap, a restore on close and an escape key. That is a boundary rather than a gap, and it is counted as one</td></tr>
+          <tr><td><b>No screen reader journey test</b></td><td>The semantics instrument proves that names and roles exist; it cannot prove that a journey reads well. That needs a person with a screen reader, and its absence is named rather than assumed away</td></tr>
+          <tr><td><b>No deploy in this stage</b></td><td>GitHub Pages has served this repository since stage 01. What this stage owes is a version tag, three live addresses, and the proof that a fresh clone works with nothing explained out loud</td></tr>
+          <tr><td><b>No new screen, no new component, no new token</b></td><td>A handoff documents what was built. The single exception the stage allows is an examination screen built by somebody else from the documentation alone, and its fate is decided out loud rather than left in the product</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <section class="ho-sec" id="critique">
@@ -276,67 +560,44 @@ npm run census                  # this page's numbers, recomputed</code>
       source</b> and <b>Claude in a browser on the render</b>, taken independently and merged
       afterwards, with a column saying who found what. <b>22 findings, 22 closed, none dropped at
       verification</b> - and the two most valuable ones were each produced by checking the other
-      instrument's work rather than by either instrument alone.</p>
+      instrument's work rather than by either instrument alone. The closing round of this stage
+      adds its own and lands in this section.</p>
     <div class="ho-scroll">
       <table class="ho-t">
         <thead><tr><th>Was</th><th>Became</th><th>Found by</th></tr></thead>
         <tbody>
-          <tr><td><b>Six places in <code>ia/docs/pages/navigation.md</code> still said four tabs</b>, including a decision line that named a fifth tab as "exactly the density and alarm this segment avoids" and an accessibility contract promising "a landmark with four links"</td><td>All six carry five. The refusal is kept and dated rather than deleted, with the condition that removed it and the measurement that replaced it: 64px an item at 320, 219px on the rail whatever the count. The ceiling is now at six</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
-          <tr><td><b><code>DESIGN.md</code> described a four-destination tab bar</b> and its Do-block still forbade petrol "inside a screen's content nowhere else" after D-Plot had granted the fourth job in the same document</td><td>Five destinations, and the Do-block names the plotted line and the test it passed. A normative rule that contradicts its own document is worse than a stale figure</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
-          <tr><td><b><code>tokens.css</code> justified <code>--plot-line</code> with "the Pro gate has no line at all. Counted rather than assumed: 1 element, 1 screen"</b></td><td>2 elements on 2 screens. The sentence was measured correctly in the morning and the founder gave the Pro gate its own two-month plot in the afternoon: the count moved under a claim that was never re-run. The ARGUMENT survives - the gate's plot is above the lock and its filled action inside it, so no zone carries both</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
-          <tr><td><b><code>quality13.cjs</code> carried an absolute path into one machine's home</b>, on the same day the census had named exactly that defect in <code>fp.cjs</code></td><td><code>path.resolve(__dirname, '../../..')</code>, like every other instrument</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b>Six places in the navigation node still described a different number of tabs</b>, including a decision line calling the extra one "exactly the density and alarm this segment avoids" and an accessibility contract promising a landmark with a count that no longer matched</td><td>All six agree with the code. The refusal is kept and dated rather than deleted, with the condition that removed it and the measurement that replaced it</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b><code>DESIGN.md</code> described a tab bar the product no longer had</b>, and its Do-block still forbade petrol inside a screen's content after a decision in the same document had granted it a fourth job</td><td>Both corrected. A normative rule that contradicts its own document is worse than a stale figure</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b><code>tokens.css</code> justified the plotted line with a count of one element on one screen</b></td><td>Two on two. The sentence was measured correctly in the morning and the founder gave a second screen its own plot in the afternoon: the count moved under a claim that was never re-run. The ARGUMENT survives</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b>An instrument carried an absolute path into one machine's home</b>, on the same day the census had named exactly that defect in another one</td><td>Resolved from the file's own location, like every other instrument. A third file with the same defect survived both sweeps and was found at step 5 of this stage</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
           <tr><td><b>This page said "four markdown files are named by no page"</b> while being an html page that names all four</td><td>The census reads zero, and the paragraph says why out loud: naming them here is what closed it</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
-          <tr><td><b>Two figures in <code>README.md</code> had drifted</b>: the width column's "39 adapt and 33 do not", and a sentence crediting all twelve instruments with serving the repository to a browser</td><td>40 and 32, and the two that never touch a browser are named</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
-          <tr><td><b>The file that reports "zero em dashes found in any file" contained one</b>, inside the sentence naming the character it had searched for</td><td>Named by code point, U+2014, and never by drawing it. The result it reports is true again</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
-          <tr><td><b>"Petrol has three jobs" in <code>range-picker.css</code></b>, written the same day D-Plot made it four</td><td>Four - and the finding was a thread: pulling it found <b>24 more places</b> saying three, in nine system files, twelve kit pages, <code>DESIGN.md</code> and a concept page. All 25 corrected</td><td><span class="ho-tag ho-quiet">Codex</span> found one, <span class="ho-tag ho-ok">Claude</span> swept the rest</td></tr>
-          <tr><td><b><code>chart-placeholder.html</code> still asserted "The line is not petrol, and that is the decision worth keeping"</b> two sections above the one explaining that it now is</td><td>The refusal is quoted as what it was, with a link to the day it was lifted. A page arguing with itself is the worst kind of stale</td><td><span class="ho-tag ho-ok">Claude</span></td></tr>
-          <tr><td><b>Ten of the 127 pages that are not product screens scrolled sideways at 320</b>, the worst by 85px - and nothing had ever swept them. <code>width12.cjs</code> covers the 110 product screens and reports zero, truthfully</td><td><b>0 of 127.</b> Four causes, each with a solved form already in the product: a grid floor taller than its container, a <code>&lt;code&gt;</code> holding an unbreakable path, a flex item with no <code>min-width: 0</code>, and a column count written by hand in an inline style. <code>pages13.cjs</code> is checked in beside the others</td><td><span class="ho-tag ho-ok">Claude</span></td></tr>
-          <tr><td><b><code>logo-crop.html</code> logged three console errors</b>: <code>&lt;svg&gt; attribute height: Expected length, "auto"</code></td><td>The attribute is gone and <code>preserveAspectRatio</code> says what it was for. The svg still renders 520 by 520</td><td><span class="ho-tag ho-ok">Claude</span></td></tr>
-          <tr><td><b>THE ONE THAT CAME FROM DISAGREEING.</b> Codex flagged this page's "<code>CLAUDE.md</code>, 200 lines" against the census's own 201 and called the page wrong. The page was right</td><td>The census counted lines with <code>split("\n").length</code>, which returns an extra element after a file's final newline: <b>every line figure it had ever printed was inflated by one per file</b>, and with 618 files the group totals were out by the number of files in them. Fixed at the function, every figure on this page recounted. A census off by one on every file is worse than no census, because the error is invisible at any single row</td><td><span class="ho-tag ho-quiet">Codex</span> found the disagreement, <span class="ho-tag ho-ok">Claude</span> found which side was wrong</td></tr>
+          <tr><td><b>Two figures in <code>README.md</code> had drifted</b>, and a sentence credited every instrument with serving the repository to a browser when two of them never open one</td><td>Recounted, and the two that never touch a browser are named</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b>The file that reports "zero em dashes found in any file" contained one</b>, inside the sentence naming the character it had searched for</td><td>Named by code point and never by drawing it. The result it reports is true again</td><td><span class="ho-tag ho-quiet">Codex</span></td></tr>
+          <tr><td><b>A component file said petrol has three jobs</b>, written the same day a decision made it four</td><td>Four - and the finding was a thread: pulling it found <b>24 more places</b> saying three, in nine system files, twelve kit pages, <code>DESIGN.md</code> and a concept page. All 25 corrected</td><td><span class="ho-tag ho-quiet">Codex</span> found one, <span class="ho-tag ho-ok">Claude</span> swept the rest</td></tr>
+          <tr><td><b>A stand page asserted "the line is not petrol, and that is the decision worth keeping"</b> two sections above the one explaining that it now is</td><td>The refusal is quoted as what it was, with a link to the day it was lifted. A page arguing with itself is the worst kind of stale</td><td><span class="ho-tag ho-ok">Claude</span></td></tr>
+          <tr><td><b>Ten of the pages that are not product screens scrolled sideways at the narrowest stop</b> - and nothing had ever swept them. The width sweep covers the product screens and reports zero, truthfully</td><td><b>0 of 127.</b> Four causes, each with a solved form already in the product. <code>pages13.cjs</code> is checked in beside the others</td><td><span class="ho-tag ho-ok">Claude</span></td></tr>
+          <tr><td><b>A brand page logged three console errors</b> from an svg attribute that cannot take the value it was given</td><td>The attribute is gone and the aspect ratio says what it was for. The drawing is unchanged</td><td><span class="ho-tag ho-ok">Claude</span></td></tr>
+          <tr><td><b>THE ONE THAT CAME FROM DISAGREEING.</b> Codex flagged a line count on this page against the census's own and called the page wrong. The page was right</td><td>The census counted lines with a split on the newline, which returns an extra element after a file's final newline: <b>every line figure it had ever printed was inflated by one per file</b>. Fixed at the function, every figure on this page recounted. A census off by one on every file is worse than no census, because the error is invisible at any single row</td><td><span class="ho-tag ho-quiet">Codex</span> found the disagreement, <span class="ho-tag ho-ok">Claude</span> found which side was wrong</td></tr>
         </tbody>
       </table>
     </div>
     <p><b>Nothing was dropped at verification</b>, which is unusual and is worth one sentence
       rather than a celebration: the read-only pass was given a scope of files changed on one day,
       and a narrow scope is what makes a critic precise. The one finding that could have been
-      dropped - "the page says 200 and the instrument says 201" - turned out to be the most
-      valuable in the run, because the instrument was the wrong one.</p>
-  </section>
-
-  <section class="ho-sec" id="doors">
-    <h2>The doors: where a receiver should start</h2>
-    <div class="ho-scroll">
-      <table class="ho-t">
-        <thead><tr><th>If you want</th><th>Open</th></tr></thead>
-        <tbody>
-          <tr><td>The product, every screen, in colour</td><td><a href="../design/overview.html">design/overview.html</a></td></tr>
-          <tr><td>The rules this repository is built under</td><td><a href="../CLAUDE.md">CLAUDE.md</a>, 200 lines exactly, by its own budget rule, loaded into every session</td></tr>
-          <tr><td>Why any single value is what it is</td><td><a href="../docs/decisions.md">docs/decisions.md</a>, newest on top, never edited</td></tr>
-          <tr><td>The visual language as a document</td><td><a href="../DESIGN.md">DESIGN.md</a>, generated from the shipped code</td></tr>
-          <tr><td>The design system, and why it is like this</td><td><a href="../design/kit/why.html">design/kit/why.html</a></td></tr>
-          <tr><td>To lift the system into another project</td><td><code>design/system/</code> plus its own <code>CLAUDE.md</code></td></tr>
-          <tr><td>Where every figure on a screen comes from</td><td><a href="../docs/bank-connection.md">docs/bank-connection.md</a></td></tr>
-          <tr><td>To review this as an outside critic</td><td><a href="../AGENTS.md">AGENTS.md</a></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p><b>Four markdown files had no visible place until this table existed, and the census now
-      reads zero.</b> They are <code>AGENTS.md</code>, <code>DESIGN-artifacts.md</code>,
-      <code>research/docs/product-model.md</code> and <code>research/docs/quality-check.md</code> -
-      the last was named by nothing at all, not even by another markdown file. Naming them here
-      is what closed it, and that is worth saying out loud rather than quietly enjoying:
-      <code>handoff13.cjs</code> counts "md files named by at least one html", this page is an
-      html, and the paragraph you are reading is the naming. <b>An artefact with no visible place
-      does not exist for the person who decides</b>, and a doors table is the smallest honest
-      place there is.</p>
+      dropped turned out to be the most valuable in the run, because the instrument was the wrong
+      one.</p>
   </section>
 
   <footer class="ho-foot">
-    Stage 13 of 13. Every figure on this page is produced by
-    <code>design/kit/screens/handoff13.cjs</code> and its output is checked in beside it as
-    <code>handoff13.txt</code>; the lift test is described in <code>docs/decisions.md</code> under
-    2026-08-18 and its result is written into <code>design/system/CLAUDE.md</code>. Nothing here is
-    a summary of another page.
+    Stage 13 of 13. The census on this page is produced by
+    <code>design/kit/screens/handoff13.cjs</code>, the route by <code>route13.cjs</code>, the map
+    by <code>map13.cjs</code> and the accessibility figures by <code>a11y13.cjs</code>; each one
+    writes its output beside itself so the next person can disagree by re-running rather than by
+    arguing. <b>This page documents and does not duplicate</b>: it names a token, a component or a
+    copy key and never reprints its value, because a copy of a value goes stale in a week and
+    keeps a confident face while it does. A measured figure is not a copy of a value, and every
+    one of them here says what measured it and when. Nothing on this page is a summary of another
+    page.
   </footer>
 </div>
 
@@ -346,12 +607,20 @@ npm run census                  # this page's numbers, recomputed</code>
 <script>
   window.NAV_BASE = '../';
   window.NAV_SECTIONS = [
-    { id:'census', label:'The census' },
-    { id:'lift',   label:'The lift test' },
-    { id:'run',    label:'The run surface' },
-    { id:'open',   label:'What is open' },
-    { id:'critique', label:'The critique' },
-    { id:'doors',  label:'The doors' },
+    { id:'start',     label:'Start here' },
+    { id:'boundary',  label:'The package boundary' },
+    { id:'theme',     label:'Which theme is the main one' },
+    { id:'route',     label:'The route through the repo' },
+    { id:'behaviour', label:'How it behaves' },
+    { id:'map',       label:'What a screen is made of' },
+    { id:'a11y',      label:'Accessibility' },
+    { id:'census',    label:'The census' },
+    { id:'lift',      label:'The lift test' },
+    { id:'run',       label:'The run surface' },
+    { id:'open',      label:'What is open' },
+    { id:'decides',   label:'Who decides now' },
+    { id:'notdone',   label:'Deliberately not done' },
+    { id:'critique',  label:'The critique' },
   ];
 </script>
 <script src="../_nav.js"></script>

@@ -26,7 +26,13 @@
    ============================================================================ */
 
 const fs=require('fs'),path=require('path'),http=require('http'),{execSync}=require('child_process');
-const ROOT='/Users/sergiyshevchenko/Claud Projects/Fintech Tendd';
+/* AN ABSOLUTE PATH INTO ONE MACHINE'S HOME LIVED HERE UNTIL 2026-08-23, which is the
+   exact defect the stage 13 census named in `fp.cjs` on 2026-08-18 and the stage 13
+   critique found again in `quality13.cjs` the same day. Both were fixed and this one
+   was not, because both sweeps were looking at the files they had been pointed at.
+   Found by the route check of step 5, which reads every instrument rather than the
+   ones a stage remembers. */
+const ROOT=path.resolve(__dirname,'../../..');
 const {chromium}=(()=>{try{return require('playwright');}catch(e){return require(execSync('npm root -g').toString().trim()+'/playwright');}})();
 const T={'.html':'text/html','.css':'text/css','.js':'text/javascript','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg','.woff2':'font/woff2'};
 const srv=http.createServer((q,res)=>{const f=path.join(ROOT,decodeURIComponent(q.url.split('?')[0]));if(!fs.existsSync(f)||fs.statSync(f).isDirectory()){res.writeHead(404);res.end();return;}res.writeHead(200,{'Content-Type':T[path.extname(f)]||'application/octet-stream'});fs.createReadStream(f).pipe(res);});
@@ -36,7 +42,7 @@ function walk(d,out=[]){for(const f of fs.readdirSync(path.join(ROOT,d))){const 
   else if(f.endsWith('.html')) out.push(rel);}
   return out;}
 const all=walk('');
-// the 55 coloured product screens and the 55 grey ones are swept by width12.cjs; this is everything else
+// the coloured product screens and their grey twins are swept by width12.cjs; this is everything else
 const isProduct = f => (/^design\/[^/]+\.html$/.test(f) && !/(overview|rollout)\.html$/.test(f)) || (/^wireframes\/[^/]+\.html$/.test(f) && !/overview\.html$/.test(f));
 const pages = all.filter(f=>!isProduct(f));
 const W=[320,360,390];
@@ -68,7 +74,7 @@ for(const f of pages){
   p.off('console',on);
   if(worst>0||errs.length) rows.push({f,worst,at,who,errs:errs.length});
 }
-console.log('PAGES SWEPT (everything that is not one of the 110 product screens): '+pages.length);
+console.log('PAGES SWEPT (everything that is not one of the '+all.filter(isProduct).length+' product screens): '+pages.length);
 console.log('widths: '+W.join(' '));
 console.log('');
 if(!rows.length) console.log('  no page scrolls sideways and no page logs a console error');

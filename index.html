@@ -109,7 +109,11 @@
       var fullyDone = pages.length > 0 && doneCount === pages.length;
       var state = fullyDone ? 'done' : (item === nextItem ? 'next' : (doneCount ? 'partial' : 'soon'));
       var label = { done:'Done', next:'Next', partial:'In progress', soon:'Not started' }[state];
-      var target = pages.filter(function(p){ return p.done; })[0];
+      // `done || ready`, the same test the sidebar in _nav.js uses, since 2026-08-23. This list
+      // used `done` alone, so a stage whose page exists while the stage is still running rendered
+      // here as plain text and in the sidebar as a link: the entry page of the project was the one
+      // page that could not reach the stage it was announcing. Found by route13.cjs.
+      var target = pages.filter(function(p){ return p.done || p.ready; })[0];
 
       var li = document.createElement('li');
       if (state === 'soon') li.className = 'soon';

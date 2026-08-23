@@ -125,7 +125,14 @@ const NAMES = { A: 'a fieldset with no name at all', B: 'aria-label on an elemen
   }
   await browser.close(); server.close();
 
-  console.log('pages swept: ' + pages.length + '  (55 coloured + 55 grey, the two stand pages excluded)');
+  /* the split is COUNTED rather than written down. It read "(55 coloured + 55
+     grey)" from the day this file was made until 2026-08-23, while the total
+     beside it was already live: the corpus grew to 57 and 57 and the sentence
+     did not, which is the exact defect this repository's live-count rule exists
+     to stop. Found at stage 13 by reading this instrument's own output. */
+  const nColour = pages.filter(u => u.startsWith('design/')).length;
+  const nGrey = pages.length - nColour;
+  console.log('pages swept: ' + pages.length + '  (' + nColour + ' coloured + ' + nGrey + ' grey, the two stand pages excluded)');
   console.log('');
   console.log('=== FINDINGS BY KIND ===');
   for (const k of Object.keys(NAMES)) {

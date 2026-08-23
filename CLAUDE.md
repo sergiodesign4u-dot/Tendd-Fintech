@@ -11,11 +11,6 @@ so it holds only what must hold NEXT time. It is not a journal and not a report.
 - **Budget: 200 lines.** A new rule enters by replacing or generalizing an existing one,
   not by being added next to it. Over budget means two rules inside already contradict.
 
-**Project boundary:** one language (English); no brand at the start, the visual language
-was found and locked at Concept (Petrol and Paper); about 16 screens.
-
----
-
 ## Product
 
 **Tendd** helps people who are not into finance see and control their recurring payments
@@ -81,8 +76,6 @@ Founder, June 14 2026 (ground in `research/docs/strategy.md` section 6):
 5. **Small wins feel good.** The moment a forgotten subscription is found is the product's
    most important emotional beat.
 
----
-
 ## Rules that bind every stage
 
 **Language.** Internal md (this file, README, every `*/docs/*.md`) in English. Chat in
@@ -97,8 +90,9 @@ computed at render. A new page means one row plus `done:true`, never a hand writ
 `/_nav.css` owns the look and a page never describes `nav-*` itself. The MATERIAL of a stage lists
 itself in the stage's own registry (`wireframes/_nav.js`, `design/_nav.js`, `design/kit/_nav.js`),
 each keeping its data and classes in its own namespace because hub pages load both; a roadmap that
-listed 64 components would stop being a roadmap. A stage page carries the roadmap, **and where a
-stage HAS its own registry its pages carry that panel instead**, with the roadmap back at its foot.
+listed every component would stop being a roadmap. A stage page carries the roadmap, **and where a
+stage HAS its own registry its pages carry that panel instead**, with the roadmap at its foot.
+`ready:true, done:false` is the one honest way to say "the page exists and the stage is running".
 
 **`index.html` is the product home page, `overview.html` is the hub.** In any stage folder:
 opening the folder lands on the product screen (node 1.1, Welcome); the list of all
@@ -119,8 +113,8 @@ page (with a `NAV_SECTIONS` entry), or a satellite page that declares `NAV_ACTIV
 label of its nearest registry page. Critique and audit logs appear as a "was to became"
 summary in a closed state, not as a list of open defects.
 
-**Live md, unfrozen html, and a COUNT is live in the same way.** Changing a md that already has
-a published page means rebuilding the affected section of that page in the same step. If the page
+**Live md, unfrozen html, and a COUNT is live in the same way.** Changing a md that already has a
+published page means rebuilding the affected section of that page in the same step; if the page
 cannot hold the new material, put a visible "updated after publishing" note on it and say so out
 loud. A number counted off a corpus obeys the same rule: growing the corpus means recounting every
 claim about it in the same step, by script and never from memory, and a claim left un-recounted
@@ -142,15 +136,14 @@ assembled from components and declaring no style of its own; on two it stays mar
 is a row in `design/kit/docs/architecture.md` with its "where it comes from" filled, plus a Limits
 item on every component page it names. **A value is never re-derived:** it changes by a named
 decision ("variable, value, why") and carries its origin in a comment beside it or in the block
-comment governing its run. A **screen carries
-no style of its own**: no style block, no style attribute, no `@media`, no class the system does
-not define. **`rem` is what a reader resizes and `px` is geometry:** the type scale and the two
-width points, not spacing; a query cannot read a `var()`, so a point is a register and its literal
-the application, and a third is the founder's. So a correction goes to the token of its level,
-which reaches every screen by itself, or to the component css plus its page plus every screen
-holding it. A fix applied on one screen is a desync, and a contextual override
-(`.host .btn{font-size:15px}`) is an undeclared variant: declare the modifier and put the class in
-the markup.
+comment governing its run. A **screen carries no style of its own**: no style block, no style
+attribute, no `@media`, no class the system does not define. **`rem` is what a reader resizes and
+`px` is geometry:** the type scale and the two width points, not spacing; a query cannot read a
+`var()`, so a point is a register and its literal the application, and a third is the founder's.
+So a correction goes to the token of its level, which reaches every screen by itself, or to the
+component css plus its page plus every screen holding it. A fix applied on one screen is a desync,
+and a contextual override (`.host .btn{font-size:15px}`) is an undeclared variant: declare the
+modifier and put the class in the markup.
 
 **Critique runs on two instruments.** Claude and Codex (read-only, see `AGENTS.md`), taken
 independently and merged afterwards, with a "who found it" column. Codex owns what is falsifiable
@@ -172,32 +165,33 @@ the fix with a prompt: a hand edit does not survive the next clone.
 (structure), `design/concept/docs/concept.md` (taste and attributes; a visual decision with
 no attribute is an invention).
 
----
-
-## Where things live
+## Where things live, and where the whole route is written
 
 ```
 /_nav.js /_nav.css /index.html   the project registry, its look, the entry page
-CLAUDE.md  README.md  AGENTS.md  rules, status index, entry for the Codex critic
-docs/decisions.md                decision log, never loaded
-docs/bank-connection.md          where every figure on a screen comes from, never loaded
+CLAUDE.md  README.md  AGENTS.md  rules, the status index, the entry for the Codex critic
+docs/                            decisions.md and bank-connection.md, never loaded
 DESIGN-artifacts.md DESIGN.md    the draft from Concept, and the doc built from the code
-research/                        stages 01, 02 and 02+ together: research.html,
-                                 personas, jtbd, cjm-as-is, cjm-to-be + docs/ + screens/
-ia/                              structure: docs/sitemap.md, docs/flows.md, docs/pages/
-wireframes/                      the grey clickable prototype: index.html (home),
-                                 overview.html (hub), screens and states, docs/
-voice/                           voice.md, microcopy.md and their pages
-design/                          the whole visual half: concept/ (how the language was
-                                 found), visuals/ (logos, README), screens/ (was /
-                                 became pairs), the colored screens flat in the root,
-                                 overview.html as the hub
-design/system/                   the CODE of the design system, liftable whole, with its own
-                                 CLAUDE.md: tokens.css, base.css, index.css, components/, patterns/
-design/kit/                      the STAND that shows it: _nav.js is the component
-                                 registry and draws both the hub cards and the side
-                                 panel, _page.css is the stand's own look and the home
-                                 of the reviewer chrome, why.html the guide and the
-                                 roadmap page, overview.html the hub, docs/ (inventory,
-                                 tokens-audit, census, backlog)
+research/  ia/  voice/           who it is for, the structure, every product string
+wireframes/  design/             the grey prototype and the product in colour, each with
+                                 index.html as the home and overview.html as the hub
+design/system/  design/kit/      the CODE, liftable whole and carrying its own CLAUDE.md,
+                                 and the STAND that shows it, + docs/ and screens/
+handoff/                         the package handed over: handoff.html + docs/
 ```
+
+The full route, folder by folder with what to open first in each, is the table on
+`handoff/handoff.html`, and it is not copied here.
+
+## Handoff
+
+**The package is `handoff/`**: the page plus `docs/` (behaviour, map, a11y, onboarding-gaps,
+one-shot). It **references the code and never copies it** - a hex, a pixel value, a ready
+interface string or a css fragment inside that folder is a defect; a MEASURED figure is not a
+copy, and it names what measured it and when. Every behaviour row names its source, and a row
+with no source goes to a NOT DECIDED list addressed to the founder rather than into the spec.
+The map is read off the code and its reverse list is produced by INVERSION of the same data,
+never by a second pass. **"Confirmed" means a run NOW with a named instrument**, never a memory
+of an earlier stage doing it. **The product is frozen since the rollout was accepted**: a hole
+found here becomes a row in `design/kit/docs/backlog.md`, never a fix. The route is checked by
+`design/kit/screens/route13.cjs` and never by eye.
