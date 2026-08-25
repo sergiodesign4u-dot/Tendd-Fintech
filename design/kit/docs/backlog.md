@@ -18,6 +18,11 @@ of the same instrument answers **111 rows, 80 saying closed, 41 open, 3 addresse
 The paragraph above keeps the corpus it was measured on, which is the rule; this sentence is the
 recount, in the step that changed the file.
 
+**Plus 1 row on 2026-08-26**, the first one this file has taken from outside its own repository:
+the CSS pipeline of the product build, which refuses a `url()` it cannot resolve. Re-run of the
+same instrument in the same step: **115 rows, 94 closed, 31 open, 5 naming the founder as owner
+and 1 of those still open.** The two paragraphs above keep their own corpora.
+
 ## How the count got here, counted on 2026-08-12 after step 9
 
 **54 rows. 20 closed. 34 open. 0 rows dropped at verification.**
@@ -527,6 +532,16 @@ One row, and it is about the instrument that guards every other change.
 | What was found | Why it stood | Where it goes | State |
 |---|---|---|---|
 | **The box fingerprint measured the frame as well as the product.** `fp12.cjs` walked `document.body`, which on every screen includes the reviewer's chrome: the panel listing every screen, the theme switch, the roadmap. Adding one screen grew that panel by one row, so the instrument reported **5051 boxes changed on all 58 pages** for a change that touched two files | It had never been asked. Every earlier use of this file compared a corpus against itself, and the chrome only moves when the CORPUS does - which had not happened between two fingerprints until today. The promise it exists to check has always been about the product | **CLOSED 2026-08-23.** It walks `.app` or `.landing`, the root every screen declares the product to start at, with `body` as the fallback. Re-baselined and re-run: **0 pages and 0 boxes differ** | **CLOSED** |
+
+## Found on 2026-08-26 by lifting the system into a product repository
+
+One row, and it is the first finding produced by a reader that is not a browser opening a page
+of this repository: the CSS pipeline of a real build, which resolves every url() before it
+serves anything and refuses to build on one it cannot find.
+
+| What was found | Why it stood | Where it goes | State |
+|---|---|---|---|
+| **Four `url()` in `tokens.css` point one level above `system/` and answer 404.** `--wash-pricing` and `--wash-final`, in both themes, read `url("../assets/...")`. A relative url in a stylesheet resolves against the STYLESHEET, so from `design/system/tokens.css` that is `design/assets/`, which does not exist. The files are at `design/system/assets/`. Proved before anything was touched: a plain file server answered **404 on `../assets/` and 200 on `assets/`**, both files, both themes | Nothing here ever asked. These two roles paint the pricing band and the closing band of the landing page, and past the tablet point only, so no app screen requests them at all. A missing background image fails silently: the band keeps its colour and simply has no picture, which is exactly what the fallback was designed to look like. The self-sufficiency test of stage 09 assembled an APP screen the system had never seen and reported 0 failed requests truthfully, because an app screen never asks for these. No instrument in this repository has ever compared a `url()` against the disk | **Fixed in the product repository's copy** (`Tendd-Product`, `system/tokens.css`, with the proof in a comment beside it). NOT fixed here: this tree is frozen at `v1.0`, and a hole found after acceptance is a row rather than an edit. Whoever unfreezes it next changes `../assets/` to `assets/` on four lines and nothing else | **Open. The founder, when this tree is next opened** |
 
 ## What is deliberately NOT in this file
 
