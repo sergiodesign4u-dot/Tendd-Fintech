@@ -1,11 +1,109 @@
 # Decision log
 
+**FROZEN ON 2026-09-02. The live log is in the product repository, at
+`../Tendd Product/docs/decisions.md`.** This copy is complete up to and including D-Gate and
+never grows again. It stays here because fifteen pages in this repository link to it and a
+link that answers nothing is worse than a file that stopped. Anything decided after that day
+about how Tendd looks or behaves was decided there, because that is where the product is.
+
 What we did, why exactly this, and what we rejected on what ground. Newest on top.
 This file is never loaded into a session automatically: read it when you need the ground
 under a decision. Rules that must hold next time live in `CLAUDE.md`; status lives in the
 README table and in `done:true` in `/_nav.js`.
 
 ---
+
+## 2026-09-02 - The bank moves behind the paywall, and the reveal is cut in three
+
+The founder decided on 2026-08-29 that **Free is manual entry and the bank connection is
+Pro**, and on 2026-09-02 chose the shape: **the first scan still runs for a free person, and
+it returns the count, the monthly total and three named subscriptions. The rest are drawn and
+withheld until Pro.** "Остальное мы скрываем но показываем как-то визуально, типа чтобы
+увидеть все подписки - подпишись."
+
+**This reverses three locked decisions and it is written as a reversal rather than an
+amendment**, because two of them were locked by the founder in June on strategy grounds and
+one of them rejected this exact mechanic by name.
+
+**D-Free is dead.** It read "no cap on subscriptions and no cap on bank connections in Free: a
+cap is a visibility cap, and it would break the gradual reveal". Showing three of fourteen is
+a cap on visibility, which is the thing that sentence exists to forbid. Nothing is left of
+D-Free but the manual side: there is still no cap on what a person types.
+
+**D3 moves from depth to the front.** It read "the paywall sits at depth, never at basic
+visibility and never at the cancel moment". The paywall now sits ON basic visibility, at the
+first screen a person sees after the scan. What survives of D3 is the second half: **nothing
+about the cancel moment changes**, cancel guides stay free, and the paywall still never
+appears at the moment somebody is trying to stop paying for something.
+
+**D2 survives but is no longer what it said.** Manual entry and the bank were "an equal second
+path". They are now a free path and a paid one, and node 1.2 has to say which is which. The
+two doors stay two doors; their weight is no longer equal.
+
+**D1 is untouched in order and cut in the middle.** Count, then categories, then the total,
+each with its own action. The gate lands inside step 2: the count is free, the total is free,
+and the names are three.
+
+**WHICH THREE, AND THE GROUND FOR IT.** Three from three different categories, not the three
+largest. Step 2 of the reveal is about categories, so three categories is what proves the scan
+reached across somebody's life rather than into one corner of it. The three largest would rank
+the person's spending by size, which is the exposure framing `voice.md` forbids, and it would
+make the withheld eleven read as the small ones, which is both a worse sell and untrue.
+
+**THE ITEM IS REMOVED AFTER THE SCAN, and this is not optional.** Plaid bills per Item and
+Recurring is a paid add-on (2026-08-10 entry). A free person who never converts would otherwise
+be a permanent line on the Plaid invoice, and under this model they get no ongoing refresh
+anyway, because refreshing is what Pro is. So the scan runs once, the rows are kept, the Item
+is removed, and the free list becomes a manual list that arrived pre-filled. This reuses
+behaviour that already exists: `bank-connection.md` section 8 and the card on node 6.14 both
+say the subscriptions already found stay and become yours to keep up to date.
+
+**WHAT IT COSTS, RECORDED BECAUSE IT WAS ARGUED AND OVERRULED.** Two objections were raised
+against the mechanic and neither is answered by it, so they are written down rather than
+dropped:
+
+1. **It prices the one time and gives away the every month.** The scan is a one-shot value and
+   the watching is the recurring one, and this charges for the first. `cjm-as-is.md` barrier 5
+   already says the job "never completes and never repeats" without a return hook, and
+   `cjm-to-be.md` DC3 made free alerts that hook. The founder's own reading of himself, on
+   2026-09-02: "я би просканировал раз, отписался от лишнего и отписался би от приложения."
+2. **The voice forbids the frame.** `voice.md` Forbidden bans exposure framing ("what you
+   wasted") and alarm framing, with the ground "a reveal, not an alert", and the line on the
+   reveal itself is "This is what you have signed up for, not what you wasted." Showing a total
+   and withholding what is behind it is that frame with a price on the answer.
+
+**Alternatives rejected.** *Total only, no names*: the same mechanic with none of the proof,
+and a number with nothing behind it is the anxiety without the reveal. *A full first scan
+inside a window, then the Item removed*: keeps the voice intact and bounds the cost the same
+way, rejected as too weak a gate. *Bank marked Pro before any scan*: cheapest of all, no Plaid
+call before payment, rejected because a person pays for a promise having seen nothing.
+
+**What this makes true that was not.** There are now two flows and not one, which is the other
+half of D3 as amended on 2026-08-20 ("the plans are one product, not two: no Pro twin of a
+screen, and `plans13.cjs` counts it"). A locked list is a state of one screen and not a second
+screen, so the rule holds if and only if the lock is built as a state. It is, and that is the
+constraint on everything below.
+
+**What has to be built, and none of it exists today.**
+
+- A **locked list** in `design/system/`. The system has no blur and no mask in any app
+  component: the only `filter: blur()` in the repository is the landing animation. The existing
+  lock on `history-trends-locked.html` is not one either, it is a card beside the free content
+  that shows "the shape of what Pro opens" with inert controls, on the stated ground that "a
+  control that cannot be used must not move anything". A list that shows real rows obscured is
+  a new object and enters the system as one, in full, before any screen wears it.
+- **Node 1.2**, the two doors, redrawn with one of them paid.
+- **Node 1.5**, the reveal, with the gate inside step 2.
+- **Node 5.13**, the upgrade screen, which today sells trends, advanced alerts and export and
+  has no card selling a bank connection at all.
+- **Node 2.6**, Home, where Emma carries a Free chip beside "From Chase, 11 subscriptions",
+  which under this decision is a person who cannot exist.
+- **The strings.** There is no owned line for a locked door, none for a locked list, none for
+  an upgrade screen that sells the scan, and none for paying before connecting. Every one of
+  them is written against `voice.md` before it is drawn.
+
+**Recorded in the product repository as G27** since 2026-08-29, held there without a single
+line invented, and closed by this entry.
 
 ## 2026-08-23 - The seven the spec refused to guess, answered
 

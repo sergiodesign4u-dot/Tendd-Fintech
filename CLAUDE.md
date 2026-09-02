@@ -5,9 +5,9 @@ so it holds only what must hold NEXT time. It is not a journal and not a report.
 
 - **Status** (what is done, what is next) lives in the README table and in `done:true`
   in `/_nav.js`. Never here: a third copy only drifts from the other two.
-- **Decision records** (what we did, why exactly this, what we rejected and on what
-  ground) live in `docs/decisions.md`. That file is never loaded; read it when you need
-  the ground under a decision.
+- **Decision records** live in `docs/decisions.md`, **frozen 2026-09-02**: the live log moved to
+  `../Tendd Product/docs/decisions.md` when the product started changing the product rather than
+  porting this. Read the frozen copy for the ground under anything decided up to that day.
 - **Budget: 200 lines.** A new rule enters by replacing or generalizing an existing one,
   not by being added next to it. Over budget means two rules inside already contradict.
 
@@ -28,12 +28,9 @@ see all my recurring charges in one calm view, so that I feel in control without
 finance person." Secondary: cancel what I do not use (J3), never be surprised by a price
 change or failed payment (J4).
 
-**Free tier** is the whole calm view, uncapped: value before any bank connection, a read-only bank
-through Plaid or your own entries, the categorized list, basic details, the monthly total, basic
-alerts, **this month against last on Trends** (D3). **Tendd Pro** is depth, and it is the four things
-the screens sell: 3 / 6 / 12 months and the trend list, full cancel guides, advanced alerts, the
-analytical export. A plain export of your own data is free (D-Export). Out of MVP: full budgeting,
-investments, native app, bill negotiation, bill pay, household view, priority support.
+**Free and Pro** are split by **D-Gate** below and the split is not written twice; a plain export of
+your own data is free either way (D-Export). Out of MVP: full budgeting, investments, native app,
+bill negotiation, bill pay, household view, priority support.
 
 **Markets:** US and EU (US and Plaid first, per D5). **Stack hypothesis:** Next.js on
 Vercel, Postgres, Plaid (US) and TrueLayer or GoCardless (EU), Stripe, PostHog.
@@ -46,14 +43,18 @@ provable only in a prototype, so the MVP is built to test it, not to assume it. 
 Founder, June 14 2026 (ground in `research/docs/strategy.md` section 6):
 
 - **D1** Gradual reveal with a paired action (count, then categories, then the total).
-- **D2** Manual entry plus presets at launch, as an equal second path.
-- **D3** The paywall sits at depth, never at basic visibility and never at the cancel moment; from
-  2026-08-18 Free also gets **one comparison on Trends**, this month against last; from 2026-08-20
-  the plans are **one product, not two**: no Pro twin of a screen, and `plans13.cjs` counts it.
+- **D2** Manual entry plus presets at launch, as a second path. Equal weight ended with D-Gate:
+  manual is the free door and the bank the paid one, and node 1.2 says which is which.
+- **D3** **D-Gate moved the paywall ON to basic visibility.** Still true: never at the cancel
+  moment, guides free; Free keeps **one comparison on Trends**; the plans are **one product, not
+  two**, so a lock is a STATE of a screen and never a Pro twin. `plans13.cjs` counts it.
 - **D4** Pro is 7.99 a month or 69 a year.
 - **D5** US and Plaid first, EU deferred.
-- **D-Free** (July 2026) No cap on subscriptions and no cap on bank connections in Free: a
-  cap is a visibility cap, and it would break the reveal.
+- **D-Gate** (founder 2026-08-29, shaped 2026-09-02, **replaces D-Free**) The bank is Pro. One free
+  scan returns the count, the total and three names across three categories; the rest are drawn and
+  withheld, and the Item is removed after it. No cap on what a person TYPES, which is all that
+  survives of D-Free: uncapped visibility was the cap it forbade and is now the product. Ground,
+  the Plaid per-Item cost and the two objections overruled: `docs/decisions.md`, 2026-09-02.
 - **D-Concept** (July 2026, amended by D-Brand and by D-Plot 2026-08-18) Petrol and Paper: off-white
   canvas, white cards, Inter, petrol #1c6a76 inside a screen's content only on the primary action,
   the current selection, the trust line and **the plotted line** (one element, one screen, never
