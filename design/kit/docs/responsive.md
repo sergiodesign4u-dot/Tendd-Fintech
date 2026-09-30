@@ -477,6 +477,17 @@ measured local threshold from a point somebody invented for a device.
 | **80rem** (1280px) | `landing-story.css` x2, the PAGE container | the reason cards stand beside the list instead of under it | it is the one threshold here that asks the page, and it is not an invented number: 80rem is `--container-wide`, already declared in the width block, and the arithmetic is in the file (the list is 620, its edge 310 from the centre, 24 of air puts a card's inner edge at 334, and a card stops being a card under 17rem, which puts the true point at 1260; 80rem is the next declared value above it) |
 | **42.5rem of HEIGHT** (680px) | `landing-orbit.css` x1 and `landing-story.css` x1, `@media (max-height: ...)` | the pinned stage gives up and lays itself out as an ordinary column | it is the only height question in the product, and it cannot be a container query at all: reading a container's height needs `container-type: size`, which stops the box growing to its contents, which is the very thing this branch exists to allow. Measured: the threshold is between 640, which fails, and 780, which works |
 
+**Synced from the product, 2026-09-30 (P16).** `landing-orbit.css` is deleted, and the rows above
+that name it, with the named container `story` and the 80rem page threshold, are the register of
+2026-08-16 to 2026-09-25. Light 2's files ask the nearest container, `body`, unnamed, and a grep of
+`@container` and `@media` across the public page's fifteen files finds five local thresholds and one
+height question: **40rem** (640px) x13, **53.75rem** (860px) x8 with **53.8125rem** as its
+min-width companion x1, **60rem** (960px) x3, **68.75rem** (1100px) x2, **23.75rem** (380px, the
+bar's small pill) x1, and **43.75rem of height** (700px, `landing-story.css`) x1. Beside them the
+registered tablet point in eleven of the fifteen, and the desktop point once, in `locked-list.css`,
+an app molecule. None of the five became a token: P16 declares the public page the one fluid
+surface, its sizes literals of that page, declared once in `landing-shell.css`.
+
 **Registered 2026-08-16, on the founder's word.** The five rows under the first one had been live
 since the landing was built and appeared in no register, which is exactly the thing this table
 exists to prevent. The alternative was redesigning the hero to ask the two points, and it was

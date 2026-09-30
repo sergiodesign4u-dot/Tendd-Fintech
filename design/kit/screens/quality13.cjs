@@ -58,6 +58,18 @@ const PROBE = () => {
        plotted chart dropped its frame and with it the clip that had been hiding a
        geometry that was always this way. */
     if(e.matches('.chart .yaxis, .chart .mark .pin')) return;
+    /* THREE MORE, 2026-09-30, when the sync brought Light 2 and the sign-in panel in
+       (handoff/live.html). The old landing had no `main` and was never swept; the new
+       public pages carry one (P10), and 265 findings arrived, none of them a text
+       box crossing its frame. A picture marked aria-hidden is decoration placed by
+       coordinate (the orbit, the floating tiles, the arrow that travels). A box with
+       a negative side margin reaches past its column ON PURPOSE and pads back in (the
+       switch row, P26; the panel's sizer, so focus rings are not clipped). And on the
+       public page a box that is transformed or absolutely placed, or sits inside one,
+       is placed by the script's composition, not by flow (P16). */
+    if(e.closest('[aria-hidden="true"]')) return;
+    if((parseFloat(cs(e).marginLeft)||0)<0||(parseFloat(cs(e).marginRight)||0)<0) return;
+    if(e.closest('.landing')){ let t=e,placed=false; while(t&&t.tagName!=='MAIN'){ const c=cs(t); if(c.transform!=='none'||c.position==='absolute'||c.position==='fixed'){placed=true;break;} t=t.parentElement; } if(placed) return; }
     const pr=R(p), er=R(e);
     if(er.width===0||pr.width===0) return;
     const padR=parseFloat(ps.paddingRight)||0, padL=parseFloat(ps.paddingLeft)||0;
@@ -69,8 +81,12 @@ const PROBE = () => {
   // 3 a button label on more than one line
   document.querySelectorAll('main .btn, main button, main .tabbar a').forEach(e=>{
     if(e.classList.contains('tile')) return;   /* a preset tile is a card, not a one-line control */
-    const rg=document.createRange(); rg.selectNodeContents(e);
-    const n=rg.getClientRects().length;
+    /* LINES, NOT RECTS, 2026-09-30: a label beside an icon ("Continue with Google",
+       the travelling arrow) is two rects on ONE line, and counting rects called it a
+       wrap. Only the text is measured, and a line is a distinct top. */
+    const tops=new Set(); const tw=document.createTreeWalker(e,NodeFilter.SHOW_TEXT);
+    for(let t=tw.nextNode();t;t=tw.nextNode()){ if(!t.textContent.trim()) continue; const rg=document.createRange(); rg.selectNodeContents(t); for(const r of rg.getClientRects()) if(r.width>0) tops.add(Math.round(r.top/4)); }
+    const n=tops.size;
     if(n>1 && e.textContent.trim()) push('button-wraps',e,n+' lines: "'+e.textContent.trim().slice(0,40)+'"');
   });
   // 4 tap target under 44

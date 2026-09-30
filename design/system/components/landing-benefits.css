@@ -1,0 +1,47 @@
+/* ============================================================================
+   Landing benefits - organism
+   "Calm control of your recurring money": the heading beside its lede, and the
+   three reasons as tinted cards, each with its icon on a white tile. Arrived
+   2026-09-26 with Light 2 (P16). The cards rise one after another, 110ms
+   apart, and lift a little under a pointer.
+
+   Reads
+     colour   --bg-selected, --bg-surface, --text-action, --text-body, --bg-action
+   ============================================================================ */
+
+.landing .lp-ben-head {
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 2rem clamp(2rem, 6vw, 6rem); align-items: end;
+}
+.landing .lp-ben-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem); margin-top: clamp(3rem, 7vw, 6rem);
+}
+.landing .lp-ben {
+  display: flex; flex-direction: column; gap: .85rem;
+  padding: clamp(1.5rem, 2.4vw, 2.25rem); border-radius: var(--lp-r-md);
+  background: var(--bg-selected);
+  transition: translate var(--lp-hover-t) var(--lp-ease), box-shadow var(--lp-hover-t) var(--lp-ease);
+}
+.landing .lp-ben:nth-child(2) { --d: 110ms; }
+.landing .lp-ben:nth-child(3) { --d: 220ms; }
+/* the icon tile, shared with the two paths below */
+.landing :is(.lp-ben, .lp-path) .lp-ic {
+  width: 3rem; height: 3rem; border-radius: 1rem;
+  display: grid; place-items: center;
+  background: var(--bg-surface); color: var(--text-action);
+  box-shadow: 0 8px 20px -12px color-mix(in srgb, var(--bg-action) 45%, transparent);
+}
+.landing .lp-ben .lp-h3 { margin-top: 2.5rem; }
+.landing .lp-ben .lp-body { color: var(--text-body); }
+@media (hover: hover) and (pointer: fine) {
+  @container (min-width: 47.5rem) {
+    .landing .lp-ben:hover { translate: var(--lp-lift); box-shadow: var(--lp-bloom); }
+  }
+}
+
+@container (max-width: 53.75rem) {
+  .landing .lp-ben-head { grid-template-columns: minmax(0, 1fr); }
+  .landing .lp-ben-grid { grid-template-columns: minmax(0, 1fr); }
+  .landing .lp-ben .lp-h3 { margin-top: 1.5rem; }
+}

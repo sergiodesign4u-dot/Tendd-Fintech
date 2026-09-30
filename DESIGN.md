@@ -191,6 +191,14 @@ sentence would do.
 - Real logos and real merchant names; never a cryptic code where a name is known, never stock art.
 - Flat by construction: one soft shadow, hairlines, and paper.
 
+**Read against the code again on 2026-09-30, when the design repository came level with the live
+product.** Two sentences above hold for the app and no longer for the whole product. The public
+page became Light 2 on 2026-09-26 (P16): white cards floating on the canvas with shadows of their
+own, a WebGL world, pinned to the light theme. And one app block borrowed that language on
+2026-09-29 (P34): the locked list, with the landing's shadows, its 24px card radius and floating
+tiles. Each is described where it stands, under Elevation, Shapes, The landing and The locked
+list; the app's flat rule holds everywhere else.
+
 ## Colors
 
 A cool near-monochrome with a single petrol voice, and three semantic tones that are all
@@ -227,6 +235,10 @@ deliberately desaturated so that no state in the product can shout.
   grounds a control sits on: paper 3.46, canvas 3.10, panel 3.22.
 - **Skeleton** (#e2e9ea): loading placeholders, pulsing at 1.4s and stopped entirely under
   `prefers-reduced-motion`.
+- **Withheld** (`--bg-withheld`, added 2026-09-02 for D-Gate): the slot where the name of a row a
+  free person has not paid to see would be. It reads the skeleton's primitive in both themes and
+  is a role of its own because the two can part: a skeleton pulses and says "wait", and a withheld
+  slot must not, since nothing is coming by itself. One consumer, `locked-list.css`.
 
 ### The dark theme, and the contrast of every role in both
 
@@ -236,7 +248,10 @@ theme separates the two levels, because the ground inverts while "the action" st
 **The pair is a property of the level, not an event:** every role is written twice, in `:root`
 and in `[data-theme="dark"]`, at the moment it is declared, and a role without a pair does not
 exist. **34 declarations at the semantic level, 34 pairs, none missing:** 27 roles, 4 state
-tokens and 3 component tokens.
+tokens and 3 component tokens. (Recounted 2026-09-30 off `tokens.css` by script: **38
+declarations, 38 pairs, none missing**, the count `design/kit/color.html` carries, with 32 roles,
+3 state tokens and 3 component tokens. The two newest roles are `--bg-withheld` and `--tone-shade`,
+below; the 34 above is the count of 2026-08-12.)
 
 **This document said 31 until 2026-08-13, and so did the colour page of the stand.** The three
 component tokens (`--control-accent`, `--bg-chip-accent`, `--text-chip-accent`) were split off
@@ -308,6 +323,13 @@ sky, the same water at dusk. They are roles rather than lines in a component for
 role exists - a role lives in both themes or it does not exist, and a picture that reverses between
 a paper theme and an ink theme is exactly that case. Both are read UNDER a `background-color` and
 never instead of one, so a band has a ground before the picture loads.
+
+**Both are unread since 2026-09-26.** Light 2 (P16) rewrote `landing-plan.css` and
+`landing-final.css` without a wash, and the locked block's first redesign, which put its rows in a
+window of the pricing wash (P33), was replaced three hours later (P34). Counted on 2026-09-30:
+`var(--wash-pricing)` and `var(--wash-final)` have **zero** readers outside `tokens.css`. The two
+roles and their four pictures still ship, which is a question for the product's `tokens.css`, the
+owner, and not something this document may settle by deleting a line.
 
 **Two bands carry a picture and seven do not, and the line between them is not taste.** The two
 that carry one are the two that ASK: pricing asks for money, the closing band asks for the sign-up.
@@ -430,13 +452,23 @@ against `tokens.css`, so this list cannot go stale again without saying so.
 - **Label** `--type-label` (10px, 600, line-height 1.6): chips. Not uppercased and not tracked out
   on a row, because a shouting label on a calm row is the same defect as a red one.
 
+**Three of these steps are read by nothing since 2026-09-26.** Hero, Step and Section were the
+public page's, and Light 2 (P16) sets that page in its own roles, `landing-type.css`: a display
+heading of `clamp(2.6rem, 6.2vw, 6.25rem)`, up to seven times Head, because this page argues and
+the app never does. Counted on 2026-09-30: `var(--type-hero)`, `var(--type-step)` and
+`var(--type-section)` have zero readers outside `tokens.css`. The steps above stay as the scale
+the app and `design13.cjs` read; the landing's sizes are literals of that page, declared once in
+`landing-shell.css` and `landing-type.css`.
+
 ### Named Rules
 **The One Number Rule.** Exactly one object on a screen is set in Display, and it is the number
 the person came for. If a second number wants that size, the screen is answering two questions and
 should be two screens. **Which number that is depends on the screen, stated 2026-08-15:** in the
 app it is the monthly total; on the landing, which has no total, it is the plan price. The rule
 was written as "46px belongs to the monthly total" and that named the app's occurrence rather than
-the job. The count per screen never changed and is still one.
+the job. The count per screen never changed and is still one. (Since Light 2, 2026-09-26, the
+landing's plan price is `.lp-pfig`, a figure of that page's own, and not Display; the landing is
+outside this rule's scale rather than an exception to it.)
 
 ## Layout
 
@@ -523,6 +555,23 @@ canvas, or by space.
   the mobile app frame only. Note the tint: the shadow is mixed from the palette's own dark, not
   from neutral black, so it stays inside the cool world.
 
+### The public page's float, and the role it added (2026-09-26, P16)
+The landing is the one surface in the product that floats: white cards with 2rem corners on the
+canvas, glass cards over a WebGL world, icons with a drop under them. A float is a shadow, so that
+page lays several, and **none of them is a colour of its own**: each is a share of one role,
+`--tone-shade`, through `color-mix`, so no alpha of any colour is written twice. `--tone-shade` is
+the reading ink in the light theme, which is what a shadow on white paper is, and the dark canvas
+in the dark one, because a shadow on a dark ground is darker than the ground and never the light
+ink the text role folds to. The landing is pinned light and never reads the dark half; the pair
+exists because a role without one does not. Inside the app `--shadow` keeps its literal and its
+one job, the dialog sheet (the "Frame" line above names a frame deleted on 2026-08-05, which
+`design/kit/geometry.html` has recorded as stale since stage 08).
+
+**One app block spends the landing's float, and it is the one place the product sells.** The locked
+list (P34) takes the landing's card shadow, its tiles' drops and its glass chips, all cast in
+`--tone-shade` and petrol. Counted on 2026-09-30: `--tone-shade` has 27 readers in 8 files, seven
+of them the public page's and one `locked-list.css`.
+
 ### Named Rules
 **The Flat Paper Rule.** A new surface earns a hairline and a background change, never a shadow.
 The moment two elevations exist inside one screen, the eye starts ranking them, and ranking is the
@@ -545,6 +594,12 @@ segment take the control edge and are perceivable at 3:1. A card, a panel, a pla
 container and a divider are not controls: nothing about them has to be found by touch, so they
 keep the hairline and the surface stays as quiet as the language was chosen to be. Reaching for
 the control edge on a container is how a calm interface turns into a wireframe of boxes.
+
+**Two shapes came in from the public page, and each is fenced.** The pill, a 999px radius, is the
+landing's button and, since 2026-09-29 (P34), the app's `.btn.pill`, spent on the locked block. The
+landing's card corner, 24px, has one consumer in the app, the same block, and says so at its line
+in `locked-list.css`. The landing itself rounds its cards at 2rem and 1.5rem, locals of that page
+in `landing-shell.css`.
 
 ## Motion
 
@@ -664,6 +719,25 @@ and that is a global kill in `base.css` rather than a per-token override.
   boundary weaker under the pointer.
 - **Secondary:** paper fill, control edge, ink label. It is a real alternative, not a ghost:
   the two doors of this product are equal by decision, so the second door is legible.
+- **Pill and go** (2026-09-29, P34): two modifiers brought in from the public page for the one
+  place the product sells, the locked block. `.pill` rounds the button fully and gives it 24px of
+  side padding; `.go` adds a 16px arrow after the label that travels one nudge on hover, U13's
+  advance. They are modifiers and not a new button, so the fill, the ink, the four states and the
+  ring stay the button's own and cannot drift. The public page's own button is a different atom,
+  `.lp-btn`, because there it is the largest control on the screen (see The landing).
+
+### Checkbox and switch row
+- **The checkbox is drawn since 2026-09-29 (P26).** The browser's tick filled most of the 20px box
+  and `accent-color` can change its colour and nothing else, so the control is
+  `appearance: none`: the same 20px box with the field's own edge (`--line-control`) and the
+  control radius step, and a 12px tick masked over `--text-on-action`, with room around it. Checked,
+  the box fills with `--control-accent`; hover darkens the edge, or the fill once checked; disabled
+  takes the recessed ground. It is still a native input: focus, keyboard, `checked` and `disabled`
+  are the element's own, and U13's one exception still holds, a press that scales the box to 0.94.
+- **The switch row is inset (P26).** It reaches 8px past its column on a phone and 16px past the
+  tablet point, and pads the same distance back in, so its hover fill has air and a control's
+  radius while the box and the words stay aligned with the heading above. The divider moved to a
+  pseudo-element drawn on the column's own width.
 
 ### Cards / Containers
 - **Corner Style:** 14px on the container, 10px on the first and last row inside it.
@@ -705,27 +779,82 @@ is, because a trust claim that has to be scrolled to is not a trust claim.
 
 ### The landing, and the only motion in this product (signature)
 
-The public page carries two moving blocks and the app carries none. They are one argument in
-two halves, and the difference between them is the argument.
+**Rewritten 2026-09-30 off the code, because the page it described is gone.** On 2026-09-26 the
+public page became **Light 2** (P16), chosen by the founder among six explorations and taken through
+four rounds of notes, and on 2026-09-27 the way in joined it (P17). The heading keeps its words: the
+app's four verbs never travel more than 2px, and this is still the one page where things arrive,
+gather and leave.
 
-**The hero's opening.** Under the example's total, a field of fourteen app squares on three
-bands: the top one drifting right, the middle left, the bottom right, between 18 and 22
-pixels a second. It says the thing a screenshot cannot - that a subscription stack is not a
-list somebody made, it arrives, from more directions than anybody is watching. The number
-above it does not move.
+**Pinned light.** The root of node 1.1 carries `data-theme="light"`, which the tokens honour on a
+subtree, so a person who chose dark in Settings meets the app in dark and this page in white. The
+whole look was drawn on white, and a dark version of a white composition is a second design nobody
+drew.
 
-**The cut list.** At the foot of "Calm control of your recurring money", the same fourteen
-as the product's own rows, with the total stuck to the top of the block. Scrolling through
-the list cancels three of them, one at a time, and the total steps down at each: $192.90,
-$174.91, $161.92, $144.92. Netflix, The New York Times and Peloton App, which are the three
-the product itself cancels or flags, at the prices the canonical dataset gives them, so the
-arithmetic can be checked against the rows on the screen.
+**A stack of white cards on the canvas,** each rising into place the first time it is seen, over
+one fixed, transparent WebGL canvas (three.js) that stands above the paper of every card and below
+every word. The hero's promise sits beside a clear column where the fourteen marks float; as the
+page scrolls a whirlpool eats them, the mark assembles at its eye, and the calm list forms out of
+it: fourteen rows, three cancelled, the total rolling down **$192.90, $174.91, $161.92, $144.92**,
+the same argument and the same numbers D-Hero made, Netflix, Peloton App and The New York Times.
+Then the benefits, how it works (ghost words, four pills, three steps), four figures on a recessed
+panel, the four facts of trust, the two paths drawn the same size (D2), one plan with three ways to
+pay and the year in the middle, the questions, and a close with a galaxy in the gap under the
+promise. One boot script runs before paint with two fallbacks; with no WebGL the icons and the
+galaxy are still pictures; under reduced motion the story is an ordinary section at its last
+state.
 
-**One number moves on this page and it moves for a visible reason.** A number that changes
-because something on the screen was cancelled is a demonstration; a number that changes on
-its own is a claim, and this product does not make claims at people who already do not trust
-finance apps. A cancelled row goes quiet rather than red: cancelling is a small win, not an
-alarm. Ground: `docs/decisions.md`, D-Hero. Component: `design/kit/landing-story.html`.
+**Its own vocabulary, fenced by prefix.** Every class on the page is `lp-` or `is-`, because the
+app's short names (`.row`, `.card`, `.btn`, `.total`) are already styled under `.landing` too. The
+page speaks with two atoms of its own, `landing-type.css` and `landing-button.css` (the pill, its
+quiet twin, and the swap button whose circle erases its own label), and scales fluidly, so its
+sizes are `clamp()` literals declared once as locals in `landing-shell.css`. Colour is never a
+literal: every shade is a role or a share of one, and the one role the page added is
+`--tone-shade` (see Elevation). The shaders carry the petrol primitives as numbers, because a
+shader cannot read a custom property, and the pin is what makes that safe.
+
+**The way in is one panel in three steps** (P17): choose, email, sent. At its top the mark on a
+dotted orbit with six of the fourteen tiles going round it, turning into an envelope when the link
+is sent; Google as the page's pill at full width, email as the quiet twin, the field a single pill
+whose label rises out of the way. On the landing a plain click on any link to sign in or to get
+started opens it in a native `<dialog>` over the page, which holds still under it; everywhere else
+the same card stands on its own page, `.lp-gate`. The links stay links, so a new tab or a page with
+no script still arrives. All of it is `landing-auth.css`, scoped to `.landing`, light in both
+themes like the page it opens over.
+
+**What it replaced.** From 2026-08-14 to 2026-09-25 the page carried D-Hero's round window, its
+eight strands and its conductor: a field of fourteen app squares drifting on three bands under the
+example's total, and a cut list further down where scrolling cancelled three rows and the total
+stepped down. It went with `landing-orbit.css`. **One number moves on this page and it moves for a
+visible reason** still holds word for word: the total rolls only because rows were cancelled in
+front of the reader, and a cancelled row goes quiet rather than red. Ground: `docs/decisions.md`,
+P16 and P17, and D-Hero before them. Components: `design/kit/landing-shell.html` and the eleven
+public-page organisms beside it, and `design/kit/landing-auth.html`.
+
+### The locked list (D-Gate, P31 to P34)
+
+The block a free person meets after the free bank scan (D-Gate): the scan returns the count, the
+total and three names, and every other row is counted, summed and not named. **Since P31 the
+server keeps no name it does not show**, so there is nothing behind the block to uncover, and the
+block is the only place the withheld rows appear: one per list, on Home and on the reveal, after the
+named groups.
+
+**It speaks the landing's language since P34**, on the founder's word ("как на хоумпейдж, там более
+визуально красиво"), and borrows exactly what makes that page read as Tendd: the dotted eyebrow
+("Tendd Pro"); the count in petrol at the Display size with its unit beside it, and under the sum a
+row of small squares, one per subscription, the named ones filled; the hero's floating tiles as a
+small stage over the landing's dotted field, one petrol tile with the lock, one blank, one out of
+focus, with the amounts the scan kept in glass chips (none on the reveal, D1); the landing's card
+shadow and 24px radius; and the pill buttons, "Get Tendd Pro" with the travelling arrow beside "Add
+them yourself". One slow float, stopped under reduced motion. The stage is `aria-hidden`, because
+the heading says it in words. Past the desktop point on the app's wide screens the words stand left
+and the stage right; on a phone and on the reveal, whose flow is one reading column, the stage
+comes first. Past 900 on Home the shell orders it with the groups it completes (U17).
+
+**Against the One Voice Rule, read off the code rather than argued.** The block spends petrol on its
+count and its front tile, in the same zone as its filled action. The rule says a screen with two
+petrol objects competing has failed it; the product took this on the founder's decision (P34) and
+did not amend the rule. It is recorded here as the one place the code and the rule disagree, for
+the founder to settle, and not resolved by this document.
 
 ### Patterns (a level above the components)
 
@@ -814,6 +943,14 @@ on the primary action, the current selection and the trust line "and nowhere els
 the fourth, and it is an exception rather than a fourth job: the mark is an identity, never an
 accent, and it therefore never appears inside a screen's content. It lives in the app bar, in the
 tab, and on a home screen.
+
+**On the public page, since 2026-09-26 (P16).** The mark stands at 28px in the landing's bar (26
+on a phone) beside the word at `--type-title`, at 2.5rem on the curtain that lifts once per load,
+at 3.5rem in the still rings of the close, and at the eye of the auth panel's orbit (P17), where it
+turns into an envelope when the link is sent. The footer still sets the word in `.large`. Every one
+is crop A and every one is chrome on a page pinned light, so the rules above hold untouched; the
+sizes are the landing's own and are set in its files, which place the lockup rather than redraw
+it.
 
 **The mark is not the merchant tile.** `.logo` is DATA, the person's own Netflix rendered as
 Netflix, 111 places across 21 pages, and it may be any colour in the world because the colour is

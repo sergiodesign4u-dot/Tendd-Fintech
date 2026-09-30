@@ -86,11 +86,14 @@ function selectorsOf(css) {
   let m;
   /* only inside selector position: everything before a { on a rule line. Cheap
      and sufficient, because a class name in a declaration value is not a thing. */
+  /* EVERY HEAD IN A BLOCK, 2026-09-30, not only the first: a rule nested in
+     `@media { @container { .a:hover {` has three heads before its one body, and
+     reading the first alone called `.lp-sign` undefined on the Light 2 landing. */
   stripped.split('}').forEach(block => {
-    const head = block.split('{')[0];
-    if (!head) return;
-    while ((m = re.exec(head)) !== null) out.add(m[1]);
-    re.lastIndex = 0;
+    block.split('{').slice(0, -1).forEach(head => {
+      while ((m = re.exec(head)) !== null) out.add(m[1]);
+      re.lastIndex = 0;
+    });
   });
   return out;
 }
@@ -108,7 +111,9 @@ const systemDefined = new Set(defined);
 const chrome = selectorsOf(read('design/_screen.css'));
 chrome.forEach(c => defined.add(c));
 /* classes written by the two scripts a screen loads, never by a stylesheet */
-const SCRIPTED = new Set(['is-current', 'is-open', 'is-hidden']);
+/* + lp-ledger-head, 2026-09-30: no stylesheet selects it, design/landing.js finds the
+   story's ledger by it (the product's motion.ts, bundled). */
+const SCRIPTED = new Set(['is-current', 'is-open', 'is-hidden', 'lp-ledger-head']);
 SCRIPTED.forEach(c => defined.add(c));
 
 /* --- per-screen scan ------------------------------------------------------ */
@@ -163,8 +168,10 @@ colour.forEach(file => {
   const out = hrefs.filter(h => !/^(#|https?:|mailto:)/.test(h));
   const toGrey = out.filter(h => h.includes('wireframes/'));
   const broken = out.filter(h => {
-    const target = path.resolve(ROOT, 'design', h.split('#')[0]);
-    return h.split('#')[0] && !fs.existsSync(target);
+    /* a query is read by the page's script (sign-in.html?path=bank, P9), not a file */
+    const f = h.split('#')[0].split('?')[0];
+    const target = path.resolve(ROOT, 'design', f);
+    return f && !fs.existsSync(target);
   });
   if (toGrey.length || broken.length) linkRows.push({ file, toGrey, broken });
 

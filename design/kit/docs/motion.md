@@ -49,6 +49,13 @@ is one page's private language, and the other 54 screens do not speak it.**
 `landing-orbit.css` declares them at line 1940, inside `@supports`, on
 `.landing .lp-orbit.lp-story.fromcircle .storypin`:
 
+(**Synced from the product, 2026-09-30 (P16).** That file was deleted on 2026-09-26 with Light 2.
+The four curves had already moved to `tokens.css` at stage 11 and the app reads them there; the
+new public page declares its own motion as locals of the page in `landing-shell.css`
+(`--lp-ease`, `--lp-ease-expo`, `--lp-spring`, `--lp-hover-t`), because it is the one fluid,
+scroll-driven surface and its curves are facts about it. The census below is the one of
+2026-08-16 and is kept as that.)
+
 | Curve | Value | Job, in the file's own words |
 |---|---|---|
 | `--ease-arrive` | `cubic-bezier(0.16, 1, 0.3, 1)` | expo-out. Covers the distance early and spends the rest closing the last few pixels. **Everything that comes ON uses it** |

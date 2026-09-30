@@ -1,744 +1,132 @@
 /* ============================================================================
    Landing steps - organism
-   The "How Tendd works" section: three ordinals on one rail, and under each of
-   them the product itself at a small size, doing the step the words describe.
+   "How Tendd works": the ghost words sliding past each other with the scroll,
+   the heading beside its lede, four pills that spring in, and the three steps
+   as full-width rows that answer a pointer. Rewritten 2026-09-26 for Light 2
+   (P16).
 
-   REBUILT 2026-08-15, SAME DAY, ON THE FOUNDER'S SECOND LOOK: "так себе... ети
-   цифирки маленькие ну просто кошмар". The first cut was three cards, each with
-   a 26px marker box on its top border and a washed grey well inside. Two things
-   were wrong with it and only one of them was the number.
-
-     1. THE ORDINAL WAS A FOOTNOTE. --type-meta inside a hairline box, hung on a
-        card's corner. A three-step sequence is the section's spine, and its
-        spine was set at the size of a hint. It is now --type-step, the scale's
-        own new step, set solid at 800 and tracked to -0.03em: the first thing
-        the eye lands on in each column.
-     2. THE CARD WAS THE LAZY CONTAINER. Three identical boxes, each holding a
-        picture-shaped grey rectangle, is the shape every SaaS page has; and
-        putting a surface (the picture) inside a surface (the card) is a card
-        inside a card. The card is GONE. What is left is the rail, the ordinal,
-        the words on the canvas, and exactly ONE surface per column - a small
-        piece of the real product, which is the only thing here that deserves to
-        be raised off the page.
-
-   THE RAIL IS THE SECTION'S SENTENCE. A hairline runs at the ordinals' own
-   mid-line, is interrupted by each numeral (which carries the canvas behind it
-   and punches its own hole), and ENDS AT ITS OWN COLUMN'S EDGE - since
-   2026-08-17, by the founder's mark on a screenshot, with the three ends drawn
-   on it. Read across, it is `1 ---- 2 ---- 3` at three equal lengths rather than
-   one road passing through: each step carries its own rule, and the rule ends
-   where the step's own block ends. The intro promises "three steps, a few
-   minutes"; the geometry says the same sentence before the words do, and it now
-   says THREE rather than one.
-
-   THE THREE PICTURES ARE TRUE, WHICH IS THE TASTE DECISION THAT SURVIVED.
-     1. Connect or add     eight tiles: seven real provider marks and the plus,
-                           which is `.logo` in its initials mode. The two doors
-                           of D2 and the "400+ services" of the paragraph, drawn
-                           rather than claimed.
-     2. See it all, calmly THE LIST, with real names and real amounts from the
-                           canonical dataset - not skeleton bars. Grey bars are
-                           what a page shows when it has nothing to show; this
-                           product has fourteen real rows and shows three.
-     3. Cancel and save    THE SAME LIST as step 2, one row later: Netflix has
-                           gone quiet and wears the canonical Cancelled chip
-                           where its amount was. Steps 2 and 3 are one list at
-                           two moments, so the section's third picture is the
-                           second picture's consequence.
-   No new strings anywhere: the names and the amounts are the canonical dataset
-   in voice/docs/microcopy.md, the chip label is that file's own Cancelled, and
-   all three pictures are aria-hidden. Petrol keeps its four jobs - nothing
-   here is an action, a selection or the trust line, so nothing here is petrol.
+   THE GHOST WORDS are decoration and are hidden from assistive technology: they
+   repeat the three step titles in outline grey, with one word in ink and one in
+   petrol, and the page script moves the two rows in opposite directions.
 
    Reads
-     colour   --bg-page, --bg-surface, --line-container, --line-divider,
-              --shadow, --text-primary, --text-muted
-     spacing  --space-0, 8, 16, 24, 32, 48
-     geometry --radius
-     type     --type-step, --type-title, --type-body
-   Hosts     .logo, .amt, .chip at their own sizes; this file declares the boxes
-             they stand in and repaints none of them.
-   Owns      .lp-steps (the grid), .lp-step (the column and its rail),
-             .sord (the ordinal), .sdemo (the one surface), .drow, .drow .name
-   Page      design/kit/landing-steps.html
-   Stands on 1 coloured page and 1 grey one - the landing in each corpus, which is
-   the whole of it. Recounted 2026-08-17 by `design/kit/screens/counts.cjs`; the
-   sentence carried no number until that day, and a count with no number is the
-   one shape the instrument cannot check.
+     colour   --line-container, --text-primary, --text-action, --bg-selected,
+              --bg-action, --text-on-action, --bg-surface, --text-muted, --tone-shade
    ============================================================================ */
 
-/* ---- the columns -----------------------------------------------------------
-   Its own grid and not `.grid`, and the reason was rewritten on 2026-08-17 when
-   the founder trimmed the rail. It used to be the bridge: the rail crossed the
-   gap, so this file had to KNOW the gap, which `.grid`'s auto-fill does not
-   expose. That reason is gone with the bridge, and the one underneath it is the
-   one that was always the stronger of the two: these are STEPS, so the count is
-   three or it is one, never the two-plus-one that an auto-fill grid lands on
-   when the container happens to fit two. `.grid` fills by a column floor; a
-   numbered sequence cannot wrap. One column below the point, three above it,
-   and the point is --bp-desktop's literal (56.25rem) read off `body`, which is
-   the page container base.css declares. */
-.landing .lp-steps {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-48);
-  /* the rail is the next heading level down from the section's own name, and
-     it was arriving 20px under the lead, which is the gap BETWEEN two lines of
-     one paragraph. More space above a heading than below it: 48 above the rail,
-     24 under each numeral. */
-  margin-top: var(--space-48);
+.landing .lp-how .lp-wrap { padding-top: clamp(2.5rem, 5vw, 4rem); }
+.landing .lp-gwords { padding: clamp(2.5rem, 5vw, 4.5rem) 0 0; pointer-events: none; user-select: none; overflow: hidden; }
+.landing .lp-g-row {
+  display: flex; width: max-content; gap: .3em; white-space: nowrap; will-change: transform;
+  font-size: clamp(4.2rem, 13vw, 13.5rem); font-weight: 800; letter-spacing: -.05em; line-height: .9;
+  color: var(--line-container);
 }
+.landing .lp-g-row + .lp-g-row { margin-top: .02em; }
+.landing .lp-g1 .lp-gk { color: var(--text-primary); }
+.landing .lp-g2 .lp-gk { color: var(--text-action); }
+
+.landing .lp-how-head {
+  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 1.5rem clamp(2rem, 6vw, 6rem); align-items: end;
+}
+.landing .lp-how-head .lp-display { margin-top: 1.25rem; }
+
+/* ---- the pills ------------------------------------------------------------ */
+.landing .lp-pills { display: flex; gap: clamp(.5rem, 1vw, .9rem); margin-top: clamp(3rem, 6vw, 5rem); flex-wrap: nowrap; }
+.landing .lp-pill {
+  flex: 1 1 auto; display: flex; align-items: center; justify-content: center;
+  min-height: clamp(5rem, 9vw, 8.5rem); padding: 0 clamp(1.25rem, 2.6vw, 2.5rem); border-radius: 999px;
+  font-size: clamp(1.125rem, 2.1vw, 2.1rem); font-weight: 600; letter-spacing: -.03em; white-space: nowrap;
+  transition: transform .7s var(--lp-spring), opacity .5s var(--lp-ease);
+  --i: 0;
+}
+.landing .lp-pill:nth-child(2) { --i: 1; }
+.landing .lp-pill:nth-child(3) { --i: 2; }
+.landing .lp-pill:nth-child(4) { --i: 3; }
+.landing .lp-p1 { background: var(--bg-selected); color: var(--text-primary); }
+.landing .lp-p2 {
+  background: var(--bg-action); color: var(--text-on-action);
+  box-shadow: 0 20px 40px -24px color-mix(in srgb, var(--bg-action) 80%, transparent);
+}
+.landing .lp-p3 {
+  background: var(--bg-surface); color: var(--text-action);
+  box-shadow: inset 0 0 0 1px var(--line-container), 0 16px 30px -24px color-mix(in srgb, var(--tone-shade) 30%, transparent);
+  flex: 0 0 auto; aspect-ratio: 1.5; padding: 0;
+}
+.landing .lp-p3 .lp-ico { width: clamp(1.75rem, 3vw, 2.75rem); height: auto; stroke-width: 1.6; }
+.landing .lp-p4 { background: transparent; color: var(--text-muted); box-shadow: inset 0 0 0 1.5px var(--line-container); }
+@media (prefers-reduced-motion: no-preference) {
+  .landing:where(.lp-js) .lp-pills .lp-pill { opacity: 0; transform: translateY(46px) scale(.82); }
+}
+.landing .lp-pills.is-in .lp-pill {
+  opacity: 1; transform: none;
+  transition: transform 1000ms var(--lp-spring), opacity 500ms var(--lp-ease);
+  transition-delay: calc(var(--i) * 95ms);
+}
+.landing.lp-noreveal .lp-pills .lp-pill { opacity: 1; transform: none; }
+@media (hover: hover) and (pointer: fine) {
+  @container (min-width: 47.5rem) {
+    .landing .lp-pills.is-in .lp-pill:hover {
+      transform: translateY(-2px) scale(1.015);
+      transition: transform var(--lp-hover-t) var(--lp-ease), opacity .5s var(--lp-ease);
+      transition-delay: 0ms;
+    }
+  }
+}
+
+/* ---- the three steps ------------------------------------------------------ */
+.landing .lp-steps { margin-top: clamp(3rem, 6vw, 5rem); background: var(--lp-sep) bottom / 100% 1px no-repeat; padding-bottom: 1px; }
 .landing .lp-step {
-  position: relative;
-  margin: var(--space-0);
-  min-width: 0;
+  position: relative; isolation: isolate;
+  display: grid; grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1fr) 3.5rem;
+  gap: 1rem 2rem; align-items: center;
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(.5rem, 1.2vw, 1.25rem);
+  background: var(--lp-sep) top / 100% 1px no-repeat;
 }
-
-/* ---- the rail --------------------------------------------------------------
-   Drawn per column rather than across the section, because a section-wide line
-   is only true while the columns are side by side: stacked, it would be a line
-   above the first step and nothing above the other two. Per column it is right
-   in both layouts, and since 2026-08-17 the wide layout adds NOTHING to it: one
-   rail per column, from the column's left edge to its right edge, at both
-   widths. The block at the foot of this file carries the founder's reason.
-
-   20px is half of --type-step's 40px line box, which is where the numeral's own
-   middle is. It is geometry derived from one token and it is written as the
-   literal it computes to, the way every other px in this system is.
-
-   --line-container AND NOT --line-divider, measured rather than assumed. The
-   divider role is --hairline-soft (#eef2f3) and the page's canvas is #eef3f4:
-   one point apart, so the first cut of this rail rendered INVISIBLE and the
-   three numerals floated with nothing between them. A divider is the line
-   BETWEEN two things inside a surface; this is a line ON the canvas, which is
-   the container role's own job, and at #e4e9ea it reads. */
+.landing .lp-steps li:nth-child(2) .lp-step { --d: 90ms; }
+.landing .lp-steps li:nth-child(3) .lp-step { --d: 180ms; }
 .landing .lp-step::before {
-  content: "";
-  position: absolute;
-  left: var(--space-0);
-  right: var(--space-0);
-  top: 20px;
-  border-top: 1px solid var(--line-container);
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 1rem;
+  background: var(--bg-selected); opacity: 0; transform: scaleY(.94);
+  transition: transform var(--lp-hover-t) var(--lp-ease), opacity var(--lp-hover-t) var(--lp-ease);
 }
-
-/* ---- the ordinal -----------------------------------------------------------
-   In flow, at the head of its column, with the canvas behind it so the rail
-   stops at the numeral instead of striking through it. `width: max-content`
-   keeps that background exactly the size of the digit plus the air after it;
-   a block-level background would paint over the whole rail.
-
-   --text-muted AND NOT --text-primary, which is the one place this section
-   pulls back. At 40px and weight 800 in full ink the ordinal outweighed "How
-   Tendd works" above it, and a step's number louder than the section's name is
-   a hierarchy upside down. Muted keeps every pixel of the size the founder
-   asked for and gives the heading its rank back: big and quiet is the whole
-   register of this language. */
-.landing .lp-step .sord {
-  display: block;
-  position: relative;
-  z-index: 1;
-  width: max-content;
-  max-width: 100%;
-  margin: var(--space-0) var(--space-0) var(--space-24);
-  padding-right: var(--space-24);
-  background: var(--bg-page);
-  font-size: var(--type-step);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
+.landing .lp-step .lp-n { font-size: .875rem; font-weight: 600; color: var(--text-action); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.landing .lp-step h3 { font-size: clamp(1.75rem, 3.4vw, 3.25rem); font-weight: 700; letter-spacing: -.035em; line-height: 1; }
+.landing .lp-step .lp-body { max-width: 44ch; }
+.landing .lp-step .lp-go {
+  justify-self: end; width: 3rem; height: 3rem; border-radius: 50%;
+  display: grid; place-items: center;
+  box-shadow: inset 0 0 0 1px var(--line-container); color: var(--text-action);
+  transition: transform var(--lp-hover-t) var(--lp-ease), background-color .6s var(--lp-ease), color .6s var(--lp-ease);
 }
-
-/* ---- the one surface -------------------------------------------------------
-   A piece of the product, raised off the canvas: the same border, radius and
-   shadow a real container has, because it is standing in for one. A fixed
-   height and not a min-height, so the three headings under it stand on one line
-   across the section: three rows of 64 plus two hairlines is 194, and the tile
-   grid of step one centres itself inside the same box.
-
-   `overflow: hidden` is load-bearing rather than tidy: the rows run edge to
-   edge, so without it the first row's corners would square off the panel's. */
-.landing .lp-step .sdemo {
-  display: grid;
-  align-content: center;
-  height: 194px;
-  margin: var(--space-0) var(--space-0) var(--space-24);
-  border: 1px solid var(--line-container);
-  border-radius: var(--radius);
-  background: var(--bg-surface);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-/* ---- a row -----------------------------------------------------------------
-   The product's own row at the product's own rhythm: the mark, the name that
-   takes what is left, the amount or the chip at the end. 64px tall, which is
-   the real row's 56 floor plus the air a picture wants. */
-.landing .lp-step .drow {
-  display: flex;
-  align-items: center;
-  /* 8 AND NOT THE REAL ROW'S 16, and the 40px band that decided it is written
-     here so it is not re-derived. At the desktop point the column is 252px, and
-     a row of 32px mark + 16 + "Spotify Premium" + 16 + $11.99 inside 32px of
-     padding wants 268: the name ellipsised from 900 to 939 and was clean from
-     940 up, which is exactly the "content stopped fitting and the query has not
-     fired" band CLAUDE.md names. Probed at eight widths, both gaps, and 8 is
-     clean at every one of them. It is also the right unit for a miniature: this
-     is a picture of a row at two thirds scale, not a row. */
-  gap: var(--space-8);
-  min-width: 0;
-  padding: var(--space-16);
-}
-.landing .lp-step .drow + .drow { border-top: 1px solid var(--line-divider); }
-.landing .lp-step .drow .name {
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: var(--type-body);
-  font-weight: 600;
-  color: var(--text-primary);
-}
-.landing .lp-step .drow .amt,
-.landing .lp-step .drow .chip { flex: none; }
-/* the cancelled row. IT GOES QUIET PIECE BY PIECE AND NOT BEHIND ONE OPACITY,
-   because an opacity on the row takes the Cancelled chip down with it and the
-   chip is the one thing in that row a person has to be able to read. The mark
-   dims, the name steps back to muted, and the status stays at full strength:
-   that is what a cancelled subscription looks like in the product itself. The
-   name's colour is set on THIS component's own `.name`, which this file
-   declares eleven lines up; no atom is repainted. */
-.landing .lp-step .drow.is-off .logo { opacity: 0.45; }
-.landing .lp-step .drow.is-off .name { color: var(--text-muted); font-weight: 400; }
-
-/* ---- step one's tiles ------------------------------------------------------
-   Eight, in four columns, which is the same eight the aperture above spins and
-   is as many marks as a 262px column holds at the point. They sit on the panel
-   with no row chrome, because this picture is a CHOICE and not a list. */
-.landing .lp-step .sdemo.doors { padding: var(--space-24); }
-.landing .lp-step .sdemo.doors .dgrid {
-  display: grid;
-  /* minmax(0, 56px) and not a flat 56: at the point the column is 252px wide
-     and four flat tiles plus their gaps would be 272, so the track has to be
-     allowed to give. The tiles shrink together and the grid stays four across
-     at every width the section renders at. The tiles themselves are sized by
-     logo.css, with the product's other seven host sizes. */
-  grid-template-columns: repeat(4, minmax(0, 56px));
-  gap: var(--space-16);
-  justify-content: center;
-}
-
-/* ---- the words -------------------------------------------------------------
-   Straight on the canvas. They were inside a card and the card said nothing
-   the column was not already saying. */
-.landing .lp-step h3 {
-  margin: var(--space-0) var(--space-0) var(--space-8);
-  font-size: var(--type-title);
-}
-.landing .lp-step p {
-  margin: var(--space-0);
-  font-size: var(--type-body);
-  color: var(--text-muted);
-}
-
-/* ---- three columns ---------------------------------------------------------
-   --bp-desktop's literal. The gap drops from 48 to 32 because side by side the
-   columns already separate themselves, and 32 is what the rail has to bridge. */
-@container (min-width: 56.25rem) {
-  .landing .lp-steps {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-32);
-  }
-  /* THE RAIL STOPS AT ITS OWN BLOCK, AND IT REACHED ACROSS THE GAP UNTIL
-     2026-08-17. Founder, with the three ends marked on a screenshot: "сепаратор
-     би сделал би макс длину до конца блока 1 2 3".
-
-     The rule that was here read `right: calc(-1 * var(--space-32))` on every
-     column but the last, and its argument was that three rails bridged into one
-     road. What it actually drew is what the screenshot shows: the first two
-     lines run past their own column and stop against the NEXT numeral, so each
-     rail ends on somebody else's step and only the third ends on its own. That
-     is not one road, it is three lines of two different lengths, and the eye
-     reads the gap-crossing as a tie between 1 and 2 rather than as a rail under
-     1.
-
-     Now all three end at their own column's right edge, which the base rule
-     above already says (`left: 0; right: 0`) - so the wide layout adds nothing
-     to the rail at all and this block is only about the columns and the gap.
-     The last column's own reason survives unchanged and is now the reason for
-     all three: a rail running past its block is a road to nowhere. */
-}
-
-/* ---- the entrance ----------------------------------------------------------
-   The rail and the three numerals are ALREADY THERE and never move: the
-   structure stands, and the content arrives into it. That is why the animation
-   is on the panel and the words and not on the column - a staggered column
-   would carry its own rail with it, and three rails at three heights is a
-   broken line for as long as the scroll lasts.
-
-   `cover` and not `entry` for the reason landing-orbit.css measured: an entry
-   range against the element's own height is a pop, a cover range is a rise.
-   THE CURVE IS --ease-arrive SINCE 2026-08-16, and until that day it was
-   this same expo-out written out by hand, here and in three sibling files. A curve
-   declared as a custom property on one component's subtree cannot be read from
-   another, so four of the five rebuilt blocks of this page spelled one number
-   themselves. Stage 11 moved it to tokens.css and the debt is closed. */
-@supports (animation-timeline: view()) {
-  .landing .lp-step .sdemo,
-  .landing .lp-step h3,
-  .landing .lp-step p {
-    animation-name: stepin;
-    animation-fill-mode: both;
-    animation-timing-function: var(--ease-arrive);
-    animation-timeline: view();
-    animation-range: cover 0% cover 26%;
-  }
-  .landing .lp-step:nth-child(2) .sdemo,
-  .landing .lp-step:nth-child(2) h3,
-  .landing .lp-step:nth-child(2) p { animation-range: cover 6% cover 32%; }
-  .landing .lp-step:nth-child(3) .sdemo,
-  .landing .lp-step:nth-child(3) h3,
-  .landing .lp-step:nth-child(3) p { animation-range: cover 12% cover 38%; }
-}
-@keyframes stepin {
-  from { opacity: 0; transform: translate3d(0, 1.5rem, 0) scale(0.97); }
-  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-}
-/* base.css's global guard zeroes durations, but a scroll-driven animation has
-   no duration to zero: the kill has to be by name */
-@media (prefers-reduced-motion: reduce) {
-  .landing .lp-step .sdemo,
-  .landing .lp-step h3,
-  .landing .lp-step p { animation-name: none; }
-}
-
-/* ---- step one's vignette moves, and it is the only loop in the product -----
-   Founder, 2026-08-17: "сначала кнопка по центру квадратик и плюсом нажимается
-   и появляются аппликейшены по очереди таким образом и плюсик в конце потом
-   плюсик увеличивается и снова анимация проигрывается, короче ее надо сделать
-   loop".
-
-   WHAT IT SHOWS, AND IT IS THE STEP'S OWN SENTENCE RATHER THAN DECORATION. The
-   heading under this tile says "Connect or add" and the paragraph says "add your
-   subscriptions yourself from 400+ services". The still picture showed the
-   RESULT of that and never the act, so the one control in the grid, the plus,
-   read as an eighth logo. The loop shows the act: the plus is the only thing on
-   the panel, it is pressed, seven services arrive in the order a person would
-   add them, and the plus ends up where the still picture always had it. It is
-   the same rule the four verbs were chosen under, on the motion page: THE
-   MOVEMENT ALWAYS HAS A CAUSE. Here the cause is the press and the effect is the
-   grid filling, which is exactly what the block is claiming in words.
-
-   NINE SECONDS, AND ALMOST FOUR OF THEM ARE THE STILL PICTURE. The cycle is a
-   literal in this file by the system's own rule for a value with one consumer,
-   and it is the second loop this repository has written: the crop page's
-   signature runs eight. The shape of the nine matters more than the number.
-   From 2.97s to 6.75s all eight tiles stand exactly as the static markup draws
-   them, which is 42 per cent of the cycle, so the thing a reader sees most of
-   the time is the finished grid and the movement is the minority state. A loop
-   whose resting state is the majority is the difference between a vignette and
-   a carousel, and this product's first principle is calm over clever.
-
-   THE TWO DISTANCES ARE COMPUTED FROM THE GRID AND NOT MEASURED OFF A
-   SCREENSHOT. The plus is the eighth tile, column 4 of row 2, and the centre of
-   a 4-by-2 grid is 1.5 tiles and 1.5 gaps to its left and half a tile and half a
-   gap above it. A percentage on `translate` resolves against the element's own
-   border box, so `-150%` IS one and a half tiles whatever the track computes to,
-   and the track here is `minmax(0, 56px)` and does shrink. The gap reads
-   `--space-16` rather than 16, so a change to the grid's air moves the plus with
-   it. Nothing in this rule knows a pixel of the layout.
-
-   `translate` AND `scale` AND NOT `transform`, because that is the pair
-   `logo.css` already animates on this same element for the lift, and the two
-   would overwrite each other written as a shorthand. An animation outranks the
-   transition declared there, so the lift is not fighting this and the tiles in
-   this grid have no hover host anyway: `.sdemo.doors` is a div, and the lift is
-   scoped to `.door:hover`, which is a different class.
-
-   `backwards` IS LOAD-BEARING AND IT IS THE WHOLE REASON THE FIRST CYCLE IS NOT
-   WRONG. Each tile waits out a delay of up to 2.7s before its animation starts,
-   and with the default fill mode it would render its static self, visible, for
-   that whole time and then blink out the moment the animation began. `backwards`
-   makes the delay show the 0% frame, which is the hidden one. There is no
-   `forwards`, because an infinite animation has no end to fill.
-
-   THE REDUCED-MOTION KILL IS BY NAME, in the block above rather than by the
-   global guard, and here the reason is stronger than it is for the entrance.
-   `base.css` zeroes the duration and forces one iteration, which would land this
-   loop on its LAST frame: the plus alone in the middle and seven services gone.
-   That is not a stiller version of the picture, it is a different picture with
-   the content removed. With the name killed the tiles render exactly as the
-   markup writes them, which is the still vignette this block shipped with.
-
-   IT RUNS OFF SCREEN TOO, and that is accepted rather than unnoticed. There is
-   no CSS that pauses a time-driven animation on visibility; `animation-timeline`
-   binds progress to scroll, which is a different movement and not this one. The
-   cost is a compositor tick on eight elements that browsers already throttle in
-   a background tab, against a script on a page that would otherwise need none. */
-.landing .lp-step .sdemo.doors .dgrid .logo {
-  animation-duration: 9s;
-  animation-iteration-count: infinite;
-  animation-fill-mode: backwards;
-  animation-timing-function: var(--ease-arrive);
-}
-/* the seven services. One keyframes for all of them and the ORDER is the delay:
-   150ms apart, starting at 1.8s, which is the frame the plus reaches its slot.
-   They leave in the order they arrived, because a delay shifts a cycle rather
-   than one end of it, and first in first out is what a list does anyway. */
-.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(-n+7) {
-  animation-name: doorstile;
-}
-.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(1) { animation-delay: 1800ms; }
-.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(2) { animation-delay: 1950ms; }
-.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(3) { animation-delay: 2100ms; }
-.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(4) { animation-delay: 2250ms; }
-.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(5) { animation-delay: 2400ms; }
-.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(6) { animation-delay: 2550ms; }
-.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(7) { animation-delay: 2700ms; }
-/* the plus, on the same nine seconds and no delay, so it owns the clock the
-   seven are read against */
-.landing .lp-step .sdemo.doors .dgrid .logo:nth-child(8) {
-  animation-name: doorsplus;
-}
-
-@keyframes doorstile {
-  0%,  0.01% { opacity: 0; scale: 0.6; }
-  3%         { opacity: 1; scale: 1; }
-  55%        { opacity: 1; scale: 1; }
-  58%, 100%  { opacity: 0; scale: 0.6; }
-}
-@keyframes doorsplus {
-  /* alone in the middle of the panel, one third over size */
-  0%, 10% {
-    translate: calc(-150% - var(--space-16) * 1.5) calc(-50% - var(--space-16) / 2);
-    scale: 1.3;
-  }
-  /* the press. Down and back, and it is the shortest move in the cycle for the
-     same reason --dur-press is the shortest duration in the register: quick to
-     take, calm to let go */
-  12% {
-    translate: calc(-150% - var(--space-16) * 1.5) calc(-50% - var(--space-16) / 2);
-    scale: 1.08;
-  }
-  14% {
-    translate: calc(-150% - var(--space-16) * 1.5) calc(-50% - var(--space-16) / 2);
-    scale: 1.3;
-  }
-  /* to its own slot, at its own size, where the static markup has it */
-  20%, 88% { translate: 0 0; scale: 1; }
-  /* and back out, after the last service has gone */
-  97%, 100% {
-    translate: calc(-150% - var(--space-16) * 1.5) calc(-50% - var(--space-16) / 2);
-    scale: 1.3;
+@media (hover: hover) and (pointer: fine) {
+  @container (min-width: 47.5rem) {
+    .landing .lp-step:hover::before { opacity: 1; transform: none; }
+    .landing .lp-step:hover .lp-go {
+      transform: translateX(4px) rotate(-45deg);
+      background: var(--bg-action); color: var(--text-on-action); box-shadow: none;
+    }
   }
 }
-/* ---- the press answers on the panel, in the product's own accent ----------
-   Founder, 2026-08-17: "и при нажатии хочется на заднем фоне какую типа волну
-   пустить в бренд цвет".
 
-   IT IS THE PRESS'S ANSWER AND NOT AN EFFECT, which is the same test the loop
-   itself had to pass. Until now the press was the one beat of the cycle with no
-   consequence on screen: the plus went down and came back up and the grid began
-   filling a fraction later, so the two read as two things that happened rather
-   than as one causing the other. The wave leaves the plus at the frame it is
-   pressed and the first service lands inside it. That is what ties them.
-
-   `--bg-action` AND NOT A LITERAL, and the role is the argument rather than the
-   colour. Petrol has four permitted jobs and the primary action is one of them;
-   this ripple is the primary action of this picture answering a press, so it
-   takes the fill role that answer already has, which also means it is a real
-   colour in both themes with no new token and no pair to keep. `DESIGN.md` puts
-   the brand's own petrol in the chrome; this is not the brand appearing in the
-   content, it is the action's own ink doing the action's own job.
-
-   THE ORIGIN IS THE PANEL'S CENTRE BECAUSE THAT IS WHERE THE PLUS IS. The grid
-   is centred in the panel's content box by `justify-content` and `align-content`
-   and the panel's padding is equal on all four sides, so the content box's
-   centre IS the panel's centre, and the plus is translated to it. `50% / 50%`
-   with a self-centring margin therefore needs no arithmetic and no second
-   number that could drift from the one above.
-
-   140% OF THE PANEL, AND IT IS A COVER RATHER THAN A SIZE. The circle has to
-   reach the far corner of a box that is 194 tall and anywhere from about 250 to
-   about 390 wide, so its radius must beat the diagonal at every one of those. At
-   140% of the width the radius is 175 at the narrow end against a 173 diagonal
-   and 273 at the wide end against 213: the margin grows with the box, which a
-   fixed pixel size would not do.
-
-   `overflow: hidden` ON `.sdemo` IS WHAT MAKES IT A WAVE AND NOT A BLOB. It is
-   already there, declared as load-bearing for the row corners, and it does the
-   second job here for free: the circle is clipped to the panel's rounded
-   rectangle, so what a person sees is colour crossing a surface rather than a
-   disc growing on one. `position: relative` is scoped to `.doors` and not to
-   every `.sdemo`, because only this one has anything to position. */
-.landing .lp-step .sdemo.doors { position: relative; }
-
-/* ---- the press answers with one filled circle -----------------------------
-   REWRITTEN TWICE ON 2026-08-17 AND THIS IS THE THIRD SHAPE. The founder's word
-   both times, and the two rejections are worth keeping because together they say
-   what this panel can carry.
-
-     1. ONE THIN RING at 0.45. Rejected as a sonar ping: correct as a wave,
-        wrong as water. "давай более нежную сделаем как будто капля упала в воду".
-     2. TWO THIN RINGS, a drop's train of fronts. Rejected as well: "мне не
-        нравится эти волны, давай оставим одну и не как линию, а как заполненную,
-        такую на всю карточку круг идет".
-
-   SO THE ANSWER IS NOT A FRONT AT ALL, IT IS A FIELD. A ring, however soft, draws
-   an EDGE, and an edge on a white panel is a shape a person tracks: at any frame
-   the eye has an outline to follow, which is why one ring reads as sonar and two
-   read as ripples somebody counted. A filled circle has no edge to follow at this
-   alpha; what crosses the panel is a change in the ground, and the only thing
-   that reads is that something happened where the plus was pressed. That is what
-   the beat is for.
-
-   0.10 AND NOT 0.26, AND THE AREA IS THE WHOLE REASON. The ring at 0.26 painted a
-   band about a fifth of the circle; this paints all of it. Holding the same
-   apparent weight over five times the area means roughly a fifth of the alpha,
-   and 0.10 of --bg-action on paper is a tint a person feels rather than sees.
-   Measured against the panel's own ground, that is a change of about six values
-   per channel at the peak.
-
-   --ease-arrive, WHICH IS THE ONE THING THAT SURVIVED BOTH REWRITES. The circle
-   is thrown out by the press and the surface takes it back: quick at the centre,
-   slow at the rim. --ease-travel was tried at shape one and its reason, the even
-   curve for a long distance, is a reason about a FRONT crossing a distance. A
-   field has no front. --ease-travel is therefore back to one consumer, and this
-   sentence is why rather than a quiet reversal.
-
-   140% OF THE PANEL, AND IT IS A COVER RATHER THAN A SIZE. The circle has to
-   reach the far corner of a box 194 tall and anywhere from about 250 to 390 wide,
-   so its radius must beat the diagonal at every one of those: 175 against a 173
-   diagonal at the narrow end, 273 against 213 at the wide one. The margin grows
-   with the box, which a fixed pixel size would not do. The `overflow: hidden`
-   already on `.sdemo` for the row corners clips it to the panel's rounded
-   rectangle, so the circle is never seen as a circle.
-
-   THE ORIGIN NEEDS NO ARITHMETIC. The grid is centred in the panel's content box
-   and the padding is equal on four sides, so the content box's centre IS the
-   panel's centre, and that is where the plus is when it is pressed. */
-.landing .lp-step .sdemo.doors { position: relative; }
-.landing .lp-step .sdemo.doors::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  left: 50%;
-  top: 50%;
-  width: 140%;
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  border-radius: 50%;
-  background: var(--bg-action);
-  opacity: 0;
-  pointer-events: none;
-  animation: doorswave 9s infinite var(--ease-arrive);
+/* ==========================================================================
+   WIDTHS
+   ========================================================================== */
+@container (max-width: 60rem) {
+  .landing .lp-pills { flex-wrap: wrap; }
+  .landing .lp-pill { flex: 1 1 40%; }
+  .landing .lp-pill.lp-p3 { flex: 1 1 40%; aspect-ratio: auto; }
 }
-/* the tiles ride above it. `.dgrid` and not each tile, so one stacking context
-   covers all eight and the plus keeps its own animation untouched. */
-.landing .lp-step .sdemo.doors .dgrid { position: relative; z-index: 1; }
-
-/* nothing at all until the plus goes down, and 12% is that frame to the
-   percentage: it is the same 12% `doorsplus` presses at. Out through the corners
-   WHILE the first services are landing, which is the point of the timing: the
-   first tile appears at 1.88s and the circle is still opening until 3.06s, so the
-   wash delivers them rather than preceding them. */
-@keyframes doorswave {
-  0%, 12%      { opacity: 0;    scale: 0.12; }
-  14%          { opacity: 0.10; scale: 0.24; }
-  34%          { opacity: 0;    scale: 1; }
-  34.01%, 100% { opacity: 0;    scale: 0.12; }
+@container (max-width: 53.75rem) {
+  .landing .lp-how-head { grid-template-columns: minmax(0, 1fr); }
+  .landing .lp-step { grid-template-columns: 2.25rem minmax(0, 1fr) auto; align-items: start; column-gap: .75rem; }
+  .landing .lp-step .lp-n { padding-top: .5rem; }
+  .landing .lp-step .lp-body { grid-column: 2 / -1; }
+  .landing .lp-step .lp-go { grid-row: 1; grid-column: 3; }
 }
-
-/* ---- step two browses itself ----------------------------------------------
-   Founder, 2026-08-17: "значит смысл в чем это будет список который двигается,
-   все оставляем так же, просто внутри блока одна подписка уходит вверх, а внизу
-   добавляется другая, будто двигаем список, просматриваем наших подписок".
-
-   IT PASSES THE SAME TEST STEP ONE'S LOOP HAD TO PASS. The heading says "See it
-   all, calmly" and the paragraph under it is about a list a person scrolls. The
-   still picture showed three rows and no reason to believe there were more; the
-   movement is the word ALL, drawn.
-
-   FOUR ROWS IS THE MINIMUM AND THAT IS ARITHMETIC RATHER THAN TASTE. The panel
-   is a three-row window. The moment the top row leaves, the bottom slot is empty
-   and something has to be entering it in the same 600ms - which cannot be the
-   row that is leaving. So the markup gained a fourth, Notion at $8.00, taken from
-   the canonical dataset in voice/docs/microcopy.md rather than invented. With
-   motion off it is clipped by the `overflow: hidden` this panel already declares,
-   which is exactly what an unscrolled list looks like, and the still picture is
-   unchanged to the pixel.
-
-   `align-content: start` IS THE OTHER HALF OF THAT, AND WITHOUT IT THE STILL
-   PICTURE BREAKS. `.sdemo` centres its content, which is a no-op while three rows
-   fill 194px exactly. Four rows are 260, so centred they would hang 33px off both
-   ends and the top row would render cut in half. Start-aligned, the fourth simply
-   falls off the bottom.
-
-   THE ROWS COME OUT OF FLOW SO THAT ONE KEYFRAMES CAN DRIVE ALL FOUR. In flow,
-   each row's rest position differs, so "move up one slot" is a different pair of
-   numbers per row and would need four keyframe blocks that must agree. Absolute
-   and left/right pinned, every row's origin is the same point, the slots are four
-   numbers written once, and the phase is carried by a NEGATIVE `animation-delay`:
-   -6.75s, -4.5s and -2.25s are three quarters, a half and a quarter of the cycle,
-   so at t=0 the four rows already stand at slots 0, 1, 2 and below. No
-   `fill-mode`, no first-cycle special case, and the order on screen at rest is
-   the order in the markup.
-
-   THE SLOTS ARE -1, 64, 129, 194 AND THE -1 IS LOAD-BEARING. Every row carries a
-   top hairline here, including the first, because any of the four can end up in
-   the middle of the stack and a missing separator is the one thing this movement
-   could break. That would put a hairline at the very top of the panel, one pixel
-   under its own border, reading as a double rule. Sliding the whole ladder up by
-   one pixel clips exactly that hairline and nothing else: the row at the top slot
-   loses a line it must not draw, and every row below keeps the line it must.
-
-   THE WRAP IS INSTANT AND IT HAPPENS OFF-PANEL. A row leaves at -66, which is its
-   own height above the top edge, and the next keyframe is a thousandth of a
-   percent later at 194, which is below the bottom edge. Both are outside a box
-   that clips, so the jump cannot be seen; what can be seen is 600ms of four rows
-   moving together and then 1.65s of stillness.
-
-   THE WHOLE BLOCK IS INSIDE `no-preference` RATHER THAN KILLED BY NAME LATER,
-   which is the opposite of how the two movements above are guarded, and the
-   reason is that this one changes LAYOUT and not only motion. Killing the
-   animation alone would leave four absolutely positioned rows stacked on one
-   point. Under reduced motion none of these rules exist at all and the panel is
-   the three-row picture it has always been. */
-.landing .lp-step:nth-child(2) .sdemo { align-content: start; }
-
-@media (prefers-reduced-motion: no-preference) {
-  .landing .lp-step:nth-child(2) .sdemo { position: relative; }
-  .landing .lp-step:nth-child(2) .sdemo .drow {
-    position: absolute;
-    left: var(--space-0);
-    right: var(--space-0);
-    border-top: 1px solid var(--line-divider);
-    animation: drowscroll 9s infinite var(--ease-arrive);
-  }
-  .landing .lp-step:nth-child(2) .sdemo .drow:nth-child(2) { animation-delay: -6.75s; }
-  .landing .lp-step:nth-child(2) .sdemo .drow:nth-child(3) { animation-delay: -4.5s; }
-  .landing .lp-step:nth-child(2) .sdemo .drow:nth-child(4) { animation-delay: -2.25s; }
-}
-/* four beats of 2.25s: 600ms of travel and 1.65s of rest, which is a list being
-   read rather than a list being shuffled. The four numbers are the slots. */
-@keyframes drowscroll {
-  0%,      18.33%  { translate: 0 -1px; }
-  25%              { translate: 0 -66px; }
-  25.001%, 43.33%  { translate: 0 194px; }
-  50%,     68.33%  { translate: 0 129px; }
-  75%,     93.33%  { translate: 0 64px; }
-  100%             { translate: 0 -1px; }
-}
-
-/* ---- step three cancels, in a loop ----------------------------------------
-   Founder, 2026-08-17: "по принципу как второй, но сложнее: по смыслу нам надо
-   показать, что например мы отменяем нетфликс, он canceled становится и уходит
-   вверх, и все двигается вверх, и так по кругу".
-
-   IT IS STEP TWO'S MACHINERY PLUS ONE BEAT, AND THE BEAT IS THE POINT. The
-   scrolling half is the same four slots, the same four numbers, the same negative
-   delays; what this step adds is that the row standing at the TOP changes state
-   before it leaves. Netflix is active, it becomes Cancelled, then it goes. The
-   heading is "Cancel and save" and the still picture could only ever show the
-   result of that sentence: one row already cancelled, with nothing to say when it
-   became so. The loop shows the verb.
-
-   THE TWO ENDS OF A ROW SHARE ONE SLOT, AND WHICH IS VISIBLE IS THE STATE. Every
-   row now carries both its amount and its Cancelled chip. THE CHIP IS THE ONE IN
-   FLOW and the amount lies over it, absolutely placed at the same right edge,
-   which is the way round that keeps the row's geometry still: the chip is the
-   wider of the two, so the space is reserved for the wider one and nothing
-   reflows when the state changes. The other way round - amount in flow, chip
-   over it - would put a chip with a background on top of the name, which is a
-   defect wearing the look of a bug.
-
-   THE STATE IS FOUR PROPERTIES ON THREE ELEMENTS AND NOT ONE OPACITY ON THE ROW,
-   which is this component's own oldest rule: an opacity on the row takes the
-   Cancelled chip down with it, and the chip is the one thing in that row a person
-   has to be able to read. So the mark dims, the name steps back to muted and to
-   400, the amount goes and the chip arrives - four animations that carry the same
-   shape and the same clock, over --dur-state's own two frames.
-
-   THE DELAY IS SET ON THE ROW AND ON ALL OF ITS CHILDREN AT ONCE, `> *`, because
-   `animation-delay` does not inherit and five elements that must agree about
-   which beat they are in cannot be given the number five times without one of
-   them drifting.
-
-   --ease-state AND NOT --ease-arrive, and it is the register's own line: an
-   entrance is a thing appearing, a state change is a thing already on screen
-   saying it heard you. Nothing arrives here. A row that is already in front of
-   you changes what it says about itself.
-
-   THE STILL PICTURE IS UNCHANGED AND THAT IS WHAT THE TWO BASE RULES BUY. Outside
-   the animation the cancelled row hides its amount and every other row hides its
-   chip, which is exactly the markup this block shipped with, `is-off` included.
-   Under reduced motion those two rules are all that applies. */
-.landing .lp-step:nth-child(3) .sdemo { align-content: start; }
-.landing .lp-step:nth-child(3) .drow { position: relative; }
-.landing .lp-step:nth-child(3) .drow .amt {
-  position: absolute;
-  right: var(--space-16);
-  top: 50%;
-  translate: var(--space-0) -50%;
-}
-.landing .lp-step:nth-child(3) .drow:not(.is-off) .chip { opacity: 0; }
-.landing .lp-step:nth-child(3) .drow.is-off .amt { opacity: 0; }
-
-@media (prefers-reduced-motion: no-preference) {
-  .landing .lp-step:nth-child(3) .sdemo { position: relative; }
-  .landing .lp-step:nth-child(3) .sdemo .drow {
-    position: absolute;
-    left: var(--space-0);
-    right: var(--space-0);
-    border-top: 1px solid var(--line-divider);
-    animation: drowscroll 9s infinite var(--ease-arrive);
-  }
-  .landing .lp-step:nth-child(3) .drow .logo { animation: dcancmark 9s infinite var(--ease-state); }
-  .landing .lp-step:nth-child(3) .drow .name { animation: dcancname 9s infinite var(--ease-state); }
-  .landing .lp-step:nth-child(3) .drow .amt  { animation: dcancamt  9s infinite var(--ease-state); }
-  .landing .lp-step:nth-child(3) .drow .chip { animation: dcancchip 9s infinite var(--ease-state); }
-  .landing .lp-step:nth-child(3) .drow:nth-child(2),
-  .landing .lp-step:nth-child(3) .drow:nth-child(2) > * { animation-delay: -6.75s; }
-  .landing .lp-step:nth-child(3) .drow:nth-child(3),
-  .landing .lp-step:nth-child(3) .drow:nth-child(3) > * { animation-delay: -4.5s; }
-  .landing .lp-step:nth-child(3) .drow:nth-child(4),
-  .landing .lp-step:nth-child(3) .drow:nth-child(4) > * { animation-delay: -2.25s; }
-}
-/* the cancel lands at 8% and is done by 10%, which is 720ms into the row's turn
-   at the top and 180ms wide: a state change, not an entrance. It holds until 25%,
-   the frame the row leaves, and resets one thousandth of a percent later while
-   the row is above the panel and clipped. */
-@keyframes dcancmark {
-  0%, 8%        { opacity: 1; }
-  10%, 25%      { opacity: 0.45; }
-  25.001%, 100% { opacity: 1; }
-}
-@keyframes dcancname {
-  0%, 8%        { color: var(--text-primary); font-weight: 600; }
-  10%, 25%      { color: var(--text-muted);   font-weight: 400; }
-  25.001%, 100% { color: var(--text-primary); font-weight: 600; }
-}
-/* THE TWO ENDS HAND OVER, THEY DO NOT CROSS-FADE, and the first cut did cross
-   and looked exactly like the bug it was not: for 180ms "Cancelled" and "$11.99"
-   were both half painted in the same 70 pixels, one word legibly on top of
-   another. Two texts sharing one slot have to take turns. The amount is gone by
-   9.5% and the chip does not begin until then, so there is no frame in the cycle
-   where both are on screen: 135ms out, 135ms in, and the pair is --dur-state's
-   own 150 read as two halves of one exchange rather than as one dissolve. */
-@keyframes dcancamt {
-  0%, 8%        { opacity: 1; }
-  9.5%, 25%     { opacity: 0; }
-  25.001%, 100% { opacity: 1; }
-}
-@keyframes dcancchip {
-  0%, 9.5%      { opacity: 0; }
-  11%, 25%      { opacity: 1; }
-  25.001%, 100% { opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .landing .lp-step .sdemo.doors .dgrid .logo,
-  .landing .lp-step .sdemo.doors::before { animation-name: none; }
+@container (max-width: 40rem) {
+  .landing .lp-pills { flex-direction: column; }
+  .landing .lp-pill,
+  .landing .lp-pill.lp-p3 { flex: none; min-height: 4.5rem; width: 100%; }
+  .landing .lp-pill.lp-p3 { min-height: 3.5rem; }
 }

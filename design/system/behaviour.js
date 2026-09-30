@@ -291,6 +291,10 @@
   }
 
   function build(box) {
+    /* Built once. A second init over the same box (see the rerun note at the
+       foot of this block) would add a second cursor and a second set of
+       listeners to a chart that already has both. */
+    if (typeof box.redraw === 'function') return;
     var pts = parse(box);
     if (pts.length < 2) return;
     var g = geometry(box, pts);
@@ -421,6 +425,15 @@
     for (var i = 0; i < boxes.length; i++) build(boxes[i]);
   }
 
+  /* RERUN, 2026-09-29, P25. A page that loads this file runs it once, which is
+     all a static page ever needed. The product swaps screens without a page
+     load, and a module runs once per session, so a second visit to the trend
+     screen met a chart and a range control this file had never seen: the
+     buttons did nothing, which is the defect the range block below was written
+     to end. Each init is idempotent, so the product may call them again on a
+     screen it has just drawn. Nothing here depends on the list. */
+  (window.tenddRerun = window.tenddRerun || []).push(init);
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
@@ -496,6 +509,8 @@
     for (i = 0; i < groups.length; i++) {
       (function (group) {
         if (!group.querySelector('button[data-view]')) return;
+        if (group.getAttribute('data-wired') === 'range') return;
+        group.setAttribute('data-wired', 'range');
         group.addEventListener('click', function (e) {
           var b = e.target.closest('button[data-view]');
           if (!b || b.disabled || !group.contains(b)) return;
@@ -506,6 +521,8 @@
       })(groups[i]);
     }
   }
+
+  (window.tenddRerun = window.tenddRerun || []).push(init);
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

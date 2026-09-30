@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- THE THEME BEFORE THE FIRST PAINT. Three lines, inline, above the stylesheet
+     on purpose: a switch that runs on DOMContentLoaded leaves one frame of white
+     on every load in the dark theme, and a flash is the most visible thing a dark
+     theme can get wrong. design/_nav.js draws the control and owns the same key. -->
+<script>(function(){try{if(localStorage.getItem('tendd-screen-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+<body>
+
+<!--
+  Help, route /help, the screen behind Settings' "Help and support" and the landing footer's
+  "Help" (which replaced "Careers": there are no jobs). No node number: no design ever drew
+  it. The product closed its G32 with it on 2026-09-30 (P36).
+
+  Added 2026-09-30 when the design repository was brought level with the product. The product
+  region is the product's server render of /help, taken at commit 4158f6c, with its links
+  mapped to design pages (/ to index.html, /contact to contact.html; the mailto stays).
+  Nothing on it is conditional.
+
+  Built from what already exists: the terms' page shape (one reading column, groups with a
+  head) and the promise list for each question and its answer. No new component. Every
+  answer is something the product does, and where the product already says it the answer is
+  that line (the landing's FAQ, the terms, the privacy page): a help page that improvises is
+  where a product quietly contradicts itself, and this audience reads help exactly when it is
+  already worried. Public, like the terms: the people who most need it are the ones who cannot
+  sign in, so it reads neither a session nor a database.
+
+  Assembled from system classes only. This page carries no style of its own: no page-level
+  style block, no style attribute, no class design/system/ does not define. Every string is
+  owned by voice/docs/microcopy.md, section help.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<div class="app flow">
+
+  <header class="appbar">
+    <a class="back" href="index.html">Back</a>
+    <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+  </header>
+
+  <main class="screen">
+    <div class="rows-col">
+
+      <div class="textblock">
+        <h1>Help</h1>
+        <p>Answers to what people ask most, and how to reach a person when these are not enough.</p>
+      </div>
+
+      <section class="group" aria-label="Getting your list">
+        <div class="group-head">
+          <h2>Getting your list</h2>
+        </div>
+        <ul class="promises">
+          <li><strong>Do I have to connect my bank?</strong>No. You can add your subscriptions yourself from 400+ services and get the same calm view. Connecting a bank is one of two ways in, not the price of entry.</li>
+          <li><strong>A subscription is missing</strong>Tendd finds what your bank reports as a repeating charge. Something paid another way, or too new to have repeated yet, will not appear. Add it yourself with Add a subscription, on your list.</li>
+          <li><strong>A subscription is wrong</strong>Open it and choose Edit the details.</li>
+        </ul>
+      </section>
+
+      <section class="group" aria-label="Your bank">
+        <div class="group-head">
+          <h2>Your bank</h2>
+        </div>
+        <ul class="promises">
+          <li><strong>Is connecting my bank safe?</strong>You sign in on your bank's own site, through Plaid, so Tendd never sees your password. The connection is read-only. Tendd cannot move your money, and you can disconnect at any time.</li>
+          <li><strong>My bank says Reconnect needed</strong>Banks ask for this now and then to keep the connection secure. On Your sources, choose Reconnect and sign in to your bank once more. Your list and its history stay as they are.</li>
+          <li><strong>How do I disconnect a bank?</strong>On Your sources, choose Disconnect. Tendd stops reading, the key it held is deleted, and the subscriptions already found stay on your list.</li>
+        </ul>
+      </section>
+
+      <section class="group" aria-label="Cancelling a subscription">
+        <div class="group-head">
+          <h2>Cancelling a subscription</h2>
+        </div>
+        <ul class="promises">
+          <li><strong>Can Tendd cancel subscriptions for me?</strong>Tendd shows you how to cancel, step by step, and that part is free. It does not cancel on your behalf, because that would mean asking for more than read-only access to your money.</li>
+          <li><strong>The service would not let me cancel</strong>On the cancel guide, choose Couldn't cancel? for what to try next.</li>
+        </ul>
+      </section>
+
+      <section class="group" aria-label="Tendd Pro">
+        <div class="group-head">
+          <h2>Tendd Pro</h2>
+        </div>
+        <ul class="promises">
+          <li><strong>What does Tendd Pro add?</strong>Every name in your bank scan, a bank connection that keeps your list up to date, history and trends, alerts for a trial ending and a charge coming up, a direct link to each cancel page, and your history as a spreadsheet.</li>
+          <li><strong>How do I cancel Tendd Pro?</strong>In Settings, under Manage plan, in one step and with no questions. Tendd Pro stays open until the end of the period you paid for, and nothing more is charged.</li>
+          <li><strong>I was charged by mistake</strong>Write to privacy@tendd.co within 14 days of the charge and we refund it in full.</li>
+        </ul>
+      </section>
+
+      <section class="group" aria-label="Signing in">
+        <div class="group-head">
+          <h2>Signing in</h2>
+        </div>
+        <ul class="promises">
+          <li><strong>The sign-in email did not arrive</strong>Look in the spam folder, and check that the address on the sign-in page is the one you use. You can ask for a new link after a minute.</li>
+          <li><strong>The link says it has expired</strong>A sign-in link works once. Ask for a new one on the sign-in page, and open the newest.</li>
+        </ul>
+      </section>
+
+      <section class="group" aria-label="Your data">
+        <div class="group-head">
+          <h2>Your data</h2>
+        </div>
+        <ul class="promises">
+          <li><strong>Download or delete everything</strong>Both are on Data and privacy, and both are free. Deleting removes your account and keeps no copy.</li>
+        </ul>
+      </section>
+
+      <section class="group" aria-label="Still stuck">
+        <div class="group-head">
+          <h2>Still stuck</h2>
+        </div>
+        <p class="muted lead">Write to <a href="mailto:hello@tendd.co">hello@tendd.co</a>. One person reads every letter and answers it.</p>
+      </section>
+
+      <p class="muted ruled"><a href="contact.html">Every way to reach us</a></p>
+
+    </div>
+  </main>
+
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

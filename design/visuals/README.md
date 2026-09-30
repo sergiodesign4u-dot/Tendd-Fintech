@@ -124,6 +124,20 @@ to be the permanent answer for them. The other four have a real glyph and should
 and it unblocks the whole sample assembly. The risk is named honestly: a wrong logo reads as
 careless where a missing one reads as unfinished, so this list does not get to quietly expire.
 
+**Superseded 2026-09-30: the fourteen are now the brands' own marks.** The product replaced the
+drawn set on 2026-09-26 (commit `dc0633d`, "The fourteen marks are the brands' own, not drawings of
+them"), and the files in `logos/` are its files, copied here when this repository came level with
+it. Each keeps this file's specification, a full-bleed 64 by 64 square in the brand's colour with
+no fixed size, no radius and no raster, and holds the brand's own published glyph centred in an
+inner box sized to that mark, from 36 to the full 64 units (read off the files): Simple Icons (CC0 for the drawing) for twelve, Wikimedia Commons for Disney+
+and The Economist. So the eight monograms and approximations listed above are replaced, Strava is
+both chevrons again at their real offset, and the argument that a monogram might be the permanent
+answer for the four wordmark-only brands did not survive contact with their real marks. What the
+drawing licence does not cover is the trademark: the product's footer now says "Tendd is not
+affiliated with the services shown. Their names and logos belong to their owners.", and whether
+that is enough for a marketing page that animates the marks is the product's open gap G49, for a
+lawyer. The paragraphs above are the record of the drawn set and are kept as that.
+
 ### The fallback is not optional
 
 The product ships 400+ presets (node 1.4) and connects to whatever a bank returns. Fourteen files

@@ -814,6 +814,16 @@
          origin: DESIGN.md > Colors > Neutral, Skeleton #e2e9ea, "loading placeholders,
          pulsing at 1.4s and stopped entirely under prefers-reduced-motion".
          Today: 2 var(), 2 files */
+  --bg-withheld:  var(--skeleton);
+      /* WITHHELD, NOT LOADING, and that is why it is a second token at one value.
+         Added 2026-09-02 for D-Gate: the name of a subscription a free person has
+         not paid to see. It reads the same primitive as --bg-placeholder today and
+         it is not the same role, which is rule 4 exactly: ask whether they can ever
+         part company. These can, and probably will, the first time somebody wants a
+         locked row to look deliberate rather than unfinished. A skeleton also
+         PULSES and this must not: a bar that breathes says "wait" to a person who
+         has nothing to wait for. The animation lives on `.skel` and never here.
+         Today: 1 var(), 1 file (components/locked-list.css) */
   --plot-line:    var(--petrol);
       /* THE PLOTTED LINE, and PETROL'S FOURTH JOB. Added 2026-08-18 by the founder,
          in one sentence: "давай теперь черним поменяем на брендовий, чуть градиентов
@@ -957,7 +967,17 @@
      to be pale, and it may not change the band's height without the fade being
      read off the page again. The stops are in landing-plan.css with their sweep.
      Today: 1 var(), 1 file */
-  --wash-pricing: url("../assets/plan-wash-light.webp");
+  /* PATH CORRECTED ON THE LIFT, 2026-08-26, and it is a fix rather than a taste.
+     The design repository wrote these four url() as "../assets/", which resolves
+     one level ABOVE system/ because a relative url in a stylesheet is resolved
+     against the stylesheet and not against the page that loaded it. Proved with
+     a plain file server before touching anything: ../assets/ answered 404 and
+     assets/ answered 200 on both files in both themes. It went unseen there
+     because only the landing band paints these, and past the tablet point only.
+     The other three lines below and in the dark block carry the same fix.
+     Filed against the design repository as a defect; not fixed there, because
+     that tree is frozen at v1.0. */
+  --wash-pricing: url("assets/plan-wash-light.webp");
 
   /* THE SECOND PAINT, 2026-08-16, and it is an amendment to D-Wash rather than a
      second helping of it. A horizon: still water under a pale sky here, the same
@@ -975,7 +995,7 @@
      Loaded past the tablet point only, by landing-final.css: a query that does
      not match never fetches its image, so a phone downloads neither of these.
      Today: 1 var(), 1 file */
-  --wash-final: url("../assets/final-wash-light.webp");
+  --wash-final: url("assets/final-wash-light.webp");
 
   /* ==========================================================================
      SEMANTIC - inks. Threshold 4.5:1, or 3:1 from 24px / 19px bold.
@@ -1204,6 +1224,15 @@
          state tokens by a distance, 18 against 11, 7 and 1, and the sixth widest role of
          any kind in this file, which is the correct shape: a hover reaches the objects a
          pointer visits, and a focus ring reaches everything a keyboard can land on */
+
+  --tone-shade: var(--ink);
+      /* THE COLOUR A SHADOW IS CAST IN, and it is a role of its own since
+         2026-09-26, when the public page became cards floating on the canvas (P16).
+         --shadow above keeps its literal and its one job inside the app; the
+         landing lays several shadows of its own, each a share of this role
+         through color-mix, so no alpha of a colour is ever written twice. In the
+         light theme it is the reading ink, which is what a shadow on white paper
+         is. Read today by the landing only */
 }
 
 /* ============================================================================
@@ -1238,6 +1267,7 @@
   --bg-failure:   var(--clay-wash-dark);
   --bg-status:    var(--stone-dark);
   --bg-placeholder: var(--skeleton-dark);
+  --bg-withheld:  var(--skeleton-dark);
   --plot-line:    var(--petrol-dark);
   --plot-area:    var(--petrol-tint-dark);
   --bg-measure:   var(--edge-dark);
@@ -1248,8 +1278,8 @@
   --bg-action-strong: var(--petrol-deep-dark);
       /* NOT MIRRORED. The light theme darkens under the pointer, this one lightens:
          the hover has to move AWAY from the ground, and the ground swapped ends */
-  --wash-pricing: url("../assets/plan-wash-dark.webp");
-  --wash-final: url("../assets/final-wash-dark.webp");
+  --wash-pricing: url("assets/plan-wash-dark.webp");
+  --wash-final: url("assets/final-wash-dark.webp");
       /* NOT THE SAME PICTURE, and it could not be. The light wash is a teal haze
          drifting across paper; on the dark surface it would be a bright cloud in a
          dark room, which is the opposite of quiet. Its dark pair is the same
@@ -1305,4 +1335,9 @@
          a line owes. Had this been left for step 7, the ring would have been the
          light petrol at 1.9:1 on the dark surface: present in the file, invisible
          on screen, and keyboard navigation blind in one theme */
+
+  --tone-shade: var(--canvas-dark);
+      /* a shadow on a dark ground is darker than the ground, never the light ink
+         the text role folds to. The landing is pinned light (P16) and never reads
+         this half; the pair exists because a role without one does not */
 }

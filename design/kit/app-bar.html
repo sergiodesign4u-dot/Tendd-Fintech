@@ -47,7 +47,7 @@
     <h1>App bar</h1>
     <p class="lead">The top chrome of every screen in the app, and one of the two components in this product that change <b>form</b> rather than size at a breakpoint. Below a 760px container it is a row across the top; past it, the same markup folds into the head of the left rail and runs as a column. It stands on 57 grey pages, which is every page of the app, and it ties with the App shell for the widest reach of any organism in the system.</p>
     <div class="kit-meta">
-      <span>Organism</span><span><strong>54</strong> grey pages</span><span>1 axis, plus one named opt-out</span><span>3 links, 3 states</span><span>hosts 1 atom</span><span>2 drawn marks</span>
+      <span>Organism</span><span><strong>54</strong> grey pages</span><span>1 axis, plus one named opt-out</span><span>3 links, 3 states</span><span>hosts 1 atom</span><span>2 drawn marks</span><span>the way back leaves the rail, 2026-09-29 (P26)</span>
     </div>
   </header>
 
@@ -55,6 +55,7 @@
   <section class="kit-sec" id="anatomy">
     <h2>Anatomy</h2>
     <p class="note">One row, three slots, and six things that may stand in them. Everything below is drawn by <code>design/system/components/app-bar.css</code> and by the chip's own file, through the same entry point a product screen loads, so this page cannot drift from the screens: there is no second copy of the CSS here to drift from.</p>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P26).</b> Past a 760 container the bar's <code>.back</code> is now <code>display: none</code>: in the rail the bar holds the brand and nothing that comes and goes, and the way back is the first line of the page, inside <code>.screen</code>. So on a wide window the first specimen below shows its lockup and chip and no back control, which is the product's rail exactly; narrow the window under 760, or read <a href="#way-back">the way back, in two places</a>, to see it return. The close control and the account link are unchanged in both forms.</p>
     <div class="kit-stage app bleed full rail" id="live-rest">
       <header class="appbar">
         <a class="back" href="#anatomy" id="shot-back">Your subscriptions</a>
@@ -78,7 +79,7 @@
     </div>
     <ul class="kit-callouts">
       <li><code>.appbar</code> <span>the organism itself, a <code>header</code>: a three-slot flex row on a paper ground with a hairline under it. It has no <code>href</code>, no hover and no ring, and its states are the three links inside it</span></li>
-      <li><code>.back</code> <span>the way out, on <b>31</b> pages, and it was 36 until 2026-08-19, when the five History and trends pages gave theirs up on the founder's decision: a tab destination is not somewhere you arrived at from anywhere in particular, and its way out is the tab bar. <b>Ink</b> at weight <b>600</b>, a 44px floor and no left padding, so the mark sits on the screen's own margin rather than 8px inside it. It draws a <b>left arrow with a shaft</b>, 18px at stroke 2.5, a mask over <code>currentColor</code>, with <code>--space-2</code> between the mark and the word. All four of those changed on <b>2026-08-17</b>: see <a href="#tech">the technical half</a></span></li>
+      <li><code>.back</code> <span>the way out, on <b>31</b> pages, and it was 36 until 2026-08-19, when the five History and trends pages gave theirs up on the founder's decision: a tab destination is not somewhere you arrived at from anywhere in particular, and its way out is the tab bar. <b>Ink</b> at weight <b>600</b>, a 44px floor and no left padding, so the mark sits on the screen's own margin rather than 8px inside it. It draws a <b>left arrow with a shaft</b>, 18px at stroke 2.5, a mask over <code>currentColor</code>, with <code>--space-2</code> between the mark and the word. All four of those changed on <b>2026-08-17</b>: see <a href="#tech">the technical half</a>. <b>Since 2026-09-29 (P26) it is a row control only</b>: past 760 the bar's copy is hidden and a second <code>.back</code> in the screen takes its place, with the same ink, arrow and nudge from the same rules</span></li>
       <li><code>.close</code> <span><b>new on 2026-08-12</b>, on the 2 Upgrade screens. A sibling of <code>.back</code> and not a variant of it: same box, same floor, same ink, same states, different mark. It draws the <b>cross</b>, the same one the search field's clear control uses</span></li>
       <li><code>.lockup</code> <span><b>new on 2026-08-12</b>, on all 54, and the only thing here that is always present. A wrapper and not a component: it holds the <a href="brand-mark.html">Brand mark</a> and the <a href="brand-wordmark.html">Wordmark</a>, two atoms, and this file gives it a gap and a place and never a colour or a size. It is wrapped rather than left as two children because past 760 the bar becomes a column, and two loose children would stack vertically at exactly the width where the brand has the most room</span></li>
       <li><code>.acct</code> <span>"Hi, Emma", on <b>15</b> pages, and it was 10 until 2026-08-19: History and trends took the same destination bar Home, Alerts, Save and You already had. A greeting and not a label, muted, because the name is not the subject of any screen it appears on. It also <b>holds the plan chip</b> on all fifteen, which is the one thing this slot ever contains besides the greeting: it was the five trend pages until 2026-08-19, when the founder sent it everywhere. In the ROW the link is the trailing slot and the chip is already at the right edge of the screen; in the RAIL the link is stretched to the rail's own width, so the greeting keeps the left edge and the plan stands at the right one</span></li>
@@ -92,6 +93,60 @@
     <p class="note"><b>What changes.</b> The bar stops being a sticky row across the top and becomes the <b>head of the rail</b>: <code>position</code> goes from <code>sticky</code> to <code>static</code>, it moves into grid track 1 row 1, the flex direction turns from row to column with the items aligned to the start, the hairline moves from the bottom edge to the right one so it continues the rail's own edge, and the lockup takes <code>order: -1</code> so the brand stands at the top of the column rather than wherever the row happened to leave it. The greeting drops from <code>--type-body</code> to <code>--type-meta</code>, loses its side padding, and <b>stretches to the rail's width</b> so the plan chip inside it can take back the <code>margin-left: auto</code> every other chip in this bar has. That last one is 2026-08-20, the founder looking at the rail: in a column of shrink-to-fit items the link was 99px wide inside a 220px track and the chip sat in the middle of an empty column, 105px short of the edge. Measured after, on all 15 pages of both corpora and in both themes: the chip ends at the bar's inner right edge, to within a pixel, at 800 and at 1440.</p>
     <p class="note"><b>Why the lockup is a wrapper and not two loose children</b> is this behaviour and nothing else: past the point the bar is a column, and two unwrapped atoms would stack vertically at exactly the width where the brand has the most room to be read across.</p>
     <p class="note"><b>The 220px is not here.</b> The bar declares no width in either form; the shell's grid track gives it one above the point and the viewport gives it one below. The track was set to 220 by the founder on 2026-08-12, and the measured floor is 180, where "Your subscriptions" wraps to two lines. <b>On <code>.app.flow</code> the bar stays a row at every width</b>, because the activation chain has no rail for it to be the head of.</p>
+
+    <h3 class="kit-sub-h" id="way-back">The way back, in two places</h3>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P26).</b> The founder, walking the product after paying: the back link "двигает меню - такого не должно быть". With the way back stacked in the rail under the brand, the four destinations sat 48px lower on every screen that had one, and on a subscription the rail stood with the link alone under the brand. <b>A screen now carries the link twice, and one of the two is always <code>display: none</code></b>: the bar's copy on a phone, where the leading edge of the bar is where a thumb looks, and the screen's copy past 760, as the first line of the page above the heading. A person, a screen reader and the tab order each meet exactly one. The screen's copy sits INSIDE the block that holds the <code>h1</code>, so U17 still holds, and the flow form never renders it: its bar is a row at every width, so <code>.app:not(.flow)</code> is a guard rather than a case.</p>
+    <div class="kit-shell-pair">
+      <div class="kit-shell-demo narrow">
+        <div class="app" aria-label="A screen below a destination, narrow form">
+          <header class="appbar">
+            <a class="back" href="#way-back">You</a>
+            <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+          </header>
+          <div class="screen">
+            <div class="rows-col">
+              <a class="back" href="#way-back">You</a>
+              <div class="textblock">
+                <h1>Your sources</h1>
+                <p>Where Tendd gets the list of what you pay for. You are always in control of these. Read-only. Tendd cannot move your money.</p>
+              </div>
+            </div>
+          </div>
+          <nav class="tabbar" aria-label="Global navigation, narrow specimen">
+            <a href="#way-back"><span class="ic ic-home"></span>Home</a>
+            <a href="#way-back"><span class="ic ic-trends"></span>Trends</a>
+            <a href="#way-back"><span class="ic ic-alerts"></span>Alerts</a>
+            <a class="cur" href="#way-back" aria-current="page"><span class="ic ic-you"></span>You</a>
+          </nav>
+        </div>
+      </div>
+      <p class="kit-shell-cap"><b>Under 760.</b> The bar's <code>.back</code> leads the row; the screen's copy is <code>display: none</code>.</p>
+      <div class="kit-shell-demo wide">
+        <div class="app" aria-label="A screen below a destination, wide form">
+          <header class="appbar">
+            <a class="back" href="#way-back">You</a>
+            <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+          </header>
+          <div class="screen">
+            <div class="rows-col">
+              <a class="back" href="#way-back">You</a>
+              <div class="textblock">
+                <h1>Your sources</h1>
+                <p>Where Tendd gets the list of what you pay for. You are always in control of these. Read-only. Tendd cannot move your money.</p>
+              </div>
+            </div>
+          </div>
+          <nav class="tabbar" aria-label="Global navigation, wide specimen">
+            <a href="#way-back"><span class="ic ic-home"></span>Home</a>
+            <a href="#way-back"><span class="ic ic-trends"></span>Trends</a>
+            <a href="#way-back"><span class="ic ic-alerts"></span>Alerts</a>
+            <a class="cur" href="#way-back" aria-current="page"><span class="ic ic-you"></span>You</a>
+          </nav>
+        </div>
+      </div>
+      <p class="kit-shell-cap"><b>Past 760.</b> The rail holds the brand and the four destinations, at the same height on every screen; the way back is the first line of the page, 600 weight, <code>--text-body</code>, the same arrow and the same nudge. The markup of the two specimens is identical: the container decides which copy is drawn.</p>
+    </div>
+    <p class="note">Measured on the stand at a 1440 window, the wide specimen above: the bar's <code>.back</code> computes <code>display: none</code> and the screen's computes <code>inline-flex</code>; in the narrow one the other way round. The screen used is Your sources, the product's own markup for node 6.14 (<code>connections</code>); the same pair stands on a subscription, which since P26 also carries the tab bar with Home current, so the rail is never empty on the screen people open most.</p>
   </section>
 
   <section class="kit-sec" id="variants">
@@ -164,8 +219,8 @@
     <div class="kit-do">
       <div class="yes">
         <span class="hd">The trailing slot is a status</span>
-        <div class="kit-stage app bleed full rail"><header class="appbar"><a class="back" href="#rule">Your subscriptions</a><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span><span class="chip">Free</span></header></div>
-        <p>A chip saying which plan you are on, or a step marker, or a greeting. All three are things a person <b>reads</b>. None of them is pressable and none of them is meant to be: the bar tells you where you are, and the screen under it is where anything happens.</p>
+        <div class="kit-stage app bleed full rail"><header class="appbar"><a class="close" href="#rule">Close</a><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span><span class="chip">Free</span></header></div>
+        <p>A chip saying which plan you are on, or a step marker, or a greeting. <b>The specimen is the upgrade bar since 2026-09-30</b>: it was a back control with "Your subscriptions", which at a 360 window ran its chip 30px past a half-width stage narrower than any phone the product is built for, and past 760 the back control is no longer drawn in a bar (P26), so the specimen would have shown a chip with nothing to be the trailing slot of. All three are things a person <b>reads</b>. None of them is pressable and none of them is meant to be: the bar tells you where you are, and the screen under it is where anything happens.</p>
       </div>
       <div class="no">
         <span class="hd">Use an action row instead</span>
@@ -186,7 +241,7 @@
       </div>
     </div>
     <h3 class="kit-sub-h">Limits</h3>
-    <p class="note"><b>U3, composition and context.</b> Exactly one app bar per screen, and none on the landing, which carries its own marketing header. 16 of the 17 screens carry exactly one; the seventeenth is the landing. <b>U18, context.</b> A tab destination carries the account link and never a back control; a screen below one carries the back control and never the account link. This component holds both slots and neither knows which screen it is on, so the rule is checked in the markup rather than declared here. Counted over both corpora on 2026-08-19: 16 destination pages and 12 below one, 0 wrong in either direction, with one named exception - <code class="kit-code">settings-no-account</code> carries neither, because there is no account to link to.<br>
+    <p class="note"><b>U3, composition and context.</b> Exactly one app bar per screen, and none on the landing, which carries its own marketing header. 16 of the 17 screens carry exactly one; the seventeenth is the landing. <b>U18, context.</b> A tab destination carries the account link and never a back control; a screen below one carries the back control and never the account link. This component holds both slots and neither knows which screen it is on, so the rule is checked in the markup rather than declared here. Counted over both corpora on 2026-08-19: 16 destination pages and 12 below one, 0 wrong in either direction, with one named exception - <code class="kit-code">settings-no-account</code> carries neither, because there is no account to link to. <b>Since 2026-09-29 (P26)</b> a screen below a destination carries its back control twice, one of the two always hidden, and U18 counts it once: the rule is about what a person meets, and a person meets exactly one.<br>
       <b>U19, composition and context.</b> The plan chip is a child of the account link and appears wherever that link does: 15 pages, all 15 with it inside. Where there is no account link, the four Upgrade screens, it stays a sibling of the lockup. A plan is a fact about the account, so it belongs to the control that opens the account, and what keeps it a statement rather than a sell is where it lands: Settings, never the upgrade screen.<br>
       Full table with sources and how to check: <a href="architecture.html#usage">Usage rules</a>.</p>
   </section>

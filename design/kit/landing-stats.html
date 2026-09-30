@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing stats - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<!-- A REAL LANDMARK, 2026-08-23. This was a `div` on all 82 stand pages, so a page with
+     a nav, an h1 and a footer gave a screen reader nothing to skip TO. Found by check 5 of
+     `a11y13.cjs`, which is the first instrument in this repository to read a page that is not
+     a product screen. No stylesheet here selects a wrapper by tag. -->
+<main class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Landing stats</h1>
+    <p class="lead">Four figures the page already says, set large on a recessed panel and counted up from zero as the panel comes into view.</p>
+    <div class="kit-meta">
+      <span>Organism</span>
+      <span><code>.lp-stats</code></span>
+      <span><strong>0</strong> grey pages</span>
+      <span>grid: two columns / one at 40rem</span>
+      <span>added 2026-09-26 with Light 2 (P16)</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="what">
+    <h2>What it is</h2>
+    <p class="note"><b>Nothing here is new copy, and that is its rule.</b> The example total, the 400+ services, the three steps, and what a year of Pro costs a month: each figure and each sentence under it is one the page says elsewhere. The block exists to let the numbers be seen at the size a number deserves, not to add claims.</p>
+    <p class="note"><b>The count-up is the page script&#39;s</b> and the markup is complete without it: the server renders the final figures ($192.90, 400+, 3, $5.75) and the script counts to them from <code>data-to</code>. With no script, and on this stand, they simply stand.</p>
+  </section>
+
+  <section class="kit-sec" id="specimen">
+    <h2>Live, pinned light</h2>
+    <div class="kit-stage full bleed kit-lp">
+      <div class="landing" data-theme="light">
+        <div class="lp-frame"><section class="lp-card lp-stats" aria-label="Example, not your data"><div class="lp-wrap"><div class="lp-stats-grid"><div class="lp-stat lp-rv"><span class="lp-tag">Example, not your data</span><p class="lp-big lp-acc">$192.90</p><p class="lp-body">a month, for what you have signed up for</p></div><div class="lp-stat lp-rv"><p class="lp-big">400+</p><p class="lp-body">Connect your bank read-only, or add your subscriptions yourself from 400+ services. Your choice, no pressure to link an account.</p></div><div class="lp-stat lp-rv"><p class="lp-big">3</p><p class="lp-body">Three steps, a few minutes. You are in control the whole way.</p></div><div class="lp-stat lp-rv"><p class="lp-big lp-acc">$5.75</p><p class="lp-body">That is $5.75 a month, and it saves about $50 a year versus paying monthly.</p></div></div></div></section></div>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.lp-stats</code> <span>the card on <code>--bg-recessed</code> with a hairline edge: the page&#39;s one recessed band</span></li>
+      <li><code>.lp-stats-grid</code> <span>two columns, gaps from the width</span></li>
+      <li><code>.lp-stat</code> <span>one figure, with the landing&#39;s fading separator <code>--lp-sep</code> across its top; the even ones arrive 100ms later</span></li>
+      <li><code>.lp-big</code> <span>the figure, up to 8.25rem, tabular; <code>.lp-acc</code> puts the two money figures in petrol</span></li>
+      <li><code>.lp-tag</code> <span>the example&#39;s honesty line, from <a href="landing-type.html">landing type</a></span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="width">
+    <h2>Behaviour on width</h2>
+    <p class="note">One container point, 40rem: two columns become one.</p>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+    <p class="note"><b>Two figures are money and both are examples or prices, never the person&#39;s.</b> The $192.90 carries "Example, not your data" beside it on this block too, because a stranger&#39;s page must never read as a statement about the reader. $5.75 is D4 as amended on 2026-09-30: $69 a year over twelve months.</p>
+  </section>
+
+  <section class="kit-sec" id="source">
+    <h2>Where it comes from</h2>
+    <p class="note">Drawn by <code>design/system/components/landing-stats.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads, and synced byte for byte from the product on 2026-09-30. It stands on <a href="../index.html">the coloured landing</a>, between how it works and trust. The grey <code>wireframes/index.html</code> is frozen at the structure before Light 2 and does not carry it: a component that arrived with a founder&#39;s decision after the grey closed, like the brand mark before it. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the organism group.</p>
+  </section>
+
+</main>
+
+<script src="_nav.js"></script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

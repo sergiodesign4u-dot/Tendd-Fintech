@@ -23,10 +23,35 @@
   Check your email, node 1.6.1. The wait between the ask and the link, and it says
   what to do if the mail does not arrive rather than leaving a person staring at a screen.
 
+  SYNCED FROM THE PRODUCT, 2026-09-30 (P17, N5): the same panel on its sent step. The mark
+  turns into an envelope; the address is stated back; "Give it a minute, and look in your spam
+  folder" is the one line left of the two pairs; "Send another link" carries its minute (N5)
+  and "Use a different email" turns the panel back to the field, in place, instead of leaving
+  for sign-in.html. The stand's own strip (design/_nav.js) still says where the link lands.
+
+  THE SAME PANEL THE PUBLIC PAGE OPENS IN A DIALOG (P17), set on a page for everybody who
+  arrives by address rather than by a click on the landing: a guard that sent a stranger
+  here, a sign-in link that had expired, a door chosen at node 1.2, a new tab. It is public
+  and it is light in both themes (P16), because it is the last step of the public page and
+  not the first of the app: the root carries data-theme="light", and the stand's own chrome
+  still follows the theme switch.
+
+  ONE PANEL IN THREE STEPS: choose (the two ways in, Google first and largest, email the
+  quiet one), email (the field and the one action that sends a link), sent (the address
+  stated back and the two ways on). design/auth.js moves between them on this page; a static
+  page sends no mail, so sending a link is simply the next step. The state is still what the
+  address carries, which is why sign-in, sign-in-sent and sign-in-expired stay three pages:
+  the product reads `?sent=` and `?expired=1` for the same three. `?path=` is the door chosen
+  at node 1.2, and on the stand it aims "Continue with Google" at that door.
+
+  THE WORDS ARE FEW ON PURPOSE. Everything the old screen explained (what arrives, how long
+  it works, what Tendd holds) is said where it is looked for: the letter says the link works
+  once, and privacy.html says what is kept. Every line is owned by voice/docs/microcopy.md,
+  section "sign-in".
+
   Assembled from system classes. This page carries no style of its own: no page-level style
-  block, no style attribute, no class design/system/ does not define. Structure and copy are a
-  verbatim copy of the grey twin; class names come from the renaming map in
-  design/kit/docs/inventory.md and from nowhere else.
+  block, no style attribute, no class design/system/ does not define. Structure and copy are
+  the product's (components/auth/SignInPanel.tsx and app/sign-in/page.tsx at 4158f6c).
 -->
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
@@ -41,39 +66,93 @@
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="layout">
-<div class="stage stage-app">
+<div class="stage stage-flush">
 
-<div class="app flow">
-
-  <header class="appbar">
-    <a class="back" href="sign-in.html">Back</a>
-    <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+<div class="landing lp-gate" data-theme="light">
+  <header class="lp-gate-bar">
+    <a class="lp-home" aria-label="Tendd" href="index.html"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span></a>
   </header>
-
-  <main class="screen">
-
+  <main class="lp-gate-main">
     <!-- Node 1.6.1. The address is stated back, because the commonest failure
          here is a typo the person cannot see any more once the field is gone. -->
-    <div class="textblock status" role="status" aria-live="polite">
-      <h1>Check your email</h1>
-      <p>A link is on its way to <strong>emma@example.com</strong>. Tap it and you are back in your list.</p>
+    <div class="lp-modal-card">
+      <div class="lp-auth" data-step="sent" aria-labelledby="auth-h" role="group">
+        <button type="button" class="lp-auth-back" aria-label="Back" hidden><svg class="lp-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button>
+        <!-- The fourteen are the public page's; six of them circle the mark here, the
+             same marks in the same tiles, so the door looks like the house it opens. -->
+        <div class="lp-auth-orbit" aria-hidden="true">
+          <i class="lp-auth-ring"></i>
+          <span class="lp-orb"><span class="lp-orb-x"><img src="visuals/logos/netflix.svg" alt="" width="36" height="36"></span></span>
+          <span class="lp-orb"><span class="lp-orb-x"><img src="visuals/logos/spotify.svg" alt="" width="36" height="36"></span></span>
+          <span class="lp-orb"><span class="lp-orb-x"><img src="visuals/logos/chatgpt.svg" alt="" width="36" height="36"></span></span>
+          <span class="lp-orb"><span class="lp-orb-x"><img src="visuals/logos/notion.svg" alt="" width="36" height="36"></span></span>
+          <span class="lp-orb"><span class="lp-orb-x"><img src="visuals/logos/disney-plus.svg" alt="" width="36" height="36"></span></span>
+          <span class="lp-orb"><span class="lp-orb-x"><img src="visuals/logos/icloud.svg" alt="" width="36" height="36"></span></span>
+          <span class="lp-auth-core"><span class="brand"></span><span class="lp-auth-env"><svg class="lp-ico" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.5"></rect><path d="M3.8 7.2l8.2 6 8.2-6"></path></svg></span></span>
+        </div>
+        <div class="lp-auth-size">
+          <div class="lp-auth-body">
+            <div class="lp-auth-step">
+              <h1 class="lp-auth-title" id="auth-h" tabindex="-1" data-focus="">Check your email</h1>
+              <!-- The address is stated back, because the commonest failure here is a typo
+                   nobody can see once the field is gone. -->
+              <p class="lp-auth-sub" role="status">A link is on its way to <strong>emma@example.com</strong>.</p>
+              <p class="lp-auth-note">Give it a minute, and look in your spam folder.</p>
+              <!-- Resending is available and not loud: the action a person needs is in their
+                   inbox, and a bright button here competes with it. ONE LETTER A MINUTE, AND THE
+                   MINUTE IS SHOWN (N5): the label is the product's first frame, and
+                   design/auth.js counts it down and releases it. -->
+              <div class="lp-auth-acts lp-auth-row">
+                <form action="sign-in-sent.html"><button type="submit" class="lp-btn lp-ghost lp-sm lp-auth-again" disabled>Send another link in 0:60<i class="lp-auth-cool" aria-hidden="true"></i></button></form>
+                <button type="button" class="lp-auth-text">Use a different email</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lp-auth-human"></div>
+        <p class="lp-auth-legal" hidden>By continuing you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.</p>
+      </div>
     </div>
-
-    <dl class="pairs sentences">
-      <div><dt>If it has not arrived</dt><dd>Give it a minute, and look in your spam folder</dd></div>
-      <div><dt>If the address is wrong</dt><dd>Go back and type it again. Nothing was sent anywhere else</dd></div>
-    </dl>
-
-    <!-- Resending is available and not loud: the action a person needs is in
-         their inbox, and a bright button here competes with it. -->
-    <div class="actions">
-      <a class="btn" href="sign-in-sent.html">Send another link</a>
-    </div>
-
-    <p class="quiet"><a href="sign-in.html">Use a different email</a></p>
-
   </main>
-
+  <!-- THE THREE STEPS, as the panel draws them one at a time. Inert until
+       design/auth.js takes one; the step on the page above is the same markup. -->
+  <template data-auth="choose">
+    <h1 class="lp-auth-title" id="auth-h" tabindex="-1">Sign in</h1>
+    <p class="lp-auth-sub">New to Tendd? Either way starts your account.</p>
+    <div class="lp-auth-acts">
+      <!-- A form and not a link in the product, because the door chosen at node 1.2
+           rides along to the provider and back. On the stand it is a GET to where the
+           provider would land: design/auth.js aims it at the door, and with no door it
+           is the list. Nothing is posted anywhere. -->
+      <form action="home.html"><button type="submit" class="lp-btn lp-auth-google"><span class="lp-auth-g"><img src="visuals/auth/google.svg" alt="" width="20" height="20"></span>Continue with Google</button></form>
+      <button type="button" class="lp-btn lp-ghost lp-auth-mail" data-focus=""><svg class="lp-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"></rect><path d="M3.8 7.2l8.2 6 8.2-6"></path></svg>Continue with email</button>
+    </div>
+  </template>
+  <template data-auth="email">
+    <h1 class="lp-auth-title" id="auth-h" tabindex="-1">Sign in</h1>
+    <p class="lp-auth-sub">We'll email you a link. There is no password.</p>
+    <!-- With a script the panel moves to its next step in place; with none, this form is
+         a GET to the sent step on a page of its own. A static page sends no mail. -->
+    <form class="lp-auth-acts" action="sign-in-sent.html">
+      <label class="lp-auth-field"><input id="email" name="email" type="email" autocomplete="email" placeholder=" " data-focus=""><span>Email</span></label>
+      <button type="submit" class="lp-btn lp-auth-send" disabled>Send a sign-in link<svg class="lp-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+    </form>
+  </template>
+  <template data-auth="sent">
+    <h1 class="lp-auth-title" id="auth-h" tabindex="-1" data-focus="">Check your email</h1>
+    <!-- The address is stated back, because the commonest failure here is a typo
+         nobody can see once the field is gone. -->
+    <p class="lp-auth-sub" role="status">A link is on its way to <strong>emma@example.com</strong>.</p>
+    <p class="lp-auth-note">Give it a minute, and look in your spam folder.</p>
+    <!-- Resending is available and not loud: the action a person needs is in their
+         inbox, and a bright button here competes with it. ONE LETTER A MINUTE, AND THE
+         MINUTE IS SHOWN (N5): the label is the product's first frame, and
+         design/auth.js counts it down and releases it. -->
+    <div class="lp-auth-acts lp-auth-row">
+      <form action="sign-in-sent.html"><button type="submit" class="lp-btn lp-ghost lp-sm lp-auth-again" disabled>Send another link in 0:60<i class="lp-auth-cool" aria-hidden="true"></i></button></form>
+      <button type="button" class="lp-auth-text">Use a different email</button>
+    </div>
+  </template>
 </div>
 
 </div><!-- /stage -->
@@ -82,5 +161,6 @@
 (function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
 </script>
 <script src="_nav.js"></script>
+<script src="auth.js" defer></script>
 </body>
 </html>

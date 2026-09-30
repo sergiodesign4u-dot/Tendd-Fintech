@@ -5,9 +5,8 @@ so it holds only what must hold NEXT time. It is not a journal and not a report.
 
 - **Status** (what is done, what is next) lives in the README table and in `done:true`
   in `/_nav.js`. Never here: a third copy only drifts from the other two.
-- **Decision records** live in `docs/decisions.md`, **frozen 2026-09-02**: the live log moved to
-  `../Tendd Product/docs/decisions.md` when the product started changing the product rather than
-  porting this. Read the frozen copy for the ground under anything decided up to that day.
+- **Decision records** live in `../Tendd Product/docs/decisions.md`, the live log since 2026-09-02.
+  `docs/decisions.md` here is its **mirror**, whole, as of the last sync (header names the commit).
 - **Budget: 200 lines.** A new rule enters by replacing or generalizing an existing one,
   not by being added next to it. Over budget means two rules inside already contradict.
 
@@ -32,8 +31,8 @@ change or failed payment (J4).
 your own data is free either way (D-Export). Out of MVP: full budgeting, investments, native app,
 bill negotiation, bill pay, household view, priority support.
 
-**Markets:** US and EU (US and Plaid first, per D5). **Stack hypothesis:** Next.js on
-Vercel, Postgres, Plaid (US) and TrueLayer or GoCardless (EU), Stripe, PostHog.
+**Markets:** US and EU (US and Plaid first, per D5). **Live at tendd.co** since September 2026:
+Next.js on Vercel, Supabase, Plaid, Stripe, Resend, and no analytics by decision (P12).
 
 **Riskiest assumption (H0):** that an avoider actually looks and feels calmer. It is
 provable only in a prototype, so the MVP is built to test it, not to assume it. `[?]`
@@ -48,22 +47,21 @@ Founder, June 14 2026 (ground in `research/docs/strategy.md` section 6):
 - **D3** **D-Gate moved the paywall ON to basic visibility.** Still true: never at the cancel
   moment, guides free; Free keeps **one comparison on Trends**; the plans are **one product, not
   two**, so a lock is a STATE of a screen and never a Pro twin. `plans13.cjs` counts it.
-- **D4** Pro is 7.99 a month or 69 a year.
+- **D4** Pro is 9.99 a month or 69 a year (amended 2026-09-30; it was 7.99).
 - **D5** US and Plaid first, EU deferred.
 - **D-Gate** (founder 2026-08-29, shaped 2026-09-02, **replaces D-Free**) The bank is Pro. One free
-  scan returns the count, the total and three names across three categories; the rest are drawn and
-  withheld, and the Item is removed after it. No cap on what a person TYPES, which is all that
-  survives of D-Free: uncapped visibility was the cap it forbade and is now the product. Ground,
-  the Plaid per-Item cost and the two objections overruled: `docs/decisions.md`, 2026-09-02.
+  scan returns the count, the total and three names across three categories; the rest are withheld,
+  and the connection is held seven days unread so paying names them (P32), then removed. Typing
+  stays uncapped, which is all that survives of D-Free. Ground: `docs/decisions.md`, 2026-09-02.
 - **D-Concept** (July 2026, amended by D-Brand and by D-Plot 2026-08-18) Petrol and Paper: off-white
   canvas, white cards, Inter, petrol #1c6a76 inside a screen's content only on the primary action,
   the current selection, the trust line and **the plotted line** (one element, one screen, never
   beside a filled action); status a quiet gray badge, never red; price change amber, error clay.
-- **D-Brand** (2026-08-12) The identity is Crop: one letterform larger than any frame, and a
-  window cut out of it. Crop A is the mark, at 22px in the app bar and as the favicon and touch
-  icon; the wordmark is Inter 800 at -0.02em with the `dd` pair at -0.09em and the **last letter
-  petrol everywhere**, with no condition. The brand is petrol's **fourth place and not a fourth job**: chrome only, never inside a
-  screen's content. Ground and the five rules in `DESIGN.md`, section The brand.
+- **D-Brand** (2026-08-12) The identity is Crop: one letterform larger than any frame, a window cut
+  out of it. Crop A is the mark (22px in the app bar, favicon, touch icon); the wordmark is Inter
+  800 at -0.02em, the `dd` pair at -0.09em, the **last letter petrol everywhere**. The brand is
+  petrol's **fourth place, not a fourth job**: chrome only, never in a screen's content. Ground:
+  `DESIGN.md`, The brand.
 
 ## Design principles
 
@@ -99,14 +97,11 @@ stage HAS its own registry its pages carry that panel instead**, with the roadma
 opening the folder lands on the product screen (node 1.1, Welcome); the list of all
 pages of that stage is `overview.html`. This holds for `wireframes/` and `design/` alike.
 
-**The wireframes are grey and frozen.** `wireframes/` is the structure contract: greyscale,
-semantic, real copy, one page per state, and a state page is named after its state rather than
-after the nearest system word. Voice was the last stage allowed to edit TEXT there; a later stage
-may change STRUCTURE only by a founder's decision written into the file it changes, and the grey
-never loads a file from `design/` (a contract that depends on its own downstream is not one). From Concept
-on, color goes onto COPIES in `design/`, never onto the grey file, and a colored page may differ
-from its grey original by styling only. The etalon screen and the first flow are named on the
-first line of `wireframes/docs/screens.md`: later stages take them from there, not re-derived.
+**The wireframes are grey and frozen at v1.0.** `wireframes/` is the structure contract as handed
+over: greyscale, semantic, real copy, one page per state, a state page named after its state, and
+it never loads a file from `design/`. Colour went onto COPIES in `design/`, differing from the grey
+by styling only until the mirror: a page the product changed or added since has no grey twin and
+says so in its top comment. The etalon and the first flow: line 1 of `wireframes/docs/screens.md`.
 
 **Every artifact has a visible place.** A md that no page shows does not exist for the person
 who decides. Three legal forms: its own page in the registry, a named section on the stage
@@ -121,10 +116,9 @@ loud. A number counted off a corpus obeys the same rule: growing the corpus mean
 claim about it in the same step, by script and never from memory, and a claim left un-recounted
 keeps the corpus it was measured on, NAMED ("on the 28 pages of stage 08").
 
-**One owner per string.** SEO copy (title, description, H1, body) belongs to the IA node in
-`ia/docs/pages/`. Interface strings (buttons, labels, states, toasts) belong to
-`voice/docs/microcopy.md`; the IA node states what information the place needs, not the
-wording. No product line exists in two editions. All product copy obeys `voice/docs/voice.md`.
+**One owner per string.** SEO copy belongs to the IA node in `ia/docs/pages/`; interface strings to
+`microcopy.md`, written in the product (`docs/spec/`) and mirrored at `voice/docs/`. The IA node says
+what a place needs, not the wording; no line has two editions; all copy obeys `voice/docs/voice.md`.
 
 **Nothing new reaches a screen first, and "we keep it" is an address rather than a verdict.**
 A VALUE goes to `design/system/tokens.css` at its level, **two levels and not three**: primitive
@@ -171,7 +165,7 @@ no attribute is an invention).
 ```
 /_nav.js /_nav.css /index.html   the project registry, its look, the entry page
 CLAUDE.md  README.md  AGENTS.md  rules, the status index, the entry for the Codex critic
-docs/                            decisions.md and bank-connection.md, never loaded
+docs/                            decisions.md (mirror), gaps.md, bank-connection.md, never loaded
 DESIGN-artifacts.md DESIGN.md    the draft from Concept, and the doc built from the code
 research/  ia/  voice/           who it is for, the structure, every product string
 wireframes/  design/             the grey prototype and the product in colour, each with
@@ -187,13 +181,20 @@ The full route, folder by folder with what to open first in each, is the table o
 ## Handoff
 
 **The package is `handoff/`**: the page plus `docs/` (behaviour, map, a11y, onboarding-gaps,
-one-shot). **The documents reference the code and never copy it**: a hex, a spacing value, a
-ready product string or a css fragment inside `handoff/docs/` is a defect. Two things are not
-copies and are allowed - a MEASURED figure, which names what measured it and when, and the stage
-page's own look, which is chrome like every other stage account's and reaches no screen. Every behaviour row names its source, and a row
-with no source goes to a NOT DECIDED list addressed to the founder rather than into the spec.
-The map is read off the code and its reverse list is produced by INVERSION of the same data,
-never by a second pass. **"Confirmed" means a run NOW with a named instrument**, never a memory
-of an earlier stage doing it. **The product is frozen since the rollout was accepted**: a hole
-found here becomes a row in `design/kit/docs/backlog.md`, never a fix. The route is checked by
-`design/kit/screens/route13.cjs` and never by eye.
+one-shot). **The documents reference the code and never copy it**: a hex, a spacing value, a ready
+product string or a css fragment inside `handoff/docs/` is a defect. Two things are not copies and
+are allowed - a MEASURED figure, which names what measured it and when, and the stage page's own
+look, which is chrome like every other stage account's and reaches no screen. Every behaviour row
+names its source, and a row with no source goes to a NOT DECIDED list addressed to the founder
+rather than into the spec. The map is read off the code and its reverse list is produced by
+INVERSION of the same data, never by a second pass. **"Confirmed" means a run NOW with a named
+instrument**, never a memory of an earlier stage doing it. The route is checked by
+`design/kit/screens/route13.cjs`, never by eye.
+
+## The mirror
+
+**The product lives in `../Tendd Product`; this repository is its mirror**, synced on the founder's
+request (first 2026-09-30, account in `handoff/live.html`). A change is made THERE and arrives by a
+sync: `system/`, the spec, decisions and gaps copied whole, each page brought level with the running
+product. What the product DECIDED changes a page; what it has not built yet stays as design intent.
+A hole found here is a row in `design/kit/docs/backlog.md` or the product's `docs/gaps.md`, not a fix.

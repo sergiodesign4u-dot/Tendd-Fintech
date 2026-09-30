@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing auth - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<!-- A REAL LANDMARK, 2026-08-23. This was a `div` on all 82 stand pages, so a page with
+     a nav, an h1 and a footer gave a screen reader nothing to skip TO. Found by check 5 of
+     `a11y13.cjs`, which is the first instrument in this repository to read a page that is not
+     a product screen. No stylesheet here selects a wrapper by tag. -->
+<main class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Landing auth</h1>
+    <p class="lead">The way in, as the public page draws it: the sign-in panel in three steps, the two doors of Get started in the same card, the dialog that holds either over the landing, and the page that holds them everywhere else.</p>
+    <div class="kit-meta">
+      <span>Organism</span>
+      <span><code>.lp-auth</code> <code>.lp-start</code> <code>.lp-modal</code> <code>.lp-gate</code></span>
+      <span><strong>0</strong> grey pages</span>
+      <span>step: choose / email / sent. host: dialog / page</span>
+      <span>added 2026-09-27 (P17)</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="what">
+    <h2>What it is</h2>
+    <p class="note"><b>The founder found the sign-in screen dull and wordy</b> and asked for the action in front: Google first, with its mark, email as a second button that leads to the field, in a dialog rather than a separate page, and the explanations moved to the privacy policy and the terms (P17). The panel is node 1.6 in three steps, <code>choose</code>, <code>email</code> and <code>sent</code>; the start panel is node 1.2, two doors drawn identically (D2) with a picture on each.</p>
+    <p class="note"><b>One card, two hosts.</b> On the landing a plain click on any link to sign in or to get started opens a native <code>&lt;dialog&gt;</code> over the page, which holds still under it. The links stay links, so a new tab or a page with no script reaches <code>/sign-in</code> and <code>/path-choice</code>, where the same card stands on <code>.lp-gate</code>: the lockup above, a pale wash and two dotted orbits behind. Those are <a href="../sign-in.html">sign-in</a> and <a href="../path-choice.html">path choice</a> in this repository.</p>
+    <p class="note"><b>Pinned light like the page it opens over</b>, and scoped to <code>.landing</code>: the panel is light in both themes.</p>
+  </section>
+
+  <section class="kit-sec" id="specimen">
+    <h2>Live, pinned light</h2>
+    <h3 class="kit-sub-h">The page form: the gate, on step one</h3>
+    <div class="kit-stage full bleed kit-lp">
+      <div class="landing" data-theme="light">
+        <header class="lp-gate-bar"><a class="lp-home" aria-label="Tendd" href="../index.html"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span></a></header><div class="lp-gate-main"><div class="lp-modal-card"><div class="lp-auth" data-step="choose" aria-labelledby="kit-auth-choose" role="group"><div class="lp-auth-orbit" aria-hidden="true"><i class="lp-auth-ring"></i><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/netflix.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/spotify.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/chatgpt.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/notion.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/disney-plus.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/icloud.svg" alt="" width="36" height="36"></span></span><span class="lp-auth-core"><span class="brand"></span><span class="lp-auth-env"><svg class="lp-ico" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.5"></rect><path d="M3.8 7.2l8.2 6 8.2-6"></path></svg></span></span></div><div class="lp-auth-size"><div class="lp-auth-body"><div class="lp-auth-step"><h2 class="lp-auth-title" id="kit-auth-choose">Sign in</h2><p class="lp-auth-sub">New to Tendd? Either way starts your account.</p><div class="lp-auth-acts"><button type="button" class="lp-btn lp-auth-google"><span class="lp-auth-g"></span>Continue with Google</button><button type="button" class="lp-btn lp-ghost lp-auth-mail"><svg class="lp-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"></rect><path d="M3.8 7.2l8.2 6 8.2-6"></path></svg>Continue with email</button></div></div></div></div><div class="lp-auth-human"></div><p class="lp-auth-legal">By continuing you agree to our <a href="../terms.html">Terms</a> and <a href="../privacy.html">Privacy Policy</a>.</p></div></div></div>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.lp-gate-bar</code> <span>the lockup at the bar&#39;s size, no signature: the arrival plays on the landing&#39;s bar only (U14)</span></li>
+      <li><code>.lp-gate-main</code> <span>the centre, with two dotted orbits drawn still behind the card: the close of the public page, quoted</span></li>
+      <li><code>.lp-modal-card</code> <span>the card, 27rem, the landing&#39;s large radius, a selected wash from the top, shadows in <code>--tone-shade</code>. It rises once on arrival</span></li>
+      <li><code>.lp-auth-orbit</code> <span>the mark on a dotted ring with six of the fourteen marks circling it: two sines, one for depth and one for the sweep, a sixth of a turn apart. CSS keyframes, so the stand shows them moving</span></li>
+      <li><code>.lp-auth-google</code> <span>the page&#39;s pill at full width, with the provider&#39;s mark in a white disc <code>.lp-auth-g</code>, and a light that crosses it once</span></li>
+      <li><code>.lp-auth-mail</code> <span>the quiet twin, <code>.lp-ghost</code>, with the envelope</span></li>
+      <li><code>.lp-auth-legal</code> <span>the one legal line, where the account is made</span></li>
+    </ul>
+    <p class="note"><b>The Google mark is not on this stand.</b> It is Google&#39;s own file, <code>public/auth/google.svg</code> in the product, and this repository holds no copy of it, so the white disc stands empty here. The button exists only where the provider does (P11).</p>
+    <h3 class="kit-sub-h">Step two, the field, and step three, sent</h3>
+    <div class="kit-stage full bleed kit-lp">
+      <div class="landing" data-theme="light">
+        <div class="lp-gate-main"><div class="lp-modal-card"><div class="lp-auth" data-step="email" aria-labelledby="kit-auth-email" role="group"><button type="button" class="lp-auth-back" aria-label="Back"><svg class="lp-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></button><div class="lp-auth-orbit" aria-hidden="true"><i class="lp-auth-ring"></i><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/netflix.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/spotify.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/chatgpt.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/notion.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/disney-plus.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/icloud.svg" alt="" width="36" height="36"></span></span><span class="lp-auth-core"><span class="brand"></span><span class="lp-auth-env"><svg class="lp-ico" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.5"></rect><path d="M3.8 7.2l8.2 6 8.2-6"></path></svg></span></span></div><div class="lp-auth-size"><div class="lp-auth-body"><div class="lp-auth-step"><h2 class="lp-auth-title" id="kit-auth-email">Sign in</h2><p class="lp-auth-sub">We&#39;ll email you a link. There is no password.</p><div class="lp-auth-acts"><label class="lp-auth-field"><input name="email" type="email" autocomplete="email" placeholder=" "><span>Email</span></label><button type="button" class="lp-btn lp-auth-send" disabled>Send a sign-in link<svg class="lp-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div></div></div></div><div class="lp-auth-human"></div><p class="lp-auth-legal">By continuing you agree to our <a href="../terms.html">Terms</a> and <a href="../privacy.html">Privacy Policy</a>.</p></div></div></div><div class="lp-gate-main"><div class="lp-modal-card"><div class="lp-auth" data-step="sent" aria-labelledby="kit-auth-sent" role="group"><div class="lp-auth-orbit" aria-hidden="true"><i class="lp-auth-ring"></i><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/netflix.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/spotify.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/chatgpt.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/notion.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/disney-plus.svg" alt="" width="36" height="36"></span></span><span class="lp-orb"><span class="lp-orb-x"><img src="../visuals/logos/icloud.svg" alt="" width="36" height="36"></span></span><span class="lp-auth-core"><span class="brand"></span><span class="lp-auth-env"><svg class="lp-ico" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.5"></rect><path d="M3.8 7.2l8.2 6 8.2-6"></path></svg></span></span></div><div class="lp-auth-size"><div class="lp-auth-body"><div class="lp-auth-step"><h2 class="lp-auth-title" id="kit-auth-sent">Check your email</h2><p class="lp-auth-sub" role="status">A link is on its way to <strong>emma@example.com</strong>.</p><p class="lp-auth-note">Give it a minute, and look in your spam folder.</p><div class="lp-auth-acts lp-auth-row"><button type="button" class="lp-btn lp-ghost lp-sm lp-auth-again" disabled>Send another link in 0:59<i class="lp-auth-cool" aria-hidden="true"></i></button><button type="button" class="lp-auth-text">Use a different email</button></div></div></div></div><div class="lp-auth-human"></div></div></div></div>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.lp-auth-back</code> <span>the way back to step one, top left of the card</span></li>
+      <li><code>.lp-auth-field</code> <span>one pill whose label rises out of the way on focus or once there is a value; it takes petrol on focus</span></li>
+      <li><code>.lp-auth-send</code> <span>the full-width send, disabled until the address is plausible</span></li>
+      <li><code>data-step="sent"</code> <span>the mark turns into an envelope <code>.lp-auth-env</code> and two waves leave it; the orbit goes on</span></li>
+      <li><code>.lp-auth-again</code> <span>the resend, disabled for a minute with <code>.lp-auth-cool</code> filling under it; <code>.lp-auth-text</code> is the text button beside it</span></li>
+    </ul>
+    <h3 class="kit-sub-h">Get started, the two doors (node 1.2)</h3>
+    <div class="kit-stage full bleed kit-lp">
+      <div class="landing" data-theme="light">
+        <div class="lp-gate-main"><div class="lp-modal-card lp-wide"><div class="lp-start" role="group" aria-labelledby="kit-start-h"><p class="lp-eyebrow lp-start-step">Step 1 of 3</p><h2 class="lp-auth-title" id="kit-start-h">How do you want to start?</h2><p class="lp-auth-sub lp-start-sub">Adding them yourself is free and unlimited. The first bank scan is free too, and seeing every name it finds is Tendd Pro.</p><div class="lp-doors"><a class="lp-door" href="../sign-in.html"><span class="lp-door-art" aria-hidden="true"><span class="lp-art-bankmark"><svg class="lp-ico" viewBox="0 0 24 24"><path d="M3 10h18L12 4 3 10z"></path><path d="M5.5 10v8M10 10v8M14 10v8M18.5 10v8M3 20.5h18"></path></svg></span><span class="lp-art-wire"><i></i><i></i><span class="lp-art-lock"><svg class="lp-ico" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"></rect><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"></path></svg></span></span><span class="lp-art-rows"><span class="lp-art-row"><img src="../visuals/logos/netflix.svg" alt="" width="20" height="20"><b></b></span><span class="lp-art-row"><img src="../visuals/logos/spotify.svg" alt="" width="20" height="20"><b></b></span><span class="lp-art-row"><img src="../visuals/logos/icloud.svg" alt="" width="20" height="20"><b></b></span></span></span><h3>Connect your bank</h3><p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p><span class="lp-door-pick">Choose this path<span class="lp-door-go" aria-hidden="true"><svg class="lp-ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span></a><a class="lp-door" href="../sign-in.html"><span class="lp-door-art" aria-hidden="true"><span class="lp-art-list"><span class="lp-art-row"><img src="../visuals/logos/notion.svg" alt="" width="20" height="20"><b></b></span><span class="lp-art-row"><img src="../visuals/logos/chatgpt.svg" alt="" width="20" height="20"><b></b></span><span class="lp-art-row lp-art-new"><span class="lp-art-plus"><svg class="lp-ico" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"></path></svg></span><b></b></span></span></span><h3>Add them yourself</h3><p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p><span class="lp-door-pick">Choose this path<span class="lp-door-go" aria-hidden="true"><svg class="lp-ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span></a></div><div class="lp-start-foot"><p><a href="../sign-in.html">Do this later</a></p><p>Already have an account? <a href="../sign-in.html">Sign in</a></p></div></div></div></div>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.lp-modal-card.lp-wide</code> <span>the same card at 48rem, for two doors</span></li>
+      <li><code>.lp-start</code> <span>step one of three, the heading and the D-Gate promise</span></li>
+      <li><code>.lp-doors .lp-door</code> <span>two doors drawn identically (D2), each a link to sign in with the door carried</span></li>
+      <li><code>.lp-art-bank</code> <span>the bank sending what it reads along a locked wire <code>.lp-art-wire</code></span></li>
+      <li><code>.lp-art-list</code> <span>the manual door's picture: a short list with the next row being written, <code>.lp-art-new</code></span></li>
+      <li><code>.lp-start-foot</code> <span>Do this later, and the way back for somebody who already has an account</span></li>
+    </ul>
+  </section>
+
+  <section class="kit-sec" id="width">
+    <h2>Behaviour on width</h2>
+    <p class="note">One container point, 40rem. Below it the dialog becomes a sheet that rises from the foot, the card loses width and padding, the orbit tightens, the two doors stack and their pictures scale to .78. The panel&#39;s height is measured by the component and written as a transition, so a taller step opens the card and a shorter one closes it; on this stand each step is drawn at its own height.</p>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+    <p class="note"><b>The dialog is not a route.</b> A modal that owns a URL costs the root layout a parallel slot and gives a sign-in form a history entry nobody asked for (P17, rejected). Guards, expired links and the doors of node 1.2 land on the page form because they arrive by address.</p>
+    <p class="note"><b>The keyframes are this file&#39;s</b>, because the orbit runs on its own clock, which a transition cannot. Under reduced motion base.css ends each at once: the tiles stand still at their declared places and every arrival is already arrived.</p>
+    <p class="note"><b>No divider reading "or"</b> between the two buttons: no line owns it, and two stacked buttons of different weight already read as a choice (P17, rejected).</p>
+  </section>
+
+  <section class="kit-sec" id="source">
+    <h2>Where it comes from</h2>
+    <p class="note">Drawn by <code>design/system/components/landing-auth.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads, and synced byte for byte from the product on 2026-09-30. It stands on <a href="../index.html">the coloured landing</a> inside the dialog, and on <a href="../sign-in.html">sign-in</a> and <a href="../path-choice.html">path choice</a> as the gate. The grey <code>wireframes/index.html</code> is frozen at the structure before Light 2 and does not carry it: a component that arrived with a founder&#39;s decision after the grey closed, like the brand mark before it. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the organism group.</p>
+  </section>
+
+</main>
+
+<script src="_nav.js"></script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

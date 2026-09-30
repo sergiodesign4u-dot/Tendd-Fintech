@@ -47,7 +47,7 @@
     <h1>Switch row</h1>
     <p class="lead">A preference stated as a sentence a person agrees with, and the checkbox that answers it. Six of them carry every promise this product makes about what it will tell somebody and what it will hold. It is also the component that makes the 20px checkbox acceptable, because the row is the target and the box is not.</p>
     <div class="kit-meta">
-      <span>Molecule</span><span><strong>2</strong> grey pages</span><span>one form</span><span><strong>2</strong> states, both added 2026-08-12</span><span>hosts 1 atom</span>
+      <span>Molecule</span><span><strong>2</strong> grey pages</span><span>one form</span><span><strong>2</strong> states, both added 2026-08-12</span><span>hosts 1 atom</span><span>inset since 2026-09-29 (P26)</span>
     </div>
   </header>
 
@@ -71,10 +71,12 @@
     </div>
     <ul class="kit-callouts">
       <li><code>label.switch</code> <span>the molecule itself, and it is the <code>label</code>: it <b>wraps</b> the input rather than pointing at it with <code>for</code>, which is what makes the whole row the pointer target. That fact is the whole of the accessibility argument below</span></li>
-      <li><code>input</code> <span><b>an atom.</b> A real <code>input type="checkbox"</code> at 20px, drawn by the browser and tinted by <code>accent-color</code>. Its box, its tick, its accent, its hover and its disabled form are <a href="checkbox.html">checkbox.css</a>'s. The focus <b>ring</b> is not: from 2026-08-12 it is drawn on the row, because the row is the target. This file names <code>input</code> once, inside <code>:has()</code>, and sets no property of the box</span></li>
+      <li><code>input</code> <span><b>an atom.</b> A real <code>input type="checkbox"</code> at 20px, drawn by <a href="checkbox.html">checkbox.css</a> since 2026-09-29 (P26), where it used to be the browser's tinted by <code>accent-color</code>. Its box, its tick, its accent, its hover and its disabled form are <a href="checkbox.html">checkbox.css</a>'s. The focus <b>ring</b> is not: from 2026-08-12 it is drawn on the row, because the row is the target. This file names <code>input</code> once, inside <code>:has()</code>, and sets no property of the box</span></li>
       <li><code>span</code>, unclassed <span>the text stack, and it is what the 16px gap separates from the box. Two blocks inside it, so the box aligns to the first line and not to the middle of the pair</span></li>
       <li><code>.t</code> <span>the claim, at <code>--type-body</code> and <code>--text-primary</code>. It is a sentence a person agrees with, not a setting they configure</span></li>
       <li><code>.h</code> <span>the example, at <code>--type-meta</code> and <code>--text-muted</code>, 2px under the claim. It shows what the thing will look like when it happens</span></li>
+      <li><code>margin</code>, <code>padding</code> <span><b>since 2026-09-29 (P26)</b>, the founder on the hover: "подложка упирается в края". The row reaches past the column by <code>--space-8</code> on each side and pads the same distance back in, <code>--space-16</code> past a 760 container, with <code>--radius-sm</code>. The box and the words stay exactly where they were, aligned with the heading above, and the hover fill has air around them. 8px on a phone because the screen's own padding there is 16px, and a 16px reach would run the fill into the glass</span></li>
+      <li><code>::after</code> <span>the divider, <b>moved off the row on 2026-09-29</b>: a 1px <code>--line-divider</code> drawn from the row's inset to its inset, so it keeps the column's width and does not grow with the row. <code>:last-of-type</code> sets its <code>content: none</code>. It was the row's own <code>border-bottom</code> until then, and the reasoning below is unchanged</span></li>
       <li><code>border-bottom</code> <span>the row draws its own divider and <code>:last-of-type</code> takes it back. That is the opposite of the subscription row, and the reason is structural: switch rows are written straight into a section with no list around them, so there is no container to hand the job to</span></li>
     </ul>
     <p class="note"><b>The name is a name and not a control.</b> There is no switch in this product, native or drawn. The class says <code>.switch</code> and what it holds is a checkbox, which is worth knowing before somebody builds a toggle because the class implied one.</p>
@@ -82,7 +84,7 @@
 
   <section class="kit-sec" id="variants">
     <h2>Variants and sizes</h2>
-    <p class="note"><b>The switch row has one form, so there is no matrix to draw.</b> All six instances render identically, and the census measured both <code>.switch</code> and <code>.switch input</code> among the sixteen families with a single value on every property, at both viewports. Checked against unchecked is not a variant either: it is the control's value, drawn by the browser out of <code>accent-color</code>, and on an unchecked box no token of ours is visible at all.</p>
+    <p class="note"><b>The switch row has one form, so there is no matrix to draw.</b> All six instances render identically, and the census measured both <code>.switch</code> and <code>.switch input</code> among the sixteen families with a single value on every property, at both viewports. Checked against unchecked is not a variant either: it is the control's value, drawn by the browser out of <code>accent-color</code>, and on an unchecked box no token of ours is visible at all. <b>Synced from the product, 2026-09-30 (P26):</b> the box is drawn by <code>checkbox.css</code> now and an unchecked one shows the field's edge, <code>--line-control</code>; checked against unchecked is still a value and not a variant.</p>
 
     <h3 class="kit-sub-h">The 20px checkbox, and why this row is the answer to it</h3>
     <p class="note"><b>The control is 20px and WCAG 2.5.8 asks 24px.</b> It is a named carry, recorded twice in <code>docs/decisions.md</code> on 2026-08-11, and it belongs on this page rather than only on the atom's, because <b>this row is the thing that makes it acceptable</b>. The atom cannot make that argument about itself.</p>
@@ -173,6 +175,7 @@
       <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok">the same role, the other half of the pair: <code>rgb(107, 176, 186)</code>, same width, same offset, same single ring. The row's height is unchanged at rest and focused, which matters because an outline is painted outside the box and takes no space</div></div>
     </div>
     <p class="note"><b>It moves nothing and adds no edge</b>, which matters more here than on a lone control: four of these stack in a column with a divider between them, so a border or a padding change appearing under the pointer would shift the three rows below it. Measured on <a href="../settings.html">Settings</a> at 360 and at 1280: the four rows keep their heights to the hundredth with the pointer over the first one, and the fill runs the full width of the row including its 2px side padding.</p>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P26).</b> The last sentence above measured the row before it was inset: the fill ran edge to edge of the column with the box and the text touching it. Since 2026-09-29 the fill reaches 8px past the column on a phone and 16px past a 760 container, with a control's radius, while the box, the words and the dividers keep the column's edges. Hover the live rows below: the fill is wider than the dividers between them, on purpose.</p>
     <h3 class="kit-sub-h">The row, live, and there is nothing to snapshot</h3>
     <div class="kit-stage app col" id="live-row">
       <label class="switch"><input class="check" type="checkbox" checked><span><span class="t">A price goes up</span><span class="h">Like "Netflix went up by $2.50".</span></span></label>
@@ -194,17 +197,17 @@
           <tr><td>the example under it</td><td><code>--text-muted</code></td><td><code>--muted</code>, the single secondary tier</td></tr>
           <tr><td>the divider it draws</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code>. A decorative separator, so no 3:1 applies: nothing here has to be found by touch</td></tr>
           <tr><td>the two text sizes</td><td><code>--type-body</code>, <code>--type-meta</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
-          <tr><td>gap, padding, the 2px lift</td><td><code>--space-2</code>, <code>--space-16</code></td><td>primitive, straight</td></tr>
+          <tr><td>gap, padding, the reach past the column</td><td><code>--space-16</code>, <code>--space-8</code>, <code>--radius-sm</code></td><td>primitive, straight. The side padding was <code>--space-2</code> until 2026-09-29 (P26); it is now the same distance the row reaches out, 8px, and 16px past 760</td></tr>
           <tr><td>the row under the pointer</td><td><code>--bg-hover</code></td><td><code>--panel</code>, and <code>--panel-dark</code> in the dark theme. Added 2026-08-12. Same role the subscription row, the nav row, the door and the preset tile read</td></tr>
           <tr><td>the row under the keyboard</td><td><code>--color-focus</code></td><td><code>--petrol</code>, and <code>--petrol-dark</code> in the dark theme. Added 2026-08-12, 2px at 2px of offset, the same ring <code>base.css</code> draws for the whole system. It lands on the row rather than on the box because the row is the target</td></tr>
-          <tr><td>the box, its tick, its accent</td><td>none</td><td><a href="checkbox.html">checkbox.css</a>. <code>input</code> appears once in this file, inside <code>:has()</code>, and no property of the box is set here</td></tr>
+          <tr><td>the box, its tick, its accent</td><td>none</td><td><a href="checkbox.html">checkbox.css</a>, which draws them since P26. <code>input</code> appears once in this file, inside <code>:has()</code>, and no property of the box is set here</td></tr>
           <tr><td>its target size</td><td>none</td><td>the content and the padding. The row reads neither <code>--tap</code> nor <code>--row</code>, and it clears 44px on both screens that carry it</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note">Lives in <code>design/system/components/switch-row.css</code>. Stands on 2 grey pages, 6 rows: <a href="../settings.html">Settings</a>, four of them and all four coloured, and Data and privacy, two of them, still grey and arriving with the rollout.</p>
+    <p class="note">Lives in <code>design/system/components/switch-row.css</code>. Stands on 2 grey pages, 6 rows: <a href="../settings.html">Settings</a>, four of them and all four coloured, and Data and privacy, two of them, still grey and arriving with the rollout. <b>In the product on 2026-09-30</b> Settings carries six (five notifications, P29 adding "A charge is coming up", and dark mode); the count above keeps the grey corpus it was taken on.</p>
     <code class="kit-cmd">&lt;label class="switch"&gt;
-  &lt;input type="checkbox" checked&gt;
+  &lt;input class="check" type="checkbox" checked&gt;
   &lt;span&gt;&lt;span class="t"&gt;A price goes up&lt;/span&gt;&lt;span class="h"&gt;Like "Netflix went up by $2.50".&lt;/span&gt;&lt;/span&gt;
 &lt;/label&gt;</code>
     <p class="note">The input has no <code>id</code> and the label no <code>for</code>, and that is correct rather than sloppy: the label <b>wraps</b> the control, which associates them and makes the whole row the target. It is also what the 20px carry rests on, so it is not a detail a later refactor may tidy away.</p>

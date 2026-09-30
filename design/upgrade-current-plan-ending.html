@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upgrade / Tendd Pro, cancelled and not ended - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- THE THEME BEFORE THE FIRST PAINT. Three lines, inline, above the stylesheet
+     on purpose: a switch that runs on DOMContentLoaded leaves one frame of white
+     on every load in the dark theme, and a flash is the most visible thing a dark
+     theme can get wrong. design/_nav.js draws the control and owns the same key. -->
+<script>(function(){try{if(localStorage.getItem('tendd-screen-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+<body>
+
+<!--
+  Upgrade, node 5.13.3, after cancelling: a Tendd Pro that was cancelled and has
+  not ended. SYNCED FROM THE PRODUCT, 2026-09-30, and new on that day: the
+  product draws this state since P24 (the portal cancels at the end of the paid
+  period, so "Renews" would be false and becomes "Ends") and P27 (while it has
+  not ended, the plan can be kept from here with one button). Same screen as
+  upgrade-current-plan.html, the same feature list, and two things differ: the
+  second fact, and the action under it.
+  The consequence line of the running plan is not printed, because there is
+  nothing left to cancel; in its place stands what keeping it costs and when,
+  above the button, which is voice's rule that the consequence comes first.
+  "Keep Tendd Pro" is this page's one accent: it is the thing a person who came
+  back here most likely wants, and it offers nothing, no discount and no regret
+  (P27, D-Gate: the one subscription we control cannot be the hard one to leave,
+  and that cuts both ways). "Manage plan" is Settings' own label for Stripe's
+  portal, which this stand does not have.
+  Assembled from system classes. This page carries no page-level style block, no
+  style attribute, and no class that design/system/ does not define. It has no
+  grey twin: the wireframes are frozen, and this state was drawn by the product.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<!-- Node 5.13.3, added 2026-08-10. It closes a contradiction rather than adding
+     a feature: Settings has always routed "manage plan" to node 5.13, and node
+     5.13 had no state for a person who already has Pro, so a subscriber landed
+     on an advertisement for what they had already bought. There was no path
+     anywhere in the map to cancel Pro. Back, not close: unlike the gate, this
+     one is a destination a person went looking for. -->
+<div class="app flow">
+
+  <header class="appbar">
+    <a class="back" href="settings.html">Back</a>
+    <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+    <span class="chip">Pro</span>
+  </header>
+
+  <main class="screen">
+
+    <div class="textblock">
+      <h1>You are on Tendd Pro</h1>
+      <p>Everything below is open to you. Nothing here needs doing unless you want to stop.</p>
+    </div>
+
+    <dl class="pairs">
+      <div><dt>Your plan</dt><dd>Tendd Pro, yearly</dd></div>
+      <div><dt>Ends</dt><dd>1 May 2027. It does not renew</dd></div>
+    </dl>
+
+    <ul class="pairs">
+      <li><span>Every name in your bank scan</span><span class="muted">Nothing on your list is withheld</span></li>
+      <li><span>A bank connection that keeps the list up to date</span><span class="muted">Read again when your bank reports a change</span></li>
+      <li><span>History and trends</span><span class="muted">3, 6 and 12 month views</span></li>
+      <li><span>Advanced alerts</span><span class="muted">A trial ending, and a charge coming up</span></li>
+      <li><span>Full cancel guides</span><span class="muted">With a direct link to the cancel page</span></li>
+      <li><span>Export</span><span class="muted">Your history as a spreadsheet</span></li>
+    </ul>
+
+    <!-- P27. A plan that was cancelled and has not ended can be kept, and the
+         sentence says what keeping it costs and when, before the button. Not
+         offered while a renewal is being retried: that state has its own action.
+         Keeping it returns the plan to the running state, which is the page
+         this button leads to. -->
+    <p class="muted">Keeping it means it renews on 1 May 2027, at $69. Nothing is charged before then.</p>
+    <div class="actions">
+      <a class="btn primary" href="upgrade-current-plan.html">Keep Tendd Pro</a>
+      <button type="button" class="btn">Manage plan</button>
+    </div>
+
+    <p class="quiet"><a href="settings.html">Back to your settings</a></p>
+
+  </main>
+
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

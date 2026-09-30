@@ -1,127 +1,117 @@
 /* ============================================================================
    Landing bar - organism
-   The public page's header: the lockup, three section links, and the two
-   actions a visitor can take. It is the only navigation in this product that
-   points at places on the SAME page, and the only one that carries a filled
-   button, because on the landing the primary action IS the navigation.
+   The public page's header and its curtain. Rewritten 2026-09-26 for Light 2
+   (P16).
 
-   WHY IT IS NOT THE APP BAR. `.appbar` holds one screen's identity and at most
-   two slots, and past the tablet point it leaves the top of the glass entirely
-   and becomes the head of the rail. This one stays a bar at every width, holds
-   a set of anchors, and never moves: a public page has no rail to move into.
+   THE BAR floats over the first card with no ground of its own, and gains a
+   frosted one the moment the page moves, so the promise under it is never
+   read through a stripe. The three section links leave below 60rem rather
+   than folding into a menu: they point at blocks a phone reaches by scrolling.
 
+   THE CURTAIN is shown once per load, only when the boot script ran: a pale
+   sheet, the lockup, a count from 000 to 100 and a petrol line, then it lifts
+   off the top with its lower corners rounding as it goes. Under reduced motion
+   it is never drawn.
+
+   Hosts     the brand lockup (brand-mark.css and brand-wordmark.css draw it;
+             this file places and sizes it) and the landing button.
    Reads
-     colour   --bg-surface, --line-container, --text-body, --text-primary
-     spacing  --space-8, --space-16, --space-24, --space-32
-     geometry --tap
-     type     --type-body
-   Hosts     the brand lockup (brand-mark.css and brand-wordmark.css draw it,
-             this file only places it) and the button, which arrives as `.btn`
-             exactly as it does on every screen. This file styles neither.
-   Page      design/kit/landing-bar.html
-   Stands on 1 grey page and 1 coloured one.
-
-   THE BRAND IS HERE BECAUSE THIS IS CHROME. D-Brand puts the mark in chrome only
-   and never inside a screen's content, and a public header is chrome in exactly
-   the sense that rule means: it frames the page rather than being read as part
-   of it. That is also why the mark appears twice on this page and nowhere else,
-   here and in the footer.
+     colour   --bg-page, --bg-surface, --line-container, --text-body,
+              --text-primary, --text-action, --bg-action, --tone-shade
    ============================================================================ */
 
 .landing .lp-nav {
-  position: sticky; top: 0; z-index: 20;
-  background: var(--bg-surface);
-  border-bottom: 1px solid var(--line-container);
+  position: fixed; left: var(--lp-inset); right: var(--lp-inset); top: var(--lp-inset);
+  height: var(--lp-nav-h); z-index: 50;
+  display: flex; align-items: center;
+  padding: 0 clamp(1rem, 3vw, 2.25rem);
+  border-radius: var(--lp-r) var(--lp-r) 0 0;
+  transition: background-color .4s var(--lp-ease), box-shadow .4s var(--lp-ease), border-radius .4s var(--lp-ease);
+}
+.landing .lp-nav.is-scrolled {
+  background: color-mix(in srgb, var(--bg-surface) 80%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+          backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: inset 0 0 0 1px var(--line-container),
+              0 12px 30px -24px color-mix(in srgb, var(--tone-shade) 30%, transparent);
+  border-radius: 1.25rem;
+}
+.landing .lp-nav-in {
+  width: 100%; max-width: calc(var(--lp-max) - 2 * var(--lp-gut) + 2rem);
+  margin: 0 auto; display: flex; align-items: center; gap: 2rem;
+}
+.landing .lp-home { display: inline-flex; align-items: center; }
+/* the lockup at the size of this bar: the mark 28px, the word at the title role */
+.landing .lp-nav .lockup,
+.landing .lp-loader .lockup { display: inline-flex; align-items: center; gap: .6rem; }
+.landing .lp-nav .brand { width: 28px; height: 28px; }
+.landing .lp-nav .wordmark { font-size: var(--type-title); }
+.landing .lp-nav-links {
+  display: flex; gap: 2rem;
+  font-size: .9375rem; font-weight: 500; color: var(--text-body);
+}
+.landing .lp-nav-links a { position: relative; transition: color .25s var(--lp-ease); }
+.landing .lp-nav-links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -.3rem; height: 1px;
+  background: currentColor; transform: scaleX(0); transform-origin: right;
+  transition: transform .5s var(--lp-ease);
+}
+.landing .lp-nav-end {
+  margin-left: auto; display: flex; align-items: center; gap: 1.25rem;
+  font-size: .9375rem; font-weight: 500; color: var(--text-body);
+}
+@media (hover: hover) and (pointer: fine) {
+  @container (min-width: 47.5rem) {
+    .landing .lp-nav-links a:hover,
+    .landing .lp-nav-end .lp-sign:hover { color: var(--text-primary); }
+    .landing .lp-nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+  }
 }
 
-/* STICKY, AND IT IS THE ONE PLACE IN THIS PRODUCT THAT IS. Inside the app
-   nothing sticks to the top: the app bar scrolls away because the content is
-   what the person came for. Here the one action is what the page is for, and a
-   visitor who has read to the pricing block should not have to scroll back up
-   to take it. The bar is 64px and the fill is opaque, so nothing shows through
-   and no blur is needed; this system has no blur and gains none here. */
-
-.landing .lp-nav > .lp-wrap {
-  display: flex; align-items: center; gap: var(--space-16);
-  min-height: 64px;
-  /* IT WRAPS, and that is the reader's text size being taken seriously rather
-     than a hedge. At a 24px root the two actions alone measure 263px, and with
-     the lockup beside them the bar ran past a 390 screen: measured on the built
-     page. The alternatives were hiding Sign in on a phone, which removes a
-     control somebody may be looking for, and shrinking the button, which is a
-     size the button component owns and not this file's to take. Wrapping costs
-     one row of height at a text size most people never set, and nothing at every
-     other one. */
-  flex-wrap: wrap;
-  padding-block: var(--space-8);
+/* ---- the curtain ---------------------------------------------------------- */
+.landing .lp-loader { display: none; }
+.landing.lp-js .lp-loader {
+  display: flex; position: fixed; inset: 0; z-index: 100;
+  flex-direction: column; justify-content: space-between;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  background: var(--bg-page); color: var(--text-primary);
+  transition: transform 760ms cubic-bezier(.76, 0, .24, 1),
+              border-radius 760ms cubic-bezier(.76, 0, .24, 1), box-shadow 760ms;
+  will-change: transform;
 }
-
-/* The lockup takes the leading slot and the rest is pushed to the far end.
-   THE LAYOUT IS WRITTEN OUT HERE AND NOT INHERITED, and the reason is that it
-   was never inherited: `.lockup` gets its row and its gap from
-   `.app .appbar .lockup` in app-bar.css, which is the APP's bar, and on a page
-   with no `.app` in front of it the mark and the word stacked. Found by looking
-   at the built page, not at the markup. The two values are the app bar's own, so
-   the lockup reads identically in both places, which is the whole point of a
-   mark: it does not get to look different on the page where somebody meets it
-   first. The 44px floor is app-bar.css's argument repeated for the same reason,
-   a bar holding only the brand being as tall as the brand. */
-.landing .lp-nav .lockup {
-  display: inline-flex; align-items: center;
-  min-height: var(--tap);
-  gap: var(--space-8);
-  margin-right: auto;
+.landing.lp-js .lp-loader.is-lift {
+  transform: translateY(-101%);
+  border-radius: 0 0 var(--lp-r) var(--lp-r);
+  box-shadow: 0 30px 60px -20px color-mix(in srgb, var(--tone-shade) 18%, transparent);
 }
-
-/* ---- the section links ---------------------------------------------------
-   Hidden below the tablet point rather than folded into a menu, and that is a
-   decision with a reason: they point at blocks of THIS page, which a person on
-   a phone reaches by scrolling anyway. A hamburger that opens a list of anchors
-   to content already under the thumb is a control that exists to look complete.
-   `display: none` and not `visibility`, so they leave the accessibility tree
-   with the pixels: on a phone the page IS the navigation. */
-.landing .lp-nav .lp-links { display: none; }
-
-.landing .lp-nav .lp-links a {
-  display: inline-flex; align-items: center;
-  min-height: var(--tap);
-  padding: var(--space-0) var(--space-8);
-  font-size: var(--type-body);
-  color: var(--text-body);
-  text-decoration: none;
+.landing.lp-js .lp-loader.is-gone { display: none; }
+.landing .lp-loader .brand { width: 2.5rem; height: 2.5rem; }
+.landing .lp-loader .wordmark { font-size: 1.5rem; }
+.landing .lp-ld-foot { display: flex; flex-direction: column; gap: 1rem; }
+.landing .lp-ld-count {
+  font-size: clamp(4.5rem, 14vw, 11rem); font-weight: 700; letter-spacing: -.05em; line-height: .8;
+  align-self: flex-end; color: var(--text-action); font-variant-numeric: tabular-nums;
 }
-.landing .lp-nav .lp-links a:hover { color: var(--text-primary); }
-
-/* ---- the two actions -----------------------------------------------------
-   One filled and one not, which is the button component's own emphasis axis
-   doing its job: this zone has exactly one primary action, the same one the
-   hero and the closing block carry, and Sign in is the quiet way back for
-   somebody who already has an account. */
-.landing .lp-nav .lp-actions {
-  display: flex; align-items: center; gap: var(--space-8);
+.landing .lp-ld-bar { height: 2px; background: var(--line-container); border-radius: 2px; overflow: hidden; }
+.landing .lp-ld-bar i {
+  display: block; height: 100%; background: var(--bg-action);
+  transform: scaleX(0); transform-origin: left;
 }
-
-/* Sign in is a text action rather than a second button. Two buttons side by
-   side in a header read as a choice between two ways to start, and there is
-   only one: the other is a way BACK. Ink at rest, primary under the pointer,
-   with the 44px floor because it is a standalone control and not a link inside
-   a sentence, which is the case quiet-line.css says CSS cannot tell apart and
-   markup has to. */
-.landing .lp-nav .signin {
-  display: inline-flex; align-items: center;
-  min-height: var(--tap);
-  padding: var(--space-0) var(--space-8);
-  font-size: var(--type-body);
-  font-weight: 600;
-  color: var(--text-body);
-  text-decoration: none;
+@media (prefers-reduced-motion: reduce) {
+  .landing.lp-js .lp-loader { display: none; }
 }
-.landing .lp-nav .signin:hover { color: var(--text-primary); }
 
 /* ==========================================================================
-   PAST THE TABLET POINT, 47.5rem / 760px
+   WIDTHS
    ========================================================================== */
-@container (min-width: 47.5rem) {
-  .landing .lp-nav .lp-links { display: flex; gap: var(--space-8); }
-  .landing .lp-nav > .lp-wrap { min-height: 72px; gap: var(--space-32); }
+@container (max-width: 68.75rem) {
+  .landing .lp-nav-links { gap: 1.25rem; }
+}
+@container (max-width: 60rem) {
+  .landing .lp-nav-links { display: none; }
+}
+@container (max-width: 40rem) {
+  .landing .lp-nav-end .lp-sign { display: none; }
+  .landing .lp-nav .brand { width: 26px; height: 26px; }
+  .landing .lp-nav .wordmark { font-size: 1.2rem; }
 }

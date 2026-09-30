@@ -1,1199 +1,202 @@
 /* ============================================================================
    Landing story - organism
-   The public page's one long argument, told once, in a stage that holds still
-   while the reader scrolls. A round window of fourteen subscriptions contracts
-   into the list this product gives you, and then three of them are cancelled in
-   front of you while the total steps down and the reason for each one is stated
-   beside it.
+   The second half of the first card, and the page's one argument: the icons
+   are eaten by the whirlpool, two glass cards give the count and the total,
+   and the calm list forms out of it, where three are cancelled and the total
+   rolls down. Rewritten 2026-09-26 for Light 2 (P16).
 
-   IT REPLACES TWO COMPONENTS AND THE REASON IS THE FOUNDER'S: "все это
-   смотрится очень плоско", 2026-08-14. `landing-window.css` (a field in the
-   hero) and `landing-cut-list.css` (a list further down) said the same thing in
-   two places and neither one moved the reader between them. A hand-off between
-   two blocks a screen apart is a cut; a stage that stays put while the content
-   inside it changes is a SHOT, and the difference is the whole effect. Both
-   files are retired in the same step, with their kit pages, their registry rows
-   and their imports, because a component that no page holds does not exist.
-
-   THE SHAPE IS THE ARGUMENT, TWICE.
-     A WINDOW says a subscription stack is not something anybody sat down and
-     made. It arrives, one charge at a time, from more directions than a person
-     is watching. That is the problem, and it is stated in the only place on this
-     surface where it may be: the public page, before the promise. (Until
-     2026-08-16 the first shape was a FIELD of three drifting bands, and that is
-     the shape the deletion below removed: the window won on 2026-08-15.)
-     A LIST says what the product does about it. Same fourteen, same prices, one
-     column, one total. The reader watches the second thing be made out of the
-     first, which is a demonstration rather than a claim.
-
-   THE NUMBER MOVES ONLY WHEN SOMETHING VISIBLE IS CANCELLED.
-   $192.90 to $174.91 to $161.92 to $144.92, and every step is the price on the
-   line that just went quiet. Nothing on this page counts up on its own. A number
-   that changes for a reason a person can check is a demonstration; a number that
-   changes by itself is a claim, and this product does not make claims at people
-   who already do not trust finance apps.
-
-   THE FOURTEEN AND THE THREE ARE BOTH GROUNDED.
-   The fourteen, their categories and their prices are the "Canonical
-   subscription dataset" in `voice/docs/microcopy.md`, which has owned them since
-   the voice stage and sums to $192.90. The three that go are the three the
-   PRODUCT itself names: `cancel-win.html` cancels Netflix and frees $17.99;
-   `home-savefocus.html` flags The New York Times at six weeks unopened and
-   Peloton App at three, and its own line "save up to $29.99 by cutting 2" is
-   those two added up. The script that writes this markup reads the fixture table
-   and refuses to write anything that disagrees with it.
+   THE STAGE IS PINNED for 5.2 screens and the page script drives it from the
+   scroll; nothing here animates on its own clock. Under reduced motion the
+   stage is an ordinary section: the two cards side by side, then the list at
+   its last state, $144.92, with the three cancelled rows marked.
 
    Reads
-     colour   --bg-page, --bg-surface, --bg-recessed (the three grounds)
-              --line-container, --line-divider, --shadow
-              --text-primary, --text-body, --text-muted
-     spacing  --space-0, 2, 4, 8, 16, 24, 32, 40
-     geometry --radius, --radius-sm, --container-column
-     type     --type-figure, --type-title, --type-body, --type-meta, --type-label
-   Hosts     .logo, .amt, .chip at their own sizes. The story declares the boxes
-             they stand in and nothing about any of them.
-   Owns      .sline, and that is deliberate. The product's `.row` is 58px tall,
-             so fourteen of them are 812px and no viewport holds the list plus
-             its head. Restyling `.row` inside a host is the contextual override
-             the architecture forbids, and a story line is a different object
-             with a different job: it is READ as a field of fourteen, never
-             tapped, never a target. So it is declared here, out of the same
-             atoms, at the height the stage can hold.
-   Page      design/kit/landing-story.html
-   Stands on 1 grey page and 1 coloured one: the landing is the only public
-             surface this product has.
+     colour   --bg-surface, --bg-selected, --bg-failure, --line-container,
+              --text-primary, --text-body, --text-muted, --text-action, --bg-action,
+              --tone-shade
    ============================================================================ */
 
-/* ---- the section, and it is TALL only where the stage can work --------------
-   The height and the pin live inside @supports at the foot of this file. A
-   browser without scroll-driven animation gets an ordinary section: the window,
-   then the list, then the three cards, stacked and readable, which is a whole
-   picture missing only the choreography. Declaring the height here and the
-   motion there would give that browser a five-screen scroll through one frozen
-   frame, which is worse than no effect at all. */
-.landing .lp-story {
-  position: relative;
-  padding: var(--space-32) var(--space-0) var(--space-64);
-  background: var(--bg-page);
-  border-top: 1px solid var(--line-divider);
-  /* NAMED, and the name is what makes the queries in this file and in
-     landing-orbit.css ask the SECTION. `.storyswap` is a container too - it has
-     to be, that is how the list works out its own travel - and it is 620px wide,
-     so an unnamed `@container (max-width: 59.99rem)` matched inside it at every
-     window size and switched the whole choreography off. A query with no name
-     asks whatever is nearest, and what is nearest is not always what is meant. */
-  container-type: inline-size;
-  container-name: story;
-  view-timeline-name: --story;
+.landing .lp-story { position: relative; height: 520vh; height: 520svh; }
+.landing .lp-stage {
+  position: sticky; top: 0; height: 100vh; height: 100svh;
+  overflow: hidden; perspective: 1400px;
+}
+.landing .lp-glass {
+  background: var(--lp-glass);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+          backdrop-filter: blur(18px) saturate(150%);
+  box-shadow: inset 0 0 0 1px var(--line-container),
+              inset 0 1px 0 color-mix(in srgb, var(--bg-surface) 90%, transparent),
+              var(--lp-shadow-float);
 }
 
-/* ---- the stage ------------------------------------------------------------
-   Everything the reader sees during the story is inside this one box, which is
-   what makes it a shot rather than a sequence of blocks. `place-content: center`
-   and not a top alignment: the stage has to hold its centre while its contents
-   change height, or the head walks up the screen as lines are cancelled. */
-.landing .storypin {
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: var(--space-24);
-  width: 100%;
-  padding: var(--space-0) var(--space-24);
+/* ---- the two stat cards --------------------------------------------------- */
+.landing .lp-stat-c {
+  position: absolute; width: min(21rem, calc(100% - 2rem));
+  padding: 1.4rem 1.5rem 1.5rem; border-radius: var(--lp-r-md);
+  opacity: 0; visibility: hidden;
+  transform-origin: 50% 50%; will-change: transform, opacity;
+}
+.landing .lp-stat-a { left: clamp(1rem, 7vw, 8rem); top: 20%; }
+.landing .lp-stat-b { right: clamp(1rem, 7vw, 8rem); bottom: 15%; }
+.landing .lp-stat-c .lp-fig {
+  display: block; margin: 1.1rem 0 .55rem;
+  font-size: clamp(3rem, 4.8vw, 4.5rem); font-weight: 700; letter-spacing: -.05em; line-height: .95;
+  color: var(--text-action); font-variant-numeric: tabular-nums;
+}
+.landing .lp-stat-c .lp-unit {
+  font-size: .32em; letter-spacing: -.01em; font-weight: 600;
+  color: var(--text-body); margin-left: .3em;
+}
+.landing .lp-stat-c .lp-cap { color: var(--text-body); font-size: .975rem; line-height: 1.45; }
+.landing .lp-stat-c .lp-dots { display: flex; gap: 4px; margin-top: 1rem; }
+.landing .lp-stat-c .lp-dots i { width: 13px; height: 13px; border-radius: 4px; background: var(--bg-selected); }
+.landing .lp-stat-c .lp-dots i:nth-child(-n+3) { background: color-mix(in srgb, var(--bg-action) 55%, transparent); }
+.landing .lp-stat-c .lp-bar {
+  height: 2px; border-radius: 2px; margin-top: 1.1rem;
+  background: linear-gradient(90deg, var(--bg-action), transparent);
 }
 
-/* ---- the head -------------------------------------------------------------
-   The heading of the section, the one number, and the count. The number is
-   --type-figure, the largest thing in the stage, which is principle 2: the most
-   important number is the biggest thing on screen. */
-.landing .storyhead {
-  display: grid;
-  justify-items: center;
-  gap: var(--space-4);
-  max-width: var(--container-text);
-  text-align: center;
+/* ---- the ledger: the head with the rolling total, and the list ------------ */
+.landing .lp-ledger {
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, 31rem);
+  gap: clamp(2rem, 6vw, 6rem); align-items: center;
+  padding: calc(var(--lp-nav-h) + var(--lp-inset) + .75rem) max(var(--lp-gut), calc((100% - var(--lp-max)) / 2 + var(--lp-gut))) 1.25rem;
+  opacity: 0; pointer-events: none;
+  --rh: clamp(1.75rem, calc((100svh - var(--lp-nav-h) - 6.5rem) / 14), 2.75rem);
 }
-.landing .storyhead h2 {
-  margin: var(--space-0);
-  font-size: var(--type-title);
-  line-height: 1.25;
-  color: var(--text-primary);
+.landing .lp-ledger.is-live { pointer-events: auto; }
+.landing .lp-stack { display: grid; overflow: hidden; padding: .06em 0 .12em; margin: -.06em 0 -.12em; }
+.landing .lp-stack > * {
+  grid-area: 1 / 1;
+  transition: transform 800ms var(--lp-ease-expo), opacity 500ms var(--lp-ease), visibility 0s linear 800ms;
 }
-/* THE MEASURE GOES ON THE LINE, and this element is the reason the rule is
-   worth stating rather than assuming. `.storyhead` above carries
-   `max-width: var(--container-text)`, so the head looked measured; but `ch` is a
-   unit of the ELEMENT'S OWN FONT, the head is 16px and this lead is two type
-   steps under it, so the same box that reads 52ch for the heading read **80.2
-   characters** for the sentence, measured at a 720 window by the stage 12 sweep.
-   It was the worst measure on the public page and the second worst in the
-   product. A cap on a container measures the container. */
-.landing .storyhead .lead {
-  margin: var(--space-0) var(--space-0) var(--space-8);
-  max-width: var(--container-text);
-  font-size: var(--type-body);
-  color: var(--text-muted);
+.landing .lp-stack > .is-fut  { transform: translateY(100%);  opacity: 0; visibility: hidden; }
+.landing .lp-stack > .is-past { transform: translateY(-100%); opacity: 0; visibility: hidden; }
+.landing .lp-stack > .is-cur  { transform: none; opacity: 1; visibility: visible; transition-delay: 0s; }
+.landing .lp-total {
+  margin-top: 1.3rem;
+  font-size: clamp(4rem, min(8.6vw, 16vh), 9rem); font-weight: 700; letter-spacing: -.05em; line-height: .9;
+  color: var(--text-action); font-variant-numeric: tabular-nums;
 }
-/* Past the tablet point the stage has height to spare, so the line goes back up
-   to 40 and the lead to body size. Below it, 32 and --type-meta are what let the
-   head, fourteen lines and a card share one phone screen: measured at 390 x 844,
-   the head is 214px and the list 464, inside a stage of 780. */
-@container (min-width: 47.5rem) {
-  .landing .storylist { --srow-h: var(--space-40); }
-  .landing .storyhead .lead { font-size: var(--type-body); }
-}
-.landing .storyhead .lead { font-size: var(--type-meta); }
-.landing .storyhead .k {
-  margin: var(--space-0);
-  font-size: var(--type-label);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-/* ---- the two figures, and each is a STACK of the values it will take --------
-   Four totals and four counts stand in one cell each, and the scroll decides
-   which one is opaque. A single node whose text is rewritten would need a
-   script; four nodes and an opacity are the same picture with nothing running.
-   The cell is sized by the WIDEST of the four, so the number never re-centres
-   itself as it steps down.
-
-   `.storyfigs` AND `.storystack .count` WENT ON 2026-08-15, with the centred
-   hero. They were the wrapper that stood the two stacks one under the other in
-   the middle of a centred head, and the count's own size inside it. On the hero
-   the founder chose, the two figures are not a pair in a head: they are the two
-   bottom corners of the window, `.ocount` and `.ototal`, and landing-orbit.css
-   places and sizes both. Neither class is written by any page in either corpus
-   any more, so both rules are deleted rather than left to rot. The STACK itself
-   stays: it is the mechanism, and both corners still use it. */
-/* `start` AND NOT `center`, 2026-08-17. The stack has two consumers, the count's
-   figure and the total's, and centring put each figure over the middle of its own
-   word: "14" sat centred above "subscriptions" and the total's amount above its
-   caption. On a phone the pair reads left to right down one edge, and a figure
-   floating over the middle of its label is the one thing in that pair that starts
-   nowhere. The wide layout takes the alignment back where it earns it: the total
-   is pinned to the right corner of the stage past 60rem and its stack turns with
-   it, and the count's figure has carried `text-align: left` there since the
-   founder's mark of 2026-08-14 for exactly this reason, said then about one
-   layout and true in both. */
-.landing .storystack {
-  display: grid;
-  grid-template-areas: "one";
-  justify-items: start;
-}
-.landing .storystack > * {
-  grid-area: one;
-  margin: var(--space-0);
-}
-/* the base state is the FIRST value visible and the other three not, which is
-   also the whole picture a browser with no scroll timeline is left with */
-.landing .storystack > * + * { opacity: 0; }
-.landing .storystack .figure {
-  font-size: var(--type-figure);
-  line-height: 1.05;
-  color: var(--text-primary);
-}
-
-/* ---- `.fromcircle` IS THE COMPONENT NOW, and the other shape is gone -------
-   The landing opens on a round window of the fourteen, and the window contracts
-   into the list. Until 2026-08-16 this file also carried the shape that lost:
-   three drifting bands of tiles that gathered into the same list, written while
-   `design/index-circle.html` was a candidate. The founder chose the window on
-   2026-08-15 and the centred stage went with its page, so `.storyfield`, `.srow`,
-   `.strack`, `.stile`, `@keyframes sdrift`, `@keyframes sgather` and the four
-   rules that switched them off are DELETED here rather than left inert.
-
-   THEY WERE WRITTEN BY NO PAGE IN EITHER CORPUS, counted before the cut: zero
-   occurrences of any of the five class names in `design/index.html` and zero in
-   `wireframes/index.html`. What they cost was not bytes: the file read as a
-   component with two shapes when the product renders one, and the FIRST thing
-   stage 11 does is take an inventory of what moves. An inventory taken over
-   rules that never run measures the wrong product.
-
-   THE CLASS ITSELF STAYS IN THE MARKUP AND IN THE SELECTORS, and that half of
-   backlog.md's row is answered NO rather than left open. `.fromcircle` stops
-   being a modifier by this deletion; dropping the word would be a rename across
-   257 selector sites, 59 here and 198 in landing-orbit.css, every one of them
-   carrying a scroll-driven rule, and it would take each of them from 0-3-0 to
-   0-2-0 against a file whose cascade was tuned in place. It buys a shorter name
-   and risks the one thing on this page that cannot be checked by looking at a
-   still. The name is now what it says: this component is the window. */
-.landing .lp-story.fromcircle .storyswap > .orbit { width: min(100%, 24rem); }
-
-/* THE HEAD LOSES ITS FIGURE, ITS COUNT AND ITS CAPTION on this page, and the
-   founder's reason is that they were already on the screen. The hero puts the
-   label, the total and the caption in its bottom right corner and the count in
-   its bottom left; the stage repeated all four in a centred block above the
-   list, which is the same four lines twice on one page and a second, competing
-   centre of gravity. Here the head is the heading and its paragraph, quiet and
-   left aligned, and the two numbers stay in the corners they arrived in and
-   count down there. */
-/* 38rem WAS A LITERAL IN NO REGISTER AND IT IS `--container-column` NOW,
-   2026-08-17, stage 12. The value arrived on 2026-08-15 with the hero the
-   founder chose, which is after stage 10's width register closed, and it was the
-   only unregistered width number left in the product: `docs/responsive.md` keeps
-   a register precisely so that a grep cannot tell a measured threshold from a
-   number somebody guessed at. It is not registered here, it is REPLACED, and the
-   replacement was already in this component: the same head is given
-   `width: min(var(--container-column), 44cqw)` in the stage form thirty rules
-   further down `landing-orbit.css`. One box, one owner, one declared value.
-   38rem is 608px and `--container-column` is 620, so the head is 12px wider
-   below the stage's own threshold and identical above it. */
-.landing .lp-story.fromcircle .storyhead {
-  justify-self: start;
-  justify-items: start;
-  text-align: left;
-  max-width: var(--container-column);
-}
-.landing .lp-story.fromcircle .storyhead h2 { font-size: var(--type-head); }
-
-/* ---- the window and the list ----------------------------------------------
-   Stacked here, one above the other, which is the honest order for a browser
-   with no stage: this is the problem, and this is what the product does with it.
-   On the stage they are moved into ONE cell, so the second is made out of the
-   first instead of appearing under it. That move is in the @supports block. */
-.landing .storyswap {
-  display: grid;
-  /* `minmax(0, 1fr)` AND NOT THE DEFAULT `auto` TRACK, which is the third time
-     this same sentence has had to be written in this file and the first time it
-     has been written where it belongs. An `auto` track sizes to its children's
-     MAX-content, and the max-content of a row of the fourteen is its mark, its
-     whole name, its price and its badge laid out with nothing wrapped: 310px.
-     Handed a 242px box at a 320px window, the track came out 310 anyway and put
-     31px of sideways scroll on the document, in both themes. The row already
-     knows how to be narrow - `.sline .name` has `min-width: 0` and an ellipsis -
-     and it never got the chance, because the track above it never asked it to
-     be. Measured at 320x800 on `design/index-circle.html`, where the pin takes
-     the hero's own 40px gutter at every width and so runs out of room first. */
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-  gap: var(--space-40);
-  width: 100%;
-}
-
-/* ============================================================================
-   THE LIST
-   ========================================================================== */
-
-.landing .storylist {
-  /* THE ROW HEIGHT IS A VARIABLE ON THE LIST AND NOT ON THE ROW, because two
-     things now need it and only one of them is a row. A cancelled line collapses
-     to nothing, which is an animation on `height`, and `height` cannot be
-     animated from a keyword: the row has to be told a number. And the list's own
-     frame is a whole number of rows, so the parent has to know it too. Declared
-     here, inherited by every `.sline`, changed in ONE place at the tablet point. */
-  --srow-h: var(--space-32);
-  list-style: none;
-  width: 100%;
-  max-width: var(--container-column);
-  margin: var(--space-0);
-  padding: var(--space-8);
-  background: var(--bg-surface);
-  border: 1px solid var(--line-container);
-  border-radius: var(--radius);
-}
-
-/* ---- a story line ---------------------------------------------------------
-   The product's row at the height a stage can hold fourteen of. Mark, name,
-   price, state. The category line the app's row carries is dropped: at fourteen
-   at once it is noise, and the grouping it names is not what this stage is
-   about. */
-/* THE FIGURES RAN DOWN THE LIST UNTIL 2026-08-17 AND IT IS THE SAME SENTENCE
-   THIS FILE ALREADY WRITES ABOUT THE SWAP, READ OVER THE SET. Founder, on a
-   phone: "баг, бегают цифирки, такого не должно быть, давай к правому краю".
-
-   The row was a flex line, so the state cell was sized by its own label and
-   nothing else: `Active` measures 45 and the `Cancelled` stack 62, and the state
-   is the LAST item, so its right edge is the row's and its left edge moves. The
-   amount sits immediately before it, so **the amount's right edge moved by 17px
-   from row to row** and fourteen prices stood at four different columns. The note
-   under `.swap` below has said since it was written that the cell is sized by the
-   wider of the two so that nothing to its left moves when the state changes; that
-   is true within one row and was never true across the list.
-
-   SO THE ROW IS A GRID AND THE LAST TRACK IS A NUMBER. 62px is the measured width
-   of the widest state cell in this list, the `Cancelled` stack, read at 390 and
-   unchanged at every width because `--type-meta` does not move. Fixing that one
-   track fixes the amount without touching the amount: the price is still sized by
-   its own digits, and because the track after it no longer moves, every right edge
-   lands on one line. `tabular-nums` was already doing its half of the job and had
-   nothing to align against.
-
-   `minmax(0, 1fr)` FOR THE NAME AND NOT `1fr`, for the reason this file records
-   twice already: a track's automatic minimum is its content, so a long name would
-   push the price out rather than ellipsise. The `flex` declarations below are left
-   where they are - they cost nothing in a grid and deleting them is a second
-   change in a step that is making one. */
-.landing .sline {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto 62px;
-  align-items: center;
-  gap: var(--space-8);
-  min-height: var(--srow-h);
-  padding: var(--space-2) var(--space-8);
-  border-radius: var(--radius-sm);
-}
-/* the pill keeps its own width and sits at the end of a track that does not
-   move: a 62px cell with a 36px `Trial` in it is a column, not a wide chip. */
-.landing .sline > .chip,
-.landing .sline > .swap { justify-self: end; }
-/* ---- a line that is about to go -------------------------------------------
-   A cancelled line does not just go grey now: it flies up out of the list and
-   the lines under it come up to fill the space, which is what makes the stack
-   read as a deck being dealt from rather than a table being greyed out.
-   Collapsing is an animation on `height`, so three things have to be true
-   before the keyframes can say anything: the row has to have a height to
-   animate FROM (`min-height` is a floor, not a value, and `height: auto`
-   cannot be interpolated), the floor has to be gone or it holds the row open
-   at 32px, and the box has to clip or the mark and the price spill out of a
-   row of no height on the way. */
-.landing .sline.cut {
-  min-height: 0;
-  height: var(--srow-h);
-  overflow: hidden;
-}
-.landing .sline .logo { flex: none; }
-.landing .sline .name {
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-size: var(--type-meta);
-  color: var(--text-primary);
-}
-.landing .sline .amt {
-  flex: none;
-  font-size: var(--type-meta);
-  color: var(--text-body);
+.landing .lp-per { margin-top: 1rem; font-size: clamp(1rem, 1.2vw, 1.125rem); color: var(--text-body); }
+.landing .lp-count {
+  margin-top: .35rem; font-size: clamp(1.25rem, 1.8vw, 1.6rem); font-weight: 600; letter-spacing: -.015em;
   font-variant-numeric: tabular-nums;
 }
-
-/* ---- the state, and it is a STACK for the same reason the total is ---------
-   "Active" and "Cancelled" stand in one cell; the scroll decides which is
-   opaque. The cell is sized by the wider of the two, so nothing to its left
-   moves when the state changes. Twelve lines never change state at all and
-   carry a single chip with no stack around it. */
-.landing .sline .swap {
-  display: grid;
-  grid-template-areas: "one";
-  justify-items: end;
-  flex: none;
+.landing .lp-tally {
+  display: flex; flex-wrap: wrap; gap: .35rem 1.25rem;
+  margin-top: clamp(1.25rem, 4vh, 2.5rem); padding-top: 1rem;
+  background: var(--lp-sep) top / 100% 1px no-repeat;
+  font-size: .9375rem; color: var(--text-muted); font-variant-numeric: tabular-nums;
 }
-.landing .sline .swap > * { grid-area: one; }
-.landing .sline .swap > .gone { opacity: 0; }
+.landing .lp-tally li { position: relative; transition: color .5s var(--lp-ease); }
+.landing .lp-tally li::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 52%; height: 1.5px;
+  background: currentColor; transform: scaleX(0); transform-origin: left;
+  transition: transform .6s var(--lp-ease);
+}
+.landing .lp-tally li.is-past { opacity: .75; }
+.landing .lp-tally li.is-past::after { transform: scaleX(1); }
+.landing .lp-tally li.is-cur { color: var(--text-action); font-weight: 600; }
 
-/* ============================================================================
-   THE THREE CARDS
-   The reasons, one per cancellation, and they are the copy this page already
-   had. They are placed beside the list on a wide screen and over its foot on a
-   narrow one; both placements are in the @supports block, because both are part
-   of the stage and neither one is how the section reads without it.
+.landing .lp-list {
+  border-radius: var(--lp-r-md); padding: .5rem;
+  box-shadow: inset 0 0 0 1px var(--line-container),
+              0 40px 70px -48px color-mix(in srgb, var(--tone-shade) 30%, transparent);
+}
+.landing .lp-row {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto 5.75rem;
+  align-items: center; gap: .8rem;
+  height: var(--rh); padding: 0 .6rem; border-radius: .8rem; font-size: .9375rem;
+  will-change: opacity, transform; transition: background-color .6s var(--lp-ease);
+}
+.landing .lp-row + .lp-row { box-shadow: 0 -1px 0 var(--line-container); }
+.landing .lp-row .lp-lg {
+  position: relative; flex: none;
+  width: calc(var(--rh) - .7rem); height: calc(var(--rh) - .7rem);
+  max-width: 2.25rem; max-height: 2.25rem; border-radius: 26%;
+}
+/* the icon is drawn by the particles first, and the image takes over when the
+   list has formed: the page script owns its opacity */
+.landing .lp-row .lp-lg img {
+  width: 100%; height: 100%; border-radius: inherit; opacity: 0;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--tone-shade) 5%, transparent);
+  transition: filter .6s var(--lp-ease);
+}
+.landing .lp-row .lp-nm {
+  font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  text-decoration: line-through transparent;
+  transition: text-decoration-color .6s var(--lp-ease), color .6s var(--lp-ease);
+}
+.landing .lp-row .lp-pr {
+  color: var(--text-body); font-variant-numeric: tabular-nums;
+  text-decoration: line-through transparent;
+  transition: text-decoration-color .6s var(--lp-ease), color .6s var(--lp-ease);
+}
+.landing .lp-row .lp-bd { display: grid; justify-items: end; }
+.landing .lp-row .lp-bd > * {
+  grid-area: 1 / 1;
+  transition: opacity .4s var(--lp-ease), transform .6s var(--lp-spring), visibility 0s linear .4s;
+}
+.landing .lp-row .lp-alt-b { opacity: 0; transform: scale(.7); visibility: hidden; }
+.landing .lp-row.is-off .lp-main-b { opacity: 0; transform: scale(.7); visibility: hidden; }
+.landing .lp-row.is-off .lp-alt-b { opacity: 1; transform: none; visibility: visible; transition-delay: .12s, .12s, 0s; }
+.landing .lp-row.is-off .lp-nm,
+.landing .lp-row.is-off .lp-pr { color: var(--text-muted); text-decoration-color: currentColor; }
+.landing .lp-row.is-off .lp-lg img { filter: grayscale(1); }
+.landing .lp-row.is-flash { background: var(--bg-failure); }
+
+/* ==========================================================================
+   WIDTHS
    ========================================================================== */
-
-.landing .scard {
-  max-width: 21rem;
-  padding: var(--space-24);
-  background: var(--bg-surface);
-  border: 1px solid var(--line-container);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+@container (max-width: 53.75rem) {
+  .landing .lp-ledger {
+    grid-template-columns: minmax(0, 1fr); align-content: start; align-items: start; gap: 1rem;
+    --rh: clamp(1.7rem, calc((100svh - var(--lp-nav-h) - 19.5rem) / 14), 2.4rem);
+  }
+  .landing .lp-stat-a { left: 1rem; top: calc(var(--lp-nav-h) + var(--lp-inset) + 1rem); }
+  .landing .lp-stat-b { right: 1rem; bottom: 1.75rem; }
 }
-.landing .scard h3 {
-  margin: var(--space-0) var(--space-0) var(--space-8);
-  font-size: var(--type-body);
-  color: var(--text-primary);
+@container (max-width: 40rem) {
+  .landing .lp-stat-c { padding: 1rem 1.15rem 1.1rem; }
+  .landing .lp-stat-c .lp-fig { font-size: 2.75rem; margin: .7rem 0 .35rem; }
+  .landing .lp-stat-c .lp-dots,
+  .landing .lp-stat-c .lp-bar { display: none; }
+  .landing .lp-total { margin-top: .8rem; font-size: clamp(3.25rem, 15vw, 4.25rem); }
+  .landing .lp-per { margin-top: .5rem; font-size: .9375rem; }
+  .landing .lp-count { font-size: 1.2rem; margin-top: .2rem; }
+  .landing .lp-tally { margin-top: .8rem; padding-top: .6rem; font-size: .8125rem; gap: .2rem .9rem; }
+  .landing .lp-row { font-size: .875rem; gap: .6rem; grid-template-columns: auto minmax(0, 1fr) auto 4.9rem; padding: 0 .4rem; }
+  .landing .lp-list { padding: .3rem; }
 }
-.landing .scard p {
-  margin: var(--space-0);
-  font-size: var(--type-meta);
-  line-height: 1.55;
-  color: var(--text-muted);
-}
-
-/* without the stage they are three cards in a row, which is what this section
-   was before the stage existed and is a complete answer on its own */
-.landing .storyasides {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
-  gap: var(--space-16);
-  width: 100%;
-  max-width: var(--container-page);
-}
-
-/* ============================================================================
-   THE STAGE, AND EVERY LINE OF IT IS BEHIND @supports
-   `animation-timeline` is the one thing here a browser can be missing, and the
-   failure mode of leaving it unguarded is the worst kind: the declarations stay
-   valid, every animation falls back to the DOCUMENT timeline, and the whole
-   story plays itself once on load, at the top of the page, where nobody is
-   looking. The height and the pin are inside the guard for the same reason in
-   reverse: five screens of scroll through one frozen frame is worse than no
-   effect at all.
-
-   `contain` and not `cover` or `entry`. `contain` is exactly the part of the
-   scroll where the section completely covers the viewport, which is exactly the
-   part where the pin is stuck. Written as a cover percentage the beats would
-   land at different moments on a phone and on a desktop, because the section is
-   a different height on each, and that mistake has been made twice on this page
-   already.
-   ========================================================================== */
-@supports (animation-timeline: view()) {
-
-  .landing .lp-story {
-    min-height: 460svh;
-    padding: var(--space-0);
-  }
-  /* THE STAGE STARTS UNDER THE BAR, NOT UNDER THE WINDOW. landing-bar.css is
-     `position: sticky; top: 0` at a min-height of 64px, and 72 past its own
-     container point. A stage pinned at 0 puts its heading behind that bar, which
-     is what the first cut of this file did. The two numbers are this file's
-     copies of the bar's own, named here so a grep for either finds both. */
-  .landing .lp-story { --story-top: 64px; }
-  .landing .storypin {
-    position: sticky;
-    top: var(--story-top);
-    height: calc(100svh - var(--story-top));
-    grid-template-rows: auto minmax(0, 1fr);
-    align-content: stretch;
-  }
-  /* `minmax(0, 1fr)` and `min-height: 0`, both of them load-bearing: a grid
-     track's automatic minimum is its content, so without them fourteen lines
-     push the stage taller than the viewport and the heading goes up behind the
-     bar. With them the swap takes exactly what the head leaves and clips. */
-  /* `safe center` and not `center`. Centred content that is taller than its box
-     overflows EQUALLY at both edges, so the first line of the list went under
-     the head at 1280 x 720 and 360 x 740 while its last went under the card.
-     `safe` falls back to `start` exactly when that would happen, which is the
-     one keyword that means "centre it unless centring loses something". */
-  .landing .storyswap { overflow: hidden; min-height: 0; align-content: safe center; }
-  @container (min-width: 47.5rem) {
-    .landing .lp-story { --story-top: 72px; }
-  }
-
-  /* the two shapes now occupy the same cell in a stage that does not grow */
-  .landing .storyswap {
-    position: relative;
-    grid-template-areas: "one";
-    align-items: center;
-    gap: var(--space-0);
-  }
-  .landing .storyswap > * { grid-area: one; }
-
-  /* ---- everything on this stage reads one clock --------------------------
-     Longhands and never the `animation` shorthand: the shorthand RESETS
-     `animation-range` and `animation-timeline` to their initial values, and
-     because it does so silently the range simply stops existing. That cost this
-     page a whole afternoon once. */
-  /* `.storypin` is not in this list and has not been since 2026-08-18: the stage
-     itself does not move, only what stands on it. */
-  .landing .storylist,
-  .landing .storystack > *,
-  .landing .sline.cut,
-  .landing .sline.cut .swap > .live,
-  .landing .sline.cut .swap > .gone,
-  .landing .scard {
-    animation-fill-mode: both;
-    animation-timing-function: linear;
-    animation-timeline: --story;
-  }
-
-  /* BEAT 1 WAS THE FIELD GATHERING, and it left with the shape it belonged to
-     on 2026-08-16: three bands travelling to the middle line over
-     `contain 2%` to `contain 22%`. The window's own dive owns that range now,
-     in landing-orbit.css. */
-
-  /* ---- beat 2: the list is made out of it -------------------------------
-     It rises into the place the window is leaving, and the overlap between the
-     two ranges is what the eye reads as one movement rather than two. */
-    /* ONE ANIMATION AND NOT TWO, because both of them would be a transform.
-     The list rises into the place the window is leaving, and then, where the
-     stage is too short to show fourteen lines and a reason card at once, it
-     travels under the card so the line being cancelled is always on screen.
-     Written as two animations the second would simply replace the first.
-     `--stravel` is the distance, and it is ZERO wherever the list already fits:
-     the travel is not an effect, it is the answer to a shortage of height. */
-  .landing .storylist { animation-name: slist; animation-range: contain 10% contain 86%; }
-  /* ---- the window contracting into the list ------------------------------
-     A SCREEN AND A HALF, AND THE NUMBER IS ARITHMETIC. The section is 560svh
-     there rather than 460, so the `contain` phase - the part of the scroll where
-     the stage is pinned - is 460svh. Thirty per cent of it is 138svh, which is
-     the screen and a half the founder asked for, and it leaves the three
-     cancellations exactly where they already are, at 35, 53 and 71.
-
-     The two ranges OVERLAP by half the window's, which is what makes it flow
-     rather than cut: the circle is still there, at half opacity and eight tenths
-     of its size, while the list is already rising through it. Meeting instead of
-     overlapping would be a dissolve between two states; overlapping is one state
-     becoming another. */
-  /* 460svh AND NOT 560, on the founder's mark 2026-08-15: "иногда надо много
-     скролить, чтобы был вот этот процесс 13, 12, 11". Every range on this stage
-     is a percentage of the `contain` phase, so shortening the section moves
-     nothing about the choreography and only changes how far the reader's hand
-     has to travel to see it: the pinned part goes from 460svh to 360, and the
-     gap between two cancellations from 64svh to 50. */
-  .landing .lp-story.fromcircle { min-height: 320svh; }
-  .landing .lp-story.fromcircle .storyswap > .orbit {
-    width: min(100%, 100cqh);
-    animation-name: ofold;
-    animation-fill-mode: both;
-    animation-timing-function: linear;
-    animation-timeline: --story;
-    animation-range: contain 0% contain 30%;
-  }
-  .landing .lp-story.fromcircle .storylist { animation-range: contain 14% contain 88%; }
-
-  /* ---- the two corner figures, in the corners they arrived in ------------
-     Absolutely placed against the pin, which is a positioned element, exactly
-     as the three reason cards are. The reader's eye never has to find them
-     again: they are where the hero left them, and they are the only thing on
-     the stage besides the list that changes. */
-  /* THE INSET IS THE PAGE'S OWN GUTTER, WORKED OUT RATHER THAN GUESSED. These
-     two blocks have to land on the same two verticals the hero left them on, or
-     the eye loses them across the section boundary and the whole point of
-     keeping one pair is gone. `.lp-wrap` is `--container-wide` centred
-     with 40 of padding in a section, so the gutter is
-     `max(40px, (100% - 1280px) / 2 + 40px)`: 40 up to 1280, 120 at 1440, 360 at
-     1920. Measured against the hero's own corners at all three, because 16 was
-     the first guess and it put them 24px inside the line the hero left. */
-  .landing .lp-story.fromcircle .storypin {
-    /* air under the bar: the heading sat on it at 72 with nothing between them */
-    padding-block-start: var(--space-32);
-    /* AND THE SAME GUTTER THE HERO USES, at every width, in both layouts. Below
-       the point the two figures are grid cells and take it from here; above it
-       they are absolute and take it from `left`/`right`, which measure from the
-       padding box and so are unaffected by this line. Without it the flow layout
-       put them on the pin's own 24 and they sat 16px inside the vertical the
-       hero had left them on. */
-    padding-inline: var(--story-gutter);
-    --story-gutter: max(var(--space-40), calc((100% - var(--container-wide)) / 2 + var(--space-40)));
-  }
-  /* NOTHING IS ABSOLUTE UNTIL THERE IS ROOM FOR IT. Below 64rem the stage is
-     four rows and every one of them is in the flow: the heading, the window
-     becoming the list, the reason of the moment, and the two figures side by
-     side at the foot. Placed absolutely instead, which is what the first cut
-     did, the count and the total sat on each other at 390 (the total's label and
-     caption are wider than a quarter of a phone) and both sat on the card. Three
-     things in the same 80px. A corner is only a corner when there is a corner.
-     Above the point they take the four corners and the list travels under the
-     card, which is what `--scardslot` is for; here nothing overlays anything, so
-     the slot is zero. */
-  .landing .lp-story.fromcircle .storypin {
-    /* THE TWO COLUMNS ARE NOT EQUAL, 2026-08-17, and equal is what made the
-       total unreadable. Founder, after the alignment was fixed and the block
-       still read wrong: "тут что-то ничего не поменялось на мобилку".
-
-       The pair is a COUNT and a TOTAL and they are not the same object. The
-       count is two short words, 86px at every phone width and never more. The
-       total is a label, a figure and a caption, and its label alone,
-       "Example, not your data", wants 158px to stand on one line. Split down
-       the middle at 390 they get 143 each: the count wastes 57 and the total is
-       57 short, so the label breaks in two, the caption breaks in three, and
-       four stacked fragments beside two words read as a block that failed
-       rather than as a pair.
-
-       `auto minmax(0, 1fr)` gives each of them what it is: the count takes its
-       own 86 and the total takes everything left, which is 200 at 390 and 170 at
-       360. Measured after: the label is ONE line at both, the caption is two,
-       and the block is 41px shorter, which the pinned stage does not have to
-       find anywhere because the row was already the taller of the two. */
-    grid-template-columns: auto minmax(0, 1fr);
-    /* THREE ROWS AND NOT FOUR. A row of its own for the reason card cost the
-       list 150px it does not have on a phone once the promise is in the head
-       row: at 360 x 740 the two figures were pushed off the bottom of the stage
-       altogether. The card lies across the foot of the list instead, which is
-       where it was before the promise moved in, and `--scardslot` is the room
-       the list travels to keep clear of it. */
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    grid-template-areas:
-      "head  head"
-      "swap  swap"
-      "figs  figs";
-  }
-  .landing .lp-story.fromcircle .storyhead { grid-area: head; }
-  /* on the candidate the head row holds the promise and the heading, which
-     trade places; landing-orbit.css stacks them, this puts the stack in the row */
-  .landing .lp-story.fromcircle .saystack { grid-area: head; }
-  .landing .lp-story.fromcircle .storyswap { grid-area: swap; }
-  .landing .lp-story.fromcircle .storyasides {
-    grid-area: swap; align-self: end; z-index: 1;
-    display: grid; grid-template-areas: "one"; width: 100%;
-  }
-  /* `transform: none` is the third of the three. The shared rule centres the
-     card with `left: 50%` and `translateX(-50%)`, and a transform applies to a
-     static box as happily as to an absolute one: the card sat 168px off the left
-     edge of the screen. A rule that moves a thing has to be taken off wherever
-     the thing stops needing moving. */
-  .landing .lp-story.fromcircle .scard {
-    grid-area: one; position: static; width: auto;
-    margin-top: var(--space-0); transform: none;
-  }
-  /* ---- ONE SENTENCE AND NOT TWO COLUMNS, 2026-08-17 --------------------
-     Founder, after the alignment and then the widths were both fixed and the
-     block still read wrong: "та ничего не менятся, как было так и осталось",
-     and the choice out of four was "один рядок під списком".
-
-     THE TYPOGRAPHY WAS THE SECOND DEFECT AND THE FIRST ONE WAS THAT THIS IS TWO
-     OBJECTS. Aligned, widened and set on one line each, they were still a count
-     in one column and a total in another, floating on the canvas between a list
-     and a card, with nothing saying they belong to each other or to the list
-     above. On the wide stage they are annotations pinned to two corners of one
-     picture and the picture supplies the relation; on a phone there is no stage,
-     so the relation has to be in the sentence.
-
-     A SENTENCE NEEDS ONE PARENT TO FLOW THROUGH, WHICH IS THE WHOLE OF THE
-     MARKUP CHANGE. `display: contents` on the total was tried first and it is
-     the wrong tool by one level: it promotes the total's three children into the
-     GRID, not into the count's row, so they came back as grid items and
-     overlapped. `.ofigs` is a flow root and nothing else - no copy, no meaning,
-     no rule of its own above the point, where the two blocks go back to being
-     absolutely placed in the corners and the wrapper is inert.
-
-     NO NEW STRING. Every word is the one the markup already carries, in the
-     order it carries it, and the separator is a middot drawn by CSS, which is
-     punctuation rather than copy. Shortening the caption to "a month" would read
-     tighter and it is a second edition of a line that has one owner, so it is a
-     Voice decision and not this file's.
-
-     THE FOUR-VALUE STACKS SURVIVE UNTOUCHED. Both figures are `.storystack`
-     grids that count down as the scroll cancels things, 14 to 11 and 192.90 to
-     144.92; they are inline items in a sentence now and their own inner grid is
-     unchanged, so the countdown reads exactly as it does on the stage. */
-  .landing .lp-story.fromcircle .ofigs {
-    grid-area: figs;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    column-gap: var(--space-8);
-    row-gap: var(--space-2);
-  }
-  /* the total stops being a box and becomes three words in the same row */
-  .landing .lp-story.fromcircle .ofigs > .ototal {
-    display: contents;
-  }
-  .landing .lp-story.fromcircle .ofigs > .ocount { order: 1; margin: var(--space-0); }
-  .landing .lp-story.fromcircle .ofigs .storystack:not(.ocount .storystack) { order: 2; }
-  .landing .lp-story.fromcircle .ofigs > .ototal > .storystack { order: 2; }
-  .landing .lp-story.fromcircle .ofigs > .ototal > .muted { order: 3; }
-  /* the label closes the sentence on a line of its own: 100% of the row is what
-     forces the break, and it is the only basis used here */
-  .landing .lp-story.fromcircle .ofigs > .ototal > .k { order: 4; flex-basis: 100%; }
-  /* the separator is punctuation and not a string: it stands between the two
-     figures and never at the end of a line, because it is drawn on the count */
-  .landing .lp-story.fromcircle .ofigs > .ocount::after {
-    content: "\00b7";
-    color: var(--text-muted);
-    margin-inline-start: var(--space-8);
-  }
-  /* the two figures come down to the size a sentence can hold. --type-title and
-     not --type-figure: at 40px the amount alone is two thirds of a phone's line,
-     and a figure that cannot share a line is a column by another name. */
-  /* THE STACK ITSELF HAS TO GO INLINE AND NOT ONLY THE FIGURE INSIDE IT. Setting
-     `display: inline` on the four values left the count reading as two lines, 41px
-     tall, because `.storystack` is a GRID and a grid is block-level: the figure
-     was inline inside a box that still took the whole line, so "14" sat above
-     "subscriptions" exactly as before. `inline-grid` keeps the four-value stack
-     and its countdown intact and lets the sentence run through it. */
-  .landing .lp-story.fromcircle .ofigs .storystack { display: inline-grid; }
-  .landing .lp-story.fromcircle .ofigs .ocount strong,
-  .landing .lp-story.fromcircle .ofigs .amt.figure {
-    font-size: var(--type-title);
-  }
-  .landing .lp-story.fromcircle .ocount { justify-self: start; }
-  /* BOTH FIGURES READ FROM THEIR OWN LEFT EDGE HERE, 2026-08-17. Founder, on a
-     phone: "тут тоже на мобилке не понятно что и зачем, как баг выглядит".
-     This rule used to place the total against the right edge of its column and
-     turn its text with it, which is the wide layout's shape borrowed by the
-     narrow one. In a 143px column that makes the label two ragged-left lines and
-     the caption three, standing beside a count that starts at its own left edge:
-     one block, two alignments, and what the eye reads is breakage rather than a
-     pair. Started and left-aligned, they are two labelled figures side by side,
-     which is what they are. The stage takes the right alignment back at 60rem,
-     with the corner placement that earns it. */
-  .landing .lp-story.fromcircle .ototal { grid-area: total; justify-self: start; text-align: left; }
-  .landing .lp-story.fromcircle .storylist { --scardslot: 11rem; }
-
-  @container (min-width: 80rem) {
-    .landing .lp-story.fromcircle .storypin {
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-rows: auto minmax(0, 1fr);
-      grid-template-areas: "head" "swap";
-    }
-    .landing .lp-story.fromcircle .storyasides { display: contents; }
-    .landing .lp-story.fromcircle .scard { position: absolute; }
-    .landing .lp-story.fromcircle .ocount,
-    .landing .lp-story.fromcircle .ototal { position: absolute; bottom: var(--space-8); }
-    .landing .lp-story.fromcircle .ocount { left: var(--story-gutter); }
-    .landing .lp-story.fromcircle .ototal { right: var(--story-gutter); }
-    /* the stage's foot belongs to the two figures now, so the list stops short of
-       them; the cards are beside it and overlay nothing */
-    .landing .lp-story.fromcircle .storylist { --scardslot: 6rem; }
-  }
-
-  /* AND WHERE THERE IS NO HEIGHT, THERE IS NO STAGE. Four rows plus a card plus
-     two figures need about 680px to leave the list a window worth looking at: at
-     320 x 640 the swap resolved to 62px and two of the three cancellations were
-     off it. Rather than tune four numbers for one small phone, the stage lets go
-     there and the section lays out as a column - the window, the list, the
-     reason cards, the two figures - which is the same honest picture a browser
-     with no scroll timeline gets. Measured: the threshold is between 640, which
-     fails, and 780, which works, so it is set at 680. */
-  @media (max-height: 42.5rem) {
-    .landing .lp-story.fromcircle { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
-    .landing .lp-story.fromcircle .storypin { position: static; height: auto; }
-    .landing .lp-story.fromcircle .storyswap { overflow: visible; container-type: normal; }
-    .landing .lp-story.fromcircle .storyswap > .orbit,
-    .landing .lp-story.fromcircle .storylist,
-    .landing .lp-story.fromcircle .storystack > *:nth-child(n),
-    .landing .lp-story.fromcircle .sline.cut,
-    .landing .lp-story.fromcircle .sline.cut .swap > .live,
-    .landing .lp-story.fromcircle .sline.cut .swap > .gone,
-    .landing .lp-story.fromcircle .scard:nth-child(n) { animation-name: none; }
-    .landing .lp-story.fromcircle .storystack > * + * { opacity: 0; }
-    .landing .lp-story.fromcircle .sline.cut .swap > .gone { opacity: 0; }
-    /* THE FRAME COMES OFF WITH THE PIN, AND IT IS WRITTEN AT 0-5-0 BECAUSE THE
-       RULE IT UNDOES IS. The list's twelve-row window only makes sense while
-       something is scrolling it: with the choreography off, twelve rows of a
-       frame and fourteen rows of list means two subscriptions cut off the
-       bottom and nothing ever coming to show them. Written at 0-4-0 like its
-       neighbours this line loses to the frame and does nothing, which is the
-       silent kind of wrong. */
-    .landing .lp-orbit.lp-story.fromcircle .storylist {
-      height: auto; max-height: none; overflow: visible;
-      mask-image: none; -webkit-mask-image: none; transform: none;
-    }
-    .landing .lp-story.fromcircle .sline.cut { height: auto; min-height: var(--srow-h); overflow: visible; }
-    .landing .lp-story.fromcircle .scard { opacity: 1; }
-  }
-  /* THE WIDTH RELEASE IS GONE, 2026-08-18, ON THE FOUNDER'S SCREENSHOT OF A
-     PHONE: "ты какую-то ерунду делаешь, мы не можем сделать такую же идею, как
-     и на десктопе?" We can, and the narrow arrangement of the stage was already
-     written - three rows, the two figures as one sentence under the list, the
-     reason card across the list's foot with `--scardslot` as the room it needs.
-     It had simply never run, because a block right here switched the whole
-     choreography off under 60rem and handed the phone a column instead.
-
-     AND THE RELEASE WAS HALF-APPLIED, WHICH IS WHAT THE FOUNDER WAS LOOKING AT.
-     Its first line was `.landing .lp-story.fromcircle { min-height: 0 }` and it
-     never once applied: a query on the container named `story` is answered by an
-     ANCESTOR container, and `.lp-story` IS that container, so a rule on the
-     section itself, written inside a query on the section's own container, has
-     no container to match and is silently dropped. Every rule below it was
-     addressed to a descendant, so those all landed. Measured at 390 x 844: the
-     pin released to `position: static` and 1529px of content, while the section
-     kept the 320svh - 2701px - it had reserved for a stage that was no longer
-     running. **1172px of nothing**, one full blank screen, which is exactly the
-     frame the founder photographed. It stood at every phone width since the
-     release was written.
-
-     THE ONE THING THE RELEASE WAS RIGHT ABOUT IS KEPT AND IT IS A HEIGHT
-     QUESTION RATHER THAN A WIDTH ONE. `@media (max-height: 42.5rem)` above still
-     lets the stage go on a short screen, where four rows, a card and two figures
-     genuinely do not fit; it is a `@media` and not a `@container`, so its own
-     `min-height: 0` reaches the section and works. */
-
-  /* ---- THE PROMISE OWNS THE FIRST BEAT, AND ON A PHONE IT OWNS THE WHOLE
-     STAGE WHILE IT DOES ------------------------------------------------------
-     At the desk the promise is a column on the left and the window is beside it,
-     so the two share the stage and the promise leaves that column at 18%. A
-     phone has one column, so "beside" does not exist: laid out in the head row
-     the promise is 421px of a 780px stage, and a head that tall leaves the list
-     97px once the figures and the reason card have taken theirs. That number is
-     the whole reason the width release was ever written.
-
-     So on a phone the promise is not IN the head row, it is OVER the stage: it
-     fills the pin, on the page's own ground, and lifts away at 18% to reveal a
-     stage that is already fully laid out underneath. Nothing about the beat
-     changes - same `sup`, same range, same 18% - only what it is covering while
-     it is there. `inset: 0` resolves against `.storypin`, which is `sticky` and
-     therefore a containing block; `.saystack` is deliberately `position: static`
-     for the same reason at both widths, and landing-orbit.css says so at the
-     line.
-
-     The head row is then the heading alone, 126px at 390, and the arithmetic
-     that was impossible becomes ordinary: 126 of head, 62 of figures, two gaps
-     of 24, and 544 left for a list that is 460 tall.
-
-     THE RULE ITSELF IS IN landing-orbit.css, and it has to be. The promise is
-     the candidate's own block: `.landing .lp-orbit.lp-story.fromcircle .osay`
-     is 0-5-0 and this file cannot reach it at 0-3-0 from an earlier `@import`.
-     Written here it computed `position: relative` and the head row stayed 425px
-     tall, which is the silent kind of wrong this file's neighbours keep
-     recording: a rule that parses, matches nothing that matters, and leaves the
-     measurement it was meant to change exactly where it was. */
-
-  /* THE HEAD DOES NOT ANIMATE, and that is the decision the first cut of this
-     file got wrong. It carried `srise` over contain 6% to 20%, which meant that
-     at contain 0% - the first frame anybody sees when the stage locks - its
-     fill-mode held it at opacity 0 and the reader was given fourteen unlabelled
-     squares with no heading, no number and no reason. The head is the ANCHOR of
-     the stage: it is what stays while everything under it changes, and a thing
-     that stays does not make an entrance. */
-
-  /* ---- beats 3, 4 and 5: three cancellations -----------------------------
-     EVERY MOMENT RULE IS WRITTEN AT THE SAME SPECIFICITY AS THE RULE IT TIMES,
-     AND AFTER IT. The three above are 0-4-0; if the moments were written as
-     `.cut1 .swap > *` at 0-3-0 they would lose, every chip would take the
-     generic range, and all three cancellations would fire at once. That is not
-     a hypothetical: it is what this file's predecessor did.
-
-     The classes are cut1/cut2/cut3 and not :nth-of-type, because each line is
-     the only element of its type inside its own <li>, so :nth-of-type makes
-     every one of them number one. */
-  .landing .sline.cut { animation-name: sgo; }
-  .landing .sline.cut .swap > .live { animation-name: sout; }
-  .landing .sline.cut .swap > .gone { animation-name: sin; }
-
-  /* THE ROW AND ITS CHIP NO LONGER SHARE A RANGE, and that is the one thing
-     this beat needed. The chip turns over three per cent, as it always did; the
-     row now has ten, because after the turn it has to hold long enough to be
-     read and then fold away. Written as one range the fold would have taken the
-     same three per cent as the word, and the reader would see a line vanish
-     without ever seeing why. The row's own stops (30 / 55 / 100) put the turn
-     inside the chip's three per cent and the fold in the last four. */
-  .landing .sline.cut1 { animation-range: contain 35% contain 45%; }
-  .landing .sline.cut2 { animation-range: contain 53% contain 63%; }
-  .landing .sline.cut3 { animation-range: contain 71% contain 81%; }
-  .landing .sline.cut1 .swap > .live,
-  .landing .sline.cut1 .swap > .gone { animation-range: contain 35% contain 38%; }
-  .landing .sline.cut2 .swap > .live,
-  .landing .sline.cut2 .swap > .gone { animation-range: contain 53% contain 56%; }
-  .landing .sline.cut3 .swap > .live,
-  .landing .sline.cut3 .swap > .gone { animation-range: contain 71% contain 74%; }
-
-  /* ---- the total and the count follow them --------------------------------
-     ONE KEYFRAME SET PER NODE, NOT TWO ANIMATIONS. The two middle values have
-     to appear at one moment and leave at another, and two animations cannot do
-     that: `fill-mode: both` means each one applies its value before and after
-     its own range, so the later always wins and the value never leaves. The
-     answer is a single set with stops inside it, handed a range that spans both
-     moments.
-
-     AND THE FOUR OF THEM NEVER OVERLAP, which is a correction rather than a
-     refinement. The first cut cross-faded each pair over the same six per cent,
-     so for a third of that window BOTH numbers stood at half opacity in the same
-     cell, and $192.90 read as a smudge behind $174.91 at the largest size on the
-     page. `shand` hands off instead: it holds at zero until the outgoing value
-     has finished leaving, then takes one per cent to arrive. Out at 36, in from
-     36; out at 54, in from 54; out at 72, in from 72. No frame has two totals on
-     it and no frame has none. */
-  .landing .storystack > *:nth-child(1) { animation-name: sout;  animation-range: contain 35% contain 36%; }
-  .landing .storystack > *:nth-child(2) { animation-name: shand; animation-range: contain 35% contain 55%; }
-  .landing .storystack > *:nth-child(3) { animation-name: shand; animation-range: contain 53% contain 73%; }
-  .landing .storystack > *:nth-child(4) { animation-name: sin;   animation-range: contain 72% contain 73%; }
-
-  /* ---- the reasons, one before each cancellation --------------------------
-     Card one is on stage before Netflix goes, card two before Peloton, card
-     three before The New York Times, and each leaves as the next arrives. The
-     third stays: it is the last thing said, and the section ends on it. */
-  .landing .storyasides { display: contents; }
-  .landing .scard {
-    position: absolute;
-    width: min(21rem, 30cqw);
-    /* AND HEIGHT TO ITS CONTENT, WHICH AN ABSOLUTE GRID ITEM DOES NOT GET FOR
-       FREE. `.storyasides` is `display: contents`, so each card is a grid item of
-       the pin; absolutely placed, its containing block is still its grid AREA,
-       and the default `align-self: stretch` gave a card of a hundred and thirty
-       words a box of three hundred and fifteen pixels with two hundred of them
-       empty. Read as a mistake at every width above the spread. */
-    height: max-content;
-    opacity: 0;
-  }
-  .landing .scard:nth-child(1) { animation-name: sturn; animation-range: contain 25% contain 49%; }
-  .landing .scard:nth-child(2) { animation-name: sturn; animation-range: contain 43% contain 67%; }
-  .landing .scard:nth-child(3) { animation-name: sin;   animation-range: contain 61% contain 67%; }
-
-  /* ---- AND ON A PHONE THE THREE OF THEM HAND OVER RATHER THAN CROSS-FADE ----
-     2026-08-18, found by a screenshot at 320 x 800 the first time the stage ran
-     narrow. The ranges above overlap by six points and by six again, which is
-     right where the cards are three separate boxes on three parts of the stage:
-     one is fading out on the left while the next fades in on the right, and the
-     eye reads a relay. Narrow they are all in ONE cell, so the same six points
-     draw two paragraphs through each other at half opacity and neither is
-     readable - the same smear this file already fixed once for the total, and
-     the fix is the same one: `shand`'s rule, out before in.
-
-     The three windows are made adjacent and nothing else moves. `sturn` is
-     0 to 1 over its first 26 points and 1 to 0 over its last 26, so an 18-point
-     window reads: in by 29.7, held to 38.3, gone by 43 - and the cancellation it
-     explains is at 35, inside the hold. The second is the same shape against 53.
-     The third arrives at 61 with `sin` and stays, which is what it does at the
-     desk too, so it needs no range of its own here beyond the new boundary. */
-  @container story (max-width: 59.99rem) {
-    .landing .lp-story.fromcircle .scard:nth-child(1) { animation-range: contain 25% contain 43%; }
-    .landing .lp-story.fromcircle .scard:nth-child(2) { animation-range: contain 43% contain 61%; }
-
-    /* ---- AND THE CARD LANDS ON GROUND RATHER THAN ON LIVE ROWS ------------
-       A card is a surface with a fill, and a fill at 0.5 opacity is a window:
-       caught at 320 x 800 mid-handover, "Clear, never judged" was readable
-       through four subscription rows and the rows through it. At the desk the
-       card arrives over the page's own margin and there is nothing behind it to
-       show through, which is why the fade has never had to answer for itself.
-
-       So the strip the card lies in gets a scrim: the page's own colour, opaque
-       under the card and gone two rem above it, drawn on `.storyasides` because
-       that box is the card's own cell and does not fade with the cards inside
-       it. It is exactly the room `--scardslot` already reserves, so nothing is
-       hidden that the list was ever allowed to use - and it is the reason the
-       slot moved up to the pin, where a sibling can read it.
-
-       NOT ON THE SWAP, which was the first attempt and was wrong by 43px: a
-       mask there would fade the bottom of the round window too, and the window
-       is centred in the same box - its lower edge sits 101px above the swap's
-       floor, inside the 144px the scrim covers. */
-    .landing .lp-story.fromcircle .storyasides { position: relative; }
-    .landing .lp-story.fromcircle .storyasides::before {
-      content: "";
-      position: absolute;
-      inset-inline: 0;
-      bottom: 0;
-      height: calc(var(--scardslot) + var(--space-32));
-      background: linear-gradient(to top, var(--bg-page) 65%, transparent);
-      pointer-events: none;
-      /* BEHIND THE CARDS AND IN FRONT OF THE LIST, which is one number because
-         `.storyasides` already carries `z-index: 1` and is therefore a stacking
-         context: a negative child paints below the box's own in-flow content and
-         above everything outside it. Without it the scrim is a positioned box
-         and the cards are static, so the page's colour was drawn over the card
-         it exists to protect. */
-      z-index: -1;
-    }
-  }
-
-  /* ---- AND THE STAGE LETS GO WITHOUT DISSOLVING, 2026-08-18 --------------
-     This is where the pin used to fade out over its last twelve per cent (six,
-     on the candidate), on the reading that the last quarter of the pin held a
-     still frame and the fade could carry the hand-off to "How Tendd works". The
-     founder killed it on the desk on 2026-08-15 - "в конце давай не делать
-     исчезновение всего каскада, а просто продолжим скролл дальше" - but the
-     answer was written inside `landing-orbit.css`'s 60rem gate, so only the desk
-     ever got it, and on 2026-08-18 they met the same thing on the phone:
-     **"уберем цей момент что типа оно так вот делает, исчезает, а пускай
-     остается, а то пустой экран очень странно выглядит"**.
-
-     Measured before the fix: the pin's used `animation-name` was `none` at 1024,
-     1280, 1440 and 1920 and `sout` at 320, 360, 390, 414 and 768. At 390 x 844
-     the stage reached opacity 0 at scroll 1990 while the top of "How Tendd
-     works" was still 816px below the fold - 812px of scroll, a whole viewport,
-     showing an empty page. At 768 x 1024 it was 992.
-
-     THE PREMISE WAS WRONG, NOT THE WIDTH. There was never a still frame to
-     cover: past `contain 100%` the sticky releases and the stage travels up out
-     of view under its own weight while the next section comes in behind it. The
-     fade was not filling dead scroll, it was emptying live scroll. So the pin
-     carries no animation at all now, at any width, and the decision lives in the
-     component that owns the pin rather than in one of its two arrangements. */
-
-  /* narrow: the card lies across the foot of the list, on paper, with the list
-     fading under it. Wide: it stands beside the list with room to spare. The
-     question is asked of the CONTAINER and not the window, because a component
-     is not entitled to know how wide the screen is, only how wide its place is. */
-  /* ---- THE TRAVEL IS ARITHMETIC AND NOT A GUESS -------------------------
-     The list has to be shown whole, and whether it fits is a question about
-     HEIGHT, which no container query and no width point can answer. The first
-     cut answered it with -6.5rem below a width point, and it was wrong at both
-     ends: at 1024 x 768 and 1280 x 720 the point had fired, the travel was
-     switched off and the list was clipped at both edges with two of the three
-     cancellations off screen.
-
-     `container-type: size` on the swap makes its own height readable as `cqh`,
-     and a percentage inside a translate is a percentage of the ELEMENT. So the
-     distance is exactly the overflow: the window, less the list, less whatever
-     the reason card is covering. `min(0px, ...)` is what makes it nothing when
-     the list already fits, at any width and any height, with no point involved.
-
-     `--scardslot` is the one number here that is chosen rather than measured:
-     the card lies across the foot of the stage below 80rem, and 11rem is its
-     height plus its air. Past 80rem it stands beside the list and covers
-     nothing, so the slot is zero. */
-  /* AND THE SLOT IS DECLARED ON THE SWAP RATHER THAN ON THE LIST SINCE
-     2026-08-18, which is a move of one line and not a change of value. Two
-     things need the number now: the list, which travels by it, and the swap,
-     whose window has to stop where the card starts. A custom property inherits
-     downward, so declared on the swap the list still reads it and there is one
-     declaration; declared on the list, the swap could not see it at all and the
-     scrim below would have had to spell 11rem a second time. It goes on the PIN
-     rather than on the swap because the two readers are the swap's own subtree
-     and `.storyasides`, which is the swap's SIBLING: the nearest box both of them
-     inherit from is the pin. */
-  .landing .storypin { --scardslot: 11rem; }
-  .landing .storyswap { container-type: size; }
-  .landing .storylist {
-    --stravel: min(0px, calc(100cqh - 100% - var(--scardslot)));
-  }
-  .landing .scard { left: 50%; bottom: var(--space-0); transform: translateX(-50%); width: min(28rem, 100%); }
-
-  /* ---- 80rem: THE CARDS STAND BESIDE THE LIST --------------------------
-     And the point is arithmetic too. The list is --container-column, 620, so
-     its edge is 310 from the centre of the stage; 24 of air puts a card's inner
-     edge at 334. What is left for the card is `50cqw - 334 - 24`, and it stops
-     being a card somewhere under 17rem, which puts the point at 1260. 80rem is
-     the next register above it and it is already a token's value.
-
-     Written as a fixed inset from the WINDOW (`left: 40px`) instead, which is
-     what the first cut did, the cards ran under the list at every width from
-     1024 to 1360: at 1024 a 307px card starting at 40 ends at 347 and the list
-     starts at 202. Anchoring to the centre cannot make that mistake. */
-  @container (min-width: 80rem) {
-    .landing .storypin { --scardslot: 0rem; }
-    .landing .scard {
-      bottom: auto; top: 50%; transform: none;
-      /* `50%` OF THE STAGE AND NOT `50cqw`. Both look like half the page and one
-         of them is: the card is placed from the centre of the pin, so the room
-         it has is half the PIN less the list's half-width and two gaps. Written
-         in `cqw` it asked a container two levels up and came back 336 wide at a
-         1280 window, where 282 is all there is: the card crossed the right edge
-         and the page scrolled sideways by 30px. A width measured against a
-         different box than the one it is positioned in is the bug, not the unit. */
-      width: min(21rem, calc(50% - 358px));
-    }
-    .landing .scard:nth-child(1) { right: calc(50% + 334px); left: auto; margin-top: -7rem; }
-    .landing .scard:nth-child(2) { left: calc(50% + 334px); right: auto; margin-top: -3rem; }
-    .landing .scard:nth-child(3) { right: calc(50% + 334px); left: auto; margin-top: 1rem; }
+@media (max-height: 43.75rem) {
+  @container (min-width: 53.8125rem) {
+    .landing .lp-stat-a { top: 16%; }
+    .landing .lp-stat-b { bottom: 10%; }
+    .landing .lp-total { margin-top: .9rem; }
+    .landing .lp-tally { margin-top: 1rem; }
   }
 }
 
-/* ---- the keyframes --------------------------------------------------------
-   Each one does a single thing and is shared by everything on the stage, which
-   is what keeps the timed rules above readable. Two of them have left this
-   block: `sgather` went with the field it gathered on 2026-08-16, and `srise`
-   went the same day, found by the census of stage 11.
-
-   `srise` WAS THE HEAD'S ENTRANCE AND THE HEAD STOPPED MAKING ONE. The reason
-   is written two hundred lines above, at the rule that took it off: at contain
-   0%, the first frame anybody sees when the stage locks, its fill-mode held the
-   heading at opacity 0 and the reader was given fourteen unlabelled squares.
-   The decision was recorded, the reference was removed, and the four lines of
-   the keyframe itself stayed behind - defined, referenced by nothing, and
-   invisible to every test this page has, because a keyframe nobody names costs
-   exactly one thing and it is not pixels. It is the same class of leftover as
-   the centred stage deleted on the same day, one order of magnitude smaller,
-   and it was found the same way: by counting instead of by looking. Stage 11's
-   census reads every `@keyframes` in the system against every `animation-name`
-   in it. 32 defined, 31 named, this one the difference. */
-/* the list: it rises, and then it travels by --stravel, which is 0 wherever the
-   fourteen lines already fit above the card */
-/* THE STOPS ARE THE THREE MOMENTS, NOT AN EVEN RAMP, and that is the whole
-   reason this set has five of them. The three lines that get cancelled are the
-   1st, the 11th and the 13th of fourteen: two of them are almost at the bottom
-   of the list and they are eighteen per cent of the scroll apart. A linear
-   travel puts the list at 40% of the way when the eleventh line is cancelled,
-   which leaves it under the card on a short screen. So the list holds still
-   through the first cancellation, is three quarters of the way by the second,
-   and is home by the third. Measured at nine sizes from 320 x 640 to 1920 x
-   1080: all three cancelled lines fully on screen at their own moment. */
-/* `var(--stilt,)` WITH AN EMPTY FALLBACK, and the comma is load-bearing. The
-   candidate stands its list on a slight recline, which is a transform, and this
-   set already owns the element's transform: appended here it composes, declared
-   separately it would replace. Written `var(--stilt)` with no fallback and no
-   declaration the whole property is invalid at computed-value time and the list
-   does not move at all - the empty fallback is what makes the variable optional
-   rather than required. */
-@keyframes slist {
-  0%   { transform: translate3d(0, 2.5rem, 0) var(--stilt,); opacity: 0; }
-  20%  { transform: translate3d(0, 0, 0) var(--stilt,); opacity: 1; }
-  40%  { transform: translate3d(0, 0, 0) var(--stilt,); opacity: 1; }
-  59%  { transform: translate3d(0, calc(var(--stravel) * 0.75), 0) var(--stilt,); opacity: 1; }
-  82%  { transform: translate3d(0, var(--stravel), 0) var(--stilt,); opacity: 1; }
-  100% { transform: translate3d(0, var(--stravel), 0) var(--stilt,); opacity: 1; }
-}
-/* A CANCELLED LINE: it goes quiet, and then it leaves. One keyframe set and not
-   two, for the reason this file has written down twice already - both halves
-   would be an animation on the same node, and `fill-mode: both` means the second
-   would simply replace the first. So the stops carry the whole moment: the row
-   recedes and its chip turns over the first third, it holds for a beat so the
-   reader can see the word "Cancelled" on a row that is still there, and then it
-   folds upward out of the list. The lines under it come up on their own: they
-   are in the flow, and the row's height is what they were standing on. */
-/* `scale(var(--pscale, 1))` AND NOT `scale(1)`, which is what lets this set live
-   on a deck as well as on a column. The candidate gives every plate its own scale
-   and its own opacity as variables; a keyframe that wrote `scale(1)` would snap
-   the eleventh plate back to full size on its way out, and `opacity: 1` would
-   light up a plate that stands at 0.28. Read through the variables, a plate
-   leaves from wherever it stands. The fallbacks are what the plain column uses. */
-@keyframes sgo {
-  0%   { height: var(--srow-h); opacity: var(--pfade, 1); background: var(--bg-surface);
-         transform: translate3d(0, 0, 0) scale(var(--pscale, 1)); }
-  30%  { height: var(--srow-h); opacity: var(--pfade, 1); background: var(--bg-recessed);
-         transform: translate3d(0, 0, 0) scale(var(--pscale, 1)); }
-  55%  { height: var(--srow-h); opacity: var(--pfade, 1); background: var(--bg-recessed);
-         transform: translate3d(0, 0, 0) scale(var(--pscale, 1)); }
-  100% { height: 0; opacity: 0; padding-block: var(--space-0);
-         background: var(--bg-recessed);
-         transform: translate3d(0, -0.75rem, 0) scale(calc(var(--pscale, 1) * 0.94)); }
-}
-/* the window folding away: it keeps shrinking after it has gone, so the last
-   thing the eye has of it is a movement rather than a disappearance */
-@keyframes ofold {
-  0%   { transform: scale(1);    opacity: 1; }
-  62%  { transform: scale(0.86); opacity: 0.5; }
-  100% { transform: scale(0.72); opacity: 0; }
-}
-@keyframes sin  { from { opacity: 0; } to { opacity: 1; } }
-@keyframes sout { from { opacity: 1; } to { opacity: 0; } }
-/* a card: in over the first quarter, hold, out over the last */
-@keyframes sturn { 0% { opacity: 0; } 26% { opacity: 1; } 74% { opacity: 1; } 100% { opacity: 0; } }
-/* a figure: waits for its predecessor to finish leaving, then arrives */
-@keyframes shand {
-  0%  { opacity: 0; }
-  5%  { opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  95% { opacity: 0; }
-  100%{ opacity: 0; }
-}
-
-/* ============================================================================
-   NO MOTION, AND THE STATIC STATE IS THE HONEST ONE
-   base.css already collapses every animation in the product for a person who has
-   asked the system for no motion. Everything on the stage carries `both`, so it
-   needs naming: collapsed, each would land on its last keyframe, which is the
-   window gone, three lines cancelled and a total of $144.92 with no reason on
-   screen for any of it. (The drifting bands used to be the exception this
-   paragraph opened with: they carried no fill-mode, so the blanket alone left
-   them standing still. They were deleted on 2026-08-16 with the rest of the
-   shape that lost.)
-
-   THE SPECIFICITY MISTAKE IS THE SAME ONE HERE. Each rule below is written at
-   the specificity of the rule it cancels, including `> *:nth-child(n)` to carry
-   the fourth class, or one "Cancelled" chip survives the blanket. That has
-   happened on this page once already.
-
-   And the pin comes off with the motion. A stuck stage with nothing moving in it
-   is five screens of the same frame.
+/* ==========================================================================
+   REDUCED MOTION: composed, still, at the last state
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
-  .landing .lp-story,
-  .landing .lp-story.fromcircle { min-height: 0; padding: var(--space-32) var(--space-0) var(--space-64); }
-  .landing .storypin { position: static; height: auto; }
-  /* `container-type: size` MEANS THE BOX DOES NOT GROW TO ITS CONTENTS. With the
-     pin taken off there is nothing left to give the swap a height, so it
-     collapses to 0 and the list is drawn outside a box of nothing. Found at
-     320 x 640 on the candidate page; it was true here too and no check had
-     looked, because every check measured the list and none measured its parent. */
-  /* AND ITS TRACK IS `minmax(0, 1fr)`, WHICH WAS THE WHOLE FIX FOR 2664px OF
-     SIDEWAYS SCROLL. With the swap's `overflow: hidden` gone - it has to go, or
-     the box has nothing to grow to - its one grid track is `auto`, an auto track
-     sizes to max-content, and the max-content of a marquee band was both of its
-     copies laid end to end: 4104px at 1440. The marquee itself is gone since
-     2026-08-16 and the floor stays: an auto track under a static swap is the
-     same trap for the next wide thing that stands in it, and the rule costs
-     nothing to keep. */
-  .landing .storyswap { position: static; container-type: normal; overflow: visible;
-    grid-template-columns: minmax(0, 1fr); }
-  .landing .storylist,
-  .landing .lp-story.fromcircle .storyswap > .orbit,
-  .landing .storystack > *:nth-child(n),
-  .landing .sline.cut,
-  .landing .sline.cut .swap > .live,
-  .landing .sline.cut .swap > .gone,
-  .landing .scard:nth-child(n) { animation-name: none; }
-  .landing .storylist { mask-image: none; -webkit-mask-image: none;
-    height: auto; max-height: none; overflow: visible; transform: none; }
-  /* the collapse is an animation on `height`, so with the animation off the row
-     has to be given its height back as a keyword or it stands at whatever the
-     variable said, which is a floor rather than a fit */
-  .landing .sline.cut { height: auto; min-height: var(--srow-h); overflow: visible; }
-  .landing .storystack > * + * { opacity: 0; }
-  .landing .sline.cut .swap > .gone { opacity: 0; }
-  .landing .storyasides { display: grid; }
-  .landing .scard { position: static; opacity: 1; width: auto; margin-top: 0; }
+  .landing .lp-story { height: auto; }
+  .landing .lp-stage {
+    position: relative; height: auto; overflow: visible; perspective: none;
+    max-width: var(--lp-max); margin: 0 auto;
+    padding: clamp(2rem, 6vw, 5rem) var(--lp-gut) clamp(3rem, 6vw, 5rem);
+    display: grid; gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .landing .lp-stats-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .landing .lp-stat-c { position: relative; inset: auto; width: auto; opacity: 1; visibility: visible; transform: none; }
+  .landing .lp-ledger { position: relative; inset: auto; opacity: 1; padding: 0; pointer-events: auto; --rh: 2.6rem; }
+  .landing .lp-row .lp-lg img { opacity: 1; }
+  @container (max-width: 40rem) {
+    .landing .lp-stats-pair { grid-template-columns: 1fr; }
+    .landing .lp-ledger { --rh: 2.3rem; }
+  }
 }

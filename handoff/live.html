@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The live product, since v1.0 - Tendd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- NO PRE-PAINT THEME SCRIPT, for the reason design/rollout.html gives: a stage
+     account is not a product screen, it carries the project roadmap through
+     ../_nav.js, and that chrome is theme-blind. -->
+<link rel="stylesheet" href="../design/system/index.css">
+<link rel="stylesheet" href="../design/_screen.css">
+<link rel="stylesheet" href="../_nav.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<style>
+  /* THE STAGE PAGE'S OWN LOOK, in one namespace, `ho-`, and every colour a
+     semantic role rather than a literal. Copied in shape from
+     design/rollout.html, which is the page this one answers to: the two are the
+     last two stage accounts and a receiver reads them one after the other. */
+  /* A REAL LANDMARK, 2026-08-23. This was a `<div>` because the eleven stage accounts before
+     it are, and a page with a nav and a footer and no `main` gives a screen reader nothing to
+     skip TO. Found by the audit of step 8; the other accounts are frozen and carry a row. */
+  .ho-wrap { max-width: 1000px; margin: 0 auto; padding: 40px 28px 72px; }
+  .ho-wrap a:not([class]) { color: var(--text-action); }
+  .ho-wrap a:not([class]):hover { color: var(--text-primary); }
+
+  .ho-head h1 { margin: 0 0 8px; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); }
+  .ho-head .ho-sub { margin: 0 0 18px; color: var(--text-muted); font-size: 15px; max-width: 60ch; }
+  .ho-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .ho-meta span { font-size: 12px; color: var(--text-body); background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: 999px; padding: 4px 11px; }
+  .ho-meta span strong { color: var(--text-action); font-weight: 700; }
+
+  .ho-sec { margin: 0 0 40px; }
+  .ho-sec > h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line-container); }
+  .ho-sec > p { margin: 0 0 14px; font-size: 14px; line-height: 1.6; color: var(--text-body); max-width: 78ch; }
+  .ho-sec > p b { color: var(--text-primary); }
+  .ho-sec > h3 { font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 22px 0 8px; }
+
+  .ho-scroll { overflow-x: auto; margin: 0 0 14px; }
+  table.ho-t { border-collapse: collapse; width: 100%; font-size: 13px; }
+  table.ho-t th, table.ho-t td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line-container); }
+  table.ho-t th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 700; white-space: nowrap; }
+  table.ho-t td { color: var(--text-body); }
+  table.ho-t td b { color: var(--text-primary); }
+  table.ho-t code { font-size: 12px; color: var(--text-primary); }
+  table.ho-t tr:last-child td { border-bottom: 0; }
+  table.ho-t td.ho-n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .ho-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+  .ho-tag.ho-ok { color: var(--text-on-action); background: var(--bg-action); }
+  .ho-tag.ho-quiet { color: var(--text-status); background: var(--bg-status); }
+  .ho-tag.ho-open { color: var(--text-primary); background: var(--bg-callout); border: 1px solid var(--line-container); }
+
+  .ho-num { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 0 0 18px; }
+  .ho-num div { background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: var(--radius); padding: 14px 16px; }
+  .ho-num b { display: block; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); }
+  .ho-num span { display: block; font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* MAX-WIDTH ON THE NOTE, and the number is in the note's OWN ch. Copied in shape from
+     design/rollout.html, this block had none, so at desktop width it ran the full wrap: 116ch
+     measured, against the 78ch the section prose beside it keeps. It is the stage 12 lesson
+     landing on the page that reports it - `ch` is a unit of the element's own font, so the
+     measure belongs to the line and never to the box around it. The inherited copy on
+     rollout.html is frozen and is named in the backlog instead. */
+  .ho-note { margin: 0 0 14px; padding: 12px 14px; background: var(--bg-callout); border-radius: var(--radius-xs); font-size: 13px; line-height: 1.6; color: var(--text-body); max-width: 78ch; }
+  .ho-note b { color: var(--text-primary); }
+
+  .ho-cmd { display: block; white-space: pre-wrap; background: var(--bg-recessed); border: 1px solid var(--line-divider); border-radius: var(--radius-xs); padding: 12px 14px; margin: 0 0 14px; font-size: 12.5px; line-height: 1.7; color: var(--text-body); }
+
+  .ho-foot { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line-container); font-size: 12.5px; line-height: 1.7; color: var(--text-muted); }
+  .ho-foot, .ho-head .ho-sub { max-width: 78ch; }
+
+  /* THE HAMBURGER'S LABEL, corrected on this page only, 2026-08-23. `design/_screen.css`
+     generates "All screens" after `.nav-toggle`, and on a coloured screen that is exactly
+     right: the button opens the coverage map. On a STAGE ACCOUNT the same button opens the
+     project roadmap, which is thirteen stages and not one screen, so the word was telling a
+     receiver the opposite of what the control does. Corrected here rather than in
+     `_screen.css`, because that file is loaded by all 57 accepted screens and one line in it
+     would move the render of every one of them. `design/rollout.html` carries the same wrong
+     word and is frozen html; it is a row in the backlog. */
+  .nav-toggle::after { content: "The roadmap"; }
+  .ho-foot code { color: var(--text-body); }
+  /* THE THREE DOORS, added at step 5 of stage 13. They are the one block on this page a
+     receiver is meant to use before reading anything, so they are the one block that is
+     not prose and not a table. */
+  .ho-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin: 0 0 18px; }
+  .ho-links a { display: block; background: var(--bg-surface); border: 1px solid var(--line-container); border-radius: var(--radius); padding: 14px 16px; text-decoration: none; }
+  .ho-links a:hover { border-color: var(--line-selected); }
+  .ho-links b { display: block; font-size: 14px; font-weight: 700; color: var(--text-primary); }
+  .ho-links span { display: block; font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+  .ho-links code { display: block; font-size: 11px; color: var(--text-action); margin-top: 7px; word-break: break-all; }
+</style>
+</head>
+<body>
+
+<!--
+  THE ACCOUNT OF THE FIRST SYNC, 2026-09-30. A satellite of the Handoff page: it
+  declares NAV_ACTIVE and sits under Handoff in the roadmap. The founder built the
+  product from this repository in ../Tendd Product, it went live at tendd.co, and
+  from 2026-09-02 it changed itself by his decisions while this repository stood
+  frozen at v1.0. On 2026-09-30 he asked for this repository to show the live
+  product again. This page says how that was done, what changed and why, what was
+  kept on purpose, and what is his to decide. The rule it produced is in CLAUDE.md,
+  section The mirror.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar-panel">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - Handoff</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <div id="sidebar"></div>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<main class="ho-wrap">
+
+  <div class="ho-head">
+    <h1>The live product, since v1.0</h1>
+    <p class="ho-sub">This repository was handed over on 2026-08-23 and frozen. The product built
+      from it went live at <a href="https://tendd.co">tendd.co</a> and kept changing by the
+      founder's decisions. On 2026-09-30 every page here was brought level with it. This is the
+      account of that sync.</p>
+    <div class="ho-meta">
+      <span>synced at product commit <strong>4158f6c</strong></span>
+      <span><strong>68</strong> pages in colour, was 58</span>
+      <span><strong>75</strong> components + 3 patterns, was 70 + 3</span>
+      <span><strong>22</strong> decisions logged in the product since 2026-09-02</span>
+      <span><strong>28</strong> gaps open of 55</span>
+    </div>
+  </div>
+
+  <section class="ho-sec" id="how">
+    <h2>How it was done</h2>
+    <p><b>The running product was the reference, not its source code read in isolation.</b> The
+      product's own development server was walked by a script as eleven people built for it in
+      its development database, one per shape of data the design draws: a list typed by hand,
+      the free bank scan held for seven days, the same scan after the hold ended, Tendd Pro with a
+      live bank, Pro cancelled but not ended, Pro with a failing renewal, a bank that needs a new
+      sign-in, an empty list, one subscription, a short list, and a cancellation reported. Every
+      route was captured as rendered markup and as screenshots at 390 and 1440, and every page in
+      <code>design/</code> was compared with the capture of its state.</p>
+    <p><b>What travelled whole, copied rather than rewritten:</b> <code>design/system/</code>
+      (byte for byte the product's <code>system/</code>), <code>voice/docs/microcopy.md</code>,
+      <code>docs/decisions.md</code> (with a mirror header), <code>docs/gaps.md</code> (new here),
+      <code>docs/bank-connection.md</code>, <code>handoff/docs/behaviour.md</code> and the fourteen
+      merchant marks in <code>design/visuals/logos/</code>. The landing's motion is the product's
+      own script, bundled into <code>design/landing.js</code>, with the command that rebuilds it in
+      its banner.</p>
+    <p class="ho-note"><b>The one rule every page was brought level by.</b> What the product
+      DECIDED changes the page: a structure, a class, a string or a state that moved because of a
+      decision with an id. What the product has simply not built yet stays as the design's intent,
+      because a gap in a running product is not a verdict on the design. Every changed page says
+      which it was in its own top comment, with the decision ids.</p>
+  </section>
+
+  <section class="ho-sec" id="changed">
+    <h2>Was, became, and why</h2>
+    <div class="ho-scroll"><table class="ho-t">
+      <thead><tr><th>Where</th><th>Was at v1.0</th><th>Became</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><a href="../design/index.html">Welcome</a></td><td>D-Hero: a round window of fourteen merchants gathering into the list</td><td><b>Light 2.</b> The fourteen float beside the promise, a whirlpool eats them, the list forms and three are cancelled while the total steps 192.90 to 144.92. White in both themes; WebGL with a still fallback</td><td>P16, the founder's choice of six explorations</td></tr>
+        <tr><td><a href="../design/sign-in.html">Sign in</a>, <a href="../design/path-choice.html">Path Choice</a></td><td>Two screens of their own, wordy</td><td>Panels: Google first, email one step in, a sent step; Get started is two pictured doors. On the landing both open as a dialog over the page</td><td>P17, P11</td></tr>
+        <tr><td><a href="../design/home-locked.html">Home, after a scan</a> (new)</td><td>Every name, on Free, beside a live bank</td><td>Three names across three categories, then one block: "You have 11 more subscriptions", what they add up to, Get Tendd Pro or Add them yourself</td><td>D-Gate, P31 to P34</td></tr>
+        <tr><td><a href="../design/guided-reveal.html">Guided reveal</a></td><td>Step 2 named everything</td><td>Step 2 names three and says the rest in the same block, without the amount</td><td>D-Gate, D1, P31</td></tr>
+        <tr><td><a href="../design/connections-held.html">Connections</a> (two new states)</td><td>A bank was connected or not</td><td>A free scan's connection is held seven days unread, then stops; a stopped bank still names what it found</td><td>P20, P32, G52</td></tr>
+        <tr><td><a href="../design/connect-bank-from-pro.html">Connect bank</a> (new state)</td><td>-</td><td>After paying past the hold: one line of why, no step counter</td><td>P32</td></tr>
+        <tr><td><a href="../design/upgrade.html">Upgrade</a></td><td>$7.99 a month, one row of plans</td><td>$9.99 a month, $69 a year, each plan card with its own button, the year in the middle; a cancelled plan can be kept (<a href="../design/upgrade-current-plan-ending.html">new state</a>)</td><td>D4 amended 2026-09-30, P24, P26, P27</td></tr>
+        <tr><td><a href="../design/history-trends.html">Trends, Pro view</a></td><td>A drawn view of what Pro would show</td><td>What moved lists only what moved, per range, and the category sentence agrees with its own rows</td><td>P25</td></tr>
+        <tr><td>Subscription detail, Connections, Data and privacy</td><td>The way back in the bar at every width</td><td>Past 760 the way back is the first line of the page, so the rail never moves; the detail keeps the tab bar</td><td>P26</td></tr>
+        <tr><td><a href="../design/cancel-guide.html">Cancel guide</a>, <a href="../design/alerts.html">Alerts</a></td><td>Pro promised screenshots per step, a link that "skips the retention screens", unusual-charge alerts</td><td>Pro is a direct link to the service's own cancel page; the promises nothing could keep are gone</td><td>P30, G56</td></tr>
+        <tr><td><a href="../design/settings.html">Settings</a></td><td>Four notification switches</td><td>A fifth, "A charge is coming up", Pro and off by default, because Tendd now writes letters</td><td>P29</td></tr>
+        <tr><td><a href="../design/terms.html">Terms</a>, <a href="../design/privacy.html">Privacy</a>, <a href="../design/help.html">Help</a>, <a href="../design/about.html">About</a>, <a href="../design/contact.html">Contact</a> (new)</td><td>Links that pointed nowhere; "Careers" in the footer</td><td>Five public documents in the product's own lines; "Careers" became "Help"</td><td>P12, P35, P36</td></tr>
+        <tr><td><a href="../design/kit/overview.html">The design system</a></td><td>70 components</td><td>75: six new (landing type, landing button, locked list, landing benefits, stats, and the auth panel), the orbit removed; pill and go buttons, a drawn checkbox, two new roles</td><td>P16, P17, P26, P34</td></tr>
+        <tr><td><a href="../voice/microcopy.html">Microcopy</a></td><td>1318 lines</td><td>2064 lines: every string the product added, with its rewrite log</td><td>The product owns the file now</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="ho-sec" id="kept">
+    <h2>Kept on purpose, although the product does not show it</h2>
+    <p>Each of these is a gap in the running product and not a decision against the design, so
+      each stays on the pages as intent. The product's own list of them is
+      <a href="../docs/gaps.md">docs/gaps.md</a>, 28 rows open of 55.</p>
+    <div class="ho-scroll"><table class="ho-t">
+      <thead><tr><th>What</th><th>Why the product lacks it</th></tr></thead>
+      <tbody>
+        <tr><td>"Hi, Emma" and the plan chip in the app bar</td><td>The product stores no names yet</td></tr>
+        <tr><td>The "not opened in a while" nudge on Home</td><td>No usage data exists to drive it</td></tr>
+        <tr><td>"Last checked today, 9:14 AM" on the trust line</td><td>No published form for a time that is not today (G4)</td></tr>
+        <tr><td>Loading and error screens</td><td>The product renders each view whole on the server and draws none</td></tr>
+        <tr><td>Share snapshot</td><td>Not built</td></tr>
+        <tr><td>The failed renewal as its own dated screen</td><td>Being built in the product as this sync ran (its next decision), so it is not in this sync</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="ho-sec" id="founder">
+    <h2>For the founder to decide</h2>
+    <div class="ho-scroll"><table class="ho-t">
+      <thead><tr><th>Question</th><th>Why it is open</th></tr></thead>
+      <tbody>
+        <tr><td><b>Is the canonical Emma on Free or on Pro?</b></td><td>The pages show her on Free with Chase connected and every name visible. Under D-Gate that is the Pro shape; on Free after a scan she sees three names, which is <a href="../design/home-locked.html">home-locked</a>. The pages were left as they were, and the choice changes the chip on about fifteen of them</td></tr>
+        <tr><td><b>The Pro edition of the cancel guide</b></td><td>On Pro the first action is "Open the cancel page on netflix.com". It was not drawn, because one product and not two (D3) refuses a Pro twin of a screen; it is a state if you say so</td></tr>
+        <tr><td><b>Petrol on the locked block</b></td><td>The block spends petrol on its count and its front tile beside its primary button, which the One Voice Rule of D-Concept forbids and which P26 refused for a price. It is the product's choice (P34), mirrored as it is</td></tr>
+        <tr><td><b>Settings still says "unlimited bank connections"</b></td><td>D-Gate made it false; the product prints it too, so the mirror does</td></tr>
+        <tr><td><b>The wireframes</b></td><td>The grey was not redrawn. It is the structure contract as handed over, and a page the product changed or added has no grey twin</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="ho-sec" id="checked">
+    <h2>What was checked, and with what</h2>
+    <p>Every changed page was swept at seven widths (360, 390, 760, 780, 900, 1000, 1440) in both
+      themes by the agent that changed it: no sideways scroll, no failed request, no console error,
+      and screenshots compared with the product's. Then the repository's own instruments ran over
+      the whole tree; their results are in the section below.</p>
+    <div class="ho-scroll"><table class="ho-t">
+      <thead><tr><th>Instrument</th><th>What it asked</th><th>Result, 2026-09-30</th></tr></thead>
+      <tbody>
+        <tr><td><code>rollout12.cjs</code></td><td>No style of its own on 68 screens; every link resolves</td><td>0 violations, 0 classes the system does not define, 0 dead links. 10 pages have no grey original, which the mirror expects</td></tr>
+        <tr><td><code>quality13.cjs</code></td><td>Six questions of every screen at two widths and two themes</td><td>The two flush-text pairs it has always accepted, and three small targets on the public pages, filed for the product</td></tr>
+        <tr><td><code>route13.cjs</code></td><td>Every link in every page and document, and the click depth</td><td>3754 links in html and 57 in markdown, 0 dead; the route holds</td></tr>
+        <tr><td><code>width12.cjs</code>, <code>edges13.cjs</code>, <code>pages13.cjs</code></td><td>Reading measures, right edges at 1920, and 135 non-screen pages at 320 to 390</td><td>All ok; 0 split families; 0 pages scrolling sideways</td></tr>
+        <tr><td><code>a11y13.cjs</code>, <code>aria13.cjs</code></td><td>Landmarks, headings, 200% zoom; names and busy states</td><td>0 pages without a single main, 0 sideways at 200%; 0 ARIA findings on 126 pages</td></tr>
+        <tr><td><code>plans13.cjs</code></td><td>One product, not two</td><td>0 findings. Free on 17 pages, Pro on 7, the plan named in the screen on 24 pages</td></tr>
+        <tr><td><code>design13.cjs</code></td><td>DESIGN.md against tokens.css</td><td>0 disagreements</td></tr>
+      </tbody>
+    </table></div>
+    <p class="ho-note"><b>Three instruments were taught, not silenced.</b> The old landing had no
+      <code>main</code> and was never swept; the new public pages have one, and 265 findings arrived,
+      none of them a line of text crossing its frame. <code>quality13.cjs</code> now skips pictures
+      marked aria-hidden, boxes with a deliberate negative margin, and boxes the public page places
+      by transform, and counts a wrap by lines rather than by rects. <code>rollout12.cjs</code> reads
+      every head of a nested rule and treats a query as a query. <code>plans13.cjs</code> compares
+      the two corpora only where both have the page. Each change is dated at its line.</p>
+  </section>
+
+  <footer class="ho-foot">
+    Written on 2026-09-30 from the sync itself. The product moves on without this page: the
+    commit it was synced at is named at the top, and the next sync writes its own account.
+  </footer>
+</main>
+
+<script>
+(function(){var s=document.getElementById('sidebar-panel'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script>
+  window.NAV_BASE = '../';
+  window.NAV_ACTIVE = 'handoff/handoff.html';
+  window.NAV_ACTIVE_LABEL = 'The live product, since v1.0';
+  window.NAV_SECTIONS = [
+    { id:'how',     label:'How it was done' },
+    { id:'changed', label:'Was, became, and why' },
+    { id:'kept',    label:'Kept on purpose' },
+    { id:'founder', label:'For the founder' },
+    { id:'checked', label:'What was checked' },
+  ];
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>

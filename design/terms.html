@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- THE THEME BEFORE THE FIRST PAINT. Three lines, inline, above the stylesheet
+     on purpose: a switch that runs on DOMContentLoaded leaves one frame of white
+     on every load in the dark theme, and a flash is the most visible thing a dark
+     theme can get wrong. design/_nav.js draws the control and owns the same key. -->
+<script>(function(){try{if(localStorage.getItem('tendd-screen-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+<body>
+
+<!--
+  Terms, route /terms. It has no node number because neither the IA nor the wireframes ever
+  drew it: node 1.2's legal line promised "Terms and Privacy Policy" and the landing's footer
+  promised "Terms", and both pointed at a screen that asks a stranger to sign in (the product's
+  G38 and G40). The product built this page on 2026-09-20 and its twin, privacy.html (P12);
+  "Paying for Tendd Pro" replaced the old no-payment paragraph when Stripe landed (P24, P35);
+  the price is D4 as amended ($9.99 a month or $69 a year).
+
+  Added 2026-09-30 when the design repository was brought level with the product. The product
+  region is the product's server render of /terms, taken at commit 4158f6c, with its links
+  mapped to design pages (/ to index.html, /privacy to privacy.html; the mailto stays).
+
+  ONE SECTION IS CONDITIONAL IN THE PRODUCT. "Paying for Tendd Pro" opens with "Tendd Pro is
+  not on sale yet, and nothing in Tendd charges you today. When it is on sale, this is how
+  paying works." only where no payment can be taken (no Stripe configured). The capture this
+  page is taken from had Stripe on, so this page draws the on-sale state, without that
+  sentence. The other state is one more .textblock above the pairs, and the string is owned by
+  microcopy.md, section terms.
+
+  Fully public and reads nothing: no session, no database. Every claim on it is one the
+  product's code keeps, the standard data-privacy.html is held to.
+
+  Assembled from system classes only. This page carries no style of its own: no page-level
+  style block, no style attribute, no class design/system/ does not define. It reuses the
+  reading column (.rows-col), the group head, the promise list data-privacy.html uses for its
+  three promises, and .pairs.sentences. Every string is owned by voice/docs/microcopy.md,
+  section terms.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<div class="app flow">
+
+  <header class="appbar">
+    <a class="back" href="index.html">Back</a>
+    <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+  </header>
+
+  <main class="screen">
+    <div class="rows-col">
+
+      <div class="textblock">
+        <h1>Terms</h1>
+        <p>What Tendd does, what it does not do, and what we each agree to.</p>
+      </div>
+      <p class="muted">Last updated 29 September 2026.</p>
+
+      <section class="group" aria-label="What Tendd is">
+        <div class="group-head">
+          <h2>What Tendd is</h2>
+        </div>
+        <div class="textblock">
+          <p>Tendd keeps one list of what you pay for: what it costs, how often it repeats and when it is next due. The list is built from the recurring charges your bank reports, from what you type in yourself, or from both.</p>
+        </div>
+        <!-- The three limits, in the shape data-privacy uses for its three promises: the claim
+             in full, then the specific that makes it checkable. All three are refusals, and a
+             refusal stated plainly is what Principle 4 asks for in place of reassurance. -->
+        <ul class="promises">
+          <li><strong>Tendd is read-only</strong>It cannot move your money. The bank connection has no permission to, and we never ask for one.</li>
+          <li><strong>Tendd cannot cancel anything for you</strong>Cancelling happens at the service. Tendd shows you where to go and what to say.</li>
+          <li><strong>Tendd is not financial advice</strong>It is a record of what you signed up for. The decisions stay yours.</li>
+        </ul>
+      </section>
+
+      <section class="group" aria-label="What the list is worth">
+        <div class="group-head">
+          <h2>What the list is worth</h2>
+        </div>
+        <div class="textblock">
+          <p>Tendd finds what your bank reports as a repeating charge. Something paid another way, or too new to have repeated yet, will not appear, and you can add it yourself.</p>
+        </div>
+        <div class="textblock">
+          <p>Your bank's own record is the one that counts. Your list is a clear view of what you are paying for, and it is not a statement.</p>
+        </div>
+      </section>
+
+      <section class="group" aria-label="Your account">
+        <div class="group-head">
+          <h2>Your account</h2>
+        </div>
+        <div class="textblock">
+          <p>Your account is reached by your email address, so anyone who can open your email can open Tendd as you. Keep it safe.</p>
+        </div>
+        <div class="textblock">
+          <p>Everything Tendd holds for you is yours to download or to remove, at any time, on Data and privacy.</p>
+        </div>
+      </section>
+
+      <!-- D-Gate, in the words of a document: typing is free and uncapped, the first bank scan
+           is free and names three, every name and a connection that stays are Tendd Pro. -->
+      <section class="group" aria-label="Free and Tendd Pro">
+        <div class="group-head">
+          <h2>Free and Tendd Pro</h2>
+        </div>
+        <div class="textblock">
+          <p>Adding subscriptions yourself is free and unlimited, and so is your first bank scan, which names three of what it finds. Every name, and a bank connection that keeps your list up to date, are Tendd Pro.</p>
+        </div>
+      </section>
+
+      <!-- HOW PAYING WORKS, WRITTEN BEFORE ANYBODY IS ASKED TO PAY (the product's G54). The two
+           prices are D4's as amended; the card never reaches Tendd (Checkout is Stripe's page);
+           cancelling is one step and ends at the period end; "keep it after all" is P27; a
+           failed renewal stays Pro while Stripe retries; the list keeps its names and the bank
+           disconnects when Pro ends (P32, P20); the yearly notice and the refund window are
+           P35. Drawn in the on-sale state: see the top comment for the other. -->
+      <section class="group" aria-label="Paying for Tendd Pro">
+        <div class="group-head">
+          <h2>Paying for Tendd Pro</h2>
+        </div>
+        <dl class="pairs sentences">
+          <div><dt>The price</dt><dd>$9.99 a month or $69 a year, in US dollars. The payment page shows the total before you pay.</dd></div>
+          <div><dt>Who takes the payment</dt><dd>Stripe, on its own page. Tendd never sees your card number: it learns which plan you chose and whether the payment went through.</dd></div>
+          <div><dt>Renewing</dt><dd>Tendd Pro renews by itself at the end of each month or year, at the same price, until you cancel. Before a yearly plan renews, Tendd emails you a month ahead with the date and the amount.</dd></div>
+          <div><dt>Cancelling</dt><dd>In Settings, under Manage plan, in one step and with no questions. Tendd Pro stays open until the end of the period you paid for, nothing more is charged, and until that day you can keep it after all.</dd></div>
+          <div><dt>Refunds</dt><dd>If a charge was a mistake, such as a renewal you meant to stop, write to privacy@tendd.co within 14 days of it and we refund it in full. After that we do not refund part of a period that has started, unless the law where you live says we must.</dd></div>
+          <div><dt>A payment that does not go through</dt><dd>Stripe tries again over the following days, and Tendd Pro stays open while it does. If it still does not go through, your plan returns to Free.</dd></div>
+          <div><dt>When Tendd Pro ends</dt><dd>Your list stays yours, with every name it had. The bank connection ends, as it does on Free, so the list stops updating by itself.</dd></div>
+          <div><dt>If the price changes</dt><dd>We email you at least 30 days before a new price applies to you, and you can cancel before then.</dd></div>
+        </dl>
+      </section>
+
+      <section class="group" aria-label="The bank connection">
+        <div class="group-head">
+          <h2>The bank connection</h2>
+        </div>
+        <div class="textblock">
+          <p>Banks are connected through Plaid. You enter your bank details with Plaid and never with us, their terms cover that part, and you can disconnect a bank whenever you want, on Your sources.</p>
+        </div>
+      </section>
+
+      <section class="group" aria-label="When Tendd does not work">
+        <div class="group-head">
+          <h2>When Tendd does not work</h2>
+        </div>
+        <div class="textblock">
+          <p>Tendd is young, and it will sometimes be down, late or wrong. We do not promise it is always available or always complete, and we cannot take on what a missed charge costs you. What we do promise is the read-only limit above, which is enforced in the code and not only written here.</p>
+        </div>
+      </section>
+
+      <section class="group" aria-label="Ending it">
+        <div class="group-head">
+          <h2>Ending it</h2>
+        </div>
+        <div class="textblock">
+          <p>You can delete everything at any time, and nothing is kept back: no copy, no archive.</p>
+        </div>
+        <div class="textblock">
+          <p>We can close an account that is being used to break the law or to damage Tendd for other people, and we will tell you why.</p>
+        </div>
+      </section>
+
+      <section class="group" aria-label="When these terms change">
+        <div class="group-head">
+          <h2>When these terms change</h2>
+        </div>
+        <div class="textblock">
+          <p>The date at the top of this page is the day it last changed. If a change affects what you get or what you pay, we will tell you by email before it takes effect.</p>
+        </div>
+      </section>
+
+      <!-- The same block privacy.html carries, and the same two strings. A document that says
+           what we each agreed has to name who the other party is, and the honest answer today
+           is one person (the product's G43). -->
+      <section class="group" aria-label="Who runs Tendd">
+        <div class="group-head">
+          <h2>Who runs Tendd</h2>
+        </div>
+        <div class="textblock">
+          <p>Tendd is run by one person and not by a company. There is no business registered behind it yet, and when there is, this page will name it.</p>
+        </div>
+        <p class="muted lead">Write to <a href="mailto:privacy@tendd.co">privacy@tendd.co</a> about anything on this page: what Tendd holds about you, how to get a copy of it, how to remove it, or a sentence here that does not match what you see. One person reads that address.</p>
+      </section>
+
+      <p class="muted ruled"><a href="privacy.html">Privacy is a separate page</a></p>
+
+    </div>
+  </main>
+
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

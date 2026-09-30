@@ -9,10 +9,11 @@ recurring spend, for people who feel anxious about money and avoid finance apps.
 happened in a stage is written on that stage's own page, which is better at its own subject than
 a paragraph here could be.
 
-## The four addresses
+## The five addresses
 
 | | |
 |---|---|
+| **The live product**, built from this design in `../Tendd Product` | https://tendd.co |
 | **The product**, every screen in colour | https://sergiodesign4u-dot.github.io/Tendd-Fintech/design/index.html |
 | **The design system**, and why it is like this | https://sergiodesign4u-dot.github.io/Tendd-Fintech/design/kit/why.html |
 | **The repository** | https://github.com/sergiodesign4u-dot/Tendd-Fintech |
@@ -31,13 +32,14 @@ accessibility lives, and who decides what is still open.
 | [`ia/`](./ia/structure.html) | The structure: a sitemap, the flows, one page per node, and one accessibility contract |
 | [`wireframes/`](./wireframes/overview.html) | The grey structure contract, frozen since Voice. Read-only, and the answer to why every screen exists twice |
 | [`voice/`](./voice/voice.html) | The voice, and the line inventory that owns every interface string |
-| [`design/`](./design/index.html) | The product in colour: 17 screens across 58 pages, and [the map of all of them](./design/overview.html) |
+| [`design/`](./design/index.html) | The product in colour: 17 screens and five public documents across 68 pages, level with the live product since 2026-09-30, and [the map of all of them](./design/overview.html) |
 | [`design/system/`](./design/system/CLAUDE.md) | The code of the design system, liftable whole, with its own rules file |
 | [`design/kit/`](./design/kit/why.html) | The stand that shows it: a page per component, the foundations, the architecture, the backlog |
 | [`handoff/`](./handoff/handoff.html) | This project, handed over: the page and its five documents |
 
 At the root: [CLAUDE.md](./CLAUDE.md) the rules, [docs/decisions.md](./docs/decisions.md) the
-decision log, [DESIGN.md](./DESIGN.md) the visual language read out of the shipped code,
+decision log (mirrored from the product), [docs/gaps.md](./docs/gaps.md) what the product still
+needs and nobody has written, [DESIGN.md](./DESIGN.md) the visual language read out of the shipped code,
 [docs/bank-connection.md](./docs/bank-connection.md) where every figure on a screen comes from,
 and [AGENTS.md](./AGENTS.md) the entry for an outside critic.
 
@@ -90,6 +92,12 @@ page; the two are checked against each other by `handoff13.cjs`.
 | 11 | Animation | [design/kit/motion.html](./design/kit/motion.html) | Done, August 2026. Opened on a census rather than a design. Fourteen tokens, four verbs, one distance, and a signature that is not a verb |
 | 12 | Rollout | [design/rollout.html](./design/rollout.html) | Done, August 2026. The account: every grey page paired with a coloured twin, an audit row per screen, the ban on a screen carrying a style of its own re-proved on all of them |
 | 13 | Handoff | [handoff/handoff.html](./handoff/handoff.html) | **Done, August 2026**, closed by the founder on 2026-08-23 after the page was walked. Tagged `v1.0`. The stage writes no product. What it adds is the four questions no page answered - what this package is and is not, which theme is the main one, who decides what is open, and what is deliberately not done - plus the behaviour spec, the screen-to-token map, the accessibility checklist read by a run rather than by memory, and the log of what a stranger could not work out alone |
+
+**After the handoff.** The product was built from this package in `../Tendd Product` and went
+live at https://tendd.co. From 2026-09-02 it changed itself by the founder's decisions, and on
+2026-09-30 this repository was brought level with it and tagged `v1.1`: it is now the product's
+mirror, synced on request. What changed, why, and what was kept on purpose is
+[handoff/live.html](./handoff/live.html); the rule is in `CLAUDE.md`, section The mirror.
 
 ## The design system
 

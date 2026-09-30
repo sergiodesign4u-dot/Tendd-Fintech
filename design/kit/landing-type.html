@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landing type - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<!-- A REAL LANDMARK, 2026-08-23. This was a `div` on all 82 stand pages, so a page with
+     a nav, an h1 and a footer gave a screen reader nothing to skip TO. Found by check 5 of
+     `a11y13.cjs`, which is the first instrument in this repository to read a page that is not
+     a product screen. No stylesheet here selects a wrapper by tag. -->
+<main class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Landing type</h1>
+    <p class="lead">The public page&#39;s voice at display size: the dotted eyebrow, the display heading and its lede, a card&#39;s title and body, the tag, the badge, the text link, the line icon, and the heading whose words rise one after another.</p>
+    <div class="kit-meta">
+      <span>Atoms</span>
+      <span><code>.lp-eyebrow</code> <code>.lp-display</code> <code>.lp-lede</code> and six more</span>
+      <span><strong>0</strong> grey pages</span>
+      <span>roles, not sizes</span>
+      <span>added 2026-09-26 with Light 2 (P16)</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="what">
+    <h2>What it is</h2>
+    <p class="note"><b>Why not the app&#39;s type roles.</b> The app sets a heading at <code>--type-head</code> and never larger, because inside a task the number is the biggest thing on screen. This page argues, and its headings are up to seven times that, scaled with the width through <code>clamp()</code>. So these roles are this page&#39;s alone, one file of small atoms rather than nine files of one rule each, and nothing in <code>.app</code> reads them.</p>
+    <p class="note"><b>One file, registered as one component.</b> Every rule in it is a type role or the one glyph the roles carry (<code>.lp-ico</code>); none contains another. It is filed as a single row in the atom group, the way <a href="destination-icon.html">destination icon</a> is one row for four masks.</p>
+  </section>
+
+  <section class="kit-sec" id="specimen">
+    <h2>Live, pinned light</h2>
+    <div class="kit-stage full bleed kit-lp">
+      <div class="landing" data-theme="light">
+        <div class="lp-card"><div class="lp-wrap"><p class="lp-eyebrow">How it works</p><h2 class="lp-display lp-split" aria-label="See what you&#39;re paying for. Calmly."><span class="lp-w" aria-hidden="true"><span class="lp-wi">See</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">what</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">you're</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">paying</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">for.</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi lp-acc">Calmly.</span></span></h2><p class="lp-lede">Three steps, a few minutes. You are in control the whole way.</p><h3 class="lp-h3">Everything in one place</h3><p class="lp-body">Every subscription and recurring charge, pulled together and grouped by category. One calm list instead of a dozen forgotten logins.</p><p class="lp-body"><span class="lp-tag">Example, not your data</span> <span class="lp-badge lp-b-act">Active</span> <span class="lp-badge lp-b-trial">Trial</span> <span class="lp-badge lp-b-off">Cancelled</span></p><p class="lp-body"><a class="lp-link" href="../privacy.html">Read what we access <svg class="lp-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></p></div></div>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.lp-eyebrow</code> <span>uppercase at .75rem and .14em tracking, muted, with a petrol dot in a 12% petrol halo. The same dot the locked block borrowed on 2026-09-29 (P34)</span></li>
+      <li><code>.lp-display</code> <span>the section heading: 700, -.04em, .95 line height, <code>clamp(2.6rem, 6.2vw, 6.25rem)</code>, balanced. A block may resize it (the FAQ and the close do) and never re-weight it</span></li>
+      <li><code>.lp-lede</code> <span>the sentence beside a heading, fluid 1.0625 to 1.25rem at 38ch</span></li>
+      <li><code>.lp-h3</code> <span>a card&#39;s title</span></li>
+      <li><code>.lp-body</code> <span>a card&#39;s muted body</span></li>
+      <li><code>.lp-acc</code> <span>petrol ink on a word or a figure: "Calmly." and the two example figures</span></li>
+      <li><code>.lp-tag</code> <span>a small caption pill with a warm dot in <code>--text-attention</code>: "Example, not your data", which is the page&#39;s honesty about its numbers</span></li>
+      <li><code>.lp-badge</code> <span>a row&#39;s status in the example list: <code>.lp-b-act</code> selected petrol, <code>.lp-b-trial</code> attention, <code>.lp-b-off</code> the failure wash, each a role pair</span></li>
+      <li><code>.lp-link</code> <span>the text link with a 35% petrol underline and an arrow that advances under a pointer</span></li>
+      <li><code>.lp-ico</code> <span>the line icon every block draws: 1.7 stroke, round caps, <code>currentColor</code></span></li>
+      <li><code>.lp-w .lp-wi</code> <span>a heading split into words, each in a window a little larger than itself so no descender is clipped, rising in order through <code>--i</code>. The heading keeps its whole sentence as <code>aria-label</code> and every word is <code>aria-hidden</code></span></li>
+    </ul>
+    <p class="note"><b>The rise is not on this stand, on purpose.</b> The words are hidden only when the boot script has marked the page <code>lp-js</code> and motion is allowed (landing-shell.css). This specimen carries no script, which is the page&#39;s own no-script state: every word stands where it lands.</p>
+  </section>
+
+  <section class="kit-sec" id="width">
+    <h2>Behaviour on width</h2>
+    <p class="note">Fluid, with no point of its own: every size is a <code>clamp()</code> of the width. One container step, below 40rem, where a badge shrinks to .6875rem so a row of the example list keeps its figure.</p>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+    <p class="note"><b>Never inside <code>.app</code>.</b> The app&#39;s biggest thing is the monthly total (design principle 2); a display heading beside it would be two headlines. The locked block took the eyebrow&#39;s <b>look</b> on 2026-09-29 and wrote it into <code>locked-list.css</code> at the app&#39;s own sizes (P34, "the landing&#39;s display type size" rejected), rather than reading this file.</p>
+    <p class="note"><b>The badges are the one place the landing shows status colour</b>, and they stay the role pairs the app&#39;s tones read: attention for a trial, the failure wash for cancelled, never red (D-Concept).</p>
+  </section>
+
+  <section class="kit-sec" id="source">
+    <h2>Where it comes from</h2>
+    <p class="note">Drawn by <code>design/system/components/landing-type.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads, and synced byte for byte from the product on 2026-09-30. It stands on <a href="../index.html">the coloured landing</a> in every block and in <a href="landing-auth.html">the sign-in panel</a>. The grey <code>wireframes/index.html</code> is frozen at the structure before Light 2 and does not carry it: a component that arrived with a founder&#39;s decision after the grey closed, like the brand mark before it. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the atom group.</p>
+  </section>
+
+</main>
+
+<script src="_nav.js"></script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

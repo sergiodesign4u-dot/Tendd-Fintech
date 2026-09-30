@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy - Tendd in colour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- THE THEME BEFORE THE FIRST PAINT. Three lines, inline, above the stylesheet
+     on purpose: a switch that runs on DOMContentLoaded leaves one frame of white
+     on every load in the dark theme, and a flash is the most visible thing a dark
+     theme can get wrong. design/_nav.js draws the control and owns the same key. -->
+<script>(function(){try{if(localStorage.getItem('tendd-screen-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="stylesheet" href="system/index.css">
+<link rel="stylesheet" href="_screen.css">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+<body>
+
+<!--
+  Privacy, route /privacy, the public document and the second half of P12 (terms.html is the
+  first). No node number: the design never drew it. data-privacy.html is NOT this page and does
+  not replace it. That one is node 6.15, a control panel with two switches, a download and a
+  delete, behind a session, for a person who already has an account. This one is for the
+  person deciding whether to have one, and it carries no controls at all.
+  The two answer the same fear at two different moments.
+
+  Added 2026-09-30 when the design repository was brought level with the product. The product
+  region is the product's server render of /privacy, taken at commit 4158f6c, with its links
+  mapped to design pages (/ to index.html, /terms to terms.html; the mailto stays). The
+  product built it on 2026-09-20 (P12); Stripe joined "What Tendd holds" and "Who else can see
+  it" when paying arrived (P24, P35); the seven-day hold after a free scan is P32 under D-Gate;
+  the address privacy@tendd.co arrived on 2026-09-23 and the company did not, which is what
+  "Who runs Tendd" says (the product's G43, half closed). Nothing on it is conditional.
+
+  THE THREE PROMISES ARE NOT NEW STRINGS. They are the three data-privacy owns, printed again
+  word for word, because a promise worded two ways is two promises. Every other sentence was
+  read out of the product's code before it was written down: the list of who else can see your
+  data is every external host the running product talks to, and "no analytics" is an absence
+  that was checked. Fully public: it reads neither a session nor a database.
+
+  Assembled from system classes only. This page carries no style of its own: no page-level
+  style block, no style attribute, no class design/system/ does not define. Every string is
+  owned by voice/docs/microcopy.md, section privacy.
+-->
+
+<button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <span class="nav-brand">Tendd - UI + Visual</span>
+    <button class="sidebar-close" id="sidebarClose" aria-label="Close navigation">&#10005;</button>
+  </div>
+  <nav class="sidebar-nav" id="ui-screen-nav"></nav>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="layout">
+<div class="stage stage-app">
+
+<div class="app flow">
+
+  <header class="appbar">
+    <a class="back" href="index.html">Back</a>
+    <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
+  </header>
+
+  <main class="screen">
+    <div class="rows-col">
+
+      <div class="textblock">
+        <h1>Privacy</h1>
+        <p>What Tendd holds about you, who else can see it, and how to take it all back.</p>
+      </div>
+      <p class="muted">Last updated 29 September 2026.</p>
+
+      <!-- The plain answer: data-privacy's three promises, word for word. -->
+      <section aria-label="The plain answer">
+        <ul class="promises">
+          <li><strong>We read your recurring charges</strong>Read-only, and nothing else you do with your money.</li>
+          <li><strong>We can never move your money</strong>The connection has no permission to, and we never ask for one.</li>
+          <li><strong>We do not sell your data</strong>Not to advertisers, not to anyone, on any plan.</li>
+        </ul>
+      </section>
+
+      <section class="group" aria-label="What Tendd holds">
+        <div class="group-head">
+          <h2>What Tendd holds</h2>
+        </div>
+        <dl class="pairs sentences">
+          <div><dt>Your email address</dt><dd>how you sign in, and where a sign-in link is sent</dd></div>
+          <div><dt>Your subscriptions</dt><dd>the name, the amount, how often it repeats and when it is next due</dd></div>
+          <div><dt>Where each one came from</dt><dd>the bank you connected, or the fact that you typed it in</dd></div>
+          <div><dt>The line your bank prints</dt><dd>the text as it appears on your statement, kept unchanged so the same charge is recognised next month</dd></div>
+          <div><dt>Your settings</dt><dd>your currency, your plan, and which alerts you want</dd></div>
+          <div><dt>If you pay for Tendd Pro</dt><dd>the plan you chose, its price, when it renews or ends, and whether the last payment went through, as Stripe reports them. Never the card</dd></div>
+          <div><dt>The emails Tendd sent you</dt><dd>which alert went out and when, so that none is sent twice</dd></div>
+        </dl>
+        <!-- The absence is the point, and it is the product's column list read backwards:
+             there is no name, address, card or credential column anywhere in its schema, so
+             this sentence cannot quietly stop being true. -->
+        <div class="textblock">
+          <p>Tendd does not hold your name, your address, your card numbers or your bank login. It never sees them.</p>
+        </div>
+      </section>
+
+      <section class="group" aria-label="Who else can see it">
+        <div class="group-head">
+          <h2>Who else can see it</h2>
+        </div>
+        <dl class="pairs sentences">
+          <div><dt>Supabase</dt><dd>holds the database</dd></div>
+          <div><dt>Resend</dt><dd>sends your sign-in email, the emails about your subscriptions that you choose in Settings, and our replies when you write to us, so it sees your address and what the email says</dd></div>
+          <div><dt>Cloudflare</dt><dd>checks that a person and not a script is asking for a sign-in link, so it sees your browser and your internet address for that moment; and if you write to privacy@tendd.co, it passes your letter on to the Gmail inbox where it is read</dd></div>
+          <div><dt>Stripe</dt><dd>takes the payment for Tendd Pro, on its own page, so it sees your card, your email and the billing address it asks for. Tendd learns only the plan and whether the payment went through</dd></div>
+          <div><dt>Plaid</dt><dd>makes the bank connection and reads recurring charges. We ask Plaid for transactions and for nothing else</dd></div>
+          <div><dt>Google</dt><dd>only if you sign in with Google, and then it tells us your email address and nothing more</dd></div>
+          <div><dt>Vercel</dt><dd>serves the pages, and keeps the ordinary record of requests that a web server keeps</dd></div>
+          <div><dt>Google Fonts</dt><dd>the typeface is loaded from Google, so Google sees your address when a page opens. We plan to serve it ourselves</dd></div>
+        </dl>
+        <div class="textblock">
+          <p>That is the whole list. There is no advertising, no analytics and no tracking of any kind in Tendd.</p>
+        </div>
+      </section>
+
+      <section class="group" aria-label="What your browser keeps">
+        <div class="group-head">
+          <h2>What your browser keeps</h2>
+        </div>
+        <div class="textblock">
+          <p>One cookie, and it is the one that keeps you signed in. Whether you chose light or dark is kept in your browser too, and that never reaches us.</p>
+        </div>
+      </section>
+
+      <section class="group" aria-label="What you can do about it">
+        <div class="group-head">
+          <h2>What you can do about it</h2>
+        </div>
+        <!-- Three controls named and none of them linked, because all three live behind a
+             session and this page is read by people who do not have one. A reassurance link
+             that answers with a sign-in form is the exact defect the product's G38 recorded. -->
+        <div class="textblock">
+          <p>Download everything Tendd holds for you. It is free, it is yours, and it is on Data and privacy.</p>
+        </div>
+        <div class="textblock">
+          <p>Disconnect a bank, on Your sources. The standing permission is withdrawn at Plaid and the key we held is deleted. The subscriptions already on your list stay there until you remove them.</p>
+        </div>
+        <!-- P32: the seven-day hold after the free scan (D-Gate). -->
+        <div class="textblock">
+          <p>A free bank scan reads once. Tendd then keeps the connection for seven days without reading it, so Tendd Pro can name what the scan found without asking your bank again, and after that it ends by itself. You can end it sooner on Your sources.</p>
+        </div>
+        <div class="textblock">
+          <p>Delete everything, and your account goes with it. There is no archive and no copy kept back.</p>
+        </div>
+      </section>
+
+      <section class="group" aria-label="How long Tendd keeps it">
+        <div class="group-head">
+          <h2>How long Tendd keeps it</h2>
+        </div>
+        <div class="textblock">
+          <p>Until you delete it. Nothing here expires on its own, because a list you have kept for two years is the reason to keep a list.</p>
+        </div>
+      </section>
+
+      <section class="group" aria-label="When this page changes">
+        <div class="group-head">
+          <h2>When this page changes</h2>
+        </div>
+        <div class="textblock">
+          <p>The date at the top is the day it last changed. If Tendd ever holds something new, or hands your data to someone not named above, this page will say so.</p>
+        </div>
+      </section>
+
+      <!-- HALF OF THE PRODUCT'S G43, AND THE HALF THAT COULD BE ANSWERED. A policy has to say
+           who is answerable and where to write, and neither may be invented. The address
+           exists and reaches a person; the entity does not exist yet and the paragraph says
+           so rather than implying a company. -->
+      <section class="group" aria-label="Who runs Tendd">
+        <div class="group-head">
+          <h2>Who runs Tendd</h2>
+        </div>
+        <div class="textblock">
+          <p>Tendd is run by one person and not by a company. There is no business registered behind it yet, and when there is, this page will name it.</p>
+        </div>
+        <p class="muted lead">Write to <a href="mailto:privacy@tendd.co">privacy@tendd.co</a> about anything on this page: what Tendd holds about you, how to get a copy of it, how to remove it, or a sentence here that does not match what you see. One person reads that address.</p>
+      </section>
+
+      <p class="muted ruled"><a href="terms.html">Terms are a separate page</a></p>
+
+    </div>
+  </main>
+
+</div>
+
+</div><!-- /stage -->
+</div><!-- /layout -->
+<script>
+(function(){var s=document.getElementById('sidebar'),o=document.getElementById('sidebarOverlay'),t=document.getElementById('navToggle'),c=document.getElementById('sidebarClose');function op(){s.classList.add('open');o.classList.add('open');}function cl(){s.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

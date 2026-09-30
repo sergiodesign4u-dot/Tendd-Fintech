@@ -187,7 +187,7 @@ is how a product stops feeling like one product.
 | Name | 1 to 40 characters after trimming | Empty, or only whitespace | `add-subscription` |
 | Frequency | One of the listed values | Anything typed | `add-subscription` |
 | Next charge | A date that has not passed | A past date, an unparseable one | `add-subscription` |
-| Another sign-in link | Once per 60 seconds | A second request inside that window, which is answered and not silently dropped | `sign-in-sent` |
+| Another sign-in link | Once per 60 seconds | A second request inside that window, which is answered and not silently dropped: since 2026-09-27 the button itself counts the minute down ("Send another link in 0:42") and cannot be pressed until it ends | `sign-in-sent` |
 
 **Three rules about WHEN, and they matter more than the list.**
 

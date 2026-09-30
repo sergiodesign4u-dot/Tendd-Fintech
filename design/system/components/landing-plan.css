@@ -1,499 +1,89 @@
 /* ============================================================================
    Landing plan - organism
-   The "Simple, honest pricing" block: three ways to pay for one plan, standing
-   on the page's one atmospheric band, and what that plan includes said ONCE
-   underneath them.
-
-   THE PROBLEM IT SOLVES, in the founder's words on 2026-08-15: "давай теперь
-   след секцию делать ... может на фон какую ненавязчивую спокойную картинку
-   сделать". Three things were wrong under that ask.
-
-   ONE: THE BLOCK SAID THE SAME FOUR LINES THREE TIMES. Each of the three cards
-   carried "Everything in Tendd Pro" over History and trends, Advanced alerts,
-   Full cancel guides, Export - the identical four, word for word, twelve list
-   items and twelve ticks for four facts. Three identical lists is the block
-   confessing that the comparison it is drawn as does not exist: THIS IS NOT
-   THREE PLANS, IT IS ONE PLAN AND THREE WAYS TO PAY FOR IT, which is what D4
-   locked and what the copy has said all along. So the list is lifted out of the
-   cards and stated once, under all three, where it belongs to all three.
-   plan-option.css already made half of this argument at stage 07, about colour:
-   twelve petrol ticks smeared the accent until the button stopped being the
-   loudest thing on the page. The other half is that twelve of anything for four
-   facts is the same mistake in another currency. Four items, and no tick at all:
-   the label above them is what says "included", and an ornament that repeats on
-   every line says nothing the label has not.
-
-   TWO: THE BLOCK WAS CENTRED IN GREY AND NOT IN COLOUR. `_wf.css` centres this
-   section, heading, lead and all, and the colour rollout kept the centring for
-   the closing block and lost it here, so a left-aligned heading stood over a
-   centred row of cards with a third of the band empty beside it. That is a
-   desync and not a design, and the grey is the contract.
-
-   THREE: THE BAND WAS WHITE. It is the one section on the page that asks for
-   money, and it stood on the same flat surface fill as the section above it.
-
-   THE WASH IS ONE BAND AND NOWHERE ELSE, which is the whole discipline of it.
-   `--wash-pricing` is the one non-colour role in tokens.css and it exists in
-   both themes: a teal haze drifting across paper in the light one, the same
-   composition at dusk in the dark one. It is read UNDER a `background-color`,
-   never instead of one, so the band has a ground before the picture loads and
-   keeps it if the picture never does. D-Concept's ground is paper and stays
-   paper: a texture that spreads to a second block stops being quiet.
-
-   THE FIFTH BUILD IS THE ONE ON THE PAGE, 2026-08-16: "не нравятся мне карточки
-   они скучние ... еще куча текста вверху а сами карточки сплюснутіе + надо 69
-   долл поставить по центру и виделть". Three structural answers, each written
-   at the rule that carries it: the included list and the reassurance moved back
-   BELOW the prices, the yearly price moved to the MIDDLE of the row, and the
-   card became a plate - centred, its badge on its top edge, the recommended one
-   raised out of the row on a petrol edge. The picture became a horizon in the
-   same step, because the block grew a foot that needed paper under it.
+   "Simple, honest pricing": one plan and three ways to pay for it, the year in
+   the middle (round two: "$69 по центру"), and the four included things said
+   once under all three. Rewritten 2026-09-26 for Light 2 (P16). Not a
+   comparison table: a table asks for a decision about money before anything
+   has been shown (D3, D4). On a phone the year moves to the top of the column.
 
    Reads
-     colour   --bg-surface (the band's ground and the cards'), --bg-recessed
-              (the four included things, as plates), --line-container,
-              --line-selected (the recommended card's edge), --line-divider,
-              --text-primary, --text-body
-     paint    --wash-pricing (the band's picture, both themes, past the tablet
-              point only)
-     radii    --radius, --radius-sm
-     spacing  --space-0, 8, 16, 24, 32, 48, 64
-     type     --type-body, --type-sub
-     width    --container-page (the lead's measure)
-   Hosts     .plan-opt with its chip, amount, button and quiet line, and the
-             eyebrow, every one at the size its own file gives it.
-   Owns      the .lp-plan band, .lp-plan .plans (moved here from grid.css, see
-             below) and .plan-all (the shared list)
-   Page      design/kit/landing-plan.html
-   Stands on 1 grey page and 1 coloured one.
-
-   THE PLAN ROW MOVED HERE FROM grid.css ON 2026-08-15, and the reason that file
-   gave for holding it has expired. It said `.lp-plan` exists only on
-   wireframes/index.html, which is frozen, so the landing's row was left in the
-   grid's file rather than given an owner. `.lp-plan` is on the coloured page as
-   well since the rollout, this is now an organism with a page of its own, and
-   the row asked its width with an `@media` in a system that answers `@container`
-   everywhere else. All three are settled by the move.
+     colour   --bg-recessed, --bg-selected, --line-container, --bg-action,
+              --text-action, --text-on-action, --text-muted, --text-body,
+              --text-attention
    ============================================================================ */
 
-/* ---- the band -------------------------------------------------------------
-   NOT in landing-shell.css's pair of bands any more: the trust band is a fill
-   and this one is a fill plus a picture, so it stopped being the same object.
-   The shell keeps the one it still owns and this file owns this one, which is
-   also the only order that works - the shell is imported after every organism,
-   so a band rule left there could not be corrected from here at any specificity
-   short of an argument.
-
-   `background-color` FIRST AND ALWAYS, then the picture over it. A wash that is
-   the only ground is a section that is white until the network says otherwise.
-
-   THE PICTURE IS A HORIZON AND NOT A BLEED, since 2026-08-16. A layer of the
-   band's own ground sits over it and is opaque at both ends: the words at the
-   top stand on paper, the picture comes to full strength exactly where the
-   cards begin, and it goes back to paper under their feet, before the included
-   list and the closing line. Two things follow from that and both are the
-   point. The included list moved below the prices in this build and it reads on
-   paper, which is what let it move. And the band no longer cuts off at its own
-   bottom edge: the section under it is surface coloured, so a picture running
-   to the border met it as a seam.
-
-   THE STOPS ARE PIXELS, AND THAT IS THE MEASUREMENT TALKING. What the fade has
-   to land in is a GAP BETWEEN TWO ELEMENTS, not a fraction of a band: from the
-   tablet point up every one of those gaps sits at a CONSTANT pixel offset,
-   while the band's own height runs from 1566px on a phone to 828 wide. So a
-   percentage is a fraction of the wrong thing: 48%, the number the fourth build
-   used, is 751px down a phone band, halfway inside the second card. Read off
-   the page and identical at every width at 760 and above: the lead's last line
-   ends at 190, the raised card starts at 222 and the two quiet ones at 254,
-   their feet stand 266 above the bottom edge and the list's eyebrow 218 above
-   it. Hence 190 to 250 at the top and 262 to 220 at the bottom - each fade
-   opens where the text on its side ends and closes clear of it, and each is 60
-   and 42 long rather than the shortest it could be, because a fade a person can
-   see the ends of is a stripe.
-
-   AND THE PICTURE STOPS AT THE TABLET POINT, which is the only honest answer to
-   what a phone does here. Below it the three cards are a STACK and those
-   constants stop being constants: the plate row under them wraps to one, two or
-   three rows as the width falls, so the gap the bottom fade has to land in sits
-   202px above the band's edge at 640 and 298 at 360, while the cards' feet stand
-   at 250 and 346. No single offset is inside both, and no percentage either -
-   the two intervals do not even overlap (77.9 to 81.0 at 360 against 82.2 to
-   85.6 at 640). The alternative to a query was a fade that puts a picture behind
-   the smallest ink in the band at one width and not another, which is the exact
-   failure this arrangement was built to end. A horizon is what a ROW stands on;
-   a stack has no horizon, and on a phone the picture was nine tenths covered by
-   the cards anyway. It also means a phone never downloads the asset: a
-   `background-image` inside a query that does not match is never fetched.
-
-   A CHANGE TO THE BLOCK'S HEIGHT RUNS THE SWEEP AGAIN, and that is not a
-   politeness. The stops were read off the page on 2026-08-16 and invalidated the
-   same day, when the four included things became plates and the block grew: the
-   eyebrow landed back inside the fade at 2.75:1 in the dark theme. Found by
-   re-running the sweep in the same step, not by eye. Worst rendered pair after
-   the correction: 5.78:1 on a ground of 255,255,255, which is the muted ink's
-   own token contrast on paper. Every word in this band now stands on the bare
-   surface colour and not on a tinted one.
-
-   NOTHING IN THIS BAND READS OVER THE PICTURE ANY MORE, and that is the release
-   the horizon bought. Three builds spent their argument on how pale the asset
-   had to be to carry 4.5:1 under the smallest ink in the band; the answer was
-   always "paler than a picture". Now the picture holds no words at all: it runs
-   between the cards' tops and their feet, where the only thing standing on it
-   is opaque paper. Everything else was tried and measured first: lightening the whole
-   asset costs the picture the founder asked for ("не оно очень скучное"), moving
-   the eyebrow costs the reading order, and repainting the eyebrow's ink is a host
-   restyling an atom. This costs nothing - the top of the band was surface
-   coloured before the picture arrived, so the seam with the trust band above it
-   is the one it already had. It is a gradient to `transparent`, which browsers
-   interpolate in premultiplied alpha and so leaves no grey fringe; the first
-   layer listed is the one on top.
-
-   `center top` AND THAT IS A MEASUREMENT. Both pictures are pale at the top and
-   deepen downward, and `cover` crops whatever the band cannot use. Anchored at
-   the bottom the crop eats the pale end, so on a wide short band the mist climbed
-   into the eyebrow above the cards and took it to 3.66:1. Anchored at the top the
-   crop eats the deep end instead, where nothing but the picture stands, and the
-   pale zone stays under the words at every width. `cover` and no `fixed`: a fixed attachment repaints on every scroll frame
-   and this page already spends its budget on the hero. */
-.landing .lp-section.lp-plan {
-  background-color: var(--bg-surface);
-  text-align: center;
+.landing .lp-plans {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 1.6vw, 1.25rem); margin-top: clamp(3rem, 6vw, 5rem); align-items: stretch;
 }
-@container (min-width: 47.5rem) {
-  .landing .lp-section.lp-plan {
-    background-image:
-      linear-gradient(
-        to bottom,
-        var(--bg-surface) 0, var(--bg-surface) 190px, transparent 250px,
-        transparent calc(100% - 262px), var(--bg-surface) calc(100% - 220px)
-      ),
-      var(--wash-pricing);
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+.landing .lp-plan {
+  position: relative; display: flex; flex-direction: column; gap: 1rem;
+  padding: clamp(1.75rem, 2.6vw, 2.5rem); border-radius: var(--lp-r-md);
+  background: var(--bg-recessed); box-shadow: inset 0 0 0 1px var(--line-container);
+  transition: translate var(--lp-hover-t) var(--lp-ease), box-shadow var(--lp-hover-t) var(--lp-ease);
+}
+.landing .lp-plan:nth-child(2) { --d: 100ms; }
+.landing .lp-plan:nth-child(3) { --d: 200ms; }
+.landing .lp-plan.lp-best {
+  background: var(--bg-selected);
+  box-shadow: inset 0 0 0 1.5px var(--bg-action), 0 30px 60px -40px color-mix(in srgb, var(--bg-action) 55%, transparent);
+}
+.landing .lp-plan .lp-price {
+  display: flex; flex-wrap: wrap; align-items: baseline; align-content: flex-end; gap: .35rem;
+  min-height: 4.75rem;
+  font-size: clamp(1.25rem, 1.6vw, 1.5rem); font-weight: 600; letter-spacing: -.02em; line-height: 1.1;
+}
+.landing .lp-plan .lp-pfig {
+  font-size: clamp(3.25rem, 5vw, 4.75rem); font-weight: 700; letter-spacing: -.05em; line-height: .9;
+  font-variant-numeric: tabular-nums;
+}
+.landing .lp-plan.lp-best .lp-pfig { color: var(--text-action); }
+.landing .lp-plan .lp-punit { color: var(--text-muted); }
+.landing .lp-plan .lp-body { font-size: .9375rem; color: var(--text-body); }
+.landing .lp-plan .lp-btn {
+  margin-top: auto; width: 100%; white-space: normal; text-align: center;
+  padding: .75rem 1rem; font-size: .9375rem;
+}
+.landing .lp-plan .lp-badge {
+  position: absolute; top: 1.25rem; right: 1.25rem;
+  height: 1.75rem; padding: 0 .8rem; font-size: .8125rem;
+  background: var(--bg-action); color: var(--text-on-action);
+}
+.landing .lp-plan .lp-soon {
+  margin-top: auto; padding-top: 1rem; border-top: 1px dashed var(--line-container);
+  font-size: .9375rem; color: var(--text-attention);
+}
+@media (hover: hover) and (pointer: fine) {
+  @container (min-width: 47.5rem) {
+    .landing .lp-plan:hover { translate: var(--lp-lift); box-shadow: inset 0 0 0 1px var(--line-container), var(--lp-bloom); }
+    .landing .lp-plan.lp-best:hover {
+      box-shadow: inset 0 0 0 1.5px var(--bg-action), 0 34px 64px -38px color-mix(in srgb, var(--bg-action) 60%, transparent);
+    }
   }
 }
 
-/* the centring the grey has always had. The heading takes it by inheritance;
-   the two muted lines need their own margins, because a centred measure is a
-   box centred in its parent and not a line centred in a box. */
-.landing .lp-plan .lp-wrap > .muted {
-  margin-left: auto;
-  margin-right: auto;
+/* ---- everything in Pro, said once ---------------------------------------- */
+.landing .lp-pro {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 1.5rem 3rem;
+  margin-top: clamp(2rem, 4vw, 3rem); padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--lp-sep) top / 100% 1px no-repeat;
 }
+.landing .lp-pro-lbl { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); }
+.landing .lp-feat { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 2rem; }
+.landing .lp-feat li { display: flex; gap: .65rem; align-items: center; font-weight: 500; }
+.landing .lp-feat .lp-ico { color: var(--text-action); }
+.landing .lp-free-line { grid-column: 2; color: var(--text-body); }
 
-/* ---- the three ways to pay ------------------------------------------------
-   THE COUNT STAYS DECLARED and this is the same argument grid.css made when it
-   held the rule: `repeat(3, 1fr)` is not the hard-coded count the fluid grid
-   exists to remove, because this block holds exactly THREE prices and D4 is why.
-   Fluid would put four or five tracks across a wide window and leave two empty
-   on the one block whose whole job is a choice between three named things.
-
-   IT TAKES THE WHOLE MEASURE NOW, where it used to stop at --container-page.
-   With the list lifted out, a card is a price, a sentence and a button, and at
-   780 across three that is 253px a card, at which both button labels wrap inside
-   the button. At the full wrap it is 373 and neither does.
-
-   AND BETWEEN THE TWO POINTS THEY STILL WRAP, which is stated rather than hidden.
-   Counted as line boxes at every 10px from 760 to 1500 and RE-COUNTED on
-   2026-08-16, because the fourth build took the card's padding from 24 to 32 and
-   left the old thresholds standing: both labels take two lines from the tablet
-   point up, the yearly one settles at a window of 1010 (a card of 285) and the
-   monthly at 1080 (308), and above 1080 neither wraps. The clean number is a
-   card of 308, which is a third width point, and rule 8 says a third is the
-   founder's. Nothing renders wrong in the band between: a long label on two
-   lines inside a wide button is untidy and it is legible, the buttons stay level
-   with each other, and no card grows past its neighbours. It is also the one
-   button in the product allowed to wrap, declared in button.css with its own
-   measurement, so this is a known state and not a surprise.
-
-   THE CARDS ARE CENTRED SINCE THE FIFTH BUILD, 2026-08-16, and the fourth
-   build's `text-align: left` is gone with its argument. That argument was that
-   a plan card reads as a form; it does not. A form is a thing you fill in, and
-   this card holds one number, one sentence and one button - it is a poster for
-   a price, and the founder looking at the left-aligned version said so twice
-   ("не оно очень скучное", then "не нравятся мне карточки они скучние"). A
-   left-aligned stack under a centred heading also spends the card's width on a
-   ragged right edge, which is exactly the flattened look the same message
-   named ("карточки сплюснутіе"). Centred, the price is on the card's axis, the
-   card's axis is on the section's, and the row reads as three plates rather
-   than three panes.
-
-   THE ROW STANDS OFF THE TEXT ABOVE IT, and the number is clearance and not
-   taste: the recommended card rises 32px out of the row and wears its badge ON
-   its top edge, so 48 is the first gap at which nothing above is touched, and
-   64 past the tablet point where the raise applies. */
-.landing .lp-plan .plans {
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-16);
-  margin: var(--space-48) var(--space-0) var(--space-0);
-  text-align: center;
+@container (max-width: 60rem) {
+  .landing .lp-plans { grid-template-columns: minmax(0, 1fr); }
+  .landing .lp-plan .lp-price { min-height: 0; }
+  .landing .lp-plan.lp-best { order: -1; }
 }
-@container (min-width: 47.5rem) {
-  .landing .lp-plan .plans {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-24);
-    margin-top: var(--space-64);
-  }
+@container (max-width: 53.75rem) {
+  .landing .lp-pro { grid-template-columns: minmax(0, 1fr); }
+  .landing .lp-free-line { grid-column: auto; }
 }
-
-/* ---- what the plan includes, said once, UNDER the prices ------------------
-   IT WAS A CARD UNTIL THE FOUNDER SAW IT ("это ужасно", 2026-08-15) AND IT WAS
-   THE WORST THING IN THE BLOCK. A full-measure white bar under three white
-   cards, holding four short phrases spread across 1800px, is not an object: it
-   is the leftover space between two things with a border drawn round it.
-
-   It is a LINE since that build. No paper, no edge, no radius - the four things
-   are said in the section's own voice, quietly and centred, and the eyebrow
-   above them is what names them. No tick beside a line either: the label says
-   "included", and an ornament that repeats on every line adds nothing the label
-   has not; twelve of them across three cards is what this block came out of.
-
-   AND IT WENT BACK BELOW THE PRICES ON 2026-08-16, which reverses the fourth
-   build's order on the founder's word: "еще куча текста вверху". Count what
-   stood between the heading and the first price - a lead, a second muted line,
-   an eyebrow and a row of four - and the block asked a person to read five
-   lines before showing them a number, in the one section they arrived at to see
-   a number. The fourth build's reason for the old order was the reading order
-   "what this is, then what it costs", and the heading with its lead already say
-   what this is. What follows a price is detail, and detail belongs after it.
-
-   IT IS A LINE ON PAPER AND NOT ON THE PICTURE. Moving it down put it inside
-   the band's lower half, where the wash lives, so the wash fades back OUT under
-   the cards; see the band. */
-.landing .lp-plan .plan-all {
-  margin: var(--space-48) var(--space-0) var(--space-16);
-}
-/* the reassurance that used to sit third from the top, now the block's last
-   word. Same reason as the list: it answers a question a person has AFTER they
-   have seen the price, not before.
-
-   IT IS SUPPLEMENTARY AND IT SAYS SO, 2026-08-16 ("сделать дополнительним"). It
-   wears `.fine`, the size modifier declared on the muted line, so this file sets
-   a MARGIN and nothing else: a host writing a font-size onto a hosted atom is
-   the defect three files here name by name, and the axis is what makes wearing
-   it possible. 24 of air above it, where the four plates take 8 between them,
-   so the reassurance reads as a note under the group rather than as a fifth
-   member of it. */
-.landing .lp-plan .plan-all + .muted {
-  margin: var(--space-24) auto var(--space-0);
-}/* A WRAPPING ROW AND NOT A FOUR-COLUMN GRID. Four equal columns put "Export"
-   alone in the middle of a 300px track and read as a table of one-word rows.
-   A centred flex row with a gap lets the four sit as one line at the widths
-   that hold them, break into two lines where they do not, and stack on a
-   phone, with the words themselves setting the rhythm. */
-.landing .lp-plan .plan-all ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-8);
-  list-style: none;
-  margin: var(--space-0);
-  padding: var(--space-0);
-}
-/* EACH OF THE FOUR IS A PLATE, 2026-08-16, and the founder's words are the
-   whole brief: "мне вот єти слова сделать би красивее и как то их виделить".
-   They were four runs of 14px body ink in a wrapping line, which is what a
-   sentence looks like, and these are not a sentence: they are the four things
-   the price buys, and each of them is a THING. A plate is what this page
-   already says a thing is - the trust band above sets its four claims on the
-   same recessed ground - so this borrows a shape the page owns rather than
-   inventing one for four words.
-
-   THE INK GOES UP ONE STEP WITH IT, to --type-sub and the primary tier. Under
-   the eyebrow that names them, at body size and body ink, they read as the
-   caption of the row above; at 16 and full ink they read as the list they are.
-   They still do not compete with the prices, which are 46.
-
-   STILL NO TICK, and the argument has not changed with the shape. The eyebrow
-   says "included", and an ornament repeated on every line adds nothing the label
-   has not; the plate is what gives them presence, and a mark inside a plate
-   would be the second thing saying the same thing. --bg-recessed and not the
-   accent: this band already spends petrol twice, on the primary action and on
-   the recommended card's edge, and four more marks would be the fourth and
-   fifth. */
-.landing .lp-plan .plan-all li {
-  padding: var(--space-8) var(--space-16);
-  border-radius: var(--radius-sm);
-  background: var(--bg-recessed);
-  font-size: var(--type-sub);
-  color: var(--text-primary);
-}
-
-/* ---- the card's body and its footer ---------------------------------------
-   THE HOLE WAS THE OTHER HALF OF "это ужасно", and it is worth being exact
-   about what caused it. plan-option.css gives the supporting sentence
-   `flex: 1 1 auto` so that three cards of unequal copy land their buttons on
-   one line; on Upgrade the list under the button absorbs what is left over, and
-   on the landing, with the list lifted out, there was nothing under the button
-   and the difference showed as 120px of nothing in the middle of two cards.
-
-   THE ANSWER IS A LINE AND NOT A RESHUFFLE. The sentence keeps the growing box
-   it needs and now ends in a divider, so every card is a BODY and a FOOTER: the
-   price and its sentence above the line, the action below it, and the line
-   itself lands at the same height in all three. The leftover space is inside a
-   bounded body instead of floating between two elements, which is the whole
-   difference between air and a hole. Nothing about the atom changes, and Upgrade
-   is untouched: this is the landing host declaring the shape of its own card.
-
-   AND THE BADGE LEFT THE FLOW ALTOGETHER, 2026-08-16. It has now been in three
-   places and each move is the previous one's measurement. Stacked above the
-   price it pushed the yearly figure 31px below the other two, so the numbers a
-   person compares did not start on one line. Beside the price, in a second
-   column, it fixed that and cost the card its axis: a centred card cannot carry
-   a thing pinned to its right-hand corner. On the top EDGE it costs no flow
-   height at all, so the price is the first thing in every card and the raise of
-   the recommended one is the only thing that moves it. plan-option.css wrote
-   `position: relative` on this card with the words "for the badge, which is in
-   the flow today and is given an anchor for the day it is not". This is that
-   day, and the anchor was already there.
-
-   ONE COLUMN AND THREE ROWS: a price, a sentence that grows, an action. The
-   growing row is what lands the divider and the button of all three cards on
-   one line, and it is why the recommended card can be 32px taller without
-   moving either of them - the extra height is absorbed by the row that was
-   built to absorb it. */
-.landing .lp-plan .plan-opt {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto 1fr auto;
-  padding: var(--space-32);
-  box-shadow: var(--shadow);
-}
-/* THE BADGE STRADDLES THE EDGE IT QUALIFIES. Half above the border and half
-   below it, on the card's own axis: a label that sits on the boundary is
-   reading as a title for what is under it, where the same label inside the card
-   reads as one more thing in the stack. It has an opaque ground of its own
-   (`--bg-chip-accent`, both themes), so the half standing outside the card is
-   legible over the wash and the border does not show through it. */
-.landing .lp-plan .plan-opt .chip {
-  position: absolute;
-  top: var(--space-0);
-  left: 50%;
-  transform: translate(-50%, -50%);
-  margin: var(--space-0);
-}
-.landing .lp-plan .plan-opt .amt { grid-row: 1; }
-.landing .lp-plan .plan-opt > .muted {
-  grid-row: 2;
-  margin: var(--space-24) var(--space-0) var(--space-32);
-  padding-bottom: var(--space-32);
-  border-bottom: 1px solid var(--line-divider);
-}
-/* the cadence under a 46px figure. plan-option.css sets it at --type-body under
-   the app's 32px one, which is the right step there and too small a step here:
-   under a display figure "a year" was reading as the start of the sentence
-   below it rather than as part of the price. One step up, and the ink is the
-   atom's own. */
-.landing .lp-plan .plan-opt .per { font-size: var(--type-sub); }
-.landing .lp-plan .plan-opt .btn,
-.landing .lp-plan .plan-opt .q { grid-row: 3; }
-/* the quiet line keeps the 44px floor plan-option.css gives it, and under a
-   divider that floor finally does what it was written for: it holds the third
-   card's footer to the height of the two real buttons beside it, so all three
-   dividers land on one line. Centred in that slot, because a button's label is */
-.landing .lp-plan .plan-opt .q {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-0);
-}
-/* MEASURED AND LEFT: at the tablet point a card is 204px wide, and there the
-   lifetime note wraps to two lines where a button label is one, so that card's
-   footer is 54px against 43 and its divider sits 10px higher than the other two.
-   The two cards with a BUTTON align at every width. Nothing available fixes the
-   third without lying about it: a fixed footer height would clip the note, and
-   moving the note above the divider would put a card's last line where the other
-   two put their action. Ten pixels at one width, on the line that is furthest
-   from the eye, is the cheapest of the three. */
-
-/* ---- one of the three is recommended, and it stands up -------------------
-   THE FOUNDER, LOOKING AT THREE FLAT EQUAL BOXES ON 2026-08-15: "не оно очень
-   скучное". They were right, and the reason is structural rather than
-   decorative: D4 names the yearly price the best value, the copy says so in a
-   badge, and nothing in the geometry agreed. Three identical rectangles are a
-   table, and a table is what this block has said since it was drawn that it is
-   not.
-
-   SO THE RECOMMENDED CARD RISES OUT OF THE ROW. It is the one carrying the
-   primary action, and the rule asks exactly that rather than a class the markup
-   would have to remember: `:has(.btn.primary)`.
-
-   IT RISES AT THE TOP ONLY SINCE 2026-08-16, and that single change is what
-   turns a taller box into a podium. Negative margin at BOTH ends made it 32px
-   taller and centred that height on the row, so its divider and its button sat
-   16px off every neighbour's and the three actions no longer stood on one line.
-   Taken off the top alone it is 32px taller, its price stands 32px above the
-   two prices it beats, and its foot is level: the growing middle row swallows
-   the whole difference, so the dividers land on one line and so do the buttons.
-   The one thing a person compares goes up, and the one thing they act on stays
-   put.
-
-   AND IT WEARS PETROL'S THIRD JOB. D-Concept spends the accent inside content
-   on the primary action, the CURRENT SELECTION and the trust line, and this is
-   the selection: three ways to pay for one plan, with one of them already
-   chosen for the reader and a badge that says why. It reads --line-selected,
-   the role written for exactly that, so it is petrol in the light theme and the
-   lighter petrol in the dark one without this file ever asking which. The ring
-   is drawn as a spread shadow over a repainted 1px border rather than as a 2px
-   border, and that is arithmetic and not preference: a 2px border pushes the
-   card's content 1px inward, which would take the raised price off the axis its
-   two neighbours share.
-
-   THE SHADOW IS ON ALL THREE AND NOT ONLY ON THAT ONE, since 2026-08-15: the
-   cards stand on a picture now, and paper laid on water with nothing under it
-   reads as a hole cut in the picture rather than as a card on top of it. The
-   raise is what separates the recommended one, and it does it by 32px, which no
-   shadow can be confused with.
-
-   NOT A FILL, AND THAT IS MEASURED RATHER THAN TASTE. The first pass sank the
-   two quiet cards to --bg-recessed. In the light theme that reads correctly, the
-   recommended one staying paper; in the DARK theme --bg-recessed is LIGHTER than
-   --bg-surface (0x1d282a against 0x161f21), so the two quiet cards would have
-   been the brightest things in the row and the hierarchy would have inverted on
-   one theme. Geometry and a shadow say the same thing in both.
-
-   BELOW THE TABLET POINT NOTHING RISES. A single column has no row to stand out
-   of, and a card that pulls 32px into the gap above it in a stack is just a card
-   with the wrong margin. THE RING DOES NOT GO WITH IT: a stack still has a
-   recommended card, the badge still says so, and the edge is what carries that
-   where the geometry cannot. */
-.landing .lp-plan .plan-opt:has(.btn.primary) {
-  border-color: var(--line-selected);
-  box-shadow: 0 0 0 1px var(--line-selected), var(--shadow);
-}
-@container (min-width: 47.5rem) {
-  .landing .lp-plan .plan-opt:has(.btn.primary) {
-    margin-block: calc(var(--space-32) * -1) var(--space-0);
-  }
-}
-
-/* ---- the entrance ---------------------------------------------------------
-   The page's own grammar: the row rises, then the base under it, offset behind.
-   `cover` and not `entry` for the reason landing-orbit.css measured - an entry
-   range against the element's own height is a pop, a cover range is a rise. THE CURVE IS --ease-arrive SINCE 2026-08-16, and until that day it was
-   this same expo-out written out by hand, here and in three sibling files. A curve
-   declared as a custom property on one component's subtree cannot be read from
-   another, so four of the five rebuilt blocks of this page spelled one number
-   themselves. Stage 11 moved it to tokens.css and the debt is closed. */
-@supports (animation-timeline: view()) {
-  .landing .lp-plan .plans,
-  .landing .lp-plan .plan-all {
-    animation-name: planin;
-    animation-fill-mode: both;
-    animation-timing-function: var(--ease-arrive);
-    animation-timeline: view();
-    animation-range: cover 0% cover 28%;
-  }
-  .landing .lp-plan .plan-all { animation-range: cover 8% cover 36%; }
-}
-@keyframes planin {
-  from { opacity: 0; transform: translate3d(0, 1.5rem, 0) scale(0.97); }
-  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
-}
-/* base.css's global guard zeroes durations, and a scroll-driven animation has no
-   duration to zero: the kill has to be by name */
-@media (prefers-reduced-motion: reduce) {
-  .landing .lp-plan .plans,
-  .landing .lp-plan .plan-all { animation-name: none; }
+@container (max-width: 40rem) {
+  .landing .lp-feat { grid-template-columns: minmax(0, 1fr); }
+  .landing .lp-plan { padding: 1.5rem; }
 }

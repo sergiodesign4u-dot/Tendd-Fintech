@@ -47,7 +47,7 @@
     <h1>Plan option</h1>
     <p class="lead">One plan on the screen that asks for money. Three of them stand side by side and the decision is a comparison, which is why the price is the card's one big thing and everything else is deliberately quiet. It is also the component that carries the two open questions of this round.</p>
     <div class="kit-meta">
-      <span>Molecule</span><span><strong>2</strong> grey pages</span><span><strong>6</strong> cards</span><span>1 axis, 2 hosts</span><span>1 state, and it needs a decision</span>
+      <span>Molecule</span><span><strong>2</strong> grey pages</span><span><strong>6</strong> cards</span><span>1 axis, 2 hosts</span><span>1 state, and it needs a decision</span><span>its own button, the list outside, 2026-09-29 (P26)</span>
     </div>
   </header>
 
@@ -55,32 +55,48 @@
   <section class="kit-sec" id="anatomy">
     <h2>Anatomy</h2>
     <p class="note">Five slots and four atoms, which makes it the densest molecule in the round. Everything below is drawn by <code>design/system/components/plan-option.css</code> and the atom files it hosts, through the same entry point a product screen loads. <b>Three of the sizes you can see here are not in this file</b>, and that is the point: the badge is <code>chip.css</code>, the price is <code>amount.css</code>, the "Everything in Tendd Pro" label is <code>eyebrow.css</code>, and this file only says where they go.</p>
-    <div class="kit-stage app full wide">
-      <div class="plan-opt">
-        <span class="chip tone-accent">Best value</span>
-        <span class="amt">$69<span class="per">a year</span></span>
-        <span class="muted">That is $5.75 a month, and it saves about $27 a year versus paying monthly.</span>
-        <a class="btn primary" href="#anatomy">Start Tendd Pro - $69 a year</a>
-        <div class="incl">
-          <span class="k">Everything in Tendd Pro</span>
-          <ul>
-            <li>History and trends</li>
-            <li>Advanced alerts</li>
-            <li>Full cancel guides</li>
-            <li>Export</li>
-          </ul>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P26, D4 amended).</b> The founder, on Upgrade from inside the product: "очень плохо выглядит выбор планов". Measured then at 1280: the same list printed three times, so 60% of each card was a repeat and the three prices were the smallest thing in a wall of ticks, and the buttons stood in a row under the cards, so a price was read in one place and pressed for in another. Since 2026-09-29 <b>each card carries its own button</b> at its foot, the yearly card is marked with the selection edge (<code>.plan-opt.best</code>), the cadence sits beside the figure on one baseline, and <b>what Pro includes is said once</b>, in one <code>.incl</code> under the row, in two columns past 760. The row is three columns from container 900 and stacked below (<a href="grid.html">Grid</a>). Prices are D4 as amended on 2026-09-30: $9.99 a month, $69 a year. No string on the card changed except the saving, which the new monthly price moved from $27 to $50.</p>
+    <div class="kit-stage app full bleed past-900">
+      <div class="plans">
+        <div class="plan-opt">
+          <span class="amt figure">$9.99<span class="per">a month</span></span>
+          <span class="muted">Month to month. Cancel any time, no lock-in.</span>
+          <a class="btn" href="#anatomy">Start Tendd Pro - $9.99 a month</a>
+        </div>
+        <div class="plan-opt best">
+          <span class="chip tone-accent">Best value</span>
+          <span class="amt figure">$69<span class="per">a year</span></span>
+          <span class="muted">That is $5.75 a month, and it saves about $50 a year versus paying monthly.</span>
+          <a class="btn primary" href="#anatomy">Start Tendd Pro - $69 a year</a>
+        </div>
+        <div class="plan-opt">
+          <span class="amt figure">Lifetime<span class="per">one payment</span></span>
+          <span class="muted">Tendd Pro stays open, for people who would rather never think about a renewal again.</span>
+          <span class="q">Not on sale yet. We are still working out the price.</span>
         </div>
       </div>
+      <div class="incl">
+        <span class="k">Everything in Tendd Pro</span>
+        <ul>
+          <li>Every name in your bank scan</li>
+          <li>A bank connection that keeps the list up to date</li>
+          <li>History and trends</li>
+          <li>Advanced alerts</li>
+          <li>Full cancel guides</li>
+          <li>Export</li>
+        </ul>
+      </div>
     </div>
+    <p class="note">The stage is past 900 at a 1280 window, so the row stands in three and the list runs in two columns; narrow the window and the cards stack, one full-width card each, which is the phone's arrangement. In the product the row is a <code>form</code> wearing <code>.plans</code>, because each card's button posts its interval (P5); here it is a <code>div</code> and the buttons are links, which the grid does not tell apart.</p>
     <ul class="kit-callouts">
-      <li><code>.plan-opt</code> <span>the molecule: a <code>div</code> in a flex column, with the container hairline and the container corner. NOT a control, which is why it keeps the hairline while the door keeps the control edge</span></li>
+      <li><code>.plan-opt</code> <span>the molecule: a <code>div</code> in a flex column, with the container hairline and the container corner. <code>.best</code>, since 2026-09-29 (P26), gives the yearly card <code>--line-selected</code> as its edge: petrol's "current selection" job, and the landing's same card. NOT a control, which is why it keeps the hairline while the door keeps the control edge</span></li>
       <li><code>.chip.tone-accent</code> <span>the <a href="chip.html">chip atom</a> in its accent tone, on one of the three cards. It was <code>.best</code> until step 6. <b>It leaves the flow on both hosts</b> since 2026-08-18: this file takes it out of the column and drops its margin, and each host says where it goes - the top edge on <a href="landing-plan.html">the landing</a>, the top right corner here. The <code>position: relative</code> this file has carried on the card since stage 07 is the anchor both of them use</span></li>
       <li><code>.amt</code> <span>the <a href="amount.html">amount atom</a> at its 32px plan size, declared in <code>amount.css</code>. The card's one big thing</span></li>
-      <li><code>.per</code> <span>the cadence, "a year" or "a month", and it is this card's own slot: it lives INSIDE the amount and the amount atom does not declare it. It resets the weight, the tracking and the ink so "$69 a year" does not read as one 32px phrase</span></li>
+      <li><code>.per</code> <span>the cadence, "a year" or "a month", and it is this card's own slot, <code>display: inline</code> beside the figure since 2026-09-29, on one baseline: it lives INSIDE the amount and the amount atom does not declare it. It resets the weight, the tracking and the ink so "$69 a year" does not read as one 32px phrase</span></li>
       <li><code>.p</code> <span>the sentence about what the price means. <code>flex: 1 1 auto</code>, so it absorbs the height difference between three cards of unequal copy. It is what keeps the three actions and the three includes lists on one line, measured at 360 and at 1100</span></li>
       <li><code>.btn</code> <span>the <a href="button.html">button atom</a>, stretched to the card. One filled, one outline, and the third card has none. <b>It is the one button in the product allowed to wrap</b>, since 2026-08-13: <code>button.css</code> gives <code>.plan-opt .btn</code> a <code>white-space: normal</code> that no other button gets, because this label is a sentence carrying a price and a period. Measured at 390px: "Start Tendd Pro - $7.99 a month" is 249px at the browser default and 356px at a 24px root, in a 358px track, and the page scrolled sideways by 16px before the exception. <b>The rule lives in <code>button.css</code> and not here</b>, which is this file's own header holding: white-space is the button's property and a host reaching in to change it is the defect</span></li>
       <li><code>.q</code> <span>what stands where the button would be on the card that has none. It reads <code>--tap</code> as a geometric FLOOR rather than as a target: it stops the slot collapsing below a button's height when its sentence is short. It does not do the aligning, <code>.p</code> does</span></li>
-      <li><code>.incl</code> <span>what the plan includes, under a divider, below the action and never above it: the price and the button are the decision, the list is the reassurance a person reads after making it</span></li>
+      <li><code>.incl</code> <span>what the plan includes, under a divider, below the action and never above it: the price and the button are the decision, the list is the reassurance a person reads after making it. <b>Since 2026-09-29 (P26) it is outside the cards</b>, one block after <code>.plans</code>, said once instead of three times; its selectors lost their <code>.plan-opt</code> scope and its label's placement moved with it in <a href="eyebrow.html">eyebrow.css</a>. Six rows now: "Every name in your bank scan" and "A bank connection that keeps the list up to date" joined when the bank became Pro (D-Gate)</span></li>
     </ul>
   </section>
 
@@ -104,14 +120,14 @@
             <td class="val">none</td>
             <td>3 cards on the Upgrade screen, which is the one place in the product that asks for money</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="plan-opt"><span class="amt">$7.99<span class="per">a month</span></span><span class="muted">Month to month. Cancel any time, no lock-in.</span><a class="btn" href="#variants">Start Tendd Pro - $7.99 a month</a></div></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="plan-opt"><span class="amt figure">$9.99<span class="per">a month</span></span><span class="muted">Month to month. Cancel any time, no lock-in.</span><a class="btn" href="#variants">Start Tendd Pro - $9.99 a month</a></div></div></td></tr>
           <tr>
             <td><b>On the landing</b> <code>.landing .plan-opt</code></td>
             
             <td class="val">none</td>
-            <td>3 cards on the welcome page, which has no <code>.app</code> shell at all. The markup is identical apart from where the buttons go, and the grid around it is narrower</td>
+            <td>3 cards on the welcome page, which has no <code>.app</code> shell at all. The markup is identical apart from where the buttons go, and the grid around it is narrower. <b>Synced from the product, 2026-09-30 (P16):</b> since Light 2 the landing's pricing is <a href="landing-plan.html">the landing plan</a>'s own <code>.lp-plan</code> cards, and no landing markup wears <code>.plan-opt</code>. The <code>.landing</code> scope stays in the file by the two-host rule of <code>docs/architecture.md</code>, and this specimen still renders from it; it describes a host the product no longer uses</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage landing full wide"><div class="plan-opt"><span class="amt">$7.99<span class="per">a month</span></span><span class="muted">Month to month. Cancel any time, no lock-in.</span><a class="btn" href="#variants">Start Tendd Pro - $7.99 a month</a></div></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage landing full wide"><div class="plan-opt"><span class="amt figure">$9.99<span class="per">a month</span></span><span class="muted">Month to month. Cancel any time, no lock-in.</span><a class="btn" href="#variants">Start Tendd Pro - $9.99 a month</a></div></div></td></tr>
         </tbody>
       </table>
     </div>
@@ -130,16 +146,16 @@
             <td><b>A button</b> <code>.btn</code></td>
             
             <td class="val">--tap floor<br>align-self: stretch</td>
-            <td>4 of the 6 cards. One filled per screen and one outline, which is the zone rule: the yearly plan is the recommendation and says so once</td>
+            <td>4 of the 6 cards. One filled per screen and one outline, which is the zone rule: the yearly plan is the recommendation and says so once. Since 2026-09-29 (P26) the button stands in its own card at the foot, and the <code>.muted</code> sentence's <code>--space-24</code> bottom margin plus <code>flex: 1</code> line the three actions up across the row</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="plan-opt"><span class="chip tone-accent">Best value</span><span class="amt">$69<span class="per">a year</span></span><span class="muted">That is $5.75 a month, and it saves about $27 a year versus paying monthly.</span><a class="btn primary" href="#variants">Start Tendd Pro - $69 a year</a></div></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="plan-opt best"><span class="chip tone-accent">Best value</span><span class="amt figure">$69<span class="per">a year</span></span><span class="muted">That is $5.75 a month, and it saves about $50 a year versus paying monthly.</span><a class="btn primary" href="#variants">Start Tendd Pro - $69 a year</a></div></div></td></tr>
           <tr>
             <td><b>A question line</b> <code>.q</code></td>
             
             <td class="val">--tap floor<br>--type-meta<br>--text-muted</td>
             <td>2 of the 6, the lifetime card on both hosts. Measured on the coloured Upgrade screen its sentence wraps to two lines at every width the product has, so it renders 4px taller than a button rather than exactly its height. That costs nothing, because <code>.p</code> absorbs the difference</td>
           </tr>
-          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="plan-opt"><span class="amt">Lifetime<span class="per">one payment</span></span><span class="muted">Tendd Pro stays open, for people who would rather never think about a renewal again.</span><span class="q">Not on sale yet. We are still working out the price.</span></div></div></td></tr>
+          <tr><td colspan="3"><div class="kit-stage app full wide"><div class="plan-opt"><span class="amt figure">Lifetime<span class="per">one payment</span></span><span class="muted">Tendd Pro stays open, for people who would rather never think about a renewal again.</span><span class="q">Not on sale yet. We are still working out the price.</span></div></div></td></tr>
           <tr>
             <td class="kit-empty">A disabled button</td>
             
@@ -154,8 +170,8 @@
 
   <section class="kit-sec" id="usage">
     <h2>When to use it</h2>
-    <p class="note">A person meets three of these on <b>Upgrade</b> and on the <b>welcome page</b>, and nowhere else. The card exists because a price is a comparison: three prices in three identical frames is the only shape in which $69 a year and $7.99 a month can be read against each other, and D4 fixed both numbers. The screen sits at depth and never in front of basic visibility, which is D3: the list, the total and the alerts are free and uncapped, and this card sells history, trends, advanced alerts, cancel guides and the analytical export.</p>
-    <p class="note">Its copy does the arithmetic for the person, from <code>voice/docs/microcopy.md</code>: "That is $5.75 a month, and it saves about $27 a year versus paying monthly." The button carries the amount as well as the verb ("Start Tendd Pro - $69 a year"), because nobody should learn what they are being charged after the tap.</p>
+    <p class="note">A person meets three of these on <b>Upgrade</b> and on the <b>welcome page</b>, and nowhere else. (Upgrade only, in the product since P16: the landing's pricing is its own organism.) The card exists because a price is a comparison: three prices in three identical frames is the only shape in which $69 a year and $9.99 a month can be read against each other, and D4 fixes both numbers (the monthly one moved from $7.99 on 2026-09-30, the yearly one did not). The screen sits at depth and never in front of basic visibility, which is D3: the list, the total and the alerts are free and uncapped, and this card sells history, trends, advanced alerts, cancel guides and the analytical export, and since D-Gate (2026-09-02) every name in a bank scan and a bank connection that keeps reading.</p>
+    <p class="note">Its copy does the arithmetic for the person, from <code>voice/docs/microcopy.md</code>: "That is $5.75 a month, and it saves about $50 a year versus paying monthly." (It said $27 until 2026-09-30, when D4 was amended to $9.99 a month; microcopy's rewrite log carries the arithmetic.) The button carries the amount as well as the verb ("Start Tendd Pro - $69 a year"), because nobody should learn what they are being charged after the tap.</p>
   </section>
 
   <section class="kit-sec" id="rule">
@@ -164,30 +180,31 @@
       <div class="yes">
         <span class="hd">The tick is muted</span>
         <div class="kit-stage app full wide">
-          <div class="plan-opt">
-            <span class="amt">$69<span class="per">a year</span></span>
+          <div class="plan-opt best">
+            <span class="amt figure">$69<span class="per">a year</span></span>
+            <span class="muted">That is $5.75 a month, and it saves about $50 a year versus paying monthly.</span>
             <a class="btn primary" href="#rule">Start Tendd Pro - $69 a year</a>
-            <div class="incl">
-              <span class="k">Everything in Tendd Pro</span>
-              <ul><li>History and trends</li><li>Advanced alerts</li><li>Full cancel guides</li><li>Export</li></ul>
-            </div>
+          </div>
+          <div class="incl">
+            <span class="k">Everything in Tendd Pro</span>
+            <ul><li>History and trends</li><li>Advanced alerts</li><li>Full cancel guides</li><li>Export</li></ul>
           </div>
         </div>
-        <p>One petrol object per card, and it is the button. The four ticks are muted, so the eye lands on the thing to press rather than on the ornaments beside it.</p>
+        <p>One petrol object per card, and it is the button. The ticks are muted, so the eye lands on the thing to press rather than on the ornaments beside it. Since 2026-09-29 the list stands once under the row rather than in every card, and the rule holds for it unchanged; the selection edge on the yearly card is the second petrol job on the screen and not a second action.</p>
       </div>
       <div class="no">
         <span class="hd">Never twelve accent ticks</span>
         <div class="kit-stage app full wide">
           <span class="muted">&#10003; &#10003; &#10003; &#10003; &nbsp; &times;3 cards &nbsp; = twelve petrol marks around one petrol button</span>
         </div>
-        <p>That is what this screen shipped at stage 07. Twelve ticks across three cards carried the accent, so on the one screen that asks for money the colour meaning "this is the safe thing to press" was smeared over twelve ornaments and the actual button stopped being the loudest thing on the page. A tick in a feature list is not the primary action, not the current selection and not the trust line, which is the whole of the One Voice Rule.</p>
+        <p><b>And since 2026-09-29, never the same list three times</b>, which was P26's own finding: 60% of each card's height was a repeat. That is what this screen shipped at stage 07. Twelve ticks across three cards carried the accent, so on the one screen that asks for money the colour meaning "this is the safe thing to press" was smeared over twelve ornaments and the actual button stopped being the loudest thing on the page. A tick in a feature list is not the primary action, not the current selection and not the trust line, which is the whole of the One Voice Rule.</p>
       </div>
     </div>
     <div class="kit-do">
       <div class="yes">
         <span class="hd">Use a plan option</span>
         <div class="kit-stage app full wide">
-          <div class="plan-opt"><span class="amt">$7.99<span class="per">a month</span></span><span class="muted">Month to month. Cancel any time, no lock-in.</span><a class="btn" href="#rule">Start Tendd Pro - $7.99 a month</a></div>
+          <div class="plan-opt"><span class="amt figure">$9.99<span class="per">a month</span></span><span class="muted">Month to month. Cancel any time, no lock-in.</span><a class="btn" href="#rule">Start Tendd Pro - $9.99 a month</a></div>
         </div>
         <p>Two or more offers with a <b>number</b> to compare, standing side by side, each with its own action. The card is what makes the numbers comparable, and the numbers are what make the card necessary.</p>
       </div>
@@ -230,15 +247,11 @@
 
     <h3 class="kit-sub-h">Rest, live</h3>
     <div class="kit-stage app full wide" id="live-rest">
-      <div class="plan-opt">
+      <div class="plan-opt best">
         <span class="chip tone-accent">Best value</span>
-        <span class="amt">$69<span class="per">a year</span></span>
-        <span class="muted">That is $5.75 a month, and it saves about $27 a year versus paying monthly.</span>
+        <span class="amt figure">$69<span class="per">a year</span></span>
+        <span class="muted">That is $5.75 a month, and it saves about $50 a year versus paying monthly.</span>
         <a class="btn primary" href="#states">Start Tendd Pro - $69 a year</a>
-        <div class="incl">
-          <span class="k">Everything in Tendd Pro</span>
-          <ul><li>History and trends</li><li>Advanced alerts</li><li>Full cancel guides</li><li>Export</li></ul>
-        </div>
       </div>
     </div>
     <p class="note">Hover the card and then hover the button inside it. The button responds and the card does not, and since 2026-08-20 that is the answer rather than the question: the thing that can be pressed says so, and the thing that cannot stays still.</p>
@@ -246,7 +259,7 @@
     <h3 class="kit-sub-h">Rest, in both themes</h3>
     <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
     <div class="kit-states">
-      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--bg-surface</code>, <code>--line-container</code>, <code>--line-divider</code> under the action</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--bg-surface</code>, <code>--line-container</code>; the yearly card <code>--line-selected</code> since P26; <code>--line-divider</code> over the includes list, which stands under the row now</div></div>
       <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the same roles, the other half of each pair. The hairline is 1.33:1 here and 1.23:1 in the light theme, deliberately: raising it would outline the whole product</div></div>
     </div>
     <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo:
@@ -267,6 +280,7 @@ The decision landed on 2026-08-20 and it went the other way: there is no hover p
         <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
         <tbody>
           <tr><td>the card fill</td><td><code>--bg-surface</code></td><td><code>--paper</code></td></tr>
+          <tr><td>the selected card's edge (P26)</td><td><code>--line-selected</code></td><td>petrol's current-selection job, on <code>.plan-opt.best</code> only</td></tr>
           <tr><td>the card edge</td><td><code>--line-container</code></td><td><code>--hairline</code>. NOT the control edge: a plan card is a container, and DESIGN.md names it on the hairline side of that split</td></tr>
           <tr><td>the divider over the includes list</td><td><code>--line-divider</code></td><td><code>--hairline-soft</code></td></tr>
           <tr><td>the cadence, the question line, the tick</td><td><code>--text-muted</code></td><td><code>--muted</code></td></tr>
@@ -279,16 +293,20 @@ The decision landed on 2026-08-20 and it went the other way: there is no hover p
       </table>
     </div>
     <p class="note"><b>The second carried question, said plainly.</b> <code>.plan-opt .p</code> paints the muted line atom in body ink. That is a host restyling an atom, which is the defect this round exists to remove, and it is carried rather than fixed for two reasons: dropping it changes three paragraphs on a live coloured screen with no decision behind the change, and the fix is not this file's to pick. The two answers are an emphasis modifier declared on the muted line, or this card accepting muted ink the way every other card in the product does. Recorded here, in the component's own file, and in the report of this round.</p>
-    <p class="note">Lives in <code>design/system/components/plan-option.css</code>. Stands on 2 grey pages and 1 coloured one, <a href="../upgrade.html">Upgrade</a>. The landing's three cards are still grey, so that host's render is read from the grey. The grid around it (<code>.plans</code>, one column and then three) is the <a href="grid.html">Grid</a> organism.</p>
-    <code class="kit-cmd">&lt;div class="plan-opt"&gt;
-  &lt;span class="chip tone-accent"&gt;Best value&lt;/span&gt;
-  &lt;span class="amt"&gt;$69&lt;span class="per"&gt;a year&lt;/span&gt;&lt;/span&gt;
-  &lt;span class="muted"&gt;That is $5.75 a month, and it saves about $27 a year versus paying monthly.&lt;/span&gt;
-  &lt;a class="btn primary" href="..."&gt;Start Tendd Pro - $69 a year&lt;/a&gt;
-  &lt;div class="incl"&gt;
-    &lt;span class="k"&gt;Everything in Tendd Pro&lt;/span&gt;
-    &lt;ul&gt;&lt;li&gt;History and trends&lt;/li&gt;&lt;li&gt;Advanced alerts&lt;/li&gt;&lt;li&gt;Full cancel guides&lt;/li&gt;&lt;li&gt;Export&lt;/li&gt;&lt;/ul&gt;
+    <p class="note">Lives in <code>design/system/components/plan-option.css</code>. Stands on 2 grey pages and 1 coloured one, <a href="../upgrade.html">Upgrade</a>. The landing's three cards are still grey, so that host's render is read from the grey. <b>In the product on 2026-09-30</b> it stands on Upgrade only: the landing sells with <code>.lp-plan</code> since P16. The grid around it (<code>.plans</code>, one column and then three) is the <a href="grid.html">Grid</a> organism.</p>
+    <code class="kit-cmd">&lt;div class="plans"&gt;
+  &lt;div class="plan-opt best"&gt;
+    &lt;span class="chip tone-accent"&gt;Best value&lt;/span&gt;
+    &lt;span class="amt figure"&gt;$69&lt;span class="per"&gt;a year&lt;/span&gt;&lt;/span&gt;
+    &lt;span class="muted"&gt;That is $5.75 a month, and it saves about $50 a year versus paying monthly.&lt;/span&gt;
+    &lt;a class="btn primary" href="..."&gt;Start Tendd Pro - $69 a year&lt;/a&gt;
   &lt;/div&gt;
+  ...
+&lt;/div&gt;
+&lt;!-- what Pro includes, said once, under the row (P26) --&gt;
+&lt;div class="incl"&gt;
+  &lt;span class="k"&gt;Everything in Tendd Pro&lt;/span&gt;
+  &lt;ul&gt;&lt;li&gt;Every name in your bank scan&lt;/li&gt;...&lt;li&gt;Export&lt;/li&gt;&lt;/ul&gt;
 &lt;/div&gt;
 
 &lt;!-- the card with no price yet: a sentence where the button would be --&gt;

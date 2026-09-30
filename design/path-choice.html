@@ -24,10 +24,29 @@
   reveal starts here, and D2 puts manual entry beside the bank as an EQUAL second path rather than
   as a fallback, which is why the two doors are one grid and not a button with a link under it.
 
+  SYNCED FROM THE PRODUCT, 2026-09-30 (P17, D-Gate, P9): the app-bar screen became the product's
+  StartPanel on the public page's ground, light in both themes (P16), the lockup as the way
+  home and the card in the middle; the landing opens the same card in a dialog. Four things
+  changed with it:
+  - The sub line is D-Gate's: "Adding them yourself is free and unlimited. The first bank
+    scan is free too, and seeing every name it finds is Tendd Pro." The old promise ("the same
+    calm view") became false the day the bank moved behind the paywall.
+  - Each door carries a picture, drawn the same on both (D2): the bank sending what it reads
+    along a locked wire, and a short list with the next row being written.
+  - WHY THE DOORS LEAD TO SIGN-IN AND NOT TO THE DOORS. On this prototype the bank screen used
+    to create the account, because the flow had no other place to do it. In the product the
+    session exists before either door (G22), so a door that went straight to connect-bank or
+    add-subscription would bounce a stranger and throw the choice away. The choice is carried
+    instead, as `?path=`, to sign-in.html, which is where both ways in start an account (P9).
+    "Do this later" leads there too, with no door: doing nothing lands on your own empty list,
+    which still needs an account to be yours.
+  - The legal line left the doors: the agreement is asked for one step later, where the
+    account is made (P17).
+
   Assembled from system classes. This page carries no style of its own: no page-level style
-  block, no style attribute, no class design/system/ does not define. Structure and copy are a
-  verbatim copy of the grey twin; class names come from the renaming map in
-  design/kit/docs/inventory.md and from nowhere else.
+  block, no style attribute, no class design/system/ does not define. Structure and copy are
+  the product's (components/auth/StartPanel.tsx and app/path-choice/page.tsx at 4158f6c). No
+  script: the doors are links, which is how they work in the product with no script too.
 -->
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
@@ -42,45 +61,23 @@
 
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="layout">
-<div class="stage stage-app">
+<div class="stage stage-flush">
 
-<div class="app flow">
-
-  <!-- Step chrome: back, a step marker, nothing else. A progress bar on step 1
-       of 3 tells an avoider the road is long, which is the wall in a softer form. -->
-  <header class="appbar">
-    <a class="back" href="index.html">Back</a>
-    <span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span>
-    <span class="step">Step 1 of 3</span>
+<div class="landing lp-gate" data-theme="light">
+  <header class="lp-gate-bar">
+    <a class="lp-home" aria-label="Tendd" href="index.html"><span class="lockup"><span class="brand" aria-hidden="true"></span><span class="wordmark">Ten<span class="dd">d<span class="hi">d</span></span></span></span></a>
   </header>
-
-  <main class="screen">
-
-    <div class="textblock">
-      <h1>How do you want to start?</h1>
-      <p>Either way you land on the same calm view, and you can add the other one later.</p>
-    </div>
-
-    <!-- The two doors, equal in size and weight. There is no recommended one and
-         no badge on the faster one: a nudge toward the bank is the bank wall in
-         a softer form, and D2 makes the manual path an equal second path. -->
-    <div class="grid roomy">
-      <a class="door" href="connect-bank.html">
-        <h2>Connect your bank</h2>
-        <p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p>
-        <span class="pick">Choose this path</span>
-      </a>
-      <a class="door" href="add-subscription.html">
-        <h2>Add them yourself</h2>
-        <p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p>
-        <span class="pick">Choose this path</span>
-      </a>
-    </div>
-
+  <main class="lp-gate-main">
+    <!-- Step chrome: back, a step marker, nothing else. A progress bar on step 1
+         of 3 tells an avoider the road is long, which is the wall in a softer form.
+         SYNCED FROM THE PRODUCT, 2026-09-30 (P17): the back link and the app bar went
+         with the app's screen. The lockup above is the way back to the landing, and
+         the step marker stands at the head of the card. -->
     <!-- The retreat is the default in the As-Is journey, so the product survives
-         it: doing nothing lands on your own empty list, not on a locked door. -->
-    <p class="quiet"><a href="home-empty.html">Do this later</a></p>
-
+         it: doing nothing lands on your own empty list, not on a locked door.
+         SYNCED FROM THE PRODUCT, 2026-09-30 (G22, P9): "Do this later" now passes
+         through sign-in.html first, with no door, because the empty list needs an
+         account to be yours. It still lands on the list and not on a locked door. -->
     <!-- THE WAY ACROSS, 2026-08-20, ON THE FOUNDER'S DECISION, and it is a
          STRUCTURE change written here because the grey is the contract. The landing
          offers both doors twice and `sign-in` leads back with "No account yet?
@@ -90,13 +87,40 @@
          from a dead end - so the fork is now two-way. It is one quiet line, under
          the retreat rather than beside the doors, because it is for the person who
          is in the wrong place and not an option for the person who is in the right
-         one. -->
-    <p class="quiet">Already have an account? <a href="sign-in.html">Sign in</a></p>
-
-    <p class="muted ruled">By starting you agree to our <a href="data-privacy.html">Terms and Privacy Policy</a>. Tendd asks for read-only access and never for permission to move money.</p>
-
+         one.
+         SYNCED FROM THE PRODUCT, 2026-09-30 (P17): `sign-in` no longer leads back with
+         "No account yet? Start here"; both ways in there start an account. The line
+         here stands as it was. -->
+    <!-- The two doors, equal in size and weight. There is no recommended one and
+         no badge on the faster one: a nudge toward the bank is the bank wall in
+         a softer form, and D2 makes the manual path an equal second path. -->
+    <div class="lp-modal-card lp-wide">
+      <div class="lp-start" role="group" aria-labelledby="start-h">
+        <!-- A step marker and not a progress bar. Telling an avoider on step 1 that the
+             road is three long is the wall in a softer form; a bar draws how much is
+             left, a marker only says where you are. -->
+        <p class="lp-eyebrow lp-start-step">Step 1 of 3</p>
+        <h1 class="lp-auth-title" id="start-h">How do you want to start?</h1>
+        <!-- D-Gate made the old promise ("the same calm view") false, and saying so at
+             the door is the alternative to a person finding out at the moment they were
+             promised the opposite. -->
+        <p class="lp-auth-sub lp-start-sub">Adding them yourself is free and unlimited. The first bank scan is free too, and seeing every name it finds is Tendd Pro.</p>
+        <div class="lp-doors">
+          <!-- the bank, a wire with a lock on it, and what comes back along it -->
+          <a class="lp-door" href="sign-in.html?path=bank"><span class="lp-door-art" aria-hidden="true"><span class="lp-art-bankmark"><svg class="lp-ico" viewBox="0 0 24 24"><path d="M3 10h18L12 4 3 10z"></path><path d="M5.5 10v8M10 10v8M14 10v8M18.5 10v8M3 20.5h18"></path></svg></span><span class="lp-art-wire"><i></i><i></i><span class="lp-art-lock"><svg class="lp-ico" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2.5"></rect><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"></path></svg></span></span><span class="lp-art-rows"><span class="lp-art-row"><img src="visuals/logos/netflix.svg" alt="" width="20" height="20"><b></b></span><span class="lp-art-row"><img src="visuals/logos/spotify.svg" alt="" width="20" height="20"><b></b></span><span class="lp-art-row"><img src="visuals/logos/icloud.svg" alt="" width="20" height="20"><b></b></span></span></span><h2>Connect your bank</h2><p>Read-only, through Plaid, and about a minute. Tendd cannot move your money.</p><span class="lp-door-pick">Choose this path<span class="lp-door-go" aria-hidden="true"><svg class="lp-ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span></a>
+          <!-- a short list in your own hand, and the next row being written -->
+          <a class="lp-door" href="sign-in.html?path=manual"><span class="lp-door-art" aria-hidden="true"><span class="lp-art-list"><span class="lp-art-row"><img src="visuals/logos/notion.svg" alt="" width="20" height="20"><b></b></span><span class="lp-art-row"><img src="visuals/logos/chatgpt.svg" alt="" width="20" height="20"><b></b></span><span class="lp-art-row lp-art-new"><span class="lp-art-plus"><svg class="lp-ico" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"></path></svg></span><b></b></span></span></span><h2>Add them yourself</h2><p>Start with one and add more later. No bank is involved, and nothing leaves your control.</p><span class="lp-door-pick">Choose this path<span class="lp-door-go" aria-hidden="true"><svg class="lp-ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></span></a>
+        </div>
+        <!-- The retreat, and the way across for somebody in the wrong place. Both are the
+             sign-in panel with no door: doing nothing lands on your own empty list, which
+             still needs an account to be yours. -->
+        <div class="lp-start-foot">
+          <p><a href="sign-in.html">Do this later</a></p>
+          <p>Already have an account? <a href="sign-in.html">Sign in</a></p>
+        </div>
+      </div>
+    </div>
   </main>
-
 </div>
 
 </div><!-- /stage -->

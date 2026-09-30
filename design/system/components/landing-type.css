@@ -1,0 +1,104 @@
+/* ============================================================================
+   Landing type - atoms
+   The public page's voice at display size: the eyebrow, the display heading,
+   the lede, a card's title and body, the tag, the badge, the text link, the
+   line icon, and the heading whose words rise one after another. Arrived
+   2026-09-26 with Light 2 (P16).
+
+   WHY NOT THE APP'S TYPE ROLES. The app sets a heading at --type-head and
+   never larger, because inside a task the number is the biggest thing on
+   screen. This page argues, and its headings are up to seven times that,
+   scaled with the width. The roles below are this page's alone.
+
+   Reads
+     colour   --text-primary, --text-body, --text-muted, --text-action,
+              --bg-surface, --bg-selected, --bg-attention, --text-attention,
+              --bg-failure, --text-failure, --line-container, --bg-action
+   ============================================================================ */
+
+.landing .lp-ico {
+  width: 1.25rem; height: 1.25rem; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+.landing .lp-eyebrow {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.landing .lp-eyebrow::before {
+  content: ""; width: .45rem; height: .45rem; border-radius: 50%;
+  background: var(--bg-action);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--bg-action) 12%, transparent);
+}
+
+.landing .lp-display {
+  font-size: clamp(2.6rem, 6.2vw, 6.25rem); font-weight: 700;
+  letter-spacing: -.04em; line-height: .95; text-wrap: balance;
+}
+.landing .lp-lede {
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem); line-height: 1.5;
+  color: var(--text-body); max-width: 38ch; text-wrap: pretty;
+}
+.landing .lp-h3 {
+  font-size: clamp(1.2rem, 1.5vw, 1.45rem); font-weight: 600;
+  letter-spacing: -.015em; line-height: 1.2;
+}
+.landing .lp-body { color: var(--text-muted); text-wrap: pretty; }
+.landing .lp-acc { color: var(--text-action); }
+
+/* ---- a heading whose words rise ------------------------------------------
+   Each word sits in a window of its own and rises into it. The window is a
+   little larger than the word, so no descender is clipped on the way. */
+.landing .lp-w {
+  display: inline-block; overflow: hidden; vertical-align: top;
+  padding: .1em .03em .16em; margin: -.1em -.03em -.16em;
+}
+.landing .lp-wi { display: inline-block; will-change: transform; --i: 0; }
+.landing .lp-w:nth-child(2) .lp-wi { --i: 1; }
+.landing .lp-w:nth-child(3) .lp-wi { --i: 2; }
+.landing .lp-w:nth-child(4) .lp-wi { --i: 3; }
+.landing .lp-w:nth-child(5) .lp-wi { --i: 4; }
+.landing .lp-w:nth-child(6) .lp-wi { --i: 5; }
+.landing .lp-w:nth-child(7) .lp-wi { --i: 6; }
+.landing .lp-w:nth-child(8) .lp-wi { --i: 7; }
+
+/* ---- the tag: a small caption with a warm dot ---------------------------- */
+.landing .lp-tag {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .4rem .8rem; border-radius: 999px;
+  background: var(--bg-surface); box-shadow: inset 0 0 0 1px var(--line-container);
+  font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-muted); white-space: nowrap;
+}
+.landing .lp-tag::before {
+  content: ""; width: .4rem; height: .4rem; border-radius: 50%;
+  background: var(--text-attention);
+}
+
+/* ---- the badge: a row's status ------------------------------------------- */
+.landing .lp-badge {
+  display: inline-flex; align-items: center;
+  height: 1.45rem; padding: 0 .6rem; border-radius: 999px;
+  font-size: .75rem; font-weight: 600; white-space: nowrap;
+}
+.landing .lp-b-act   { background: var(--bg-selected);  color: var(--text-action); }
+.landing .lp-b-trial { background: var(--bg-attention); color: var(--text-attention); }
+.landing .lp-b-off   { background: var(--bg-failure);   color: var(--text-failure); }
+
+/* ---- the text link, with an arrow that advances -------------------------- */
+.landing .lp-link {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-weight: 600; color: var(--text-action);
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .3em;
+  text-decoration-color: color-mix(in srgb, var(--text-action) 35%, transparent);
+}
+.landing .lp-link .lp-ico { width: 1rem; height: 1rem; transition: transform .75s var(--lp-ease); }
+@media (hover: hover) and (pointer: fine) {
+  .landing .lp-link:hover .lp-ico { transform: translateX(3px); }
+}
+
+@container (max-width: 40rem) {
+  .landing .lp-badge { font-size: .6875rem; padding: 0 .5rem; height: 1.3rem; }
+}

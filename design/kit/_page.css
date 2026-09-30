@@ -70,8 +70,15 @@
    NOT IN base.css, and the isolation rule is why. The product carries zero
    classless anchors on all 28 coloured screens; this is the stand's own defect
    and bending the shipped package to cure it is the exact move that file forbids. */
-.kit-body a:not([class]) { color: var(--text-action); }
-.kit-body a:not([class]):hover { color: var(--text-primary); }
+/* AMENDED 2026-09-30, when the stand came level with the product. "Every product
+   specimen wears a class" stopped being true: the public page's bar links, its
+   footer columns and its close carry plain anchors (P16), and Contact's two
+   addresses are the first classless link in the app (P36, pair-list.css). Tied
+   at 0-2-1 with `.landing .lp-nav-links a` and later in the cascade, this rule
+   painted the landing's links petrol on the stand only. So it now stops at both
+   product scopes: inside `.app` or `.landing` the component owns the ink. */
+.kit-body a:not([class]):not(.app a, .landing a) { color: var(--text-action); }
+.kit-body a:not([class]):not(.app a, .landing a):hover { color: var(--text-primary); }
 
 /* ---------- the panel ---------- */
 
@@ -470,6 +477,9 @@ span.kn-project-link { color: var(--kn-text-muted); opacity: 0.6; }
 .f--plot-area { background: var(--plot-area); }
 .f--plot-line { background: var(--plot-line); }
 .f--bg-measure { background: var(--bg-measure); }
+/* two roles the product added after the stand froze, shown 2026-09-30 */
+.f--bg-withheld { background: var(--bg-withheld); }
+.f--tone-shade { background: var(--tone-shade); }
 .t--bg-placeholder { color: var(--bg-placeholder); }
 .b--bg-placeholder { border-color: var(--bg-placeholder); }
 .f--bg-action { background: var(--bg-action); }
@@ -1366,3 +1376,26 @@ span.kn-project-link { color: var(--kn-text-muted); opacity: 0.6; }
   display: flex; align-items: center;
 }
 .kit-sig-big { transform: scale(4); transform-origin: left center; }
+
+
+/* ---- the public page on the stand, 2026-09-30 ----------------------------
+   THE LANDING IS PINNED LIGHT (P16), SO ITS SPECIMENS ARE TOO. A landing
+   specimen is `<div class="kit-stage full bleed kit-lp">` holding a
+   `<div class="landing" data-theme="light">`: tokens.css declares its light half
+   on `:root, [data-theme="light"]`, so the subtree is white in both themes of
+   the stand, exactly as node 1.1 is for a person who chose dark in Settings.
+   The stage around it keeps the stand's theme, which is the point: the dark
+   stand shows the white page standing in it, as the product does.
+
+   The stage gives up its padding because the landing brings its own ground and
+   its own inset (--lp-inset), and it clips because the landing's ghost words
+   and watermark are wider than any page by design (landing-shell.css).
+
+   ONE HEIGHT IS THE STAND'S, said here and nowhere else. The hero asks for the
+   whole viewport (`min-height: 100svh`), which is right for a page and a wall of
+   white on a stand; a specimen gets its content's height, the same bargain
+   `.kit-shell-demo` strikes with `.app`. Nothing else in a landing specimen is
+   changed: the queries fire on the stage, which is the query container. */
+.kit-stage.kit-lp { display: block; padding: 0; overflow: hidden; }
+.kit-stage.kit-lp > .landing { width: 100%; max-width: none; }
+.kit-stage.kit-lp .lp-hero-in { min-height: 0; }

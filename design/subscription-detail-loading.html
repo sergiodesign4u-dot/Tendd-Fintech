@@ -28,6 +28,16 @@
   The colour layer owns the visual only, plus the merchant mark, which is the one
   thing the grey page could not carry (it renders "[logo]" in its place).
   Links to screens that are not coloured yet point back into wireframes/.
+
+  SYNCED FROM THE PRODUCT, 2026-09-30 (P26). Past the 760 point the bar's way back is
+  hidden and a second "Your subscriptions" link, the first line of the block that holds
+  the h1, takes its place, so the rail keeps the brand and nothing that comes and goes;
+  on a phone it is the other way round, and one of the two is always display: none.
+  So the structure is the grey twin's plus that one link. The tab bar with Home current was already here and the product now draws it too. The
+  mark is aria-hidden as the product renders it. Nothing else changed: this page keeps
+  what the product has not built yet (the product renders no loading screen; the
+  freshness line, G4) as the
+  design's intent.
 -->
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
@@ -55,11 +65,15 @@
 
     <div class="col1">
 
+      <!-- The way back on a wide screen, P26: display: none below 760, where the
+           bar's own link is the one a person meets (app-bar.css). -->
+      <a class="back" href="home.html">Your subscriptions</a>
+
       <!-- The hero is already filled, because the list the person tapped knew
            the name and the amount. Blanking it out and asking them to wait for
            what they had a moment ago is the thing this state must not do. -->
       <div class="hero">
-        <span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span>
+        <span class="logo" aria-hidden="true"><img src="visuals/logos/spotify.svg" alt=""></span>
         <span>
           <h1>Spotify Premium</h1>
           <span class="amt figure">$11.99</span>

@@ -45,24 +45,51 @@
 
   <header class="kit-head">
     <h1>Landing shell</h1>
-    <p class="lead">The public page's measure and its vertical rhythm. Two classes: <code>.lp-wrap</code> is what every block is centred in, <code>.lp-section</code> is the air between one argument and the next.</p>
+    <p class="lead">The public page&#39;s ground, its frame of cards, its measure and the one way a block arrives. It also declares the landing&#39;s locals, which every other landing file reads.</p>
     <div class="kit-meta">
       <span>Organism</span>
-      <span><strong>1</strong> grey page</span>
-      <span><strong>1</strong> coloured page</span>
-      <span>band: canvas / surface</span>
-      <span>added 2026-08-14</span>
+      <span><code>.landing</code></span>
+      <span><strong>1</strong> grey page, before Light 2</span>
+      <span>inset: .5rem / .75rem at 47.5rem</span>
+      <span>added 2026-08-14, rewritten 2026-09-26 for Light 2 (P16)</span>
     </div>
   </header>
 
+
+  <section class="kit-sec" id="now">
+    <h2>Since Light 2</h2>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P16).</b> The page is a stack of white cards with rounded corners standing on the canvas, with a small inset around them, and every block rises into place the first time it is seen. The full-bleed bands of the old page, and their surface fill as the edge between them, are gone.</p>
+    <p class="note"><b>The one fluid surface, and its numbers are literals of this page.</b> The app steps between two registered points; this page scales continuously, so most of its sizes are <code>clamp()</code> of the width, and a clamp has no token level to live at. They are declared once, here, as locals on <code>.landing</code>. Colour is never a literal: every shade is a role or a share of one through <code>color-mix</code>, cast in <code>--tone-shade</code> for a shadow (tokens.css, added for this page).</p>
+    <p class="note"><b>Pinned light.</b> The root carries <code>data-theme="light"</code>, so every role resolves to its light value whatever the person chose in Settings. Live below, rendered by the real css inside a <code>.landing</code> pinned to <code>data-theme="light"</code>, white in the dark stand too, as node 1.1 is for a person who chose dark in Settings (P16).</p>
+    <div class="kit-stage full bleed kit-lp">
+      <div class="landing" data-theme="light">
+        <div class="lp-frame"><div class="lp-card"><div class="lp-wrap"><div class="lp-ben-head"><h2 class="lp-display lp-split" aria-label="Calm control of your recurring money"><span class="lp-w" aria-hidden="true"><span class="lp-wi">Calm</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">control</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">of</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">your</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">recurring</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">money</span></span></h2><p class="lp-lede lp-rv">Tendd is not a budgeting app. It is a simple, low-pressure way to see and control what you are subscribed to.</p></div></div></div><div class="lp-card"><div class="lp-wrap"><div class="lp-sec-head"><p class="lp-eyebrow lp-rv">Trust and security</p><h2 class="lp-display lp-split" aria-label="Trusted with your money"><span class="lp-w" aria-hidden="true"><span class="lp-wi">Trusted</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">with</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">your</span></span> <span class="lp-w" aria-hidden="true"><span class="lp-wi">money</span></span></h2><p class="lp-lede lp-rv">Trust is earned, not claimed. Here is exactly what Tendd can and cannot do.</p></div></div></div></div>
+      </div>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.landing</code> <span>the ground (<code>--bg-page</code>), the ink, and the locals: <code>--lp-inset</code>, <code>--lp-r</code> 2rem, <code>--lp-r-md</code> 1.5rem, <code>--lp-gut</code>, <code>--lp-pad-y</code>, <code>--lp-max</code> 82.5rem, <code>--lp-nav-h</code>, three curves, the hover time and lift, the glass, two shadows and the fading separator <code>--lp-sep</code>. It clips sideways, because the ghost words and the watermark are wider than the page by design</span></li>
+      <li><code>.lp-frame</code> <span>the column of cards, <code>--lp-inset</code> around and between them; <code>.lp-main</code> is the same inside it</span></li>
+      <li><code>.lp-card</code> <span>one card: the surface, the large radius, and every child lifted above the world&#39;s canvas</span></li>
+      <li><code>.lp-wrap</code> <span>the measure, 82.5rem, centred, with the fluid gutter and the fluid vertical air</span></li>
+      <li><code>.lp-rv</code> <span>the one way a block arrives: it rises 28px and fades in over 900 to 1100ms. Hidden only when the boot script ran AND motion is allowed; <code>.lp-noreveal</code> is the boot script&#39;s fallback at 3.2s</span></li>
+      <li><code>.lp-split .lp-wi</code> <span>a split heading&#39;s words, rising 80ms apart</span></li>
+    </ul>
+    <h3 class="kit-sub-h">Behaviour on width</h3>
+    <p class="note">One registered point, 47.5rem: the inset goes .5rem to .75rem. Under 40rem the bar&#39;s height local drops to 56px. Everything else is fluid.</p>
+    <p class="note"><b>U2 and U3, context.</b> No tab bar on the landing, and no <code>.appbar</code>: the page carries its own header, <a href="landing-bar.html">the landing bar</a>. <b>U11</b>: the one footer in the product is this page&#39;s, <a href="site-footer.html">the site footer</a>.</p>
+    <p class="note"><b>The one shadow of this system is not the one spent here.</b> Inside the app depth is a ground change and <code>--shadow</code> is its single exception. This page floats cards and icons over paper, and a float is a shadow; the landing&#39;s are cast in <code>--tone-shade</code> and never in a colour of their own.</p>
+    <p class="note"><b>Every class on the page is <code>lp-</code> or <code>is-</code></b>, because <code>.row</code>, <code>.card</code>, <code>.btn</code>, <code>.total</code> and a dozen other short names are already the app&#39;s, styled under <code>.landing</code> as well (P16).</p>
+  </section>
+
   <section class="kit-sec" id="what">
-    <h2>What it is</h2>
+    <h2>What it was, until 2026-09-26</h2>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P16).</b> This section and every one after it, down to "Where it comes from", describe this component as it stood before Light 2 replaced the public page on 2026-09-26. Its classes then were <code>.lp-wrap</code> at 80rem and <code>.lp-section</code> with its band modifiers <code>.lp-trust</code>, <code>.lp-plan</code> and <code>.lp-final</code>, full-bleed bands on canvas and surface, and a <code>--grid-col-min</code> set for the benefit grid. None of it is a present-tense claim about the product any more; what is true now is <a href="#now">Since Light 2</a> above. It is kept as the record, because a stand amends its history and does not delete it.</p>
         <p class="note"><b>It is the landing's answer to what <code>app-shell.css</code> does for a screen, and it could not be that file.</b> The app shell centres one column of blocks a person is <b>working through</b>, at <code>--container-page</code>, with the tab bar or the rail around it. A landing has no navigation to hold, its blocks are arguments a person is <b>deciding between</b>, and it runs full bleed section by section so a band can take its own ground. Two jobs, two files.</p>
     <p class="note"><b>The measure is <code>--container-wide</code>, the same value the app uses above its desktop point.</b> That is deliberate rather than convenient: a person who reads this page and then signs up should not feel the page change width under them.</p>
   </section>
 
   <section class="kit-sec" id="anatomy">
-    <h2>Anatomy</h2>
+    <h2>Anatomy, until 2026-09-26</h2>
     <ul class="kit-parts">
       <li><code>.lp-wrap</code> <span>the measure, 80rem, centred, with the screen's own side padding: 16px at the narrow end and 40 past the tablet point, which is what the app shell spends there too</span></li>
       <li><code>.lp-section</code> <span>80px of air on a phone, 96 past the tablet point. It is the widest gap in this product, and it is the point: on an app screen the next block is the next thing you do, here it is a different claim</span></li>
@@ -74,13 +101,13 @@
   </section>
 
   <section class="kit-sec" id="limits">
-    <h2>Limits</h2>
+    <h2>Limits, until 2026-09-26</h2>
         <p class="note"><b>The grid floor is set here and it is the grid's own axis, not an override.</b> <code>.grid</code> counts columns from <code>--grid-col-min</code>, and the default 10rem is sized for preset tiles in a 588px pane. Inside a 1200px landing measure that floor produced <b>seven tracks for three cards</b>, so the benefit cards sat in the left third with four empty tracks beside them. This file sets <code>--grid-col-min: 20rem</code> on the sections, which is the floor a paragraph of argument needs, and no column count is written anywhere.</p>
   </section>
 
   <section class="kit-sec" id="source">
     <h2>Where it comes from</h2>
-    <p class="note">Drawn by <code>design/system/components/landing-shell.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It stands on <a href="../index.html">the coloured landing</a> and on <code>wireframes/index.html</code>, and on nothing else: the landing is the only public surface this product has. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the organism group.</p>
+    <p class="note">Drawn by <code>design/system/components/landing-shell.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads, and synced byte for byte from the product on 2026-09-30. It stands on <a href="../index.html">the coloured landing</a>, under every block of it. The grey <code>wireframes/index.html</code> is frozen at the structure before Light 2 and does not carry it: a component that arrived with a founder&#39;s decision after the grey closed, like the brand mark before it. Registered in <code>docs/inventory.md</code> and in <code>_nav.js</code>, in the organism group.</p>
   </section>
 
 </main>

@@ -43,7 +43,7 @@ The count is a class count, not a component count: `.row`, `.row .name`, `.row .
 
 # Part 1. The system after consolidation
 
-**70 components: 20 atoms, 22 molecules, 28 organisms.** Recounted 2026-08-20 off the `@import` groups in `design/system/index.css`, by script and in the same step as the change. (The total did not move on 2026-08-20 and the split did: the save-focus candidate climbed from molecule to organism on the founder's decision, on the ladder's own definition - it hosts a molecule. It had been filed a rung low since the molecule round, and the reason it stayed was never the ladder but the `@import` order that moving it changes.) (69 before the category bars arrived on 2026-08-19, when the founder asked why By category was a sentence and not a picture.) (68 before the landing's closing band left the shell on 2026-08-16 and became an organism of its own; 64 before the founder's four rebuilds of 2026-08-15, which added the landing steps, the landing paths, the landing facts and the landing plan; 57 until the public page, when five organisms arrived with the landing on 2026-08-14 and the landing story replaced two shorter-lived ones the same day; 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
+**75 components: 22 atoms, 23 molecules, 30 organisms.** Recounted 2026-09-30 off the `@import` groups in `design/system/index.css`, by script and in the same step as the change, and checked against the files in `design/system/components/` (75) and the component rows of `design/kit/_nav.js` (22, 23, 30): no file without an import, a row or a line here. (70 until 2026-09-30, when the stand came level with the product: the landing's orbit left with Light 2 (P16), and six arrived that the product had built since 2026-09-02 - the landing button and the landing type as atoms, the locked list as a molecule (D-Gate, then P31 to P34), and the landing benefits, the landing stats and the landing auth as organisms (P16, P17). 70, 20, 22, 28 was the count of 2026-08-20.) (The previous count's own history follows.) Recounted 2026-08-20 off the `@import` groups in `design/system/index.css`, by script and in the same step as the change. (The total did not move on 2026-08-20 and the split did: the save-focus candidate climbed from molecule to organism on the founder's decision, on the ladder's own definition - it hosts a molecule. It had been filed a rung low since the molecule round, and the reason it stayed was never the ladder but the `@import` order that moving it changes.) (69 before the category bars arrived on 2026-08-19, when the founder asked why By category was a sentence and not a picture.) (68 before the landing's closing band left the shell on 2026-08-16 and became an organism of its own; 64 before the founder's four rebuilds of 2026-08-15, which added the landing steps, the landing paths, the landing facts and the landing plan; 57 until the public page, when five organisms arrived with the landing on 2026-08-14 and the landing story replaced two shorter-lived ones the same day; 55 and 18 until the brand arrived on 2026-08-12 with two atoms.) Before the consolidation of stage 08
 step 2 the same material was 68 rows, and the pre-consolidation tables are not reproduced here:
 they were a list of what the product draws, and this is a list of what the system HAS. The
 ledgers further down record how the count moved, screen by screen and stage by stage.
@@ -67,7 +67,7 @@ importance: the same button is 14px in a page action row and 13.5px in a compact
 the row is tighter, not because the action matters less. GAP in a grid is set by the **size of
 the child**: doors are full cards and take air, tiles are chips and do not.
 
-## Atoms (20)
+## Atoms (22)
 
 | Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
 |---|---|---|---|---|---|---|---|
@@ -75,17 +75,19 @@ the child**: doors are full cards and take air, tiles are chips and do not.
 | Big total | `.total` | size by container: 46 / 32 (`--type-display`, `--type-figure`). 40 folded at step 5 | 8 | - | `big-total.css` | `big-total.html`  | does not adapt |
 | Brand mark | `.brand` | window: crop A. B and C locked at Concept, no host yet | 32 coloured, 0 grey | - | `brand-mark.css` | `brand-mark.html`  | does not adapt |
 | Brand wordmark | `.wordmark` | size: bar / large. the last letter is petrol with NO condition (founder, 2026-08-12, overruling the concept's three) | 54 | - | `brand-wordmark.css` | `brand-wordmark.html`  | does not adapt |
-| Button | `.btn` | emphasis: fill / outline. `inverse` and `compact` both DELETED 2026-08-12, neither had a wearer | 85 | - | `button.css` | `button.html`  | does not adapt |
+| Button | `.btn` | emphasis: fill / outline. shape: plain / `.pill`, with `.go`, the arrow that travels, 2026-09-29 (P34), spent on the locked block. `inverse` and `compact` both DELETED 2026-08-12, neither had a wearer | 85 | - | `button.css` | `button.html`  | does not adapt |
 
 **Built.** `design/system/components/button.css` + `design/kit/button.html`. The etalon of step 5,
 and the first component through the five-thing gate: css, page, registry row, inventory line,
 `@import` in its own level group.
 | Chart placeholder | `.chart` | **frame: drawn / stepped back**, decided by `:has(.plot)` and never by a class (2026-08-19): a fill and a hairline are what you draw when there is nothing to draw | 4 | - | `chart-placeholder.css` | `chart-placeholder.html`  | point |
-| Checkbox | `.check` | - | 2 | `.switch input` | `checkbox.css` | `checkbox.html`  | does not adapt |
+| Checkbox | `.check` | drawn since 2026-09-29 (P26): `appearance: none`, a 12px tick over `--text-on-action` in the 20px box | 2 | `.switch input` | `checkbox.css` | `checkbox.html`  | does not adapt |
 | Chip | `.chip` | tone: quiet / pro. **`trial` was retired 2026-08-20** with `--bg-trial`, `--text-trial` and the four teal primitives under them: a rule with no wearer in colour, and D-Concept says a status is a quiet grey badge. `cancelled` had gone the same way at stage 08 | 36 | `.tag`, `.badge`, `.best`, `.plan` | `chip.css` | `chip.html`  | does not adapt |
 | Destination icon | `.ic-*` | one per destination | 112 | - | `destination-icon.css` | `destination-icon.html`  | does not adapt |
 | Eyebrow | `.k` | - | 4 | `.num` | `eyebrow.css` | `eyebrow.html`  | does not adapt |
 | Label | `.lbl` | weight: quiet 12 / strong 16 (`--type-meta`, `--type-sub`). 15 was never the value | 3 | - | `label.css` | `label.html`  | does not adapt |
+| Landing button | `.lp-btn` | emphasis: fill / `.lp-ghost`. size: base / `.lp-sm` (the bar). form: plain / `.lp-arw`, the swap button. Added 2026-09-26 with Light 2 (P16); not `.btn`, because on this page there is one action and it is the largest control on screen | 0 grey, the public page only | - | `landing-button.css` | `landing-button.html`  | fluid, plus 23.75rem for the bar's small pill |
+| Landing type | `.lp-display`, `.lp-eyebrow`, `.lp-lede`, `.lp-h3`, `.lp-body`, `.lp-tag`, `.lp-badge`, `.lp-link`, `.lp-ico`, `.lp-w` | nine roles and the rising words. Added 2026-09-26 (P16): the page's voice at display size, up to seven times `--type-head`, which is why they are not the app's type roles | 0 grey, the public page only | `.lp-h1`, `.lp-lead` | `landing-type.css` | `landing-type.html`  | fluid (`clamp()` of the width), plus 40rem for the badge |
 | Logo | `.logo` | size by container: 20 / 22 / 30 / 32 / 36 / 52 | 111 | - | `logo.css` | `logo.html`  | does not adapt |
 | Meta row | `.metarow` | rule: plain / ruled | 5 | `.axis`, `.strip` | `meta-row.css` | `meta-row.html`  | fluid |
 | Muted line | `.muted` | size: body / fine. rule: plain / ruled | 48 | `.consequence`, `.context`, `.tone`, `.legal`, `.freshness`, `.removal`, `.pitch`, `p.notice`, `.p` | `muted-line.css` | `muted-line.html`  | a reading measure |
@@ -124,7 +126,7 @@ recorded here rather than given a component of its own. Its rule lives in `app-b
 names two more hosts for it, the share card's band and a launch screen, and the share card stands
 on 2 grey pages and 0 coloured ones. When the second host is built, this becomes a molecule.
 
-## Molecules (22)
+## Molecules (23)
 
 | Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
 |---|---|---|---|---|---|---|---|
@@ -135,28 +137,29 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Door | `.door` | content: with a pick line / without | 4 | - | `door.css` | `door.html`  | does not adapt |
 | Form field | `.field` | host: div / form (the search) | 8 | - | `form-field.css` | `form-field.html`  | a reading measure on the hint, since 2026-08-17. No query |
 | Group head | `.group-head` | rule: banded / plain · far slot: a figure / the section's action | 16 | - | `group-head.css` | `group-head.html`  | does not adapt |
+| Locked list | `.locked-note`, and the row state `.is-locked` with its slot `.name-withheld` | content: Free (the sum and the hold line) / flow (no amounts, D1) / Pro, not named yet. form: the words beside the stage past container 900 / stacked, and always stacked in `.app.flow`. slot width: 40 / 55 / 70. D-Gate 2026-09-02; since P31 the block is the only place a withheld row appears, and since P34 it speaks the landing's language (dotted eyebrow, the count in petrol, the squares, the floating tiles, `.btn.pill.go`) | 0 grey; 2 screens of the product, Home and the reveal | - | `locked-list.css` | `locked-list.html`  | point 56.25rem, not in the flow form |
 | Merchant chip group | `.rgroup` | - | 1 | - | `merchant-chip-group.css` | `merchant-chip-group.html`  | fluid |
 | Nav row | `.navrow` | - | 2 | - | `nav-row.css` | `nav-row.html`  | does not adapt |
 | Numbered steps | `.steps` | - | 3 | - | `numbered-steps.css` | `numbered-steps.html`  | a reading measure on the step, since 2026-08-17: `--container-text` plus the numeral gutter, the one computed width in the system. No query |
-| Pair list | `.pairs` | markup: dt/dd / span. content: values / sentences | 19 | `.facts`, `.unlocks` | `pair-list.css` | `pair-list.html`  | does not adapt |
-| Plan option | `.plan-opt` | host: app / landing | 2 | - | `plan-option.css` | `plan-option.html`  | does not adapt |
+| Pair list | `.pairs` | markup: dt/dd / span. content: values / sentences / a link as a value (P36, Contact) | 19 | `.facts`, `.unlocks` | `pair-list.css` | `pair-list.html`  | does not adapt |
+| Plan option | `.plan-opt` | host: app (the landing's own plans are `.lp-plan` since P16). selection: `.best`, the selection edge. Since 2026-09-29 (P26) each card carries its own button and the included list `.incl` is one block after the row | 2 | - | `plan-option.css` | `plan-option.html`  | the included list takes two columns at 47.5rem; the row itself is the grid's |
 | Preset tile | `.tile` | state: pressed | 2 | - | `preset-tile.css` | `preset-tile.html`  | does not adapt |
 | Promise list | `.promises` | - | 3 | - | `promise-list.css` | `promise-list.html`  | a reading measure |
 | Range picker | `.range` | availability x selection: rest / pressed / disabled / disabled+pressed | 3 | - | `range-picker.css` | `range-picker.html`  | does not adapt |
 | Share card | `.sharecard` | - | 2 | - | `share-card.css` | `share-card.html`  | a reading measure since 2026-08-17, and it is on `.oncard`, the one-off standing beside the card, rather than on the card itself |
 | Subscription row | `.row` | state: skeleton. host: list / candidate | 8 | - | `subscription-row.css` | `subscription-row.html`  | container threshold, 28.75rem, + fluid |
 | Summary | `.summary` | content: with a total / without | 5 | - | `summary.css` | `summary.html`  | does not adapt |
-| Switch row | `.switch` | - | 2 | - | `switch-row.css` | `switch-row.html`  | does not adapt |
+| Switch row | `.switch` | inset since 2026-09-29 (P26): the row reaches 8px past its column, 16px past the tablet point, and pads back in; the divider is drawn on the column's width | 2 | - | `switch-row.css` | `switch-row.html`  | point 47.5rem since 2026-09-29: the reach grows from 8px to 16px |
 | Text block | `.textblock` | scope: page 24 / block 21 / inset 17 | 44 | `.lede`, `.state` | `text-block.css` | `text-block.html`  | a reading measure |
 | Trust block | `.trust` | - | 11 | - | `trust-block.css` | `trust-block.html`  | does not adapt |
 | Wash block | `.wash` | tone: neutral / attention / error / code. content: with an arrow / without / **with an action row** | 14 | `.attention`, `.notice`, `.decoder` | `wash-block.css` | `wash-block.html`  | a reading measure, and since 2026-08-19 point 47.5rem on the one band that carries an action: the row moves beside the words |
 
-## Organisms (28)
+## Organisms (30)
 
 | Component | Class | Axes and their values | Pages in the product | Was | CSS file | Page | Behaviour at width |
 |---|---|---|---|---|---|---|---|
 | Save-focus candidate | `.cand` | - | 1 | - | `save-focus-candidate.css` | `save-focus-candidate.html`  | container threshold, 28.75rem, + fluid |
-| App bar | `.appbar` | form: row / column rail at container 760 | 54 | - | `app-bar.css` | `app-bar.html`  | point |
+| App bar | `.appbar` | form: row / column rail at container 760. In the rail the way back is `.app > .screen .back`, the bar's is hidden (P26, 2026-09-29) | 54 | - | `app-bar.css` | `app-bar.html`  | point |
 | App shell | `.app` | form: steady / flow / detail | 54 | - | `app-shell.css` | `app-shell.html`  | point + fluid |
 | Card | `.card` | - | 3 | `.locked`, `.source` | `card.css` | `card.html`  | a reading measure, 560px on the card and `--container-text` on the prose inside it since 2026-08-17, and no query since stage 10 |
 | Category bars | `.bars` | - | 1 | - | `category-bars.css` | `category-bars.html`  | fluid |
@@ -165,19 +168,21 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Dialog sheet | `.sheet` | full width, then a card at container 760 | 3 | - | `dialog-sheet.css` | `dialog-sheet.html`  | point |
 | Divided list | `.divlist` | inset: bare / inside a panel | 4 | `.alerts`, `.navrows` | `divided-list.css` | `divided-list.html`  | does not adapt |
 | Empty block | `.empty` | - | 2 | - | `empty-block.css` | `empty-block.html`  | a reading measure |
-| Grid | `.grid` | columns: 1 to 2 / 2 to 3. gap by child size | 8 | `.doors`, `.tiles`, `.plans` | `grid.css` | `grid.html`  | point + fluid |
-| FAQ list | `.lp-faq` | - | 1 | `.lp-faq` | `faq-list.css` | `faq-list.html`  | point 56.25rem: the heading stands beside the list and sticks to it while a question is open; the answer keeps the 52ch measure |
-| Landing bar | `.lp-nav` | links: hidden / shown | 1 | `.lp-nav` | `landing-bar.css` | `landing-bar.html`  | point 47.5rem: the links appear. The bar itself wraps at any width |
-| Landing hero | `.lp-h1`, `.lp-lead` | - | 1 | `.lp-h1`, `.lp-lead` | `landing-hero.css` | `landing-hero.html`  | two reading measures and no query at all: 14ch on the promise, because a promise is not prose, and 52ch on the lead |
-| Landing shell | `.landing` | band: canvas / surface | 1 | `.landing` | `landing-shell.css` | `landing-shell.html`  | measure and rhythm grow at 47.5rem |
-| Landing orbit | `.lp-orbit` | column / spread | 1 | `.lp-orbit`, `.osay`, `.orbit`, `.obands`, `.orow`, `.otrack`, `.ochip`, `.ocount`, `.ototal` | `landing-orbit.css` | `landing-orbit.html`  | container thresholds, every one of them local and every one asking the named container `story`: 60rem the spread, 75rem the corner figures, 85rem the widest band. Plus the only height question in the product, 42.5rem |
-| Landing story | `.lp-story` | cards: over the list / beside it | 1 | `.lp-story`, `.storypin`, `.storyhead`, `.storystack`, `.storyswap`, `.storylist`, `.sline`, `.swap`, `.storyasides`, `.scard`, `.cut1`, `.cut2`, `.cut3`, `.live`, `.gone` | `landing-story.css` | `landing-story.html`  | point 47.5rem, where the line and the lead grow, then 80rem of the PAGE container, where the cards move beside the list; the list travel is arithmetic rather than a point. Its head caps itself at **38rem**, a literal in no register: backlog row, 2026-08-17 |
-| Landing steps | `.lp-steps` | one rail, three ordinals, three product pictures | 1 | `.lp-steps`, `.lp-step`, `.sord`, `.sdemo`, `.dgrid`, `.drow` | `landing-steps.css` | `landing-steps.html`  | point 56.25rem: three columns, each rail ending at its own block |
-| Landing paths | `.lp-paths` | door: bank / presets | 1 | `.lp-paths`, `.lp-path`, `.pdemo` | `landing-paths.css` | `landing-paths.html`  | point 56.25rem: two doors side by side, stacked below it |
-| Landing facts | `.lp-facts` | claim: with a proof / on its own. panel: anchor / short / wide | 1 | `.lp-trust ul` | `landing-facts.css` | `landing-facts.html`  | point twice: two columns at 47.5rem, and at 56.25rem each wide claim turns its proof out beside it. The claim keeps the 52ch measure |
-| Landing plan | `.lp-plan` | one plan, three ways to pay, on the page's one wash | 1 | - | `landing-plan.css` | `landing-plan.html`  | point 47.5rem, three rules deep: the three prices stand in a row, the band wash follows them, and the chosen plan lifts out of the row |
-| Landing final | `.lp-final` | the last word, on a sheet, on a horizon | 1 | - | `landing-final.css` | `landing-final.html`  | point 47.5rem: the closing message becomes a sheet on the wash, with a horizon into the footer paper |
-| Site footer | `.lp-footer` | form: two columns / four columns, plus the bar at the foot | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | four columns at 47.5rem, the bar's two ends part at 56.25rem |
+| Grid | `.grid` | columns: 1 to 2 / 2 to 3; the plans 1, then 3 at container 900 since 2026-09-29. gap by child size | 8 | `.doors`, `.tiles`, `.plans` | `grid.css` | `grid.html`  | point + fluid |
+| FAQ list | `.lp-qa` in `.lp-faq-grid` | the first answer open; one open at a time (`name="faq"`). Rewritten 2026-09-26 (P16) | 1 | `.lp-faq` | `faq-list.css` | `faq-list.html`  | the heading stands above the list under 53.75rem, the answer loses its right gutter under 40rem |
+| Landing bar | `.lp-nav` | ground: none / frosted (`.is-scrolled`). the curtain `.lp-loader`, once per load. Rewritten 2026-09-26 (P16) | 1 | `.lp-nav` | `landing-bar.css` | `landing-bar.html`  | the links close up at 68.75rem and leave at 60rem; Sign in leaves at 40rem |
+| Landing hero | `.lp-hero` | the world canvas / the still icons (`.lp-nogl`). Rewritten 2026-09-26 (P16) | 1 | `.lp-h1`, `.lp-lead`, `.osay` | `landing-hero.css` | `landing-hero.html`  | two columns, then the promise over the icons under 47.5rem; the heading follows the body container at 5cqi up to 4.4rem (P17); the buttons stack under 40rem |
+| Landing shell | `.landing` | pinned light (P16): a frame of white cards (`.lp-frame`, `.lp-card`) on the canvas, and the one way a block arrives (`.lp-rv`). Declares the landing's locals | 1 | `.landing` | `landing-shell.css` | `landing-shell.html`  | fluid: every size a `clamp()` of the width, declared once as locals; the inset grows at 47.5rem |
+| Landing story | `.lp-story` | a pinned stage driven by the scroll / an ordinary section at its last state under reduced motion. Rewritten 2026-09-26 (P16) | 1 | `.lp-story`, `.storypin` and the rest of D-Hero's stage | `landing-story.css` | `landing-story.html`  | the ledger stacks under 53.75rem, the cards shrink under 40rem; one height query, 43.75rem |
+| Landing benefits | `.lp-ben` | three tinted cards, each with its icon tile, rising 110ms apart. Added 2026-09-26 (P16) | 0 grey, the public page only | - | `landing-benefits.css` | `landing-benefits.html`  | the head and the cards stack under 53.75rem |
+| Landing steps | `.lp-how`, `.lp-steps` | the ghost words, four pills, three rows that answer a pointer. Rewritten 2026-09-26 (P16) | 1 | `.lp-steps`, `.lp-step`, `.sord`, `.sdemo` | `landing-steps.css` | `landing-steps.html`  | the pills wrap at 60rem and stack at 40rem; a step folds to two columns under 53.75rem |
+| Landing stats | `.lp-stats` | four figures the page already says, counted up as the panel arrives. Added 2026-09-26 (P16) | 0 grey, the public page only | - | `landing-stats.css` | `landing-stats.html`  | two columns, one under 40rem |
+| Landing facts | `.lp-trust-grid`, `.lp-tr`, and the shared section head `.lp-sec-head` | four recessed cards with their line icons. Rewritten 2026-09-26 (P16) | 1 | `.lp-facts`, `.lp-trust ul` | `landing-facts.css` | `landing-facts.html`  | four columns, two under 68.75rem, one under 40rem; the head stacks under 53.75rem |
+| Landing paths | `.lp-paths`, `.lp-path` | two doors the same size (D2), no button on purpose. Rewritten 2026-09-26 (P16) | 1 | `.lp-paths`, `.lp-path`, `.pdemo` | `landing-paths.css` | `landing-paths.html`  | side by side, stacked under 53.75rem |
+| Landing plan | `.lp-plans`, `.lp-plan`, `.lp-pro` | three ways to pay, the year in the middle (`.lp-best`), everything in Pro said once. Rewritten 2026-09-26 (P16); no longer reads `--wash-pricing` | 1 | the plan band on the wash | `landing-plan.css` | `landing-plan.html`  | stacked with the year first under 60rem; the Pro list folds under 53.75rem and to one column under 40rem |
+| Landing final | `.lp-cta` | the close: the galaxy (the world's) / the still rings (`.lp-nogl`, reduced motion). Rewritten 2026-09-26 (P16); no longer reads `--wash-final` | 1 | `.lp-final` | `landing-final.css` | `landing-final.html`  | fluid; no query |
+| Landing auth | `.lp-auth`, `.lp-gate`, the dialog | step: choose / email / sent. host: the dialog over the landing / the page. Added 2026-09-27 (P17) | 0 grey; the landing's dialog and three public pages (sign in, sent, path choice) | the sign-in screen's own form | `landing-auth.css` | `landing-auth.html`  | the dialog becomes a sheet from the foot under 40rem |
+| Site footer | `.lp-foot` | four columns and the bar, the name as a watermark. Rewritten 2026-09-26 (P16); "Careers" became "Help" 2026-09-30 (P36) | 1 | `.lp-footer` | `site-footer.css` | `site-footer.html`  | three columns under 53.75rem, two under 40rem, and the bar stacks |
 | Groups column set | `.groups` | columns: from a 300px floor, three by arithmetic | 4 | - | `groups-column-set.css` | `groups-column-set.html`  | point + fluid |
 | Panel | `.panel` | head: banded h2 / summary disclosure | 7 | - | `panel.css` | `panel.html`  | a reading measure since 2026-08-17, on the gate's sentence. No query |
 | Reveal step | `.rstep` | - | 1 | - | `reveal-step.css` | `reveal-step.html`  | does not adapt |
@@ -185,6 +190,14 @@ on 2 grey pages and 0 coloured ones. When the second host is built, this becomes
 | Tab bar | `.tabbar` | form: bottom bar / left rail at container 760 | 28 | - | `tab-bar.css` | `tab-bar.html`  | point |
 
 ## The eight public-page organisms: what each one is, and what it hosts
+
+**Synced from the product, 2026-09-30 (P16, P17).** The table below is the record of the public
+page as it stood from 2026-08-15 to 2026-09-25, and it is kept as that record. Light 2 replaced
+the whole page on 2026-09-26: the orbit is gone with its file and its page, the story is a pinned
+stage drawn by a WebGL world, the plan and the close no longer read a wash, and the benefits, the
+stats and the way in (the auth panel, P17) are organisms of their own. What each of today's
+public-page organisms is and hosts is in its row in the table above and on its own page; the rows
+below say what each one WAS.
 
 **Moved here at stage 12, 2026-08-17, out of the width column of the table above.** Eight of the
 twelve entries that arrived after stage 10 had their "behaviour at width" cell filled with what the
@@ -196,7 +209,7 @@ table; the provenance is here, verbatim.
 | Organism | What it is, and what it hosts |
 |---|---|
 | **Landing hero** | the promise's TYPE and no box. It owned `.lp-hero`'s centred column until 2026-08-15; the founder chose the round window, and the three layout rules were deleted with the page that wrote the class. It stands inside `.osay` now |
-| **Landing orbit** | THE LANDING'S HERO since 2026-08-15, a candidate before that. `.orbit` and what it holds are host-free: the hero places one and the story's stage places another. Its three local thresholds were unregistered until 2026-08-16 and are in the container-threshold register now |
+| **Landing orbit** | **REMOVED 2026-09-26 with Light 2 (P16), with `landing-orbit.css` and its page.** THE LANDING'S HERO since 2026-08-15, a candidate before that. `.orbit` and what it holds are host-free: the hero places one and the story's stage places another. Its three local thresholds were unregistered until 2026-08-16 and are in the container-threshold register now |
 | **Landing story** | `.storyfigs` and `.storystack .count` deleted 2026-08-15 with the centred hero; `.storyfield`, `.srow`, `.strack`, `.stile`, `@keyframes sdrift` and `@keyframes sgather` deleted 2026-08-16, the shape that lost, 89 lines. `.fromcircle` stays in the markup and in the selectors: it is the component's name now rather than a modifier, and dropping the word would be a rename across 257 selector sites |
 | **Landing steps** | organism, added and then rebuilt 2026-08-15. Hosts logo (including the initials mode), amt and chip; carries no card and no string the product does not already own. `.sord` replaced `.snum`, which numbered-steps.css declared and no longer does |
 | **Landing paths** | organism, added 2026-08-15. Each door ends in a peek at the screen it opens, masked away at the card's edge. Hosts the card's own `.top` and `.kind`, logo, chip, pair list and preset tile |

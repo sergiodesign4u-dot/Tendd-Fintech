@@ -72,14 +72,44 @@
    and it is the only difference the fingerprint found.
    ============================================================================ */
 
+/* ---- THE BOX AND THE TICK ARE DRAWN HERE SINCE 2026-09-29 ------------------
+   Until that day both were the browser's, coloured through accent-color, and
+   the browser's tick is a heavy one: in Chrome it fills most of a 20px box, and
+   the founder, looking at Settings: "сильно большая галочка, сделать чуть
+   меньше". accent-color can change the colour of that tick and nothing else, so
+   the only way to a smaller one is `appearance: none` and a drawn control.
+
+   It is still a native input. Focus, keyboard, the form value, `checked` and
+   `disabled` are all the element's own; only the paint moved here. The box is
+   the 20px it always was, with the field's own edge (--line-control, the
+   text input's border) and the control radius step under it. The tick is a
+   mask over --text-on-action, 12px inside the 20px box, so it sits in the box
+   with room around it instead of touching its walls, and it takes the theme
+   through the token like every other ink. */
 .app .check, .landing .check {
+  -webkit-appearance: none; appearance: none;
+  display: inline-grid; place-content: center;
+  margin: var(--space-0);
   width: 20px; height: 20px;
-  /* base.css already sets accent-color on every input for the whole system.
-     It is re-declared here at the component's own specificity, reading the same
-     token, for the same reason the focus ring is: a component may never be able
-     to disagree with the system about a value it also states. */
-  accent-color: var(--control-accent);
+  border: 1px solid var(--line-control);
+  border-radius: var(--radius-xs);
+  background: var(--bg-surface);
+  cursor: pointer;
 }
+.app .check::before, .landing .check::before {
+  content: "";
+  width: 12px; height: 12px;
+  background-color: var(--text-on-action);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12.5l5 5 10-11'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12.5l5 5 10-11'/%3E%3C/svg%3E") center / contain no-repeat;
+  scale: 0;
+  transition: scale var(--dur-state) var(--ease-arrive);
+}
+.app .check:checked, .landing .check:checked {
+  border-color: var(--control-accent);
+  background: var(--control-accent);
+}
+.app .check:checked::before, .landing .check:checked::before { scale: 1; }
 
 /* ---- what the switch row does to the box: MOVED OUT, and this is the record.
    `flex: none` and the 4px top margin were `.switch input` before the rename,
@@ -109,7 +139,11 @@
    the Switch row molecule; an atom reaching up into its host is the unnamed
    variant this stage exists to prevent. */
 .app .check:hover, .landing .check:hover {
-  accent-color: var(--bg-action-strong);
+  border-color: var(--line-control-hover);
+}
+.app .check:checked:hover, .landing .check:checked:hover {
+  border-color: var(--bg-action-strong);
+  background: var(--bg-action-strong);
 }
 
 /* focus-visible, not focus: the ring is for the person arriving by keyboard and
@@ -175,7 +209,8 @@
    --opacity-disabled in the system. */
 .app .check[disabled], .landing .check[disabled] {
   cursor: default;
-  accent-color: var(--bg-recessed);
+  border-color: var(--line-control);
+  background: var(--bg-recessed);
 }
 
 /* ---- PRESS, and it is the one place the nudge is a SCALE ------------------
@@ -186,7 +221,8 @@
    itself is drawn by the platform through `accent-color` and cannot be animated
    at all, which is a fact about the native control and not a gap in this file. */
 .app .check, .landing .check {
-  transition: accent-color var(--dur-state) var(--ease-state),
+  transition: background-color var(--dur-state) var(--ease-state),
+              border-color var(--dur-state) var(--ease-state),
               scale var(--dur-state) var(--ease-state);
 }
 .app .check:active, .landing .check:active {

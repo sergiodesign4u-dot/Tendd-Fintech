@@ -47,22 +47,48 @@
    stay exactly as the product writes them. Renaming is step 6.
    ============================================================================ */
 
+/* THE ROW IS INSET SINCE 2026-09-29, founder: on hover "подложка упирается в
+   края". The row used to be as wide as the column with 2px of side padding, so
+   the hover fill ran from the column's left edge to its right with the box and
+   the text touching it. Now the row reaches past the column on each side and
+   pads the same distance back in, so the box and the words stay exactly where
+   they were, aligned with the heading above, and the fill has air around them
+   and a control's radius. The divider moves to a pseudo-element drawn on the
+   column's own width, so it does not grow with the row.
+
+   8px on a phone and 16px in the rail. A phone's screen padding is 16px, and a
+   16px reach would run the fill into the glass, which is the complaint again. */
 .app .switch, .landing .switch {
+  position: relative;
   display: flex;
   gap: var(--space-16);
-  padding: var(--space-16) var(--space-2);
+  margin: var(--space-0) calc(var(--space-8) * -1);
+  padding: var(--space-16) var(--space-8);
+  border-radius: var(--radius-sm);
   /* The divider between preferences, and the row draws it rather than a list
      doing it. That is the opposite of the subscription row, where the group
      owns the separation, and the difference is real: switch rows are written
      straight into a section with no `ul` around them, so there is no container
      to hand the job to. The last one takes it back, below. */
+}
+.app .switch::after, .landing .switch::after {
+  content: "";
+  position: absolute;
+  left: var(--space-8); right: var(--space-8); bottom: 0;
   border-bottom: 1px solid var(--line-divider);
+}
+@container (min-width: 47.5rem) {
+  .app .switch, .landing .switch {
+    margin: var(--space-0) calc(var(--space-16) * -1);
+    padding: var(--space-16);
+  }
+  .app .switch::after, .landing .switch::after { left: var(--space-16); right: var(--space-16); }
 }
 /* :last-of-type rather than :last-child, carried exactly as kit.css wrote it.
    The two are not the same here: the switch rows sit among sibling headings and
    paragraphs, so :last-child would only match if a switch happened to be the
    final element of the section, and on settings it is not. */
-.app .switch:last-of-type, .landing .switch:last-of-type { border-bottom: 0; }
+.app .switch:last-of-type::after, .landing .switch:last-of-type::after { content: none; }
 
 /* The claim, and the example under it. Two tiers and no third: the sentence is
    what a person agrees to and the line beneath shows them what it will look

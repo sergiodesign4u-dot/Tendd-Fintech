@@ -1,0 +1,115 @@
+/* ============================================================================
+   Landing button - atom
+   The public page's pill, its quiet twin, its small size for the bar, and the
+   SWAP BUTTON. Arrived 2026-09-26 with Light 2 (P16).
+
+   WHY NOT `.btn`. The app's button is a 44px control with a 10px radius,
+   because inside a task a button is one of several and never the point. On
+   this page there is one action, and it is the largest control on screen.
+
+   THE SWAP BUTTON is one component, identical wherever it stands (the founder,
+   round four: "одинаковая анимация"). Under a pointer its circle travels to the
+   left end; each letter of the first label is erased as the circle reaches it,
+   each letter of the second appears as the circle uncovers it, and the arrow
+   becomes a person. The pill itself never moves. The per-letter delays, --di
+   going and --db coming back, are measured by the page script from where each
+   letter falls and from this curve, inverted.
+
+   Reads
+     colour   --bg-action, --bg-action-strong, --text-on-action, --bg-surface,
+              --text-primary, --text-action, --line-container, --text-muted,
+              --tone-shade
+   ============================================================================ */
+
+.landing .lp-btn {
+  --bg: var(--bg-action);
+  --fg: var(--text-on-action);
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  min-height: 3.25rem; padding: 0 1.5rem; border-radius: 999px;
+  background: var(--bg); color: var(--fg);
+  font-weight: 600; font-size: 1rem; letter-spacing: -.005em; white-space: nowrap;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--text-on-action) 18%, transparent) inset,
+    0 12px 26px -14px color-mix(in srgb, var(--bg-action) 70%, transparent);
+  transition: transform var(--lp-hover-t) var(--lp-ease), background-color .6s var(--lp-ease),
+              box-shadow var(--lp-hover-t) var(--lp-ease);
+}
+.landing .lp-btn .lp-ico { width: 1.05rem; height: 1.05rem; transition: transform .75s var(--lp-ease); }
+.landing .lp-btn.lp-ghost {
+  --bg: var(--bg-surface);
+  --fg: var(--text-primary);
+  box-shadow: inset 0 0 0 1px var(--line-container),
+              0 8px 20px -16px color-mix(in srgb, var(--tone-shade) 30%, transparent);
+}
+.landing .lp-btn.lp-sm { min-height: 2.5rem; padding: 0 1.1rem; font-size: .9375rem; }
+
+@media (hover: hover) and (pointer: fine) {
+  @container (min-width: 47.5rem) {
+    .landing .lp-btn:hover {
+      transform: translateY(-2px);
+      --bg: var(--bg-action-strong);
+      box-shadow:
+        0 1px 0 color-mix(in srgb, var(--text-on-action) 18%, transparent) inset,
+        0 0 0 6px color-mix(in srgb, var(--bg-action) 8%, transparent),
+        0 20px 36px -18px color-mix(in srgb, var(--bg-action) 75%, transparent);
+    }
+    .landing .lp-btn.lp-ghost:hover {
+      --bg: var(--bg-surface);
+      box-shadow: inset 0 0 0 1px var(--text-muted),
+                  0 14px 28px -18px color-mix(in srgb, var(--tone-shade) 32%, transparent);
+    }
+    .landing .lp-btn:hover .lp-ico { transform: translateX(3px); }
+    .landing .lp-btn.lp-arw:hover { transform: none; }
+  }
+}
+
+/* ---- the swap button ------------------------------------------------------ */
+.landing .lp-btn.lp-arw {
+  --ic: 2.6rem; --icp: .4rem; --pl: 1.65rem; --gap: .9rem; --travel: 0px;
+  --T: .72s; --E: cubic-bezier(.65, 0, .35, 1);
+  position: relative; isolation: isolate;
+  min-height: 3.4rem; font-size: 1.0625rem;
+  padding: 0 calc(var(--ic) + var(--icp) + var(--gap)) 0 var(--pl);
+}
+.landing .lp-arw .lp-l1 { display: block; white-space: nowrap; }
+.landing .lp-arw .lp-l2 {
+  position: absolute; top: 0; bottom: 0;
+  left: calc(var(--icp) + var(--ic) + var(--gap)); right: var(--pl);
+  display: none; align-items: center; justify-content: center; white-space: nowrap;
+}
+.landing .lp-arw .lp-ch {
+  display: inline-block; white-space: pre; transform-origin: 50% 60%;
+  transition: opacity .26s var(--lp-ease), transform .34s var(--lp-ease);
+  transition-delay: var(--db, 0s);
+}
+.landing .lp-arw .lp-l2 .lp-ch { opacity: 0; transform: translateX(6px) scale(.45); }
+.landing .lp-arw .lp-arw-ic {
+  position: absolute; right: var(--icp); top: 50%; margin-top: calc(var(--ic) / -2); z-index: 1;
+  display: grid; place-items: center; width: var(--ic); height: var(--ic); border-radius: 50%;
+  background: var(--bg-surface); color: var(--text-action);
+  box-shadow: 0 2px 6px -2px color-mix(in srgb, var(--tone-shade) 18%, transparent);
+  transform: translateX(0);
+  transition: transform var(--T) var(--E), box-shadow .8s var(--lp-ease);
+}
+.landing .lp-arw .lp-arw-ic .lp-ico {
+  grid-area: 1 / 1; width: 1.05rem; height: 1.05rem; stroke-width: 2;
+  transition: transform .55s var(--lp-ease), opacity .35s var(--lp-ease);
+}
+.landing .lp-arw .lp-arw-ic .lp-pp { opacity: 0; transform: translateY(7px) scale(.7); }
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .landing .lp-arw .lp-l2 { display: flex; }
+  .landing .lp-arw:hover .lp-arw-ic {
+    transform: translateX(calc(var(--travel) * -1));
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--bg-surface) 12%, transparent),
+                0 6px 14px -4px color-mix(in srgb, var(--tone-shade) 25%, transparent);
+  }
+  .landing .lp-arw:hover .lp-l1 .lp-ch { opacity: 0; transform: translateX(-7px) scale(.35); transition-delay: var(--di, 0s); }
+  .landing .lp-arw:hover .lp-l2 .lp-ch { opacity: 1; transform: none; transition-delay: var(--di, 0s); }
+  .landing .lp-arw:hover .lp-arw-ic .lp-aa { opacity: 0; transform: translateX(-12px) scale(.8); transition-duration: .4s, .25s; }
+  .landing .lp-arw:hover .lp-arw-ic .lp-pp { opacity: 1; transform: none; transition-delay: .22s, .22s; }
+}
+
+@container (max-width: 23.75rem) {
+  .landing .lp-nav .lp-btn.lp-sm { padding: 0 .9rem; font-size: .875rem; }
+}

@@ -45,9 +45,9 @@
 
   <header class="kit-head">
     <h1>Checkbox</h1>
-    <p class="lead">The product's only on and off control, and it is a native input rather than a drawn switch. It carries the four preferences on Settings and the two on Data and privacy, which is to say it carries every promise this product makes about what it will tell a person and what it will hold.</p>
+    <p class="lead">The product's only on and off control, and it is a native input rather than a drawn switch; since 2026-09-29 the input paints its own box and tick (P26), and it is still the element's focus, keyboard, value and state. It carries the four preferences on Settings and the two on Data and privacy, which is to say it carries every promise this product makes about what it will tell a person and what it will hold.</p>
     <div class="kit-meta">
-      <span>Atom</span><span><strong>2</strong> grey pages</span><span>one form</span><span>4 states, both themes</span>
+      <span>Atom</span><span><strong>2</strong> grey pages</span><span>one form</span><span>4 states, both themes</span><span>drawn since 2026-09-29 (P26)</span>
     </div>
   </header>
 
@@ -67,12 +67,15 @@
     </div>
     <ul class="kit-callouts">
       <li><code>.check</code> <span>the atom itself: a real <code>input type="checkbox"</code> at 20px by 20px, wearing the class step 6 gave it. There is no custom switch anywhere in the 57 grey pages and none is proposed</span></li>
-      <li><code>accent-color</code> <span>reads <code>--bg-action</code>. It is the one colour hook a native checkbox gives, and it paints the fill of the checked box and the tick inside it</span></li>
+      <li><code>appearance: none</code> <span><b>since 2026-09-29 (P26)</b>. The box is drawn: 20px, a 1px edge in <code>--line-control</code> (the text input's border), <code>--radius-xs</code>, on <code>--bg-surface</code>. Checked, the box fills with <code>--control-accent</code> and takes it as its edge too</span></li>
+      <li><code>::before</code> <span>the tick, a mask 12px inside the 20px box, painted <code>--text-on-action</code>, so it sits in the box with room around it and takes the theme through the token. It scales from 0 to 1 over <code>--dur-state</code> when the box is checked</span></li>
+      <li><code>accent-color</code> <span><b>Synced from the product, 2026-09-30 (P26).</b> This callout said the fill and the tick were the browser's, coloured through <code>accent-color</code>, and that was true until 2026-09-29. The founder, on Settings: "сильно большая галочка, сделать чуть меньше". The browser's tick fills most of a 20px box in Chrome and <code>accent-color</code> can change its colour and nothing else, so the only way to a smaller tick was to draw the control</span></li>
       <li><code>flex: none</code> <span>so the row's flex box cannot stretch the control when the label beside it wraps to two lines</span></li>
       <li><code>margin: 3px 0 0</code> <span>drops the box onto the first line of the label text beside it instead of the top of the text stack</span></li>
       <li><code>label.switch</code> <span><b>not this atom.</b> It is the Switch row molecule, written in <a href="switch-row.html">switch-row.css</a>, which is where the rows above get their 16px of vertical padding and the hairline between them. It is also the real pointer target, and that matters below</span></li>
     </ul>
     <p class="note">The box, its edge, its corner and its tick are drawn by the <b>browser</b>. Nothing in <code>tokens.css</code> reaches them except through <code>accent-color</code>, and reaching them properly means <code>appearance: none</code> and rebuilding the control out of a pseudo-element, which is a redraw and not a move. This stage does not move a pixel.</p>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P26).</b> The paragraph above was the argument of stage 08, and the redraw it names is the one the product made on 2026-09-29, on a founder's decision and so by the first legal source of a visual change. It is still a native input: focus, the keyboard, the form value, <code>checked</code> and <code>disabled</code> are the element's own, and only the paint moved into <code>checkbox.css</code>. The box kept its 20px and gained the field's edge, the tick shrank to 12px, and every paint is a role, so the dark theme is the tokens' other half and nothing of this file's.</p>
   </section>
 
   <section class="kit-sec" id="variants">
@@ -129,12 +132,13 @@
       </div>
     </div>
     <h3 class="kit-sub-h">Limits</h3>
-    <p class="note"><b>U13, context.</b> <b>PRESS, and this is the one place the nudge is a SCALE.</b> A 20px box cannot travel 2px without looking dislodged, and the box IS the control rather than a part of one, so the press reads as the box yielding under the finger: it shrinks to 0.94, the mirror of the merchant mark’s 1.06 lift. The tick is drawn by the platform through <code class="kit-code">accent-color</code> and cannot be animated at all. Everything in this product that moves travels exactly one <code class="kit-code">--nudge</code>, which is 2px, and nothing anywhere travels two. Hover and release run at <code class="kit-code">--dur-state</code> (150ms) on <code class="kit-code">--ease-arrive</code>; a press runs at <code class="kit-code">--dur-press</code> (90ms), because it answers a finger that is already down. The full language and the live specimens are on <a href="motion.html#verbs">Motion</a>; the table with sources is <a href="architecture.html#usage">Usage rules</a>.</p>
+    <p class="note"><b>U13, context.</b> <b>PRESS, and this is the one place the nudge is a SCALE.</b> A 20px box cannot travel 2px without looking dislodged, and the box IS the control rather than a part of one, so the press reads as the box yielding under the finger: it shrinks to 0.94, the mirror of the merchant mark’s 1.06 lift. The tick is drawn by the platform through <code class="kit-code">accent-color</code> and cannot be animated at all. <b>Amended 2026-09-30 (P26):</b> the tick is drawn now, and it scales in over <code class="kit-code">--dur-state</code> when the box is checked; the press is still the box's 0.94 and nothing else. Everything in this product that moves travels exactly one <code class="kit-code">--nudge</code>, which is 2px, and nothing anywhere travels two. Hover and release run at <code class="kit-code">--dur-state</code> (150ms) on <code class="kit-code">--ease-arrive</code>; a press runs at <code class="kit-code">--dur-press</code> (90ms), because it answers a finger that is already down. The full language and the live specimens are on <a href="motion.html#verbs">Motion</a>; the table with sources is <a href="architecture.html#usage">Usage rules</a>.</p>
   </section>
 
   <section class="kit-sec" id="states">
     <h2>States</h2>
     <p class="note">Four states, and they exist because the checkbox is <b>interactive</b>. Each one is a token override rather than a style of its own, and on this control the overrides are unusually thin: everything a state can reach on a native checkbox is <code>accent-color</code> and the focus ring, because the box and the tick are the browser's.</p>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P26).</b> Since the box is drawn the states reach further, and each is still a token: <b>hover</b> takes the edge to <code>--line-control-hover</code> on an empty box and the fill and edge to <code>--bg-action-strong</code> on a checked one, so an empty box now answers the pointer too; <b>disabled</b> keeps <code>--line-control</code> and fills with <code>--bg-recessed</code>; the <b>transition</b> moves <code>background-color</code>, <code>border-color</code> and the scale, where it used to move <code>accent-color</code>. The descriptions below were written for the browser's box and are amended where they became false.</p>
     <p class="note"><b>Two of the four are authored, and both move zero pixels today.</b> <code>kit.css</code> gave the checkbox no hover and no disabled rule. Hover follows the filled button exactly, one step deeper into the accent through a token; disabled repaints from <code>--bg-recessed</code>, the same role the disabled button uses. No page carries a disabled checkbox, so nothing on any screen changes. The one place that looks like it should is "A free trial is ending soon" on Settings, which is a Pro feature on a Free account, and the product deliberately leaves it enabled and unchecked rather than locking a person out of reading it.</p>
     <p class="note"><b>The hover is on the control, not on the row.</b> The row is <code>label.switch</code> and belongs to the Switch row molecule; an atom that repaints its host is the unnamed variant this stage exists to prevent. If the row should light up under the pointer, that decision belongs to <code>switch-row.css</code> and to the person who owns it.</p>
 
@@ -149,13 +153,13 @@
     <h3 class="kit-sub-h">The four, in both themes</h3>
     <p class="note"><b>The states are described, not photographed.</b> Founder's decision, 2026-08-11: the snapshot strip went from every page in this kit, 120 images across 18 pages. They were framed as measurements rather than illustrations, and that framing was honest, but the bill came due all session: a value moves, and every picture of it is quietly stale until somebody re-shoots it. A stale picture is worse than no picture, because it looks checked. What is left is what a picture never carried anyway: <b>the state, and the token it reads</b>. The resting component is live and interactive above, so hover it, tab to it, and read the value off the real thing rather than off a photograph of it.</p>
     <div class="kit-states">
-      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok"><code>--bg-action</code> through <code>accent-color</code>, and on the unchecked box nothing of ours at all</div></div>
+      <div class="kit-state"><div class="cap"><b>Rest</b><span>light</span></div><div class="tok">checked: <code>--control-accent</code> fill and edge, the tick in <code>--text-on-action</code>. Unchecked: <code>--bg-surface</code> with a <code>--line-control</code> edge, ours since 2026-09-29 (P26), where it used to be nothing of ours at all</div></div>
       <div class="kit-state"><div class="cap"><b>Rest</b><span>dark</span></div><div class="tok">the accent climbs the scale in the dark theme rather than mirroring, so the tick stays legible against a dark box</div></div>
-      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-action-strong</code>. AUTHORED, and visible only on a checked box: an empty box has no fill of ours to deepen</div></div>
+      <div class="kit-state"><div class="cap"><b>Hover</b><span>light</span></div><div class="tok"><code>--bg-action-strong</code> on a checked box, fill and edge; <code>--line-control-hover</code> on the edge of an empty one. The empty box answers since 2026-09-29 (P26): it has an edge of ours to deepen now</div></div>
       <div class="kit-state"><div class="cap"><b>Hover</b><span>dark</span></div><div class="tok">the same token, and its direction inverts with the theme: petrol deepens on light and lightens on dark, because a hover moves away from its ground</div></div>
       <div class="kit-state"><div class="cap"><b>Focus visible</b><span>light</span></div><div class="tok"><code>--color-focus</code>, 6.23:1 as a line. It matters more here than on a wide control: the row is not focusable, so this 2px ring on a 20px square is the whole of the keyboard's feedback</div></div>
       <div class="kit-state"><div class="cap"><b>Focus visible</b><span>dark</span></div><div class="tok"><code>--color-focus</code>, 6.82:1. The ring is 2px at 2px offset and sits outside the box, so a focused checkbox moves no neighbour and the row does not jump</div></div>
-      <div class="kit-state"><div class="cap"><b>Disabled</b><span>light</span></div><div class="tok"><code>--bg-recessed</code>, the same role the disabled button fills with. AUTHORED, and used by no screen</div></div>
+      <div class="kit-state"><div class="cap"><b>Disabled</b><span>light</span></div><div class="tok"><code>--bg-recessed</code> fill over a <code>--line-control</code> edge, the same roles the disabled button uses. AUTHORED, and used by no screen</div></div>
       <div class="kit-state"><div class="cap"><b>Disabled</b><span>dark</span></div><div class="tok">no opacity token, here or anywhere: the paint lands on a role that already exists, and an opacity token would either move the product or sit unread</div></div>
     </div>
     <code class="kit-cmd">Retake, and this is the whole recipe, because there is no node Playwright in this repo and a
@@ -186,18 +190,20 @@ and outlived it, which is the same freeze it was warning about, in prose.</code>
       <table>
         <thead><tr><th>Reads</th><th>Which token</th><th>Growing from</th></tr></thead>
         <tbody>
-          <tr><td>the checked fill and its tick</td><td><code>--bg-action</code>, through <code>accent-color</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the checked fill and edge</td><td><code>--control-accent</code>, drawn since 2026-09-29 (P26); it was <code>--bg-action</code> through <code>accent-color</code></td><td><code>--petrol</code></td></tr>
+          <tr><td>the tick</td><td><code>--text-on-action</code>, a 12px mask</td><td><code>--paper</code>, and <code>--canvas-dark</code> in the dark theme</td></tr>
+          <tr><td>the empty box</td><td><code>--bg-surface</code>, <code>--line-control</code>, <code>--radius-xs</code>; hover <code>--line-control-hover</code></td><td><code>--paper</code>, <code>--edge</code>, <code>--muted</code></td></tr>
           <tr><td>the same under the pointer</td><td><code>--bg-action-strong</code></td><td><code>--petrol-deep</code>, and <code>--petrol-deep-dark</code> in the dark theme, which is lighter and not darker</td></tr>
           <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
           <tr><td>disabled</td><td><code>--bg-recessed</code></td><td><code>--panel</code>, a role that already existed</td></tr>
-          <tr><td>the box, its edge, its corner, its tick shape</td><td>none</td><td>the browser. <code>accent-color</code> is the whole surface this system has on a native checkbox</td></tr>
+          <tr><td>the box, its edge, its corner, its tick shape</td><td>none until 2026-09-29</td><td>the browser, until P26 drew them. <code>accent-color</code> was the whole surface this system had on a native checkbox; <code>appearance: none</code> gave it the rest</td></tr>
           <tr><td>its size</td><td>none</td><td>20px, a literal and a named carry against the 24px of WCAG 2.5.8. See the block above</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note">Lives in <code>design/system/components/checkbox.css</code>. Stands on 2 grey pages and 6 checkboxes: settings, four of them, and data-privacy, two. Coloured screens carrying it: <a href="../settings.html">Settings</a>, which holds all four. Data and privacy is still grey, so its two arrive with the rollout.</p>
+    <p class="note">Lives in <code>design/system/components/checkbox.css</code>. Stands on 2 grey pages and 6 checkboxes: settings, four of them, and data-privacy, two. Coloured screens carrying it: <a href="../settings.html">Settings</a>, which holds all four. <b>Recounted against the product on 2026-09-30:</b> Settings there carries five notification boxes (P29 added "A charge is coming up", Pro) and the dark mode box; the figure above keeps the grey corpus it was counted on. Data and privacy is still grey, so its two arrive with the rollout.</p>
     <code class="kit-cmd">&lt;label class="switch"&gt;
-  &lt;input type="checkbox" checked&gt;
+  &lt;input class="check" type="checkbox" checked&gt;
   &lt;span&gt;&lt;span class="t"&gt;A price goes up&lt;/span&gt;&lt;span class="h"&gt;Like "Netflix went up by $2.50".&lt;/span&gt;&lt;/span&gt;
 &lt;/label&gt;</code>
     <p class="note">The input has no <code>id</code> and the label has no <code>for</code>, and that is correct rather than sloppy: the label <b>wraps</b> the control, which associates them and makes the whole row the target. It is also what the 20px carry rests on.</p>

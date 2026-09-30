@@ -15,7 +15,7 @@
              eyebrow (the "Everything in Tendd Pro" label) and the button. Every
              one of those four is drawn by its own file: the chip's accent paint
              is `.tone-accent` in chip.css, worn by the markup, `.plan-opt .amt`
-             is in amount.css and `.plan-opt .incl .k` in eyebrow.css. This file
+             is in amount.css and `.incl .k` in eyebrow.css. This file
              positions them and nothing more.
    Page      design/kit/plan-option.html
    Stands on 2 grey pages and 2 coloured ones, 6 cards in each corpus: three on
@@ -259,23 +259,23 @@
    the list is the reassurance a person reads after they have made it. The rule
    above it is a DIVIDER inside a container and takes --line-divider, not the
    container's own edge. */
-.app .plan-opt .incl, .landing .plan-opt .incl {
+.app .incl, .landing .incl {
   margin: var(--space-16) var(--space-0) var(--space-0);
   padding: var(--space-16) var(--space-0) var(--space-0);
   border-top: 1px solid var(--line-divider);
 }
-.app .plan-opt .incl ul, .landing .plan-opt .incl ul {
+.app .incl ul, .landing .incl ul {
   list-style: none;
   margin: var(--space-0);
   padding: var(--space-0);
 }
-.app .plan-opt .incl li, .landing .plan-opt .incl li {
+.app .incl li, .landing .incl li {
   position: relative;
   padding: var(--space-0) var(--space-0) var(--space-8) var(--space-24);
   font-size: var(--type-body);
   color: var(--text-body);
 }
-.app .plan-opt .incl li:last-child, .landing .plan-opt .incl li:last-child {
+.app .incl li:last-child, .landing .incl li:last-child {
   padding-bottom: var(--space-0);
 }
 /* The tick is MUTED and not petrol, and the count is why. Twelve of them across
@@ -288,7 +288,7 @@
    Here it stays, because on Upgrade the three cards are three different things. A tick in a feature list is not the primary action, not the
    current selection and not the trust line, which is the whole of the One Voice
    Rule. Drawn with an empty alternative text, so it is never spoken. */
-.app .plan-opt .incl li::before, .landing .plan-opt .incl li::before {
+.app .incl li::before, .landing .incl li::before {
   content: "\2713" / "";
   position: absolute;
   left: 0;
@@ -341,3 +341,44 @@
    rgb(228, 233, 234) to rgb(205, 215, 217) under the pointer and nothing else on
    the card moved. That is the whole pixel cost of this decision, on three cards on
    one screen. */
+
+/* ============================================================================
+   EACH CARD CARRIES ITS OWN BUTTON, AND WHAT PRO INCLUDES IS SAID ONCE,
+   2026-09-29. The founder, on /upgrade from inside the product: "очень плохо
+   выглядит выбор планов", pointing at the landing's pricing row as the shape it
+   should have, "но не с такими огромными шрифтами, все таки более спокойно".
+
+   What was wrong with the card set, measured on the screen at 1280: the same six
+   line list printed three times, so 60% of each card's height was a repeat and
+   the three prices were the smallest thing in a wall of ticks; and the two
+   buttons stood in a row UNDER the cards, so a person read a price in one place
+   and pressed for it in another, with the lifetime card, which has no button,
+   sitting over nothing.
+
+   So, the landing's arrangement at the product's own sizes. The price, its
+   cadence beside it on one baseline, one sentence, and the card's button at its
+   foot, pushed there by the sentence's `flex: 1` so the three actions line up
+   across the row. The list moves out to one block under the row, in two columns
+   past the tablet point. The yearly card is marked with the selection edge,
+   which is petrol's "current selection" job and the landing's same card; the
+   figure stays --type-figure (32px), not the landing's display size, because
+   inside the product this is a decision and not a headline. */
+.app .plan-opt.best, .landing .plan-opt.best { border-color: var(--line-selected); }
+.app .plan-opt .per, .landing .plan-opt .per {
+  display: inline;
+  margin: var(--space-0) var(--space-0) var(--space-0) var(--space-8);
+}
+.app .plan-opt .muted, .landing .plan-opt .muted { margin-bottom: var(--space-24); }
+
+/* The list on its own, under the row: a divider above it and the label, then the
+   six ticks. It is no longer inside a card, so it needs no inset of its own.
+   The label's placement stays in eyebrow.css, which now names `.incl .k`. */
+.app .plans + .incl, .landing .plans + .incl { margin: var(--space-0) var(--space-0) var(--space-24); }
+@container (min-width: 47.5rem) {
+  .app .plans + .incl ul, .landing .plans + .incl ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-24);
+  }
+  .app .plans + .incl li, .landing .plans + .incl li { padding-bottom: var(--space-8); }
+}

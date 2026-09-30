@@ -1,245 +1,61 @@
 /* ============================================================================
    FAQ list - organism
-   The four objections a visitor actually arrives with, each one a native
-   `<details>` so the answer is real text in the page rather than something a
-   script reveals. That is not a technical preference: `ia/docs/pages/` puts an
-   FAQPage schema on this node, and a schema that describes text a crawler
-   cannot read is a claim about a page that does not exist.
+   "Questions people ask first": the heading on the left, four questions on the
+   right, the first one open. Rewritten 2026-09-26 for Light 2 (P16).
 
-   NO JAVASCRIPT AND NO ARIA. `<details>` and `<summary>` already are a
-   disclosure widget: they carry the expanded state, the keyboard behaviour and
-   the announcement, and every attribute this file could add would be repeating
-   something the element does better. The one thing the element does not bring
-   is a mark that says which way it is about to go, and that is drawn below.
+   THE FIRST ONE IS OPEN and it is not decoration: closed, this block is four
+   questions and no evidence that there are answers, and the answer it opens
+   with is the single most anxiety-reducing line on the page for the person
+   this product is for. She arrives asking whether she has to hand over her
+   bank, and the first word she reads here is "No."
 
-   REBUILT 2026-08-16, AND THE REBUILD IS A DESYNC REPAIR RATHER THAN A NEW
-   IDEA. The founder, with a reference: "давай делать ... сделай красиво". What
-   the reference shows is a heading standing on the left, the questions as open
-   rows on the page's own ground with a hairline between them, and a plus that
-   becomes a minus. Two of those three are what the FROZEN GREY has drawn since
-   the wireframes: `_wf.css` gives this block a top border, a border under each
-   question and a `+` that turns into a dash, with no card anywhere. The colour
-   rollout put the four rows inside a white card and swapped the mark for a
-   chevron, and neither was asked for by anything. So the card is gone, the mark
-   is a plus again, and the grey is the contract it always was. What is new is
-   the SPLIT: past the desktop point the heading takes a column of its own and
-   stays with the list while it scrolls.
+   THE HEIGHT MOVES BOTH WAYS. The page script animates an answer open and shut,
+   and while it closes the question carries `is-closing`, so its plus turns back
+   before the answer is gone. `name="faq"` keeps one open at a time natively.
 
    Reads
-     colour   --line-container, --text-primary, --text-body
-     spacing  --space-0, --space-24, --space-64, --space-96
-     geometry --tap (the focus ring is base.css's and is not read here)
-     type     --type-title, --type-body
-     width    --container-text
-   Page      design/kit/faq-list.html
-   Stands on 1 grey page and 1 coloured one.
+     colour   --text-action, --text-on-action, --bg-action, --line-container,
+              --text-body
    ============================================================================ */
 
-/* ---- the list ------------------------------------------------------------
-   NO CARD. Four questions in a white box on a canvas band read as one object a
-   person has to open; four rows on the band itself read as four things, which
-   is what they are. It also costs the block nothing to say so: the row IS the
-   divider and the boundary, exactly as the grey draws it.
-
-   --line-container AND NOT --line-divider, which is the one value that had to
-   change when the card went. A divider is the line INSIDE a container and it is
-   tuned to sit on paper; measured on the page ground it is 1.01:1 against
-   --bg-page in the light theme, which is not a faint line but no line at all.
-   --line-container is 1.09:1 there and 1.46 in the dark theme, where the same
-   pair on paper is 1.23 and 1.33. So the light theme's line here is a little
-   quieter than the product's usual hairline and the dark theme's a little
-   louder, both by the ground they stand on rather than by a choice, and neither
-   owes a threshold: a divider is decorative and nothing in this block has to be
-   found by touch. The role is still the right one either way - this line is a
-   container edge doing a container edge's job, and the row IS the container. */
-.landing .lp-faq {
-  /* `width` AND `max-width` TOGETHER, and the pair is load bearing rather than
-     belt and braces. An auto margin on a grid item takes the item off stretch
-     and sizes it to its content, so `margin-left: auto` alone collapsed the list
-     to 477px - the longest question plus its padding and its mark - and the
-     answer's 52ch measure then ran wider than the sheet holding it. Measured.
-     With a definite 100% the item is its column's width, the cap takes it to
-     620, and the auto margin has 206px of leftover to absorb instead of the
-     list's own width. */
-  width: 100%;
-  max-width: var(--container-column);
-  border-top: 1px solid var(--line-container);
+.landing .lp-faq-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  gap: 2.5rem clamp(2rem, 6vw, 6rem); align-items: start;
 }
-.landing .lp-faq details { border-bottom: 1px solid var(--line-container); }
-
-/* ---- ONE OPEN AT A TIME, AND IT IS AN HTML ATTRIBUTE ---------------------
-   The founder, 2026-08-16: "при откртие одного из пунктов другой закрівается".
-   That is `<details name="faq">`, four characters of markup and no script: a
-   named group of disclosures is exclusive by definition, the browser closes the
-   previous one, and the keyboard and announcement behaviour that made this
-   component `<details>` in the first place is exactly what carries the change.
-   This file's own header says every attribute it could add would repeat
-   something the element does better; this is the one attribute that does not.
-   Where a browser is too old to know the name it ignores it and the block
-   behaves as it did yesterday, which is the whole reason to do it this way.
-
-   IT IS ALSO HALF THE ANSWER TO "они длинние". Four questions with four answers
-   open is a wall of prose in a block that exists to hold prose out of the way;
-   one open at a time is the block at a quarter of its worst height, and a person
-   never has to close anything to see the next question. */
-
-/* ---- AND THE OTHER HALF: THE ROWS STOP GROWING ---------------------------
-   "давай пункті сдлеам уже а то они длинние и растянутіе", 2026-08-16. At 1440
-   the right column was 826px wide and the longest question in the block is 389,
-   measured, so more than half of every row was the gap between a question and
-   its mark. The list caps at --container-column, the 620 a single column of
-   content is allowed to reach, and the cap is READ rather than invented: the
-   answer already stops at the 52ch reading measure, and a question is the same
-   kind of reading. Past about 1100 the block simply stops growing, which is
-   what a measure is for. It costs nothing below: at the desktop point the
-   column is 550 and the cap never bites. */
-
-/* ---- the split, past the desktop point -----------------------------------
-   The heading stops being a label over a list and becomes the block's left
-   half, which is what gives the questions the width to be read at 20px. It is
-   asked with `:has(.lp-faq)` and not with a class, because the section carries
-   no class of its own and this is a fact about what the section CONTAINS: the
-   markup is the same on both corpora and neither had to learn a name.
-
-   3 to 8 AND NOT A WIDTH. A fraction is right here where a literal is not: the
-   left column exists to hold four words, and what matters is that they wrap to
-   two or three lines rather than that the column is any particular number of
-   pixels. At the desktop point it is 206px and the heading takes three lines;
-   at 1440 it is 310 and takes two. Both read as a block of type, which a single
-   line in a wide column would not.
-
-   THE HEADING IS STICKY, and 96 is the sticky app bar plus air: the bar is 73px
-   tall on the landing, measured, so the heading parks 23px under it and stays
-   beside whichever question a person has opened. `align-self: start` is what
-   makes that possible at all - a stretched grid item is as tall as its row and
-   has nothing to stick inside. */
-@container (min-width: 56.25rem) {
-  .landing .lp-section:has(.lp-faq) > .lp-wrap {
-    display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
-    column-gap: var(--space-64);
-    align-items: start;
+.landing .lp-faq-grid .lp-display { font-size: clamp(2.4rem, 5vw, 4.75rem); }
+.landing .lp-qa { background: var(--lp-sep) top / 100% 1px no-repeat; }
+.landing .lp-qa:last-child { background: var(--lp-sep) top / 100% 1px no-repeat, var(--lp-sep) bottom / 100% 1px no-repeat; }
+.landing .lp-qa summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+  padding: 1.5rem .25rem;
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem); font-weight: 600; letter-spacing: -.02em;
+}
+.landing .lp-qa summary::-webkit-details-marker { display: none; }
+.landing .lp-qa .lp-pm {
+  flex: none; width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  display: grid; place-items: center;
+  color: var(--text-action); box-shadow: inset 0 0 0 1px var(--line-container);
+  transition: transform .52s var(--lp-ease), background-color .52s var(--lp-ease),
+              color .52s var(--lp-ease), box-shadow .52s var(--lp-ease);
+}
+.landing .lp-qa[open]:not(.is-closing) .lp-pm {
+  transform: rotate(45deg);
+  background: var(--bg-action); color: var(--text-on-action);
+  box-shadow: inset 0 0 0 1px var(--bg-action);
+}
+.landing .lp-qa .lp-ans-w { overflow: hidden; }
+.landing .lp-qa .lp-ans { padding: 0 3.5rem 1.75rem .25rem; color: var(--text-body); max-width: 60ch; }
+@media (hover: hover) and (pointer: fine) {
+  @container (min-width: 47.5rem) {
+    .landing .lp-qa summary:hover .lp-pm { transform: scale(1.05); }
+    .landing .lp-qa[open]:not(.is-closing) summary:hover .lp-pm { transform: rotate(45deg) scale(1.05); }
   }
-  .landing .lp-section:has(.lp-faq) > .lp-wrap > h2 {
-    position: sticky;
-    top: var(--space-96);
-    margin-bottom: var(--space-0);
-  }
-  /* THE LIST GOES TO THE RIGHT EDGE, 2026-08-16. Capping the rows at 620 left
-     the column 206px wider than the list at 1440, and that air sat between the
-     questions and the edge of the page, which reads as a block that stopped
-     rather than a block that was placed. The founder offered two ways out:
-     "блок с ответами перенесем больше в правую часть или по центру весь блок
-     поставим". This is the first, and the reason to prefer it is the page's
-     LEFT RAIL: every other section's heading on this landing starts at the
-     wrap's left edge, so centring the pair would take this one heading off a
-     line eight other blocks stand on, and a heading 143px in from a rail every
-     neighbour keeps reads as a mistake rather than as a composition. Pushed
-     right instead, the heading holds the rail, the questions hold the opposite
-     edge, and the air is between them where it is doing something. Centring is
-     one line if the founder prefers it: `margin-inline: auto` here and the same
-     on the heading's column. */
-  .landing .lp-section:has(.lp-faq) .lp-faq { margin-left: auto; }
 }
 
-/* ---- the question --------------------------------------------------------
-   A control, so it takes the 44px floor and it takes the system's one focus
-   ring from base.css. `list-style: none` plus the webkit marker rule removes
-   the browser's own triangle in both engines; the mark this component draws is
-   below, and two marks pointing different ways is how a disclosure stops being
-   readable. */
-.landing .lp-faq summary {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-24);
-  min-height: var(--tap);
-  padding: var(--space-24);
-  font-size: var(--type-title);
-  font-weight: 600;
-  color: var(--text-primary);
-  cursor: pointer;
-  list-style: none;
+@container (max-width: 53.75rem) {
+  .landing .lp-faq-grid { grid-template-columns: minmax(0, 1fr); }
 }
-.landing .lp-faq summary::-webkit-details-marker { display: none; }
-.landing .lp-faq summary:hover { color: var(--text-action); }
-
-/* ---- the open one is on paper --------------------------------------------
-   "и так же сделаем интереснее", 2026-08-16, and this is the answer the product
-   language already had rather than a decoration bought in for the occasion.
-   D-Concept's material is paper on a cool off-white ground: the thing you are
-   looking at is the thing on paper. This block stands on the page ground, so the
-   question a person has opened takes a sheet of --bg-surface under it and the
-   three they have not stay on the ground. With one open at a time, that sheet
-   moves down the list as they read, which is the whole interaction stated in one
-   material fact and no new colour, no new token and no motion.
-
-   THE HAIRLINES AROUND IT GO, or the sheet is a paper row with a line cut across
-   its corners. Three rules, and each one names a different edge: its own bottom,
-   the bottom of whatever sits above it, and the list's top border when the open
-   one is the first. `transparent` and not `none`, so nothing moves by a pixel.
-
-   THE ROW IS INSET AT ALL WIDTHS AND IN BOTH STATES, which is what stops the
-   text jumping sideways when the sheet appears under it. A closed row's text
-   therefore starts 24 in from the hairline's end, which is what a list row does
-   everywhere else in this product. */
-.landing .lp-faq details[open] {
-  background: var(--bg-surface);
-  border-radius: var(--radius);
-  border-bottom-color: transparent;
+@container (max-width: 40rem) {
+  .landing .lp-qa .lp-ans { padding-right: .25rem; }
 }
-.landing .lp-faq details:has(+ details[open]) { border-bottom-color: transparent; }
-.landing .lp-faq:has(> details:first-child[open]) { border-top-color: transparent; }
-
-/* the row answers a pointer, because the whole row is the control and the label
-   alone was the only part of it saying so. --bg-hover is the recessed step, and
-   it steps the same direction on both themes against the page ground it stands
-   on: lighter than --bg-page in the light theme and lighter in the dark one. */
-.landing .lp-faq details:not([open]) > summary:hover { background: var(--bg-hover); border-radius: var(--radius); }
-
-/* THE MARK IS A PLUS THAT BECOMES A MINUS, which is what the grey has drawn
-   since the wireframes and what the rollout replaced with a chevron on 2026-08.
-   Both are legible; the plus is the one this product already chose, and it is
-   the better of the two here for a reason a chevron cannot answer. A chevron
-   says WHICH WAY, and it says it about a row that could equally be a link to
-   another page - it is the same glyph nav-row.css uses for exactly that. A plus
-   says WHAT WILL HAPPEN: there is more of this, here, and it is about to be
-   added. On a block whose whole job is to answer an objection without making a
-   person leave the page, that difference is the block.
-
-   TWO BARS OUT OF ONE BOX. Drawn as two gradient stripes in the same 16px
-   square, so there is no second element, no glyph from a font and no icon file:
-   the horizontal one always shows and the vertical one collapses to nothing when
-   the answer is open. 1.5px is the weight the hairline family already uses at
-   this scale, painted in currentColor, so the mark darkens with its label, turns
-   petrol with it on hover, and owes no dark pair of its own.
-
-   NOT ANIMATED, and that is the same restraint the answer's height keeps below:
-   stage 11 owns motion, and a mark that eases while the block it belongs to
-   snaps open is worse than one that does neither. */
-.landing .lp-faq summary::after {
-  content: ""; flex: none; width: 16px; height: 16px;
-  background:
-    linear-gradient(currentColor, currentColor) center / 16px 1.5px no-repeat,
-    linear-gradient(currentColor, currentColor) center / 1.5px 16px no-repeat;
-}
-.landing .lp-faq details[open] > summary::after {
-  background-size: 16px 1.5px, 1.5px 0;
-}
-
-/* ---- the answer ----------------------------------------------------------
-   Body ink at the reading measure, and the top padding is zero because the
-   question above it already spent it: a gap on both sides of the seam reads as
-   two blocks rather than as a question and its answer. */
-.landing .lp-faq details > p {
-  margin: var(--space-0);
-  padding: var(--space-0) var(--space-24) var(--space-24);
-  font-size: var(--type-body);
-  line-height: 1.6;
-  color: var(--text-body);
-  max-width: var(--container-text);
-}
-
-/* NO ANIMATION HERE, and it is left for stage 11 rather than improvised. A
-   height transition on a disclosure needs either a fixed height, which the copy
-   does not have, or `interpolate-size`, which is a decision about how this
-   product moves and belongs to the stage that owns motion. An unfinished
-   animation is worse than none: it is the one a person notices. */

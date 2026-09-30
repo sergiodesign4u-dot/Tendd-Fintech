@@ -28,6 +28,25 @@
   page-level style block, no style attribute, no class that design/system/ does not define.
   Structure and copy are a verbatim copy of wireframes/history-trends.html.
   Links to screens that are not coloured yet point back into wireframes/.
+
+  SYNCED FROM THE PRODUCT, 2026-09-30. The product builds this view for Tendd
+  Pro since P25 (closing G18), from these same system classes, and three things
+  on it were decided there. What moved lists only the rows that moved in each
+  range, biggest first, each dated from the range's own first month, then one
+  line for the rest ("The other 12 held steady."), so the three ranges are three
+  lists and not one list with per-row ranges. The chart's label names the months
+  and nothing else ("Line chart of your monthly total from May to July. The
+  figures are the sentence above"): the shape is the sentence above it. By
+  category's three-month sentence is the owned composed form, and the "when
+  ChatGPT Plus arrived" clause is gone, because the list beside it says which
+  row arrived. Each range carries its own axis, as the product draws it.
+  behaviour.js is the product's (P25: its inits can rerun and guard against
+  wiring twice) and is loaded as before.
+  The account link and the You tab lead to settings.html: no Pro twin of
+  Settings is drawn (D3, plans13.cjs), so Settings is shown in its one state.
+  Kept although the product lacks it, and each is a gap: the account link in
+  the bar (no names yet), and Export as a button, where the product's is a
+  download link to a CSV this stand does not have.
 -->
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
@@ -103,9 +122,9 @@
            from the subscriptions on Home; the arithmetic is written down once, in
            docs/bank-connection.md, and never in two places. -->
       <div class="range" role="group" aria-label="Choose a time range">
-        <button type="button" aria-pressed="true" data-view="r3" data-scale="160 200" data-points="May 172.90|Jun 192.90|Jul 192.90" data-label="Line chart of your monthly total from May to July. It rises in June, when one subscription was added, and holds level after it. The figures are the sentence above">3 months</button>
-        <button type="button" aria-pressed="false" data-view="r6" data-scale="160 200" data-points="Feb 166.90|Mar 166.90|Apr 172.90|May 172.90|Jun 192.90|Jul 192.90" data-label="Line chart of your monthly total from February to July. It steps up twice, in April and in June, and holds level in between and after. The figures are the sentence above">6 months</button>
-        <button type="button" aria-pressed="false" data-view="r12" data-scale="140 200" data-points="Aug 143.91|Sep 143.91|Oct 143.91|Nov 166.90|Dec 166.90|Jan 166.90|Feb 166.90|Mar 166.90|Apr 172.90|May 172.90|Jun 192.90|Jul 192.90" data-label="Line chart of your monthly total across twelve months, from last August to July. It steps up three times, in November, in April and in June, and holds level in between. The figures are the sentence above">12 months</button>
+        <button type="button" aria-pressed="true" data-view="r3" data-scale="160 200" data-points="May 172.90|Jun 192.90|Jul 192.90" data-label="Line chart of your monthly total from May to July. The figures are the sentence above">3 months</button>
+        <button type="button" aria-pressed="false" data-view="r6" data-scale="160 200" data-points="Feb 166.90|Mar 166.90|Apr 172.90|May 172.90|Jun 192.90|Jul 192.90" data-label="Line chart of your monthly total from February to July. The figures are the sentence above">6 months</button>
+        <button type="button" aria-pressed="false" data-view="r12" data-scale="140 200" data-points="Aug 143.91|Sep 143.91|Oct 143.91|Nov 166.90|Dec 166.90|Jan 166.90|Feb 166.90|Mar 166.90|Apr 172.90|May 172.90|Jun 192.90|Jul 192.90" data-label="Line chart of your monthly total from last August to July. The figures are the sentence above">12 months</button>
       </div>
 
     </div>
@@ -178,8 +197,13 @@
          monthly total is a level and not an event. The path runs 0 to 300 so its
          ends sit over the first and last labels, and the label row shares the
          band's width because they are the same content box. Every colour is in
-         chart-placeholder.css. -->
-    <div class="chart" role="img" data-points="May 172.90|Jun 192.90|Jul 192.90" data-scale="160 200" aria-label="Line chart of your monthly total from May to July. It rises in June, when one subscription was added, and holds level after it. The figures are the sentence above"><ul class="yaxis" data-view="r3 r6" aria-hidden="true"><li>$200</li><li>$180</li><li>$160</li></ul><ul class="yaxis" data-view="r12" aria-hidden="true" hidden><li>$200</li><li>$170</li><li>$140</li></ul><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="area" d="M0 64.2 C50 64.2, 100 24.2, 150 24.2 C200 24.2, 250 24.2, 300 24.2 L300 100 L0 100 Z"/><path class="plot" d="M0 64.2 C50 64.2, 100 24.2, 150 24.2 C200 24.2, 250 24.2, 300 24.2" vector-effect="non-scaling-stroke"/></svg></div>
+         chart-placeholder.css.
+         SYNCED FROM THE PRODUCT, 2026-09-30 (P25): the label on the chart and on
+         each range button names the months and stops; the rise and the plateau
+         it used to describe are the sentence above, and a second reading of the
+         same figures in the label was unowned. One axis per range, because the
+         product draws one per window from that window's own scale. -->
+    <div class="chart" role="img" data-points="May 172.90|Jun 192.90|Jul 192.90" data-scale="160 200" aria-label="Line chart of your monthly total from May to July. The figures are the sentence above"><ul class="yaxis" data-view="r3" aria-hidden="true"><li>$200</li><li>$180</li><li>$160</li></ul><ul class="yaxis" data-view="r6" aria-hidden="true" hidden><li>$200</li><li>$180</li><li>$160</li></ul><ul class="yaxis" data-view="r12" aria-hidden="true" hidden><li>$200</li><li>$170</li><li>$140</li></ul><svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="area" d="M0 64.2 C50 64.2, 100 24.2, 150 24.2 C200 24.2, 250 24.2, 300 24.2 L300 100 L0 100 Z"/><path class="plot" d="M0 64.2 C50 64.2, 100 24.2, 150 24.2 C200 24.2, 250 24.2, 300 24.2" vector-effect="non-scaling-stroke"/></svg></div>
     <p class="metarow" data-view="r3"><span>May</span><span>Jun</span><span>Jul</span></p>
     <p class="metarow" data-view="r6" hidden><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span></p>
     <p class="metarow" data-view="r12" hidden><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span></p>
@@ -195,46 +219,79 @@
            which ranges it belongs to: Disney+ moved in April, so it is not in the
            three-month view, and Adobe arrived in November, so it is only in the
            year. The steady row is written once per range because "no change since
-           March" is not a true sentence inside a window that starts in May. -->
+           March" is not a true sentence inside a window that starts in May.
+           SYNCED FROM THE PRODUCT, 2026-09-30 (P25, and the microcopy rewrite log
+           of 2026-09-29): each range is its own list now, in a block that carries
+           the range, and a row belongs to a range by being in its list. Only what
+           moved is a row, biggest change first, and each is dated from the
+           range's first month ("since May", "since February", "since last
+           August"; a month in an earlier year is "last August", with no "in").
+           The rows that held are one line under the list, counted: with fourteen
+           real rows the Steady rows buried the three that moved, under a heading
+           that says What moved, and the count keeps the lock's promise "which
+           held steady" true. The Steady row per range is retired with it. -->
       <section class="group" aria-label="What moved">
         <div class="group-head"><h2>What moved</h2></div>
-        <ul>
-          <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, up 2 dollars 50 cents since May, now 17 dollars 99 a month, Streaming">
-            <span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span>
-            <span class="body"><span class="name">Netflix</span><span class="when">Up $2.50 since May, now $17.99 a month</span></span>
-            <span class="chip">Higher</span>
-          </a></li>
-          <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, new since June, 20 dollars a month, Software">
-            <span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span>
-            <span class="body"><span class="name">ChatGPT Plus</span><span class="when">New since June, $20.00 a month</span></span>
-            <span class="chip">New</span>
-          </a></li>
-          <li data-view="r6 r12" hidden><a class="row" href="subscription-detail.html" aria-label="Disney Plus, up 6 dollars since March, now 13 dollars 99 a month, Streaming">
-            <span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span>
-            <span class="body"><span class="name">Disney+</span><span class="when">Up $6.00 since March, now $13.99 a month</span></span>
-            <span class="chip">Higher</span>
-          </a></li>
-          <li data-view="r12" hidden><a class="row" href="subscription-detail.html" aria-label="Adobe Creative Cloud, new since November, 22 dollars 99 a month, Software">
-            <span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span>
-            <span class="body"><span class="name">Adobe Creative Cloud</span><span class="when">New since November, $22.99 a month</span></span>
-            <span class="chip">New</span>
-          </a></li>
-          <li data-view="r3"><a class="row" href="subscription-detail.html" aria-label="The New York Times, no change since May, 17 dollars a month, News">
-            <span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span>
-            <span class="body"><span class="name">The New York Times</span><span class="when">No change since May, $17.00 a month</span></span>
-            <span class="chip">Steady</span>
-          </a></li>
-          <li data-view="r6" hidden><a class="row" href="subscription-detail.html" aria-label="The New York Times, no change since February, 17 dollars a month, News">
-            <span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span>
-            <span class="body"><span class="name">The New York Times</span><span class="when">No change since February, $17.00 a month</span></span>
-            <span class="chip">Steady</span>
-          </a></li>
-          <li data-view="r12" hidden><a class="row" href="subscription-detail.html" aria-label="The New York Times, no change all year, 17 dollars a month, News">
-            <span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span>
-            <span class="body"><span class="name">The New York Times</span><span class="when">No change all year, $17.00 a month</span></span>
-            <span class="chip">Steady</span>
-          </a></li>
-        </ul>
+        <div data-view="r3">
+          <ul>
+            <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, new since June, 20 dollars a month, Software">
+              <span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span>
+              <span class="body"><span class="name">ChatGPT Plus</span><span class="when">New since June, $20.00 a month</span></span>
+              <span class="chip">New</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, up 2 dollars 50 cents since May, now 17 dollars 99 a month, Streaming">
+              <span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span>
+              <span class="body"><span class="name">Netflix</span><span class="when">Up $2.50 since May, now $17.99 a month</span></span>
+              <span class="chip">Higher</span>
+            </a></li>
+          </ul>
+          <p class="muted fine">The other 12 held steady.</p>
+        </div>
+        <div data-view="r6" hidden>
+          <ul>
+            <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, new since June, 20 dollars a month, Software">
+              <span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span>
+              <span class="body"><span class="name">ChatGPT Plus</span><span class="when">New since June, $20.00 a month</span></span>
+              <span class="chip">New</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="Disney Plus, up 6 dollars since February, now 13 dollars 99 a month, Streaming">
+              <span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span>
+              <span class="body"><span class="name">Disney+</span><span class="when">Up $6.00 since February, now $13.99 a month</span></span>
+              <span class="chip">Higher</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, up 2 dollars 50 cents since February, now 17 dollars 99 a month, Streaming">
+              <span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span>
+              <span class="body"><span class="name">Netflix</span><span class="when">Up $2.50 since February, now $17.99 a month</span></span>
+              <span class="chip">Higher</span>
+            </a></li>
+          </ul>
+          <p class="muted fine">The other 11 held steady.</p>
+        </div>
+        <div data-view="r12" hidden>
+          <ul>
+            <li><a class="row" href="subscription-detail.html" aria-label="Adobe Creative Cloud, new since last November, 22 dollars 99 a month, Software">
+              <span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span>
+              <span class="body"><span class="name">Adobe Creative Cloud</span><span class="when">New since last November, $22.99 a month</span></span>
+              <span class="chip">New</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, new since June, 20 dollars a month, Software">
+              <span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span>
+              <span class="body"><span class="name">ChatGPT Plus</span><span class="when">New since June, $20.00 a month</span></span>
+              <span class="chip">New</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail.html" aria-label="Disney Plus, up 6 dollars since last August, now 13 dollars 99 a month, Streaming">
+              <span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span>
+              <span class="body"><span class="name">Disney+</span><span class="when">Up $6.00 since last August, now $13.99 a month</span></span>
+              <span class="chip">Higher</span>
+            </a></li>
+            <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, up 2 dollars 50 cents since last August, now 17 dollars 99 a month, Streaming">
+              <span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span>
+              <span class="body"><span class="name">Netflix</span><span class="when">Up $2.50 since last August, now $17.99 a month</span></span>
+              <span class="chip">Higher</span>
+            </a></li>
+          </ul>
+          <p class="muted fine">The other 10 held steady.</p>
+        </div>
       </section>
 
       <!-- BY CATEGORY IS A PICTURE SINCE 2026-08-19. It was one muted sentence, and
@@ -247,7 +304,13 @@
            on the left. What the range does change is the sentence under them. The
            five amounts are the five subtotals on Home and they sum to $192.90; the
            lengths are derived from them by behaviour.js, against the largest of the
-           five rather than against the total. -->
+           five rather than against the total.
+           SYNCED FROM THE PRODUCT, 2026-09-30 (P25): the sentence is composed, the
+           direction said once and carried until it changes, and the three-month
+           one is the owned form word for word. The six and twelve month ones are
+           composed the same way from the rows beside them, which puts Streaming at
+           $8.50 (Disney+ $6.00 and Netflix $2.50) where the fixed sentence said
+           $6.00 and left Netflix out. -->
       <section class="group" aria-label="By category">
         <div class="group-head"><h2>By category</h2><span class="subtotal">$192.90 a month</span></div>
         <ul class="bars">
@@ -257,9 +320,9 @@
           <li data-value="24.98"><span class="name">Fitness</span><span class="amt">$24.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="45.5" height="8"/></svg></span></li>
           <li data-value="22.98"><span class="name">Music</span><span class="amt">$22.98</span><span class="bar" aria-hidden="true"><svg viewBox="0 0 100 8" preserveAspectRatio="none" focusable="false"><rect width="41.8" height="8"/></svg></span></li>
         </ul>
-        <p class="muted fine" data-view="r3">Software is up $20.00 since May, when ChatGPT Plus arrived. Everything else held steady.</p>
-        <p class="muted fine" data-view="r6" hidden>Software is up $20.00 and Streaming $6.00 since February. Everything else held steady.</p>
-        <p class="muted fine" data-view="r12" hidden>Software is up $42.99 and Streaming $6.00 since last August. Everything else held steady.</p>
+        <p class="muted fine" data-view="r3">Software is up $20.00 and Streaming $2.50 since May. Everything else held steady.</p>
+        <p class="muted fine" data-view="r6" hidden>Software is up $20.00 and Streaming $8.50 since February. Everything else held steady.</p>
+        <p class="muted fine" data-view="r12" hidden>Software is up $42.99 and Streaming $8.50 since last August. Everything else held steady.</p>
       </section>
 
     </div>

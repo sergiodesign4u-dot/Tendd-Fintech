@@ -1,15 +1,1027 @@
 # Decision log
 
-**FROZEN ON 2026-09-02. The live log is in the product repository, at
-`../Tendd Product/docs/decisions.md`.** This copy is complete up to and including D-Gate and
-never grows again. It stays here because fifteen pages in this repository link to it and a
-link that answers nothing is worse than a file that stopped. Anything decided after that day
-about how Tendd looks or behaves was decided there, because that is where the product is.
-
 What we did, why exactly this, and what we rejected on what ground. Newest on top.
 This file is never loaded into a session automatically: read it when you need the ground
-under a decision. Rules that must hold next time live in `CLAUDE.md`; status lives in the
-README table and in `done:true` in `/_nav.js`.
+under a decision. Rules that must hold NEXT time live in `CLAUDE.md`; status lives in `README.md`.
+
+**A MIRROR, synced from the product on 2026-09-30 at `4158f6c`.** The live log is in the product
+repository, at `../Tendd Product/docs/decisions.md`, and that is where a decision is written.
+This copy was frozen on 2026-09-02 and brought level on 2026-09-30, when the founder asked for
+this repository to show the live product again (the account is `handoff/live.html`, the rule
+is `CLAUDE.md`, section The mirror). Every entry below 2026-09-02 was written here while this repository was
+the source of truth; every entry above it was written in the product and copied in whole.
+
+## The register, and why an id is never reused or renumbered
+
+**This code names decisions by id more than two hundred and forty times.** `D3` appears 39
+times, `N6` 21, `D2` 21, `D1` 20, `D5` 15, `D7` 14, `GC6` 10, and the rest are spread through
+migrations, components and tests. An id in a comment is a pointer into this file, so renumbering
+one silently breaks every pointer at once, and no compiler would say a word.
+
+| Prefix | Means | Written by |
+|---|---|---|
+| `D` | A founder or design decision. `D1` to `D9`, and the named ones: `D-Free`, `D-Export`, `D-Concept`, `D-Brand`, `D-Plot`, `D-Share`, `D-Gate` | the founder, or the design stages |
+| `N` | One of the seven questions the behaviour spec refused to guess, and its answer | the founder, 2026-08-23 |
+| `GC` | A global convention that holds on every screen | the design stages |
+| `P` | A decision made HERE, in the running product, that binds future work | this repository |
+| `G` | Not a decision: an open hole, in `docs/gaps.md`, with the person who owns it | this repository |
+
+A decision that is reversed keeps its id and says what killed it, the way `D-Free` does. It is
+never deleted, because the code that pointed at it is still readable and somebody will read it.
+
+---
+
+## 2026-09-30 - Help, About and Contact
+
+**P36. Three public pages built from what the product already says, and the footer's "Careers"
+became "Help".** Closes G32 and G40. The founder handed over the words ("делай сам").
+
+- Same shape as the terms: one reading column, groups, and the privacy page's promise list for a
+  question and its answer. No new component; a link as a pair's value got the muted line's link
+  style in pair-list.css, since Contact's addresses were the first.
+- Help answers fourteen questions; every answer is a line the landing, the terms or the privacy
+  page already says, or where a thing is on screen. It is public, because the people who need it
+  most cannot sign in.
+- Contact names two addresses: `hello@` for anything, `privacy@` for data and for a mistaken
+  charge, which is the address the terms and the privacy page already give. Both reach the one
+  inbox a person reads. The absence of a phone and a chat is said.
+- About is what Tendd is, why, what it will not do, and who runs it, in the product's own lines.
+- `check:screens` walks all three.
+
+**Rejected.** A Careers page (there are no jobs). A contact form (it would need storage, spam
+defence and a reply path, for what an address already does). Different reply addresses per topic
+before they exist as send-as in Gmail: replies leave from `privacy@` today.
+
+## 2026-09-30 - D4 amended: $9.99 a month, $69 a year
+
+**The monthly price moves from $7.99 to $9.99; the yearly stays $69.** The founder asked for a
+pricing audit before the first live sale. Measured against the market on 2026-09-30: pure
+subscription trackers sell for $0 to $36 a year (Bobby, Subby, ReSubs, Hiatus); the money apps a
+person compares Tendd with sit at $13 to $15 a month and $75 to $109 a year (PocketGuard, Copilot,
+Monarch, YNAB), and Rocket Money, which also cancels for you, at $7 to $14 a month with no yearly
+plan. $7.99 sat on Rocket Money's floor, and the yearly plan saved only 28%, where the market's
+saves 39 to 52% and makes the year the obvious choice.
+
+At $9.99 the year saves 42% ("$5.75 a month, about $50 a year"), and "Pays for itself with the first
+subscription you cancel" stays true: a typical subscription on the list is $10 to $18. Higher was
+rejected until there is data: the audience is people who avoid money apps, and a price above the
+subscriptions it helps cancel breaks the product's own sentence. The cheapest moment to move a
+price is before anybody pays: once they do, the terms promise 30 days' notice.
+
+`tools/stripe-setup.cjs --change` makes the new price, moves the lookup key to it and archives the
+old one; a plan already on the old price keeps it. Done in test mode the same day. After launch
+the two prices can be tested on real people through the lookup keys.
+
+## 2026-09-29 - How paying works, written before anybody pays
+
+**P35. The terms carry a "Paying for Tendd Pro" section of eight facts the code keeps; refunds
+are 14 days, in full, for a mistaken charge; a yearly plan gets a notice a month before it
+renews.** Three of G54's four conditions for a live key; what is left is the company and the
+merchant-of-record question for an accountant.
+
+- The eight: the price, who takes the payment, renewing, cancelling, refunds, a failed payment,
+  what ends with Pro, a price change. Each names what the product does and where, so none can
+  quietly stop being true (the page's comment lists the code behind each).
+- Where no payment can be taken (the live site until G54) the section opens by saying nothing is
+  on sale yet; the page reads whether Stripe is on, an environment variable, and still touches
+  neither the session nor the database.
+- **Refunds, the founder's decision, taken on the recommendation that the one subscription we
+  control cannot be the hard one to leave:** a charge made by mistake (a renewal somebody meant
+  to stop) is refunded in full if they write within 14 days; after that no part-period refunds,
+  unless local law requires one. Done by hand in Stripe's dashboard: at this size a person reads
+  every request.
+- **The yearly notice** is the daily run's (`renewalLetter`, migration 0015 adds its kind): a
+  month before a yearly plan renews, the date and the amount, sent on the first run inside that
+  month, behind no switch. Several US states require a notice before an annual auto-renewal, and
+  it is right anyway. Monthly plans get none; a plan that is ending gets none.
+- `/privacy` names Stripe with what it sees, and two new kinds of record: the plan's payment
+  record as Stripe reports it, and which alerts were emailed.
+
+**Rejected.** No refunds at all (the usual default, and the opposite of the product's promise).
+Pro-rated refunds on any cancel (the portal already ends Pro at the period end with nothing more
+charged, and a self-serve refund button would invite a refund after using a year). An opt-out for
+the yearly notice (it is about the person's own payment).
+
+## 2026-09-29 - The locked block speaks the landing's language
+
+**P34. Replaces P33's look: the block is built from the public page's techniques.** The founder
+did not like P33 ("мне не нравится") and asked for the landing's: "как на хоумпейдж, там более
+визуально красиво". What came over, and nothing else:
+- the dotted eyebrow, "Tendd Pro";
+- the stat card's figure: the count in petrol at display weight, and the row of squares, one
+  per subscription, the named ones filled, the same picture as "14 subscriptions";
+- the hero's floating tiles, as a small stage: one petrol tile with the lock, one blank, one out
+  of focus, over the landing's dotted field, with the amounts the scan kept in glass chips; one
+  slow float, stopped by reduced motion;
+- the landing's shadows and 24px card radius, and its pill buttons with the travelling arrow,
+  added to the product as `.btn.pill` and `.btn.go` so the button's own states still hold.
+P33's data stays (the kept amounts and when-lines, `aria-hidden`). The copy stays on the plain
+surface, which P33 measured was necessary. On the reveal the chips carry no amount (D1).
+
+**Rejected.** Copying the landing's canvas and 3D tiles themselves (a WebGL scene inside a list
+row would be the heaviest thing on the calmest screen); the landing's display type size (inside
+the product this is a block, not a headline).
+
+## 2026-09-29 - The locked block shows what is behind it
+
+**P33. The locked block opens with the locked rows themselves, as a free scan keeps them, in a
+window of the pricing wash, with a filled lock and the words on the plain surface.** The
+founder, on the first version: "хочется что-то более крутое, особенно блок с замочком, более
+визуально привлекающим".
+
+- Up to three rows: the logo slot, a bar for the name, the when-line and, on Home, the amount
+  (both kept by P31 and both in the total already); `aria-hidden`, because the heading says the
+  count in words. On the reveal no amount (D1).
+- The window is `--wash-pricing`, the watercolour the plans are sold on, so the block reads as
+  the door to them; the rows fade row by row. The lock is the block's one filled mark.
+- Beside each other past the desktop point on the app's wide screens; stacked on a phone and on
+  the reveal, whose reading column is too narrow for two.
+- No string changed; the amount in the sum line is set in bold.
+
+**Rejected.** The whole card on the wash: measured, the muted lines fell to 1.8:1 over the
+darker water. The skeleton's pulse on the bars: a pulse says "loading", and nothing here is
+coming by itself. A blur over real names: there are no names to blur (P31).
+
+## 2026-09-29 - A free scan is held for seven days, and a name you saw stays yours
+
+**P32. A free scan's connection is held for seven days, unread, and paying for Pro reads it
+before the plan turns; a stored name is never hidden from its owner.** Amends P20 and P31. The
+founder, on P31's two consequences: that paying named nothing until the bank was read again
+("хотелось бы автоматически после оплаты делать скан"), and that a former Pro kept names the
+screen hid.
+
+**What it is.**
+- A new source state, `held`, with `held_until` (migration 0014). The free scan still reads once
+  and still keeps no name it withholds; then the Item and its key are kept, and nothing reads
+  them: the Plaid webhook ignores a held source, and so does a login-required event.
+- The Stripe webhook, on Free to Pro, reads every held connection BEFORE writing the plan
+  (`wakeHeld`), so the processing screen that waits for Pro opens a list already named. A bank
+  that wants a new sign-in by then becomes node 6.14.2. A failure never stops the plan.
+- The daily cron removes holds past their date, exactly as the disconnect button does, and the
+  person can press that button sooner: the held card carries it.
+- Paying after the seven days lands on `/connect-bank?from=pro`, with one line of why.
+- **A row is locked when it has no name, and only then.** Names a person saw on Pro stay visible
+  when Pro ends: the list is frozen (the bank still disconnects), not taken back. With that,
+  nothing hidden is stored anywhere, and G53 is closed for every case.
+- Every line that described the old ending says the new one with its date: Home's trust line,
+  the locked block, the Sources card, and the privacy policy's list of what you can do.
+- `check:bank` walks the hold and its end through the cron route (36 checks); `check:stripe
+  --dev --after-scan` walks a free scan, a payment, and every name back with no second sign-in.
+
+**Cost.** Plaid bills an Item by the month and the scan already made this month's, so a hold
+costs a second month only when its seven days cross into one. To be read against the Plaid
+contract before a live key (G45).
+
+**Rejected.** Stripping names when Pro ends (a person loses the list they paid to see, which is a
+penalty for leaving). Warning about that at the cancel (pressure at the moment D-Gate says must
+be easy). A longer hold (a free scan would turn into a standing arrangement). Opening Link
+straight after payment every time (a second sign-in where none is needed inside the week).
+
+## 2026-09-29 - Tendd writes to you, about what you asked for
+
+**P29. One alert letter a day at most and a Sunday digest, sent by a daily cron through
+Resend, each item told once.** Settings had four switches and nothing behind them; Pro sold
+"advanced alerts" that did not exist (G56). The founder asked for the letters first.
+
+**What it is.**
+- `lib/letters.ts` composes the two letters, pure and tested; every sentence is a row under
+  `alert-mail` and `digest-mail`, and where the alerts screen already says the fact the letter
+  says it in the same words. Colours are the light theme's tokens, checked against
+  `system/tokens.css` by the test.
+- `lib/db/notify.ts` decides what is due per person: a price that went up and a payment that did
+  not go (free, alerts from the last two days only, so the first run did not mail months of
+  history), a trial ending in 0 to 3 days and a charge in 0 to 2 days (Pro), and on Sundays the
+  week ahead. D-Gate holds in the inbox: a withheld name is never printed.
+- `mail_sent` (migration 0011) records each item told, unique per person, kind and ref; items are
+  claimed before the letter goes and released if it fails, so a retried or overlapping run tells
+  a thing once. A fifth switch, "A charge is coming up", off by default, Pro.
+- `/api/cron/notify`, daily at 14:00 UTC (morning in the US, D5), behind `CRON_SECRET`; a 404
+  without it. `dry=1` composes and sends nothing, which is how `npm run check:notify` asks what
+  a person would be told. Addresses at reserved test domains are never sent to.
+
+**Rejected.** A letter per event (four a day is not calm). Sending at the moment of the sync
+(a bank read at 3am would wake somebody, and a daily run is one place to reason about).
+"Everything not yet sent" as the rule (the history problem above). The Resend SDK (fetch, as for
+Plaid and Stripe).
+
+## 2026-09-29 - Every line on the Pro list is true, without new access
+
+**P30. Tendd Pro's cancel guide is the free steps plus a direct link to the service's own cancel
+page; the promises nothing could keep are gone.** G56 asked the founder to build the missing
+Pro items or cut them. He chose build, on the recommendation that nothing new may ask for
+access: Tendd does not cancel for anybody (the landing's FAQ says why), holds no card, and signs
+in to no service.
+
+**What it is.**
+- Migration `0013` adds `service.cancel_direct_url` and `cancel_direct_checked_on`. Eleven
+  services carry one, each read on 2026-09-29 off the service's own help centre or its own
+  domain: Netflix, Spotify Premium, Disney+, Amazon Prime, Adobe Creative Cloud, Hulu, Apple
+  Music and Apple TV+ (Apple's subscriptions page, which Apple's article links), Peloton App,
+  Strava, YouTube Premium. ChatGPT Plus, Notion and iCloud+ publish steps and no address, and The
+  New York Times and The Economist could not be read, so they have none. `seed.sql` repeats the
+  values for a fresh database, and `lib/cancel-links.test.ts` fails if the two part.
+- `/cancel-guide`: the steps stay free for everybody (D3). On Pro, where a link exists, the first
+  action is "Open the cancel page on netflix.com" with the date it was checked under it, and the
+  "See what Pro adds" panel is not drawn (it used to show to Pro too). On Free the panel is drawn
+  only where Pro would add something on that screen. The address leaves the server only for Pro.
+- Retired, because no link and no feature could keep them: screenshots for each step, "a direct
+  link that skips the retention screens" (the service's own page still asks you to stay, and the
+  steps say so), and "unusual" and "duplicate" among the advanced alerts. Advanced alerts are now
+  "a trial ending, and a charge coming up", which P29 sends by email.
+
+**Rejected.** Cancelling on a person's behalf (a password to somebody's Netflix, liability for a
+wrong click, and the end of "read-only"). Card-level blocking (issuing cards is a regulated
+business of its own). Links guessed from a site's URL pattern: a wrong address on a cancel
+button is the one link that must not be wrong.
+
+## 2026-09-29 - A free scan keeps no name it does not show
+
+**P31. D-Gate's withheld rows are stored without what names them, and Home and the reveal say
+them once, in one block, instead of drawing a grey slot per row.** Closes G53 with (b). The
+founder chose it, and gave the screen its shape in the same message: "show a couple, and a block
+with a lock: you have XX more subscriptions, go Pro and get everything, or add them yourself,
+and a button to the plans. We want people to go Pro."
+
+**What it is.**
+- `forgetWithheld` runs straight after a free scan's first read (connect time, or the webhook
+  that finishes it, P28) and before the Item goes (P20). It asks `withheldNames` the same
+  question the screens ask, over the same rows, and clears `name`, `service_id` and
+  `statement_descriptor` on the answer. Amount, cadence, next charge, category, status, source
+  and `charged_to` (the person's own account, not a merchant) stay, so every figure is
+  unchanged. Migration 0012 lets `name` be null, and a null name IS "not named yet": no flag
+  column beside it (P3).
+- A Pro read of the same bank names them again. `orphanFor` (lib/plaid-map.ts, four tests)
+  keeps the old match by bank line, then tries a nameless row by cadence, category and an
+  amount within a tenth or a dollar, one candidate or none (P2). A nameless row no stream
+  claims is deleted after that read: it was a placeholder for a read that has now happened,
+  and leaving it would count one subscription twice. It is the only row sync removes.
+- The screens: named rows in their groups, then `LockedBlock` with "You have N more
+  subscriptions", what they add up to, and "Get Tendd Pro" (the plans) beside "Add them
+  yourself". On the reveal the amount line is left out, because D1 puts the number third. On Pro
+  with rows still nameless the block says the free scan kept no names and offers "Connect your
+  bank". A nameless row is withheld whatever the plan (list, detail, cancel guide), and Trends
+  lists it as "Not named yet".
+- `locked-list.css`: the note became a card with a lock mark, and `app-shell.css` orders it
+  with the groups past 900. It had no order and printed above the summary at 1280 for any free
+  person with a scan, which the width sweep never saw because its person has no withheld rows.
+
+**Rejected.** (a), calling the gate a convenience: the founder wants people to go Pro, and a
+lock that "Download everything" opens is not one. (c), a hidden table: D-Export would still owe
+the names to the file. Deleting the withheld rows outright: the total and the count are the
+free product, and they would stop being true. A flag column: a second copy of the null.
+
+**Not closed:** someone who was Pro and is Free again keeps the names they saw; the screen still
+withholds them, as before.
+
+## 2026-09-29 - Plaid reports to the product
+
+**P28. A signed Plaid webhook keeps a bank current, turns a stale one into node 6.14.2, repairs
+it and ends it; "Reconnect" is Link's update mode on the same Item.** Closes G23, G31 and G51 on
+every deployed address. The founder asked for it the day Stripe reached dev.tendd.co, because the
+same bypass that let Stripe in lets Plaid in, and "a bank connection that keeps the list up to
+date" is one of the things Pro is sold on.
+
+**What it is.**
+- `/link/token/create` carries a `webhook` for every new Item, built from the address the token
+  was made on: none on http (a laptop), Vercel's bypass in the query on a preview, the plain
+  address on the live site. The bypass is Vercel's own system variable, so nobody copies a
+  secret; it differs from the one in `.env.local`, and both open the door (measured).
+- `/api/plaid/webhook` believes nothing unsigned: Plaid's ES256 JWT, a key fetched by id and not
+  expired, issued within five minutes, over the SHA-256 of this exact body
+  (`lib/plaid-webhook.ts`, five tests). The item id is the only thing taken from the event;
+  person, plan and key come from our rows. A failure is a 500, so Plaid retries.
+- Transactions events read the Item without waiting (the webhook is the news that it is
+  ready). Pro every time; Free only while its one scan has not landed, and then the Item goes
+  as every free scan does (P20).
+- ITEM_LOGIN_REQUIRED, PENDING_EXPIRATION, PENDING_DISCONNECT set `reconnect_needed`;
+  LOGIN_REPAIRED connects and reads; USER_PERMISSION_REVOKED and USER_ACCOUNT_REVOKED
+  disconnect, key and all.
+- "Reconnect Chase" opens Link in update mode on the Item that stopped, and `/api/plaid/repaired`
+  finishes it in the same breath as the webhook would. It used to be a link to `/connect-bank`,
+  which would have made a second Item and doubled the list.
+- `npm run check:plaid-webhook` walks all of it on dev.tendd.co through Plaid's sandbox
+  `fire_webhook`: 14 checks.
+
+**Rejected.** Polling on a schedule (section 7 refused it from the start, and it is the cost
+lever of section 11). Doing the read after answering Plaid (`after()`): a read that failed would
+be acknowledged and lost, where a 500 gets a retry. A second env var holding the webhook
+address: the address is derivable from where the token is made (P3).
+
+**Not walked:** a free Item held in PRODUCT_NOT_READY, because the sandbox cannot be made to
+hold it on demand; the code path is the Pro one with a disconnect after it.
+
+## 2026-09-29 - A cancelled Tendd Pro can be kept
+
+**P27. While a cancelled plan has not ended, both /upgrade and Settings offer "Keep Tendd Pro",
+a POST that undoes the cancel in Stripe and writes the plan at once.** The founder cancelled on
+dev.tendd.co and asked whether he could change his mind. Stripe's portal allowed it ("Don't
+cancel subscription"), but only behind "Manage plan", and nothing on our screens said so.
+
+- `lib/stripe.ts` `keepSubscription` undoes whichever of the two cancel fields is set
+  (`cancel_at` on the current API, `cancel_at_period_end` on older ones), the same two that
+  `factsFrom` reads.
+- `keepPro` takes the subscription from the person's own profile, never from the form, then
+  writes the plan from a fresh read as the webhook does, so the screen that comes back says
+  "Renews"; the webhook that follows writes the same facts.
+- The sentence over the button says what keeping it costs and when, and that nothing is charged
+  before then. Not offered while a renewal is being retried (that state has its own action), and
+  not once the plan has ended: then it is Free, and /upgrade sells it again.
+- `check:stripe` walks it: cancel, keep, "Renews" again, cancel again.
+
+**Rejected.** Sending the person to the portal with a better label (two screens and Stripe's
+wording for a one-tap undo). A counter-offer or a discount on the button (D-Gate's "the one
+subscription we control cannot be the hard one to leave" cuts both ways: no pressure to stay
+either).
+
+## 2026-09-29 - The rail never moves, and four things the founder saw on dev.tendd.co
+
+**P26. In the desktop rail the bar holds the brand and nothing that comes and goes; the way back
+is the first line of the page.** The founder, walking dev.tendd.co after paying: the back link
+"двигает меню - такого не должно быть", on a subscription "меню исчезло", and "кнопка под
+логотипом мне не нравится".
+
+**What changed.**
+- `app-bar.css`: past 760 the bar's `.back` is `display: none` and a second `.back` inside
+  `.screen` (inside the block that holds the h1, so U17 holds) takes its place, with the same
+  ink, arrow and nudge. On a phone it is the other way round. A person, a screen reader and
+  the tab order meet exactly one. The four destinations now sit at the same height on every
+  screen.
+- Subscription detail carries the tab bar with Home current. It had none, so the rail stood
+  empty on the screen people open most.
+- The checkbox is drawn (`appearance: none`): the browser's tick filled the 20px box and
+  accent-color cannot resize it. Same box, a 12px tick over `--text-on-action`, the field's
+  edge. The switch row reaches past the column and pads back in, so its hover has air and a
+  radius and nothing moved.
+- `/upgrade` on Free: each plan card carries its own button, the year is in the middle with
+  the selection edge, and "Everything in Tendd Pro" is said once under the row instead of three
+  times inside it. The row is three columns from 900 and stacked below, so a two-line button
+  label no longer lands inside a narrow card. No string changed.
+
+**Rejected.** Stacking the way back under the brand and moving the destinations down on every
+screen instead (they would still move between Home and a subscription). Moving the bar's back
+link with CSS alone (`display: contents` or absolute placement over a pane that scrolls on its
+own). A petrol price on the yearly card, the landing's treatment: inside the product the price
+is a decision, not a headline, and petrol has four jobs.
+
+## 2026-09-29 - Your trends opens for Tendd Pro
+
+**P25. The Pro view of Trends is one component over the person's own list, the three ranges are
+data on one page, and every figure on it is derived by a pure function.** Closes G18. G18 was
+left open on purpose while nobody could be on Pro; Stripe made Pro real on 2026-09-28, and the
+founder paid on dev.tendd.co, opened Trends and met the lock he had just paid to open.
+
+**What it is.**
+- `app/trends/page.tsx` reads the plan. Free is unchanged; Pro renders `ProView.tsx`: the
+  current total, one sentence per range, the chart, What moved, By category, and the export,
+  assembled from the system classes `design/history-trends.html` used. No new style.
+- `lib/trends.ts` is the arithmetic and has no database in it (nine tests): the months of a
+  window, what a row cost in a month walked back through its price changes, whether it was on
+  the list then (the monthly total's own rules, moved here unchanged), the movements, the
+  categories, and the export table. `lib/db/trends.ts` only fetches, and the free view's
+  two-month total now runs through the same functions.
+- **All three ranges are drawn on the server** and the two not showing are `hidden`; the
+  system's range script moves the chart and flips `data-view`. With no script it is the
+  three-month view. A range the history does not reach is a disabled button, because six months
+  over three months of history draws a rise from nothing. Under three months it is the two-month
+  reading, and with no earlier month it is node 5.12.1 with no offer.
+- **`behaviour.js` can run again.** A module runs once per session, so the second visit to the
+  screen met markup the file had never wired and the range buttons did nothing. The chart and
+  range inits register themselves on `window.tenddRerun`, guard against wiring twice, and
+  `ChartBehaviour` calls them on every later mount.
+- **What moved lists only what moved**, biggest first, then "The other 11 held steady." Real
+  lists added two kinds the fixture never had: a price that fell (Lower) and a subscription
+  cancelled inside the window (Cancelled, the chip Home already prints).
+- `/trends/export` is the CSV, Pro only (Free is sent to `/upgrade?from=trends`): a row per
+  subscription, a column per month, the monthly total last, starting no earlier than the
+  history does. A GET, because a download changes nothing (P5 is about controls that do).
+
+**Rejected.** Three pages or `?range=` round trips (the system's range control already switches
+in place, and the design drew it that way). Listing every Steady row (eleven rows under a
+heading that says What moved). Storing monthly totals (P3).
+
+## 2026-09-28 - Tendd Pro can be paid for, in test mode
+
+**P24. Stripe Checkout takes the payment, Stripe's portal takes the cancellation, and a signed
+webhook is the only thing that writes the plan.** The founder asked for Stripe in test mode, which
+needs no company, so the paid half of D-Gate can be built and walked before G43 is closed.
+
+**What it is.**
+- `lib/stripe.ts` over `fetch`, like `lib/plaid.ts`. Prices are found by lookup key
+  (`tendd_pro_year` $69, `tendd_pro_month` $7.99, D4), made once by `tools/stripe-setup.cjs`
+  with the portal configuration: cancel at the end of the paid period, no reason asked, no
+  offer.
+- Stripe is OFF wherever `STRIPE_SECRET_KEY` is absent, the way Google is off where the
+  provider is (P11). The live site has no key, so it still says "Not open yet", and that is
+  still true. Test keys go on tendd-dev's addresses only (G54).
+- `/api/stripe/webhook` verifies Stripe's signature over the raw body (`lib/stripe-signature.ts`,
+  six tests) and, whatever the event, reads the subscription fresh and writes what it says
+  (`lib/billing-plan.ts`, five tests). Events arriving out of order or twice change nothing.
+  `past_due` stays Pro, which is the retry node 5.13's renewal line promises.
+- Migration `0010` stores Stripe's record beside the plan: the customer, the subscription, the
+  status, the interval, the amount, the period end, and whether it cancels. None of it is
+  writable by the person (P23); the card is never here.
+- Pro ending ends the reading: every live bank is disconnected, as on Free (P20).
+- The same bank comes back to the same source. Free scan, then Pro, then the bank door again
+  would otherwise have put every row on the list twice; `connectBank` picks up the stopped
+  source at the same institution and `syncSource` adopts a row whose stream is gone by its bank
+  line and cycle, one candidate or none (P2). `check:bank` walks it: 28 checks.
+
+**Rejected.** The Stripe SDK (the reason `lib/plaid.ts` gives). Trusting the event's own copy of
+the subscription (order). A cancel button of our own that calls the API: the portal is one
+confirmation, no retention step, and it also carries "Update your payment method", which node
+5.13's renewal failure needs. Storing nothing and asking Stripe on every render: the plan chip
+is on every screen.
+
+**What the first walk through Stripe found, 2026-09-28, and what changed.** Two things no test
+could have told us. The current API (2026-08-26) says a cancel from the portal with `cancel_at`
+and leaves `cancel_at_period_end` false, so the screen went on saying "Renews" over a plan that
+was ending; `lib/billing-plan.ts` reads both now, with a test. And Checkout's Adaptive Pricing,
+on by default, showed the founder in Ukraine "UAH 3,222.06" for a card that says $69; it is off
+in `createCheckout`, because the screen states an amount and the charge must be that amount.
+`npm run check:stripe` walks the whole of it, 16 checks, and `check:plan` stopped counting
+buttons with a pattern that matched neither owned label.
+
+**dev.tendd.co takes payment too, 2026-09-29.** The founder looks at `dev.tendd.co`, so test
+payment has to work there and not only on this laptop's `stripe listen`. The deployment sits
+behind Vercel's sign-in (P15) and Stripe cannot send a header, so Vercel's Protection Bypass for
+Automation rides in the endpoint's address as `?x-vercel-protection-bypass=`; the people's door
+stays shut and the route still refuses anything Stripe did not sign. `tools/stripe-webhook.cjs`
+asks the route through the bypass before making anything, makes the endpoint (marked
+`metadata.tendd = dev-site`), and keeps its signing secret in `.env.local` as
+`DEV_SITE_WEBHOOK_SECRET`, because Stripe shows it once and a clipboard loses it; `--new` makes
+another. In Vercel, `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` are on Preview only, so the
+live site still has no Stripe. `npm run check:stripe -- --dev` walks the same 16 checks there.
+**Rejected:** `stripe listen` pointed at dev.tendd.co (it dies with the laptop), and taking Vercel's
+sign-in off dev.tendd.co, which is the wall P15 put there.
+
+**Not done, and written down.** The live key (G54: terms, refunds, privacy, entity). The dated
+renewal-failed screen (G55). Advanced alerts and the Pro view of Trends are still not built
+(G18), and neither is the Pro half of the cancel guides or the Pro spreadsheet export: no screen
+reads the plan for them yet. Pro today unlocks exactly two things, every name in the bank scan
+and a bank connection that keeps reading, and the upgrade screen's feature list promises six.
+That gap is G56.
+
+---
+
+## 2026-09-28 - A person's rows are theirs, and the plan and the bank are not
+
+**P23. Row level security says what a person may WRITE on their own rows, not only whose rows
+they are.** Found while preparing Stripe, because Stripe is the first thing in the product that
+sets a column the person must not: with the browser key and their own session, one PATCH set
+`profile.plan` to 'pro' on tendd-dev, and the live project has the same policy. Every existing
+check passed, because each asked whether one person can reach ANOTHER's rows. The same gap let a
+person delete their bank source (after its rows), which under P20 is a second free scan and a
+second Item billed by Plaid, and blur which rows a bank found, which is the fact D-Gate's gate
+stands on.
+
+**What it is.** Migration `0009`: reading is unchanged; the profile is writable only in the
+columns a screen offers; a source may be created, changed or removed by the person only when it
+is manual; a subscription may be typed only into the person's own manual source, deleted only
+from one, and updated only in the columns the screens write (hide, report a cancel). A column
+added later is not writable by the person until it is granted, on purpose. Every write to a bank
+source or a bank row already runs as the service role. `check:rls` gained section 4: six holes
+before the migration, none after, and the writes the product does make as the person (settings,
+the two privacy switches, typing a row, deleting it, hiding a bank row, reporting a cancel) were
+walked through the screens and still land.
+
+**What it does not close, written as G53.** Reading. The names D-Gate withholds are in the
+person's own rows, and the person may read their own rows: the browser key and a session return
+every name, and "Download everything", which D-Export makes a free right, puts them in a file.
+That is a decision about the product and the law, not a policy typo.
+
+---
+
+## 2026-09-28 - The Content Security Policy is enforced
+
+**P22. Every response carries an enforced Content Security Policy with a nonce made for that
+request.** It reported for a day (P18) and nothing was reported; G50 said what stood between
+that and enforcement, which was a nonce for the theme script and the landing's curtain.
+
+**What it is.** `lib/csp.ts` holds the policy and the nonce, `proxy.ts` writes both on every
+request (the header on the response, and the same header plus `x-nonce` on the request so Next
+can put the nonce on its own scripts while it renders), and `app/layout.tsx` and the landing's
+`BootScript` read `x-nonce` for the two scripts that are ours. `next.config.ts` keeps the four
+headers that are the same for every response.
+
+**What it cost.** Every page is now rendered per request, which is the documented price: a page
+built ahead of time has no request to take a nonce from. `/terms` and `/privacy` were the only
+static routes; they still read no session and no database (P12).
+
+**Rejected.** `'strict-dynamic'`: it would make the host list meaningless and let any script a
+trusted one creates run, when the three that add scripts at runtime (Plaid, Turnstile, Vercel's
+toolbar on previews) are known and named. A nonce in `style-src`: it switches off
+`'unsafe-inline'` for styles, and the landing's motion and three.js write styles through the DOM
+on every frame. Hashes instead of a nonce: the landing's boot script carries values that change
+with the copy, so its hash would be a second thing to keep in step with `microcopy.md`.
+
+---
+
+## 2026-09-28 - Both databases are asked one question a day
+
+**P21. A free Supabase project is kept awake by a scheduled question, and the same question
+is the watch.** G42 put three answers in front of the founder: a paid project, a scheduled
+probe, or an accepted risk written down. He chose the probe.
+
+**What it is.** `tools/keepalive.cjs` asks each project for one row of the catalogue, with the
+public anon key and no session. Row level security answers `[]`, and that is still a query
+through the database API, which is the traffic that keeps a project from pausing. It fails
+when a project does not answer (a paused one has no hostname at all, so the failure is a DNS
+error and it names that), when it answers anything but 200, and when a stranger is handed a
+row, which would be a leak and not a pulse. `.github/workflows/keepalive.yml` runs it daily at
+06:17 UTC; GitHub mails the owner when a scheduled run fails.
+
+**Both projects and not only the live one.** `dev.tendd.co` is where the founder looks first
+(P15, P19), and a paused `tendd-dev` breaks it the same way.
+
+**Rejected.** A Vercel Cron: crons run on the production deployment only, so it could keep the
+live project awake and never `tendd-dev`, and a route that answers anybody on the internet is
+one more door for a job that needs none. The service role key in GitHub: it can read and write
+every row, and `ci.yml` exists on the promise that no such key goes near the runners. A paid
+plan: the founder's call, and not needed for the one thing this fixes.
+
+**What it does not fix.** A scheduled workflow runs from the default branch only, so it
+starts the day `dev` is merged; and GitHub disables schedules in a repository with no activity
+for sixty days only when the repository is public, which this one is not.
+
+---
+
+## 2026-09-28 - The free scan ends its own Item
+
+**P20. A free person's bank is read once: the Item is removed as soon as that read lands, and
+every way back to Plaid Link answers with node 5.13.** D-Gate said both on 2026-09-02 ("the
+Item is removed after the scan, and this is not optional"), and neither was built. The product
+connected a free person's bank and kept reading it, which is the exact cost D-Gate was written
+to stop, and it let the same person scan again as often as they liked, which is the gate with
+its door open. Found while listing what can be done before Stripe and Plaid production: under
+Sandbox it costs nothing, and on the first day of production every free scan would have been a
+permanent line on the invoice.
+
+**What it is.**
+- `connectBank` reads, then calls the same `disconnectBank` that node 6.14 uses. The rows stay,
+  the source row stays as `disconnected` and dated by the read, the key is gone here and at
+  Plaid. A disconnect is already what this state is, so it is one path and not two.
+- Only after a read that READ. `syncSource` now returns `null` when Plaid is still working out
+  what repeats, and 0 only when it looked and found nothing (node 1.3.3). Removing the Item on
+  `null` would spend the one free scan on nothing; that Item stays until the webhook exists
+  (G51).
+- `mayScan` answers "may this person open Link": Pro always, Free only with no bank source at
+  all. It is read from rows that already exist (P3), and the source row surviving a disconnect
+  is also what stops a disconnect from buying a second free scan.
+- It is asked in three places, because there are three doors: `/connect-bank` redirects to
+  `/upgrade?from=bank` before drawing anything, and both Plaid routes answer 403 `SCAN_USED` to
+  anybody who skips the screen, the exchange before any access token is issued.
+- Home prints the third trust edition, owned since D-Gate: "Found in Chase on Aug 30. Nothing
+  is being read now, and the list is yours to keep up to date." (G3), and no longer offers
+  "connect your bank and Tendd finds the rest" to somebody whose bank already did.
+
+**Rejected.** A `scanned_at` column on the profile: a stored copy of "has a bank source", wrong
+the day somebody deletes a source by hand (P3). Leaving the Item alive for a grace period, so
+a person who upgrades that week keeps reading: it is a Pro feature given away to everybody who
+does not upgrade, paid for per Item, and nobody can upgrade yet anyway. Hiding the "Connect
+your bank" doors from a free person with a used scan: the doors are the same words on four
+screens, and one gate behind them keeps them one set of words.
+
+`npm run check:bank` walks it: 23 checks, nine new, among them that no key is left behind and
+that a second public token is refused before the exchange.
+
+---
+
+## 2026-09-27 - Dev is the real thing first
+
+**P19. tendd-dev carries the live project's settings, and a change to them lands on dev
+first.** The founder, after dev sent him Supabase's plain default letter: dev must not lag
+behind production; it must be realistic, the first place a thing exists and not a cheaper copy
+of the second. The same day showed what the lag costs: dev allowed two letters an hour through
+Supabase's shared sender, so the resend timer looked broken on dev.tendd.co and was not.
+
+The code was already one code on both addresses (P15). The settings were two, kept by hand in
+two dashboards. So:
+- the founder moved dev onto the same Resend SMTP as live;
+- `check:mail` asks both projects every question it asked the live one, and its `--push`
+  writes the letters to tendd-dev; `--push-live` writes them to the live project, after the
+  merge, in the order P15 gives a migration;
+- `check:parity` reads the Auth settings of both projects and names every one that differs,
+  except the addresses (each project's own by design), and it reads secrets only as set or
+  not set.
+
+**Rejected.** Copying settings from live to dev with a script: it would write to a project,
+and the laptop does not write to the live one; nor should it decide which of two differing
+values is the right one. The founder decides, in the dashboard, dev first.
+
+---
+
+## 2026-09-27 - The first security pass, and what it changed
+
+**P18. Every response carries four protective headers and a reporting CSP, www is one
+redirect, and the sign-in letter is asked for behind Cloudflare Turnstile.** The founder asked
+whether the product should be checked for leaked keys, DDoS and the rest, now that it is live.
+
+**What was measured and held.** No key in the whole git history (the patterns of Supabase,
+Plaid, Resend, Google, GitHub, AWS and private keys); none of the five server-only values in the
+30 files a browser downloads, and no Supabase key at all in the 12 files the live site serves;
+row level security at 19 checks both ways; all three API routes answer 401 to a stranger; the
+two helpers that hold the admin key are `server-only` and called with the session's own id;
+`dev.tendd.co` and every preview sit behind Vercel's sign-in; http is redirected and HSTS is on.
+Volumetric DDoS is Vercel's to absorb, on every plan, and Supabase cannot be hammered from a
+browser because no key for it is published.
+
+**What it changed.**
+- `next.config.ts` sends X-Frame-Options, nosniff, a Referrer-Policy and a Permissions-Policy,
+  enforced, and a Content-Security-Policy in report-only. A walk through every screen, the
+  dialog, a send and Plaid's Link reported nothing; it is enforced once the inline scripts have
+  a nonce.
+- `www.tendd.co` redirects to `tendd.co`. It served the whole product, and a Google sign-in
+  started there would have failed: its PKCE verifier stays in a cookie on www.
+- `sharp` 0.35.3 to 0.35.4 (npm audit, high, libheif).
+- **Turnstile guards the letter.** Asking for a link costs a letter from a counted hourly
+  allowance, so a script asking for a thousand spends it and a real person's link never comes.
+  That is the one denial of service here that needs no traffic worth the name. The widget is
+  invisible to nearly everybody (`interaction-only`), its token rides with the form, and
+  Supabase checks it before sending. Google needs no token. The order of the switch is fixed:
+  the public site key reaches the pages first, the secret goes into each Supabase project
+  second, because a project that asks for tokens before the page has any refuses every letter.
+  The privacy policy names what Turnstile sees.
+
+**Rejected.** A Vercel Firewall rate limit instead of Turnstile: it counts requests per address,
+which a script spreads across many, and it would be a rule in a dashboard rather than in this
+repository. Enforcing the CSP today: a wrong policy blocks a sign-in on the day it ships.
+
+---
+
+## 2026-09-27 - Sign in and Get started are panels, opened over the landing
+
+**P17. The way in is one panel in three steps, and on the public page it opens as a dialog.**
+The founder found the sign-in screen dull and wordy and asked for the action in front: Google
+first, with its mark, email as a second button that leads to the field, in a dialog rather than
+a separate page, and the explanations moved to the privacy policy and the terms. He named a
+Refero example as the floor and asked for something as alive as Light 2.
+
+**What it is.** `components/auth/SignInPanel.tsx` holds three steps, `choose`, `email` and
+`sent`, and grows or shrinks between them rather than jumping. At its top the mark sits on a
+dotted orbit with six of the fourteen tiles going round it, the landing's own marks; when the
+link is sent the mark turns into an envelope. Google is the page's pill at full width, and a
+light crosses it once as the panel arrives. `system/components/landing-auth.css` owns all of
+it, scoped to `.landing`, so the panel is light in both themes, like the page it opens over.
+
+**Where it stands.** On the landing, `SignInDialog.tsx` catches a plain click on any link to
+`/sign-in` and opens a native `<dialog>` over the page, which holds still under it. The links
+stay links, so a new tab or a page with no script still reaches `/sign-in`, which is the same
+panel on a page of its own. Guards, expired links and the doors of node 1.2 all land there,
+because they arrive by address. The dialog is not a route: a modal that owns a URL costs the
+root layout a parallel slot and gives a sign-in form a history entry nobody asked for.
+
+**What changed underneath.** `sendLink` redirected to `?sent=`, which would have taken the page
+away from under the dialog; `requestLink` returns the address instead, and the panel moves to
+its next step. `?sent=` and `?expired=1` still open the page on those states.
+
+**What it cost.** Most of the words, on purpose; the rewrite log in `microcopy.md` lists each.
+"No account yet? Start here" went, because both ways in start an account. Google moved from the
+secondary action to the primary one, which reverses the reasoning recorded on 2026-09-08 (the
+link was the way the product was designed around) by the founder's choice. The button still
+exists only when the provider does (P11): on `tendd-dev` Google is off, so `dev.tendd.co`
+opens the panel straight on the field until the provider is switched on there too.
+
+**Get started, the same way.** Seeing it, the founder asked for "Get started" to be as alive.
+Node 1.2 is now `components/auth/StartPanel.tsx`: the heading and the D-Gate promise, and two
+doors drawn identically (D2) with a picture on each, the bank sending what it reads along a
+locked wire, and a short list with the next row being written. On the landing a plain click on
+any "Get started free" opens it in the same dialog; a door turns the dialog to sign-in with that
+door carried, and the arrow there turns it back. `/path-choice` is the same card on the public
+page's ground, and there the doors are still links to `/sign-in?path=...`. The legal line left
+the doors, because the agreement is now asked for one step later, where the account is made.
+
+**What the founder found on dev, and what fixed it.** The page behind the dialog re-wrapped as
+it opened: hiding the page's overflow takes a desktop scrollbar away, and every `vw` on the
+landing grows by its width, so the hero's heading changed lines. Keeping the gutter did not
+help, because `vw` still grows. The page's overflow is now left alone wherever a scrollbar
+takes room, where a stopped Lenis already holds the wheel, and hidden only where scrollbars
+float. On a phone the stopped Lenis also swallowed the dialog's own swipes, so the dialog
+carries `data-lenis-prevent`. And the hero's heading is two lines wherever the hero has two
+columns, "See what you're" over "paying for. Calmly.", the founder's call: its size follows
+the body container at 5% of its width, up to 4.4rem, instead of the window.
+
+**Rejected.** A Next intercepting route for the modal (above). Keeping the old page and
+restyling it (the founder asked for a dialog). A divider reading "or" between the two buttons:
+no line owns it, and two stacked buttons of different weight already read as a choice.
+
+---
+
+## 2026-09-26 - The landing is Light 2, and it is white in both themes
+
+**P16. The public page is Light 2, and it is pinned to the light theme.** The founder asked for
+a more modern, more alive landing, chose among six explorations built outside the product
+(`explorations/landing-b/`, not committed), and took "Light 2" through four rounds of notes:
+Editorial's floating icons in the hero, a whirlpool that eats them as the page scrolls, the
+mark assembling at its eye, the list forming out of it, a galaxy at the close, and a button
+whose circle erases its own label. His note on the colour asked for a light page with no dark
+surfaces anywhere, white and petrol only. So the root of node 1.1 carries `data-theme="light"`, which
+the tokens have honoured on a subtree since the colour page needed it, and a person who chose
+dark in Settings meets the app in dark and this page in white.
+
+**What it replaced, and what it kept.** D-Hero's round window, its eight strands and its
+conductor are gone, with `landing-orbit.css` and `StoryConductor.tsx`. The argument is the
+one D-Hero made and it is told with the same numbers: fourteen services, three cancelled,
+192.90 down to 144.92, Netflix, Peloton App and The New York Times. Every string is one
+`microcopy.md` already owned (the section of that file says which lines are used twice now).
+The links are the product's: the action goes to node 1.2 and "Sign in" to the form, as before.
+
+**How it is built, and the rules it had to bend.**
+- The markup is a server component and complete without a script. `motion.ts` moves what is
+  already there; `world.ts` is a WebGL canvas (three.js) loaded only where a canvas can draw
+  it, fixed over the cards and under every word. With no WebGL the hero shows the icons as
+  still images; under reduced motion the story is an ordinary section at its last state.
+- One boot script runs before paint, because the words that rise must be hidden before they
+  are seen and the curtain counts while React loads. It has two fallbacks, at 2.4s and 3.2s.
+- The page scales fluidly, so its sizes are `clamp()` literals declared once as locals in
+  `landing-shell.css`. Colour never is: every shade is a role or a share of one, and one role
+  was added for it, `--tone-shade`, the colour a shadow is cast in, in both themes.
+- The shaders carry the petrol primitives as numbers, because a shader cannot read a custom
+  property. That is written at the head of `world.ts`, and the pin is what makes it safe.
+- Every class on the page is `lp-` or `is-`, because `.row`, `.card`, `.btn`, `.total` and a
+  dozen other short names are already the app's, styled under `.landing` as well.
+
+**Rejected:** following the person's theme on this page. The whole look was designed on
+white, and a dark version of a white composition is a second design nobody drew.
+**Rejected:** keeping the prototype as a static file served beside the app, which would have
+put every string in a second place.
+
+---
+
+## 2026-09-02 - Seven rules the product had been obeying without a name
+
+The log arrives from the design repository holding no entry made in this one, and that is not
+because nothing was decided here. Fourteen commits carry their reasoning in full, and seven of
+those reasons are RULES rather than changes: they bind what gets written next, they were each
+applied more than once, and until today none of them had an id a comment could point at.
+
+They are named here and not restated. **The commit is the record**, this is the pointer, and
+copying a commit body into a file is how two copies start disagreeing.
+
+**P1. A secret is never a column on a table the app selects.** `bank_credential` holds the
+Plaid access token in its own table with row level security ON and no policy at all, which
+returns nothing to anybody in any session. The ground is that `select *` is the normal way to
+read a row and one day somebody writes one, and that token is a standing permission to read
+every transaction on an account. Safety as a property of the schema rather than of everybody
+remembering. `84cd560`, migration `0005`, checked by `npm run check:bank` with the browser key.
+
+**P2. The matcher errs towards not knowing.** Three attempts in order of how much each one
+proves: the recorded statement descriptor, then the merchant the provider names, then a whole
+first word of a service name. **Two candidates return nothing**, because a row filed under the
+wrong merchant is worse than a row that says it does not know, and node 2.7.4 exists to ask.
+`84cd560` and `9a82f81`, `lib/plaid-map.ts`.
+
+**P3. Nothing derivable is stored.** A monthly total is the list as it stood then, walked
+backwards through dated events; a coming-up charge is read off the next charge date. Neither
+gets a table. A stored copy of something derivable is the copy that goes wrong the day somebody
+corrects an amount, and it is wrong silently. `0135da0` and `383e2cc`, `lib/db/trends.ts`,
+`lib/db/alerts.ts`.
+
+**P4. Where the prototype could only show a state, the product keeps it.** The design's
+switches "show state and do not keep it", which is honest for a clickable page and a lie in a
+running product: a switch that forgets takes an instruction and discards it, and the person
+finds out when the alert they turned off arrives anyway. Every such case becomes a column.
+`383e2cc`, migrations `0002` and `0008`.
+
+**P5. A control that changes or ends something is a POST.** Sign out, remove a subscription,
+disconnect a bank, delete everything. A GET that does any of them is followed by prefetchers,
+link scanners and tab restores. Where the design draws an anchor, the element becomes a button
+wearing the same `.btn`, and where the class was written for anchors only the deviation is
+recorded rather than smuggled. `383e2cc`, `41cea3c`, and `G12`, `G14` in `docs/gaps.md`.
+
+**P6. An instrument never types its own corpus.** A check that hard-codes what it expects to
+find passes until the corpus grows and then reports a defect that is its own. Stated first in
+`screens-check.cjs`, broken twice and fixed both times: the cancel walk that never rebuilt the
+person it walked as, and the row level security check that asked for 14 catalogue rows and
+failed at 111. `e74e8f1`.
+
+**P7. A screen is a component and a state is data.** The design writes each state as its own
+file because a static page cannot branch. Here `home.html`, `home-few.html`, `home-one.html` and
+`home-cancelled.html` are one component and four shapes of data. Porting them as four components
+rebuilds the problem the system was built to avoid. It has been in `CLAUDE.md` since the first
+week and is written down here so it has an id. `4c0bfb1` onward, every route.
+
+**P8. A preview deployment learns its own address from the request, and nothing else does.** A
+magic link has to come back to the build the person was actually looking at. Production and a
+laptop both know their own origin and read it from configuration. A preview does not: its host
+changes on every push, so a single configured value would send every branch build's link to
+whichever origin was written down last, and the founder reviewing a branch would be signed in
+to a different build than the one on screen. `lib/origin.ts` reads `x-forwarded-host` when
+`VERCEL_ENV` is `preview`, and the configured value everywhere else. Trusting a host header is
+normally how an open redirect starts, and it is safe here for exactly one reason: Supabase
+refuses to redirect to any URL outside the project's allow list, so the header can only choose
+among origins already approved and can never introduce one. **The allow list is load bearing
+and must never be widened to a bare wildcard.** Rejected: one variable per environment, which
+fails silently and only for previews, which is where nobody is looking for it.
+
+**P9. A choice made before there is an account travels in the link, and it is a token and never
+a URL.** Node 1.2 asks a person to pick a door, both doors need a session (G22), and between the
+pick and the door there is a mail client, so the choice has to survive leaving the browser.
+
+The obvious carrier is `?next=/connect-bank`, and it is also an open redirect the first day
+somebody relaxes the validation, because a value that is already a URL only has to escape once.
+So the carrier is one of two WORDS, mapped to a path on the server by `lib/chosen-path.ts`. The
+worst a tampered link can do is name a door that does not exist and land on the list. That half
+has not changed and will not.
+
+**The first carrier was an httpOnly cookie, and the founder's own walk killed it on
+2026-09-04.** He chose a door on the preview, opened the mail, and landed on the empty list. A
+cookie is airtight and survives exactly one device; choosing on a laptop and opening the mail on
+a phone is the ordinary case, not the exotic one, and a link travels by definition because that
+is the entire job of a link. It now rides in `emailRedirectTo` as `?door=`, which Supabase
+preserves and which the redirect allow list still has to approve. Both facts were measured
+against the live project before the change, not assumed.
+
+What that also bought: the rule became pure, so the forgeries are checked in
+`lib/chosen-path.test.ts` as arithmetic rather than in a browser, and `npm run check:path` keeps
+only what needs a browser. The choice is carried through the sent screen as well, because asking
+for a second link was otherwise the one way to lose a door already chosen.
+
+**P10. The root serves two screens and the session picks between them.** A stranger gets node
+1.1, the only public surface this product has; a person with a list gets the list. This address
+answered `/sign-in` from the first week until node 1.1 was built, which is defensible for an app
+and indefensible for a product: the front door was a form, and no word on it said what Tendd is.
+
+It is also what left node 1.2 stranded. The design puts the landing before the fork, and with no
+landing the fork was reachable only through a quiet line at the foot of the sign-in screen. The
+founder walked past it twice while looking for it deliberately, which is as clear a measurement
+of a discoverability problem as anyone gets. Two proposals were on the table, one of them to make
+that quiet line louder; both were treating the symptom.
+
+Two screens at ONE address rather than a `/welcome` route, because the address a person is given
+is the address the product lives at, and a landing that has to be found at a second URL is a
+brochure. P7 from the other side: the screen is a component and the session is the data.
+
+The one structural thing on node 1.1 that is not a verbatim copy of the design is a `main`
+landmark. The design page has none, correctly: it lived inside the kit's own shell with a sidebar
+around it, so a `main` would have claimed the wrong half of the document. Here the landing is the
+document, and it was the only screen in the product a screen reader could not skip into.
+
+**P11. The second way in is Google, and the button exists only when the provider does.** Node
+1.6 was drawn as an email and a link, and nothing in the record ever weighed that against a
+provider button: an absence, not a decision. What the absence cost showed up on 2026-09-08, when
+the founder could not get into his own product at all, because a link has to survive a mail
+client, a redirect allow list and whichever device the mail was opened on. A provider press has
+none of those three.
+
+**Google does not expose OAuth client creation for a web application through any API or CLI**,
+only the Console, because the consent screen is a legal statement about the company. So the step
+was always going to be the founder's, and everything on both sides of it was built to wait: the
+owned line, the button, the action, and the door carried through OAuth as the same token it
+rides through the mail, `lib/chosen-path.ts` either way.
+
+The button is drawn from `lib/providers.ts`, which asks the project's own `/auth/v1/settings`
+whether `external.google` is on and caches the answer for five minutes. It therefore appeared by
+itself on the day the provider was switched on, and it can never be a button that fails after
+the press. Rejected: a `NEXT_PUBLIC_GOOGLE_ON` variable, which is P3 exactly, a stored copy of a
+fact the service already publishes, wrong the first time somebody toggles the provider and does
+not redeploy.
+
+One thing the Console makes easy to get wrong: the consent screen belongs to a Google Cloud
+project, and its App name is what a person reads in the Google window. Creating the client
+inside a project that already exists for something else puts that something else's name on
+Tendd's sign-in. The client was created in a project of its own.
+
+**Closed 2026-09-20**, when the founder signed in through Google on production. Going past
+Google's Testing mode, where only listed accounts may sign in, needs a privacy policy and terms,
+which is G38 and G40 arriving as a bill.
+
+**P12. A public screen links to a public document, an in-app screen links to the in-app screen.**
+Node 1.2 has always ended with "By starting you agree to our Terms and Privacy Policy", and the
+landing offers "Read what we access", "Privacy", "Terms" and "Data and privacy". Every one of
+those either pointed at `#` or at `/data-privacy`, which is node 6.15 and guards itself. So the
+product asked a stranger to agree to two documents and answered the request to read them with a
+sign-in form, and it did that on the two screens whose entire job is to be trusted by somebody
+who has not decided yet. Written as G38 and G40 on the day the landing was built, and left open
+because the honest fix was two pages that did not exist.
+
+`/terms` and `/privacy` exist now, and `/data-privacy` does not go away. They are not two copies
+of one thing: the guarded screen is a control panel, two switches and a download and a delete,
+for a person who already trusted us enough to have an account; the public pages are documents
+with no controls at all, for the person deciding. Each now ends by naming the other. The five
+in-app links that read "Data and privacy" did not move, because somebody already signed in wants
+the switches and not the prose.
+
+**Both pages read nothing.** No claims check, not even the redirect to `/` that `/sign-in` and
+`/path-choice` perform for a person who is already signed in, and no database call: they are the
+only screens in the product that touch neither the session nor Supabase, and the build prints
+them as the only two static routes in the app. A document that states what we agreed has to be
+readable by a stranger, by a member, and by somebody with no account at all who is checking on
+the other two.
+
+**The standard `/data-privacy` set is the standard these are held to**: every claim is read out
+of the code before it is written down, because a promise a reader cannot check is the vague
+reassurance the voice forbids. Who else can see your data is the list of hostnames the running
+product actually talks to, and Google Fonts is on it, because the typeface is fetched from
+Google on every page load and that is a disclosure rather than a courtesy. "There is no
+advertising, no analytics and no tracking of any kind in Tendd" was verified and not assumed: no
+analytics SDK, no error reporter, and not one `console` call in `app/`, `lib/` or `components/`.
+The three promises are not new strings, they are the three `data-privacy` already owns, printed
+again word for word, which one owner per string is what makes safe.
+
+**What these pages do NOT say is the whole of G43**: who is answerable for the data, and the
+address to write to. The founder's answer on 2026-09-20 was that it is him as a private person
+today and will be a company abroad later, with the instruction to write that down so the change
+is not missed. Neither the name nor the address may be invented, so the section is absent rather
+than plausible, which is the same rule this repository applies to a button label.
+
+One more link moved with them, and it is not legal. Node 1.2's Back pointed at `/sign-in`
+because the landing the design points it at did not exist on 2026-09-03. P10 built it, and the
+landing now enters node 1.2 from five places against sign-in's one, so Back is the landing again
+and `tools/path-check.cjs` expects it.
+
+
+**P13. The deployed product gets an instrument of its own, and it walks the address a person is
+actually given.** Every other check in `tools/` runs against localhost, which is right for all of
+them: they ask whether the code is correct, and the code is the same code. None of them can see
+the layer that only exists once it is deployed.
+
+**Both failures that actually reached the founder were in that layer.** On 2026-09-08 a sign-in
+link opened `localhost` on his phone, because production was not on Supabase's allow list. On
+2026-09-20 every way into Tendd was dead for a day, because a free Supabase project pauses itself
+and loses its hostname while the site keeps serving pages. A clean local run reported nothing
+either time. `check:origin` was written for the first and answers one question; this answers the
+rest of them.
+
+It asks one thing in two halves. **A stranger:** does the front door open, are the two legal
+documents readable without a session, and do the guarded screens still guard. A public page that
+bounces is G38 coming back; a guarded page that does not bounce is every row of the database.
+**A person, signed in through a real link on the real address:** does each screen answer, does it
+carry its own heading, and did every request the page made come back. A 404 on a logo or a
+stylesheet is invisible to a type check and obvious to a human being.
+
+**It writes nothing, and that is the decision rather than an oversight.** This is the live
+product. An instrument that changes live data to prove the live data is fine has already cost
+more than it can find, so the journeys that must press a button stay local, in `check:flow` and
+`check:bank`, against the same code. 51 checks, and the id it opens is whichever row is first on
+that person's own Home rather than one typed here (P6).
+
+**P14. The sign-in letter is written and rendered here, and the dashboard holds only the
+secret.** Until 2026-09-24 the one piece of product copy every person reads before any screen
+was Supabase's default, "Magic Link" and "Follow this link to login", and it lived in a
+dashboard text box that no diff, review or instrument could see. G46.
+
+**The words go through microcopy.md like every other line, and the letter is a file.**
+`supabase/templates/sign-in.html` is one source for both letters Supabase sends: a Go template
+cannot tell a first sign-in from a returning one, so the file marks the blocks that belong to
+each and `tools/mail-check.cjs` cuts two letters from it. The first letter is allowed to say
+what the screen may not, that this address has no account yet, because only the owner of the
+address reads it, and it says so for the person who typed an address from a month ago.
+
+**Its colours are tokens, resolved at push.** A mail client reads no stylesheet and no custom
+property, so this is the one surface the system cannot reach. It is written with `var(--token)`
+anyway, and the tool resolves each against the light theme before the letter leaves, so a
+corrected token reaches the inbox on the next push instead of being typed a second time.
+Rejected: a hex palette in the template, which is the second copy of a value that the system's
+own CLAUDE.md exists to prevent.
+
+**What the tool writes is the subjects and the letters, and never the SMTP credentials.** Those
+are entered once, in the dashboard, by the person who holds the sending account. Rejected:
+pushing them from `.env.local` too, which would put a second live secret on a laptop that
+already runs instruments against the production database (G44) for the saving of one form.
+
+**The policy follows the sender.** `/privacy` names who sends the sign-in email, and the check
+fails when that name and the SMTP host disagree, because the day the mail moves off Supabase
+is the day the Supabase row stops being true, and no other instrument would notice.
+
+**The link in the letter is ours, amended the same day.** The first letter carried Supabase's
+`{{ .ConfirmationURL }}`, and the founder, reading it on his phone, saw
+`ragdblyhatwaaohcnpgw.supabase.co` printed under the button: a stranger's hostname, at the one
+moment a person is asked to trust a link. That URL also finishes the sign-in with a PKCE code
+whose verifier lives in the browser that asked for the link. The letter now points at our own
+`/auth/callback` on whichever origin asked (`{{ .RedirectTo }}`), with the token hash, and the
+callback verifies it itself, so the link does not care which browser opens it. `type=email`
+verifies both letters, measured on a first sign-in and a returning one. Rejected: deleting the
+printed fallback and keeping only the button, which hides the hostname in the text and still
+sends the person through it.
+
+**P15. Two databases, and the live one is the one that already existed.** G44 said the fix was a
+new project for production. It went the other way round on 2026-09-25: the project that has run
+Tendd since August stays live, because everything the founder configured by hand in the last
+month lives in it and nowhere else (the Resend SMTP, the two letters, Google as a provider, the
+allow list, his own account). Moving production would have meant re-entering all of it on the
+live path, at the one moment a mistake is visible to strangers. The new project, `tendd-dev`,
+is the one that is allowed to be wrong.
+
+What sits where, and it is decided by which file a process reads rather than by care:
+
+| | Live project | `tendd-dev` |
+|---|---|---|
+| Serves | `tendd.co`, and the old `tendd-theta.vercel.app` | every Vercel preview, `dev.tendd.co` on the `dev` branch, `localhost` |
+| Laptop file | `.env.prod`, read by `check:prod`, `check:mail`, `check:origin` | `.env.local`, read by `next dev` and every other instrument |
+| Supabase CLI | reached only deliberately, below | linked, so `npm run db:push` lands here |
+| Mail | Resend, the owned letters | Supabase's shared sender and its default letters: a free project refuses template changes without its own SMTP, measured. **The shared sender allows two letters an hour for the whole project**, which is why the founder's second link on dev was refused on 2026-09-27 (`over_email_send_rate_limit`, read from the logs) |
+| Google | on | on since 2026-09-27, the same OAuth client (P17); it was off, and the button was not drawn (P11) |
+
+**A migration reaches the live project on purpose, never by default.** Push it to `tendd-dev`
+with `npm run db:push`, run the instruments, then `npx supabase link --project-ref <live ref>`,
+`npx supabase db push`, and link back to `tendd-dev` straight away. Rejected: a `db:push:prod`
+script, because a one-word difference between the two commands is exactly the accident this
+entry exists to prevent.
+
+**`check:origin` holds the wall.** It compares the database each Vercel environment reads, fails
+if this laptop and production name the same project, and asks the live project to refuse a link
+to a preview or to `localhost`, since a link that can carry somebody from a sandbox into the
+product is a door in the wall.
 
 ---
 
@@ -43,6 +1055,12 @@ two doors stay two doors; their weight is no longer equal.
 **D1 is untouched in order and cut in the middle.** Count, then categories, then the total,
 each with its own action. The gate lands inside step 2: the count is free, the total is free,
 and the names are three.
+
+**AND THAT IS WHERE THE ONLY GATE IS.** Worth stating because the first draft of this entry got
+it wrong: the paywall is not a locked door at the entrance. It is a locked LIST, and it appears
+exactly twice, in reveal step 2 and on Home, both times over rows that are really there. A
+person meets it having already been shown their count and their total, which is the whole reason
+the founder chose this shape over marking the door Pro.
 
 **WHICH THREE, AND THE GROUND FOR IT.** Three from three different categories, not the three
 largest. Step 2 of the reveal is about categories, so three categories is what proves the scan
@@ -92,7 +1110,12 @@ constraint on everything below.
   that shows "the shape of what Pro opens" with inert controls, on the stated ground that "a
   control that cannot be used must not move anything". A list that shows real rows obscured is
   a new object and enters the system as one, in full, before any screen wears it.
-- **Node 1.2**, the two doors, redrawn with one of them paid.
+- **Node 1.2**, the two doors. **Corrected 2026-09-02, later the same day:** the bank door is
+  not locked and this entry first said it was. Under the shape the founder chose, a free person
+  walks through it once and the scan runs; what is paid is every scan after the first and every
+  name past the third. So node 1.2 does not need a locked door, it needs to stop promising that
+  "either way you land on the same calm view", which is the one line on it that D-Gate makes
+  false.
 - **Node 1.5**, the reveal, with the gate inside step 2.
 - **Node 5.13**, the upgrade screen, which today sells trends, advanced alerts and export and
   has no card selling a bank connection at all.

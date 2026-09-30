@@ -128,7 +128,11 @@ const f2 = colour.filter(r => r.row && r.chip && r.row !== r.chip);
 const f3 = colour.filter(r => r.inChain && r.onward === 0);
 const greyPlan = new Set(grey.filter(r => r.chip).map(r => r.page));
 const colPlan = new Set(colour.filter(r => r.chip).map(r => r.page));
-const f4 = [...new Set([...greyPlan, ...colPlan])].filter(p => greyPlan.has(p) !== colPlan.has(p));
+/* ONLY WHERE BOTH CORPORA HAVE THE PAGE, 2026-09-30. Since the mirror (CLAUDE.md,
+   The mirror) a page the product added has no grey twin and says so in its top
+   comment, so it cannot disagree with a grey page that does not exist. */
+const greyPages = new Set(grey.map(r => r.page));
+const f4 = [...new Set([...greyPlan, ...colPlan])].filter(p => greyPages.has(p) && greyPlan.has(p) !== colPlan.has(p));
 const report = (n, label, rows) => say('  ' + (rows.length ? 'FINDING  ' : 'ok       ') +
   label.padEnd(58) + rows.length + (rows.length ? '   ' + rows.map(r => r.page || r).join(', ') : ''));
 report(1, 'an offer of Pro that is the only way on', f1);

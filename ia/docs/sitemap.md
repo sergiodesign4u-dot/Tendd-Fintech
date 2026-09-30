@@ -488,6 +488,25 @@ Notes on structure:
   requirement met by Home, Guided Reveal, and Cancel Win rather than a
   standalone screen. The coverage matrix records where it is served.
 
+### Public documents the product added (mirrored 2026-09-30)
+
+**Not IA nodes, and deliberately not numbered here.** The IA was frozen at v1.0; the running
+product added five public pages outside the node map, each for a reason written in its log
+(`docs/decisions.md`, mirrored from the product). They are recorded here so the map does not
+pretend the product has only seventeen screens. The only public surface the IA drew is node 1.1.
+
+| Route | Page in colour | Why it exists | Decision |
+|---|---|---|---|
+| `/terms` | `design/terms.html` | Node 1.2 asked a stranger to agree to Terms that did not exist; since 2026-09-29 it also says how paying works | P12, P35 |
+| `/privacy` | `design/privacy.html` | The same, for the Privacy Policy; names every service that sees data | P12, P18, P35 |
+| `/help` | `design/help.html` | Fourteen questions, answered with lines the product already says; public, because the people who need it most cannot sign in | P36 |
+| `/about` | `design/about.html` | What Tendd is, why, what it will not do, who runs it | P36 |
+| `/contact` | `design/contact.html` | Two addresses, and the absence of a phone and a chat said out loud | P36 |
+
+The footer's "Careers" became "Help" in the same change (P36). Node 1.6 Sign in and node 1.2 Path
+Choice also became panels that open over node 1.1 as a dialog (P17); they keep their node numbers
+and their own addresses.
+
 ---
 
 ## Navigation

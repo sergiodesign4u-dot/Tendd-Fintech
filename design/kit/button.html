@@ -47,7 +47,7 @@
     <h1>Button</h1>
     <p class="lead">The etalon of the system: the first component written and the template every other one follows. It stands on more pages than anything else in the product, it is the loudest object after the monthly total, and it is the reason the state tokens exist.</p>
     <div class="kit-meta">
-      <span>Atom</span><span><strong>37</strong> grey pages</span><span>1 axis, 2 values</span><span>4 states, both themes</span>
+      <span>Atom</span><span><strong>37</strong> grey pages</span><span>1 axis, 2 values</span><span>2 shape modifiers since 2026-09-29 (P34)</span><span>4 states, both themes</span>
     </div>
   </header>
 
@@ -137,6 +137,35 @@
         </tbody>
       </table>
     </div>
+    <h3 class="kit-sub-h" id="pill">The pill and the arrow, 2026-09-29</h3>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P34).</b> Two modifiers arrived with the locked block, when the founder asked for it in the public page's language ("как на хоумпейдж"). <code>.pill</code> rounds the button fully and gives it <code>--space-24</code> of side padding; <code>.go</code> adds an arrow after the label, a mask over <code>currentColor</code> 16px wide, that travels one <code>--nudge</code> toward where it points on hover, which is U13's advance verb. They are <b>modifiers and not a new button</b>, so the fill, the ink, the four states, the lift and the ring are this file's own and cannot drift: <code>.btn.primary.pill.go</code> is still a filled button, and <code>.btn.pill</code> still an outline one. The landing's own pill, <code>.lp-btn</code>, is a different component (<a href="landing-button.html">Landing button</a>) at the public page's size; this is the app's button in its shape.</p>
+    <div class="kit-matrix">
+      <table>
+        <thead>
+          <tr>
+            <th>Shape<p class="axis-rule">Spent where the product SELLS, and there only. Inside a task a button is one of several and takes the control radius; the pill is the landing's shape, borrowed for the one block that leads to the plans</p></th>
+            <th class="val">Tokens</th>
+            <th>Where it stands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Pill, arrow</b> <code>.btn.primary.pill.go</code></td>
+            <td class="val">radius 999px<br>--space-24 sides<br>--space-8 gap, --nudge</td>
+            <td>The locked block on Home and on the reveal: "Get Tendd Pro", and "Connect your bank" on Pro with unnamed rows</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><a class="btn primary pill go" href="#pill">Get Tendd Pro</a></span></td></tr>
+          <tr>
+            <td><b>Pill</b> <code>.btn.pill</code></td>
+            <td class="val">radius 999px<br>--space-24 sides</td>
+            <td>The same block's second way on, "Add them yourself", the outline beside the fill</td>
+          </tr>
+          <tr><td colspan="3"><span class="kit-stage app"><a class="btn pill" href="#pill">Add them yourself</a></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>The arrow belongs to the filled one.</b> A travelling arrow says "this is the way on", and a zone has one way on (U1); the outline beside it is a real alternative and takes no arrow. <code>.go</code> without <code>.pill</code> is legal in the css and worn nowhere.</p>
+
     <p class="note"><b>The default row says 14px / 0 18px and the code says otherwise, and the code is right.</b> Both values fold onto the scale the founder adopted: the size is <code>--type-body</code> and the side padding is <code>--space-16</code>. The row is left as the record of what the button measured before the fold, which is what the pixel comparison reads it against.</p>
   </section>
 
@@ -178,8 +207,9 @@
     </div>
     <h3 class="kit-sub-h">Limits</h3>
     <p class="note"><b>U1, composition.</b> One filled action per zone. A zone is a block a person reads as one thing: the screen's own content column, or a <code class="kit-code">.panel</code>, <code class="kit-code">.card</code>, <code class="kit-code">.sheet</code>, <code class="kit-code">.rstep</code> or <code class="kit-code">&lt;form&gt;</code> inside it. The second action of a zone takes <code class="kit-code">.btn</code> without <code class="kit-code">.primary</code>. Counted across the whole grey product: 15 of 17 screens carry at most one.<br>
+      <b>The pill, since 2026-09-29 (P34).</b> <code class="kit-code">.pill</code> and <code class="kit-code">.go</code> are the product's selling shape and stand in one block, the locked list. U1 holds through them unchanged: one <code class="kit-code">.btn.primary.pill.go</code> per zone, and the second action is <code class="kit-code">.btn.pill</code> with no arrow. A pill inside a task, a form or an action foot is the landing's voice in the wrong room.<br>
       <b>U7, context.</b> A wait carries no control at all. An edge a person takes is a control; an edge the system takes is not, and a button on a loading screen offers an action the product does not have. Full table with sources and how to check: <a href="architecture.html#usage">Usage rules</a>.</p>
-    <p class="note"><b>U13, context.</b> <b>LIFT AND PRESS, and on this component they are one gesture in two halves.</b> The button <b>rises</b> one nudge to meet the pointer, and the press puts it <b>back on the surface</b> - which is why the pressed state here is level and not a nudge below the line: from the lift, the surface already is one nudge down. A disabled button does neither, because it is still a button and answering a press the product will not honour is a lie told in 2px. The distance rule holds untouched: rest to hover is one <code class="kit-code">--nudge</code>, hover to press is one, rest to press is one, and <b>nothing anywhere travels two</b>. The lift and the release run at <code class="kit-code">--dur-state</code> (150ms) on <code class="kit-code">--ease-arrive</code>; a press runs at <code class="kit-code">--dur-press</code> (90ms), because it answers a finger that is already down. The full language and the live specimens are on <a href="motion.html#verbs">Motion</a>; the table with sources is <a href="architecture.html#usage">Usage rules</a>.</p>
+    <p class="note"><b>U13, context.</b> <b>LIFT AND PRESS, and on this component they are one gesture in two halves.</b> The button <b>rises</b> one nudge to meet the pointer, and the press puts it <b>back on the surface</b> - which is why the pressed state here is level and not a nudge below the line: from the lift, the surface already is one nudge down. A disabled button does neither, because it is still a button and answering a press the product will not honour is a lie told in 2px. The distance rule holds untouched: rest to hover is one <code class="kit-code">--nudge</code>, hover to press is one, rest to press is one, and <b>nothing anywhere travels two</b>. The lift and the release run at <code class="kit-code">--dur-state</code> (150ms) on <code class="kit-code">--ease-arrive</code>; a press runs at <code class="kit-code">--dur-press</code> (90ms), because it answers a finger that is already down. <b>On <code class="kit-code">.go</code> (P34) the arrow also advances</b>, one <code class="kit-code">--nudge</code> to the right inside the button that has just lifted one: two verbs on two objects, each one nudge, so nothing travels two against its own ground. The full language and the live specimens are on <a href="motion.html#verbs">Motion</a>; the table with sources is <a href="architecture.html#usage">Usage rules</a>.</p>
     <p class="note"><b>The lift sits behind <code class="kit-code">@media (hover: hover)</code>, and that is not a width query.</b> Rule 8 forbids <code class="kit-code">@media</code> in a <b>screen</b> file; this is a component, and the reason for the query is the gesture itself: it needs a pointer that can rest somewhere without committing. A touch screen has no such state, so on a phone the block never applies and the plain press stays exactly as it shipped - a tap pushes the button down by one nudge. The same fallback covers the keyboard, where <code class="kit-code">:active</code> fires with no <code class="kit-code">:hover</code> beside it.</p>
   </section>
 
@@ -193,6 +223,7 @@
     <h3 class="kit-sub-h">Rest, live</h3>
     <div class="kit-stage app" id="live-rest">
       <a class="btn primary" href="#states" id="shot-primary">Start Tendd Pro</a>
+      <a class="btn primary pill go" href="#states">Get Tendd Pro</a>
       <a class="btn" href="#states" id="shot-outline">Maybe later</a>
       <button class="btn" type="button" id="shot-disabled" disabled>Try again</button>
     </div>
@@ -244,13 +275,16 @@ decision and outlived it, which is the same freeze it was warning about, in pros
           <tr><td>the focus ring</td><td><code>--color-focus</code></td><td><code>--petrol</code></td></tr>
           <tr><td>disabled</td><td><code>--bg-recessed</code>, <code>--line-divider</code>, <code>--text-muted</code></td><td>three roles that already existed</td></tr>
           <tr><td>corner and floor</td><td><code>--radius-sm</code>, <code>--tap</code></td><td>primitive, straight: geometry has nothing to override</td></tr>
+          <tr><td>the pill and its arrow (P34)</td><td><code>999px</code>, <code>--space-24</code>, <code>--space-8</code>, <code>--nudge</code>, <code>--dur-state</code>, <code>--ease-arrive</code></td><td>the radius is the landing's full round, a literal as it is on <code>.lp-btn</code>; the arrow's travel is the advance verb's own tokens</td></tr>
         </tbody>
       </table>
     </div>
     <p class="note">Lives in <code>design/system/components/button.css</code>. Stands on <b>38</b> grey pages and <b>44</b> coloured ones, 103 buttons, more than any other component in the product. A sample of the coloured screens carrying it: <a href="../home.html">Home</a>, <a href="../add-subscription.html">Add a Subscription</a>, <a href="../upgrade.html">Upgrade</a>, <a href="../guided-reveal.html">Guided Reveal</a>, <a href="../history-trends-locked.html">the Pro gate</a>, <a href="../settings-no-account.html">Settings, no account</a>.</p>
     <code class="kit-cmd">&lt;a class="btn primary" href="..."&gt;Connect your bank&lt;/a&gt;
 &lt;a class="btn" href="..."&gt;Add them yourself&lt;/a&gt;
-&lt;button class="btn" type="button" disabled&gt;Try again&lt;/button&gt;</code>
+&lt;button class="btn" type="button" disabled&gt;Try again&lt;/button&gt;
+&lt;a class="btn primary pill go" href="upgrade.html"&gt;Get Tendd Pro&lt;/a&gt;
+&lt;a class="btn pill" href="add-subscription.html"&gt;Add them yourself&lt;/a&gt;</code>
   </section>
 
   <footer class="kit-foot">

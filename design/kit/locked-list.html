@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Locked list - Tendd Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script>(function(){try{if(localStorage.getItem('tendd-kit-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+</head>
+<body class="kit-body">
+
+<button class="kit-toggle" id="kitToggle" aria-label="Open the system panel">&#9776; System</button>
+
+<aside class="kit-panel" id="kitPanel">
+  <div class="kit-panel-head">
+    <div class="r1">
+      <span class="kit-badge">Design system</span>
+      <button class="kit-panel-close" id="kitClose" aria-label="Close the panel">&#10005;</button>
+    </div>
+    <p class="kit-sub">tokens and components</p>
+    <div class="kit-theme" role="group" aria-label="Theme">
+      <button type="button" data-set-theme="light" aria-pressed="true">Light</button>
+      <button type="button" data-set-theme="dark" aria-pressed="false">Dark</button>
+    </div>
+  </div>
+  <nav id="kit-nav" aria-label="The system"></nav>
+  <div class="kit-panel-foot">
+    <a href="../overview.html">&larr; The product, all screens</a>
+    <a href="../concept/concept.html">The product language, Concept &nearr;</a>
+  </div>
+</aside>
+<div class="kit-overlay" id="kitOverlay"></div>
+
+<!-- A REAL LANDMARK, 2026-08-23. This was a `div` on all 82 stand pages, so a page with
+     a nav, an h1 and a footer gave a screen reader nothing to skip TO. Found by check 5 of
+     `a11y13.cjs`, which is the first instrument in this repository to read a page that is not
+     a product screen. No stylesheet here selects a wrapper by tag. -->
+<!-- SYNCED FROM THE PRODUCT, 2026-09-30. This page was written in the product repository on
+     2026-09-02 (D-Gate) and taken from there with two changes of chrome: the favicon paths
+     point at this repository's root and the page ends with the project registry, as every
+     design stand page does. Its body was then brought level with locked-list.css as it stands
+     after P31 (the withheld rows are said once, in one block), P33 (that block got a window)
+     and P34 (the window was replaced by the landing's language). The row form and its anti-rule
+     are kept below because the css still draws them; no screen wears them since P31. -->
+<main class="kit-wrap">
+
+  <header class="kit-head">
+    <h1>Locked list</h1>
+    <p class="lead">The subscriptions a free bank scan found and did not name, said once. D-Gate: a free person's first bank scan returns the count, the total and three names, and everything else is counted in the total and unnamed until Tendd Pro. Since P31 the unnamed ones are not drawn as rows at all: one block under the named list says how many, what they add up to, and two ways on.</p>
+    <div class="kit-meta">
+      <span>Molecule</span><span><strong>2</strong> screens</span><span>added 2026-09-02, rebuilt 2026-09-29 (P31, P33, P34)</span><span>1 role token of its own</span><span>one slow float, stopped by reduced motion</span>
+    </div>
+  </header>
+
+  <section class="kit-sec" id="anatomy">
+    <h2>Anatomy</h2>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P31, P34).</b> Two objects in one file, and since 2026-09-29 only one of them stands on a screen. <b>The block</b>, <code>.locked-note</code>, is the one place the withheld rows appear: a free scan keeps no name it does not show (P31), so a row would be a placeholder for nothing, and the figures at the top of the screen already count them. <b>The row</b>, <code>.row.is-locked</code> with its slot, is still in the css and is shown further down as what it is: a form the file draws and no screen wears.</p>
+    <p class="note">The block speaks the public page's language (P34, the founder: "как на хоумпейдж, там более визуально красиво"): the dotted eyebrow, the count as the stat card's figure, the row of squares, the hero's floating tiles as a small stage, the landing's shadows and 24px radius, and its pill buttons with the travelling arrow. Past the desktop point on a wide screen the words stand left and the stage right; on a phone, and on the reveal at every width, the stage comes first.</p>
+
+    <h3 class="kit-sub-h">Home, the wide form</h3>
+    <div class="kit-stage app full bleed past-900">
+      <section class="locked-note">
+        <div class="stage" aria-hidden="true">
+          <span class="tile t1"></span>
+          <span class="tile t2"></span>
+          <span class="tile t3"></span>
+          <span class="float f1"><strong>$13.99</strong>in 11 days &middot; Aug 12</span>
+          <span class="float f2"><strong>$14.99</strong>in 19 days &middot; Aug 20</span>
+          <span class="float f3"><strong>$7.99</strong>in 24 days &middot; Aug 25</span>
+        </div>
+        <div class="copy">
+          <p class="eyebrow">Tendd Pro</p>
+          <h3><span class="pre">You have</span> <span class="fig">11</span> <span class="unit">more subscriptions</span></h3>
+          <p class="sum"><strong>$138.93 a month</strong>, already counted in your total.</p>
+          <span class="squares" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <p>Tendd found them in your bank. Tendd Pro shows every name, or you can add the ones you know yourself.</p>
+          <p>Choose Tendd Pro before Sep 6 and Tendd names them straight away, without asking your bank again.</p>
+          <div class="actions">
+            <a class="btn primary pill go" href="../upgrade.html">Get Tendd Pro</a>
+            <a class="btn pill" href="../add-subscription.html">Add them yourself</a>
+          </div>
+        </div>
+      </section>
+    </div>
+    <p class="note">The stage is 926px wide past a 1280 window, so the block's 900 query fires and it takes its two columns; at a phone width the same markup stacks, stage first. Switch the theme in the panel: every paint is a role, and the shadows are shares of <code>--tone-shade</code> and petrol through <code>color-mix</code>, so the dark half costs nothing of its own.</p>
+
+    <h3 class="kit-sub-h">The reveal, the flow form</h3>
+    <div class="kit-stage app flow full bleed past-900">
+      <section class="locked-note">
+        <div class="stage" aria-hidden="true">
+          <span class="tile t1"></span>
+          <span class="tile t2"></span>
+          <span class="tile t3"></span>
+          <span class="float f1">in 11 days &middot; Aug 12</span>
+          <span class="float f2">in 19 days &middot; Aug 20</span>
+          <span class="float f3">in 24 days &middot; Aug 25</span>
+        </div>
+        <div class="copy">
+          <p class="eyebrow">Tendd Pro</p>
+          <h3><span class="pre">You have</span> <span class="fig">11</span> <span class="unit">more subscriptions</span></h3>
+          <span class="squares" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <p>Tendd found them in your bank. Tendd Pro shows every name, or you can add the ones you know yourself.</p>
+          <p>Choose Tendd Pro before Sep 6 and Tendd names them straight away, without asking your bank again.</p>
+          <div class="actions">
+            <a class="btn primary pill go" href="../upgrade.html">Get Tendd Pro</a>
+            <a class="btn pill" href="../add-subscription.html">Add them yourself</a>
+          </div>
+        </div>
+      </section>
+    </div>
+    <p class="note">The same block with two things left out, both by D1: no sum line, and no amount in the glass chips, because on the reveal the number comes third and step 2 carries none. The flow form is one reading column at every width, so <code>.app:not(.flow)</code> keeps the two-column arrangement off it even on this wide stage.</p>
+
+    <ul class="kit-callouts">
+      <li><code>.locked-note</code> <span>the card: surface, the container's hairline as an inset shadow, the landing's two float shadows cast in <code>--tone-shade</code>, and the landing's 24px card radius, a literal with one consumer in the app, said at its line. A grid: one column, then 6fr and 5fr past container 900 outside the flow form</span></li>
+      <li><code>.stage</code> <span>180px, 260px in the wide form. Its <code>::before</code> is the landing's dotted field, a petrol share under a radial mask. <code>aria-hidden</code>: the heading says it in words</span></li>
+      <li><code>.tile.t1 .t2 .t3</code> <span>three app tiles not named yet: petrol with the lock (the block's one filled mark), a surface tile with a withheld bar where a logo would be, and one out of focus behind, the depth the hero gets from its blurred tiles. One slow float, 6s, offset per tile</span></li>
+      <li><code>.float.f1 .f2 .f3</code> <span>the amounts and when-lines a free scan kept (P31), in the landing's glass: a surface share, a backdrop blur, a hairline. Placed from the stage's own edges, so a chip never leaves a narrow stage</span></li>
+      <li><code>.eyebrow</code> <span>the landing's dotted eyebrow, local to this block. It is not the Eyebrow atom <code>.k</code>, which is a caption over a figure; this one names the subject of a section</span></li>
+      <li><code>.pre .fig .unit</code> <span>the heading is one sentence, "You have 11 more subscriptions", with the count set as the stat card's figure: <code>--type-display</code>, petrol through <code>--text-action</code>, tabular</span></li>
+      <li><code>.sum</code> <span>the amount line, bold where it states the amount. Home only (D1)</span></li>
+      <li><code>.squares</code> <span>one square per subscription, the named ones filled, the same picture as "14 subscriptions" on the public page. <code>aria-hidden</code></span></li>
+      <li><span class="kit-part">the wrapper</span> <span><code>.copy</code> is what the product prints around the words, and no rule in the system selects it: it exists so the grid has exactly two cells. Named here so a reader grepping the css for it is not surprised</span></li>
+      <li><code>.btn.pill.go</code> <span>the button's own modifiers (button.css, P34), not a button of this file's: the fill, the ink, the states and the ring cannot drift from every other button</span></li>
+    </ul>
+
+    <h3 class="kit-sub-h">Behaviour at width</h3>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P33, P34).</b> This said "none of its own", which was true while the component was a row modifier and a sentence. The block has one point now, the desktop one: past container 56.25rem (900px), and outside <code>.app.flow</code>, the words and the stage stand side by side with the stage second. <code>app-shell.css</code> gives it <code>order: 3</code> on a screen whose layout is the groups column set (P31), the groups' own slot and later in the DOM, so it follows the list it completes; it had no order and printed above the summary at 1280 until that line was written.</p>
+  </section>
+
+  <section class="kit-sec" id="variants">
+    <h2>Variants and sizes</h2>
+    <p class="note"><b>One block, two contents.</b> On Free it sells the plan. On Pro, for somebody who paid before their bank was read again, the rows are still nameless and what names them is a read of the bank, not a plan, so the same block says that and offers the bank door. The words are microcopy's rows <code>home-pro-unnamed</code>.</p>
+    <div class="kit-stage app full wide">
+      <section class="locked-note">
+        <div class="stage" aria-hidden="true">
+          <span class="tile t1"></span>
+          <span class="tile t2"></span>
+          <span class="tile t3"></span>
+        </div>
+        <div class="copy">
+          <p class="eyebrow">Tendd Pro</p>
+          <h3><span class="pre">You have</span> <span class="fig">11</span> <span class="unit">more subscriptions</span></h3>
+          <p class="sum"><strong>$138.93 a month</strong>, already counted in your total.</p>
+          <p>They came from your free bank scan, which keeps no names. Connect your bank again and Tendd names every one.</p>
+          <div class="actions">
+            <a class="btn primary pill go" href="../connect-bank.html">Connect your bank</a>
+            <a class="btn pill" href="../add-subscription.html">Add them yourself</a>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="kit-tab">
+      <table>
+        <thead><tr><th>Screen</th><th>Where it stands</th><th>What is free above it</th></tr></thead>
+        <tbody>
+          <tr><td>Guided reveal, step 2</td><td>Under the named rows, the end of the step. No sum line and no amounts in the chips (D1)</td><td>The count, the categories and three of the names</td></tr>
+          <tr><td>Home</td><td>After the named groups, before the trust line; <code>order: 3</code> past 900</td><td>The count, the monthly total, every category subtotal, which all include the unnamed rows</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>Two screens is a component and three would be a pattern.</b> Rule 7, and it is the reason this is one css file in <code>components/</code> rather than something in <code>patterns/</code>. If a third screen ever wears it, the composition moves and this file stays where it is.</p>
+  </section>
+
+  <section class="kit-sec" id="usage">
+    <h2>When to use it</h2>
+    <p class="note">Only where the rows are <b>really there and really counted</b>. That is the whole honesty of the object: the total above it includes every unnamed row, the category counts include them, and the sum line says so in so many words. A block over rows that were excluded from the total would be the product inventing a number to sell the answer to, which is the frame <code>voice.md</code> forbids by name.</p>
+    <p class="note">It is <b>never the first thing on a screen</b>. D-Gate put the gate inside step 2 of the reveal and on a populated Home, both times after the count and the total have already been given away. A lock at the door is a paywall pretending to be a product, and the founder chose this shape over marking the door Pro precisely so that a person sees something true before they are asked for anything.</p>
+    <p class="note">And it is <b>a state and never a screen</b>. D3 as amended on 2026-08-20 says the plans are one product, not two, with no Pro twin of a screen. There is no locked Home; there is Home, ending in this block. The moment the rows are named, the block is simply not drawn, and no route changes.</p>
+  </section>
+
+  <section class="kit-sec" id="row">
+    <h2>The row form, drawn by the css and worn by no screen</h2>
+    <p class="note"><b>Synced from the product, 2026-09-30 (P31).</b> Until 2026-09-29 a withheld row stood in its category as a <code>.row.is-locked</code> with a grey bar for a name, carrying "Shown with Tendd Pro" as its accessible label. P31 removed it from both screens (microcopy's rewrite log: "a row with no name and no logo is a hole in a list whose promise is names"). The rules are still in <code>locked-list.css</code>, so the form is shown here as what the file draws, and the anti-rule under it still holds for any future row.</p>
+    <div class="kit-stage app full wide">
+      <ul class="divlist">
+        <li><span class="row"><span class="logo"></span><span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span><span class="amt">$17.99</span></span></li>
+        <li><span class="row is-locked"><span class="logo"></span><span class="body"><span class="name-withheld w55" role="img" aria-label="Shown with Tendd Pro"></span><span class="when">in 11 days &middot; Aug 12</span></span><span class="amt">$13.99</span></span></li>
+        <li><span class="row is-locked"><span class="logo"></span><span class="body"><span class="name-withheld w70" role="img" aria-label="Shown with Tendd Pro"></span><span class="when">in 19 days &middot; Aug 20</span></span><span class="amt">$14.99</span></span></li>
+        <li><span class="row is-locked"><span class="logo"></span><span class="body"><span class="name-withheld w40" role="img" aria-label="Shown with Tendd Pro"></span><span class="when">in 24 days &middot; Aug 25</span></span><span class="amt">$7.99</span></span></li>
+      </ul>
+    </div>
+    <ul class="kit-callouts">
+      <li><code>.row.is-locked</code> <span>takes the pointer away and nothing else. The row is rendered as a <code>span</code> or a <code>div</code> rather than an anchor, because there is nothing to open, so this only undoes the cursor <code>.row</code> sets. Exactly what <code>.row.is-skel</code> does in skeleton-bar.css, and for the same stated reason: the class exists solely for this state</span></li>
+      <li><code>.name-withheld</code> <span>the slot where the name would be. 11px, which is the cap height of <code>--type-sub</code> and not its line box: a bar as tall as the line reads as a filled field, and this is standing in for lettering</span></li>
+      <li><code>.w40 .w55 .w70</code> <span>an uneven set, and it is load bearing. Identical bars down a column read as redactions of exactly equal length, which is the one shape that says the product is hiding rather than gating. Real merchant names are not the same length</span></li>
+      <li><code>--bg-withheld</code> <span>its own role beside <code>--bg-placeholder</code>, at the same primitive today. A skeleton means wait and this means pay, and rule 4 asks whether two roles can ever part company. These can. Since P34 it also paints the bar inside the block's blank tile</span></li>
+    </ul>
+    <p class="note"><b>One form, three widths, no other axis.</b> There is no small locked row and no loud one. The three width classes are not sizes, they are a way of not looking like a redaction, and which one a row gets is arbitrary by design: nothing about the withheld name may be inferable from the bar, including its length.</p>
+  </section>
+
+  <section class="kit-sec" id="rule">
+    <h2>The rule, and the anti-rule</h2>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">Keep no name you do not show</span>
+        <div class="kit-stage app full wide"><ul class="divlist"><li><span class="row is-locked"><span class="logo"></span><span class="body"><span class="name-withheld w55" role="img" aria-label="Shown with Tendd Pro"></span><span class="when">in 11 days &middot; Aug 12</span></span><span class="amt">$13.99</span></span></li></ul></div>
+        <p>The server sends no name, and since P31 it stores none: a free scan clears the name of every row it withholds straight after the read. The amount and the date are true, and there is nothing behind the bar to uncover.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never blur the real name</span>
+        <div class="kit-stage app full wide"><ul class="divlist"><li><span class="row"><span class="logo"></span><span class="body"><span class="name">Spotify Premium</span><span class="when">in 4 days &middot; Aug 5</span></span><span class="amt">$11.99</span></span></li></ul></div>
+        <p>This is what "hidden but visible" usually means, and it was the first sketch. <b>A blur is paint.</b> The text stays in the document, an inspector reads all eleven names in a second, and the gate becomes a decoration that a right-click defeats. The one blur this component owns is on the out-of-focus tile t3, which carries no text at all.</p>
+      </div>
+    </div>
+    <div class="kit-do">
+      <div class="yes">
+        <span class="hd">One block, after the list</span>
+        <div class="kit-stage app full"><section class="locked-note"><div class="stage" aria-hidden="true"><span class="tile t1"></span><span class="tile t2"></span><span class="tile t3"></span></div><div class="copy"><p class="eyebrow">Tendd Pro</p><h3><span class="pre">You have</span> <span class="fig">11</span> <span class="unit">more subscriptions</span></h3><p>Tendd found them in your bank. Tendd Pro shows every name, or you can add the ones you know yourself.</p><div class="actions"><a class="btn primary pill go" href="../upgrade.html">Get Tendd Pro</a><a class="btn pill" href="../add-subscription.html">Add them yourself</a></div></div></section></div>
+        <p>The words say what IS on the list and two ways on, and the free one is real, which is what keeps the offer from being a wall. "You have", not "There are": they are the person's.</p>
+      </div>
+      <div class="no">
+        <span class="hd">Never a skeleton</span>
+        <div class="kit-stage app full wide"><ul class="divlist"><li><span class="row is-skel"><span class="logo is-skel"></span><span class="body"><span class="skel line w60"></span></span><span class="skel amt-skel"></span></span></li></ul></div>
+        <p>A skeleton <b>pulses</b>, and a bar that breathes says "wait" to a person who has nothing to wait for. Loading and locked must not look the same: one resolves by itself in a second and the other never resolves without a decision. That is why <code>--bg-withheld</code> exists beside <code>--bg-placeholder</code> at the same value.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kit-sec" id="limits">
+    <h2>Limits</h2>
+    <ul class="kit-callouts">
+      <li><span class="kit-part">one slow float</span> <span><b>Synced from the product, 2026-09-30 (P34).</b> This read "no motion", and it was true of the row and of the first note. The block now floats its three tiles and three chips, one move each, 6s and 7s, <code>alternate</code>, 8px. Reduced motion stops it through base.css like every other animation. The withheld bar itself still never moves: its token comment carries why</span></li>
+      <li><span class="kit-part">petrol, counted</span> <span><b>Synced from the product, 2026-09-30 (P34).</b> This read "no petrol on the row", and on the row it still holds. The block spends petrol on the primary pill (the first job), and borrows the landing's figure, its dotted eyebrow, its field and its front tile, which is the founder's decision in P34 and the landing's own treatment. It is the one place inside the app that does, and it is the place the product sells</span></li>
+      <li><span class="kit-part">the count, in words</span> <span>the number of withheld rows is said once, in the heading, as a sentence. It is never a badge beside the list: decision N7 settled what a counter does to this audience, a counter is a demand and a dot is an offer</span></li>
+      <li><span class="kit-part">the slot is not a control</span> <span>no hover, no focus, no press on a row or a tile. The way to Pro is the button in the block, once, so that a person cannot arrive at a paywall by poking at their own data</span></li>
+      <li><span class="kit-part">U1</span> <span>one filled action per zone: the block is a zone and carries one <code>.btn.primary</code>; "Add them yourself" is the outline pill beside it</span></li>
+      <li><span class="kit-part">U17</span> <span>a screen-level order belongs to the layout that needs it: the block's <code>order: 3</code> is scoped <code>.app &gt; .screen:has(&gt; .groups)</code> in app-shell.css, never on the block itself. <a href="architecture.html#usage">Usage rules</a></span></li>
+    </ul>
+    <p class="note">Lives in <code>system/components/locked-list.css</code>. Its row in the system is in <code>kit/docs/inventory.md</code>, and the decisions under it are D-Gate (2026-09-02), P31, P32, P33 and P34 (2026-09-29) in <code>docs/decisions.md</code>.</p>
+    <code class="kit-cmd">&lt;section class="locked-note"&gt;
+  &lt;div class="stage" aria-hidden="true"&gt;
+    &lt;span class="tile t1"&gt;&lt;/span&gt;&lt;span class="tile t2"&gt;&lt;/span&gt;&lt;span class="tile t3"&gt;&lt;/span&gt;
+    &lt;span class="float f1"&gt;&lt;strong&gt;$13.99&lt;/strong&gt;in 11 days &amp;middot; Aug 12&lt;/span&gt;
+    &lt;span class="float f2"&gt;&lt;strong&gt;$14.99&lt;/strong&gt;in 19 days &amp;middot; Aug 20&lt;/span&gt;
+    &lt;span class="float f3"&gt;&lt;strong&gt;$7.99&lt;/strong&gt;in 24 days &amp;middot; Aug 25&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class="copy"&gt;
+    &lt;p class="eyebrow"&gt;Tendd Pro&lt;/p&gt;
+    &lt;h3&gt;&lt;span class="pre"&gt;You have&lt;/span&gt; &lt;span class="fig"&gt;11&lt;/span&gt; &lt;span class="unit"&gt;more subscriptions&lt;/span&gt;&lt;/h3&gt;
+    &lt;p class="sum"&gt;&lt;strong&gt;$138.93 a month&lt;/strong&gt;, already counted in your total.&lt;/p&gt;
+    &lt;span class="squares" aria-hidden="true"&gt;&lt;i class="on"&gt;&lt;/i&gt;...&lt;i&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;p&gt;Tendd found them in your bank. Tendd Pro shows every name, or you can add the ones you know yourself.&lt;/p&gt;
+    &lt;div class="actions"&gt;
+      &lt;a class="btn primary pill go" href="upgrade.html"&gt;Get Tendd Pro&lt;/a&gt;
+      &lt;a class="btn pill" href="add-subscription.html"&gt;Add them yourself&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code>
+  </section>
+
+  <footer class="kit-foot">
+    Drawn by <code>system/components/locked-list.css</code> through <code>../system/index.css</code>, the same entry point a product screen loads. It is the first component authored in the product repository rather than lifted from the design repository, and it came back here on 2026-09-30 when the stand was brought level with the product.
+  </footer>
+</main>
+
+<script>
+(function(){var p=document.getElementById('kitPanel'),o=document.getElementById('kitOverlay'),t=document.getElementById('kitToggle'),c=document.getElementById('kitClose');function op(){p.classList.add('open');o.classList.add('open');}function cl(){p.classList.remove('open');o.classList.remove('open');}if(t)t.addEventListener('click',op);if(c)c.addEventListener('click',cl);if(o)o.addEventListener('click',cl);})();
+</script>
+<script src="_nav.js"></script>
+<script src="../../_nav.js"></script>
+</body>
+</html>

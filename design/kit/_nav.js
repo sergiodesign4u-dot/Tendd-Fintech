@@ -79,13 +79,20 @@ window.KIT_NAV = {
        there; what changed is how it is set. */
     { name: 'Brand mark',        cls: '.brand',        page: 'brand-mark.html', was: null,                          axes: 'window: crop A. B and C locked at Concept, no host in the product yet', wf: 0 },
     { name: 'Brand wordmark',    cls: '.wordmark',     page: 'brand-wordmark.html', was: null,                      axes: 'size: bar / large. the last letter is petrol with no condition (founder, 2026-08-12)', wf: 54 },
-    { name: 'Button',            cls: '.btn',          page: 'button.html', was: null,                          axes: 'emphasis: fill / outline. inverse and compact both deleted 2026-08-12', wf: 85 },
+    { name: 'Button',            cls: '.btn',          page: 'button.html', was: null,                          axes: 'emphasis: fill / outline. shape: plain / pill, with the travelling arrow (.go) since P34. inverse and compact both deleted 2026-08-12', wf: 85 },
     { name: 'Chart placeholder', cls: '.chart',        page: 'chart-placeholder.html', was: null,                          axes: '-',                                     wf: 4 },
-    { name: 'Checkbox',          cls: '.check',        page: 'checkbox.html', was: '.switch input',                axes: '-',                                     wf: 2 },
+    { name: 'Checkbox',          cls: '.check',        page: 'checkbox.html', was: '.switch input',                axes: 'drawn, not the platform\'s, since P26',                                     wf: 2 },
     { name: 'Chip',              cls: '.chip',         page: 'chip.html', was: '.tag, .badge, .best, .plan',   axes: 'tone: quiet / trial / pro. cancelled has no wearer', wf: 36 },
     { name: 'Destination icon',  cls: '.ic-*',         page: 'destination-icon.html', was: null,                          axes: 'one per destination',                   wf: 112 },
     { name: 'Eyebrow',           cls: '.k',            page: 'eyebrow.html', was: '.num',                         axes: '-',                                     wf: 4 },
     { name: 'Label',             cls: '.lbl',          page: 'label.html', was: null,                          axes: 'weight: quiet 12 / strong 16',          wf: 3 },
+    /* THE PUBLIC PAGE'S TWO ATOMS, 2026-09-26 (P16), and `wf` is 0 for the reason
+       the brand mark's is: they came with Light 2, a decision, and the grey corpus
+       is frozen with the landing it had in August. The page speaks with these and
+       the app never does; why each is not the app's own atom is the first
+       paragraph of its css file. */
+    { name: 'Landing button',    cls: '.lp-btn',       page: 'landing-button.html', was: null,                      axes: 'emphasis: fill / ghost. size: base / small (the bar). form: plain / the swap button', wf: 0 },
+    { name: 'Landing type',      cls: '.lp-display',   page: 'landing-type.html', was: '.lp-h1, .lp-lead',          axes: 'eyebrow, display, lede, card title, body, tag, badge, link, line icon, the rising words', wf: 0 },
     { name: 'Logo',              cls: '.logo',         page: 'logo.html', was: null,                          axes: 'size by container: 20 / 22 / 30 / 32 / 36 / 52', wf: 111 },
     { name: 'Meta row',          cls: '.metarow',      page: 'meta-row.html', was: '.axis, .strip',                axes: 'rule: plain / ruled',                   wf: 5 },
     { name: 'Muted line',        cls: '.muted',        page: 'muted-line.html', was: '.consequence, .context, .tone, .legal, .freshness, .removal, .pitch, p.notice, .p', axes: 'size: body / fine. rule: plain / ruled', wf: 48 },
@@ -105,25 +112,30 @@ window.KIT_NAV = {
     { name: 'Door',              cls: '.door',         page: 'door.html', was: null,                          axes: 'content: with a pick line / without',   wf: 4 },
     { name: 'Form field',        cls: '.field',        page: 'form-field.html', was: null,                          axes: 'host: div / form (the search)',         wf: 8 },
     { name: 'Group head',        cls: '.group-head',   page: 'group-head.html', was: null,                          axes: 'rule: banded / plain',                  wf: 16 },
+    /* D-GATE'S MOLECULE, 2026-09-02, given its page on 2026-09-30 when the stand
+       came level with the product. `wf` 0: the grey corpus predates D-Gate. It
+       stands on two screens of the product, Home and the reveal, and the block
+       took the landing's language on 2026-09-29 (P34). */
+    { name: 'Locked list',       cls: '.locked-note',  page: 'locked-list.html', was: '.is-locked, .name-withheld (slot per row, until P31)', axes: 'content: Free (the sum and the hold line) / flow (no amounts, D1) / Pro, not named yet. form: words beside the stage past container 900 / stacked, and always stacked in the flow form', wf: 0 },
     { name: 'Merchant chip group', cls: '.rgroup',     page: 'merchant-chip-group.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'Nav row',           cls: '.navrow',       page: 'nav-row.html', was: null,                          axes: '-',                                     wf: 2 },
     { name: 'Numbered steps',    cls: '.steps',        page: 'numbered-steps.html', was: null,                          axes: '-',                                     wf: 3 },
-    { name: 'Pair list',         cls: '.pairs',        page: 'pair-list.html', was: '.facts, .unlocks',             axes: 'markup: dt/dd / span. content: values / sentences', wf: 19 },
-    { name: 'Plan option',       cls: '.plan-opt',     page: 'plan-option.html', was: null,                          axes: 'host: app / landing',                   wf: 2 },
+    { name: 'Pair list',         cls: '.pairs',        page: 'pair-list.html', was: '.facts, .unlocks',             axes: 'markup: dt/dd / span. content: values / sentences / a link (P36)', wf: 19 },
+    { name: 'Plan option',       cls: '.plan-opt',     page: 'plan-option.html', was: null,                          axes: 'host: app. selection: best (the year, the selection edge). each card carries its own button since P26', wf: 2 },
     { name: 'Preset tile',       cls: '.tile',         page: 'preset-tile.html', was: null,                          axes: 'state: pressed',                        wf: 2 },
     { name: 'Promise list',      cls: '.promises',     page: 'promise-list.html', was: null,                          axes: '-',                                     wf: 3 },
     { name: 'Range picker',      cls: '.range',        page: 'range-picker.html', was: null,                          axes: 'availability x selection: rest / pressed / disabled / disabled+pressed', wf: 3 },
     { name: 'Share card',        cls: '.sharecard',    page: 'share-card.html', was: null,                          axes: '-',                                     wf: 2 },
     { name: 'Subscription row',  cls: '.row',          page: 'subscription-row.html', was: null,                          axes: 'state: skeleton. host: list / candidate', wf: 8 },
     { name: 'Summary',           cls: '.summary',      page: 'summary.html', was: null,                          axes: 'content: with a total / without',       wf: 5 },
-    { name: 'Switch row',        cls: '.switch',       page: 'switch-row.html', was: null,                          axes: '-',                                     wf: 2 },
+    { name: 'Switch row',        cls: '.switch',       page: 'switch-row.html', was: null,                          axes: 'inset: 8px, 16px past container 760 (P26)',                                     wf: 2 },
     { name: 'Text block',        cls: '.textblock',    page: 'text-block.html', was: '.lede, .state',                axes: 'scope: page 24 / block 20 / inset 16',  wf: 44 },
     { name: 'Trust block',       cls: '.trust',        page: 'trust-block.html', was: null,                          axes: '-',                                     wf: 11 },
     { name: 'Wash block',        cls: '.wash',         page: 'wash-block.html', was: '.attention, .notice, .decoder', axes: 'tone: neutral / attention / error / code. content: with an arrow / without', wf: 13 }
   ],
 
   organisms: [
-    { name: 'App bar',           cls: '.appbar',       page: 'app-bar.html', was: null,                          axes: 'form: row / column rail at container 760', wf: 54 },
+    { name: 'App bar',           cls: '.appbar',       page: 'app-bar.html', was: null,                          axes: 'form: row / column rail at container 760. the way back moves into the screen in the rail (P26)', wf: 54 },
     { name: 'Save-focus candidate', cls: '.cand',      page: 'save-focus-candidate.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'App shell',         cls: '.app',          page: 'app-shell.html', was: null,                          axes: 'form: steady / flow / detail',          wf: 54 },
     { name: 'Card',              cls: '.card',         page: 'card.html', was: '.locked, .source',             axes: '-',                                     wf: 3 },
@@ -141,24 +153,37 @@ window.KIT_NAV = {
        decision grew a second half. Each stands on exactly one grey page and
        one coloured one, because the landing is the only public surface this
        product has, and that is a fact about the product rather than a thin
-       count. */
-    { name: 'FAQ list',          cls: '.lp-faq',       page: 'faq-list.html', was: null,                          axes: '-',                                     wf: 1 },
-    { name: 'Grid',              cls: '.grid',         page: 'grid.html', was: '.doors, .tiles, .plans',       axes: 'columns: 1 to 2 / 2 to 3 / 1 to 3. gap by child size', wf: 8 },
-    { name: 'Landing bar',       cls: '.lp-nav',       page: 'landing-bar.html', was: null,                          axes: 'links: hidden / shown at container 760', wf: 1 },
-    { name: 'Landing hero',      cls: '.lp-h1',        page: 'landing-hero.html', was: null,                          axes: 'the promise\'s type, no box',            wf: 1 },
-    { name: 'Landing shell',     cls: '.landing',      page: 'landing-shell.html', was: null,                          axes: 'band: canvas / surface. final: centred', wf: 1 },
-    { name: 'Landing orbit',     cls: '.lp-orbit',     page: 'landing-orbit.html', was: null,                          axes: 'column / spread at container 1152',     wf: 1 },
-    { name: 'Landing story',     cls: '.lp-story',     page: 'landing-story.html', was: '.lp-window, .lp-cut',          axes: 'cards: over the list / beside it at container 1280', wf: 1 },
-    { name: 'Landing steps',     cls: '.lp-steps',     page: 'landing-steps.html', was: null,                          axes: 'one rail, three ordinals, three pictures of the product', wf: 1 },
-    { name: 'Landing paths',     cls: '.lp-paths',     page: 'landing-paths.html', was: null,                          axes: 'two doors, each ajar on the screen it opens', wf: 1 },
-    { name: 'Landing facts',     cls: '.lp-facts',     page: 'landing-facts.html', was: '.lp-trust ul',                axes: 'four claims, three of them beside their own proof', wf: 1 },
-    { name: 'Landing plan',      cls: '.lp-plan',      page: 'landing-plan.html', was: null,                          axes: 'one plan, three ways to pay, on the page\'s one wash', wf: 1 },
-    { name: 'Landing final',     cls: '.lp-final',     page: 'landing-final.html', was: null,                         axes: 'the last word, on a sheet, on a horizon', wf: 1 },
+       count. That paragraph is the record of 2026-08-14; since 2026-09-26 the
+       public page is Light 2 and its organisms are counted in the comment over
+       the landing rows below, and since 2026-09-27 the way in (P17) stands on
+       three more public pages, sign in, its sent state and path choice. */
+    { name: 'FAQ list',          cls: '.lp-qa',        page: 'faq-list.html', was: '.lp-faq',                     axes: 'heading beside the list / above it under container 860. the first answer open', wf: 1 },
+    { name: 'Grid',              cls: '.grid',         page: 'grid.html', was: '.doors, .tiles, .plans',       axes: 'columns: 1 to 2 / 2 to 3 / 1 to 3 (the plans: 1, then 3 at container 900). gap by child size', wf: 8 },
+    /* SYNCED FROM THE PRODUCT, 2026-09-30. Light 2 replaced the whole public page
+       on 2026-09-26 (P16): the round window went with landing-orbit.css, whose row
+       and page are deleted, the story became a pinned stage drawn by a WebGL
+       world, and the benefits and the four figures became organisms of their own.
+       Sign in joined the page on 2026-09-27 (P17) as one more organism. The order
+       below is the page's order, which is also the @import order. `wf` stays 1 for
+       a block the grey landing already had a place for and is 0 for the three that
+       arrived with a decision; the whole group is pinned light (P16). */
+    { name: 'Landing bar',       cls: '.lp-nav',       page: 'landing-bar.html', was: null,                          axes: 'ground: none / frosted once the page moves. links: shown / gone under container 960. the curtain, once per load', wf: 1 },
+    { name: 'Landing hero',      cls: '.lp-hero',      page: 'landing-hero.html', was: '.lp-h1, .lp-lead, .lp-orbit .osay', axes: 'two columns / the promise over the icons under container 760. the world canvas / the still icons (.lp-nogl)', wf: 1 },
+    { name: 'Landing shell',     cls: '.landing',      page: 'landing-shell.html', was: null,                          axes: 'a frame of white cards on the canvas, pinned light. the one way a block arrives', wf: 1 },
+    { name: 'Landing story',     cls: '.lp-story',     page: 'landing-story.html', was: '.lp-window, .lp-cut, .lp-orbit', axes: 'a pinned stage driven by the scroll / an ordinary section under reduced motion', wf: 1 },
+    { name: 'Landing benefits',  cls: '.lp-ben',       page: 'landing-benefits.html', was: null,                     axes: 'three cards in a row / stacked under container 860', wf: 0 },
+    { name: 'Landing steps',     cls: '.lp-how',       page: 'landing-steps.html', was: '.lp-steps rail',            axes: 'ghost words, four pills, three rows that answer a pointer', wf: 1 },
+    { name: 'Landing stats',     cls: '.lp-stats',     page: 'landing-stats.html', was: null,                        axes: 'four figures in two columns / one under container 640', wf: 0 },
+    { name: 'Landing facts',     cls: '.lp-trust-grid', page: 'landing-facts.html', was: '.lp-facts',                 axes: 'four recessed cards: four / two / one column. carries the shared section head', wf: 1 },
+    { name: 'Landing paths',     cls: '.lp-paths',     page: 'landing-paths.html', was: null,                          axes: 'two doors the same size (D2), side by side / stacked under container 860', wf: 1 },
+    { name: 'Landing plan',      cls: '.lp-plans',     page: 'landing-plan.html', was: '.lp-plan band on the wash',    axes: 'three ways to pay, the year in the middle / first on a phone. everything in Pro said once', wf: 1 },
+    { name: 'Landing final',     cls: '.lp-cta',       page: 'landing-final.html', was: '.lp-final sheet on the wash', axes: 'the close: the galaxy / the still rings (.lp-nogl, reduced motion)', wf: 1 },
+    { name: 'Landing auth',      cls: '.lp-auth',      page: 'landing-auth.html', was: null,                         axes: 'step: choose / email / sent. host: the dialog over the landing / the page (.lp-gate)', wf: 0 },
     { name: 'Groups column set', cls: '.groups',       page: 'groups-column-set.html', was: null,                          axes: 'columns: from a 300px floor, capped at three',          wf: 4 },
     { name: 'Panel',             cls: '.panel',        page: 'panel.html', was: null,                          axes: 'head: banded h2 / summary disclosure / headless',  wf: 7 },
     { name: 'Reveal step',       cls: '.rstep',        page: 'reveal-step.html', was: null,                          axes: '-',                                     wf: 1 },
     { name: 'Save-focus list',   cls: '.candidates',   page: 'save-focus-list.html', was: null,                          axes: '-',                                     wf: 1 },
-    { name: 'Site footer',       cls: '.lp-footer',    page: 'site-footer.html', was: null,                          axes: 'form: two columns / four at container 760, and a bar at the foot', wf: 1 },
+    { name: 'Site footer',       cls: '.lp-footer',    page: 'site-footer.html', was: null,                          axes: 'form: four columns / three under container 860 / two under 640, the bar, the watermark', wf: 1 },
     { name: 'Tab bar',           cls: '.tabbar',       page: 'tab-bar.html', was: null,                          axes: 'form: bottom bar / left rail at container 760', wf: 28 }
   ],
 

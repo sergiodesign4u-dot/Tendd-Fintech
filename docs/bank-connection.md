@@ -192,6 +192,12 @@ Plaid checks institutions between one and four times a day. We do not poll: we s
 `SYNC_UPDATES_AVAILABLE`, and we stamp "Last checked" from our own successful run, never from
 the webhook and never from a scheduled attempt that failed.
 
+**Built 2026-09-29 (P28).** `/api/plaid/webhook` verifies the JWT and reads the Item on
+`SYNC_UPDATES_AVAILABLE`, `RECURRING_TRANSACTIONS_UPDATE`, `INITIAL_UPDATE`, `HISTORICAL_UPDATE`
+and `DEFAULT_UPDATE`, for Pro every time and for Free only the first read that has not landed.
+The address is set on the link token, from the address the token was made on, and a laptop gets
+none.
+
 The "refresh automatically" toggle on node 6.15 block 4 is the user-facing lever over this. It
 is also the cost lever, which is section 11.
 
@@ -206,9 +212,27 @@ framing the IA locked, and it is true: expiry is maintenance, not failure. The l
 stay visible and dated while the source is stale, which is why the Chase count is 11 on both
 the default and the reconnect state.
 
+Built 2026-09-29 (P28): the three ITEM codes set `reconnect_needed`, `LOGIN_REPAIRED` clears it
+and reads, `USER_PERMISSION_REVOKED` and `USER_ACCOUNT_REVOKED` disconnect, and "Reconnect" is
+Link in update mode.
+
 **Disconnect.** `/item/remove` at Plaid, plus our own deletion of the raw transaction data. The
 subscriptions already found stay on the list and become manual rows, which is what
 `connections.html` promises in the same sentence as the button.
+
+**A free scan is held for seven days, then ends the same way** (P32, amending P20). The Item and
+its key are kept unread so that paying for Pro can read it at once; after seven days the daily
+run removes it as a disconnect does.
+
+**A free scan ends the same way, by itself** (D-Gate, P20). As soon as the first read lands for a
+person on Free, the Item is removed through this same disconnect, so a free Item lives for the
+length of one read and is never billed for a month. The one exception waits on section 7: a
+first read that is still `PRODUCT_NOT_READY` after thirty seconds leaves the Item alive until the
+webhook can finish it (`docs/gaps.md`, G51).
+
+**And it keeps only the names it shows** (P31, G53). Before the Item goes, the rows the gate
+withholds lose their name, service and bank line and keep their figures; a Pro read of the same
+bank names them again.
 
 ## 9. The manual source
 

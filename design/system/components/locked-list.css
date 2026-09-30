@@ -1,0 +1,278 @@
+/* ============================================================================
+   Locked list - molecule
+   A list whose rows are real and whose names are not shown. D-Gate, 2026-09-02:
+   a free person's first bank scan returns the count, the total and three names,
+   and the rest sit here, counted and unnamed, until Tendd Pro.
+
+   Reads
+     colour   --bg-withheld, --text-muted, --text-primary
+     geometry --radius-xs  (straight from primitive)
+     type     --type-sub, --type-meta
+     spacing  --space-0, --space-4, --space-8, --space-16, --space-24
+   Page      kit/locked-list.html
+   Stands on 2 screens: the reveal at step 2, and Home.
+
+   IT IS A STATE OF A SCREEN AND NEVER A SECOND SCREEN. D3 as amended on
+   2026-08-20 says the plans are one product, not two, and `plans13.cjs` counts
+   it. So there is no locked Home and no locked reveal: there is Home, with some
+   of its rows wearing `.is-locked`.
+
+   THE NAME IS NOT IN THE PAGE, AND THAT IS THE WHOLE REASON THIS LOOKS LIKE
+   THIS. The first sketch was the real name under a `filter: blur()`, which is
+   what "hidden but visible" usually means and what was asked for. It was
+   dropped for a reason that is not taste: a blur is paint, the text stays in the
+   DOM, and anybody who opens the inspector reads all eleven names in a second.
+   A gate that a right-click defeats is a decoration, and worse, it would ship
+   somebody's bank-derived merchant list to a browser that has not paid for it.
+   So the server sends no name at all and this component draws the SLOT: the row
+   is honest about the fact that something is there, and there is nothing behind
+   it to uncover.
+
+   IT DOES NOT PULSE, and the token says why in its own comment. `--bg-withheld`
+   is its own role beside `--bg-placeholder` because a skeleton means "wait" and
+   this means "pay", and a bar that breathes at somebody who has nothing to wait
+   for is the product lying with motion instead of words.
+
+   THE ACCESSIBLE NAME IS THE OWNED STRING. A bar with no text is nothing at all
+   to a screen reader, so the slot carries "Shown with Tendd Pro" in visually
+   hidden text, which is the line `docs/spec/microcopy.md` owns for exactly this
+   row. The sentence is printed ONCE on the screen, in `.locked-note`, and heard
+   once per row, which is the right way round: eleven identical sentences down a
+   list is noise on screen and orientation in a screen reader.
+   ============================================================================ */
+
+/* ---- the row ------------------------------------------------------------
+   A locked row is a `.row` that is not a link. It is rendered as a div rather
+   than an anchor, so this only takes away the pointer `.row` sets, the same
+   move `.row.is-skel` makes in skeleton-bar.css and for the same reason: the
+   class exists solely for this state. No :hover and no :focus-visible, because
+   there is nothing to open. */
+.app .row.is-locked, .landing .row.is-locked { cursor: default; }
+
+/* The slot where the name would be. Its height is the cap height of
+   `--type-sub` rather than the line box, because a bar as tall as the line
+   reads as a filled field and this is standing in for lettering. */
+.app .row .name-withheld, .landing .row .name-withheld {
+  display: block;
+  height: 11px;
+  margin: var(--space-4) var(--space-0);
+  background: var(--bg-withheld);
+  border-radius: var(--radius-xs);
+}
+
+/* Width is set on the element, from an uneven set, and the reason is written in
+   skeleton-bar.css: a column of identical bars reads as a progress meter. Here
+   it would read as something worse, a row of redactions of exactly equal length,
+   which is the one shape that says the product is hiding rather than gating.
+   Real merchant names are not the same length and neither are these. */
+.app .row .name-withheld.w40, .landing .row .name-withheld.w40 { width: 40%; }
+.app .row .name-withheld.w55, .landing .row .name-withheld.w55 { width: 55%; }
+.app .row .name-withheld.w70, .landing .row .name-withheld.w70 { width: 70%; }
+
+/* ---- the block -------------------------------------------------------------
+   One block per list, and since 2026-09-29 (P31, G53) it is the ONLY place the
+   withheld rows appear. It says how many, what they add up to, and two ways on.
+
+   IN THE LANDING'S LANGUAGE SINCE P34. The founder turned down a first redesign
+   (P33, the rows in a window of the wash) and asked for the public page's
+   techniques instead: "как на хоумпейдж, там более визуально красиво". So the
+   block borrows exactly what makes that page read as Tendd, and nothing it
+   would have to explain:
+   - the dotted eyebrow ("Tendd Pro"), as over every landing section;
+   - the stat card's figure: the count in petrol at display weight, with its
+     unit beside it, and under the sum the landing's row of little squares, one
+     per subscription, the named ones filled and the rest empty, which is the
+     same picture as "14 subscriptions" on the public page;
+   - the hero's floating tiles, as the stage: app tiles that are not named yet,
+     one filled in petrol with the lock, one blank, one out of focus, floating
+     over the landing's dotted field, with the amounts the scan kept (P31) in
+     small glass chips;
+   - the pill buttons, with the arrow that travels (button.css, `.pill.go`).
+   Shadows are the landing's: cast in --tone-shade and petrol, never a colour
+   of their own. The stage is `aria-hidden`: the heading says it in words.
+
+   The float is one slow move on the three tiles; prefers-reduced-motion stops
+   it through base.css like every other animation.
+
+   Past the desktop point on the app's wide screens the words stand left and the
+   stage right, as in the hero; on a phone and on the reveal the stage comes
+   first, shorter. */
+.app .locked-note, .landing .locked-note {
+  position: relative;
+  display: grid;
+  gap: var(--space-8);
+  margin-top: var(--space-24);
+  padding: var(--space-24);
+  border-radius: 24px; /* the landing's card radius, one consumer in the app */
+  background: var(--bg-surface);
+  box-shadow:
+    inset 0 0 0 1px var(--line-container),
+    0 2px 6px color-mix(in srgb, var(--tone-shade) 4%, transparent),
+    0 34px 64px -30px color-mix(in srgb, var(--tone-shade) 24%, transparent);
+  overflow: hidden;
+}
+
+/* ---- the stage: the landing's dotted field and its floating tiles ---------- */
+.app .locked-note .stage, .landing .locked-note .stage {
+  position: relative;
+  height: 180px;
+}
+.app .locked-note .stage::before, .landing .locked-note .stage::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--bg-action) 40%, transparent) 1.2px, transparent 1.8px);
+  background-size: 14px 14px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 0 30%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 0 30%, transparent 72%);
+}
+.app .locked-note .tile, .landing .locked-note .tile {
+  position: absolute;
+  display: grid; place-content: center;
+  border-radius: 22%;
+  animation: locked-float 6s ease-in-out infinite alternate;
+}
+/* The front tile: petrol, lit from above like the landing's, with the lock. */
+.app .locked-note .tile.t1, .landing .locked-note .tile.t1 {
+  left: 50%; top: 50%;
+  width: 88px; height: 88px;
+  margin: -44px 0 0 -60px;
+  rotate: -8deg;
+  background: linear-gradient(150deg, var(--bg-action), var(--bg-action-strong));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--text-on-action) 30%, transparent),
+    0 26px 40px -18px color-mix(in srgb, var(--bg-action) 70%, transparent);
+}
+.app .locked-note .tile.t1::before, .landing .locked-note .tile.t1::before {
+  content: "";
+  width: 38px; height: 38px;
+  background-color: var(--text-on-action);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+/* A tile with no name yet: the surface, and a bar where a logo would be. */
+.app .locked-note .tile.t2, .landing .locked-note .tile.t2 {
+  right: 20%; top: 16%;
+  width: 64px; height: 64px;
+  rotate: 11deg;
+  background: var(--bg-surface);
+  box-shadow:
+    inset 0 0 0 1px var(--line-container),
+    0 18px 30px -18px color-mix(in srgb, var(--tone-shade) 35%, transparent);
+  animation-delay: -2s;
+}
+.app .locked-note .tile.t2::before, .landing .locked-note .tile.t2::before {
+  content: "";
+  width: 30px; height: 30px;
+  border-radius: 30%;
+  background: var(--bg-withheld);
+}
+/* Out of focus, behind: the depth the hero gets from its blurred tiles. */
+.app .locked-note .tile.t3, .landing .locked-note .tile.t3 {
+  left: 12%; top: 50%;
+  width: 52px; height: 52px;
+  rotate: 14deg;
+  background: var(--bg-selected);
+  filter: blur(2px);
+  opacity: 0.8;
+  animation-delay: -4s;
+}
+/* The amounts a free scan kept, in the landing's glass. */
+.app .locked-note .float, .landing .locked-note .float {
+  position: absolute;
+  padding: var(--space-4) var(--space-16);
+  border-radius: 999px;
+  font-size: var(--type-meta);
+  color: var(--text-muted);
+  white-space: nowrap;
+  background: color-mix(in srgb, var(--bg-surface) 78%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+          backdrop-filter: blur(12px) saturate(150%);
+  box-shadow:
+    inset 0 0 0 1px var(--line-container),
+    0 14px 28px -18px color-mix(in srgb, var(--tone-shade) 32%, transparent);
+  animation: locked-float 7s ease-in-out infinite alternate;
+}
+.app .locked-note .float strong, .landing .locked-note .float strong {
+  margin-right: var(--space-4);
+  color: var(--text-primary);
+  font-weight: 700;
+}
+/* Placed from the stage's own edges, so a chip never leaves a narrow stage. */
+.app .locked-note .float.f1, .landing .locked-note .float.f1 { left: 4%; top: 4%; animation-delay: -1s; }
+.app .locked-note .float.f2, .landing .locked-note .float.f2 { right: 2%; top: 54%; animation-delay: -3s; }
+.app .locked-note .float.f3, .landing .locked-note .float.f3 { left: 22%; bottom: 2%; animation-delay: -5s; opacity: 0.7; }
+@keyframes locked-float {
+  from { translate: 0 0; }
+  to   { translate: 0 -8px; }
+}
+
+/* ---- the words ------------------------------------------------------------ */
+.app .locked-note .eyebrow, .landing .locked-note .eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-8);
+  margin: var(--space-0) var(--space-0) var(--space-16);
+  font-size: var(--type-meta); font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.app .locked-note .eyebrow::before, .landing .locked-note .eyebrow::before {
+  content: "";
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--bg-action);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--bg-action) 12%, transparent);
+}
+.app .locked-note h2, .app .locked-note h3,
+.landing .locked-note h2, .landing .locked-note h3 {
+  margin: var(--space-0);
+  font-size: var(--type-title); font-weight: 600;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+.app .locked-note .pre, .landing .locked-note .pre { display: block; color: var(--text-body); font-weight: 500; }
+.app .locked-note .fig, .landing .locked-note .fig {
+  font-size: var(--type-display); font-weight: 700;
+  letter-spacing: -0.05em; line-height: 1;
+  color: var(--text-action);
+  font-variant-numeric: tabular-nums;
+}
+.app .locked-note .unit, .landing .locked-note .unit { margin-left: var(--space-8); }
+.app .locked-note .sum, .landing .locked-note .sum {
+  margin: var(--space-8) var(--space-0) var(--space-0);
+  font-size: var(--type-body);
+  color: var(--text-body);
+}
+.app .locked-note .sum strong, .landing .locked-note .sum strong { color: var(--text-primary); font-weight: 700; }
+/* The landing's squares: one per subscription, the named ones filled. */
+.app .locked-note .squares, .landing .locked-note .squares {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin: var(--space-16) var(--space-0) var(--space-0);
+}
+.app .locked-note .squares i, .landing .locked-note .squares i {
+  width: 13px; height: 13px; border-radius: 4px;
+  background: var(--bg-selected);
+}
+.app .locked-note .squares i.on, .landing .locked-note .squares i.on {
+  background: color-mix(in srgb, var(--bg-action) 55%, transparent);
+}
+.app .locked-note p, .landing .locked-note p {
+  margin: var(--space-16) var(--space-0) var(--space-0);
+  font-size: var(--type-body);
+  color: var(--text-muted);
+}
+.app .locked-note p + p, .landing .locked-note p + p { margin-top: var(--space-8); }
+.app .locked-note .sum + p, .landing .locked-note .sum + p { margin-top: var(--space-16); }
+.app .locked-note .actions, .landing .locked-note .actions {
+  margin-top: var(--space-24);
+}
+
+/* Beside each other only where the page is wide: the flow form (the reveal) is
+   one reading column at every width. The container is body, so the flow form
+   is named. */
+@container (min-width: 56.25rem) {
+  .app:not(.flow) .locked-note, .landing .locked-note {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+    align-items: center;
+    gap: var(--space-48);
+    padding: var(--space-40) var(--space-48);
+  }
+  .app:not(.flow) .locked-note .stage, .landing .locked-note .stage { order: 2; height: 260px; }
+}

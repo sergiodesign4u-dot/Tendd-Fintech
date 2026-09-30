@@ -324,3 +324,25 @@
   }
   .app .btn[disabled]:hover, .landing .btn[disabled]:hover { translate: 0 0; }
 }
+
+/* ---- the pill, and the arrow that goes with it, 2026-09-29 (P34) ----------
+   The landing's own button shape brought into the product for the one place the
+   product sells: the locked block. Fully round, a little taller, and a small
+   arrow that travels on hover, as `.lp-btn` does on the public page. A modifier
+   and not a new button, so the fill, the ink, the states and the ring are the
+   button's own and cannot drift. */
+.app .btn.pill, .landing .btn.pill {
+  border-radius: 999px;
+  padding-left: var(--space-24);
+  padding-right: var(--space-24);
+}
+.app .btn.go, .landing .btn.go { gap: var(--space-8); }
+.app .btn.go::after, .landing .btn.go::after {
+  content: "";
+  width: 16px; height: 16px;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14m-7-7 7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14m-7-7 7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: translate var(--dur-state) var(--ease-arrive);
+}
+.app .btn.go:hover::after, .landing .btn.go:hover::after { translate: var(--nudge) 0; }

@@ -411,7 +411,6 @@
   }
   /* THREE, DECLARED, SINCE 2026-08-18. See the block below for the arithmetic
      that forced it and for the contradiction inside this file that it settles. */
-  .app .plans, .landing .plans { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 /* ============================================================================
@@ -491,6 +490,16 @@
    nobody has asked for. Measured after: the wrap stops at a 913px window, and
    the cap itself starts binding at 944. */
 .app > .screen > .plans { max-width: 57rem; }
+
+/* THREE COLUMNS FROM THE DESKTOP POINT AND NOT THE TABLET ONE, 2026-09-29. The
+   cards now carry their own buttons (plan-option.css), so the two-line label the
+   note above describes landed inside a card 250px wide across the whole 760 to
+   913 band. Below 900 the three cards stack, one full-width card each, which is
+   the phone's arrangement and reads as one; from 900 they stand in a row. The
+   band where a label can still wrap narrows from 153px of window to 13. */
+@container (min-width: 56.25rem) {
+  .app .plans, .landing .plans { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 
 /* ---- the landing's own step, and it is a MEDIA query ----------------------
    Deliberately not a container query, and kit.css said why at the line it was

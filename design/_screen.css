@@ -284,13 +284,25 @@
    of side padding, which was walked at 33 widths in 8px steps through all three
    breakpoint bands before the body container was declared. */
 .layout { display: block; }
-.stage { padding: 28px 16px 56px; container-type: inline-size; }
+/* `.layout > .stage` AND NOT `.stage`, 2026-09-30. The product's locked block
+   (D-Gate, P34, design/system/components/locked-list.css) draws a floating-tile
+   picture in a `div.stage` of its own, and the bare selector made that picture a
+   padded container nearer than the screen. The stand's frame is the one direct
+   child of `.layout`, so that is what it names now; nothing else moves. */
+.layout > .stage { padding: 28px 16px 56px; container-type: inline-size; }
 .stage.stage-app { padding: 0; }
 /* The landing is flush for the same reason a screen is: it draws its own full
    bleed bands, and a review frame that inset them would show a page nobody gets.
    Added 2026-08-14 with the coloured landing; the grey has carried the class
    since round 3 (wireframes/_wf.css:37). */
 .stage.stage-flush { padding: 0; }
+/* THE STAND'S STRIP AND LIGHT 2'S BAR, 2026-09-30. The product's public bar is
+   `position: fixed` at the top of the window (landing-bar.css, P16), and on the
+   stand the "All screens" strip already holds that edge, so the two printed
+   through each other at every width. The stand moves ITS guest down by its own
+   strip's height and nothing else; the product, which has no strip, is untouched.
+   Chrome talking, like the two rules above. */
+.stage.stage-flush .landing .lp-nav { top: calc(var(--lp-inset) + var(--c-toggle-h)); }
 
 /* ---------- where a wait goes, and it is the stand talking -----------------
    2026-08-19. The founder, standing on `connect-bank-loading`: "для меня тупик
