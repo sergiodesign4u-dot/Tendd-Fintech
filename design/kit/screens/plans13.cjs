@@ -132,7 +132,11 @@ const colPlan = new Set(colour.filter(r => r.chip).map(r => r.page));
    The mirror) a page the product added has no grey twin and says so in its top
    comment, so it cannot disagree with a grey page that does not exist. */
 const greyPages = new Set(grey.map(r => r.page));
-const f4 = [...new Set([...greyPlan, ...colPlan])].filter(p => greyPages.has(p) && greyPlan.has(p) !== colPlan.has(p));
+/* ...and not where the founder moved a page's plan on purpose: the three branches of
+   2026-09-30 (CLAUDE.md, D3 as amended) put some full-list pages on Tendd Pro, and each
+   such page says "THREE BRANCHES" in its own comment. Their grey twins keep v1.0's chip. */
+const moved = new Set(colour.filter(r => /THREE BRANCHES/.test(fs.readFileSync(path.join(ROOT, 'design', r.page), 'utf8'))).map(r => r.page));
+const f4 = [...new Set([...greyPlan, ...colPlan])].filter(p => greyPages.has(p) && !moved.has(p) && greyPlan.has(p) !== colPlan.has(p));
 const report = (n, label, rows) => say('  ' + (rows.length ? 'FINDING  ' : 'ok       ') +
   label.padEnd(58) + rows.length + (rows.length ? '   ' + rows.map(r => r.page || r).join(', ') : ''));
 report(1, 'an offer of Pro that is the only way on', f1);

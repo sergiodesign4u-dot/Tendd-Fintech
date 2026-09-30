@@ -20,25 +20,43 @@
 <body>
 
 <!--
-  Home / Subscription List, node 2.6, the etalon screen.
-  Assembled from system classes. This page carries no style of its own: no page-level style
-  block, no style attribute, no class that design/system/ does not define.
-  Structure and copy are a verbatim copy of wireframes/home.html. The colour
-  layer owns the visual only, plus the merchant marks, which are the one thing
-  the grey page could not carry (it renders "[logo]" in their place).
-  Links to screens that are not coloured yet point back into wireframes/.
+  Home / Subscription List, node 2.6, the etalon screen, AS THE LIVE PRODUCT DRAWS IT FOR
+  EMMA: on Free, after the free bank scan (D-Gate, P31, P32, P33, P34). Under D-Gate the bank
+  is Tendd Pro, and a free person gets one scan: it returns the count, the total and three
+  names across three categories. This is what Emma sees on Home after that scan, while the
+  connection is held (P32). It was home.html for a few hours on 2026-09-30 and became
+  the etalon the same day, because it is the Home a person who connects a bank on Free meets.
 
-  SYNCED FROM THE PRODUCT, 2026-09-30 (D-Gate, P31, P32). This page stays the complete
-  list with every name, the calm etalon, and its data stays the design's: Emma, Chase plus
-  3 typed, the August calendar. Under D-Gate the bank is Tendd Pro, so every name beside a
-  live Chase here is what Tendd Pro shows; the plan chip still reads "Free", which is the
-  design's canonical person and not a Pro twin (D3). The Free shape after the one free scan
-  is home-locked.html: three names, the locked block and the held trust line. The markup
-  was compared with the product's Home for a Pro person and for a Free one: the region has
-  the same structure and classes, so nothing in it changed. What the product does not draw
-  yet stays here as the design's intent: the account link and plan chip in the bar (no
-  names yet), the attention row, the cancel nudge (no usage data), and "Last checked" on
-  the trust line (G4).
+  THREE BRANCHES, 2026-09-30, the founder's decision after the sync: "сделать разные
+  состояния типа полностью фри без подключения банка, состояние фри с подключенным банком
+  и платный про". Where plan and source change what a screen shows, the design draws three
+  states of the one screen (CLAUDE.md, D3 as amended): Free by hand (home-manual.html),
+  Free after the free scan (home.html), and Tendd Pro (home-pro.html). They are states and
+  not twins: the markup is one Home, and the data picks.
+
+  What is here, and where each thing comes from:
+  - The figures at the top are the whole list, all fourteen, and they are unchanged: a free
+    scan keeps the amount, the cadence and the next charge of every row (P31).
+  - The groups hold NAMES ONLY (P31): Netflix, Adobe Creative Cloud and Peloton App, the
+    three the scan names, one per category. Ordered by monthly spend, highest first, the
+    founder's rule on home.html.
+  - The locked block says the other eleven once: "Tendd Pro" eyebrow, the count as the
+    landing's figure, the amount line, the row of squares (one per subscription, the named
+    ones filled), the floating tiles over the dotted field with the kept amounts in glass
+    chips, the held sentence, and two ways on (P31 shape, P34 look, P32 sentence). It sits
+    after the list and outside the groups, because it is about the list as a whole;
+    app-shell.css orders it with the groups past the desktop point (U17).
+  - The trust line is the fourth edition (P32): found on a day, kept until a day, unread.
+    No "Read-only" line and no "Last checked": nothing is being read.
+  - No "That is the whole list ... connect your bank" line: a bank already read, so the line
+    may not offer as free what the next screen sells (P20).
+  The dates in the owned lines ("Aug 30", "Sep 6") are microcopy.md's own example and are
+  printed verbatim; the rows keep the design's calendar (today is Aug 1).
+  The account link and the plan chip in the bar are the design's GC1 and stay, although the
+  product has no names yet (docs/gaps.md). Here the chip is true: Emma is on Free.
+  Assembled from system classes. No style of its own. The product's block wraps its words
+  in `div.copy`, a class no system file defines and nothing styles; here it is a bare div,
+  which renders the same and keeps the rule that a screen uses only the system's classes.
 -->
 
 <button class="nav-toggle" id="navToggle" aria-label="Open navigation">&#9776;</button>
@@ -66,117 +84,32 @@
   <main class="screen">
 
     <div class="head">
-      <!-- GC3 Recurring summary strip -->
+      <!-- GC3 Recurring summary strip. The whole list: the eleven without a name
+           are counted here and in the total, and the block below says so. -->
       <section class="summary">
         <h1>You're paying for 14 subscriptions</h1>
-        <!-- THE LABEL CAME OFF, 2026-08-20. `aria-label="monthly total, $..."` stood
-             on a bare `p`, whose role is `paragraph` and does not take a name from the
-             author: ARIA DISCARDED IT. It read like a fix and did nothing, which is worse
-             than its absence because it stopped anybody looking again. Nothing is lost:
-             the sentence above the figure and the one under it already say what it is,
-             which is the same reading a sighted person gets. -->
         <p class="total">$192.90</p>
         <p class="muted">a month, for what you have signed up for</p>
       </section>
-
-      <!-- Attention row, shown only when something is true -->
-      <section class="wash attention" role="status" aria-label="Needs your attention">
-        <p>Netflix went up by $2.50, now $17.99 a month.</p>
-        <a href="subscription-detail-price-change.html">See what changed</a>
-      </section>
     </div>
 
-    <!-- The list, grouped by category, each group with its subtotal.
-
-         THE GROUPS RUN BY MONTHLY SPEND, HIGHEST FIRST. Founder's decision,
-         2026-08-13, written here because it changes STRUCTURE and not styling:
-         54.96, 53.98, 36.00, 24.98, 22.98. It was Streaming, Software, Music,
-         Fitness, News, which followed no rule a reader could find, and Music at
-         22.98 stood above News at 36.00. Past the desktop point the set is a
-         multicolumn flow, so it fills column one top to bottom before column two,
-         and with an arbitrary order that reads as an accident: "why is Music
-         under Software" was the founder's question and the order was the answer.
-         Highest first makes the vertical flow a rule a person can feel. Ground in
-         docs/decisions.md. -->
-    <!-- THE LIST NAMES ITSELF, AND ITS ACTION SITS AT THE FAR END OF THAT NAME.
-         Founder's decision, 2026-08-20, written here because it changes STRUCTURE
-         and not styling: "я бы перенес кнопку в правую часть а в левой поставил бы
-         что то типа заголовка Subscription list". Past the desktop point this row
-         used to be one outline button alone against 1370px of empty pane, which is
-         the same complaint the trend screen's summary strip got three days ago and
-         the same answer: a row with one thing in it is a row with a hole in it.
-         The heading is the Group head molecule doing the job it already does 41
-         times in this product, with the section's own ACTION in the slot that
-         normally carries a subtotal. No new component and no new class: `:has()`
-         reads the content, the way `.summary:has(> .trust)` and `.wash:has(>
-         .actions)` already do.
-         "Your subscriptions" AND NOT "Subscription list": it is the string the
-         back control of all twelve detail pages already carries for this exact
-         region, so naming it twice in two ways would put one place under two
-         owners. It also names the region for a screen reader, which nothing did
-         before: `.groups` had no heading of its own on any state of this screen.
-         The category heads under it stepped from h2 to h3 in the same edit, which
-         is the outline this page always should have had and is the shape
-         guided-reveal already writes. -->
     <div class="group-head">
       <h2>Your subscriptions</h2>
       <nav class="actions" aria-label="More"><a class="btn" href="add-subscription.html">Add a subscription</a></nav>
     </div>
 
+    <!-- THE GROUPS HOLD NAMES ONLY (P31). A free scan keeps no name for a row it
+         does not show, so a grey slot per row would be a placeholder for nothing.
+         The subtotals are of the named rows; the groups plus the block below are
+         the figure at the top. -->
     <div class="groups">
 
     <section class="group">
       <div class="group-head">
-        <h3>Streaming (4)</h3>
-        <span class="subtotal">$54.96 a month</span>
+        <h3>Software (1)</h3>
+        <span class="subtotal">$22.99 a month</span>
       </div>
       <ul>
-        <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, $17.99 a month, next in 2 days on 3 August, price changed">
-          <span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span>
-          <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
-          <span class="amt">$17.99</span>
-          <span class="chip">Price changed</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="Disney Plus, $13.99 a month, next in 11 days on 12 August, active">
-          <span class="logo"><img src="visuals/logos/disney-plus.svg" alt=""></span>
-          <span class="body"><span class="name">Disney+</span><span class="when">in 11 days &middot; Aug 12</span></span>
-          <span class="amt">$13.99</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail-payment-failed.html" aria-label="Amazon Prime, $14.99 a month, next in 19 days on 20 August, payment failed">
-          <span class="logo"><img src="visuals/logos/amazon-prime.svg" alt=""></span>
-          <span class="body"><span class="name">Amazon Prime</span><span class="when">in 19 days &middot; Aug 20</span></span>
-          <span class="amt">$14.99</span>
-          <span class="chip">Payment failed</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="Hulu, $7.99 a month, next in 24 days on 25 August, active">
-          <span class="logo"><img src="visuals/logos/hulu.svg" alt=""></span>
-          <span class="body"><span class="name">Hulu</span><span class="when">in 24 days &middot; Aug 25</span></span>
-          <span class="amt">$7.99</span>
-        </a></li>
-      </ul>
-    </section>
-
-    <section class="group">
-      <div class="group-head">
-        <h3>Software (4)</h3>
-        <span class="subtotal">$53.98 a month</span>
-      </div>
-      <ul>
-        <li><a class="row" href="subscription-detail.html" aria-label="iCloud Plus, $2.99 a month, next tomorrow on 2 August, active">
-          <span class="logo"><img src="visuals/logos/icloud.svg" alt=""></span>
-          <span class="body"><span class="name">iCloud+</span><span class="when">tomorrow &middot; Aug 2</span></span>
-          <span class="amt">$2.99</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="ChatGPT Plus, $20.00 a month, next in 4 days on 5 August, active">
-          <span class="logo"><img src="visuals/logos/chatgpt.svg" alt=""></span>
-          <span class="body"><span class="name">ChatGPT Plus</span><span class="when">in 4 days &middot; Aug 5</span></span>
-          <span class="amt">$20.00</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="Notion, $8.00 a month, next in 8 days on 9 August, active">
-          <span class="logo"><img src="visuals/logos/notion.svg" alt=""></span>
-          <span class="body"><span class="name">Notion</span><span class="when">in 8 days &middot; Aug 9</span></span>
-          <span class="amt">$8.00</span>
-        </a></li>
         <li><a class="row" href="subscription-detail.html" aria-label="Adobe Creative Cloud, $22.99 a month, next in 14 days on 15 August, active">
           <span class="logo"><img src="visuals/logos/adobe-cc.svg" alt=""></span>
           <span class="body"><span class="name">Adobe Creative Cloud</span><span class="when">in 14 days &middot; Aug 15</span></span>
@@ -187,27 +120,23 @@
 
     <section class="group">
       <div class="group-head">
-        <h3>News (2)</h3>
-        <span class="subtotal">$36.00 a month</span>
+        <h3>Streaming (1)</h3>
+        <span class="subtotal">$17.99 a month</span>
       </div>
       <ul>
-        <li><a class="row" href="subscription-detail.html" aria-label="The New York Times, $17.00 a month, next in 10 days on 11 August, active">
-          <span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span>
-          <span class="body"><span class="name">The New York Times</span><span class="when">in 10 days &middot; Aug 11</span></span>
-          <span class="amt">$17.00</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="The Economist, $19.00 a month, next in 27 days on 28 August, active">
-          <span class="logo"><img src="visuals/logos/economist.svg" alt=""></span>
-          <span class="body"><span class="name">The Economist</span><span class="when">in 27 days &middot; Aug 28</span></span>
-          <span class="amt">$19.00</span>
+        <li><a class="row" href="subscription-detail-price-change.html" aria-label="Netflix, $17.99 a month, next in 2 days on 3 August, price changed">
+          <span class="logo"><img src="visuals/logos/netflix.svg" alt=""></span>
+          <span class="body"><span class="name">Netflix</span><span class="when">in 2 days &middot; Aug 3</span></span>
+          <span class="amt">$17.99</span>
+          <span class="chip">Price changed</span>
         </a></li>
       </ul>
     </section>
 
     <section class="group">
       <div class="group-head">
-        <h3>Fitness (2)</h3>
-        <span class="subtotal">$24.98 a month</span>
+        <h3>Fitness (1)</h3>
+        <span class="subtotal">$12.99 a month</span>
       </div>
       <ul>
         <li><a class="row" href="subscription-detail.html" aria-label="Peloton App, $12.99 a month, trial ends in 17 days on 18 August">
@@ -216,89 +145,51 @@
           <span class="amt">$12.99</span>
           <span class="chip">Trial</span>
         </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="Strava, $11.99 a month, next in 21 days on 22 August, active">
-          <span class="logo"><img src="visuals/logos/strava.svg" alt=""></span>
-          <span class="body"><span class="name">Strava</span><span class="when">in 21 days &middot; Aug 22</span></span>
-          <span class="amt">$11.99</span>
-        </a></li>
-      </ul>
-    </section>
-
-    <section class="group">
-      <div class="group-head">
-        <h3>Music (2)</h3>
-        <span class="subtotal">$22.98 a month</span>
-      </div>
-      <ul>
-        <li><a class="row" href="subscription-detail.html" aria-label="Spotify Premium, $11.99 a month, next in 6 days on 7 August, active">
-          <span class="logo"><img src="visuals/logos/spotify.svg" alt=""></span>
-          <span class="body"><span class="name">Spotify Premium</span><span class="when">in 6 days &middot; Aug 7</span></span>
-          <span class="amt">$11.99</span>
-        </a></li>
-        <li><a class="row" href="subscription-detail.html" aria-label="Apple Music, $10.99 a month, next in 13 days on 14 August, active">
-          <span class="logo"><img src="visuals/logos/apple-music.svg" alt=""></span>
-          <span class="body"><span class="name">Apple Music</span><span class="when">in 13 days &middot; Aug 14</span></span>
-          <span class="amt">$10.99</span>
-        </a></li>
       </ul>
     </section>
 
     </div><!-- /groups -->
 
-    <!-- THE CANCEL NUDGE, ON HOME AND NOT BEHIND A TAB. Founder's decision,
-         2026-08-21, written here because it changes STRUCTURE and not styling:
-         "зачем нам страница Save (save focus) когда она очень похожа на Home".
-         Measured before it was answered - `home-savefocus` was 2099px tall at 390
-         and 331 of them were its own; 84 per cent of its scroll was this page
-         repeated. And nothing in the product linked to it except the tab bar: the
-         state's own table named two triggers, node 3.8 and a Pro nudge, and
-         NEITHER was ever built.
-
-         THIS IS A RESTORATION AND NOT AN INVENTION. `ia/docs/pages/core.md`, the
-         base layer, specified it as block 4 of this screen from the first draft:
-         "a small group (2 you might not be using) that is collapsed on default
-         Home and pinned-open in save-focus". The 2026-08-05 rebuild kept the
-         state and dropped the block, so the nudge lost its home and kept only its
-         mode. It comes back without the mode and without the collapse: one block,
-         shown only when it is true, which is the rule the attention row above
-         already follows.
-
-         AFTER THE LIST AND NOT BEFORE IT, for the reason the add action is also
-         after the list: the job of this screen is to look, not to cut. In the
-         head it would have pushed the list off a 390 x 844 phone entirely.
-
-         THE SAVINGS FIGURE MOVED INTO THIS BLOCK. On the retired state it was in
-         the summary strip, which made the calm view read as a savings pitch. It
-         is a fact about these two rows, so it belongs on them. -->
-    <section class="candidates" aria-label="Subscriptions you might not be using">
-      <p class="lead" role="status">Two you have not opened in a while. No pressure, just a nudge. Cutting both would save you $29.99 a month.</p>
-      <ul>
-        <li class="cand">
-          <a class="row" href="subscription-detail.html" aria-label="Peloton App, $12.99 a month, trial ends in 17 days, on 18 August, not opened in 3 weeks">
-            <span class="logo"><img src="visuals/logos/peloton.svg" alt=""></span>
-            <span class="body"><span class="name">Peloton App</span><span class="when">trial ends in 17 days &middot; not opened in 3 weeks</span></span>
-            <span class="amt">$12.99</span>
-          </a>
-          <a class="btn soft" href="cancel-guide.html" aria-label="Cancel Peloton App">Cancel</a>
-        </li>
-        <li class="cand">
-          <a class="row" href="subscription-detail.html" aria-label="The New York Times, $17.00 a month, next in 10 days, on 11 August, not opened in 6 weeks">
-            <span class="logo"><img src="visuals/logos/nyt.svg" alt=""></span>
-            <span class="body"><span class="name">The New York Times</span><span class="when">next in 10 days &middot; not opened in 6 weeks</span></span>
-            <span class="amt">$17.00</span>
-          </a>
-          <a class="btn soft" href="cancel-guide.html" aria-label="Cancel The New York Times">Cancel</a>
-        </li>
-      </ul>
+    <!-- THE LOCKED BLOCK, D-Gate's one door (P31), in the landing's language
+         (P34). The stage is a picture of what the heading says, so it is hidden
+         from a screen reader: three tiles not named yet over the dotted field,
+         and in glass the amounts and when-lines the scan kept for the first
+         three of the eleven (Disney+, Amazon Prime, Hulu; their names are not
+         printed, because the product holds none). The squares are the landing's
+         "14 subscriptions" picture: one per subscription, the three named ones
+         filled. "Get Tendd Pro" leads to the plans and not to a payment, so it
+         names the plan and not a price. -->
+    <section class="locked-note">
+      <div class="stage" aria-hidden="true">
+        <span class="tile t1"></span>
+        <span class="tile t2"></span>
+        <span class="tile t3"></span>
+        <span class="float f1"><strong>$13.99</strong>in 11 days &middot; Aug 12</span>
+        <span class="float f2"><strong>$14.99</strong>in 19 days &middot; Aug 20</span>
+        <span class="float f3"><strong>$7.99</strong>in 24 days &middot; Aug 25</span>
+      </div>
+      <div>
+        <p class="eyebrow">Tendd Pro</p>
+        <h3><span class="pre">You have</span> <span class="fig">11</span> <span class="unit">more subscriptions</span></h3>
+        <p class="sum"><strong>$138.93 a month</strong>, already counted in your total.</p>
+        <span class="squares" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        <p>Tendd found them in your bank. Tendd Pro shows every name, or you can add the ones you know yourself.</p>
+        <!-- P32. Said only while the scan's connection is held, with the day it
+             stops being true. A date and a consequence, not a countdown. -->
+        <p>Choose Tendd Pro before Sep 6 and Tendd names them straight away, without asking your bank again.</p>
+        <div class="actions">
+          <a class="btn primary pill go" href="upgrade.html">Get Tendd Pro</a>
+          <a class="btn pill" href="add-subscription.html">Add them yourself</a>
+        </div>
+      </div>
     </section>
 
-
-
-    <!-- GC6 Data source and trust -->
+    <!-- GC6 Data source and trust, the fourth edition (P32): the source is a date,
+         and the freshness is what Tendd does with the connection and when that
+         stops. Once the hold ends it becomes the third edition, "Nothing is being
+         read now". -->
     <section class="trust" aria-label="Where these figures come from">
-      <p>From Chase, 11 subscriptions, and 3 you added yourself.</p>
-      <p>Read-only. Tendd cannot move your money.</p>
-      <p>Last checked today, 9:14 AM.</p>
+      <p>Found in Chase on Aug 30. Tendd keeps the connection until Sep 6 without reading it, and then it ends by itself.</p>
       <a href="data-privacy.html">Data and privacy</a>
     </section>
 

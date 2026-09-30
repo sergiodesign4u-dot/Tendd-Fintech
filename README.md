@@ -32,7 +32,7 @@ accessibility lives, and who decides what is still open.
 | [`ia/`](./ia/structure.html) | The structure: a sitemap, the flows, one page per node, and one accessibility contract |
 | [`wireframes/`](./wireframes/overview.html) | The grey structure contract, frozen since Voice. Read-only, and the answer to why every screen exists twice |
 | [`voice/`](./voice/voice.html) | The voice, and the line inventory that owns every interface string |
-| [`design/`](./design/index.html) | The product in colour: 17 screens and five public documents across 68 pages, level with the live product since 2026-09-30, and [the map of all of them](./design/overview.html) |
+| [`design/`](./design/index.html) | The product in colour: 17 screens and five public documents across 73 pages, level with the live product since 2026-09-30, in three branches (Free by hand, Free after the scan, Pro), and [the map of all of them](./design/overview.html) |
 | [`design/system/`](./design/system/CLAUDE.md) | The code of the design system, liftable whole, with its own rules file |
 | [`design/kit/`](./design/kit/why.html) | The stand that shows it: a page per component, the foundations, the architecture, the backlog |
 | [`handoff/`](./handoff/handoff.html) | This project, handed over: the page and its five documents |

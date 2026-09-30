@@ -31,7 +31,7 @@
        no states. */
     { name: 'Path Choice', base: 'path-choice.html', states: [] },
     { name: 'Connect Bank', base: 'connect-bank.html', states: ['loading', 'error', 'empty', 'cancelled', 'from-pro'] },
-    { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['empty'] },
+    { name: 'Guided Reveal', base: 'guided-reveal.html', states: ['pro', 'empty'] },
     { name: 'Sign In', base: 'sign-in.html', states: ['sent', 'expired'] },
     /* THE FIVE PUBLIC DOCUMENTS, added 2026-09-30 when this repository was brought
        level with the product (handoff/live.html). They carry no node number: the
@@ -49,7 +49,10 @@
        number counts only what is still being paid for, one quiet line names the cancelled
        one and the date it stops, and the row keeps its amount with the grey status chip the
        trial already uses. Nothing was added to design/system/ to build it. */
-    { name: 'Home', base: 'home.html', states: ['locked', 'empty', 'one', 'few', 'cancelled', 'error', 'loading'] },
+    /* THREE BRANCHES, 2026-09-30, the founder's decision: where plan and source change a
+       screen, it has three states, Free by hand (manual), Free after the free scan (the
+       base page, the etalon since that day) and Tendd Pro (pro). CLAUDE.md, D3 as amended. */
+    { name: 'Home', base: 'home.html', states: ['manual', 'pro', 'empty', 'one', 'few', 'cancelled', 'error', 'loading'] },
     { name: 'Subscription Detail', base: 'subscription-detail.html', states: ['unrecognized', 'price-change', 'payment-failed', 'error', 'loading'] },
     /* Alerts, added 2026-08-13 at stage 09 step 5, the self-sufficiency test of
        the design system: the eighth screen, and the first one coloured after the
@@ -58,14 +61,14 @@
        after 2.7. Nothing was added to design/system/ to build it. */
     { name: 'Alerts', base: 'alerts.html', states: ['empty', 'error', 'loading'] },
     { name: 'Add a Subscription', base: 'add-subscription.html', states: ['empty', 'error', 'loading'] },
-    { name: 'Cancel Guide', base: 'cancel-guide.html', states: ['no-guide', 'blocked'] },
+    { name: 'Cancel Guide', base: 'cancel-guide.html', states: ['pro', 'no-guide', 'blocked'] },
     { name: 'Cancel Win', base: 'cancel-win.html', states: [] },
     { name: 'Share Snapshot', base: 'share-snapshot.html', states: ['loading', 'error'] },
     { name: 'History and Trends', base: 'history-trends.html', states: ['locked', 'empty', 'error', 'loading'] },
     { name: 'Upgrade to Pro', base: 'upgrade.html', states: ['current-plan', 'current-plan-ending', 'processing', 'payment-failed', 'renewal-failed'] },
-    { name: 'Connections', base: 'connections.html', states: ['held', 'stopped', 'empty', 'reconnect', 'add-source'] },
+    { name: 'Connections', base: 'connections.html', states: ['manual', 'held', 'stopped', 'empty', 'reconnect', 'add-source'] },
     { name: 'Data and Privacy', base: 'data-privacy.html', states: ['delete-confirm'] },
-    { name: 'Settings', base: 'settings.html', states: ['no-account'] }
+    { name: 'Settings', base: 'settings.html', states: ['pro', 'no-account'] }
   ];
 
   /* ==========================================================================

@@ -34,8 +34,7 @@ bill negotiation, bill pay, household view, priority support.
 **Markets:** US and EU (US and Plaid first, per D5). **Live at tendd.co** since September 2026:
 Next.js on Vercel, Supabase, Plaid, Stripe, Resend, and no analytics by decision (P12).
 
-**Riskiest assumption (H0):** that an avoider actually looks and feels calmer. It is
-provable only in a prototype, so the MVP is built to test it, not to assume it. `[?]`
+**Riskiest assumption (H0):** that an avoider looks and feels calmer; built to test, not assume. `[?]`
 
 ## Locked decisions
 
@@ -45,8 +44,9 @@ Founder, June 14 2026 (ground in `research/docs/strategy.md` section 6):
 - **D2** Manual entry plus presets at launch, as a second path. Equal weight ended with D-Gate:
   manual is the free door and the bank the paid one, and node 1.2 says which is which.
 - **D3** **D-Gate moved the paywall ON to basic visibility.** Still true: never at the cancel
-  moment, guides free; Free keeps **one comparison on Trends**; the plans are **one product, not
-  two**, so a lock is a STATE of a screen and never a Pro twin. `plans13.cjs` counts it.
+  moment, guides free; Free keeps **one comparison on Trends**; **one product, not two**: a plan
+  is a STATE of a screen, never a twin. Where plan and source change a screen, it has **three
+  states**, Free by hand, Free after the scan, Pro (founder, 2026-09-30). `plans13.cjs` counts it.
 - **D4** Pro is 9.99 a month or 69 a year (amended 2026-09-30; it was 7.99).
 - **D5** US and Plaid first, EU deferred.
 - **D-Gate** (founder 2026-08-29, shaped 2026-09-02, **replaces D-Free**) The bank is Pro. One free
